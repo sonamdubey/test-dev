@@ -8,8 +8,11 @@ var IsPriceQuoteLinkClicked = false;
 var ga_pg_id = '0';
 
 function triggerGA(cat, act, lab) {
-    alert(cat + '-' + act + '-' + lab);
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
+    try {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
+    }
+    catch (e) {// log error   
+    }
 }
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
