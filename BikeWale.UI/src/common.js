@@ -12,9 +12,7 @@ function triggerGA(cat, act, lab) {
     try {
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
     }
-    catch (e) {
-        console.log(e);
-    }
+    catch (e) {// log error    }
 }
 
 //fallback for indexOf for IE7
