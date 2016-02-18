@@ -61,5 +61,27 @@ namespace Bikewale.BAL.Videos
 
             return objVideosList;
         }
+
+        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId, uint totalCount)
+        {
+            IEnumerable<BikeVideoEntity> objVideosList = null;
+            try
+            {
+                //http://localhost/api/v1/videos/18838/similar/?appId=1&topCount=1
+                string _apiUrl = String.Format("/api/v1/videos/{0}/similar/?appId=2&topCount={1}", videoId, totalCount);
+
+                using (BWHttpClient objclient = new BWHttpClient())
+                {
+                    objVideosList = objclient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objVideosList;
+        }
     }
 }

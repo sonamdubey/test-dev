@@ -16,18 +16,17 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.BindViewModels.Controls
 {
-    public class BindVideosLandingControl
+    public class BindSimilarVideos
     {
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
-        public BikeVideoEntity FirstVideoRecord { get; set; }
+        public uint VideoBasicId { get; set; }
 
         public void BindVideos(Repeater rptr)
         {
             FetchedRecordsCount = 0;
             IEnumerable<BikeVideoEntity> objVideosList = null;
-            uint pageNo = 1;
             try
             {
 
@@ -38,7 +37,7 @@ namespace Bikewale.BindViewModels.Controls
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    objVideosList = objCache.GetVideosByCategory(CategoryId, TotalRecords);
+                    objVideosList = objCache.GetSimilarVideos(VideoBasicId, TotalRecords);
 
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
@@ -46,8 +45,7 @@ namespace Bikewale.BindViewModels.Controls
 
                         if (FetchedRecordsCount > 0)
                         {
-                            FirstVideoRecord = objVideosList.FirstOrDefault();
-                            rptr.DataSource = objVideosList.Skip(1);
+                            rptr.DataSource = objVideosList;
                             rptr.DataBind();
                         }
                     }
