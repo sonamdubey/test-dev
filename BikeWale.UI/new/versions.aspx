@@ -92,6 +92,7 @@
         </section>
         <section>
             <div itemscope="" itemtype="http://auto.schema.org/Motorcycle" class="container" id="modelDetailsContainer">
+                <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="grid-12 margin-bottom20">
                     <div class="content-inner-block-20 content-box-shadow">
                         <div class="grid-5 alpha">
@@ -289,7 +290,6 @@
                                 <p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 
                                 <% } %>
-                                <span itemprop="name" class="hide"><%= bikeName %></span>
                                 <%  if (price == "" || price == "0")
 									{ %>
                                 <span class="font32">Price not available</span>

@@ -48,6 +48,7 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div itemscope="" itemtype="http://auto.schema.org/Motorcycle" class="container bg-white clearfix">
+                <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
                     <% if (modelPage.ModelDetails.New)
                        { %><h1 class="padding-top15 padding-left20 padding-right20"><%= bikeName %></h1>
@@ -218,7 +219,6 @@
                                      Off</span>)
                             </p>
                              <% } %>
-                            <span itemprop="name" class="hide"><%= bikeName %></span>
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                 <p class="leftfloat">
 
