@@ -20,13 +20,13 @@
         </div>
         <div class="grid_8 column">
             <div class="content-block-white margin-top10">
-                <h1 class="content-block-video">Videos Title</h1><div class="clear"></div>
+                <h1 class="content-block-video"><%=videoModel.Title%></h1><div class="clear"></div>
                 <div class="content-block white-shadow">
-                   <iframe width="600" height="315" src="//www.youtube.com/embed/bAQiJYW9R38" frameborder="0" allowfullscreen></iframe>
+                   <iframe width="600" height="315" src="<%=videoModel.VideoUrl %>" frameborder="0" allowfullscreen></iframe>
                     <div class="margin-bottom10 yt-link-btn-area">
                         <div class=" margin-left10 left-float" style="font-size: 16px;margin-top:17px;">
                             <span class="video-sprite review-icon-big"></span>
-                            <asp:label id="lblViews" runat="server"></asp:label>
+                            <%=videoModel.Views %>
                             Views
                         </div>  
                         <div class="right-float margin-right10 set-width" style="margin-top:17px;font-size:14px !important"> 
@@ -43,13 +43,15 @@
                         <div class="clear"></div>                    
                     </div>
                     <div>
-                        <asp:label id="lblDescription" runat="server">The Honda City has always been one of the more popular sedans in India. With the shift in the demand for Diesel engines, Honda unveiled the 4th Gen City with what is arguably the most interesting diesel engine. So how good is it?
-                        We find out..</asp:label>
+                        <span><%= videoModel.Description %></span>
+                        <%--<asp:label id="lblDescription" runat="server">The Honda City has always been one of the more popular sedans in India. With the shift in the demand for Diesel engines, Honda unveiled the 4th Gen City with what is arguably the most interesting diesel engine. So how good is it?
+                        We find out..</asp:label>--%>
                     </div>
                     <div class="clear"></div>
                     <div id="divTags" runat="server" class="margin-top10">
                         <span><strong>Tags: </strong></span>
-                        <asp:label id="lblTags" runat="server">oyota, Etios Cross, Toyota Etios Cross</asp:label>
+                        <%= videoModel.Tags %>
+                        <%--<asp:label id="lblTags" runat="server">oyota, Etios Cross, Toyota Etios Cross</asp:label>--%>
                     </div>
                     <div class="clear"></div>
                     <div id="divFb"  class="margin-top10">

@@ -288,6 +288,7 @@
     <Compile Include="BindViewModels\Controls\BindVideosLandingControl.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
+    <Compile Include="BindViewModels\Webforms\VideoDescriptionModel.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />
