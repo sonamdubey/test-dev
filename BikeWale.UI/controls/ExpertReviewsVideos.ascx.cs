@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Entities.Videos;
+using System;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
-    public partial class ExpertReviewVideos : System.Web.UI.UserControl
+    public class ExpertReviewVideos : System.Web.UI.UserControl
     {
         protected Repeater rptCategoryVideos;
+        public EnumVideosCategory CategoryId { get; set; }
+        public uint TotalRecords { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -19,7 +23,18 @@ namespace Bikewale.controls
 
         public void BindVideosByCategory()
         {
+            BindVideosLandingControl objVideo = new BindVideosLandingControl();
+            objVideo.CategoryId = this.CategoryId;
 
+            objVideo.BindVideos(rptCategoryVideos);
         }
+        public override void Dispose()
+        {
+            rptCategoryVideos.DataSource = null;
+            rptCategoryVideos.Dispose();
+
+            base.Dispose();
+        }
+
     }
 }

@@ -669,8 +669,8 @@
       <DependentUpon>Videos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\videosbycategory.ascx.cs">
-      <DependentUpon>videosbycategory.ascx</DependentUpon>
+    <Compile Include="controls\ExpertReviewsVideos.ascx.cs">
+      <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\VideosControl.ascx.cs">
@@ -1684,7 +1684,7 @@
     <Content Include="controls\UsersTestimonials.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\Videos.ascx" />
-    <Content Include="controls\videosbycategory.ascx" />
+    <Content Include="controls\ExpertReviewsVideos.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
     <Content Include="css\bookingconfig.css" />
