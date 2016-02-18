@@ -14,5 +14,10 @@ namespace Bikewale.DAL.Videos
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId , uint totalCount)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

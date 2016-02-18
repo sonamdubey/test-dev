@@ -36,5 +36,22 @@ namespace Bikewale.Cache.Videos
             }
             return videosList;
         }
+
+        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoBasicId, uint totalCount)
+        {
+            IEnumerable<BikeVideoEntity> videosList = null;
+            string key = string.Empty;
+            try
+            {
+                key = String.Format("BW_SimilarVideos_{0}", videoBasicId);
+                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetSimilarVideos(videoBasicId, totalCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideos");
+                objErr.SendMail();
+            }
+            return videosList;
+        }
     }
 }
