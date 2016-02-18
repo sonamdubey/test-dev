@@ -663,6 +663,10 @@
       <DependentUpon>UsersTestimonials.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\VideoByCategory.ascx.cs">
+      <DependentUpon>VideoByCategory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\VideoCarousel.ascx.cs">
       <DependentUpon>VideoCarousel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1692,6 +1696,7 @@
     <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UserReviewsMin.ascx" />
     <Content Include="controls\UsersTestimonials.ascx" />
+    <Content Include="controls\VideoByCategory.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\Videos.ascx" />
     <Content Include="controls\ExpertReviewsVideos.ascx" />
