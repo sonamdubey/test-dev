@@ -12,6 +12,7 @@ namespace Bikewale.Videos
     {
 
         protected Bikewale.Controls.Videos ctrlVideosLanding;
+        protected Bikewale.Controls.VideoByCategory ctrlFirstRide, ctrlLaunchAlert;
 
         protected override void OnInit(EventArgs e)
         {
@@ -25,6 +26,14 @@ namespace Bikewale.Videos
             //dd.DetectDevice();
             ctrlVideosLanding.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
             ctrlVideosLanding.TotalRecords = 5;
+
+            ctrlFirstRide.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
+            ctrlFirstRide.TotalRecords = 6;
+            ctrlFirstRide.sectionTitle = "First Ride";
+
+            ctrlLaunchAlert.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
+            ctrlLaunchAlert.TotalRecords = 6;
+            ctrlLaunchAlert.sectionTitle = "Launch Alert";
         }
     }
 }
