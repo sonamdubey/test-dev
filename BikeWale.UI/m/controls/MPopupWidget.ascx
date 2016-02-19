@@ -212,7 +212,7 @@
                     beforeSend: function (xhr) {
                         startLoading($("#citySelection"));
                         $("#popupContent").show();
-                        $("#citySelection div.selected-city").text("Loading Cities..").next().show();;
+                        $("#citySelection div.selected-city").text("Loading Cities..").next().show();
                         $("#popupLoader").text("Loading cities..").show().prev().show();
                         if (data = lscache.get(modelCityKey)) {
                             var cities = ko.toJS(data);
