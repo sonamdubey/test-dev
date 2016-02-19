@@ -26,12 +26,12 @@ namespace Bikewale.Cache.Videos
             string key = string.Empty;
             try
             {
-                key = String.Format("BW_Video_{0}", categoryId);
+                key = String.Format("BW_Videos_{0}", categoryId);
                 videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosByCategory(categoryId, totalCount));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideos");
+                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideosByCategory");
                 objErr.SendMail();
             }
             return videosList;
@@ -44,7 +44,7 @@ namespace Bikewale.Cache.Videos
             try
             {
                 //string contentTypeList = CommonApiOpn.GetContentTypesString(categoryIdList);
-                key = String.Format("BW_Video_{0}", categoryIdList);
+                key = String.Format("BW_Videos_{0}", categoryIdList);
                 videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosByCategory(categoryIdList, pageSize,pageNo));
             }
             catch (Exception ex)
@@ -83,7 +83,7 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetSimilarVideos");
+                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideoDetails");
                 objErr.SendMail();
             }
             return video;
