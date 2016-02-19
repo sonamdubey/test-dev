@@ -19,18 +19,21 @@ namespace Bikewale.Videos
             //device detection
             //DeviceDetection dd = new DeviceDetection();
             //dd.DetectDevice();
+
             ctrlVideosLanding.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
             ctrlVideosLanding.TotalRecords = 5;
 
-            ctrlFirstRide.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
+            ctrlFirstRide.CategoryId = Entities.Videos.EnumVideosCategory.JustLatest;
             ctrlFirstRide.TotalRecords = 6;
-            ctrlExpertReview.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
-            ctrlExpertReview.TotalRecords = 2;
             ctrlFirstRide.sectionTitle = "First Ride";
 
             ctrlLaunchAlert.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
             ctrlLaunchAlert.TotalRecords = 6;
             ctrlLaunchAlert.sectionTitle = "Launch Alert";
+
+            ctrlExpertReview.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
+            ctrlExpertReview.TotalRecords = 2;
+            ctrlExpertReview.sectionTitle = "Exper Reviews";
         }
     }
 }

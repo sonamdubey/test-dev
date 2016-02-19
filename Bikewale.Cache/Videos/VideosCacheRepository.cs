@@ -37,6 +37,24 @@ namespace Bikewale.Cache.Videos
             return videosList;
         }
 
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(List<EnumVideosCategory> categoryIdList, uint pageSize, uint pageNo)
+        {
+            IEnumerable<BikeVideoEntity> videosList = null;
+            string key = string.Empty;
+            try
+            {
+                //string contentTypeList = CommonApiOpn.GetContentTypesString(categoryIdList);
+                key = String.Format("BW_Video_{0}", categoryIdList);
+                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosByCategory(categoryIdList, pageSize,pageNo));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideosByCategory");
+                objErr.SendMail();
+            }
+            return videosList;
+        }
+
         public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoBasicId, uint totalCount)
         {
             IEnumerable<BikeVideoEntity> videosList = null;
@@ -48,10 +66,27 @@ namespace Bikewale.Cache.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideos");
+                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetSimilarVideos");
                 objErr.SendMail();
             }
             return videosList;
+        }
+
+        public BikeVideoEntity GetVideoDetails(uint videoBasicId)
+        {
+            BikeVideoEntity video = null;
+            string key = string.Empty;
+            try
+            {
+                key = String.Format("BW_VideoDetails_{0}", videoBasicId);
+                video = _cache.GetFromCache<BikeVideoEntity>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideoDetails(videoBasicId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetSimilarVideos");
+                objErr.SendMail();
+            }
+            return video;
         }
     }
 }

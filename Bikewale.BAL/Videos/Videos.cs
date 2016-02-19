@@ -61,7 +61,7 @@ namespace Bikewale.BAL.Videos
 
             return objVideosList;
         }
-
+        
         public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId, uint totalCount)
         {
             IEnumerable<BikeVideoEntity> objVideosList = null;
@@ -69,6 +69,50 @@ namespace Bikewale.BAL.Videos
             {
                 //http://localhost/api/v1/videos/18838/similar/?appId=1&topCount=1
                 string _apiUrl = String.Format("/api/v1/videos/{0}/similar/?appId=2&topCount={1}", videoId, totalCount);
+
+                using (BWHttpClient objclient = new BWHttpClient())
+                {
+                    objVideosList = objclient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objVideosList;
+        }
+
+        public BikeVideoEntity GetVideoDetails(uint videoBasicId)
+        {
+            BikeVideoEntity objVideo = null;
+            try
+            {
+                string _apiUrl = String.Format("/api/v1/videos/{0}/?appId=2", videoBasicId);
+
+                using (BWHttpClient objclient = new BWHttpClient())
+                {
+                    objVideo = objclient.GetApiResponseSync<BikeVideoEntity>(APIHost.CW, _requestType, _apiUrl, objVideo);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objVideo;
+        }
+
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(List<EnumVideosCategory> categoryIdList, uint pageSize, uint pageNo)
+        {
+            IEnumerable<BikeVideoEntity> objVideosList = null;
+            try
+            {
+                string contentTypeList = CommonApiOpn.GetContentTypesString(categoryIdList);
+            
+                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", contentTypeList,pageNo,pageSize);
 
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
