@@ -11,7 +11,7 @@ namespace Bikewale.Controls
         public EnumVideosCategory CategoryId { get; set; }
         public uint TotalRecords { get; set; }
         public string SectionTitle { get; set; }
-        protected int FetchedRecordsCount { get; set; }
+        public int FetchedRecordsCount { get; set; }
         public string SectionBackgroundClass { get; set; }
         protected BikeVideoEntity FirstVideoRecord { get; set; }
 
@@ -31,9 +31,10 @@ namespace Bikewale.Controls
             BindVideosLandingControl objVideo = new BindVideosLandingControl();
             objVideo.TotalRecords = this.TotalRecords;
             objVideo.CategoryId = this.CategoryId;
-            objVideo.BindVideos(rptCategoryVideos);
+            objVideo.FetchVideos();
             this.FetchedRecordsCount = objVideo.FetchedRecordsCount;
             this.FirstVideoRecord = objVideo.FirstVideoRecord;
+            objVideo.BindVideos(rptCategoryVideos);
         }
         public override void Dispose()
         {

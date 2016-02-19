@@ -19,17 +19,15 @@ namespace Bikewale.BindViewModels.Controls
         public int FetchedRecordsCount { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
         public BikeVideoEntity FirstVideoRecord { get; set; }
-
+        private IEnumerable<BikeVideoEntity> objVideosList { get; set; }
         [System.ComponentModel.DefaultValue(0)]
         public int DoSkip { get; set; }
 
-        public void BindVideos(Repeater rptr)
+        public void FetchVideos()
         {
-            FetchedRecordsCount = 0;
-            IEnumerable<BikeVideoEntity> objVideosList = null;
+            FetchedRecordsCount = 0;            
             try
             {
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IVideosCacheRepository, VideosCacheRepository>()
@@ -46,20 +44,32 @@ namespace Bikewale.BindViewModels.Controls
                         if (FetchedRecordsCount > 0)
                         {
                             FirstVideoRecord = objVideosList.FirstOrDefault();
-                            if(DoSkip == 0)
-                            {
-                                rptr.DataSource = objVideosList;
-                            }
-                            else
-                            {
-                                rptr.DataSource = objVideosList.Skip(DoSkip);
-                            }                            
-                            rptr.DataBind();
                         }
                     }
 
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
 
+        public void BindVideos(Repeater rptr)
+        {
+            FetchedRecordsCount = 0;
+            try
+            {
+                if (DoSkip == 0)
+                {
+                    rptr.DataSource = objVideosList;
+                }
+                else
+                {
+                    rptr.DataSource = objVideosList.Skip(DoSkip);
+                }
+                rptr.DataBind();
             }
             catch (Exception ex)
             {

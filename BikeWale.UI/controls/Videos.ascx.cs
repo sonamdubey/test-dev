@@ -12,7 +12,7 @@ namespace Bikewale.Controls
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
-        protected BikeVideoEntity FirstVideoRecord { get; set; }
+        public BikeVideoEntity FirstVideoRecord { get; set; }
         public int DoSkip { get; set; }
 
 
@@ -32,9 +32,10 @@ namespace Bikewale.Controls
             objVideo.TotalRecords = this.TotalRecords;
             objVideo.CategoryId = this.CategoryId;
             objVideo.DoSkip = this.DoSkip;
-            objVideo.BindVideos(rptLandingVideos);
+            objVideo.FetchVideos();
             this.FirstVideoRecord = objVideo.FirstVideoRecord;
             this.FetchedRecordsCount = objVideo.FetchedRecordsCount;
+            objVideo.BindVideos(rptLandingVideos);
         }
 
         public override void Dispose()

@@ -33,8 +33,7 @@
         </section>
 
         
-                    <BW:VideosLanding runat="server" ID="ctrlVideosLanding" />
-
+        <BW:VideosLanding runat="server" ID="ctrlVideosLanding" />  
 
         <section>
             <div class="container margin-top20 powerdrift-banner">
@@ -51,15 +50,33 @@
             </div>
         </section>
 
+        <% if (ctrlFirstRide.FetchedRecordsCount > 0) {%>
         <BW:ByCategory runat="server" ID="ctrlFirstRide" /> 
-         
-        <section class="bg-white">
-            <div class="container">
-                <BW:ExpertReview runat="server" ID="ctrlExpertReview" />
-            </div>
-        </section>
+        <% } %>         
 
+        <% if (ctrlExpertReview.FetchedRecordsCount > 0) {%>
+        <BW:ExpertReview runat="server" ID="ctrlExpertReview" /> 
+        <% } %> 
+
+
+        <% if (ctrlLaunchAlert.FetchedRecordsCount > 0) {%>
         <BW:ByCategory runat="server" ID="ctrlLaunchAlert" />
+        <% } %> 
+
+
+        <% if (ctrlMiscellaneous.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlMiscellaneous" />
+        <% } %> 
+
+
+        <% if (ctrlTopMusic.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlTopMusic" />
+        <% } %> 
+
+
+        <% if (ctrlDoItYourself.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlDoItYourself" />
+        <% } %> 
 
         <script type="text/javascript">
             $(document).ready(function () { $("img.lazy").lazyload(); });

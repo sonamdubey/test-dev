@@ -20,23 +20,26 @@ namespace Bikewale.Controls
         public uint TotalRecords { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
         public string viewMoreURL { get; set; }        
-        protected int FetchedRecordsCount { get; set; }
+        public int FetchedRecordsCount { get; set; }
         public string SectionTitle { get; set; }
         public string SectionBackgroundClass { get; set; }
-        protected BikeVideoEntity FirstVideoRecord { get; set; }
+        public BikeVideoEntity FirstVideoRecord { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             BindVideosLandingControl objVideo = new BindVideosLandingControl();
             objVideo.TotalRecords = this.TotalRecords;
             objVideo.CategoryId = this.CategoryId;
-            objVideo.BindVideos(rptVideosByCat);
+            objVideo.FetchVideos();
             this.FetchedRecordsCount = objVideo.FetchedRecordsCount;
             this.FirstVideoRecord = objVideo.FirstVideoRecord;
+            objVideo.BindVideos(rptVideosByCat);
+            
         }
 
         public override void Dispose()

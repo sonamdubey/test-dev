@@ -16,6 +16,17 @@ namespace Bikewale.Entities.Videos
         Miscelleneous = 4,
         InteriorShow = 5,
         JustLatest = 6,
-        FirstRide  = 7
+        FirstDriveImpressions = 47,
+        CarReview = 48,
+        CarInteriors = 49,
+        Longtermreview = 50,
+        Motorsports = 51,
+        PowerVideos = 52,
+        DoitYourself = 53,
+        BikeReview = 55,
+        FirstRide = 57,
+        Miscellaneous = 58,
+        LaunchAlert = 59,
+        TopMusic = 60
     }
 }
