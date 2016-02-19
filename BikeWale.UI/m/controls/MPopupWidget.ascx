@@ -552,7 +552,7 @@
 
     function startLoading(ele) {
         try {
-            var _self = $(ele).find(".progress-bar");
+            var _self = $(ele).find(".progress-bar").show();
             _self.stop().animate({ width: '100%' }, 7000);
         }
         catch (e) { return };
@@ -562,7 +562,7 @@
         try {
             var _self = $(ele).find(".progress-bar");
             var _selfCompleted = $(ele).find(".progress-bar-completed");
-            _self.hide(); _selfCompleted.show().fadeOut(2000);
+            _self.removeAttr('style'); _selfCompleted.show().fadeOut(2000);
         }
         catch (e) { return };
     }
