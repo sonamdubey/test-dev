@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.Default" AutoEventWireup="false" EnableViewState="false" Trace="true" %>
+﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.Default" AutoEventWireup="false" EnableViewState="false" Trace="false" %>
 <%@ Register TagPrefix="BikeWale" TagName="video" Src="/controls/VideoCarousel.ascx" %>
 <%@ Register Src="~/controls/Videos.ascx" TagName="VideosLanding" TagPrefix="BW" %>
 <%@ Register Src="~/controls/VideoByCategory.ascx" TagName="ByCategory" TagPrefix="BW" %>
@@ -65,7 +65,7 @@
             </div>
         </section>
 
-        <BW:ByCategory runat="server" ID="ctrlLatestBike" />
+        <BW:ByCategory runat="server" ID="ctrlLaunchAlert" />
 
         <script type="text/javascript">
             $(document).ready(function () { $("img.lazy").lazyload(); });

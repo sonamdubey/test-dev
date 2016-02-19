@@ -1,4 +1,6 @@
 ﻿using Bikewale.BindViewModels.Webforms;
+using Bikewale.controls;
+using Bikewale.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,7 @@ namespace Bikewale.Videos
     public class video : System.Web.UI.Page
     {
         protected VideoDescriptionModel videoModel;
+        protected SimilarVideos ctrlSimilarVideos;
         protected int videoId = 0;
 
         protected override void OnInit(EventArgs e)
@@ -22,6 +25,12 @@ namespace Bikewale.Videos
             // Read id from query string
             videoId = 18838;
             videoModel = new VideoDescriptionModel(videoId);
+            
+        }
+        private void BindSimilarVideoControl()
+        {
+            ctrlSimilarVideos.TopCount = 6;
+            ctrlSimilarVideos.BasicId = 20156;
         }
     }
 }
