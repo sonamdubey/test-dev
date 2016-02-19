@@ -615,6 +615,10 @@
       <DependentUpon>SimilarBikesHorizontal.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\SimilarVideos.ascx.cs">
+      <DependentUpon>SimilarVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\TipsAdvicesMin.ascx.cs">
       <DependentUpon>TipsAdvicesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1684,6 +1688,7 @@
     <Content Include="controls\RoadTestMin.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarBikesHorizontal.ascx" />
+    <Content Include="controls\SimilarVideos.ascx" />
     <Content Include="controls\TipsAdvicesMin.ascx" />
     <Content Include="controls\TopUsedListedBike.ascx" />
     <Content Include="controls\UpcomingBikeHome.ascx" />
