@@ -70,21 +70,7 @@
             </div>
         </section>
         <section class="margin-bottom30 <%= (rptSimilarVideos.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
-            <div class="container">
-                <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Related videos</h2>
-                    <div class="jcarousel-wrapper related-video-jcarousel">
-                        <div class="jcarousel">
-                                <ul>
-                                    <BW:SimilarVideos ID="rptSimilarVideos" runat="server" />
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
+         <BW:SimilarVideos ID="rptSimilarVideos" runat="server" />              
         </section>
         <%--<section>
             <div class="container">
