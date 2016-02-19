@@ -32,14 +32,9 @@
             </div>
         </section>
 
-        <section>
-            <div id="videoJumbotron" class="container">
-                <div class="grid-12">
+        
                     <BW:VideosLanding runat="server" ID="ctrlVideosLanding" />
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
+
 
         <section>
             <div class="container margin-top20 powerdrift-banner">

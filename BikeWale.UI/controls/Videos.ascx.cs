@@ -13,6 +13,8 @@ namespace Bikewale.Controls
         public int FetchedRecordsCount { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
         protected BikeVideoEntity FirstVideoRecord { get; set; }
+        public int DoSkip { get; set; }
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -29,6 +31,7 @@ namespace Bikewale.Controls
             BindVideosLandingControl objVideo = new BindVideosLandingControl();
             objVideo.TotalRecords = this.TotalRecords;
             objVideo.CategoryId = this.CategoryId;
+            objVideo.DoSkip = this.DoSkip;
             objVideo.BindVideos(rptLandingVideos);
             this.FirstVideoRecord = objVideo.FirstVideoRecord;
             this.FetchedRecordsCount = objVideo.FetchedRecordsCount;

@@ -55,9 +55,7 @@ RewriteRule ^road-tests/            /content/roadtest/defaultrt.aspx [NC,L]
 RewriteRule  ^(.*)-bikes/(.*)/(.*)-specs-(.*).html	/($1)-bikes/($2)/ [R=301,NC,L]
 RewriteRule ^(.*)-bikes/(.*)-series/ /new/bikeseries.aspx?series=$2 [NC,L]
 
-RewriteRule	^(.*)-bikes/(.*)/(.*)/	/new/versions.aspx?model=$2 [NC,L,R=404]
-RewriteRule	^(.*)-bikes/(.*)/	/new/versions.aspx?model=$2&vid=$3 [NC,L,QSA]
-RewriteRule	^(.*)-bikes/(.*)/	/new/versions.aspx?model=$2 [NC,L]
+RewriteRule	^(.*)-bikes/([a-zA-Z0-9\-]+)/$	/new/versions.aspx?model=${lowercase:$2} [NC,L,QSA]
 
 RewriteRule	^(.*)-bikes/$	/new/models.aspx?make=$1 [NC,L]
 RewriteRule	^terms/(.*)	/offerterms.aspx?id=$1 [NC,L]
@@ -111,6 +109,10 @@ RewriteRule ^mybikewale/myprofile/	/users/mycontactdetails.aspx [NC,L]
 RewriteRule ^mybikewale/editcontactdetails/	/users/EditCustomerDetails.aspx [NC,L]
 RewriteRule ^mybikewale/changepassword/		/users/changepassword.aspx [NC,L]
 RewriteRule ^mybikewale/myinquiries/		/mybikewale/mylisting.aspx [NC,L]
+
+RewriteRule	^bike-videos/category/([a-zA-Z0-9\-]+)-([\d]+)/$	/videos/videosbycategory.aspx?cid=${lowercase:$2} [NC,L]
+RewriteRule	^bike-videos/([a-zA-Z0-9\-]+)-([\d]+)/$	/videos/video.aspx?id=${lowercase:$2} [NC,L]
+RewriteRule ^bike-videos/$		/videos/default.aspx [NC,L]
 
 
 

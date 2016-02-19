@@ -20,12 +20,13 @@ namespace Bikewale.BindViewModels.Controls
         public EnumVideosCategory CategoryId { get; set; }
         public BikeVideoEntity FirstVideoRecord { get; set; }
 
+        [System.ComponentModel.DefaultValue(0)]
+        public int DoSkip { get; set; }
 
         public void BindVideos(Repeater rptr)
         {
             FetchedRecordsCount = 0;
             IEnumerable<BikeVideoEntity> objVideosList = null;
-            uint pageNo = 1;
             try
             {
 
@@ -45,7 +46,14 @@ namespace Bikewale.BindViewModels.Controls
                         if (FetchedRecordsCount > 0)
                         {
                             FirstVideoRecord = objVideosList.FirstOrDefault();
-                            rptr.DataSource = objVideosList;
+                            if(DoSkip == 0)
+                            {
+                                rptr.DataSource = objVideosList;
+                            }
+                            else
+                            {
+                                rptr.DataSource = objVideosList.Skip(DoSkip);
+                            }                            
                             rptr.DataBind();
                         }
                     }

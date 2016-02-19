@@ -10,8 +10,10 @@ namespace Bikewale.Controls
         protected Repeater rptCategoryVideos;
         public EnumVideosCategory CategoryId { get; set; }
         public uint TotalRecords { get; set; }
-        public string sectionTitle { get; set; }
+        public string SectionTitle { get; set; }
         protected int FetchedRecordsCount { get; set; }
+        public string SectionBackgroundClass { get; set; }
+        protected BikeVideoEntity FirstVideoRecord { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -31,7 +33,7 @@ namespace Bikewale.Controls
             objVideo.CategoryId = this.CategoryId;
             objVideo.BindVideos(rptCategoryVideos);
             this.FetchedRecordsCount = objVideo.FetchedRecordsCount;
-            
+            this.FirstVideoRecord = objVideo.FirstVideoRecord;
         }
         public override void Dispose()
         {
