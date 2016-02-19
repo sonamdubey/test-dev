@@ -27,7 +27,8 @@
         .video-likes-icon { width:15px; height:15px; background-position:-84px -277px; position:relative; top:2px; }
         .more-videos-link { display:block; margin-top:5px; margin-bottom:25px; }
     </style>
-    <link rel="stylesheet" href="../css/jquery.floating-social-share.css">
+    <link rel="stylesheet" href="/css/jquery.floating-social-share.css">
+    <%--<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">--%>
 
 </head>
 <body class="bg-light-grey header-fixed-inner">
@@ -70,8 +71,8 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <section class="margin-bottom30 <%= (rptSimilarVideos.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
-         <BW:SimilarVideos ID="rptSimilarVideos" runat="server" />              
+        <section class="margin-bottom30 <%= (ctrlSimilarVideos.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
+         <BW:SimilarVideos ID="ctrlSimilarVideos" runat="server" />              
         </section>
         <%--<section>
             <div class="container">
@@ -215,7 +216,7 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
     </form>
-    <script type="text/javascript" src="../src/jquery.floating-social-share.js">
+    <script type="text/javascript" src="/src/jquery.floating-social-share.js">
     </script>
 </body>
 </html>

@@ -23,7 +23,7 @@ namespace Bikewale.Controls
         protected int FetchedRecordsCount { get; set; }
         public string SectionTitle { get; set; }
         public string SectionBackgroundClass { get; set; }
-        protected BikeVideoEntity FirstVideoRecord { get; set; }
+        public BikeVideoEntity FirstVideoRecord { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

@@ -12,9 +12,13 @@ using System.Web;
 
 namespace Bikewale.Videos
 {
+    /// <summary>
+    /// Created By : Sangram Nandkhile
+    /// Created On : 19 Feb 2016
+    /// Description : For Similar Video control
+    /// </summary>
     public class video : System.Web.UI.Page
     {
-        //protected VideoDescriptionModel videoModel;
         protected BikeVideoEntity videoModel;
         protected SimilarVideos ctrlSimilarVideos;
         protected uint videoId = 0;
@@ -25,20 +29,35 @@ namespace Bikewale.Videos
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //device detection
             DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"]);
             dd.DetectDevice();
-            // Read id from query string
-            videoId = 20106;
+            ParseQueryString();
+            BindSimilarVideoControl();
             BindVideoDetails();
-            //videoModel = new VideoDescriptionModel(videoId);
         }
+        /// <summary>
+        /// Read video Id from query string
+        /// </summary>
+        private void ParseQueryString()
+        {
+            string videoBasicId = Request.QueryString["id"];
+            if (!string.IsNullOrEmpty(videoBasicId))
+            {
+                UInt32.TryParse(videoBasicId, out videoId);
+            }
+        }
+        /// <summary>
+        ///  Addition param for Similar Video controller
+        /// </summary>
         private void BindSimilarVideoControl()
         {
             ctrlSimilarVideos.TopCount = 6;
             ctrlSimilarVideos.sectionTitle = "Related videos";
             ctrlSimilarVideos.BasicId = 20156;
         }
+        /// <summary>
+        /// API call to fetch Video details
+        /// </summary>
         private void BindVideoDetails()
         {
             try
@@ -51,6 +70,12 @@ namespace Bikewale.Videos
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
                     videoModel = objCache.GetVideoDetails(videoId);
+                    if (videoModel == null)
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                 }
             }
             catch (Exception ex)

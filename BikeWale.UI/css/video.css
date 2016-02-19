@@ -17,8 +17,9 @@
 .powerdrift-subscribe { padding:15px 15px 10px; margin-top:25px; margin-right:25px; background:#fff; }
 .firstride-jcarousel li { height:312px; border: 1px solid #e2e2e2; padding:20px; }
 .videocarousel-image-wrapper { width:271px; height:153px; margin-bottom:15px; overflow:hidden; text-align:center; }
-.videocarousel-image-wrapper a, .reviews-image-wrapper a { width:100%; height:100%; display:block; background:url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
-.videocarousel-image-wrapper img, .reviews-image-wrapper img { width:100%; height:100%; }
+.videocarousel-image-wrapper a, .reviews-image-wrapper a { width:100%; height:100%; display:block; overflow:hidden; background:url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
+.videocarousel-image-wrapper img, .reviews-image-wrapper img { width:100%; }
+.reviews-image-wrapper img { position:relative; top:-43px; }
 .video-views-icon { width:17px; height:13px; background-position:-59px -303px; }
 .video-likes-icon { width:15px; height:15px; background-position:-84px -277px; position:relative; top:2px; }
 .border-light-right { border-right:1px solid #e2e2e2; }
