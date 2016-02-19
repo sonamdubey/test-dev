@@ -1,17 +1,14 @@
 ﻿using Bikewale.Controls;
-using Bikewale.Entities.Pager;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Videos
 {
     public class VideoCategories : System.Web.UI.Page
     {
         protected LinkPagerControl repeaterPager;
+        protected uint cId = 0;
+        protected string make = string.Empty;
+        protected string model = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -30,6 +27,7 @@ namespace Bikewale.Videos
             //repeaterPager.PagerOutput = pagerOutput;
             //repeaterPager.CurrentPageNo = 4;
             //repeaterPager.TotalPages = 60;
+
         }
     }
 }
