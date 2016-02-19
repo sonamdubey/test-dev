@@ -1,15 +1,12 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
-using Bikewale.DAL.Videos;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;

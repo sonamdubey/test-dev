@@ -18,6 +18,7 @@ namespace Bikewale.controls
         public int TopCount { get; set; }
         public int BasicId { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public string sectionTitle { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

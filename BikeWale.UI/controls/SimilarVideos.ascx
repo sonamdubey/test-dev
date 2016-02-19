@@ -3,7 +3,7 @@
     <HeaderTemplate>
         <div class="container">
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Related videos</h2>
+                <h2 class="text-bold text-center margin-top20 margin-bottom20 font28"><%=sectionTitle %></h2>
                 <div class="jcarousel-wrapper related-video-jcarousel">
                     <div class="jcarousel">
                         <ul>
@@ -20,11 +20,9 @@
                 <a href="" class="font14 text-bold text-default"><%# DataBinder.Eval(Container.DataItem,"VideoTitle") %></a>
                 <p class="font12 text-light-grey margin-top10 margin-bottom10"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy")  %></p>
                 <div class="grid-6 alpha omega border-light-right font14">
-                    <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default"><%# DataBinder.Eval(Container.DataItem,"Views") %></span>
-                </div>
+                    <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma"><%# DataBinder.Eval(Container.DataItem,"Views") %></span></div>
                 <div class="grid-6 omega padding-left20 font14">
-                    <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default"><%# DataBinder.Eval(Container.DataItem,"Views") %></span>
-                </div>
+                    <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%# DataBinder.Eval(Container.DataItem,"Views") %></span></div>
                 <div class="clear"></div>
             </div>
         </li>

@@ -33,6 +33,7 @@
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
+        <% if(videoModel!= null) { %>
         <section>
             <div class="container">
                 <div class="grid-12">
@@ -42,13 +43,13 @@
                             <li><span class="fa fa-angle-right margin-right10"></span>Videos</li>
                         </ul>
                     </div>
-                    <h1 class="font26 margin-bottom5"><%=videoModel.Title%></h1>
+                    <h1 class="font26 margin-bottom5"><%=videoModel.VideoTitle%></h1>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
         <section>
-            <div class="container">
+            <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20">
                         <div id="embedVideo" class="margin-bottom15">
@@ -57,10 +58,10 @@
                         <p class="font14 text-light-grey margin-bottom10"><%=videoModel.Description %>
                         <p class="clear"></p>
                         <p class="video-views-counts border-light-right font14 leftfloat">
-                            <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default"><%=videoModel.Views %></span>
+                            <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma"><%=videoModel.Views %></span>
                         </p>
                         <p class="video-views-counts padding-left20 font14 leftfloat">
-                            <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default"><%=videoModel.Likes %></span>
+                            <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%=videoModel.Likes %></span>
                         </p>
                         <p class="rightfloat text-light-grey font12">November 25, 2015</p>
                         <p class="clear"></p>
@@ -198,9 +199,17 @@
                 <div class="clear"></div>
             </div>
         </section>--%>
+        <% } %>
         <script type="text/javascript">
             $(function () {
-                $("body").floatingSocialShare();
+                try{
+                    $("body").floatingSocialShare();
+                    $('.comma').each(function (i, obj) {
+                        var y = formatPrice($(this).html());
+                        if (y != null)
+                            $(this).html(y);
+                    });
+                }catch(err){}
             });
         </script>
         <!-- #include file="/includes/footerBW.aspx" -->
