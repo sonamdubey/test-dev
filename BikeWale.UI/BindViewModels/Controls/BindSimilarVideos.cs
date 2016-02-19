@@ -23,13 +23,14 @@ namespace Bikewale.BindViewModels.Controls
         public EnumVideosCategory CategoryId { get; set; }
         public uint VideoBasicId { get; set; }
 
-        public void BindVideos(Repeater rptr)
+        public void BindVideos(Repeater rptSimilarVideos)
         {
+            //if (rptSimilarVideos == null)
+            //    rptSimilarVideos = new Repeater();
             FetchedRecordsCount = 0;
             IEnumerable<BikeVideoEntity> objVideosList = null;
             try
             {
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IVideosCacheRepository, VideosCacheRepository>()
@@ -45,8 +46,8 @@ namespace Bikewale.BindViewModels.Controls
 
                         if (FetchedRecordsCount > 0)
                         {
-                            rptr.DataSource = objVideosList;
-                            rptr.DataBind();
+                            rptSimilarVideos.DataSource = objVideosList;
+                            rptSimilarVideos.DataBind();
                         }
                     }
 
