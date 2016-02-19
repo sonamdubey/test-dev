@@ -33,6 +33,7 @@ namespace Bikewale.Controls
             objVideo.TotalRecords = this.TotalRecords;
             objVideo.CategoryId = this.CategoryId;
             objVideo.BindVideos(rptVideosByCat);
+            this.FetchedRecordsCount = objVideo.FetchedRecordsCount;
         }
 
         public override void Dispose()

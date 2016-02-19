@@ -2,7 +2,7 @@
 <%@ Register TagPrefix="BikeWale" TagName="video" Src="/controls/VideoCarousel.ascx" %>
 <%@ Register Src="~/controls/Videos.ascx" TagName="VideosLanding" TagPrefix="BW" %>
 <%@ Register Src="~/controls/VideoByCategory.ascx" TagName="ByCategory" TagPrefix="BW" %>
-<%@ Register Src="~/controls/ExpertReviewsVideos.ascx" TagName="ExpertReview" TagPrefix="ERV" %>
+<%@ Register Src="~/controls/ExpertReviewsVideos.ascx" TagName="ExpertReview" TagPrefix="BW" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,8 +10,6 @@
     <%  
         title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison - BikeWale";
         description ="Check latest bike and scooter videos, watch BikeWale expert's take on latest bikes and scooters - features, performance, price, fuel economy, handling and more."; 
-        AdId = "1395986297721";
-        AdPath = "/1017752/BikeWale_New_";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/video.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
@@ -58,10 +56,11 @@
             </div>
         </section>
 
-        <BW:ByCategory runat="server" ID="ctrlFirstRide" />  
+        <BW:ByCategory runat="server" ID="ctrlFirstRide" /> 
+         
         <section class="bg-white">
             <div class="container">
-                <ERV:ExpertReview runat="server" ID="ctrlExpertReview" />
+                <BW:ExpertReview runat="server" ID="ctrlExpertReview" />
             </div>
         </section>
 

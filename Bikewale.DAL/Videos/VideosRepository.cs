@@ -19,5 +19,15 @@ namespace Bikewale.DAL.Videos
         {
             throw new NotImplementedException();
         }
+
+        public BikeVideoEntity GetVideoDetails(uint videoBasicId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(List<EnumVideosCategory> categoryIdList, uint pageSize, uint pageNo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

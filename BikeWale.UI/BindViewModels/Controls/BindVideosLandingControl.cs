@@ -23,6 +23,7 @@ namespace Bikewale.BindViewModels.Controls
         public EnumVideosCategory CategoryId { get; set; }
         public BikeVideoEntity FirstVideoRecord { get; set; }
 
+
         public void BindVideos(Repeater rptr)
         {
             FetchedRecordsCount = 0;
@@ -47,7 +48,7 @@ namespace Bikewale.BindViewModels.Controls
                         if (FetchedRecordsCount > 0)
                         {
                             FirstVideoRecord = objVideosList.FirstOrDefault();
-                            rptr.DataSource = objVideosList.Skip(1);
+                            rptr.DataSource = objVideosList;
                             rptr.DataBind();
                         }
                     }
