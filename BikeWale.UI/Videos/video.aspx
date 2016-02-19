@@ -27,6 +27,8 @@
         .video-likes-icon { width:15px; height:15px; background-position:-84px -277px; position:relative; top:2px; }
         .more-videos-link { display:block; margin-top:5px; margin-bottom:25px; }
     </style>
+    <link rel="stylesheet" href="../css/jquery.floating-social-share.css">
+
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
@@ -45,7 +47,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-
         <section>
             <div class="container">
                 <div class="grid-12">
@@ -54,6 +55,7 @@
                             <iframe width="934" height="527" src="<%=videoModel.VideoUrl %>" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <p class="font14 text-light-grey margin-bottom10"><%=videoModel.Description %>
+                        <p class="clear"></p>
                         <p class="video-views-counts border-light-right font14 leftfloat">
                             <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default"><%=videoModel.Views %></span>
                         </p>
@@ -62,35 +64,11 @@
                         </p>
                         <p class="rightfloat text-light-grey font12">November 25, 2015</p>
                         <p class="clear"></p>
-                        <p class="video-views-counts border-light-right font14 leftfloat">
-                          <span class="text-light-grey margin-right5 ">Tags:</span><span class="text-default"><%=videoModel.Tags %></span>
-                        </p>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
-            <ul class="video-social-wrapper">
-                   <li class="fb-counter">
-                    <a href="">                    
-                        <span class="fa fa-facebook"></span>    
-                        <span>1234</span>
-                    </a>
-                </li>
-                <li class="tw-counter">
-                    <a href="">                    
-                        <span class="fa fa-twitter"></span>
-                        <span>1234</span>
-                    </a>
-                </li>
-                <li class="gp-counter">
-                    <a href="">                    
-                        <span class="fa fa-google-plus"></span>
-                        <span>1234</span>
-                    </a>
-                </li>
-            </ul>
         </section>
-
         <section class="margin-bottom30 <%= (rptSimilarVideos.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div class="container">
                 <div class="grid-12">
@@ -108,8 +86,7 @@
                 </div>
                 <div class="clear"></div>
         </section>
-
-        <section>
+        <%--<section>
             <div class="container">
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Related videos</h2>
@@ -234,19 +211,16 @@
                 </div>
                 <div class="clear"></div>
             </div>
-        </section>
+        </section>--%>
         <script type="text/javascript">
-            var videoSocialWrapper;
-            $(document).scroll(function () {
-                videoSocialWrapper = $('.video-social-wrapper');
-                if ((videoSocialWrapper.offset().top + 162) > $('.bg-footer').offset().top)
-                    videoSocialWrapper.css({ 'position': 'absolute', 'top': $('.bg-footer').offset().top - 162 });
-                else
-                    videoSocialWrapper.css({ 'position': 'fixed', 'top': '230px' });
+            $(function () {
+                $("body").floatingSocialShare();
             });
         </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
     </form>
+    <script type="text/javascript" src="../src/jquery.floating-social-share.js">
+    </script>
 </body>
 </html>
