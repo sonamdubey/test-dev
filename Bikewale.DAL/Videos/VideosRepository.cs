@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace Bikewale.DAL.Videos
 {
+    /// <summary>
+    /// Created By : Sushil Kumar K
+    /// Created On : 18th February 2016
+    /// Description : Data Access Layer for videos section 
+    /// </summary>
     public class VideosRepository : IVideos
     {
         public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory category ,uint totalCount)
@@ -25,7 +30,7 @@ namespace Bikewale.DAL.Videos
             throw new NotImplementedException();
         }
 
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(List<EnumVideosCategory> categoryIdList, uint pageSize, uint pageNo)
+        public IEnumerable<BikeVideoEntity> GetVideosBySubCategory(string categoryIdList, uint pageSize, uint pageNo)
         {
             throw new NotImplementedException();
         }

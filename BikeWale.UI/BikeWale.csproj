@@ -286,7 +286,8 @@
     <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsersTestimonialControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
-    <Compile Include="BindViewModels\Controls\BindVideosLandingControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindVideosSectionCatwise.cs" />
+    <Compile Include="BindViewModels\Controls\BindVideosSectionSubCatwise.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
@@ -1279,8 +1280,8 @@
       <DependentUpon>VideoCategories_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Videos\VideoCategories.aspx.cs">
-      <DependentUpon>VideoCategories.aspx</DependentUpon>
+    <Compile Include="Videos\videocategories.aspx.cs">
+      <DependentUpon>videocategories.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
@@ -2415,7 +2416,7 @@
     <Content Include="Videos\video_old.aspx" />
     <Content Include="Videos\video.aspx" />
     <Content Include="Videos\VideoCategories_old.aspx" />
-    <Content Include="Videos\VideoCategories.aspx" />
+    <Content Include="Videos\videocategories.aspx" />
     <Content Include="VisitorAgreement.aspx" />
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe" />
     <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe" />

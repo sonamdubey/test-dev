@@ -6,7 +6,9 @@ using System.Text;
 namespace Bikewale.Entities.Videos
 {
     /// <summary>
-    /// 
+    /// Created By : Sushil Kumar K
+    /// Created On : 19th February 2016
+    /// Description : Bind Repeater with category wise by using old videos api 
     /// </summary>
     public enum EnumVideosCategory
     {
@@ -25,7 +27,7 @@ namespace Bikewale.Entities.Videos
         DoitYourself = 53,
         BikeReview = 55,
         FirstRide = 57,
-        Miscellaneous = 58,
+        Misc = 58,
         LaunchAlert = 59,
         TopMusic = 60
     }

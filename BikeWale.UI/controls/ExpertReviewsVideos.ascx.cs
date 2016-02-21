@@ -5,6 +5,11 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
+    /// <summary>
+    /// Created By : Sushil Kumar K
+    /// Created On : 19th February 2016
+    /// Description : Bind Expert Review Videos Control Repeater  
+    /// </summary>
     public class ExpertReviewVideos : System.Web.UI.UserControl
     {
         protected Repeater rptCategoryVideos;
@@ -28,7 +33,7 @@ namespace Bikewale.Controls
         public void BindVideosByCategory()
         {
             
-            BindVideosLandingControl objVideo = new BindVideosLandingControl();
+            BindVideosSectionCatwise objVideo = new BindVideosSectionCatwise();
             objVideo.TotalRecords = this.TotalRecords;
             objVideo.CategoryId = this.CategoryId;
             objVideo.FetchVideos();

@@ -13,7 +13,12 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.BindViewModels.Controls
 {
-    public class BindVideosLandingControl
+    /// <summary>
+    /// Created By : Sushil Kumar K
+    /// Created On : 19th February 2016
+    /// Description : Bind Repeater with category wise by using old videos api 
+    /// </summary>
+    public class BindVideosSectionCatwise
     {
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
@@ -57,8 +62,7 @@ namespace Bikewale.BindViewModels.Controls
         }
 
         public void BindVideos(Repeater rptr)
-        {
-            FetchedRecordsCount = 0;
+        {            
             try
             {
                 if (DoSkip == 0)

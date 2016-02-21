@@ -62,7 +62,7 @@
         <li>
             <a href="javascript:void(0)">
                 <span class="bwsprite reviews-icon"></span>
-                <span class="navbarTitle">Reviews and News</span>
+                <span class="navbarTitle">Reviews,News and Videos</span>
                 <span class="nav-drop fa fa-angle-down"></span>
             </a>
             <ul class="nestedUL">
@@ -70,13 +70,8 @@
                 <li><a href="/road-tests/">Expert Reviews</a></li>
                 <li><a href="/user-reviews/">User Reviews</a></li>
                 <li><a href="/features/">Features</a></li>
+                <li><a href="/bike-videos/">Videos</a></li>
             </ul>
-        </li>
-        <li>
-            <a href="/bike-videos/">
-                <span class="bwsprite videos-icon"></span>
-                <span class="navbarTitle">Videos</span>
-            </a>
         </li>
         <li>
             <a href="/insurance/">

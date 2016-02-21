@@ -28,7 +28,7 @@ namespace Bikewale.Controls
 
         protected void BindVideos()
         {
-            BindVideosLandingControl objVideo = new BindVideosLandingControl();
+            BindVideosSectionCatwise objVideo = new BindVideosSectionCatwise();
             objVideo.TotalRecords = this.TotalRecords;
             objVideo.CategoryId = this.CategoryId;
             objVideo.DoSkip = this.DoSkip;
