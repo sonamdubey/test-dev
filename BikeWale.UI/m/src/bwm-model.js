@@ -794,7 +794,7 @@ function LoadTerms(offerId) {
         });
     }
     else {
-        $("#terms").load("/staticHtml/tnc.html");
+        $("#terms").load("/statichtml/tnc.html");
         //$('#terms').html($("#orig-terms").html());
     }
     $('#termspinner').hide();
