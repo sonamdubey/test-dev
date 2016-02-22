@@ -2,9 +2,6 @@
 using Bikewale.Interfaces.Videos;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DAL.Videos
 {
@@ -15,12 +12,12 @@ namespace Bikewale.DAL.Videos
     /// </summary>
     public class VideosRepository : IVideos
     {
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory category ,uint totalCount)
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory category, uint totalCount)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId , uint totalCount)
+        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId, uint totalCount)
         {
             throw new NotImplementedException();
         }
@@ -34,5 +31,11 @@ namespace Bikewale.DAL.Videos
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, uint totalCount, uint pageNum)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

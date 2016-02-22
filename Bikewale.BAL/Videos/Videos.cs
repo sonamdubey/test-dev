@@ -1,15 +1,11 @@
 ﻿using Bikewale.DAL.Videos;
 using Bikewale.Entities.Videos;
-using Bikewale.Interfaces.PhotoGallery;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.BAL.Videos
@@ -54,6 +50,37 @@ namespace Bikewale.BAL.Videos
             {
 
                 string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)categoryId, pageNo, totalCount);
+
+                using (BWHttpClient objclient = new BWHttpClient())
+                {
+                    objVideosList = objclient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objVideosList;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar K
+        /// Created On : 18th February 2016
+        /// Description : overload function to get page wise data,To egt BIke Videos by Category
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="totalCount"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, uint totalCount, uint pageNum)
+        {
+            IEnumerable<BikeVideoEntity> objVideosList = null;
+            //uint pageNo = 1;
+            try
+            {
+
+                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)categoryId, pageNum, totalCount);
 
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
