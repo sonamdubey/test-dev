@@ -24,6 +24,9 @@ namespace Bikewale.Videos
         protected SimilarVideos ctrlSimilarVideos;
         protected uint videoId = 0;
         protected bool isMakeModelTag = false;
+        protected string metaDesc = string.Empty;
+        protected string metaKeywords = string.Empty;
+        protected string metaTitle = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -36,6 +39,39 @@ namespace Bikewale.Videos
             ParseQueryString();
             BindSimilarVideoControl();
             BindVideoDetails();
+            CreateDescriptionTag();
+        }
+
+        private void CreateDescriptionTag()
+        {
+            if (isMakeModelTag)
+            {
+                metaKeywords = String.Format("{0},{1}, {0} {1}", videoModel.MakeName, videoModel.ModelName);
+                string yeh = EnumVideosCategory.DoitYourself.ToString();
+                switch (videoModel.SubCatId)
+                {
+                    case "55":
+                        metaDesc = String.Format("{0} {1} Video Review-Watch BikeWale Expert's Take on {0} {1}-Features, performance, price, fuel economy, handling and more.", videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("Expert Video Review-{0} {1}-BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        break;
+                    case "57":
+                        metaDesc = String.Format("First Ride Video Review of {0} {1}-Watch BikeWale Expert's Take on the First Ride of {0} {1}-Features, performance, price, fuel economy, handling and more.", videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("First Ride Video Review-{0} {1}-BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        break;
+                    case "59":
+                        metaDesc = String.Format("Launch Video of {0} {1}-{0} {1} bike launched. Watch BikeWale's Expert's take on its Launch-Features, performance, price, fuel economy, handling and more.", videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("Bike Launch Video Review-{0} {1}-BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        break;
+                    case "53":
+                        metaDesc = String.Format("Do It Yourself tips for {0} {1}.  Watch Do It Yourself tips for {0} {1} from BikeWale's Experts.",videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("Do It Yourself-{0} {1}-BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        break;
+                    default:
+                        metaDesc = "Check latest bike and scooter videos, watch BikeWale expert's take on latest bikes and scooters-features, performance, price, fuel economy, handling and more.";
+                        metaTitle = String.Format("{0}-BikeWale", videoModel.VideoTitle);
+                        break;
+                }
+            }
         }
 
         /// <summary>
