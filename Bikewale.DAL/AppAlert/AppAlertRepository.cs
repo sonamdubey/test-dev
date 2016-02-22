@@ -42,7 +42,7 @@ namespace Bikewale.DAL.AppAlert
                         cmd.Parameters.Add("@imei", SqlDbType.VarChar, 50).Value = imei;
                         cmd.Parameters.Add("@Gcmid", SqlDbType.VarChar, 200).Value = gcmId;
                         cmd.Parameters.Add("@osType", SqlDbType.TinyInt).Value = osType;
-                        cmd.Parameters.Add("@subsMasterId", SqlDbType.Int).Value = subsMasterId;
+                        cmd.Parameters.Add("@subsMasterId", SqlDbType.VarChar).Value = subsMasterId;
 
                         con.Open();
                         cmd.ExecuteNonQuery();
