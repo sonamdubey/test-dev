@@ -4,8 +4,9 @@
 <html>
 <head>
     <%   
-        AdId = "1395986297721";
-        AdPath = "/1017752/BikeWale_New_";
+        title = videoModel.VideoTitle;
+		//Description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price));
+        //canonical = "";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
@@ -41,7 +42,13 @@
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
                             <li><a href="/"><span>Home</span></a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>Videos</li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><a href="/bike-videos/">Bike Videos</a></li>
+                            <%--<%if(isMakeModelTag){ %>
+                            <li><span class="fa fa-angle-right margin-right10"></span><%=videoModel.MakeName %></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><%=videoModel.ModelName %></li>
+                            <%} else{ %>
+                            <%} %>--%>
+                            <li><span class="fa fa-angle-right margin-right10"></span><%=videoModel.VideoTitle %></li>
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5"><%=videoModel.VideoTitle%></h1>
@@ -64,7 +71,7 @@
                         <p class="video-views-counts padding-left20 font14 leftfloat">
                             <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%=videoModel.Likes %></span>
                         </p>
-                        <p class="rightfloat text-light-grey font12">November 25, 2015</p>
+                        <p class="rightfloat text-light-grey font12"><%=videoModel.DisplayDate %></p>
                         <p class="clear"></p>
                     </div>
                 </div>

@@ -6,6 +6,7 @@ using Bikewale.controls;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
@@ -22,6 +23,7 @@ namespace Bikewale.Videos
         protected BikeVideoEntity videoModel;
         protected SimilarVideos ctrlSimilarVideos;
         protected uint videoId = 0;
+        protected bool isMakeModelTag = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -35,6 +37,7 @@ namespace Bikewale.Videos
             BindSimilarVideoControl();
             BindVideoDetails();
         }
+
         /// <summary>
         /// Read video Id from query string
         /// </summary>
@@ -52,8 +55,9 @@ namespace Bikewale.Videos
         private void BindSimilarVideoControl()
         {
             ctrlSimilarVideos.TopCount = 6;
+            ctrlSimilarVideos.VideoBasicId = videoId;
             ctrlSimilarVideos.sectionTitle = "Related videos";
-            ctrlSimilarVideos.BasicId = 20156;
+            //ctrlSimilarVideos.BasicId = 20156;
         }
         /// <summary>
         /// API call to fetch Video details
@@ -76,6 +80,10 @@ namespace Bikewale.Videos
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
+                    if (videoModel.MakeName != null || videoModel.ModelName != null)
+                        isMakeModelTag = true;
+                    if (!string.IsNullOrEmpty(videoModel.DisplayDate))
+                        videoModel.DisplayDate = FormatDate.GetFormatDate(videoModel.DisplayDate, "MMMM dd, yyyy");
                 }
             }
             catch (Exception ex)

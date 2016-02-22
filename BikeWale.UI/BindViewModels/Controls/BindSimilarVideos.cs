@@ -23,7 +23,7 @@ namespace Bikewale.BindViewModels.Controls
         public EnumVideosCategory CategoryId { get; set; }
         public uint VideoBasicId { get; set; }
 
-        public void BindVideos(Repeater rptSimilarVideos)
+        public void BindVideos(Repeater rptSimilarVideos, uint basicID)
         {
             //if (rptSimilarVideos == null)
             //    rptSimilarVideos = new Repeater();
@@ -38,7 +38,7 @@ namespace Bikewale.BindViewModels.Controls
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    objVideosList = objCache.GetSimilarVideos(VideoBasicId, TotalRecords);
+                    objVideosList = objCache.GetSimilarVideos(basicID, TotalRecords);
 
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
