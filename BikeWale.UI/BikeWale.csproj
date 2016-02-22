@@ -2371,6 +2371,7 @@
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\Used\search.js" />
+    <Content Include="statichtml\tnc.html" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test.aspx" />
     <!--     <Content Include="test\css\bw-new-style.css" />
