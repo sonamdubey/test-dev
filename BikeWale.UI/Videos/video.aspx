@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.video" AutoEventWireup="false" %>
 <!DOCTYPE html>
+<%@ Register Src="~/controls/SimilarVideos.ascx" TagName="SimilarVideos" TagPrefix="BW" %>
 <html>
 <head>
     <%   
@@ -26,10 +27,14 @@
         .video-likes-icon { width:15px; height:15px; background-position:-84px -277px; position:relative; top:2px; }
         .more-videos-link { display:block; margin-top:5px; margin-bottom:25px; }
     </style>
+    <link rel="stylesheet" href="/css/jquery.floating-social-share.css">
+    <%--<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">--%>
+
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
+        <% if(videoModel!= null) { %>
         <section>
             <div class="container">
                 <div class="grid-12">
@@ -39,25 +44,25 @@
                             <li><span class="fa fa-angle-right margin-right10"></span>Videos</li>
                         </ul>
                     </div>
-                    <h1 class="font26 margin-bottom5">Bajaj Pulsar RS 200 vs Pulsar 220 DTSI - The New Fastest Indian | PowerDrift</h1>
+                    <h1 class="font26 margin-bottom5"><%=videoModel.VideoTitle%></h1>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-
         <section>
-            <div class="container">
+            <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20">
                         <div id="embedVideo" class="margin-bottom15">
-                            <iframe width="934" height="527" src="https://www.youtube.com/embed/Dt8nIGMlpSA" frameborder="0" allowfullscreen></iframe>
+                            <iframe width="934" height="527" src="<%=videoModel.VideoUrl %>" frameborder="0" allowfullscreen></iframe>
                         </div>
-                        <p class="font14 text-light-grey margin-bottom10">The Street Triple story is indeed that of Dr. Jekyll and Mr. Hyde. On one hand, it meekly seems like being an under powered expensive street fighter. And then on another, it fiercely shows you the joys of motorcycling. So if you chose the Triple, or suggested the Triple to your friend, remember to SHARE the video ahead tagging them! If they re-share it quoting you; You and your friend could get some exclusive PowerDrift merchandise!</p>
+                        <p class="font14 text-light-grey margin-bottom10"><%=videoModel.Description %>
+                        <p class="clear"></p>
                         <p class="video-views-counts border-light-right font14 leftfloat">
-                            <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
+                            <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma"><%=videoModel.Views %></span>
                         </p>
                         <p class="video-views-counts padding-left20 font14 leftfloat">
-                            <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">29,800</span>
+                            <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%=videoModel.Likes %></span>
                         </p>
                         <p class="rightfloat text-light-grey font12">November 25, 2015</p>
                         <p class="clear"></p>
@@ -65,29 +70,11 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            <ul class="video-social-wrapper">
-                <li class="fb-counter">
-                    <a href="">                    
-                        <span class="fa fa-facebook"></span>
-                        <span>1234</span>
-                    </a>
-                </li>
-                <li class="tw-counter">
-                    <a href="">                    
-                        <span class="fa fa-twitter"></span>
-                        <span>1234</span>
-                    </a>
-                </li>
-                <li class="gp-counter">
-                    <a href="">                    
-                        <span class="fa fa-google-plus"></span>
-                        <span>1234</span>
-                    </a>
-                </li>
-            </ul>
         </section>
-
-        <section>
+        <section class="margin-bottom30 <%= (ctrlSimilarVideos.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
+         <BW:SimilarVideos ID="ctrlSimilarVideos" runat="server" />              
+        </section>
+        <%--<section>
             <div class="container">
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Related videos</h2>
@@ -104,13 +91,14 @@
                                         <a href="" class="font14 text-bold text-default">Benelli TNT 300 vs Kawasaki Z250 l Review l Powerdrift</a>
                                         <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
                                         <div class="grid-6 alpha omega border-light-right font14">
-                                            <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
+                                            <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">54,564</span>
                                         </div>
                                         <div class="grid-6 omega padding-left20 font14">
-                                            <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
+                                            <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">11,254</span>
                                         </div>
                                         <div class="clear"></div>
-                                    </div>
+                                     </div>
+                                        
                                 </li>
                                 <li class="front">
                                     <div class="videocarousel-image-wrapper rounded-corner2">
@@ -211,19 +199,24 @@
                 </div>
                 <div class="clear"></div>
             </div>
-        </section>
+        </section>--%>
+        <% } %>
         <script type="text/javascript">
-            var videoSocialWrapper;
-            $(document).scroll(function () {
-                videoSocialWrapper = $('.video-social-wrapper');
-                if ((videoSocialWrapper.offset().top + 162) > $('.bg-footer').offset().top)
-                    videoSocialWrapper.css({ 'position': 'absolute', 'top': $('.bg-footer').offset().top - 162 });
-                else
-                    videoSocialWrapper.css({ 'position': 'fixed', 'top': '230px' });
+            $(function () {
+                try{
+                    $("body").floatingSocialShare();
+                    $('.comma').each(function (i, obj) {
+                        var y = formatPrice($(this).html());
+                        if (y != null)
+                            $(this).html(y);
+                    });
+                }catch(err){}
             });
         </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
     </form>
+    <script type="text/javascript" src="/src/jquery.floating-social-share.js">
+    </script>
 </body>
 </html>

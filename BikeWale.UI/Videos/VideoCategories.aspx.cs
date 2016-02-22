@@ -1,17 +1,11 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
 using Bikewale.Controls;
-using Bikewale.Entities.Pager;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using Bikewale.Notifications;
 
 namespace Bikewale.Videos
@@ -22,9 +16,12 @@ namespace Bikewale.Videos
     public class VideoCategories : System.Web.UI.Page
     {
         protected Repeater rptVideos;
-        protected string categoryId = string.Empty;
         protected string category = string.Empty;
         protected string maxPage = string.Empty;
+        protected LinkPagerControl repeaterPager;
+        protected uint categoryId = 0;
+        protected string make = string.Empty;
+        protected string model = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {

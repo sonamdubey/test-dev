@@ -1,15 +1,11 @@
 ﻿using Bikewale.DAL.Videos;
 using Bikewale.Entities.Videos;
-using Bikewale.Interfaces.PhotoGallery;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.BAL.Videos
@@ -38,15 +34,22 @@ namespace Bikewale.BAL.Videos
             }
         }
 
-
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, uint totalCount)
+        /// <summary>
+        /// Created By : Sushil Kumar K
+        /// Created On : 18th February 2016
+        /// Description : To egt BIke Videos by Category
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="totalCount"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, uint totalCount, uint pageNum)
         {
             IEnumerable<BikeVideoEntity> objVideosList = null;
-            uint pageNo = 1;
+            //uint pageNo = 1;
             try
             {
 
-                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)categoryId,pageNo, totalCount);
+                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)categoryId, pageNum, totalCount);
 
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
@@ -62,6 +65,45 @@ namespace Bikewale.BAL.Videos
             return objVideosList;
         }
 
+
+        /// <summary>
+        /// Created By : Sushil Kumar K
+        /// Created On : 18th February 2016
+        /// Description : To get Bike Videos by Category/Categories
+        /// </summary>
+        /// <param name="categoryIdList"></param>
+        /// <param name="pageNo"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeVideoEntity> GetVideosBySubCategory(string categoryIdList, uint pageNo, uint pageSize)
+        {
+            IEnumerable<BikeVideoEntity> objVideosList = null;
+            try
+            {
+                string _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId=2&pageNo={1}&pageSize={2}", categoryIdList, pageNo, pageSize);
+
+                using (BWHttpClient objclient = new BWHttpClient())
+                {
+                    objVideosList = objclient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objVideosList;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar K
+        /// Created On : 18th February 2016
+        /// Description : To get Bike Similar Videos  based on videoBasic Id
+        /// </summary>
+        /// <param name="videoId"></param>
+        /// <param name="totalCount"></param>
+        /// <returns></returns>
         public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId, uint totalCount)
         {
             IEnumerable<BikeVideoEntity> objVideosList = null;
@@ -83,5 +125,35 @@ namespace Bikewale.BAL.Videos
 
             return objVideosList;
         }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar K
+        /// Created On : 18th February 2016
+        /// Description : To get video details based on videoBasic Id
+        /// </summary>
+        /// <param name="videoBasicId"></param>
+        /// <returns></returns>
+        public BikeVideoEntity GetVideoDetails(uint videoBasicId)
+        {
+            BikeVideoEntity objVideo = null;
+            try
+            {
+                string _apiUrl = String.Format("/api/v1/videos/{0}/?appId=2", videoBasicId);
+
+                using (BWHttpClient objclient = new BWHttpClient())
+                {
+                    objVideo = objclient.GetApiResponseSync<BikeVideoEntity>(APIHost.CW, _requestType, _apiUrl, objVideo);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objVideo;
+        }
+
     }
 }

@@ -1,36 +1,44 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
-using Bikewale.DAL.Videos;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.BindViewModels.Controls
 {
-    public class BindVideosLandingControl
+
+    /// <summary>
+    /// Created By : Sushil Kumar K
+    /// Created On : 19th February 2016
+    /// Description : Bind Repeater with sub category wise by using new videos api for single/multiple categories at once
+    /// </summary>
+    public class BindVideosSectionSubCatwise
     {
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
-        public EnumVideosCategory CategoryId { get; set; }
+        public string CategoryIdList { get; set; }
+       
         public BikeVideoEntity FirstVideoRecord { get; set; }
+        private IEnumerable<BikeVideoEntity> objVideosList { get; set; }
 
-        public void BindVideos(Repeater rptr)
+        [System.ComponentModel.DefaultValue(0)]
+        public int DoSkip { get; set; }
+
+        [System.ComponentModel.DefaultValue(1)]
+        public uint PageNo { get; set; }
+
+        public void FetchVideos()
         {
             FetchedRecordsCount = 0;
-            IEnumerable<BikeVideoEntity> objVideosList = null;
-            uint pageNo = 1;
             try
             {
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IVideosCacheRepository, VideosCacheRepository>()
@@ -38,7 +46,7 @@ namespace Bikewale.BindViewModels.Controls
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    objVideosList = objCache.GetVideosByCategory(CategoryId, TotalRecords);
+                    objVideosList = objCache.GetVideosBySubCategory(CategoryIdList, PageNo ,TotalRecords);
 
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
@@ -47,13 +55,31 @@ namespace Bikewale.BindViewModels.Controls
                         if (FetchedRecordsCount > 0)
                         {
                             FirstVideoRecord = objVideosList.FirstOrDefault();
-                            rptr.DataSource = objVideosList.Skip(1);
-                            rptr.DataBind();
                         }
                     }
 
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
 
+        public void BindVideos(Repeater rptr)
+        {
+            try
+            {
+                if (DoSkip == 0)
+                {
+                    rptr.DataSource = objVideosList;
+                }
+                else
+                {
+                    rptr.DataSource = objVideosList.Skip(DoSkip);
+                }
+                rptr.DataBind();
             }
             catch (Exception ex)
             {
