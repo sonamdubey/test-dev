@@ -102,13 +102,16 @@
                 beforeSend: function (xhr) {
                     viewModelPopup.bookingCities([]);
                     viewModelPopup.bookingAreas([]);
-                    viewModelPopup.selectedCity(0);
-                    preSelectedCityId = 0;
-                    viewModelPopup.selectedArea(0);
+                    //viewModelPopup.selectedCity(0);
+                    //preSelectedCityId = 0;
+                    //viewModelPopup.selectedArea(0);
                     startLoading($("#divCityLoader"));
                     if (data = lscache.get(modelCityKey)) {
                         var cities = ko.toJS(data);                        
                         if (cities) {
+                            selectedModel = modelId;
+                            insertCitySeparatorNew(cities);
+                            checkCookies();
                             stopLoading($("#divCityLoader"));                            
                             $("#divCityLoader .placeholder-loading-text").hide();
                             viewModelPopup.bookingCities(data);
@@ -131,11 +134,11 @@
 
                     lscache.set(modelCityKey, response.cities, 60);
                     var cities = response.cities;                    
-                    if (cities) {
-                        insertCitySeparatorNew(cities);
-                        checkCookies();
+                    if (cities) {                        
                         stopLoading($("#divCityLoader"));
                         $("#divCityLoader .placeholder-loading-text").hide();
+                        insertCitySeparatorNew(cities);
+                        checkCookies();
                         viewModelPopup.bookingCities(cities);                        
                     }
                     else {
@@ -196,8 +199,8 @@
                     dataType: 'json',
                     beforeSend: function (xhr) {
                         viewModelPopup.bookingAreas([]);
-                        viewModelPopup.selectedArea(0);
-                        $("#divAreaLoader").removeClass("hide");
+                        //viewModelPopup.selectedArea(0);
+                        $("#divAreaLoader").show();
                         $("#divAreaLoader .placeholder-loading-text").show();
                         startLoading($("#divAreaLoader"));                        
                         if (data = lscache.get(cityAreaKey)) {
@@ -209,9 +212,9 @@
                                 isAborted = true;
                                 xhr.abort();
                             }
-                            else {
-                                viewModelPopup.bookingAreas([]);
-                            }
+                            //else {
+                            //    viewModelPopup.bookingAreas([]);
+                            //}
                         }
                     },
                     success: function (response) {
@@ -222,15 +225,13 @@
                             $("#divAreaLoader .placeholder-loading-text").hide();
                             viewModelPopup.bookingAreas(areas);                                                      
                         }
-                        else {
-                            viewModelPopup.selectedArea(0);
+                        else {                            
                             viewModelPopup.bookingAreas([]);
-                            $("#divAreaLoader").addClass("hide");
+                            $("#divAreaLoader").hide();
                             $('#ddlAreaPopup').trigger("chosen:updated");                           
                         }
                     },
-                    error: function (e) {
-                        viewModelPopup.selectedArea(0);
+                    error: function (e) {                        
                         viewModelPopup.bookingAreas([]);
                         $('#ddlAreaPopup').trigger("chosen:updated");
                     },
@@ -241,11 +242,11 @@
             }
             else {
                 viewModelPopup.bookingAreas([]);
-                $("#divAreaLoader").addClass("hide");
+                $("#divAreaLoader").hide();
             }
         } else {
             viewModelPopup.bookingAreas([]);
-            $("#divAreaLoader").addClass("hide");
+            $("#divAreaLoader").hide();
         }
 
         if (isAborted)
