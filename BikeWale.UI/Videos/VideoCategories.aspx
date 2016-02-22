@@ -3,10 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%
-        string[] strVideo = Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(cId, make, model);
-        title = strVideo[0];
-        description = strVideo[1];
+    <%        
+        Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(categoryId, out title, out description, make, model);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/videocategory.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />

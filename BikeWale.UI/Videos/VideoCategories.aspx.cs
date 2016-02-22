@@ -6,7 +6,7 @@ namespace Bikewale.Videos
     public class VideoCategories : System.Web.UI.Page
     {
         protected LinkPagerControl repeaterPager;
-        protected uint cId = 0;
+        protected uint categoryId = 0;
         protected string make = string.Empty;
         protected string model = string.Empty;
 
