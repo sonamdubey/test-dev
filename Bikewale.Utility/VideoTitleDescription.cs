@@ -2,7 +2,7 @@
 using System;
 namespace Bikewale.Utility
 {
-    public static class VideoTitleDescription
+    public class VideoTitleDescription
     {
         /// <summary>
         /// Author : Vivek Gupta
@@ -11,35 +11,34 @@ namespace Bikewale.Utility
         /// </summary>
         /// <param name="cId"></param>
         /// <returns></returns>
-        public static string[] VideoTitleDesc(uint cId, string make, string model)
+        public static void VideoTitleDesc(uint cId, out string title, out string desc, string make = null, string model = null)
         {
-            string[] strVideos = new string[2];
+            string descText = "Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more";
+
             switch (cId)
             {
                 case 1:
-                    strVideos[0] = "Bike Launch Video Review - BikeWale";
-                    strVideos[1] = "Bike Launch Videos. Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more";
+                    title = "Bike Launch Video Review - BikeWale";
+                    desc = "Bike Launch Videos- " + descText;
                     break;
                 case 3:
-                    strVideos[0] = String.Format("Expert Video Review - {0} {1} -  BikeWale", make, model);
-                    strVideos[1] = "Expert Video Reviews- Watch BikeWale Expert's Take on Reviews of Bikes and Scooters- Features, performance, price, fuel economy, handling and more.";
+                    title = String.Format("Expert Video Review - {0} {1} -  BikeWale", make, model);
+                    desc = "Expert Video Reviews- " + descText;
                     break;
                 case 6:
-                    strVideos[0] = "Bike Launch Video Review - BikeWale";
-                    strVideos[1] = "Bike Launch Videos. Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more";
+                    title = "Bike Launch Video Review - BikeWale";
+                    desc = "Bike Launch Videos. " + descText;
                     break;
                 case 7:
-                    strVideos[0] = "First Ride Video Review - BikeWale";
-                    strVideos[1] = "First Ride Video Reviews - Watch BikeWale Expert's Take on the First Ride of Bikes and Scooters - Features, performance, price, fuel economy, handling and more.";
+                    title = "First Ride Video Review - BikeWale";
+                    desc = "First Ride Video Reviews - " + descText;
                     break;
 
                 default:
-                    strVideos[0] = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison -   BikeWale";
-                    strVideos[1] = "Check latest bike and scooter videos, watch BikeWale expert's Take on latest bikes and scooters - features, performance, price, fuel economy, handling and more.";
+                    title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison -   BikeWale";
+                    desc = "Check latest bike and scooter videos, " + descText;
                     break;
             }
-
-            return strVideos;
         }
     }
 }
