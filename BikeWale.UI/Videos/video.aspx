@@ -4,7 +4,9 @@
 <html>
 <head>
     <%   
-        title = videoModel.VideoTitle;
+        title = metaTitle;
+        description = metaDesc;
+        keywords = metaKeywords;
 		//Description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price));
         //canonical = "";
     %>
@@ -30,7 +32,6 @@
     </style>
     <link rel="stylesheet" href="/css/jquery.floating-social-share.css">
     <%--<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">--%>
-
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
@@ -41,8 +42,11 @@
                 <div class="grid-12">
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
-                            <li><a href="/"><span>Home</span></a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><a href="/bike-videos/">Bike Videos</a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title">Home</span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><a href="/bike-videos/"><span itemprop="title">Bike Videos</span></a></li>
+                            <% if(!String.IsNullOrEmpty(videoModel.SubCatName)) {%>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><a href="<%= Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(videoModel.SubCatName, videoModel.SubCatId) %>"><span itemprop="title"><%=videoModel.SubCatName %></span></a></li>
+                            <% } %>
                             <%--<%if(isMakeModelTag){ %>
                             <li><span class="fa fa-angle-right margin-right10"></span><%=videoModel.MakeName %></li>
                             <li><span class="fa fa-angle-right margin-right10"></span><%=videoModel.ModelName %></li>
