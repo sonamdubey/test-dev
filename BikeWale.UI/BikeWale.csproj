@@ -280,7 +280,6 @@
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
-    <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
@@ -472,6 +471,10 @@
     </Compile>
     <Compile Include="controls\ExpertReviews.ascx.cs">
       <DependentUpon>ExpertReviews.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ExpertReviewsVideos.ascx.cs">
+      <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\FeaturedBike.ascx.cs">
@@ -672,10 +675,6 @@
     </Compile>
     <Compile Include="controls\Videos.ascx.cs">
       <DependentUpon>Videos.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\ExpertReviewsVideos.ascx.cs">
-      <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\VideosControl.ascx.cs">
@@ -1263,16 +1262,8 @@
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Videos\video_old.aspx.cs">
-      <DependentUpon>video_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Videos\video.aspx.cs">
       <DependentUpon>video.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Videos\VideoCategories_old.aspx.cs">
-      <DependentUpon>VideoCategories_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Videos\VideoCategories.aspx.cs">
@@ -1645,6 +1636,7 @@
     <Content Include="controls\DiscussIt.ascx" />
     <Content Include="controls\EMICalculatorMin.ascx" />
     <Content Include="controls\ExpertReviews.ascx" />
+    <Content Include="controls\ExpertReviewsVideos.ascx" />
     <Content Include="controls\FeaturedBike.ascx" />
     <Content Include="controls\ForumsMin.ascx" />
     <Content Include="controls\HomePageBanner.ascx" />
@@ -1698,7 +1690,6 @@
     <Content Include="controls\VideoByCategory.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\Videos.ascx" />
-    <Content Include="controls\ExpertReviewsVideos.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
     <Content Include="css\bookingconfig.css" />
@@ -1743,7 +1734,6 @@
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
     <Content Include="css\video.css" />
-    <Content Include="css\videocategory.css" />
     <Content Include="Default_old.aspx" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
@@ -2363,6 +2353,7 @@
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\Used\search.js" />
+    <Content Include="src\Videos\videoPaging.js" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test.aspx" />
     <!--     <Content Include="test\css\bw-new-style.css" />
@@ -2405,9 +2396,7 @@
     <Content Include="users\registrationConfirmation.aspx" />
     <Content Include="users\ResetCustomerPassword.aspx" />
     <Content Include="Videos\default.aspx" />
-    <Content Include="Videos\video_old.aspx" />
     <Content Include="Videos\video.aspx" />
-    <Content Include="Videos\VideoCategories_old.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="VisitorAgreement.aspx" />
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe" />
