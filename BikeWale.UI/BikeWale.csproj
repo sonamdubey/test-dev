@@ -280,11 +280,14 @@
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsersTestimonialControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindVideosSectionCatwise.cs" />
+    <Compile Include="BindViewModels\Controls\BindVideosSectionSubCatwise.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
@@ -612,6 +615,10 @@
       <DependentUpon>SimilarBikesHorizontal.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\SimilarVideos.ascx.cs">
+      <DependentUpon>SimilarVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\TipsAdvicesMin.ascx.cs">
       <DependentUpon>TipsAdvicesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -660,8 +667,20 @@
       <DependentUpon>UsersTestimonials.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\VideoByCategory.ascx.cs">
+      <DependentUpon>VideoByCategory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\VideoCarousel.ascx.cs">
       <DependentUpon>VideoCarousel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\Videos.ascx.cs">
+      <DependentUpon>Videos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ExpertReviewsVideos.ascx.cs">
+      <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\VideosControl.ascx.cs">
@@ -1249,12 +1268,20 @@
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Videos\video_old.aspx.cs">
+      <DependentUpon>video_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Videos\video.aspx.cs">
       <DependentUpon>video.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Videos\VideoCategories.aspx.cs">
-      <DependentUpon>VideoCategories.aspx</DependentUpon>
+    <Compile Include="Videos\VideoCategories_old.aspx.cs">
+      <DependentUpon>VideoCategories_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Videos\videocategories.aspx.cs">
+      <DependentUpon>videocategories.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
@@ -1661,6 +1688,7 @@
     <Content Include="controls\RoadTestMin.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarBikesHorizontal.ascx" />
+    <Content Include="controls\SimilarVideos.ascx" />
     <Content Include="controls\TipsAdvicesMin.ascx" />
     <Content Include="controls\TopUsedListedBike.ascx" />
     <Content Include="controls\UpcomingBikeHome.ascx" />
@@ -1673,7 +1701,10 @@
     <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UserReviewsMin.ascx" />
     <Content Include="controls\UsersTestimonials.ascx" />
+    <Content Include="controls\VideoByCategory.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
+    <Content Include="controls\Videos.ascx" />
+    <Content Include="controls\ExpertReviewsVideos.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
     <Content Include="css\bookingconfig.css" />
@@ -1706,6 +1737,7 @@
     <Content Include="css\insurance.css" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
+    <Content Include="css\jquery.floating-social-share.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
     <Content Include="css\new\search.css" />
@@ -1717,6 +1749,8 @@
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
+    <Content Include="css\video.css" />
+    <Content Include="css\videocategory.css" />
     <Content Include="Default_old.aspx" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
@@ -2317,6 +2351,7 @@
     <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <!-- <Content Include="src\knockout.js" /> -->
+    <Content Include="src\jquery.floating-social-share.js" />
     <Content Include="src\login\login.js" />
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />
@@ -2336,6 +2371,7 @@
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\Used\search.js" />
+    <Content Include="statichtml\tnc.html" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test.aspx" />
     <!--     <Content Include="test\css\bw-new-style.css" />
@@ -2378,8 +2414,10 @@
     <Content Include="users\registrationConfirmation.aspx" />
     <Content Include="users\ResetCustomerPassword.aspx" />
     <Content Include="Videos\default.aspx" />
+    <Content Include="Videos\video_old.aspx" />
     <Content Include="Videos\video.aspx" />
-    <Content Include="Videos\VideoCategories.aspx" />
+    <Content Include="Videos\VideoCategories_old.aspx" />
+    <Content Include="Videos\videocategories.aspx" />
     <Content Include="VisitorAgreement.aspx" />
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe" />
     <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe" />
@@ -2419,7 +2457,7 @@
     <Content Include="m\fonts\fontawesome-webfont.woff" />
     <Content Include="m\fonts\FontAwesome.otf" />
     <Content Include="images\ratings\Thumbs.db" />
-	<Content Include="bin\*.*" />
+    <Content Include="bin\*.*" />
     <!-- <Content Include="images\model-sprite_tmp5443" /> -->
     <!-- <Content Include="images\ratings\ratings\Thumbs.db" /> -->
     <None Include="Web.Debug.config">
