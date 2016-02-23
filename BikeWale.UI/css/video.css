@@ -11,7 +11,7 @@
 .sidebar-video-title { width:160px; height:auto; display:inline-block; vertical-align:middle; }
 .sidebar-video-title:hover { color:#4d5057; }
 .sidebar-video-image img { width:100%; position:relative; top:-10px; }
-.powerdrift-banner { background:url('/images/powerdrift-banner.jpg') no-repeat center; height:129px; }
+.powerdrift-banner { background:url('http://img.aeplcdn.com/bikewaleimg/images/d-powerdrift-banner.jpg') no-repeat center; height:129px; }
 .powerdrift-banner h3 { line-height:1.7; }
 .margin-top35 { margin-top:35px; }
 .powerdrift-subscribe { padding:15px 15px 10px; margin-top:25px; margin-right:25px; background:#fff; }
@@ -23,5 +23,5 @@
 .video-views-icon { width:17px; height:13px; background-position:-59px -303px; }
 .video-likes-icon { width:15px; height:15px; background-position:-84px -277px; position:relative; top:2px; }
 .border-light-right { border-right:1px solid #e2e2e2; }
-.more-videos-link { display:block; margin-top:5px; margin-bottom:25px; }
+.more-videos-link { width:200px; display:block; margin:5px auto 25px; }
 .reviews-image-wrapper { width:458px; height:258px; margin-bottom:15px; border:1px solid #e2e2e2; overflow:hidden; text-align:center; }

@@ -1,15 +1,11 @@
 ﻿using Bikewale.DAL.Videos;
 using Bikewale.Entities.Videos;
-using Bikewale.Interfaces.PhotoGallery;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.BAL.Videos
@@ -46,14 +42,14 @@ namespace Bikewale.BAL.Videos
         /// <param name="categoryId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount)
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount, uint pageNum)
         {
             IEnumerable<BikeVideoEntity> objVideosList = null;
-            uint pageNo = 1;
+            //uint pageNo = 1;
             try
             {
 
-                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)categoryId, pageNo, totalCount);
+                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)categoryId, pageNum, totalCount);
 
                 using (BWHttpClient objclient = new BWHttpClient())
                 {

@@ -1,15 +1,17 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Videos.VideoCategories" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Videos.VideoCategories" EnableViewState="false" %>
+
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="/controls/LinkPagerControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <%
-        string[] strVideo = Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(cId, make, model);
-        title = strVideo[0];
-        description = strVideo[1];
+    <%        
+        Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(categoryId, out title, out description, make, model);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/videocategory.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
+    <%
+        isAd970x90Shown = false;
+         %>
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
@@ -23,186 +25,83 @@
                             <li><span class="fa fa-angle-right margin-right10"></span>Videos</li>
                         </ul>
                     </div>
-                    <h1 class="font26 margin-bottom5">Miscellaneous</h1>
+                    <h1 class="font26 margin-bottom5"><%= category %></h1>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
 
         <section>
-            <div id="miscWrapper" class="container">  
-                <ul>
-                    <li>
-                        <div class="video-image-wrapper rounded-corner2">
-                            <a href="">
-                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/hero-ignitor-drum-brake-99.jpg?20151209181302" alt="" title="" src="" border="0"/>
-                            </a>
-                        </div>
-                        <div class="video-desc-wrapper">
-                            <a href="" class="font14 text-bold text-default">Benelli TNT 300 vs Kawasaki Z250 l Review l Powerdrift</a>
-                            <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                            <div class="grid-6 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                            </div>
-                            <div class="grid-6 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="video-image-wrapper rounded-corner2">
-                            <a href="">
-                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/hero-achiever-disc-self-90.jpg?20151209181112" alt="" title="" src="" border="0"/>
-                            </a>
-                        </div>
-                        <div class="video-desc-wrapper">
-                            <a href="" class="font14 text-bold text-default">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                            <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                            <div class="grid-6 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                            </div>
-                            <div class="grid-6 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="video-image-wrapper rounded-corner2">
-                            <a href="">
-                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-livo-self-drum-alloy-828.jpg?20151209184857" alt="" title="" src="" border="0"/>
-                            </a>
-                        </div>
-                        <div class="video-desc-wrapper">
-                            <a href="" class="font14 text-bold text-default">Kawasaki Z800 Review  I  PowerDrift</a>
-                            <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                            <div class="grid-6 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                            </div>
-                            <div class="grid-6 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="video-image-wrapper rounded-corner2">
-                            <a href="">
-                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/hero-glamour-fi-standard-480.jpg?20151209181142" alt="" title="" src="" border="0"/>
-                            </a>
-                        </div>
-                        <div class="video-desc-wrapper">
-                            <a href="" class="font14 text-bold text-default">Benelli TNT 300 vs Kawasaki Z250 l Review l Powerdrift</a>
-                            <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                            <div class="grid-6 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                            </div>
-                            <div class="grid-6 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="video-image-wrapper rounded-corner2">
-                            <a href="">
-                                <img class="lazy" data-original="http://imgd4.aeplcdn.com//310x174//bw/models/honda-cb-shinesp.jpg?20151911151047" alt="" title="" src="" border="0"/>
-                            </a>
-                        </div>
-                        <div class="video-desc-wrapper">
-                            <a href="" class="font14 text-bold text-default">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                            <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                            <div class="grid-6 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                            </div>
-                            <div class="grid-6 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="video-image-wrapper rounded-corner2">
-                            <a href="">
-                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/bajaj-discover-150s-drum-768.jpg?20151209174336" alt="" title="" src="" border="0"/>
-                            </a>
-                        </div>
-                        <div class="video-desc-wrapper">
-                            <a href="" class="font14 text-bold text-default">Kawasaki Z800 Review  I  PowerDrift</a>
-                            <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                            <div class="grid-6 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                            </div>
-                            <div class="grid-6 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="video-image-wrapper rounded-corner2">
-                            <a href="">
-                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cb-shine-kick/drum/spokes-111.jpg?20151209184344" alt="" title="" src="" border="0"/>
-                            </a>
-                        </div>
-                        <div class="video-desc-wrapper">
-                            <a href="" class="font14 text-bold text-default">Benelli TNT 300 vs Kawasaki Z250 l Review l Powerdrift</a>
-                            <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                            <div class="grid-6 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                            </div>
-                            <div class="grid-6 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="video-image-wrapper rounded-corner2">
-                            <a href="">
-                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-livo-self-drum-alloy-828.jpg?20151209184857" alt="" title="" src="" border="0"/>
-                            </a>
-                        </div>
-                        <div class="video-desc-wrapper">
-                            <a href="" class="font14 text-bold text-default">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                            <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                            <div class="grid-6 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                            </div>
-                            <div class="grid-6 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="video-image-wrapper rounded-corner2">
-                            <a href="">
-                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-dream-yuga-kick/non-alloy-108.jpg?20151209184821" alt="" title="" src="" border="0"/>
-                            </a>
-                        </div>
-                        <div class="video-desc-wrapper">
-                            <a href="" class="font14 text-bold text-default">Kawasaki Z800 Review  I  PowerDrift</a>
-                            <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                            <div class="grid-6 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                            </div>
-                            <div class="grid-6 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </li>
+            <div class="miscWrapper container">
+                <ul id="listVideos1">
+                    <asp:Repeater ID="rptVideos" runat="server">
+                        <ItemTemplate>
+                            <li>
+                                <div class="video-image-wrapper rounded-corner2">
+                                    <a href="<%# "/bike-videos/" + (DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString()) + "/" %>">
+                                        <img class="lazy" data-original="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>"
+                                            alt="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="" border="0" />
+                                    </a>
+                                </div>
+                                <div class="video-desc-wrapper">
+                                    <a href="<%# "/bike-videos/" + (DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString()) + "/" %> " class="font14 text-bold text-default"><%# DataBinder.Eval(Container.DataItem,"VideoTitle") %></a>
+                                    <p class="font12 text-light-grey margin-top10 margin-bottom10"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy")  %></p>
+                                    <div class="grid-6 alpha omega border-light-right font14">
+                                        <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default"><%# DataBinder.Eval(Container.DataItem,"Views") %></span>
+                                    </div>
+                                    <div class="grid-6 omega padding-left20 font14">
+                                        <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default"><%# DataBinder.Eval(Container.DataItem,"Likes") %></span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </li>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </ul>
                 <div class="clear"></div>
             </div>
+            <div style="text-align: center;">
+                <div id="NoBikeResults" class="hide">
+                    <img src="/images/no_result_d.png" />
+                </div>
+                <div id="loading" class="hide">
+                    <img src="/images/search-loading.gif" />
+                </div>
+            </div>
         </section>
+        <script type="text/html" id="templetVideos">
+            <li>
+                <div class="video-image-wrapper rounded-corner2">
+                    <a data-bind="attr: { href: '/bike-videos/' + VideoTitleUrl() + '-' + BasicId() + '/' }">
+                        <img class="lazy" data-bind="attr: { title: VideoTitle(), alt: VideoTitle(), src: '' }, lazyload: 'http://img.youtube.com/vi/' + VideoId() + '/mqdefault.jpg' "
+                            src="" border="0" />
+                    </a>
+                </div>
+                <div class="video-desc-wrapper">
+                    <a href="" class="font14 text-bold text-default" data-bind="text: VideoTitle(), attr: { href: '/bike-videos/' + VideoTitleUrl() + '-' + BasicId() + '/' }"></a>
+                    <p class="font12 text-light-grey margin-top10 margin-bottom10" data-bind="formateDate: DisplayDate()"></p>
+                    <div class="grid-6 alpha omega border-light-right font14">
+                        <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default" data-bind="text: Views()"></span>
+                    </div>
+                    <div class="grid-6 omega padding-left20 font14">
+                        <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default" data-bind="text: Likes()"></span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </li>
+        </script>
         <script type="text/javascript">
-            $(document).ready(function () { $("img.lazy").lazyload(); });
+            var catId = 2;<%--//chage it '<%= categoryId %>';--%>
+            var isNextPage = true;
+            $(document).ready(function () {
+                $("img.lazy").lazyload();
+                window.location.hash = "";
+            });
         </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
+        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/Videos/videoByCategory.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

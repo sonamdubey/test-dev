@@ -4,12 +4,9 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Cache.Videos
-{   
+{
     /// <summary>
     /// Created By : Sushil Kumar K
     /// Created On : 18th February 2016
@@ -25,7 +22,7 @@ namespace Bikewale.Cache.Videos
             _VideosRepository = videosRepository;
         }
 
-        #region Get Bike Videos by Category  
+        #region Get Bike Videos by Category
         /// <summary>
         /// Created By : Sushil Kumar K
         /// Created On : 18th February 2016
@@ -34,7 +31,7 @@ namespace Bikewale.Cache.Videos
         /// <param name="categoryId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount)
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount, uint pageNum)
         {
             IEnumerable<BikeVideoEntity> videosList = null;
             string key = string.Empty;
@@ -65,7 +62,7 @@ namespace Bikewale.Cache.Videos
                         break;
                 }
 
-                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosByCategory(categoryId, totalCount));
+                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosByCategory(categoryId, totalCount, pageNum));
             }
             catch (Exception ex)
             {
@@ -73,10 +70,11 @@ namespace Bikewale.Cache.Videos
                 objErr.SendMail();
             }
             return videosList;
-        } 
+        }
+
         #endregion
 
-        #region Get Bike Videos by Sub Category/Categories   
+        #region Get Bike Videos by Sub Category/Categories
         /// <summary>
         /// Created By : Sushil Kumar K
         /// Created On : 18th February 2016
@@ -101,7 +99,7 @@ namespace Bikewale.Cache.Videos
                 objErr.SendMail();
             }
             return videosList;
-        } 
+        }
         #endregion
 
         #region Get Similar Bike Videos
@@ -128,7 +126,7 @@ namespace Bikewale.Cache.Videos
                 objErr.SendMail();
             }
             return videosList;
-        } 
+        }
         #endregion
 
         #region Get Video Details
@@ -154,7 +152,7 @@ namespace Bikewale.Cache.Videos
                 objErr.SendMail();
             }
             return video;
-        } 
+        }
         #endregion
     }
 }

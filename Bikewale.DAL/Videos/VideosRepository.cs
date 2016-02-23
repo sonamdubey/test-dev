@@ -2,9 +2,6 @@
 using Bikewale.Interfaces.Videos;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DAL.Videos
 {
@@ -15,7 +12,7 @@ namespace Bikewale.DAL.Videos
     /// </summary>
     public class VideosRepository : IVideos
     {
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory category ,ushort totalCount)
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount, uint pageNum)
         {
             throw new NotImplementedException();
         }

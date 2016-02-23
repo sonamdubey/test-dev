@@ -30,7 +30,7 @@ namespace Bikewale.BindViewModels.Controls
 
         public void FetchVideos()
         {
-            FetchedRecordsCount = 0;            
+            FetchedRecordsCount = 0;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -40,7 +40,7 @@ namespace Bikewale.BindViewModels.Controls
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    objVideosList = objCache.GetVideosByCategory(CategoryId, TotalRecords);
+                    objVideosList = objCache.GetVideosByCategory(CategoryId, TotalRecords, 1);//pageNum = 1 by defauly page no 1 data needed
 
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
@@ -62,7 +62,7 @@ namespace Bikewale.BindViewModels.Controls
         }
 
         public void BindVideos(Repeater rptr)
-        {            
+        {
             try
             {
                 if (DoSkip == 0)

@@ -1,9 +1,5 @@
 ﻿using Bikewale.Entities.Videos;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Interfaces.Videos
 {
@@ -14,10 +10,11 @@ namespace Bikewale.Interfaces.Videos
     /// </summary>
     public interface IVideosCacheRepository
     {
-        IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount);
+        IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount, uint pageNum);
         IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoBasicId, ushort totalCount);
         BikeVideoEntity GetVideoDetails(uint videoBasicId);
         BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize);
-        
+        IEnumerable<BikeVideoEntity> GetVideosBySubCategory(string categoryIdList, uint pageSize, uint pageNo);
+
     }
 }
