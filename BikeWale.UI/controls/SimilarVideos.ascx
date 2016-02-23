@@ -21,7 +21,7 @@
                 <p class="font12 text-light-grey margin-top10 margin-bottom10"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy")  %></p>
                 <div class="grid-6 alpha omega border-light-right font14">
                     <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma"><%# DataBinder.Eval(Container.DataItem,"Views") %></span></div>
-                <div class="grid-6 omega padding-left20 font14">
+                <div class="grid-6 omega padding-left20">
                     <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%# DataBinder.Eval(Container.DataItem,"Views") %></span></div>
                 <div class="clear"></div>
             </div>
