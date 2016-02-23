@@ -21,10 +21,10 @@ namespace Bikewale.Controls
     public class VideoByCategory : System.Web.UI.UserControl
     {
         protected Repeater rptVideosByCat;
-        public uint TotalRecords { get; set; }
+        public ushort TotalRecords { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
-        public string viewMoreURL { get; set; }        
-        public int FetchedRecordsCount { get; set; }
+        public string viewMoreURL { get; set; }
+        public ushort FetchedRecordsCount { get; set; }
         public string SectionTitle { get; set; }
         public string SectionBackgroundClass { get; set; }
         public BikeVideoEntity FirstVideoRecord { get; set; }

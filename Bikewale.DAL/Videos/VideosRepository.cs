@@ -12,12 +12,12 @@ namespace Bikewale.DAL.Videos
     /// </summary>
     public class VideosRepository : IVideos
     {
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory category, uint totalCount)
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId, uint totalCount)
+        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId , ushort totalCount)
         {
             throw new NotImplementedException();
         }
@@ -27,15 +27,9 @@ namespace Bikewale.DAL.Videos
             throw new NotImplementedException();
         }
 
-        public IEnumerable<BikeVideoEntity> GetVideosBySubCategory(string categoryIdList, uint pageSize, uint pageNo)
+        public BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize)
         {
             throw new NotImplementedException();
         }
-
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, uint totalCount, uint pageNum)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

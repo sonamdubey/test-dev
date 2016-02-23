@@ -14,6 +14,9 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/video.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
+    <%
+        isAd970x90Shown = false;
+         %>
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">

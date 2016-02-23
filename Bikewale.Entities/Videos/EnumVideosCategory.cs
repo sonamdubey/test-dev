@@ -15,7 +15,7 @@ namespace Bikewale.Entities.Videos
         FeaturedAndLatest = 1,
         MostPopular = 2,
         ExpertReviews = 3,
-        Miscelleneous = 4,
+        Miscelleneous = 4 ,
         InteriorShow = 5,
         JustLatest = 6,
         FirstDriveImpressions = 47,
