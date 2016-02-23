@@ -63,7 +63,7 @@ namespace Bikewale.Videos
                     titleName = StringHelper.Capitlization(titleName);
                     titleName = titleName.Replace('-', ' ');
                     pageHeading = string.Format("{0} Video", titleName); 
-                    titleName = string.Format("{0}  Review - BikeWale", titleName);
+                    titleName = string.Format("{0} Video Review - BikeWale", titleName);
                 }
                 descName = string.Format("{0} - Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more",
                 titleName);
