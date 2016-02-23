@@ -37,7 +37,7 @@ namespace Bikewale.Videos
             ctrlFirstRide.SectionTitle = "First Ride";
             ctrlFirstRide.SectionBackgroundClass = "";  
 
-            ctrlExpertReview.CategoryIdList = "47,48,50";
+            ctrlExpertReview.CategoryIdList = "47,55";
             ctrlExpertReview.TotalRecords = 2;
             ctrlExpertReview.SectionTitle = "Expert Reviews";
             ctrlFirstRide.SectionBackgroundClass = "bg-white";
@@ -54,7 +54,7 @@ namespace Bikewale.Videos
 
             ctrlTopMusic.CategoryIdList = "60";
             ctrlTopMusic.TotalRecords = 6;
-            ctrlTopMusic.SectionTitle = "PowerDrift Top Music ";
+            ctrlTopMusic.SectionTitle = "PowerDrift Top Music";
             ctrlTopMusic.SectionBackgroundClass = "";
 
             ctrlDoItYourself.CategoryIdList = "53";
