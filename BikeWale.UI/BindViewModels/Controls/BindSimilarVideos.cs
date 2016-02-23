@@ -18,7 +18,7 @@ namespace Bikewale.BindViewModels.Controls
 {
     public class BindSimilarVideos
     {
-        public uint TotalRecords { get; set; }
+        public ushort TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
         public uint VideoBasicId { get; set; }

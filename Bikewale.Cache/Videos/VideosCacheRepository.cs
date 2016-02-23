@@ -34,7 +34,7 @@ namespace Bikewale.Cache.Videos
         /// <param name="categoryId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, uint totalCount)
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> videosList = null;
             string key = string.Empty;
@@ -86,14 +86,14 @@ namespace Bikewale.Cache.Videos
         /// <param name="pageSize"></param>
         /// <param name="pageNo"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosBySubCategory(string categoryIdList, uint pageSize, uint pageNo)
+        public BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize)
         {
-            IEnumerable<BikeVideoEntity> videosList = null;
+            BikeVideosListEntity videosList = null;
             string key = string.Empty;
             try
             {
                 key = String.Format("BW_Videos_SubCat_{0}_Cnt_{1}", categoryIdList, pageSize);
-                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosBySubCategory(categoryIdList, pageSize, pageNo));
+                videosList = _cache.GetFromCache<BikeVideosListEntity>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosBySubCategory(categoryIdList, pageNo, pageSize));
             }
             catch (Exception ex)
             {
@@ -113,7 +113,7 @@ namespace Bikewale.Cache.Videos
         /// <param name="videoBasicId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoBasicId, uint totalCount)
+        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoBasicId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> videosList = null;
             string key = string.Empty;

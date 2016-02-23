@@ -14,7 +14,7 @@ namespace Bikewale.Controls
     {
         protected Repeater rptCategoryVideos;
         public EnumVideosCategory CategoryId { get; set; }
-        public uint TotalRecords { get; set; }
+        public ushort TotalRecords { get; set; }
         public string SectionTitle { get; set; }
         public int FetchedRecordsCount { get; set; }
         public string SectionBackgroundClass { get; set; }

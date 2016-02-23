@@ -46,7 +46,7 @@ namespace Bikewale.BAL.Videos
         /// <param name="categoryId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, uint totalCount)
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> objVideosList = null;
             uint pageNo = 1;
@@ -79,16 +79,16 @@ namespace Bikewale.BAL.Videos
         /// <param name="pageNo"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosBySubCategory(string categoryIdList, uint pageNo, uint pageSize)
+        public BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize)
         {
-            IEnumerable<BikeVideoEntity> objVideosList = null;
+            BikeVideosListEntity objVideosList = null;
             try
             {
                 string _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId=2&pageNo={1}&pageSize={2}", categoryIdList, pageNo, pageSize);
 
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
-                    objVideosList = objclient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
+                    objVideosList = objclient.GetApiResponseSync<BikeVideosListEntity>(APIHost.CW, _requestType, _apiUrl, objVideosList);
                 }
             }
             catch (Exception ex)
@@ -108,7 +108,7 @@ namespace Bikewale.BAL.Videos
         /// <param name="videoId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId, uint totalCount)
+        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> objVideosList = null;
             try

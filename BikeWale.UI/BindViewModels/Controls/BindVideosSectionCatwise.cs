@@ -20,7 +20,7 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindVideosSectionCatwise
     {
-        public uint TotalRecords { get; set; }
+        public ushort TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
         public BikeVideoEntity FirstVideoRecord { get; set; }
