@@ -1737,6 +1737,7 @@
     <Content Include="css\insurance.css" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
+    <Content Include="css\jquery.floating-social-share.min.css" />
     <Content Include="css\jquery.floating-social-share.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
@@ -2352,6 +2353,7 @@
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <!-- <Content Include="src\knockout.js" /> -->
     <Content Include="src\jquery.floating-social-share.js" />
+    <Content Include="src\jquery.floating-social-share.min.js" />
     <Content Include="src\login\login.js" />
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />
