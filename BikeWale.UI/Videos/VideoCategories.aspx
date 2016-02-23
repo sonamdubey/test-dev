@@ -5,7 +5,9 @@
 <html>
 <head>
     <%        
-        Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(categoryId, out title, out description, make, model);
+        //Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(categoryId, out title, out description, make, model);
+         title = titleName;
+         description = descName;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/videocategory.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
@@ -22,7 +24,8 @@
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
                             <li><a href="/"><span>Home</span></a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>Videos</li>
+                            <li><a href="/bike-videos/"><span class="fa fa-angle-right margin-right10"></span>Videos</li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><%= category %></li>
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5"><%= category %></h1>
@@ -60,11 +63,10 @@
                 </ul>
                 <div class="clear"></div>
             </div>
+        </section>
+        <section>
             <div style="text-align: center;">
-                <div id="NoBikeResults" class="hide">
-                    <img src="/images/no_result_d.png" />
-                </div>
-                <div id="loading" class="hide">
+                <div id="loading">
                     <img src="/images/search-loading.gif" />
                 </div>
             </div>
@@ -91,7 +93,7 @@
             </li>
         </script>
         <script type="text/javascript">
-            var catId = 2;<%--//chage it '<%= categoryId %>';--%>
+            var catId = '<%= categoryId %>';
             var isNextPage = true;
             $(document).ready(function () {
                 $("img.lazy").lazyload();

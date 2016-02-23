@@ -1,6 +1,8 @@
-﻿var pageNo = 1, maxPage=2; //ASK Default catId is 1.
+﻿var pageNo = 1, maxPage = 2; //ASK Default catId is 1.
+
 var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
+
 lscache.setBucket('catVideos');
 
 ko.bindingHandlers.formateDate = {
@@ -83,10 +85,9 @@ $(window).scroll(function () {
     var winScroll = $(window).scrollTop(),
         pageHeight = $(document).height(),
         windowHeight = $(window).height(),
-        footerHeight = $(".bg-footer").height();
-
-    var position = pageHeight - (windowHeight + footerHeight + 200);
-
+        footerHeight = $("#bg-footer").height();
+    var position = pageHeight - (windowHeight + 286 + 200);
+    console.log(winScroll + " " + position + " " + pageHeight + " " + windowHeight + " "+ footerHeight);
     if (winScroll >= position && pageNo < maxPage && isNextPage) {
         isNextPage = false;
         //pageNo++;
@@ -99,9 +100,9 @@ $(window).scroll(function () {
 $.getVideos = function () {
     $('#loading').show();
     var cacheVideos = lscache.get("catVideo_" + catId + "_" + pageNo);
-    console.log("catVideo_" + catId + "_" + pageNo);
+   // console.log("catVideo_" + catId + "_" + pageNo);
     if (cacheVideos) {
-        console.log("catVideo_" + catId + "_" + pageNo);
+       // console.log("catVideo_" + catId + "_" + pageNo);
         $.bindVideos(cacheVideos);
         maxPage = Math.ceil(cacheVideos.TotalRecords / 9);
         window.location.hash = "pn=" + pageNo;
@@ -109,7 +110,7 @@ $.getVideos = function () {
     }
     else
     {//"47,48,49,50,51,52,53,55,57,58,59,60"
-        var catURL = "http://172.16.1.254:9020/api/v1/videos/subcategory/" + "47,48,49,50,51,52,53,55,57,58,59,60" + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
+        var catURL = "http://172.16.1.254:9020/api/v1/videos/subcategory/" + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
         $.ajax({
             type: 'GET',
             url: catURL,
@@ -117,13 +118,13 @@ $.getVideos = function () {
             success: function (response) {
                 if (response.TotalRecords > 0) {
                     $.bindVideos(response);
-                    console.log(response);
+                    //console.log(response);
                     maxPage = Math.ceil(response.TotalRecords / 9);//should be from back End
                     isNextPage = true;//HOw ?
                     lscache.set("catVideo_" + catId + "_" + pageNo, response, 60);//setcache
-                    console.log("1");
+                   // console.log("1");
                     window.location.hash = "pageno=" + pageNo;
-                    console.log("2");
+                   // console.log("2");
                 }
             },
             complete: function (xhr) {
@@ -136,16 +137,15 @@ $.getVideos = function () {
             }
         });
     }
-    $('#loading').hide();
-
-};
+    if (pageNo == maxPage) $('#loading').hide();
+}; 
 $.bindVideos = function (reponseVideos) {
     var koHtml = '<div class="miscWrapper container">'
                         + '<ul id="listVideos' + pageNo + '"  data-bind="template: { name: \'templetVideos\', foreach: Videos }">'
                         + '</ul>'
-                    + '</div>';
+                    + '<div class="clear"></div></div>';
     $('#listVideos' + (pageNo - 1)).parent().after(koHtml);
-    console.log("listVideos" + pageNo);
+    //console.log("listVideos" + pageNo);
     ko.applyBindings(new SearchViewModel(reponseVideos), document.getElementById("listVideos" + pageNo));
 };
 var SearchViewModel = function (model) {

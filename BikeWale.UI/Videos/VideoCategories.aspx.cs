@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Notifications;
+using System.Text.RegularExpressions;
 
 
 namespace Bikewale.Videos
@@ -23,12 +24,11 @@ namespace Bikewale.Videos
     public class VideoCategories : System.Web.UI.Page
     {
         protected Repeater rptVideos;
-        protected string category = string.Empty;
-        protected string maxPage = string.Empty;
+        
+        protected int maxPage = 0;
         protected LinkPagerControl repeaterPager;
         protected uint categoryId = 0;
-        protected string make = string.Empty;
-        protected string model = string.Empty;
+        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, category = string.Empty, descName = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -57,7 +57,25 @@ namespace Bikewale.Videos
         /// </summary>
         private void ParseQueryString()
         {
-            categoryId = Convert.ToUInt16(Request.QueryString.Get("cid"));            
+            titleName = string.Empty;
+            if (!string.IsNullOrEmpty(Request.QueryString["cid"]))
+            {
+                categoryId = Convert.ToUInt16(Request.QueryString["cid"]);
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["title"]))
+                {
+                    titleName = Request.QueryString["title"];
+                    titleName.Replace("-", " ");
+                    var regCapitalize = Regex.Replace(titleName, @"\b(\w)", m => m.Value.ToUpper());
+                    titleName = Regex.Replace(regCapitalize, @"(\s(of|in|by|and)|\'[st])\b", m => m.Value.ToLower(), RegexOptions.IgnoreCase);
+                    titleName = string.Format("{0}  Review - BikeWale", titleName);
+                }
+                descName = string.Format("{0} - Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more",
+                titleName);
+            
+            
+            //title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison -   BikeWale";
+            //desc = "Check latest bike and scooter videos, " + descText; 
         }
 
         /// <summary>
