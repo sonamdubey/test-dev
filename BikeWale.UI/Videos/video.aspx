@@ -7,6 +7,7 @@
         title = metaTitle;
         description = metaDesc;
         keywords = metaKeywords;
+        isAd970x90Shown = false;
 		//Description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price));
         //canonical = "";
     %>
@@ -65,7 +66,7 @@
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20">
                         <div id="embedVideo" class="margin-bottom15">
-                            <iframe width="934" height="527" src="<%=videoModel.VideoUrl %>" frameborder="0" allowfullscreen></iframe>
+                            <iframe width="934" height="527" src="<%=videoModel.VideoUrl %>&autoplay=1" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <p class="font14 text-light-grey margin-bottom10"><%=videoModel.Description %>
                         <p class="clear"></p>
