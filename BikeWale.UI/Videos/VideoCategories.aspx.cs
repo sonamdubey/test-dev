@@ -108,7 +108,7 @@ namespace Bikewale.Videos
                         if (objVideosList.Videos.Count() > 0)
                         {
                             category = Bikewale.Utility.VideoTitleDescription.VideoHeading(2);
-                            rptVideos.DataSource = objVideosList;
+                            rptVideos.DataSource = objVideosList.Videos;
                             rptVideos.DataBind();
                         }
                     }
