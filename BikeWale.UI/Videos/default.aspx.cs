@@ -55,7 +55,7 @@ namespace Bikewale.Videos
             ctrlTopMusic.CategoryIdList = "60";
             ctrlTopMusic.TotalRecords = 6;
             ctrlTopMusic.SectionTitle = "PowerDrift Top Music ";
-            ctrlTopMusic.SectionBackgroundClass = "bg-white";
+            ctrlTopMusic.SectionBackgroundClass = "";
 
             ctrlDoItYourself.CategoryIdList = "53";
             ctrlDoItYourself.TotalRecords = 6;
