@@ -111,7 +111,7 @@ RewriteRule ^mybikewale/editcontactdetails/	/users/EditCustomerDetails.aspx [NC,
 RewriteRule ^mybikewale/changepassword/		/users/changepassword.aspx [NC,L]
 RewriteRule ^mybikewale/myinquiries/		/mybikewale/mylisting.aspx [NC,L]
 
-RewriteRule	^bike-videos/category/([a-zA-Z0-9\-]+)-([\d]+)/$	/videos/videocategories.aspx?cid=${lowercase:$2}&title=${lowercase:$1} [NC,L]
+RewriteRule	^bike-videos/category/([a-zA-Z\-]+)-([0-9-]+)/$	/videos/videocategories.aspx?cid=${lowercase:$2}&title=${lowercase:$1} [NC,L]
 RewriteRule	^bike-videos/([a-zA-Z0-9\-]+)-([\d]+)/$	/videos/video.aspx?id=${lowercase:$2} [NC,L]
 RewriteRule ^bike-videos/$		/videos/default.aspx [NC,L]
 

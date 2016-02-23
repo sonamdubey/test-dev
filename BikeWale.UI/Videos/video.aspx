@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.video" AutoEventWireup="false" %>
+﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.video" AutoEventWireup="false" EnableViewState="false" %>
 <!DOCTYPE html>
 <%@ Register Src="~/controls/SimilarVideos.ascx" TagName="SimilarVideos" TagPrefix="BW" %>
 <html>
