@@ -52,23 +52,23 @@ namespace Bikewale.Videos
                 {
                     case "55":
                         metaDesc = String.Format("{0} {1} Video Review-Watch BikeWale Expert's Take on {0} {1}-Features, performance, price, fuel economy, handling and more.", videoModel.MakeName, videoModel.ModelName);
-                        metaTitle = String.Format("Expert Video Review-{0} {1}-BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("Expert Video Review-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
                         break;
                     case "57":
                         metaDesc = String.Format("First Ride Video Review of {0} {1}-Watch BikeWale Expert's Take on the First Ride of {0} {1}-Features, performance, price, fuel economy, handling and more.", videoModel.MakeName, videoModel.ModelName);
-                        metaTitle = String.Format("First Ride Video Review-{0} {1}-BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("First Ride Video Review-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
                         break;
                     case "59":
                         metaDesc = String.Format("Launch Video of {0} {1}-{0} {1} bike launched. Watch BikeWale's Expert's take on its Launch-Features, performance, price, fuel economy, handling and more.", videoModel.MakeName, videoModel.ModelName);
-                        metaTitle = String.Format("Bike Launch Video Review-{0} {1}-BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("Bike Launch Video Review-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
                         break;
                     case "53":
                         metaDesc = String.Format("Do It Yourself tips for {0} {1}.  Watch Do It Yourself tips for {0} {1} from BikeWale's Experts.",videoModel.MakeName, videoModel.ModelName);
-                        metaTitle = String.Format("Do It Yourself-{0} {1}-BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        metaTitle = String.Format("Do It Yourself-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
                         break;
                     default:
                         metaDesc = "Check latest bike and scooter videos, watch BikeWale expert's take on latest bikes and scooters-features, performance, price, fuel economy, handling and more.";
-                        metaTitle = String.Format("{0}-BikeWale", videoModel.VideoTitle);
+                        metaTitle = String.Format("{0} - BikeWale", videoModel.VideoTitle);
                         break;
                 }
             }
