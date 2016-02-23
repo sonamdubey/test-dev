@@ -1,12 +1,19 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
 using Bikewale.Controls;
+using Bikewale.Entities.Pager;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using Bikewale.Notifications;
+
 
 namespace Bikewale.Videos
 {
@@ -49,8 +56,8 @@ namespace Bikewale.Videos
         /// Summary : function to read the query string values.
         /// </summary>
         private void ParseQueryString()
-        {             
-            categoryId = Request.QueryString.Get("cid");            
+        {
+            categoryId = Convert.ToUInt16(Request.QueryString.Get("cid"));            
         }
 
         /// <summary>
@@ -70,13 +77,13 @@ namespace Bikewale.Videos
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
                     
-                    IEnumerable<BikeVideoEntity> objVideosList = objCache.GetVideosByCategory(Entities.Videos.EnumVideosCategory.FeaturedAndLatest, 9);
+                    IEnumerable<BikeVideoEntity> objVideosList   = objCache.GetVideosByCategory(Entities.Videos.EnumVideosCategory.FeaturedAndLatest, 9,1); //check it
 
                     if (objVideosList != null)
                     {
                         if (objVideosList.Count() > 0)
                         {
-                            category = objVideosList.FirstOrDefault().SubCatName; //Need to handle again
+                            category = Bikewale.Utility.VideoTitleDescription.VideoHeading(categoryId);//objVideosList.FirstOrDefault().SubCatName; //Need to handle again
                             //maxPage = objVideosList.tot
                             rptVideos.DataSource = objVideosList;
                             rptVideos.DataBind();

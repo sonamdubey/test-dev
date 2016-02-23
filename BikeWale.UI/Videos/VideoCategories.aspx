@@ -91,21 +91,12 @@
             </li>
         </script>
         <script type="text/javascript">
-            var catId = '<%= categoryId %>';
-            var maxPage = parseInt('<%= maxPage %>');
+            var catId = 2;<%--//chage it '<%= categoryId %>';--%>
             var isNextPage = true;
-            if (maxPage == 1) isNextPage = false;
             $(document).ready(function () {
                 $("img.lazy").lazyload();
                 window.location.hash = "";
             });
-            <%--function getCatId(){
-                return parseInt('<%= catId %>');
-            }
-            function getMaxPage(){
-                return Math.ceil(parseInt('<%= totalVideos %>') / 9)
-            } --%>
-           
         </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->

@@ -1,4 +1,4 @@
-﻿var pageNo = 1; //ASK Default catId is 1.
+﻿var pageNo = 1, maxPage=2; //ASK Default catId is 1.
 var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
 lscache.setBucket('catVideos');
@@ -109,7 +109,7 @@ $.getVideos = function () {
     }
     else
     {//"47,48,49,50,51,52,53,55,57,58,59,60"
-        var catURL = "http://172.16.1.254:9020/api/v1/videos/subcategory/" + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
+        var catURL = "http://172.16.1.254:9020/api/v1/videos/subcategory/" + "47,48,49,50,51,52,53,55,57,58,59,60" + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
         $.ajax({
             type: 'GET',
             url: catURL,

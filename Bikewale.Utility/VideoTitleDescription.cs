@@ -40,5 +40,30 @@ namespace Bikewale.Utility
                     break;
             }
         }
-    }
-}
+
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created On : 23 Feb 2016
+        /// Summary : For <H1> (Heading) of video by category page.
+        /// </summary>
+        /// <param name="categoryId">Specific category Id of video</param>
+        /// <returns>String for heding corresponding to category Id</returns>
+        public static string VideoHeading(uint categoryId)
+        {
+           switch (categoryId)
+            {
+                case 59:
+                    return "Bike Launch Video";
+                case 3:
+                    return "Expert Video";//String.Format(- {0} {1} -  BikeWale"); //, make, model
+                case 57:
+                    return "First Ride Video";// - BikeWale";
+                case 53:
+                    return "Do It Yourself";
+                default:
+                    return "Bike Video";
+                    
+            }
+        }
+    }//class end
+}//namespae ended
