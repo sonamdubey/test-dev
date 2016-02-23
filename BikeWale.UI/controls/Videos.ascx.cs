@@ -9,7 +9,7 @@ namespace Bikewale.Controls
     {
         protected Repeater rptLandingVideos;
 
-        public uint TotalRecords { get; set; }
+        public ushort TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
         public BikeVideoEntity FirstVideoRecord { get; set; }

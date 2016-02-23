@@ -32,32 +32,32 @@ namespace Bikewale.Videos
 
             BindLandingVideos();
 
-            ctrlFirstRide.CategoryIdList = ((int)EnumVideosCategory.FirstRide).ToString();
+            ctrlFirstRide.CategoryIdList = "57";
             ctrlFirstRide.TotalRecords = 6;
             ctrlFirstRide.SectionTitle = "First Ride";
             ctrlFirstRide.SectionBackgroundClass = "";  
 
-            ctrlExpertReview.CategoryId = Entities.Videos.EnumVideosCategory.ExpertReviews;
+            ctrlExpertReview.CategoryIdList = "47,48,50";
             ctrlExpertReview.TotalRecords = 2;
             ctrlExpertReview.SectionTitle = "Expert Reviews";
             ctrlFirstRide.SectionBackgroundClass = "bg-white";
 
-            ctrlLaunchAlert.CategoryIdList = ((int)EnumVideosCategory.LaunchAlert).ToString(); ;
+            ctrlLaunchAlert.CategoryIdList = "59";
             ctrlLaunchAlert.TotalRecords = 6;
             ctrlLaunchAlert.SectionTitle = "Launch Alert";
             ctrlFirstRide.SectionBackgroundClass = "";             
 
-            ctrlMiscellaneous.CategoryIdList = ((int)EnumVideosCategory.Misc).ToString();
+            ctrlMiscellaneous.CategoryIdList = "58";
             ctrlMiscellaneous.TotalRecords = 6;
             ctrlMiscellaneous.SectionTitle = "Miscellaneous";
             ctrlMiscellaneous.SectionBackgroundClass = "";
 
-            ctrlTopMusic.CategoryIdList = ((int)EnumVideosCategory.TopMusic).ToString();
+            ctrlTopMusic.CategoryIdList = "60";
             ctrlTopMusic.TotalRecords = 6;
             ctrlTopMusic.SectionTitle = "PowerDrift Top Music ";
             ctrlTopMusic.SectionBackgroundClass = "bg-white";
 
-            ctrlDoItYourself.CategoryIdList = ((int)Entities.Videos.EnumVideosCategory.DoitYourself).ToString();
+            ctrlDoItYourself.CategoryIdList = "53";
             ctrlDoItYourself.TotalRecords = 6;
             ctrlDoItYourself.SectionTitle = "Do it yourself";
             ctrlDoItYourself.SectionBackgroundClass = "";

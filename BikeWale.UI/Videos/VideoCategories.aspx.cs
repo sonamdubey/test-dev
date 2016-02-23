@@ -27,8 +27,9 @@ namespace Bikewale.Videos
         
         protected int maxPage = 0;
         protected LinkPagerControl repeaterPager;
-        protected uint categoryId = 0;
+        protected int categoryId = 0;
         protected string make = string.Empty, model = string.Empty, titleName = string.Empty, category = string.Empty, descName = string.Empty;
+        protected string categoryIdList = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -58,6 +59,7 @@ namespace Bikewale.Videos
         private void ParseQueryString()
         {
             titleName = string.Empty;
+           categoryIdList  = Convert.ToString(Request.QueryString.Get("cid"));            
             if (!string.IsNullOrEmpty(Request.QueryString["cid"]))
             {
                 categoryId = Convert.ToUInt16(Request.QueryString["cid"]);
@@ -85,6 +87,7 @@ namespace Bikewale.Videos
         /// </summary>
         private void BindVideos()
         {
+            BikeVideosListEntity objVideosList = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -94,15 +97,17 @@ namespace Bikewale.Videos
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    
-                    IEnumerable<BikeVideoEntity> objVideosList   = objCache.GetVideosByCategory(Entities.Videos.EnumVideosCategory.FeaturedAndLatest, 9,1); //check it
+
+                    if (!String.IsNullOrEmpty(categoryIdList))
+                    {
+                        objVideosList = objCache.GetVideosBySubCategory(categoryIdList, 1, 9);
+                    }
 
                     if (objVideosList != null)
                     {
-                        if (objVideosList.Count() > 0)
+                        if (objVideosList.Videos.Count() > 0)
                         {
-                            category = Bikewale.Utility.VideoTitleDescription.VideoHeading(categoryId);//objVideosList.FirstOrDefault().SubCatName; //Need to handle again
-                            //maxPage = objVideosList.tot
+                            category = Bikewale.Utility.VideoTitleDescription.VideoHeading(2);
                             rptVideos.DataSource = objVideosList;
                             rptVideos.DataBind();
                         }

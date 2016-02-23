@@ -20,7 +20,7 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindVideosSectionCatwise
     {
-        public uint TotalRecords { get; set; }
+        public ushort TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
         public BikeVideoEntity FirstVideoRecord { get; set; }
@@ -40,7 +40,7 @@ namespace Bikewale.BindViewModels.Controls
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    objVideosList = objCache.GetVideosByCategory(CategoryId, TotalRecords, 1);//pageNum = 1 by defauly page no 1 data needed
+                    objVideosList = objCache.GetVideosByCategory(CategoryId, TotalRecords);
 
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
