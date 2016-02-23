@@ -1,6 +1,5 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
-using Bikewale.DAL.Videos;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;

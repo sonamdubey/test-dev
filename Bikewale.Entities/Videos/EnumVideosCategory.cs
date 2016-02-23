@@ -27,7 +27,7 @@ namespace Bikewale.Entities.Videos
         DoitYourself = 53,
         BikeReview = 55,
         FirstRide = 57,
-        //Misc = 58,
+        Misc = 58,
         LaunchAlert = 59,
         TopMusic = 60
     }

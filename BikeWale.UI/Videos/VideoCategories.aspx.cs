@@ -14,6 +14,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Notifications;
 using System.Text.RegularExpressions;
+using Bikewale.Utility.StringExtention;
 
 
 namespace Bikewale.Videos
@@ -25,10 +26,9 @@ namespace Bikewale.Videos
     {
         protected Repeater rptVideos;
         
-        protected int maxPage = 0;
         protected LinkPagerControl repeaterPager;
-        protected int categoryId = 0, totalRecords = 0;
-        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, category = string.Empty, descName = string.Empty;
+        protected int totalRecords = 0;
+        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, pageHeading = string.Empty, descName = string.Empty;
         protected string categoryIdList = string.Empty;
 
         protected override void OnInit(EventArgs e)
@@ -45,11 +45,7 @@ namespace Bikewale.Videos
         {
             // Read Query string
             ParseQueryString();
-
-            if (!IsPostBack)
-            {
-                BindVideos();
-            }
+            BindVideos();
         }   // page load
 
         /// <summary>
@@ -58,20 +54,14 @@ namespace Bikewale.Videos
         /// </summary>
         private void ParseQueryString()
         {
-            titleName = string.Empty;
-           categoryIdList  = Convert.ToString(Request.QueryString.Get("cid"));            
-            if (!string.IsNullOrEmpty(Request.QueryString["cid"]))
-            {
-                categoryId = Convert.ToUInt16(Request.QueryString["cid"]);
-            }
-            if (!string.IsNullOrEmpty(Request.QueryString["title"]))
-                {
-                    titleName = Request.QueryString["title"];
+            categoryIdList  = Request.QueryString.Get("cid");
+            titleName = Request.QueryString["title"];
+            if (!string.IsNullOrEmpty(titleName))
+                {                    
                     //capitalize title
-                    var regCapitalize = Regex.Replace(titleName, @"\b(\w)", m => m.Value.ToUpper());
-                    titleName = Regex.Replace(regCapitalize, @"(\s(of|in|by|and)|\'[st])\b", m => m.Value.ToLower(), RegexOptions.IgnoreCase);
+                    titleName = StringHelper.Capitlization(titleName);
                     titleName = titleName.Replace('-', ' ');
-                    category = string.Format("{0} Video", titleName); 
+                    pageHeading = string.Format("{0} Video", titleName); 
                     titleName = string.Format("{0}  Review - BikeWale", titleName);
                     
                     
@@ -105,17 +95,18 @@ namespace Bikewale.Videos
                     if (!String.IsNullOrEmpty(categoryIdList))
                     {
                         objVideosList = objCache.GetVideosBySubCategory(categoryIdList, 1, 9);
-                    }
-
-                    if (objVideosList != null)
-                    {
-                        if (objVideosList.Videos.Count() > 0)
+                        if (objVideosList != null)
                         {
-                            totalRecords = objVideosList.TotalRecords;
-                            rptVideos.DataSource = objVideosList.Videos;
-                            rptVideos.DataBind();
+                            if (objVideosList.Videos!=null && objVideosList.Videos.Count() > 0)
+                            {
+                                totalRecords = objVideosList.TotalRecords;
+                                rptVideos.DataSource = objVideosList.Videos;
+                                rptVideos.DataBind();
+                            }
                         }
                     }
+
+                    
                 }
             }
             catch (Exception ex)

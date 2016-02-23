@@ -47,7 +47,7 @@ namespace Bikewale.Videos
             ctrlLaunchAlert.SectionTitle = "Launch Alert";
             ctrlFirstRide.SectionBackgroundClass = "";
 
-            ctrlMiscellaneous.CategoryId = Entities.Videos.EnumVideosCategory.Miscelleneous;
+            ctrlMiscellaneous.CategoryIdList = "58";
             ctrlMiscellaneous.TotalRecords = 6;
             ctrlMiscellaneous.SectionTitle = "Miscellaneous";
             ctrlMiscellaneous.SectionBackgroundClass = "";

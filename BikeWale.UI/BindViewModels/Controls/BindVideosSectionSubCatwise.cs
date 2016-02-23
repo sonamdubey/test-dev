@@ -23,7 +23,7 @@ namespace Bikewale.BindViewModels.Controls
     public class BindVideosSectionSubCatwise
     {
         public ushort TotalRecords { get; set; }
-        public int FetchedRecordsCount { get; set; }
+        public ushort FetchedRecordsCount { get; set; }
         public string CategoryIdList { get; set; }
        
         public BikeVideoEntity FirstVideoRecord { get; set; }
@@ -54,7 +54,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     if (objVideosList != null && objVideosList.TotalRecords > 0 &&  objVideosList.Videos != null)
                     {
-                        FetchedRecordsCount = objVideosList.Videos.Count();
+                        FetchedRecordsCount = Convert.ToUInt16(objVideosList.Videos.Count());
 
                         if (FetchedRecordsCount > 0)
                         {

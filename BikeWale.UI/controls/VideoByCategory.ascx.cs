@@ -23,8 +23,8 @@ namespace Bikewale.Controls
         protected Repeater rptVideosByCat;
         public ushort TotalRecords { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
-        public string viewMoreURL { get; set; }        
-        public int FetchedRecordsCount { get; set; }
+        public string viewMoreURL { get; set; }
+        public ushort FetchedRecordsCount { get; set; }
         public string SectionTitle { get; set; }
         public string SectionBackgroundClass { get; set; }
         public BikeVideoEntity FirstVideoRecord { get; set; }

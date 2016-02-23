@@ -1,5 +1,4 @@
-﻿using Bikewale.DAL.Videos;
-using Bikewale.Entities.Videos;
+﻿using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -26,12 +25,7 @@ namespace Bikewale.BAL.Videos
             _cwHostUrl = BWConfiguration.Instance.CwApiHostUrl;
             _applicationid = BWConfiguration.Instance.ApplicationId;
             _requestType = BWConfiguration.Instance.APIRequestTypeJSON;
-
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IVideos, VideosRepository>();
-                videosRepository = container.Resolve<IVideos>();
-            }
+            
         }
 
         /// <summary>
