@@ -19,8 +19,8 @@
             description: $('meta[name="description"]').attr("content") || "",
             media: $('meta[property="og:image"]').attr("content") || "",
             text: "share with ",
-            popup_width: 400,
-            popup_height: 300
+            popup_width: 600,
+            popup_height: 400
         };
 
     function Plugin (element, options) {
@@ -66,15 +66,11 @@
                 event.preventDefault();
                 openPopUp($(this).attr("href"), $(this).attr("title"), base.settings.popup_width, base.settings.popup_height);
             });
-
             setMobileCss(diss);
-
             $(window).resize(function() {
                 setMobileCss(diss);
             });
-
         }
-
     });
 
     var places = ["top-left", "top-right"],
@@ -85,7 +81,7 @@
             },
             "facebook" : {
                 className: "facebook",
-                url:"https://www.facebook.com/sharer/sharer.php?u={url}&t={title}"
+                url:"https://www.facebook.com/sharer/sharer.php?u={url}"
             },
             "google-plus": {
                 className: "google-plus",
