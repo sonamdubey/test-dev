@@ -1,5 +1,4 @@
-﻿using Bikewale.DAL.Videos;
-using Bikewale.Entities.Videos;
+﻿using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -26,12 +25,7 @@ namespace Bikewale.BAL.Videos
             _cwHostUrl = BWConfiguration.Instance.CwApiHostUrl;
             _applicationid = BWConfiguration.Instance.ApplicationId;
             _requestType = BWConfiguration.Instance.APIRequestTypeJSON;
-
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IVideos, VideosRepository>();
-                videosRepository = container.Resolve<IVideos>();
-            }
+            
         }
 
         /// <summary>
@@ -42,45 +36,14 @@ namespace Bikewale.BAL.Videos
         /// <param name="categoryId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, uint totalCount)
-        {
-            IEnumerable<BikeVideoEntity> objVideosList = null;
-            uint pageNo = 1;
-            try
-            {
-
-                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)categoryId, pageNo, totalCount);
-
-                using (BWHttpClient objclient = new BWHttpClient())
-                {
-                    objVideosList = objclient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return objVideosList;
-        }
-
-        /// <summary>
-        /// Created By : Sushil Kumar K
-        /// Created On : 18th February 2016
-        /// Description : overload function to get page wise data,To egt BIke Videos by Category
-        /// </summary>
-        /// <param name="categoryId"></param>
-        /// <param name="totalCount"></param>
-        /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, uint totalCount, uint pageNum)
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> objVideosList = null;
             //uint pageNo = 1;
             try
             {
 
-                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)categoryId, pageNum, totalCount);
+                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo=1&pageSize={1}", (int)categoryId, totalCount);
 
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
@@ -106,16 +69,16 @@ namespace Bikewale.BAL.Videos
         /// <param name="pageNo"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosBySubCategory(string categoryIdList, uint pageNo, uint pageSize)
+        public BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize)
         {
-            IEnumerable<BikeVideoEntity> objVideosList = null;
+            BikeVideosListEntity objVideosList = null;
             try
             {
                 string _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId=2&pageNo={1}&pageSize={2}", categoryIdList, pageNo, pageSize);
 
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
-                    objVideosList = objclient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
+                    objVideosList = objclient.GetApiResponseSync<BikeVideosListEntity>(APIHost.CW, _requestType, _apiUrl, objVideosList);
                 }
             }
             catch (Exception ex)
@@ -135,7 +98,7 @@ namespace Bikewale.BAL.Videos
         /// <param name="videoId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId, uint totalCount)
+        public IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> objVideosList = null;
             try

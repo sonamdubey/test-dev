@@ -20,8 +20,8 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindVideosSectionCatwise
     {
-        public uint TotalRecords { get; set; }
-        public int FetchedRecordsCount { get; set; }
+        public ushort TotalRecords { get; set; }
+        public ushort FetchedRecordsCount { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
         public BikeVideoEntity FirstVideoRecord { get; set; }
         private IEnumerable<BikeVideoEntity> objVideosList { get; set; }
@@ -30,7 +30,7 @@ namespace Bikewale.BindViewModels.Controls
 
         public void FetchVideos()
         {
-            FetchedRecordsCount = 0;            
+            FetchedRecordsCount = 0;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -44,7 +44,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
-                        FetchedRecordsCount = objVideosList.Count();
+                        FetchedRecordsCount = Convert.ToUInt16(objVideosList.Count());
 
                         if (FetchedRecordsCount > 0)
                         {
@@ -62,7 +62,7 @@ namespace Bikewale.BindViewModels.Controls
         }
 
         public void BindVideos(Repeater rptr)
-        {            
+        {
             try
             {
                 if (DoSkip == 0)

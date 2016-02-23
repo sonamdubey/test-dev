@@ -9,45 +9,9 @@
     var areaClicked = false;
 </script>
 <style type="text/css">
-    .position-abs {
-        position: absolute;
-    }
-
-    .progress-bar {
-        width: 0;
-        height: 2px;
-        background: #16A085;
-        bottom: 0px;
-        left: 0;
-        border-radius: 2px;
-    }
-
-    .progress-bar-completed {
-        display: none;
-        width: 100%;
-        height: 1px;
-        background: #16A085;
-        bottom: 0px;
-        left: 0;
-        border-radius: 2px;
-    }
-
-    .progress-bar.active {
-        width: 100%;
-        transition: 7s width;
-    }
-
-    .btn-loader {
-        background-color: #822821;
-    }
-
-    .btnSpinner {
-        right: 8px;
-        top: 10px;
-        z-index: 9;
-        display: none;
-        background: rgb(255, 255, 255);
-    }
+    .progress-bar{width:0;height:2px;background:#16A085;bottom:0px;left:0;border-radius:2px;}
+    .btn-loader{background-color:#822821;}
+    .btnSpinner{right:8px;top:10px;z-index:9;display:none;background:#fff;}
 </style>
 <!--bw popup code starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup hide bw-popup-sm text-center" id="popupWrapper">
@@ -58,18 +22,16 @@
             <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
             <!-- ko if: !oBrowser() -->
             <div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
-                <span class="position-abs progress-bar"></span>
-                <span class="position-abs progress-bar-completed"></span>
+                <span class="position-abt progress-bar"></span>
                 <div class="selected-city" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
                 <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
 
             <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="visible: BookingAreas().length > 0">
-                <span class="position-abs progress-bar"></span>
-                <span class="position-abs progress-bar-completed"></span>
+                <span class="position-abt progress-bar"></span>
                 <div class="selected-area" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
-                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
+                <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
 
             </div>
@@ -87,8 +49,7 @@
             <div id="btnPriceLoader" class="center-align margin-top20 text-center position-rel">
                 <div id="errMsgPopup" class="text-red margin-bottom10 hide"></div>
                 <!-- ko if:SelectedCityId() > 0 &&  (SelectedAreaId() > 0 || !hasAreas()) -->
-                <span class="position-abs progress-bar btn-loader"></span>
-                <span class="position-abs progress-bar-completed btn-loader"></span>
+                <span class="position-abt progress-bar btn-loader"></span>
                 <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Get on road price</a>
                 <!-- /ko -->
             </div>
@@ -552,8 +513,8 @@
 
     function startLoading(ele) {
         try {
-            var _self = $(ele).find(".progress-bar").show();
-            _self.stop().animate({ width: '100%' }, 7000);
+            var _self = $(ele).find(".progress-bar").css({ 'width': '0' }).show();
+            _self.animate({ width: '100%' }, 7000);
         }
         catch (e) { return };
     }
@@ -561,8 +522,7 @@
     function stopLoading(ele) {
         try {
             var _self = $(ele).find(".progress-bar");
-            var _selfCompleted = $(ele).find(".progress-bar-completed");
-            _self.removeAttr('style'); _selfCompleted.show().fadeOut(2000);
+            _self.stop(true, true).css({ 'width': '100%' }).fadeOut(1000);
         }
         catch (e) { return };
     }

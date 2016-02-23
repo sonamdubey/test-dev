@@ -106,6 +106,7 @@
                     //preSelectedCityId = 0;
                     //viewModelPopup.selectedArea(0);
                     startLoading($("#divCityLoader"));
+                    $("#divCityLoader .placeholder-loading-text").show();
                     if (data = lscache.get(modelCityKey)) {
                         var cities = ko.toJS(data);                        
                         if (cities) {
