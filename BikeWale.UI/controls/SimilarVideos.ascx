@@ -33,7 +33,7 @@
                         <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
         </div>
-                    <a href="" class="font16 text-center more-videos-link">View more videos</a>
+                    <%--<a href="" class="font16 text-center more-videos-link">View more videos</a>--%>
         </div>
                 <div class="clear"></div>
         </div>
