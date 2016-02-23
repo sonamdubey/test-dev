@@ -31,7 +31,7 @@ namespace Bikewale.Cache.Videos
         /// <param name="categoryId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount, uint pageNum)
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> videosList = null;
             string key = string.Empty;
@@ -62,7 +62,7 @@ namespace Bikewale.Cache.Videos
                         break;
                 }
 
-                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosByCategory(categoryId, totalCount, pageNum));
+                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosByCategory(categoryId, totalCount));
             }
             catch (Exception ex)
             {

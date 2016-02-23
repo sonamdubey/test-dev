@@ -19,6 +19,7 @@ namespace Bikewale.Controls
         public int FetchedRecordsCount { get; set; }
         public string SectionBackgroundClass { get; set; }
         protected BikeVideoEntity FirstVideoRecord { get; set; }
+        public string CategoryIdList { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -32,10 +33,10 @@ namespace Bikewale.Controls
 
         public void BindVideosByCategory()
         {
-            
-            BindVideosSectionCatwise objVideo = new BindVideosSectionCatwise();
+
+            BindVideosSectionSubCatwise objVideo = new BindVideosSectionSubCatwise();
             objVideo.TotalRecords = this.TotalRecords;
-            objVideo.CategoryId = this.CategoryId;
+            objVideo.CategoryIdList = this.CategoryIdList;
             objVideo.FetchVideos();
             this.FetchedRecordsCount = objVideo.FetchedRecordsCount;
             this.FirstVideoRecord = objVideo.FirstVideoRecord;

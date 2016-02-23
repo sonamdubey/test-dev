@@ -29,7 +29,7 @@
                 </ItemTemplate>
             </asp:Repeater>
             <div class="clear"></div>
-            <a href="<%= Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(FirstVideoRecord.SubCatName,((int)CategoryId).ToString()) %>" class="font16 text-center padding-top15 more-videos-link">View more videos</a>
+            <a href="<%= Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(SectionTitle,CategoryIdList) %>" class="font16 text-center padding-top15 more-videos-link">View more videos</a>
         </div>
         <div class="clear"></div>
     </div>

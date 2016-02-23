@@ -12,7 +12,7 @@ namespace Bikewale.DAL.Videos
     /// </summary>
     public class VideosRepository : IVideos
     {
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount, uint pageNum)
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount)
         {
             throw new NotImplementedException();
         }

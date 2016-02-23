@@ -40,7 +40,7 @@ namespace Bikewale.BindViewModels.Controls
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    objVideosList = objCache.GetVideosByCategory(CategoryId, TotalRecords, 1);//pageNum = 1 by defauly page no 1 data needed
+                    objVideosList = objCache.GetVideosByCategory(CategoryId, TotalRecords);
 
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {

@@ -42,14 +42,14 @@ namespace Bikewale.BAL.Videos
         /// <param name="categoryId"></param>
         /// <param name="totalCount"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount, uint pageNum)
+        public IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, ushort totalCount)
         {
             IEnumerable<BikeVideoEntity> objVideosList = null;
             //uint pageNo = 1;
             try
             {
 
-                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)categoryId, pageNum, totalCount);
+                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo=1&pageSize={1}", (int)categoryId, totalCount);
 
                 using (BWHttpClient objclient = new BWHttpClient())
                 {

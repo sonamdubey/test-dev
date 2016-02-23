@@ -5,7 +5,7 @@
 <html>
 <head>
     <%        
-        Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(categoryId, out title, out description, make, model);
+        //Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(categoryId, out title, out description, make, model);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/videocategory.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
