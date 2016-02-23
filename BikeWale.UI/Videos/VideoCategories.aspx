@@ -24,7 +24,7 @@
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
                             <li><a href="/"><span>Home</span></a></li>
-                            <li><a href="/bike-videos/"><span class="fa fa-angle-right margin-right10"></span>Videos</li>
+                            <li><a href="/bike-videos/"><span class="fa fa-angle-right margin-right10"></span>Videos</a></li>
                             <li><span class="fa fa-angle-right margin-right10"></span><%= category %></li>
                         </ul>
                     </div>
@@ -66,8 +66,8 @@
         </section>
         <section>
             <div style="text-align: center;">
-                <div id="loading">
-                    <img src="/images/search-loading.gif" />
+                <div id="loading" class="hide" >
+                    <img class="lazy" data-original="http://img2.aeplcdn.com/bikewaleimg/images/search-loading.gif" src="" />
                 </div>
             </div>
         </section>
@@ -94,6 +94,7 @@
         </script>
         <script type="text/javascript">
             var catId = '<%= categoryId %>';
+            var maxPage = Math.ceil(<%= totalRecords %>/9);
             var isNextPage = true;
             $(document).ready(function () {
                 $("img.lazy").lazyload();

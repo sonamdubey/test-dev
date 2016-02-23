@@ -8,7 +8,7 @@ namespace Bikewale.Entities.Videos
 {
     public class BikeVideosListEntity
     {
-        public uint TotalRecords { get; set; }
+        public int TotalRecords { get; set; }
         public IEnumerable<BikeVideoEntity> Videos { get; set; }
         public string NextPageUrl { get; set; }
         public string PrevPageUrl { get; set; }

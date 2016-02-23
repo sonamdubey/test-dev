@@ -27,7 +27,7 @@ namespace Bikewale.Videos
         
         protected int maxPage = 0;
         protected LinkPagerControl repeaterPager;
-        protected int categoryId = 0;
+        protected int categoryId = 0, totalRecords = 0;
         protected string make = string.Empty, model = string.Empty, titleName = string.Empty, category = string.Empty, descName = string.Empty;
         protected string categoryIdList = string.Empty;
 
@@ -67,10 +67,14 @@ namespace Bikewale.Videos
             if (!string.IsNullOrEmpty(Request.QueryString["title"]))
                 {
                     titleName = Request.QueryString["title"];
-                    titleName.Replace("-", " ");
+                    //capitalize title
                     var regCapitalize = Regex.Replace(titleName, @"\b(\w)", m => m.Value.ToUpper());
                     titleName = Regex.Replace(regCapitalize, @"(\s(of|in|by|and)|\'[st])\b", m => m.Value.ToLower(), RegexOptions.IgnoreCase);
+                    titleName = titleName.Replace('-', ' ');
+                    category = string.Format("{0} Video", titleName); 
                     titleName = string.Format("{0}  Review - BikeWale", titleName);
+                    
+                    
                 }
                 descName = string.Format("{0} - Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more",
                 titleName);
@@ -107,7 +111,7 @@ namespace Bikewale.Videos
                     {
                         if (objVideosList.Videos.Count() > 0)
                         {
-                            category = Bikewale.Utility.VideoTitleDescription.VideoHeading(2);
+                            totalRecords = objVideosList.TotalRecords;
                             rptVideos.DataSource = objVideosList.Videos;
                             rptVideos.DataBind();
                         }

@@ -1,4 +1,4 @@
-﻿var pageNo = 1, maxPage = 2; //ASK Default catId is 1.
+﻿var pageNo = 1; //ASK Default catId is 1.
 
 var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
@@ -129,15 +129,16 @@ $.getVideos = function () {
             },
             complete: function (xhr) {
                 if (xhr.status == 404 || xhr.status == 204) {
-                    lscache.set(key + selCityId, null, 60);
+                    lscache.set("catVideo_" + catId + "_" + pageNo, null, 60);
                 }
+                $('#loading').hide();
             },
             error: function (error) {
                 //errorNoBikes();
             }
         });
     }
-    if (pageNo == maxPage) $('#loading').hide();
+    
 }; 
 $.bindVideos = function (reponseVideos) {
     var koHtml = '<div class="miscWrapper container">'
