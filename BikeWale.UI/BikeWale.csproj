@@ -280,6 +280,7 @@
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
@@ -1271,8 +1272,8 @@
       <DependentUpon>video.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Videos\videocategories.aspx.cs">
-      <DependentUpon>videocategories.aspx</DependentUpon>
+    <Compile Include="Videos\VideoCategories.aspx.cs">
+      <DependentUpon>VideoCategories.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
@@ -1728,7 +1729,6 @@
     <Content Include="css\insurance.css" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
-    <Content Include="css\jquery.floating-social-share.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
     <Content Include="css\new\search.css" />
@@ -2341,7 +2341,6 @@
     <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <!-- <Content Include="src\knockout.js" /> -->
-    <Content Include="src\jquery.floating-social-share.js" />
     <Content Include="src\login\login.js" />
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />
@@ -2361,7 +2360,7 @@
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\Used\search.js" />
-    <Content Include="src\Videos\videoPaging.js" />
+    <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test.aspx" />
     <!--     <Content Include="test\css\bw-new-style.css" />
@@ -2405,7 +2404,7 @@
     <Content Include="users\ResetCustomerPassword.aspx" />
     <Content Include="Videos\default.aspx" />
     <Content Include="Videos\video.aspx" />
-    <Content Include="Videos\videocategories.aspx" />
+    <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="VisitorAgreement.aspx" />
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe" />
     <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe" />
