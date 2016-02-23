@@ -92,6 +92,7 @@
             </li>
         </script>
         <script type="text/javascript">
+            var cwHostUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.CwApiHostUrl %>";
             var catId = '<%= categoryIdList %>';
             var maxPage = Math.ceil(<%= totalRecords %>/9);
             var isNextPage = true;
