@@ -38,7 +38,7 @@
             <span class="ae-logo-border"></span><a href="http://www.carwale.com/autoexpo2016/" class="ae-sprite ae-logo" target="_blank"></a>
         </div>
         <div class="rightfloat">
-            <div class="global-search position-rel " style="display:none">
+            <div class="global-search" style="display:none">
                 <span class="bwsprite search-icon-grey" id="btnGlobalSearch" style="z-index:2"></span>
                 <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
                 <span class="fa fa-spinner fa-spin position-abt  text-black" style="display:none;right:14px;top:7px;background:#fff"></span>
