@@ -31,8 +31,7 @@
         .video-likes-icon { width:15px; height:15px; background-position:-84px -277px; position:relative; top:2px; }
         .more-videos-link { display:block; margin-top:5px; margin-bottom:25px; }
     </style>
-    <link rel="stylesheet" href="/css/jquery.floating-social-share.css">
-    <%--<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">--%>
+    <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
@@ -228,7 +227,6 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
     </form>
-    <script type="text/javascript" src="/src/jquery.floating-social-share.js">
-    </script>
+    <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>">"></script>
 </body>
 </html>
