@@ -7,6 +7,7 @@ using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -21,18 +22,21 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindVideosSectionSubCatwise
     {
-        public uint TotalRecords { get; set; }
-        public int FetchedRecordsCount { get; set; }
+        public ushort TotalRecords { get; set; }
+        public ushort FetchedRecordsCount { get; set; }
         public string CategoryIdList { get; set; }
        
         public BikeVideoEntity FirstVideoRecord { get; set; }
-        private IEnumerable<BikeVideoEntity> objVideosList { get; set; }
+        private BikeVideosListEntity objVideosList { get; set; }
 
-        [System.ComponentModel.DefaultValue(0)]
-        public int DoSkip { get; set; }
+        private int _doSkip = 0;
+        public int DoSkip { get { return _doSkip; } set { _doSkip = value; } }
 
-        [System.ComponentModel.DefaultValue(1)]
-        public uint PageNo { get; set; }
+        private ushort _pageNo = 1;
+        public ushort PageNo { get { return _pageNo; } set { _pageNo = value; } }
+
+        
+
 
         public void FetchVideos()
         {
@@ -46,15 +50,15 @@ namespace Bikewale.BindViewModels.Controls
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    objVideosList = objCache.GetVideosBySubCategory(CategoryIdList, PageNo ,TotalRecords);
+                    objVideosList = objCache.GetVideosBySubCategory(CategoryIdList, PageNo, TotalRecords);
 
-                    if (objVideosList != null && objVideosList.Count() > 0)
+                    if (objVideosList != null && objVideosList.TotalRecords > 0 &&  objVideosList.Videos != null)
                     {
-                        FetchedRecordsCount = objVideosList.Count();
+                        FetchedRecordsCount = Convert.ToUInt16(objVideosList.Videos.Count());
 
                         if (FetchedRecordsCount > 0)
                         {
-                            FirstVideoRecord = objVideosList.FirstOrDefault();
+                            FirstVideoRecord = objVideosList.Videos.FirstOrDefault();
                         }
                     }
 
@@ -73,11 +77,11 @@ namespace Bikewale.BindViewModels.Controls
             {
                 if (DoSkip == 0)
                 {
-                    rptr.DataSource = objVideosList;
+                    rptr.DataSource = objVideosList.Videos;
                 }
                 else
                 {
-                    rptr.DataSource = objVideosList.Skip(DoSkip);
+                    rptr.DataSource = objVideosList.Videos.Skip(DoSkip);
                 }
                 rptr.DataBind();
             }

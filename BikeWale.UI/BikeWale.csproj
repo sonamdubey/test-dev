@@ -475,6 +475,10 @@
       <DependentUpon>ExpertReviews.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\ExpertReviewsVideos.ascx.cs">
+      <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\FeaturedBike.ascx.cs">
       <DependentUpon>FeaturedBike.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -677,10 +681,6 @@
     </Compile>
     <Compile Include="controls\Videos.ascx.cs">
       <DependentUpon>Videos.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\ExpertReviewsVideos.ascx.cs">
-      <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\VideosControl.ascx.cs">
@@ -1268,20 +1268,12 @@
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Videos\video_old.aspx.cs">
-      <DependentUpon>video_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Videos\video.aspx.cs">
       <DependentUpon>video.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Videos\VideoCategories_old.aspx.cs">
-      <DependentUpon>VideoCategories_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Videos\videocategories.aspx.cs">
-      <DependentUpon>videocategories.aspx</DependentUpon>
+    <Compile Include="Videos\VideoCategories.aspx.cs">
+      <DependentUpon>VideoCategories.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
@@ -1650,6 +1642,7 @@
     <Content Include="controls\DiscussIt.ascx" />
     <Content Include="controls\EMICalculatorMin.ascx" />
     <Content Include="controls\ExpertReviews.ascx" />
+    <Content Include="controls\ExpertReviewsVideos.ascx" />
     <Content Include="controls\FeaturedBike.ascx" />
     <Content Include="controls\ForumsMin.ascx" />
     <Content Include="controls\HomePageBanner.ascx" />
@@ -1704,7 +1697,6 @@
     <Content Include="controls\VideoByCategory.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\Videos.ascx" />
-    <Content Include="controls\ExpertReviewsVideos.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
     <Content Include="css\bookingconfig.css" />
@@ -1737,7 +1729,6 @@
     <Content Include="css\insurance.css" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
-    <Content Include="css\jquery.floating-social-share.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
     <Content Include="css\new\search.css" />
@@ -1750,7 +1741,6 @@
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
     <Content Include="css\video.css" />
-    <Content Include="css\videocategory.css" />
     <Content Include="Default_old.aspx" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
@@ -2351,7 +2341,6 @@
     <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <!-- <Content Include="src\knockout.js" /> -->
-    <Content Include="src\jquery.floating-social-share.js" />
     <Content Include="src\login\login.js" />
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />
@@ -2372,6 +2361,7 @@
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="statichtml\tnc.html" />
+    <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test.aspx" />
     <!--     <Content Include="test\css\bw-new-style.css" />
@@ -2414,10 +2404,8 @@
     <Content Include="users\registrationConfirmation.aspx" />
     <Content Include="users\ResetCustomerPassword.aspx" />
     <Content Include="Videos\default.aspx" />
-    <Content Include="Videos\video_old.aspx" />
     <Content Include="Videos\video.aspx" />
-    <Content Include="Videos\VideoCategories_old.aspx" />
-    <Content Include="Videos\videocategories.aspx" />
+    <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="VisitorAgreement.aspx" />
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe" />
     <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe" />
