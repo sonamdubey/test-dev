@@ -34,8 +34,6 @@ namespace Bikewale.controls
         private void BindSimilarBikes()
         {
             BindSimilarVideos objSimilar = new BindSimilarVideos();
-            //objSimilar.VideoBasicId = 1;
-            //objSimilar.VideoBasicId = 13827;
             objSimilar.TotalRecords = 6;
             objSimilar.BindVideos(rptSimilarVideos, this.VideoBasicId);
             FetchedRecordsCount = objSimilar.FetchedRecordsCount;
