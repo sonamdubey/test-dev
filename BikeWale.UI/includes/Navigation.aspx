@@ -62,7 +62,9 @@
         <li>
             <a href="javascript:void(0)">
                 <span class="bwsprite reviews-icon"></span>
-                <span class="navbarTitle">Reviews,News and Videos</span>
+                <span class="navbarTitle">Reviews, News &amp; Videos</span>
+                <span class="ae-sprite ae-new-label-icon"></span>
+                <span class="nav-drop fa fa-angle-down"></span>
                 <span class="nav-drop fa fa-angle-down"></span>
             </a>
             <ul class="nestedUL">
