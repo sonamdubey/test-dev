@@ -110,7 +110,8 @@ $.getVideos = function () {
         isNextPage = true;
     }
     else
-    {   var catURL = "http://172.16.1.254:9020/api/v1/videos/subcategory/" + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
+    {
+        var catURL = cwHostUrl + "/api/v1/videos/subcategory/" + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
         $.ajax({
             type: 'GET',
             url: catURL,
