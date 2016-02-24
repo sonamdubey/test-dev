@@ -56,7 +56,7 @@ RewriteRule  ^(.*)-bikes/(.*)/(.*)-specs-(.*).html	/($1)-bikes/($2)/ [R=301,NC,L
 RewriteRule ^(.*)-bikes/(.*)-series/ /new/bikeseries.aspx?series=$2 [NC,L]
 
 RewriteRule	^(.*)-bikes/([a-zA-Z0-9\-]+)/$	/new/versions.aspx?model=${lowercase:$2} [NC,L,QSA]
-RewriteRule	^(.*)-bikes/(.*)/	/new/versions.aspx?model=$2 [NC,L,QSA]
+#RewriteRule	^(.*)-bikes/(.*)/	/new/versions.aspx?model=$2 [NC,L,QSA]
 
 RewriteRule	^(.*)-bikes/$	/new/models.aspx?make=$1 [NC,L]
 RewriteRule	^terms/(.*)	/offerterms.aspx?id=$1 [NC,L]
