@@ -8,8 +8,7 @@
         description = metaDesc;
         keywords = metaKeywords;
         isAd970x90Shown = false;
-		//Description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price));
-        //canonical = "";
+        canonical = string.Format("http://www.bikewale.com/bike-videos/{0}-{1}/", videoModel.VideoTitleUrl, videoModel.BasicId);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">

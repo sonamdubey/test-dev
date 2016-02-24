@@ -86,7 +86,7 @@
 
     function findCityById(vm, id) {
         return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
-            return child.id === id;
+            return (child.id === id || child.cityId === id);
         });
     }
 

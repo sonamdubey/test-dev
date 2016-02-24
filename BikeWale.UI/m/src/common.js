@@ -1091,7 +1091,7 @@ function setLocationCookie(cityEle, areaEle) {
 function selectElementFromArray(dataArray, id) {
     if (dataArray != null && (l = dataArray.length) > 0) {
         for (var i = 0; i < l; i++) {
-            if (dataArray[i].cityId === id || dataArray[i].AreaId === id || dataArray[i].areaId === id || dataArray[i].CityId === id)
+            if (dataArray[i].cityId === id || dataArray[i].AreaId === id || dataArray[i].areaId === id || dataArray[i].CityId === id || dataArray[i].id === id)
                 return true;
         }
     }
