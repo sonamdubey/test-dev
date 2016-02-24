@@ -108,6 +108,7 @@ $.getVideos = function () {
         maxPage = Math.ceil(cacheVideos.TotalRecords / 9);
         window.location.hash = "pn=" + pageNo;
         isNextPage = true;
+        $('#loading').hide();
     }
     else
     {
