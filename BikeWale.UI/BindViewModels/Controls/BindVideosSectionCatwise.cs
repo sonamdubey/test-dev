@@ -65,15 +65,19 @@ namespace Bikewale.BindViewModels.Controls
         {
             try
             {
-                if (DoSkip == 0)
+                if (objVideosList != null && objVideosList.Count() > 0)
                 {
-                    rptr.DataSource = objVideosList;
+                    if (DoSkip == 0)
+                    {
+                        rptr.DataSource = objVideosList;
+                    }
+                    else
+                    {
+                        rptr.DataSource = objVideosList.Skip(DoSkip);
+                    }
+                    rptr.DataBind();
                 }
-                else
-                {
-                    rptr.DataSource = objVideosList.Skip(DoSkip);
-                }
-                rptr.DataBind();
+                
             }
             catch (Exception ex)
             {

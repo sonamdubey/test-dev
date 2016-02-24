@@ -501,13 +501,13 @@
 
     function findAreaById(id) {
         return ko.utils.arrayFirst(MPopupViewModel.BookingAreas(), function (child) {
-            return child.id === id;
+            return (child.id === id || child.areaId === id);
         });
     }
 
     function findCityById(id) {
         return ko.utils.arrayFirst(MPopupViewModel.BookingCities(), function (child) {
-            return child.id === id;
+            return (child.id === id || child.cityId === id);
         });
     }
 
