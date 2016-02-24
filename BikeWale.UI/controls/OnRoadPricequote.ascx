@@ -52,9 +52,9 @@
         hasAreas: ko.observable()
     };    
 
-    function findCityById(vm, id) {
+    function RfindCityById(vm, id) {
         return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
-            return child.cityId === id;
+            return (child.cityId === id || child.id === id);
         });
     }
 
@@ -74,7 +74,7 @@
                     viewModelOnRoad.bookingCities(cities);
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelOnRoad.bookingCities() && selectElementFromArray(viewModelOnRoad.bookingCities(), onCookieObj.PQCitySelectedId)) {
                         viewModelOnRoad.selectedCity(onCookieObj.PQCitySelectedId);
-                        viewModelOnRoad.hasAreas(findCityById(viewModelOnRoad, onCookieObj.PQCitySelectedId).hasAreas);
+                        viewModelOnRoad.hasAreas(RfindCityById(viewModelOnRoad, onCookieObj.PQCitySelectedId).hasAreas);
                     }
                     onRoadcity.find("option[value='0']").prop('disabled', true);
                     onRoadcity.trigger('chosen:updated');
@@ -92,7 +92,7 @@
     function cityChangedOnRoad() {
         //gtmCodeAppender(pageId, "City Selected", null);
         if (viewModelOnRoad.selectedCity() != undefined) {
-            viewModelOnRoad.hasAreas(findCityById(viewModelOnRoad, viewModelOnRoad.selectedCity()).hasAreas);
+            viewModelOnRoad.hasAreas(RfindCityById(viewModelOnRoad, viewModelOnRoad.selectedCity()).hasAreas);
             if (viewModelOnRoad.hasAreas() != undefined && viewModelOnRoad.hasAreas()) {
                 $.ajax({
                     type: "GET",
