@@ -28,7 +28,7 @@ namespace Bikewale.Videos
         
         protected LinkPagerControl repeaterPager;
         protected int totalRecords = 0;
-        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, pageHeading = string.Empty, descName = string.Empty;
+        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle= string.Empty, pageHeading = string.Empty, descName = string.Empty;
         protected string categoryIdList = string.Empty;
 
         protected override void OnInit(EventArgs e)
@@ -57,6 +57,7 @@ namespace Bikewale.Videos
             categoryIdList  = Request.QueryString.Get("cid");
             categoryIdList = categoryIdList.Replace("-", ",");
             titleName = Request.QueryString["title"];
+            canonTitle = titleName.ToLower();
             if (!string.IsNullOrEmpty(titleName))
                 {                    
                     //capitalize title
