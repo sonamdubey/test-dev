@@ -1011,9 +1011,13 @@ function LoadTerms(offerId) {
             }
         });
     } else {
-        $('#terms').html($("#orig-terms").html());
+        $("#terms").load("/statichtml/tnc.html");
+        //$('#terms').html($("#orig-terms").html());
     }
 
     $(".termsPopUpContainer").css('height', '500');
 }
 $('#testimonialWrapper .jcarousel').jcarousel({ wrap: 'circular' }).jcarouselAutoscroll({ interval: 7000, target: '+=1', autostart: true });
+$('#locslug').on('click', function (e) {
+    triggerGA('Model_Page', 'Booking_Benefits_City_Link_Clicked', myBikeName + '_' + getBikeVersion());
+});

@@ -794,7 +794,15 @@ function LoadTerms(offerId) {
         });
     }
     else {
-        $('#terms').html($("#orig-terms").html());
+        $("#terms").load("/statichtml/tnc.html");
+        //$('#terms').html($("#orig-terms").html());
     }
     $('#termspinner').hide();
 }
+$('#locslug').on('click', function (e) {
+    triggerGA('Model_Page', 'Booking_Benefits_City_Link_Clicked', myBikeName + '_' + getBikeVersion());
+});
+$('#calldealer').on('click', function (e) {
+    triggerGA('Model_Page', 'Call_Dealer_Clicked', myBikeName + '_' + bikeVersionLocation);
+});
+

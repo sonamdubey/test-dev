@@ -40,10 +40,9 @@ RewriteRule  ^m/(.*)-bikes/(.*)/(.*)-specs-(.*).html	/m/($1)-bikes/($2)/ [R=301,
 
 
 RewriteRule	^(.*)-bikes/(.*)/(.*)/	/m/new/BikeModels.aspx?model=$2 [NC,L,R=404]
-RewriteRule	^m/(.*)-bikes/(.*)/	/m/new/BikeModels.aspx?model=$
+RewriteRule	^(.*)-bikes/(.*)/	/m/new/BikeModels.aspx?model=$2 [NC,L,QSA]
 RewriteRule ^m/(.*)-bikes/(.*)-series/ /m/new/bikeseries.aspx?series=$2 [NC,L]
 RewriteRule	^m/(.*)-bikes/$	/m/new/bikemakes.aspx?make=$1 [NC,L]
-RewriteRule	^(.*)-bikes/(.*)/	/m/new/BikeModels.aspx?model=$2&vid=$3 [NC,L,QSA]
 
 RewriteRule ^m/new-bikes-launches/page/([\d]+)/				/m/new/newbikelaunch/Default.aspx?pn=$1 [NC,L]
 RewriteRule ^m/new-bikes-launches/							/m/new/newbikelaunch/Default.aspx [NC,L]

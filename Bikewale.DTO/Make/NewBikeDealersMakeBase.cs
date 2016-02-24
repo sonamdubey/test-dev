@@ -17,12 +17,12 @@ namespace Bikewale.DTO.Make
         /// <summary>
         /// Text
         /// </summary>
-        [JsonProperty("text")]
+        [JsonProperty("makeName")]
         public string Text { get; set; }
         /// <summary>
         /// Value
         /// </summary>
-        [JsonProperty("value")]
+        [JsonProperty("makeId")]
         public string Value { get; set; }
     }
 }

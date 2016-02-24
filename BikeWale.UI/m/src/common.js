@@ -7,6 +7,13 @@ var pqSourceId = "38";
 var IsPriceQuoteLinkClicked = false;
 var ga_pg_id = '0';
 
+function triggerGA(cat, act, lab) {
+    try {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
+    }
+    catch (e) {// log error   
+    }
+}
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
         var len = this.length >>> 0;
@@ -1084,7 +1091,7 @@ function setLocationCookie(cityEle, areaEle) {
 function selectElementFromArray(dataArray, id) {
     if (dataArray != null && (l = dataArray.length) > 0) {
         for (var i = 0; i < l; i++) {
-            if (dataArray[i].cityId === id || dataArray[i].AreaId === id || dataArray[i].areaId === id || dataArray[i].CityId === id)
+            if (dataArray[i].cityId === id || dataArray[i].AreaId === id || dataArray[i].areaId === id || dataArray[i].CityId === id || dataArray[i].id === id)
                 return true;
         }
     }
