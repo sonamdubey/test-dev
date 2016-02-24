@@ -388,14 +388,6 @@
                         <%} %>
                 </div>
                 <% } %>
-                <% if (bookingAmt > 0 && isDealerAssitance)
-                            { %>
-                             <div class="grid-12 alpha omega margin-bottom20 margin-top20 padding-left10 padding-right10 ">
-                                 <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
-                             </div>
-                         <%} %>
-                  </div>
-                  <%--<% } %>--%>
                 <% if(!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
                    { %>
                 <div class="container clearfix box-shadow">
