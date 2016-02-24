@@ -90,7 +90,7 @@ namespace Bikewale.Cache.Videos
             string key = string.Empty;
             try
             {
-                key = String.Format("BW_Videos_SubCat_{0}_Cnt_{1}", categoryIdList, pageSize);
+                key = String.Format("BW_Videos_SubCat_{0}_Cnt_{1}", categoryIdList.Replace(",","_"), pageSize);
                 videosList = _cache.GetFromCache<BikeVideosListEntity>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosBySubCategory(categoryIdList, pageNo, pageSize));
             }
             catch (Exception ex)
