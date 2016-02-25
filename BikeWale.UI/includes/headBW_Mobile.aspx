@@ -74,10 +74,10 @@
             </div>
             <div class="rightfloat">
                 <div class="global-search" id="global-search" style="display:none">
-                    <span class="fa fa-search text-white" style="font-size:16px"></span>
+                    <span class="bwmsprite search-bold-icon"></span>
                 </div>
                 <div class="global-location">
-                    <span class="fa fa-map-marker"></span>
+                    <span class="bwmsprite map-loc-icon"></span>
                 </div>
                 <a class="sort-btn rightfloat hide" id="sort-btn">
                     <span class="bwmsprite sort-icon"></span>

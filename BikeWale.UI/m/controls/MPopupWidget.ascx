@@ -25,14 +25,14 @@
                 <span class="position-abt progress-bar"></span>
                 <div class="selected-city" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
                 <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-                <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
+                <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
 
             <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="visible: BookingAreas().length > 0">
                 <span class="position-abt progress-bar"></span>
                 <div class="selected-area" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
                 <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
-                <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
+                <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
 
             </div>
             <!-- /ko -->

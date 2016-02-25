@@ -381,47 +381,7 @@ $(document).ready(function () {
         $("#nav").removeClass('open').stop().animate({ 'left': '-300px' });
         $(".blackOut-window").hide();
     }
-    // login code starts 
-    //$("#firstLogin").click(function(){
-    //	lockPopup();
-    //	$(".loginPopUpWrapper").animate({right:'0'});
-    //});
-    //$(".blackOut-window").mouseup(function(e){
-    //	var loginPopUp = $(".loginPopUpWrapper");
-    //    if(e.target.id !== loginPopUp.attr('id') && !loginPopUp.has(e.target).length)
-    //    {
-    //        loginPopUp.animate({'right':'-400px'});
-    //		unlockPopup();
-    //    }
-    //});
-    //$(".loginCloseBtn").click(function(){
-    //	unlockPopup();
-    //	$(".loginPopUpWrapper").animate({right:'-400px'});
-    //	loginSignupSwitch();
-    //});	
-    //$("#forgotpass").click(function(){
-    //	$("#forgotpassbox").toggleClass("hide show");
-    //});
-    //$(".loginBtnSignUp").click(function(){
-    //	$(".loginStage").hide();
-    //	$(".signUpStage").show();
-    //});
-    //$(".signupBtnLogin").click(function(){
-    //	loginSignupSwitch();
-    //});
-    //function loginSignupSwitch(){
-    //	$(".loginStage").show();
-    //	$(".signUpStage").hide();
-    //}
-    //function lockPopup() {
-    //	$('body').addClass('lock-browser-scroll');
-    //	$(".blackOut-window").show();		
-    //}
-    //function unlockPopup() {
-    //	$('body').removeClass('lock-browser-scroll');
-    //	$(".blackOut-window").hide();
-    //}	
-
+    
     function centerItVariableWidth(target, outer) {
         var out = $(outer);
         var tar = target;

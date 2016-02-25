@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeModels" EnableViewState="false" %>
-
+﻿ <%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeModels" EnableViewState="false" %>
 <%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
@@ -8,10 +7,9 @@
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html> 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <%
-
         description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price));
         title = String.Format("{0} Price in India, Review, Mileage & Photos - Bikewale", bikeName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
@@ -38,8 +36,6 @@
         var isDealerPriceAvailable = "<%= pqOnRoad != null ? pqOnRoad.IsDealerPriceAvailable : false%>";
         var campaignId = "<%= campaignId%>";
         var manufacturerId = "<%= manufacturerId%>";
-
-
     </script>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
@@ -117,9 +113,8 @@
                             <h1 class="padding-bottom10"><%= bikeName %></h1>
                         </div>--%>
                         <div class="margin-bottom10 font14 text-light-grey">Expected price</div>
-                        <div class="font22 text-grey">
-
-                            <span class="font24 text-bold"><span class="fa fa-rupee"></span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
+                        <div>
+                            <span class="text-bold"><span class="bwmsprite inr-lg-icon"></span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
                         </div>
                         <div class="border-light-bottom margin-top15 margin-bottom15"></div>
                         <div class="margin-bottom10 font14 text-light-grey">Expected launch date</div>
@@ -142,12 +137,12 @@
                         <div class="form-control-box variantDropDown leftfloat grid-10 omega">
                             <div class="sort-div rounded-corner2">
                                 <div class="sort-by-title" id="sort-by-container">
-                                    <span class="leftfloat sort-select-btn">
+                                    <span class="leftfloat sort-select-btn abc">
                                         <asp:Label runat="server" ID="defaultVariant"></asp:Label>
                                     </span>
                                     <span class="clear"></span>
                                 </div>
-                                <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                <span id="upDownArrow" class="rightfloat bwmsprite fa-angle-down position-abt pos-top15 pos-right10"></span>
                             </div>
                             <div class="sort-selection-div sort-list-items hide">
                                 <ul id="sortbike">
@@ -211,12 +206,12 @@
                             <% if (totalDiscountedPrice != 0)
                                { %>
                             <p>
-                                <span class="offertxt strike padding-right10 font14"><span class="fa fa-rupee margin-right5"></span>
+                                <span class="offertxt strike padding-right10 font14"><span class="bwmsprite inr-grey-xxsm-icon"></span>
                                     <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %>
                                 </span>
-                                (<span class="offertxt red-font text-bold font14"><span class="fa fa-rupee"></span>
+                                ( <span class="offertxt red-font text-bold font14"><span class="bwmsprite inr-red-xxsm-icon"></span>
                                     <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalDiscountedPrice)) %>
-                                     Off</span>)
+                                     Off</span> )
                             </p>
                              <% } %>
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -226,7 +221,7 @@
                                       { %>
 
                                     <span class="font24 text-bold">
-                                        <span itemprop="priceCurrency" content="INR"><span class="fa fa-rupee"></span></span>
+                                        <span itemprop="priceCurrency" content="INR"><span class="bwmsprite inr-lg-icon"></span></span>
                                         <span itemprop="price" content="<%=price %>">
                                             <%= Bikewale.Utility.Format.FormatPrice(price) %>
                                         </span>
@@ -318,7 +313,7 @@
                                 <%if (isBookingAvailable && bookingAmt > 0 && campaignId == 0)
                                   { %>
                                 <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite offers-icon"></span>
-                                    Pay <span class="fa fa-rupee"></span> <%=bookingAmt %> to book your bike and get:
+                                    Pay <span class="bwmsprite inr-xsm-icon"></span> <%=bookingAmt %> to book your bike and get:
                                 </h4>
                                 <%    } %>
                                 <% if (isOfferAvailable && campaignId == 0)
@@ -426,8 +421,8 @@
                         <span class="font14 text-grey padding-left10">Last known Ex-showroom Price</span>
                     </div>
                     <div class="bike-price-container margin-top10 font22 margin-bottom10 padding-left10">
-                        <div class="bike-price-container font22 margin-bottom15">
-                            <span class="fa fa-rupee"></span>
+                        <div class="bike-price-container margin-bottom15">
+                            <span class="bwmsprite inr-lg-icon"></span>
                             <span class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span>
                         </div>
                     </div>
@@ -473,7 +468,7 @@
                         <% if (bookingAmt > 0 && isDealerAssitance)
                            { %>
                         <div class="grid-5 alpha omega">
-                            <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+919167969266"><span class="fa fa-phone margin-right5"></span>Call dealer</a>
+                            <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+919167969266"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
                           </div>
                           <%} %>
                         <%} %>
@@ -1002,7 +997,7 @@
                                             </div>
                                             <div class="grid-4 alpha omega">
                                                 <p class="font16 margin-bottom10 text-bold">
-                                                    <span class="fa fa-rupee margin-right5"></span>
+                                                    <span class="bwmsprite inr-xsm-icon"></span>
                                                     <span id="<%# "priced_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
                                                         <asp:Label Text='<%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %>' ID="txtComment" runat="server"></asp:Label>
                                                     </span>
@@ -1227,15 +1222,15 @@
                     <tbody>
                         <tr>
                             <td width="60%" class="padding-bottom10">Ex-showroom (Mumbai)</td>
-                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price)) %></td>
+                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price)) %></td>
                         </tr>
                         <tr>
                             <td class="padding-bottom10">RTO</td>
-                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.RTO)) %></td>
+                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.RTO)) %></td>
                         </tr>
                         <tr>
                             <td class="padding-bottom10">Insurance<a style="position: relative; font-size: 11px; margin-top: 1px;" target="_blank" href="/m/insurance/"> Up to 60% off - PolicyBoss </a></td>
-                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Insurance)) %></td>
+                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Insurance)) %></td>
                         </tr>
                         <tr>
                             <td colspan="2">
@@ -1245,7 +1240,7 @@
                         <tr>
                             <!-- ko if :BWPriceList -->
                             <td class="padding-bottom10 text-bold">Total on road price</td>
-                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price + objSelectedVariant.RTO + objSelectedVariant.Insurance)) %></td>
+                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="bwmsprite inr-sm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price + objSelectedVariant.RTO + objSelectedVariant.Insurance)) %></td>
                             <!-- /ko -->
                         </tr>
                     </tbody>
@@ -1265,7 +1260,7 @@
                                         <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : ""  %>
                                         <% } %>
                                     </td>
-                                    <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
+                                    <td align="right" class="padding-bottom10 text-bold text-right"><span class="bwmsprite inr-xxsm-icon"></span>
                                         <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></td>
                                 </tr>
                             </ItemTemplate>
@@ -1280,13 +1275,13 @@
                         </tr>
                         <tr>
                             <td class="padding-bottom10">Total on road price</td>
-                            <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></td>
+                            <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></td>
                         </tr>
                         <asp:Repeater ID="rptDiscount" runat="server">
                             <ItemTemplate>
                                 <tr class="carwale">
                                     <td width="350" class="padding-bottom10">Minus <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %></td>
-                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>
+                                    <td align="right" class="padding-bottom10 text-bold"><span class="bwmsprite inr-sm-icon"></span>
                                         <span><%# Bikewale.Utility.Format.FormatPrice(
                                                   Convert.ToString(DataBinder.Eval(Container.DataItem, "Price")))  %></span></td>
                                 </tr>
@@ -1301,12 +1296,12 @@
                             </tr>
                             <tr>
                                 <td class="padding-bottom10">Total on road price</td>
-                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></td>
+                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="bwmsprite inr-xxsm-icon margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></td>
                             </tr>
 
                             <tr>
                                 <td class="padding-bottom10">Minus insurance</td>
-                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(pqOnRoad.InsuranceAmount)) %></td>
+                                <td align="right" class="padding-bottom10 text-bold"><span class="bwmsprite inr-xxsm-icon margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(pqOnRoad.InsuranceAmount)) %></td>
                             </tr>
                             <% } %>--%>
                         <%} %>
@@ -1322,14 +1317,14 @@
                             <% if (pqOnRoad.InsuranceAmount > 0)
                                {
                             %>
-                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
+                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="bwmsprite inr-sm-icon"></span>
                                 <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice -totalDiscountedPrice)) %>
 
                             </td>
                             <% }
                                else
                                { %>
-                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
+                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="bwmsprite inr-sm-icon"></span>
                                 <%= Bikewale.Utility.Format.FormatPrice(price) %>
                                 <%} %>
                                 <%} %>
@@ -1390,7 +1385,7 @@
                     <p class="text-light-grey margin-bottom5">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
                     <div>
                         <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
-                            <span class="fa fa-phone"></span>
+                            <span class="bwmsprite tel-grey-icon"></span>
                             <span class="text-light-grey font24">+91</span>
                             <span class="lead-mobile font24">9876543210</span>
                             <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>

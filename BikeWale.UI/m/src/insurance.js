@@ -49,7 +49,7 @@ $(document).ready(function() {
 
             if ($this.find('.icon').hasClass('plus-minus')) {
                 $('.icon.plus-minus .fa')
-                    .attr('class', 'fa fa-plus');
+                    .attr('class', 'bwmsprite fa fa-plus');
             }
 
             //scroll to an element

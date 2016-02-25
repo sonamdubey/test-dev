@@ -32,8 +32,8 @@
                 <div class="text-white margin-top15 text-center font14">Get Exclusive Offers on your Bike Purchase</div>
                 <div class="new-used-search new-bikes-search margin-top30 position-rel">
                         <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" class="rounded-corner2">
-                        <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search"><span class="fa fa-search"></span></a>
-                        <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black" style="display:none"></span>
+                        <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search"><span class="bwmsprite search-bold-icon"></span></a>
+                        <span id="loaderMakeModel"  class="fa-spinner position-abt pos-right45 pos-top15" style="display:none"></span>
                 </div>
                 <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
                     <li class="ui-menu-item" tabindex="-1">
@@ -285,10 +285,10 @@
                                     	<span class="budget-title-box font14">
                                             Upto
                                         </span>
-                                        <span class="budget-amount-box font12">
-                                            <span class="fa fa-rupee"></span>
+                                        <span class="budget-amount-box">
+                                            <span class="bwmsprite inr-grey-xxsm-icon"></span>
                                             <span class="font14 text-bold">50,000</span>
-                                        </span>   
+                                        </span>
                                     </a>
                                 </li>
                                 <li>
@@ -296,12 +296,12 @@
                                     	<span class="budget-title-box font14">
                                             Between
                                         </span>
-                                        <span class="budget-amount-box font12">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font14 text-bold">50,000 - </span>
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font14 text-bold">1</span>
-                                            <span class="budget-amount-text-box font14 text-bold">Lac</span>
+                                        <span class="budget-amount-box font14 text-bold">
+                                            <span class="bwmsprite inr-grey-xxsm-icon"></span>
+                                            <span>50,000 - </span>
+                                            <span class="bwmsprite inr-grey-xxsm-icon"></span>
+                                            <span>1</span>
+                                            <span class="budget-amount-text-box">Lac</span>
                                         </span>   
                                     </a>
                                 </li>
@@ -310,15 +310,15 @@
                                     	<span class="budget-title-box font14">
                                             Between
                                         </span>
-                                        <span class="budget-amount-box font12 text-bold">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font14 text-bold">1</span>
-                                            <span class="budget-amount-text-box font14 text-bold">Lac</span>
-                                            <span class="font14 text-bold"> - </span>
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font14 text-bold">2.5</span>
-                                            <span class="budget-amount-text-box font14 text-bold">Lac</span>
-                                        </span>   
+                                        <span class="budget-amount-box font14 text-bold">
+                                            <span class="bwmsprite inr-grey-xxsm-icon"></span>
+                                            <span>1</span>
+                                            <span class="budget-amount-text-box">Lac</span>
+                                            <span> - </span>
+                                            <span class="bwmsprite inr-grey-xxsm-icon"></span>
+                                            <span>2.5</span>
+                                            <span class="budget-amount-text-box">Lac</span>
+                                        </span>
                                     </a>
                                 </li>
                                 <li>
@@ -326,10 +326,10 @@
                                     	<span class="budget-title-box font14">
                                             Above
                                         </span>
-                                        <span class="budget-amount-box font12">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font14 text-bold">2.5</span>
-                                            <span class="budget-amount-text-box font14 text-bold">Lac</span>
+                                        <span class="budget-amount-box font14 text-bold">
+                                            <span class="bwmsprite inr-grey-xxsm-icon"></span>
+                                            <span>2.5</span>
+                                            <span class="budget-amount-text-box">Lac</span>
                                         </span>   
                                     </a>
                                 </li>

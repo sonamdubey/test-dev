@@ -112,8 +112,8 @@
                                             <div class="bikeTitle">
                                                 <h3><a data-bind="attr: {title: bikeName }, text: bikeName, click: function () { $.ModelClickGaTrack(bikemodel.modelName(), '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/') }"></a></h3>
                                             </div>
-                                            <div class="font22 text-grey margin-bottom5">
-                                                <span class="fa fa-rupee"></span>
+                                            <div class="margin-bottom5">
+                                                <span class="bwmsprite inr-lg-icon"></span>
                                                 <span class="font24" data-bind="text: price"></span>
                                             </div>
                                             <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
@@ -155,7 +155,7 @@
                     <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete">
                         <div id="hidePopup" class="filterBackArrow" popupname="filterpopup" onclick="CloseWindow(this)">
                             <!--<span class="bwmsprite back-long-arrow-left-white"></span>-->
-                            <span class="fa fa-angle-left"></span>
+                            <span class="bwmsprite fa-angle-left"></span>
                         </div>
                         <div class="floatleft cw-m-sprite city-back-btn" id="back-btn"></div>
                         <div class="filterTitle">Filters</div>
