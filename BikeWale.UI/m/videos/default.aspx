@@ -1,4 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.videos.Default" EnableViewState="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Videos.Default" EnableViewState="false" %>
+<%@ Register Src="~/m/controls/VideosByCategory.ascx" TagName="ByCategory" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/ExpertReviewsVideos.ascx" TagName="ExpertReview" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,28 +13,23 @@
         <section>
             <div class="container">
                 <div class="video-jumbotron">
-                    <a href="">
-                        <img class="lazy" data-original="http://imgd1.aeplcdn.com//310X174//bw/models/honda-activa-125-standard-484.jpg?20151209184229" alt="" title="" src="" border="0" />
-                        <span>PowerDrift Specials : Rajini's Academy of Competitive Racing [RACR]</span>
+                   <a href="/m<%= Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(ctrlVideosLandingFirst.VideoTitleUrl,ctrlVideosLandingFirst.BasicId.ToString()) %>" >
+                        <img class="lazy" data-original="<%= String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",ctrlVideosLandingFirst.VideoId)  %>" alt="<%= ctrlVideosLandingFirst.VideoTitle  %>" title="<%= ctrlVideosLandingFirst.VideoTitle  %>" src="<%= String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",ctrlVideosLandingFirst.VideoId)  %>" border="0" />
+                        <span><%= ctrlVideosLandingFirst.VideoTitle  %></span>
                     </a>
                 </div>
                 <ul class="video-jumbotron-list bottom-shadow margin-bottom20">
+                    <asp:Repeater ID="rptLandingVideos" runat="server">
+                            <ItemTemplate>
                     <li>
-                        <a href="" class="jumbotron-list-image margin-right20"><img class="lazy" data-original="http://imgd8.aeplcdn.com//110x61//bikewaleimg/ec/617/img/l/TVS-Star-Sport-Side-2178.jpg" alt="" title="" src="" border="0" /></a>
-                        <a href="" class="font14 text-default padding-left20">Yamaha R125 First ride | PowerDrift</a>
+                        <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="jumbotron-list-image margin-right20">
+                            <img class="lazy" data-original="<%# String.Format("https://img.youtube.com/vi/{0}/default.jpg",DataBinder.Eval(Container.DataItem,"VideoId"))  %>" alt="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="<%# String.Format("https://img.youtube.com/vi/{0}/default.jpg",DataBinder.Eval(Container.DataItem,"VideoId"))  %>" border="0" />
+
+                        </a>
+                        <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="font14 text-default padding-left20"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a>
                     </li>
-                    <li>
-                        <a href="" class="jumbotron-list-image margin-right20"><img class="lazy" data-original="http://imgd7.aeplcdn.com//110x61//bikewaleimg/ec/15246/img/l/TVS-Wego-Tail-lamp-47831.jpg?20151702124414" alt="" title="" src="" border="0" /></a>
-                        <a href="" class="font14 text-default padding-left20">Yamaha R125 First ride | PowerDrift</a>
-                    </li>
-                    <li>
-                        <a href="" class="jumbotron-list-image margin-right20"><img class="lazy" data-original="http://imgd5.aeplcdn.com//110x61//bikewaleimg/ec/15246/img/l/TVS-Wego-Rear-three-quarter-47801.jpg?20151702123735" alt="" title="" src="" border="0" /></a>
-                        <a href="" class="font14 text-default padding-left20">Yamaha R125 First ride | PowerDrift</a>
-                    </li>
-                    <li>
-                        <a href="" class="jumbotron-list-image margin-right20"><img class="lazy" data-original="http://imgd5.aeplcdn.com//110x61//bikewaleimg/ec/15246/img/l/TVS-Wego-Headlamp-47789.jpg?20151702123523" alt="" title="" src="" border="0" /></a>
-                        <a href="" class="font14 text-default padding-left20">Yamaha R125 First ride | PowerDrift</a>
-                    </li>
+                       </ItemTemplate>
+                        </asp:Repeater> 
                 </ul>
             </div>
         </section>
@@ -51,192 +48,35 @@
             </div>
         </section>
 
-        <section>
-            <div class="container">
-                <h2 class="text-center margin-top25 margin-bottom15">First ride</h2>
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide video-carousel-content rounded-corner2">
-                            <div class="video-carousel-image">
-                                <a href="">
-                                    <img class="swiper-lazy" data-src="http://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47836.jpg?20151702124504" alt="" title="" border="0" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </a>
-                            </div>
-                            <div class="video-carousel-desc">
-                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                                <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                                </div>
-                                <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide video-carousel-content rounded-corner2">
-                            <div class="video-carousel-image">
-                                <a href="">
-                                    <img class="swiper-lazy" data-src="http://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47805.jpg?20151702123823" alt="" title="" border="0" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </a>
-                            </div>
-                            <div class="video-carousel-desc">
-                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                                <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                                </div>
-                                <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide video-carousel-content rounded-corner2">
-                            <div class="video-carousel-image">
-                                <a href="">
-                                    <img class="swiper-lazy" data-src="http://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47821.jpg?20151702124133" alt="" title="" border="0" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </a>
-                            </div>
-                            <div class="video-carousel-desc">
-                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                                <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                                </div>
-                                <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="" class="font14 text-center more-videos-link">View more videos</a>
-            </div>
-        </section>
+        <% if (ctrlFirstRide.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlFirstRide" /> 
+        <% } %>         
 
-        <section class="bg-white">
-            <div id="expertReviewsWrapper" class="container bottom-shadow">
-                <h2 class="text-center padding-top25 padding-bottom15">Expert reviews</h2>
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide reviews-carousel-content">
-                            <div class="video-carousel-image rounded-corner2">
-                                <a href="">
-                                    <img class="swiper-lazy" data-src="http://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47836.jpg?20151702124504" alt="" title="" border="0" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </a>
-                            </div>
-                            <div class="margin-top10">
-                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                                <p class="font12 text-xlight-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                                <p class="font14 text-light-grey margin-bottom10 line-height17">The new Avenger's are here! Atleast so! With time not being on our...</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                                </div>
-                                <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide reviews-carousel-content">
-                            <div class="video-carousel-image rounded-corner2">
-                                <a href="">
-                                    <img class="swiper-lazy" data-src="http://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/466/img/l/hero-hf-dawn-side-7376.jpg?20142803202749" alt="" title="" border="0" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </a>
-                            </div>
-                            <div class="margin-top10">
-                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                                <p class="font12 text-xlight-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                                <p class="font14 text-light-grey margin-bottom10 line-height17">The new Avenger's are here! Atleast so! With time not being on our...</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                                </div>
-                                <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="" class="font14 text-center more-videos-link">View more videos</a>
-            </div>
-        </section>
+        <% if (ctrlExpertReview.FetchedRecordsCount > 0) {%>
+        <BW:ExpertReview runat="server" ID="ctrlExpertReview" /> 
+        <% } %> 
 
-        <section>
-            <div class="container">
-                <h2 class="text-center margin-top25 margin-bottom15">Launch alert</h2>
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide video-carousel-content rounded-corner2">
-                            <div class="video-carousel-image">
-                                <a href="">
-                                    <img class="swiper-lazy" data-src="http://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47836.jpg?20151702124504" alt="" title="" border="0" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </a>
-                            </div>
-                            <div class="video-carousel-desc">
-                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                                <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                                </div>
-                                <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide video-carousel-content rounded-corner2">
-                            <div class="video-carousel-image">
-                                <a href="">
-                                    <img class="swiper-lazy" data-src="http://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47805.jpg?20151702123823" alt="" title="" border="0" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </a>
-                            </div>
-                            <div class="video-carousel-desc">
-                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                                <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                                </div>
-                                <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide video-carousel-content rounded-corner2">
-                            <div class="video-carousel-image">
-                                <a href="">
-                                    <img class="swiper-lazy" data-src="http://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47821.jpg?20151702124133" alt="" title="" border="0" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </a>
-                            </div>
-                            <div class="video-carousel-desc">
-                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                                <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                                </div>
-                                <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="" class="font14 text-center more-videos-link">View more videos</a>
-            </div>
-        </section>
+        <% if (ctrlLaunchAlert.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlLaunchAlert" />
+        <% } %> 
+
+
+        <% if (ctrlMiscellaneous.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlMiscellaneous" />
+        <% } %> 
+
+
+        <% if (ctrlTopMusic.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlTopMusic" />
+        <% } %> 
+
+
+        <% if (ctrlDoItYourself.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlDoItYourself" />
+        <% } %> 
+
+        
+
 
         <script type="text/javascript">
             $(document).ready(function () {

@@ -1,0 +1,87 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.ExpertReviewVideos" %>
+<section class="bg-white">
+    <div id="expertReviewsWrapper" class="container bottom-shadow">
+        <h2 class="text-center padding-top25 padding-bottom15"><%= SectionTitle %></h2>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+            <asp:Repeater ID="rptCategoryVideos" runat="server"> 
+                <ItemTemplate>                     
+                        <div class="swiper-slide reviews-carousel-content">
+                            <div class="video-carousel-image rounded-corner2">
+                                <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>">
+                                    <img class="swiper-lazy" data-src="<%# String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId"))  %>" alt="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="<%# String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId"))  %>" border="0" />
+                                    <span class="swiper-lazy-preloader"></span>
+                                </a>
+                            </div>
+                            <div class="margin-top10">
+                                <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="text-default font14 text-bold"><%# DataBinder.Eval(Container.DataItem,"VideoTitle")%></a>
+
+                                <p class="font12 text-xlight-grey margin-top10 margin-bottom10"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy") %></p>
+                                <p class="font14 text-light-grey margin-bottom10 line-height17"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem,"Description").ToString(),75) %></p>
+                                <div class="grid-6 alpha omega border-light-right font14">
+                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5"> </span><span class="text-default"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString())%></span>
+                                </div>
+                                <div class="grid-6 omega padding-left10 font14">
+                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5"> </span><span class="text-default"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Likes").ToString()) %></span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>                     
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>  </div>
+    <a href="/m<%= Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(SectionTitle,CategoryIdList) %>" class="font16 text-center padding-top15 more-videos-link">View more videos</a>
+    </div>
+</section>
+
+
+<%-- <section class="bg-white">
+            <div id="expertReviewsWrapper" class="container bottom-shadow">
+                <h2 class="text-center padding-top25 padding-bottom15">Expert reviews</h2>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide reviews-carousel-content">
+                            <div class="video-carousel-image rounded-corner2">
+                                <a href="">
+                                    <img class="swiper-lazy" data-src="http://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47836.jpg?20151702124504" alt="" title="" border="0" />
+                                    <span class="swiper-lazy-preloader"></span>
+                                </a>
+                            </div>
+                            <div class="margin-top10">
+                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
+                                <p class="font12 text-xlight-grey margin-top10 margin-bottom10">November 25, 2015</p>
+                                <p class="font14 text-light-grey margin-bottom10 line-height17">The new Avenger's are here! Atleast so! With time not being on our...</p>
+                                <div class="grid-6 alpha omega border-light-right font14">
+                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
+                                </div>
+                                <div class="grid-6 omega padding-left10 font14">
+                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide reviews-carousel-content">
+                            <div class="video-carousel-image rounded-corner2">
+                                <a href="">
+                                    <img class="swiper-lazy" data-src="http://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/466/img/l/hero-hf-dawn-side-7376.jpg?20142803202749" alt="" title="" border="0" />
+                                    <span class="swiper-lazy-preloader"></span>
+                                </a>
+                            </div>
+                            <div class="margin-top10">
+                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
+                                <p class="font12 text-xlight-grey margin-top10 margin-bottom10">November 25, 2015</p>
+                                <p class="font14 text-light-grey margin-bottom10 line-height17">The new Avenger's are here! Atleast so! With time not being on our...</p>
+                                <div class="grid-6 alpha omega border-light-right font14">
+                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
+                                </div>
+                                <div class="grid-6 omega padding-left10 font14">
+                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="" class="font14 text-center more-videos-link">View more videos</a>
+            </div>
+        </section>--%>
