@@ -1,16 +1,6 @@
-﻿var pageNo = 1; 
-var monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"];
+﻿var pageNo = 1;
 
 lscache.setBucket('catVideos');
-
-ko.bindingHandlers.formateDate = {
-    update: function (element, valueAccessor) {
-        var date = new Date(valueAccessor());
-        var formattedDate = monthNames[date.getMonth()] + ' ' + date.getDay() + ', ' + date.getFullYear();
-        $(element).text(formattedDate);
-    }
-};
 
 ko.bindingHandlers.CurrencyText = {
     update: function (element, valueAccessor) {
