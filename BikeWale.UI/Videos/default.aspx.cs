@@ -1,4 +1,5 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Common;
 using Bikewale.Entities.Videos;
 using System;
 using System.Web.UI.WebControls;
@@ -27,8 +28,8 @@ namespace Bikewale.Videos
         protected void Page_Load(object sender, EventArgs e)
         {
             //device detection
-            //DeviceDetection dd = new DeviceDetection();
-            //dd.DetectDevice();
+            DeviceDetection dd = new DeviceDetection();
+            dd.DetectDevice();
 
             BindLandingVideos();
 
