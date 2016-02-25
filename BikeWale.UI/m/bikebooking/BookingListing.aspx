@@ -171,13 +171,13 @@
                                             <span><span data-bind="text : offers().length==1?offers().length + ' offer':offers().length + ' offers'"></span></span>
                                             <span class="offers-left-tag"></span>
                                         </div>
-                                        <a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/'+ versionEntity.versionId() + '/' }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName() }); return true; }">
+                                        <a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/?vid='+ versionEntity.versionId() }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName() }); return true; }">
                                             <img class="lazy" data-bind="attr: { title: bikeName(), alt: bikeName(), src: '' }, lazyload: hostUrl() + '/310X174/' + originalImagePath() ">
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
                                         <div class="bikeTitle margin-bottom10">
-                                                <h3><a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/'+ versionEntity.versionId() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName }); return true; }"></a></h3>
+                                                <h3><a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/?vid='+ versionEntity.versionId(), title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName }); return true; }"></a></h3>
                                             </div>
                                         <p class="font14 text-light-grey">BikeWale on-road price</p>
                                         <div class="margin-top10 text-light-grey" data-bind="visible: discount() > 0">
@@ -406,9 +406,8 @@
             </div>
             <!--Main container ends here-->
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
         <script>
-            var selectedCityId = <%= cityId %> ,selectedAreaId = <%= areaId %> ;
+            var selectedCityId = '<%= cityId %>' ,selectedAreaId = '<%= areaId %>' ;
             var cityName = $("#listingPopupCityList li[cityid='" + selectedCityId + "']").text(),
                 areaName = $("#listingPopupAreaList li[areaid='" + selectedAreaId + "']").text()
             $("#Userlocation").text(cityName + ', ' + areaName);

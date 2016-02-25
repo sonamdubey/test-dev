@@ -107,7 +107,7 @@
             </div>
         </section>
 
-        <section>
+        <%--<section>
             <div class="avail-offers-container container bg-white">
                 <h2 class="padding-top25 text-center padding-bottom20">Offers you can avail</h2>
                 <ul>
@@ -140,7 +140,7 @@
                     </li>
                 </ul>
             </div>
-        </section>
+        </section>--%>
         
         <section id="bookingWorksWrapper">
             <div class="booking-work-container container text-white padding-left20 padding-right20">
@@ -218,8 +218,8 @@
             </div>
         </section>
         
-        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
-
+        <%--<script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>--%>
+        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <script>
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList"), $liCities = $("#sliderCityList"), $liAreas = $("#sliderAreaList");
             var key = "bCity_";
@@ -413,9 +413,8 @@
                     'left': '100%'
                 }, 500);
             };
-        </script>
+        </script>        
         
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         

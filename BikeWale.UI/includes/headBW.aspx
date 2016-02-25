@@ -1,10 +1,11 @@
-﻿<%@ Register Src="~/controls/LoginControlNew.ascx" TagPrefix="BW" TagName="Login" %>
+﻿<%--<%@ Register Src="~/controls/LoginControlNew.ascx" TagPrefix="BW" TagName="Login" %>--%>
 <%@ Register Src="~/controls/LoginStatusNew.ascx" TagPrefix="BW" TagName="LoginStatus" %>
 <%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PopupWidget" %>
 
 	<div class="blackOut-window"></div>
     <!-- #include file="/includes/Navigation.aspx" -->
-    <BW:Login ID="ctrlLogin" runat="server" />    
+    <%--<BW:Login ID="ctrlLogin" runat="server" />--%>    
+    <%--<div id="divLoginControlLoad"></div>--%>
     <div class="globalcity-popup rounded-corner2 hide" id="globalcity-popup"><!-- global city pop up code starts here -->
     	<div class="globalcity-popup-data text-center">
         	<div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -37,7 +38,7 @@
             <span class="ae-logo-border"></span><a href="http://www.carwale.com/autoexpo2016/" class="ae-sprite ae-logo" target="_blank"></a>
         </div>
         <div class="rightfloat">
-            <div class="global-search position-rel " style="display:none">
+            <div class="global-search" style="display:none">
                 <span class="bwsprite search-icon-grey" id="btnGlobalSearch" style="z-index:2"></span>
                 <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
                 <span class="fa fa-spinner fa-spin position-abt  text-black" style="display:none;right:14px;top:7px;background:#fff"></span>

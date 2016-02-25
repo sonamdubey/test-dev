@@ -15,7 +15,7 @@
                                 <p class="font18 text-bold margin-top15 margin-bottom10"><%# DataBinder.Eval(Container.DataItem,"Title") %></p>
                                 <p class="testimonial-user-stmt font16 margin-bottom15"><%# DataBinder.Eval(Container.DataItem,"Content") %></p>
                                 <p class="font14"><%# DataBinder.Eval(Container.DataItem,"UserName") %></p>
-                               <%-- <p class="font14 text-light-grey">City Name</p>--%>
+                                <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"City") %></p>
                             </div>
                         </li>
                     </ItemTemplate>
