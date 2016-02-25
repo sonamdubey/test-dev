@@ -980,6 +980,10 @@
       <DependentUpon>RSAOfferClaim.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\videos\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Newsletter\Unsubscribe.aspx.cs">
       <DependentUpon>Unsubscribe.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2179,6 +2183,7 @@
     <Content Include="m\css\new\bwm-bookinglisting.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
+    <Content Include="m\css\video.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\Default.aspx" />
@@ -2262,6 +2267,7 @@
     <Content Include="m\src\Plugins.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
+    <Content Include="m\videos\default.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
