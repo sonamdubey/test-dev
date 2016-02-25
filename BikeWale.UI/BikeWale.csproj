@@ -849,6 +849,10 @@
       <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\SimilarVideos.ascx.cs">
+      <DependentUpon>SimilarVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\TopUserReviews.ascx.cs">
       <DependentUpon>TopUserReviews.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2159,6 +2163,7 @@
     <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
+    <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
     <Content Include="m\controls\UsersTestimonials.ascx" />
@@ -2469,6 +2474,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="msmq\" />
+    <Folder Include="m\video\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
   </ItemGroup>

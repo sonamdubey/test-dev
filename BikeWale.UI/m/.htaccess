@@ -53,6 +53,7 @@ RewriteRule ^new/locate-dealers/	/m/new/NewBikeDealers/default.aspx [NC,L]
 RewriteRule ^comparebikes/([a-zA-Z0-9]*)-(.*)-vs-([a-zA-Z0-9]*)-(.*)/$         /m/new/compare/comparebikedetails.aspx?mo=$2,$4 [NC,L,QSA]
 RewriteRule ^comparebikes/$							/m/new/compare/comparebike.aspx	[NC,L]
 
+RewriteRule	^bike-videos/([a-zA-Z0-9\-]+)-([\d]+)/$	/m/videos/video.aspx?id=${lowercase:$2} [NC,L]
 
 
 

@@ -1,7 +1,14 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.videos.video" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.m.videos.video" %>
 <!DOCTYPE html>
+<%@ Register Src="~/m/controls/SimilarVideos.ascx" TagName="SimilarVideos" TagPrefix="BW" %>
 <html>
 <head>
+    <%   
+        title = metaTitle;
+        description = metaDesc;
+        keywords = metaKeywords;
+        canonical = string.Format("http://www.bikewale.com/bike-videos/{0}-{1}/", videoModel.VideoTitleUrl, videoModel.BasicId);
+    %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
         .padding20 { padding:15px 20px; }
@@ -41,20 +48,21 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <% if(videoModel!= null) { %>
         <section class="bg-white">
             <div class="container bottom-shadow">
                 <div id="embedVideo">
-                    <iframe height="180" src="https://www.youtube.com/embed/Dt8nIGMlpSA" frameborder="0" allowfullscreen></iframe>
+                    <iframe height="180" src="<%=videoModel.VideoUrl %>&autoplay=1" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <div class="padding20">
-                    <h1 class="font18">Bajaj Pulsar RS 200 vs Pulsar 220 DTSI - The New Fastest Indian | PowerDrift</h1>
-                    <p class="font12 margin-top10 margin-bottom10 text-xlight-grey">November 25, 2015</p>
-                    <p class="font14 text-light-grey line-height18 margin-bottom10">The Street Triple story is indeed that of Dr. Jekyll and Mr. Hyde. On one hand, it meekly seems like being an under powered expensive street fighter. And then on another, it fiercely shows you the joys of motorcycling. So if you chose the Triple, or suggested the Triple to your friend, remember to SHARE the video ahead tagging them! If they re-share it quoting you; You and your friend could get some exclusive PowerDrift merchandise!</p>
+                    <h1 class="font18"><%=videoModel.VideoTitle %></h1>
+                    <p class="font12 margin-top10 margin-bottom10 text-xlight-grey"><%=videoModel.DisplayDate %></p>
+                    <p class="font14 text-light-grey line-height18 margin-bottom10"><%=videoModel.Description %></p>
                     <div class="video-views-count-container font14 leftfloat padding-right10 border-light-right">
-                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
+                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default"><%=videoModel.Views %></span>
                     </div>
                     <div class="video-views-count-container font14 leftfloat padding-left10 padding-right10">
-                        <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
+                        <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default"><%=videoModel.Likes %></span>
                     </div>
                     <div class="clear"></div>
                     <div class=""></div>
@@ -81,74 +89,10 @@
             </div>
         </section>
 
-        <section>
-            <div class="container">
-                <h2 class="text-center margin-top25 margin-bottom15">Related videos</h2>
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide video-carousel-content rounded-corner2">
-                            <div class="video-carousel-image">
-                                <a href="">
-                                    <img class="swiper-lazy" data-src="http://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47836.jpg?20151702124504" alt="" title="" border="0" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </a>
-                            </div>
-                            <div class="video-carousel-desc">
-                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                                <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                                </div>
-                                <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide video-carousel-content rounded-corner2">
-                            <div class="video-carousel-image">
-                                <a href="">
-                                    <img class="swiper-lazy" data-src="http://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47805.jpg?20151702123823" alt="" title="" border="0" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </a>
-                            </div>
-                            <div class="video-carousel-desc">
-                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                                <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                                </div>
-                                <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide video-carousel-content rounded-corner2">
-                            <div class="video-carousel-image">
-                                <a href="">
-                                    <img class="swiper-lazy" data-src="http://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15246/img/l/TVS-Wego-Exterior-47821.jpg?20151702124133" alt="" title="" border="0" />
-                                    <span class="swiper-lazy-preloader"></span>
-                                </a>
-                            </div>
-                            <div class="video-carousel-desc">
-                                <a class="font14 text-default text-bold">Exclusive Review: 2015 DSK Benelli TreK 113  l  Review l Powerdrift</a>
-                                <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                                <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                                </div>
-                                <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="" class="font14 text-center more-videos-link">View more videos</a>
-            </div>
+        <section class="margin-bottom30 <%= (ctrlSimilarVideos.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
+           <BW:SimilarVideos ID="ctrlSimilarVideos" runat="server" />      
         </section>
-
+        <% } %>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->    
     </form>
