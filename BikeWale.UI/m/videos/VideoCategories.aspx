@@ -4,6 +4,9 @@
 <head>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
+        #categoryHeader { background:#333;color:#fff;font-size:16px;height:50px;overflow:hidden; }
+        .category-back-btn { width:45px; padding:15px 13px 12px; float:left; cursor:pointer; }
+        #categoryHeader h2 { width:80%; float:left; color:#fff; margin-top:10px; text-overflow:ellipsis; white-space: nowrap; overflow:hidden; }
         #miscWrapper ul { padding:20px; overflow:hidden; }
         #miscWrapper li { width:100%; border-top:1px solid #e2e2e2; margin-top: 20px; padding-top: 20px; }
         #miscWrapper li:first-child { border-top:none; margin-top:0; padding-top:0; }
@@ -22,6 +25,12 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <section id="categoryHeader">
+            <div class="category-back-btn">
+                <span class="bwmsprite fa-angle-left"></span>
+            </div>
+            <h2>First ride videos</h2>
+        </section>
         <section class="bg-white">
             <div id="miscWrapper" class="container bottom-shadow margin-bottom30">
                 <ul>
@@ -81,11 +90,13 @@
             </div>
         </section>
 
-        <script type="text/javascript">
-            
-        </script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <script type="text/javascript">
+            $('.category-back-btn').on('click', function () {
+                window.history.back();
+            });
+        </script>
     </form>
 </body>
 </html>
