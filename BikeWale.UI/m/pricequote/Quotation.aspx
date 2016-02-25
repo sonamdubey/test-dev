@@ -87,19 +87,19 @@
                    {%>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
                     <tr>
-                        <td class="text-medium-grey" align="left">Ex-Showroom Price</td>
-                        <td class="text-grey text-bold" align="right"><span class="fa fa-rupee"></span><%= CommonOpn.FormatPrice(objQuotation.ExShowroomPrice.ToString()) %></td>
+                        <td class="text-medium-grey" width="70%" align="left">Ex-Showroom Price</td>
+                        <td class="text-grey text-bold" width="30%" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objQuotation.ExShowroomPrice.ToString()) %></td>
                     </tr>
                     <tr>
                         <td class="text-medium-grey" align="left">RTO</td>
-                        <td class="text-grey text-bold" align="right"><span class="fa fa-rupee"></span><%= CommonOpn.FormatPrice(objQuotation.RTO.ToString()) %></td>
+                        <td class="text-grey text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objQuotation.RTO.ToString()) %></td>
                     </tr>
                     <tr>
                         <td class="text-medium-grey" align="left">Insurance (<a target="_blank" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" href="/m/insurance/" style="display: inline-block; position: relative; font-size: 11px; margin-top: 1px;">
                                 Up to 60% off - PolicyBoss                                
                         </a>)<span style="margin-left: 5px; vertical-align: super; font-size: 9px;">Ad</span>
                         </td>
-                        <td class="text-grey text-bold" align="right"><span class="fa fa-rupee"></span><%=CommonOpn.FormatPrice(objQuotation.Insurance.ToString()) %></td>
+                        <td class="text-grey text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objQuotation.Insurance.ToString()) %></td>
                     </tr>
                     <tr align="left">
                         <td height="10" colspan="2" style="padding: 0;"></td>
@@ -109,7 +109,7 @@
                     </tr>
                     <tr>
                         <td class="text-grey font16" align="left">Total On Road Price</td>
-                        <td class="text-grey text-bold font18" align="right" class="f-bold"><span class="fa fa-rupee"></span><%=CommonOpn.FormatPrice(objQuotation.OnRoadPrice.ToString()) %></td>
+                        <td class="text-grey text-bold font18" align="right" class="f-bold"><span class="bwmsprite inr-sm-icon"></span><%=CommonOpn.FormatPrice(objQuotation.OnRoadPrice.ToString()) %></td>
                     </tr>
                 </table>
                 <%}

@@ -91,14 +91,14 @@
                                 <p class="text-light-grey margin-bottom5">See Bikes Available for Booking in Your Area!</p>
                                 <div id="listingCitySelection" class="form-control text-left position-rel margin-bottom10">
                                     <div class="selected-city input-sm">Select City</div>
-                                    <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
+                                    <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
                                     <span class="bwmsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
 
                                 <div id="listingAreaSelection" class="form-control text-left position-rel margin-bottom10">
                                     <div class="selected-area input-sm">Select Area</div>
-                                    <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
+                                    <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
                                     <span class="bwmsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
@@ -169,8 +169,8 @@
                                         
                                         <div data-bind="visible : offers().length > 0"  class="offers-tag-wrapper position-abt">
                                             <span><span data-bind="text : offers().length==1?offers().length + ' offer':offers().length + ' offers'"></span></span>
-                                            <span class="offers-left-tag"></span>
                                         </div>
+                                        <span class="offers-left-tag"></span>
                                         <a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/?vid='+ versionEntity.versionId() }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName() }); return true; }">
                                             <img class="lazy" data-bind="attr: { title: bikeName(), alt: bikeName(), src: '' }, lazyload: hostUrl() + '/310X174/' + originalImagePath() ">
                                         </a>
@@ -181,17 +181,17 @@
                                             </div>
                                         <p class="font14 text-light-grey">BikeWale on-road price</p>
                                         <div class="margin-top10 text-light-grey" data-bind="visible: discount() > 0">
-                                            <span class="fa fa-rupee"></span>
+                                            <span class="bwmsprite inr-grey-xxsm-icon"></span>
                                             <span class="font13 margin-right5 text-line-through" data-bind="CurrencyText: onRoadPrice()"></span>
                                             <span>
-                                                (<span class="text-red">
-                                                    <span class="fa fa-rupee"></span>
+                                                ( <span class="text-red">
+                                                    <span class="bwmsprite inr-red-xxsm-icon"></span>
                                                     <span class="font13 margin-right5" data-bind="CurrencyText: discount()"></span> Off
-                                                </span>)
+                                                </span> )
                                             </span>
                                         </div>
-                                        <div class="font18 text-grey margin-bottom5">
-                                            <span class="fa fa-rupee"></span>
+                                        <div class="margin-bottom5">
+                                            <span class="bwmsprite inr-sm-icon"></span>
                                             <span class="font20" data-bind="CurrencyText: discountedPrice()"></span>
                                         </div>
                                         <div class="font14 margin-top5 margin-bottom5" data-bind="visible: offers().length > 0">
@@ -211,7 +211,7 @@
                                             </ul>
                                             <input type="button" class="book-now-popup-btn margin-top30 btn btn-orange font16" data-bind="click: function () { window.history.back(); registerPQ($data); }" value="Book now"/>
                                         </div>
-                                        <p class="font14 text-light-grey">Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee"></span> <span class="font15" data-bind="text: bookingAmount"></span></span></p>
+                                        <p class="font14 text-light-grey">Now book your bike online at <span class="text-default text-bold"><span class="bwmsprite inr-xxsm-icon margin-left5"></span> <span class="font15" data-bind="text: bookingAmount"></span></span></p>
                                         <input type="button" class="margin-top10 btn btn-orange btn-full-width margin-top10" data-bind="click: function () { registerPQ($data); }" value="Book now" />
                                     </div>
                                     </div>
@@ -230,7 +230,7 @@
                     <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete">
                         <div id="hidePopup" class="filterBackArrow" popupname="filterpopup" onclick="CloseWindow(this)">
                             <!--<span class="bwmsprite back-long-arrow-left-white"></span>-->
-                            <span class="fa fa-angle-left"></span>
+                            <span class="bwmsprite fa-angle-left"></span>
                         </div>
                         <div class="floatleft cw-m-sprite city-back-btn" id="back-btn"></div>
                         <div class="filterTitle">Filters</div>
