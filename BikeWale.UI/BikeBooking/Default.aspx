@@ -94,7 +94,7 @@
             </div>
         </section>
 
-        <section class="bg-white">
+        <%--<section class="bg-white">
             <div class="container padding-bottom70">
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top40 margin-bottom50 font28">Offers you can avail</h2>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
-        </section>
+        </section>--%>
 
         <section id="bookingWorksWrapper">
             <div class="container">
