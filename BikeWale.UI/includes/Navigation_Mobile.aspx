@@ -62,7 +62,7 @@
             <li>
                 <a href="javascript:void(0)">
                     <span class="bwmsprite reviews-icon"></span>
-                    <span class="navbarTitle">Reviews and News</span>
+                    <span class="navbarTitle">Reviews, News & Videos</span>
                     <span class="nav-drop fa fa-angle-down"></span>
                 </a>
                 <ul class="nestedUL">
@@ -70,6 +70,7 @@
                     <li><a href="/m/road-tests/">Expert Reviews</a></li>
                     <li><a href="/m/user-reviews/">User Reviews</a></li>
                     <li><a href="/m/features/">Features</a></li>
+                    <li><a href="/m/bike-videos/">Videos</a></li>
                 </ul>
             </li>
             <li>
