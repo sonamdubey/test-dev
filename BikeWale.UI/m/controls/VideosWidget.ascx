@@ -37,7 +37,7 @@
         <div class="bwmsprite swiper-button-next hide"></div>
         <div class="bwmsprite swiper-button-prev hide"></div>
     </div>
-    <div class="text-center margin-bottom40 clear">
+    <div id="divViewMoreVideo" class="hide text-center margin-bottom40 clear">
         <a class="font16" href="/m/bike-videos/">View more videos</a>
     </div>
     </div>
