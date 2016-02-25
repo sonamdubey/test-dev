@@ -1,20 +1,16 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
 using Bikewale.Controls;
-using Bikewale.Entities.Pager;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using Bikewale.Notifications;
-using System.Text.RegularExpressions;
 using Bikewale.Utility.StringExtention;
+using Bikewale.Common;
 
 
 namespace Bikewale.Videos
@@ -25,7 +21,6 @@ namespace Bikewale.Videos
     public class VideoCategories : System.Web.UI.Page
     {
         protected Repeater rptVideos;
-        
         protected LinkPagerControl repeaterPager;
         protected int totalRecords = 0;
         protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle= string.Empty, pageHeading = string.Empty, descName = string.Empty;
@@ -43,6 +38,8 @@ namespace Bikewale.Videos
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            DeviceDetection dd = new DeviceDetection();
+            dd.DetectDevice();
             // Read Query string
             ParseQueryString();
             BindVideos();
@@ -111,7 +108,7 @@ namespace Bikewale.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
         }   // End of BindVideos

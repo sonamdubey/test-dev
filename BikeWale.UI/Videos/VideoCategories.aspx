@@ -1,6 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Videos.VideoCategories" EnableViewState="false" %>
-
-<%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="/controls/LinkPagerControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +63,7 @@
             </div>
         </section>
         <section>
-            <div style="text-align: center;">
+            <div class="text-center">
                 <div id="loading">
                     <img src="http://img2.aeplcdn.com/bikewaleimg/images/search-loading.gif"   />
                 </div>
@@ -76,7 +74,7 @@
                 <div class="video-image-wrapper rounded-corner2">
                     <a data-bind="attr: { href: '/bike-videos/' + VideoTitleUrl() + '-' + BasicId() + '/' }">
                         <img class="lazy" data-bind="attr: { title: VideoTitle(), alt: VideoTitle(), src: '' }, lazyload: 'http://img.youtube.com/vi/' + VideoId() + '/mqdefault.jpg' "
-                            src="" border="0" />
+                            border="0" />
                     </a>
                 </div>
                 <div class="video-desc-wrapper">
