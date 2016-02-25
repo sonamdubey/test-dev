@@ -17,7 +17,7 @@
 <body class="header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
-        <div id="bookingConfig" style="display: none" data-bind="visible: true">
+     <div id="bookingConfig" style="display: none" data-bind="visible: true">
         <section>
             <div class="container">
                 <div class="grid-12 margin-bottom5 margin-top15">
@@ -427,7 +427,7 @@
                 <div class="clear"></div>
             </div>
         </section>  
-        </div>
+        
         <!-- Terms and condition Popup start -->
         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
                 <div class="fixed-close-btn-wrapper">
@@ -519,13 +519,13 @@
             <div class="clear"></div>
         </section>
 
-        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
+       
 
         <% if (ctrlUsersTestimonials.FetchedCount > 0)
            { %>
-        <section>
+        <section >
             <div class="container margin-bottom30">
-                <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
+                <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %> " data-bind="visible : IsUserTestimonials() ">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">What do our customers say</h2>
                     <diV class="content-box-shadow padding-top20">
                         <div id="testimonialWrapper">
@@ -573,6 +573,9 @@
             </div>
         </section>
 
+        </div>
+
+         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
         <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
 
         <!-- #include file="/includes/footerBW.aspx" -->

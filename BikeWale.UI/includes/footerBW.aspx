@@ -1,4 +1,5 @@
 ﻿<BW:PopupWidget runat="server" id="PopupWidget" />
+<%@ Register Src="~/controls/LoginControlNew.ascx" TagPrefix="BW" TagName="Login" %>
 <% if(isAd970x90Shown){ %>
 <section>
         <!-- #include file="/ads/Ad970x90_Bottom.aspx" -->
@@ -55,6 +56,7 @@
         <div class="clear"></div>
     </div>
 </footer><!-- Ends here -->
+<BW:Login ID="ctrlLogin" runat="server" />
 <script>
     if ($(window).width() < 996 && $(window).width() > 790)
         $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");

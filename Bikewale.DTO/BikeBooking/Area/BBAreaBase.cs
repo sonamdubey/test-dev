@@ -18,7 +18,5 @@ namespace Bikewale.DTO.BikeBooking.Area
         public UInt32 AreaId { get; set; }
         [JsonProperty("areaName")]
         public string AreaName { get; set; }
-        [JsonProperty("maskingName")]
-        public string MaskingName { get; set; }
     }
 }

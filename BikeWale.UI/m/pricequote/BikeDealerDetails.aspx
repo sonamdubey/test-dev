@@ -434,7 +434,7 @@
         <% if (ctrlUsersTestimonials.FetchedCount > 0)
            { %>
         <section class="bg-white">
-            <div id="testimonialWrapper" class="content-box-shadow padding-top15 padding-bottom20 margin-bottom30">
+            <div id="testimonialWrapper" class="content-box-shadow padding-top15 padding-bottom20 margin-bottom30"  data-bind="visible : IsUserTestimonials() ">
                 <h2 class="text-bold text-center margin-bottom15 font24">What do our customers say</h2>
                 <div class="swiper-container text-center">
                     <div class="swiper-wrapper padding-bottom20">

@@ -1,187 +1,123 @@
-﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.Default" AutoEventWireup="false" %>
+﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.Default" AutoEventWireup="false" EnableViewState="false" Trace="false" %>
+<%@ Import namespace="Bikewale.Utility.StringExtention" %>
 <%@ Register TagPrefix="BikeWale" TagName="video" Src="/controls/VideoCarousel.ascx" %>
-<%   
-    AdId = "1395986297721";
-    AdPath = "/1017752/BikeWale_New_";
-%>
-<!-- #include file="/includes/headNew.aspx" -->
-<link href="../css/video.css" rel="stylesheet" />
 
-<div class="container_12">
-        <div class="grid_12">
-            <ul class="breadcrumb">
-                <li>You are here: </li>
-                <li><a href="/">Home</a></li>
-                <li class="fwd-arrow">&rsaquo;</li>
-                <li class="current"><strong>Bike Videos</strong></li>
-            </ul><div class="clear"></div>
-        </div>
-        <BikeWale:video id="videos" runat="server"/>
-        <!-- Left container starts here -->
-        <div class="grid_8  alpha  margin-top10 column">
-            <div class="content-block-white">
-            <div class="relative">
-    	        <!-- data tabs code starts here-->
-                <div class="video-tabs">
-        	        <ul>
-            	        <li class="active" id="mostpopular"  style="font-size : 14px;">Most Popular</li>
-                        <li id="expertreviews"  style="font-size : 14px;">Expert Reviews</li>
-                        <li id="interior"  style="font-size : 14px;">Interiors Show</li>
-                        <li id="miscel"  style="font-size : 14px;">Miscellaneous</li>
-                    </ul>
-                    <div class="clear"></div>
-                </div>
-                <!-- data tabs code ends here-->
-                <!-- Most Popular data code starts here-->
-                <div class="bike-data-list" id="most-popular">
-        	        <ul id="ulmostpopular">
-                        <div id="divMostPopular"></div>
-        	        </ul>
-                    <div class="clear"></div>
-                </div>
-                <!-- Most Popular data code ends here-->
-                <!-- Expert Reviews data code starts here-->
-                <div class="bike-data-list hide" id="expert-reviews">
-        	        <ul id="ulexpertreviews">
-                        <div id="divExpertReviews"></div>
-        	        </ul>
-                    <div class="clear"></div>
-                </div>
-                <!-- Expert Reviews data code ends here-->
-                <!-- Interiors Show data code starts here-->
-                <div class="bike-data-list hide" id="interiors-show">
-        	        <ul id="ulinterior">
-                        <div id="divInterior"></div>
-        	        </ul>
-                    <div class="clear"></div>
-                </div>
-                <!-- Interiors Show data code ends here-->
-                <!-- Miscellaneous data code starts here-->
-                <div class="bike-data-list hide" id="miscellaneous">
-        	        <ul id="ulmiscell">
-                        <div id="divMiscell"></div>
-        	        </ul>
-                    <div class="clear"></div>
-                </div>
-                <!-- Miscellaneous data code ends here-->
-                <div id="loadingmsg" class="hide">
-                    <div class="loading-popup">
-                        <span class="loading-icon"></span>
-                        <p style="font-size: 13px;">Please wait, we are fetching the results for you...</p>
-                        <div class="clear"></div>
+<%@ Register Src="~/controls/VideoByCategory.ascx" TagName="ByCategory" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ExpertReviewsVideos.ascx" TagName="ExpertReview" TagPrefix="BW" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <%  
+        title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison - BikeWale";
+        description ="Check latest bike and scooter videos, watch BikeWale expert's take on latest bikes and scooters - features, performance, price, fuel economy, handling and more.";
+        canonical = "http://www.bikewale.com/bike-videos/";
+    %>
+    <!-- #include file="/includes/headscript.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/video.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
+    <%
+        isAd970x90Shown = false;
+         %>
+</head>
+<body class="bg-light-grey header-fixed-inner">
+    <form id="form1" runat="server">
+        <!-- #include file="/includes/headBW.aspx" -->
+        <section>
+            <div class="container">
+                <div class="grid-12">
+                    <div class="breadcrumb margin-top15 margin-bottom10">
+                        <ul>
+                            <li><a href="/"><span>Home</span></a></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span>Videos</li>
+                        </ul>
                     </div>
+                    <h1 class="font26 margin-bottom5">Videos</h1>
                 </div>
+                <div class="clear"></div>
+            </div>
+        </section>
 
+        
+        <section>
+    <div id="videoJumbotron" class="container">
+        <div class="grid-12">
+            <div class="content-box-shadow">
+                <div class="grid-8">
+                    <a href="<%= Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(ctrlVideosLandingFirst.VideoTitleUrl,ctrlVideosLandingFirst.BasicId.ToString()) %>" class="main-video-container">
+                        <img class="lazy" data-original="<%= String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",ctrlVideosLandingFirst.VideoId)  %>" alt="<%= ctrlVideosLandingFirst.VideoTitle  %>" title="<%= ctrlVideosLandingFirst.VideoTitle  %>" src="<%= String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",ctrlVideosLandingFirst.VideoId)  %>" border="0" />
+                        <span><%= ctrlVideosLandingFirst.VideoTitle  %></span>
+                    </a>
+                </div>
+                <div class="grid-4">
+                    <ul> 
+                        <asp:Repeater ID="rptLandingVideos" runat="server">
+                            <ItemTemplate>
+
+                                <li>
+                                    <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="sidebar-video-image">
+                                        <img class="lazy" data-original="<%# String.Format("https://img.youtube.com/vi/{0}/default.jpg",DataBinder.Eval(Container.DataItem,"VideoId"))  %>" alt="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="<%# String.Format("https://img.youtube.com/vi/{0}/default.jpg",DataBinder.Eval(Container.DataItem,"VideoId"))  %>" border="0" /></a>
+                                    <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" title="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" class="sidebar-video-title font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString().Truncate(35) %></a>
+                                </li>
+
+                            </ItemTemplate>
+                        </asp:Repeater> 
+                    </ul>
+                </div>
+                <div class="clear"></div>
             </div>
         </div>
-        </div><!-- Left Container ends here -->
-   
-        <!-- Right Container ends here -->
-        <div class="grid_4 column">
-             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div><!-- Right Container ends here -->
-</div>
-<script type="text/javascript">
+        <div class="clear"></div>
+    </div>
+</section>  
 
-    var divId = "divMostPopular";
-    $(document).ready(function () {
+        <section>
+            <div class="container margin-top20 powerdrift-banner">
+                <div class="grid-12">
+                    <div class="leftfloat margin-left25 margin-top35">
+                        <h3 class="text-white">Reviews, Specials, Underground, Launch Alerts &<br />a whole lot more...</h3>
+                    </div>
+                    <div class="rightfloat powerdrift-subscribe">
+                        <script src="https://apis.google.com/js/platform.js"></script>
+                        <div class="g-ytsubscribe" data-channel="powerdriftofficial" data-layout="full" data-count="hidden"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
 
-        $('#loadingmsg').show();
+        <% if (ctrlFirstRide.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlFirstRide" /> 
+        <% } %>         
 
-        $(".video-tabs li").click(function () {
-            $(".video-tabs li").removeClass("active");
-            $(this).addClass("active");
-            $(".bike-data-list").hide();
-            $(".bike-data-list").eq($(this).index()).show();
-            $(".bike-data-list").eq($(this).index()).removeClass('hide');
-        });
+        <% if (ctrlExpertReview.FetchedRecordsCount > 0) {%>
+        <BW:ExpertReview runat="server" ID="ctrlExpertReview" /> 
+        <% } %> 
 
-        $("#featuredVideos").jcarousel({ scroll: 4, initCallback: initCallbackUC, buttonNextHTML: null, buttonPrevHTML: null });
-        bindCarouselEvents();
-        bindCatBikes();
-    });
 
-    $("#mostpopular").click(function () {
-        ulId = "ulmostpopular";
-        divId = "divMostPopular";
-        //categoryId = 1;
-        //hashparams = "catId=" + categoryId + "&mId=" + makeIdnew + "&moId=" + modelIdnew;
-        bindCatBikes();
-    });
+        <% if (ctrlLaunchAlert.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlLaunchAlert" />
+        <% } %> 
 
-    $("#expertreviews").click(function () {
-    
-        //alert("inside review");
-        ulId = "ulexpertreviews";
-        categoryId = 2;
-        divId = "divExpertReviews";
-        //alert(divId);
-        //hashparams = "catId=" + categoryId + "&mId=" + makeIdnew + "&moId=" + modelIdnew;
-       bindCatBikes();
-    });
 
-    $("#interior").click(function () {
-        ulId = "ulinterior";
-        categoryId = 3;
-        divId = "divInterior";
-       // hashparams = "catId=" + categoryId + "&mId=" + makeIdnew + "&moId=" + modelIdnew;
-        bindCatBikes();
-    });
+        <% if (ctrlMiscellaneous.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlMiscellaneous" />
+        <% } %> 
 
-    $("#miscel").click(function () {
-        ulId = "ulmiscell";
-        categoryId = 4;
-        divId = "divMiscell";
-      //  hashparams = "catId=" + categoryId + "&mId=" + makeIdnew + "&moId=" + modelIdnew;
-       bindCatBikes();
-    });
 
-    function initCallbackUC(carousel) {
-        $('#ucHome_next').click(function () {
-            return false;
-        });
+        <% if (ctrlTopMusic.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlTopMusic" />
+        <% } %> 
 
-        $('#ucHome_prev').click(function () {
-            return false;
-        });
-    };
 
-    function bindCatBikes() {
-        $('#loadingmsg').show();
-        $('#loadingmsg').removeClass('hide');
-        $("#" + divId).load("/Videos/videocategories.aspx", function () {
-            $('#loadingmsg').hide();
-            $('#loadingmsg').addClass('hide');
-        });
-    }
+        <% if (ctrlDoItYourself.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlDoItYourself" />
+        <% } %> 
 
-    function bindCarouselEvents() {
-        var ucHome_prev = $('#ucHome_prev');
-        var ucHome_next = $('#ucHome_next');
-        var carouselUC = $('#featuredVideos').data('jcarousel');
-        if (carouselUC.size() > 4) {
-            ucHome_prev.click(function () {
-                carouselUC.prev();
-                if (carouselUC.first == 1)
-                    ucHome_prev.addClass("disabled");
-                ucHome_next.removeClass("disabled");
-            });
-            ucHome_next.click(function () {
-                carouselButtonBehaviour(carouselUC, ucHome_prev, ucHome_next);
-                carouselUC.next();
-            });
-        }
-        else {
-            ucHome_next.addClass("disabled");
-        }
-    }
-
-    function carouselButtonBehaviour(carousel, prevButton, nextButton) {
-        carousel.next();
-        prevButton.removeClass("disabled");
-        if (carousel.last == carousel.size())
-            nextButton.addClass("disabled");
-    }
-</script>
-<!-- #include file="/includes/footerInner.aspx" -->
-
+        <script type="text/javascript">
+            $(document).ready(function () { $("img.lazy").lazyload(); });
+        </script>
+        <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/includes/footerscript.aspx" -->
+    </form>
+</body>
+</html>

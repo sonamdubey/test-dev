@@ -113,8 +113,6 @@ var BookingConfigViewModel = function () {
                     self.ActualSteps(self.ActualSteps() + 1);
                 }
                 else if (self.CurrentStep() == 3) {
-//self.Dealer().latitude(123.12);// = ko.observable(<%= latitude %>);
-                    //self.Dealer().longitude(56.56);// = ko.observable(<%= longitude %>);
                     self.CurrentStep(4);
                     self.ActualSteps(4);
                 }
@@ -156,8 +154,7 @@ var BookingConfigViewModel = function () {
                 var obj = ko.toJS(response);
                 if (obj.isUpdated) {
                     isSuccess = true;
-                    var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
-                    //SetCookie("_MPQ", cookieValue);                    
+                    var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();                 
                     history.replaceState(null, null, "?MPQ=" + Base64.encode(cookieValue));
                 }
                 else isSuccess = false;
@@ -223,9 +220,9 @@ var BookingConfigViewModel = function () {
         }
     });
 
-    //self.BikeAvailability = ko.pureComputed(function (data,event) {
-       
-    //});
+    self.IsUserTestimonials = ko.computed(function (data, event) {
+        return (self.Bike().bookingAmount() > 0)? true: false;
+    });
 
 }
 

@@ -44,12 +44,12 @@ namespace Bikewale.Service.Controllers.Make
                 if (objMakes != null && objMakes.Count > 0)
                 {
                     makes = new NewBikeDealersMakeList();
-                    makes.Makes = objMakes.Select(s => new NewBikeDealersMakeBase() { Text = s.MakeName, Value = String.Format("{0}_{1}", s.MakeId, s.MaskingName) }).ToList();
+                    makes.Makes = objMakes.Select(s => new NewBikeDealersMakeBase() { Text = s.MakeName, Value = s.MakeId.ToString() }).ToList();
 
                     objMakes.Clear();
                     objMakes = null;
 
-                    return Ok(makes.Makes);
+                    return Ok(makes);
                 }
                 else
                 {

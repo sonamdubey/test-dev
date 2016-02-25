@@ -1,4 +1,6 @@
-﻿<BW:MPopupWidget runat="server" id="PopupWidget" />
+﻿<script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
+
+<BW:MPopupWidget runat="server" id="PopupWidget" />
 
 <% if(Ad_Bot_320x50){ %>
 <section>            
