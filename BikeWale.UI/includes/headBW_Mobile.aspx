@@ -89,11 +89,9 @@
     </header>
 
 <% if(Ad_320x50){ %>
-<section>            
-    <div class="container">
+    <section>            
         <div>
             <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
         </div>
-    </div>
-</section>
+    </section>
 <% } %>
