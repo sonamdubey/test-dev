@@ -303,7 +303,7 @@ header.fixed { position: fixed; left: 0; right: 0; top: 0; z-index: 3; }
 .header-fixed { background: #333333; padding:15px 10px; height:50px; z-index: 3; }
 header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-index: 3;}
 .header-fixed-inner { padding-top: 65px; }
-#nav, .loginPopUpWrapper { background: #fff; width:240px; position: fixed; top: 0; right: 0; bottom: 0; left: -240px; overflow-y: scroll; z-index: 10; }
+#nav, .loginPopUpWrapper { background: #fff; width:275px; position: fixed; top: 0; right: 0; bottom: 0; left: -240px; overflow-y: scroll; z-index: 10; }
 .navUL { padding-top: 20px; }
 .navUL li { display:block; position: relative; }
 .navUL li a { color:#1a1a1a; font-size: 14px; text-decoration:none; display:block; height: 48px; padding: 6px 0 0 15px;font-weight:normal; }
