@@ -57,6 +57,7 @@ RewriteRule	^bike-videos/category/([a-zA-Z\-]+)-([0-9-]+)/$	/m/videos/videocateg
 RewriteRule	^bike-videos/([a-zA-Z0-9\-]+)-([\d]+)/$	/m/videos/video.aspx?id=${lowercase:$2} [NC,L]
 RewriteRule ^bike-videos/$		/m/videos/default.aspx [NC,L]
 
+RewriteRule	^bike-videos/([a-zA-Z0-9\-]+)-([\d]+)/$	/m/videos/video.aspx?id=${lowercase:$2} [NC,L]
 
 
 
