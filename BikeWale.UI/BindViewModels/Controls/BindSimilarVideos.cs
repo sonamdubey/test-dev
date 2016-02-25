@@ -18,14 +18,17 @@ namespace Bikewale.BindViewModels.Controls
     public class BindSimilarVideos
     {
         public ushort TotalRecords { get; set; }
-        public int FetchedRecordsCount { get; set; }
+        public uint FetchedRecordsCount { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
         public uint VideoBasicId { get; set; }
 
+        /// <summary>
+        /// Bind video result to Repeater
+        /// </summary>
+        /// <param name="rptSimilarVideos"></param>
+        /// <param name="basicID"></param>
         public void BindVideos(Repeater rptSimilarVideos, uint basicID)
         {
-            //if (rptSimilarVideos == null)
-            //    rptSimilarVideos = new Repeater();
             FetchedRecordsCount = 0;
             IEnumerable<BikeVideoEntity> objVideosList = null;
             try
@@ -41,7 +44,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
-                        FetchedRecordsCount = objVideosList.Count();
+                        FetchedRecordsCount = Convert.ToUInt32(objVideosList.Count());
 
                         if (FetchedRecordsCount > 0)
                         {

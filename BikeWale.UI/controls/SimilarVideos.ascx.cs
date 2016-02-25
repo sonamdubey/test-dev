@@ -17,7 +17,7 @@ namespace Bikewale.controls
         public Repeater rptSimilarVideos;
         public int TopCount { get; set; }
         public uint VideoBasicId { get; set; }
-        public int FetchedRecordsCount { get; set; }
+        public uint FetchedRecordsCount { get; set; }
         public string sectionTitle { get; set; }
 
         protected override void OnInit(EventArgs e)
@@ -30,7 +30,9 @@ namespace Bikewale.controls
         {
             BindSimilarBikes();
         }
-
+        /// <summary>
+        ///  Addition param for Similar Video controller
+        /// </summary>
         private void BindSimilarBikes()
         {
             BindSimilarVideos objSimilar = new BindSimilarVideos();
@@ -39,6 +41,9 @@ namespace Bikewale.controls
             FetchedRecordsCount = objSimilar.FetchedRecordsCount;
         }
 
+        /// <summary>
+        /// Dispose the repeater datasource
+        /// </summary>
         public override void Dispose()
         {
             rptSimilarVideos.DataSource = null;

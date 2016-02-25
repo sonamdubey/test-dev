@@ -2,7 +2,7 @@
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
 using Bikewale.Common;
-using Bikewale.controls;
+using Bikewale.m.controls;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
@@ -15,7 +15,7 @@ namespace Bikewale.m.videos
     public class video : System.Web.UI.Page
     {
         protected BikeVideoEntity videoModel;
-        //protected SimilarVideos ctrlSimilarVideos;
+        protected SimilarVideos ctrlSimilarVideos;
         protected uint videoId = 0;
         protected bool isMakeModelTag = false;
         protected string metaDesc = string.Empty;
@@ -82,9 +82,9 @@ namespace Bikewale.m.videos
         /// </summary>
         private void BindSimilarVideoControl()
         {
-            //ctrlSimilarVideos.TopCount = 6;
-            //ctrlSimilarVideos.VideoBasicId = videoId;
-            //ctrlSimilarVideos.sectionTitle = "Related videos";
+            ctrlSimilarVideos.TopCount = 6;
+            ctrlSimilarVideos.VideoBasicId = videoId;
+            ctrlSimilarVideos.sectionTitle = "Related videos";
         }
         /// <summary>
         /// API call to fetch Video details

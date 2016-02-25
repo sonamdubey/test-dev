@@ -30,7 +30,7 @@
         .tweet-container { background: -webkit-linear-gradient(to bottom, #28c0ff, #1babe7); background: -o-linear-gradient(to bottom, #28c0ff, #1babe7); background: -moz-linear-gradient(to bottom, #28c0ff, #1babe7); background: linear-gradient(to bottom, #28c0ff, #1babe7); }
         .gplus-container { background: -webkit-linear-gradient(to bottom, #ff533f, #dd2a16); background: -o-linear-gradient(to bottom, #ff533f, #dd2a16); background: -moz-linear-gradient(to bottom, #ff533f, #dd2a16); background: linear-gradient(to bottom, #ff533f, #dd2a16); }
         .mail-container { background: -webkit-linear-gradient(to bottom, #c6c6c6, #acacac); background: -o-linear-gradient(to bottom, #c6c6c6, #acacac); background: -moz-linear-gradient(to bottom, #c6c6c6, #acacac); background: linear-gradient(to bottom, #c6c6c6, #acacac); }
-        .social-icons-sprite { background: url(/m/images/social-icons-sprite.png) no-repeat; display: inline-block; }
+        .social-icons-sprite { background: url(http://img.carwale.com/bikewaleimg/m/images/social-icons-sprite.png) no-repeat; display: inline-block; }
         .whatsapp-icon, .fb-icon, .tweet-icon, .gplus-icon, .mail-icon { height:14px; position:relative; top:4px; }
         .whatsapp-icon { width:12px; background-position:0 0; }
         .fb-icon { width:8px; background-position:-22px 0; }
@@ -68,21 +68,18 @@
                     <div class=""></div>
                     <p class="padding-top15 margin-top20 margin-bottom15 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">
-                        <li class="whatsapp-container rounded-corner2 text-center">
-                            <a href=""><span class="social-icons-sprite whatsapp-icon"></span></a>
+                        <li class="fb-container rounded-corner2 text-center share-btn" attr="fb">
+                            <span class="social-icons-sprite fb-icon"></span>
                         </li>
-                        <li class="fb-container rounded-corner2 text-center">
-                            <a href=""><span class="social-icons-sprite fb-icon"></span></a>
+                        <li class="tweet-container rounded-corner2 text-center share-btn" attr="tw">
+                            <span class="social-icons-sprite tweet-icon"></span>
                         </li>
-                        <li class="tweet-container rounded-corner2 text-center">
-                            <a href=""><span class="social-icons-sprite tweet-icon"></span></a>
+                        <li class="gplus-container rounded-corner2 text-center  share-btn" attr="gp">
+                            <span class="social-icons-sprite gplus-icon"></span>
                         </li>
-                        <li class="gplus-container rounded-corner2 text-center">
-                            <a href=""><span class="social-icons-sprite gplus-icon"></span></a>
-                        </li>
-                        <li class="mail-container rounded-corner2 text-center">
-                            <a href=""><span class="social-icons-sprite mail-icon"></span></a>
-                        </li>
+                        <%--<li class="mail-container rounded-corner2 text-center share-btn" attr="ml">
+                            <span class="social-icons-sprite mail-icon"></span>
+                        </li>--%>
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -93,6 +90,44 @@
            <BW:SimilarVideos ID="ctrlSimilarVideos" runat="server" />      
         </section>
         <% } %>
+        <script type="text/javascript">
+            $(function () {
+                
+            });
+
+            $('.share-btn').click(function () {
+                debugger;
+                var str = $(this).attr('attr');
+                switch (str) {
+                    case 'fb':
+                        url = 'https://www.facebook.com/sharer/sharer.php?u=';
+                        break;
+                    case 'tw':
+                        url = 'https://twitter.com/home?status=';
+                        break;
+                    case 'gp':
+                        url = 'https://plus.google.com/share?url=';
+                        break;
+                    case 'ml':
+
+                        break;
+                }
+                url += window.location.href;
+                //var title = document.getElementsByTagName("title")[0].innerHTML;
+                openPopUp(url);
+            });
+
+            function openPopUp(url) {
+                var width = 200;
+                var height = 200;
+                var w = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width,
+                    h = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height,
+                    left = (w / 2) - (width / 2) + 10,
+                    top = (h / 2) - (height / 2) + 50;
+                window.open(url, '_blank');
+            }
+
+        </script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->    
     </form>

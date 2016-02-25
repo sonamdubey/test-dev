@@ -2474,7 +2474,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="msmq\" />
-    <Folder Include="m\video\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
   </ItemGroup>
