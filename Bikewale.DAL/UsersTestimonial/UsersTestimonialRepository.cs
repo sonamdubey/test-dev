@@ -34,7 +34,7 @@ namespace Bikewale.DAL.UsersTestimonial
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetTestimonial";
+                    cmd.CommandText = "GetTestimonial_16022016";
                     cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = topCount;
 
                     using (SqlDataReader dr = db.SelectQry(cmd))
@@ -52,7 +52,8 @@ namespace Bikewale.DAL.UsersTestimonial
                                         HostUrl = Convert.ToString(dr["HostUrl"]),
                                         UserImgUrl = Convert.ToString(dr["userImgUrl"]),
                                         EntryDate = Convert.ToDateTime(dr["EntryDate"]),
-                                        UserName = Convert.ToString(dr["UserName"])
+                                        UserName = Convert.ToString(dr["UserName"]),
+                                        City = Convert.ToString(dr["City"])
                                     });
                             }
                         }

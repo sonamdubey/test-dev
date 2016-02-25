@@ -23,15 +23,20 @@ using System.Text;
 
 namespace Bikewale.New
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore
+    /// Dated : 15 Feb 2016
+    /// Summary : functinality for estimated Price and Launch Date Added.
+    /// </summary>
     public class comparebikes : System.Web.UI.Page
     {
         protected Repeater rptCommon, rptSpecs, rptFeatures, rptColors;
         protected HtmlAnchor delComp;
         protected Literal ltrTitle;
         protected AddBikeToCompare addBike;
-
         DataSet ds = null;
-        protected string versions = string.Empty, featuredBikeId = string.Empty, spotlightUrl = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, reWriteURL = string.Empty, targetedModels = string.Empty;
+        protected string versions = string.Empty, featuredBikeId = string.Empty, spotlightUrl = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, reWriteURL = string.Empty, targetedModels = string.Empty, 
+            estimatePrice = string.Empty, estimateLaunchDate = string.Empty;
         protected int count = 0, totalComp = 5;
         public int featuredBikeIndex = 0;
         protected bool isFeatured = false;
@@ -66,6 +71,12 @@ namespace Bikewale.New
                 pageTitle = title;                 
             }
         }
+
+        /// <summary>
+        /// Modified By : Lucky Rathore
+        /// Dated : 15 Feb 2016
+        /// Summary : functinality for estimated Price and Launch Date Added.
+        /// </summary>
         void BindRepeater()
         {
             try
@@ -94,6 +105,12 @@ namespace Bikewale.New
                 else if (count == 4) trSize = 35;
                 else if (count == 5) trSize = 30;
 
+                if (isFeatured && ds.Tables[4].Rows != null && ds.Tables[4].Rows.Count > 0)
+                {
+                    estimatePrice = CommonOpn.FormatPrice(Convert.ToString(ds.Tables[4].Rows[0]["EstimatedPriceMin"]));
+                    estimateLaunchDate = ds.Tables[4].Rows[0]["ExpectedLaunch"].ToString(); //TODO: Change Date fomate.
+                }
+
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     rptCommon.DataSource = ds.Tables[0];
@@ -108,6 +125,8 @@ namespace Bikewale.New
                     rptColors.DataSource = ds.Tables[0];
                     rptColors.DataBind();
                 }
+
+                
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {

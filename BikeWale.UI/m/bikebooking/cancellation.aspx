@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="cancellation.aspx.cs" Inherits="Bikewale.m.bikebooking.cancellation" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="cancellation.aspx.cs" Inherits="Bikewale.m.bikebooking.Cancellation" %>
 
 <!DOCTYPE html>
 
@@ -139,7 +139,7 @@
                 	    <p class="font18 margin-bottom20 text-center">Confirmation</p>
                         <p class="font14 text-light-grey margin-bottom20">We have initiated your cancellation process. You will be informed shortly on the status of your refund</p>
                         <textarea runat="server" id="FeedBackText" placeholder="Tell us about your experience and help us imporve."></textarea>
-                        <asp:button runat="server" ID="feedbackBtn" class="btn btn-orange margin-bottom10" OnClick="feedbackBtn_Click" Text="Done" />
+                        <asp:button runat="server" ID="feedbackBtn" class="btn btn-orange margin-bottom10" Text="Done" />
                         <%--<input id="feedbackBtn" type="button" class="btn btn-orange margin-top20 btn-full-width margin-bottom10" data-bind="click : function(data,event){return $root.sendFeedback(data,event);}" value="Done">--%>
                         </div>
             

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
+﻿using Bikewale.BindViewModels.Controls;
+using System;
 using System.Web.UI.WebControls;
-using Bikewale.BindViewModels.Controls;
 
 namespace Bikewale.Controls
 {
@@ -46,8 +42,8 @@ namespace Bikewale.Controls
                 MoreExpertReviewUrl = String.Format("/{0}-bikes/{1}/road-tests/", MakeMaskingName, ModelMaskingName);
             }
         }
-        
-         public override void Dispose()
+
+        public override void Dispose()
         {
             rptExpertReviews.DataSource = null;
             rptExpertReviews.Dispose();
