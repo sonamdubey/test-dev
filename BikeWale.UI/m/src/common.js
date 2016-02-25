@@ -396,7 +396,11 @@ $(document).ready(function () {
         }
         out.animate({ scrollLeft: Math.max(0, q - (x - y) / 2) }, 500, 'swing');
     }
-
+    function applyTabsLazyLoad() {
+        $("img.lazy").lazyload({
+            event: "imgLazyLoad"
+        });
+    }
     // Common BW tabs code
     $(".bw-tabs li").on('click', function () {
         var panel = $(this).closest(".bw-tabs-panel");
@@ -405,6 +409,7 @@ $(document).ready(function () {
         var panelId = $(this).attr("data-tabs");
         panel.find(".bw-tabs-data").hide();
         $("#" + panelId).show();
+        applyTabsLazyLoad();
         centerItVariableWidth($(this), '.bw-tabs');
 
         var swiperContainer = $('#' + panelId + " .swiper-container");
