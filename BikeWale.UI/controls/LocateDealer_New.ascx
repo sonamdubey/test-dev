@@ -58,9 +58,15 @@
         });
     }
 
+    function findMakeById(vm, id) {
+        return ko.utils.arrayFirst(vm.Makes(), function (child) {
+            return child.makeId === id;
+        });
+    }
+
     function FillCity(vm) {
         if (vm.SelectedMake()) {
-            $.getJSON("/api/DealerCity/?makeId=" + vm.SelectedMake().split('_')[0], vm.Cities);
+            $.getJSON("/api/DealerCity/?makeId=" + vm.SelectedMake(), vm.Cities);
         }
         else {
             vm.Cities([]);
@@ -71,7 +77,7 @@
         if (vm.SelectedMake() && vm.SelectedCity()) {
             toggleErrorMsg($('#cmbMake'), false);
             toggleErrorMsg($('#cmbCity'), false);
-            location.href = "/new/" + vm.SelectedMake().split('_')[1] + "-dealers/" + vm.SelectedCity().split('_')[0] + "-" + vm.SelectedCity().split('_')[1] + ".html";
+            location.href = "/new/" + findMakeById(vm,vm.SelectedMake()).maskingName + "-dealers/" + vm.SelectedCity().split('_')[0] + "-" + vm.SelectedCity().split('_')[1] + ".html";
         }
         else {
             if ($('#cmbMake').val() == undefined || $('#cmbMake').val() == 0)
