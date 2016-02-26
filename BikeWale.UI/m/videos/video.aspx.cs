@@ -33,6 +33,9 @@ namespace Bikewale.m.videos
             BindVideoDetails();
             CreateDescriptionTag();
         }
+        /// <summary>
+        /// Create a meta descriptin tag using switch case
+        /// </summary>
         private void CreateDescriptionTag()
         {
             if (isMakeModelTag)
@@ -84,7 +87,7 @@ namespace Bikewale.m.videos
         {
             ctrlSimilarVideos.TopCount = 6;
             ctrlSimilarVideos.VideoBasicId = videoId;
-            ctrlSimilarVideos.sectionTitle = "Related videos";
+            ctrlSimilarVideos.SectionTitle = "Related videos";
         }
         /// <summary>
         /// API call to fetch Video details
