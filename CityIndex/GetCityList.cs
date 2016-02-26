@@ -1,5 +1,4 @@
-﻿using Consumer;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,8 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace BikewaleAutoSuggest
+namespace CityAutoSuggest
 {
     public class GetCityList
     {
@@ -20,9 +18,9 @@ namespace BikewaleAutoSuggest
             List<CityTempList> objCity = null;
             try
             {
-                using(SqlConnection con=new SqlConnection(_con))
+                using (SqlConnection con = new SqlConnection(_con))
                 {
-                    using(SqlCommand cmd=new SqlCommand())
+                    using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "GetCities";
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -32,29 +30,27 @@ namespace BikewaleAutoSuggest
 
                         con.Open();
 
-                        using(SqlDataReader dr=cmd.ExecuteReader())
+                        using (SqlDataReader dr = cmd.ExecuteReader())
                         {
-                            if(dr!=null)
+                            if (dr != null)
                             {
                                 objCity = new List<CityTempList>();
                                 while (dr.Read())
                                     objCity.Add(new CityTempList()
                                     {
-                                        CityId = Convert.ToInt32(dr["Value"]),
-                                        CityName = dr["Text"].ToString(),
-                                        MaskingName = dr["MaskingName"].ToString()
+                                        CityId = Convert.ToInt32(dr["Value"]),                          //  Add CityId into Payload
+                                        CityName = dr["Text"].ToString(),                               //  Add CityName into Payload
+                                        MaskingName = dr["MaskingName"].ToString()                      //  Add Masking Name into Payload
                                     });
                             }
                         }
-                        Logs.WriteInfoLog("City List fetched successfully from database");
-                        Logs.WriteInfoLog("City List Count : " + objCity.Count);
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Error in CityList : " + ex.Message);
-                Logs.WriteErrorLog("Error in fetching CityList from Database : " + ex.Message);
+                //Logs.WriteErrorLog("Error in fetching CityList from Database : " + ex.Message);
             }
             return objCity;
         }
@@ -92,7 +88,7 @@ namespace BikewaleAutoSuggest
                 ht.Add("Pune", "Poona");                     //Pune
                 ht.Add("Navi Mumbai", "New Bombay");         //Navi Mumbai
                 objSuggestList = new List<CityList>();
-                
+
                 foreach (CityTempList cityItem in objCityList)
                 {
                     string cityName = cityItem.CityName.Trim();
@@ -114,55 +110,25 @@ namespace BikewaleAutoSuggest
 
                     ObjTemp.mm_suggest.input = new List<string>();
                     cityName = cityName.Replace('-', ' ');
-                    string[] tokens = cityName.Split(' ');
+                    string[] combinations = cityName.Split(' ');
 
+                    //Generate all combination of a string
+                    int l = combinations.Length;
+                    for (int p = 1; p <= l; p++)
+                    {
+                        printSeq(l, p, combinations, ObjTemp);
+                    }
+
+                    //Generate all combinations for new string
                     string newcity = string.Empty;
                     if (ht.ContainsKey(cityName))
                     {
                         newcity = ht[cityName].ToString();
-                        string[] newtokens = newcity.Split(' ');
-                        for (int index = 0; index < newtokens.Length; index++)
+                        string[] newcombinations = newcity.Split(' ');
+                        int l_new = combinations.Length;
+                        for (int p = 1; p <= l_new; p++)
                         {
-                            if (!String.IsNullOrEmpty(newtokens[index].Trim()))
-                                ObjTemp.mm_suggest.input.Add(newtokens[index].Trim());
-                        }
-
-                        for (int index = 0; index < newtokens.Length; index++)
-                        {
-                            for (int jindex = index + 1; jindex < newtokens.Length; jindex++)
-                            {
-                                ObjTemp.mm_suggest.input.Add(newtokens[index].Trim() + " " + newtokens[jindex].Trim());
-                            }
-                        }
-
-                        for (int index = 0; index < newtokens.Length - 1; index++)
-                        {
-                            for (int jindex = index + 2; jindex < newtokens.Length; jindex++)
-                            {
-                                ObjTemp.mm_suggest.input.Add(newtokens[index].Trim() + " " + newtokens[index + 1].Trim() + " " + newtokens[jindex].Trim());
-                            }
-                        } 
-                    }
-
-                    for (int index = 0; index < tokens.Length; index++)
-                    {
-                        if (!String.IsNullOrEmpty(tokens[index].Trim()))
-                            ObjTemp.mm_suggest.input.Add(tokens[index].Trim());
-                    }
-
-                    for (int index = 0; index < tokens.Length; index++)
-                    {
-                        for (int jindex = index + 1; jindex < tokens.Length; jindex++)
-                        {
-                            ObjTemp.mm_suggest.input.Add(tokens[index].Trim() + " " + tokens[jindex].Trim());
-                        }
-                    }
-
-                    for (int index = 0; index < tokens.Length - 1; index++)
-                    {
-                        for (int jindex = index + 2; jindex < tokens.Length; jindex++)
-                        {
-                            ObjTemp.mm_suggest.input.Add(tokens[index].Trim() + " " + tokens[index + 1].Trim() + " " + tokens[jindex].Trim());
+                            printSeq(l_new, p, combinations, ObjTemp);
                         }
                     }
 
@@ -173,9 +139,45 @@ namespace BikewaleAutoSuggest
             catch (Exception ex)
             {
                 Console.WriteLine("Get Suggest List Exception  : " + ex.Message);
-                Logs.WriteErrorLog("Error In creating City autosuggest list : " + ex.Message);
+                //Logs.WriteErrorLog("Error In creating City autosuggest list : " + ex.Message);
             }
             return objSuggestList;
+        }
+
+        public static void printSeqUtil(int n, int k, ref int len, int[] arr, string[] combination, CityList obj)
+        {
+            // If length of current increasing sequence becomes k, print it
+            if (len == k)
+            {
+                if (k == 1)
+                    obj.mm_suggest.input.Add(String.Format("{0}", combination[arr[0] - 1].Trim()));
+                else if (k == 2)
+                    obj.mm_suggest.input.Add(String.Format("{0} {1}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim()));
+                else if (k == 3)
+                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim()));
+                else if (k == 4)
+                    obj.mm_suggest.input.Add(String.Format("{0} {1} {2} {3}", combination[arr[0] - 1].Trim(), combination[arr[1] - 1].Trim(), combination[arr[2] - 1].Trim(), combination[arr[3] - 1].Trim()));
+                return;
+            }
+
+            int i = (len == 0) ? 1 : arr[len - 1] + 1;
+            len++;	// Increase length
+            // Put all numbers (which are greater than the previous element) at new position.
+            while (i <= n)
+            {
+                arr[len - 1] = i;
+                printSeqUtil(n, k, ref len, arr, combination, obj);
+                i++;
+            }
+            // This is important. The variable 'len' is shared among all function calls in recursion tree. Its value must be brought back before next iteration of while loop
+            len--;
+        }
+
+        public static void printSeq(int l, int p, string[] combination, CityList obj)
+        {
+            int[] arr = new int[p];
+            int len = 0;
+            printSeqUtil(l, p, ref len, arr, combination, obj);
         }
     }
 }

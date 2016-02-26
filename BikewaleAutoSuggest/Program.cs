@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ElasticClientManager;
 
 namespace BikewaleAutoSuggest
 {
@@ -22,47 +23,43 @@ namespace BikewaleAutoSuggest
                                     select temp).ToList<TempList>();
             Logs.WriteInfoLog("Price quote make model List count : " + objPriceQuoteList.Count);
 
-            List<CityTempList> objCityList = GetCityList.CityList();
-            Logs.WriteInfoLog("city List count : " + objCityList.Count);
-
             List<BikeList> suggestionList = GetBikeListDb.GetSuggestList(objList);
             List<BikeList> PriceSuggestionList = GetBikeListDb.GetSuggestList(objPriceQuoteList);
-            List<CityList> CityList = GetCityList.GetSuggestList(objCityList);
-
+            
             CreateIndex(suggestionList, ConfigurationManager.AppSettings["MMindexName"]);
             Logs.WriteInfoLog("All Make Model Index Created successfully");
             CreateIndex(PriceSuggestionList, ConfigurationManager.AppSettings["PQindexName"]);
             Logs.WriteInfoLog("Price Quote Make Model Index Created successfully");
-            CreateIndex(CityList, ConfigurationManager.AppSettings["cityIndexName"]);
-            Logs.WriteInfoLog("All City Index Created successfully");
+           
         }
 
         private static void CreateIndex(List<BikeList> suggestionList, string indexName)
         {
             try
             {
-                string[] HostUrls = ConfigurationManager.AppSettings["esHost"].Split(';');
-                Random arbit = new Random();
-                var node = new Uri("http://" + HostUrls[arbit.Next(HostUrls.Length)]);
 
-                var settings = new ConnectionSettings(
-                    node,
-                    defaultIndex: indexName
-                );
-
-                var elasticClient = new ElasticClient(settings);
-
-                elasticClient.DeleteByQuery<BikeList>(dd => dd
+                ElasticClient client = ElasticClientOperations.GetElasticClient();
+                if (!client.IndexExists(indexName).Exists)
+                {
+                    ElasticClientOperations.CreateIndex<BikeList>(req => req
+                        .Index(indexName)
+                        .AddMapping<BikeList>(type => type
+                            .Type(ConfigurationManager.AppSettings["typeName"])
+                            .MapFromAttributes()
+                            .Properties(prop => prop
+                                .Completion(c => c
+                                    .Name(pN => pN.mm_suggest)
+                                    .Payloads()
+                                    .IndexAnalyzer("standard")
+                                    .SearchAnalyzer("standard")
+                                    .PreserveSeparators(false)))));
+                }
+                client.DeleteByQuery<BikeList>(dd => dd.Index(indexName)
                     .Type(ConfigurationManager.AppSettings["typeName"])
                     .Query(qq => qq.MatchAll())
                     );
 
-
-                foreach (BikeList item in suggestionList)
-                {
-                    Console.WriteLine(item.Id);
-                    elasticClient.Index<BikeList>(item, qq => qq.Id(item.Id).Index(indexName).Type(ConfigurationManager.AppSettings["typeName"]));
-                }
+                ElasticClientOperations.AddDocument<BikeList>(suggestionList, indexName, ConfigurationManager.AppSettings["typeName"], obj => obj.Id);
             }
             catch(Exception ex)
             {
@@ -70,39 +67,5 @@ namespace BikewaleAutoSuggest
             }
         }
 
-        private static void CreateIndex(List<CityList> suggestionList, string indexName)
-        {
-            try
-            {
-               // var node = new Uri("http://" + ConfigurationManager.AppSettings["esHost"] + ":9200");
-
-                string[] HostUrls = ConfigurationManager.AppSettings["esHost"].Split(';');
-                Random arbit = new Random();
-                var node = new Uri("http://" + HostUrls[arbit.Next(HostUrls.Length)]);    //check point
-
-                var settings = new ConnectionSettings(
-                    node,
-                    defaultIndex: indexName
-                );
-
-                var elasticClient = new ElasticClient(settings);
-
-                elasticClient.DeleteByQuery<BikeList>(dd => dd
-                    .Type(ConfigurationManager.AppSettings["typeName"])
-                    .Query(qq => qq.MatchAll())
-                    );
-
-
-                foreach (CityList item in suggestionList)
-                {
-                    Console.WriteLine(item.Id);
-                    elasticClient.Index<CityList>(item, qq => qq.Id(item.Id).Index(indexName).Type(ConfigurationManager.AppSettings["typeName"]));
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
     }
 }
