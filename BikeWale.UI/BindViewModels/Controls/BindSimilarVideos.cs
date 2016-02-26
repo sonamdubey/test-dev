@@ -44,8 +44,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
-                        FetchedRecordsCount = (ushort)(objVideosList.Count());
-
+                        FetchedRecordsCount = Convert.ToUInt16(objVideosList.Count());
                         if (FetchedRecordsCount > 0)
                         {
                             rptSimilarVideos.DataSource = objVideosList;
