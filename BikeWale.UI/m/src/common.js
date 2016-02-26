@@ -378,50 +378,10 @@ $(document).ready(function () {
 
     function navbarHide() {
         $('body').addClass('lock-browser-scroll');
-        $("#nav").removeClass('open').stop().animate({ 'left': '-300px' });
+        $("#nav").removeClass('open').stop().animate({ 'left': '-350px' });
         $(".blackOut-window").hide();
     }
-    // login code starts 
-    //$("#firstLogin").click(function(){
-    //	lockPopup();
-    //	$(".loginPopUpWrapper").animate({right:'0'});
-    //});
-    //$(".blackOut-window").mouseup(function(e){
-    //	var loginPopUp = $(".loginPopUpWrapper");
-    //    if(e.target.id !== loginPopUp.attr('id') && !loginPopUp.has(e.target).length)
-    //    {
-    //        loginPopUp.animate({'right':'-400px'});
-    //		unlockPopup();
-    //    }
-    //});
-    //$(".loginCloseBtn").click(function(){
-    //	unlockPopup();
-    //	$(".loginPopUpWrapper").animate({right:'-400px'});
-    //	loginSignupSwitch();
-    //});	
-    //$("#forgotpass").click(function(){
-    //	$("#forgotpassbox").toggleClass("hide show");
-    //});
-    //$(".loginBtnSignUp").click(function(){
-    //	$(".loginStage").hide();
-    //	$(".signUpStage").show();
-    //});
-    //$(".signupBtnLogin").click(function(){
-    //	loginSignupSwitch();
-    //});
-    //function loginSignupSwitch(){
-    //	$(".loginStage").show();
-    //	$(".signUpStage").hide();
-    //}
-    //function lockPopup() {
-    //	$('body').addClass('lock-browser-scroll');
-    //	$(".blackOut-window").show();		
-    //}
-    //function unlockPopup() {
-    //	$('body').removeClass('lock-browser-scroll');
-    //	$(".blackOut-window").hide();
-    //}	
-
+    
     function centerItVariableWidth(target, outer) {
         var out = $(outer);
         var tar = target;
@@ -436,7 +396,11 @@ $(document).ready(function () {
         }
         out.animate({ scrollLeft: Math.max(0, q - (x - y) / 2) }, 500, 'swing');
     }
-
+    function applyTabsLazyLoad() {
+        $("img.lazy").lazyload({
+            event: "imgLazyLoad"
+        });
+    }
     // Common BW tabs code
     $(".bw-tabs li").on('click', function () {
         var panel = $(this).closest(".bw-tabs-panel");
@@ -445,6 +409,7 @@ $(document).ready(function () {
         var panelId = $(this).attr("data-tabs");
         panel.find(".bw-tabs-data").hide();
         $("#" + panelId).show();
+        applyTabsLazyLoad();
         centerItVariableWidth($(this), '.bw-tabs');
 
         var swiperContainer = $('#' + panelId + " .swiper-container");
@@ -1482,7 +1447,8 @@ var Base64 = {
     }
 
 }
-
 function setPriceQuoteFlag() {
     IsPriceQuoteLinkClicked = true;
 }
+function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { } }
+

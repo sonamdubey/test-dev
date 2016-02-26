@@ -65,8 +65,7 @@
     <header>
     	<div class="header-fixed"> <!-- Fixed Header code starts here -->
         	<a href="/m/" id="bwheader-logo" title="BikeWale" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
-            <span class="ae-logo-border"></span>
-            <a href="http://www.carwale.com/m/autoexpo2016/" title="AutoExpo" target="_blank" class="ae-sprite ae-logo"></a>
+           
             <div class="leftfloat">
                 <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>                
                 <span id="book-back" class="white-back-arrow margin-right10 leftfloat hide"></span>
@@ -74,10 +73,10 @@
             </div>
             <div class="rightfloat">
                 <div class="global-search" id="global-search" style="display:none">
-                    <span class="fa fa-search text-white" style="font-size:16px"></span>
+                    <span class="bwmsprite search-bold-icon"></span>
                 </div>
                 <div class="global-location">
-                    <span class="fa fa-map-marker"></span>
+                    <span class="bwmsprite map-loc-icon"></span>
                 </div>
                 <a class="sort-btn rightfloat hide" id="sort-btn">
                     <span class="bwmsprite sort-icon"></span>
@@ -89,11 +88,9 @@
     </header>
 
 <% if(Ad_320x50){ %>
-<section>            
-    <div class="container">
+    <section>            
         <div>
             <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
         </div>
-    </div>
-</section>
+    </section>
 <% } %>

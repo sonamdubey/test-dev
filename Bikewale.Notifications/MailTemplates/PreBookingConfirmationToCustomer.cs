@@ -12,6 +12,8 @@ namespace Bikewale.Notifications.MailTemplates
     /// <summary>
     /// Created By : Sadhana Upadhyay on 19 Dec 2014
     /// Summary : To send Email to customer on payment success
+    /// Modified By  : Sushil Kumar on 26th Feb 2016
+    /// Description : Added check for offerslist and made provision not to show offer text if no offers are available
     /// </summary>
     public class PreBookingConfirmationToCustomer : ComposeEmailBase
     {
@@ -72,23 +74,27 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.Append("<div style=\"float:right; color:#666; margin:5px 0 0;\">" + Date.ToString("MMM dd, yyyy") + "</div><div style=\"clear:both;\"></div></div><div style=\" background:#fff; padding:10px; margin:10px 0 0;\">");
                 sb.Append("<div style=\"padding:10px 0;\"><p style=\" margin:0; font-size:14px; font-weight:bold; color:#333;\">Dear " + CustomerName + ",</p>");
                 sb.Append("<p style=\"margin:10px 0 0;\">Thank you for making a payment of Rs. " + Format.FormatPrice(PreBookingAmount.ToString()) + " to pre-book the " + BikeName + ".</p>");
-                sb.Append("<p style=\"margin:7px 0;\">Your BikeWale Pre-Booking Reference Number is <span style=\" font-size:14px; font-weight:bold;\">" + BookingReferenceNo + "</span>.</p>");
-                sb.Append("<p style=\"margin:7px 0;\">You have just secured the following offers that come with purchase:</p></div>");
+                sb.Append("<p style=\"margin:7px 0;\">Your BikeWale Pre-Booking Reference Number is <span style=\" font-size:14px; font-weight:bold;\">" + BookingReferenceNo + "</span>.</p>");                   
 
                 if (InsuranceAmount > 0)
                 {
+                    sb.Append("<p style=\"margin:7px 0;\">You have just secured the following offers that come with purchase:</p></div>");
                     sb.Append("<div style=\"background: none repeat scroll 0 0 #fef5e6;border: 2px dotted #f5b048; margin: 0 0 10px; padding: 10px;\"><div style=\"font-size:14px; font-weight:bold;\">Exclusive BikeWale Offer</div>");
                     sb.AppendFormat("<p style=\" margin:10px 0 5px;\"><span>Free Insurance for 1 year worth Rs. {0} at the dealership</p>", InsuranceAmount);
                     sb.Append("</div>");
                 }
                 else
                 {
-                    sb.Append("<div style=\"background: none repeat scroll 0 0 #fef5e6;border: 2px dotted #f5b048; margin: 0 0 10px; padding: 10px;\"><div style=\"font-size:14px; font-weight:bold;\">Exclusive BikeWale Offer</div>");
-                    foreach (var item in OfferList)
+                    if (OfferList!=null && OfferList.Count > 0)
                     {
-                        sb.Append("<p style=\" margin:10px 0 5px;\"><span>" + item.OfferText + "</p>");
-                    }
-                    sb.Append("</div>");
+                        sb.Append("<p style=\"margin:7px 0;\">You have just secured the following offers that come with purchase:</p></div>");
+                        sb.Append("<div style=\"background: none repeat scroll 0 0 #fef5e6;border: 2px dotted #f5b048; margin: 0 0 10px; padding: 10px;\"><div style=\"font-size:14px; font-weight:bold;\">Exclusive BikeWale Offer</div>");
+                        foreach (var item in OfferList)
+                        {
+                            sb.Append("<p style=\" margin:10px 0 5px;\"><span>" + item.OfferText + "</p>");
+                        }
+                        sb.Append("</div>");
+                    }                   
                 }
                 sb.Append("<div style=\"padding:10px 0;\"><p style=\" margin:7px 0;\">If you are eligible for free Road Side Assistance (RSA) or free Flipkart voucher/ helmet offer, <a target=\"_blank\" href=\"http://www.bikewale.com/pricequote/rsaofferclaim.aspx\" style=\"text-decoration:none; color:#034fb6;\">click here</a> to claim your offer after bike delivery. </p></div>");
                 sb.Append("<div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat center center; height:2px; width:100%;\"></div><div style=\" padding:10px 0;\">");
