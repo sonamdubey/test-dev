@@ -1,6 +1,7 @@
-﻿<%@ Page Language="C#" Inherits="Bikewale.New.comparebikes" AutoEventWireUp="false" Trace="false" %>
+﻿<%@ Page Language="C#" Inherits="Bikewale.New.comparebikes" AutoEventWireup="false" Trace="false" %>
+
 <%@ Register TagPrefix="AddBike" TagName="AddBike" Src="~/controls/AddBikeToCompare.ascx" %>
-<%@ Import namespace="Bikewale.Utility.StringExtention" %>
+<%@ Import Namespace="Bikewale.Utility.StringExtention" %>
 <%
     title = "Compare " + pageTitle + "- BikeWale";
     description = "BikeWale&reg; - Compare " + keyword + ". Compare Price, Mileage, Engine Power, Specifications, features and colors of bikes on BikeWale.";
@@ -19,91 +20,288 @@
 
 <!-- #include file="/includes/headNew.aspx" -->
 <style>
-    .container-border {border-top:1px solid #F3F2F2;}
-    .tab_inner_container .container-border th.mainth { border-right:1px solid #F3F2F2;}
-    .tab_inner_container .container-1 {border-left:1px solid #F3F2F2; border-right:1px solid #F3F2F2;}
-    .tab_inner_container .container-1 .repeater-1 { border-right:1px solid #F3F2F2; vertical-align:top;}
-    .tab_inner_container .container-1 .specs-title th { border-right:0px solid #F3F2F2;  }
-    .tab_inner_container .container-1 .repeater-2 { border-right:1px solid #F3F2F2;}     
-    .tab_inner_container .mainth {background:none;}
-    .tab_inner_container th { width:170px; border-right:0px;}
-    .tab_inner_container .maintd {border-right:0px;}
-    .container-1 table table th { border-right:0px;}
-    .tbl-compare td.headerSpecs { border-bottom:1px solid #FFFFFF;}
-    .tab_inner_container .tbl-compare td { height:60px; text-align:center; vertical-align:middle; padding:0px; }
-    .tab_inner_container .tbl-compare th { height:30px; text-align:center; vertical-align:middle; padding:0px; }
-    .tab_inner_container .tbl-compare .maintd td { vertical-align:top;}
-    .container-border td.maintd td {  border-bottom: 0px;}
-    .container-border td.maintd td div {  border-right: 0px;}
-    .container-border th.mainth { border-right:1px solid #F3F2F2; padding: 5px 5px; margin:0 0 5px 0;}
-    .container-border td.maintd { border-right:1px solid #F3F2F2; }
-    .container-border td.maintd:last-child { border-right:0px solid #F3F2F2; }
-    .container-border td.maintd table{ padding: 5px 5px; margin:0 0 5px 0;}
-    .container-border td.maintd { border-bottom:0px solid #F3F2F2; vertical-align:top;}
-    .tab_inner_container .container-1 .repeater-1 .tblColor td { vertical-align:top; border-bottom:0px;}
-    .tab_inner_container .container-1 .repeater-1 .tblColor th { border-right:0px;}
-    .tab_inner_container .container-1 .Colors td:last-child.repeater-1  { border-right:0px;}
-    .tab_inner_container .tbl-compare .specs-title th, .tab_inner_container .tbl-compare .specs-title td {text-align:left; padding-left:5px; }
-    .maintd .bikemain {border:0px solid red; overflow:hidden; }
-    .maintd .bikename { margin-bottom: 10px;text-align: center; font-size:12px; min-height:34px;}
-    .maintd .bikeclose {overflow:hidden; display:inline-block;  text-align: right; float:right;}
-    .sixcolum{ width:123px; }
-    .fivecolum{ width:149px; }
-    .fourcolum{ width:186px; }
-    .threecolum{ width:248px; }
-    .sixcolum img.second-img { width: 103px; height:auto; }
-    .fivecolum img.second-img { width: 128px; height:auto; }
-    .fourcolum img.second-img { width: 166px; height:auto; }
-    .threecolum img.second-img { width: 228px; height:auto; }
-    .featuredBike { background-color:#fffae8!important; }
-    .blue {color: #0056cc;cursor: pointer;text-decoration: none;}
-    .info-td { position:relative; }
+    .container-border {
+        border-top: 1px solid #F3F2F2;
+    }
+
+    .tab_inner_container .container-border th.mainth {
+        border-right: 1px solid #F3F2F2;
+    }
+
+    .tab_inner_container .container-1 {
+        border-left: 1px solid #F3F2F2;
+        border-right: 1px solid #F3F2F2;
+    }
+
+        .tab_inner_container .container-1 .repeater-1 {
+            border-right: 1px solid #F3F2F2;
+            vertical-align: top;
+        }
+
+        .tab_inner_container .container-1 .specs-title th {
+            border-right: 0px solid #F3F2F2;
+        }
+
+        .tab_inner_container .container-1 .repeater-2 {
+            border-right: 1px solid #F3F2F2;
+        }
+
+    .tab_inner_container .mainth {
+        background: none;
+    }
+
+    .tab_inner_container th {
+        width: 170px;
+        border-right: 0px;
+    }
+
+    .tab_inner_container .maintd {
+        border-right: 0px;
+    }
+
+    .container-1 table table th {
+        border-right: 0px;
+    }
+
+    .tbl-compare td.headerSpecs {
+        border-bottom: 1px solid #FFFFFF;
+    }
+
+    .tab_inner_container .tbl-compare td {
+        height: 60px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0px;
+    }
+
+    .tab_inner_container .tbl-compare th {
+        height: 30px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0px;
+    }
+
+    .tab_inner_container .tbl-compare .maintd td {
+        vertical-align: top;
+    }
+
+    .container-border td.maintd td {
+        border-bottom: 0px;
+    }
+
+        .container-border td.maintd td div {
+            border-right: 0px;
+        }
+
+    .container-border th.mainth {
+        border-right: 1px solid #F3F2F2;
+        padding: 5px 5px;
+        margin: 0 0 5px 0;
+    }
+
+    .container-border td.maintd {
+        border-right: 1px solid #F3F2F2;
+    }
+
+        .container-border td.maintd:last-child {
+            border-right: 0px solid #F3F2F2;
+        }
+
+        .container-border td.maintd table {
+            padding: 5px 5px;
+            margin: 0 0 5px 0;
+        }
+
+    .container-border td.maintd {
+        border-bottom: 0px solid #F3F2F2;
+        vertical-align: top;
+    }
+
+    .tab_inner_container .container-1 .repeater-1 .tblColor td {
+        vertical-align: top;
+        border-bottom: 0px;
+    }
+
+    .tab_inner_container .container-1 .repeater-1 .tblColor th {
+        border-right: 0px;
+    }
+
+    .tab_inner_container .container-1 .Colors td:last-child.repeater-1 {
+        border-right: 0px;
+    }
+
+    .tab_inner_container .tbl-compare .specs-title th, .tab_inner_container .tbl-compare .specs-title td {
+        text-align: left;
+        padding-left: 5px;
+    }
+
+    .maintd .bikemain {
+        border: 0px solid red;
+        overflow: hidden;
+    }
+
+    .maintd .bikename {
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 12px;
+        min-height: 34px;
+    }
+
+    .maintd .bikeclose {
+        overflow: hidden;
+        display: inline-block;
+        text-align: right;
+        float: right;
+        font-size: 10.5px;
+    }
+
+    .sixcolum {
+        width: 123px;
+    }
+
+    .fivecolum {
+        width: 149px;
+    }
+
+    .fourcolum {
+        width: 186px;
+    }
+
+    .threecolum {
+        width: 248px;
+    }
+
+    .sixcolum img.second-img {
+        width: 103px;
+        height: auto;
+    }
+
+    .fivecolum img.second-img {
+        width: 128px;
+        height: auto;
+    }
+
+    .fourcolum img.second-img {
+        width: 166px;
+        height: auto;
+    }
+
+    .threecolum img.second-img {
+        width: 228px;
+        height: auto;
+    }
+
+    .featuredBike {
+        background-color: #fffae8 !important;
+    }
+
+    .blue {
+        color: #0056cc;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .info-td {
+        position: relative;
+    }
     /*.info-td:before {content: '&nbsp;';visibility: hidden;}
     .info-td span.info-shrt-data { position: absolute;left: 10px;right: 0;white-space: nowrap;overflow: hidden;text-overflow: ellipsis}*/
-    .info-popup { display:none; background-color: #fff; position: absolute; top: 45px; left:100px; box-shadow: 0px 0px 15px #ccc; width: 225px; min-height: 40px; border: 1px solid #e0e0e0; padding: 10px; z-index:2;}
-    .Specs .repeater-1 td.info-td, .Features .repeater-1 td.info-td { cursor:pointer; } 
-    .Specs .repeater-1 td.info-td:hover .info-popup, .Features .repeater-1 td.info-td:hover .info-popup {display:block;}
-    div.color-box { width:50px; height:50px; margin:auto;background:#ccc; border:1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; margin-top:10px}
-    .color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; }
-    .color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#eee; }
-    .color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
+    .info-popup {
+        display: none;
+        background-color: #fff;
+        position: absolute;
+        top: 45px;
+        left: 100px;
+        box-shadow: 0px 0px 15px #ccc;
+        width: 225px;
+        min-height: 40px;
+        border: 1px solid #e0e0e0;
+        padding: 10px;
+        z-index: 2;
+    }
+
+    .Specs .repeater-1 td.info-td, .Features .repeater-1 td.info-td {
+        cursor: pointer;
+    }
+
+        .Specs .repeater-1 td.info-td:hover .info-popup, .Features .repeater-1 td.info-td:hover .info-popup {
+            display: block;
+        }
+
+    div.color-box {
+        width: 50px;
+        height: 50px;
+        margin: auto;
+        background: #ccc;
+        border: 1px solid #e2e2e2;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        -o-border-radius: 2px;
+        -ms-border-radius: 2px;
+        border-radius: 2px;
+        margin-top: 10px;
+    }
+
+    .color-box.color-count-one span {
+        width: 100%;
+        height: 100%;
+        display: block !important;
+        background: #eee;
+    }
+
+    .color-box.color-count-two span {
+        width: 100%;
+        height: 50%;
+        display: block !important;
+        background: #eee;
+    }
+
+    .color-box.color-count-three span {
+        width: 100%;
+        height: 33.33%;
+        display: block !important;
+    }
 </style>
 
-         <div class="container_12">
-             <div class="grid_12">
-                <ul class="breadcrumb">
-                    <li>You are here: </li>
-                    <li  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                        <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
-                    </li>
-                    <li class="fwd-arrow">&rsaquo;</li>
-                    <li  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                        <a itemprop="url" href="/comparebikes/"><span itemprop="title">Compare Bikes in India</span></a>
-                    </li>
-                    <li class="fwd-arrow">&rsaquo;</li>
-                    <li class="current"><strong>Bike Comparison</strong></li>
-                </ul><div class="clear"></div>
-             </div>     
-        
-         <div class="grid_12 margin-top10"><!--    Left Container starts here -->       
-		    <span id="spnError" class="error" runat="server"></span>
-		    <h1 class="red margin-bottom15">Bike Comparison - <asp:Literal id="ltrTitle" runat="server"></asp:Literal></h1>		    
-            <div class="padding-top20 featured-bike-tabs">
-                <ul class="featured-bike-tabs-inner padding-top20">
-                    <li id="liSpecs" class="fbike-active-tab first_tab">Specs</li>
-                    <li id="liFeatures">Features</li>
-                    <li id="liColors">Colours</li>                          
-                </ul>
-            </div> 	
-		    <div class="tab_inner_container">
-			    <table width="100%" class="tbl-compare" cellpadding="0" border="0" cellspacing="0">
-                    <tr>
-                        <td>&nbsp;</td>
-	                    <td class="container-1">
-                            <table width="100%" class="container-border" cellpadding="0" border="0" cellspacing="0">
-                                 <tr>
-                                     <th class="mainth">&nbsp;</th>
-                                     <asp:Repeater runat="server" ID="rptCommon">
+<div class="container_12">
+    <div class="grid_12">
+        <ul class="breadcrumb">
+            <li>You are here: </li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
+            </li>
+            <li class="fwd-arrow">&rsaquo;</li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a itemprop="url" href="/comparebikes/"><span itemprop="title">Compare Bikes in India</span></a>
+            </li>
+            <li class="fwd-arrow">&rsaquo;</li>
+            <li class="current"><strong>Bike Comparison</strong></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+
+    <div class="grid_12 margin-top10">
+        <!--    Left Container starts here -->
+        <span id="spnError" class="error" runat="server"></span>
+        <h1 class="red margin-bottom15">Bike Comparison -
+            <asp:literal id="ltrTitle" runat="server"></asp:literal>
+        </h1>
+        <div class="padding-top20 featured-bike-tabs">
+            <ul class="featured-bike-tabs-inner padding-top20">
+                <li id="liSpecs" class="fbike-active-tab first_tab">Specs</li>
+                <li id="liFeatures">Features</li>
+                <li id="liColors">Colours</li>
+            </ul>
+        </div>
+        <div class="tab_inner_container">
+            <table width="100%" class="tbl-compare" cellpadding="0" border="0" cellspacing="0">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="container-1">
+                        <table width="100%" class="container-border" cellpadding="0" border="0" cellspacing="0">
+                            <tr>
+                                <th class="mainth">&nbsp;</th>
+                                <asp:repeater runat="server" id="rptCommon">
                                          <ItemTemplate>
                                            <td class="maintd <%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
                                                <table class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>" cellpadding="0" border="0" cellspacing="0">
@@ -117,16 +315,22 @@
                                                        </td>
                                                    </tr>
                                                    <%--<tr><td><a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"HostURL").ToString()) ? Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/", DataBinder.Eval(Container.DataItem,"HostURL").ToString()) + DataBinder.Eval(Container.DataItem,"largePic") :  "http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg" %>" border="0"/></a></td></tr>--%>
-                                                   <tr><td><a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"HostURL").ToString()) ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._310x174) :  "http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg" %>" border="0"/></a></td></tr>
-                                                   <tr runat="server" visible="<%# Container.ItemIndex != featuredBikeIndex %>"> <td><%#GetModelRatings( DataBinder.Eval(Container.DataItem,"BikeVersionId").ToString() ) %></td></tr>
-                                                   <tr runat="server" visible="<%# Container.ItemIndex != featuredBikeIndex %>" >
+                                                   <tr>
+                                                       <td>
+                                                           <a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"HostURL").ToString()) ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._310x174) :  "http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg" %>" border="0"/></a>
+                                                       </td>
+                                                   </tr>
+                                                   <tr class="<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"Futuristic")) ? "hide" : "" %>">
+                                                        <td><%# GetModelRatings(DataBinder.Eval(Container.DataItem,"BikeVersionId").ToString()) %></td>
+                                                   </tr>
+                                                   <tr class="<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"Futuristic")) ? "hide" : "" %>" >
                                                        <td>
                                                         <strong>Price Rs. <%# Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></strong><br />
                                                         <span class="<%#String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Price").ToString())?"hide":"" %>">Ex-Showroom, <%= ConfigurationManager.AppSettings["defaultName"].ToString() %></span>
                                                         <%# DataBinder.Eval(Container.DataItem,"Price").ToString() == "" ? "" : "<div class='la' style='margin-top:5px;'><a pqSourceId='"+ (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_CompareBike +"' class='fillPopupData blue' modelId='"+ DataBinder.Eval(Container.DataItem,"ModelId") +"' href=\"/pricequote/default.aspx?version=" + DataBinder.Eval(Container.DataItem,"BikeVersionId") + "\">Check On-Road Price</a></div>"%>
                                                        </td>
                                                    </tr>
-                                                   <tr runat="server" visible="<%# Container.ItemIndex == featuredBikeIndex  && !string.IsNullOrEmpty(estimatePrice) %>">
+                                                   <tr class="<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"Futuristic")) ? "" : "hide" %>" >
                                                        <td>
                                                            <p class="margin-top30"><strong>Price Rs. <%= estimatePrice %> onwards </strong>(Expected)</p>
                                                            <p class="margin-top5"><strong><%= estimateLaunchDate %></strong></p><p>(Expected Launch)</p>
@@ -135,89 +339,217 @@
                                                </table>
                                            </td>                                       
                                         </ItemTemplate>
-                                    </asp:Repeater>
-                                     <% if(isFeatured ? (count < 5) : (count < 4)){ %>
-                                     <td class="maintd">
-                                        <table cellpadding="0" border="0" cellspacing="0" id="addAnotherBike" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                    </asp:repeater>
+                                <% if (isFeatured ? (count < 5) : (count < 4))
+                                   { %>
+                                <td class="maintd">
+                                    <table cellpadding="0" border="0" cellspacing="0" id="addAnotherBike" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                        <tr>
+                                            <td>
+                                                <AddBike:AddBike ID="addBike" runat="server"></AddBike:AddBike>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <% } %>
+                            </tr>
+                            <tr class="Specs">
+                                <td align="left" class="specs-title">
+                                    <table width="165" cellpadding="0" border="0" cellspacing="0">
+                                        <tr>
+                                            <th>Engine</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Displacement (cc)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Cylinders</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Max Power</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Maximum Torque</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Bore (mm)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Stroke (mm)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Valves Per Cylinder</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Fuel Delivery System</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Fuel Type</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Ignition</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Spark Plugs (Per Cylinder)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Cooling System</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="headerSpecs">Transmission</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Gearbox Type</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">No Of Gears</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Transmission Type</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Clutch</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="headerSpecs">Performance</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">0 to 60 kmph (Seconds)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">0 to 80 kmph (Seconds)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">0 to 40 m (Seconds)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Top Speed (Kmph)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">60 to 0 Kmph (Seconds, metres)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">80 to 0 kmph (Seconds, metres)</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="headerSpecs">Dimensions & Weight</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Kerb Weight (Kg)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Overall Length (mm)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Overall Width (mm)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Overall Height (mm)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Wheelbase (mm)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Ground Clearance (mm)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Seat Height (mm)</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="headerSpecs">Fuel Efficiency & Range</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Fuel Tank Capacity (Litres)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Reserve Fuel Capacity (Litres)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">FuelEfficiency Overall (Kmpl)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Fuel Efficiency Range (Km)</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="headerSpecs">Chassis & Suspension</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Chassis Type</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Front Suspension</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Rear Suspension</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="headerSpecs">Braking</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Brake Type</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Front Disc</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Front Disc/Drum Size (mm)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Rear Disc</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Rear Disc/Drum Size (mm)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Calliper Type</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="headerSpecs">Wheels & Tyres</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Wheel Size (inches)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Front Tyre</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Rear Tyre</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Tubeless Tyres</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Radial Tyres</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Alloy Wheels</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="headerSpecs">Electricals</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Electric System</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Battery</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Headlight Type</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Headlight Bulb Type</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Brake/Tail Light</td>
                                             <tr>
-                                                <td>
-                                                    <AddBike:AddBike id="addBike" runat="server"></AddBike:AddBike>
-                                                </td>
+                                                <td class="headerSpecs">Turn Signal</td>
                                             </tr>
-                                        </table>
-                                    </td>
-                                    <% } %>
-                                </tr>
-                                <tr class="Specs">
-                                    <td align="left" class="specs-title">
-                                        <table width="165" cellpadding="0" border="0" cellspacing="0">
-                                            <tr><th>Engine</th></tr>
-                                            <tr><td class="headerSpecs">Displacement (cc)</td></tr>
-                                            <tr><td class="headerSpecs">Cylinders</td></tr>    
-                                            <tr><td class="headerSpecs">Max Power</td></tr>    
-                                            <tr><td class="headerSpecs">Maximum Torque</td></tr>    
-                                            <tr><td class="headerSpecs">Bore (mm)</td></tr>    
-                                            <tr><td class="headerSpecs">Stroke (mm)</td></tr>    
-                                            <tr><td class="headerSpecs">Valves Per Cylinder</td></tr>   
-                                            <tr><td class="headerSpecs">Fuel Delivery System</td></tr>    
-                                            <tr><td class="headerSpecs">Fuel Type</td></tr>    
-                                            <tr><td class="headerSpecs">Ignition</td></tr>    
-                                            <tr><td class="headerSpecs">Spark Plugs (Per Cylinder)</td></tr>    
-                                            <tr><td class="headerSpecs">Cooling System</td></tr>    
-                                            <tr><th class="headerSpecs">Transmission</th></tr>    
-                                            <tr><td class="headerSpecs">Gearbox Type</td></tr>    
-                                            <tr><td class="headerSpecs">No Of Gears</td></tr>    
-                                            <tr><td class="headerSpecs">Transmission Type</td></tr>    
-                                            <tr><td class="headerSpecs">Clutch</td></tr>    
-                                            <tr><th class="headerSpecs">Performance</th></tr>
-                                            <tr><td class="headerSpecs">0 to 60 kmph (Seconds)</td></tr>
-                                            <tr><td class="headerSpecs">0 to 80 kmph (Seconds)</td></tr>
-                                            <tr><td class="headerSpecs">0 to 40 m (Seconds)</td></tr>
-                                            <tr><td class="headerSpecs">Top Speed (Kmph)</td></tr>
-                                            <tr><td class="headerSpecs">60 to 0 Kmph (Seconds, metres)</td></tr>
-                                            <tr><td class="headerSpecs">80 to 0 kmph (Seconds, metres)</td></tr>
-                                            <tr><th class="headerSpecs">Dimensions & Weight</th></tr>
-                                            <tr><td class="headerSpecs">Kerb Weight (Kg)</td></tr>
-                                            <tr><td class="headerSpecs">Overall Length (mm)</td></tr>
-                                            <tr><td class="headerSpecs">Overall Width (mm)</td></tr>
-                                            <tr><td class="headerSpecs">Overall Height (mm)</td></tr>
-                                            <tr><td class="headerSpecs">Wheelbase (mm)</td></tr>
-                                            <tr><td class="headerSpecs">Ground Clearance (mm)</td></tr>
-                                            <tr><td class="headerSpecs">Seat Height (mm)</td></tr>
-                                            <tr><th class="headerSpecs">Fuel Efficiency & Range</th></tr>
-                                            <tr><td class="headerSpecs">Fuel Tank Capacity (Litres)</td></tr>
-                                            <tr><td class="headerSpecs">Reserve Fuel Capacity (Litres)</td></tr>
-                                            <tr><td class="headerSpecs">FuelEfficiency Overall (Kmpl)</td></tr>
-                                            <tr><td class="headerSpecs">Fuel Efficiency Range (Km)</td></tr>
-                                            <tr><th class="headerSpecs">Chassis & Suspension</th></tr>
-                                            <tr><td class="headerSpecs">Chassis Type</td></tr>
-                                            <tr><td class="headerSpecs">Front Suspension</td></tr>
-                                            <tr><td class="headerSpecs">Rear Suspension</td></tr>
-                                            <tr><th class="headerSpecs">Braking</th></tr>
-                                            <tr><td class="headerSpecs">Brake Type</td></tr>
-                                            <tr><td class="headerSpecs">Front Disc</td></tr>
-                                            <tr><td class="headerSpecs">Front Disc/Drum Size (mm)</td></tr>
-                                            <tr><td class="headerSpecs">Rear Disc</td></tr>
-                                            <tr><td class="headerSpecs">Rear Disc/Drum Size (mm)</td></tr>
-                                            <tr><td class="headerSpecs">Calliper Type</td></tr>
-                                            <tr><th class="headerSpecs">Wheels & Tyres</th></tr>
-                                            <tr><td class="headerSpecs">Wheel Size (inches)</td></tr>
-                                            <tr><td class="headerSpecs">Front Tyre</td></tr>
-                                            <tr><td class="headerSpecs">Rear Tyre</td></tr>
-                                            <tr><td class="headerSpecs">Tubeless Tyres</td></tr>
-                                            <tr><td class="headerSpecs">Radial Tyres</td></tr>
-                                            <tr><td class="headerSpecs">Alloy Wheels</td></tr>
-                                            <tr><th class="headerSpecs">Electricals</th></tr>
-                                            <tr><td class="headerSpecs">Electric System</td></tr>
-                                            <tr><td class="headerSpecs">Battery</td></tr>
-                                            <tr><td class="headerSpecs">Headlight Type</td></tr>
-                                            <tr><td class="headerSpecs">Headlight Bulb Type</td></tr>
-                                            <tr><td class="headerSpecs">Brake/Tail Light</td>
-                                            <tr><td class="headerSpecs">Turn Signal</td></tr>
-                                            <tr><td class="headerSpecs">Pass Light</td></tr>
-                                        </table>
-                                    </td>
-                                        <asp:Repeater runat="server" ID="rptSpecs">
+                                        <tr>
+                                            <td class="headerSpecs">Pass Light</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <asp:repeater runat="server" id="rptSpecs">
                                             <ItemTemplate>
                                             <td class="repeater-1 <%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
                                                 <table cellpadding="0" border="0" cellspacing="0" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
@@ -320,109 +652,285 @@
                                                 </table>
                                             </td>                                       
                                         </ItemTemplate>
-                                    </asp:Repeater>
-                                    <% if (isFeatured ? (count < 5) : (count < 4))
-                                       { %>
-                                     <td>
-                                        <table cellpadding="0" border="0" cellspacing="0" class="<%= !isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
-                                            <tr><th>&nbsp;</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><th>&nbsp;</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><th>&nbsp;</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><th>&nbsp;</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><th>&nbsp;</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><th>&nbsp;</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><th>&nbsp;</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><th>&nbsp;</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><th>&nbsp;</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                        </table>
-                                    </td>
-                                    <% } %>
-                                </tr>
-                                <tr class="Features hide">
-                                    <td class="specs-title">
-                                        <table  width="165" cellpadding="0" border="0" cellspacing="0">
-                                            <tr><th>Features</th></tr>
-                                            <tr><td class="headerSpecs">Speedometer</td></tr>
-                                            <tr><td class="headerSpecs">Tachometer</td></tr>
-                                            <tr><td class="headerSpecs">Tachometer Type</td></tr>
-                                            <tr><td class="headerSpecs">Shift Light</td></tr>
-                                            <tr><td class="headerSpecs">Electric Start</td></tr>
-                                            <tr><td class="headerSpecs">Tripmeter</td></tr>
-                                            <tr><td class="headerSpecs">No Of Tripmeters</td></tr>
-                                            <tr><td class="headerSpecs">Tripmeter Type</td></tr>
-                                            <tr><td class="headerSpecs">Low Fuel Indicator</td></tr>
-                                            <tr><td class="headerSpecs">Low Oil Indicator</td></tr>
-                                            <tr><td class="headerSpecs">Low Battery Indicator</td></tr>
-                                            <tr><td class="headerSpecs">Fuel Gauge</td></tr>
-                                            <tr><td class="headerSpecs">Digital Fuel Gauges</td></tr>
-                                            <tr><td class="headerSpecs">Pillion Seat</td></tr>
-                                            <tr><td class="headerSpecs">Pillion Footrest</td></tr>
-                                            <tr><td class="headerSpecs">Pillion Backrest</td></tr>
-                                            <tr><td class="headerSpecs">Pillion Grabrail</td></tr>
-                                            <tr><td class="headerSpecs">Stand Alarm</td></tr>
-                                            <tr><td class="headerSpecs">Stepped Seat</td></tr>
-                                            <tr><td class="headerSpecs">Antilock Braking System</td></tr>
-                                            <tr><td class="headerSpecs">Killswitch</td></tr>
-                                            <tr><td class="headerSpecs">Clock</td></tr>
-                                            <tr><td class="headerSpecs">Colors</td></tr>
-                                        </table>
-                                    </td>
-                                    <asp:repeater runat="server" id="rptFeatures">
+                                    </asp:repeater>
+                                <% if (isFeatured ? (count < 5) : (count < 4))
+                                   { %>
+                                <td>
+                                    <table cellpadding="0" border="0" cellspacing="0" class="<%= !isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <% } %>
+                            </tr>
+                            <tr class="Features hide">
+                                <td class="specs-title">
+                                    <table width="165" cellpadding="0" border="0" cellspacing="0">
+                                        <tr>
+                                            <th>Features</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Speedometer</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Tachometer</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Tachometer Type</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Shift Light</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Electric Start</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Tripmeter</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">No Of Tripmeters</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Tripmeter Type</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Low Fuel Indicator</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Low Oil Indicator</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Low Battery Indicator</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Fuel Gauge</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Digital Fuel Gauges</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Pillion Seat</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Pillion Footrest</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Pillion Backrest</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Pillion Grabrail</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Stand Alarm</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Stepped Seat</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Antilock Braking System</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Killswitch</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Clock</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="headerSpecs">Colors</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <asp:repeater runat="server" id="rptFeatures">
                                         <itemtemplate>
                                             <td class="repeater-1 <%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
                                                 <table cellpadding="0" border="0" cellspacing="0" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
@@ -459,46 +967,98 @@
                                             </td>
                                         </itemtemplate>
                                     </asp:repeater>
-                                    <% if (isFeatured ? (count < 5) : (count < 4))
-                                       { %>
-                                     <td>
-                                        <table cellpadding="0" border="0" cellspacing="0" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
-                                            <tr><th>&nbsp;</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                        </table>
-                                    </td>
-                                    <% } %>
-                                </tr>
-                                <tr class="Colors hide">
-                                    <td class="specs-title repeater-1">
-                                        <table class="tblColor" width="165" cellpadding="0" border="0" cellspacing="0">
-                                            <tr><th>Available Colors</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                        </table>
-                                    </td>
-                                    <asp:repeater runat="server" id="rptColors">
+                                <% if (isFeatured ? (count < 5) : (count < 4))
+                                   { %>
+                                <td>
+                                    <table cellpadding="0" border="0" cellspacing="0" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <% } %>
+                            </tr>
+                            <tr class="Colors hide">
+                                <td class="specs-title repeater-1">
+                                    <table class="tblColor" width="165" cellpadding="0" border="0" cellspacing="0">
+                                        <tr>
+                                            <th>Available Colors</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <asp:repeater runat="server" id="rptColors">
                                         <itemtemplate>
                                             <td class="repeater-1 <%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
                                                 <table cellpadding="0" border="0" cellspacing="0" class="tblColor <%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
@@ -508,25 +1068,30 @@
                                             </td>
                                         </itemtemplate>
                                     </asp:repeater>
-                                    <% if (isFeatured ? (count < 5) : (count < 4))
-                                       { %>
-                                     <td class="repeater-1">
-                                        <table cellpadding="0" border="0" cellspacing="0" class="tblColor <%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
-                                            <tr><th>&nbsp;</th></tr>
-                                            <tr><td>&nbsp;</td></tr>
-                                        </table>
-                                    </td>
-                                    <% } %>
-                                </tr>
-                            </table>
-	                    </td>
-                    </tr>       
-                </table>              
-		    </div>	
-        </div><!--    Left Container ends here -->
-              </div>
-    <div id="back-to-top" class="back-to-top"><a><span></span></a></div>
-    
+                                <% if (isFeatured ? (count < 5) : (count < 4))
+                                   { %>
+                                <td class="repeater-1">
+                                    <table cellpadding="0" border="0" cellspacing="0" class="tblColor <%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <% } %>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--    Left Container ends here -->
+</div>
+<div id="back-to-top" class="back-to-top"><a><span></span></a></div>
+
 <script type="text/javascript">
     $(document).ready(function () {
         var speed = 300;
