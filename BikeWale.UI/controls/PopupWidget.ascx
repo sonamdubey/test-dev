@@ -281,7 +281,7 @@
 
     function isValidInfoPopup() {
         isValid = true;
-        var errMsg = "Missing fields:";
+        var errMsg = "";
 
         if (viewModelPopup.selectedCity() == undefined) {
             errMsg += "City,";
@@ -293,7 +293,7 @@
         }
         if (!isValid) {
             errMsg = errMsg.substring(0, errMsg.length - 1);            
-            $("#errMsgPopup").text("Please select " + errMsg.replace("Missing fields:", "")).show();
+            $("#errMsgPopup").text("Please select " + errMsg).show();
         }
 
         else {
@@ -382,7 +382,7 @@
             }
         } else {
             gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
-            gtmCodeAppender(pageId, "Error in submission", $("#errMsgPopup").text().replace("Please select ", ""));           
+            gtmCodeAppender(pageId, "Error in submission", $("#errMsgPopup").text().replace("Please select", "Missing fields :"));           
         }
     }
 
