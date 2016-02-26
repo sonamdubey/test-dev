@@ -8,13 +8,6 @@
             </a>
         </li>
         <li>
-            <a href="http://www.carwale.com/autoexpo2016/" target="_blank">
-                <span class="ae-sprite ae-car-icon"></span>
-                <span class="navbarTitle">Auto Expo 2016</span>
-
-            </a>
-        </li>
-        <li>
             <a href="javascript:void(0)">
                 <span class="bwsprite newBikes-icon"></span>
                 <span class="navbarTitle">Bike Booking</span>

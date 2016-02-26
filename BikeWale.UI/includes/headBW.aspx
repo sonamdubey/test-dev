@@ -35,7 +35,7 @@
         <div class="leftfloat">
             <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
             <a href="/" id="bwheader-logo" class="bwsprite bw-logo" title="Bikewale" alt="Bikewale"></a>
-            <span class="ae-logo-border"></span><a href="http://www.carwale.com/autoexpo2016/" class="ae-sprite ae-logo" target="_blank"></a>
+           
         </div>
         <div class="rightfloat">
             <div class="global-search" style="display:none">

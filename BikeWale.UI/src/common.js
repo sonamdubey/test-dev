@@ -97,7 +97,7 @@ $(document).ready(function () {
 		var nav = $("#nav"); 
         if(e.target.id !== nav.attr('id') && !nav.has(e.target).length)		
         {
-		    nav.animate({'left':'-300px'});
+		    nav.animate({'left':'-350px'});
 			unlockPopup();
         }
     }); 
@@ -811,12 +811,12 @@ function btnFindBikeNewNav() {
 }
 
 function navbarHide() {
-    $("#nav").removeClass('open').animate({ 'left': '-300px' });
+    $("#nav").removeClass('open').animate({ 'left': '-350px' });
     $(".blackOut-window").hide();
 }
 
 function navbarHideOnESC() {
-    $("#nav").removeClass('open').animate({ 'left': '-300px' });
+    $("#nav").removeClass('open').animate({ 'left': '-350px' });
     $(".blackOut-window").hide();
 }
 
