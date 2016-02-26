@@ -18,7 +18,7 @@ namespace Bikewale.BindViewModels.Controls
     public class BindSimilarVideos
     {
         public ushort TotalRecords { get; set; }
-        public uint FetchedRecordsCount { get; set; }
+        public ushort FetchedRecordsCount { get; set; }
         public EnumVideosCategory CategoryId { get; set; }
         public uint VideoBasicId { get; set; }
 
@@ -44,17 +44,14 @@ namespace Bikewale.BindViewModels.Controls
 
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
-                        FetchedRecordsCount = Convert.ToUInt32(objVideosList.Count());
-
+                        FetchedRecordsCount = Convert.ToUInt16(objVideosList.Count());
                         if (FetchedRecordsCount > 0)
                         {
                             rptSimilarVideos.DataSource = objVideosList;
                             rptSimilarVideos.DataBind();
                         }
                     }
-
                 }
-
             }
             catch (Exception ex)
             {
