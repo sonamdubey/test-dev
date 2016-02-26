@@ -6,12 +6,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.controls
+namespace Bikewale.m.controls
 {
-    /// <summary>
-    /// Created by Sangram Nandkhile
-    /// On 18-Feb-2016
-    /// </summary>
     public class SimilarVideos : System.Web.UI.UserControl
     {
         public Repeater rptSimilarVideos;
@@ -31,7 +27,7 @@ namespace Bikewale.controls
             BindSimilarBikes();
         }
         /// <summary>
-        ///  Addition param for Similar Video controller
+        /// Bind similar bike widget
         /// </summary>
         private void BindSimilarBikes()
         {

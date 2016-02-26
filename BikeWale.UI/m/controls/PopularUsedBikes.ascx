@@ -18,8 +18,8 @@
                                         <div class="bikeTitle margin-bottom10">
                                             <h3><a href="<%#  FormatUsedBikeUrl(DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString(), DataBinder.Eval(Container.DataItem,"CityMaskingName").ToString()) %>" title="<%# DataBinder.Eval(Container.DataItem,"MakeName").ToString() %>"><%# DataBinder.Eval(Container.DataItem,"MakeName").ToString() %></a></h3>
                                         </div>
-                                        <div class="margin-bottom10 font24">
-                                            <span class="fa fa-rupee"></span>
+                                        <div class="margin-bottom10">
+                                            <span class="bwmsprite inr-md-icon"></span>
                                             <span class="font25"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"AvgPrice").ToString()) %></span>
                                         </div>
                                         <div class="font14 text-light-grey">

@@ -1,22 +1,22 @@
 ﻿using Bikewale.BindViewModels.Controls;
-using Bikewale.Common;
 using Bikewale.Entities.Videos;
+using Bikewale.Mobile.Controls;
 using System;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Videos
+namespace Bikewale.Mobile.Videos
 {
     /// <summary>
     /// Created By : Sushil Kumar K
-    /// Created On : 18th February 2016
+    /// Created On : 25th February 2016
     /// Description : To bind all sections of video landing page
     /// </summary>
     public class Default : System.Web.UI.Page
     {
 
         protected Repeater rptLandingVideos;
-        protected Bikewale.Controls.VideoByCategory ctrlFirstRide, ctrlLaunchAlert, ctrlMiscellaneous, ctrlTopMusic, ctrlDoItYourself;
-        protected Bikewale.Controls.ExpertReviewVideos ctrlExpertReview;
+        protected VideosByCategory ctrlFirstRide, ctrlLaunchAlert, ctrlMiscellaneous, ctrlTopMusic, ctrlDoItYourself;
+        protected ExpertReviewVideos ctrlExpertReview;
         protected int ctrlVideosLandingCount = 0;
         protected BikeVideoEntity ctrlVideosLandingFirst = null;
 
@@ -27,16 +27,11 @@ namespace Bikewale.Videos
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //device detection
-            DeviceDetection dd = new DeviceDetection();
-            dd.DetectDevice();
-
             BindLandingVideos();
 
             ctrlFirstRide.CategoryIdList = "57";
             ctrlFirstRide.TotalRecords = 6;
             ctrlFirstRide.SectionTitle = "First Ride";
-            ctrlFirstRide.SectionBackgroundClass = "";  
 
             ctrlExpertReview.CategoryIdList = "47,55";
             ctrlExpertReview.TotalRecords = 2;
@@ -51,17 +46,14 @@ namespace Bikewale.Videos
             ctrlMiscellaneous.CategoryIdList = "58";
             ctrlMiscellaneous.TotalRecords = 6;
             ctrlMiscellaneous.SectionTitle = "Miscellaneous";
-            ctrlMiscellaneous.SectionBackgroundClass = "";
 
             ctrlTopMusic.CategoryIdList = "60";
             ctrlTopMusic.TotalRecords = 6;
             ctrlTopMusic.SectionTitle = "PowerDrift Top Music";
-            ctrlTopMusic.SectionBackgroundClass = "";
 
             ctrlDoItYourself.CategoryIdList = "53";
             ctrlDoItYourself.TotalRecords = 6;
             ctrlDoItYourself.SectionTitle = "Do it yourself";
-            ctrlDoItYourself.SectionBackgroundClass = "";
 
 
         }

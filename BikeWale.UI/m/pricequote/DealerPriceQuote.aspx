@@ -237,8 +237,8 @@
                     <asp:Repeater ID="rptPriceList" runat="server">
                         <ItemTemplate>
                             <tr>
-                                <td align="left" class="text-medium-grey"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
-                                <td align="right" class="text-grey text-bold"><span class="fa fa-rupee"></span> <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
+                                <td align="left" width="75%" class="text-medium-grey"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
+                                <td align="right" width="25%" class="text-grey text-bold"><span class="bwmsprite inr-xxsm-icon"></span> <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
@@ -257,14 +257,14 @@
                     <tr>
                         <td align="left" class="text-medium-grey">Total On Road Price</td>
                         <td align="right" class="text-grey text-bold">
-                            <div><span class="fa fa-rupee"></span> <span style="text-decoration: line-through"> <%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span></div>
+                            <div><span class="bwmsprite inr-xxsm-icon"></span> <span style="text-decoration: line-through"> <%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span></div>
                         </td>
                     </tr>
                     <asp:Repeater ID="rptDiscount" runat="server">
                         <ItemTemplate>
                             <tr>
                                 <td align="left" class="text-medium-grey">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
-                                <td align="right" class="text-grey text-bold"><span class="fa fa-rupee"></span> <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
+                                <td align="right" class="text-grey text-bold"><span class="bwmsprite inr-xxsm-icon"></span> <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
@@ -274,7 +274,7 @@
                     <tr>
                         <td align="left" class="text-medium-grey">BikeWale On Road</td>
                         <td align="right" class="text-grey text-bold">
-                            <div><span class="fa fa-rupee"></span> <%= CommonOpn.FormatPrice((totalPrice - totalDiscount).ToString()) %></div>
+                            <div><span class="bwmsprite inr-xxsm-icon"></span> <%= CommonOpn.FormatPrice((totalPrice - totalDiscount).ToString()) %></div>
 
                         </td>
                     </tr>
@@ -285,7 +285,7 @@
                     <tr>
                         <td align="left" class="text-grey font16">Total On Road Price</td>
                         <td align="right" class="text-grey text-bold font18">
-                            <div><span class="fa fa-rupee"></span> <%= CommonOpn.FormatPrice(totalPrice.ToString()) %></div>
+                            <div><span class="bwmsprite inr-sm-icon"></span> <%= CommonOpn.FormatPrice(totalPrice.ToString()) %></div>
 
                         </td>
                     </tr>
@@ -431,7 +431,7 @@
                     <p class="font14 text-light-grey margin-bottom10">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
                     <div>
                         <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
-                            <span class="fa fa-phone"></span>
+                            <span class="bwmsprite tel-grey-icon"></span>
                             <span class="text-light-grey font24">+91</span>
                             <span class="lead-mobile font24"></span>
                             <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>

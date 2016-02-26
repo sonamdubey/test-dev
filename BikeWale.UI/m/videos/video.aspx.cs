@@ -2,7 +2,7 @@
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
 using Bikewale.Common;
-using Bikewale.controls;
+using Bikewale.m.controls;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
@@ -10,14 +10,8 @@ using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
-
-namespace Bikewale.Videos
+namespace Bikewale.m.videos
 {
-    /// <summary>
-    /// Created By : Sangram Nandkhile
-    /// Created On : 19 Feb 2016
-    /// Description : For Similar Video control
-    /// </summary>
     public class video : System.Web.UI.Page
     {
         protected BikeVideoEntity videoModel;
@@ -34,14 +28,11 @@ namespace Bikewale.Videos
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"]);
-            dd.DetectDevice();
             ParseQueryString();
             BindSimilarVideoControl();
             BindVideoDetails();
             CreateDescriptionTag();
         }
-
         /// <summary>
         /// Create a meta descriptin tag using switch case
         /// </summary>
@@ -67,7 +58,7 @@ namespace Bikewale.Videos
                         metaTitle = String.Format("Bike Launch Video Review-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
                         break;
                     case "53":
-                        metaDesc = String.Format("Do It Yourself tips for {0} {1}.  Watch Do It Yourself tips for {0} {1} from BikeWale's Experts.",videoModel.MakeName, videoModel.ModelName);
+                        metaDesc = String.Format("Do It Yourself tips for {0} {1}.  Watch Do It Yourself tips for {0} {1} from BikeWale's Experts.", videoModel.MakeName, videoModel.ModelName);
                         metaTitle = String.Format("Do It Yourself-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
                         break;
                     default:
@@ -97,7 +88,6 @@ namespace Bikewale.Videos
             ctrlSimilarVideos.TopCount = 6;
             ctrlSimilarVideos.VideoBasicId = videoId;
             ctrlSimilarVideos.SectionTitle = "Related videos";
-            //ctrlSimilarVideos.BasicId = 20156;
         }
         /// <summary>
         /// API call to fetch Video details

@@ -24,5 +24,8 @@ namespace Bikewale.DTO.Make
         /// </summary>
         [JsonProperty("makeId")]
         public string Value { get; set; }
+
+        [JsonProperty("maskingName")]
+        public string MaskingName { get; set; }
     }
 }

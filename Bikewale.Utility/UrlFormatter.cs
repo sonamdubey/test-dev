@@ -16,7 +16,7 @@ namespace Bikewale.Utility
 
         public static string VideoDetailPageUrl(string videoTitleUrl,string videoBasicId)
         {
-            return String.Format("/bike-videos/{0}-{1}/", videoTitleUrl, videoBasicId);
+                return String.Format("/bike-videos/{0}-{1}/", videoTitleUrl, videoBasicId);
         }
 
         public static string VideoByCategoryPageUrl(string videoCategory, string videoCatId)

@@ -679,10 +679,6 @@
       <DependentUpon>VideoCarousel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\Videos.ascx.cs">
-      <DependentUpon>Videos.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\VideosControl.ascx.cs">
       <DependentUpon>VideosControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -809,6 +805,10 @@
       <DependentUpon>ExpertReviewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\ExpertReviewsVideos.ascx.cs">
+      <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\ListPagerControl.ascx.cs">
       <DependentUpon>ListPagerControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -849,6 +849,10 @@
       <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\SimilarVideos.ascx.cs">
+      <DependentUpon>SimilarVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\TopUserReviews.ascx.cs">
       <DependentUpon>TopUserReviews.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -859,6 +863,10 @@
     </Compile>
     <Compile Include="m\controls\UsersTestimonials.ascx.cs">
       <DependentUpon>UsersTestimonials.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\VideosByCategory.ascx.cs">
+      <DependentUpon>VideosByCategory.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\VideosWidget.ascx.cs">
@@ -978,6 +986,18 @@
     </Compile>
     <Compile Include="m\pricequote\RSAOfferClaim.aspx.cs">
       <DependentUpon>RSAOfferClaim.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\videos\VideoCategories.aspx.cs">
+      <DependentUpon>VideoCategories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\videos\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\videos\video.aspx.cs">
+      <DependentUpon>video.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Newsletter\Unsubscribe.aspx.cs">
@@ -1696,7 +1716,6 @@
     <Content Include="controls\UsersTestimonials.ascx" />
     <Content Include="controls\VideoByCategory.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
-    <Content Include="controls\Videos.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
     <Content Include="css\bookingconfig.css" />
@@ -1729,7 +1748,6 @@
     <Content Include="css\insurance.css" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
-    <Content Include="css\jquery.floating-social-share.min.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
     <Content Include="css\new\search.css" />
@@ -1741,7 +1759,6 @@
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
-    <Content Include="css\video.css" />
     <Content Include="Default_old.aspx" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
@@ -2145,6 +2162,7 @@
     <Content Include="m\controls\CompareBikeMin_old.ascx" />
     <Content Include="m\controls\CompareBikesMin.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
+    <Content Include="m\controls\ExpertReviewsVideos.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
@@ -2155,9 +2173,11 @@
     <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
+    <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
     <Content Include="m\controls\UsersTestimonials.ascx" />
+    <Content Include="m\controls\VideosByCategory.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
     <Content Include="m\css\bwm-booking-landing.css" />
@@ -2179,6 +2199,7 @@
     <Content Include="m\css\new\bwm-bookinglisting.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
+    <Content Include="m\css\video.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\Default.aspx" />
@@ -2260,8 +2281,12 @@
     <Content Include="m\src\BikeBooking\bookinglisting.js" />
     <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
+    <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
+    <Content Include="m\videos\VideoCategories.aspx" />
+    <Content Include="m\videos\default.aspx" />
+    <Content Include="m\videos\video.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
@@ -2342,7 +2367,6 @@
     <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <!-- <Content Include="src\knockout.js" /> -->
-    <Content Include="src\jquery.floating-social-share.min.js" />
     <Content Include="src\login\login.js" />
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />
@@ -2362,7 +2386,6 @@
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\Used\search.js" />
-    <Content Include="statichtml\tnc.html" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test.aspx" />
