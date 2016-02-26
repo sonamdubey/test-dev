@@ -1,13 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.videos.VideoCategories" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.videos.VideoCategories" EnableViewState="false" %>
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
     <%        
        Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(categoryIdList,out title,out description, null, null);
        canonical = string.Format("http://www.bikewale.com/bike-videos/category/{0}-{1}/", canonTitle, categoryIdList.Replace(',', '-'));
         %>
+    <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
         #categoryHeader { background:#333;color:#fff;font-size:16px;height:50px;overflow:hidden; }
         .category-back-btn { width:45px; padding:15px 13px 12px; float:left; cursor:pointer; }
@@ -43,8 +43,11 @@
                         <ItemTemplate>
                             <li>
                                 <div class="misc-container margin-bottom10">
-                                    <a href="<%# "/m/bike-videos/" + (DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString()) + "/" %>" class="misc-list-image margin-right20"><img class="lazy" data-original="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>" alt="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="" border="0" /></a>
-                                    <a href="<%# "/m/bike-videos/" + (DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString()) + "/" %>" class="font14 text-default text-bold padding-left20"><%# DataBinder.Eval(Container.DataItem,"VideoTitle") %></a>
+                                    <a href="<%# string.Format("/m/bike-videos/{0}-{1}/", DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(), DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" 
+                                        class="misc-list-image margin-right20">
+                                        <img class="lazy" data-original="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>" alt="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="" border="0" /></a>
+                                    <a href="<%# string.Format("/m/bike-videos/{0}-{1}/", DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(), DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>"
+                                         class="font14 text-default text-bold padding-left20"><%# DataBinder.Eval(Container.DataItem,"VideoTitle") %></a>
                                 </div>
                                 <div class="video-views-count-container font14 leftfloat padding-right10 border-light-right">
                                      <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString()) %></span>

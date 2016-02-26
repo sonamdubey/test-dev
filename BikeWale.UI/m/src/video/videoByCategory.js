@@ -1,4 +1,4 @@
-﻿var pageNo = 1;
+﻿var pageNo = 1, cacheKey = catId.replace(",", "_");
 var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
 
@@ -78,7 +78,6 @@ ko.bindingHandlers.CurrencyText = {
     ko.bindingHandlers.lazyload = new KoLazyLoad();
 
 })(jQuery, ko);
-
 $(window).scroll(function () {
     var winScroll = $(window).scrollTop(),
         pageHeight = $(document).height(),
@@ -91,10 +90,9 @@ $(window).scroll(function () {
         $.getVideos();
     }
 });
-
 $.getVideos = function () {
     $('#loading').show();
-    var cacheVideos = lscache.get("catVideo_" + catId + "_" + pageNo);
+    var cacheVideos = lscache.get("catVideo_" + cacheKey + "_" + pageNo);
     if (cacheVideos) {
         $.bindVideos(cacheVideos);
         window.location.hash = "pn=" + pageNo;
@@ -111,13 +109,13 @@ $.getVideos = function () {
                 if (response.TotalRecords > 0) {
                     $.bindVideos(response);
                     isNextPage = true;
-                    lscache.set("catVideo_" + catId + "_" + pageNo, response, 60);
+                    lscache.set("catVideo_" + cacheKey + "_" + pageNo, response, 60);
                     window.location.hash = "pageno=" + pageNo;
                 }
             },
             complete: function (xhr) {
                 if (xhr.status == 404 || xhr.status == 204) {
-                    lscache.set("catVideo_" + catId + "_" + pageNo, null, 60);
+                    lscache.set("catVideo_" + cacheKey + "_" + pageNo, null, 60);
                 }
                 $('#loading').hide();
             }
@@ -139,5 +137,4 @@ $.getPageNo = function () {
     var params = window.location.hash.replace('#', '');
     return params.length > 0 ? parseInt(params.split('=')[1]) : 1;
 };
-function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { } }
 lscache.flushExpired();

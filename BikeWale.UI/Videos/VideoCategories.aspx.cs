@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 using Bikewale.Utility.StringExtention;
 using Bikewale.Common;
+using System.Reflection;
 
 
 namespace Bikewale.Videos
@@ -27,11 +28,6 @@ namespace Bikewale.Videos
         protected string categoryIdList = string.Empty;
 
         protected override void OnInit(EventArgs e)
-        {
-            InitializeComponent();
-        }
-
-        void InitializeComponent()
         {
             base.Load += new EventHandler(Page_Load);
         }
@@ -108,7 +104,7 @@ namespace Bikewale.Videos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
                 objErr.SendMail();
             }
         }   // End of BindVideos

@@ -9,6 +9,7 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -18,7 +19,7 @@ namespace Bikewale.m.videos
     /// <summary>
     /// Created By : Lucky Rathore on 25 Feb 2016
     /// </summary>
-    public partial class VideoCategories : System.Web.UI.Page
+    public class VideoCategories : System.Web.UI.Page
     {
         protected Repeater rptVideos;
         protected int totalRecords = 0;
@@ -28,11 +29,6 @@ namespace Bikewale.m.videos
         protected bool Ad_Bot_320x50 = false;
        
         protected override void OnInit(EventArgs e)
-        {
-            InitializeComponent();
-        }
-
-        void InitializeComponent()
         {
             base.Load += new EventHandler(Page_Load);
         }
@@ -53,7 +49,10 @@ namespace Bikewale.m.videos
         private void ParseQueryString()
         {
             categoryIdList = Request.QueryString.Get("cid");
-            categoryIdList = categoryIdList.Replace("-", ",");
+            if (!string.IsNullOrEmpty(categoryIdList))
+            {
+                categoryIdList = categoryIdList.Replace("-", ",");
+            }
             titleName = Request.QueryString["title"];
             if (!string.IsNullOrEmpty(titleName))
             {
@@ -98,7 +97,7 @@ namespace Bikewale.m.videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
                 objErr.SendMail();
             }
         }

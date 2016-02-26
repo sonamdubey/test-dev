@@ -1,4 +1,4 @@
-﻿var pageNo = 1;
+﻿var pageNo = 1, cacheKey = catId.replace(",", "_");
 
 lscache.setBucket('catVideos');
 
@@ -92,7 +92,7 @@ $(window).scroll(function () {
 
 $.getVideos = function () {
     $('#loading').show();
-    var cacheVideos = lscache.get("catVideo_" + catId + "_" + pageNo);
+    var cacheVideos = lscache.get("catVideo_" + cacheKey + "_" + pageNo);
     if (cacheVideos) {
          $.bindVideos(cacheVideos);
         maxPage = Math.ceil(cacheVideos.TotalRecords / 9);
@@ -112,14 +112,14 @@ $.getVideos = function () {
                     $.bindVideos(response);
                    maxPage = Math.ceil(response.TotalRecords / 9);
                     isNextPage = true;
-                    lscache.set("catVideo_" + catId + "_" + pageNo, response, 60);
+                    lscache.set("catVideo_" + cacheKey + "_" + pageNo, response, 60);
                     window.location.hash = "pageno=" + pageNo;
                    
                 }
             },
             complete: function (xhr) {
                 if (xhr.status == 404 || xhr.status == 204) {
-                    lscache.set("catVideo_" + catId + "_" + pageNo, null, 60);
+                    lscache.set("catVideo_" + cacheKey + "_" + pageNo, null, 60);
                 }
                 $('#loading').hide();
             }
