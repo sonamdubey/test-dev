@@ -68,6 +68,9 @@
                     <div class=""></div>
                     <p class="padding-top15 margin-top20 margin-bottom15 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">
+                        <li class="whatsapp-container rounded-corner2 text-center share-btn" attr="wp">
+                            <span data-text="share this video" data-link="www.google.com" class="social-icons-sprite whatsapp-icon"></span>
+                        </li>
                         <li class="fb-container rounded-corner2 text-center share-btn" attr="fb">
                             <span class="social-icons-sprite fb-icon"></span>
                         </li>
@@ -103,8 +106,13 @@
                     case 'gp':
                         url = 'https://plus.google.com/share?url=';
                         break;
+                    case 'wp':
+                        var text = document.getElementsByTagName("title")[0].innerHTML;//$(this).attr("data-text");
+                        var cururl = window.location.href;
+                        var message = encodeURIComponent(text) + " - " + encodeURIComponent(cururl);
+                        var whatsapp_url = "whatsapp://send?text=" + message;
+                        url = whatsapp_url;
                 }
-                url += window.location.href;
                 window.open(url, '_blank');
             });
             $('.comma').each(function (i, obj) {
