@@ -2,7 +2,7 @@
 <asp:Repeater ID="rptSimilarVideos" runat="server">
     <HeaderTemplate>
         <div class="container">
-            <h2 class="text-center margin-top25 margin-bottom15"><%=sectionTitle %></h2>
+            <h2 class="text-center margin-top25 margin-bottom15"><%=SectionTitle %></h2>
             <div class="swiper-container">
                 <div class="swiper-wrapper">
     </HeaderTemplate>

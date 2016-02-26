@@ -3,7 +3,7 @@
     <HeaderTemplate>
         <div class="container">
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top20 margin-bottom20 font28"><%=sectionTitle %></h2>
+                <h2 class="text-bold text-center margin-top20 margin-bottom20 font28"><%=SectionTitle %></h2>
                 <div class="jcarousel-wrapper related-video-jcarousel">
                     <div class="jcarousel">
                         <ul>
