@@ -4,9 +4,6 @@
         <ItemTemplate>
             <div class="padding-bottom30">
                 <div class="grid-4 alpha">
-                    <%--<div class="videocarousel-image-wrapper rounded-corner2">
-                        <iframe frameborder="0" allowtransparency="true" src="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>"></iframe>
-                    </div>--%>
                     <div class="videocarousel-image-wrapper rounded-corner2">
                         <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>">
                             <img class="lazy" data-original="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>"

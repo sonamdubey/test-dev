@@ -6,10 +6,7 @@
                 <ItemTemplate>
                 <div class="swiper-slide">
                     <div class="front">
-                        <div class="contentWrapper">
-                            <%--<div class="yt-iframe-preview">
-                                <iframe id="video_<%= counter++ %>" frameborder="0" allowtransparency="true" src="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>&enablejsapi=1"></iframe>
-                            </div>--%>                            
+                        <div class="contentWrapper">                                                  
                             <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>">
                                 <img class="lazy" data-original="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>"
                                     alt="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="" border="0" />
