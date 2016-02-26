@@ -59,10 +59,10 @@
                     <p class="font12 margin-top10 margin-bottom10 text-xlight-grey"><%=videoModel.DisplayDate %></p>
                     <p class="font14 text-light-grey line-height18 margin-bottom10"><%=videoModel.Description %></p>
                     <div class="video-views-count-container font14 leftfloat padding-right10 border-light-right">
-                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default"><%=videoModel.Views %></span>
+                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma"><%=videoModel.Views %></span>
                     </div>
                     <div class="video-views-count-container font14 leftfloat padding-left10 padding-right10">
-                        <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default"><%=videoModel.Likes %></span>
+                        <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%=videoModel.Likes %></span>
                     </div>
                     <div class="clear"></div>
                     <div class=""></div>
@@ -91,10 +91,6 @@
         </section>
         <% } %>
         <script type="text/javascript">
-            $(function () {
-                
-            });
-
             $('.share-btn').click(function () {
                 debugger;
                 var str = $(this).attr('attr');
@@ -108,25 +104,17 @@
                     case 'gp':
                         url = 'https://plus.google.com/share?url=';
                         break;
-                    case 'ml':
-
-                        break;
                 }
                 url += window.location.href;
-                //var title = document.getElementsByTagName("title")[0].innerHTML;
-                openPopUp(url);
-            });
-
-            function openPopUp(url) {
-                var width = 200;
-                var height = 200;
-                var w = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width,
-                    h = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height,
-                    left = (w / 2) - (width / 2) + 10,
-                    top = (h / 2) - (height / 2) + 50;
                 window.open(url, '_blank');
-            }
-
+            });
+            $('.comma').each(function (i, obj) {
+                debugger;
+                var y = formatPrice($(this).html());
+                if (y != null)
+                    $(this).html(y);
+            });
+            function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { } }
         </script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->    
