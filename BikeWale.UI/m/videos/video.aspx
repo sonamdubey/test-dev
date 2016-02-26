@@ -92,7 +92,6 @@
         <% } %>
         <script type="text/javascript">
             $('.share-btn').click(function () {
-                debugger;
                 var str = $(this).attr('attr');
                 switch (str) {
                     case 'fb':
@@ -109,7 +108,6 @@
                 window.open(url, '_blank');
             });
             $('.comma').each(function (i, obj) {
-                debugger;
                 var y = formatPrice($(this).html());
                 if (y != null)
                     $(this).html(y);
