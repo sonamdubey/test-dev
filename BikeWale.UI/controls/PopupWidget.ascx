@@ -189,8 +189,7 @@
     }
 
     function cityChangedPopup() {
-        var isAborted = false;
-        isValidInfoPopup();
+        var isAborted = false;        
         if (viewModelPopup.selectedCity() != undefined) {
             viewModelPopup.hasAreas(findCityById(viewModelPopup, viewModelPopup.selectedCity()).hasAreas);            
             if (viewModelPopup.hasAreas() != undefined && viewModelPopup.hasAreas() && selectedModel > 0) {
@@ -214,9 +213,6 @@
                                 isAborted = true;
                                 xhr.abort();
                             }
-                            //else {
-                            //    viewModelPopup.bookingAreas([]);
-                            //}
                         }
                     },
                     success: function (response) {
@@ -254,7 +250,7 @@
         if (isAborted)
         {
             completeAreaPopup();
-        }
+        }       
     }
 
     function completeAreaPopup() {
@@ -277,6 +273,8 @@
                 }
             });
         }
+
+        isValidInfoPopup();
     }
 
     function isValidInfoPopup() {
