@@ -7,6 +7,8 @@ var _makeName = '';
 var ga_pg_id = '0';
 var pqSourceId = "37";
 var IsPriceQuoteLinkClicked = false;
+var monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
 
 function triggerGA(cat, act, lab) {
     try {
@@ -1168,4 +1170,12 @@ var Base64 = {
     }
 }
 
-function formatPrice(x) {try{ x = x.toString();var lastThree = x.substring(x.length - 3);var otherNumbers = x.substring(0, x.length - 3);if (otherNumbers != '')lastThree = ',' + lastThree;var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;return res;}catch(err){}}
+function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { } }
+
+ko.bindingHandlers.formateDate = {
+    update: function (element, valueAccessor) {
+        var date = new Date(valueAccessor());
+        var formattedDate = monthNames[date.getMonth()] + ' ' + date.getDay() + ', ' + date.getFullYear();
+        $(element).text(formattedDate);
+    }
+};
