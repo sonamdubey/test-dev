@@ -378,7 +378,7 @@ $(document).ready(function () {
 
     function navbarHide() {
         $('body').addClass('lock-browser-scroll');
-        $("#nav").removeClass('open').stop().animate({ 'left': '-300px' });
+        $("#nav").removeClass('open').stop().animate({ 'left': '-350px' });
         $(".blackOut-window").hide();
     }
     
