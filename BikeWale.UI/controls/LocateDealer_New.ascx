@@ -8,7 +8,7 @@
         <div class="locate-dealer-search">
             <div class="locate-dealer-bikeSelect">
                 <div class="form-control-box">
-                    <select id="cmbMake" class="form-control rounded-corner0 no-border" data-bind="options: Makes, optionsText: 'text', optionsValue: 'value', value: SelectedMake, optionsCaption: 'Select Make', event: { change: UpdateCity }"></select>
+                    <select id="cmbMake" class="form-control rounded-corner0 no-border" data-bind="options: Makes, optionsText: 'makeName', optionsValue: 'makeId', value: SelectedMake, optionsCaption: 'Select Make', event: { change: UpdateCity }"></select>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select a bike</div>
                 </div>
@@ -45,7 +45,17 @@
         self.cityId = ko.observable();
         self.UpdateCity = function () { FillCity(self); }
         self.btnLocateDealer_click = function () { handleLocateDealer(self); }
-        $.getJSON("/api/DealerMakes/", self.Makes);
+        //$.getJSON("/api/DealerMakes/", self.Makes);
+        $.ajax({
+            type: "GET",
+            url: "/api/DealerMakes/",            
+            success: function (response) {                
+                var makes = response.makes;                
+                if (makes) {                    
+                    self.Makes(ko.toJS(makes));
+                }
+            }
+        });
     }
 
     function FillCity(vm) {
