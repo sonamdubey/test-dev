@@ -38,7 +38,12 @@ namespace Bikewale.News
         private void Page_Load(object sender, EventArgs e)
         {
             //code for device detection added by Ashwini Todkar
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            // Modified By :Ashish Kamble on 5 Feb 2016
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
             ProcessQS();
@@ -152,7 +157,7 @@ namespace Bikewale.News
         private void Page_Load(object sender, EventArgs e)
         {
             //code for device detection added by Ashwini Todkar
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_ORIGINAL_URL"].ToString());
             dd.DetectDevice();
 
             CustomerId = CurrentUser.Id;
