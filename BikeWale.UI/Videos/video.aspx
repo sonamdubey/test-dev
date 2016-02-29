@@ -66,8 +66,7 @@
                         <div id="embedVideo" class="margin-bottom15">
                             <iframe width="934" height="527" src="<%=videoModel.VideoUrl %>&autoplay=1" frameborder="0" allowfullscreen></iframe>
                         </div>
-                        <p class="font14 text-light-grey margin-bottom10"><%=videoModel.Description %>
-                        <p class="clear"></p>
+                        <div class="font14 text-light-grey margin-bottom10"><%=videoModel.Description %></div>
                         <p class="video-views-counts border-light-right font14 leftfloat">
                             <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma"><%=videoModel.Views %></span>
                         </p>
