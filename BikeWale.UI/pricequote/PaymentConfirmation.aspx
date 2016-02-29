@@ -148,31 +148,34 @@
                                 <p class="font14 margin-bottom5">Mobile no:<span class="margin-left5 text-bold"><%= objCustomer.objCustomerBase.CustomerMobile %></span></p>
                             </div>
                         </div>
-                        <div class="grid-6 availed-offers-container">
-                            <!-- offers container -->
-                            <div class="availed-offers-info margin-left10 padding-top10 padding-bottom10">
-                                <p class="font16 margin-bottom10 text-bold">
-                                    Availed exclusive Bikewale offers  
-                                </p>
-                                <ul>
-                                    <asp:Repeater ID="rptOffers" runat="server">
-                                        <ItemTemplate>
-                                            <% if (IsInsuranceFree)
-                                               {%>
-                                            <li>Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
-                                            <%
-                                           }
-                                               else
-                                               {%>
-                                            <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
-                                            <% 
-                                           }
-                                            %>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </ul>
+                        <%if (_objPQ != null && _objPQ.objOffers != null && _objPQ.objOffers.Count > 0)
+                          { %>
+                            <div class="grid-6 availed-offers-container">
+                                <!-- offers container -->
+                                <div class="availed-offers-info margin-left10 padding-top10 padding-bottom10">
+                                    <p class="font16 margin-bottom10 text-bold">
+                                        Availed exclusive Bikewale offers  
+                                    </p>
+                                    <ul>
+                                        <asp:Repeater ID="rptOffers" runat="server">
+                                            <ItemTemplate>
+                                                <% if (IsInsuranceFree)
+                                                   {%>
+                                                <li>Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
+                                                <%
+                                               }
+                                                   else
+                                                   {%>
+                                                <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                                                <% 
+                                               }
+                                                %>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        <%} %>
                         <div class="clear"></div>
                     </div>
                 </div>
