@@ -49,18 +49,9 @@
     </script>
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style>
-        .chosen-results::-webkit-scrollbar {
-            width: 10px;
-            border-radius: 5px;
-        }
-
-        .chosen-results::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);
-        }
-
-        .chosen-results::-webkit-scrollbar-thumb {
-            background-color: rgba(204, 204, 204,0.7);
-        }
+        .chosen-results::-webkit-scrollbar {width: 10px;border-radius: 5px;}
+        .chosen-results::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-moz-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-o-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);box-shadow: inset 0 0 2px rgba(0,0,0,0.2);}
+        .chosen-results::-webkit-scrollbar-thumb {background-color: rgba(204, 204, 204,0.7);}
     </style>
 </head>
 <body class="bg-light-grey">
