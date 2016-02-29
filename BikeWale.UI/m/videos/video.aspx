@@ -57,7 +57,7 @@
                 <div class="padding20">
                     <h1 class="font18"><%=videoModel.VideoTitle %></h1>
                     <p class="font12 margin-top10 margin-bottom10 text-xlight-grey"><%=videoModel.DisplayDate %></p>
-                    <p class="font14 text-light-grey line-height18 margin-bottom10"><%=videoModel.Description %></p>
+                    <div class="font14 text-light-grey line-height18 margin-bottom10"><%=videoModel.Description %></div>
                     <div class="video-views-count-container font14 leftfloat padding-right10 border-light-right">
                             <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma"><%=videoModel.Views %></span>
                     </div>
