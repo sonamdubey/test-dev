@@ -38,8 +38,13 @@ namespace Bikewale.Content
         private void Page_Load(object sender, EventArgs e)
         {
             //code for device detection added by Ashwini Todkar
-            DeviceDetection deviceDetection = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-            deviceDetection.DetectDevice();
+            // Modified By :Ashish Kamble on 5 Feb 2016
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
 
 
             ProcessQS();
@@ -65,7 +70,7 @@ namespace Bikewale.Content
 
                 if (!String.IsNullOrEmpty(basicId))
                 {
-                    string _newUrl = Request.ServerVariables["HTTP_X_REWRITE_URL"];
+                    string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
                     var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
                     var _titleEndIndex = _newUrl.LastIndexOf('-');
                     string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
@@ -228,7 +233,7 @@ namespace Bikewale.Content
         //private void Page_Load(object sender, EventArgs e)
         //{
         //    //code for device detection added by Ashwini Todkar
-        //    DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+        //    DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_ORIGINAL_URL"].ToString());
         //    dd.DetectDevice();
 
         //    Trace.Warn("Test");
@@ -250,7 +255,7 @@ namespace Bikewale.Content
 
         //        if (!String.IsNullOrEmpty(basicId))
         //        {
-        //            string _newUrl = Request.ServerVariables["HTTP_X_REWRITE_URL"];
+        //            string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
         //            var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
         //            var _titleEndIndex = _newUrl.LastIndexOf('-');
         //            string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex+1);
@@ -258,8 +263,8 @@ namespace Bikewale.Content
         //            CommonOpn.RedirectPermanent(_newUrl);
         //            //Trace.Warn("_newUrl : " + _newUrl);
         //        }
-        //        // Trace.Warn("url : " + Request.ServerVariables["HTTP_X_REWRITE_URL"]);
-        //        // string newurl = Request.ServerVariables["HTTP_X_REWRITE_URL"];
+        //        // Trace.Warn("url : " + Request.ServerVariables["HTTP_X_ORIGINAL_URL"]);
+        //        // string newurl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
         //        // Trace.Warn("new url : " + newurl);
         //        // var suffix = newurl.LastIndexOf('/');
         //        // Trace.Warn("index of / : " + suffix);
@@ -483,7 +488,7 @@ namespace Bikewale.Content
         //    }
         //    else
         //    {
-        //        string url = HttpContext.Current.Request.ServerVariables["HTTP_X_REWRITE_URL"];           
+        //        string url = HttpContext.Current.Request.ServerVariables["HTTP_X_ORIGINAL_URL"];           
         //        if (url.IndexOf(".html") > 0)
         //        {
         //            url = url.Substring(0, url.IndexOf(".html")) + "/p" + _priority + "/";
