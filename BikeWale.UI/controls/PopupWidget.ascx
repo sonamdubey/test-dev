@@ -250,7 +250,8 @@
         if (isAborted)
         {
             completeAreaPopup();
-        }       
+        }
+        isValidInfoPopup();
     }
 
     function completeAreaPopup() {
@@ -272,9 +273,7 @@
                     }
                 }
             });
-        }
-
-        isValidInfoPopup();
+        }       
     }
 
     function isValidInfoPopup() {
