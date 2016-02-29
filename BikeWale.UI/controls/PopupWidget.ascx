@@ -48,7 +48,7 @@
             <div id="divAreaLoader" class="hide margin-top10 form-control-box">
                 <div class="placeholder-loading-text form-control">Loading Areas..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
                 <div data-bind="visible: bookingAreas().length > 0">                              
-                    <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas(), value: selectedArea, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--' "></select>                
+                    <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas(), value: selectedArea, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: isValidInfoPopup }"></select>                
                     <span class="bwsprite error-icon hide"></span>                
                     <div class="bw-blackbg-tooltip hide"></div>
                 </div>
@@ -189,7 +189,7 @@
     }
 
     function cityChangedPopup() {
-        var isAborted = false;
+        var isAborted = false;        
         if (viewModelPopup.selectedCity() != undefined) {
             viewModelPopup.hasAreas(findCityById(viewModelPopup, viewModelPopup.selectedCity()).hasAreas);            
             if (viewModelPopup.hasAreas() != undefined && viewModelPopup.hasAreas() && selectedModel > 0) {
@@ -213,9 +213,6 @@
                                 isAborted = true;
                                 xhr.abort();
                             }
-                            //else {
-                            //    viewModelPopup.bookingAreas([]);
-                            //}
                         }
                     },
                     success: function (response) {
@@ -253,7 +250,7 @@
         if (isAborted)
         {
             completeAreaPopup();
-        }
+        }       
     }
 
     function completeAreaPopup() {
@@ -276,11 +273,13 @@
                 }
             });
         }
+
+        isValidInfoPopup();
     }
 
     function isValidInfoPopup() {
         isValid = true;
-        var errMsg = "Missing fields:";
+        var errMsg = "";
 
         if (viewModelPopup.selectedCity() == undefined) {
             errMsg += "City,";
@@ -291,9 +290,14 @@
             isValid = false;
         }
         if (!isValid) {
-            errMsg = errMsg.substring(0, errMsg.length - 1);
-            gtmCodeAppender(pageId, "Error in submission", errMsg);
+            errMsg = errMsg.substring(0, errMsg.length - 1);            
+            $("#errMsgPopup").text("Please select " + errMsg).show();
         }
+
+        else {
+            $("#errMsgPopup").text("");
+        }
+
         return isValid;
     }
 
@@ -376,7 +380,7 @@
             }
         } else {
             gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
-            $("#errMsgPopup").text("Please select all the details").show();
+            gtmCodeAppender(pageId, "Error in submission", $("#errMsgPopup").text().replace("Please select", "Missing fields :"));           
         }
     }
 

@@ -8,7 +8,7 @@
         <div class="locate-dealer-search">
             <div class="locate-dealer-bikeSelect">
                 <div class="form-control-box">
-                    <select id="cmbMake" class="form-control rounded-corner0 no-border" data-bind="options: Makes, optionsText: 'text', optionsValue: 'value', value: SelectedMake, optionsCaption: 'Select Make', event: { change: UpdateCity }"></select>
+                    <select id="cmbMake" class="form-control rounded-corner0 no-border" data-bind="options: Makes, optionsText: 'makeName', optionsValue: 'makeId', value: SelectedMake, optionsCaption: 'Select Make', event: { change: UpdateCity }"></select>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select a bike</div>
                 </div>
@@ -45,12 +45,28 @@
         self.cityId = ko.observable();
         self.UpdateCity = function () { FillCity(self); }
         self.btnLocateDealer_click = function () { handleLocateDealer(self); }
-        $.getJSON("/api/DealerMakes/", self.Makes);
+        //$.getJSON("/api/DealerMakes/", self.Makes);
+        $.ajax({
+            type: "GET",
+            url: "/api/DealerMakes/",            
+            success: function (response) {                
+                var makes = response.makes;                
+                if (makes) {                    
+                    self.Makes(ko.toJS(makes));
+                }
+            }
+        });
+    }
+
+    function findMakeById(vm, id) {
+        return ko.utils.arrayFirst(vm.Makes(), function (child) {
+            return child.makeId === id;
+        });
     }
 
     function FillCity(vm) {
         if (vm.SelectedMake()) {
-            $.getJSON("/api/DealerCity/?makeId=" + vm.SelectedMake().split('_')[0], vm.Cities);
+            $.getJSON("/api/DealerCity/?makeId=" + vm.SelectedMake(), vm.Cities);
         }
         else {
             vm.Cities([]);
@@ -61,7 +77,7 @@
         if (vm.SelectedMake() && vm.SelectedCity()) {
             toggleErrorMsg($('#cmbMake'), false);
             toggleErrorMsg($('#cmbCity'), false);
-            location.href = "/new/" + vm.SelectedMake().split('_')[1] + "-dealers/" + vm.SelectedCity().split('_')[0] + "-" + vm.SelectedCity().split('_')[1] + ".html";
+            location.href = "/new/" + findMakeById(vm,vm.SelectedMake()).maskingName + "-dealers/" + vm.SelectedCity().split('_')[0] + "-" + vm.SelectedCity().split('_')[1] + ".html";
         }
         else {
             if ($('#cmbMake').val() == undefined || $('#cmbMake').val() == 0)
