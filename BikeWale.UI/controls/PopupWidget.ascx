@@ -39,8 +39,8 @@
                 <div class="placeholder-loading-text form-control">Loading Cities..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
                 <div data-bind="visible: bookingCities().length > 0">
                     <select data-placeholder="--Select City--" class="chosen-select" id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities(), value: selectedCity, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: cityChangedPopup }"></select>
-                    <span class="bwsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide"></div>
+                    <span class="bwsprite error-icon error-tooltip-siblings"></span>
+                    <div class="bw-blackbg-tooltip error-tooltip-siblings"></div>
                 </div>
                 <span class="position-abt progress-bar"></span>
             </div>  
@@ -49,14 +49,13 @@
                 <div class="placeholder-loading-text form-control">Loading Areas..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
                 <div data-bind="visible: bookingAreas().length > 0">                              
                     <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas(), value: selectedArea, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: isValidInfoPopup }"></select>                
-                    <span class="bwsprite error-icon hide"></span>                
-                    <div class="bw-blackbg-tooltip hide"></div>
+                    <span class="bwsprite error-icon"></span>                
+                    <div class="bw-blackbg-tooltip"></div>
                 </div>
                 <span class="position-abt progress-bar"></span>
             </div>           
                         
             <input id="btnDealerPricePopup" class="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Get on road price" data-bind="click: getPriceQuotePopup, enable: (!hasAreas() && bookingCities().length > 0) || (hasAreas && bookingAreas().length > 0)">
-            <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
         </div>
     </div>
 </div>
@@ -278,23 +277,30 @@
 
     function isValidInfoPopup() {
         isValid = true;
-        var errMsg = "";
+        var errMsg = "",
+            errMsgParent;
 
         if (viewModelPopup.selectedCity() == undefined) {
+            errMsgParent = $('#divCityLoader');
             errMsg += "City,";
             isValid = false;
         }
         if (viewModelPopup.bookingAreas().length > 0 && viewModelPopup.selectedArea() == undefined) {
+            errMsgParent = $('#divAreaLoader');
             errMsg += "Area,";
             isValid = false;
         }
         if (!isValid) {
-            errMsg = errMsg.substring(0, errMsg.length - 1);            
-            $("#errMsgPopup").text("Please select " + errMsg).show();
+            errMsgParent.find('.error-tooltip-siblings').show();
+            errMsgParent.css({ 'border-color': 'red' });
+            errMsg = errMsg.substring(0, errMsg.length - 1);
+            errMsgParent.find('.bw-blackbg-tooltip').text("Please select " + errMsg);
         }
 
         else {
-            $("#errMsgPopup").text("");
+            errMsgParent.css({ 'border-color': '#ccc' });
+            errMsgParent.find('.error-tooltip-siblings').hide();
+            errMsgParent.find('.bw-blackbg-tooltip').text("");
         }
 
         return isValid;
@@ -303,7 +309,7 @@
     function getPriceQuotePopup() {
         var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
         if (isValidInfoPopup()) {
-            $("#errMsgPopup").text("");
+            //$("#errMsgPopup").text("");
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
             if (ga_pg_id != null && ga_pg_id == 2 && sourceHref == '1') {
                 try {
