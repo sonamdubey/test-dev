@@ -71,7 +71,7 @@ namespace Bikewale.Mobile.Content
                 //if id exists then redirect url to new basic id url
                 if (!String.IsNullOrEmpty(_basicId))
                 {
-                    string _newUrl = Request.ServerVariables["HTTP_X_REWRITE_URL"];
+                    string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
                     var _titleStartIndex = _newUrl.IndexOf('/');
                     var _titleEndIndex = _newUrl.LastIndexOf('-');
                     string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);

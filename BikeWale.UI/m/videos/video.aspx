@@ -59,15 +59,18 @@
                     <p class="font12 margin-top10 margin-bottom10 text-xlight-grey"><%=videoModel.DisplayDate %></p>
                     <p class="font14 text-light-grey line-height18 margin-bottom10"><%=videoModel.Description %></p>
                     <div class="video-views-count-container font14 leftfloat padding-right10 border-light-right">
-                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default"><%=videoModel.Views %></span>
+                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma"><%=videoModel.Views %></span>
                     </div>
                     <div class="video-views-count-container font14 leftfloat padding-left10 padding-right10">
-                        <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default"><%=videoModel.Likes %></span>
+                        <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%=videoModel.Likes %></span>
                     </div>
                     <div class="clear"></div>
                     <div class=""></div>
                     <p class="padding-top15 margin-top20 margin-bottom15 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">
+                        <li class="whatsapp-container rounded-corner2 text-center share-btn" attr="wp">
+                            <span data-text="share this video" data-link="www.google.com" class="social-icons-sprite whatsapp-icon"></span>
+                        </li>
                         <li class="fb-container rounded-corner2 text-center share-btn" attr="fb">
                             <span class="social-icons-sprite fb-icon"></span>
                         </li>
@@ -91,12 +94,7 @@
         </section>
         <% } %>
         <script type="text/javascript">
-            $(function () {
-                
-            });
-
             $('.share-btn').click(function () {
-                debugger;
                 var str = $(this).attr('attr');
                 switch (str) {
                     case 'fb':
@@ -108,13 +106,21 @@
                     case 'gp':
                         url = 'https://plus.google.com/share?url=';
                         break;
-                    case 'ml':
-
-                        break;
+                    case 'wp':
+                        var text = document.getElementsByTagName("title")[0].innerHTML;//$(this).attr("data-text");
+                        var cururl = window.location.href;
+                        var message = encodeURIComponent(text) + " - " + encodeURIComponent(cururl);
+                        var whatsapp_url = "whatsapp://send?text=" + message;
+                        url = whatsapp_url;
                 }
-                url += window.location.href;
                 window.open(url, '_blank');
             });
+            $('.comma').each(function (i, obj) {
+                var y = formatPrice($(this).html());
+                if (y != null)
+                    $(this).html(y);
+            });
+            function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { } }
         </script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->    

@@ -1,4 +1,6 @@
 ﻿var pageNo = 1, cacheKey = catId.replace(",", "_");
+var monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
 
 lscache.setBucket('catVideos');
 
@@ -76,7 +78,6 @@ ko.bindingHandlers.CurrencyText = {
     ko.bindingHandlers.lazyload = new KoLazyLoad();
 
 })(jQuery, ko);
-
 $(window).scroll(function () {
     var winScroll = $(window).scrollTop(),
         pageHeight = $(document).height(),
@@ -89,20 +90,17 @@ $(window).scroll(function () {
         $.getVideos();
     }
 });
-
 $.getVideos = function () {
     $('#loading').show();
     var cacheVideos = lscache.get("catVideo_" + cacheKey + "_" + pageNo);
     if (cacheVideos) {
-         $.bindVideos(cacheVideos);
-        maxPage = Math.ceil(cacheVideos.TotalRecords / 9);
+        $.bindVideos(cacheVideos);
         window.location.hash = "pn=" + pageNo;
         isNextPage = true;
         $('#loading').hide();
     }
-    else
-    {
-        var catURL = cwHostUrl + "/api/v1/videos/subcategory/" + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
+    else {
+        var catURL = cwHostUrl + "/api/v1/videos/subcategory/" + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=6";
         $.ajax({
             type: 'GET',
             url: catURL,
@@ -110,11 +108,9 @@ $.getVideos = function () {
             success: function (response) {
                 if (response.TotalRecords > 0) {
                     $.bindVideos(response);
-                   maxPage = Math.ceil(response.TotalRecords / 9);
                     isNextPage = true;
                     lscache.set("catVideo_" + cacheKey + "_" + pageNo, response, 60);
                     window.location.hash = "pageno=" + pageNo;
-                   
                 }
             },
             complete: function (xhr) {
@@ -125,21 +121,20 @@ $.getVideos = function () {
             }
         });
     }
-    
-}; 
+};
 $.bindVideos = function (reponseVideos) {
-    var koHtml = '<div class="miscWrapper container">'
+    var koHtml = '<div class="miscWrapper container bottom-shadow margin-bottom30">'
                         + '<ul id="listVideos' + pageNo + '"  data-bind="template: { name: \'templetVideos\', foreach: Videos }">'
                         + '</ul>'
                     + '<div class="clear"></div></div>';
     $('#listVideos' + (pageNo - 1)).parent().after(koHtml);
-    ko.applyBindings(new VideoViewModel(reponseVideos), $("#listVideos" + pageNo)[0]); 
+    ko.applyBindings(new VideoViewModel(reponseVideos), $("#listVideos" + pageNo)[0]);
 };
 var VideoViewModel = function (model) {
     ko.mapping.fromJS(model, {}, this);
 };
-
 $.getPageNo = function () {
     var params = window.location.hash.replace('#', '');
     return params.length > 0 ? parseInt(params.split('=')[1]) : 1;
 };
+lscache.flushExpired();

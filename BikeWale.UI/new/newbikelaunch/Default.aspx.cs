@@ -40,7 +40,12 @@ namespace Bikewale.New
         protected void Page_Load(object sender, EventArgs e)
         {
             //code for device detection added by Sadhana Upadhyay on 6 June 2014
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            // Modified By :Ashish Kamble on 5 Feb 2016
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
             if (!String.IsNullOrEmpty(Request.QueryString["pn"]))

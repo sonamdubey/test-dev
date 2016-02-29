@@ -34,7 +34,12 @@ namespace Bikewale.Videos
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"]);
+            // Modified By :Ashish Kamble on 5 Feb 2016
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
             ParseQueryString();
             BindSimilarVideoControl();
@@ -42,6 +47,9 @@ namespace Bikewale.Videos
             CreateDescriptionTag();
         }
 
+        /// <summary>
+        /// Create a meta descriptin tag using switch case
+        /// </summary>
         private void CreateDescriptionTag()
         {
             if (isMakeModelTag)
@@ -93,7 +101,7 @@ namespace Bikewale.Videos
         {
             ctrlSimilarVideos.TopCount = 6;
             ctrlSimilarVideos.VideoBasicId = videoId;
-            ctrlSimilarVideos.sectionTitle = "Related videos";
+            ctrlSimilarVideos.SectionTitle = "Related videos";
             //ctrlSimilarVideos.BasicId = 20156;
         }
         /// <summary>

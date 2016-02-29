@@ -13,8 +13,8 @@ namespace Bikewale.m.controls
         public Repeater rptSimilarVideos;
         public int TopCount { get; set; }
         public uint VideoBasicId { get; set; }
-        public uint FetchedRecordsCount { get; set; }
-        public string sectionTitle { get; set; }
+        public ushort FetchedRecordsCount { get; set; }
+        public string SectionTitle { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
