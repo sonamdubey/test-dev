@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Consumer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
@@ -50,7 +51,7 @@ namespace CityAutoSuggest
             catch (Exception ex)
             {
                 Console.WriteLine("Error in CityList : " + ex.Message);
-                //Logs.WriteErrorLog("Error in fetching CityList from Database : " + ex.Message);
+                Logs.WriteErrorLog("Error in fetching CityList from Database : " + ex.Message);
             }
             return objCity;
         }
@@ -139,7 +140,7 @@ namespace CityAutoSuggest
             catch (Exception ex)
             {
                 Console.WriteLine("Get Suggest List Exception  : " + ex.Message);
-                //Logs.WriteErrorLog("Error In creating City autosuggest list : " + ex.Message);
+                Logs.WriteErrorLog("Error In creating City autosuggest list : " + ex.Message);
             }
             return objSuggestList;
         }
