@@ -20,11 +20,11 @@ namespace BikewaleAutoSuggest
 
             try
             {
-                using(SqlConnection conn=new SqlConnection(_con))
+                using (SqlConnection conn = new SqlConnection(_con))
                 {
-                    using(SqlCommand cmd=new SqlCommand())
+                    using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "GetAutoSuggestMakeModelList";
+                        cmd.CommandText = "GetAutoSuggestMakeModelList";                                        //  Call SP
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
 
@@ -32,23 +32,22 @@ namespace BikewaleAutoSuggest
 
                         SqlDataReader dr = cmd.ExecuteReader();
 
-                        if(dr!=null)
+                        if (dr != null)
                         {
                             objList = new List<TempList>();
 
-                            Logs.WriteInfoLog("Make Model Result Fetched From db");
-                            while(dr.Read())
+                            while (dr.Read())
                             {
                                 objList.Add(new TempList()
                                 {
-                                    MakeId = Convert.ToInt32(dr["MakeId"]),
-                                    ModelId = Convert.ToInt32(dr["ModelId"]),
-                                    Make = dr["Make"].ToString() + " Bikes",
-                                    Model = dr["Model"].ToString(),
-                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),
-                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),
-                                    New = Convert.ToBoolean(dr["New"]),
-                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])
+                                    MakeId = Convert.ToInt32(dr["MakeId"]),                                     //  Add MakeId
+                                    ModelId = Convert.ToInt32(dr["ModelId"]),                                   //  Add ModelId
+                                    Make = dr["Make"].ToString() + " Bikes",                                    //  Add MakeName
+                                    Model = dr["Model"].ToString(),                                             //  Add ModelName
+                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),                         //  Add MakeMaskingName
+                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),                       //  Add ModelMaskingName
+                                    New = Convert.ToBoolean(dr["New"]),                                         //  Add New Flag
+                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])                            //  Add Futuristic
                                 });
                             }
 
@@ -58,26 +57,23 @@ namespace BikewaleAutoSuggest
                             {
                                 objList.Add(new TempList()
                                 {
-                                    MakeId = Convert.ToInt32(dr["MakeId"]),
-                                    ModelId = Convert.ToInt32(dr["ModelId"]),
-                                    Make = dr["Make"].ToString(),
-                                    Model = dr["Model"].ToString(),
-                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),
-                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),
-                                    New = Convert.ToBoolean(dr["New"]),
-                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])
+                                    MakeId = Convert.ToInt32(dr["MakeId"]),                                     //  Add MakeId
+                                    ModelId = Convert.ToInt32(dr["ModelId"]),                                   //  Add ModelId
+                                    Make = dr["Make"].ToString(),                                               //  Add MakeName
+                                    Model = dr["Model"].ToString(),                                             //  Add ModelName
+                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),                         //  Add MakeMaskingName
+                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),                       //  Add ModelMaskingName
+                                    New = Convert.ToBoolean(dr["New"]),                                         //  Add New Flag
+                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])                            //  Add Futuristic
                                 });
                             }
                         }
-                        Logs.WriteInfoLog("Result added to list successfully.");
-                        Logs.WriteInfoLog("List Length : " + objList.Count);
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Exception Message  : " + ex.Message);
-                Logs.WriteErrorLog("Exception in GetBikeList : " + ex.Message);
             }
             return objList;
         }

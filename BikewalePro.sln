@@ -77,6 +77,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppNotification.Service", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppNotification.Utility", "AppNotification.Utility\AppNotification.Utility.csproj", "{4F983966-2A84-495B-B84A-D27958757A07}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CityIndex", "CityIndex\CityIndex.csproj", "{A33306C9-69EF-4202-8C83-AF7E25C30419}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +193,10 @@ Global
 		{4F983966-2A84-495B-B84A-D27958757A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F983966-2A84-495B-B84A-D27958757A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F983966-2A84-495B-B84A-D27958757A07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A33306C9-69EF-4202-8C83-AF7E25C30419}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A33306C9-69EF-4202-8C83-AF7E25C30419}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A33306C9-69EF-4202-8C83-AF7E25C30419}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A33306C9-69EF-4202-8C83-AF7E25C30419}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -224,5 +230,6 @@ Global
 		{3604C3FE-EB59-4103-900D-5411F62FD561} = {C4F4E560-F7E4-4738-8746-14B7B3C637D9}
 		{D22A2AC7-B788-43E3-A258-283204508778} = {C4F4E560-F7E4-4738-8746-14B7B3C637D9}
 		{4F983966-2A84-495B-B84A-D27958757A07} = {C4F4E560-F7E4-4738-8746-14B7B3C637D9}
+		{A33306C9-69EF-4202-8C83-AF7E25C30419} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
 	EndGlobalSection
 EndGlobal
