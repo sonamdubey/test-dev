@@ -49,8 +49,8 @@
                 <div class="placeholder-loading-text form-control">Loading Areas..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
                 <div data-bind="visible: bookingAreas().length > 0">                              
                     <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas(), value: selectedArea, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: isValidInfoPopup }"></select>                
-                    <span class="bwsprite error-icon"></span>                
-                    <div class="bw-blackbg-tooltip"></div>
+                    <span class="bwsprite error-icon error-tooltip-siblings"></span>                
+                    <div class="bw-blackbg-tooltip error-tooltip-siblings"></div>
                 </div>
                 <span class="position-abt progress-bar"></span>
             </div>           
@@ -80,7 +80,8 @@
         bookingCities: ko.observableArray([]),
         selectedArea: ko.observable(),
         bookingAreas: ko.observableArray([]),
-        hasAreas: ko.observable()
+        hasAreas: ko.observable(),
+        getPriceQuoteButtonCliked: ko.observable(false)
     };
 
     function findCityById(vm, id) {
@@ -280,13 +281,13 @@
         var errMsg = "",
             errMsgParent;
 
-        if (viewModelPopup.selectedCity() == undefined) {
-            errMsgParent = $('#divCityLoader');
+        if (viewModelPopup.selectedCity() == undefined && viewModelPopup.getPriceQuoteButtonCliked()) {
+            errMsgParent = $('#divCityLoader.form-control-box');
             errMsg += "City,";
             isValid = false;
         }
-        if (viewModelPopup.bookingAreas().length > 0 && viewModelPopup.selectedArea() == undefined) {
-            errMsgParent = $('#divAreaLoader');
+        if (viewModelPopup.bookingAreas().length > 0 && viewModelPopup.selectedArea() == undefined && viewModelPopup.getPriceQuoteButtonCliked()) {
+            errMsgParent = $('#divAreaLoader.form-control-box');
             errMsg += "Area,";
             isValid = false;
         }
@@ -298,16 +299,22 @@
         }
 
         else {
-            errMsgParent.css({ 'border-color': '#ccc' });
-            errMsgParent.find('.error-tooltip-siblings').hide();
-            errMsgParent.find('.bw-blackbg-tooltip').text("");
+            removeCityAreaError($('#divCityLoader.form-control-box'));
+            removeCityAreaError($('#divAreaLoader.form-control-box'));
         }
 
         return isValid;
     }
 
+    function removeCityAreaError(errMsgParent) {
+        errMsgParent.css({ 'border-color': '#ccc' });
+        errMsgParent.find('.error-tooltip-siblings').hide();
+        errMsgParent.find('.bw-blackbg-tooltip').text("");
+    }
+
     function getPriceQuotePopup() {
         var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
+        viewModelPopup.getPriceQuoteButtonCliked(true);
         if (isValidInfoPopup()) {
             //$("#errMsgPopup").text("");
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
