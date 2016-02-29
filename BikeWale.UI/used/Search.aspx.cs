@@ -141,7 +141,7 @@ namespace Bikewale.Used
 
 
                 // query string with page url for paging purpose on page load.
-                string _url = HttpContext.Current.Request.ServerVariables["HTTP_X_REWRITE_URL"];
+                string _url = HttpContext.Current.Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
                 string _finalUrl = string.Empty;
 
                 if (_url.IndexOf("page") >= 0)

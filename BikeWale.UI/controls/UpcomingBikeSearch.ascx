@@ -22,7 +22,7 @@
         $("#UpcomingBikeSearch_drpUCSortList").change(function () {
             var sortVal = $("#UpcomingBikeSearch_drpUCSortList").val();
             if (sortVal != "-1") {
-                var url = '<%=Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString() %>';
+                var url = '<%=Request.ServerVariables["HTTP_X_ORIGINAL_URL"].ToString() %>';
 
                 if (url.indexOf('/page') > -1 || url.indexOf('/sort') > -1) {
                     if (url.indexOf('/page') > -1) {
