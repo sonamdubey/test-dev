@@ -32,13 +32,6 @@ $("#leadBtnBookNow").on('click', function () {
     leadCapturePopup.show();
     $('body').addClass('lock-browser-scroll');
     $(".blackOut-window").show();
-    /*
-    $(document).on('keydown', function (e) {
-        if (e.keyCode === 27) {
-            $("#leadCapturePopup .leadCapture-close-btn").click();
-        }
-    });
-    */
 });
 
 var leadPopupClose = function () {
@@ -49,13 +42,29 @@ var leadPopupClose = function () {
     $(".blackOut-window").hide();
 };
 
-$(".leadCapture-close-btn, .blackOut-window").on("click", function () {
-    $("#leadCapturePopup").hide();
-    $('body').removeClass('lock-browser-scroll');
-    $(".blackOut-window").hide();
+$(".leadCapture-close-btn").on("click", function () {
+    leadCapturePopupCloseBtn();
     window.history.back();
 });
 
+$(".blackOut-window").on("click", function () {
+    if ($("#leadCapturePopup").css("display") == "block") {
+        leadCapturePopupCloseBtn();
+    }
+    else if ($("div#breakupPopUpContainer").css("display") == "block") {
+        viewBreakUpClosePopup();
+    }
+    else if ($("div#termsPopUpContainer").css("display") == "block") {
+        $("div#termsPopUpContainer").hide();
+        $(".blackOut-window").hide();
+    }
+});
+
+var leadCapturePopupCloseBtn = function () {
+    $("#leadCapturePopup").hide();
+    $('body').removeClass('lock-browser-scroll');
+    $(".blackOut-window").hide();
+}
 
 $('#getMoreDetailsBtn').on('click', function (e) {
     $("#leadCapturePopup").show();
@@ -64,13 +73,12 @@ $('#getMoreDetailsBtn').on('click', function (e) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeVersionLocation });
 });
 
-
 $("#viewBreakupText").on('click', function (e) {
     $("div#breakupPopUpContainer").show();
     $(".blackOut-window").show();
     appendHash("viewBreakup");
 });
-$(".breakupCloseBtn,.blackOut-window, #notifyOkayBtn").on('click', function (e) {
+$(".breakupCloseBtn, #notifyOkayBtn").on('click', function (e) {
     viewBreakUpClosePopup();
     window.history.back();
 });
@@ -82,23 +90,10 @@ var viewBreakUpClosePopup = function () {
     leadPopupClose();
 };
 
-$(".termsPopUpCloseBtn, .blackOut-window").on('mouseup click', function (e) {
+$(".termsPopUpCloseBtn").on('click', function (e) {
     $("div#termsPopUpContainer").hide();
     $(".blackOut-window").hide();
 });
-
-$(document).on('keydown', function (e) {
-    if (e.keyCode === 27) {
-        $("div.breakupCloseBtn").click();
-        $("div.termsPopUpCloseBtn").click();
-        $("div.leadCapture-close-btn").click();
-        leadPopupClose();
-        $("div#termsPopUpContainer").hide();
-        $(".blackOut-window").hide();
-    }
-});
-
-
 
 $(".more-features-btn").click(function () {
     $(".more-features").slideToggle();

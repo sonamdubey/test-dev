@@ -11,7 +11,7 @@
     <style type="text/css">
         #categoryHeader { background:#333;color:#fff;font-size:16px;height:50px;overflow:hidden; }
         .category-back-btn { width:45px; padding:15px 13px 12px; float:left; cursor:pointer; }
-        #categoryHeader h1 { width:80%; float:left; color:#fff; margin-top:10px; text-overflow:ellipsis; white-space: nowrap; overflow:hidden; }
+        #categoryHeader h1 { width:80%; float:left; color:#fff; margin-top:12px; font-weight:normal; text-overflow:ellipsis; white-space: nowrap; overflow:hidden; }
         .miscWrapper ul { padding:20px; overflow:hidden; }
         .miscWrapper li { width:100%; border-top:1px solid #e2e2e2; margin-top: 20px; padding-top: 20px; }
         .miscWrapper li:first-child { border-top:none; margin-top:0; padding-top:0; }
@@ -34,7 +34,7 @@
             <div class="category-back-btn">
                 <span class="bwmsprite fa-angle-left"></span>
             </div>
-            <h1><%= pageHeading %></h1>
+            <h1 class="font18"><%= pageHeading %></h1>
         </header>
         <section class="bg-white">
             <div class="miscWrapper container bottom-shadow margin-bottom30">
