@@ -123,7 +123,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .global-search input[type="text"], #globalCity-input input[type="text"] { width: 100%; padding: 7px 5px; border: none; outline: none; }
 
 #errNewBikeSearch.ui-autocomplete { width:470px;position:absolute;top:40px;left:3px; color:#4d5057;text-align: left; }
-
+.error-tooltip-siblings { display:none; }
 /* city popup classes */
 .globalcity-popup { width:450px; min-height:320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left:5%; z-index: 10; }
 .globalcity-popup-data { padding: 30px 20px 30px; }
