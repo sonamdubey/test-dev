@@ -255,6 +255,9 @@ namespace Bikewale.New
         /// Modified By : Lucky Rathore
         /// Modified On : 15 Feb 2016
         /// Summary : SP name Changed.
+        /// Modified By : Lucky Rathore
+        /// Modified On : 26 Feb 2016
+        /// Summary : SP name Changed.
         /// </summary>
         /// <param name="versionList"></param>
         /// <returns></returns>
@@ -266,13 +269,10 @@ namespace Bikewale.New
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     Database db = null;
-                    cmd.CommandText = "GetComparisonDetails_12022016";
+                    cmd.CommandText = "GetComparisonDetails_26022016";
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 50).Value = versionList;
-
                     db = new Database();
-
                     ds = db.SelectAdaptQry(cmd);
                 }
             }
