@@ -75,7 +75,7 @@
                         </p>
                         <div class="leftfloat powerdrift-subscribe">
                             <script src="https://apis.google.com/js/platform.js"></script>
-                            <div class="g-ytsubscribe" data-channel="powerdriftofficial" data-layout="full" data-count="hidden"></div>
+                            <div class="g-ytsubscribe" data-channel="powerdriftofficial" data-layout="default" data-theme="dark" data-count="hidden"></div>
                         </div>
                         <p class="rightfloat text-light-grey font12"><%=videoModel.DisplayDate %></p>
                         <p class="clear"></p>

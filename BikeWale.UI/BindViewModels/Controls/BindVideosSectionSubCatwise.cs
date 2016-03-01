@@ -35,8 +35,8 @@ namespace Bikewale.BindViewModels.Controls
         private ushort _pageNo = 1;
         public ushort PageNo { get { return _pageNo; } set { _pageNo = value; } }
 
-        private bool _sortByDisplayDate = true;
-        public bool sortByDisplaydate { get { return _sortByDisplayDate; } set { _sortByDisplayDate = value; } }
+        private VideosSortOrder _sortOrder = VideosSortOrder.JustLatest;
+        public VideosSortOrder sortOrder { get { return _sortOrder; } set { _sortOrder = value; } }
 
         
 
@@ -53,14 +53,10 @@ namespace Bikewale.BindViewModels.Controls
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    objVideosList = objCache.GetVideosBySubCategory(CategoryIdList, PageNo, TotalRecords);
+                    objVideosList = objCache.GetVideosBySubCategory(CategoryIdList, PageNo, TotalRecords,sortOrder);
 
                     if (objVideosList != null && objVideosList.TotalRecords > 0 &&  objVideosList.Videos != null)
                     {
-                        if(sortByDisplaydate)
-                        {
-                            objVideosList.Videos = objVideosList.Videos.OrderByDescending(x => x.DisplayDate);
-                        }
 
                         FetchedRecordsCount = Convert.ToUInt16(objVideosList.Videos.Count());
 
