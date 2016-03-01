@@ -47,35 +47,47 @@
                 </div>
             </div>
         </section>
-
-        <% if (ctrlFirstRide.FetchedRecordsCount > 0) {%>
-        <BW:ByCategory runat="server" ID="ctrlFirstRide" /> 
-        <% } %>         
+               
 
         <% if (ctrlExpertReview.FetchedRecordsCount > 0) {%>
         <BW:ExpertReview runat="server" ID="ctrlExpertReview" /> 
         <% } %> 
 
+         <% if (ctrlFirstRide.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlFirstRide" /> 
+        <% } %> 
+        
         <% if (ctrlLaunchAlert.FetchedRecordsCount > 0) {%>
         <BW:ByCategory runat="server" ID="ctrlLaunchAlert" />
         <% } %> 
 
-
-        <% if (ctrlMiscellaneous.FetchedRecordsCount > 0) {%>
-        <BW:ByCategory runat="server" ID="ctrlMiscellaneous" />
+        <% if (ctrlFirstLook.FetchedRecordsCount > 0)
+           {%>
+        <BW:ByCategory runat="server" ID="ctrlFirstLook" /> 
         <% } %> 
 
+        <% if (ctrlPowerDriftBlockBuster.FetchedRecordsCount > 0)
+           {%>
+        <BW:ByCategory runat="server" ID="ctrlPowerDriftBlockBuster" />
+        <% } %> 
+        
+        <% if (ctrlMotorSports.FetchedRecordsCount > 0)
+           {%>
+        <BW:ByCategory runat="server" ID="ctrlMotorSports" />
+        <% } %> 
 
+         <% if (ctrlPowerDriftSpecials.FetchedRecordsCount > 0)
+           {%>
+        <BW:ByCategory runat="server" ID="ctrlPowerDriftSpecials" />
+        <% } %> 
+        
         <% if (ctrlTopMusic.FetchedRecordsCount > 0) {%>
         <BW:ByCategory runat="server" ID="ctrlTopMusic" />
         <% } %> 
 
-
-        <% if (ctrlDoItYourself.FetchedRecordsCount > 0) {%>
-        <BW:ByCategory runat="server" ID="ctrlDoItYourself" />
+        <% if (ctrlMiscellaneous.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlMiscellaneous" />
         <% } %> 
-
-        
 
 
         <script type="text/javascript">

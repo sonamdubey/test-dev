@@ -61,8 +61,12 @@
                     <div class="video-views-count-container font14 leftfloat padding-right10 border-light-right">
                             <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma"><%=videoModel.Views %></span>
                     </div>
+                    <div class="video-views-count-container font14 leftfloat padding-left10 padding-right10 border-light-right">
+                        <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%=videoModel.Likes %></span>                       
+                    </div>                   
                     <div class="video-views-count-container font14 leftfloat padding-left10 padding-right10">
-                        <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%=videoModel.Likes %></span>
+                        <script src="https://apis.google.com/js/platform.js"></script>
+                        <div class="g-ytsubscribe" data-channel="powerdriftofficial" data-layout="default" data-count="default"></div>
                     </div>
                     <div class="clear"></div>
                     <div class=""></div>
