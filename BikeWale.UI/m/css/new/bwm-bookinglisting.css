@@ -9,7 +9,7 @@
 .filter-sort-div .filter-icon { position: relative; top: 2px; }
 #divSearchResult .bikeDescWrapper { padding:20px 20px 18px; }
 .offers-tag-wrapper { width:90px; height:28px; background:#4d5057; color:#fff; font-size:14px; line-height:28px;}
-.offers-left-tag { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-right: 10px solid #fff; position:relative; left:80px; font-size: 0; line-height: 0; z-index:1; }
+.offers-left-tag { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-right: 10px solid #fff; position:absolute; left:80px; font-size: 0; line-height: 0; z-index:1; }
 #offersPopup { display:none; }
 .offers-box-icon { width:44px; height:48px; background-position:-83px -396px; }
 #offersPopup .offers-list-ul { text-align:left; }
