@@ -84,14 +84,14 @@ namespace Bikewale.Cache.Videos
         /// <param name="pageSize"></param>
         /// <param name="pageNo"></param>
         /// <returns></returns>
-        public BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize)
+        public BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize,VideosSortOrder? sortOrder=null)
         {
             BikeVideosListEntity videosList = null;
             string key = string.Empty;
             try
             {
                 key = String.Format("BW_Videos_SubCat_{0}_Cnt_{1}", categoryIdList.Replace(",","_"), pageSize);
-                videosList = _cache.GetFromCache<BikeVideosListEntity>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosBySubCategory(categoryIdList, pageNo, pageSize));
+                videosList = _cache.GetFromCache<BikeVideosListEntity>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosBySubCategory(categoryIdList, pageNo, pageSize,sortOrder));
             }
             catch (Exception ex)
             {

@@ -69,12 +69,21 @@ namespace Bikewale.BAL.Videos
         /// <param name="pageNo"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize)
+        public BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize, VideosSortOrder? sortOrder = null)
         {
             BikeVideosListEntity objVideosList = null;
             try
             {
-                string _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId=2&pageNo={1}&pageSize={2}", categoryIdList, pageNo, pageSize);
+                string _apiUrl = string.Empty;
+                if(sortOrder.HasValue)
+                {
+                    _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId=2&pageNo={1}&pageSize={2}&sortCategory={3}", categoryIdList, pageNo, pageSize,sortOrder);
+                }
+                else
+                {
+                    _apiUrl = String.Format("/api/v1/videos/subcategory/{0}/?appId=2&pageNo={1}&pageSize={2}", categoryIdList, pageNo, pageSize);
+                }
+                
 
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
