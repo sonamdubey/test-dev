@@ -96,6 +96,7 @@
         <script type="text/javascript">
             $('.share-btn').click(function () {
                 var str = $(this).attr('attr');
+                var cururl = window.location.href;
                 switch (str) {
                     case 'fb':
                         url = 'https://www.facebook.com/sharer/sharer.php?u=';
@@ -108,11 +109,11 @@
                         break;
                     case 'wp':
                         var text = document.getElementsByTagName("title")[0].innerHTML;//$(this).attr("data-text");
-                        var cururl = window.location.href;
                         var message = encodeURIComponent(text) + " - " + encodeURIComponent(cururl);
                         var whatsapp_url = "whatsapp://send?text=" + message;
                         url = whatsapp_url;
                 }
+                url += cururl;
                 window.open(url, '_blank');
             });
             $('.comma').each(function (i, obj) {
