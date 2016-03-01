@@ -109,26 +109,28 @@
                     <p class="text-bold"><%= objCustomer.objCustomerBase.CustomerMobile %></p>
                 </div>
 
+                <%if(_objPQ!=null && _objPQ.objOffers!=null && _objPQ.objOffers.Count > 0) {%>
+                    <p class="font16 text-bold padding-top20">Availed exclusive Bikewale offers </p>
+                    <ul class="confirmation-offers">
+                        <asp:Repeater ID="rptOffers" runat="server">
+                            <ItemTemplate>
+                                <% if (IsInsuranceFree)
+                                   {%>
+                                <li class="font14 padding-bottom10">Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
+                                <%
+                               }
+                                   else
+                                   {%>
+                                <li class="font14 padding-bottom10"><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                                <% 
+                               }
+                                %>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </ul>
+                <%} %>
 
-
-                <p class="font16 text-bold padding-top20">Availed exclusive Bikewale offers </p>
-                <ul class="confirmation-offers">
-                    <asp:Repeater ID="rptOffers" runat="server">
-                        <ItemTemplate>
-                            <% if (IsInsuranceFree)
-                               {%>
-                            <li class="font14 padding-bottom10">Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
-                            <%
-                           }
-                               else
-                               {%>
-                            <li class="font14 padding-bottom10"><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
-                            <% 
-                           }
-                            %>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                </ul>
+                
             </div>
         </div>
     

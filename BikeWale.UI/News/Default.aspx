@@ -6,7 +6,7 @@
 <%@ Register TagPrefix="CE" TagName="CalculateEMIMin" Src="/controls/CalculateEMIMin.ascx" %>
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="/controls/LinkPagerControl.ascx" %>
 <%
-    title = "Bike News - Latest Indian Bike News & Views | BikeWale  ";
+    title = "Bike News - Latest Indian Bike News & Views | BikeWale";
     description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
     keywords = "news, bike news, auto news, latest bike news, indian bike news, bike news of india";
     canonical = "http://www.bikewale.com/news/";
