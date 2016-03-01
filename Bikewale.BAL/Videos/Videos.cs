@@ -157,7 +157,7 @@ namespace Bikewale.BAL.Videos
         /// <param name="pageNo"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetVideosByMake(string makeID, ushort pageNo, ushort pageSize)
+        public IEnumerable<BikeVideoEntity> GetVideosByMake(uint makeID, ushort pageNo, ushort pageSize)
         {
             //BikeVideosListEntity objVideosList = null;
             IEnumerable<BikeVideoEntity> objVideosList = null;

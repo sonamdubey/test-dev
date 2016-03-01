@@ -98,8 +98,6 @@ namespace Bikewale.Videos
                             }
                         }
                     }
-
-                    
                 }
             }
             catch (Exception ex)
