@@ -10,6 +10,7 @@ namespace Bikewale.Mobile.Videos
     /// Created By : Sushil Kumar K
     /// Created On : 25th February 2016
     /// Description : To bind all sections of video landing page
+    /// Modified By : Vivek Gupta on 01-03-2015, added First look, power drift blockbuster , powerdrift specials and removed do it yourself
     /// </summary>
     public class Default : System.Web.UI.Page
     {
@@ -30,9 +31,18 @@ namespace Bikewale.Mobile.Videos
         {
             BindLandingVideos();
 
+            ctrlExpertReview.CategoryIdList = "47,55";
+            ctrlExpertReview.TotalRecords = 2;
+            ctrlExpertReview.SectionTitle = "Expert Reviews";
+            ctrlFirstRide.SectionBackgroundClass = "bg-white";
+
             ctrlFirstRide.CategoryIdList = "57";
             ctrlFirstRide.TotalRecords = 6;
             ctrlFirstRide.SectionTitle = "First Ride Impressions";
+
+            ctrlLaunchAlert.CategoryIdList = "59";
+            ctrlLaunchAlert.TotalRecords = 6;
+            ctrlLaunchAlert.SectionTitle = "Launch Alert";
 
             ctrlFirstLook.CategoryIdList = "61";
             ctrlFirstLook.TotalRecords = 6;
@@ -50,23 +60,13 @@ namespace Bikewale.Mobile.Videos
             ctrlPowerDriftSpecials.TotalRecords = 6;
             ctrlPowerDriftSpecials.SectionTitle = "PowerDrift Specials";
 
-            ctrlExpertReview.CategoryIdList = "47,55";
-            ctrlExpertReview.TotalRecords = 2;
-            ctrlExpertReview.SectionTitle = "Expert Reviews";
-            ctrlFirstRide.SectionBackgroundClass = "bg-white";
-
-            ctrlLaunchAlert.CategoryIdList = "59";
-            ctrlLaunchAlert.TotalRecords = 6;
-            ctrlLaunchAlert.SectionTitle = "Launch Alert";
-            ctrlFirstRide.SectionBackgroundClass = "";
+            ctrlTopMusic.CategoryIdList = "60";
+            ctrlTopMusic.TotalRecords = 6;
+            ctrlTopMusic.SectionTitle = "PowerDrift Top Music";
 
             ctrlMiscellaneous.CategoryIdList = "58";
             ctrlMiscellaneous.TotalRecords = 6;
             ctrlMiscellaneous.SectionTitle = "Miscellaneous";
-
-            ctrlTopMusic.CategoryIdList = "60";
-            ctrlTopMusic.TotalRecords = 6;
-            ctrlTopMusic.SectionTitle = "PowerDrift Top Music";
 
         }
 
