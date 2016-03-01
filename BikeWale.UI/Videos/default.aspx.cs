@@ -55,15 +55,15 @@ namespace Bikewale.Videos
 
             ctrlMotorSports.CategoryIdList = "51";
             ctrlMotorSports.TotalRecords = 6;
-            ctrlMotorSports.SectionTitle = "MotorSports"; 
-
-            ctrlTopMusic.CategoryIdList = "60";
-            ctrlTopMusic.TotalRecords = 6;
-            ctrlTopMusic.SectionTitle = "PowerDrift Top Music";
+            ctrlMotorSports.SectionTitle = "MotorSports";  
 
             ctrlPDSpecials.CategoryIdList = "63";
             ctrlPDSpecials.TotalRecords = 6;
             ctrlPDSpecials.SectionTitle = "PowerDrift Specials";
+
+            ctrlTopMusic.CategoryIdList = "60";
+            ctrlTopMusic.TotalRecords = 6;
+            ctrlTopMusic.SectionTitle = "PowerDrift Top Music";   
 
             ctrlMiscellaneous.CategoryIdList = "58";
             ctrlMiscellaneous.TotalRecords = 6;
