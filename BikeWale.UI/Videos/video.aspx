@@ -67,10 +67,10 @@
                             <iframe width="934" height="527" src="<%=videoModel.VideoUrl %>&autoplay=1" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <div class="font14 text-light-grey margin-bottom10"><%=videoModel.Description %></div>
-                        <p class="video-views-counts border-light-right font14 leftfloat">
+                        <p class="video-views-counts border-light-right font14 leftfloat padding-right40">
                             <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma"><%=videoModel.Views %></span>
                         </p>
-                        <p class="video-views-counts padding-left20 font14 leftfloat">
+                        <p class="video-views-counts padding-left30 font14 leftfloat">
                             <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%=videoModel.Likes %></span>
                         </p>
                         <p class="rightfloat text-light-grey font12"><%=videoModel.DisplayDate %></p>
