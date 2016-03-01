@@ -164,7 +164,7 @@ namespace Bikewale.Cache.Videos
         /// <param name="categoryId"></param>
         /// <param name="totalCount"></param>
         /// <returns>IEnumerable of BikeVideoEntity</returns>
-        public IEnumerable<BikeVideoEntity> GetVideosByMake(string makeID, ushort pageNo, ushort pageSize)
+        public IEnumerable<BikeVideoEntity> GetVideosByMake(uint makeID, ushort pageNo, ushort pageSize)
         {
             IEnumerable<BikeVideoEntity> videosList = null;
             string key = string.Empty;
