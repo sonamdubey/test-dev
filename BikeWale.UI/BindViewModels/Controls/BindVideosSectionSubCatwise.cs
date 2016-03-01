@@ -35,6 +35,9 @@ namespace Bikewale.BindViewModels.Controls
         private ushort _pageNo = 1;
         public ushort PageNo { get { return _pageNo; } set { _pageNo = value; } }
 
+        private bool _sortByDisplayDate = true;
+        public bool sortByDisplaydate { get { return _sortByDisplayDate; } set { _sortByDisplayDate = value; } }
+
         
 
 
@@ -54,6 +57,11 @@ namespace Bikewale.BindViewModels.Controls
 
                     if (objVideosList != null && objVideosList.TotalRecords > 0 &&  objVideosList.Videos != null)
                     {
+                        if(sortByDisplaydate)
+                        {
+                            objVideosList.Videos = objVideosList.Videos.OrderByDescending(x => x.DisplayDate);
+                        }
+
                         FetchedRecordsCount = Convert.ToUInt16(objVideosList.Videos.Count());
 
                         if (FetchedRecordsCount > 0)
