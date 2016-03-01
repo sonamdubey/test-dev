@@ -120,14 +120,15 @@
         <% } %>          
 
 
-        <% if (ctrlTopMusic.FetchedRecordsCount > 0)
-           {%>
-        <BW:ByCategory runat="server" ID="ctrlTopMusic" />
-        <% } %>
-
         <% if (ctrlPDSpecials.FetchedRecordsCount > 0)
            {%>
         <BW:ByCategory runat="server" ID="ctrlPDSpecials" />
+        <% } %>
+        
+
+        <% if (ctrlTopMusic.FetchedRecordsCount > 0)
+           {%>
+        <BW:ByCategory runat="server" ID="ctrlTopMusic" />
         <% } %>
 
          <% if (ctrlMiscellaneous.FetchedRecordsCount > 0) {%>
