@@ -187,6 +187,10 @@ namespace Bikewale.New
             this.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Modified By : Lucky Rathore on 01 March 2016.
+        /// Description : set make masking name, model Making Name and model ID for video controller
+        /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
             Trace.Warn("Trace 1 : DeviceDetection Start");
@@ -271,8 +275,12 @@ namespace Bikewale.New
             ctrlExpertReviews.ModelId = _modelId;
             ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
             ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+
             ctrlVideos.TotalRecords = 3;
             ctrlVideos.ModelId = _modelId;
+            ctrlVideos.MakeId = modelPage.ModelDetails.MakeBase.MakeId;
+            ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+            ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
 
             ctrlUserReviews.ReviewCount = 4;
             ctrlUserReviews.PageNo = 1;

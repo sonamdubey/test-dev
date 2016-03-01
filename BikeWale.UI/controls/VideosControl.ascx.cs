@@ -8,6 +8,10 @@ using Bikewale.BindViewModels.Controls;
 
 namespace Bikewale.Controls
 {    
+    /// <summary>
+    /// Modified By : Lucky Rathore on 01 March 2016
+    /// Description : functionality for view more videos URL added.
+    /// </summary>
     public class VideosControl : System.Web.UI.UserControl
     {
         protected Repeater rptVideos;
@@ -16,6 +20,9 @@ namespace Bikewale.Controls
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
+        protected string MoreVideoUrl = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -25,6 +32,14 @@ namespace Bikewale.Controls
         protected void Page_Load(object sender, EventArgs e)
         {
             BindVideos();
+            if (String.IsNullOrEmpty(ModelMaskingName)) 
+            {
+                MoreVideoUrl = string.Format("/bike-videos/{0}-{1}/", MakeMaskingName, MakeId);
+            }
+            else
+            {
+                MoreVideoUrl = string.Format("/bike-videos/{0}-{1}-{2}/", MakeMaskingName, ModelMaskingName, ModelId); ;
+            }
         }
 
         protected void BindVideos()

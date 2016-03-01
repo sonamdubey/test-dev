@@ -154,5 +154,33 @@ namespace Bikewale.Cache.Videos
             return video;
         }
         #endregion
+
+        #region Get Bike Videos by Make
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created On : 1st March 2016
+        /// Description : Cache Layer for Get Bike Videos by Make. 
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="totalCount"></param>
+        /// <returns>IEnumerable of BikeVideoEntity</returns>
+        public IEnumerable<BikeVideoEntity> GetVideosByMake(string makeID, ushort pageNo, ushort pageSize)
+        {
+            IEnumerable<BikeVideoEntity> videosList = null;
+            string key = string.Empty;
+            try
+            {
+                key = string.Format("BW_Videos_make_{0}_pageNo_{1}_pageSize_{2}", makeID, pageNo, pageSize);
+                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosByMake(makeID, pageNo, pageSize));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideosByCategory");
+                objErr.SendMail();
+            }
+            return videosList;
+        }
+
+        #endregion
     }
 }
