@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.Default" AutoEventWireup="false" EnableViewState="false" Trace="false" %>
-<%@ Import namespace="Bikewale.Utility.StringExtention" %>
+
+<%@ Import Namespace="Bikewale.Utility.StringExtention" %>
 <%@ Register TagPrefix="BikeWale" TagName="video" Src="/controls/VideoCarousel.ascx" %>
 
 <%@ Register Src="~/controls/VideoByCategory.ascx" TagName="ByCategory" TagPrefix="BW" %>
@@ -17,7 +18,7 @@
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/video.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
     <%
         isAd970x90Shown = false;
-         %>
+    %>
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
@@ -37,44 +38,45 @@
             </div>
         </section>
 
-        
+
         <section>
-    <div id="videoJumbotron" class="container">
-        <div class="grid-12">
-            <div class="content-box-shadow">
-                <div class="grid-8">
-                    <a href="<%= Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(ctrlVideosLandingFirst.VideoTitleUrl,ctrlVideosLandingFirst.BasicId.ToString()) %>" class="main-video-container">
-                        <img class="lazy" data-original="<%= String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",ctrlVideosLandingFirst.VideoId)  %>" alt="<%= ctrlVideosLandingFirst.VideoTitle  %>" title="<%= ctrlVideosLandingFirst.VideoTitle  %>" src="<%= String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",ctrlVideosLandingFirst.VideoId)  %>" border="0" />
-                        <span><%= ctrlVideosLandingFirst.VideoTitle  %></span>
-                    </a>
-                </div>
-                <div class="grid-4">
-                    <ul> 
-                        <asp:Repeater ID="rptLandingVideos" runat="server">
-                            <ItemTemplate>
+            <div id="videoJumbotron" class="container">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <div class="grid-8">
+                            <a href="<%= Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(ctrlVideosLandingFirst.VideoTitleUrl,ctrlVideosLandingFirst.BasicId.ToString()) %>" class="main-video-container">
+                                <img class="lazy" data-original="<%= String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",ctrlVideosLandingFirst.VideoId)  %>" alt="<%= ctrlVideosLandingFirst.VideoTitle  %>" title="<%= ctrlVideosLandingFirst.VideoTitle  %>" src="<%= String.Format("https://img.youtube.com/vi/{0}/sddefault.jpg",ctrlVideosLandingFirst.VideoId)  %>" border="0" />
+                                <span><%= ctrlVideosLandingFirst.VideoTitle  %></span>
+                            </a>
+                        </div>
+                        <div class="grid-4">
+                            <ul>
+                                <asp:Repeater ID="rptLandingVideos" runat="server">
+                                    <ItemTemplate>
 
-                                <li>
-                                    <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="sidebar-video-image">
-                                        <img class="lazy" data-original="<%# String.Format("https://img.youtube.com/vi/{0}/default.jpg",DataBinder.Eval(Container.DataItem,"VideoId"))  %>" alt="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="<%# String.Format("https://img.youtube.com/vi/{0}/default.jpg",DataBinder.Eval(Container.DataItem,"VideoId"))  %>" border="0" /></a>
-                                    <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" title="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" class="sidebar-video-title font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString().Truncate(35) %></a>
-                                </li>
+                                        <li>
+                                            <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="sidebar-video-image">
+                                                <img class="lazy" data-original="<%# String.Format("https://img.youtube.com/vi/{0}/default.jpg",DataBinder.Eval(Container.DataItem,"VideoId"))  %>" alt="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="<%# String.Format("https://img.youtube.com/vi/{0}/default.jpg",DataBinder.Eval(Container.DataItem,"VideoId"))  %>" border="0" /></a>
+                                            <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" title="<%# DataBinder.Eval(Container.DataItem,"VideoTitle") %>" class="sidebar-video-title font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString().Truncate(35) %></a>
+                                        </li>
 
-                            </ItemTemplate>
-                        </asp:Repeater> 
-                    </ul>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                 </div>
                 <div class="clear"></div>
             </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-</section>  
+        </section>
 
         <section>
             <div class="container margin-top20 powerdrift-banner">
                 <div class="grid-12">
                     <div class="leftfloat margin-left25 margin-top35">
-                        <h3 class="text-white">Reviews, Specials, Underground, Launch Alerts &<br />a whole lot more...</h3>
+                        <h3 class="text-white">Reviews, Specials, Underground, Launch Alerts &<br />
+                            a whole lot more...</h3>
                     </div>
                     <div class="rightfloat powerdrift-subscribe">
                         <script src="https://apis.google.com/js/platform.js"></script>
@@ -85,32 +87,51 @@
             </div>
         </section>
 
-        <% if (ctrlFirstRide.FetchedRecordsCount > 0) {%>
-        <BW:ByCategory runat="server" ID="ctrlFirstRide" /> 
-        <% } %>         
+        <% if (ctrlExpertReview.FetchedRecordsCount > 0)
+           {%>
+        <BW:ExpertReview runat="server" ID="ctrlExpertReview" />
+        <% } %>
 
-        <% if (ctrlExpertReview.FetchedRecordsCount > 0) {%>
-        <BW:ExpertReview runat="server" ID="ctrlExpertReview" /> 
-        <% } %> 
 
+        <% if (ctrlFirstRide.FetchedRecordsCount > 0)
+           {%>
+        <BW:ByCategory runat="server" ID="ctrlFirstRide" />
+        <% } %>   
 
         <% if (ctrlLaunchAlert.FetchedRecordsCount > 0) {%>
         <BW:ByCategory runat="server" ID="ctrlLaunchAlert" />
         <% } %> 
 
+        <% if (ctrlFirstLook.FetchedRecordsCount > 0)
+           {%>
+        <BW:ByCategory runat="server" ID="ctrlFirstLook" />
+        <% } %>
 
-        <% if (ctrlMiscellaneous.FetchedRecordsCount > 0) {%>
-        <BW:ByCategory runat="server" ID="ctrlMiscellaneous" />
-        <% } %> 
+
+        <% if (ctrlPDBlockbuster.FetchedRecordsCount > 0)
+           {%>
+        <BW:ByCategory runat="server" ID="ctrlPDBlockbuster" />
+        <% } %>
 
 
-        <% if (ctrlTopMusic.FetchedRecordsCount > 0) {%>
+        <% if (ctrlMotorSports.FetchedRecordsCount > 0)
+           {%>
+        <BW:ByCategory runat="server" ID="ctrlMotorSports" />
+        <% } %>          
+
+
+        <% if (ctrlTopMusic.FetchedRecordsCount > 0)
+           {%>
         <BW:ByCategory runat="server" ID="ctrlTopMusic" />
-        <% } %> 
+        <% } %>
 
+        <% if (ctrlPDSpecials.FetchedRecordsCount > 0)
+           {%>
+        <BW:ByCategory runat="server" ID="ctrlPDSpecials" />
+        <% } %>
 
-        <% if (ctrlDoItYourself.FetchedRecordsCount > 0) {%>
-        <BW:ByCategory runat="server" ID="ctrlDoItYourself" />
+         <% if (ctrlMiscellaneous.FetchedRecordsCount > 0) {%>
+        <BW:ByCategory runat="server" ID="ctrlMiscellaneous" />
         <% } %> 
 
         <script type="text/javascript">

@@ -29,6 +29,9 @@ namespace Bikewale.Entities.Videos
         FirstRide = 57,
         Misc = 58,
         LaunchAlert = 59,
-        TopMusic = 60
+        TopMusic = 60,
+        FirstLook =  61,
+        Blockbuster =  62,        
+        Specials =  63
     }
 }

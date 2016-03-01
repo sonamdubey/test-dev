@@ -19,10 +19,10 @@
                                 <p class="font12 text-xlight-grey margin-top10 margin-bottom10"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy") %></p>
                                 <p class="font14 text-light-grey margin-bottom10 line-height17"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem,"Description").ToString(),75) %></p>
                                 <div class="grid-6 alpha omega border-light-right font14">
-                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5"> </span><span class="text-default"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString())%></span>
+                                    <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-default"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString())%></span>
                                 </div>
                                 <div class="grid-6 omega padding-left10 font14">
-                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5"> </span><span class="text-default"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Likes").ToString()) %></span>
+                                    <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-default"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Likes").ToString()) %></span>
                                 </div>
                                 <div class="clear"></div>
                             </div>
