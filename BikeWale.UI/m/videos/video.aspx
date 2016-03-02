@@ -18,7 +18,8 @@
         .text-default { color:#4d5057; }
         .text-xlight-grey { color:#a8afb3; }
         .line-height18 { line-height:1.8; }
-        .video-views-count-container { min-width:138px; }
+        .video-views-count-container { min-width:90px; }
+        .powerdrift-sub-btn { position:relative; top:-2px; }
         .video-views-icon { width:17px; height:13px; background-position:-59px -303px; }
         .video-likes-icon { width:15px; height:15px; background-position:-63px -322px; position:relative; top:2px; }
         .border-light-right { border-right:1px solid #e2e2e2; }
@@ -58,15 +59,15 @@
                     <h1 class="font18"><%=videoModel.VideoTitle %></h1>
                     <p class="font12 margin-top10 margin-bottom10 text-xlight-grey"><%=videoModel.DisplayDate %></p>
                     <div class="font14 text-light-grey line-height18 margin-bottom10"><%=videoModel.Description %></div>
-                    <div class="video-views-count-container font14 leftfloat padding-right10 border-light-right">
-                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default comma"><%=videoModel.Views %></span>
+                    <div class="video-views-count-container font14 leftfloat border-light-right">
+                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-default comma"><%=videoModel.Views %></span>
                     </div>
-                    <div class="video-views-count-container font14 leftfloat padding-left10 padding-right10 border-light-right">
-                        <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%=videoModel.Likes %></span>                       
+                    <div class="video-views-count-container font14 leftfloat padding-left10 border-light-right">
+                        <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-default comma"><%=videoModel.Likes %></span>                       
                     </div>                   
-                    <div class="video-views-count-container font14 leftfloat padding-left10 padding-right10">
+                    <div class="font14 leftfloat padding-left10 powerdrift-sub-btn">
                         <script src="https://apis.google.com/js/platform.js"></script>
-                        <div class="g-ytsubscribe" data-channel="powerdriftofficial" data-layout="default" data-count="default"></div>
+                        <div class="g-ytsubscribe" data-channel="powerdriftofficial" data-layout="default" data-count="hidden"></div>
                     </div>
                     <div class="clear"></div>
                     <div class=""></div>
