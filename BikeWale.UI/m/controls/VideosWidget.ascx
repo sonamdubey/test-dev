@@ -6,20 +6,23 @@
                 <ItemTemplate>
                 <div class="swiper-slide">
                     <div class="front">
-                        <div class="contentWrapper">                                                  
-                            <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>">
-                                <img class="lazy" data-original="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>"
-                                    alt="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="" border="0" />
-                            </a>                           
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>">
+                                    <img class="swiper-lazy" data-src="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>"
+                                        alt="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="" border="0" />
+                                    <span class="swiper-lazy-preloader"></span>
+                                </a>                           
+                            </div>                                                  
                             <div class="bikeDescWrapper">
                                 <div class="bikeTitle margin-bottom20">
                                     <h3><a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="text-black"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a></h3>
                                 </div>
                                 <div class="margin-bottom15 text-light-grey">
-                                    <span class="bwmsprite review-sm-lgt-grey"></span> Views <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString()) %></span>
+                                    <span class="bwmsprite video-views-icon"></span> Views <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString()) %></span>
                                 </div>
                                 <div class="text-light-grey">
-                                    <span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Likes").ToString()) %></span>
+                                    <span class="bwmsprite video-likes-icon text-light-grey margin-right5"></span> Likes <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Likes").ToString()) %></span>
                                 </div>
                             </div>
                         </div>

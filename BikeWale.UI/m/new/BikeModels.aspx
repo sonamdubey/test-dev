@@ -460,7 +460,7 @@
                         <% if (bookingAmt > 0 && isDealerAssitance)
                            { %>
                         <div class="grid-5 alpha omega">
-                            <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+919167969266"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
+                            <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+919167969266"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                           </div>
                           <%} %>
                         <%} %>

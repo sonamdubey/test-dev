@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.News_new" %>
 
-<div class="bw-tabs-data" id="ctrlNews"><!-- News data code starts here-->    
+<div class="bw-tabs-data news-expert-video-content" id="ctrlNews"><!-- News data code starts here-->    
     <asp:Repeater ID="rptNews" runat="server">
         <HeaderTemplate>
             <!-- #include file="/ads/Ad976x204.aspx" -->
