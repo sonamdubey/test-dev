@@ -1,7 +1,10 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
 using Bikewale.Common;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Utility.StringExtention;
@@ -21,8 +24,8 @@ namespace Bikewale.Videos
         protected Repeater rptVideos;
         protected int totalRecords = 0;
         protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, descName = string.Empty;
-        protected uint makeModelId = 0;
-        protected bool isMake=false;
+        protected uint makeId = 6, modelId = 0;
+        protected bool isModel = false;
 
 
         protected override void OnInit(EventArgs e)
@@ -34,20 +37,26 @@ namespace Bikewale.Videos
         {
             DeviceDetection dd = new DeviceDetection();
             dd.DetectDevice();
-            // Read Query string
+            GetMakeModelDetails();
             ParseQueryString();
             BindVideos();
         }   // page load
 
         /// <summary>
-        /// Written By : ashish G. Kamble on 22 Feb 2016
+        /// Written By : Sangram Nandkhile on 01 Mar 2016
         /// Summary : function to read the query string values.
         /// </summary>
         private void ParseQueryString()
         {
-            if (!String.IsNullOrEmpty(Request.QueryString.Get("id"))) makeModelId = Convert.ToUInt16(Request.QueryString.Get("id"));
-            isMake = true;
-            pageHeading = "By sangram";
+            if (!String.IsNullOrEmpty(Request.QueryString.Get("id")))
+            {
+                if(isModel)
+                    modelId = Convert.ToUInt16(Request.QueryString.Get("id"));
+                else
+                    makeId = Convert.ToUInt16(Request.QueryString.Get("id"));
+                makeId = 6;
+            }
+            pageHeading = string.Format("{0}{1} Videos", make, model!=string.Empty? "" :" " + model);
             //canonTitle = titleName.ToLower();
             //if (!string.IsNullOrEmpty(titleName))
             //{
@@ -81,7 +90,7 @@ namespace Bikewale.Videos
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
 
-                    objVideosList = objCache.GetVideosByMake(makeModelId, 1, 9);
+                    objVideosList = objCache.GetVideosByMake(makeId, 1, 9);
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
                         rptVideos.DataSource = objVideosList;
@@ -93,6 +102,39 @@ namespace Bikewale.Videos
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindVideos()");
                 objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// Call api and set make model details
+        /// </summary>
+        private void GetMakeModelDetails()
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(Request.QueryString.Get("model")))
+                    isModel = true;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    if (isModel)
+                    {
+                        container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+                        IBikeModelsRepository<BikeModelEntity, int> _bikeModel = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
+                        BikeModelEntity objModel = _bikeModel.GetById(99);
+                        make = objModel.MakeBase.MakeName;
+                        model = objModel.ModelName;
+                    }
+                    else
+                    {
+                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                        IBikeMakes<BikeMakeEntity, int> _bikeMake = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                        Bikewale.Entities.BikeData.BikeMakeEntityBase objMake = _bikeMake.GetMakeDetails("6");
+                        make = objMake.MakeName;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
             }
         }
     }

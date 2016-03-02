@@ -10,6 +10,7 @@
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/videocategory.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
     <%
         isAd970x90Shown = false;
+        title = "Test title";
          %>
 </head>
 <body class="bg-light-grey header-fixed-inner">
@@ -92,7 +93,7 @@
         <script type="text/javascript">
             var cwHostUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.CwApiHostUrl %>";
             var apiURL = "/api/v1/videos/make/";
-            var catId = "<%= makeModelId %>";
+            <%--var catId = "<%= makeModelId %>";--%>
             <%--var maxPage = Math.ceil(<%= totalRecords %>/9);--%>
             var maxPage = 50; //change it
             var isNextPage = true;

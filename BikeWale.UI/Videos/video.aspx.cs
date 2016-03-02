@@ -119,6 +119,9 @@ namespace Bikewale.Videos
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
                     videoModel = objCache.GetVideoDetails(videoId);
+
+                    #region Post API call video details
+
                     if (videoModel == null)
                     {
                         Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
@@ -129,6 +132,8 @@ namespace Bikewale.Videos
                         isMakeModelTag = true;
                     if (!string.IsNullOrEmpty(videoModel.DisplayDate))
                         videoModel.DisplayDate = FormatDate.GetFormatDate(videoModel.DisplayDate, "MMMM dd, yyyy");
+
+                    #endregion
                 }
             }
             catch (Exception ex)
