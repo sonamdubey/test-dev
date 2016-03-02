@@ -25,9 +25,10 @@ namespace Bikewale.Videos
     {
         protected Repeater rptVideos;
         protected int totalRecords = 0;
+        protected bool isModel=false;
         protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, descName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, canonicalUrl = string.Empty;
-        protected uint makeId = 6, modelId = 0;
-        protected bool isModel = false;
+        protected uint makeId = 6;
+        protected uint? modelId;
 
 
         protected override void OnInit(EventArgs e)
@@ -140,6 +141,14 @@ namespace Bikewale.Videos
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
                     objVideosList = objCache.GetVideosByMake(makeId, 1, 9);
+                    if (modelId.HasValue)
+                    {
+                        objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId, modelId);
+                    }
+                    else 
+                    {
+                        objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId);
+                    }
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
                         rptVideos.DataSource = objVideosList;
