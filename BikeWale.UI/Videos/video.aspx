@@ -73,7 +73,7 @@
                         <p class="video-views-counts padding-left30 font14 leftfloat border-light-right">
                             <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default comma"><%=videoModel.Likes %></span>
                         </p>
-                        <div class="leftfloat powerdrift-subscribe">
+                        <div class="leftfloat powerdrift-subscribe padding-left30">
                             <script src="https://apis.google.com/js/platform.js"></script>
                             <div class="g-ytsubscribe" data-channel="powerdriftofficial" data-layout="default" data-theme="dark" data-count="hidden"></div>
                         </div>
