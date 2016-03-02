@@ -1,4 +1,4 @@
-﻿var pageNo = 1, cacheKey = catId.replace(",", "_");
+﻿var pageNo = 1;
 
 lscache.setBucket('catVideos');
 
@@ -89,33 +89,41 @@ $(window).scroll(function () {
         $.getVideos();
     }
 });
-
+var x;
 $.getVideos = function () {
     $('#loading').show();
     var cacheVideos = lscache.get("catVideo_" + cacheKey + "_" + pageNo);
     if (cacheVideos) {
          $.bindVideos(cacheVideos);
-        maxPage = Math.ceil(cacheVideos.TotalRecords / 9);
         window.location.hash = "pn=" + pageNo;
         isNextPage = true;
         $('#loading').hide();
     }
     else
     {
-        var catURL = cwHostUrl + "/api/v1/videos/subcategory/" + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
+        var catURL = cwHostUrl + apiURL + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
+        console.log(catURL);
         $.ajax({
             type: 'GET',
             url: catURL,
             dataType: 'json',
             success: function (response) {
-                if (response.TotalRecords > 0) {
-                    $.bindVideos(response);
-                   maxPage = Math.ceil(response.TotalRecords / 9);
-                    isNextPage = true;
-                    lscache.set("catVideo_" + cacheKey + "_" + pageNo, response, 60);
-                    window.location.hash = "pageno=" + pageNo;
-                   
+                console.log(response);
+                x = response;
+                var objVideos;
+                if (typeof x.Videos == 'undefined') {
+                    objVideos = { 'Videos': response };
                 }
+                else {
+                    objVideos = response;
+                }
+                $.bindVideos(objVideos);
+                isNextPage = true;
+                lscache.set("catVideo_" + cacheKey + "_" + pageNo, objVideos, 60);
+                window.location.hash = "pn=" + pageNo;
+            },
+            error: function (e) {
+                isNextPage = false;
             },
             complete: function (xhr) {
                 if (xhr.status == 404 || xhr.status == 204) {
@@ -125,9 +133,9 @@ $.getVideos = function () {
             }
         });
     }
-    
 }; 
 $.bindVideos = function (reponseVideos) {
+    console.log("reponseVideos " + reponseVideos );
     var koHtml = '<div class="miscWrapper container">'
                         + '<ul id="listVideos' + pageNo + '"  data-bind="template: { name: \'templetVideos\', foreach: Videos }">'
                         + '</ul>'
