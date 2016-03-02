@@ -104,7 +104,6 @@ namespace Bikewale.BAL.Videos
             try
             {
                 string _apiUrl = String.Format("/api/v1/videos/{0}/similar/?appId=2&topCount={1}", videoId, totalCount);
-
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
                     objVideosList = objclient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);

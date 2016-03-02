@@ -21,6 +21,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Videos
 {
+    /// <summary>
+    /// Created By : Lucky Rathore
+    /// Created On : 02 march 2016
+    /// </summary>
     public class VideoMakeModel : System.Web.UI.Page
     {
         protected Repeater rptVideos;
@@ -90,37 +94,8 @@ namespace Bikewale.Videos
                     ModelMaskingResponse objResponse = null;
                     objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
                     modelId = objResponse.ModelId;
-                    // get model and make name
-                    
-                }
-                else
-                {
-                    // Make Videos
                 }
             }
-
-            //if (!String.IsNullOrEmpty(Request.QueryString.Get("id")))
-            //{
-            //    if(isModel)
-            //        modelId = Convert.ToUInt16(Request.QueryString.Get("id"));
-            //    else
-            //        makeId = Convert.ToUInt16(Request.QueryString.Get("id"));
-            //    makeId = 6;
-            //}
-            //pageHeading = string.Format("{0}{1} Videos", make, model!=string.Empty? "" :" " + model);
-            //canonTitle = titleName.ToLower();
-            //if (!string.IsNullOrEmpty(titleName))
-            //{
-            //    //capitalize title
-            //    titleName = StringHelper.Capitlization(titleName);
-            //    titleName = titleName.Replace('-', ' ');
-            //    pageHeading = string.Format("{0} Video", titleName);
-            //    titleName = string.Format("{0} Video Review - BikeWale", titleName);
-            //}
-            //descName = string.Format("{0} - Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more",
-            //titleName);
-            //title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison -   BikeWale";
-            //desc = "Check latest bike and scooter videos, " + descText; 
         }
 
         /// <summary>
@@ -140,7 +115,6 @@ namespace Bikewale.Videos
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    objVideosList = objCache.GetVideosByMake(makeId, 1, 9);
                     if (modelId.HasValue)
                     {
                         objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId, modelId);
