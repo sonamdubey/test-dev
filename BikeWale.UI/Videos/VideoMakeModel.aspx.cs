@@ -21,11 +21,11 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Videos
 {
-    public partial class VideoMakeModel : System.Web.UI.Page
+    public class VideoMakeModel : System.Web.UI.Page
     {
         protected Repeater rptVideos;
         protected int totalRecords = 0;
-        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, descName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
+        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, descName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, canonicalUrl = string.Empty;
         protected uint makeId = 6, modelId = 0;
         protected bool isModel = false;
 
@@ -45,15 +45,20 @@ namespace Bikewale.Videos
             CreateTitleMeta();
         }
 
+        /// <summary>
+        /// Function to create Title, meta tags and description
+        /// </summary>
         private void CreateTitleMeta()
         {
             if(isModel)
             {
-                pageHeading = String.Format("{0} bike videos", make);
+                pageHeading = String.Format("{0} {1} videos", make, model);
+                canonicalUrl = string.Format("http://www.bikewale.com/bike-videos/{0}-{1}/", makeMaskingName, modelMaskingName);
             }
             else
             {
-                pageHeading = String.Format("{0} {1} videos", make, model);
+                pageHeading = String.Format("{0} bike videos", make);
+                canonicalUrl = string.Format("http://www.bikewale.com/bike-videos/{0}/", makeMaskingName);
             }
         }   // page load
 

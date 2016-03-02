@@ -6,12 +6,13 @@
        // Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(makeModelId, out title, out description, null, null);
        //canonical = string.Format("http://www.bikewale.com/bike-videos/category/{0}-{1}/", canonTitle, categoryIdList.Replace(',', '-'));
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/videocategory.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
     <%
         isAd970x90Shown = false;
         title = pageHeading;
+        canonical = canonicalUrl;
          %>
+    <!-- #include file="/includes/headscript.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/videocategory.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
