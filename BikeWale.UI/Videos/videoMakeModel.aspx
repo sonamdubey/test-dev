@@ -92,11 +92,13 @@
         </script>
         <script type="text/javascript">
             var cwHostUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.CwApiHostUrl %>";
-            var apiURL = "/api/v1/videos/make/";
-            <%--var catId = "<%= makeModelId %>";--%>
+            var catId = <%= isModel ? modelId : makeId %>;
             <%--var maxPage = Math.ceil(<%= totalRecords %>/9);--%>
-            var maxPage = 50; //change it
-            var isNextPage = true;
+            var maxPage = 10000000;//Number.MAX_VALUE; 
+            var isModel = false;<%--<%= isMOdel%>--%>
+            var isNextPage = true;  //change it
+            var apiURL = isModel ? "/api/v1/videos/model/" : "/api/v1/videos/make/";
+            var cacheKey = isModel ? "model_" + catId : "make_" + catId;
             $(document).ready(function () {
                 $("img .lazy").lazyload();
                 $("#loading").hide();

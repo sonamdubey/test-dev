@@ -94,6 +94,8 @@
             var catId = '<%= categoryIdList %>';
             var maxPage = Math.ceil(<%= totalRecords %>/9);
             var isNextPage = true;
+            var apiURL = "/api/v1/videos/subcategory/";
+            var cacheKey = catId.replace(",","_");
             $(document).ready(function () {
                 $("img .lazy").lazyload();
                 $("#loading").hide();
