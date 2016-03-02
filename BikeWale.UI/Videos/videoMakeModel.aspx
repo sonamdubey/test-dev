@@ -10,6 +10,7 @@
         isAd970x90Shown = false;
         title = pageHeading;
         canonical = canonicalUrl;
+        description = metaDescription;
          %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/videocategory.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
@@ -22,9 +23,9 @@
                 <div class="grid-12">
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
-                            <li><a href="/"><span>Home</span></a></li>
-                            <li><a href="/bike-videos/"><span class="fa fa-angle-right margin-right10"></span>Videos</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><%= pageHeading %></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title">Home</span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/bike-videos/"><span class="fa fa-angle-right margin-right10"></span><span  itemprop="title">Videos</span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><span itemprop="title"><%= pageHeading %></span></li>
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5"><%= pageHeading %></h1>
