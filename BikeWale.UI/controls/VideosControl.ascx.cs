@@ -38,7 +38,7 @@ namespace Bikewale.Controls
             }
             else
             {
-                MoreVideoUrl = string.Format("/bike-videos/{0}-{1}/", MakeMaskingName, ModelMaskingName);
+                MoreVideoUrl = string.Format("/bike-videos/{0}/{1}/", MakeMaskingName, ModelMaskingName);
             }
         }
 
