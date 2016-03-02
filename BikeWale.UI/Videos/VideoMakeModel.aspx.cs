@@ -188,8 +188,10 @@ namespace Bikewale.Videos
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : GetMakeModelDetails");
+                objErr.SendMail();
             }
         }
     }
