@@ -9,14 +9,11 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Memcache;
-using Bikewale.Utility.StringExtention;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Videos
@@ -30,7 +27,6 @@ namespace Bikewale.Videos
         protected uint makeId;
         protected uint? modelId;
 
-
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -40,7 +36,6 @@ namespace Bikewale.Videos
         {
             DeviceDetection dd = new DeviceDetection();
             dd.DetectDevice();
-            //GetMakeModelDetails();
             ParseQueryString();
             BindVideos();
             CreateTitleMeta();
@@ -48,6 +43,7 @@ namespace Bikewale.Videos
 
         /// <summary>
         /// Function to create Title, meta tags and description
+        /// Written By : Sangram Nandkhile on 01 Mar 2016
         /// </summary>
         private void CreateTitleMeta()
         {
@@ -151,40 +147,6 @@ namespace Bikewale.Videos
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindVideos()");
-                objErr.SendMail();
-            }
-        }
-        /// <summary>
-        /// Call api and set make model details
-        /// </summary>
-        private void GetMakeModelDetails()
-        {
-            try
-            {
-                if (!String.IsNullOrEmpty(Request.QueryString.Get("model")))
-                    isModel = true;
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    if (isModel)
-                    {
-                        container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                        IBikeModelsRepository<BikeModelEntity, int> _bikeModel = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-                        BikeModelEntity objModel = _bikeModel.GetById(99);
-                        make = objModel.MakeBase.MakeName;
-                        model = objModel.ModelName;
-                    }
-                    else
-                    {
-                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                        IBikeMakes<BikeMakeEntity, int> _bikeMake = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                        Bikewale.Entities.BikeData.BikeMakeEntityBase objMake = _bikeMake.GetMakeDetails("6");
-                        make = objMake.MakeName;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : GetMakeModelDetails");
                 objErr.SendMail();
             }
         }
