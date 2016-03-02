@@ -647,11 +647,7 @@
             }
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
-
-            $(document).ready(function () {
-                $("#divViewMoreVideo").show();
-            });
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");           
         </script>
     </form>
 </body>

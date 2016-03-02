@@ -555,11 +555,6 @@
         if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
 
-
-            $(document).ready(function () {
-                $("#divViewMoreVideo").show();
-            });
-
         </script>
     </form>
 </body>

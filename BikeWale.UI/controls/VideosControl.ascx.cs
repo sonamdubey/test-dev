@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
+﻿using Bikewale.BindViewModels.Controls;
+using System;
 using System.Web.UI.WebControls;
-using Bikewale.BindViewModels.Controls;
 
 namespace Bikewale.Controls
-{    
+{
     /// <summary>
     /// Modified By : Lucky Rathore on 01 March 2016
     /// Description : functionality for view more videos URL added.
@@ -15,7 +11,7 @@ namespace Bikewale.Controls
     public class VideosControl : System.Web.UI.UserControl
     {
         protected Repeater rptVideos;
-        
+
         public int TotalRecords { get; set; }
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
@@ -32,11 +28,16 @@ namespace Bikewale.Controls
         protected void Page_Load(object sender, EventArgs e)
         {
             BindVideos();
-            if (String.IsNullOrEmpty(ModelMaskingName)) 
+            if (String.IsNullOrEmpty(MakeMaskingName) && String.IsNullOrEmpty(ModelMaskingName))
+            {
+                MoreVideoUrl = string.Format("/bike-videos/");
+            }
+
+            else if (!String.IsNullOrEmpty(MakeMaskingName) && String.IsNullOrEmpty(ModelMaskingName))
             {
                 MoreVideoUrl = string.Format("/bike-videos/{0}/", MakeMaskingName);
             }
-            else
+            else if (!String.IsNullOrEmpty(MakeMaskingName) && !String.IsNullOrEmpty(ModelMaskingName))
             {
                 MoreVideoUrl = string.Format("/bike-videos/{0}-{1}/", MakeMaskingName, ModelMaskingName);
             }
