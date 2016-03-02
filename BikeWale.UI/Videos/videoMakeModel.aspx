@@ -1,18 +1,19 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Videos.VideoCategories" EnableViewState="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Videos.VideoMakeModel" EnableViewState="false" %>
 <!DOCTYPE html>
 <html>
 <head>
     <%        
-       Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(categoryIdList,out title,out description, null, null);
-       canonical = string.Format("http://www.bikewale.com/bike-videos/category/{0}-{1}/", canonTitle, categoryIdList.Replace(',', '-'));
+       // Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(makeModelId, out title, out description, null, null);
+       //canonical = string.Format("http://www.bikewale.com/bike-videos/category/{0}-{1}/", canonTitle, categoryIdList.Replace(',', '-'));
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <style type="text/css">
-        .miscWrapper li { width:312px; height:312px; background:#fff; float:left; border: 1px solid #e2e2e2; padding:20px; margin-right:10px; margin-bottom:20px; margin-left:10px; }.video-image-wrapper { width:271px; height:153px; margin-bottom:15px; overflow:hidden; text-align:center; }.video-image-wrapper a { width:100%; height:100%; display:block; background:url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }.video-image-wrapper img { width:100%; height:100%; }.border-light-right { border-right:1px solid #e2e2e2; }
-    </style>
     <%
         isAd970x90Shown = false;
+        title = pageHeading;
+        canonical = canonicalUrl;
+        description = metaDescription;
          %>
+    <!-- #include file="/includes/headscript.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/videocategory.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
@@ -22,9 +23,9 @@
                 <div class="grid-12">
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
-                            <li><a href="/"><span>Home</span></a></li>
-                            <li><a href="/bike-videos/"><span class="fa fa-angle-right margin-right10"></span>Videos</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><%= pageHeading %></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title">Home</span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/bike-videos/"><span class="fa fa-angle-right margin-right10"></span><span  itemprop="title">Videos</span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><span itemprop="title"><%= pageHeading %></span></li>
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5"><%= pageHeading %></h1>
@@ -93,11 +94,13 @@
         </script>
         <script type="text/javascript">
             var cwHostUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.CwApiHostUrl %>";
-            var catId = '<%= categoryIdList %>';
-            var maxPage = Math.ceil(<%= totalRecords %>/9);
-            var isNextPage = true;
-            var apiURL = "/api/v1/videos/subcategory/";
-            var cacheKey = catId.replace(",","_");
+            var catId = <%= isModel ? modelId : makeId %>;
+            <%--var maxPage = Math.ceil(<%= totalRecords %>/9);--%>
+            var maxPage = 10000000;//Number.MAX_VALUE; 
+            var isModel = false;<%--<%= isMOdel%>--%>
+            var isNextPage = true;  //change it
+            var apiURL = isModel ? "/api/v1/videos/model/" : "/api/v1/videos/make/";
+            var cacheKey = isModel ? "model_" + catId : "make_" + catId;
             $(document).ready(function () {
                 $("img .lazy").lazyload();
                 $("#loading").hide();

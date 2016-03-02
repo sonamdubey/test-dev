@@ -419,7 +419,7 @@ $(document).ready(function () {
             try {
                 var index = regEx.exec(sIndex)[1]
                 $('.sw-' + index).data('swiper').update(true);
-            } catch (e) { console.log(e.toString()) }
+            } catch (e) {}
         }
 
     }); // ends

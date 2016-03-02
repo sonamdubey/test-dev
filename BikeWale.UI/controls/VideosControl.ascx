@@ -21,7 +21,7 @@
             </div>
         </ItemTemplate>
     </asp:Repeater>                        
-    <div id="divViewMoreVideo" class="hide padding-bottom30 text-center">
-        <a href="/bike-videos/" class="font16">View more videos</a>
+    <div id="divViewMoreVideo" class="padding-bottom30 text-center">
+        <a href="<%=MoreVideoUrl%>" class="font16">View more videos</a>
     </div>
 </div><!-- Ends here-->

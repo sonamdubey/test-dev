@@ -113,7 +113,6 @@ namespace Bikewale.BAL.Videos
             try
             {
                 string _apiUrl = String.Format("/api/v1/videos/{0}/similar/?appId=2&topCount={1}", videoId, totalCount);
-
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
                     objVideosList = objclient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
@@ -155,6 +154,45 @@ namespace Bikewale.BAL.Videos
             }
 
             return objVideo;
+        }
+
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created On : 1st March 2016
+        /// Description : To get Bike Videos by Bike Make Id 
+        /// </summary>
+        /// <param name="makeID"></param>
+        /// <param name="pageNo"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeVideoEntity> GetVideosByMakeModel(ushort pageNo, ushort pageSize, uint makeId , uint? modelId = null)
+        {
+            //BikeVideosListEntity objVideosList = null;
+            IEnumerable<BikeVideoEntity> objVideosList = null;
+            try
+            {
+                string _apiUrl = string.Empty;
+                if (modelId.HasValue)
+                {
+                    _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", modelId, pageNo, pageSize);
+                }
+                else
+                {
+                    _apiUrl = String.Format("/api/v1/videos/make/{0}/?appId=2&pageNo={1}&pageSize={2}", makeId, pageNo, pageSize);
+                }
+                
+                using (BWHttpClient objclient = new BWHttpClient())
+                {
+                    objVideosList = objclient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BikeVideosRepository.GetVideosByCategory");
+                objErr.SendMail();
+            }
+
+            return objVideosList;
         }
 
     }
