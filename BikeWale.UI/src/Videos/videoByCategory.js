@@ -107,7 +107,7 @@ $.getVideos = function () {
             dataType: 'json',
             success: function (response) {
                 var objVideos;
-                if (typeof x.Videos == 'undefined') {
+                if (typeof response.Videos == 'undefined') {
                     objVideos = { 'Videos': response };
                 }
                 else {
