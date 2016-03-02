@@ -34,7 +34,6 @@ namespace Bikewale.Mobile.Videos
             ctrlExpertReview.CategoryIdList = "47,55";
             ctrlExpertReview.TotalRecords = 2;
             ctrlExpertReview.SectionTitle = "Expert Reviews";
-            ctrlFirstRide.SectionBackgroundClass = "bg-white";
 
             ctrlFirstRide.CategoryIdList = "57";
             ctrlFirstRide.TotalRecords = 6;

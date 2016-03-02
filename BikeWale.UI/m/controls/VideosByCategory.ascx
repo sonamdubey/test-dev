@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.VideosByCategory" %>
 
-<section class="<%= SectionBackgroundClass %>">
+<section>
     <div class="container">
         <h2 class="text-center margin-top25 margin-bottom15"><%= SectionTitle %></h2>
         <div class="swiper-container">
