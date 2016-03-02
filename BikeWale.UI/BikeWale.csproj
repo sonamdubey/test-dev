@@ -1296,6 +1296,10 @@
       <DependentUpon>VideoCategories.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Videos\VideoMakeModel.aspx.cs">
+      <DependentUpon>videoMakeModel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include=".htaccess" />
@@ -2431,6 +2435,7 @@
     <Content Include="Videos\default.aspx" />
     <Content Include="Videos\video.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
+    <Content Include="Videos\videoMakeModel.aspx" />
     <Content Include="VisitorAgreement.aspx" />
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe" />
     <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe" />

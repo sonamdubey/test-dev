@@ -82,49 +82,23 @@ namespace Bikewale.Videos
                 if (!String.IsNullOrEmpty(Request.QueryString["make"]))
                 {
                     makeMaskingName = Request.QueryString["make"];
-                    makeId = Convert.ToUInt16(MakeMapping.GetMakeId(makeMaskingName));
+                    string getMakeMaskingName = MakeMapping.GetMakeId(makeMaskingName);
+                    if (!string.IsNullOrEmpty(getMakeMaskingName))
+                    {
+                        makeId = Convert.ToUInt16(getMakeMaskingName);
+                    }
                 }
                 if (isModel)
                 {
                     container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
                              .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                            ;
+                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
                     var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                     ModelMaskingResponse objResponse = null;
                     objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
                     modelId = objResponse.ModelId;
-                    // get model and make name
-                    
-                }
-                else
-                {
-                    // Make Videos
                 }
             }
-
-            //if (!String.IsNullOrEmpty(Request.QueryString.Get("id")))
-            //{
-            //    if(isModel)
-            //        modelId = Convert.ToUInt16(Request.QueryString.Get("id"));
-            //    else
-            //        makeId = Convert.ToUInt16(Request.QueryString.Get("id"));
-            //    makeId = 6;
-            //}
-            //pageHeading = string.Format("{0}{1} Videos", make, model!=string.Empty? "" :" " + model);
-            //canonTitle = titleName.ToLower();
-            //if (!string.IsNullOrEmpty(titleName))
-            //{
-            //    //capitalize title
-            //    titleName = StringHelper.Capitlization(titleName);
-            //    titleName = titleName.Replace('-', ' ');
-            //    pageHeading = string.Format("{0} Video", titleName);
-            //    titleName = string.Format("{0} Video Review - BikeWale", titleName);
-            //}
-            //descName = string.Format("{0} - Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more",
-            //titleName);
-            //title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison -   BikeWale";
-            //desc = "Check latest bike and scooter videos, " + descText; 
         }
 
         /// <summary>
@@ -156,13 +130,21 @@ namespace Bikewale.Videos
                     {
                         rptVideos.DataSource = objVideosList;
                         rptVideos.DataBind();
-                       // Set make and modelName
-                        if (objVideosList.FirstOrDefault()!= null)
+                        // Set make and modelName
+                        if (objVideosList.FirstOrDefault() != null)
                         {
                             make = objVideosList.FirstOrDefault().MakeName;
                             if (isModel)
                                 model = objVideosList.FirstOrDefault().ModelName;
                         }
+                    }
+                    else
+                    {
+                        // As no videos are found, please redirect to 404 error
+
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
                     }
                 }
             }
