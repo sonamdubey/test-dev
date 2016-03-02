@@ -26,8 +26,8 @@ namespace Bikewale.Videos
         protected Repeater rptVideos;
         protected int totalRecords = 0;
         protected bool isModel=false;
-        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, descName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, canonicalUrl = string.Empty;
-        protected uint makeId = 6;
+        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, metaDescription = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, canonicalUrl = string.Empty, metaKeywords = string.Empty;
+        protected uint makeId;
         protected uint? modelId;
 
 
@@ -53,13 +53,17 @@ namespace Bikewale.Videos
         {
             if(isModel)
             {
-                pageHeading = String.Format("{0} {1} videos", make, model);
+                pageHeading = String.Format("{0} {1} Videos", make, model);
                 canonicalUrl = string.Format("http://www.bikewale.com/bike-videos/{0}-{1}/", makeMaskingName, modelMaskingName);
+                metaDescription = string.Format("Check latest {0} {1} videos, watch BikeWale expert's take on {0} {1} - features, performance, price, fuel economy, handling and more.", make, model);
+                metaKeywords = string.Format("{0},{1},{0} {1},{0} {1} Videos", make, model);
             }
             else
             {
-                pageHeading = String.Format("{0} bike videos", make);
+                pageHeading = String.Format("{0} Bike Videos", make);
                 canonicalUrl = string.Format("http://www.bikewale.com/bike-videos/{0}/", makeMaskingName);
+                metaDescription = string.Format("Check latest {0} bikes' videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", make);
+                metaKeywords = string.Format("{0},{0} Videos", make);
             }
         }   // page load
 
@@ -140,7 +144,6 @@ namespace Bikewale.Videos
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    objVideosList = objCache.GetVideosByMake(makeId, 1, 9);
                     if (modelId.HasValue)
                     {
                         objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId, modelId);
