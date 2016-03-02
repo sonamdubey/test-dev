@@ -250,7 +250,7 @@
         if (isAborted)
         {
             completeAreaPopup();
-        }
+        }    
         isValidInfoPopup();
     }
 
@@ -285,25 +285,33 @@
             errMsgParent = $('#divCityLoader.form-control-box');
             errMsg += "City,";
             isValid = false;
-        }
-        if (viewModelPopup.bookingAreas().length > 0 && viewModelPopup.selectedArea() == undefined && viewModelPopup.getPriceQuoteButtonCliked()) {
-            errMsgParent = $('#divAreaLoader.form-control-box');
-            errMsg += "Area,";
-            isValid = false;
-        }
-        if (!isValid) {
-            errMsgParent.find('.error-tooltip-siblings').show();
-            errMsgParent.css({ 'border-color': 'red' });
-            errMsg = errMsg.substring(0, errMsg.length - 1);
-            errMsgParent.find('.bw-blackbg-tooltip').text("Please select " + errMsg);
+            showCityAreaError(errMsgParent,errMsg);
         }
 
         else {
             removeCityAreaError($('#divCityLoader.form-control-box'));
-            removeCityAreaError($('#divAreaLoader.form-control-box'));
         }
 
+        if (viewModelPopup.bookingAreas().length > 0 && viewModelPopup.selectedArea() == undefined && viewModelPopup.getPriceQuoteButtonCliked()) {
+            errMsgParent = $('#divAreaLoader.form-control-box');
+            errMsg += "Area,";
+            isValid = false;
+            showCityAreaError(errMsgParent, errMsg);
+        }
+
+        else {
+            removeCityAreaError($('#divAreaLoader.form-control-box'));
+        }
+       
         return isValid;
+    }
+
+    function showCityAreaError(errMsgParent, errMsg)
+    {
+        errMsgParent.find('.error-tooltip-siblings').show();
+        errMsgParent.css({ 'border-color': 'red' });
+        errMsg = errMsg.substring(0, errMsg.length - 1);
+        errMsgParent.find('.bw-blackbg-tooltip').text("Please select " + errMsg);
     }
 
     function removeCityAreaError(errMsgParent) {
