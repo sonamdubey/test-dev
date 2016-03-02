@@ -1,6 +1,5 @@
 ﻿@charset "utf-8";
 /* CSS Document reset properties */
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
 html { height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; line-height: 1.42857143; -webkit-overflow-scrolling: touch; }
 body { font-size:13px; font-family: 'Open Sans', sans-serif, Arial; color:#4d5057; background: #f4f3f3; font-style: normal; -webkit-overflow-scrolling: touch; }
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,label{ margin: 0; padding: 0; }
@@ -319,7 +318,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 .banner-home { height: 268px; background: #161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/home-top-banner.jpg) no-repeat scroll center top;  background-size: cover; }
 /* sprite classes */
-.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v1=25Feb2016V2) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v1=1Mar2016v1) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -342,12 +341,15 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
 /* fa alternatives */
 .search-bold-icon { width:15px; height:15px; background-position:-61px -278px; }
+.video-views-icon { width:17px; height:13px; background-position:-59px -303px; }
+.video-likes-icon { width:15px; height:15px; background-position:-63px -322px; position:relative; top:2px; }
 .fa-angle-down { width:12px; height:7px; background-position:-155px -87px; }
 .fa-angle-left { width:17px; height:18px; background-position:-154px -103px; }
 .fa-angle-right {width: 6px;height: 13px;background-position: -162px -58px;}
 .map-loc-icon { width:12px; height:16px; background-position:-40px -164px; }
 .tel-grey-icon { width:16px; height:16px; background-position:-40px -111px; }
-.tel-green-icon { width:16px; height:16px; background-position:-66px -111px; }
+.tel-green-icon { width:16px; height:16px; background-position:-62px -111px; }
+.tel-white-icon { width:16px; height:16px; background-position:-83px -111px; }
 .inr-xxsm-icon { width:8px; height:10px; background-position:-56px -94px; }
 .inr-grey-xxsm-icon { width:8px; height:10px; background-position:-76px -87px; }
 .inr-red-xxsm-icon { width:8px; height:10px; background-position:-91px -87px; }

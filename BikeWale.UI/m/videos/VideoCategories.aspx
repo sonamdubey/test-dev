@@ -9,34 +9,18 @@
         %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
-        #categoryHeader { background:#333;color:#fff;font-size:16px;height:50px;overflow:hidden; }
-        .category-back-btn { width:45px; padding:15px 13px 12px; float:left; cursor:pointer; }
-        #categoryHeader h1 { width:80%; float:left; color:#fff; margin-top:12px; font-weight:normal; text-overflow:ellipsis; white-space: nowrap; overflow:hidden; }
-        .miscWrapper ul { padding:20px; overflow:hidden; }
-        .miscWrapper li { width:100%; border-top:1px solid #e2e2e2; margin-top: 20px; padding-top: 20px; }
-        .miscWrapper li:first-child { border-top:none; margin-top:0; padding-top:0; }
-        .text-default { color:#4d5057; }
-        .bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }
-        .misc-container { display:table; }
-        .misc-container a { display:table-cell; vertical-align: middle; }
-        .misc-list-image { width:100px; height:54px; background: url('http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif') no-repeat center center; overflow:hidden; text-align:center; }
-        .misc-container a img { width:100%; }
-        .video-views-count-container { min-width:140px; }
-        .video-views-icon { width:17px; height:13px; background-position:-59px -303px; }
-        .video-likes-icon { width:15px; height:15px; background-position:-63px -322px; position:relative; top:2px; }
-        .border-light-right { border-right:1px solid #e2e2e2; }
+        #categoryHeader{background:#333;color:#fff;font-size:16px;width:100%;height:50px;position:fixed;overflow:hidden;z-index:2;}.category-back-btn { width:45px; padding:15px 13px 12px; float:left; cursor:pointer; }.fa-arrow-back{width:12px; height:20px; background-position:-63px -162px;} #categoryHeader h1 { width:80%; float:left; color:#fff; margin-top:12px; font-weight:normal; text-overflow:ellipsis; white-space: nowrap; overflow:hidden; }.miscWrapper ul { padding:20px; overflow:hidden; }.miscWrapper li { width:100%; border-top:1px solid #e2e2e2; margin-top: 20px; padding-top: 20px; }.miscWrapper li:first-child { border-top:none; margin-top:0; padding-top:0; }.text-default { color:#4d5057; }.bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }.misc-container { display:table; }.misc-container a { display:table-cell; vertical-align: middle; }.misc-list-image { width:100px; height:54px; background: url('http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif') no-repeat center center; overflow:hidden; text-align:center; }.misc-container a img { width:100%; }.video-views-count-container { min-width:140px; }.border-light-right { border-right:1px solid #e2e2e2; }
     </style>
-    
 </head>
 <body class="bg-light-grey">
     <form runat="server">
        <header id="categoryHeader">
             <div class="category-back-btn">
-                <span class="bwmsprite fa-angle-left"></span>
+                <span class="bwmsprite fa-arrow-back"></span>
             </div>
             <h1 class="font18"><%= pageHeading %></h1>
         </header>
-        <section class="bg-white">
+        <section class="bg-white padding-top50">
             <div class="miscWrapper container bottom-shadow margin-bottom30">
                 <ul id="listVideos1">
                     <asp:Repeater ID="rptVideos" runat="server">

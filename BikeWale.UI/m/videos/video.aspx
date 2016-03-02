@@ -11,38 +11,7 @@
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
-        .padding20 { padding:15px 20px; }
-        #embedVideo { max-width:476px; width:100%; height:180px; margin:0 auto; }
-        #embedVideo iframe { width:100%; }
-        .bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }
-        .text-default { color:#4d5057; }
-        .text-xlight-grey { color:#a8afb3; }
-        .line-height18 { line-height:1.8; }
-        .video-views-count-container { min-width:138px; }
-        .video-views-icon { width:17px; height:13px; background-position:-59px -303px; }
-        .video-likes-icon { width:15px; height:15px; background-position:-63px -322px; position:relative; top:2px; }
-        .border-light-right { border-right:1px solid #e2e2e2; }
-        .border-light-top { border-top:1px solid #e2e2e2; }
-        .social-wrapper li { width:38px; height:24px; margin-right:10px; float:left; }
-        .social-wrapper a { width:100%; height:100%; display:block; }
-        .whatsapp-container { background: -webkit-linear-gradient(to bottom, #49c633, #40ad2c); background: -o-linear-gradient(to bottom, #49c633, #40ad2c); background: -moz-linear-gradient(to bottom, #49c633, #40ad2c); background: linear-gradient(to bottom, #49c633, #40ad2c); }
-        .fb-container { background: -webkit-linear-gradient(to bottom, #5171ba, #3b599c); background: -o-linear-gradient(to bottom, #5171ba, #3b599c); background: -moz-linear-gradient(to bottom, #5171ba, #3b599c); background: linear-gradient(to bottom, #5171ba, #3b599c); }
-        .tweet-container { background: -webkit-linear-gradient(to bottom, #28c0ff, #1babe7); background: -o-linear-gradient(to bottom, #28c0ff, #1babe7); background: -moz-linear-gradient(to bottom, #28c0ff, #1babe7); background: linear-gradient(to bottom, #28c0ff, #1babe7); }
-        .gplus-container { background: -webkit-linear-gradient(to bottom, #ff533f, #dd2a16); background: -o-linear-gradient(to bottom, #ff533f, #dd2a16); background: -moz-linear-gradient(to bottom, #ff533f, #dd2a16); background: linear-gradient(to bottom, #ff533f, #dd2a16); }
-        .mail-container { background: -webkit-linear-gradient(to bottom, #c6c6c6, #acacac); background: -o-linear-gradient(to bottom, #c6c6c6, #acacac); background: -moz-linear-gradient(to bottom, #c6c6c6, #acacac); background: linear-gradient(to bottom, #c6c6c6, #acacac); }
-        .social-icons-sprite { background: url(http://img.carwale.com/bikewaleimg/m/images/social-icons-sprite.png) no-repeat; display: inline-block; }
-        .whatsapp-icon, .fb-icon, .tweet-icon, .gplus-icon, .mail-icon { height:14px; position:relative; top:4px; }
-        .whatsapp-icon { width:12px; background-position:0 0; }
-        .fb-icon { width:8px; background-position:-22px 0; }
-        .tweet-icon { width:16px; background-position:-39px 0; }
-        .gplus-icon { width:14px; background-position:-65px 0; }
-        .mail-icon { width:16px; background-position:-89px 0; }
-        .swiper-slide.video-carousel-content { width:270px; min-height:290px; background:#fff; border:1px solid #e2e2e2; }
-        .swiper-slide img { width:100%; }
-        .video-carousel-image { width:100%; height:157px; display: table; overflow: hidden; text-align: center; position:relative; }
-        .video-carousel-image a { width:100%; display: table-cell; vertical-align: middle; }
-        .video-carousel-desc { padding:10px; }
-        .more-videos-link { display:block; margin-top:15px; margin-bottom:15px; }
+        .padding20 { padding:15px 20px; }#embedVideo { max-width:476px; width:100%; height:180px; margin:0 auto; }#embedVideo iframe { width:100%; }.bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }.text-default { color:#4d5057; }.text-xlight-grey { color:#a8afb3; }.line-height18 { line-height:1.8; }.video-views-count-container { min-width:138px; }.border-light-right { border-right:1px solid #e2e2e2; }.border-light-top { border-top:1px solid #e2e2e2; }.social-wrapper li { width:38px; height:24px; margin-right:10px; float:left; }.social-wrapper a { width:100%; height:100%; display:block; }.whatsapp-container { background: -webkit-linear-gradient(to bottom, #49c633, #40ad2c); background: -o-linear-gradient(to bottom, #49c633, #40ad2c); background: -moz-linear-gradient(to bottom, #49c633, #40ad2c); background: linear-gradient(to bottom, #49c633, #40ad2c); }.fb-container { background: -webkit-linear-gradient(to bottom, #5171ba, #3b599c); background: -o-linear-gradient(to bottom, #5171ba, #3b599c); background: -moz-linear-gradient(to bottom, #5171ba, #3b599c); background: linear-gradient(to bottom, #5171ba, #3b599c); }.tweet-container { background: -webkit-linear-gradient(to bottom, #28c0ff, #1babe7); background: -o-linear-gradient(to bottom, #28c0ff, #1babe7); background: -moz-linear-gradient(to bottom, #28c0ff, #1babe7); background: linear-gradient(to bottom, #28c0ff, #1babe7); }.gplus-container { background: -webkit-linear-gradient(to bottom, #ff533f, #dd2a16); background: -o-linear-gradient(to bottom, #ff533f, #dd2a16); background: -moz-linear-gradient(to bottom, #ff533f, #dd2a16); background: linear-gradient(to bottom, #ff533f, #dd2a16); }.mail-container { background: -webkit-linear-gradient(to bottom, #c6c6c6, #acacac); background: -o-linear-gradient(to bottom, #c6c6c6, #acacac); background: -moz-linear-gradient(to bottom, #c6c6c6, #acacac); background: linear-gradient(to bottom, #c6c6c6, #acacac); }.social-icons-sprite { background: url(http://img.carwale.com/bikewaleimg/m/images/social-icons-sprite.png) no-repeat; display: inline-block; }.whatsapp-icon, .fb-icon, .tweet-icon, .gplus-icon, .mail-icon { height:14px; position:relative; top:4px; }.whatsapp-icon { width:12px; background-position:0 0; }.fb-icon { width:8px; background-position:-22px 0; }.tweet-icon { width:16px; background-position:-39px 0; }.gplus-icon { width:14px; background-position:-65px 0; }.mail-icon { width:16px; background-position:-89px 0; }.swiper-slide.video-carousel-content { width:270px; min-height:290px; background:#fff; border:1px solid #e2e2e2; }.swiper-slide img { width:100%; }.video-carousel-image { width:100%; height:157px; display: table; overflow: hidden; text-align: center; position:relative; }.video-carousel-image a { width:100%; display: table-cell; vertical-align: middle; }.video-carousel-desc { padding:10px; }.more-videos-link { display:block; margin-top:15px; margin-bottom:15px; }
     </style>
 </head>
 <body class="bg-light-grey">
@@ -72,19 +41,19 @@
                     <div class=""></div>
                     <p class="padding-top15 margin-top20 margin-bottom15 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">
-                        <li class="whatsapp-container rounded-corner2 text-center share-btn" attr="wp">
+                        <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
                             <span data-text="share this video" data-link="www.google.com" class="social-icons-sprite whatsapp-icon"></span>
                         </li>
-                        <li class="fb-container rounded-corner2 text-center share-btn" attr="fb">
+                        <li class="fb-container rounded-corner2 text-center share-btn" data-attr="fb">
                             <span class="social-icons-sprite fb-icon"></span>
                         </li>
-                        <li class="tweet-container rounded-corner2 text-center share-btn" attr="tw">
+                        <li class="tweet-container rounded-corner2 text-center share-btn" data-attr="tw">
                             <span class="social-icons-sprite tweet-icon"></span>
                         </li>
-                        <li class="gplus-container rounded-corner2 text-center  share-btn" attr="gp">
+                        <li class="gplus-container rounded-corner2 text-center  share-btn" data-attr="gp">
                             <span class="social-icons-sprite gplus-icon"></span>
                         </li>
-                        <%--<li class="mail-container rounded-corner2 text-center share-btn" attr="ml">
+                        <%--<li class="mail-container rounded-corner2 text-center share-btn" data-attr="ml">
                             <span class="social-icons-sprite mail-icon"></span>
                         </li>--%>
                     </ul>
@@ -99,7 +68,7 @@
         <% } %>
         <script type="text/javascript">
             $('.share-btn').click(function () {
-                var str = $(this).attr('attr');
+                var str = $(this).attr('data-attr');
                 var cururl = window.location.href;
                 switch (str) {
                     case 'fb':
