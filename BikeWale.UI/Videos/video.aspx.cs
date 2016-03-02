@@ -102,7 +102,6 @@ namespace Bikewale.Videos
             ctrlSimilarVideos.TopCount = 6;
             ctrlSimilarVideos.VideoBasicId = videoId;
             ctrlSimilarVideos.SectionTitle = "Related videos";
-            //ctrlSimilarVideos.BasicId = 20156;
         }
         /// <summary>
         /// API call to fetch Video details

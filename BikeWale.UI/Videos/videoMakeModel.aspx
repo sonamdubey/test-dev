@@ -10,7 +10,7 @@
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/videocategory.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
     <%
         isAd970x90Shown = false;
-        title = "Test title";
+        title = pageHeading;
          %>
 </head>
 <body class="bg-light-grey header-fixed-inner">
