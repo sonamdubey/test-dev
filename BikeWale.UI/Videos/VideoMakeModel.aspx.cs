@@ -18,6 +18,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Videos
 {
+    /// <summary>
+    /// Created By : Lucky Rathore
+    /// Created On : 02 march 2016
+    /// </summary>
     public class VideoMakeModel : System.Web.UI.Page
     {
         protected Repeater rptVideos;

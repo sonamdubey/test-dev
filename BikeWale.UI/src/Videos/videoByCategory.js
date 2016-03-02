@@ -89,12 +89,11 @@ $(window).scroll(function () {
         $.getVideos();
     }
 });
-var x;
 $.getVideos = function () {
     $('#loading').show();
     var cacheVideos = lscache.get("catVideo_" + cacheKey + "_" + pageNo);
     if (cacheVideos) {
-         $.bindVideos(cacheVideos);
+        $.bindVideos(cacheVideos);
         window.location.hash = "pn=" + pageNo;
         isNextPage = true;
         $('#loading').hide();
@@ -102,14 +101,11 @@ $.getVideos = function () {
     else
     {
         var catURL = cwHostUrl + apiURL + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
-        console.log(catURL);
         $.ajax({
             type: 'GET',
             url: catURL,
             dataType: 'json',
             success: function (response) {
-                console.log(response);
-                x = response;
                 var objVideos;
                 if (typeof x.Videos == 'undefined') {
                     objVideos = { 'Videos': response };
@@ -135,8 +131,7 @@ $.getVideos = function () {
     }
 }; 
 $.bindVideos = function (reponseVideos) {
-    console.log("reponseVideos " + reponseVideos );
-    var koHtml = '<div class="miscWrapper container">'
+   var koHtml = '<div class="miscWrapper container">'
                         + '<ul id="listVideos' + pageNo + '"  data-bind="template: { name: \'templetVideos\', foreach: Videos }">'
                         + '</ul>'
                     + '<div class="clear"></div></div>';

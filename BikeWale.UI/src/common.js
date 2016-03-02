@@ -856,7 +856,6 @@ $("#newBikeList").bw_autocomplete({
     },
     open: function (result) {
         objBikes.result = result;
-        console.log(result.length)
     },
     focusout: function () {
         if ($('li.ui-state-focus a:visible').text() != "") {
@@ -1175,7 +1174,7 @@ function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.
 ko.bindingHandlers.formateDate = {
     update: function (element, valueAccessor) {
         var date = new Date(valueAccessor());
-        var formattedDate = monthNames[date.getMonth()] + ' ' + date.getDay() + ', ' + date.getFullYear();
+        var formattedDate = monthNames[date.getUTCMonth()] + ' ' + date.getUTCDate() + ', ' + date.getUTCFullYear();
         $(element).text(formattedDate);
     }
 };
