@@ -1,9 +1,14 @@
-﻿using Bikewale.Cache.Core;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
 using Bikewale.Common;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Memcache;
 using Bikewale.Utility.StringExtention;
 using Microsoft.Practices.Unity;
 using System;
@@ -16,13 +21,13 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Videos
 {
-    public partial class VideoMakeModel : System.Web.UI.Page
+    public class VideoMakeModel : System.Web.UI.Page
     {
         protected Repeater rptVideos;
         protected int totalRecords = 0;
-        protected string makeName = string.Empty, modelName = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, descName = string.Empty;
         protected bool isModel=false;
-        protected uint makeId;
+        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, descName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, canonicalUrl = string.Empty;
+        protected uint makeId = 6;
         protected uint? modelId;
 
 
@@ -35,22 +40,74 @@ namespace Bikewale.Videos
         {
             DeviceDetection dd = new DeviceDetection();
             dd.DetectDevice();
-            // Read Query string
+            //GetMakeModelDetails();
             ParseQueryString();
             BindVideos();
+            CreateTitleMeta();
+        }
+
+        /// <summary>
+        /// Function to create Title, meta tags and description
+        /// </summary>
+        private void CreateTitleMeta()
+        {
+            if(isModel)
+            {
+                pageHeading = String.Format("{0} {1} videos", make, model);
+                canonicalUrl = string.Format("http://www.bikewale.com/bike-videos/{0}-{1}/", makeMaskingName, modelMaskingName);
+            }
+            else
+            {
+                pageHeading = String.Format("{0} bike videos", make);
+                canonicalUrl = string.Format("http://www.bikewale.com/bike-videos/{0}/", makeMaskingName);
+            }
         }   // page load
 
         /// <summary>
-        /// Written By : ashish G. Kamble on 22 Feb 2016
+        /// Written By : Sangram Nandkhile on 01 Mar 2016
         /// Summary : function to read the query string values.
         /// </summary>
         private void ParseQueryString()
         {
-            if (!String.IsNullOrEmpty(Request.QueryString.Get("id"))) makeId = Convert.ToUInt16(Request.QueryString.Get("id"));
-            isModel = true;
-            makeId = 1;
-            modelId = 99;
-            pageHeading = "By sangram";
+            modelMaskingName = Request.QueryString["model"];
+            if (!string.IsNullOrEmpty(modelMaskingName))
+                isModel = true;
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                if (!String.IsNullOrEmpty(Request.QueryString["make"]))
+                {
+                    makeMaskingName = Request.QueryString["make"];
+                    makeId = Convert.ToUInt16(MakeMapping.GetMakeId(makeMaskingName));
+                }
+                if (isModel)
+                {
+                    container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                            ;
+                    var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                    ModelMaskingResponse objResponse = null;
+                    objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                    modelId = objResponse.ModelId;
+                    // get model and make name
+                    
+                }
+                else
+                {
+                    // Make Videos
+                }
+            }
+
+            //if (!String.IsNullOrEmpty(Request.QueryString.Get("id")))
+            //{
+            //    if(isModel)
+            //        modelId = Convert.ToUInt16(Request.QueryString.Get("id"));
+            //    else
+            //        makeId = Convert.ToUInt16(Request.QueryString.Get("id"));
+            //    makeId = 6;
+            //}
+            //pageHeading = string.Format("{0}{1} Videos", make, model!=string.Empty? "" :" " + model);
             //canonTitle = titleName.ToLower();
             //if (!string.IsNullOrEmpty(titleName))
             //{
@@ -83,7 +140,7 @@ namespace Bikewale.Videos
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-
+                    objVideosList = objCache.GetVideosByMake(makeId, 1, 9);
                     if (modelId.HasValue)
                     {
                         objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId, modelId);
@@ -96,6 +153,13 @@ namespace Bikewale.Videos
                     {
                         rptVideos.DataSource = objVideosList;
                         rptVideos.DataBind();
+                       // Set make and modelName
+                        if (objVideosList.FirstOrDefault()!= null)
+                        {
+                            make = objVideosList.FirstOrDefault().MakeName;
+                            if (isModel)
+                                model = objVideosList.FirstOrDefault().ModelName;
+                        }
                     }
                 }
             }
@@ -103,6 +167,38 @@ namespace Bikewale.Videos
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindVideos()");
                 objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// Call api and set make model details
+        /// </summary>
+        private void GetMakeModelDetails()
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(Request.QueryString.Get("model")))
+                    isModel = true;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    if (isModel)
+                    {
+                        container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+                        IBikeModelsRepository<BikeModelEntity, int> _bikeModel = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
+                        BikeModelEntity objModel = _bikeModel.GetById(99);
+                        make = objModel.MakeBase.MakeName;
+                        model = objModel.ModelName;
+                    }
+                    else
+                    {
+                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                        IBikeMakes<BikeMakeEntity, int> _bikeMake = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                        Bikewale.Entities.BikeData.BikeMakeEntityBase objMake = _bikeMake.GetMakeDetails("6");
+                        make = objMake.MakeName;
+                    }
+                }
+            }
+            catch (Exception)
+            {
             }
         }
     }
