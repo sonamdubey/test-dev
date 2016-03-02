@@ -20,9 +20,10 @@ namespace Bikewale.Videos
     {
         protected Repeater rptVideos;
         protected int totalRecords = 0;
-        protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, descName = string.Empty;
-        protected uint makeModelId = 0;
-        protected bool isMake=false;
+        protected string makeName = string.Empty, modelName = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, descName = string.Empty;
+        protected bool isModel=false;
+        protected uint makeId;
+        protected uint? modelId;
 
 
         protected override void OnInit(EventArgs e)
@@ -45,8 +46,10 @@ namespace Bikewale.Videos
         /// </summary>
         private void ParseQueryString()
         {
-            if (!String.IsNullOrEmpty(Request.QueryString.Get("id"))) makeModelId = Convert.ToUInt16(Request.QueryString.Get("id"));
-            isMake = true;
+            if (!String.IsNullOrEmpty(Request.QueryString.Get("id"))) makeId = Convert.ToUInt16(Request.QueryString.Get("id"));
+            isModel = true;
+            makeId = 1;
+            modelId = 99;
             pageHeading = "By sangram";
             //canonTitle = titleName.ToLower();
             //if (!string.IsNullOrEmpty(titleName))
@@ -81,7 +84,14 @@ namespace Bikewale.Videos
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
 
-                    objVideosList = objCache.GetVideosByMake(makeModelId, 1, 9);
+                    if (modelId.HasValue)
+                    {
+                        objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId, modelId);
+                    }
+                    else 
+                    {
+                        objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId);
+                    }
                     if (objVideosList != null && objVideosList.Count() > 0)
                     {
                         rptVideos.DataSource = objVideosList;
