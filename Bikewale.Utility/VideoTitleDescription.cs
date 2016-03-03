@@ -38,7 +38,7 @@ namespace Bikewale.Utility
                     break;
                 case "61":
                     title = "First Look Video Review - BikeWale";
-                    desc = "First Look Video Reviews - " + descText;
+                    desc = "First Look Video Reviews - Watch BikeWale Expert's Take on the First Look of Bikes and Scooters - Features, performance, price, fuel economy, handling and more.";
                     break;
                 case "62":
                 case "63":
