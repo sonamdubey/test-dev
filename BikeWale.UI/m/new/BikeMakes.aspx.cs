@@ -65,12 +65,16 @@ namespace Bikewale.Mobile
                     ////news,videos,revews
                     ctrlNews.TotalRecords = 3;
                     ctrlNews.MakeId = Convert.ToInt32(makeId);
+
                     ctrlExpertReviews.TotalRecords = 3;
                     ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
+                    ctrlExpertReviews.MakeMaskingName = makeMaskingName;
+
                     ctrlVideos.TotalRecords = 3;
+                    ctrlVideos.MakeMaskingName = makeMaskingName;
                     ctrlVideos.MakeId = Convert.ToInt32(makeId);
 
-                    ctrlExpertReviews.MakeMaskingName = makeMaskingName;
+                    
 
                 }
             }

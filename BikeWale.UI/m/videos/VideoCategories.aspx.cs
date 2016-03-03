@@ -14,7 +14,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.m.videos
+namespace Bikewale.Mobile.Videos
 {
     /// <summary>
     /// Created By : Lucky Rathore on 25 Feb 2016
