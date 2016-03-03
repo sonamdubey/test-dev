@@ -132,6 +132,8 @@ namespace Bikewale.Videos
         /// Writtten By : Lucky Rathore
         /// Summary : Function to bind the videos to the videos repeater.
         ///           Initially 9 records are binded.
+        /// Modified By : Sushil Kumar on 4th March 2016
+        /// Description : Made check for makeId for unnecessary call  if query string is wrong or invalid
         /// </summary>
         private void BindVideos()
         {
