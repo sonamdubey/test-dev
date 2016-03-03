@@ -26,9 +26,9 @@ namespace Bikewale.Videos
     {
         protected Repeater rptVideos;
         protected int totalRecords = 0;
-        protected bool isModel=false;
+        protected bool isModel = false;
         protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, metaDescription = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, canonicalUrl = string.Empty, metaKeywords = string.Empty;
-        protected uint makeId;
+        protected ushort makeId = 0;
         protected uint? modelId;
 
         protected override void OnInit(EventArgs e)
@@ -48,12 +48,15 @@ namespace Bikewale.Videos
         /// <summary>
         /// Function to create Title, meta tags and description
         /// Written By : Sangram Nandkhile on 01 Mar 2016
+        /// Modified By  : Sushil Kumar on 4th March 2016
+        /// Description : Added titleName for pageTitle
         /// </summary>
         private void CreateTitleMeta()
         {
-            if(isModel)
+            if (isModel)
             {
                 pageHeading = String.Format("{0} {1} Videos", make, model);
+                titleName = String.Format("{0} {1} Videos - BikeWale", make, model);
                 canonicalUrl = string.Format("http://www.bikewale.com/bike-videos/{0}-{1}/", makeMaskingName, modelMaskingName);
                 metaDescription = string.Format("Check latest {0} {1} videos, watch BikeWale expert's take on {0} {1} - features, performance, price, fuel economy, handling and more.", make, model);
                 metaKeywords = string.Format("{0},{1},{0} {1},{0} {1} videos", make, model);
@@ -61,8 +64,9 @@ namespace Bikewale.Videos
             else
             {
                 pageHeading = String.Format("{0} Bike Videos", make);
+                titleName = String.Format("{0} Bike Videos - BikeWale", make);
                 canonicalUrl = string.Format("http://www.bikewale.com/bike-videos/{0}/", makeMaskingName);
-                metaDescription = string.Format("Check latest {0} bikes' videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", make);
+                metaDescription = string.Format("Check latest {0} bikes videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", make);
                 metaKeywords = string.Format("{0},{0} bikes,{0} videos", make);
             }
         }   // page load
@@ -70,34 +74,57 @@ namespace Bikewale.Videos
         /// <summary>
         /// Written By : Sangram Nandkhile on 01 Mar 2016
         /// Summary : function to read the query string values.
+        /// Modified By  : Sushil Kumar on 4th March 2016
+        /// Description : Added try catch for parseString function
+        ///               Make check for null objects
         /// </summary>
         private void ParseQueryString()
         {
-            modelMaskingName = Request.QueryString["model"];
-            if (!string.IsNullOrEmpty(modelMaskingName))
-                isModel = true;
-
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                if (!String.IsNullOrEmpty(Request.QueryString["make"]))
+                using (IUnityContainer container = new UnityContainer())
                 {
                     makeMaskingName = Request.QueryString["make"];
-                    string getMakeMaskingName = MakeMapping.GetMakeId(makeMaskingName);
-                    if (!string.IsNullOrEmpty(getMakeMaskingName))
+                    if (!String.IsNullOrEmpty(makeMaskingName))
                     {
-                        makeId = Convert.ToUInt16(getMakeMaskingName);
+                        string _makeId = MakeMapping.GetMakeId(makeMaskingName);
+                        if (!string.IsNullOrEmpty(_makeId) && ushort.TryParse(_makeId, out makeId))
+                        {
+                            modelMaskingName = Request.QueryString["model"];
+                            if (!string.IsNullOrEmpty(modelMaskingName))
+                                isModel = true;                         
+
+                            if (makeId > 0 && isModel)
+                            {
+                                container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                                         .RegisterType<ICacheManager, MemcacheManager>()
+                                         .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+                                var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                                ModelMaskingResponse objResponse = null;
+                                objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                                modelId = objResponse.ModelId;
+                            }
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
                     }
                 }
-                if (isModel)
-                {
-                    container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                    var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                    ModelMaskingResponse objResponse = null;
-                    objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
-                    modelId = objResponse.ModelId;
-                }
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ParseQueryString()");
+                objErr.SendMail();
             }
         }
 
@@ -105,47 +132,52 @@ namespace Bikewale.Videos
         /// Writtten By : Lucky Rathore
         /// Summary : Function to bind the videos to the videos repeater.
         ///           Initially 9 records are binded.
+        /// Modified By : Sushil Kumar on 4th March 2016
+        /// Description : Made check for makeId for unnecessary call  if query string is wrong or invalid
         /// </summary>
         private void BindVideos()
         {
             IEnumerable<BikeVideoEntity> objVideosList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                if (makeId > 0)
                 {
-                    container.RegisterType<IVideosCacheRepository, VideosCacheRepository>()
-                             .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
-                             .RegisterType<ICacheManager, MemcacheManager>();
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IVideosCacheRepository, VideosCacheRepository>()
+                                 .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
+                                 .RegisterType<ICacheManager, MemcacheManager>();
 
-                    var objCache = container.Resolve<IVideosCacheRepository>();
-                    if (modelId.HasValue)
-                    {
-                        objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId, modelId);
-                    }
-                    else 
-                    {
-                        objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId);
-                    }
-                    if (objVideosList != null && objVideosList.Count() > 0)
-                    {
-                        rptVideos.DataSource = objVideosList;
-                        rptVideos.DataBind();
-                        // Set make and modelName
-                        if (objVideosList.FirstOrDefault() != null)
+                        var objCache = container.Resolve<IVideosCacheRepository>();
+                        if (modelId.HasValue)
                         {
-                            make = objVideosList.FirstOrDefault().MakeName;
-                            if (isModel)
-                                model = objVideosList.FirstOrDefault().ModelName;
+                            objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId, modelId);
                         }
-                    }
-                    else
-                    {
-                        // As no videos are found, please redirect to 404 error
+                        else
+                        {
+                            objVideosList = objCache.GetVideosByMakeModel(1, 9, makeId);
+                        }
+                        if (objVideosList != null && objVideosList.Count() > 0)
+                        {
+                            rptVideos.DataSource = objVideosList;
+                            rptVideos.DataBind();
+                            // Set make and modelName
+                            if (objVideosList.FirstOrDefault() != null)
+                            {
+                                make = objVideosList.FirstOrDefault().MakeName;
+                                if (isModel)
+                                    model = objVideosList.FirstOrDefault().ModelName;
+                            }
+                        }
+                        else
+                        {
+                            // As no videos are found, please redirect to 404 error
 
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    } 
                 }
             }
             catch (Exception ex)
