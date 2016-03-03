@@ -11,6 +11,7 @@
         title = titleName;
         canonical = canonicalUrl;
         description = metaDescription;
+        keywords = metaKeywords;
          %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">

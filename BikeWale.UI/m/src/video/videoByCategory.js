@@ -1,4 +1,5 @@
-﻿var pageNo = 1, cacheKey = catId.replace(",", "_");
+﻿var pageNo = 1;//, cacheKey = catId.replace(",", "_");
+lscache.flushExpired();
 var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
 
@@ -100,33 +101,43 @@ $.getVideos = function () {
         $('#loading').hide();
     }
     else {
-        var catURL = cwHostUrl + "/api/v1/videos/subcategory/" + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=6";
-        $.ajax({
-            type: 'GET',
-            url: catURL,
-            dataType: 'json',
-            success: function (response) {
-                if (response.TotalRecords > 0) {
-                    $.bindVideos(response);
+        var catURL = cwHostUrl + apiURL + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
+        try {
+            $.ajax({
+                type: 'GET',
+                url: catURL,
+                dataType: 'json',
+                success: function (response) {
+                    var objVideos;
+                    if (typeof response.Videos == 'undefined') {
+                        objVideos = { 'Videos': response };
+                    }
+                    else {
+                        objVideos = response;
+                    }
+                    $.bindVideos(objVideos);
                     isNextPage = true;
-                    lscache.set("catVideo_" + cacheKey + "_" + pageNo, response, 60);
-                    window.location.hash = "pageno=" + pageNo;
+                    lscache.set("catVideo_" + cacheKey + "_" + pageNo, objVideos, 60);
+                    window.location.hash = "pn=" + pageNo;
+                },
+                complete: function (xhr) {
+                    if (xhr.status == 404 || xhr.status == 204) {
+                        isNextPage = false;
+                        lscache.set("catVideo_" + cacheKey + "_" + pageNo, null, 60);
+                    }
+                    $('#loading').hide();
                 }
-            },
-            complete: function (xhr) {
-                if (xhr.status == 404 || xhr.status == 204) {
-                    lscache.set("catVideo_" + cacheKey + "_" + pageNo, null, 60);
-                }
-                $('#loading').hide();
-            }
-        });
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 };
 $.bindVideos = function (reponseVideos) {
-    var koHtml = '<div class="miscWrapper container bottom-shadow margin-bottom30">'
-                        + '<ul id="listVideos' + pageNo + '"  data-bind="template: { name: \'templetVideos\', foreach: Videos }">'
-                        + '</ul>'
-                    + '<div class="clear"></div></div>';
+    var koHtml = '<div class="miscWrapper container">'
+                         + '<ul id="listVideos' + pageNo + '"  data-bind="template: { name: \'templetVideos\', foreach: Videos }">'
+                         + '</ul>'
+                     + '<div class="clear"></div></div>';
     $('#listVideos' + (pageNo - 1)).parent().after(koHtml);
     ko.applyBindings(new VideoViewModel(reponseVideos), $("#listVideos" + pageNo)[0]);
 };
@@ -137,4 +148,3 @@ $.getPageNo = function () {
     var params = window.location.hash.replace('#', '');
     return params.length > 0 ? parseInt(params.split('=')[1]) : 1;
 };
-lscache.flushExpired();

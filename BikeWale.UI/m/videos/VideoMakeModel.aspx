@@ -1,15 +1,17 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Videos.VideoCategories" EnableViewState="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Videos.VideoMakeModel" EnableViewState="false" %>
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <%        
-       Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(categoryIdList,out title,out description, null, null);
-       canonical = string.Format("http://www.bikewale.com/bike-videos/category/{0}-{1}/", canonTitle, categoryIdList.Replace(',', '-'));
-        %>
+    <%
+        title = titleName;
+        canonical = canonicalUrl;
+        description = metaDescription;
+        keywords = metaKeywords;
+         %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
-        #categoryHeader{background:#333;color:#fff;font-size:16px;width:100%;height:50px;position:fixed;overflow:hidden;z-index:2;}.category-back-btn { width:45px; padding:15px 13px 12px; float:left; cursor:pointer; }.fa-arrow-back{width:12px; height:20px; background-position:-63px -162px;} #categoryHeader h1 { width:80%; float:left; color:#fff; margin-top:12px; font-weight:normal; text-overflow:ellipsis; white-space: nowrap; overflow:hidden; }.miscWrapper ul { padding:20px; overflow:hidden; }.miscWrapper li { width:100%; border-top:1px solid #e2e2e2; margin-top: 20px; padding-top: 20px; }.miscWrapper li:first-child { border-top:none; margin-top:0; padding-top:0; }.text-default { color:#4d5057; }.bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }.misc-container { display:table; }.misc-container a { display:table-cell; vertical-align: middle; }.misc-list-image { width:100px; height:54px; background: url('http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif') no-repeat center center; overflow:hidden; text-align:center; }.misc-container a img { width:100%; }.video-views-count-container { min-width:140px; }.border-light-right { border-right:1px solid #e2e2e2; }
+        #categoryHeader{background:#333;color:#fff;font-size:16px;width:100%;height:50px;position:fixed;overflow:hidden;z-index:2;}.category-back-btn { width:45px; padding:15px 13px 12px; float:left; cursor:pointer; }.fa-arrow-back{width:12px; height:20px; background-position:-63px -162px;} #categoryHeader h1 { width:80%; float:left; color:#fff; margin-top:12px; font-weight:normal; text-overflow:ellipsis; white-space: nowrap; overflow:hidden; }.miscWrapper ul { padding:20px; overflow:hidden;border-bottom:1px solid #e2e2e2 }.miscWrapper li { width:100%; border-top:1px solid #e2e2e2; margin-top: 20px; padding-top: 20px; }.miscWrapper li:first-child { border-top:none; margin-top:0; padding-top:0; }.text-default { color:#4d5057; }.bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }.misc-container { display:table; }.misc-container a { display:table-cell; vertical-align: middle; }.misc-list-image { width:100px; height:54px; background: url('http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif') no-repeat center center; overflow:hidden; text-align:center; }.misc-container a img { width:100%; }.video-views-count-container { min-width:140px; }.border-light-right { border-right:1px solid #e2e2e2; }
     </style>
 </head>
 <body class="bg-light-grey">
@@ -20,8 +22,8 @@
             </div>
             <h1 class="font18"><%= pageHeading %></h1>
         </header>
-        <section class="bg-white padding-top50">
-            <div class="miscWrapper container bottom-shadow margin-bottom30">
+        <section class="bg-white padding-top50 bottom-shadow margin-bottom30">
+            <div class="miscWrapper container ">
                 <ul id="listVideos1">
                     <asp:Repeater ID="rptVideos" runat="server">
                         <ItemTemplate>
@@ -73,14 +75,17 @@
         </script>
         <script type="text/javascript">
             var cwHostUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.CwApiHostUrl %>";
-            var catId = '<%= categoryIdList %>';
-            var maxPage = Math.ceil(<%= totalRecords %>/6);
+            var catId = <%= isModel ? modelId : makeId %>;
+            var maxPage = 10000000;
+            var isModel = false;
             var isNextPage = true;
+            var apiURL = isModel ? "/api/v1/videos/model/" : "/api/v1/videos/make/";
+            var cacheKey = isModel ? "model_" + catId : "make_" + catId;
             $(document).ready(function () {
                 $("img .lazy").lazyload();
                 $("#loading").hide();
                 window.location.hash = "";
-            });
+            }); 
             $('.category-back-btn').on('click', function () {
                 window.location = "/m/bike-videos/";
             });
