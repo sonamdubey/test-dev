@@ -87,7 +87,7 @@ namespace Bikewale.Videos
 
                     if (!String.IsNullOrEmpty(categoryIdList))
                     {
-                        objVideosList = objCache.GetVideosBySubCategory(categoryIdList, 1, 9);
+                        objVideosList = objCache.GetVideosBySubCategory(categoryIdList, 1, 9,VideosSortOrder.JustLatest);
                         if (objVideosList != null)
                         {
                             if (objVideosList.Videos!=null && objVideosList.Videos.Count() > 0)

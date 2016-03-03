@@ -100,7 +100,7 @@ $.getVideos = function () {
     }
     else
     {
-        var catURL = cwHostUrl + apiURL + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
+        var catURL = cwHostUrl + apiURL + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9&sortCategory=3";
         $.ajax({
             type: 'GET',
             url: catURL,
