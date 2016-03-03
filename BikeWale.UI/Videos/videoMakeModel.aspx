@@ -8,9 +8,10 @@
     %>
     <%
         isAd970x90Shown = false;
-        title = pageHeading;
+        title = string.Format("{0} - BikeWale", pageHeading);
         canonical = canonicalUrl;
         description = metaDescription;
+        keywords = metaKeywords;
          %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
