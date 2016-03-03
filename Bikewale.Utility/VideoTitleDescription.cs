@@ -14,11 +14,11 @@ namespace Bikewale.Utility
         /// </summary>
         /// <param name="cId"></param>
         /// <returns></returns>
-        public static void VideoTitleDesc(string categoryId, out string title, out string desc, string make = null, string model = null)
+        public static void VideoTitleDesc(string categoryIds, out string title, out string desc, string make = null, string model = null)
         {
             string descText = "Watch BikeWale's Expert's Take on New Bike and Scooter Launches - Features, performance, price, fuel economy, handling and more";
 
-            switch (categoryId)
+            switch (categoryIds)
             {
                 case "59":
                     title = "Bike Launch Video Review - BikeWale";
@@ -36,8 +36,21 @@ namespace Bikewale.Utility
                     title = "Do It Yourself - BikeWale";
                     desc = "Do It Yourself tips - " + descText;
                     break;
+                case "61":
+                    title = "First Look Video Review - BikeWale";
+                    desc = "First Look Video Reviews - " + descText;
+                    break;
+                case "62":
+                case "63":
+                    title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison - BikeWale";
+                    desc = "Check latest bike and scooter videos, " + descText;
+                    break;
+                case "51":
+                    title = "Motorsport Videos - BikeWale";
+                    desc = "Check all the latest action from the Indian motorsport world. Keep a close tab on various make championships, rallies and get to know the Indian mortorsport racers. ";
+                    break;
                 default:
-                    title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison -   BikeWale";
+                    title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison - BikeWale";
                     desc = "Check latest bike and scooter videos, " + descText;
                     break;
             }
@@ -52,7 +65,7 @@ namespace Bikewale.Utility
         /// <returns>String for heding corresponding to category Id</returns>
         public static string VideoHeading(uint categoryId)
         {
-           switch (categoryId)
+            switch (categoryId)
             {
                 case 59:
                     return "Bike Launch Video";
@@ -64,7 +77,7 @@ namespace Bikewale.Utility
                     return "Do It Yourself";
                 default:
                     return "Bike Video";
-                    
+
             }
         }
     }//class end

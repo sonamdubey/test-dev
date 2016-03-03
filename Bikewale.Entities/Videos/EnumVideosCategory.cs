@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Bikewale.Entities.Videos
 {
     /// <summary>
@@ -15,7 +11,7 @@ namespace Bikewale.Entities.Videos
         FeaturedAndLatest = 1,
         MostPopular = 2,
         ExpertReviews = 3,
-        Miscelleneous = 4 ,
+        Miscelleneous = 4,
         InteriorShow = 5,
         JustLatest = 6,
         FirstDriveImpressions = 47,
@@ -30,8 +26,8 @@ namespace Bikewale.Entities.Videos
         Misc = 58,
         LaunchAlert = 59,
         TopMusic = 60,
-        FirstLook =  61,
-        Blockbuster =  62,        
-        Specials =  63
+        FirstLook = 61,
+        Blockbuster = 62,
+        Specials = 63
     }
 }
