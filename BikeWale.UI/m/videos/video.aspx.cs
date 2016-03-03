@@ -44,10 +44,10 @@ namespace Bikewale.m.videos
                 string yeh = EnumVideosCategory.DoitYourself.ToString();
                 switch (videoModel.SubCatId)
                 {
-                    case "47":
                     case "55":
                         metaDesc = String.Format("{0} {1} Video Review-Watch BikeWale Expert's Take on {0} {1}-Features, performance, price, fuel economy, handling and more.", videoModel.MakeName, videoModel.ModelName);
                         metaTitle = String.Format("Expert Video Review-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        videoModel.SubCatName = "Expert Reviews";
                         break;
                     case "57":
                         metaDesc = String.Format("First Ride Video Review of {0} {1}-Watch BikeWale Expert's Take on the First Ride of {0} {1}-Features, performance, price, fuel economy, handling and more.", videoModel.MakeName, videoModel.ModelName);

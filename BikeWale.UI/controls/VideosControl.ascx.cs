@@ -34,11 +34,11 @@ namespace Bikewale.Controls
             BindVideos();
             if (String.IsNullOrEmpty(ModelMaskingName)) 
             {
-                MoreVideoUrl = string.Format("/bike-videos/{0}/", MakeMaskingName);
+                MoreVideoUrl = string.Format("/bike-videos/{0}-bike/", MakeMaskingName);
             }
             else
             {
-                MoreVideoUrl = string.Format("/bike-videos/{0}/{1}/", MakeMaskingName, ModelMaskingName);
+                MoreVideoUrl = string.Format("/bike-videos/{0}-bike/{1}/", MakeMaskingName, ModelMaskingName);
             }
         }
 
