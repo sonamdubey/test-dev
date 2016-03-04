@@ -11,6 +11,8 @@ namespace Bikewale.Entities.BikeData
     /// <summary>
     /// Modified By : Lucky Rathore
     /// Summary : HostUrl and LogoUrl Added
+    /// Modified by :   Sumit Kate on 03 Mar 2016
+    /// Description :   Added PopularityIndex
     /// </summary>
     [Serializable, DataContract]
     public class BikeMakeEntityBase
@@ -28,6 +30,9 @@ namespace Bikewale.Entities.BikeData
         public string HostUrl { get; set; }
         
         [JsonProperty(PropertyName = "logoUrl"), DataMember]
-        public string LogoUrl { get; set; }        
+        public string LogoUrl { get; set; }
+
+        [JsonProperty("popularityIndex"), DataMember]
+        public ushort PopularityIndex { get; set; }
     }
 }
