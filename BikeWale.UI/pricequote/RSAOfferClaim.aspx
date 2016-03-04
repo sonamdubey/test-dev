@@ -19,7 +19,7 @@
     }
 
     .grey-bullets li {
-        background: url(http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bw-grey-bullet.png) no-repeat 0px 9px;
+        background: url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-grey-bullet.png) no-repeat 0px 9px;
         display: block;
         list-style: square outside none;
         padding: 3px 0 3px 10px;

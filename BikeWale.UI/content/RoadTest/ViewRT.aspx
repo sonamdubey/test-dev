@@ -125,12 +125,12 @@
             }
 
         #gallery .jcarousel-skin-tango .jcarousel-next-horizontal {
-            background: #282626 url("http://img.aeplcdn.com/adgallery/ad_scroll_forward.png") no-repeat center center;
+            background: #282626 url("http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/ad-scroll-forward.png") no-repeat center center;
             right: 10px;
         }
 
         #gallery .jcarousel-skin-tango .jcarousel-prev-horizontal {
-            background: #282626 url("http://img.aeplcdn.com/adgallery/ad_scroll_back.png") no-repeat center center;
+            background: #282626 url("http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/ad-scroll-back.png") no-repeat center center;
             left: 0px;
         }
 

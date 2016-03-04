@@ -107,7 +107,7 @@
             width: 303px;
             height: 174px;
             display: block;
-            background: url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center;
+            background: url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
         }
 
     .upcoming-brand-bikes-container li {

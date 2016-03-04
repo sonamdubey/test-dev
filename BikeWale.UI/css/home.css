@@ -4,7 +4,7 @@
 .booking-online-pic {width:130px; height:92px; margin:0 auto; position:relative; top:35px; border:1px solid #ddd\9; -moz-box-shadow:0px 2px 5px #ccc; -o-box-shadow:0px 2px 5px #ccc; -webkit-box-shadow:0px 2px 5px #ccc; -ms-box-shadow:0px 2px 5px #ccc; box-shadow:0px 2px 5px #ccc;}
 
 /* booking comforts sprite */
-.bookingcomforts-sprite { background:url(http://img.aeplcdn.com/bikewaleimg/images/booking-comforts-sprite.png?v123) no-repeat; display:inline-block;}
+.bookingcomforts-sprite { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/booking-comforts-sprite.png?v1234) no-repeat; display:inline-block;}
 .get-price-icon { background-position:0 0; width:64px; height:44px; position:relative; top:22px;}
 .get-deal-icon { background-position:-74px 0; width:80px; height:57px; position:relative; top:18px;}
 .save-visit-icon { background-position:-164px 0; width:73px; height:59px; position:relative; top:18px;}

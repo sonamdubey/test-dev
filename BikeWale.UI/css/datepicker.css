@@ -23,19 +23,19 @@
 
 /* Interaction states
 ----------------------------------*/
-.ui-datepicker .ui-state-hover, .ui-datepicker .ui-state-hover, .ui-datepicker .ui-state-focus, .ui-datepicker .ui-state-focus { border: 1px solid #79b7e7; background: #d0e5f5 url(http://img.aeplcdn.com/cw-common/jq-ui/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #1d5987; outline: none; }
+.ui-datepicker .ui-state-hover, .ui-datepicker .ui-state-hover, .ui-datepicker .ui-state-focus, .ui-datepicker .ui-state-focus { border: 1px solid #79b7e7; background: #d0e5f5 url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/ui-bg-glass-75-d0e5f5-1x400.png) 50% 50% repeat-x; font-weight: bold; color: #1d5987; outline: none; }
 .ui-datepicker .ui-state-hover a, .ui-datepicker .ui-state-hover a:hover { color: #1d5987; text-decoration: none; outline: none; }
-.ui-datepicker .ui-state-active, .ui-datepicker .ui-state-active { border: 1px solid #79b7e7; background: #f5f8f9 url(http://img.aeplcdn.com/cw-common/jq-ui/ui-bg_inset-hard_100_f5f8f9_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #e17009; outline: none; }
+.ui-datepicker .ui-state-active, .ui-datepicker .ui-state-active { border: 1px solid #79b7e7; background: #f5f8f9 url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/ui-bg-inset-hard-100-f5f8f9-1x100.png) 50% 50% repeat-x; font-weight: bold; color: #e17009; outline: none; }
 .ui-datepicker .ui-state-active a, .ui-datepicker .ui-state-active a:link, .ui-datepicker .ui-state-active a:visited { color: #e17009; outline: none; text-decoration: none; }
 
 /* Interaction Cues
 ----------------------------------*/
-.ui-state-highlight, .ui-widget-content .ui-state-highlight {border: 1px solid #fad42e; background: #4297D7 url(http://img.aeplcdn.com/cw-common/jq-ui/ui-bg_flat_55_fbec88_40x100.png) 50% 50% repeat-x; color: #363636; }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight {border: 1px solid #fad42e; background: #4297D7 url(http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/ui-bg-flat-55-fbec88-40x100.png) 50% 50% repeat-x; color: #363636; }
 .ui-state-highlight a, .ui-widget-content .ui-state-highlight a { color: #363636; }
 
 /* states and images */
-.ui-widget-header .ui-icon {background-image: url(http://img.aeplcdn.com/cw-common/jq-ui/ui-icons_d8e7f3_256x240.png); width: 16px; height: 16px;}
-.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(http://img.aeplcdn.com/cw-common/jq-ui/ui-icons_217bc0_256x240.png); }
+.ui-widget-header .ui-icon {background-image: url(http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/ui-icons-d8e7f3-256x240.png); width: 16px; height: 16px;}
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/ui-icons-217bc0-256x240.png); }
 
 /* positioning */
 .ui-icon-circle-triangle-e { background-position: -48px -192px; }
@@ -45,12 +45,12 @@
 .dp-icon { background-image: url(images/ui-icons_217bc0_256x240.png); background-position: -115px -115px; width:12px; height:12px;}
 
 /* Overlays */
-.ui-widget-overlay { background: #aaaaaa url(http://img.aeplcdn.com/cw-common/jq-ui/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); }
-.ui-widget-shadow { margin: -8px 0 0 -8px; padding: 8px; background: #aaaaaa url(http://img.aeplcdn.com/cw-common/jq-ui/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -webkit-border-radius: 8px; }/* Accordion
+.ui-widget-overlay { background: #aaaaaa url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/ui-bg-flat-0-aaaaaa-40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); }
+.ui-widget-shadow { margin: -8px 0 0 -8px; padding: 8px; background: #aaaaaa url(http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/ui-bg-flat-0-aaaaaa-40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -webkit-border-radius: 8px; }/* Accordion
 
 ----------------------------------*/
-.ui-datepicker { width: 17em; padding: .2em .2em 0; z-index:1000006; border: 1px solid #a6c9e2; background: #fcfdfd url(http://img.aeplcdn.com/cw-common/jq-ui/ui-bg_inset-hard_100_fcfdfd_1x100.png) 50% bottom repeat-x; color: #222222;}
-.ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; border: 1px solid #4297d7; background: #5c9ccc url(http://img.aeplcdn.com/cw-common/forums/forum-bg.gif) repeat-x; color: #ffffff; font-weight: bold; }
+.ui-datepicker { width: 17em; padding: .2em .2em 0; z-index:1000006; border: 1px solid #a6c9e2; background: #fcfdfd url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/ui-bg-inset-hard-100-fcfdfd-1x100.png) 50% bottom repeat-x; color: #222222;}
+.ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; border: 1px solid #4297d7; background: #5c9ccc url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/forum-bg.gif) repeat-x; color: #ffffff; font-weight: bold; }
 .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
 .ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover { top: 1px;}
 .ui-datepicker .ui-datepicker-prev { left:2px;}
@@ -66,7 +66,7 @@
 .ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
 .ui-datepicker th { padding: .7em .3em; text-align: center; font-weight: bold; border: 0;  }
 .ui-datepicker td { border: 0; padding: 1px; }
-.ui-datepicker td span, .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; border: 1px solid #c5dbec; background: #dfeffc url(http://img.aeplcdn.com/cw-common/jq-ui/ui-bg_glass_85_dfeffc_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #2e6e9e; outline: none;}
+.ui-datepicker td span, .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; border: 1px solid #c5dbec; background: #dfeffc url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/ui-bg-glass-85-dfeffc-1x400.png) 50% 50% repeat-x; font-weight: bold; color: #2e6e9e; outline: none;}
 
 /* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
 .ui-datepicker-cover {

@@ -29,7 +29,7 @@ namespace Bikewale.Notifications.MailTemplates
                     "<div style=\"max-width:692px; margin:0 auto; border:1px solid #4d5057; font-family: Arial, Helvetica, sans-serif; font-size:14px; color:#4d5057; background:#f5f5f5; word-wrap:break-word;\">"
                         + "<div style=\"padding:10px 20px; margin-bottom:20px;\">"
                             + "<div style=\"float:left; max-width:110px;\">"
-                                + "<a href=\"#\" target=\"_blank\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bw-logo.png\" alt=\"BikeWale\" title=\"BikeWale\" width=\"100%\" border=\"0\"/></a>"
+                                + "<a href=\"#\" target=\"_blank\"><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png\" alt=\"BikeWale\" title=\"BikeWale\" width=\"100%\" border=\"0\"/></a>"
                             + "</div>"
                             + "<div style=\"float:right; color:#82888b; line-height:32px;\">{0}"
                             + "</div>"
@@ -39,7 +39,7 @@ namespace Bikewale.Notifications.MailTemplates
                         + "<div style=\"padding:0 20px;\">"
                             + "<div style=\"font-weight:bold; margin-bottom:20px;\">Dear {1},</div>"
                             + "<div style=\"margin-bottom:15px;\">Pre-Booking for {2} {3}</div>"
-                            + "<div style=\"line-height:1.4; margin-bottom:15px;\">Please call customer {6} ASAP and proceed with further selling process, Customer has paid <span><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span><span style=\"color:#4d5057; font-weight:bold;\">{4}</span> to pre-book {2} {3}, with Pre-booking Ref Number<span style=\"color:#4d5057; font-weight:bold;\">&nbsp;{5}</span>. Check below for more details:</div>"
+                            + "<div style=\"line-height:1.4; margin-bottom:15px;\">Please call customer {6} ASAP and proceed with further selling process, Customer has paid <span><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span><span style=\"color:#4d5057; font-weight:bold;\">{4}</span> to pre-book {2} {3}, with Pre-booking Ref Number<span style=\"color:#4d5057; font-weight:bold;\">&nbsp;{5}</span>. Check below for more details:</div>"
                         + "</div>",
                         DateTime.Now.ToString("MMM dd, yyyy"), //0
                         dealerName, //1
@@ -71,7 +71,7 @@ namespace Bikewale.Notifications.MailTemplates
                         sb.AppendFormat(
                             "<div style=\"padding-bottom:20px;\">"
                                 + "<div style=\"width:70%; float:left; color:#82888b;\">{0}</div>"
-                                + "<div style=\"width:30%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{1}</div>"
+                                + "<div style=\"width:30%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd4.aeplcdn.com/0x0/bw/static/design15/mailer-images/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{1}</div>"
                                 + "<div style=\"clear:both;\"></div>"
                             + "</div>"
                             , list.CategoryName, Format.FormatPrice(list.Price.ToString()));
@@ -81,7 +81,7 @@ namespace Bikewale.Notifications.MailTemplates
                         sb.AppendFormat(
                             "<div style=\"padding:20px 0; border-top:1px solid #8a9093;\">"
                                 + "<div style=\"width:70%; float:left; color:#82888b;\">Total on road price</div>"
-                                + "<div style=\"width:30%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span><span style=\"text-decoration:line-through;\">{0}</span></div>"
+                                + "<div style=\"width:30%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd4.aeplcdn.com/0x0/bw/static/design15/mailer-images/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span><span style=\"text-decoration:line-through;\">{0}</span></div>"
                                 + "<div style=\"clear:both;\"></div>"
                             + "</div>"
                             , Format.FormatPrice(totalPrice.ToString())
@@ -91,7 +91,7 @@ namespace Bikewale.Notifications.MailTemplates
                             sb.AppendFormat(
                                 "<div style=\"padding-bottom:20px;\">"
                                     + "<div style=\"width:70%; float:left; color:#82888b;\">{0}</div>"
-                                    + "<div style=\"width:30%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{1}</div>"
+                                    + "<div style=\"width:30%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{1}</div>"
                                     + "<div style=\"clear:both;\"></div>"
                                 + "</div>"
                             , list.CategoryName, Format.FormatPrice(list.Price.ToString()));
@@ -100,7 +100,7 @@ namespace Bikewale.Notifications.MailTemplates
                     sb.AppendFormat(
                         "<div style=\"padding-bottom:20px;\">"
                             + "<div style=\"width:70%; float:left; font-weight:bold;\">Total on road price</div>"
-                            + "<div style=\"width:30%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{0}</div>"
+                            + "<div style=\"width:30%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{0}</div>"
                             + "<div style=\"clear:both;\"></div>"
                         + "</div>"
                         , Format.FormatPrice(Convert.ToString(totalPrice - TotalDiscountedPrice(discountList)))
@@ -141,11 +141,11 @@ namespace Bikewale.Notifications.MailTemplates
                             + "<div style=\"display:table; text-align:center; padding-bottom:20px;\">"
                                 + "<div style=\"width:120px; height:110px; display:table-cell; vertical-align:middle; padding-left:10px; padding-right:20px; border-right:1px solid #e2e2e2;\">"
                                     + "<div style=\"margin-bottom:10px;\">Advance Payment</div>"
-                                    + "<div><span><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" alt=\"Rupee\" border=\"0\"/></span><span style=\"font-size:20px; font-weight:bold; color:#1a1a1a;\">{4}</span></div>"
+                                    + "<div><span><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/rupee-large.png\" alt=\"Rupee\" border=\"0\"/></span><span style=\"font-size:20px; font-weight:bold; color:#1a1a1a;\">{4}</span></div>"
                                 + "</div>"
                                 + "<div style=\"width:120px; height:110px; display:table-cell; vertical-align:middle; padding-left:20px; padding-right:10px;\">"
                                     + "<div style=\"margin-bottom:10px;\">Balance Payment</div>"
-                                    + "<div><span><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" alt=\"Rupee\" border=\"0\"/></span><span style=\"font-size:20px; font-weight:bold; color:#1a1a1a;\">{5}</div>"
+                                    + "<div><span><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/rupee-large.png\" alt=\"Rupee\" border=\"0\"/></span><span style=\"font-size:20px; font-weight:bold; color:#1a1a1a;\">{5}</div>"
                                 + "</div>"
                             + "</div>"
                         + "</div>"
@@ -182,7 +182,7 @@ namespace Bikewale.Notifications.MailTemplates
                         + "</div>"
                         + "<div style=\"margin-top:20px; margin-bottom:10px; max-width:692px;\">"
                             + "<a href=\"https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=&utm_medium=email&utm_campaign=\" target=\"_blank\">"
-                            + "<img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bw-footer-banner.jpg\" style=\"border:0; width:100%\"></a>"
+                            + "<img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-footer-banner.jpg\" style=\"border:0; width:100%\"></a>"
                         + "</div>"
                     + "</div>"
                     + "</body>"

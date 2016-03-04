@@ -432,7 +432,7 @@ namespace Bikewale.Common
 
             if (String.IsNullOrEmpty(hostUrl) || String.IsNullOrEmpty(imagePath))
             {
-                fullImagePath = "http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg";
+                fullImagePath = "http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg";
             }
             else
             {
@@ -447,7 +447,7 @@ namespace Bikewale.Common
 
             if (String.IsNullOrEmpty(hostUrl) || String.IsNullOrEmpty(imagePath))
             {
-                fullImagePath = "http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg";
+                fullImagePath = "http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg";
             }
             else
             {

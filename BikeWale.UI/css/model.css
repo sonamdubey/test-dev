@@ -17,7 +17,7 @@
 .modelGetDetails ul { list-style:disc; color:#82888b; margin-left:25px; font-size:14px; }
 .modelGetDetails.offersList ul { width:100%; overflow:hidden; margin-left:4px; }
 .modelGetDetails ul li { padding-top: 12px;padding-right: 12px;width: 310px;float: left; }
-.modelGetDetails.offersList ul li {  background: url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png?v=22122015") no-repeat 0 3px; margin-top: 12px; padding:0 0 0 22px; width:485px; }
+.modelGetDetails.offersList ul li {  background: url("http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png?v=22122015") no-repeat 0 3px; margin-top: 12px; padding:0 0 0 22px; width:485px; }
 .no-offer-book-btn .btn { padding:8px 53px; }
  #noOfferBookBtn .grid-9 h3, #noOfferBookBtn .grid-8 h3 { border-top: 1px solid #ecedee; padding-top:15px; }
  #noOfferBookBtn .grid-3, #noOfferBookBtn .grid-4 { border-top: 1px solid #ecedee; padding-top:10px; position:relative; left:-10px; }
@@ -88,7 +88,7 @@
 .available-colors .color-box {width:60px; height:60px; margin:0 auto 15px; border-radius:3px; background:#eee; border:1px solid #ccc;}
 .varient-desc-container { min-height:72px; }
 /* model sprite classes */
-.model-sprite { background:url(http://img.aeplcdn.com/bikewaleimg/images/model-sprite.png?v=01022016) no-repeat; display:inline-block;}
+.model-sprite { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/model-sprite.png?v=01022016) no-repeat; display:inline-block;}
 .bw-summary-ico { background-position:0 0; width:23px; height:23px; margin-right:26px; position:relative; top:3px; left:5px;}
 .bw-engine-ico { background-position:-33px 0; width:30px; height:22px; margin-right:20px; position:relative; top:3px;}
 .bw-brakeswheels-ico { background-position:-73px 0; width:26px; height:26px; margin-right:26px; position:relative; top:3px; left:3px;}
@@ -138,7 +138,7 @@
 .connected-carousels .carousel ul { width: 20000em; position: relative; list-style: none; margin: 0; padding: 0; }
 .connected-carousels .carousel li { float: left; width:385px; height:220px; }
 .connected-carousels .carousel li .carousel-img-container { display:table; width:385px; height:220px; text-align:center; }
-.connected-carousels .carousel li .carousel-img-container span { display: table-cell; vertical-align:middle; width: 385px; height: 220px; background:url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
+.connected-carousels .carousel li .carousel-img-container span { display: table-cell; vertical-align:middle; width: 385px; height: 220px; background:url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .connected-carousels .carousel li .carousel-img-container span img { width: 100%; height: 220px; }
 /** Stage carousel specific styles **/
 .connected-carousels .carousel-stage { height: 220px; }
@@ -293,10 +293,10 @@
     .bw-horz-tabs { width:300px; }
     .bw-horz-tabs li { padding:25px 0 25px 25px; }
     .bw-horz-tabs-data { width:430px; }
-    .connected-carousels .carousel li .carousel-img-container span { width:379px; height:214px; display:block; background:url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
+    .connected-carousels .carousel li .carousel-img-container span { width:379px; height:214px; display:block; background:url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
     .alternatives-carousel .jcarousel li { width:248px; margin-right:0px; }
     .alternatives-carousel .jcarousel li .imageWrapper, .alternatives-carousel .jcarousel li .imageWrapper a { width:245px; height:138px; }
-    .alternatives-carousel .jcarousel li .imageWrapper a { background:url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; display:block; }
+    .alternatives-carousel .jcarousel li .imageWrapper a { background:url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; display:block; }
     .alternatives-carousel .jcarousel li .imageWrapper a img { width:100%; height:138px; }
     .jcarousel-wrapper { margin-left: 20px; width: 96%; }
     .alternative-section .jcarousel-control-left { left: 2px; }

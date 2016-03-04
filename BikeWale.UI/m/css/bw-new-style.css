@@ -15,7 +15,7 @@
 
 /*-------------------------------------main page classes-----------------------------------------------*/
 input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, button:focus { outline:none; }
-.dealer-pq-info li, .dealer-facilities li, #doc-registration ul li, .nex-steps-list li, .bottom-info-list li, .doc-list li { background:url(http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/list-bullet.jpg?v=150915) no-repeat 0 6px; padding-left:10px; margin:0px 0px 8px 3px; line-height:1; }
+.dealer-pq-info li, .dealer-facilities li, #doc-registration ul li, .nex-steps-list li, .bottom-info-list li, .doc-list li { background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/list-bullet.jpg?v=150915) no-repeat 0 6px; padding-left:10px; margin:0px 0px 8px 3px; line-height:1; }
 #doc-registration ol li { margin-top:10px; }
 #doc-registration ol { list-style-type:decimal; margin-left:15px; }
 #doc-registration ul li { margin-top:5px; }
@@ -112,9 +112,9 @@ html>body .WebRupee {margin-right:3px; *margin-right:0;}
 }
 
 .bw-offer-box{ background:#fef5e6; border:2px dotted #f5b048; padding:10px; margin-bottom:20px;}
-.bw-offer-box li{ background:url(http://img2.aeplcdn.com/bikewaleimg/images/bikebooking/images/bw-grey-bullet.png?v=150915) no-repeat 0px 9px;display: block;list-style: square outside none;padding: 3px 0 3px 10px;}
+.bw-offer-box li{ background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-grey-bullet.png?v=150915) no-repeat 0px 9px;display: block;list-style: square outside none;padding: 3px 0 3px 10px;}
 .grey-bullet li{ background:none;list-style: disc inside none;padding: 5px 0; font-size:14px; color:#82888b}
-.light-grey-bullets li{ background:url(http://img3.aeplcdn.com/bikewaleimg/images/bikebooking/images/bw-light-grey-bullet.png?v=150915) no-repeat 0px 9px;display: block;list-style: square outside none;padding: 3px 0 3px 10px; }
+.light-grey-bullets li{ background:url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-light-grey-bullet.png?v=150915) no-repeat 0px 9px;display: block;list-style: square outside none;padding: 3px 0 3px 10px; }
 .bottom-btns .ui-input-btn input[type="submit"] {background-color:#000;}
 /*-------------- Helmet offer--------------------*/
 .red-text { color:#c62000;}

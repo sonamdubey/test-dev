@@ -1,4 +1,4 @@
-﻿.booking-cancellation-banner { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/images/insurance-banner.jpg) no-repeat center top; height: 285px; padding-top: 1px; }
+﻿.booking-cancellation-banner { background:#161209 url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/insurance-banner.jpg) no-repeat center top; height: 285px; padding-top: 1px; }
 
 #processResponse { display:none; }
 #cancellationStepsWrapper ul li { width:309px; height:85px; display:inline-block; vertical-align:top; text-align:center; font-size:18px; color:#82888b; }
@@ -8,7 +8,7 @@
 .cancellation-tabs-image span { margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
 
 /* booking flow sprite */
-.cancellation-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/cancel-booking-sprite.png) no-repeat; display: inline-block; }
+.cancellation-sprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/cancel-booking-sprite.png) no-repeat; display: inline-block; }
 .user-details-icon-selected, .cancellation-icon-selected, .confirmation-icon-selected { width:42px; height:42px; }
 .user-details-icon-selected { background-position: 0 0; }
 .cancellation-icon-selected { background-position: 0 -52px; }

@@ -9,7 +9,7 @@
     });
     var galleries = $('.ad-gallery').adGallery({
         start_at_index: StartIndex,
-        loader_image: "http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif",
+        loader_image: "http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/circleloader.gif",
         callbacks: { // CallBack function after the image is loaded and is visible
             afterImageVisible: function () {
                 $('#artTitle').html(this.images[this.current_index].artTitle);
