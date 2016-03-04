@@ -87,7 +87,7 @@
                 window.location.hash = "";
             }); 
             $('.category-back-btn').on('click', function () {
-                window.location = "/m/bike-videos/";
+                window.location = document.referrer;
             });
         </script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
