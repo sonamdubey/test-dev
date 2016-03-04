@@ -39,8 +39,8 @@
         <h1>Features &nbsp;&nbsp;&nbsp;</h1>
         <asp:repeater id="rptFeatures" runat="server">
 			<itemtemplate>
-                <div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class=" <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "sponsored-content"  : "post-content padding-left10" %>  margin-bottom15">
-					<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>                            
+                <div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class=" <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "sponsored-content"  : "post-content padding-left10" %>  margin-bottom15">
+					<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>                            
                     <div class="anchor-title">
 						<a href="/features/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>/" rel="bookmark" title="Permanent Link to <%# DataBinder.Eval(Container.DataItem,"Title") %>">
 							<%# DataBinder.Eval(Container.DataItem,"Title") %>
@@ -62,7 +62,7 @@
                         <div class="clear"></div>
                     </div>  
 				</div>
-                <div class=" <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? ""  : "sept-dashed" %>"></div>
+                <div class=" <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? ""  : "sept-dashed" %>"></div>
 			</itemtemplate>
 		</asp:repeater>
         <BikeWale:RepeaterPager ID="linkPager" runat="server" />
