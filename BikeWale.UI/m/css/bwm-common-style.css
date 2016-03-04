@@ -435,7 +435,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 
 /* Brand Sprite */
 .brandlogosprite { display: inline-block; }
-.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royal, .brand-guzzi, .brand-harley, .brand-hero-elec, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-agusta, .brand-um { height:30px; }
+.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royalenfield, .brand-motoguzzi, .brand-harleydavidson, .brand-heroelectric, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-mv-agusta, .brand-um { height:30px; }
 
 .brand-aprilia { width: 52px; background-position: 0 0; }
 .brand-honda { width: 34px; background-position: -58px 0; }
@@ -451,16 +451,16 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .brand-ducati { width: 26px; background-position: -674px 0; }
 .brand-ktm { width: 59px; background-position: -706px 0; }
 .brand-vespa { width: 70px; background-position: -771px 0; }
-.brand-harley { width: 35px; background-position: -847px 0; }
+.brand-harleydavidson { width: 35px; background-position: -847px 0; }
 .brand-lml { width: 73px; background-position: -889px 0; }
 .brand-yamaha { width: 73px; background-position: -968px 0; }
 .brand-hero { width: 38px; background-position: -1047px 0; }
 .brand-mahindra { width: 61px; background-position: -1091px 0; }
 .brand-yo { width: 76px; background-position: -1159px 0; }
-.brand-hero-elec { width: 53px; background-position: -1242px 0; }
-.brand-guzzi { width: 49px; background-position: -1300px 0; }
-.brand-royal { width: 74px; background-position: -1354px 0;  }
-.brand-agusta { width: 40px; background-position: -1432px 0; }
+.brand-heroelectric { width: 53px; background-position: -1242px 0; }
+.brand-motoguzzi { width: 49px; background-position: -1300px 0; }
+.brand-royalenfield { width: 74px; background-position: -1354px 0;  }
+.brand-mv-agusta { width: 40px; background-position: -1432px 0; }
 .brand-um { width: 38px; background-position: -1481px 0; }
 /* common properties */
 .leftfloat{float:left;}
