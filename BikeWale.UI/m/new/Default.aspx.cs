@@ -66,6 +66,7 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Created by  : Sushil Kumar on 04 Mar 2016
         /// Bind the Brands Repeaters
+        /// Modified  : Allow only six popular brands at first fold
         /// </summary>
         private void BindBrandsRepeaters()
         {
@@ -82,10 +83,10 @@ namespace Bikewale.Mobile.New
                     makes = objCache.GetMakesByType(EnumBikeType.New);
                     if (makes != null && makes.Count() > 0)
                     {
-                        rptPopularBrand.DataSource = makes.Where(m => m.PopularityIndex > 0);
+                        rptPopularBrand.DataSource = makes.Take(6);
                         rptPopularBrand.DataBind();
 
-                        rptOtherBrands.DataSource = makes.Where(m => m.PopularityIndex == 0);
+                        rptOtherBrands.DataSource = makes.Skip(6).OrderBy(m => m.MakeName);
                         rptOtherBrands.DataBind();
                     }
                 }
