@@ -11,12 +11,12 @@
         .ad-gallery .ad-image-wrapper .ad-next{position:absolute;right:0;top:0;width:25%;height:100%;cursor:pointer;display:block;z-index:100}
         .ad-gallery .ad-image-wrapper .ad-prev{position:absolute;left:0;top:0;width:25%;height:100%;cursor:pointer;display:block;z-index:100}
         .ad-gallery .ad-image-wrapper .ad-prev,.ad-gallery .ad-image-wrapper .ad-next{background:url(http://img.aeplcdn.com/adgallery/non-existing.jpg)\9}
-        .ad-gallery .ad-image-wrapper .ad-prev .ad-prev-image,.ad-gallery .ad-image-wrapper .ad-next .ad-next-image{background:url(http://img.aeplcdn.com/adgallery/ad_prev.png);width:30px;height:30px;display:none;position:absolute;top:47%;left:0;z-index:101}
-        .ad-gallery .ad-image-wrapper .ad-next .ad-next-image{background:url(http://img.aeplcdn.com/adgallery/ad_next.png);width:30px;height:30px;right:0;left:auto}
+        .ad-gallery .ad-image-wrapper .ad-prev .ad-prev-image,.ad-gallery .ad-image-wrapper .ad-next .ad-next-image{background:url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/ad-prev.png);width:30px;height:30px;display:none;position:absolute;top:47%;left:0;z-index:101}
+        .ad-gallery .ad-image-wrapper .ad-next .ad-next-image{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/ad-next.png);width:30px;height:30px;right:0;left:auto}
         .ad-gallery .ad-image-wrapper .ad-image{position:absolute;overflow:hidden;top:0;left:0;z-index:9}
         .ad-gallery .ad-image-wrapper .ad-image a img{border:0}
-        .ad-gallery .ad-image-wrapper .ad-image .ad-image-description{position:absolute;bottom:0;left:0;text-align:left;width:100%;z-index:2;background:url(http://img.aeplcdn.com/adgallery/opa75.png);color:#000;padding:7px; display:none;}
-        * html .ad-gallery .ad-image-wrapper .ad-image .ad-image-description{background:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader (enabled=true,sizingMethod=scale,src='http://img.aeplcdn.com/adgallery/opa75.png')}
+        .ad-gallery .ad-image-wrapper .ad-image .ad-image-description{position:absolute;bottom:0;left:0;text-align:left;width:100%;z-index:2;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/opa75.png);color:#000;padding:7px; display:none;}
+        * html .ad-gallery .ad-image-wrapper .ad-image .ad-image-description{background:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader (enabled=true,sizingMethod=scale,src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/opa75.png')}
         .ad-gallery .ad-controls{height:20px}
         .ad-gallery .ad-info{float:left; color:#fff;}
         .ad-gallery .ad-slideshow-controls{float:right; color:#fff;}
@@ -26,8 +26,8 @@
         .ad-gallery .ad-nav{width:100%;position:relative}
         .ad-gallery .ad-forward,.ad-gallery .ad-back{position:absolute;top:0;height:100%;z-index:10}
         * html .ad-gallery .ad-forward,.ad-gallery .ad-back{height:100px}
-        .ad-gallery .ad-back{cursor:pointer;left:-20px;width:13px;display:block;background:url(http://img.aeplcdn.com/adgallery/ad_scroll_back.png) 0 22px no-repeat}
-        .ad-gallery .ad-forward{cursor:pointer;display:block;right:-20px;width:13px;background:url(http://img.aeplcdn.com/adgallery/ad_scroll_forward.png) 0 22px no-repeat}
+        .ad-gallery .ad-back{cursor:pointer;left:-20px;width:13px;display:block;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/ad-scroll-back.png) 0 22px no-repeat}
+        .ad-gallery .ad-forward{cursor:pointer;display:block;right:-20px;width:13px;background:url(http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/ad-scroll-forward.png) 0 22px no-repeat}
         .ad-gallery .ad-nav .ad-thumbs{overflow:hidden;width:100%;}
         .ad-gallery .ad-thumbs .ad-thumb-list{float:left;width:9000px;list-style:none}
         .ad-gallery .ad-thumbs li{float:left;padding-right:5px}

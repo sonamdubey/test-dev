@@ -89,8 +89,8 @@
                                         <ItemTemplate>
                                             <li>
                                                 <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-bikes/">
-                                                    <span class="brand-type">
-                                                        <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://img.aeplcdn.com/bikewaleimg/images/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                                    <span class="brand-type">                                                        
+                                                	<span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?<%= staticFileVersion %>"></span>
                                                     </span>
                                                     <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                                 </a>
@@ -108,7 +108,7 @@
 
                                                 <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-bikes/">
                                                     <span class="brand-type">
-                                                        <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://img.aeplcdn.com/bikewaleimg/images/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                                        <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?<%= staticFileVersion %>"></span>
                                                     </span>
                                                     <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                                 </a>
@@ -270,7 +270,7 @@
             </div>
         </section>
         <!--  Ends here -->
-        <section class="lazy home-getFinalPrice-banner" data-original="http://img.aeplcdn.com/bikewaleimg/images/get-final-price-banner.jpg">
+        <section class="lazy home-getFinalPrice-banner" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/get-final-price-banner.jpg">
             <BW:OnRoadPriceQuote ID="ctrlOnRoadPriceQuote" PageId="1" runat="server" />
         </section>
         <% if (isAd976x400SecondShown)

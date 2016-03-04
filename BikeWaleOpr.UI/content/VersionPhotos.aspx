@@ -37,7 +37,7 @@
 						<td style="color:#cc0000;font-weight:bold;padding-right:15px;"><%# DataBinder.Eval( Container.DataItem, "Name" ) %></td>
 						<td>
                             <div id ="div1">
-                                <img id="imgSmall" class='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsReplicated")) ? "": "checkImage" %>'  image-id="<%= verId%>" src='<%# !String.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString()) ? BikeWaleOpr.ImagingOperations.GetPathToShowImages(DataBinder.Eval( Container.DataItem, "HostURL").ToString(),"227X128" , DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString()) : "http://img.carwale.com/bikewaleimg/common/nobike.jpg"%>'/>
+                                <img id="imgSmall" class='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsReplicated")) ? "": "checkImage" %>'  image-id="<%= verId%>" src='<%# !String.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString()) ? BikeWaleOpr.ImagingOperations.GetPathToShowImages(DataBinder.Eval( Container.DataItem, "HostURL").ToString(),"227X128" , DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString()) : "http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg"%>'/>
                             </div>
                         </td>
 						<td><input type="radio" id="optModel" value="<%# DataBinder.Eval( Container.DataItem, "id" ) %>" <%# DataBinder.Eval( Container.DataItem, "SmallPic" ).ToString() == DataBinder.Eval( Container.DataItem, "ModelSmall" ).ToString() ? "checked" : "" %> name="optModel" /></td>

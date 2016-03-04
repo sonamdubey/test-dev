@@ -131,7 +131,7 @@
 
             <div id ="divMainImageRepTable" pending="<%= statusId =="1"? "true" : "false" %>">
                 <% if(imageName != string.Empty){ %>
-                <img id='divMainImage_<%= mainImgId%>'   aria-label="Main Image" src="<%= statusId =="1"? "http://img.aeplcdn.com/loader.gif" :  ImagingOperations.GetPathToShowImages(imagePathThumbnail, hostUrl)%>"/>
+                <img id='divMainImage_<%= mainImgId%>'   aria-label="Main Image" src="<%= statusId =="1"? "http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/loader.gif" :  ImagingOperations.GetPathToShowImages(imagePathThumbnail, hostUrl)%>"/>
                 <div style='margin:5px 5px;'>Main Image&nbsp;&nbsp;&nbsp;&nbsp;<a id='A1' image-id= <%= mainImgId%> class='pointer editTagging' style='text-decoration:underline' >Edit Tagging</a></div>
                 <% } else { %>
                      No Main Image
@@ -155,7 +155,7 @@
                         <div style="float:left;width:180px;" id ='divPendingImg_<%# DataBinder.Eval( Container.DataItem, "Id" ).ToString()%>' class='pending <%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "show" : "hide" %>' pending="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "true" : "false" %>">
                             <p style="color:#555555;font-weight:bold;">
                             Processing...
-                                <img  align="center" src='http://img.aeplcdn.com/loader.gif'/>
+                                <img  align="center" src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/loader.gif'/>
                             </p>
                         </div>
                         </div>

@@ -49,7 +49,7 @@
     <div id="appBanner" class="hide">
         <div class="banner-close-btn" id="btnCrossApp"></div>
         <div class="app-banner-img-container">
-            <img src="http://img.aeplcdn.com/bikewaleimg/m/images/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
+            <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
         </div>
         <div class="app-banner-text-container margin-top5">
             <h2 class="text-grey">India’s #1</h2>

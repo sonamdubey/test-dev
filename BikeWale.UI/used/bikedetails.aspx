@@ -134,12 +134,12 @@
             <div class="thumb_preview">
                 <%--<a id="profile_link" rel="slide" title="<%= objPhotos.FrontImageDescription %>" href="<%= GetImagePath( objPhotos.FrontImageLarge, objPhotos.DirectoryPath, objPhotos.HostUrl ) %>">--%>
                 <a id="profile_link" rel="slide" title="<%= objPhotos.FrontImageDescription %>" href="<%= GetOriginalImagePath( objPhotos.OriginalImagePath, objPhotos.HostUrl, Bikewale.Utility.ImageSize._642x361 ) %>">
-                    <img id="inlarge" style="position: absolute; border: 0; z-index: 1001; margin-top: 1px; margin-left: 1px;" class="hide" alt="inlarge" src="http://img.aeplcdn.com/used/inlarge.gif" />
+                    <img id="inlarge" style="position: absolute; border: 0; z-index: 1001; margin-top: 1px; margin-left: 1px;" class="hide" alt="inlarge" src="http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/inlarge.gif" />
                     <%--<img id="front_img" border="0" alt="<%= objInquiry.ModelYearOnly + " " + objInquiry.BikeName %>" src="<%= GetImagePath( objPhotos.FrontImageMidThumb, objPhotos.DirectoryPath, objPhotos.HostUrl ) %>" /></a>--%>
                     <img id="front_img" border="0" alt="<%= objInquiry.ModelYearOnly + " " + objInquiry.BikeName %>" src="<%= GetOriginalImagePath( objPhotos.OriginalImagePath, objPhotos.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" width="300" height="222" /></a>
             </div>
             <div class="img-desc hide">
-                <img alt="loading..." title="click to inlarge this image" style="margin-right: 5px;" src="http://img.aeplcdn.com/sell/m01.gif" align="left" border="0" /><span id="img_description"><%= objPhotos.FrontImageDescription %></span><div class="clear"></div>
+                <img alt="loading..." title="click to inlarge this image" style="margin-right: 5px;" src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/m01.gif" align="left" border="0" /><span id="img_description"><%= objPhotos.FrontImageDescription %></span><div class="clear"></div>
             </div>
             <div class="thumb_navi">
                 <div id="navi" class="scrollable">
@@ -240,7 +240,7 @@
                 <h2>One-time Mobile Verification</h2>
                 <p class="margin-top10">We have just sent you an SMS with a 5-digit verification code on your mobile number. Please enter the verification code below to proceed.</p>
                 <div class="margin-top10">
-                    <img align="absmiddle" class="redirect-lt" src="http://img.aeplcdn.com/sell/mobi-verif.gif" border="0" />
+                    <img align="absmiddle" class="redirect-lt" src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/mobi-verif.gif" border="0" />
                     <input type="text" id="txtCwiCode" maxlength="5" style="margin-left: 10px;" value="Enter your code here" onfocus="javascript:if(this.value == 'Enter your code here') { this.value=''; }" onblur="javascript:if(this.value == '') { this.value='Enter your code here'; }" />
                     <a id="btnVerifyCode" class="buttons redirect-lt">Verify</a><div id="processCode" class="process-inline"></div>
                 </div>

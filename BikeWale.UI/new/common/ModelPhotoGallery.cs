@@ -101,9 +101,9 @@ namespace Bikewale.New
                 else
                 {
                     sbImageDetails.Append("<li>");
-                    sbImageDetails.AppendFormat("<a href='{0}'>", "http://img.aeplcdn.com/adgallery/no-img-big.png");
+                    sbImageDetails.AppendFormat("<a href='{0}'>", "http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/no-img-big.png");
                     sbImageDetails.AppendFormat("<img src='{0}' border='0' style='height:70px;' title='{1}' alt='{1}' desc='{2}' artID='{3}' artTitle='{4}' artUrl='{5}' imgCnt='{6}'/>",
-                        "http://img.aeplcdn.com/adgallery/no-img-thumb.png", "No Images Available", "No Images Available", "0", "-", "-", "0");
+                        "http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/no-img-thumb.png", "No Images Available", "No Images Available", "0", "-", "-", "0");
                     sbImageDetails.Append("</a>");
                     sbImageDetails.Append("</li>");
                 }

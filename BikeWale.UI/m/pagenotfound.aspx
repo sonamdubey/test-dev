@@ -12,7 +12,7 @@
 		margin:10px 10px 10px 0;
 	}
 	#main { padding:20px; }	
-    .ul-hrz-col2 li { font-size:13px;color:#666666; background-image: url("http://img.aeplcdn.com/bikewaleimg/images/icon-sprite.png"); background-position: 0 -111px; background-repeat: no-repeat; display: block; list-style: square outside none; padding: 3px 0 3px 10px; }
+    .ul-hrz-col2 li { font-size:13px;color:#666666; background-image: url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icon-sprite.png"); background-position: 0 -111px; background-repeat: no-repeat; display: block; list-style: square outside none; padding: 3px 0 3px 10px; }
 </style>
     <div class="padding5">
         <h1>Page Not Found</h1>

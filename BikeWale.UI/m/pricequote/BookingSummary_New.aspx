@@ -385,7 +385,7 @@
         </div>
 
         <section class="container margin-bottom30 content-box-shadow">
-            <div class="lazy booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>"></div>
+            <div class="lazy booking-how-it-works" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/howitworks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
         <% if (ctrlUsersTestimonials.FetchedCount > 0)

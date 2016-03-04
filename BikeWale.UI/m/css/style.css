@@ -67,7 +67,7 @@ p { line-height:18px; }
 	padding:10px;  
 }
 .inner-section {
-	background:url(http://img.aeplcdn.com/bikewaleimg/images/shadow-header.jpg?v=150915) repeat-x top left; 
+	background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/shadow-header.jpg?v=150915) repeat-x top left; 
 }
 .inner-section > form{padding:10px;}
 .inner-section > div.padding5{padding:10px;}
@@ -97,9 +97,9 @@ font-family:"Roboto-Regular";
 
 
 /*BW sprite clssses*/
-.bw-sprite { background:url(http://img2.aeplcdn.com/bikewaleimg/images/bw-sprite.png?v=150915) no-repeat; display:inline-block; }
+.bw-sprite { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-sprite.png?v=150915) no-repeat; display:inline-block; }
 .nav-icon { background-position:0 0px; width:20px; height:13px; }
-.bw-logo { background:url(http://img3.aeplcdn.com/bikewaleimg/images/bw-m-logo.png?v=150915) no-repeat; width:102px; height:30px; display:inline-block; }
+.bw-logo { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-m-logo.png?v=150915) no-repeat; width:102px; height:30px; display:inline-block; }
 .right-arrow { background-position:0 -45px; width:12px; height:12px; position:absolute; right:10px; }
 
 /* M-Carousel classes */
@@ -218,8 +218,8 @@ font-family:"Roboto-Regular";
 	transform:scale(0.9); -moz-transform:scale(0.9); -webkit-transform:scale(0.9); -o-transform:scale(0.9); -ms-transform:scale(0.9);
 }
 .m-carousel-hud a:after { display: block; position: absolute; top: 10px; left: 0; z-index: 9; }
-.m-carousel-hud .m-carousel-prev { left: 10px; background:url(http://img.aeplcdn.com/bikewaleimg/images/bw-sprite.png?v=150915) no-repeat 0 -23px; width:7px; height:12px; }
-.m-carousel-hud .m-carousel-next { right: 10px; background:url(http://img2.aeplcdn.com/bikewaleimg/images/bw-sprite.png?v=150915) no-repeat -17px -23px; width:7px; height:12px; }
+.m-carousel-hud .m-carousel-prev { left: 10px; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bw-sprite.png?v=15015) no-repeat 0 -23px; width:7px; height:12px; }
+.m-carousel-hud .m-carousel-next { right: 10px; background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bw-sprite.png?v=15015) no-repeat -17px -23px; width:7px; height:12px; }
 .m-carousel-hud .m-carousel-next:after { left: auto; right: 0; }
 .m-caption { margin: 0; padding: 10px; height: auto; text-align: center; }
 .m-scaled .m-item { opacity: .7; -webkit-backface-visibility: hidden;
@@ -273,7 +273,7 @@ font-family:"Roboto-Regular";
 }
 .loading-popup { background:transparent; width:90px; padding:20px; border-radius:5px; position:fixed; top:40%; left:45%; z-index:999;
 -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px; margin:0 auto; }
-.loading-icon { background:url(http://img3.aeplcdn.com/bikewaleimg/images/circleloader.gif?v=150915) no-repeat; width:90px; height:61px; display:block; float:left; }
+.loading-icon { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif?v=15015) no-repeat; width:90px; height:61px; display:block; float:left; }
 
 /* book bike slug */
 .white-text { color:#fff;}
@@ -318,7 +318,7 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }*/
 #appBanner { background:#e2e2e2; padding:5px 5px 0; position:relative; overflow:hidden; }
 .app-banner-img-container { float:left; width:130px; height:95px; position:relative; margin-right:12px; }
 .app-banner-img-container img { position:absolute; bottom:0; }
-.banner-close-btn { width:30px; height:30px; background: url("http://img.aeplcdn.com/bikewaleimg/m/images/banner-close-btn.png") no-repeat; position:absolute; top:0; right:0; cursor:pointer; }
+.banner-close-btn { width:30px; height:30px; background: url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/banner-close-btn.png") no-repeat; position:absolute; top:0; right:0; cursor:pointer; }
 .app-banner-text-container { float:left; }
 .app-banner-btn-container { padding:10px 25px 10px 0; }
 .app-banner-btn-container .btn { padding:6px 10px; }
@@ -377,11 +377,11 @@ input::-moz-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size: 13p
 input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size: 13px; }
 .ui-autocomplete-input:focus { color: #4d5057; }
 
-input[type="checkbox"], input[type="checkbox"]:checked{appearance: none; -webkit-appearance:none;  background:#fff url("http://img.aeplcdn.com/bikewaleimg/m/images/inputUnchecked.png?v=150915") no-repeat 0 0; background: #fff\0; }
-input[type="checkbox"]:checked {background:#fff url("http://img.aeplcdn.com/bikewaleimg/m/images/inputChecked.png?v=150915") no-repeat 0 0; background: #fff\0;}
+input[type="checkbox"], input[type="checkbox"]:checked{appearance: none; -webkit-appearance:none;  background:#fff url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/inputUnchecked.png?v=150915") no-repeat 0 0; background: #fff\0; }
+input[type="checkbox"]:checked {background:#fff url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/inputChecked.png?v=150915") no-repeat 0 0; background: #fff\0;}
 
-input[type="radio"], input[type="radio"]:checked{appearance: none; -webkit-appearance:none;  background:#fff url("http://img.aeplcdn.com/bikewaleimg/m/images/radio-unchecked.png?v=150915") no-repeat 0 0; background: #fff\0; }
-input[type="radio"]:checked {background:#fff url("http://img.aeplcdn.com/bikewaleimg/m/images/radio-checked.png?v=150915") no-repeat 0 0; background: #fff\0;}
+input[type="radio"], input[type="radio"]:checked{appearance: none; -webkit-appearance:none;  background:#fff url("http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/radio-unchecked.png?v=150915") no-repeat 0 0; background: #fff\0; }
+input[type="radio"]:checked {background:#fff url("http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/radio-checked.png?v=150915") no-repeat 0 0; background: #fff\0;}
 
 .form-control-box { position: relative; }
 .form-control, .ui-input-text input, .ui-input-search input, .ui-select .ui-btn { display: block; width: 100%; padding: 10px; line-height: 1.42857143; color: #4d5057; position: relative;
@@ -398,8 +398,8 @@ select,textarea.ui-input-text	{ border:1px solid #ccc; }
 .ui-select select{font-size:13px;}
 .ui-select .ui-btn{box-shadow:none;}
 .ui-select .ui-btn span{text-align:left;font-weight:normal;font-size:13px;}
-.ui-icon-carat-d:after{background-image:url(http://img.aeplcdn.com/bikewaleimg/m/images/dropArrowBg.png?v=150915); background-color: transparent;}
-.ui-icon-carat-r:after {background-image:url(http://img.aeplcdn.com/bikewaleimg/m/images/rightArrowBg.png?v=150915); background-color: transparent;}
+.ui-icon-carat-d:after{background-image:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v=150915); background-color: transparent;}
+.ui-icon-carat-r:after {background-image:url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/m/rightArrowBg.png?v=150915); background-color: transparent;}
 .ui-select .ui-btn:hover{background:#ffffff;}
 textarea.ui-input-text.ui-textinput-autogrow{border-color:#ccc;}
 
@@ -456,12 +456,12 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 
 /* sprite classes */
-.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v=22122015) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?v=4Mar2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
 .headerTitle { position:relative; top:-2px; left:-10px;}
-.white-back-arrow{background:url("http://img.aeplcdn.com/bikewaleimg/m/images/white-back-arrow.png") no-repeat scroll left top; width: 27px; height: 20px; cursor: pointer; position: relative; top:0; display: block; }
+.white-back-arrow{background:url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/white-back-arrow.png") no-repeat scroll left top; width: 27px; height: 20px; cursor: pointer; position: relative; top:0; display: block; }
 .white-back-arrow:hover{background-position:left top;}
 .bw-logo { background-position: -31px 0px; width: 121px; height: 24px; }
 .bw-logo.bw-lg-fixed-position { position: absolute; left: 52px; }
@@ -643,7 +643,7 @@ footer .border-solid-top {
 .bg-light-grey-with-alpha { background: rgba(242, 242, 243, 0.9); }
 .bg-grey { background: #e1e1e1; }
 .bg-dark-grey { background: #333333; }
-.bg-footer { background: #323434 url(http://img.aeplcdn.com/bikewaleimg/m/images/bg-footer.jpg?v=150915) no-repeat center top; background-size:cover; }
+.bg-footer { background: #323434 url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/bg-footer.jpg?v=150915) no-repeat center top; background-size:cover; }
 
 .margin-left5 { margin-left: 5px; }
 .margin-left10 { margin-left: 10px; }
@@ -802,15 +802,15 @@ footer .border-solid-top {
 .ui-listview > li > a.ui-btn {font-size:13px; border-color: #ccc; font-weight:normal;}
 .ui-popup-screen.ui-overlay-a{background-color:#000;}
 
-.ui-select a.ui-btn{font-size: 13px;font-weight:normal;text-align: left; background:#fff url(http://img.aeplcdn.com/bikewaleimg/m/images/dropArrowBg.png?v=150915) no-repeat 96% 50%; }
-.ui-select a.ui-btn:hover,.ui-select a.ui-btn:focus{background:#fff url(http://img.aeplcdn.com/bikewaleimg/m/images/dropArrowBg.png?v=150915) no-repeat 96% 50%;}
+.ui-select a.ui-btn{font-size: 13px;font-weight:normal;text-align: left; background:#fff url(http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v=150915) no-repeat 96% 50%; }
+.ui-select a.ui-btn:hover,.ui-select a.ui-btn:focus{background:#fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v=150915) no-repeat 96% 50%;}
 .filtered-list{border-radius:0;}
 .divAutoSuggest .filtered-list li .ui-btn{font-size:13px;font-weight:normal; background:#fff; border-bottom:none; text-shadow:none;}
 
 .back-to-top {bottom: 30px;position: fixed;z-index:8; right: 20px;display:none;}
 .back-to-top a {color: #d1d1d1;display: block;text-align: center;text-decoration: none;transition: color 1s ease 0s;width: 30px;}
 .back-to-top a:hover span {background-color: rgb(0, 0, 0);}
-.back-to-top span {background: #cb2100 url("http://img1.aeplcdn.com/tyreguide/up-arrow.png") no-repeat scroll center center;border-radius: 30px;cursor: pointer;display: block;height: 30px;margin-bottom: 7px;transition: all 1s ease 0s;width: 30px;}
+.back-to-top span {background: #cb2100 url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/up-arrow.png") no-repeat scroll center center;border-radius: 30px;cursor: pointer;display: block;height: 30px;margin-bottom: 7px;transition: all 1s ease 0s;width: 30px;}
 
 /* AutoExpo classes */
 .ae-sprite {background: url("http://imgd3.aeplcdn.com/0x0/cw/static/sprites/ae-sprite.png") no-repeat;display:inline-block;}

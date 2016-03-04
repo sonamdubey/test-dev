@@ -47,7 +47,7 @@
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
                             	                        <p class="margin-bottom10"><strong>Option 1: Vega Cruiser Helmet</strong></p>
-                                                        <img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg" class="margin-bottom10"/>
+                                                        <img src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/offer-list-pic1.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
                                         	                        <li>Scratch & Crack Resistant</li>
@@ -61,7 +61,7 @@
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
                             	                        <p class="margin-bottom10"><strong>Option 2: Replay Flip-up Helmet</strong></p>
-                                                        <img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic2.jpg" class="margin-bottom10"/>
+                                                        <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/offer-list-pic2.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
                                         	                        <li>Dual Full-cum-open face</li>
@@ -75,7 +75,7 @@
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
                             	                        <p class="margin-bottom10"><strong>Option 3: Vega Cliff Full Face Helmet</strong></p>
-                                                        <img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg" class="margin-bottom10"/>
+                                                        <img src="http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/offer-list-pic3.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
                                         	                        <li>ABS shell</li>

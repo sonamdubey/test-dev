@@ -44,8 +44,8 @@
                              
                     <div id="noImageAv" runat="server">
                         <li>
-                            <a href='http://img.aeplcdn.com/adgallery/no-img-big.png'>
-				                <img src='http://img.aeplcdn.com/adgallery/no-img-thumb.png' border="0" style="height:70px;" title='No Images Available' alt='No Images Available' />
+                            <a href='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/no-img-big.png'>
+				                <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/no-img-thumb.png' border="0" style="height:70px;" title='No Images Available' alt='No Images Available' />
 			                </a>
                         </li>                          
                     </div>      

@@ -12,72 +12,72 @@ namespace Bikewale.Utility
         static readonly string halfStar = "star-half-icon";
         static readonly string noStar = "star-zero-icon";
 //        #region ratingsStaticOld
-//        static readonly string ZeroRating = @"<img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string ZeroRating = @"<img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                            <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                            <img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                            <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                            <img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>";
 
-//        static readonly string HalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/half.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string HalfRating = @"<img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.png'>
+//                                            <img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                            <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                            <img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                            <img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>";
 
-//        static readonly string OneRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string OneRating = @"<img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                          <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                          <img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                          <img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                          <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>";
 
-//        static readonly string OneHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                              <img src='http://img.aeplcdn.com/images/ratings/half.png'>
-//                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string OneHalfRating = @"<img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                              <img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.png'>
+//                                              <img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                              <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                              <img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>";
 
-//        static readonly string TwoRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                          <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string TwoRating = @"<img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                          <img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                          <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                          <img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                          <img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>";
 
-//        static readonly string TwoHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                              <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                              <img src='http://img.aeplcdn.com/images/ratings/half.png'>
-//                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string TwoHalfRating = @"<img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                              <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                              <img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.png'>
+//                                              <img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                              <img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>";
 
 
-//        static readonly string ThreeRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string ThreeRating = @"<img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                            <img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                            <img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                            <img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>
+//                                            <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>";
 
-//        static readonly string ThreeHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                                <img src='http://img.aeplcdn.com/images/ratings/half.png'>
-//                                                <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string ThreeHalfRating = @"<img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                                <img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                                <img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                                <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.png'>
+//                                                <img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>";
 
-//        static readonly string FourRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string FourRating = @"<img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                            <img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                            <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                            <img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                            <img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>";
 
-//        static readonly string FourHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                                <img src='http://img.aeplcdn.com/images/ratings/half.png'>";
+//        static readonly string FourHalfRating = @"<img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                                <img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                                <img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                                <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                                <img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.png'>";
 
-//        static readonly string FiveRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>"; 
+//        static readonly string FiveRating = @"<img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                            <img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                            <img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                            <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>
+//                                            <img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>"; 
 //        #endregion
 
         static readonly string ZeroRating = String.Format("<span class='{0}'></span><span class='{0}'></span><span class='{0}'></span><span class='{0}'></span><span class='{0}'></span>",noStar);
@@ -96,9 +96,9 @@ namespace Bikewale.Utility
 
         public static string GetRateImage(double value)
         {
-         /*   string oneImg = "<img src='http://img.aeplcdn.com/images/ratings/1.png'>";
-            string zeroImg = "<img src='http://img.aeplcdn.com/images/ratings/0.png'>";
-            string halfImg = "<img src='http://img.aeplcdn.com/images/ratings/half.png'>";
+         /*   string oneImg = "<img src='http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.png'>";
+            string zeroImg = "<img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.png'>";
+            string halfImg = "<img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.png'>";
 
             StringBuilder sb = new StringBuilder();
             int absVal = (int)Math.Floor(value);

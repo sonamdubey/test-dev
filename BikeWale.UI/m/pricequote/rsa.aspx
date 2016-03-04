@@ -12,7 +12,7 @@
             <!--header starts here-->
             <div class="rsa-header">
                 <div>
-                    <img src="http://img1.carwale.com/bikewaleimg/images/bikebooking/images/rsa-logo.png" border="0">
+                    <img src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/rsa-logo.png" border="0">
                 </div>
                 <div class="header-seperator"></div>
                 <div class=" new-line10">

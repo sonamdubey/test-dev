@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
 /* CSS Document */
-/*header { background: #161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/home-top-banner.jpg?v=150915) no-repeat scroll right top; background-size:cover;}*/
+/*header { background: #161209 url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/home-top-banner.jpg?v=15015) no-repeat scroll right top; background-size:cover;}*/
 .btn-search { position:absolute; padding:8px 12px 9px; top: 1px; right:1px; border-top-left-radius: 0;border-bottom-left-radius: 0;height:41px;}
 
 .bike-booking-online-wrapper .swiper-slide{width:300px;}
@@ -9,7 +9,7 @@
 .booking-online-pic {width:130px; height:92px; margin:0 auto; position:relative; top:35px; border:1px solid #ddd\9; -moz-box-shadow:0px 2px 5px #ccc; -o-box-shadow:0px 2px 5px #ccc; -webkit-box-shadow:0px 2px 5px #ccc; -ms-box-shadow:0px 2px 5px #ccc; box-shadow:0px 2px 5px #ccc;}
 
 /* booking comforts sprite */
-.bookingcomforts-sprite { background:url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-comforts-sprite.png?v=150915) no-repeat; display:inline-block;}
+.bookingcomforts-sprite { background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/booking-comforts-sprite.png?v=4Mar2016) no-repeat; display:inline-block;}
 .get-price-icon { background-position:0 0; width:64px; height:44px; position:relative; top:22px;}
 .get-deal-icon { background-position:-74px 0; width:80px; height:57px; position:relative; top:18px;}
 .save-visit-icon { background-position:-164px 0; width:73px; height:59px; position:relative; top:18px;}
@@ -37,7 +37,7 @@
 
 
 /* style-container */
-.styletypesprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/style-type-sprite.png?v=150915) no-repeat; display: inline-block;  }
+.styletypesprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/style-type-sprite.png?v=150915) no-repeat; display: inline-block;  }
 .style-scooters, .style-street, .style-cruiser, .style-sports { width:77px; height:45px; }
 .style-scooters { background-position: 0 0; }
 .style-type-container ul li:hover .style-scooters { background-position: 0 -54px; }

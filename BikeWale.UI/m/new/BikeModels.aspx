@@ -1417,7 +1417,7 @@
             </div>
             <h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                <img src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" />
+                <img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
             </div>
             <div id="terms" class="breakup-text-container padding-bottom10 font14">
             </div>

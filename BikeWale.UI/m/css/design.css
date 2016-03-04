@@ -41,8 +41,8 @@ a.normal {color:#252628!important;text-decoration:none;font-weight:normal!import
 .head-big {font-size:18px;color:#252628;}
 .container { border-bottom: 1px solid #DBDCDE; padding: 10px 5px;}
 .box .heading {font-size:16px;color:#1f1f21;line-height:18px;}
-.box .plus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://img.aeplcdn.com/bikewaleimg/images/icons-sheet.png?v=150915");background-position: -2px -248px;}
-.box .minus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://img1.aeplcdn.com/bikewaleimg/images/icons-sheet.png?v=150915");background-position: -2px -272px;}
+.box .plus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=150915");background-position: -2px -248px;}
+.box .minus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=150915");background-position: -2px -272px;}
 .box .sub-heading {font-size:13px;color:#242426;}
 .bot-rad-0 {border-bottom-left-radius:0px;-moz-border-radius-bottomleft:0px;-webkit-border-bottom-left-radius:0px;border-bottom-right-radius:0px;;-moz-border-radius-bottomright:0px;-webkit-border-bottom-right-radius:0px;border-bottom:0px;}
 .ext {border-top:0px;margin:0px;height:auto;padding:0px 5px;border-top-left-radius:0px;;-moz-border-radius-topleft:0px;-webkit-border-top-left-radius:0px;border-top-right-radius:0px;;-moz-border-radius-topright:0px;-webkit-border-top-right-radius:0px;}
@@ -52,15 +52,15 @@ a.normal {color:#252628!important;text-decoration:none;font-weight:normal!import
 .box, .box1, .box-bot {border: 1px solid #e2e2e2;background-color:#ffffff;padding:10px 10px;-moz-box-shadow: 0 1px 2px #e5e5e5; -webkit-box-shadow: 0 1px 2px #e5e5e5; -o-box-shadow: 0 1px 2px #e5e5e5; -ms-box-shadow: 0 1px 2px #e5e5e5; box-shadow: 0 1px 2px #e5e5e5; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px;position:relative;}
 .box1 .sub-heading {font-size:13px;color:#242426;}
 .box1 .heading {font-size:16px;color:#1f1f21;line-height:18px;}
-.box1 .plus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://img2.aeplcdn.com/bikewaleimg/images/icons-sheet.png?v=150915");background-position: -2px -248px;}
-.box1 .minus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://img3.aeplcdn.com/bikewaleimg/images/icons-sheet.png?v=150915");background-position: -2px -272px;}
+.box1 .plus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=150915");background-position: -2px -248px;}
+.box1 .minus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=150915");background-position: -2px -272px;}
 .head-big {font-size:18px;color:#252628;}
 .head-big-desc {color:#5d5d5d;}
 .table {width:100%;border:0px;}
 .aro-par {vertical-align:middle;width:16px;}
 .aro-par-small {vertical-align:middle;width:8px;}
-.aro-big {width:16px;height:21px;background-image: url("http://img.aeplcdn.com/bikewaleimg/images/icons-sheet.png?v=150915");background-position: -2px -93px;}
-.aro-small {width:8px;height:8px;background-image: url("http://img1.aeplcdn.com/bikewaleimg/images/icons-sheet.png?v=150915");background-position: -2px -124px;}
+.aro-big {width:16px;height:21px;background-image: url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=150915");background-position: -2px -93px;}
+.aro-small {width:8px;height:8px;background-image: url("http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=150915");background-position: -2px -124px;}
 .f-10 {font-size:10px;}
 .f-11 {font-size:11px;}
 .f-12 {font-size:12px}
@@ -95,21 +95,21 @@ a.normal {color:#252628!important;text-decoration:none;font-weight:normal!import
 .divCompareBikeMenu .white {color:white!important;}
 .compareBikeItemBorder-Rt {border-right:1px solid #F2F2F2;}
 .compareBikeItemContainer {background-color:#f2f2f2;font-weight:bold;}
-.cc-sprite{background: url("http://img.aeplcdn.com/bikewaleimg/images/icons-sheet.png?v=150915") no-repeat scroll 0 0 transparent;display: inline-block; }
+.cc-sprite{background: url("http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=150915") no-repeat scroll 0 0 transparent;display: inline-block; }
 .grey-tick{background-position: 0 -1117px;height: 20px;width: 24px;}
 .grey-cross{background-position: 0 -1187px;height: 16px;width: 16px;}
 .grey-none{background-position: 0 -1213px;height: 16px;width: 16px;}
-.rightMinus {width:18px;height:18px;background-image: url('http://img1.aeplcdn.com/bikewaleimg/images/icons-sheet.png?v=150915');background-position: -2px -272px; float:right;}
-.rightPlus {width:18px;height:18px;background-image: url('http://img2.aeplcdn.com/bikewaleimg/images/icons-sheet.png?v=150915');background-position: -2px -248px; float:right;}
+.rightMinus {width:18px;height:18px;background-image: url('http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=150915');background-position: -2px -272px; float:right;}
+.rightPlus {width:18px;height:18px;background-image: url('http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=150915');background-position: -2px -248px; float:right;}
 .colorBox {height:40px;width:40px;margin:auto;text-shadow:none;}
 .subCategoryBorder {border-top:1px solid #F2F2F2;}
-.tagNew {position:absolute;top:-12px;left:-6px;height:37px;background-image: url('http://img3.aeplcdn.com/bikewaleimg/images/icons-sheet.png?v=150915');background-position: 0px -1232px;width:42px;}
+.tagNew {position:absolute;top:-12px;left:-6px;height:37px;background-image: url('http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=150915');background-position: 0px -1232px;width:42px;}
 .colorborderLt {border-left:1px solid #BBBBBB;}
 .colorborderRt {border-right:1px solid #BBBBBB;}
 .showroom {text-align:center;}
 .box2 {border:1px solid #b3b4c6;background-color:#ffffff;position:relative;overflow:hidden;padding:0px;}
 .box2 img {border : none;}
-.linkButton {background-image: url("http://img.aeplcdn.com/bikewaleimg/images/nav.png?v=150915");background-position: 0 0;border-radius: 7px;color: #ffffff;height: 22px;line-height: 22px;padding: 3px 10px;text-align: center;text-decoration: none;}
+.linkButton {background-image: url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/nav.png?v=150915");background-position: 0 0;border-radius: 7px;color: #ffffff;height: 22px;line-height: 22px;padding: 3px 10px;text-align: center;text-decoration: none;}
 .colorDiv {vertical-align:top;}
 body { text-shadow:none;}
 

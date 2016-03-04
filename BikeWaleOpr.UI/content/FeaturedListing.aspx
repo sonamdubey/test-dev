@@ -70,7 +70,7 @@
                                     <% if(!String.IsNullOrEmpty(originalImgPath)){ %>
                                     <img id="imgFLPhoto" src="<%=BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostURL,"227X128",originalImgPath) %>" />
                                     <%} else { %>
-                                    <img src="http://img.carwale.com/bikewaleimg/common/nobike.jpg" width="140" height="80"/>
+                                    <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg" width="140" height="80"/>
                                     <% } %>
                                 </div>
 								<div class="detailShow"><input type="file" id="flphoto" accept="image/jpeg" runat="server" />

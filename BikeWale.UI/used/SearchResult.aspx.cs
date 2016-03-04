@@ -131,8 +131,8 @@ namespace Bikewale.Used
 
         //    if (sortCriteria == QsSortCriteria)
         //    {
-        //        sortImage = (QsSortOrder == "1" ? "<img src='http://img.aeplcdn.com/used/sorting-down.png' border='0' />" :
-        //                        "<img src='http://img.aeplcdn.com/used/sorting-up.png' border='0' />");
+        //        sortImage = (QsSortOrder == "1" ? "<img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/sorting-down.png' border='0' />" :
+        //                        "<img src='http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/sorting-up.png' border='0' />");
         //    }
 
         //    return sortImage;

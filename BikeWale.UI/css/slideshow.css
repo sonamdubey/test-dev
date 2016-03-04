@@ -18,28 +18,28 @@
     The following rules are ordered and tabbed in a way that represents the
     order/nesting of the generated HTML, so that the structure easier to understand.
 */
-#cboxOverlay{background:url(http://img.aeplcdn.com/cw-common/slide/overlay.png) 0 0 repeat;}
+#cboxOverlay{background:url(http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/overlay.png) 0 0 repeat;}
 #colorbox{}
-    #cboxTopLeft{width:21px; height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -100px 0 no-repeat;}
-    #cboxTopRight{width:21px; height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -129px 0 no-repeat;}
-    #cboxBottomLeft{width:21px; height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -100px -29px no-repeat;}
-    #cboxBottomRight{width:21px; height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -129px -29px no-repeat;}
-    #cboxMiddleLeft{width:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) left top repeat-y;}
-    #cboxMiddleRight{width:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) right top repeat-y;}
-    #cboxTopCenter{height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/border.png) 0 0 repeat-x;}
-    #cboxBottomCenter{height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/border.png) 0 -29px repeat-x;}
+    #cboxTopLeft{width:21px; height:21px; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) -100px 0 no-repeat;}
+    #cboxTopRight{width:21px; height:21px; background:url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) -129px 0 no-repeat;}
+    #cboxBottomLeft{width:21px; height:21px; background:url(http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) -100px -29px no-repeat;}
+    #cboxBottomRight{width:21px; height:21px; background:url(http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) -129px -29px no-repeat;}
+    #cboxMiddleLeft{width:21px; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) left top repeat-y;}
+    #cboxMiddleRight{width:21px; background:url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) right top repeat-y;}
+    #cboxTopCenter{height:21px; background:url(http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/border.png) 0 0 repeat-x;}
+    #cboxBottomCenter{height:21px; background:url(http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/border.png) 0 -29px repeat-x;}
     #cboxContent{background:#fff;}
         #cboxLoadedContent{margin-bottom:28px;}
         #cboxTitle{position:absolute; bottom:3px; left:0; text-align:center; width:100%; color:#949494;}
         #cboxCurrent{position:absolute; bottom:3px; left:58px; color:#949494;}
         #cboxSlideshow{position:absolute; bottom:3px; right:30px; color:#0092ef;}
-        #cboxPrevious{position:absolute; bottom:0; left:0px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -75px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+        #cboxPrevious{position:absolute; bottom:0; left:0px; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) -75px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
         #cboxPrevious.hover{background-position:-75px -25px;}
-        #cboxNext{position:absolute; bottom:0; left:27px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -50px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+        #cboxNext{position:absolute; bottom:0; left:27px; background:url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) -50px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
         #cboxNext.hover{background-position:-50px -25px;}
-        #cboxLoadingOverlay{background:url(http://img.aeplcdn.com/cw-common/slide/loading_background.png) center center no-repeat;}
-        #cboxLoadingGraphic{background:url(http://img.aeplcdn.com/cw-common/load.gif) center center no-repeat;}
-        #cboxClose{position:absolute; bottom:0; right:0; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -25px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+        #cboxLoadingOverlay{background:url(http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/loading-background.png) center center no-repeat;}
+        #cboxLoadingGraphic{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/load.gif) center center no-repeat;}
+        #cboxClose{position:absolute; bottom:0; right:0; background:url(http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) -25px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
         #cboxClose.hover{background-position:-25px -25px;}
 
 /*
@@ -52,11 +52,11 @@
     !! Important Note: AlphaImageLoader src paths are relative to the HTML document,
     while regular CSS background images are relative to the CSS document.
 */
-.cboxIE #cboxTopLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderTopLeft.png, sizingMethod='scale');}
-.cboxIE #cboxTopCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderTopCenter.png, sizingMethod='scale');}
-.cboxIE #cboxTopRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderTopRight.png, sizingMethod='scale');}
-.cboxIE #cboxBottomLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderBottomLeft.png, sizingMethod='scale');}
-.cboxIE #cboxBottomCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderBottomCenter.png, sizingMethod='scale');}
-.cboxIE #cboxBottomRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderBottomRight.png, sizingMethod='scale');}
-.cboxIE #cboxMiddleLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderMiddleLeft.png, sizingMethod='scale');}
-.cboxIE #cboxMiddleRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderMiddleRight.png, sizingMethod='scale');}
+.cboxIE #cboxTopLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/borderTopLeft.png, sizingMethod='scale');}
+.cboxIE #cboxTopCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/borderTopCenter.png, sizingMethod='scale');}
+.cboxIE #cboxTopRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/borderTopRight.png, sizingMethod='scale');}
+.cboxIE #cboxBottomLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/borderBottomLeft.png, sizingMethod='scale');}
+.cboxIE #cboxBottomCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/borderBottomCenter.png, sizingMethod='scale');}
+.cboxIE #cboxBottomRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/borderBottomRight.png, sizingMethod='scale');}
+.cboxIE #cboxMiddleLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/borderMiddleLeft.png, sizingMethod='scale');}
+.cboxIE #cboxMiddleRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/borderMiddleRight.png, sizingMethod='scale');}
