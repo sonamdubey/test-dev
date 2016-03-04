@@ -102,7 +102,7 @@
 .color-box.blue {background:#3749a4;}
 
 /* model sprite classes */
-.model-sprite { background:url(http://img.aeplcdn.com/bikewaleimg/m/images/model-sprite.png?v=27012016v1) no-repeat; display:inline-block;}
+.model-sprite { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/model-sprite.png?v=4Mar2016) no-repeat; display:inline-block;}
 .benefit-offers-ico { background-position:0 0; width:25px; height:28px; }
 .benefit-dealer-visits-ico { background-position:0 -38px; width:34px; height:22px; }
 .benefit-assistance-ico { background-position:0 -70px; width:27px; height:30px; }
@@ -132,7 +132,7 @@
 .breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
 
 .upcoming-text-label{background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:-10px}
-.upcoming-text-label:after{content: "";background:url(http://img.aeplcdn.com/bikewaleimg/m/images/upcoming-ribbon.png?v=27012016v1) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
+.upcoming-text-label:after{content: "";background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=4Mar2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
 .reviews-rating{width:45%;}
 #ctrlExpertReviews li{min-height:236px;height:auto;}
 #ctrlExpertReviews li .front{height:100%;}
@@ -221,7 +221,7 @@
 .contact-icon { background-position: -107px -280px; }
 .call-icon { background-position: -107px -135px; }
 
-.offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
+.offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
 .bike-details-list-ul { list-style:disc; margin-left:18px; }
 #faqSlug .icon-outer-container { width:82px; height:82px; }
 #faqSlug .icon-inner-container { width:72px; height:72px; }

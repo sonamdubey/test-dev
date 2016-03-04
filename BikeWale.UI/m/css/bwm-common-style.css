@@ -67,7 +67,7 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 }
 .form-control:focus, input[type="text"]:focus, input[type="number"]:focus, input[type="search"]:focus, textarea:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  background:#fff url(http://img.aeplcdn.com/bikewaleimg/m/images/dropArrowBg.png) no-repeat 96% 50%; padding-right: 30px;  background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  background:#fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png) no-repeat 96% 50%; padding-right: 30px;  background: #fff\0; padding-right: 5px\0; }
 
 .input-xs { padding: 5px 10px; }
 .input-sm { padding: 8px 10px; }
@@ -120,7 +120,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 #appBanner { background:#e2e2e2; padding:5px 5px 0; position:relative; overflow:hidden; }
 .app-banner-img-container { float:left; width:130px; height:95px; position:relative; margin-right:12px; }
 .app-banner-img-container img { position:absolute; bottom:0; }
-.banner-close-btn { width:30px; height:30px; background: url("http://img.aeplcdn.com/bikewaleimg/m/images/banner-close-btn.png") no-repeat; position:absolute; top:0; right:0; cursor:pointer; }
+.banner-close-btn { width:30px; height:30px; background: url("http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/banner-close-btn.png") no-repeat; position:absolute; top:0; right:0; cursor:pointer; }
 .app-banner-text-container { float:left; }
 .app-banner-btn-container { padding:10px 25px 10px 0; }
 .app-banner-btn-container .btn { padding:6px 10px; }
@@ -264,7 +264,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .swiper-scrollbar-drag { height: 100%; width: 100%; position: relative; background: rgba(0, 0, 0, 0.5); border-radius: 10px; left: 0; top: 0; }
 .swiper-scrollbar-cursor-drag { cursor: move; }
 /* Preloader */
-.swiper-lazy-preloader { background: url("http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif") no-repeat center center; width: 16px; height: 16px; position: absolute; left: 50%; top: 50%; margin-left: -8px; margin-top: -8px; }
+.swiper-lazy-preloader { background: url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif") no-repeat center center; width: 16px; height: 16px; position: absolute; left: 50%; top: 50%; margin-left: -8px; margin-top: -8px; }
 
 .swiper-container .yt-iframe-preview{position:relative; z-index:8;backface-visibility: hidden;-webkit-backface-visibility: hidden;-moz-backface-visibility: hidden;-ms-backface-visibility: hidden;-o-backface-visibility: hidden;}
 .swiper-container .overlay{position:absolute; left:0; right:0; top:0; bottom:0; z-index:8;}
@@ -316,14 +316,14 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .navUL li a:hover span.nav-drop { color: #1a1a1a; }
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
-.banner-home { height: 268px; background: #161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/home-top-banner.jpg) no-repeat scroll center top;  background-size: cover; }
+.banner-home { height: 268px; background: #161209 url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/home-top-banner.jpg) no-repeat scroll center top;  background-size: cover; }
 /* sprite classes */
-.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v1=2Mar2016v1) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?v1=4Mar2016v1) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
 .headerTitle { position:relative; top:-2px; left:-10px;}
-.white-back-arrow{background:url("http://img.aeplcdn.com/bikewaleimg/m/images/white-back-arrow.png") no-repeat scroll left top; width: 27px; height: 20px; cursor: pointer; position: relative; top:0; display: block; }
+.white-back-arrow{background:url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/white-back-arrow.png") no-repeat scroll left top; width: 27px; height: 20px; cursor: pointer; position: relative; top:0; display: block; }
 .white-back-arrow:hover{background-position:left top;}
 .bw-logo { background-position: -31px 0px; width: 84px; height: 24px; }
 .bw-logo.bw-lg-fixed-position { position: absolute; left: 52px; }
@@ -360,7 +360,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .inr-md-icon { width:11px; height:18px; background-position:-56px -35px; }
 .inr-lg-icon { width:13px; height:21px; background-position:-76px -34px; }
 .inr-xlg-icon { width:16px; height:22px; background-position:-56px -63px; }
-.fa-spinner { width:16px; height:16px; background:#fff url(http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif) no-repeat; }
+.fa-spinner { width:16px; height:16px; background:#fff url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat; }
 /* nav classes */
 .home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .insurance-icon, .cancellation-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
 .home-icon { background-position: 0 -58px; }
@@ -517,7 +517,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .bg-light-grey-with-alpha { background: rgba(242, 242, 243, 0.9); }
 .bg-grey { background: #e1e1e1; }
 .bg-dark-grey { background: #333333; }
-.bg-footer { background: #323434 url(http://img.aeplcdn.com/bikewaleimg/m/images/bg-footer.jpg) no-repeat center top; background-size:cover; }
+.bg-footer { background: #323434 url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/bg-footer.jpg) no-repeat center top; background-size:cover; }
 
 .margin-left5 { margin-left: 5px; }
 .margin-left10 { margin-left: 10px; }
@@ -682,7 +682,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 /* carousel end */
 
 /* new classes for circle icon sprite */
-.bwm-circle-icon { background:url(http://img.aeplcdn.com/bikewaleimg/m/images/bw-circle-icon.png) no-repeat; display:inline-block; }
+.bwm-circle-icon { background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bw-circle-icon.png) no-repeat; display:inline-block; }
 .getfinalprice-icon, .locatedealer-icon, .userreview-icon, .checkcarvalue-icon, .sellcar-icon, .pq-no-name, .pq-no-mobile, .pq-no-email { width:92px; height:92px;}
 .getfinalprice-icon { background-position:0 0; }
 .locatedealer-icon { background-position:-102px 0; }
@@ -734,13 +734,13 @@ fieldset { border: 0; border-collapse:collapse; }
 .border-left1{border-left:1px solid #e2e2e2;}
 .border-top1{border-top:1px solid #e2e2e2;}
 footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
-.unchecked { background: url("http://img.aeplcdn.com/bikewaleimg/m/images/inputUnchecked.png?v=150915") no-repeat 0 center; }
-.checked { background: url("http://img.aeplcdn.com/bikewaleimg/m/images/inputChecked.png?v=150915") no-repeat 0 center; }
+.unchecked { background: url("http://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/inputUnchecked.png?v=150915") no-repeat 0 center; }
+.checked { background: url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/inputChecked.png?v=150915") no-repeat 0 center; }
 
 .back-to-top {bottom: 30px;position: fixed;width:30px; height:30px; z-index:8; right: 20px;display:none;}
 .back-to-top a {color: #d1d1d1;display: block;width:100%; height:100%;text-align: center;text-decoration: none;}
 .back-to-top a:hover span {background-color: rgb(0, 0, 0);}
-.back-to-top span {background: #cb2100 url("http://img1.aeplcdn.com/tyreguide/up-arrow.png") no-repeat scroll center center;cursor:pointer;border-radius: 50%;display: block;height: 100%;width: 100%;}
+.back-to-top span {background: #cb2100 url("http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/up-arrow.png") no-repeat scroll center center;cursor:pointer;border-radius: 50%;display: block;height: 100%;width: 100%;}
 
 .clearfix:before, .clearfix:after { content: " "; display: table; }
 .clearfix:after { clear: both; }

@@ -45,7 +45,7 @@
                         <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[0]["Price"].ToString()) %></div>
                         <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() != "0" ? "hide" : "" %>"><a class="fillPopupData" href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[0]["BikeVersionId"] %>" modelId="<%=bikeDetails.Rows[0]["Model"]%>">Check On-Road Price</a></div>
                     </div>
-                <div style="width:23px;height:24px;position:absolute;top:17px;z-index:1;right:-10px;background: url('http://img.aeplcdn.com/bikewaleimg/images/icons-sheet.png?v=5.2') no-repeat scroll 0 0 transparent;background-position: 0 -1148px;"></div></div>
+                <div style="width:23px;height:24px;position:absolute;top:17px;z-index:1;right:-10px;background: url('http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=5.2') no-repeat scroll 0 0 transparent;background-position: 0 -1148px;"></div></div>
             
                 <div style="position:relative;" class="compareBikeContainer">
                     <div class="compareBikeBox compareBikeBorder-Rt">
@@ -81,7 +81,7 @@
                     <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[0]["Price"].ToString()) %></div>
                     <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() != "0" ? "hide" : "" %>"><a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[0]["BikeVersionId"] %>" class="fillPopupData" modelId="<%=bikeDetails.Rows[0]["Model"]%>" >Check On-Road Price</a></div>
                 </div>
-            <div style="width:23px;height:24px;position:absolute;top:51.5px;z-index:1;right:-10px;background: url('http://img.aeplcdn.com/bikewaleimg/images/icons-sheet.png') no-repeat scroll 0 0 transparent;background-position: 0 -1148px;"></div></div>
+            <div style="width:23px;height:24px;position:absolute;top:51.5px;z-index:1;right:-10px;background: url('http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png') no-repeat scroll 0 0 transparent;background-position: 0 -1148px;"></div></div>
                 
             <div style="position:relative;" class="compareBikeContainer">
                 <div class="compareBikeBox colorborderLt">

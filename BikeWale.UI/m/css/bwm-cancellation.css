@@ -1,9 +1,9 @@
 ﻿@charset "utf-8";
 /* CSS Document */
-.booking-cancel-banner { background: #161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/insurance-banner.jpg) no-repeat scroll left bottom / cover ; height: 130px; }
+.booking-cancel-banner { background: #161209 url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/insurance-banner.jpg) no-repeat scroll left bottom / cover ; height: 130px; }
 
 /* booking cancellation sprite */
-.cancellation-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/cancel-booking-sprite.png) no-repeat; display: inline-block; }
+.cancellation-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/cancel-booking-sprite.png) no-repeat; display: inline-block; }
 .cancellation-tick-blue, .user-details-icon-selected, .cancellation-icon-selected, .confirmation-icon-selected, .cancellation-icon-grey, .confirmation-icon-grey { width:41px; height:41px; }
 .cancellation-tick-blue { background-position: -49px 0;}
 .user-details-icon-selected { background-position: 0 0;}

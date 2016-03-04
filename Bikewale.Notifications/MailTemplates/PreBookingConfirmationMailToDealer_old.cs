@@ -133,7 +133,7 @@ namespace Bikewale.Notifications.MailTemplates
                     {
                         sb.AppendFormat("<p style=\"padding:0 10px 0 0; margin:10px 0 5px;\"><span style=\" background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-grey-bullet.png) no-repeat center center; padding:0 20px 0 0;\"></span>Free Insurance for 1 year worth Rs. {0} at the dealership.</p>", InsuranceAmount);
                     }
-                    sb.Append("</div><div style=\"background:url(http://img.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat center center; height:2px; width:100%\"></div>");
+                    sb.Append("</div><div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/red-border.png) no-repeat center center; height:2px; width:100%\"></div>");
                 }
                 sb.Append("<div style=\"padding:10px 0;\"><p style=\" margin:7px 0;\">Please let us know when customer makes further payment / takes delivery, and we will transfer the pre-booking amount to your bank account.</p>");
                 sb.Append("<p style=\" margin:7px 0;\">Please feel free to call 8828305054 for any queries or help required in the process.</p></div>");

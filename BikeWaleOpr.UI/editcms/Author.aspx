@@ -3,7 +3,7 @@
 <!-- #Include file="/includes/headerNew.aspx" -->
 <style type="text/css">
 	.errMessage {color:#FF4A4A;}
-	.alert{background:url(http://img.carwale.com/cw-common/bg_alert.gif) repeat-x; padding:15px; border:1px solid #F7EC64;}
+	.alert{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/bg-alert.gif) repeat-x; padding:15px; border:1px solid #F7EC64;}
 	.moz-round{-moz-border-radius:3px;}
 </style>
 <div class="urh">

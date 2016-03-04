@@ -32,7 +32,7 @@
                 <div class="ins-content-box">
                     <span class="tag-txt">Sponsored</span>
                     <span class="sponsored-icon margin-bottom25"></span>
-                    <img src="http://img.aeplcdn.com/bikewaleimg/images/policy-boss-logo.png" alt="Policy Boss" width="94">
+                    <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/policy-boss-logo.png" alt="Policy Boss" width="94">
                     <p>
                         Save upto 60% on
                         <br />

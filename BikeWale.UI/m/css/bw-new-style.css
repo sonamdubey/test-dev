@@ -43,7 +43,7 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus, in
 .bottom-gray-btns a, .bottom-gray-btns a:hover { display:block; color:#fff!important; text-decoration:none; font-weight:bold; }
 .book-appointment { padding:10px; overflow-y:scroll; }
 .book-app-details li { width:50%; float:left; }
-.book-app-select .ui-icon-carat-d:after { background:url(http://img1.aeplcdn.com/bikewaleimg/images/bw-sprite.png?v=150915) no-repeat -15px -107px; width:20px; height:15px; display:block; margin:-8px -5px 0px 0px; }
+.book-app-select .ui-icon-carat-d:after { background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bw-sprite.png?v=150915) no-repeat -15px -107px; width:20px; height:15px; display:block; margin:-8px -5px 0px 0px; }
 .book-app-select div.ui-btn, .book-app-select div.ui-btn:hover { padding:10px 5px; background:#fff; border:1px solid #eaeaea; box-shadow:none; font-weight:normal; font-size:14px; text-align:left; }
 .book-app-select div.ui-btn:focus, .book-app-select div.ui-btn:active, .book-app-select div.ui-btn.ui-btn-active { color:#333; font-size:14px; font-weight:normal; text-shadow:none; }
 .bottom-info { padding-bottom:120px; }
@@ -66,7 +66,7 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus, in
 .width75 { width: 75%; }
 .light-opacity { opacity: 0.8; /* IE 5-7 */ filter: alpha(opacity=80); /* IE 8 */ -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; }
 /*-------------------------------------sprite classes-----------------------------------------------*/
-/*.bw-sprite { background:url(http://img1.aeplcdn.com/bikewaleimg/images/bw-sprite.png?v=150915) no-repeat; display:inline-block; }*/
+/*.bw-sprite { background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bw-sprite.png?v=150915) no-repeat; display:inline-block; }*/
 .close-btn { background-position:0px -82px; width:20px; height:20px; margin-top:10px; }
 .name-icon { background-position:0px -107px; width:10px; height:12px; margin:auto; }
 .mobile-icon { background-position:0px -124px; width:10px; height:12px; margin:auto; }
@@ -137,12 +137,12 @@ html>body .WebRupee {margin-right:3px; *margin-right:0;}
 .bwm-offer-pic img { width:100px;}
 /* bw sprite new classes */
 
-.unchecked-radio-icon { background:url(http://img.aeplcdn.com/bikewaleimg/m/images/radio-unchecked.png?v=150915) no-repeat center center; width:15px; height:15px;}
-.checked-radio-icon { background:url(http://img.aeplcdn.com/bikewaleimg/m/images/radio-checked.png?v=150915) no-repeat center center; width:15px; height:15px;}
+.unchecked-radio-icon { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/radio-unchecked.png?v=150915) no-repeat center center; width:15px; height:15px;}
+.checked-radio-icon { background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/radio-checked.png?v=150915) no-repeat center center; width:15px; height:15px;}
 .carouselH {max-width: 285px; margin: 0 auto;}
 .centerContent {text-align: left; margin-left: 60px;}
 .mainH { padding-top: 5px;}
-.m-carousel-hud .m-carousel-next, .m-carousel-hud .m-carousel-prev { background:url('http://img2.aeplcdn.com/bikewaleimg/images/bw-sprite.png?v=150915') no-repeat -67px -269px ; height: 20px; width: 12px; position:absolute; top: 168px;}
+.m-carousel-hud .m-carousel-next, .m-carousel-hud .m-carousel-prev { background:url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/bw-sprite.png?v=150915') no-repeat -67px -269px ; height: 20px; width: 12px; position:absolute; top: 168px;}
 .m-carousel-hud .m-carousel-prev { background-position: -47px -269px;}
 .carouselH li {background-position: 0 10px }
 .bw-offer-box.bw-offer-box-white { background: #fff;}

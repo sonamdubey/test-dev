@@ -1,9 +1,9 @@
-﻿.booking-landing-banner { background:#8d8c8a url(http://img.aeplcdn.com/bikewaleimg/m/images/m-booking-landing-banner.jpg) no-repeat center top; background-size:cover; height: 300px; padding-top: 1px; }
+﻿.booking-landing-banner { background:#8d8c8a url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/m-booking-landing-banner.jpg) no-repeat center top; background-size:cover; height: 300px; padding-top: 1px; }
 .booking-landing-search-container { margin-bottom:20px; width:100%; }
 .booking-landing-search-container .form-control { padding:8px; }
 .booking-search-city, .booking-search-area { width:50%; height: 40px; float:left;}
 .booking-search-city select, .booking-search-area select, .booking-search-city-form, .booking-search-area-form { width: 100%; height: 38px; color: #555; background:#fff; }
-.booking-search-city-form, .booking-search-area-form { padding:8px 25px 8px 8px; text-align:left; cursor:pointer; background: #fff url(http://img.aeplcdn.com/bikewaleimg/images/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; text-align:left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.booking-search-city-form, .booking-search-area-form { padding:8px 25px 8px 8px; text-align:left; cursor:pointer; background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; text-align:left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .booking-search-city select, .booking-search-area select { border: none; display:none; }
 .booking-search-area select { border:1px solid #ccc }
 .booking-landing-search-btn { width:44%; }
@@ -18,7 +18,7 @@
 .benefit-icon-outer-container { width:90px; height:90px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .benefit-icon-inner-container { width:80px; height:80px; margin:4px auto; background:#fff; border:1px solid #666; }
 
-.booking-landing-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/m-booking-landing-sprite.png) no-repeat; display: inline-block; }
+.booking-landing-sprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/m-booking-landing-sprite.png) no-repeat; display: inline-block; }
 .benefit-offers-icon { width:35px; height:37px; background-position:0 0; }
 .benefit-dealer-icon { width:45px; height:30px; background-position:-45px 0; }
 .benefit-assistance-icon { width:37px; height:43px; background-position:-100px 0; }
@@ -37,7 +37,7 @@
 .booking-icon-container, .booking-text-container { display:table-cell; vertical-align:middle; }
 .booking-icon-container { width:60px; height:40px; }
 
-#bookingWorksWrapper { background:#666 url(http://img.aeplcdn.com/bikewaleimg/m/images/m-booking-works-banner.jpg) no-repeat center; height:380px; background-size:cover; }
+#bookingWorksWrapper { background:#666 url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/m-booking-works-banner.jpg) no-repeat center; height:380px; background-size:cover; }
 #bookingWorksWrapper li { margin-bottom:20px; }
 #faqsWraper .swiper-container { width:100%; height:auto; }
 #faqsWraper .swiper-slide { width:270px; height:165px; line-height:1.7; padding:18px; background:#fff; border:1px solid #ccc; }
