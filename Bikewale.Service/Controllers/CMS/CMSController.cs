@@ -171,6 +171,8 @@ namespace Bikewale.Service.Controllers.CMS
         /// <summary>
         /// Modified By : Ashish G. Kamble.
         /// Summary : API to get details of article. This is api is used for the articles having multiple pages. e.g. Road Tests, Expert Reviews, Features.
+        /// Modified By : Sangram Nandkhile on 04 Mar 2016
+        /// Summary : Utility function to fetch shareurl is used
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>Article Details</returns>
@@ -262,6 +264,8 @@ namespace Bikewale.Service.Controllers.CMS
         /// <summary>
         /// Modified By : Ashish G. Kamble
         /// Summary : API to get details of article. This is api is used for the articles single page. e.g. News.
+        /// Modified By : Sangram Nandkhile on 04 Mar 2016
+        /// Summary : Utility function to fetch shareurl is used
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>News Details</returns>

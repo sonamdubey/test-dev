@@ -10,13 +10,15 @@ using Bikewale.Utility;
 namespace Bikewale.Service.Utilities
 {
     /// <summary>
-    /// Created by: Sangram Nandkhile on 04 Mar 2016
-    ///           : a class to hold create share url manipuation logic
+    /// Created by  :     Sangram Nandkhile on 03 Mar 2016
+    /// Summary     :     Class to hold create share url manipuation logic
+    ///           
     /// </summary>
     public class CMSShareUrl
     {
         /// <summary>
-        /// This function is used to create shareUrl for all the CMS article
+        /// Created by  :    Sangram Nandkhile on 03 Mar 2016
+        /// Summary     :    This function is used to create shareUrl for all the CMS article
         /// </summary>
         /// <param name="objCMSFArticles"></param>
         /// <returns></returns>
@@ -31,7 +33,10 @@ namespace Bikewale.Service.Utilities
         }
 
         /// <summary>
-        /// overload to fetch share URL for List<CMSArticleSummary>
+        /// Created by  :    Sangram Nandkhile on 03 Mar 2016
+        /// Summary     :    overload to fetch share URL for List<CMSArticleSummary>
+        /// Modified on :    04 Mar 2016
+        /// Summary     :    Removed switch case
         /// </summary>
         /// <param name="objCMSFArticles"></param>
         /// <returns></returns>
@@ -47,16 +52,10 @@ namespace Bikewale.Service.Utilities
         }
 
         /// <summary>
-        /// overload to fetch share URL for List<CMSArticlePageDetails>
-        /// </summary>
-        /// <param name="objCMSFArticles"></param>
-        /// <returns></returns>
-        public string GetShareUrl(CMSArticlePageDetails article)
-        {
-            return ReturnShareUrl(article);
-        }
-        /// <summary>
-        /// Common function to return shareurl as per categoryid of the article
+        /// Created by  :   Sangram Nandkhile on 03 Mar 2016
+        /// Summary     :   Common function to return shareurl as per categoryid of the article
+        /// Modified on :   04 Mar 2016
+        /// Summary     :   Switch case has been added to cater common function calls
         /// </summary>
         /// <param name="articleSummary"></param>
         /// <returns></returns>
@@ -68,16 +67,16 @@ namespace Bikewale.Service.Utilities
             {
                 case EnumCMSContentType.News:
                 case EnumCMSContentType.AutoExpo2016:
-                    articleSummary.ShareUrl = string.Format("{0}/news/{1}-{2}.html",_bwHostUrl,articleSummary.BasicId,articleSummary.ArticleUrl); //_bwHostUrl + "/news/" + articleSummary.BasicId + "-" + articleSummary.ArticleUrl + ".html";
+                    articleSummary.ShareUrl = string.Format("{0}/news/{1}-{2}.html",_bwHostUrl,articleSummary.BasicId,articleSummary.ArticleUrl);
                     break;
                 case EnumCMSContentType.Features:
-                    articleSummary.ShareUrl = string.Format("{0}/features/{1}-{2}/",_bwHostUrl,articleSummary.ArticleUrl,articleSummary.BasicId); // _bwHostUrl + "/features/" + articleSummary.ArticleUrl + "-" + articleSummary.BasicId; ;
+                    articleSummary.ShareUrl = string.Format("{0}/features/{1}-{2}/",_bwHostUrl,articleSummary.ArticleUrl,articleSummary.BasicId);
                     break;
                 case EnumCMSContentType.RoadTest:
-                    articleSummary.ShareUrl = string.Format("{0}/road-tests/{1}-{2}.html",_bwHostUrl,articleSummary.ArticleUrl,articleSummary.BasicId); //_bwHostUrl + "/road-tests/" + articleSummary.ArticleUrl + "-" + articleSummary.BasicId + ".html";
+                    articleSummary.ShareUrl = string.Format("{0}/road-tests/{1}-{2}.html",_bwHostUrl,articleSummary.ArticleUrl,articleSummary.BasicId);
                     break;
                 case EnumCMSContentType.SpecialFeature:
-                    articleSummary.ShareUrl = string.Format("{0}/features/{1}-{2}/",_bwHostUrl,articleSummary.ArticleUrl,articleSummary.BasicId);  //_bwHostUrl + "/features/" + articleSummary.ArticleUrl + "-" + articleSummary.BasicId+"/"; ;
+                    articleSummary.ShareUrl = string.Format("{0}/features/{1}-{2}/",_bwHostUrl,articleSummary.ArticleUrl,articleSummary.BasicId);
                     break;
                 default:
                     break;

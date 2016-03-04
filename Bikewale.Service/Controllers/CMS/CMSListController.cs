@@ -37,6 +37,8 @@ namespace Bikewale.Service.Controllers.CMS
         /// <summary>
         /// Modified By : Ashish G. Kamble
         /// Summary : API to get recent content of a specified category.
+        /// Modified By : Sangram Nandkhile on 04 Mar 2016
+        /// Summary : Utility function to fetch shareurl is used
         /// </summary>
         /// <param name="categoryId">Id of the category whose data is required.</param>      
         /// <param name="posts">No of records needed. should be greater than 0.</param>
@@ -92,6 +94,8 @@ namespace Bikewale.Service.Controllers.CMS
         /// <summary>
         /// Modified By : Ashish G. Kamble
         /// Summary : API to get recent content of a specified category for a particular make or model
+        /// Modified By : Sangram Nandkhile on 04 Mar 2016
+        /// Summary : Utility function to fetch shareurl is used
         /// </summary>
         /// <param name="categoryId">Id of the category whose data is required.</param>
         /// <param name="posts">No of records needed. should be greater than 0.</param>
@@ -159,6 +163,8 @@ namespace Bikewale.Service.Controllers.CMS
         /// <summary>
         /// Modified By : Ashish G. Kamble
         /// Summary : API to get recent content of specified category. This api returns data for given page number.
+        /// Modified By : Sangram Nandkhile on 04 Mar 2016
+        /// Summary : Utility function to fetch shareurl is used
         /// </summary>
         /// <param name="categoryId">Id of the category whose data is required.</param>        
         /// <param name="posts">No of records per page. Should be greater than 0.</param>
@@ -220,6 +226,8 @@ namespace Bikewale.Service.Controllers.CMS
         /// <summary>
         /// Modified By : Ashish G. Kamble
         /// Summary : API to get recent content of specified category for the given make or model. This api return data for given page number.
+        /// Modified By : Sangram Nandkhile on 04 Mar 2016
+        /// Summary : Utility function to fetch shareurl is used
         /// </summary>
         /// <param name="categoryId">Id of the category whose data is required.</param>
         /// <param name="makeId">Mandatory parameter.</param>
