@@ -188,30 +188,6 @@
                                 <li class="unchecked" filterid="<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"><span><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span></li>
                             </ItemTemplate>
                         </asp:Repeater>
-                        <%--<li class="unchecked" filterid="2"><span>Aprilia</span></li>
-                        <li class="unchecked" filterid="1"><span>Bajaj</span></li>
-                        <li class="unchecked" filterid="40"><span>Benelli</span></li>
-                        <li class="unchecked" filterid="3"><span>BMW</span></li>
-                        <li class="unchecked" filterid="4"><span>Ducati</span></li>
-                        <li class="unchecked" filterid="5"><span>Harley Davidson</span></li>
-                        <li class="unchecked" filterid="39"><span>Hero Electric</span></li>
-                        <li class="unchecked" filterid="6"><span>Hero</span></li>
-                        <li class="unchecked" filterid="7"><span>Honda</span></li>
-                        <li class="unchecked" filterid="8"><span>Hyosung</span></li>
-                        <li class="unchecked" filterid="34"><span>Indian</span></li>
-                        <li class="unchecked" filterid="17"><span>Kawasaki</span></li>
-                        <li class="unchecked" filterid="9"><span>KTM</span></li>
-                        <li class="unchecked" filterid="19"><span>LML</span></li>
-                        <li class="unchecked" filterid="10"><span>Mahindra</span></li>
-                        <li class="unchecked" filterid="20"><span>Moto Guzzi</span></li>
-                        <li class="unchecked" filterid="41"><span>MV Agusta</span></li>
-                        <li class="unchecked" filterid="11"><span>Royal Enfield</span></li>
-                        <li class="unchecked" filterid="12"><span>Suzuki</span></li>
-                        <li class="unchecked" filterid="22"><span>Triumph</span></li>
-                        <li class="unchecked" filterid="15"><span>TVS</span></li>
-                        <li class="unchecked" filterid="16"><span>Vespa</span></li>
-                        <li class="unchecked" filterid="13"><span>Yamaha</span></li>
-                        <li class="unchecked" filterid="14"><span>Yo</span></li>--%>
                     </ul>
                 </div>
             </div>
