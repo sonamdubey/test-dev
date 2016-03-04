@@ -441,7 +441,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 /* Brand sprite */
 .brandlogosprite { background-repeat:no-repeat; display: inline-block; }
-.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-enfeild, .brand-guzzi, .brand-harley, .brand-hero-elec, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-royal, .brand-agusta, .brand-um { height:50px; }
+.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-escorts, .brand-harleydavidson, .brand-hero, .brand-heroelectric, .brand-herohonda, .brand-honda, .brand-husqvarna, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-kinetic, .brand-ktm, .brand-lml, .brand-mahindra, .brand-motoguzzi, .brand-mv-agusta, .brand-piaggio, .brand-royalenfield, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-um, .brand-vespa, .brand-victory, .brand-yamaha, .brand-yo { height:50px; }
 
 .brand-aprilia { width: 87px; background-position: 0 0; }
 .brand-honda { width: 56px; background-position: -96px 0; }
@@ -457,16 +457,16 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .brand-ducati { width: 43px; background-position: -1123px 0; }
 .brand-ktm { width: 99px; background-position: -1176px 0; }
 .brand-vespa { width: 117px; background-position: -1285px 0; }
-.brand-harley { width: 59px; background-position: -1412px 0; }
+.brand-harleydavidson { width: 59px; background-position: -1412px 0; }
 .brand-lml { width: 122px; background-position: -1481px 0; }
 .brand-yamaha { width: 122px; background-position: -1613px 0; }
 .brand-hero { width: 63px; background-position: -1745px 0; }
 .brand-mahindra { width: 102px; background-position: -1818px 0; }
 .brand-yo { width: 127px; background-position: -1930px 0; }
-.brand-hero-elec { width: 89px; background-position: -2067px 0; }
-.brand-guzzi { width: 82px; background-position: -2166px 0; }
-.brand-royal { width: 121px; background-position: -2258px 0; }
-.brand-agusta { width:63px; background-position: -2389px 0; }
+.brand-heroelectric { width: 89px; background-position: -2067px 0; }
+.brand-motoguzzi { width: 82px; background-position: -2166px 0; }
+.brand-royalenfield { width: 121px; background-position: -2258px 0; }
+.brand-mv-agusta { width:63px; background-position: -2389px 0; }
 .brand-um { width:64px; background-position:-2461px 0; }
 
 /* News-Reviews-Videos New Bikes */

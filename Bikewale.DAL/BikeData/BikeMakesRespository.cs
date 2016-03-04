@@ -28,6 +28,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary : Function to get all makes base entities
         /// Modified By : Lucky Rathore
         /// Summary : Added HostUrl and LogoUrl for BikeMakeEntityBase in GetMakesByType function.
+        /// Modified by :   Sumit Kate on 03 Mar 2016
+        /// Description :   Updated SP GetBikeMakes_New_03032016. Populate PopularityIndex.
         /// </summary>
         /// <param name="makeType">Type of bike data</param>
         /// <returns>Returns list of type BikeMakeEntityBase</returns>
@@ -39,7 +41,7 @@ namespace Bikewale.DAL.BikeData
             
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetBikeMakes_New"))
+                using (SqlCommand cmd = new SqlCommand("GetBikeMakes_New_03032016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = makeType.ToString();
@@ -60,7 +62,8 @@ namespace Bikewale.DAL.BikeData
                                     MakeName = dr["NAME"].ToString(),
                                     MaskingName = dr["MaskingName"].ToString(),
                                     HostUrl = Convert.IsDBNull(dr["HostUrl"]) ? "" : dr["HostUrl"].ToString(),
-                                    LogoUrl = Convert.IsDBNull(dr["LogoUrl"]) ? "" : dr["LogoUrl"].ToString()                                    
+                                    LogoUrl = Convert.IsDBNull(dr["LogoUrl"]) ? "" : dr["LogoUrl"].ToString(),
+                                    PopularityIndex = Convert.IsDBNull(dr["PopularityIndex"]) ? default(UInt16) : Convert.ToUInt16(dr["PopularityIndex"])
                                 });
                             }
                         }

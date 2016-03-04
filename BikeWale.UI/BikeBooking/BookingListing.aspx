@@ -58,34 +58,20 @@
                                     <div id="filter-select-brand" name="makeIds" class="filter-selection-div filter-brand-list list-items hide">
                                         <span class="top-arrow"></span>
                                         <ul class="content-inner-block-10">
-                                            <li class="uncheck" filterid="7"><span>Honda</span></li>
-                                            <li class="uncheck" filterid="1"><span>Bajaj</span></li>
-                                            <li class="uncheck" filterid="6"><span>Hero</span></li>
-                                            <li class="uncheck" filterid="15"><span>TVS</span></li>
-                                            <li class="uncheck" filterid="11"><span>Royal Enfield</span></li>
-                                            <li class="uncheck" filterid="13"><span>Yamaha</span></li>
-                                            <li class="uncheck" filterid="12"><span>Suzuki</span></li>
-                                            <li class="uncheck" filterid="9"><span>KTM</span></li>
-                                            <li class="uncheck" filterid="10"><span>Mahindra</span></li>
+                                            <asp:Repeater ID="rptPopularBrand" runat="server">
+                                                <ItemTemplate>
+                                                    <li class="uncheck" filterid="<%# DataBinder.Eval(Container.DataItem, "MakeId").ToString() %>"><span><%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() %></span></li>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
                                         </ul>
                                         <div class="clear"></div>
                                         <div class="border-solid-top margin-left10 margin-right10"></div>
                                         <ul class="content-inner-block-10">
-                                            <li class="uncheck" filterid="2"><span>Aprilia</span></li>
-                                            <li class="uncheck" filterid="39"><span>Hero Electric</span></li>
-                                            <li class="uncheck" filterid="20"><span>Moto Guzzi</span></li>
-                                            <li class="uncheck" filterid="40"><span>Benelli</span></li>
-                                            <li class="uncheck" filterid="8"><span>Hyosung</span></li>
-                                            <li class="uncheck" filterid="41"><span>MV Agusta</span></li>
-                                            <li class="uncheck" filterid="3"><span>BMW</span></li>
-                                            <li class="uncheck" filterid="34"><span>Indian</span></li>
-                                            <li class="uncheck" filterid="22"><span>Triumph</span></li>
-                                            <li class="uncheck" filterid="4"><span>Ducati</span></li>
-                                            <li class="uncheck" filterid="17"><span>Kawasaki</span></li>
-                                            <li class="uncheck" filterid="16"><span>Vespa</span></li>
-                                            <li class="uncheck" filterid="5"><span>Harley Davidson</span></li>
-                                            <li class="uncheck" filterid="19"><span>LML</span></li>
-                                            <li class="uncheck" filterid="14"><span>Yo</span></li>
+                                            <asp:Repeater ID="rptOtherBrands" runat="server">
+                                                <ItemTemplate>
+                                                    <li class="uncheck" filterid="<%# DataBinder.Eval(Container.DataItem, "MakeId").ToString() %>"><span><%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() %></span></li>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
                                         </ul>
                                         <div class="clear"></div>
                                     </div>

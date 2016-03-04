@@ -1,7 +1,13 @@
 ﻿using Bikewale.BAL.Dealer;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Microsoft.Practices.Unity;
@@ -15,12 +21,13 @@ using System.Web.UI.WebControls;
 namespace Bikewale.BikeBooking
 {
     public class BookingListing : System.Web.UI.Page
-	{
+    {
         protected DropDownList bookingCitiesList, bookingAreasList;
         List<CityEntityBase> bookingCities = null;
         IEnumerable<AreaEntityBase> bookingAreas = null;
         protected uint cityId = 0, areaId = 0;
         protected string clientIP = String.Empty;
+        protected Repeater rptPopularBrand, rptOtherBrands;
 
         protected override void OnInit(EventArgs e)
         {
@@ -39,10 +46,44 @@ namespace Bikewale.BikeBooking
             dd.DetectDevice();
             CheckLocationCookie();
             GetDealerCities();
-        
-            clientIP = Bikewale.Common.CommonOpn.GetClientIP();
-            }
 
+            clientIP = Bikewale.Common.CommonOpn.GetClientIP();
+            BindRepeaters();
+        }
+        /// <summary>
+        /// Created by  :   Sumit Kate on 04 Mar 2016
+        /// Bind the Repeaters
+        /// </summary>
+        private void BindRepeaters()
+        {
+            IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            ;
+                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    makes = objCache.GetMakesByType(EnumBikeType.New);
+                    if (makes != null && makes.Count() > 0)
+                    {
+                        rptPopularBrand.DataSource = makes.Take(9);
+                        rptPopularBrand.DataBind();
+
+                        rptOtherBrands.DataSource = makes.Skip(9).OrderBy(m => m.MakeName);
+                        rptOtherBrands.DataBind();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindRepeaters");
+                objErr.SendMail();
+            }
+        }
 
         /// <summary>
         /// Created By : Sushil Kumar 
@@ -71,7 +112,7 @@ namespace Bikewale.BikeBooking
 
                         if (cityId > 0 && bookingCities.Any(p => p.CityId == cityId))
                         {
-                           GetDealerAreas();
+                            GetDealerAreas();
                         }
                         else
                         {
@@ -79,7 +120,7 @@ namespace Bikewale.BikeBooking
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
                         }
-                            
+
 
                     }
 
@@ -129,7 +170,7 @@ namespace Bikewale.BikeBooking
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
                         }
-                            
+
                     }
                 }
             }
@@ -173,7 +214,7 @@ namespace Bikewale.BikeBooking
                 }
             }
 
-            if(!isValid)
+            if (!isValid)
             {
                 Response.Redirect("/bikebooking/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -181,5 +222,5 @@ namespace Bikewale.BikeBooking
             }
 
         }
-	}
+    }
 }
