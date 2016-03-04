@@ -88,7 +88,6 @@
                                     <asp:Repeater ID="rptPopularBrand" runat="server">
                                         <ItemTemplate>
                                             <li>
-
                                                 <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>-bikes/">
                                                     <span class="brand-type">
                                                         <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>" data-original="http://img.aeplcdn.com/bikewaleimg/images/brand-type-sprite.png?<%= staticFileVersion %>"></span>
