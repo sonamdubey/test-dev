@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="BookingListing.aspx.cs" Inherits="Bikewale.m.bikebooking.BookingListing" Trace="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.bikebooking.BookingListing" Trace="false" %>
 
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!doctype html>
