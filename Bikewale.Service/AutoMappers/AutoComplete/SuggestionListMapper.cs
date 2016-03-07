@@ -13,7 +13,10 @@ namespace Bikewale.Service.AutoMappers.AutoComplete
         internal static List<DTO.AutoComplete.SuggestionList> Convert(IEnumerable<Nest.SuggestOption> objSuggestion)
         {
             Mapper.CreateMap<SuggestOption, SuggestionList>();
-            return Mapper.Map<List<SuggestOption>, List<SuggestionList>>(objSuggestion.ToList());
+            if (objSuggestion != null)
+                return Mapper.Map<List<SuggestOption>, List<SuggestionList>>(objSuggestion.ToList());
+            else
+                return null;
         }
     }
 }
