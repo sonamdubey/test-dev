@@ -311,7 +311,7 @@ namespace Bikewale.New
                     adString = "<img align=\"absmiddle\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/tick.gif\" />";
                     break;
                 case "False":
-                    adString = "<img align=\"absmiddle\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/delete.ico\" />";
+                    adString = "<span class=\"fa fa-times text-red font18\"></span>";
                     break;
                 default:
                     adString = "-";
