@@ -10,9 +10,9 @@ using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
-namespace Bikewale.m.videos
+namespace Bikewale.Mobile.Videos
 {
-    public class video : System.Web.UI.Page
+    public class Video : System.Web.UI.Page
     {
         protected BikeVideoEntity videoModel;
         protected SimilarVideos ctrlSimilarVideos;

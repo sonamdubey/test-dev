@@ -30,8 +30,11 @@ namespace Bikewale.Videos
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            //device detection
-            DeviceDetection dd = new DeviceDetection();
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
             BindLandingVideos();
