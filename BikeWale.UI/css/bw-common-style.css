@@ -696,10 +696,10 @@ a.action-btn:hover{text-decoration:none;}
 
 .border-red { border: 1px solid #F00; }
 .border-solid { border: 1px solid #ccc; }
-.border-solid-left { border-left: 1px solid #ccc; }
-.border-solid-right { border-right: 1px solid #ccc; }
-.border-solid-top { border-top: 1px solid #ccc; }
-.border-solid-bottom { border-bottom: 1px solid #ccc; }
+.border-solid-left { border-left: 1px solid #e2e2e2; }
+.border-solid-right { border-right: 1px solid #e2e2e2; }
+.border-solid-top { border-top: 1px solid #e2e2e2; }
+.border-solid-bottom { border-bottom: 1px solid #e2e2e2; }
 .border-no { border: none; }
 
 .cur-pointer { cursor: pointer; }

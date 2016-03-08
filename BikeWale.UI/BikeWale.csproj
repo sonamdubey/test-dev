@@ -1145,6 +1145,10 @@
       <DependentUpon>BookingSummary_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="pricequote\DealerPriceQuote_old.aspx.cs">
+      <DependentUpon>DealerPriceQuote_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="pricequote\DealerPriceQuote.aspx.cs">
       <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1735,6 +1739,7 @@
     <Content Include="css\css-new-photos.css" />
     <Content Include="css\css-research-photos.css" />
     <Content Include="css\datepicker.css" />
+    <Content Include="css\dealerpricequote.css" />
     <Content Include="css\global.css" />
     <Content Include="css\home.css" />
     <Content Include="css\images\animated-overlay.gif" />
@@ -2298,6 +2303,7 @@
     <Content Include="customerror.aspx" />
     <Content Include="pricequote\BikeDealerDetails.aspx" />
     <Content Include="pricequote\BookingSummary_New.aspx" />
+    <Content Include="pricequote\DealerPriceQuote_old.aspx" />
     <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
@@ -2306,6 +2312,7 @@
     <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common.js" />
     <Content Include="src\common\chosen.jquery.min.js" />
+    <Content Include="src\dealerpricequote.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
     <Content Include="m\src\loadPhotos.js" />
