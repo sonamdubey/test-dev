@@ -23,7 +23,7 @@
             <h1 class="font18"><%= pageHeading %></h1>
         </header>
         <section class="bg-white padding-top50 bottom-shadow margin-bottom30">
-            <div class="miscWrapper container ">
+            <div class="miscWrapper container">
                 <ul id="listVideos1">
                     <asp:Repeater ID="rptVideos" runat="server">
                         <ItemTemplate>
