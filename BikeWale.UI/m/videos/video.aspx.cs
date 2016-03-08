@@ -91,6 +91,8 @@ namespace Bikewale.m.videos
         }
         /// <summary>
         /// API call to fetch Video details
+        /// Modified by :   Sumit Kate on 08 Mar 2016
+        /// Description :   Fixed the Object reference exception by adding null check
         /// </summary>
         private void BindVideoDetails()
         {
@@ -106,18 +108,20 @@ namespace Bikewale.m.videos
                     videoModel = objCache.GetVideoDetails(videoId);
 
                     #region Post API call video details
-
-                    if (videoModel == null)
+                    if (videoModel != null)
+                    {
+                        if (videoModel.MakeName != null || videoModel.ModelName != null)
+                            isMakeModelTag = true;
+                        if (!string.IsNullOrEmpty(videoModel.DisplayDate))
+                            videoModel.DisplayDate = FormatDate.GetFormatDate(videoModel.DisplayDate, "MMMM dd, yyyy");
+                        videoModel.Description = FormatDescription.SanitizeHtml(videoModel.Description);
+                    }
+                    else
                     {
                         Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-                    if (videoModel.MakeName != null || videoModel.ModelName != null)
-                        isMakeModelTag = true;
-                    if (!string.IsNullOrEmpty(videoModel.DisplayDate))
-                        videoModel.DisplayDate = FormatDate.GetFormatDate(videoModel.DisplayDate, "MMMM dd, yyyy");
-                    videoModel.Description = FormatDescription.SanitizeHtml(videoModel.Description);
                     #endregion
                 }
             }

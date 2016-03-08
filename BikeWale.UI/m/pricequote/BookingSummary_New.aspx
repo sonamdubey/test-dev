@@ -550,7 +550,7 @@
         </script>
         <script type="text/javascript">
             //Need to uncomment the below script
-            var thisBikename = '<%= this.bikeName %>';
+            var thisBikename = "<%= this.bikeName %>";
             var clientIP = '<%= clientIP %>'; 
             var pageUrl = '<%= pageUrl %>';
             //select bike version
