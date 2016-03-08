@@ -31,7 +31,7 @@ namespace Bikewale.Mobile.Videos
         {
             BindLandingVideos();
 
-            ctrlExpertReview.CategoryIdList = "47,55";
+            ctrlExpertReview.CategoryIdList = "55";
             ctrlExpertReview.TotalRecords = 2;
             ctrlExpertReview.SectionTitle = "Expert Reviews";
 

@@ -7,19 +7,7 @@
                 <span class="navbarTitle">Home</span>
             </a>
         </li>
-        <li>
-            <a href="javascript:void(0)">
-                <span class="bwsprite newBikes-icon"></span>
-                <span class="navbarTitle">Bike Booking</span>
-                <span class="ae-sprite ae-new-label-icon"></span>
-                <span class="nav-drop fa fa-angle-down"></span>
-            </a>
-            <ul class="nestedUL">
-                <li><a href="/bikebooking/default.aspx">Book Your Bike</a></li>
-                <li><a href="/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
-                <li><a href="/bikebooking/cancellation.aspx">Cancel Your Booking</a></li>
-            </ul>
-        </li>
+
         <li>
             <a href="javascript:void(0)">
                 <span class="bwsprite newBikes-icon"></span>
@@ -66,6 +54,18 @@
                 <li><a href="/user-reviews/">User Reviews</a></li>
                 <li><a href="/features/">Features</a></li>
                 <li><a href="/bike-videos/">Videos</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0)">
+                <span class="bwsprite newBikes-icon"></span>
+                <span class="navbarTitle">Bike Booking</span>
+                <span class="nav-drop fa fa-angle-down"></span>
+            </a>
+            <ul class="nestedUL">
+                <li><a href="/bikebooking/default.aspx">Book Your Bike</a></li>
+                <li><a href="/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
+                <li><a href="/bikebooking/cancellation.aspx">Cancel Your Booking</a></li>
             </ul>
         </li>
         <li>

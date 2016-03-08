@@ -29,9 +29,14 @@ namespace Bikewale.Videos
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            //device detection
+            DeviceDetection dd = new DeviceDetection();
+            dd.DetectDevice();
+
             BindLandingVideos();
 
-            ctrlExpertReview.CategoryIdList = "47,55";
+            ctrlExpertReview.CategoryIdList = "55";
             ctrlExpertReview.TotalRecords = 2;
             ctrlExpertReview.SectionTitle = "Expert Reviews";
             ctrlFirstRide.SectionBackgroundClass = "bg-white";
