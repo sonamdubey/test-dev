@@ -72,7 +72,7 @@ namespace Bikewale.Videos
                         metaTitle = String.Format("Bike Launch Video Review-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
                         break;
                     case "53":
-                        metaDesc = String.Format("Do It Yourself tips for {0} {1}.  Watch Do It Yourself tips for {0} {1} from BikeWale's Experts.",videoModel.MakeName, videoModel.ModelName);
+                        metaDesc = String.Format("Do It Yourself tips for {0} {1}.  Watch Do It Yourself tips for {0} {1} from BikeWale's Experts.", videoModel.MakeName, videoModel.ModelName);
                         metaTitle = String.Format("Do It Yourself-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
                         break;
                     default:
@@ -105,6 +105,8 @@ namespace Bikewale.Videos
         }
         /// <summary>
         /// API call to fetch Video details
+        /// Modified by :   Sumit Kate on 08 Mar 2016
+        /// Description :   Fixed the Object reference exception by adding null check
         /// </summary>
         private void BindVideoDetails()
         {
@@ -121,17 +123,20 @@ namespace Bikewale.Videos
 
                     #region Post API call video details
 
-                    if (videoModel == null)
+                    if (videoModel != null)
+                    {
+                        if (videoModel.MakeName != null || videoModel.ModelName != null)
+                            isMakeModelTag = true;
+                        if (!string.IsNullOrEmpty(videoModel.DisplayDate))
+                            videoModel.DisplayDate = FormatDate.GetFormatDate(videoModel.DisplayDate, "MMMM dd, yyyy");
+                        videoModel.Description = FormatDescription.SanitizeHtml(videoModel.Description);
+                    }
+                    else
                     {
                         Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-                    if (videoModel.MakeName != null || videoModel.ModelName != null)
-                        isMakeModelTag = true;
-                    if (!string.IsNullOrEmpty(videoModel.DisplayDate))
-                        videoModel.DisplayDate = FormatDate.GetFormatDate(videoModel.DisplayDate, "MMMM dd, yyyy");
-                    videoModel.Description = FormatDescription.SanitizeHtml(videoModel.Description);
                     #endregion
                 }
             }

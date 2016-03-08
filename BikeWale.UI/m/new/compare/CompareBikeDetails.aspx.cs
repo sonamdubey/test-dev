@@ -234,7 +234,7 @@ namespace Bikewale.Mobile.New
                     adString = "<img align=\"absmiddle\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/tick.gif\" />";
                     break;
                 case "False":
-                    adString = "<img align=\"absmiddle\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/delete.ico\" />";
+                    adString = "<span class=\"bwmsprite cross-md-dark-grey\"></span>";
                     break;
                 default:
                     adString = "-";
