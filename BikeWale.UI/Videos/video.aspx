@@ -10,7 +10,11 @@
         isAd970x90Shown = false;
         canonical = string.Format("http://www.bikewale.com/bike-videos/{0}-{1}/", videoModel.VideoTitleUrl, videoModel.BasicId);
     %>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<%=metaTitle%>"/> 
+    <meta property="og:image" content="<%=string.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg", videoModel.VideoId)%>"/> 
     <!-- #include file="/includes/headscript.aspx" -->
+
     <style type="text/css">
         #embedVideo iframe { width:934px; height:527px; }.video-views-counts { min-width:140px; }.border-light-right { border-right:1px solid #e2e2e2; }.video-social-wrapper { position:fixed; left:0; top:230px; width:54px; height:162px; overflow:hidden; background:#e2e2e2; }.video-social-wrapper li { height:54px; font-size:11px; padding-top:8px; padding-bottom:8px; }.video-social-wrapper a { display:block; color:#fff; text-align:center; }.video-social-wrapper a:hover { text-decoration:none; }.video-social-wrapper span { display:block; margin:0 auto; }.video-social-wrapper span.fa { font-size:25px; }.fb-counter { background:#3b5998; } .tw-counter { background:#00aced; } .gp-counter { background:#dd4b39; }.related-video-jcarousel li { height:312px; border: 1px solid #e2e2e2; padding:20px; }.videocarousel-image-wrapper { width:271px; height:153px; margin-bottom:15px; overflow:hidden; text-align:center; }.videocarousel-image-wrapper a { width:100%; height:100%; display:block; background:url('http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }.videocarousel-image-wrapper img { width:100%; height:100%; }.more-videos-link { width:200px; display:block; margin:5px auto 25px; }
     </style>

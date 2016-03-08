@@ -31,7 +31,7 @@
                             <% if(isModel){ %>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/"><span itemprop="title"><%=model %></span></a></li>
                             <% } %>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><span  itemprop="title">Videos</span></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><span  itemprop="title">Bike Videos</span></li>
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5"><%= pageHeading %></h1>

@@ -39,7 +39,7 @@ namespace Bikewale.Mobile.Controls
             }
             else if (!String.IsNullOrEmpty(MakeMaskingName) && !String.IsNullOrEmpty(ModelMaskingName))
             {
-                MoreVideoUrl = string.Format("/m/{0}-bike/{1}/videos/", MakeMaskingName, ModelMaskingName);
+                MoreVideoUrl = string.Format("/m/{0}-bikes/{1}/videos/", MakeMaskingName, ModelMaskingName);
             }
         }
 
