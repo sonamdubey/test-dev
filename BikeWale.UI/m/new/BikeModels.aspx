@@ -137,7 +137,7 @@
                         <div class="form-control-box variantDropDown leftfloat grid-10 omega">
                             <div class="sort-div rounded-corner2">
                                 <div class="sort-by-title" id="sort-by-container">
-                                    <span class="leftfloat sort-select-btn abc">
+                                    <span class="leftfloat sort-select-btn">
                                         <asp:Label runat="server" ID="defaultVariant"></asp:Label>
                                     </span>
                                     <span class="clear"></span>
