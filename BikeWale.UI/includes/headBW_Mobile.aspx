@@ -49,7 +49,7 @@
     <div id="appBanner" class="hide">
         <div class="banner-close-btn" id="btnCrossApp"></div>
         <div class="app-banner-img-container">
-            <img src="http://img.aeplcdn.com/bikewaleimg/m/images/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
+            <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
         </div>
         <div class="app-banner-text-container margin-top5">
             <h2 class="text-grey">India’s #1</h2>
@@ -73,10 +73,10 @@
             </div>
             <div class="rightfloat">
                 <div class="global-search" id="global-search" style="display:none">
-                    <span class="fa fa-search text-white" style="font-size:16px"></span>
+                    <span class="bwmsprite search-bold-icon"></span>
                 </div>
                 <div class="global-location">
-                    <span class="fa fa-map-marker"></span>
+                    <span class="bwmsprite map-loc-icon"></span>
                 </div>
                 <a class="sort-btn rightfloat hide" id="sort-btn">
                     <span class="bwmsprite sort-icon"></span>
@@ -88,11 +88,9 @@
     </header>
 
 <% if(Ad_320x50){ %>
-<section>            
-    <div class="container">
+    <section>            
         <div>
             <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
         </div>
-    </div>
-</section>
+    </section>
 <% } %>

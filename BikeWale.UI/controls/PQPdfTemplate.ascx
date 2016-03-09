@@ -244,22 +244,22 @@
         	 
                   <table border="0">
                         <tr style="display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0 5px 15px;text-align:center; vertical-align:top; position:relative;">
-                            <td  style="font-size:10px;  color:#333;margin:15px 0 26px;"><img src="http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/dealer-confirmation.png" border="0">Get in touch with Dealership</td>
+                            <td  style="font-size:10px;  color:#333;margin:15px 0 26px;"><img src="http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/dealer-confirmation.png" border="0">Get in touch with Dealership</td>
                       
                     		<td style="text-align:left;"><%= Oragnization %> will get back to you and schedule your visit to the showroom. Alternatively, you can also call them to set-up a visit  at a convinient time.</td>
                         </tr>
                         <tr style="display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0 5px 15px; text-align:center; vertical-align:top; position:relative;">
-                            <td  style="font-size:10px; color:#333; margin:15px 0 26px;"><img src="http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/claim-price.png" border="0">Claim your Price</td>
+                            <td  style="font-size:10px; color:#333; margin:15px 0 26px;"><img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/claim-price.png" border="0">Claim your Price</td>
                         
                     		<td style="text-align:left;">Please present this price certificate to dealership to claim the price for your purchase.</td>
                         </tr>
                         <tr style="display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0 5px 15px; text-align:center; vertical-align:top; position:relative;">
-                            <td  style="font-size:10px; color:#333;margin:15px 0 26px;"><img src="http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/documentation.png" border="0">Be ready with Documentation</td>
+                            <td  style="font-size:10px; color:#333;margin:15px 0 26px;"><img src="http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/documentation.png" border="0">Be ready with Documentation</td>
                           
                     		<td style="text-align:left;">Please be ready with all the required documents and payment to avoid multiple visits and faster vehicle delivery.</td>
                         </tr>
                         <tr style="display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0 5px 15px; text-align:center; vertical-align:top; position:relative;">
-                            <td  style="font-size:10px;color:#333;margin:15px 0 26px;"><img src="http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/buy-your-bike.png" border="0">Buy your Bike!</td>
+                            <td  style="font-size:10px;color:#333;margin:15px 0 26px;"><img src="http://imgd4.aeplcdn.com/0x0/bw/static/design15/mailer-images/buy-your-bike.png" border="0">Buy your Bike!</td>
                          
                     		<td style="text-align:left;">Dealer will help you in RTO formalities. Ride out from the dealership on your newly purchased <%=BikeName %>.</td>
                         </tr>
@@ -299,7 +299,7 @@
                         <tr>
                             <td style="width:100px;vertical-align:top;border-right:1px solid #E5E5E5;">
                                  <div>
-                                    <img alt=" Bajaj Avenger 220 DTS- i Photos" src="http://img.aeplcdn.com/bikewaleimg/models/548b.jpg?20140909125715" title="Bajaj Avenger 220 DTS- i Photos">
+                                    <img alt=" Bajaj Avenger 220 DTS- i Photos" src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/548b.jpg" title="Bajaj Avenger 220 DTS- i Photos">
                                  </div>
                             </td>
                             

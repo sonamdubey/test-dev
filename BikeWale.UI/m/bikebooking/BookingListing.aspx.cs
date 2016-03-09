@@ -1,7 +1,13 @@
 ﻿using Bikewale.BAL.Dealer;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
@@ -27,6 +33,7 @@ namespace Bikewale.m.bikebooking
         protected IEnumerable<AreaEntityBase> bookingAreas = null;
         protected uint cityId = 0, areaId = 0;
         protected string clientIP = String.Empty;
+        protected Repeater rptPopularBrand, rptOtherBrands;
 
         protected override void OnInit(EventArgs e)
         {
@@ -41,7 +48,45 @@ namespace Bikewale.m.bikebooking
                 GetDealerCities();
             }
             clientIP = Bikewale.Common.CommonOpn.GetClientIP();
+            BindRepeaters();
         }
+
+        /// <summary>
+        /// Created by  : Sushil Kumar on 04 Mar 2016
+        /// Bind the Brands Repeaters
+        /// </summary>
+        private void BindRepeaters()
+        {
+            IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            ;
+                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    makes = objCache.GetMakesByType(EnumBikeType.New);
+                    if (makes != null && makes.Count() > 0)
+                    {
+                        rptPopularBrand.DataSource = makes.Where(m => m.PopularityIndex > 0);
+                        rptPopularBrand.DataBind();
+
+                        rptOtherBrands.DataSource = makes.Where(m => m.PopularityIndex == 0);
+                        rptOtherBrands.DataBind();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindRepeaters");
+                objErr.SendMail();
+            }
+        }
+
+
         /// <summary>
         /// Created By : Sushil Kumar 
         /// Created On : 3rd Febrauary 2016

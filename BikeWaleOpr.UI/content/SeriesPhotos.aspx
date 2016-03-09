@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <td  class="border" style="padding:10px;">
-                    <img id="imgSmall" image-id="<%=seriesId %>" src='<%= !String.IsNullOrEmpty(originalImagePath) ? BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"227X128",originalImagePath) : "http://img.carwale.com/bikewaleimg/common/nobike.jpg"%>'/>
+                    <img id="imgSmall" image-id="<%=seriesId %>" src='<%= !String.IsNullOrEmpty(originalImagePath) ? BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"227X128",originalImagePath) : "http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg"%>'/>
                 </td>
             </tr>
         </table>

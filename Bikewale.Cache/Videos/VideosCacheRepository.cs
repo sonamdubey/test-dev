@@ -84,14 +84,14 @@ namespace Bikewale.Cache.Videos
         /// <param name="pageSize"></param>
         /// <param name="pageNo"></param>
         /// <returns></returns>
-        public BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize)
+        public BikeVideosListEntity GetVideosBySubCategory(string categoryIdList, ushort pageNo, ushort pageSize,VideosSortOrder? sortOrder=null)
         {
             BikeVideosListEntity videosList = null;
             string key = string.Empty;
             try
             {
                 key = String.Format("BW_Videos_SubCat_{0}_Cnt_{1}", categoryIdList.Replace(",","_"), pageSize);
-                videosList = _cache.GetFromCache<BikeVideosListEntity>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosBySubCategory(categoryIdList, pageNo, pageSize));
+                videosList = _cache.GetFromCache<BikeVideosListEntity>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosBySubCategory(categoryIdList, pageNo, pageSize,sortOrder));
             }
             catch (Exception ex)
             {
@@ -153,6 +153,42 @@ namespace Bikewale.Cache.Videos
             }
             return video;
         }
+        #endregion
+
+        #region Get Bike Videos by Make Model
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created On : 1st March 2016
+        /// Description : Cache Layer for Get Bike Videos by Make. 
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="totalCount"></param>
+        /// <returns>IEnumerable of BikeVideoEntity</returns>
+        public IEnumerable<BikeVideoEntity> GetVideosByMakeModel(ushort pageNo, ushort pageSize, uint makeId , uint? modelId = null)
+        {
+            IEnumerable<BikeVideoEntity> videosList = null;
+            string key = string.Empty;
+            try
+            {
+                if (modelId.HasValue)
+                {
+                    key = string.Format("BW_Videos_Model_{0}_pageNo_{1}_pageSize_{2}", modelId, pageNo, pageSize);
+                }
+                else
+                {
+                    key = string.Format("BW_Videos_Make_{0}_pageNo_{1}_pageSize_{2}", makeId, pageNo, pageSize);
+                }
+                videosList = _cache.GetFromCache<IEnumerable<BikeVideoEntity>>(key, new TimeSpan(1, 0, 0), () => _VideosRepository.GetVideosByMakeModel(pageNo, pageSize, makeId, modelId));
+               
+                }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeVideosCacheRepository.GetVideosByCategory");
+                objErr.SendMail();
+            }
+            return videosList;
+        }
+
         #endregion
     }
 }

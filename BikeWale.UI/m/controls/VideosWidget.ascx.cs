@@ -16,6 +16,9 @@ namespace Bikewale.Mobile.Controls
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
+        protected string MoreVideoUrl = string.Empty;
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -25,6 +28,19 @@ namespace Bikewale.Mobile.Controls
         protected void Page_Load(object sender, EventArgs e)
         {
             BindVideos();
+            if (String.IsNullOrEmpty(MakeMaskingName) && String.IsNullOrEmpty(ModelMaskingName))
+            {
+                MoreVideoUrl = string.Format("/m/bike-videos/");
+            }
+
+            else if (!String.IsNullOrEmpty(MakeMaskingName) && String.IsNullOrEmpty(ModelMaskingName))
+            {
+                MoreVideoUrl = string.Format("/m/{0}-bikes/videos/", MakeMaskingName);
+            }
+            else if (!String.IsNullOrEmpty(MakeMaskingName) && !String.IsNullOrEmpty(ModelMaskingName))
+            {
+                MoreVideoUrl = string.Format("/m/{0}-bikes/{1}/videos/", MakeMaskingName, ModelMaskingName);
+            }
         }
 
         protected void BindVideos()

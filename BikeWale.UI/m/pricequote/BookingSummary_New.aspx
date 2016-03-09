@@ -70,7 +70,7 @@
                                                 <span class="leftfloat select-btn font14" data-bind="text : selectedVersion().MinSpec.VersionName,attr:{versionId:selectedVersion().MinSpec.VersionId}"></span>
                                                 <span class="clear"></span>
                                             </div>
-                                            <span class="upDownArrow rightfloat fa fa-angle-down position-abt pos-right10"></span>
+                                            <span class="upDownArrow rightfloat bwmsprite fa-angle-down position-abt pos-top10 pos-right10"></span>
                                         </div>
                                         <div class="select-dropdown-list hide">
                                             <ul>
@@ -99,7 +99,7 @@
                                                 <span class="leftfloat select-btn font14" data-bind="text:selectedColor().ColorName"></span>
                                                 <span class="clear"></span>
                                             </div>
-                                            <span class="upDownArrow rightfloat fa fa-angle-down position-abt pos-right10"></span>
+                                            <span class="upDownArrow rightfloat bwmsprite fa-angle-down position-abt pos-top10 pos-right10"></span>
                                         </div>
                                         <div class="select-dropdown-list hide">
                                             <ul data-bind="foreach: versionColors">
@@ -127,7 +127,7 @@
                                 <p class="grid-8 text-medium-grey font14 alpha">On-road price<span class="font12 viewBreakupText text-blue text-link">(View breakup)</span>:</p>
                                 <p class="grid-4 alpha omega text-right font14">
                                     <!-- ko if : versionPrice() > 0 -->
-                                    <span class="fa fa-rupee"></span>
+                                    <span class="bwmsprite inr-xsm-icon"></span>
                                     <strong class="font16" data-bind="CurrencyText: (versionPrice()-totalDiscount())"></strong>
                                     <!-- /ko -->
                                     <!-- ko ifnot : (versionPrice() > 0) -->
@@ -139,7 +139,7 @@
                             <div class="grid-12 alpha omega margin-bottom15">
                                 <p class="grid-8 text-medium-grey font14 alpha">Booking amount:</p>
                                 <p class="grid-4 alpha omega text-right font14">
-                                    <span class="fa fa-rupee"></span>
+                                    <span class="bwmsprite inr-xsm-icon"></span>
                                     <strong class="font16" data-bind="CurrencyText: ($root.Bike().bookingAmount()> 0)?$root.Bike().bookingAmount():'Price unavailable'"></strong>
                                 </p>
                                 <a id="cancellationLink" class="blue-text font12">Hassle-free cancellation</a>
@@ -148,7 +148,7 @@
                             <div class="grid-12 alpha omega margin-bottom15">
                                 <p class="grid-8 text-medium-grey font14 alpha">Balance amount payable:</p>
                                 <p class="grid-4 alpha omega text-right font14">
-                                    <span class="fa fa-rupee"></span>
+                                    <span class="bwmsprite inr-xsm-icon"></span>
                                     <strong data-bind="CurrencyText: remainingAmount()"></strong>
                                 </p>
                             </div>
@@ -163,7 +163,7 @@
                                             <!-- ko foreach: versionPriceBreakUp -->
                                             <tr>
                                                 <td width="60%" class="padding-bottom10" data-bind="text: ItemName"></td>
-                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="bwmsprite inr-xsm-icon margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
 
                                             <!-- /ko -->
@@ -176,12 +176,12 @@
                                             </tr>
                                             <tr>
                                                 <td class="padding-bottom10">Total on road price</td>
-                                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
+                                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="bwmsprite inr-xsm-icon margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
                                             </tr>
                                             <!-- ko foreach: discountList -->
                                             <tr>
                                                 <td width="350" class="padding-bottom10" data-bind="text: 'Minus ' + CategoryName"></td>
-                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="bwmsprite inr-xsm-icon margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
                                             <!-- /ko -->
                                             <%} %>
@@ -190,7 +190,7 @@
 
                                             <tr>
                                                 <td class="padding-bottom10">Minus insurance</td>
-                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="bwmsprite inr-xxsm-icon margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
                                             </tr>
                                             <!-- /ko -->--%>
                                             <tr>
@@ -201,7 +201,7 @@
                                             <tr>
 
                                                 <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
+                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="bwmsprite inr-sm-icon margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
 
                                             </tr>
                                             <tr>
@@ -220,7 +220,7 @@
                         </div>
 
                         <div class="contact-details-container margin-top30">
-                            <h3 class="padding-bottom10 border-light-bottom"><span class="fa fa-map-marker text-red"></span>Contact details:</h3>
+                            <h3 class="padding-bottom10 border-light-bottom"><span class="bwmsprite loc-change-blue-icon text-red"></span>Contact details:</h3>
                             <ul>
                                 <li class="text-black">Offers from the nearest dealers<br />
                                     <span class="text-light-grey"><%= dealerAddress %></span>
@@ -236,7 +236,7 @@
                             <% if (isOfferAvailable)
                                { %>
                             <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwmsprite offers-icon"></span>Available Offers </h3>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon"></span>Pay <span class="fa fa-rupee margin-right5" style="font-size: 15px"></span><span class="font16 margin-right5" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon"></span>Pay <span class="bwmsprite inr-xsm-icon" style="font-size: 15px"></span><span class="font16 margin-right5" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
 
                             <ul class="pay-and-get-ul">
                                 <asp:Repeater ID="rptDealerOffers" runat="server">
@@ -251,8 +251,8 @@
                             <%}
                                else
                                {%>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee margin-right5" style="font-size: 15px"></span><span class="font16 margin-right5" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="bwmsprite inr-xsm-icon" style="font-size: 15px"></span><span class="font16 margin-right5" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwmsprite loc-change-blue-icon text-red margin-right5"></span>Dealer's Location</h3>
                             <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 100%; height: 150px; margin: 10px 0;" data-bind="googlemap: { latitude: $root.Dealer().latitude(), longitude: $root.Dealer().longitude() }"></div>
                             <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
                             <% } %>
@@ -294,8 +294,8 @@
                         <div class="offers-container margin-top30 margin-bottom30">
                             <% if (isOfferAvailable)
                                { %>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 font-24"></span>Available Offers </h3>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee margin-right5" style="font-size: 15px"></span><span class="font16 margin-right5" data-bind="text : $root.Bike().bookingAmount()"></span>to book your bike and avail </h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwmsprite offers-icon margin-right5 font-24"></span>Available Offers </h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="bwmsprite inr-xsm-icon" style="font-size: 15px"></span><span class="font16 margin-right5" data-bind="text : $root.Bike().bookingAmount()"></span>to book your bike and avail </h3>
 
                             <ul>
                                 <asp:Repeater ID="rptDealerFinalOffers" runat="server">
@@ -310,8 +310,8 @@
                             <%}
                                else
                                {%>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee margin-right5" style="font-size: 15px"></span><span class="font16 margin-right5" data-bind="text : $root.Bike().bookingAmount()"></span>to book your bike and avail</h3>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Get following details on the bike</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5 font-24"></span>Pay <span class="bwmsprite inr-xsm-icon" style="font-size: 15px"></span><span class="font16 margin-right5" data-bind="text : $root.Bike().bookingAmount()"></span>to book your bike and avail</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwmsprite loc-change-blue-icon text-red margin-right5"></span>Get following details on the bike</h3>
                             <ul class="bike-details-ul" style="margin-left: 0; list-style: none">
                                 <li>
                                     <span>Offers from the nearest dealers</span>
@@ -333,7 +333,7 @@
                             <p class="font14 text-light-grey margin-bottom10">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
                             <div>
                                 <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22" style="display: none;">
-                                    <span class="fa fa-phone"></span>
+                                    <span class="bwmsprite tel-grey-icon"></span>
                                     <span class="text-light-grey">+91</span>
                                     <span class="lead-mobile font24" data-bind="text : MobileNo"></span>
                                     <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>
@@ -381,11 +381,11 @@
 
         <div class="content-box-shadow content-inner-block-15 margin-top15 margin-bottom15 text-medium-grey text-center">
             <p class="text-medium-grey font14 margin-bottom10">In case of queries call us toll-free on:</p>
-            <a href="tel:1800 120 8300" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 120 8300</a>
+            <a href="tel:1800 120 8300" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="bwmsprite tel-green-icon margin-right5"></span>1800 120 8300</a>
         </div>
 
         <section class="container margin-bottom30 content-box-shadow">
-            <div class="lazy booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>"></div>
+            <div class="lazy booking-how-it-works" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/howitworks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
         <% if (ctrlUsersTestimonials.FetchedCount > 0)
@@ -550,7 +550,7 @@
         </script>
         <script type="text/javascript">
             //Need to uncomment the below script
-            var thisBikename = '<%= this.bikeName %>';
+            var thisBikename = "<%= this.bikeName %>";
             var clientIP = '<%= clientIP %>'; 
             var pageUrl = '<%= pageUrl %>';
             //select bike version

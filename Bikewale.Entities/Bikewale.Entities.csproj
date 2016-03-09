@@ -218,6 +218,7 @@
     <Compile Include="Videos\BikeVideoEntity.cs" />
     <Compile Include="Videos\BikeVideosListEntity.cs" />
     <Compile Include="Videos\EnumVideosCategory.cs" />
+    <Compile Include="Videos\VideosSortOrder.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

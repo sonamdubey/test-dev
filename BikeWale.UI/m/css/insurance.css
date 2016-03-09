@@ -14,8 +14,8 @@
 .divInsuranceForm .box.accordion, .faqs .box.accordion { margin: 0; padding: 0; }
 .faqs .box.accordion:last-child { border-bottom: none; }
 .custSelect { background: none; -webkit-appearance: none; padding: 8px; width: 100%; }
-.newcars-banner-div { background: #161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/insurance-banner.jpg) no-repeat center center; background-size: cover; height: 130px; }
-.accordion h3 .icon { position: absolute; right: 8px; top: 15px; width: 18px; height: 18px; text-align: center; color: #565a5c; }
+.newcars-banner-div { background: #161209 url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/insurance-banner.jpg) no-repeat center center; background-size: cover; height: 130px; }
+.accordion h3 .icon { position: absolute; right: 8px; top: 10px; width: 12px; height: 18px; text-align: center; color: #565a5c; }
 .accordion h3 .icon.edit-icon { background: url(../images/edit-icon.png) no-repeat right top; }
 .accordion h3 .icon.plus-minus { display: block; }
 .accordion h3 .icon.plus-minus .fa-plus, .accordion h3 .icon.plus-minus .fa-minus { font-size: 10px; position: absolute; top: 50%; left: 0; right: 0; margin-top: -4px; }
@@ -31,3 +31,5 @@ ol.note-type-num, ol.note-type-num li { list-style: inside decimal; }
 ol.note-type-num li { padding: 10px 0; }
 .faqBox li { list-style:disc inside; padding:5px 0 5px 15px;}
 .faqBox {padding-top:5px; padding-bottom:5px;}
+.fa-plus { width:12px; height:12px; background-position:-42px -139px; }
+.fa-minus { width:12px; height:7px; background-position:-66px -132px; }

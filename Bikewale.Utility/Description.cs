@@ -33,6 +33,14 @@ namespace Bikewale.Utility
                 return _desc + " [...]";
             }
         }
-
+        /// <summary>
+        /// To remove all the HTML tags from text
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string SanitizeHtml(string descriptionText)
+        {
+            return Regex.Replace(descriptionText, @"<[^>]+>", string.Empty);
+        }
     }   // class
 } // namespace

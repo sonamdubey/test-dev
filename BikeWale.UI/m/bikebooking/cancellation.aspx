@@ -87,7 +87,7 @@
                             <p class="font14 text-light-grey margin-bottom10">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
                             <div>
                                 <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
-                                    <span class="fa fa-phone"></span>
+                                    <span class="bwmsprite tel-grey-icon"></span>
                                     <span class="text-light-grey">+91</span>
                                     <span class="lead-mobile font24" data-bind="text: Mobile()"></span>
                                 </div>
@@ -170,7 +170,7 @@
         <section>
     	    <div class="content-box-shadow content-inner-block-15 margin-bottom20 text-medium-grey text-center">
                 <p class="text-medium-grey font14 margin-bottom10">In case of queries call us toll-free on:</p>
-                <a href="tel:1800 457 9781" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration:none;"><span class="fa fa-phone text-green margin-right5"></span> 1800 457 9781</a>
+                <a href="tel:1800 457 9781" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration:none;"><span class="bwmsprite tel-green-icon text-green margin-right5"></span> 1800 457 9781</a>
             </div>
         </section>
         <asp:HiddenField ID="hdnBwid" Value="" runat="server" />

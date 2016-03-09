@@ -428,7 +428,7 @@
             //alert(versionId);
             var versionName = $(this).find(":selected").html();
             $("#versionName").text(versionName);
-            $("#versionDetails").html("<img src='http://img.aeplcdn.com/loader.gif' border='0'/>Loading Results...");
+            $("#versionDetails").html("<img src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/loader.gif' border='0'/>Loading Results...");
             setTimeout(2000);
             if (versionId != "" && !isNaN(versionId) && versionId != null) {
                 $("#divSpecs").load("/new/versionspecs.aspx?version=" + versionId + "&count=" + '<%= Count%>');

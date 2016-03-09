@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
 /* CSS Document */
-.insurance-top-banner { background:#57605e url(http://img.aeplcdn.com/bikewaleimg/images/insurance-banner.jpg) no-repeat center top; height: 285px; padding-top: 1px; }
+.insurance-top-banner { background:#57605e url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/insurance-banner.jpg) no-repeat center top; height: 285px; padding-top: 1px; }
 
 .faqWrapper { padding:0 20px; }
 .faqWrapper ul li { border-top:1px solid #ccc; }
@@ -28,7 +28,7 @@
 #contactDetails, #responseContainer { display:none; }
 #responseContainer p { line-height:2; }
 .selectCityContainer .ui-autocomplete-input, .bikeDetailsContainer .ui-autocomplete-input, .bikeDetailsContainer .hasDatepicker { color:#4d5057; }
-.sponsored-icon { background: #fff url(http://img.aeplcdn.com/bikewaleimg/images/policy-boss-logo.png) no-repeat; width:142px; height:42px; display:inline-block; }
+.sponsored-icon { background: #fff url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/policy-boss-logo.png) no-repeat; width:142px; height:42px; display:inline-block; }
 .sponsored-heading { color:#565a5c; }
 li:focus { outline:none; }
 

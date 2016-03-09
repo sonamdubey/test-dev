@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BikeData\BikeMakesCacheRepository.cs" />
     <Compile Include="BikeData\BikeModelMaskingCache.cs" />
     <Compile Include="BikeData\BikeModelsCacheRepository.cs" />
     <Compile Include="Compare\BikeCompareCacheRepository.cs" />

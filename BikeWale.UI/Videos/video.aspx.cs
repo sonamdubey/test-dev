@@ -47,6 +47,9 @@ namespace Bikewale.Videos
             CreateDescriptionTag();
         }
 
+        /// <summary>
+        /// Create a meta descriptin tag using switch case
+        /// </summary>
         private void CreateDescriptionTag()
         {
             if (isMakeModelTag)
@@ -55,10 +58,10 @@ namespace Bikewale.Videos
                 string yeh = EnumVideosCategory.DoitYourself.ToString();
                 switch (videoModel.SubCatId)
                 {
-                    case "47":
                     case "55":
                         metaDesc = String.Format("{0} {1} Video Review-Watch BikeWale Expert's Take on {0} {1}-Features, performance, price, fuel economy, handling and more.", videoModel.MakeName, videoModel.ModelName);
                         metaTitle = String.Format("Expert Video Review-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
+                        videoModel.SubCatName = "Expert Reviews";
                         break;
                     case "57":
                         metaDesc = String.Format("First Ride Video Review of {0} {1}-Watch BikeWale Expert's Take on the First Ride of {0} {1}-Features, performance, price, fuel economy, handling and more.", videoModel.MakeName, videoModel.ModelName);
@@ -69,7 +72,7 @@ namespace Bikewale.Videos
                         metaTitle = String.Format("Bike Launch Video Review-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
                         break;
                     case "53":
-                        metaDesc = String.Format("Do It Yourself tips for {0} {1}.  Watch Do It Yourself tips for {0} {1} from BikeWale's Experts.",videoModel.MakeName, videoModel.ModelName);
+                        metaDesc = String.Format("Do It Yourself tips for {0} {1}.  Watch Do It Yourself tips for {0} {1} from BikeWale's Experts.", videoModel.MakeName, videoModel.ModelName);
                         metaTitle = String.Format("Do It Yourself-{0} {1} - BikeWale", videoModel.MakeName, videoModel.ModelName);
                         break;
                     default:
@@ -98,11 +101,12 @@ namespace Bikewale.Videos
         {
             ctrlSimilarVideos.TopCount = 6;
             ctrlSimilarVideos.VideoBasicId = videoId;
-            ctrlSimilarVideos.sectionTitle = "Related videos";
-            //ctrlSimilarVideos.BasicId = 20156;
+            ctrlSimilarVideos.SectionTitle = "Related videos";
         }
         /// <summary>
         /// API call to fetch Video details
+        /// Modified by :   Sumit Kate on 08 Mar 2016
+        /// Description :   Fixed the Object reference exception by adding null check
         /// </summary>
         private void BindVideoDetails()
         {
@@ -116,16 +120,24 @@ namespace Bikewale.Videos
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
                     videoModel = objCache.GetVideoDetails(videoId);
-                    if (videoModel == null)
+
+                    #region Post API call video details
+
+                    if (videoModel != null)
+                    {
+                        if (videoModel.MakeName != null || videoModel.ModelName != null)
+                            isMakeModelTag = true;
+                        if (!string.IsNullOrEmpty(videoModel.DisplayDate))
+                            videoModel.DisplayDate = FormatDate.GetFormatDate(videoModel.DisplayDate, "MMMM dd, yyyy");
+                        videoModel.Description = FormatDescription.SanitizeHtml(videoModel.Description);
+                    }
+                    else
                     {
                         Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-                    if (videoModel.MakeName != null || videoModel.ModelName != null)
-                        isMakeModelTag = true;
-                    if (!string.IsNullOrEmpty(videoModel.DisplayDate))
-                        videoModel.DisplayDate = FormatDate.GetFormatDate(videoModel.DisplayDate, "MMMM dd, yyyy");
+                    #endregion
                 }
             }
             catch (Exception ex)

@@ -2,6 +2,7 @@
     string staticUrlPath = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFilesVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
 </script>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrlPath) ? "http://st2.aeplcdn.com" + staticUrlPath : "" %>/m/css/jquery.mobile-1.4.2.min.css?v=2.0" />
 <link rel="stylesheet" href="/m/css/style.css?<%= staticFilesVersion%>" />
 <link rel="stylesheet"  href="/m/css/design.css?<%= staticFilesVersion%>" />

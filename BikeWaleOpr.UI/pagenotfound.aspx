@@ -13,7 +13,7 @@
 	}
     .min-height {height:500px;}
     .text-highlight {font-weight:bold; font-size:12px; color:#000;}
-    .std-ul-list li{ padding:3px 0 3px 10px; display:block; background-image:url(http://img.carwale.com/bikewaleimg/images/icon-sprite.png); background-position:0 -111px; background-repeat:no-repeat;color:#666666;}
+    .std-ul-list li{ padding:3px 0 3px 10px; display:block; background-image:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icon-sprite.png); background-position:0 -111px; background-repeat:no-repeat;color:#666666;}
 </style>  
 
     <div class="content min-height margin-top10 margin-bottom10">

@@ -22,7 +22,7 @@ namespace Bikewale.Common
 				string subject = "Purchase Request Arrived : Bike #" + bikeId;
 				 
 				CustomerDetails cd = new CustomerDetails( customerId );
-                message.Append("<img align=\"right\" src=\"http://img.aeplcdn.com/bikewaleimg/images/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 				message.Append( "<h4>Dear " + dealer + ",</h4>" );
 				message.Append( "<p>Greetings from bikewale!</p>" );
 				message.Append( "<p>bikewale has received a Used Bike Purchase Inquiry for Your Bike #" );
@@ -71,7 +71,7 @@ namespace Bikewale.Common
 				 
 				CustomerDetails cd = new CustomerDetails( customerId );
 
-                message.Append("<img align=\"right\" src=\"http://img.aeplcdn.com/bikewaleimg/images/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 				
 				message.Append( "<h4>Dear " + cd.Name + ",</h4>" );
 				
@@ -133,7 +133,7 @@ namespace Bikewale.Common
 
                 CustomerDetails cd = new CustomerDetails(customerId);
 
-                message.Append("<img align=\"right\" src=\"http://img.aeplcdn.com/bikewaleimg/images/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.Append("<h4>Dear " + cd.Name + ",</h4>");
 
@@ -194,7 +194,7 @@ namespace Bikewale.Common
                 StringBuilder message = new StringBuilder();
                 string subject = "BikeWale Password Recovery.";
 
-                message.Append("<img align=\"right\" src=\"http://img.aeplcdn.com/bikewaleimg/images/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.Append("<h4>Dear " + customerName + ",</h4>");
 
@@ -242,7 +242,7 @@ namespace Bikewale.Common
         //        StringBuilder message = new StringBuilder();
         //        string subject = "BikeWale Password Recovery.";
 
-        //        message.Append("<img align=\"right\" src=\"http://img.aeplcdn.com/bikewaleimg/images/bw-logo.png\" />");
+        //        message.Append("<img align=\"right\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 				
         //        message.Append( "<h4>Dear " + customerName + ",</h4>" );
 				
@@ -385,7 +385,7 @@ namespace Bikewale.Common
 				StringBuilder message = new StringBuilder();
 				string subject = senderName + " has referred you BikeWale.";
 
-                message.Append("<img align=\"right\" src=\"http://img.aeplcdn.com/bikewaleimg/images/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 				message.Append( "<h4>Hello,</h4>" );
 				message.Append( "<p>Greetings from Bikewale!</p>" );
 				message.Append( "<p><b>" + senderName + "(" + senderEmail + ")" + "</b> " );
@@ -542,7 +542,7 @@ namespace Bikewale.Common
 					subject = "Used Bike Purchase Inquiry Arrived.";
 				}
 
-                message.Append("<img align=\"right\" src=\"http://img.aeplcdn.com/bikewaleimg/images/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 				message.Append( "<b>Dear " + name + ",</b>" );
 				
 				message.Append( "<p>Greetings from Bikewale!</p>" );
@@ -634,7 +634,7 @@ namespace Bikewale.Common
 					subject = "Used Bike Purchase Inquiry Arrived.";
 				}
 
-                message.Append("<img align=\"right\" src=\"http://img.aeplcdn.com/bikewaleimg/images/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 				message.Append( "<b>Dear " + name + ",</b>" );
 				
 				message.Append( "<p>Greetings from Bikewale!</p>" );
@@ -869,7 +869,7 @@ namespace Bikewale.Common
 
 				subject = "Used Bike Purchase Inquiry Arrived.";
 
-                message.Append("<img align=\"right\" src=\"http://img.aeplcdn.com/bikewaleimg/images/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 				message.Append( "<b>Dear " + name + ",</b>" );
 				
 				message.Append( "<p>Greetings from bikewale!</p>" );

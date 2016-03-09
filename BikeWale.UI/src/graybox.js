@@ -10,7 +10,7 @@ $(document).ready(function () {
     var grayContent = "<div id='gb-overlay'></div>";
     grayContent += "<div id='gb-window'>";
     grayContent += "<div id='gb-head'><span id='gb-title'></span><a id='gb-close' class='gb-close'></a><div class='clear'></div></div>";
-    grayContent += "<img id='loading' src='http://img.aeplcdn.com/loader.gif'/><div id='gb-content'></div>";
+    grayContent += "<img id='loading' src='http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/loader.gif'/><div id='gb-content'></div>";
     grayContent += "</div>";
 
     $("body").prepend(grayContent);

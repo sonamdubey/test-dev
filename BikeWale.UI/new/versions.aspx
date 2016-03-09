@@ -47,20 +47,11 @@
         var pageUrl = "<%= canonical %>"
 
     </script>
-    <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-    <style>
-        .chosen-results::-webkit-scrollbar {
-            width: 10px;
-            border-radius: 5px;
-        }
-
-        .chosen-results::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);
-        }
-
-        .chosen-results::-webkit-scrollbar-thumb {
-            background-color: rgba(204, 204, 204,0.7);
-        }
+    <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .chosen-results::-webkit-scrollbar {width: 10px;border-radius: 5px;}
+        .chosen-results::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-moz-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-o-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);box-shadow: inset 0 0 2px rgba(0,0,0,0.2);}
+        .chosen-results::-webkit-scrollbar-thumb {background-color: rgba(204, 204, 204,0.7);}
     </style>
 </head>
 <body class="bg-light-grey">
@@ -133,7 +124,7 @@
                                                     <li>
                                                         <div class="carousel-nav-img-container">
                                                             <span>
-                                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" border="0" />
+                                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" border="0" />
                                                             </span>
                                                         </div>
                                                     </li>
@@ -769,7 +760,7 @@
                 <h3>Terms and Conditions</h3>
                 <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
                     <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
-                    <img class="lazy" data-original="http://img.aeplcdn.com/bikewaleimg/images/loader.gif"  src="" />
+                    <img class="lazy" data-original="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
 
                 </div>
                 <div id="terms" class="breakup-text-container padding-bottom10 font14">

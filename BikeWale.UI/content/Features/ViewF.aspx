@@ -34,8 +34,8 @@
 #gallery .jcarousel-skin-tango .jcarousel-item-horizontal {margin-left: 0;margin-right: 10px;}
 #gallery .jcarousel-skin-tango .jcarousel-next-horizontal,#gallery .jcarousel-skin-tango .jcarousel-prev-horizontal {cursor: pointer;height: 110px;position: absolute;top: 0px;width: 15px;opacity: .8;filter: alpha(opacity=80);}
 #gallery .jcarousel-skin-tango .jcarousel-next-horizontal:hover,#gallery .jcarousel-skin-tango .jcarousel-prev-horizontal:hover {opacity: 1;filter: alpha(opacity=100);}
-#gallery .jcarousel-skin-tango .jcarousel-next-horizontal {background: #282626 url("http://img.aeplcdn.com/adgallery/ad_scroll_forward.png") no-repeat center center;right: 10px;}
-#gallery .jcarousel-skin-tango .jcarousel-prev-horizontal {background: #282626 url("http://img.aeplcdn.com/adgallery/ad_scroll_back.png") no-repeat center center;left: 0px;}
+#gallery .jcarousel-skin-tango .jcarousel-next-horizontal {background: #282626 url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/ad-scroll-forward.png") no-repeat center center;right: 10px;}
+#gallery .jcarousel-skin-tango .jcarousel-prev-horizontal {background: #282626 url("http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/ad-scroll-back.png") no-repeat center center;left: 0px;}
 .article-content img {width: 100%;}
 </style>
 <script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>

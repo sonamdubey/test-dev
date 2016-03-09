@@ -8,7 +8,7 @@
 <script language="javascript" type="text/javascript" src="editcmsjs.js"></script>
 <style type="text/css">
 	.errMessage {color:#FF4A4A;}
-	.alert{background:url(http://img.carwale.com/cw-common/bg_alert.gif) repeat-x; padding:15px; border:1px solid #F7EC64;}
+	.alert{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/bg-alert.gif) repeat-x; padding:15px; border:1px solid #F7EC64;}
 	.moz-round{-moz-border-radius:3px;}
 	/* grey box css */
     .gb-content { border: 0px solid #a6c9e2; color: #222222; }
@@ -19,7 +19,7 @@
     #gb-close{ display: none; float:right; margin-top:5px;}
     #gb-content { border: 0;background: none; overflow:auto; zoom: 1;}
     #loading{margin:7px 0 7px 7px;}
-    #gb-overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color:#F7F7F7; opacity: .30;filter:Alpha(Opacity=30); display:none; z-index:100001; background: url("http://img.carwale.com/cw-common/slide/overlay.png") repeat scroll 0 0 transparent;}
+    #gb-overlay {position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color:#F7F7F7; opacity: .30;filter:Alpha(Opacity=30); display:none; z-index:100001; background: url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/overlay.png") repeat scroll 0 0 transparent;}
 </style>
 <div class="urh">
 	<a href="/default.aspx">Bikewale operations</a> &raquo; <a href="/editcms/default.aspx">Editorial Home</a> &raquo; Manage Articles

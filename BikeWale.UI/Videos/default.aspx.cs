@@ -1,4 +1,5 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Common;
 using Bikewale.Entities.Videos;
 using System;
 using System.Web.UI.WebControls;
@@ -9,12 +10,14 @@ namespace Bikewale.Videos
     /// Created By : Sushil Kumar K
     /// Created On : 18th February 2016
     /// Description : To bind all sections of video landing page
+    /// Modified By : Sushil Kumar on 1stFeb 2016
+    /// Description : Added new categories PowerDrift BlockBuster, PowerDrift Specials,First Look and removed categories widget DoItYourself.
     /// </summary>
     public class Default : System.Web.UI.Page
     {
 
         protected Repeater rptLandingVideos;
-        protected Bikewale.Controls.VideoByCategory ctrlFirstRide, ctrlLaunchAlert, ctrlMiscellaneous, ctrlTopMusic, ctrlDoItYourself;
+        protected Bikewale.Controls.VideoByCategory ctrlFirstRide, ctrlFirstLook, ctrlPDBlockbuster, ctrlPDSpecials, ctrlMiscellaneous, ctrlMotorSports, ctrlTopMusic, ctrlLaunchAlert;
         protected Bikewale.Controls.ExpertReviewVideos ctrlExpertReview;
         protected int ctrlVideosLandingCount = 0;
         protected BikeVideoEntity ctrlVideosLandingFirst = null;
@@ -26,41 +29,53 @@ namespace Bikewale.Videos
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //device detection
-            //DeviceDetection dd = new DeviceDetection();
-            //dd.DetectDevice();
+
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
 
             BindLandingVideos();
 
-            ctrlFirstRide.CategoryIdList = "57";
-            ctrlFirstRide.TotalRecords = 6;
-            ctrlFirstRide.SectionTitle = "First Ride";
-            ctrlFirstRide.SectionBackgroundClass = "";  
-
-            ctrlExpertReview.CategoryIdList = "47,55";
+            ctrlExpertReview.CategoryIdList = "55";
             ctrlExpertReview.TotalRecords = 2;
             ctrlExpertReview.SectionTitle = "Expert Reviews";
             ctrlFirstRide.SectionBackgroundClass = "bg-white";
+
+            ctrlFirstRide.CategoryIdList = "57";
+            ctrlFirstRide.TotalRecords = 6;
+            ctrlFirstRide.SectionTitle = "First Ride Impressions";
 
             ctrlLaunchAlert.CategoryIdList = "59";
             ctrlLaunchAlert.TotalRecords = 6;
             ctrlLaunchAlert.SectionTitle = "Launch Alert";
             ctrlFirstRide.SectionBackgroundClass = "";
 
-            ctrlMiscellaneous.CategoryIdList = "58";
-            ctrlMiscellaneous.TotalRecords = 6;
-            ctrlMiscellaneous.SectionTitle = "Miscellaneous";
-            ctrlMiscellaneous.SectionBackgroundClass = "";
+            ctrlFirstLook.CategoryIdList = "61";
+            ctrlFirstLook.TotalRecords = 6;
+            ctrlFirstLook.SectionTitle = "First Look";
+
+            ctrlPDBlockbuster.CategoryIdList = "62";
+            ctrlPDBlockbuster.TotalRecords = 6;
+            ctrlPDBlockbuster.SectionTitle = "PowerDrift Blockbuster";
+
+            ctrlMotorSports.CategoryIdList = "51";
+            ctrlMotorSports.TotalRecords = 6;
+            ctrlMotorSports.SectionTitle = "MotorSports";  
+
+            ctrlPDSpecials.CategoryIdList = "63";
+            ctrlPDSpecials.TotalRecords = 6;
+            ctrlPDSpecials.SectionTitle = "PowerDrift Specials";
 
             ctrlTopMusic.CategoryIdList = "60";
             ctrlTopMusic.TotalRecords = 6;
-            ctrlTopMusic.SectionTitle = "PowerDrift Top Music";
-            ctrlTopMusic.SectionBackgroundClass = "";
+            ctrlTopMusic.SectionTitle = "PowerDrift Top Music";   
 
-            ctrlDoItYourself.CategoryIdList = "53";
-            ctrlDoItYourself.TotalRecords = 6;
-            ctrlDoItYourself.SectionTitle = "Do it yourself";
-            ctrlDoItYourself.SectionBackgroundClass = "";
+            ctrlMiscellaneous.CategoryIdList = "58";
+            ctrlMiscellaneous.TotalRecords = 6;
+            ctrlMiscellaneous.SectionTitle = "Miscellaneous";
 
 
         }
@@ -69,7 +84,7 @@ namespace Bikewale.Videos
         {
             BindVideosSectionCatwise objVideo = new BindVideosSectionCatwise();
             objVideo.TotalRecords = 5;
-            objVideo.CategoryId = Entities.Videos.EnumVideosCategory.MostPopular;
+            objVideo.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
             objVideo.DoSkip = 1;
             objVideo.FetchVideos();
             ctrlVideosLandingFirst = objVideo.FirstVideoRecord;

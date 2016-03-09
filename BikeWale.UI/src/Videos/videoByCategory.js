@@ -1,16 +1,6 @@
-﻿var pageNo = 1; 
-var monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"];
+﻿var pageNo = 1;
 
 lscache.setBucket('catVideos');
-
-ko.bindingHandlers.formateDate = {
-    update: function (element, valueAccessor) {
-        var date = new Date(valueAccessor());
-        var formattedDate = monthNames[date.getMonth()] + ' ' + date.getDay() + ', ' + date.getFullYear();
-        $(element).text(formattedDate);
-    }
-};
 
 ko.bindingHandlers.CurrencyText = {
     update: function (element, valueAccessor) {
@@ -99,53 +89,56 @@ $(window).scroll(function () {
         $.getVideos();
     }
 });
-
 $.getVideos = function () {
     $('#loading').show();
-    var cacheVideos = lscache.get("catVideo_" + catId + "_" + pageNo);
+    var cacheVideos = lscache.get("catVideo_" + cacheKey + "_" + pageNo);
     if (cacheVideos) {
-         $.bindVideos(cacheVideos);
-        maxPage = Math.ceil(cacheVideos.TotalRecords / 9);
+        $.bindVideos(cacheVideos);
         window.location.hash = "pn=" + pageNo;
         isNextPage = true;
         $('#loading').hide();
     }
     else
     {
-        var catURL = cwHostUrl + "/api/v1/videos/subcategory/" + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9";
+        var catURL = cwHostUrl + apiURL + catId + "/?appId=2&pageNo=" + pageNo + "&pageSize=9&sortCategory=3";
         $.ajax({
             type: 'GET',
             url: catURL,
             dataType: 'json',
             success: function (response) {
-                if (response.TotalRecords > 0) {
-                    $.bindVideos(response);
-                   maxPage = Math.ceil(response.TotalRecords / 9);
-                    isNextPage = true;
-                    lscache.set("catVideo_" + catId + "_" + pageNo, response, 60);
-                    window.location.hash = "pageno=" + pageNo;
-                   
+                var objVideos;
+                if (typeof response.Videos == 'undefined') {
+                    objVideos = { 'Videos': response };
                 }
+                else {
+                    objVideos = response;
+                }
+                $.bindVideos(objVideos);
+                isNextPage = true;
+                lscache.set("catVideo_" + cacheKey + "_" + pageNo, objVideos, 60);
+                window.location.hash = "pn=" + pageNo;
+            },
+            error: function (e) {
+                isNextPage = false;
             },
             complete: function (xhr) {
                 if (xhr.status == 404 || xhr.status == 204) {
-                    lscache.set("catVideo_" + catId + "_" + pageNo, null, 60);
+                    lscache.set("catVideo_" + cacheKey + "_" + pageNo, null, 60);
                 }
                 $('#loading').hide();
             }
         });
     }
-    
 }; 
 $.bindVideos = function (reponseVideos) {
-    var koHtml = '<div class="miscWrapper container">'
+   var koHtml = '<div class="miscWrapper container">'
                         + '<ul id="listVideos' + pageNo + '"  data-bind="template: { name: \'templetVideos\', foreach: Videos }">'
                         + '</ul>'
                     + '<div class="clear"></div></div>';
     $('#listVideos' + (pageNo - 1)).parent().after(koHtml);
-    ko.applyBindings(new SearchViewModel(reponseVideos), $("#listVideos" + pageNo)[0]); 
+    ko.applyBindings(new VideoViewModel(reponseVideos), $("#listVideos" + pageNo)[0]); 
 };
-var SearchViewModel = function (model) {
+var VideoViewModel = function (model) {
     ko.mapping.fromJS(model, {}, this);
 };
 

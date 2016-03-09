@@ -17,7 +17,7 @@
     <div class="rsa-header">
         <div class="bw-sprite white-close-btn right-float margin-top5"></div>
         <div class="left-float margin-right10 header-seperator">
-            <img class="margin-right10" src="http://img1.carwale.com/bikewaleimg/images/bikebooking/images/rsa-logo.png" border="0">
+            <img class="margin-right10" src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/rsa-logo.png" border="0">
                         
         </div>
         <div class=" left-float margin-top5">

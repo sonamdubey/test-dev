@@ -46,6 +46,12 @@ namespace Bikewale.New
             this.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Modified By : Lucky Rathore on 01 March 2016.
+        /// Description : set make masking name for video controller
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		protected void Page_Load(object sender, EventArgs e)
 		{            
             //Function to process and validate Query String  
@@ -75,6 +81,7 @@ namespace Bikewale.New
                     ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
                     ctrlVideos.TotalRecords = 3;
                     ctrlVideos.MakeId = Convert.ToInt32(makeId);
+                    ctrlVideos.MakeMaskingName = makeMaskingName;
 
                     ctrlExpertReviews.MakeMaskingName = makeMaskingName;
 

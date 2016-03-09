@@ -622,6 +622,9 @@ $.generateMaxList = function (dataValue) {
 };
 
 $.applyMinMaxFilter = function (name, value, node) {
+
+    if ((/undefined/g).test(value) || (/NaN/g).test(value)) return;
+
     $.removePageNoParam();
     $.removeKnockouts();
     var tempQS = '';

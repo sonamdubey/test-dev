@@ -130,13 +130,13 @@
 		    <div class="clear"></div>
 	    </div>
         <div id="searchRes" runat="server">
-            <img src='http://img.aeplcdn.com/loader.gif' border='0'alt="Loading.." />            
+            <img src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/loader.gif' border='0'alt="Loading.." />            
         </div>
     </div>
 </div>
 <div id="expended_row" class="hide">
-	<div><span id="last_update_row" class="right-float"></span><span id="close_row"><img alt="collapse" src="http://img.aeplcdn.com/used/collapsible.png" title="collapse" border="0" align="left"/></span>&nbsp;<span id="bike_row" class="price2" style="zoom:1;"></span>&nbsp;&nbsp;<span id="profileId_row"></span></div>    
-	<div style="width:10%;" class="thumb_img left-float margin-top10" align="center"><img id="front_image" alt="Loading..." src="http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg" border="0" /><br /><a id="photo_count"></a><div id="certified_cont"></div></div>
+	<div><span id="last_update_row" class="right-float"></span><span id="close_row"><img alt="collapse" src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/collapsible.png" title="collapse" border="0" align="left"/></span>&nbsp;<span id="bike_row" class="price2" style="zoom:1;"></span>&nbsp;&nbsp;<span id="profileId_row"></span></div>    
+	<div style="width:10%;" class="thumb_img left-float margin-top10" align="center"><img id="front_image" alt="Loading..." src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg" border="0" /><br /><a id="photo_count"></a><div id="certified_cont"></div></div>
 	<div style="width:80%; display:block;" class="right-float">
 		<table class="tbl_row" width="100%" cellspacing="0" border="0" cellpadding="0">
 		  <tr>
@@ -195,7 +195,7 @@
 		<h2 class="hd2" style="margin-top:5px;">One-time Mobile Verification</h2>
 		<div class="margin-top10">We have just sent you an SMS with a 5-digit verification code on your mobile number. Please enter the verification code below to proceed.</div>				
 		<div class="margin-top10">
-			<img align="absmiddle" alt="mobile verification" class="redirect-lt" src="http://img.aeplcdn.com/sell/mobi-verif.gif" border="0" /> <input type="text" id="txtCwiCode" maxlength="5" style="margin-left:10px;" class="text redirect-lt" value="Enter your code here" onFocus="javascript:if(this.value == 'Enter your code here') { this.value=''; }" onBlur="javascript:if(this.value == '') { this.value='Enter your code here'; }"  /> 
+			<img align="absmiddle" alt="mobile verification" class="redirect-lt" src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/mobi-verif.gif" border="0" /> <input type="text" id="txtCwiCode" maxlength="5" style="margin-left:10px;" class="text redirect-lt" value="Enter your code here" onFocus="javascript:if(this.value == 'Enter your code here') { this.value=''; }" onBlur="javascript:if(this.value == '') { this.value='Enter your code here'; }"  /> 
 			<a id="btnVerifyCode" style="margin-left:5px;" class="buttons">Verify</a><div id="processCode" class="process-inline"></div>
 		</div><div class="clear"></div>        
 	</div>   

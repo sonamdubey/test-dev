@@ -1,16 +1,15 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Videos.VideoCategories" EnableViewState="false" %>
-
-<%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="/controls/LinkPagerControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
     <%        
-        //Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(categoryId, out title, out description, make, model);
        Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(categoryIdList,out title,out description, null, null);
        canonical = string.Format("http://www.bikewale.com/bike-videos/category/{0}-{1}/", canonTitle, categoryIdList.Replace(',', '-'));
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/videocategory.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .miscWrapper li { width:312px; height:312px; background:#fff; float:left; border: 1px solid #e2e2e2; padding:20px; margin-right:10px; margin-bottom:20px; margin-left:10px; }.video-image-wrapper { width:271px; height:153px; margin-bottom:15px; overflow:hidden; text-align:center; }.video-image-wrapper a { width:100%; height:100%; display:block; background:url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }.video-image-wrapper img { width:100%; height:100%; }.border-light-right { border-right:1px solid #e2e2e2; }
+    </style>
     <%
         isAd970x90Shown = false;
          %>
@@ -41,13 +40,13 @@
                         <ItemTemplate>
                             <li>
                                 <div class="video-image-wrapper rounded-corner2">
-                                    <a href="<%# "/bike-videos/" + (DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString()) + "/" %>">
+                                    <a href="<%# string.Format("/bike-videos/{0}-{1}/", DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(), DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>">
                                         <img class="lazy" data-original="<%#String.Format("http://img.youtube.com/vi/{0}/mqdefault.jpg",DataBinder.Eval(Container.DataItem,"VideoId")) %>"
                                             alt="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle") %>" src="" border="0" />
                                     </a>
                                 </div>
                                 <div class="video-desc-wrapper">
-                                    <a href="<%# "/bike-videos/" + (DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString()) + "/" %> " class="font14 text-bold text-default"><%# DataBinder.Eval(Container.DataItem,"VideoTitle") %></a>
+                                    <a href="<%# string.Format("/bike-videos/{0}-{1}/", DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(), DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %> " class="font14 text-bold text-default"><%# DataBinder.Eval(Container.DataItem,"VideoTitle") %></a>
                                     <p class="font12 text-light-grey margin-top10 margin-bottom10"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy")  %></p>
                                     <div class="grid-6 alpha omega border-light-right font14">
                                         <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString()) %></span>
@@ -65,9 +64,9 @@
             </div>
         </section>
         <section>
-            <div style="text-align: center;">
+            <div class="text-center">
                 <div id="loading">
-                    <img src="http://img2.aeplcdn.com/bikewaleimg/images/search-loading.gif"   />
+                    <img src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif"   />
                 </div>
             </div>
         </section>
@@ -76,7 +75,7 @@
                 <div class="video-image-wrapper rounded-corner2">
                     <a data-bind="attr: { href: '/bike-videos/' + VideoTitleUrl() + '-' + BasicId() + '/' }">
                         <img class="lazy" data-bind="attr: { title: VideoTitle(), alt: VideoTitle(), src: '' }, lazyload: 'http://img.youtube.com/vi/' + VideoId() + '/mqdefault.jpg' "
-                            src="" border="0" />
+                            border="0" />
                     </a>
                 </div>
                 <div class="video-desc-wrapper">
@@ -97,6 +96,8 @@
             var catId = '<%= categoryIdList %>';
             var maxPage = Math.ceil(<%= totalRecords %>/9);
             var isNextPage = true;
+            var apiURL = "/api/v1/videos/subcategory/";
+            var cacheKey = catId.replace(",","_");
             $(document).ready(function () {
                 $("img .lazy").lazyload();
                 $("#loading").hide();

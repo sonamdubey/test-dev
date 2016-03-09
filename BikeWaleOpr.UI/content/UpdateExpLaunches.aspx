@@ -132,9 +132,9 @@
                             <div id ="divMainImageRepTable" pending="<%= isReplicated =="0"? "true" : "false" %>">
                                 <% if (originalImgPath != string.Empty)
                                    { %>
-                                    <img id="imgLargePicPath" image-id="<%=Id %>" src="<%= isReplicated =="0"? "http://img.aeplcdn.com/loader.gif" :  BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"227X128",originalImgPath)%>"/>
+                                    <img id="imgLargePicPath" image-id="<%=Id %>" src="<%= isReplicated =="0"? "http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/loader.gif" :  BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"227X128",originalImgPath)%>"/>
                                  <% } else { %>
-                                <img src="http://img.carwale.com/bikewaleimg/common/nobike.jpg" height="125px" width="200px" />
+                                <img src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/nobike.jpg" height="125px" width="200px" />
                                 <% } %>
                             </div>
 

@@ -78,7 +78,6 @@ namespace Bikewale.Service.Controllers.CMS
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //objImageList = objClient.GetApiResponseSync<List<ModelImage>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImageList);
                     objImageList = objClient.GetApiResponseSync<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImageList);
                 }
 
@@ -140,7 +139,6 @@ namespace Bikewale.Service.Controllers.CMS
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //objPhotos = objClient.GetApiResponseSync<CMSImage>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objPhotos);
                     objPhotos = objClient.GetApiResponseSync<CMSImage>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objPhotos);
                 }
 
@@ -173,6 +171,8 @@ namespace Bikewale.Service.Controllers.CMS
         /// <summary>
         /// Modified By : Ashish G. Kamble.
         /// Summary : API to get details of article. This is api is used for the articles having multiple pages. e.g. Road Tests, Expert Reviews, Features.
+        /// Modified By : Sangram Nandkhile on 04 Mar 2016
+        /// Summary : Utility function to fetch shareurl is used
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>Article Details</returns>
@@ -187,7 +187,6 @@ namespace Bikewale.Service.Controllers.CMS
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //objFeaturedArticles = objClient.GetApiResponseSync<ArticlePageDetails>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeaturedArticles);
                     objFeaturedArticles = objClient.GetApiResponseSync<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeaturedArticles);
                 }
 
@@ -246,15 +245,7 @@ namespace Bikewale.Service.Controllers.CMS
                             }
                         }
                     }
-                    string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
-                    if (objFeaturedArticles.CategoryId == (int)EnumCMSContentType.Features)
-                    {
-                        objCMSFArticles.ShareUrl = _bwHostUrl + String.Format("/features/{0}-{1}", objCMSFArticles.ArticleUrl, basicId);
-                    }
-                    else if (objFeaturedArticles.CategoryId == (int)EnumCMSContentType.RoadTest)
-                    {
-                        objCMSFArticles.ShareUrl = _bwHostUrl + String.Format("/road-tests/{0}-{1}.html", objCMSFArticles.ArticleUrl, basicId);
-                    }
+                    objCMSFArticles.ShareUrl = new CMSShareUrl().ReturnShareUrl(objCMSFArticles);
                     return Ok(objCMSFArticles);
                 }                
             }
@@ -273,6 +264,8 @@ namespace Bikewale.Service.Controllers.CMS
         /// <summary>
         /// Modified By : Ashish G. Kamble
         /// Summary : API to get details of article. This is api is used for the articles single page. e.g. News.
+        /// Modified By : Sangram Nandkhile on 04 Mar 2016
+        /// Summary : Utility function to fetch shareurl is used
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>News Details</returns>
@@ -339,10 +332,8 @@ namespace Bikewale.Service.Controllers.CMS
                             objCMSFArticles.Content = "";
                         }
                     }
-                    string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
-                    if (objCMSFArticles.CategoryId == (int)EnumCMSContentType.News || objCMSFArticles.CategoryId == (int)EnumCMSContentType.AutoExpo2016)
                     {
-                        objCMSFArticles.ShareUrl = _bwHostUrl + String.Format("/news/{0}-{1}.html", basicId, objNews.ArticleUrl);
+                        objCMSFArticles.ShareUrl = new CMSShareUrl().ReturnShareUrl(objCMSFArticles);
                     }
                     return Ok(objCMSFArticles);
                 }
@@ -375,7 +366,6 @@ namespace Bikewale.Service.Controllers.CMS
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //objImg = objClient.GetApiResponseSync<List<ModelImage>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImg);
                     objImg = objClient.GetApiResponseSync<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImg);
                 }
 

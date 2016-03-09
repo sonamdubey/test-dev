@@ -39,8 +39,8 @@ RewriteRule	^m/terms/(.*)	/m/offerterms.aspx?id=$1 [NC,L]
 RewriteRule  ^m/(.*)-bikes/(.*)/(.*)-specs-(.*).html	/m/($1)-bikes/($2)/ [R=301,NC,L]
 
 
-RewriteRule	^(.*)-bikes/(.*)/(.*)/	/m/new/BikeModels.aspx?model=$2 [NC,L,R=404]
-RewriteRule	^(.*)-bikes/(.*)/	/m/new/BikeModels.aspx?model=$2 [NC,L,QSA]
+RewriteRule	^(.*)-bikes/([a-zA-Z0-9\-]+)/$	/m/new/BikeModels.aspx?model=${lowercase:$2} [NC,L,QSA]
+#RewriteRule	^(.*)-bikes/(.*)/	/m/new/BikeModels.aspx?model=$2 [NC,L,QSA]
 RewriteRule ^m/(.*)-bikes/(.*)-series/ /m/new/bikeseries.aspx?series=$2 [NC,L]
 RewriteRule	^m/(.*)-bikes/$	/m/new/bikemakes.aspx?make=$1 [NC,L]
 
@@ -54,6 +54,11 @@ RewriteRule ^m/new/locate-dealers/	/m/new/NewBikeDealers/default.aspx [NC,L]
 RewriteRule ^m/comparebikes/([a-zA-Z0-9]*)-(.*)-vs-([a-zA-Z0-9]*)-(.*)/$         /m/new/compare/comparebikedetails.aspx?mo=$2,$4 [NC,L,QSA]
 RewriteRule ^m/comparebikes/$							/m/new/compare/comparebike.aspx	[NC,L]
 
+RewriteRule	^bike-videos/category/([a-zA-Z\-]+)-([0-9-]+)/$	/m/videos/videocategories.aspx?cid=${lowercase:$2}&title=${lowercase:$1} [NC,L]
+RewriteRule	^bike-videos/([a-zA-Z0-9\-]+)-([\d]+)/$	/m/videos/video.aspx?id=${lowercase:$2} [NC,L]
+RewriteRule ^bike-videos/$		/m/videos/default.aspx [NC,L]
+
+RewriteRule	^bike-videos/([a-zA-Z0-9\-]+)-([\d]+)/$	/m/videos/video.aspx?id=${lowercase:$2} [NC,L]
 
 
 

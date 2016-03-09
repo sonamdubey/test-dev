@@ -1,4 +1,4 @@
-﻿.booking-landing-banner { background:#8d8c8a url(http://img.aeplcdn.com/bikewaleimg/images/booking-landing-banner.jpg) no-repeat left top; height: 489px; padding-top: 1px; }
+﻿.booking-landing-banner { background:#8d8c8a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/booking-landing-banner.jpg) no-repeat left top; height: 489px; padding-top: 1px; }
 .booking-landing-search-container { margin:0 auto; width:600px; }
 .booking-landing-search-container .form-control { padding:8px; }
 .booking-search-city, .booking-search-area { width:233px; height:40px; float:left;}
@@ -11,7 +11,7 @@
 .benefit-icon-outer-container { width:120px; height:120px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .benefit-icon-inner-container { width:110px; height:110px; margin:4px auto; background:#fff; border:1px solid #666; }
 
-.booking-landing-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/booking-landing-sprite.png) no-repeat; display: inline-block; }
+.booking-landing-sprite { background: url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/booking-landing-sprite.png) no-repeat; display: inline-block; }
 .benefit-offers-icon { width:46px; height:50px; background-position:0 0; }
 .benefit-dealer-icon { width:60px; height:40px; background-position:-56px 0; }
 .benefit-assistance-icon { width:50px; height:56px; background-position:-126px 0; }
@@ -27,7 +27,7 @@
 
 .offers-icon-wrapper { width:15%; margin-left:20px; }
 .offers-desc-wrapper { width:70%; margin-left:10px }
-#bookingWorksWrapper { background:#666 url(http://img.aeplcdn.com/bikewaleimg/images/booking-works-banner.jpg) no-repeat center; height:278px; background-size:cover; }
+#bookingWorksWrapper { background:#666 url(http://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/booking-works-banner.jpg) no-repeat center; height:278px; background-size:cover; }
 #testimonialWrapper { max-width:770px; margin:0 auto; }
 #testimonialWrapper .jcarousel-wrapper { width:770px; margin-top:10px; }
 #testimonialWrapper li { width:770px; padding:0 20px; height:auto; }

@@ -32,7 +32,7 @@
                 <div class="ins-content-box">
                     <span class="tag-txt">Sponsored</span>
                     <span class="sponsored-icon margin-bottom25"></span>
-                    <img src="http://img.aeplcdn.com/bikewaleimg/images/policy-boss-logo.png" alt="Policy Boss" width="94">
+                    <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/policy-boss-logo.png" alt="Policy Boss" width="94">
                     <p>
                         Save upto 60% on
                         <br />
@@ -136,7 +136,7 @@
                 <h2 class="text-center margin-top30 margin-bottom20">FAQs</h2>
                 <div id="faqs" class="grid-12 bg-white content-box-shadow rounded-corner2 clear">
                     <div class="text-black box accordion">
-                        <h3 class="stepStrip">What is bike insurance? <span class="icon plus-minus"><span class="fa fa-plus"></span></span></h3>
+                        <h3 class="stepStrip">What is bike insurance? <span class="icon plus-minus"><span class="bwmsprite fa fa-plus"></span></span></h3>
                         <div class="hide">
                             <p class="content-inner-block-4 font14 text-grey line-height">
                                 Bike or Two Wheeler Insurance extends protection against theft or any damage to your bike. It also safeguards your bike against third party liabilities. A comprehensive policy not only provides coverage in accidental injuries but also pays specified compensation for death sustained by the owner & driver of the vehicle in direct connection with the vehicle insured or while mounting into / dismounting from or traveling in the insured vehicle as a co-driver, caused by violent, accidental, external and visible means.
@@ -144,7 +144,7 @@
                         </div>
                     </div>
                     <div class="text-black box accordion">
-                        <h3 class="stepStrip">Is it mandatory to take insurance<span class="icon plus-minus"><span class="fa fa-plus"></span></span></h3>
+                        <h3 class="stepStrip">Is it mandatory to take insurance<span class="icon plus-minus"><span class="bwmsprite fa fa-plus"></span></span></h3>
                         <div class="hide">
                             <p class="content-inner-block-4 font14 text-grey line-height">
                                 Two wheeler insurance is a mandate thing as per the law and much needed to safeguard your passengers, your fellow drivers, other people's property, pedestrians, yourself and your beloved bike.
@@ -152,7 +152,7 @@
                         </div>
                     </div>
                     <div class="text-black box accordion">
-                        <h3 class="stepStrip">What does my bike insurance cover?<span class="icon plus-minus"><span class="fa fa-plus"></span></span></h3>
+                        <h3 class="stepStrip">What does my bike insurance cover?<span class="icon plus-minus"><span class="bwmsprite fa fa-plus"></span></span></h3>
                         <div class="hide">
                             <p class="content-inner-block-4 font14 text-grey line-height">
                                 Following things get covered in your two wheeler insurance:
@@ -178,7 +178,7 @@
                         </div>
                     </div>
                     <div class="text-black box accordion">
-                        <h3 class="stepStrip">What are the key features of insurance that is being offered?<span class="icon plus-minus"><span class="fa fa-plus"></span></span></h3>
+                        <h3 class="stepStrip">What are the key features of insurance that is being offered?<span class="icon plus-minus"><span class="bwmsprite fa fa-plus"></span></span></h3>
                         <div class="hide">
                             <ul class="faqBox">
                                 <li>Easy and hassle-free claim process with minimum documentation
@@ -193,7 +193,7 @@
                         </div>
                     </div>
                     <div class="text-black box accordion">
-                        <h3 class="stepStrip">Does the bike insurance lapse after the death of the insured?<span class="icon plus-minus"><span class="fa fa-plus"></span></span></h3>
+                        <h3 class="stepStrip">Does the bike insurance lapse after the death of the insured?<span class="icon plus-minus"><span class="bwmsprite fa fa-plus"></span></span></h3>
                         <div class="hide">
                             <p class="content-inner-block-4 font14 text-grey line-height">
                                 In the event of death of the insured, the bike insurance policy will not immediately lapse but will remain valid for a period of three months from the death of insured or until the expiry of the policy (whichever is earlier). During the said period, legal heir of the insured whom the custody and the use of motor vehicle passes may apply to have this policy transferred to the name of the heir or obtain new insurance policy for bike. However, following documents are needed in such case:
@@ -216,7 +216,7 @@
         <section class="container contact-fixed">
             <div class="grid-12 text-white text-center">
                 <p class="margin-bottom25 font14 text-medium-grey text-center">In case of queries call us toll-free on:</p>
-                <p class="phone-box"><a href="tel:1800 120 8300" class="rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone"></span>1800 120 8300</a></p>
+                <p class="phone-box"><a href="tel:1800 120 8300" class="rounded-corner2" style="text-decoration: none;"><span class="bwmsprite tel-green-icon margin-right5"></span>1800 120 8300</a></p>
             </div>
             <div class="clear"></div>
         </section>

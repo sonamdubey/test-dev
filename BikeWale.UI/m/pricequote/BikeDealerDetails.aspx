@@ -151,7 +151,7 @@
                                         <div class="clearfix">
                                             <p class="grid-8 alpha">Down payment</p>
                                             <div class="emi-slider-box-right-section font16 grid-4 omega">
-                                                <span class="fa fa-rupee"></span>
+                                                <span class="bwmsprite inr-xsm-icon"></span>
                                                 <span id="downPaymentAmount" data-bind="text: formatPrice(downPayment())" class="text-bold" class="text-bold">50000</span>
                                             </div>
                                         </div>
@@ -178,7 +178,7 @@
                                         <div class="clearfix">
                                             <p class="grid-8 alpha">Loan Amount</p>
                                             <div class="emi-slider-box-right-section font16 grid-4 omega">
-                                                <span class="fa fa-rupee"></span>
+                                                <span class="bwmsprite inr-xsm-icon"></span>
                                                 <span id="loanAmount" data-bind="text: formatPrice(loan())" class="text-bold">950000</span>
                                             </div>
                                         </div>
@@ -263,7 +263,7 @@
                                 <div class="clearfix">
                                     <p class="grid-8 alpha">Indicative EMI<span class="font12 text-light-grey">(per month)</span></p>
                                     <div class="indicative-emi-amount font16 text-right grid-4 omega">
-                                        <span class="font14"><span class="fa fa-rupee"></span></span>
+                                        <span class="bwmsprite inr-xsm-icon"></span>
                                         <span class="text-bold" data-bind="text: monthlyEMI" id="emiAmount">12,000</span>
                                     </div>
                                 </div>
@@ -298,7 +298,7 @@
 
                                 <% if (isOfferAvailable)
                                    { %>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="bwmsprite inr-xsm-icon"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
                                 <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwmsprite offers-icon margin-right5"></span>Available Offers </h3>
 
                                 <ul>
@@ -315,7 +315,7 @@
                                    else
                                    {%>
                                 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="bwmsprite inr-sm-icon"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
                                 <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1">Dealer's Location</h3>
                                 <div class="bikeModel-dealerMap-container margin-top15" style="width: 100%; min-width: 50%; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
 
@@ -330,7 +330,7 @@
                             <p class="text-light-grey margin-bottom5 font14">On-road price in <span class="font16 text-bold text-grey"><%= location %></span></p>
                             <div class="modelPriceContainer margin-bottom15">
                                 <!-- ko if : (versionPrice() - insuranceAmount()) > 0 -->
-                                <span class="font28"><span class="fa fa-rupee"></span></span>
+                                <span class="bwmsprite inr-xlg-icon"></span> 
                                 <span class="font30" data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span>
                                 <span class="font14 viewBreakupText">View breakup</span>
                                 <!-- /ko -->
@@ -365,7 +365,7 @@
                                         <!-- ko foreach: versionPriceBreakUp -->
                                         <tr>
                                             <td width="60%" class="padding-bottom10" data-bind="text: ItemName"></td>
-                                            <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                            <td align="right" class="padding-bottom10 text-bold"><span class="bwmsprite inr-xsm-icon"></span><span data-bind="CurrencyText: Price"></span></td>
                                         </tr>
 
                                         <!-- /ko -->
@@ -378,19 +378,19 @@
                                         </tr>
                                         <tr>
                                             <td class="padding-bottom10">Total on road price</td>
-                                            <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
+                                            <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="bwmsprite inr-xsm-icon"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
                                         </tr>
                                         <!-- ko foreach: discountList -->
                                         <tr>
                                             <td width="350" class="padding-bottom10" data-bind="text: 'Minus '+CategoryName"></td>
-                                            <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                            <td align="right" class="padding-bottom10 text-bold"><span class="bwmsprite inr-xsm-icon"></span><span data-bind="CurrencyText: Price"></span></td>
                                         </tr>
                                         <!-- /ko -->
                                         <%} %>
                                         <%--<!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
                                             <tr>
                                                 <td class="padding-bottom10">Minus insurance</td>
-                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="bwmsprite inr-xxsm-icon margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
                                             </tr>
                                             <!-- /ko -->--%>
                                         <tr>
@@ -401,7 +401,7 @@
                                         <tr>
 
                                             <td class="padding-bottom10 text-bold">Total on road price</td>
-                                            <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
+                                            <td align="right" class="padding-bottom10 font20 text-bold"><span class="bwmsprite inr-sm-icon"></span><span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
 
                                         </tr>
                                         <tr>
@@ -421,14 +421,14 @@
                 <div class="clear"></div>
                 <div class="content-box-shadow content-inner-block-15 margin-top15 margin-bottom15 text-medium-grey text-center" data-bind="visible : $root.CurrentStep()==3">
                     <p class="text-medium-grey font14 margin-bottom10">In case of queries call us toll-free on:</p>
-                    <a href="tel:1800 120 8300" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 120 8300</a>
+                    <a href="tel:1800 120 8300" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="bwmsprite tel-green-icon margin-right5"></span>1800 120 8300</a>
                 </div>
             </div>
         </section>
 
 
         <section class="container margin-bottom30 content-box-shadow">
-            <div class="lazy booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>"></div>
+            <div class="lazy booking-how-it-works" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/howitworks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
         <% if (ctrlUsersTestimonials.FetchedCount > 0)

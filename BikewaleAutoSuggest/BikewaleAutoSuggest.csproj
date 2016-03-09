@@ -35,6 +35,9 @@
     <Reference Include="Consumer">
       <HintPath>..\Libs\BookingSMS\Consumer.dll</HintPath>
     </Reference>
+    <Reference Include="ElasticClientManager">
+      <HintPath>..\Libs\ElasticClientManager.dll</HintPath>
+    </Reference>
     <Reference Include="Elasticsearch.Net">
       <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
     </Reference>
@@ -58,10 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="City.cs" />
-    <Compile Include="CitySuggestion.cs" />
     <Compile Include="GetBikeListDb.cs" />
-    <Compile Include="GetCityList.cs" />
     <Compile Include="MakeModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -22,7 +22,7 @@
         <div class="box1 new-line5">
             <div class="new-line5"><asp:DropDownList ID="ddlMake" runat="server" class="textAlignLeft" data-mini="true"><asp:ListItem Text="--Select Make--" Value="0" /></asp:DropDownList></div> 
             <div id="divModel" class="new-line15">
-                <img id="imgLoaderMake" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+                <img id="imgLoaderMake" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
                 <select data-mini="true" id="ddlModel">
                         <option value="0">--Select Model--</option>         
                 </select>

@@ -5,14 +5,14 @@
 .rsa-popup{background:#fff; left: 50%; margin-left: -280px; margin-top: -267px; position: fixed; top: 50%; width: 560px; z-index:999;}
 .rsa-header{ padding:7px; background:#0d405b;}
 .rsa-header h1{ color:#fff;}
-.header-seperator{ background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/images/v-seperator.png) no-repeat 88% center; }
-.rsa-details ol li{ background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bw-light-grey-bullet.png) no-repeat scroll 0 9px ; display: block; list-style: outside none square; padding: 3px 0 3px 10px;}
-.seperator{ background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/images/seperator.png) no-repeat center; height:2px; width:100%;}
+.header-seperator{ background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/v-seperator.png) no-repeat 88% center; }
+.rsa-details ol li{ background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-light-grey-bullet.png) no-repeat scroll 0 9px ; display: block; list-style: outside none square; padding: 3px 0 3px 10px;}
+.seperator{ background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/seperator.png) no-repeat center; height:2px; width:100%;}
 .steps{ padding:10px 0;}
 .color-text{ color:#0d405b;}
 .steps h2{ color:#0d405b; margin-bottom:10px;}
 /*bw sprite*/
-/*.bw-sprite{ background:url("http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bw-sprite-new.png") no-repeat; display:inline-block;}*/
+/*.bw-sprite{ background:url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bw-sprite-new.png") no-repeat; display:inline-block;}*/
 .white-close-btn { background-position:-58px -95px; width:22px; height:23px; cursor:pointer; }
 .white-close-btn:hover { opacity:.8; -moz-opacity:.8; -o-opacity:.8; -ms-opacity:.8; -webkit-opacity:.8;}
 

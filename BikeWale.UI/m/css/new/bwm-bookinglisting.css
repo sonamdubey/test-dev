@@ -8,12 +8,12 @@
 .filter-sort-div div a { padding: 0; color: #565a5c; display: block; text-decoration: none; text-align: center; }
 .filter-sort-div .filter-icon { position: relative; top: 2px; }
 #divSearchResult .bikeDescWrapper { padding:20px 20px 18px; }
-.offers-tag-wrapper { width:102px; height:28px; background:#4d5057; color:#fff; font-size:14px; line-height:28px; padding:0 20px; }
-.offers-left-tag { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-right: 10px solid #fff; position:relative; top:-33px; left:46px; font-size: 0; line-height: 0; z-index:1; }
+.offers-tag-wrapper { width:90px; height:28px; background:#4d5057; color:#fff; font-size:14px; line-height:28px;}
+.offers-left-tag { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-right: 10px solid #fff; position:absolute; left:80px; font-size: 0; line-height: 0; z-index:1; }
 #offersPopup { display:none; }
 .offers-box-icon { width:44px; height:48px; background-position:-83px -396px; }
 #offersPopup .offers-list-ul { text-align:left; }
-#offersPopup ul li { background: url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png?v=22122015") no-repeat 0 3px; margin-top: 12px; padding: 0 0 0 22px; width:100%; min-height:auto; font-size:14px; }
+#offersPopup ul li { background: url("http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png?v=22122015") no-repeat 0 3px; margin-top: 12px; padding: 0 0 0 22px; width:100%; min-height:auto; font-size:14px; }
 #offersPopup ul li:first-child { margin-top:0; }
 #listingPopupHeading .form-control { padding:0; }
 #listingCitySelection .errorIcon, #listingCitySelection .errorText, #listingAreaSelection .errorIcon, #listingAreaSelection .errorText { display:none; }
@@ -56,7 +56,7 @@
 #imgCount { background: #333; width: 90px; height: 18px; padding: 5px; position: relative; margin: -20px auto auto; text-align: center; text-shadow: none; color: #fff; font-size: 12px; font-weight: normal; }
 #m-uc-gallery { background: #000; }
 .highPriceDiv { width: 50%; }
-.highPriceDiv .ui-icon-carat-d:after { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/pq/m-icons.png?v=150915) no-repeat -52px -142px; width: 9px; height: 5px; display: block; margin-top: -2px; }
+.highPriceDiv .ui-icon-carat-d:after { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/m-icons.png?v=150915) no-repeat -52px -142px; width: 9px; height: 5px; display: block; margin-top: -2px; }
 .highPriceDiv div.ui-btn, .highPriceDiv div.ui-btn:hover { padding: 6px 10px; border: 1px solid #f2f2f2; background: #fff; border-radius: 0px; text-align: left; font-size: 1em; font-family: Roboto, Arial, Helvetica, sans-serif; color: #333; font-weight: normal; text-shadow: none; box-shadow: none; }
 .highPriceDiv .ui-select { margin: 0px; }
 .bikeDiv a.ui-btn:focus { background-color: #f6f6f6; }
@@ -89,7 +89,7 @@ a.btn-call:hover { color: #fff; text-decoration: none; font-weight: bold; }
 .ui-widget-header a { color: #FFFFFF; }
 .slider-box { margin: 0 10px; }
 span.ui-helper-hidden-accessible { display: none; }
-.ui-slider .ui-slider-handle { background: url(http://img.aeplcdn.com/pq/m-icons.png?v=150915) no-repeat 0px -197px; cursor: pointer; height: 20px; position: absolute; text-decoration: none; width: 20px; z-index: 2; top: -8px; margin-left: -5px; }
+.ui-slider .ui-slider-handle { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/m/m-icons.png?v=150915) no-repeat 0px -197px; cursor: pointer; height: 20px; position: absolute; text-decoration: none; width: 20px; z-index: 2; top: -8px; margin-left: -5px; }
 .ui-panel-dismiss-open.ui-panel-dismiss-position-right { right: 100%; }
 .ui-popup-screen { background: #fff; }
 .ui-popup-screen.in { opacity: 0; }
@@ -115,7 +115,7 @@ span.ui-helper-hidden-accessible { display: none; }
 
 /* multiple select dropdown */
 .dropdown ul { margin: -1px 0 0 0; }
-.dropdown .form-control { background: #fff url(http://img.aeplcdn.com/bikewaleimg/m/images/dropArrowBg.png?v=150915) no-repeat 96% 50%; padding-right: 30px; overflow: hidden; padding-left: 15px; }
+.dropdown .form-control { background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v=150915) no-repeat 96% 50%; padding-right: 30px; overflow: hidden; padding-left: 15px; }
 .multiSel { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
 .dropdown .hida.shiftRight:before { content: "("; }
 .dropdown .hida.shiftRight { float: right; color: #82888b; }
