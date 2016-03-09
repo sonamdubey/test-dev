@@ -20,7 +20,7 @@ $.variantChangeUp = function (variantsDropdown) {
     variantUL.slideUp();
 };
 
-//TODO show the selected variant from dropdown
+//TODO handle the version selection event
 
 $(document).mouseup(function (e) {
     if (!$(".variants-dropdown, .variant-selection-tab, .variant-selection-tab #upDownArrow").is(e.target)) {
@@ -121,20 +121,6 @@ $("#assistanceGetMobile").on("focus", function () {
     prevMobile = $(this).val().trim();
 });
 
-$('.show-more-dealers').on('click', function () {
-    if ($('#PQDealerSidebarContainer').hasClass('sidebar-reached-bottom') || $('#PQDealerSidebarContainer').hasClass('near-end-point')) {
-        $('html, body').animate({ scrollTop: 0 });
-        $('.pqdealer-and-listing-container').animate({ scrollTop: $('.pqdealer-sidebar-panel').height() });
-    }
-    $(this).parent().prev('div').find('div.pq-sidebar-dealer-listing').slideDown();
-    $(this).hide().next('a.show-less-dealers').show();
-});
-
-$('.show-less-dealers').on('click', function () {
-    $(this).parent().prev('div').find('div.pq-sidebar-dealer-listing').slideUp();
-    $(this).hide().prev('a.show-more-dealers').show();
-});
-
 $(document).ready(function () {
     var $window = $(window),
         disclaimerText = $('#disclaimerText'),
@@ -146,22 +132,15 @@ $(document).ready(function () {
         var windowScrollTop = $window.scrollTop(),
             disclaimerTextOffset = disclaimerText.offset(),
             dealerPriceQuoteContainerOffset = dealerPriceQuoteContainer.offset();
-        if ($('#toggleDealerList').offset().top > dealerPriceQuoteContainer.height() - 200) {
-            PQDealerSidebarContainer.addClass('near-end-point');
-        }
-        else PQDealerSidebarContainer.removeClass('near-end-point');
         if (windowScrollTop < dealerPriceQuoteContainerOffset.top - 50) {
             PQDealerSidebarContainer.css({ 'position': 'relative', 'top': '0', 'right': '0' })
-            PQDealerSidebarContainer.removeClass('sidebar-reached-bottom near-end-point');
         }
         else if (windowScrollTop > (disclaimerTextOffset.top - PQDealerSidebarHeight - 80)) {
-            PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 150, 'right': '0' })
-            PQDealerSidebarContainer.addClass('sidebar-reached-bottom');
-        }
-        else {
-            PQDealerSidebarContainer.css({ 'position': 'fixed', 'top': '50px', 'right': '187px' })
-            PQDealerSidebarContainer.removeClass('sidebar-reached-bottom');
-        }
+                PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 150, 'right': '0' })
+            }
+            else {
+                PQDealerSidebarContainer.css({ 'position': 'fixed', 'top': '50px', 'right': '187px' })
+            }
     });
 });
 

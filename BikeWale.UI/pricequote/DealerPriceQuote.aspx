@@ -236,15 +236,15 @@
                             <p class="text-bold padding-top20 border-light-top">Exclusive offers from this dealer:</p>
                             <ul class="pricequote-benefits-list text-light-grey">
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"></span>
+                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
                                     <span class="inline-block pq-benefits-title">Free bike insurance</span>
                                 </li>
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"></span>
+                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
                                     <span class="inline-block pq-benefits-title">Flipkart voucher worth Rs.1,000</span>
                                 </li>
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"></span>
+                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
                                     <span class="inline-block pq-benefits-title">Document pickup and bike delivery</span>
                                 </li>
                             </ul>
@@ -278,15 +278,15 @@
                             <p class="text-bold margin-bottom20">Benefits of buying a bike from this dealer:</p>
                             <ul class="pricequote-benefits-list text-light-grey">
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"></span>
+                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
                                     <span class="inline-block pq-benefits-title">Exclusive offers</span>
                                 </li>
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"></span>
+                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
                                     <span class="inline-block pq-benefits-title">Complete buying assistance</span>
                                 </li>
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"></span>
+                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
                                     <span class="inline-block pq-benefits-title">Easy cancellations</span>
                                 </li>
                             </ul>
@@ -438,7 +438,7 @@
                                             <a class="btn btn-grey btn-md font14">Get EMI quote</a>
                                         </div>
                                         <div class="clear"></div>
-                                        <p id="disclaimerText" class="margin-top15 font11 text-light-grey"><span class=""></span>On-road price and EMI calculator is provided for information. BikeWale does not own any responsibility for the same.</p>
+                                        <p id="disclaimerText" class="margin-top15 font11 text-light-grey"><span class="bwsprite disclaimer-sm-icon"></span>On-road price and EMI calculator is provided for information. BikeWale does not own any responsibility for the same.</p>
                                     </div>
                             </div>
                         </div>
@@ -455,7 +455,8 @@
                                     <a class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
                                 </div>
                             </div>
-                            <div class="pq-sidebar-dealer-listing">
+                            <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
+                                <p class="padding-bottom15">Prices available from 27 more dealers:</p>
                                 <ul>
                                     <li>
                                         <p class="font18 text-darker-black text-bold">Dealership 1</p>
@@ -469,25 +470,15 @@
                                         <p class="font18 text-darker-black text-bold">Dealership 3</p>
                                         <p class="font14 text-light-grey">Area</p>
                                     </li>
-                                    <li>
-                                        <p class="font18 text-darker-black text-bold">Dealership 4</p>
-                                        <p class="font14 text-light-grey">Area</p>
-                                    </li>
-                                    <li>
-                                        <p class="font18 text-darker-black text-bold">Dealership 5</p>
-                                        <p class="font14 text-light-grey">Area</p>
-                                    </li>
-                                    <li>
-                                        <p class="font18 text-darker-black text-bold">Dealership 6</p>
-                                        <p class="font14 text-light-grey">Area</p>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
+                        <!--
                         <div id="toggleDealerList" class="text-center margin-top20">
                             <a href="javascript:void(0)" class="font14 show-more-dealers">Check price from 27 more dealers <span class="fa fa-angle-down"></span></a>
                             <a href="javascript:void(0)" class="font14 show-less-dealers">Show less dealers <span class="fa fa-angle-up"></span></a>
                         </div>
+                        -->
                     </div>
                     <div class="clear"></div>
                 </div>
