@@ -186,21 +186,46 @@
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30165.66210531427!2d72.98105033863713!3d19.076582232598167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b519107b%3A0x8452b99754be0fc8!2sVashi%2C+Navi+Mumbai%2C+Maharashtra+400703!5e0!3m2!1sen!2sin!4v1457345328664" frameborder="0" width="100%" height="90" class="border-solid margin-bottom15"></iframe>
                     <div class="padding-top15 padding-bottom15 border-light-top">
                         <span class="font15 text-bold">4 offers available</span>
-                        <span class="text-link">View offers</span>
+                        <span class="text-link view-offers-target">View offers</span>
+                    </div>
+                    <div id="offersPopup" class="bwm-fullscreen-popup text-center padding-top30">
+                        <div class="offers-popup-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+                        <div class="icon-outer-container rounded-corner50percent">
+                            <div class="icon-inner-container rounded-corner50percent">
+                                <span class="bwmsprite offers-box-icon margin-top20"></span>
+                            </div>
+                        </div>
+                        <p class="font16 text-bold margin-top25 margin-bottom20">Exclusive offers on this bike</p>
+                        <ul class="pricequote-benefits-list text-light-grey">
+                            <li>
+                                <span class="pq-benefits-image"></span>
+                                <span class="pq-benefits-title padding-left15">Exclusive offers</span>
+                            </li>
+                            <li>
+                                <span class="pq-benefits-image"></span>
+                                <span class="pq-benefits-title padding-left15">Complete buying assistance</span>
+                            </li>
+                            <li>
+                                <span class="pq-benefits-image"></span>
+                                <span class="pq-benefits-title padding-left15">Easy cancellations</span>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                        <input type="button" class="book-now-popup-btn margin-top30 btn btn-orange" value="Claim offers" />
                     </div>
                     <div class="border-light-top padding-top15 padding-bottom15">
                         <p class="font15 text-bold margin-bottom15">Benefits of buying from this dealer:</p>
                         <ul class="pricequote-benefits-list text-light-grey">
                             <li>
-                                <span class="pq-benefits-image"><img src="" border="0" /></span>
+                                <span class="pq-benefits-image"></span>
                                 <span class="pq-benefits-title padding-left15">Exclusive offers</span>
                             </li>
                             <li>
-                                <span class="pq-benefits-image"><img src="" border="0" /></span>
+                                <span class="pq-benefits-image"></span>
                                 <span class="pq-benefits-title padding-left15">Complete buying assistance</span>
                             </li>
                             <li>
-                                <span class="pq-benefits-image"><img src="" border="0" /></span>
+                                <span class="pq-benefits-image"></span>
                                 <span class="pq-benefits-title padding-left15">Easy cancellations</span>
                             </li>
                         </ul>

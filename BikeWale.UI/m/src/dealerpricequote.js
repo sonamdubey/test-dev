@@ -57,3 +57,23 @@ $(document).ready(function () {
     });
     
 });
+
+$("#pqDealerBody").on("click", "span.view-offers-target", function () {
+    var offersDiv = $(this).parent().next("div#offersPopup");
+    offersPopupOpen(offersDiv);
+    appendHash("offersPopup");
+});
+
+$("#pqDealerBody").on("click", "div.offers-popup-close-btn", function () {
+    var offersDiv = $(this).parent("div#offersPopup");
+    offersPopupClose(offersDiv);
+    window.history.back();
+});
+
+var offersPopupOpen = function (offersDiv) {
+    offersDiv.show();
+};
+
+var offersPopupClose = function (offersDiv) {
+    offersDiv.hide();
+};
