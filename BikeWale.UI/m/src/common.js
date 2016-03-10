@@ -1478,11 +1478,7 @@ function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.
             if (error) {
                 $.ajax({
                     type: "POST", url: "/api/JSException/", data: error,
-                    success: function () {
-                        console.log("Error LoggedIn at " + Date.now());
-                    },
                     error: function (event, request, settings) {
-                        console.log("Failed to Log error at " + Date.now());
                         request.abort();
                         return false;
                     }
