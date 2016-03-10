@@ -1,10 +1,6 @@
-﻿using Bikewale.UI.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Web;
+using Bikewale.Entities.JSErrorLog;
 
 namespace Bikewale.Notifications
 {
@@ -13,10 +9,10 @@ namespace Bikewale.Notifications
     /// Created On : 10th March 2016
     /// Description  : Mail Template to compose body for JS Exception / Error logging 
     /// </summary>
-    public class JSExceptionTemplate: ComposeEmailBase
+    public class JSExceptionTemplate : ComposeEmailBase
     {
 
-        private JSExceptionEntity err { get; set; }
+        private readonly JSExceptionEntity _error = null;
 
         /// <summary>
         /// Summary : Constructor to intialize the parameters for creating JSerror/JSException mail template.
@@ -24,10 +20,10 @@ namespace Bikewale.Notifications
         /// <param name="ex">Exception/Error object.</param>
         public JSExceptionTemplate(JSExceptionEntity ex)
         {
-            err = ex;
+            _error = ex;
         }
 
-        private static readonly string ErrorMessageBody = @"Person Accessing the Page : <br /><br /><b>HOST :</b> {0}<br /><b>URL :</b> {1}<br /><b>REWRITE URL :</b> {2}<br /><b>REFERRER :</b> {3}<br /><b>Error Type :</b> {4}<br/><b>Message :</b> {5}<br/><b>Page Url :</b> {6}<br /><b>Source File :</b> {7}<br /><b>Line No :</b> {8}<br /><b>Trace :</b> {9}<br />";
+        private readonly string ErrorMsgBody = @"Person Accessing the Page : <br /><br /><b>HOST :</b> {0}<br /><b>URL :</b> {1}<br /><b>REWRITE URL :</b> {2}<br /><b>REFERRER :</b> {3}<br /><b>Error Type :</b> {4}<br/><b>Message :</b> {5}<br/><b>Page Url :</b> {6}<br /><b>Source File :</b> {7}<br /><b>Line No :</b> {8}<br /><b>Trace :</b> {9}<br />";
 
         /// <summary>
         /// Created By  : Sushil Kumar
@@ -41,9 +37,9 @@ namespace Bikewale.Notifications
             try
             {
                 var ServerVar = HttpContext.Current.Request.ServerVariables;
-                _mailBodyText = string.Format(ErrorMessageBody, ServerVar["HTTP_HOST"], ServerVar["URL"], ServerVar["HTTP_X_REWRITE_URL"], ServerVar["HTTP_REFERER"], err.ErrorType, err.Message, ServerVar["HTTP_REFERER"], err.SourceFile, err.LineNo, err.Trace);
+                _mailBodyText = string.Format(ErrorMsgBody, ServerVar["HTTP_HOST"], ServerVar["URL"], ServerVar["HTTP_X_REWRITE_URL"], ServerVar["HTTP_REFERER"], _error.ErrorType, _error.Message, ServerVar["HTTP_REFERER"], _error.SourceFile, _error.LineNo, _error.Trace);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 HttpContext.Current.Trace.Warn("Notifications.JSExceptionTemplate ComposeBody : " + e.Message);
             }

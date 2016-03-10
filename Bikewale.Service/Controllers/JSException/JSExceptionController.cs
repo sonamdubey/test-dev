@@ -1,12 +1,8 @@
 ﻿using Bikewale.Notifications;
-using Bikewale.UI.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using Bikewale.Entities.JSErrorLog;
 
 namespace Bikewale.Service.Controllers.JSException
 {
@@ -21,16 +17,12 @@ namespace Bikewale.Service.Controllers.JSException
         {
             try
             {
-                if(error != null)
+                if (error != null)
                 {
                     string emailTo = Bikewale.Utility.BWConfiguration.Instance.ErrorMailTo;
-                    string subject = "Javascript Error in " + Bikewale.Utility.BWConfiguration.Instance.ApplicationName + " at page: " + HttpContext.Current.Request.ServerVariables["HTTP_REFERER"]; 
-                    ComposeEmailBase mail = new JSExceptionTemplate(error);  
+                    string subject = String.Format("Javascript Error in {0} at page: {1}", Bikewale.Utility.BWConfiguration.Instance.ApplicationName, HttpContext.Current.Request.ServerVariables["HTTP_REFERER"]);
+                    ComposeEmailBase mail = new JSExceptionTemplate(error);
                     mail.Send(emailTo, subject);
-                }
-                else
-                {
-                    return Ok(false);
                 }
             }
             catch (Exception ex)
@@ -39,7 +31,7 @@ namespace Bikewale.Service.Controllers.JSException
                 objErr.SendMail();
                 return InternalServerError();
             }
-            return Ok(true);
+            return Ok();
         }
     }
 }
