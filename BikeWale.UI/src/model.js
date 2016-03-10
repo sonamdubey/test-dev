@@ -210,7 +210,7 @@ function CustomerModel() {
 
     self.submitLead = function () {
 
-        var isValidCustomer = ValidateUserDetail();
+        var isValidCustomer = ValidateUserDetail(fullName, emailid, mobile);
 
         if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {
             self.verifyCustomer();
@@ -300,8 +300,8 @@ function CustomerModel() {
         $('#processing').show();
         if (!validateOTP())
             $('#processing').hide();
-
-        if (validateOTP() && ValidateUserDetail()) {
+        debugger;
+        if (validateOTP() && ValidateUserDetail(fullName, emailid, mobile)) {
             customerViewModel.generateOTP(); 
             if (customerViewModel.IsVerified()) {
                 $("#personalInfo").hide();
@@ -322,50 +322,50 @@ function CustomerModel() {
     });
 }
 
-function ValidateUserDetail() {
+function ValidateUserDetail(parameterName, parameterEmail, parameterMobile) {
     var isValid = true;
-    isValid = validateEmail();
-    isValid &= validateMobile();
-    isValid &= validateName();
+    isValid = validateEmail(parameterEmail);
+    isValid &= validateMobile(parameterMobile);
+    isValid &= validateName(parameterName);
     return isValid;
 };
 
-function validateName() {
+function validateName(parameterName) {
     var isValid = true;
-    var a = fullName.val().length;
-    if ((/&/).test(fullName.val())) {
+    var a = parameterName.val().length;
+    if ((/&/).test(parameterName.val())) {
         isValid = false;
-        setError(fullName, 'Invalid name');
+        setError(parameterName, 'Invalid name');
     }
     else
         if (a == 0) {
         isValid = false;
-        setError(fullName, 'Please enter your first name');
+        setError(parameterName, 'Please enter your first name');
     }
     else if (a >= 1) {
         isValid = true;
-        nameValTrue()
+        nameValTrue(parameterName)
     }
     return isValid;
 }
 
-function nameValTrue() {
-    hideError(fullName)
-    fullName.siblings("div").text('');
+function nameValTrue(parameterName) {
+    hideError(parameterName)
+    parameterName.siblings("div").text('');
 };
 
-fullName.on("focus", function () {
-    hideError(fullName);
+$("#getFullName, #assistGetName").on("focus", function () {
+    hideError($(this));
 });
 
-emailid.on("focus", function () {
-    hideError(emailid);
-    prevEmail = emailid.val().trim();
+$("#getEmailID, #assistGetEmail").on("focus", function () {
+    hideError($(this));
+    prevEmail = $(this).val().trim();
 });
 
-mobile.on("focus", function () {
-    hideError(mobile)
-    prevMobile = mobile.val().trim();
+$("#getMobile, #assistGetMobile").on("focus", function () {
+    hideError($(this));
+    prevMobile = $(this).val().trim();
 
 });
 
@@ -378,8 +378,6 @@ emailid.on("blur", function () {
             otpContainer.removeClass("show").addClass("hide");
             hideError(emailid);
         }
-        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
-        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
     }
 });
 
@@ -396,8 +394,6 @@ mobile.on("blur", function () {
             otpContainer.removeClass("show").addClass("hide");
             hideError(mobile);
         }
-        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
-        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
     }
 });
 
@@ -423,36 +419,36 @@ function hideError(ele) {
     ele.siblings("span, div").hide();
 }
 /* Email validation */
-function validateEmail() {
+function validateEmail(parameterEmail) {
     var isValid = true;
-    var emailID = emailid.val();
+    var emailID = parameterEmail.val();
     var reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
     if (emailID == "") {
-        setError(emailid, 'Please enter email address');
+        setError(parameterEmail, 'Please enter email address');
         isValid = false;
     }
     else if (!reEmail.test(emailID)) {
-        setError(emailid, 'Invalid Email');
+        setError(parameterEmail, 'Invalid Email');
         isValid = false;
     }
     return isValid;
 }
 
-function validateMobile() {
+function validateMobile(parameterMobile) {
     var isValid = true;
     var reMobile = /^[0-9]{10}$/;
-    var mobileNo = mobile.val();
+    var mobileNo = parameterMobile.val();
     if (mobileNo == "") {
         isValid = false;
-        setError(mobile, "Please enter your Mobile Number");
+        setError(parameterMobile, "Please enter your mobile no.");
     }
     else if (!reMobile.test(mobileNo) && isValid) {
         isValid = false;
-        setError(mobile, "Mobile Number should be 10 digits");
+        setError(parameterMobile, "Number should be 10 digits");
     }
     else {
-        hideError(mobile)
+        hideError(parameterMobile)
     }
     return isValid;
 }
@@ -1020,4 +1016,24 @@ function LoadTerms(offerId) {
 $('#testimonialWrapper .jcarousel').jcarousel({ wrap: 'circular' }).jcarouselAutoscroll({ interval: 7000, target: '+=1', autostart: true });
 $('#locslug').on('click', function (e) {
     triggerGA('Model_Page', 'Booking_Benefits_City_Link_Clicked', myBikeName + '_' + getBikeVersion());
+});
+
+//
+$('.more-dealers-link').on('click', function () {
+    $(this).parent().prev('#moreDealersList').slideDown();
+    $(this).hide().next('.less-dealers-link').show();
+});
+
+$('.less-dealers-link').on('click', function () {
+    $(this).parent().prev('#moreDealersList').slideUp();
+    $(this).hide().prev('.more-dealers-link').show();
+});
+
+var assistFormSubmit = $('#assistFormSubmit'),
+    assistGetName = $('#assistGetName'),
+    assistGetEmail = $('#assistGetEmail'),
+    assistGetMobile = $('#assistGetMobile');
+
+assistFormSubmit.on('click', function () {
+    ValidateUserDetail(assistGetName, assistGetEmail, assistGetMobile);
 });

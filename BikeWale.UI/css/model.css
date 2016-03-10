@@ -3,13 +3,13 @@
 .header-not-fixed { background: rgba(51, 51, 51, 0.8); background: #0e405b\9; padding: 10px 20px; z-index: 3; }
 
 #modelDetailsContainer .model-details-wrapper { width:522px; margin-left:20px; }
-#modelRatingsContainer, #variantDetailsContainer, .modelGetDetails h3, .modelOfferDetails h3, #expectedPriceContainer { border-bottom:1px solid #ecedee; }
+.modelGetDetails h3, .modelOfferDetails h3, #expectedPriceContainer { border-bottom:1px solid #ecedee; }
 .modelGetDetails .bike-details-wrapper h3 { border-bottom:none; }
-#variantDetailsContainer .variantText { float:left; font-size:14px; line-height:32px; }
+#variantDetailsContainer .variantText { float:left; font-size:14px; line-height:28px; }
 #variantDetailsContainer .variantDropDown { float:left;}
 #variantDetailsContainer .variantDropDown .form-control { padding:5px 25px 5px 5px; }
-.variantList li { width:130px; float:left; border-left:1px solid #ecedee; font-size:14px; text-align:center; color:#82888b; }
-.variantList li:first-child { border-left:none; text-align:left;width:90px }
+.variantList li { padding-right:20px; padding-left:20px; float:left; border-left:1px solid #ecedee; font-size:14px; text-align:center; }
+.variantList li:first-child { border-left:none; text-align:left; padding-left:0; }
 #onRoadPricePopup { width: 450px; min-height: 320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left: 5%; z-index: 10; }
 #onRoadPricePopup .form-control-box { width:300px; margin:0 auto; }
 #modelDetailsOffersContainer { border:1px dashed #555; padding:10px 10px 15px; }
@@ -26,9 +26,9 @@
 
 .city-area-select-container { width:100%; }
 .city-area-name { margin-left:2px; }
-.sort-div { min-width: 200px; width:110%; height:40px; padding:9px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
+.sort-div { min-width: 150px; width:110%; height:32px; padding:5px 9px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
 .sort-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:90%; }
-.sort-selection-div { min-width: 200px;width:110%; background:#fff; border:1px solid #ccc; position:absolute; z-index:2; }
+.sort-selection-div { min-width: 150px;width:110%; background:#fff; border:1px solid #ccc; position:absolute; z-index:2; }
 .sort-selection-div ul li { margin-bottom:5px; margin-top:5px; font-size:14px; }
 .sort-selection-div ul li.selected { font-weight:bold; }
 .sort-selection-div ul li input{background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px; font-family: 'Open Sans', sans-serif, Arial;}
@@ -48,6 +48,23 @@
 
 .bike-upcoming-tag, .bike-discontinued-tag { z-index:2; }
 .model-name-review-container:hover .write-review-text { display:block; }
+
+/*dealership*/
+.dealership-benefit-list li { width:290px; color:#82888b; display:inline-block; vertical-align:middle; margin-top:10px; }
+.dealership-benefit-list .benefit-list-image, .dealership-benefit-list .benefit-list-title { float:left; }
+.dealership-benefit-list .benefit-list-image { width:34px; height:30px; }
+.dealership-benefit-list .benefit-list-title { width:255px; padding-right:10px; padding-left:10px; }
+.form-control-username { width:270px; }
+.form-control-email-mobile { width:188px; }
+.btn.btn-inv-grey { padding:8px 64px; }
+.btn-inv-grey { background: #4d5057; color: #fff; border:1px solid #4d5057; }
+.btn-inv-grey:hover { text-decoration: none; background: #82888b; border:1px solid #82888b; }
+#buyingAssistance .errorText, #buyingAssistance .errorIcon { display:none; }
+.less-dealers-link { display:none; }
+#moreDealersList { display:none; padding-right:20px; padding-left:20px; overflow:hidden; }
+#moreDealersList li { padding-top:15px; padding-bottom:15px; border-bottom:1px solid #f1f1f1; }
+#moreDealersList a:hover { text-decoration:none; }
+
 
 /**************/
 /* or text classes */
@@ -100,7 +117,7 @@
 .benefit-dealer-visits-ico { background-position:-35px -36px; width:34px; height:22px; }
 .benefit-assistance-ico { background-position:-79px -36px; width:27px; height:30px; }
 .benefit-cancellation-ico { background-position:-116px -36px; width:23px; height:30px; }
-.loc-change-blue-icon { width:12px; height:16px; background-position:-205px -35px; cursor:pointer; }
+.loc-change-blue-icon { width:12px; height:16px; background-position:-205px -35px; cursor:pointer; position:relative; top:2px; }
 
 /*benefits*/
 #benefitsOfBookingContainer { padding:20px; background:#f5f5f5; }
@@ -118,8 +135,11 @@
 .disclaimer-icon { background-position:-115px -175px; }
 .edit-blue-icon { background-position:-115px -249px; cursor:pointer; }
 .margin-top35 { margin-top:35px; }
+.text-darker-black { color:#1a1a1a; }
 .text-blue { color:#0288d1; }
+.border-light { border:1px solid #e2e2e2; }
 .border-light-bottom { border-bottom:1px solid #e2e2e2; }
+.pos-top2 { top:2px; }
 
 /*news-videos tabs*/
 .newBikes-latest-updates-container .home-tabs { background:#ccc;}
@@ -127,7 +147,7 @@
 .newBikes-latest-updates-container .home-tabs li:first-child { margin-right:-2px;}
 .newBikes-latest-updates-container .home-tabs li.active{ background:#fff; color:#2a2a2a;} 
 
-.breakupPopUpContainer { width: 670px; min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:50px 100px; }
+.breakupPopUpContainer { width: 480px; min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:30px 40px; }
 .breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
 /* Connected carousel */
 .connected-carousels .stage { width: 385px; margin: 0 auto 20px; position: relative; }
