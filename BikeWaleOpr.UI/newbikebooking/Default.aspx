@@ -39,6 +39,7 @@
                     <%--<input type ="button" value="Manage Bike Avalability" id="btngoAvailable"/>--%>&nbsp;&nbsp;
                     <input type="button" value="Manage Dealer Disclaimer" id="btnDisclaimer" />&nbsp;&nbsp;
                     <input type="button" value="Manage Booking Amount" id="btnBkgAmount" />&nbsp;&nbsp;
+                    <input type="button" value="Manage Benefits/ USP" id="btnManageBenefits" />&nbsp;&nbsp;
                 </td>
             </tr>
         </table>
@@ -492,6 +493,18 @@
                 alert("Please select dealer");
         });
 
+        $("#btnManageBenefits").click(function () {
+            $("#bindModels").addClass("hide");
+            $("#selectCityPriceHead").addClass("hide");
+            var dealerId = $("#drpDealer").val();
+            var cityId = $('#drpCity').val();
+            if (dealerId > 0) {
+                window.open('/newbikebooking/ManageDealerBenefits.aspx?dealerId=' + dealerId + '&cityId=' + cityId, 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
+            }
+            else
+                alert("Please select dealer");
+        });
+        
         $("#btnManagePrice").click(function () {
 
             var dealerId = $("#drpDealer").val();
