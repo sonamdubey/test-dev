@@ -1452,3 +1452,61 @@ function setPriceQuoteFlag() {
 }
 function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { } }
 
+(function () {
+
+    $(document).ajaxError(function (event, request, settings) {
+        try {
+            error = {};
+            error.ErrorType = event.type || "";
+            error.SourceFile = (event.target) ? event.target.URL || "" : "";
+            error.Trace = JSON.stringify({
+                "API": settings.url || "",
+                "Error Occured": request.status || "" + request.statusText || "",
+                "Response Text": request.responseText || ""
+            });
+            error.Message = "Ajax Error Occured";
+            errorLog(error);
+        } catch (e) {
+            return false;
+        }
+    });
+
+
+    'use strict';
+    var errorLog = function (error) {
+        try {
+            if (error) {
+                $.ajax({
+                    type: "POST", url: "/api/JSException/", data: error,
+                    success: function () {
+                        console.log("Error LoggedIn at " + Date.now());
+                    },
+                    error: function (event, request, settings) {
+                        console.log("Failed to Log error at " + Date.now());
+                        request.abort();
+                        return false;
+                    }
+                });
+            }
+        } catch (e) {
+            return false;
+        }
+    }
+
+    window.onerror = function (message, filename, lineno, colno, err) {
+        error = {};
+        try {
+            error.Message = err.message || message || "";
+            error.SourceFile = err.fileName || filename || "";
+            error.ErrorType = err.name || "Uncatched Exception";
+            error.LineNo = lineno || "Unable to trace";
+            error.Trace = (err.stack.toString() || '-');
+            errorLog(error);
+        } catch (e) {
+            return false;
+        }
+    };
+
+    window.errorLog = errorLog;
+})();
+

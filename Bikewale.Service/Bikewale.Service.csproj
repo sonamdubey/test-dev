@@ -240,6 +240,7 @@
     <Compile Include="Controllers\Insurance\InsuranceLeadController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceModelsController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceVersionsController.cs" />
+    <Compile Include="Controllers\JSException\JSExceptionController.cs" />
     <Compile Include="Controllers\LeadsGeneration\ManufacturerLeadController.cs" />
     <Compile Include="Controllers\Make\DealerMakesController.cs" />
     <Compile Include="Controllers\Make\MakePageController.cs" />

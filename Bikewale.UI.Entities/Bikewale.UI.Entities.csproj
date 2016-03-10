@@ -50,6 +50,7 @@
     <Compile Include="Insurance\MakeDetail.cs" />
     <Compile Include="Insurance\ModelDetail.cs" />
     <Compile Include="Insurance\VersionDetail.cs" />
+    <Compile Include="JSErrorLog\JSExceptionEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

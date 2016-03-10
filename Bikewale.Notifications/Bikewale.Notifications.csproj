@@ -53,6 +53,7 @@
     <Compile Include="Configuration\ErrorMailConfiguration.cs" />
     <Compile Include="Configuration\MailConfiguration.cs" />
     <Compile Include="ErrorClass.cs" />
+    <Compile Include="JSExceptionTemplate.cs" />
     <Compile Include="MailTemplates\BookingCancellationTemplate.cs" />
     <Compile Include="MailTemplates\CancellationFeedbackTemplate.cs" />
     <Compile Include="MailTemplates\ErrorMailTemplate.cs" />
@@ -75,6 +76,10 @@
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.UI.Entities\Bikewale.UI.Entities.csproj">
+      <Project>{115cad90-615e-4e59-89d5-45f4696fce59}</Project>
+      <Name>Bikewale.UI.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
