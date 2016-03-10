@@ -35,6 +35,8 @@
 .sort-selection-div ul li input{background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px;  white-space:nowrap; text-overflow:ellipsis; overflow:hidden; text-align:left;}
 .sort-selection-div ul li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff;}
 .pos-top13 { top:13px; }
+.dealers-benefits-list { display:table; width:100%; }
+.dealers-benefits-list .dealers-benefits-image, .dealers-benefits-list .dealers-benefits-title { display:table-cell; vertical-align:middle; }
 .dealers-benefits-list li { margin-bottom:10px; }
 .dealers-benefits-image { width:30px; height:30px; }
 .less-dealers-link { display:none; }
