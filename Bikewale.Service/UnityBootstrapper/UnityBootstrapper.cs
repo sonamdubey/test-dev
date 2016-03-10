@@ -46,6 +46,8 @@ using Bikewale.DAL.AppAlert;
 using Bikewale.BAL.Compare;
 using Bikewale.Cache.Location;
 using Bikewale.DAL.Dealer;
+using Bikewale.Interfaces.AndroidApp;
+using Bikewale.BAL.AndroidApp;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -103,6 +105,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBookingCancellation, Bikewale.BAL.BikeBooking.BookingCancellation>();
             container.RegisterType<IBookingListing, BookingListingRepository>();
             container.RegisterType<IOffer, OfferRepository>();
+            container.RegisterType<IDeepLinking, DeepLinking>();
             return container;
         }
     }
