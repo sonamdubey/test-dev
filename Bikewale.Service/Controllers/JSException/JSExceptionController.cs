@@ -13,6 +13,12 @@ namespace Bikewale.Service.Controllers.JSException
     /// </summary>
     public class JSExceptionController : ApiController
     {
+
+        /// <summary>
+        /// Author : Sushil Kumar
+        /// Created On : 10th March 2016
+        /// Description : Post method used for logging javascript exception/error to bikewalebugs@gmail.com
+        /// </summary>
         public IHttpActionResult Post([FromBody] JSExceptionEntity error)
         {
             try
