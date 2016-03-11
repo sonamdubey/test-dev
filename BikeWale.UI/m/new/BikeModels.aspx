@@ -413,17 +413,17 @@
                         <h2 class="font18 text-darker-black">Dealership Name</h2>
                         <p class="font14 text-light-grey padding-bottom10 border-solid-bottom">Area</p>
                         <p class="font16 text-bold margin-top15 margin-bottom15">Exclusive offers on this bike:</p>
-                        <ul class="dealers-benefits-list text-light-grey">
+                        <ul class="dealers-benefits-list text-light-grey margin-bottom10">
                             <li>
-                                <span class="dealers-benefits-image"></span>
+                                <span class="dealers-benefits-image pricequote-sprite offers-insurance-icon"></span>
                                 <span class="dealers-benefits-title padding-left15">Free bike insurance</span>
                             </li>
                             <li>
-                                <span class="dealers-benefits-image"></span>
-                                <span class="dealers-benefits-title padding-left15">Flipkart voucher worth Rs.1,000</span>
+                                <span class="dealers-benefits-image pricequote-sprite offers-voucher-icon"></span>
+                                <span class="dealers-benefits-title padding-left15">Flipkart voucher worth <span class="bwmsprite inr-grey-xxsm-icon"></span> 1,000</span>
                             </li>
                             <li>
-                                <span class="dealers-benefits-image"></span>
+                                <span class="dealers-benefits-image pricequote-sprite offers-pickup-icon"></span>
                                 <span class="dealers-benefits-title padding-left15">Document pickup and bike delivery</span>
                             </li>
                         </ul>
