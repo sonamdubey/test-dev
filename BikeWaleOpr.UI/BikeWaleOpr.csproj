@@ -198,6 +198,7 @@
     <Compile Include="common\Ajax\AjaxCommon.cs" />
     <Compile Include="common\Ajax\AjaxManufacturerCampaign.cs" />
     <Compile Include="common\Ajax\ImageReplication.cs" />
+    <Compile Include="common\ManageDealerBenefits.cs" />
     <Compile Include="content\frmManageAppVersions.aspx.cs">
       <DependentUpon>frmManageAppVersions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -471,6 +472,7 @@
     <Compile Include="Entities\CityEntityBase.cs" />
     <Compile Include="Entities\ColorCodeBase.cs" />
     <Compile Include="Entities\DealerAreaDetails.cs" />
+    <Compile Include="Entities\DealerBenefitEntity.cs" />
     <Compile Include="Entities\DealerDisclaimerEntity.cs" />
     <Compile Include="Entities\DealerPriceEntity.cs" />
     <Compile Include="Entities\EMI.cs" />
@@ -523,6 +525,10 @@
     </Compile>
     <Compile Include="newbikebooking\ManageDealerAreaMapping.aspx.cs">
       <DependentUpon>ManageDealerAreaMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="newbikebooking\ManageDealerBenefits.aspx.cs">
+      <DependentUpon>ManageDealerBenefits.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="newbikebooking\ManageDealerCampaigns.aspx.cs">
@@ -1950,10 +1956,12 @@
     <Content Include="newbikebooking\DealerDetailedPriceQuote.aspx" />
     <Content Include="newbikebooking\DealerShowroomPrices.aspx" />
     <Content Include="newbikebooking\Default.aspx" />
+    <Content Include="newbikebooking\emi.js" />
     <Content Include="newbikebooking\ManageBikeAvailability.aspx" />
     <Content Include="newbikebooking\ManageBikeAvailabilityByColorAndCost.aspx" />
     <Content Include="newbikebooking\ManageBookingAmount.aspx" />
     <Content Include="newbikebooking\ManageDealerAreaMapping.aspx" />
+    <Content Include="newbikebooking\ManageDealerBenefits.aspx" />
     <Content Include="newbikebooking\ManageDealerCampaigns.aspx" />
     <Content Include="newbikebooking\ManageDealerDisclaimer.aspx" />
     <Content Include="newbikebooking\ManageDealerFacilities.aspx" />
@@ -1997,7 +2005,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>51984</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

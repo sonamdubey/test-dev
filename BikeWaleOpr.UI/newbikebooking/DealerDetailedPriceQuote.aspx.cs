@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace BikewaleOpr.newbikebooking
+namespace BikewaleOpr.NewBikeBooking
 {
     /// <summary>
     /// Created By : Sadhana Upadhyay on 28 Oct 2015

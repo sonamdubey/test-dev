@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageDealerCampaigns.aspx.cs" Inherits="BikewaleOpr.newbikebooking.ManageDealerCampaigns" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageDealerCampaigns.aspx.cs" Inherits="BikewaleOpr.NewBikeBooking.ManageDealerCampaigns" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <%--<script type="text/javascript" src="/src/common/common.js?V1.1"></script>--%>
 <script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>

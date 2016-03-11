@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.newbikebooking.DealerDetailedPriceQuote" trace="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.NewBikeBooking.DealerDetailedPriceQuote" trace="false" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <%--<script type="text/javascript" src="/src/common/common.js?V1.1"></script>--%>
 <script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>
