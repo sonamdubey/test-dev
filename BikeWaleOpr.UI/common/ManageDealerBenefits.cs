@@ -16,7 +16,7 @@ namespace BikewaleOpr.common
         /// Written By : Sangram on 10 Mar 2016
         /// Summary    : Retrieves all benefits for dealers
         /// </summary>
-        /// <param name="basicId"></param>
+        /// <param name="dealerId"> DealerID</param>
         /// <returns></returns>
         public Dictionary<int,string> GetDealerCategories(string dealerId)
         {

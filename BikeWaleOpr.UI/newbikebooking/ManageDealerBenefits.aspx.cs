@@ -129,15 +129,8 @@ namespace BikewaleOpr.newbikebooking
         /// </summary>
         private void BindData()
         {
-            GetDealerBenefits();
             // Bind Benefits for current dealer
-            //List<DealerBenefitEntity> benefitList = manageDealer.GetDealerBenefits(_dealerId);
-            //if (benefitList != null && benefitList.Count > 0)
-            //{
-            //    rptBenefits.DataSource = benefitList;
-            //    rptBenefits.DataBind();
-            //}
-
+            GetDealerBenefits();
             // Bind Benefits categories
             Dictionary<int, string> benefitCategories = manageDealer.GetDealerCategories(_dealerId);
             if (benefitCategories != null)

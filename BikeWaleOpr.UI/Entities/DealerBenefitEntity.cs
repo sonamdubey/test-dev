@@ -7,6 +7,11 @@ using System.Web;
 
 namespace BikewaleOpr.Entities
 {
+    /// <summary>
+    /// Created by: Sangram
+    /// Created on: 10 March 2016
+    /// Summary   : Entity to hold benefit/ usp data
+    /// </summary>
     public class DealerBenefitEntity
     {
         [JsonProperty("benefitId")]

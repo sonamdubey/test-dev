@@ -29,39 +29,6 @@
         .yellow {
             background-color: #ffff48;
         }
-        /*.box {
-            background-color: white;
-            -webkit-transition: background 0.5s linear;
-            -moz-transition: background 0.5s linear;
-            -ms-transition: background 0.5s linear;
-            -o-transition: background 0.5s linear;
-            transition: background 0.5s linear;
-    }*/
-            .box.highlighted {
-                background-color: white;
-                -webkit-animation:fadein 1s;
-                -webkit-animation:fadeout 1s;
-                -webkit-animation-delay:fadeout 5s;
-
-            }
-        @-webkit-keyframes fadein {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-        @-webkit-keyframes fadeout {
-            from {
-                opacity: 1;
-            }
-
-            to {
-                opacity: 0;
-            }
-        }
     </style>
     <title></title>
 </head>
@@ -286,15 +253,6 @@
                 },
                 modal: true
             });
-            
-            //$('#box').removeClass('highlighted');
-            //$("#benefitText").val($("#row_" + benefitId).find('td').eq(2).text());
-            //$('#ddlBenefitCat').val($("#row_" + benefitId).attr('catId'));
-            ////var bg = $("element2_ID").css('background'); // store original background
-            //$("#box").css('background', '#E9E19C'); //change second element background
-            //setTimeout(function () {
-            //    $("#box").css('background', 'white'); // change it back after ...
-            //}, 1000); // waiting one second
         };
     </script>
 </body>
