@@ -2,6 +2,7 @@
 using BikeWaleOpr.Common;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -76,7 +77,7 @@ namespace BikewaleOpr.common
                     if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                     {
                         catList = new Dictionary<int, string>();
-                        catList.Add(0, "Select Benefit category Id");
+                        catList.Add(0, "Select");
                         foreach (DataRow dr in ds.Tables[0].Rows)
                         {
                             catList.Add(Convert.ToInt32(dr["id"].ToString()), dr["name"].ToString());
@@ -98,6 +99,5 @@ namespace BikewaleOpr.common
             }
             return catList;
         }
-
     }
 }
