@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppDeepLinking\DeepLinking.cs" />
+    <Compile Include="AppDeepLinking\ScreenIdEnum.cs" />
     <Compile Include="App\AppAlert\AppImeiDetailsInput.cs" />
     <Compile Include="App\AppVersion.cs" />
     <Compile Include="App\AppVersionMessageCode.cs" />

@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AndroidApp\DeepLinkingEntity.cs" />
-    <Compile Include="AndroidApp\ScreenIdEnum.cs" />
+    <Compile Include="AppDeepLinking\DeepLinkingEntity.cs" />
+    <Compile Include="AppDeepLinking\ScreenIdEnum.cs" />
     <Compile Include="App\AppVersion.cs" />
     <Compile Include="AutoComplete\AutoSuggestEnum.cs" />
     <Compile Include="AutoComplete\Payload.cs" />

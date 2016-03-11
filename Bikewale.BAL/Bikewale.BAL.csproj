@@ -74,7 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AndroidApp\DeepLinking.cs" />
+    <Compile Include="AppDeepLinking\DeepLinking.cs" />
     <Compile Include="AutoComplete\AutoSuggest.cs" />
     <Compile Include="BikeBooking\AbstractBikeBooking.cs" />
     <Compile Include="BikeBooking\BookingCancellation.cs" />
