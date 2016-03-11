@@ -27,6 +27,9 @@
         .yellow {
             background-color: #ffff48;
         }
+        .greenMessage {
+            color:#6B8E23;
+        }
     </style>
     <title></title>
 </head>
@@ -72,10 +75,10 @@
                 </table>
             </div>
         </fieldset>
-
+        <asp:Label class="margin-bottom10 margin-left10 greenMessage" ID="greenMessage" runat="server" />
         <asp:Repeater ID="rptBenefits" runat="server">
                     <HeaderTemplate>
-                        <h1>Added Benefits(s) :</h1>
+                        <h1>Added Benefit(s) :</h1>
                         <br />
                         <input class="margin-bottom10 margin-left10" type="button" value="Delete Benefits" id="dltBenefits"/>
                         <table border="1" style="border-collapse: collapse;" cellpadding="5" class="margin-left10">
@@ -235,6 +238,7 @@
         });
 
         function LinkUpdateClick(benefitId) {
+            $('#greenMessage').html('');
             $("#txtEditBenefit").val($("#row_" + benefitId).find('td').eq(1).text());
             $('#ddlEditBenefit').val($("#row_" + benefitId).attr('catId'));
             $('#hdnBenefitId').val(benefitId);
