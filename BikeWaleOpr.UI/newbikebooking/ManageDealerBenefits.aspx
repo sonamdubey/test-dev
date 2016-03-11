@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="ManageDealerBenefits.aspx.cs" Inherits="BikewaleOpr.newbikebooking.ManageDealerBenefits" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.NewBikeBooking.ManageDealerBenefits" Async="true" %>
 
 <!DOCTYPE html>
 
@@ -6,12 +6,10 @@
 <head runat="server">
     <script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
     <script src="/src/AjaxFunctions.js" type="text/javascript"></script>
-    <script src="/src/graybox.js"></script>
+<%--    <script src="/src/graybox.js"></script>--%>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
-    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
-    rel="stylesheet" type="text/css" />
-    <script language="javascript" src="/src/calender.js"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
     <script type="text/javascript">
         var host = '<%=cwHostUrl%>';
@@ -169,7 +167,6 @@
         function btnEditSubmit_Click() {
             $("#txtEditBenefitError").text("");
             $("#ddlEditBenefitError").text("");
-            debugger;
             var errorMsg = "";
             var isError = false;
             if ($('#txtEditBenefit').val().length == 0) {
@@ -210,7 +207,6 @@
         }
 
         $("#dltBenefits").click(function () {
-            debugger;
             var isSuccess = false;
             var benefitIds = '';
             $('.checkboxAll').each(function () {

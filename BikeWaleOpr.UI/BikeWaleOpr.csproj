@@ -1956,6 +1956,7 @@
     <Content Include="newbikebooking\DealerDetailedPriceQuote.aspx" />
     <Content Include="newbikebooking\DealerShowroomPrices.aspx" />
     <Content Include="newbikebooking\Default.aspx" />
+    <Content Include="newbikebooking\emi.js" />
     <Content Include="newbikebooking\ManageBikeAvailability.aspx" />
     <Content Include="newbikebooking\ManageBikeAvailabilityByColorAndCost.aspx" />
     <Content Include="newbikebooking\ManageBookingAmount.aspx" />

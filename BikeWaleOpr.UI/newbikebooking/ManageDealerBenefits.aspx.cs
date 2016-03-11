@@ -4,12 +4,13 @@ using BikeWaleOpr.Common;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace BikewaleOpr.newbikebooking
+namespace BikewaleOpr.NewBikeBooking
 {
     /// <summary>
     /// Created by : Sangram
@@ -106,9 +107,9 @@ namespace BikewaleOpr.newbikebooking
                 string _requestType = "application/json";
                 string _apiUrl = "/api/Dealers/GetDealerBenefits/?dealerId=" + _dealerId;
                 // Send HTTP GET requests
-                List<DealerBenefitEntity> objOfferList = null;
-                objOfferList = await BWHttpClient.GetApiResponse<List<DealerBenefitEntity>>(cwHostUrl, _requestType, _apiUrl, objOfferList);
-                if (objOfferList != null && objOfferList.Count > 0)
+                IEnumerable <DealerBenefitEntity> objOfferList = null;
+                objOfferList = await BWHttpClient.GetApiResponse<IEnumerable<DealerBenefitEntity>>(cwHostUrl, _requestType, _apiUrl, objOfferList);
+                if (objOfferList != null && objOfferList.Count() > 0)
                 {
                     rptBenefits.DataSource = objOfferList;
                     rptBenefits.DataBind();
@@ -132,16 +133,16 @@ namespace BikewaleOpr.newbikebooking
             // Bind Benefits for current dealer
             GetDealerBenefits();
             // Bind Benefits categories
-            Dictionary<int, string> benefitCategories = manageDealer.GetDealerCategories(_dealerId);
+            DataTable benefitCategories = manageDealer.GetDealerCategories(_dealerId);
             if (benefitCategories != null)
             {
                 ddlBenefitCat.DataSource = benefitCategories;
-                ddlBenefitCat.DataTextField = "Value";
-                ddlBenefitCat.DataValueField = "Key";
+                ddlBenefitCat.DataTextField = "Name";
+                ddlBenefitCat.DataValueField = "Id";
                 ddlBenefitCat.DataBind();
                 ddlEditBenefit.DataSource = benefitCategories;
-                ddlEditBenefit.DataTextField = "Value";
-                ddlEditBenefit.DataValueField = "Key";
+                ddlEditBenefit.DataTextField = "Name";
+                ddlEditBenefit.DataValueField = "Id";
                 ddlEditBenefit.DataBind();
             }
         }

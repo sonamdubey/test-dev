@@ -10,6 +10,10 @@ using System.Web;
 
 namespace BikewaleOpr.common
 {
+    /// <summary>
+    /// Written By : Sangram on 10 Mar 2016
+    /// Summary    : Class to hold DB layer for Manage Dealer Benefits
+    /// </summary>
     public class ManageDealerBenefit
     {
         /// <summary>
@@ -18,9 +22,10 @@ namespace BikewaleOpr.common
         /// </summary>
         /// <param name="dealerId"> DealerID</param>
         /// <returns></returns>
-        public Dictionary<int,string> GetDealerCategories(string dealerId)
+        public DataTable GetDealerCategories(string dealerId)
         {
             DataSet ds = null;
+            DataTable dt = null;
             Dictionary<int, string> catList = null;
             try
             {
@@ -32,20 +37,13 @@ namespace BikewaleOpr.common
                     ds = db.SelectAdaptQry(cmd);
                     if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                     {
-                        catList = new Dictionary<int, string>();
-                        catList.Add(0, "Select");
-                        foreach (DataRow dr in ds.Tables[0].Rows)
-                        {
-                            catList.Add(Convert.ToInt32(dr["id"].ToString()), dr["name"].ToString());
-                        }
+                        dt = ds.Tables[0];
+                        DataRow dr= dt.NewRow();
+                        dr[0] = 0;
+                        dr[1] = "Select";
+                        dt.Rows.InsertAt(dr, 0);
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("sql ex : ", ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, "GetDealerCategories");
-                objErr.SendMail();
             }
             catch (Exception ex)
             {
@@ -53,7 +51,7 @@ namespace BikewaleOpr.common
                 ErrorClass objErr = new ErrorClass(ex, "GetDealerCategories");
                 objErr.SendMail();
             }
-            return catList;
+            return dt;
         }
     }
 }
