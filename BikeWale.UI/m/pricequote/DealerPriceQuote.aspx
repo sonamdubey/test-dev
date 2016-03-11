@@ -198,15 +198,15 @@
                         <p class="font16 text-bold margin-top25 margin-bottom20">Exclusive offers on this bike</p>
                         <ul class="pricequote-benefits-list text-light-grey">
                             <li>
-                                <span class="pq-benefits-image pricequote-sprite benefit-offers-icon"></span>
+                                <span class="pq-benefits-image pricequote-sprite offers-insurance-icon"></span>
                                 <span class="pq-benefits-title padding-left15">Free bike insurance</span>
                             </li>
                             <li>
-                                <span class="pq-benefits-image pricequote-sprite benefit-assistance-icon"></span>
+                                <span class="pq-benefits-image pricequote-sprite offers-voucher-icon"></span>
                                 <span class="pq-benefits-title padding-left15">Flipkart voucher worth <span class="bwmsprite inr-grey-xxsm-icon"></span> 1000</span>
                             </li>
                             <li>
-                                <span class="pq-benefits-image pricequote-sprite benefit-cancel-icon"></span>
+                                <span class="pq-benefits-image pricequote-sprite offers-pickup-icon"></span>
                                 <span class="pq-benefits-title padding-left15">Document pickup and bike delivery</span>
                             </li>
                         </ul>
@@ -217,15 +217,15 @@
                         <p class="font15 text-bold margin-bottom15">Benefits of buying from this dealer:</p>
                         <ul class="pricequote-benefits-list text-light-grey text-left">
                             <li>
-                                <span class="pq-benefits-image pricequote-sprite offers-insurance-icon"></span>
+                                <span class="pq-benefits-image pricequote-sprite benefit-offers-icon"></span>
                                 <span class="pq-benefits-title padding-left15">Exclusive offers</span>
                             </li>
                             <li>
-                                <span class="pq-benefits-image pricequote-sprite offers-voucher-icon"></span>
+                                <span class="pq-benefits-image pricequote-sprite benefit-assistance-icon"></span>
                                 <span class="pq-benefits-title padding-left15">Complete buying assistance</span>
                             </li>
                             <li>
-                                <span class="pq-benefits-image pricequote-sprite offers-pickup-icon"></span>
+                                <span class="pq-benefits-image pricequote-sprite benefit-cancel-icon"></span>
                                 <span class="pq-benefits-title padding-left15">Easy cancellations</span>
                             </li>
                         </ul>
