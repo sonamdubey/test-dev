@@ -29,19 +29,17 @@ namespace Bikewale.BAL.AppDeepLinking
         /// </summary>
         /// <param name="url">Bikewale.com's URL</param>
         /// <returns>DeepLinkingEntity</returns>
-        DeepLinkingEntity IDeepLinking.GetParameters(string url)
+        public DeepLinkingEntity GetParameters(string url)
         {
             if (string.IsNullOrEmpty(url)) return null;
             DeepLinkingEntity deepLinking = null;
             Match match = null;
             try
             {
-                url = ProcessUrl(url);
-                if (((match = Regex.Match(url, "^(.*)-bikes/(.*)/$")) != null) && match.Success) //for ModelScreenId
+                if (((match = Regex.Match(url, "com/(.*)-bikes/(.*)/$")) != null) && match.Success) //for ModelScreenId
                 {
                     string makeId = string.Empty, modelId = string.Empty;
-                    //    match = Regex.Match(url, "^(.*)-bikes/(.*)/");
-                    makeId = GetMakelId(match.Groups[1].Value);
+                    makeId = MakeMapping.GetMakeId(match.Groups[1].Value);
                     modelId = GetModelId(match.Groups[2].Value);
                     if (!(string.IsNullOrEmpty(makeId) || string.IsNullOrEmpty(modelId)))
                     {
@@ -52,10 +50,10 @@ namespace Bikewale.BAL.AppDeepLinking
                         deepLinking.Params.Add("modelId", modelId);
                     }
                 }
-                else if ((match = Regex.Match(url, "^(.*)-bikes/$")) != null && match.Success) //for MakeScreenId
+                else if ((match = Regex.Match(url, "com/(.*)-bikes/$")) != null && match.Success) //for MakeScreenId
                 {
                     string makeId = string.Empty;
-                    makeId = GetMakelId(match.Groups[1].Value);
+                    makeId = MakeMapping.GetMakeId(match.Groups[1].Value);
                     if (!(string.IsNullOrEmpty(makeId)))
                     {
                         deepLinking = new DeepLinkingEntity();
@@ -72,28 +70,6 @@ namespace Bikewale.BAL.AppDeepLinking
             }
 
             return deepLinking;
-        }
-
-        /// <summary>
-        /// Created By : Lucky Rathore
-        /// Created On : 10 March 2016
-        /// Description : To process URL string
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns>return url string after after bikewale.com/ </returns>
-        private string ProcessUrl(string url)
-        {
-            try
-            {
-                int startIndex = url.IndexOf(".com/");
-                return (startIndex >= 0 && startIndex < url.Length - 1) ? url.Substring(startIndex + 5) : null;
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "ProcessUrl()");
-                objErr.SendMail();
-                return null;
-            }
         }
 
         /// <summary>
@@ -124,42 +100,18 @@ namespace Bikewale.BAL.AppDeepLinking
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.AndroidApp.GetModelId");
                 objErr.SendMail();
-                //Handle here
             }
             finally
             {
                 if (objResponse != null && objResponse.StatusCode == 200)
                 {
-                    modelId = objResponse.ModelId.ToString();
+                    modelId = Convert.ToString(objResponse.ModelId);
                 }
 
             }
 
             return modelId;
         }
-
-        /// <summary>
-        /// Created By : Lucky Rathore
-        /// Created On : 10 March 2016
-        /// Description : To get Model ID
-        /// </summary>
-        /// <param name="makeName">e.g. tvs</param>
-        /// <returns>makeId for e.g. 99</returns>
-        private string GetMakelId(string makeName)
-        {
-            return MakeMapping.GetMakeId(makeName);//MakeMapping.GetMakeId(makeName); 
-        }
-
-        /// <summary>
-        /// need to be implemented
-        /// </summary>
-        /// <returns></returns>
-        private string GetBasicId()//for news article and similar cases.
-        {
-            return null;
-        }
-
-
 
     }
 }

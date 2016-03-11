@@ -13,6 +13,6 @@ namespace Bikewale.Interfaces.AppDeepLinking
     /// </summary>
     public interface IDeepLinking
     {
-       DeepLinkingEntity GetParameters(string url);
+      DeepLinkingEntity GetParameters(string url);
     }
 }
