@@ -28,6 +28,7 @@ namespace BikewaleOpr.NewBikeBooking
         protected DropDownList ddlBenefitCat, ddlEditBenefit;
         protected TextBox benefitText, txtEditBenefit;
         protected HiddenField hdnBenefitId;
+        protected Label greenMessage;
         
         #endregion
 
@@ -61,7 +62,7 @@ namespace BikewaleOpr.NewBikeBooking
 
         private void ResetForm(object sender, EventArgs e)
         {
-
+            greenMessage.Text = string.Empty;
             ddlBenefitCat.SelectedIndex = 0;
             benefitText.Text = string.Empty;
         }
@@ -85,6 +86,9 @@ namespace BikewaleOpr.NewBikeBooking
                 status = await BWHttpClient.PostAsync<bool>(cwHostUrl, _requestType, _apiUrl, status);
 
                 GetDealerBenefits();
+                greenMessage.Text = "Benefit / USP has been added !";
+                benefitText.Text = string.Empty;
+                ddlBenefitCat.SelectedIndex = 0;
             }
             catch (Exception err)
             {
