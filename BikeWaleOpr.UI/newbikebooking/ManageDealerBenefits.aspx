@@ -175,7 +175,6 @@
                     <tr>
                         <td colspan="6" class="margin10">
                             <asp:Button ID="btnEditSubmit" Text="Save benefit" OnClientClick="return btnEditSubmit_Click();" runat="server" />
-                            <asp:Button ID="btnEditReset" Text="Reset" runat="server" />
                         </td>
                     </tr>
                 </table>
@@ -273,7 +272,7 @@
         });
 
         function LinkUpdateClick(benefitId) {
-            $("#txtEditBenefit").val($("#row_" + benefitId).find('td').eq(2).text());
+            $("#txtEditBenefit").val($("#row_" + benefitId).find('td').eq(1).text());
             $('#ddlEditBenefit').val($("#row_" + benefitId).attr('catId'));
             $('#hdnBenefitId').val(benefitId);
             $("#popup").dialog({

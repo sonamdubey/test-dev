@@ -22,7 +22,7 @@ namespace BikewaleOpr.newbikebooking
 
         protected string _dealerId = string.Empty, _cityId = string.Empty, cwHostUrl = string.Empty, _currentUserID = string.Empty;
         ManageDealerBenefit manageDealer;
-        protected Button btnAdd, btnReset, btnEditSubmit, btnEditReset, Button1;
+        protected Button btnAdd, btnReset, btnEditSubmit;
         protected Repeater rptBenefits;
         protected DropDownList ddlBenefitCat, ddlEditBenefit;
         protected TextBox benefitText, txtEditBenefit;
@@ -36,7 +36,6 @@ namespace BikewaleOpr.newbikebooking
         {
             base.Load += new EventHandler(Page_Load);
             btnAdd.Click += new EventHandler(SaveOffers);
-            btnEditSubmit.Click += new EventHandler(SaveEditedOffers);
             btnReset.Click += new EventHandler(ResetForm);
         }
 
@@ -54,12 +53,6 @@ namespace BikewaleOpr.newbikebooking
             GetDealerBenefits();
         }
 
-        private void SaveEditedOffers(object sender, EventArgs e)
-        {
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-        }
         private void SaveOffers(object sender, EventArgs e)
         {
             SaveDealerBenefit();
@@ -83,7 +76,6 @@ namespace BikewaleOpr.newbikebooking
         {
             try
             {
-
                 cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
                 string _requestType = "application/json";
                 string _apiUrl = string.Format("/api/Dealers/SaveDealerBenefit/?dealerId={0}&cityId={1}&catId={2}&benefitText={3}&userId={4}&benefitId={5}", _dealerId, _cityId, ddlBenefitCat.SelectedValue, HttpUtility.UrlEncode(benefitText.Text), CurrentUser.Id, hdnBenefitId.Value);
@@ -137,13 +129,14 @@ namespace BikewaleOpr.newbikebooking
         /// </summary>
         private void BindData()
         {
+            GetDealerBenefits();
             // Bind Benefits for current dealer
-            List<DealerBenefitEntity> benefitList = manageDealer.GetDealerBenefits(_dealerId);
-            if (benefitList != null && benefitList.Count > 0)
-            {
-                rptBenefits.DataSource = benefitList;
-                rptBenefits.DataBind();
-            }
+            //List<DealerBenefitEntity> benefitList = manageDealer.GetDealerBenefits(_dealerId);
+            //if (benefitList != null && benefitList.Count > 0)
+            //{
+            //    rptBenefits.DataSource = benefitList;
+            //    rptBenefits.DataBind();
+            //}
 
             // Bind Benefits categories
             Dictionary<int, string> benefitCategories = manageDealer.GetDealerCategories(_dealerId);
