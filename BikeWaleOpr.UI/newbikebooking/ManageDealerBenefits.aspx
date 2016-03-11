@@ -121,7 +121,7 @@
                                         <input type="checkbox" runat="server" id="chkAll" />
                                     </div>
                                 </th>
-                                <th>Id</th>
+                                <%--<th>Id</th>--%>
 								<th>Benefit Text</th>
                                 <th>Category</th>
                                 <th>Edit</th>
@@ -130,8 +130,8 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                     <tr id="row_<%# DataBinder.Eval(Container.DataItem,"BenefitId") %>" catId="<%# DataBinder.Eval(Container.DataItem,"CatId") %>" >
-                           <td> <input type="checkbox" class="checkboxAll" id="chkOffer_<%# DataBinder.Eval(Container.DataItem,"BenefitId") %>" benefitId="<%# DataBinder.Eval(Container.DataItem,"BenefitId") %>" /></td>
-                            <td><%# DataBinder.Eval(Container.DataItem, "BenefitId") %></td>
+                           <td align="center"> <input type="checkbox" class="checkboxAll" id="chkOffer_<%# DataBinder.Eval(Container.DataItem,"BenefitId") %>" benefitId="<%# DataBinder.Eval(Container.DataItem,"BenefitId") %>" /></td>
+                            <%--<td><%# DataBinder.Eval(Container.DataItem, "BenefitId") %></td>--%>
                             <td><%# DataBinder.Eval(Container.DataItem, "BenefitText") %></td>
                             <td><%# DataBinder.Eval(Container.DataItem, "CategoryText") %></td>
                             <td class="update"><a id="update_<%#Eval("BenefitId")%>" onclick="javascript:LinkUpdateClick(<%#Eval("BenefitId")%>)">Edit</a></td>
@@ -277,7 +277,7 @@
             $('#ddlEditBenefit').val($("#row_" + benefitId).attr('catId'));
             $('#hdnBenefitId').val(benefitId);
             $("#popup").dialog({
-                title: "Edit the benefit",
+                title: "Edit benefit",
                 height: 180,
                 width:500,
                 buttons: {
