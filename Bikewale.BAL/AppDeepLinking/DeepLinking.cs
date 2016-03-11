@@ -36,7 +36,7 @@ namespace Bikewale.BAL.AppDeepLinking
             Match match = null;
             try
             {
-                if (((match = Regex.Match(url, "com/(.*)-bikes/(.*)/$")) != null) && match.Success) //for ModelScreenId
+                if (((match = Regex.Match(url, @"[^https?:\/\/.*]\/(.*)-bikes\/(.*)\/$")) != null) && match.Success) //for ModelScreenId
                 {
                     string makeId = string.Empty, modelId = string.Empty;
                     makeId = MakeMapping.GetMakeId(match.Groups[1].Value);
@@ -50,7 +50,7 @@ namespace Bikewale.BAL.AppDeepLinking
                         deepLinking.Params.Add("modelId", modelId);
                     }
                 }
-                else if ((match = Regex.Match(url, "com/(.*)-bikes/$")) != null && match.Success) //for MakeScreenId
+                else if ((match = Regex.Match(url,@"[^https?:\/\/.*]\/(.*)-bikes\/$")) != null && match.Success) //for MakeScreenId
                 {
                     string makeId = string.Empty;
                     makeId = MakeMapping.GetMakeId(match.Groups[1].Value);
