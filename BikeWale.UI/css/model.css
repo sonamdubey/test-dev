@@ -50,9 +50,8 @@
 .model-name-review-container:hover .write-review-text { display:block; }
 
 /*dealership*/
-.dealership-benefit-list li { width:290px; color:#82888b; display:inline-block; vertical-align:middle; margin-top:10px; }
-.dealership-benefit-list .benefit-list-image, .dealership-benefit-list .benefit-list-title { float:left; }
-.dealership-benefit-list .benefit-list-image { width:34px; height:30px; }
+.dealership-benefit-list li { width:290px; color:#82888b; float:left; margin-top:10px; }
+.dealership-benefit-list .benefit-list-image, .dealership-benefit-list .benefit-list-title { display:inline-block; vertical-align:middle; }
 .dealership-benefit-list .benefit-list-title { width:255px; padding-right:10px; padding-left:10px; }
 .form-control-username { width:270px; }
 .form-control-email-mobile { width:188px; }
@@ -105,7 +104,7 @@
 .available-colors .color-box {width:60px; height:60px; margin:0 auto 15px; border-radius:3px; background:#eee; border:1px solid #ccc;}
 .varient-desc-container { min-height:72px; }
 /* model sprite classes */
-.model-sprite { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/model-sprite.png?v=01022016) no-repeat; display:inline-block;}
+.model-sprite { background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/model-sprite.png?v=11Mar2016) no-repeat; display:inline-block;}
 .bw-summary-ico { background-position:0 0; width:23px; height:23px; margin-right:26px; position:relative; top:3px; left:5px;}
 .bw-engine-ico { background-position:-33px 0; width:30px; height:22px; margin-right:20px; position:relative; top:3px;}
 .bw-brakeswheels-ico { background-position:-73px 0; width:26px; height:26px; margin-right:26px; position:relative; top:3px; left:3px;}
@@ -118,6 +117,10 @@
 .benefit-assistance-ico { background-position:-79px -36px; width:27px; height:30px; }
 .benefit-cancellation-ico { background-position:-116px -36px; width:23px; height:30px; }
 .loc-change-blue-icon { width:12px; height:16px; background-position:-205px -35px; cursor:pointer; position:relative; top:2px; }
+.offers-insurance-icon, .offers-voucher-icon, .offers-pickup-icon { width:30px; }
+.offers-insurance-icon { height:30px; background-position:0 -155px; }
+.offers-voucher-icon { height:24px; background-position:-39px -155px; }
+.offers-pickup-icon { height:30px; background-position:-76px -155px; }
 
 /*benefits*/
 #benefitsOfBookingContainer { padding:20px; background:#f5f5f5; }

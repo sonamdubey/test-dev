@@ -542,15 +542,15 @@
                                 <p class="text-bold margin-bottom10">Exclusive offers on this bike from Dealership Name, Area:</p>
                                 <ul class="dealership-benefit-list">
                                     <li>
-                                        <span class="benefit-list-image"></span>
+                                        <span class="benefit-list-image model-sprite offers-insurance-icon"></span>
                                         <span class="benefit-list-title">Free bike insurance</span>
                                     </li>
                                     <li>
-                                        <span class="benefit-list-image"></span>
+                                        <span class="benefit-list-image model-sprite offers-voucher-icon"></span>
                                         <span class="benefit-list-title">Flipkart voucher worth Rs. 1,000</span>
                                     </li>
                                     <li>
-                                        <span class="benefit-list-image"></span>
+                                        <span class="benefit-list-image model-sprite offers-pickup-icon"></span>
                                         <span class="benefit-list-title">Document pickup & bike delivery</span>
                                     </li>
                                 </ul>
