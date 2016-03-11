@@ -46,6 +46,8 @@ using Bikewale.DAL.AppAlert;
 using Bikewale.BAL.Compare;
 using Bikewale.Cache.Location;
 using Bikewale.DAL.Dealer;
+using Bikewale.Interfaces.AppDeepLinking;
+using Bikewale.BAL.AppDeepLinking;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -61,6 +63,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register AppVersionRepository.
         /// Modified By :   Sumit Kate on 05 Feb 2016
         /// Description :   Register IBookingListing, BookingListingRepository
+        /// Modified By :   Lucky Rathore on 10 March 2016
+        /// Description :   Register IDeepLinking, DeepLinking
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -103,6 +107,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBookingCancellation, Bikewale.BAL.BikeBooking.BookingCancellation>();
             container.RegisterType<IBookingListing, BookingListingRepository>();
             container.RegisterType<IOffer, OfferRepository>();
+            container.RegisterType<IDeepLinking, DeepLinking>();
             return container;
         }
     }
