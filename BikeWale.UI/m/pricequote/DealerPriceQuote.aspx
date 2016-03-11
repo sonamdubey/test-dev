@@ -198,16 +198,16 @@
                         <p class="font16 text-bold margin-top25 margin-bottom20">Exclusive offers on this bike</p>
                         <ul class="pricequote-benefits-list text-light-grey">
                             <li>
-                                <span class="pq-benefits-image"></span>
-                                <span class="pq-benefits-title padding-left15">Exclusive offers</span>
+                                <span class="pq-benefits-image pricequote-sprite benefit-offers-icon"></span>
+                                <span class="pq-benefits-title padding-left15">Free bike insurance</span>
                             </li>
                             <li>
-                                <span class="pq-benefits-image"></span>
-                                <span class="pq-benefits-title padding-left15">Complete buying assistance</span>
+                                <span class="pq-benefits-image pricequote-sprite benefit-assistance-icon"></span>
+                                <span class="pq-benefits-title padding-left15">Flipkart voucher worth <span class="bwmsprite inr-grey-xxsm-icon"></span> 1000</span>
                             </li>
                             <li>
-                                <span class="pq-benefits-image"></span>
-                                <span class="pq-benefits-title padding-left15">Easy cancellations</span>
+                                <span class="pq-benefits-image pricequote-sprite benefit-cancel-icon"></span>
+                                <span class="pq-benefits-title padding-left15">Document pickup and bike delivery</span>
                             </li>
                         </ul>
                         <div class="clear"></div>
@@ -215,17 +215,17 @@
                     </div>
                     <div class="border-light-top padding-top15 padding-bottom15">
                         <p class="font15 text-bold margin-bottom15">Benefits of buying from this dealer:</p>
-                        <ul class="pricequote-benefits-list text-light-grey">
+                        <ul class="pricequote-benefits-list text-light-grey text-left">
                             <li>
-                                <span class="pq-benefits-image"></span>
+                                <span class="pq-benefits-image pricequote-sprite offers-insurance-icon"></span>
                                 <span class="pq-benefits-title padding-left15">Exclusive offers</span>
                             </li>
                             <li>
-                                <span class="pq-benefits-image"></span>
+                                <span class="pq-benefits-image pricequote-sprite offers-voucher-icon"></span>
                                 <span class="pq-benefits-title padding-left15">Complete buying assistance</span>
                             </li>
                             <li>
-                                <span class="pq-benefits-image"></span>
+                                <span class="pq-benefits-image pricequote-sprite offers-pickup-icon"></span>
                                 <span class="pq-benefits-title padding-left15">Easy cancellations</span>
                             </li>
                         </ul>
@@ -334,10 +334,10 @@
             <div class="emi-popup-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="icon-outer-container rounded-corner50percent">
                 <div class="icon-inner-container rounded-corner50percent">
-                    <span class="bwmsprite offers-box-icon margin-top20"></span>
+                    <span class="pricequote-sprite cal-emi-icon margin-top20"></span>
                 </div>
             </div>
-            <p class="font16 text-bold margin-top25 margin-bottom20">EMI Calculator</p>
+            <p class="font16 text-bold margin-top25 margin-bottom10">EMI Calculator</p>
             <div class="finance-emi-container">
                 <div class="finance-emi-left-box alpha">
                     <div class="emi-slider-box">
@@ -345,7 +345,7 @@
                             <div class="clearfix font14">
                                 <p class="grid-8 alpha text-light-grey text-left">Down payment</p>
                                     <div class="emi-slider-box-right-section grid-4 omega">
-                                    <span class="fa fa-rupee"></span>
+                                    <span class="bwmsprite inr-xxsm-icon"></span>
                                     <span id="downPaymentAmount"></span>
                                 </div>
                             </div>
@@ -367,7 +367,7 @@
                             <div class="clearfix font14">
 	                            <p class="grid-8 alpha text-light-grey text-left">Loan Amount</p>
                                 <div class="emi-slider-box-right-section grid-4 omega">
-                                    <span class="fa fa-rupee"></span>
+                                    <span class="bwmsprite inr-xxsm-icon"></span>
                                     <span id="loanAmount"></span>
                                 </div>
                             </div>
@@ -433,18 +433,19 @@
                         <div class="clear"></div>
                     </div>
                 </div>
-                <div class="finance-emi-right-box omega margin-top15">
+                <div class="finance-emi-right-box omega margin-top15 margin-bottom25">
                     <div class="clearfix">
-	                        <p class="grid-8 alpha">Indicative EMI<span class="font12 text-light-grey">(per month)</span></p>
-                            <div class="indicative-emi-amount font16 text-right grid-4 omega">
-                            <span class="font14"><span class="fa fa-rupee"></span></span>
-                            <span class="text-bold" id="emiAmount">12,000</span>
+	                    <p class="grid-8 font14 text-left alpha position-rel pos-top2">Indicative EMI<span class="font12 text-light-grey"> (per month)</span></p>
+                        <div class="indicative-emi-amount text-right grid-4 omega">
+                            <span class="bwmsprite inr-xsm-icon"></span>
+                            <span class="font16" id="emiAmount">12,000</span>
                         </div>
-                        </div>
-                            
+                    </div>     
                 </div>
                 <div class="clear"></div>
-            </div>           
+                <input type="button" class="btn btn-orange emi-quote-btn margin-bottom20" value="Get EMI quote" />
+            </div>
+           
         </div>
 
         <!-- Lead Capture pop up start  -->
