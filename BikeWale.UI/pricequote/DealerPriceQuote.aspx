@@ -233,18 +233,18 @@
                     </div>
                         <div class="clear"></div>
                         <div class="grid-12 padding-right20 padding-bottom10 padding-left20 font14">
-                            <p class="text-bold padding-top20 border-light-top">Exclusive offers from this dealer:</p>
+                            <p class="text-bold padding-top20 margin-bottom5 border-light-top">Exclusive offers from this dealer:</p>
                             <ul class="pricequote-benefits-list text-light-grey">
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
+                                    <span class="inline-block pq-benefits-image pricequote-sprite offers-insurance-icon margin-right10"></span>
                                     <span class="inline-block pq-benefits-title">Free bike insurance</span>
                                 </li>
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
-                                    <span class="inline-block pq-benefits-title">Flipkart voucher worth Rs.1,000</span>
+                                    <span class="inline-block pq-benefits-image pricequote-sprite offers-voucher-icon margin-right10"></span>
+                                    <span class="inline-block pq-benefits-title">Flipkart voucher worth <span class="fa fa-rupee"></span>1,000</span>
                                 </li>
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
+                                    <span class="inline-block pq-benefits-image pricequote-sprite offers-pickup-icon margin-right10"></span>
                                     <span class="inline-block pq-benefits-title">Document pickup and bike delivery</span>
                                 </li>
                             </ul>
@@ -275,18 +275,18 @@
                         </div>
                         <div class="clear"></div>
                         <div class="grid-12 padding-top20 padding-right20 padding-bottom5 padding-left20 font14">
-                            <p class="text-bold margin-bottom20">Benefits of buying a bike from this dealer:</p>
+                            <p class="text-bold margin-bottom5">Benefits of buying a bike from this dealer:</p>
                             <ul class="pricequote-benefits-list text-light-grey">
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
+                                    <span class="inline-block pq-benefits-image pricequote-sprite benefit-offers-icon margin-right10"></span>
                                     <span class="inline-block pq-benefits-title">Exclusive offers</span>
                                 </li>
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
+                                    <span class="inline-block pq-benefits-image pricequote-sprite benefit-assistance-icon margin-right10"></span>
                                     <span class="inline-block pq-benefits-title">Complete buying assistance</span>
                                 </li>
                                 <li>
-                                    <span class="inline-block pq-benefits-image margin-right10"><img src="" border="0" /></span>
+                                    <span class="inline-block pq-benefits-image pricequote-sprite benefit-cancel-icon margin-right10"></span>
                                     <span class="inline-block pq-benefits-title">Easy cancellations</span>
                                 </li>
                             </ul>
@@ -294,7 +294,7 @@
                         </div>
                         <div class="clear"></div>
                         <div class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
-                            <p class="text-bold padding-top20 border-light-top">Pay <span class="fa fa-rupee"></span> 5,000 online and book this bike:</p>
+                            <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="fa fa-rupee"></span> 5,000 online and book this bike:</p>
                             <ul class="pricequote-benefits-list pq-benefits-booking-list text-light-grey">
                                 <li>
                                     <p>Save on dealer visits</p>

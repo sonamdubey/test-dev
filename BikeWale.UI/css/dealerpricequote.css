@@ -15,15 +15,23 @@
 .variants-dropdown-list li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff; }
 .border-light-top { border-top: 1px solid #f1f1f1; }
 .border-light-bottom { border-bottom: 1px solid #f1f1f1; }
-.pricequote-benefits-list { margin-top:8px; overflow:hidden; }
-.pricequote-benefits-list li { width:205px; padding-right:10px; margin-top:10px; margin-bottom:10px; float: left;}
-.pricequote-benefits-list .pq-benefits-image { max-width: 34px; height: 34px; }
+.pricequote-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/pricequote-sprite.png?v1=11Mar2016v1) no-repeat; display: inline-block; }
+.benefit-offers-icon, .benefit-assistance-icon, .benefit-cancel-icon { width:25px; }  
+.benefit-offers-icon { height:26px; background-position:0 -40px; }
+.benefit-assistance-icon { height:29px; background-position:-34px -40px; }
+.benefit-cancel-icon { height:27px; background-position:-69px -40px; }
+.offers-insurance-icon, .offers-voucher-icon, .offers-pickup-icon { width:30px; }
+.offers-insurance-icon { height:30px; background-position:0 0; }
+.offers-voucher-icon { height:24px; background-position:-39px 0; }
+.offers-pickup-icon { height:30px; background-position:-79px 0; }
+.pricequote-benefits-list { overflow:hidden; }
+.pricequote-benefits-list li { width:205px; padding-right:10px; margin-top:10px; margin-bottom:10px; display:inline-block; vertical-align:middle;}
 .pq-benefits-title { width: 140px; }
 .buying-assistance-form .form-control-box { width:160px; float:left; }
 .buying-assistance-form .form-control { border-radius:2px; }
 .buying-assistance-form .errorIcon, .buying-assistance-form .errorText { display:none; }
 .pricequote-benefits-list.pq-benefits-booking-list { list-style:disc;}
-.pricequote-benefits-list.pq-benefits-booking-list li { width:187px; margin-left:20px; }
+.pricequote-benefits-list.pq-benefits-booking-list li { width:185px; margin-left:20px; }
 .margin-top7 { margin-top:7px; }
 .pos-top3 { top:3px; }
 .text-darker-black { color:#1a1a1a; }
