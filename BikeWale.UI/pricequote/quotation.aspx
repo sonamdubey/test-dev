@@ -18,127 +18,47 @@
 <!-- #include file="/includes/headscript.aspx" -->
 
 <style type="text/css">
-    #PQImageVariantContainer img {
-        width: 100%;
-    }
-
-    .PQDetailsTableTitle {
-        color: #82888b;
-    }
-
-    .PQDetailsTableAmount, .PQOnRoadPrice {
-        color: #4d5057;
-    }
-
-    .PQOffersUL {
-        margin-left: 18px;
-        list-style: disc;
-    }
-
-        .PQOffersUL li {
-            padding-bottom: 15px;
-        }
-
-    .pqVariants .form-control-box {
-        width: 92%;
-    }
-
-    .form-control-box select.form-control {
-        color: #4d5057;
-    }
-
-    .jcarousel-wrapper.alternatives-carousel {
-        width: 974px;
-    }
-
-    .alternatives-carousel .jcarousel li {
-        height: auto;
-        margin-right: 18px;
-    }
-
-        .alternatives-carousel .jcarousel li.front {
-            border: none;
-        }
-
-    .alternative-section .jcarousel-control-left {
-        left: -24px;
-    }
-
-    .alternative-section .jcarousel-control-right {
-        right: -24px;
-    }
-
-    .alternative-section .jcarousel-control-left, .alternative-section .jcarousel-control-right {
-        top: 50%;
-    }
-
-    .newBikes-latest-updates-container .grid-4 {
-        padding-left: 10px;
-    }
-
-    .available-colors {
-        display: inline-block;
-        width: 150px;
-        text-align: center;
-        margin-bottom: 20px;
-        padding: 0 5px;
-        vertical-align: top;
-    }
-
-        .available-colors .color-box {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 15px;
-            border-radius: 3px;
-            background: #f00;
-            border: 1px solid #ccc;
-        }
-
-    .upcoming-brand-bikes-container li.front {
-        border: none;
-    }
-
-    .upcoming-brand-bikes-container li .imageWrapper {
-        width: 303px;
-        height: 174px;
-    }
-
-        .upcoming-brand-bikes-container li .imageWrapper a {
-            width: 303px;
-            height: 174px;
-            display: block;
-            background: url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
-        }
-
-    .upcoming-brand-bikes-container li {
-        width: 303px;
-        height: auto;
-        margin-right: 12px;
-    }
-
-        .upcoming-brand-bikes-container li .imageWrapper a img {
-            width: 303px;
-            height: 174px;
-        }
-
-    .upcoming-brand-bikes-container .jcarousel {
-        width: 934px;
-        overflow: hidden;
-        left: 20px;
-    }
+    #PQImageVariantContainer img{width:100%}
+    .PQDetailsTableTitle{color:#82888b}
+    .PQDetailsTableAmount,.PQOnRoadPrice{color:#4d5057}
+    .PQOffersUL{margin-left:18px;list-style:disc}
+    .PQOffersUL li{padding-bottom:15px}
+    .margin-top7 { margin-top:7px; }
+    .pqVariants .variants-dropdown{ width:210px; height: 40px; padding: 9px; margin-left: 12px; border: 1px solid #ccc; color: #555; position: relative; cursor: pointer; background: #fff;}
+    .variant-selection-tab { width:90%; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
+    #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px;}
+    .variants-dropdown .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
+    .variants-dropdown.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
+    .variants-dropdown-list { display:none; width:210px; overflow:hidden; background: #fff; border: 1px solid #ccc; position: absolute; top:40px; left:82px; z-index: 2;}
+    .variants-dropdown-list li { margin-bottom:5px; margin-top:5px; font-size:14px; }
+    .variants-dropdown-list li.selected { font-weight:bold; }
+    .variants-dropdown-list li input{ width:100%; text-align:left;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px;}
+    .variants-dropdown-list li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff; }
+    .jcarousel-wrapper.alternatives-carousel{width:974px}
+    .alternatives-carousel .jcarousel li{height:auto;margin-right:18px}
+    .alternatives-carousel .jcarousel li.front{border:none}
+    .alternative-section .jcarousel-control-left{left:-24px}
+    .alternative-section .jcarousel-control-right{right:-24px}
+    .alternative-section .jcarousel-control-left,.alternative-section .jcarousel-control-right{top:50%}
+    .newBikes-latest-updates-container .grid-4{padding-left:10px}
+    .available-colors{display:inline-block;width:150px;text-align:center;margin-bottom:20px;padding:0 5px;vertical-align:top}
+    .available-colors .color-box{width:60px;height:60px;margin:0 auto 15px;border-radius:3px;background:#f00;border:1px solid #ccc}
+    .upcoming-brand-bikes-container li.front{border:none}
+    .upcoming-brand-bikes-container li .imageWrapper{width:303px;height:174px}
+    .upcoming-brand-bikes-container li .imageWrapper a{width:303px;height:174px;display:block;background:url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center}
+    .upcoming-brand-bikes-container li{width:303px;height:auto;margin-right:12px}
+    .upcoming-brand-bikes-container li .imageWrapper a img{width:303px;height:174px}
+    .upcoming-brand-bikes-container .jcarousel{width:934px;overflow:hidden;left:20px}
     .modelGetDetails h3 { border-bottom:1px solid #ecedee; }
     .modelGetDetails ul { list-style:disc; color:#82888b; margin-left:25px; font-size:14px; }
     .modelGetDetails ul li { padding-top: 12px;padding-right: 12px; width:100% !important; float: left; }
-    /* lead capture popup */
     #leadCapturePopup { display:none; width:450px; min-height:470px; background:#fff; margin:0 auto; position:fixed; top:10%; right:5%; left:5%; z-index:10; padding: 30px 40px; }
     .personal-info-form-container { margin: 10px auto; width: 300px; min-height: 100px; }
     .personal-info-form-container .personal-info-list { margin:0 auto; width:280px; float:left; margin-bottom:20px; border-radius:0; }
     .personal-info-list .errorIcon, .personal-info-list .errorText { display:none; }
     .user-contact-details-icon { width:36px; height:44px; background-position: 0 -391px; }
     .mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; }
-     #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
-
- 
+     #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none}
 </style>
 
 <script type="text/javascript">
@@ -160,7 +80,7 @@
     <section class="bg-light-grey padding-top10">
         <div class="container">
             <div class="grid-12">
-                <div class="breadcrumb margin-bottom15"><!-- breadcrumb code starts here -->
+                <div class="breadcrumb margin-bottom10"><!-- breadcrumb code starts here -->
                     <ul>
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                             <a href="/" itemprop="url">
@@ -176,7 +96,7 @@
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                             <span class="fa fa-angle-right margin-right10"></span>
                             <a href="/pricequote/" itemprop="url">
-                                <span itemprop="title">On-Road Price Quote</span>
+                                <span itemprop="title">On-road price</span>
                             </a>
                         </li>
                         <li>
@@ -185,7 +105,7 @@
                     </ul>
                     <div class="clear"></div>
                 </div>
-                <h1 class="font30 text-black margin-top10 margin-bottom10">On-road price quote</h1>
+                <h1 class="font26 margin-bottom10">On-road price for <%= mmv.BikeName %> in Area, <%= objQuotation.City %></h1>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
@@ -194,58 +114,70 @@
     
     <section class="container">
         <div class="grid-12 margin-bottom20" id="dealerPriceQuoteContainer">
-            <div class="content-box-shadow content-inner-block-20 rounded-corner2">
-                <div class="grid-3 alpha" id="PQImageVariantContainer">
-        	        <div class="pqBikeImage margin-bottom20 margin-top5">
+            <div class="content-box-shadow padding-top20 padding-bottom20 rounded-corner2">
+                <div class="grid-4 padding-right10 padding-left20" id="PQImageVariantContainer">
+        	        <div class="pqBikeImage margin-bottom15">
                         <img alt=" <%= mmv.BikeName %> Photos" src="<%=imgPath%>" title="<%= mmv.BikeName %> Photos">
                     </div>
                     <div class="pqVariants <%=(versionList.Count > 1)?"":"hide" %>">
-                        <p class="font14 margin-bottom5">Versions</p>
+                        <p class="margin-left10 font16 text-light-grey leftfloat margin-top7">Version:</p>
+                        <div class="position-rel">
+                            <div class="variants-dropdown rounded-corner2 leftfloat">
+                                <div class="variant-selection-tab">
+                                    <span id="defaultVariant">Variant 1</span>
+                                </div>
+                                <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                            </div>
+                            <ul class="variants-dropdown-list">
+                                <li><input type="submit" value="Variant 1"/></li>
+                                <li><input type="submit" value="Variant 2 Variant 2 Variant 2 Variant 2" /></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
                         <div class="form-control-box">
                             <asp:DropDownList id="ddlVersion" class="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
                         </div>
                     </div>
                 </div>
-                <div class="grid-5 padding-right20" id="PQDetailsContainer">
-                    <p class="font20 text-bold margin-bottom20"><%= mmv.BikeName %></p>
+                <div class="grid-4 padding-right15 padding-left10" id="PQDetailsContainer">
                     <%if (objQuotation != null && objQuotation.ExShowroomPrice > 0)
                       { %>
-                    <p class="font16 margin-bottom15">On-road price in 
+                    <%--<p class="font16 margin-bottom15">On-road price in 
                         <span><%= (String.IsNullOrEmpty(objQuotation.Area))?objQuotation.City:(objQuotation.Area + ", " + objQuotation.City) %></span>
-                    </p>
+                    </p>--%>
                     <% } %>
                     <div>
                         <%if (objQuotation != null && objQuotation.ExShowroomPrice > 0)
                           {%>
                             <table class="font14" cellspacing="0" cellpadding="0" width="100%" border="0">
                                 <tr>
-                                    <td width:"245" class="PQDetailsTableTitle padding-bottom10">
+                                    <td width="200" class="PQDetailsTableTitle padding-bottom15">
                                         Ex-Showroom (<%= objQuotation.City %>)
                                     </td>
-                                    <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
+                                    <td align="right" class="PQDetailsTableAmount padding-bottom15">
                                         <span class="fa fa-rupee margin-right5"></span><span id="exShowroomPrice"><%= CommonOpn.FormatNumeric( objQuotation.ExShowroomPrice.ToString() ) %></span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="PQDetailsTableTitle padding-bottom10">RTO</td>
-                                    <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
+                                    <td class="PQDetailsTableTitle padding-bottom15">RTO</td>
+                                    <td align="right" class="PQDetailsTableAmount padding-bottom15">
                                         <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric( objQuotation.RTO.ToString() ) %></span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="PQDetailsTableTitle padding-bottom10">Insurance (Comprehensive)<br />
+                                    <td class="PQDetailsTableTitle padding-bottom15">Insurance (Comprehensive)<br />
                                         <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">Save up to 60% on insurance - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
                                             <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>  
                                         </div>
                                     </td>
-                                    <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
+                                    <td align="right" class="PQDetailsTableAmount padding-bottom15">
                                         <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
                                     </td>
                                 </tr>
-                                <tr><td colspan="2" class="border-solid-top padding-bottom10" align="right"></tr>
+                                <tr><td colspan="2" class="border-solid-top padding-bottom15" align="right"></tr>
                                 <tr>
-                                    <td class="PQDetailsTableTitle font18 text-bold PQOnRoadPrice padding-bottom10">Total On Road Price</td>
-                                    <td align="right" class="PQDetailsTableAmount padding-bottom10 font20 text-bold">
+                                    <td class="PQDetailsTableTitle PQOnRoadPrice padding-bottom15">On-road price</td>
+                                    <td align="right" class="PQDetailsTableAmount font18 padding-bottom15">
                                         <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
                                     </td>
                                 </tr>	
@@ -263,7 +195,7 @@
                             <%} %>
                     </div>
                 </div>
-                <div class="grid-4 omega padding-left20 border-solid-left">
+                <div class="grid-4 padding-right20 padding-left15">
                     <%if (objQuotation.CampaignId == 0){ %>
                     <LD:LocateDealer ID="ucLocateDealer" runat="server" />
                     <%}
@@ -384,9 +316,41 @@
             <div class="clear"></div>
         </div>
     </section>
-<!-- #include file="/includes/footerBW.aspx" -->
-<!-- #include file="/includes/footerscript.aspx" -->
-<script type="text/javascript">
+    <!-- #include file="/includes/footerBW.aspx" -->
+    <!-- #include file="/includes/footerscript.aspx" -->
+    <script type="text/javascript">
+    
+    var variantsDropdown = $(".variants-dropdown"),
+    variantSelectionTab = $(".variant-selection-tab"),
+    variantUL = $(".variants-dropdown-list"),
+    variantListLI = $(".variants-dropdown-list li");
+
+    variantsDropdown.click(function (e) {
+        if (!variantsDropdown.hasClass("open"))
+            $.variantChangeDown(variantsDropdown);
+        else
+            $.variantChangeUp(variantsDropdown);
+    });
+
+    $.variantChangeDown = function (variantsDropdown) {
+        variantsDropdown.addClass("open");
+        variantUL.show();
+    };
+
+    $.variantChangeUp = function (variantsDropdown) {
+        variantsDropdown.removeClass("open");
+        variantUL.slideUp();
+    };
+
+    //TODO show the selected variant from dropdown
+
+    $(document).mouseup(function (e) {
+        if (!$(".variants-dropdown, .variant-selection-tab, .variant-selection-tab #upDownArrow").is(e.target)) {
+            $.variantChangeUp($(".variants-dropdown"));
+        }
+    });
+    </script>
+    <script type="text/javascript">
     $(document).ready(function () {
 
         makeMapName = '<%= mmv.MakeMappingName%>';
