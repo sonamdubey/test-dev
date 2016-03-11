@@ -851,6 +851,7 @@
     </Compile>
     <Compile Include="m\controls\SimilarVideos.ascx.cs">
       <DependentUpon>SimilarVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\TopUserReviews.ascx.cs">
       <DependentUpon>TopUserReviews.ascx</DependentUpon>
@@ -989,6 +990,7 @@
     </Compile>
     <Compile Include="m\videos\video.aspx.cs">
       <DependentUpon>video.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\videos\VideoCategories.aspx.cs">
       <DependentUpon>VideoCategories.aspx</DependentUpon>
