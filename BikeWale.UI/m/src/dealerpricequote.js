@@ -58,22 +58,121 @@ $(document).ready(function () {
     
 });
 
-$("#pqDealerBody").on("click", "span.view-offers-target", function () {
-    var offersDiv = $(this).parent().next("div#offersPopup");
-    offersPopupOpen(offersDiv);
+var offersPopupDiv = $("#offersPopup");
+
+$(".view-offers-target").on("click", function () {
+    offersPopupOpen(offersPopupDiv);
     appendHash("offersPopup");
 });
 
-$("#pqDealerBody").on("click", "div.offers-popup-close-btn", function () {
-    var offersDiv = $(this).parent("div#offersPopup");
-    offersPopupClose(offersDiv);
+$(".offers-popup-close-btn").on("click", function () {
+    offersPopupClose(offersPopupDiv);
     window.history.back();
 });
 
-var offersPopupOpen = function (offersDiv) {
-    offersDiv.show();
+var offersPopupOpen = function (offersPopupDiv) {
+    offersPopupDiv.show();
 };
 
-var offersPopupClose = function (offersDiv) {
-    offersDiv.hide();
+var offersPopupClose = function (offersPopupDiv) {
+    offersPopupDiv.hide();
+};
+
+var emiPopupDiv = $("#emiPopup");
+
+$(".calculate-emi-target").on("click", function () {
+    emiPopupOpen(emiPopupDiv);
+    appendHash("emiPopup");
+});
+
+$(".emi-popup-close-btn").on("click", function () {
+    emiPopupClose(emiPopupDiv);
+    window.history.back();
+});
+
+var emiPopupOpen = function (emiPopupDiv) {
+    emiPopupDiv.show();
+};
+
+var emiPopupClose = function (emiPopupDiv) {
+    emiPopupDiv.hide();
+};
+
+var sliderComponentA, sliderComponentB;
+
+$(document).ready(function (e) {
+
+    sliderComponentA = $("#downPaymentSlider").slider({
+        range: "min",
+        min: 0,
+        max: 1000000,
+        step: 50000,
+        value: 50000,
+        slide: function (e, ui) {
+            changeComponentBSlider(e, ui);
+        },
+        change: function (e, ui) {
+            changeComponentBSlider(e, ui);
+        }
+    })
+
+    sliderComponentB = $("#loanAmountSlider").slider({
+        range: "min",
+        min: 0,
+        max: 1000000,
+        step: 50000,
+        value: 1000000 - $('#downPaymentSlider').slider("option", "value"),
+        slide: function (e, ui) {
+            changeComponentASlider(e, ui);
+        },
+        change: function (e, ui) {
+            changeComponentASlider(e, ui);
+        }
+    });
+
+    $("#tenureSlider").slider({
+        range: "min",
+        min: 12,
+        max: 84,
+        step: 6,
+        value: 36,
+        slide: function (e, ui) {
+            $("#tenurePeriod").text(ui.value);
+        }
+    });
+
+    $("#rateOfInterestSlider").slider({
+        range: "min",
+        min: 0,
+        max: 20,
+        step: 0.25,
+        value: 5,
+        slide: function (e, ui) {
+            $("#rateOfInterestPercentage").text(ui.value);
+        }
+    });
+
+    $("#downPaymentAmount").text($("#downPaymentSlider").slider("value"));
+    $("#loanAmount").text($("#loanAmountSlider").slider("value"));
+    $("#tenurePeriod").text($("#tenureSlider").slider("value"));
+    $("#rateOfInterestPercentage").text($("#rateOfInterestSlider").slider("value"));
+
+});
+
+function changeComponentBSlider(e, ui) {
+    if (!e.originalEvent) return;
+    var totalAmount = 1000000;
+    var amountRemaining = totalAmount - ui.value;
+    $('#loanAmountSlider').slider("option", "value", amountRemaining);
+    $("#loanAmount").text(amountRemaining);
+    $("#downPaymentAmount").text(ui.value);
+};
+
+function changeComponentASlider(e, ui) {
+    if (!e.originalEvent) return;
+    var totalAmount = 1000000;
+    var amountRemaining = totalAmount - ui.value;
+    $('#downPaymentSlider').slider("option", "value", amountRemaining);
+    $("#downPaymentAmount").text(amountRemaining);
+    $("#loanAmount").text(ui.value);
 };

@@ -238,7 +238,7 @@
                     </div>
                     <div class="padding-top15 padding-bottom15 border-light-top">
                         <span class="font15 text-bold leftfloat">Get EMI quote</span>
-                        <span class="text-link rightfloat">Calculate now</span>
+                        <span class="text-link rightfloat calculate-emi-target">Calculate now</span>
                         <div class="clear"></div>
                     </div>
                     <div id="pqRemoveHeader"></div>
@@ -330,6 +330,122 @@
             </div>
         </section>
 
+        <div id="emiPopup" class="bwm-fullscreen-popup text-center padding-top30">
+            <div class="emi-popup-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+            <div class="icon-outer-container rounded-corner50percent">
+                <div class="icon-inner-container rounded-corner50percent">
+                    <span class="bwmsprite offers-box-icon margin-top20"></span>
+                </div>
+            </div>
+            <p class="font16 text-bold margin-top25 margin-bottom20">EMI Calculator</p>
+            <div class="finance-emi-container">
+                <div class="finance-emi-left-box alpha">
+                    <div class="emi-slider-box">
+                        <div class="emi-slider-box-left-section">
+                            <div class="clearfix font14">
+                                <p class="grid-8 alpha text-light-grey text-left">Down payment</p>
+                                    <div class="emi-slider-box-right-section grid-4 omega">
+                                    <span class="fa fa-rupee"></span>
+                                    <span id="downPaymentAmount"></span>
+                                </div>
+                            </div>
+                            <div id="downPaymentSlider"></div>
+                            <div class="slider-range-points">
+                                <ul class="range-five-pointsUL range-pointsUL">
+                                    <li class="range-points-bar"><span>0</span></li>
+                                    <li class="range-points-bar" style="left:5%"><span>2.5L</span></li>
+                                    <li class="range-points-bar" style="left:10%"><span>5L</span></li>
+                                    <li class="range-points-bar" style="left:15%"><span>7.5L</span></li>
+                                    <li class="range-points-bar" style="left:19.9%"><span>10L</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="emi-slider-box">
+                        <div class="emi-slider-box-left-section">
+                            <div class="clearfix font14">
+	                            <p class="grid-8 alpha text-light-grey text-left">Loan Amount</p>
+                                <div class="emi-slider-box-right-section grid-4 omega">
+                                    <span class="fa fa-rupee"></span>
+                                    <span id="loanAmount"></span>
+                                </div>
+                            </div>
+                            <div id="loanAmountSlider"></div>
+                            <div class="slider-range-points">
+                                <ul class="range-five-pointsUL range-pointsUL">
+                                    <li class="range-points-bar"><span>0</span></li>
+                                    <li class="range-points-bar" style="left:5%"><span>2.5L</span></li>
+                                    <li class="range-points-bar" style="left:10%"><span>5L</span></li>
+                                    <li class="range-points-bar" style="left:15%"><span>7.5L</span></li>
+                                    <li class="range-points-bar" style="left:19.9%"><span>10L</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="emi-slider-box">
+                        <div class="emi-slider-box-left-section">
+                            <div class="clearfix font14">
+	                            <p class="grid-8 alpha text-light-grey text-left">Tenure</p>
+                                <div class="emi-slider-box-right-section grid-4 omega">
+                                    <span id="tenurePeriod"></span>
+                                    <span class="font12">Months</span>
+                                </div>
+                            </div>
+                            <div id="tenureSlider"></div>
+                            <div class="slider-range-points">
+                                <ul class="range-pointsUL month-range tenure-rate-interest">
+                                    <li class="range-points-bar" style="left: 0"><span>12</span></li>
+                                    <li class="range-points-bar" style="left: 2%"><span>18</span></li>
+                                    <li class="range-points-bar" style="left: 5%"><span>24</span></li>
+                                    <li class="range-points-bar" style="left: 7%"><span>30</span></li>
+                                    <li class="range-points-bar" style="left: 9%"><span>36</span></li>
+                                    <li class="range-points-bar" style="left: 12%"><span>42</span></li>
+                                    <li class="range-points-bar" style="left: 14%"><span>48</span></li>
+                                    <li class="range-points-bar" style="left: 16.8%"><span>54</span></li>
+                                    <li class="range-points-bar" style="left: 20%"><span>60</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="emi-slider-box">
+                        <div class="emi-slider-box-left-section">
+                            <div class="clearfix font14">
+	                            <p class="grid-8 alpha text-light-grey text-left">Rate of interest</p>
+                                <div class="emi-slider-box-right-section grid-4 omega">
+                                    <span id="rateOfInterestPercentage"></span>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div id="rateOfInterestSlider"></div>
+                            <div class="slider-range-points">
+                                <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest">
+                                    <li class="range-points-bar"><span>7</span></li>
+                                    <li class="range-points-bar" style="left: 5%"><span>10.25</span></li>
+                                    <li class="range-points-bar" style="left: 10%"><span>13.5</span></li>
+                                    <li class="range-points-bar" style="left: 15%"><span>16.5</span></li>
+                                    <li class="range-points-bar" style="left: 19.9%"><span>20</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="finance-emi-right-box omega margin-top15">
+                    <div class="clearfix">
+	                        <p class="grid-8 alpha">Indicative EMI<span class="font12 text-light-grey">(per month)</span></p>
+                            <div class="indicative-emi-amount font16 text-right grid-4 omega">
+                            <span class="font14"><span class="fa fa-rupee"></span></span>
+                            <span class="text-bold" id="emiAmount">12,000</span>
+                        </div>
+                        </div>
+                            
+                </div>
+                <div class="clear"></div>
+            </div>           
+        </div>
 
         <!-- Lead Capture pop up start  -->
         <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">

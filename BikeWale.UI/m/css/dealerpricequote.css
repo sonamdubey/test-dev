@@ -36,6 +36,28 @@
 #offersPopup ul li { width:100%; margin-top:15px; margin-bottom:15px; }
 #offersPopup ul li:first-child { margin-top:0; }
 
+.emi-slider-box { border-top:1px solid #e2e2e2; padding-bottom:20px; padding-top:20px; margin-top: 5px; margin-right:20px; }
+.emi-slider-box:first-child { border-top:none; padding-top:10px; }
+.finance-emi-left-box { width:100%; float:left; overflow: hidden;}
+.finance-emi-right-box { width:290px; float:right; }
+.emi-slider-box-left-section { width:100%; float:left; }
+.ui-widget-content { background: #e2e2e2; height: 7px; margin: 10px 0 0; width: 100%; border-radius: 0px; }
+.ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
+.ui-widget-header { background: #565a5c; height: 6px; }
+.ui-slider { position: relative; text-align: left; }
+.ui-slider .ui-slider-handle { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/slider-sprite.png?v=11Mar2016) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
+.emi-slider-box-right-section { text-align:right; }
+/* range points */
+.slider-range-points ul li { float:left; position:relative; }
+.slider-range-points ul.range-pointsUL li { width:14%; }
+.slider-range-points ul.range-pointsUL.month-range li { width:10%;}
+.range-points-bar { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/slider-sprite.png?v=11Mar2016) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
+.range-points-bar span { position:absolute; top:5px; left:-20px; font-size:11px; }
+.range-points-bar:first-child span { left:0; }
+.tenure-rate-interest .range-points-bar span { left:0px; }
+.slider-range-points .range-five-pointsUL.range-pointsUL li { width:20%; }
+
+
 .inner-section{background:#fff;clear:both;overflow:hidden}
 .alternatives-carousel .jcarousel li.front{border:none}
 .discover-bike-carousel .jcarousel li{height:auto}
