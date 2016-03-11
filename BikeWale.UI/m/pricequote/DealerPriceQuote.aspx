@@ -247,11 +247,11 @@
                     <p class="font14 text-bold margin-bottom15">Prices available from 27 more dealers:</p>
                     <ul class="pq-dealer-listing">
                         <li>
-                            <p class="font18 text-darker-black text-bold">Dealership 1</p>
+                            <a href="" class="font18 text-darker-black text-bold">Dealership 1</a><br />
                             <p class="font14 text-light-grey">Area</p>
                         </li>
                         <li>
-                            <p class="font18 text-darker-black text-bold">Dealership 2</p>
+                            <a href="" class="font18 text-darker-black text-bold">Dealership 2</a><br />
                             <p class="font14 text-light-grey">Area</p>
                         </li>
                     </ul>

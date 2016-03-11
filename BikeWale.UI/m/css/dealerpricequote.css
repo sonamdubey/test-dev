@@ -67,7 +67,8 @@
 .range-points-bar:first-child span { left:0; }
 .tenure-rate-interest .range-points-bar span { left:0px; }
 .slider-range-points .range-five-pointsUL.range-pointsUL li { width:20%; }
-
+.text-darker-black { color:#1a1a1a; }
+a.text-darker-black:hover { text-decoration:none; }
 
 .inner-section{background:#fff;clear:both;overflow:hidden}
 .alternatives-carousel .jcarousel li.front{border:none}
