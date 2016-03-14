@@ -69,7 +69,7 @@
             <div class="leftfloat">
                 <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>                
                 <span id="book-back" class="white-back-arrow margin-right10 leftfloat hide"></span>
-                <h2 class="headerTitle font18 text-white leftfloat hide">On-road price quote</h2>
+                <h2 class="headerTitle font18 text-white leftfloat hide">Price quote details</h2>
             </div>
             <div class="rightfloat">
                 <div class="global-search" id="global-search" style="display:none">

@@ -1191,6 +1191,9 @@ var appendHash = function (state) {
         case "offersPopup":
             window.location.hash = state;
             break;
+        case "emiPopup":
+            window.location.hash = state;
+            break;
         default:
             return true;
     }
@@ -1225,6 +1228,9 @@ var closePopUp = function (state) {
         case "offersPopup":
             //listingOfferPopupClose();
             offersPopupClose($('div#offersPopup'));
+            break;
+        case "emiPopup":
+            emiPopupClose($('#emiPopup'));
             break;
         default:
             return true;
