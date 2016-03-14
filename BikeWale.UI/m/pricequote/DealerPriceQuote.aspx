@@ -173,8 +173,8 @@
             <!--Price Breakup ends here-->
 
             <!-- Dealer Widget starts here -->
-            <div id="pqDealerDetails">
-                <div id="pqDealerHeader" class="">
+            <div id="pqDealerDetails"> <!-- hide this div when no premium dealer -->
+                <div id="pqDealerHeader">
                     <div class="padding-top7 padding-right10 padding-left10 border-trl">
                         <h2 class="dealership-name font18 text-dark-black">Dealership Name Dealer Name</h2>
                     </div>
@@ -182,7 +182,7 @@
                 <div id="pqDealerBody" class="font14 padding-right10 padding-left10 border-rbl">
                     <p class="font14 text-light-grey padding-bottom10 margin-bottom15 border-light-bottom">Area</p>
                     <p class="text-light-grey margin-bottom5">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</p>
-                    <p class="margin-bottom15"><span class="bwmsprite tel-grey-icon"></span> 022-6667 8888</p>
+                    <p class="margin-bottom15"><span class="bwmsprite tel-sm-icon"></span> 022-6667 8888</p>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30165.66210531427!2d72.98105033863713!3d19.076582232598167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b519107b%3A0x8452b99754be0fc8!2sVashi%2C+Navi+Mumbai%2C+Maharashtra+400703!5e0!3m2!1sen!2sin!4v1457345328664" frameborder="0" width="100%" height="90" class="border-solid margin-bottom15"></iframe>
                     <div class="padding-top15 padding-bottom15 border-light-top">
                         <span class="font15 text-bold">4 offers available</span>
@@ -243,19 +243,20 @@
                     </div>
                     <div id="pqRemoveHeader"></div>
                 </div>
-                <div id="pqMoreDealers" class="padding-top15 padding-right10 padding-left10">
-                    <p class="font14 text-bold margin-bottom15">Prices available from 27 more dealers:</p>
-                    <ul class="pq-dealer-listing">
-                        <li>
-                            <a href="" class="font18 text-darker-black text-bold">Dealership 1</a><br />
-                            <p class="font14 text-light-grey">Area</p>
-                        </li>
-                        <li>
-                            <a href="" class="font18 text-darker-black text-bold">Dealership 2</a><br />
-                            <p class="font14 text-light-grey">Area</p>
-                        </li>
-                    </ul>
-                </div>
+            </div>
+            <div class="hide font14 text-light-grey border-solid padding-top20 padding-right10 padding-bottom20 padding-left10">Sorry, there are no dealers nearby</div> <!-- show this div when no premium dealer -->
+            <div id="pqMoreDealers" class="padding-top15 padding-right10 padding-left10">
+                <p class="font14 text-bold margin-bottom15">Prices available from 27 more dealers:</p>
+                <ul class="pq-dealer-listing">
+                    <li>
+                        <a href="" class="font18 text-darker-black text-bold">Dealership 1</a><br />
+                        <p class="font14 text-light-grey">Area</p>
+                    </li>
+                    <li>
+                        <a href="" class="font18 text-darker-black text-bold">Dealership 2</a><br />
+                        <p class="font14 text-light-grey">Area</p>
+                    </li>
+                </ul>
             </div>
             <!-- Dealer Widget ends here -->
 
