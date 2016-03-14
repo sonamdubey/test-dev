@@ -801,3 +801,14 @@ $('#calldealer').on('click', function (e) {
     triggerGA('Model_Page', 'Call_Dealer_Clicked', myBikeName + '_' + bikeVersionLocation);
 });
 
+//
+$('.more-dealers-link').on('click', function () {
+    $(this).parent().prev('#moreDealersList').slideDown();
+    $(this).hide().next('.less-dealers-link').show();
+});
+
+$('.less-dealers-link').on('click', function () {
+    $(this).parent().prev('#moreDealersList').slideUp();
+    $(this).hide().prev('.more-dealers-link').show();
+});
+
