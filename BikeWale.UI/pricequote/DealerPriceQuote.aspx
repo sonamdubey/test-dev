@@ -443,42 +443,39 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grid-4 padding-top20" id="PQDealerSidebarContainer">
+                    <div class="grid-4 padding-top20 dealer-pointer" id="PQDealerSidebarContainer"> <!-- when no premium dealer remove dealer-pointer class -->
                         <div class="pqdealer-and-listing-container">
                             <div class="pqdealer-sidebar-panel position-rel">
-                                <p class="font18 text-bold text-darker-black">Dealership Name</p>
-                                <p class="font14 text-light-grey margin-bottom15">Area</p>
-                                <div class="border-solid-top padding-top15">
-                                    <p class="font14 text-light-grey margin-bottom10">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</p>
-                                    <p class="font16 text-bold margin-bottom15"><span class="fa fa-phone"></span> 022-6667 8888</p>
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30165.66210531427!2d72.98105033863713!3d19.076582232598167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b519107b%3A0x8452b99754be0fc8!2sVashi%2C+Navi+Mumbai%2C+Maharashtra+400703!5e0!3m2!1sen!2sin!4v1457345328664" frameborder="0" width="100%" height="90" style="border:1px solid #e2e2e2"></iframe>
-                                    <a class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
+                                <div> <!-- when no premium dealer hide this div -->
+                                    <p class="font18 text-bold text-darker-black">Dealership Name</p>
+                                    <p class="font14 text-light-grey margin-bottom15">Area</p>
+                                    <div class="border-solid-top padding-top15">
+                                        <p class="font14 text-light-grey margin-bottom10">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</p>
+                                        <p class="font16 text-bold margin-bottom15"><span class="fa fa-phone"></span> 022-6667 8888</p>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30165.66210531427!2d72.98105033863713!3d19.076582232598167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b519107b%3A0x8452b99754be0fc8!2sVashi%2C+Navi+Mumbai%2C+Maharashtra+400703!5e0!3m2!1sen!2sin!4v1457345328664" frameborder="0" width="100%" height="90" style="border:1px solid #e2e2e2"></iframe>
+                                        <a class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
+                                    </div>
                                 </div>
+                                <div class="pq-no-premium-dealer font14 text-light-grey">Sorry, there are no dealers nearby</div> <!-- when no premium dealer show this div -->
                             </div>
                             <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
                                 <p class="padding-bottom15">Prices available from 27 more dealers:</p>
                                 <ul>
                                     <li>
-                                        <p class="font18 text-darker-black text-bold">Dealership 1</p>
+                                        <a href="" class="font18 text-bold text-darker-black margin-right20">Dealership Name 1</a>
                                         <p class="font14 text-light-grey">Area</p>
                                     </li>
                                     <li>
-                                        <p class="font18 text-darker-black text-bold">Dealership 2</p>
+                                        <a href="" class="font18 text-bold text-darker-black margin-right20">Dealership Name 2</a>
                                         <p class="font14 text-light-grey">Area</p>
                                     </li>
                                     <li>
-                                        <p class="font18 text-darker-black text-bold">Dealership 3</p>
+                                        <a href="" class="font18 text-bold text-darker-black margin-right20">Dealership Name 3</a>
                                         <p class="font14 text-light-grey">Area</p>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <!--
-                        <div id="toggleDealerList" class="text-center margin-top20">
-                            <a href="javascript:void(0)" class="font14 show-more-dealers">Check price from 27 more dealers <span class="fa fa-angle-down"></span></a>
-                            <a href="javascript:void(0)" class="font14 show-less-dealers">Show less dealers <span class="fa fa-angle-up"></span></a>
-                        </div>
-                        -->
                     </div>
                     <div class="clear"></div>
                 </div>
