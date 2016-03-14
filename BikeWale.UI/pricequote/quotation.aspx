@@ -21,6 +21,7 @@
     #PQImageVariantContainer img{width:100%}
     .PQDetailsTableTitle{color:#82888b}
     .PQDetailsTableAmount,.PQOnRoadPrice{color:#4d5057}
+    .text-dark-black { color:#1a1a1a; }
     .PQOffersUL{margin-left:18px;list-style:disc}
     .PQOffersUL li{padding-bottom:15px}
     .margin-top7 { margin-top:7px; }
@@ -176,8 +177,8 @@
                                 </tr>
                                 <tr><td colspan="2" class="border-solid-top padding-bottom15" align="right"></tr>
                                 <tr>
-                                    <td class="PQDetailsTableTitle PQOnRoadPrice padding-bottom15">On-road price</td>
-                                    <td align="right" class="PQDetailsTableAmount font18 padding-bottom15">
+                                    <td class="PQDetailsTableTitle PQOnRoadPrice padding-bottom15 text-dark-black">On-road price</td>
+                                    <td align="right" class="PQDetailsTableAmount font18 padding-bottom15 text-dark-black">
                                         <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
                                     </td>
                                 </tr>	
