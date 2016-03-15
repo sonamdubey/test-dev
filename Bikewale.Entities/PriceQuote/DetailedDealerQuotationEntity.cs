@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Bikewale.Entities.PriceQuote
 {
@@ -19,6 +16,6 @@ namespace Bikewale.Entities.PriceQuote
         [JsonProperty("secondaryDealers")]
         public IEnumerable<NewBikeDealerBase> SecondaryDealers { get; set; }
         [JsonProperty("secondaryDealerCount")]
-        public int SecondaryDealerCount { get; set; } 
+        public int SecondaryDealerCount { get; set; }
     }
 }

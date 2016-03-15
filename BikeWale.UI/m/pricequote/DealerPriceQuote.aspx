@@ -184,6 +184,8 @@
                     <p class="text-light-grey margin-bottom5">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</p>
                     <p class="margin-bottom15"><span class="bwmsprite tel-sm-icon"></span> 022-6667 8888</p>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30165.66210531427!2d72.98105033863713!3d19.076582232598167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b519107b%3A0x8452b99754be0fc8!2sVashi%2C+Navi+Mumbai%2C+Maharashtra+400703!5e0!3m2!1sen!2sin!4v1457345328664" frameborder="0" width="100%" height="90" class="border-solid margin-bottom15"></iframe>
+                    <%--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+                     <div class="margin-top15" style="width: 100%; min-width: 50%; height: 150px" data-bind="googlemap: { latitude: 19.078256, longitude: 72.997562 }"></div>--%>
                     <div class="padding-top15 padding-bottom15 border-light-top">
                         <span class="font15 text-bold">4 offers available</span>
                         <span class="text-link view-offers-target">View offers</span>
@@ -261,9 +263,10 @@
             <!-- Dealer Widget ends here -->
 
             <!--Exciting Offers section starts here-->
+
+             <!--
             <% if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
-               { %>
-            <!--
+               { %>           
             <div class="new-line10 padding-left10 padding-right10 margin-bottom15" id="divOffers" style="background: #fff;">
                 <h2 class="font18 text-grey"><%= (Convert.ToUInt32(bookingAmount) > 0)?"Book online and avail":"Avail offers" %></h2>
                 <div class="new-line10">
