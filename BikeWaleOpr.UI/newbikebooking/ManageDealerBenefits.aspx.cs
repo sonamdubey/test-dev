@@ -70,11 +70,11 @@ namespace BikewaleOpr.NewBikeBooking
 
         #region Functions
         /// <summary>
-        /// Created by : Sangram
+        /// Created by : Sangram Nandkhile
         /// Created on : 10-March-2016
         /// Summary    : Add new dealer benefit
         /// </summary>
-        private async void SaveDealerBenefit()
+        private void SaveDealerBenefit()
         {
             try
             {
@@ -83,7 +83,7 @@ namespace BikewaleOpr.NewBikeBooking
                 string _apiUrl = string.Format("/api/Dealers/SaveDealerBenefit/?dealerId={0}&cityId={1}&catId={2}&benefitText={3}&userId={4}&benefitId={5}", _dealerId, _cityId, ddlBenefitCat.SelectedValue, HttpUtility.UrlEncode(benefitText.Text), CurrentUser.Id, hdnBenefitId.Value);
                 // Send HTTP GET requests
                 bool status = false;
-                status = await BWHttpClient.PostAsync<bool>(cwHostUrl, _requestType, _apiUrl, status);
+                status = BWHttpClient.PostSync<bool>(cwHostUrl, _requestType, _apiUrl, status);
 
                 GetDealerBenefits();
                 greenMessage.Text = "Benefit / USP has been added !";
