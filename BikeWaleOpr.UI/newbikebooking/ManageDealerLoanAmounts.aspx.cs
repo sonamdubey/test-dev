@@ -11,12 +11,13 @@ namespace BikeWaleOpr.NewBikeBooking
 {
     public class ManageDealerLoanAmounts : System.Web.UI.Page
     {
-        protected Button btnSaveEMI, btnUpdateEMI;
-        //protected TextBox txtTenure, txtROI, txtLTV, txtloanProvider;
+        protected Button btnSaveEMI, btnReset;
         protected TextBox txtMinPayment, txtMaxPayment, txtMinTenure, txtMaxTenure, txtMinROI, txtMaxROI, txtMinLtv, txtMaxLtv, textLoanProvider, txtFees;
         EmiLoanAmount loanAmount;
         protected int _dealerId = 0;
         protected string cwHostUrl = string.Empty;
+        protected Label errorSummary, finishMessage;
+        protected HiddenField hdnLoanAmountId;
 
         #region events
 
@@ -24,14 +25,13 @@ namespace BikeWaleOpr.NewBikeBooking
         {
             this.Load += new EventHandler(Page_Load);
             btnSaveEMI.Click += new EventHandler(SaveLoanProperties);
-            btnUpdateEMI.Click += new EventHandler(UpdateLoanProperties);
+            //btnUpdateEMI.Click += new EventHandler(UpdateLoanProperties);
+            btnReset.Click += new EventHandler(ResetFields);
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             loanAmount = new EmiLoanAmount();
-            btnUpdateEMI.Visible = false;
-
             if (Request.QueryString["dealerId"] != null)
             {
                 int.TryParse(Request.QueryString["dealerId"].ToString(), out _dealerId);
@@ -44,6 +44,16 @@ namespace BikeWaleOpr.NewBikeBooking
                     GetLoanProperties();
                 }
             }
+        }
+
+        /// <summary>
+        /// Created by  : Sangram Nandkhile
+        /// Created on  : 14-March-2016
+        /// Desc        : Resets all the input
+        /// </summary>
+        protected void ResetFields(object sender, EventArgs e)
+        {
+            ClearForm(Page.Form.Controls,true);
         }
 
         #endregion
@@ -64,10 +74,27 @@ namespace BikeWaleOpr.NewBikeBooking
                 string _apiUrl = string.Format("api/Dealers/GetDealerLoanAmounts/?dealerId={0}",_dealerId);
                 // Send HTTP GET requests
                 loanAmount = await BWHttpClient.GetApiResponse<EmiLoanAmount>(cwHostUrl, _requestType, _apiUrl, loanAmount);
-                if(loanAmount != null)
+                // populate already saved value
+                if(loanAmount != null && loanAmount.Id > 0)
                 {
+                    txtMinPayment.Text = Convert.ToString(loanAmount.MinDownPayment);
+                    txtMaxPayment.Text = Convert.ToString(loanAmount.MaxDownPayment);
 
+                    txtMinTenure.Text = Convert.ToString(loanAmount.MinTenure);
+                    txtMaxTenure.Text = Convert.ToString(loanAmount.MaxTenure);
+
+                    txtMinROI.Text = Convert.ToString(loanAmount.MinRateOfInterest);
+                    txtMaxROI.Text = Convert.ToString(loanAmount.MaxRateOfInterest);
+
+                    txtMinLtv.Text = Convert.ToString(loanAmount.MinLoanToValue);
+                    txtMaxLtv.Text = Convert.ToString(loanAmount.MaxLoanToValue);
+
+                    textLoanProvider.Text = loanAmount.LoanProvider;
+                    txtFees.Text = Convert.ToString(loanAmount.ProcessingFee);
+                    hdnLoanAmountId.Value = loanAmount.Id.ToString();
+                    btnSaveEMI.Text = "Update EMI";
                 }
+                
             }
             catch (Exception err)
             {
@@ -78,20 +105,36 @@ namespace BikeWaleOpr.NewBikeBooking
         }
 
         /// <summary>
-        /// Created by  : Sangram Nandkhile
-        /// Created on  : 14-March-2016
-        /// Desc        : To Save Load Properties    
+        /// Created by  : Sangram Nandkhile on 14-March-2016
+        /// Description : To Save Load Properties    
         /// </summary>
-        protected async void SaveLoanProperties(object sender, EventArgs e)
+        protected void SaveLoanProperties(object sender, EventArgs e)
         {
+            finishMessage.Text = string.Empty;
+            errorSummary.Text = string.Empty;
              try
             {
                 cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
                 string _requestType = "application/json";
-                string _apiUrl = string.Format("api/Dealers/SaveDealerEMI/?dealerId={0}&tenure={1}&rateOfInterest={2}&ltv={3}&loanProvider={4}&userID={5}&minDownPayment={6}&maxDownPayment={7}&minTenure={8}&maxTenure={9}&minRateOfInterest={10}&maxRateOfInterest={11}&processingFee={12}&id={13}", _dealerId);
+                string _apiUrl = string.Format("api/Dealers/SaveDealerEMI/?dealerId={0}&loanProvider={1}&userID={2}&minDownPayment={3}&maxDownPayment={4}&minTenure={5}&maxTenure={6}&minRateOfInterest={7}&maxRateOfInterest={8}&minLtv={9}&maxLtv={10}&processingFee={11}&id={12}",
+                    _dealerId,
+                   textLoanProvider.Text,
+                   CurrentUser.Id,
+                   txtMinPayment.Text,
+                   txtMaxPayment.Text,
+                   txtMinTenure.Text,
+                   txtMaxTenure.Text,
+                   txtMinROI.Text,
+                   txtMaxROI.Text,
+                   txtMinLtv.Text,
+                   txtMaxLtv.Text,
+                   txtFees.Text,
+                   hdnLoanAmountId.Value == "0"? null: hdnLoanAmountId.Value);
                 // Send HTTP GET requests
                 bool status = false;
-                status = await BWHttpClient.GetApiResponse<bool>(cwHostUrl, _requestType, _apiUrl, status);
+                status = BWHttpClient.PostSync<bool>(cwHostUrl, _requestType, _apiUrl, status);
+                if (status)
+                    finishMessage.Text = "Data has been saved !";
             }
             catch (Exception err)
             {
@@ -102,15 +145,27 @@ namespace BikeWaleOpr.NewBikeBooking
         }
 
         /// <summary>
-        /// Created by  : Sangram Nandkhile
-        /// Created on  : 14-March-2016
-        /// Desc        : To update Loan Properties  
+        /// Created by  : Sangram Nandkhile on 14-March-2016
+        /// Description : Resets all the Textboxes
         /// </summary>
-        protected async void UpdateLoanProperties(object sender, EventArgs e)
+        public void ClearForm(ControlCollection controls, bool? clearLabels)
         {
-
+            bool toClearLabel = clearLabels == null ? false : true;
+            foreach (Control c in controls)
+            {
+                if (c.GetType() == typeof(System.Web.UI.WebControls.TextBox))
+                {
+                    System.Web.UI.WebControls.TextBox t = (System.Web.UI.WebControls.TextBox)c;
+                    t.Text = String.Empty;
+                }
+                else if (toClearLabel && c.GetType() == typeof(System.Web.UI.WebControls.Label))
+                {
+                    System.Web.UI.WebControls.Label l = (System.Web.UI.WebControls.Label)c;
+                    l.Text = String.Empty;
+                }
+                if (c.Controls.Count > 0) ClearForm(c.Controls, clearLabels);
+            }
         }
-
         #endregion
         /// <summary>
         /// Commented code on 11-mar02016 by Sangram Nandkhile

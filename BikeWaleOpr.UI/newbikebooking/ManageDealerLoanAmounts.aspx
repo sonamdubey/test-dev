@@ -6,16 +6,20 @@
 <head runat="server">
     <title>Manage Dealer Loan Amounts (EMI)</title>
     <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
+    <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
     <%--<link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />--%>
     <style type="text/css">
         .errMessage {color:#FF4A4A;}
-        .errors{
+        .redmsg{
             border: 1px solid red;
             background: #FFCECE;
         }
+
+        .greenMsg {color:#008000;}
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
+
         });
 </script>
 </head>
@@ -28,9 +32,9 @@
             <legend>Add Loan properties
             </legend>
             <div id="box" class="box">
-                <table>
+                <table width="600">
                     <tr>
-                        <th colspan="2">Property
+                        <th colspan="2" width="50%">Property
                         </th>
                         <th colspan="2">Minimum value
                         </th>
@@ -38,78 +42,81 @@
                         </th>
                     </tr>
                     <tr>
-                        <td colspan="6" class="margin10">
-                            <span id="errorSummary" class="errMessage" runat="server"></span>
+                        <td colspan="6" class="margin10" width="30%">
+                            <%--<span id="errorSummary" class="errMessage" runat="server"></span>--%>
+                            <asp:Label ID="errorSummary" class="errMessage" runat="server" />
+                            <asp:HiddenField ID="hdnLoanAmountId" Value="0" runat="server" />
+                            <asp:Label ID="finishMessage" class="greenMsg" runat="server" />
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="floatLeft">Select Down Payment (%) Ex. 55.50<span class="errMessage">*</span>
+                        <td width="150" colspan="2" width="50%">Select Down Payment (%) Ex. 55.50<span class="errMessage">*</span>
                         </td>
-                        <td colspan="2" class="floatLeft margin-left10">
+                        <td colspan="2" class=" margin-left10">
                             <asp:TextBox ID="txtMinPayment" data-name="perc" MaxLength="10" runat="server" Width="95%" />
                         </td>
-                        <td colspan="2" class="floatLeft margin-left10">
+                        <td colspan="2" class=" margin-left10">
                             <asp:TextBox ID="txtMaxPayment" data-name="perc" MaxLength="10" runat="server" Width="95%" />
                         </td>
 
                     </tr>
 
                     <tr>
-                        <td colspan="2" class="floatLeft">Tenure (months), Ex. 12 :<span class="errMessage">* </span>
+                        <td colspan="2" class="">Tenure (months), Ex. 12 :<span class="errMessage">* </span>
                         </td>
-                        <td colspan="2" class="floatLeft margin-left10">
-                            <asp:TextBox ID="txtMinTenure" MaxLength="10" runat="server" Width="95%" />
+                        <td colspan="2" class=" margin-left10">
+                            <asp:TextBox ID="txtMinTenure" class="numeric" data-name="int" MaxLength="10" pattern="\d+" runat="server" Width="95%" />
                         </td>
-                        <td colspan="2" class="floatLeft margin-left10">
-                            <asp:TextBox ID="txtMaxTenure" MaxLength="10" runat="server" Width="95%" />
+                        <td colspan="2" class=" margin-left10">
+                            <asp:TextBox ID="txtMaxTenure" class="numeric" data-name="int" MaxLength="10" pattern="\d+" runat="server" Width="95%" />
                         </td>
 
                     </tr>
 
                     <tr>
-                        <td colspan="2" class="floatLeft">Rate of interest (%), Ex 12.45 :<span class="errMessage">* </span>
+                        <td colspan="2" class="">Rate of interest (%), Ex 12.45 :<span class="errMessage">* </span>
                         </td>
-                        <td colspan="2" class="floatLeft margin-left10">
+                        <td colspan="2" class=" margin-left10">
                             <asp:TextBox ID="txtMinROI" data-name="perc" MaxLength="10" runat="server" Width="95%" />
                         </td>
-                        <td colspan="2" class="floatLeft margin-left10">
-                            <asp:TextBox ID="txtMaxROI" data-name= MaxLength="10" runat="server" Width="95%" />
+                        <td colspan="2" class=" margin-left10">
+                            <asp:TextBox ID="txtMaxROI" data-name="perc" MaxLength="10" runat="server" Width="95%" />
                         </td>
 
                     </tr>
 
                     <tr>
-                        <td colspan="2" class="floatLeft">Loan To Value (LTV %), Ex. 20 :<span class="errMessage">* </span>
+                        <td colspan="2" class="">Loan To Value (LTV %), Ex. 20 :<span class="errMessage">* </span>
                         </td>
-                        <td colspan="2" class="floatLeft margin-left10">
+                        <td colspan="2" class=" margin-left10">
                             <asp:TextBox ID="txtMinLtv" data-name="perc" MaxLength="10" runat="server" Width="95%" />
                         </td>
-                        <td colspan="2" class="floatLeft margin-left10">
+                        <td colspan="2" class=" margin-left10">
                             <asp:TextBox ID="txtMaxLtv" data-name="perc" MaxLength="10" runat="server" Width="95%" />
                         </td>
 
                     </tr>
                     
                     <tr>
-                        <td colspan="2" class="floatLeft">Select Loan Provider<span class="errMessage">*</span>
+                        <td colspan="2" class="">Select Loan Provider<span class="errMessage">*</span>
                         </td>
-                        <td colspan="2" class="floatLeft margin-left10">
-                            <asp:TextBox ID="textLoanProvider" MaxLength="10" runat="server" Width="95%" />
+                        <td colspan="2" class=" margin-left10">
+                            <asp:TextBox ID="textLoanProvider" MaxLength="20" runat="server" Width="95%" />
                         </td>
                     </tr>
 
                     <tr>
-                        <td colspan="2" class="floatLeft">Select Processing fees Ex. 3,000<span class="errMessage">*</span>
+                        <td colspan="2" class="">Select Processing fees Ex. 3,000<span class="errMessage">*</span>
                         </td>
-                        <td colspan="2" class="floatLeft margin-left10">
-                            <asp:TextBox ID="txtFees" data-name="perc" MaxLength="10" runat="server" Width="95%" />
+                        <td colspan="2" class=" margin-left10">
+                            <asp:TextBox ID="txtFees" data-name="int" class="numeric" MaxLength="10" runat="server" Width="95%" />
                         </td>
                     </tr>
 
                     <tr>
                         <td colspan="6" class="margin10">
                             <asp:Button ID="btnSaveEMI" runat="server" Text="Add EMI" />
-                            <asp:Button ID="btnUpdateEMI" runat="server" Text="Update EMI" />
+                            <%--<asp:Button ID="btnUpdateEMI" runat="server" Text="Update EMI" />--%>
                             <%--<asp:Button ID="btnAdd" Text="Save benefit" OnClientClick="return btnAdd_Click();" runat="server" />--%>
                             <asp:Button ID="btnReset" Text="Reset" runat="server" />
                         </td>
@@ -150,35 +157,42 @@
             $(document).ready(function () {
 
                 $("#btnSaveEMI, #btnUpdateEMI").click(function () {
-                    debugger;
+                    $('#finishMessage').html('');
+                    $('#errorSummary').html('');
                     var isValid = true;
                     $('input[type="text"]').each(function () {
                         if ($.trim($(this).val()) == '') {
-                            isValid = false;                            alert($(this).val());                            $(this).css({
-                                "border": "1px solid red",                                "background": "#FFCECE"
-                            });
+                            isValid = false;                            $(this).addClass('redmsg');
                         }                        else {
-                            $(this).css({
-                                "border": "",                                "background": ""
-                            });
+                            $(this).removeClass('redmsg');
                         }
                     });                    if (isValid == false) {
                         $('#errorSummary').html('Please fill required fields');
                         return isValid;
                     }                    else {
-                        //alert('Thank you for submitting');
                         $('input[data-name="perc"]').each(function () {
                             if (!validatePer($(this))) {
-                                isValid = false;                                $(this).css({
-                                    "border": "1px solid red",                                    "background": "#FFCECE"
-                                });
+                                isValid = false;                                $(this).addClass('redmsg');
                             }
                             else {
-                                $(this).css({
-                                    "border": "",                                    "background": ""
-                                });
+                                $(this).removeClass('redmsg');
                             }
-
+                        });
+                    }
+                    if (isValid == false) {
+                        $('#errorSummary').html('Invalid input');
+                        return isValid;
+                    }
+                    else {
+                        $('input[data-name="int"]').each(function () {
+                            if (isNaN($(this).val())){
+                            //if (!$.isNumeric($(this).val())) {
+                                isValid = false;
+                                $(this).addClass('redmsg');
+                            }
+                            else {
+                                $(this).removeClass('redmsg');
+                            }
                         });
                     }
                     if (isValid == false) {
@@ -231,6 +245,10 @@
                     return false;
                 return true;
             }
+
+            $('.numeric').on('input', function (event) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
         </script>
     </form>
 
