@@ -60,17 +60,17 @@
 .tel-sm-icon { width:8px; height:13px; background-position:-88px -324px; margin-right:3px; }
 /*sidebar*/
 #PQDealerSidebarContainer { background:#fff; position:fixed; right:187px; overflow:hidden; }
-.pqdealer-and-listing-container { max-height:520px; overflow-y:scroll; }
-.pqdealer-sidebar-panel { border:1px solid #e2e2e2; padding:15px 20px 20px; min-height:200px; }
-#PQDealerSidebarContainer::before {border-right: 11px solid #e2e2e2;border-top: 11px solid transparent;border-bottom: 11px solid transparent;content: "";position: absolute; top:44px; left: -1px;z-index: 1;}
-#PQDealerSidebarContainer::after { border-right: 11px solid #ffffff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; content: ""; position: absolute; top:44px;left: 1px; z-index: 1; }
+.pqdealer-and-listing-container { max-height:540px; overflow-y:scroll; }
+.pqdealer-sidebar-panel { border:1px solid #e2e2e2; padding:15px 20px 20px; min-height:20px; }
+#PQDealerSidebarContainer.dealer-pointer::before {border-right: 11px solid #e2e2e2;border-top: 11px solid transparent;border-bottom: 11px solid transparent;content: "";position: absolute; top:44px; left: -1px;z-index: 1;}
+#PQDealerSidebarContainer.dealer-pointer::after { border-right: 11px solid #ffffff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; content: ""; position: absolute; top:44px;left: 1px; z-index: 1; }
 .pq-sidebar-dealer-listing li { padding-top:15px; padding-bottom:15px; border-top:1px solid #f1f1f1; }
-.show-more-dealers { display:block; }
-.show-less-dealers { display:none; }
+.pq-no-premium-dealer { display:none; }
 .pqdealer-and-listing-container::-webkit-scrollbar {width: 5px;}
 .pqdealer-and-listing-container::-webkit-scrollbar-track {background: #fff;}
 .pqdealer-and-listing-container::-webkit-scrollbar-thumb {background: #ddd;}
 .pqdealer-and-listing-container::-webkit-scrollbar-thumb:hover {background: #bbb;}
+a.text-darker-black:hover { text-decoration:none; }
 
 .jcarousel-wrapper.alternatives-carousel{width:974px}
 .alternatives-carousel .jcarousel li{height:auto;margin-right:18px}
