@@ -148,6 +148,7 @@
     <Compile Include="Customer\CancelledBikeCustomer.cs" />
     <Compile Include="Customer\CustomerEntity.cs" />
     <Compile Include="Customer\CustomerEntityBase.cs" />
+    <Compile Include="DealerBenefitEntity.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
     <Compile Include="Dealer\EnumNewBikeDealerClient.cs" />
     <Compile Include="Dealer\ManufacturerLeadEntity.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="NewBikeSearch\RideStyleEnum.cs" />
     <Compile Include="NewBikeSearch\SearchOutputEntity.cs" />
     <Compile Include="NewBikeSearch\SearchOutputEntityBase.cs" />
+    <Compile Include="OfferEntityBase.cs" />
     <Compile Include="Pager\PagerEntity.cs" />
     <Compile Include="Pager\PagerOutputEntity.cs" />
     <Compile Include="Pager\PagerUrlList.cs" />
@@ -196,11 +198,14 @@
     <Compile Include="PriceQuote\BookingPageDetailsEntity.cs" />
     <Compile Include="PriceQuote\DealerDetails.cs" />
     <Compile Include="PriceQuote\DealerOfferEntity.cs" />
+    <Compile Include="PriceQuote\DealerPackageTypes.cs" />
     <Compile Include="PriceQuote\DealerPriceCategoryItemEntity.cs" />
+    <Compile Include="PriceQuote\DealerQuotationEntity.cs" />
     <Compile Include="PriceQuote\DealerVersionPriceItemEntity.cs" />
     <Compile Include="PriceQuote\DetailedDealerQuotationEntity.cs" />
     <Compile Include="PriceQuote\DPQSmsEntity.cs" />
     <Compile Include="PriceQuote\DPQTypes.cs" />
+    <Compile Include="PriceQuote\NewBikeDealerBase.cs" />
     <Compile Include="PriceQuote\OfferHtmlEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PQOnRoadPrice.cs" />

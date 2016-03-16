@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.PriceQuote
 {
+    /// <summary>
+    /// Created By : Lucky Rathore
+    /// Created on : 15 March 2016
+    /// Description : for Dealer Basics details.
+    /// </summary>
     public class NewBikeDealerBase
     {
         [JsonProperty("id")]
