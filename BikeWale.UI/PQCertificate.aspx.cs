@@ -77,10 +77,10 @@ namespace Bikewale.BikeBooking
                 }
 
 
-                if (objPQ.objEmi != null)
-                {
-                    objCEMI = CommonOpn.GetCalculatedFlatEmi(objPQ.objEmi, TotalPrice);
-                }
+                //if (objPQ.objEmi != null)
+                //{
+                //    objCEMI = CommonOpn.GetCalculatedFlatEmi(objPQ.objEmi, TotalPrice);
+                //}
             }
         }
     }

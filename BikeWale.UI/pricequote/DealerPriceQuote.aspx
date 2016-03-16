@@ -83,10 +83,11 @@
                                 <img alt="<%= makeName + " " + modelName + " " + versionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="<%= makeName + " " + modelName + " " + versionName%> Photos" />
                             </div>
                             <% } %>
-                            <% if (versionList.Count > 1)
-                               { %>
+
                             <div class="pqVariants">
                                 <p class="margin-left10 font16 text-light-grey leftfloat margin-top7">Version:</p>
+                                <% if (versionList.Count > 1)
+                                   { %>
                                 <div class="position-rel">
                                     <div class="variants-dropdown rounded-corner2 leftfloat">
                                         <div class="variant-selection-tab">
@@ -107,11 +108,13 @@
                                         <asp:HiddenField ID="hdnVariant" Value='<%#Eval("VersionId") %>' runat="server" />
                                     </ul>
                                 </div>
-                                <%--<div class="form-control-box leftfloat">
-                                    <asp:DropDownList ID="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
-                                </div>--%>
+                                <% }
+                                   else
+                                   { %>
+                                <span id="versText" class="margin-left10 font16 text-light-grey leftfloat margin-top7 text-light-grey margin-right20 text-bold"><%= versionName %></span>
+                                <% } %>
                             </div>
-                            <% } %>
+
                         </div>
                         <div class="grid-6 padding-top15 padding-bottom20 padding-right20" id="PQDetailsContainer">
                             <% if (detailedDealer != null)
@@ -120,7 +123,7 @@
                             <% } %>
                             <% if (!String.IsNullOrEmpty(cityArea))
                                { %>
-                            <p class="font14 text-default text-bold margin-bottom15">On-road price - <%= dealerShipName %></p>
+                            <p class="font14 text-default text-bold margin-bottom15">On-road price - <%= dealerName %></p>
                             <% } %>
                             <div runat="server">
                                 <div>
@@ -133,8 +136,8 @@
                                                     <td width="210" class="PQDetailsTableTitle padding-bottom15 text-light-grey">
                                                         <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
                                                     </td>
-                                                    <td align="right" class="PQDetailsTableAmount padding-bottom10 text-default">
-                                                        <span class="fa fa-rupee"></span><span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
+                                                    <td align="right" class="PQDetailsTableAmount padding-bottom10 text-default ">
+                                                        <span class="fa fa-rupee"></span>&nbsp;<span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
@@ -148,37 +151,19 @@
                                            if (IsDiscount)//if (IsInsuranceFree)
                                            {
                                         %>
-                                        <%--<tr>
-                                        <td class="PQDetailsTableTitle padding-bottom10">Total on road price</td>
-                                        <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
-                                            <span class="fa fa-rupee"></span><span style="text-decoration: line-through;"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="PQDetailsTableTitle padding-bottom10">Minus insurance</td>
-                                        <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
-                                            <span class="fa fa-rupee"></span><span><%= CommonOpn.FormatPrice(insuranceAmount.ToString()) %></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="middle" class="PQDetailsTableTitle font18 text-bold PQOnRoadPrice">Total on road price</td>
-                                        <td align="right" class="PQDetailsTableAmount font20 text-bold">
-                                            <span class="fa fa-rupee"></span><span><%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></span>
-                                        </td>
-                                    </tr>--%>
                                         <tr>
-                                            <td class="PQDetailsTableTitle padding-bottom10">On-road price</td>
-                                            <td align="right" class="PQDetailsTableAmount padding-bottom10">
-                                                <span class="fa fa-rupee"></span><span style="text-decoration: line-through;"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
+                                            <td class="PQDetailsTableTitle padding-bottom10 text-grey text-bold">On-road price</td>
+                                            <td align="right" class="PQDetailsTableAmount padding-bottom10 text-grey text-bold">
+                                                <span class="fa fa-rupee"></span>&nbsp;<span style="text-decoration: line-through;"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
                                             </td>
                                         </tr>
                                         <asp:Repeater ID="rptDiscount" runat="server">
                                             <ItemTemplate>
                                                 <tr>
-                                                    <td width="210" class="PQDetailsTableTitle padding-bottom10">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> 
+                                                    <td width="210" class="PQDetailsTableTitle padding-bottom10 ">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> 
                                                     </td>
-                                                    <td align="right" class="PQDetailsTableAmount padding-bottom10">
-                                                        <span class="fa fa-rupee"></span><span id="exShowroomPrice">
+                                                    <td align="right" class="PQDetailsTableAmount padding-bottom10 text-grey">
+                                                        <span class="fa fa-rupee"></span>&nbsp;<span id="exShowroomPrice">
                                                             <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
                                                     </td>
                                                 </tr>
@@ -190,9 +175,9 @@
                                                 <td>
                                         </tr>
                                         <tr>
-                                            <td valign="middle" class="PQDetailsTableTitle text-black font14 PQOnRoadPrice">Total on-road price</td>
-                                            <td align="right" class="PQDetailsTableAmount font18 text-black">
-                                                <span class="fa fa-rupee"></span><span><%= CommonOpn.FormatPrice((totalPrice - totalDiscount).ToString()) %></span>
+                                            <td valign="middle" class="PQDetailsTableTitle font14 PQOnRoadPrice text-grey text-bold">On-road price</td>
+                                            <td align="right" class="PQDetailsTableAmount font18 text-grey text-bold">
+                                                <span class="fa fa-rupee"></span>&nbsp;&nbsp;<span><%= CommonOpn.FormatPrice((totalPrice - totalDiscount).ToString()) %></span>
                                             </td>
                                         </tr>
                                         <%
@@ -201,9 +186,9 @@
                                            {
                                         %>
                                         <tr>
-                                            <td class="PQDetailsTableTitle font14 text-black PQOnRoadPrice">Total on-road price</td>
-                                            <td align="right" class="PQDetailsTableAmount font18 text-black">
-                                                <span class="fa fa-rupee"></span><span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
+                                            <td class="PQDetailsTableTitle font14  PQOnRoadPrice text-grey text-bold">On-road price</td>
+                                            <td align="right" class="PQDetailsTableAmount font18 text-grey text-bold">
+                                                <span class="fa fa-rupee"></span>&nbsp;<span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
 
                                             </td>
                                         </tr>
@@ -211,7 +196,7 @@
                                         <% } %>
 
                                         <tr>
-                                            <td colspan="2" class="text-right"><a class="font14 text-link" id="leadLink" name="leadLink" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a></td>
+                                            <td colspan="2" class="text-right padding-top5"><a class="font14 text-link " id="leadLink" name="leadLink" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a></td>
                                         </tr>
                                         <tr class="hide">
                                             <td colspan="3">
@@ -239,7 +224,7 @@
                             <div id="div_ShowErrorMsg" runat="server" class="grey-bg border-light content-block text-highlight margin-top15"></div>
                         </div>
                         <div class="clear"></div>
-                        <%if (isoffer && (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
+                        <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && isoffer)
                           { %>
                         <div class="grid-12 padding-right20 padding-bottom10 padding-left20 font14">
                             <p class="text-bold padding-top20 margin-bottom5 border-light-top">Exclusive offers from this dealer:</p>
@@ -247,7 +232,7 @@
                                 <asp:Repeater ID="rptOffers" runat="server">
                                     <ItemTemplate>
                                         <li>
-                                            <span class="inline-block pq-benefits-image pricequote-sprite <%#  "offericon_" + DataBinder.Eval(Container.DataItem,"OfferId") %> margin-right10"></span>
+                                            <span class="inline-block pq-benefits-image pricequote-sprite <%#  "offerIcon_" + DataBinder.Eval(Container.DataItem,"OfferId") %> margin-right10"></span>
                                             <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"OfferText") %></span>
                                         </li>
                                     </ItemTemplate>
@@ -281,204 +266,246 @@
                         </div>
                         <div class="clear"></div>
 
-                        <%if (isUSPBenfits && dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
-                          { %>
-                        <div class="grid-12 padding-top20 padding-right20 padding-bottom5 padding-left20 font14">
-                            <p class="text-bold margin-bottom5">Benefits of buying a bike from this dealer:</p>
-                            <ul class="pricequote-benefits-list text-light-grey">
-                                <asp:Repeater ID="rptUSPBenefits" runat="server">
-                                    <ItemTemplate>
-                                        <li>
-                                            <span class="inline-block pq-benefits-image pricequote-sprite <%#  "benifitsicon_" + DataBinder.Eval(Container.DataItem,"BenefitId") %> margin-right10"></span>
-                                            <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"benefitText") %></span>
-                                        </li>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="clear"></div>
-                        <%} %>
-                        <%if (bookingAmount > 0)
-                          { %>
-                        <div class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
-                            <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="fa fa-rupee"></span><%= bookingAmount %> online and book this bike:</p>
-                            <ul class="pricequote-benefits-list pq-benefits-booking-list text-light-grey">
-                                <li>
-                                    <p>Save on dealer visits</p>
-                                </li>
-                                <li>
-                                    <p>Secure online payments</p>
-                                </li>
-                                <li>
-                                    <p>Complete buyer protection</p>
-                                </li>
-                            </ul>
-                            <div class="clear"></div>
-                            <div class="grid-12 alpha omega margin-top10">
-                                <div class="grid-9 alpha">
-                                    <p class="font14 text-light-grey">The booking amount of <span class="fa fa-rupee"></span><%= bookingAmount %> has to be paid online and balance amount of <span class="fa fa-rupee"></span><%= totalPrice - bookingAmount  %> has to be paid at the dealership.</p>
-                                </div>
-                                <div class="grid-3 omega text-right">
-                                    <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey btn-sm font14">Book now</a>
-                                </div>
+                        <% if(dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium ) { %>
+
+                            <% if (isUSPBenfits) { %>
+                            <!--  Dealer Benefits starts-->
+                            <div class="grid-12 padding-top20 padding-right20 padding-bottom5 padding-left20 font14">
+                                <p class="text-bold margin-bottom5">Benefits of buying a bike from this dealer:</p>
+                                <ul class="pricequote-benefits-list text-light-grey">
+                                    <asp:Repeater ID="rptUSPBenefits" runat="server">
+                                        <ItemTemplate>
+                                            <li>
+                                                <span class="inline-block pq-benefits-image pricequote-sprite <%#  "benifitIcon_" + DataBinder.Eval(Container.DataItem,"CatId") %> margin-right10"></span>
+                                                <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"BenefitText") %></span>
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </ul>
                                 <div class="clear"></div>
                             </div>
                             <div class="clear"></div>
-                        </div>
-                        <div class="clear"></div>
-                        <%} %>
+                            <!--  Dealer Benefits  ends -->
+                            <% } %>
+                        
+                            <%if (primarydealer.IsBookingAvailable)
+                              { %> 
+                            <!--  Booking availability starts-->
+                            <div class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
+                                <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> online and book this bike:</p>
+                                <ul class="pricequote-benefits-list pq-benefits-booking-list text-light-grey">
+                                    <li>
+                                        <p>Save on dealer visits</p>
+                                    </li>
+                                    <li>
+                                        <p>Secure online payments</p>
+                                    </li>
+                                    <li>
+                                        <p>Complete buyer protection</p>
+                                    </li>
+                                </ul>
+                                <div class="clear"></div>
+                                <div class="grid-12 alpha omega margin-top10">
+                                    <div class="grid-9 alpha">
+                                        <p class="font14 text-light-grey">The booking amount of <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> has to be paid online and balance amount of <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice((totalPrice - bookingAmount).ToString()) %> has to be paid at the dealership.</p>
+                                    </div>
+                                    <div class="grid-3 omega text-right">
+                                        <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey btn-sm font14">Book now</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>   
+                            <!--  Booking availability ends-->
+                            <%} %>
 
-                        <div class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
-                            <p class="text-bold padding-top20 margin-bottom15 border-light-top">Get EMI quote from this dealer:</p>
-                            <div class="finance-emi-container">
-                                <div class="emi-slider-box">
-                                    <div class="emi-slider-box-left-section">
-                                        <p>Down payment</p>
-                                        <div id="downPaymentSlider"
-                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 5%;"></span>
-                                        </div>
-                                        <div class="slider-range-points">
-                                            <ul class="range-five-pointsUL range-pointsUL">
-                                                <li class="range-points-bar"><span>0</span></li>
-                                                <li class="range-points-bar" style="left: 5%"><span>2.5L</span></li>
-                                                <li class="range-points-bar" style="left: 10%"><span>5L</span></li>
-                                                <li class="range-points-bar" style="left: 15%"><span>7.5L</span></li>
-                                                <li class="range-points-bar" style="left: 19.9%"><span>10L</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="emi-slider-box-right-section font16">
-                                        <span class="fa fa-rupee"></span>
-                                        <span id="downPaymentAmount" class="text-bold"></span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="emi-slider-box">
-                                    <div class="emi-slider-box-left-section">
-                                        <p>Loan Amount</p>
-                                        <div id="loanAmountSlider"
-                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 95%;"></span>
-                                        </div>
-                                        <div class="slider-range-points">
-                                            <ul class="range-five-pointsUL range-pointsUL">
-                                                <li class="range-points-bar"><span>0</span></li>
-                                                <li class="range-points-bar" style="left: 5%"><span>2.5L</span></li>
-                                                <li class="range-points-bar" style="left: 10%"><span>5L</span></li>
-                                                <li class="range-points-bar" style="left: 15%"><span>7.5L</span></li>
-                                                <li class="range-points-bar" style="left: 19.9%"><span>10L</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="emi-slider-box-right-section font16">
-                                        <span class="fa fa-rupee"></span>
-                                        <span id="loanAmount" class="text-bold"></span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="emi-slider-box">
-                                    <div class="emi-slider-box-left-section">
-                                        <p>Tenure (Months)</p>
-                                        <div id="tenureSlider"
-                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 33.3333%;"></span>
-                                        </div>
-                                        <div class="slider-range-points">
-                                            <ul class="range-pointsUL tenure-rate-interest">
-                                                <li class="range-points-bar"><span>12</span></li>
-                                                <li class="range-points-bar" style="left: 2%"><span>18</span></li>
-                                                <li class="range-points-bar" style="left: 5%"><span>24</span></li>
-                                                <li class="range-points-bar" style="left: 7%"><span>30</span></li>
-                                                <li class="range-points-bar" style="left: 9%"><span>36</span></li>
-                                                <li class="range-points-bar" style="left: 12%"><span>42</span></li>
-                                                <li class="range-points-bar" style="left: 14%"><span>48</span></li>
-                                                <li class="range-points-bar" style="left: 16.8%"><span>54</span></li>
-                                                <li class="range-points-bar" style="left: 20%"><span>60</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="emi-slider-box-right-section">
-                                        <span id="tenurePeriod" class="font16 text-bold" data-bind="text: tenure">36</span>
-                                        <span class="font12">Months</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="emi-slider-box">
-                                    <div class="emi-slider-box-left-section">
-                                        <p>Rate of interest (Percentage)</p>
-                                        <div id="rateOfInterestSlider"
-                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 25%;"></span>
-                                        </div>
-                                        <div class="slider-range-points">
-                                            <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest.">
-                                                <li class="range-points-bar"><span>7</span></li>
-                                                <li class="range-points-bar" style="left: 5%"><span>10.25</span></li>
-                                                <li class="range-points-bar" style="left: 10%"><span>13.5</span></li>
-                                                <li class="range-points-bar" style="left: 15%"><span>16.5</span></li>
-                                                <li class="range-points-bar" style="left: 19.9%"><span>20</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="emi-slider-box-right-section font16">
-                                        <span id="rateOfInterestPercentage" class="text-bold">5</span>
-                                        <span>%</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
+                             <% if(primarydealer.EMIDetails!=null ) { %>
+                              <!-- EMI section starts -->
+                            <div id="EMISection" data-bind="visible: true" style="display: none" class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
+                                <p class="text-bold padding-top20 margin-bottom15 border-light-top">Get EMI quote from this dealer:</p>
+                                <div class="finance-emi-container">
+                                    <div class="emi-slider-box">
+                                        <div class="emi-slider-box-left-section">
+                                            <p>Down payment</p>
+                                            <div id="downPaymentSlider"
+                                                data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 20, value: $.LoanAmount(maxDnPay() / 2, 30) }"
+                                                class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                            </div>
+                                            <div class="slider-range-points">
+                                                <ul class="range-five-pointsUL range-pointsUL" data-bind="">
+                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minDnPay())"></span></li>
+                                                    <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter($.LoanAmount($parent.maxDnPay(), ($index() + 1) * 20))"></span></li>
+                                                    <!-- /ko -->
+                                                    <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay())"></span></li>
 
-                                <div class="margin-top10">
-                                    <div class="grid-8 alpha text-grey text-bold padding-top10">
-                                        <p class="leftfloat margin-right10 position-rel pos-top3">Indicative EMI:</p>
-                                        <div class="indicative-emi-amount margin-right10 leftfloat">
-                                            <span class="font18"><span class="fa fa-rupee"></span></span>
-                                            <span id="emiAmount" class="font18">55,000</span>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <p class="font14 leftfloat position-rel pos-top3">per month</p>
+                                        <div class="emi-slider-box-right-section font16">
+                                            <span class="fa fa-rupee"></span>&nbsp;
+                                            <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(downPayment())"></span>
+                                        </div>
                                         <div class="clear"></div>
                                     </div>
-                                    <div class="grid-4 omega text-right">
-                                        <a class="btn btn-grey btn-md font14">Get EMI quote</a>
+                                    <div class="emi-slider-box">
+                                        <div class="emi-slider-box-left-section">
+                                            <p>Loan Amount</p>
+                                            <div id="loanAmountSlider"
+                                                data-bind="slider: loan, sliderOptions: { min: 0, max: maxDnPay() - minDnPay(), range: 'min', step: 20 }"
+                                                class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                            </div>
+                                            <div class="slider-range-points">
+                                                <ul class="range-five-pointsUL range-pointsUL" data-bind="">
+                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter(0)"></span></li>
+                                                    <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter($.LoanAmount($parent.maxDnPay(), ($index() + 1) * 20))"></span></li>
+                                                    <!-- /ko -->
+                                                    <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay() - minDnPay())"></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="emi-slider-box-right-section font16">
+                                            <span class="fa fa-rupee"></span>&nbsp;
+                                            <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(loan())"></span>
+                                        </div>
+                                        <div class="clear"></div>
                                     </div>
-                                    <div class="clear"></div>
-                                    <p id="disclaimerText" class="margin-top15 font11 text-light-grey"><span class="bwsprite disclaimer-sm-icon"></span>On-road price and EMI calculator is provided for information. BikeWale does not own any responsibility for the same.</p>
+                                    <div class="emi-slider-box">
+                                        <div class="emi-slider-box-left-section">
+                                            <p>Tenure (Months)</p>
+                                            <div id="tenureSlider"
+                                                data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
+                                                class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                            </div>
+                                            <div class="slider-range-points">
+                                                <ul class="range-five-pointsUL  range-pointsUL tenure-rate-interest" data-bind="">
+                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minTenure())"></span></li>
+                                                    <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                    <li class="range-points-bar"><span data-bind="text: Math.floor((($index() + 1) * ($parent.maxTenure() - $parent.minTenure()) / $parent.breakPoints()) + $parent.minTenure())"></span></li>
+                                                    <!-- /ko -->
+                                                    <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxTenure())"></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="emi-slider-box-right-section">
+                                            <span id="tenurePeriod" class="font16 text-bold" data-bind="text: tenure"></span>
+                                            <span class="font12">Months</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="emi-slider-box">
+                                        <div class="emi-slider-box-left-section">
+                                            <p>Rate of interest (Percentage)</p>
+                                            <div id="rateOfInterestSlider"
+                                                data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
+                                                class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                            </div>
+                                            <div class="slider-range-points">
+                                                <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest.">
+                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minROI())"></span></li>
+                                                    <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter((($index() + 1) * ($parent.maxROI() - $parent.minROI())/$parent.breakPoints()) + $parent.minROI())"></span></li>
+                                                    <!-- /ko -->
+                                                    <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxROI())"></span></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="emi-slider-box-right-section font16">
+                                            <span id="rateOfInterestPercentage" class="text-bold" data-bind="text: rateofinterest">5</span>
+                                            <span>%</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+
+                                    <div class="margin-top10">
+                                        <div class="grid-8 alpha text-grey text-bold padding-top10">
+                                            <p class="leftfloat margin-right10 position-rel pos-top3">Indicative EMI:</p>
+                                            <div class="indicative-emi-amount margin-right10 leftfloat">
+                                                <span class="font18"><span class="fa fa-rupee"></span>&nbsp;</span>
+                                                <span id="emiAmount" class="font18" data-bind="text: monthlyEMI"></span>
+                                            </div>
+                                            <p class="font14 leftfloat position-rel pos-top3">per month</p>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="grid-4 omega text-right">
+                                            <a class="btn btn-grey btn-md font14">Get EMI quote</a>
+                                        </div>
+                                        <div class="clear"></div>                                      
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                             
+                             <!-- EMI section ends  -->
+                            <% } %>
+
+                        <% } %>
+                          <div class="clear"></div>
+                         <p id="disclaimerText" class="margin-top15 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span> On-road price and EMI calculator is provided for information. BikeWale does not own any responsibility for the same.</p>
                     </div>
                     <div class="grid-4 padding-top20" id="PQDealerSidebarContainer">
                         <div class="pqdealer-and-listing-container">
                             <div class="pqdealer-sidebar-panel position-rel">
-                                <p class="font18 text-bold text-darker-black"><%= dealerShipName %></p>
-                                <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
-                                      { %>
-                                <p class="font14 text-light-grey margin-bottom15"><%= dealerarea %></p>
-                                <%} %>
+                                <p class="font18 text-bold text-darker-black"><%= dealerName %></p>   
+                                <p class="font14 text-light-grey margin-bottom15"><%= dealerArea %></p>
+                                <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard || !String.IsNullOrEmpty(maskingNum))
+                                   { %>
                                 <div class="border-solid-top padding-top15">
-                                    <p class="font14 text-light-grey margin-bottom10"><%= dealerAdd %></p>
-                                    <% if(string.IsNullOrEmpty( maskingNum )) { %>
-                                        <p class="font16 text-bold margin-bottom15"><span class="fa fa-phone"></span> <%= maskingNum %></p>
+                                    <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
+                                      { %>
+                                    <p class="font14 text-light-grey margin-bottom10"><%= dealerAddress %></p>
+                                    <%} %>
+                                    <% if (!string.IsNullOrEmpty(maskingNum))
+                                       { %>
+                                    <p class="font16 text-bold margin-bottom15"><span class="fa fa-phone"></span>&nbsp;<%= maskingNum %></p>
                                     <%} %>
                                     <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                                       { %>
-                                        <%--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30165.66210531427!2d72.98105033863713!3d19.076582232598167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b519107b%3A0x8452b99754be0fc8!2sVashi%2C+Navi+Mumbai%2C+Maharashtra+400703!5e0!3m2!1sen!2sin!4v1457345328664"
-                                            frameborder="0" width="100%" height="90" style="border: 1px solid #e2e2e2"></iframe>--%>
-                                        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
-                                        <div style="border: 1px solid #e2e2e2" data-bind="googlemap: { latitude: <%= latitude %>    , longitude: <%=longitude%>}"></div>
+                                    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+                                    <div id="dealerMap" style="height: 100px; position: relative; text-align: center">
+                                        <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" /></div>
+                                    <script type="text/javascript">
+                                        function initializeDealerMap(element,latitude,longitude) {
+                                            latLng = new google.maps.LatLng(latitude, longitude),
+                                            mapOptions = {
+                                                zoom: 13,
+                                                center: latLng,
+                                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                                            },
+                                            map = new google.maps.Map(element, mapOptions),
+                                            marker = new google.maps.Marker({
+                                                title: "Dealer's Location",
+                                                position: latLng,
+                                                map: map,
+                                                animation: google.maps.Animation.DROP
+                                            });
+
+                                            google.maps.event.addListenerOnce(map, 'idle', function () {
+                                                console.log("map loaded");
+                                            });
+                                        }
+                                        google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0],<%= latitude %>,<%= longitude %>));
+                                    </script>
                                     <% } %>
-                                    <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
+                                    <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
                                       { %>
-                                        <a id="leadBtn" class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
+                                    <a id="leadBtn" class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
                                     <% } %>
                                 </div>
+                                <% } %>
                             </div>
-                            <%if (detailedDealer.SecondaryDealerCount > 0)
+                            <%if (detailedDealer!=null && detailedDealer.SecondaryDealerCount > 0)
                               { %>
                             <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
                                 <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealerCount %> more dealers:</p>
@@ -496,12 +523,6 @@
                             </div>
                             <% } %>
                         </div>
-                        <!--
-                        <div id="toggleDealerList" class="text-center margin-top20">
-                            <a href="javascript:void(0)" class="font14 show-more-dealers">Check price from 27 more dealers <span class="fa fa-angle-down"></span></a>
-                            <a href="javascript:void(0)" class="font14 show-less-dealers">Show less dealers <span class="fa fa-angle-up"></span></a>
-                        </div>
-                        -->
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -697,11 +718,12 @@
             </div>
         </div>
         <!-- Terms and condition Popup Ends -->
+
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
-            var bikeName = '<%= BikeName %>';
+            var bikeName = "<%= BikeName %>";
+            var bikeVersionPrice = "<%= totalPrice.ToString() %>";
             var getCityArea = GetGlobalCityArea();
             $('#btnGetDealerDetails, #btnBikeBooking').click(function () {
                 var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
@@ -1148,7 +1170,6 @@
             $("#leadLink").on("click", function () {
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_More_Details_Clicked_Link', 'lab': bikeName + '_' + getCityArea });
             });
-
             $('.tnc').on('click', function (e) {
                 LoadTerms($(this).attr("id"));
             });
@@ -1203,29 +1224,117 @@
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
             });
 
-            ko.bindingHandlers.googlemap = {
-                update: function (element, valueAccessor) {
-                    console.log("map callled" );
-                    latLng = new google.maps.LatLng(<%= latitude %>, <%= longitude%>),
-                    mapOptions = {
-                        zoom: 13,
-                        center: latLng,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    },
-                    map = new google.maps.Map(element, mapOptions),
-                    marker = new google.maps.Marker({
-                        title: "Dealer's Location",
-                        position: latLng,
-                        map: map,
-                        animation: google.maps.Animation.DROP
-                    });
+        </script>
 
-                    google.maps.event.addListenerOnce(map, 'idle', function () {
-                        
-                        viewModel.IsMapLoaded = true;
+        <script type="text/javascript">
+
+            ko.bindingHandlers.slider = {
+                init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
+                    var options = allBindingsAccessor().sliderOptions || {};
+                    $("#" + element.id).slider(options);
+                    // console.log((element.id) + "   options "); console.log(options);
+                    ko.utils.registerEventHandler("#" + element.id, "slide", function (event, ui) {
+                        var observable = valueAccessor();
+                        observable(ui.value);
                     });
+                },
+                update: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
+                    var options = allBindingsAccessor().sliderOptions || {};
+                    $("#" + element.id).slider(options);
+                    // console.log((element.id) + "   options : "); console.log(options);
+                    var value = ko.utils.unwrapObservable(valueAccessor());
+                    if (isNaN(value)) value = 0;
+                    $("#" + element.id).slider("value", value);
+                    // console.log((element.id) + "   value : " + value);
                 }
             };
+
+            var BikeEMI = function () {
+                var self = this;
+                self.breakPoints = ko.observable(5);
+                self.bikePrice = ko.observable(bikeVersionPrice);
+                self.minDnPay = ko.observable(<%= primarydealer.EMIDetails.MinDownPayment %> * bikeVersionPrice/100);
+                self.maxDnPay = ko.observable(<%= primarydealer.EMIDetails.MaxDownPayment %> * bikeVersionPrice/100);
+                self.minTenure = ko.observable(<%= primarydealer.EMIDetails.MinTenure %>);
+                self.maxTenure = ko.observable(<%= primarydealer.EMIDetails.MaxTenure  %>);
+                self.minROI = ko.observable(<%= primarydealer.EMIDetails.MinRateOfInterest %>);
+                self.maxROI = ko.observable(<%= primarydealer.EMIDetails.MaxRateOfInterest %>);
+                self.processingFees = ko.observable(<%= primarydealer.EMIDetails.ProcessingFee %>);
+                self.exshowroomprice = ko.observable(bikeVersionPrice);
+                self.loan = ko.observable();
+
+                self.tenure = ko.observable(36);
+                self.rateofinterest = ko.observable(14);
+                self.downPayment = ko.pureComputed({
+                    read: function () {
+                        console.log("Loan : " + self.loan() + " exshowroom  : " + self.exshowroomprice());
+                        if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
+                            self.loan($.LoanAmount(self.exshowroomprice(), 70));
+                        return (($.LoanAmount(self.exshowroomprice(), 100)) - self.loan());
+                    },
+                    write: function (value) {                        
+                        self.loan((($.LoanAmount(self.exshowroomprice(), 100))) - value);
+                    },
+                    owner: this
+                });
+
+                self.monthlyEMI = ko.pureComputed({
+                    read: function () {
+                        return $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest(),self.processingFees());
+                    },
+                    owner: this
+                });
+            }
+
+            function formatPrice(price) {
+                price = price.toString();
+                var lastThree = price.substring(price.length - 3);
+                var otherNumbers = price.substring(0, price.length - 3);
+                if (otherNumbers != '')
+                    lastThree = ',' + lastThree;
+                var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+                return price;
+            }
+
+
+            $.calculateEMI = function (loanAmount, tenure, rateOfInterest,proFees) {
+                var interest, totalRepay, finalEmi;
+                try {
+                    interest = (loanAmount * tenure * rateOfInterest) / (12 * 100);
+                    totalRepay = loanAmount + interest;
+                    finalEmi = Math.ceil((totalRepay / tenure) + proFees);
+                }
+                catch (e) {
+                    // console.log(e.message);
+                }
+                return formatPrice(finalEmi);
+            };
+
+            $.LoanAmount = function (onRoadPrice, percentage) {
+                var price;
+                try {
+                    price = (onRoadPrice * percentage) / 100;
+                    price = Math.ceil(price / 100.0) * 100;
+                }
+                catch (e) {
+                    //console.log(e.message);
+                }
+                return price;
+            };
+
+            $.valueFormatter = function (num) {
+                if (num >= 100000) {
+                    return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
+                }
+                if (num >= 1000) {
+                    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+                }
+                return num;
+            }
+
+
+            var EMIviewModel = new BikeEMI;
+            ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
             $("#dealerList li").click(function(){
                 registerPQ($(this).attr('dealerId'));
             });
@@ -1266,6 +1375,9 @@
                 });
             }
         </script>
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
+
     </form>
 </body>
 </html>

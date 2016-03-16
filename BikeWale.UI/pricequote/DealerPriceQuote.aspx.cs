@@ -49,16 +49,18 @@ namespace Bikewale.BikeBooking
         protected string cityArea = string.Empty;
         protected uint bookingAmount = 0;
         protected String clientIP = string.Empty;
+        protected bool isEMIAvailable = true;
         //new vairable 
         protected DetailedDealerQuotationEntity detailedDealer = null;
         protected string city = string.Empty, area = string.Empty;
         //Primary Dealer Detail
-        protected string dealerShipName, dealerarea, maskingNum, dealerAdd, makeName, modelName, versionName, mpqQueryString;
+        protected string dealerName, dealerArea, maskingNum, dealerAddress, makeName, modelName, versionName, mpqQueryString;
         protected double latitude, longitude;
         protected bool isUSPBenfits, isoffer;
         protected HiddenField hdnVariant, hdnDealerId;
         protected Label defaultVariant;
         protected DealerPackageTypes dealerType;
+        protected DealerQuotationEntity primarydealer = null;
 
 
 
@@ -123,6 +125,7 @@ namespace Bikewale.BikeBooking
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }             
+
         }
 
         /// <summary>
@@ -136,7 +139,7 @@ namespace Bikewale.BikeBooking
             {
                 versionId = Convert.ToUInt32(e.CommandName);
                 defaultVariant.Text = Convert.ToString(e.CommandArgument);
-                SavePriceQuote();
+                //SavePriceQuote();
             }
         }
 
@@ -165,7 +168,8 @@ namespace Bikewale.BikeBooking
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-
+                else
+                {
                     if (detailedDealer.objMake != null)
                     {
                         makeName = detailedDealer.objMake.MakeName;
@@ -185,7 +189,7 @@ namespace Bikewale.BikeBooking
 
                     if (detailedDealer.PrimaryDealer != null)
                     {
-                        DealerQuotationEntity primarydealer = detailedDealer.PrimaryDealer;
+                        primarydealer = detailedDealer.PrimaryDealer;
                         IEnumerable<PQ_Price> priceList = primarydealer.PriceList;
                         IEnumerable<OfferEntityBase> offerList = primarydealer.OfferList;
                         if (priceList != null && priceList.Count() > 0)
@@ -206,9 +210,9 @@ namespace Bikewale.BikeBooking
                         if (primarydealer.DealerDetails != null)
                         {
                             NewBikeDealers dealerDetails = primarydealer.DealerDetails;
-                            dealerShipName = dealerDetails.Organization;
-                            dealerarea = dealerDetails.objArea.AreaName;
-                            dealerAdd = dealerDetails.Address;
+                            dealerName = dealerDetails.Organization;
+                            dealerArea = dealerDetails.objArea.AreaName;
+                            dealerAddress = dealerDetails.Address;
                             maskingNum = dealerDetails.MaskingNumber;
                             latitude = dealerDetails.objArea.Latitude;
                             longitude = dealerDetails.objArea.Longitude;
@@ -247,14 +251,48 @@ namespace Bikewale.BikeBooking
                         {
                             bookingAmount = Convert.ToUInt16(Utility.Format.FormatPrice(Convert.ToString(primarydealer.BookingAmount)));
                         }
+                        //EMI deatails
+                        if (primarydealer.EMIDetails == null)
+                        {
+                                primarydealer.EMIDetails = setEMIDetails();
+                        }
+                            
                     }
                 }
             }
+      }
             catch(Exception ex)
             {
+                Trace.Warn("getEMIDetails Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+}
+        /// <summary>
+        /// Created BY : Sushil Kumar on 14th March 2015
+        /// Summary : To set EMI details for the dealer if no EMI Details available for the dealer
+        /// </summary>
+        private EMI setEMIDetails()
+        {
+            EMI _objEMI = null;
+            try
+            {
+                _objEMI = new EMI();
+                _objEMI.MaxDownPayment = 100;
+                _objEMI.MinDownPayment = 25;
+                _objEMI.MaxTenure = 48;
+                _objEMI.MinTenure = 6;
+                _objEMI.MaxRateOfInterest = 12;
+                _objEMI.MinRateOfInterest = 7;
+                _objEMI.ProcessingFee = 2000;
+            }
+            catch(Exception ex)
+            {
+                Trace.Warn("getEMIDetails Ex: ", ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return _objEMI;
         }
 
         /// <summary>
@@ -298,18 +336,12 @@ namespace Bikewale.BikeBooking
                     IBikeVersions<BikeVersionEntity, uint> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
 
                     objVersionDetails = objVersion.GetById(versionId);
-                    //versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteCookie.CityId));
                     versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
                     if (versionList.Count > 0)
                     {
                         rptVersion.DataSource = versionList;
                         rptVersion.DataBind();
                         defaultVariant.Text = versionList.Find(x => x.VersionId == versionId).VersionName;
-                        //ddlVersion.DataSource = versionList;
-                        //ddlVersion.DataValueField = "VersionId";
-                        //ddlVersion.DataTextField = "VersionName";
-                        //ddlVersion.DataBind();
-                        //ddlVersion.SelectedValue = PriceQuoteQueryString.VersionId;
                     }
 
                 }
@@ -319,66 +351,6 @@ namespace Bikewale.BikeBooking
                 Trace.Warn("DeaperPriceQuote.BindVersion Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-        }
-
-        protected void SavePriceQuote()
-        {
-            //uint cityId = Convert.ToUInt32(PriceQuoteCookie.CityId), areaId = Convert.ToUInt32(PriceQuoteCookie.AreaId);
-            uint cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId), areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
-            uint selectedVersionId = Convert.ToUInt32(hdnVariant.Value);
-            PQOutputEntity objPQOutput = null;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    // save price quote
-                    container.RegisterType<IDealerPriceQuote, BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objIPQ = container.Resolve<IDealerPriceQuote>();
-
-                    PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
-                    if (cityId > 0)
-                    {
-                        objPQEntity.CityId = cityId;
-                        objPQEntity.AreaId = areaId;
-                        objPQEntity.ClientIP = CommonOpn.GetClientIP();
-                        objPQEntity.SourceId = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["sourceId"]);
-                        objPQEntity.VersionId = selectedVersionId;
-                        objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_DPQ_Quotation);
-                        objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
-                        objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
-                        objPQOutput = objIPQ.ProcessPQ(objPQEntity);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (objPQOutput.PQId > 0 && objPQOutput.DealerId > 0)
-                {
-                    //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());
-                    Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(dealerId))), false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-                else if (objPQOutput.PQId > 0)
-                {
-                    // Save pq cookie
-                    Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "")), false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-                else
-                {
-                    div_ShowErrorMsg.Visible = true;
-                    div_ShowErrorMsg.InnerText = "Sorry !! Price Quote for this version is not available.";
-                    div_GetPQ.Visible = false;
-                }
             }
         }
 
@@ -393,24 +365,40 @@ namespace Bikewale.BikeBooking
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 15th March 2016
+        /// Description : To set user location
+        /// </summary>
+        /// <returns></returns>
         protected string GetLocationCookie()
         {
             string location = String.Empty;
-            if (this.Context.Request.Cookies.AllKeys.Contains("location") && this.Context.Request.Cookies["location"].Value != "0")
+            try
             {
-                location = this.Context.Request.Cookies["location"].Value;
-                string[] arr = location.Split('_');
-
-                if (arr.Length > 0)
+                if (this.Context.Request.Cookies.AllKeys.Contains("location") && this.Context.Request.Cookies["location"].Value != "0")
                 {
-                    if (arr.Length > 2)
+                    location = this.Context.Request.Cookies["location"].Value;
+                    string[] arr = location.Split('_');
+
+                    if (arr.Length > 0)
                     {
-                        return String.Format("<span>{0}</span>, <span>{1}</span>", arr[3], arr[1]);
+                        if (arr.Length > 2)
+                        {
+                            location = String.Format("<span>{0}</span>, <span>{1}</span>", arr[3], arr[1]);
+                        }
+
+                        location = String.Format("<span>{0}</span>", arr[1]);
                     }
-                    return String.Format("<span>{0}</span>", arr[1]);
                 }
             }
-            return string.Empty;
+            catch (Exception ex)
+            {
+                Trace.Warn("GetLocationCookie Ex: ", ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return location;
         }
 
         private UInt32 TotalDiscountedPrice()
