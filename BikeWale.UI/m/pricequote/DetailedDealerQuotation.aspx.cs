@@ -291,8 +291,8 @@ namespace Bikewale.Mobile.BikeBooking
                         if (isBasicAvail && isShowroomPriceAvail)
                             TotalPrice = TotalPrice - exShowroomCost;
 
-                        if (_objPQ.objEmi != null && exShowroomCost > 0)
-                            objCEMI = CommonOpn.GetCalculatedFlatEmi(_objPQ.objEmi, TotalPrice);
+                        //if (_objPQ.objEmi != null && exShowroomCost > 0)
+                        //    objCEMI = CommonOpn.GetCalculatedFlatEmi(_objPQ.objEmi, TotalPrice);
 
                         foreach (var price in _objPQ.objQuotation.PriceList)
                         {

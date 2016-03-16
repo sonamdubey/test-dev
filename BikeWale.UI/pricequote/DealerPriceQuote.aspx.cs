@@ -49,6 +49,8 @@ namespace Bikewale.BikeBooking
         protected string cityArea = string.Empty;
         protected uint bookingAmount = 0;
         protected String clientIP = string.Empty;
+        protected EMI objEMI = null;
+        protected bool isEMIAvailable = true;
         
         protected override void OnInit(EventArgs e)
         {
@@ -165,6 +167,7 @@ namespace Bikewale.BikeBooking
                 if (objPrice != null)
                 {
                     BikeName = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName;
+                    
                     //Added By : Ashwini Todkar on 1 Dec 2014
                     if (objPrice.PriceList != null && objPrice.PriceList.Count > 0)
                     {
@@ -185,6 +188,12 @@ namespace Bikewale.BikeBooking
                         foreach (var price in objPrice.PriceList)
                         {
                             totalPrice += price.Price;
+                        }
+
+                        //bind dealer emi section
+                        if (isEMIAvailable)
+                        {
+                            getEMIDetails();
                         }
 
                         isPriceAvailable = true;
@@ -226,7 +235,12 @@ namespace Bikewale.BikeBooking
 
                     }
 
+                    
+                    
                 }
+
+               
+
             }
             catch (Exception ex)
             {
@@ -242,6 +256,35 @@ namespace Bikewale.BikeBooking
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Created BY : Sushil Kumar on 14th March 2015
+        /// Summary : To get EMI details for the dealer
+        /// </summary>
+        private void getEMIDetails()
+        {
+            try
+            {
+                uint _emiLV = 0; 
+                objEMI = new EMI();
+                objEMI.MaxDownPayment = totalPrice;
+                objEMI.MinDownPayment = 5000;
+                objEMI.MaxTenure = 90;
+                objEMI.MinTenure = 5;
+                objEMI.MinLoanToValue = 0;
+                objEMI.MaxLoanToValue = UInt32.TryParse((totalPrice - 10000).ToString(), out _emiLV) ? _emiLV  : 0 ;
+                objEMI.MaxRateOfInterest = 30;
+                objEMI.MinRateOfInterest = 5;
+                objEMI.ProcessingFee = 12;
+
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn("getEMIDetails Ex: ", ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
         }
 
