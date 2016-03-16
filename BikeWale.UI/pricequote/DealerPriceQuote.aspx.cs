@@ -365,6 +365,66 @@ namespace Bikewale.BikeBooking
             }
         }
 
+        protected void SavePriceQuote()
+        {
+            //uint cityId = Convert.ToUInt32(PriceQuoteCookie.CityId), areaId = Convert.ToUInt32(PriceQuoteCookie.AreaId);
+            uint cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId), areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
+            uint selectedVersionId = Convert.ToUInt32(versionId);
+            PQOutputEntity objPQOutput = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    // save price quote
+                    container.RegisterType<IDealerPriceQuote, BAL.BikeBooking.DealerPriceQuote>();
+                    IDealerPriceQuote objIPQ = container.Resolve<IDealerPriceQuote>();
+
+                    PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
+                    if (cityId > 0)
+                    {
+                        objPQEntity.CityId = cityId;
+                        objPQEntity.AreaId = areaId;
+                        objPQEntity.ClientIP = CommonOpn.GetClientIP();
+                        objPQEntity.SourceId = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["sourceId"]);
+                        objPQEntity.VersionId = selectedVersionId;
+                        objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_DPQ_Quotation);
+                        objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                        objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
+                        objPQOutput = objIPQ.ProcessPQ(objPQEntity);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (objPQOutput.PQId > 0 && objPQOutput.DealerId > 0)
+                {
+                    //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());
+                    Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(dealerId))), false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+                else if (objPQOutput.PQId > 0)
+                {
+                    // Save pq cookie
+                    Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "")), false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+                else
+                {
+                    div_ShowErrorMsg.Visible = true;
+                    div_ShowErrorMsg.InnerText = "Sorry !! Price Quote for this version is not available.";
+                    div_GetPQ.Visible = false;
+                }
+            }
+        }
+
         /// <summary>
         /// Created By : Sushil Kumar on 15th March 2016
         /// Description : To set user location
