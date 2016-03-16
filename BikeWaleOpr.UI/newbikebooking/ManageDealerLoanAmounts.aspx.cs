@@ -14,8 +14,8 @@ namespace BikeWaleOpr.NewBikeBooking
         protected Button btnSaveEMI, btnReset, btnDelete;
         protected TextBox txtMinPayment, txtMaxPayment, txtMinTenure, txtMaxTenure, txtMinROI, txtMaxROI, txtMinLtv, txtMaxLtv, textLoanProvider, txtFees;
         EmiLoanAmount loanAmount;
-        protected int _dealerId = 0;
-        protected uint _loanId = 0;
+        protected int dealerId = 0;
+        protected uint loanId = 0;
         protected string cwHostUrl = string.Empty;
         protected Label errorSummary, finishMessage;
         protected HiddenField hdnLoanAmountId;
@@ -26,9 +26,7 @@ namespace BikeWaleOpr.NewBikeBooking
         {
             this.Load += new EventHandler(Page_Load);
             btnSaveEMI.Click += new EventHandler(SaveLoanProperties);
-            //btnUpdateEMI.Click += new EventHandler(UpdateLoanProperties);
             btnReset.Click += new EventHandler(ResetFields);
-            //btnDelete.Click += new EventHandler(DeleteLoanProperty);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -36,12 +34,12 @@ namespace BikeWaleOpr.NewBikeBooking
             loanAmount = new EmiLoanAmount();
             if (Request.QueryString["dealerId"] != null)
             {
-                int.TryParse(Request.QueryString["dealerId"].ToString(), out _dealerId);
+                int.TryParse(Request.QueryString["dealerId"].ToString(), out dealerId);
             }
 
             if (!IsPostBack)
             {
-                if (_dealerId > 0)
+                if (dealerId > 0)
                 {
                     GetLoanProperties();
                 }
@@ -74,7 +72,7 @@ namespace BikeWaleOpr.NewBikeBooking
             {
                 cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
                 string _requestType = "application/json";
-                string _apiUrl = string.Format("api/Dealers/GetDealerLoanAmounts/?dealerId={0}",_dealerId);
+                string _apiUrl = string.Format("api/Dealers/GetDealerLoanAmounts/?dealerId={0}",dealerId);
                 // Send HTTP GET requests
                 loanAmount = await BWHttpClient.GetApiResponse<EmiLoanAmount>(cwHostUrl, _requestType, _apiUrl, loanAmount);
                 // populate already saved value
@@ -97,7 +95,7 @@ namespace BikeWaleOpr.NewBikeBooking
                     hdnLoanAmountId.Value = loanAmount.Id.ToString();
                     btnSaveEMI.Text = "Update EMI";
                     btnDelete.Visible = true;
-                    _loanId = loanAmount.Id;
+                    loanId = loanAmount.Id;
                 }
                 
             }
@@ -122,7 +120,7 @@ namespace BikeWaleOpr.NewBikeBooking
                 cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
                 string _requestType = "application/json";
                 string _apiUrl = string.Format("api/Dealers/SaveDealerEMI/?dealerId={0}&loanProvider={1}&userID={2}&minDownPayment={3}&maxDownPayment={4}&minTenure={5}&maxTenure={6}&minRateOfInterest={7}&maxRateOfInterest={8}&minLtv={9}&maxLtv={10}&processingFee={11}&id={12}",
-                    _dealerId,
+                    dealerId,
                    textLoanProvider.Text,
                    CurrentUser.Id,
                    txtMinPayment.Text,

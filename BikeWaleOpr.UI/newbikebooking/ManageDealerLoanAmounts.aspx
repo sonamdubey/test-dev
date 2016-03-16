@@ -189,7 +189,7 @@
             });
 
             function btnDelete_Click() {
-                var loanId = '<%=_loanId%>';
+                var loanId = '<%=loanId%>';
                 var host = '<%=cwHostUrl%>';
                 var acknowledge = confirm("Are you sure you want to delete this record");
                 if (acknowledge) {
