@@ -109,6 +109,7 @@
                         <td colspan="6" class="margin10">
                             <asp:Button ID="btnSaveEMI" runat="server" Text="Add EMI" />
                             <asp:Button ID="btnReset" Text="Reset" runat="server" />
+                            <asp:Button ID="btnDelete" OnClientClick="btnDelete_Click(); return false;" Visible="false" runat="server" Text="Delete EMI" />
                         </td>
                     </tr>
                 </table>
@@ -125,17 +126,23 @@
                     var isValid = true;
                     $('input[type="text"]').each(function () {
                         if ($.trim($(this).val()) == '') {
-                            isValid = false;                            $(this).addClass('redmsg');
-                        }                        else {
+                            isValid = false;
+                            $(this).addClass('redmsg');
+                        }
+                        else {
                             $(this).removeClass('redmsg');
                         }
-                    });                    if (isValid == false) {
+                    });
+
+                    if (isValid == false) {
                         $('#errorSummary').html('Please fill required fields');
                         return isValid;
-                    }                    else {
+                    }
+                    else {
                         $('input[data-name="perc"]').each(function () {
                             if (!validatePer($(this))) {
-                                isValid = false;                                $(this).addClass('redmsg');
+                                isValid = false;
+                                $(this).addClass('redmsg');
                             }
                             else {
                                 $(this).removeClass('redmsg');
@@ -180,6 +187,27 @@
             $('.numeric').on('input', function (event) {
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
+
+            function btnDelete_Click() {
+                var loanId = '<%=loanId%>';
+                var host = '<%=cwHostUrl%>';
+                var acknowledge = confirm("Are you sure you want to delete this record");
+                if (acknowledge) {
+                    $.ajax({
+                        type: "GET",
+                        url: host + "api/Dealers/DeleteDealerEMI/?id=" + loanId,
+                        success: function (response) {
+                            $('input[type="text"]').each(function () {
+                                $(this).val('');
+                            });
+                            $('#errorSummary').html('');
+                            $('#finishMessage').html('');
+                            $('#btnDelete').hide();
+                            $('#errorSummary').html('data has been deleted !');
+                        }
+                    });
+                }
+            }
         </script>
     </form>
 
