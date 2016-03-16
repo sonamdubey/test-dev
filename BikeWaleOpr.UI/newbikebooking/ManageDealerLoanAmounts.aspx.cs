@@ -11,10 +11,11 @@ namespace BikeWaleOpr.NewBikeBooking
 {
     public class ManageDealerLoanAmounts : System.Web.UI.Page
     {
-        protected Button btnSaveEMI, btnReset;
+        protected Button btnSaveEMI, btnReset, btnDelete;
         protected TextBox txtMinPayment, txtMaxPayment, txtMinTenure, txtMaxTenure, txtMinROI, txtMaxROI, txtMinLtv, txtMaxLtv, textLoanProvider, txtFees;
         EmiLoanAmount loanAmount;
         protected int _dealerId = 0;
+        protected uint _loanId = 0;
         protected string cwHostUrl = string.Empty;
         protected Label errorSummary, finishMessage;
         protected HiddenField hdnLoanAmountId;
@@ -27,6 +28,7 @@ namespace BikeWaleOpr.NewBikeBooking
             btnSaveEMI.Click += new EventHandler(SaveLoanProperties);
             //btnUpdateEMI.Click += new EventHandler(UpdateLoanProperties);
             btnReset.Click += new EventHandler(ResetFields);
+            //btnDelete.Click += new EventHandler(DeleteLoanProperty);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -54,6 +56,7 @@ namespace BikeWaleOpr.NewBikeBooking
         protected void ResetFields(object sender, EventArgs e)
         {
             ClearForm(Page.Form.Controls,true);
+            btnDelete.Visible = false;
         }
 
         #endregion
@@ -93,6 +96,8 @@ namespace BikeWaleOpr.NewBikeBooking
                     txtFees.Text = Convert.ToString(loanAmount.ProcessingFee);
                     hdnLoanAmountId.Value = loanAmount.Id.ToString();
                     btnSaveEMI.Text = "Update EMI";
+                    btnDelete.Visible = true;
+                    _loanId = loanAmount.Id;
                 }
                 
             }
@@ -135,6 +140,7 @@ namespace BikeWaleOpr.NewBikeBooking
                 status = BWHttpClient.PostSync<bool>(cwHostUrl, _requestType, _apiUrl, status);
                 if (status)
                     finishMessage.Text = "Data has been saved !";
+                btnDelete.Visible = true;
             }
             catch (Exception err)
             {
