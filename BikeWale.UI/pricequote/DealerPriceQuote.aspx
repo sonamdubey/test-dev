@@ -97,11 +97,10 @@
                                     <ul class="variants-dropdown-list">
                                         <asp:Repeater ID="rptVersion" runat="server">
                                             <ItemTemplate>
-                                                <%--<li>
-                                                    <input type="submit" value="<%#  DataBinder.Eval(Container.DataItem,"VersionName") %>" />
-                                                </li>--%>
                                                 <li>
-                                                    <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button>
+                                                    <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>'
+                                                         OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>'
+                                                         CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button>
                                                 </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -248,7 +247,7 @@
                                 <asp:Repeater ID="rptOffers" runat="server">
                                     <ItemTemplate>
                                         <li>
-                                            <span class="inline-block pq-benefits-image pricequote-sprite <%#  "offerIcon_" + DataBinder.Eval(Container.DataItem,"OfferId") %> margin-right10"></span>
+                                            <span class="inline-block pq-benefits-image pricequote-sprite <%#  "offericon_" + DataBinder.Eval(Container.DataItem,"OfferId") %> margin-right10"></span>
                                             <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"OfferText") %></span>
                                         </li>
                                     </ItemTemplate>
@@ -276,7 +275,7 @@
                                     <span class="bwsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
-                                <a class="btn btn-orange leftfloat" id="buyingAssistanceSubmitBtn">Submit</a>
+                                <a class="btn btn-orange leftfloat" id="buyingAssistanceSubmitBtn" data-bind="event: { click: submitLead }" >Submit</a>
                                 <div class="clear"></div>
                             </div>
                         </div>
@@ -290,8 +289,8 @@
                                 <asp:Repeater ID="rptUSPBenefits" runat="server">
                                     <ItemTemplate>
                                         <li>
-                                            <span class="inline-block pq-benefits-image pricequote-sprite <%#  "benifitsIcon_" + DataBinder.Eval(Container.DataItem,"OfferId") %> margin-right10"></span>
-                                            <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"OfferText") %></span>
+                                            <span class="inline-block pq-benefits-image pricequote-sprite <%#  "benifitsicon_" + DataBinder.Eval(Container.DataItem,"BenefitId") %> margin-right10"></span>
+                                            <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"benefitText") %></span>
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>
@@ -483,14 +482,15 @@
                               { %>
                             <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
                                 <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealerCount %> more dealers:</p>
-                                <ul>
+                                <ul id="dealerList" >
                                     <asp:Repeater ID="rptDealers" runat="server">
                                         <ItemTemplate>
-                                            <li>
+                                            <li dealerId="<%# DataBinder.Eval(Container.DataItem,"dealerId") %>" >
                                                 <p class="font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></p>
                                                 <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
                                             </li>
                                         </ItemTemplate>
+                                        <%--<asp:HiddenField id="hdnDealerId" runat="server" />--%>
                                     </asp:Repeater>
                                 </ul>
                             </div>
@@ -723,7 +723,7 @@
             var otpContainer = $(".mobile-verification-container");
 
 
-            var detailsSubmitBtn = $("#user-details-submit-btn,#buyingAssistanceSubmitBtn");
+            var detailsSubmitBtn = $("#user-details-submit-btn, #buyingAssistanceSubmitBtn");
             var otpText = $("#getOTP");
             var otpBtn = $("#otp-submit-btn");
 
@@ -814,6 +814,8 @@
                         });
                     }
                 };
+                
+                
                 self.generateOTP = function () {
                     if (!self.IsVerified()) {
                         var objCust = {
@@ -1192,6 +1194,15 @@
                 $('#hdnVariant').val($(this).attr('title'));
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
             });
+
+            $("input[name*='switchDealer']").on("click", function () {
+                if ($(this).attr('dealerId') == $('#hdnDealerId').val()) {
+                    return false;
+                }
+                $('#hdnDealerId').val($(this).attr('title'));
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
+            });
+
             ko.bindingHandlers.googlemap = {
                 update: function (element, valueAccessor) {
                     console.log("map callled" );
@@ -1215,6 +1226,45 @@
                     });
                 }
             };
+            $("#dealerList li").click(function(){
+                registerPQ($(this).attr('dealerId'));
+            });
+
+            function registerPQ(secondaryDealerId) {
+                var obj = {
+                    'CityId': cityId,
+                    'AreaId': areaId,
+                    'ClientIP': clientIP,
+                    'SourceType': <%=Bikewale.Utility.BWConfiguration.Instance.SourceId%>,
+                    'VersionId': versionId,
+                    'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
+                    'deviceId': getCookie('BWC'),
+                    'dealerId': secondaryDealerId
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: "/api/RegisterPQ/",
+                    data: obj,
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('utma', getCookie('__utma'));
+                        xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                    },
+                    success: function (json) {
+                        var jsonObj = json;                                               
+                         if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
+                             cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + versionId + "&DealerId=" + secondaryDealerId;
+                            window.location = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
+                        }
+                         else {
+                             window.location = "/pricequote/";
+                        }
+                    },
+                    error: function (e) {
+                        window.location = "/pricequote/";
+                    }
+                });
+            }
         </script>
     </form>
 </body>
