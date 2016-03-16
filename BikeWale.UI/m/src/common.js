@@ -1194,6 +1194,9 @@ var appendHash = function (state) {
         case "emiPopup":
             window.location.hash = state;
             break;
+        case "assistancePopup":
+            window.location.hash = state;
+            break;
         default:
             return true;
     }
@@ -1231,6 +1234,9 @@ var closePopUp = function (state) {
             break;
         case "emiPopup":
             emiPopupClose($('#emiPopup'));
+            break;
+        case "assistancePopup":
+            assistancePopupClose($('#leadCapturePopup'));
             break;
         default:
             return true;
