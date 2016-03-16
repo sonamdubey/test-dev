@@ -8,8 +8,8 @@
 <html>
 <head>
     <%
-        title = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " Price Quote ";
-        description = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " price quote";
+        title = makeName + " " + modelName + " " + versionName + " Price Quote ";
+        description = makeName + " " + modelName + " " + versionName + " price quote";
         keywords = "";
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_PQ_";
@@ -65,7 +65,7 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="font26 text-default margin-bottom10">On-road price quote for Bike in Area, City</h1>
+                    <h1 class="font26 text-default margin-bottom10">On-road price quote for <%= BikeName %> in <%= GetLocationCookie() %></h1>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
@@ -77,10 +77,10 @@
                 <div class="content-box-shadow rounded-corner2">
                     <div id="pqBikeDetails" class="grid-8 alpha omega">
                         <div class="grid-6 padding-bottom20" id="PQImageVariantContainer">
-                            <% if (objPrice != null)
+                            <% if (detailedDealer != null)
                                { %>
                             <div class="pqBikeImage margin-bottom15">
-                                <img alt="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPrice.OriginalImagePath,objPrice.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName%> Photos" />
+                                <img alt="<%= makeName + " " + modelName + " " + versionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="<%= makeName + " " + modelName + " " + versionName%> Photos" />
                             </div>
                             <% } %>
                             <% if (versionList.Count > 1)
@@ -90,15 +90,22 @@
                                 <div class="position-rel">
                                     <div class="variants-dropdown rounded-corner2 leftfloat">
                                         <div class="variant-selection-tab">
-                                            <span id="defaultVariant">Variant 1</span>
+                                            <asp:Label runat="server" ID="defaultVariant"></asp:Label>
                                         </div>
                                         <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
                                     </div>
                                     <ul class="variants-dropdown-list">
-                                        <li>
-                                            <input type="submit" value="Variant 1" /></li>
-                                        <li>
-                                            <input type="submit" value="Variant 2 Variant 2 Variant 2 Variant 2" /></li>
+                                        <asp:Repeater ID="rptVersion" runat="server">
+                                            <ItemTemplate>
+                                                <%--<li>
+                                                    <input type="submit" value="<%#  DataBinder.Eval(Container.DataItem,"VersionName") %>" />
+                                                </li>--%>
+                                                <li>
+                                                    <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button>
+                                                </li>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                        <asp:HiddenField ID="hdnVariant" Value='<%#Eval("VersionId") %>' runat="server" />
                                     </ul>
                                 </div>
                                 <%--<div class="form-control-box leftfloat">
@@ -108,17 +115,17 @@
                             <% } %>
                         </div>
                         <div class="grid-6 padding-top15 padding-bottom20 padding-right20" id="PQDetailsContainer">
-                            <% if (objPrice != null)
+                            <% if (detailedDealer != null)
                                { %>
-                            <%--<p class="font20 text-bold margin-bottom20"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " +objPrice.objVersion.VersionName%></p>--%>
+                            <%--<p class="font20 text-bold margin-bottom20"><%= makeName + " " + modelName + " " +versionName%></p>--%>
                             <% } %>
                             <% if (!String.IsNullOrEmpty(cityArea))
                                { %>
-                            <p class="font14 text-default text-bold margin-bottom15">On-road price - Dealership Name</p>
+                            <p class="font14 text-default text-bold margin-bottom15">On-road price - <%= dealerShipName %></p>
                             <% } %>
                             <div runat="server">
                                 <div>
-                                    <% if (objPrice != null)
+                                    <% if (detailedDealer != null)
                                        { %>
                                     <table class="font14" cellspacing="0" cellpadding="0" width="100%" border="0">
                                         <asp:Repeater ID="rptPriceList" runat="server">
@@ -142,6 +149,7 @@
                                            if (IsDiscount)//if (IsInsuranceFree)
                                            {
                                         %>
+                                        <%--<tr>
                                         <tr>
                                             <td class="PQDetailsTableTitle padding-bottom10">On-road price</td>
                                             <td align="right" class="PQDetailsTableAmount padding-bottom10">
@@ -172,9 +180,9 @@
                                             </td>
                                         </tr>
                                         <%
-                                       }
-                                       else
-                                       {
+                                           }
+                                           else
+                                           {
                                         %>
                                         <tr>
                                             <td class="PQDetailsTableTitle font14 text-black PQOnRoadPrice">Total on-road price</td>
@@ -215,40 +223,39 @@
                             <div id="div_ShowErrorMsg" runat="server" class="grey-bg border-light content-block text-highlight margin-top15"></div>
                         </div>
                         <div class="clear"></div>
+                        <%if (isoffer && (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
+                          { %>
                         <div class="grid-12 padding-right20 padding-bottom10 padding-left20 font14">
                             <p class="text-bold padding-top20 margin-bottom5 border-light-top">Exclusive offers from this dealer:</p>
                             <ul class="pricequote-benefits-list text-light-grey">
-                                <li>
-                                    <span class="inline-block pq-benefits-image pricequote-sprite offers-insurance-icon margin-right10"></span>
-                                    <span class="inline-block pq-benefits-title">Free bike insurance</span>
-                                </li>
-                                <li>
-                                    <span class="inline-block pq-benefits-image pricequote-sprite offers-voucher-icon margin-right10"></span>
-                                    <span class="inline-block pq-benefits-title">Flipkart voucher worth <span class="fa fa-rupee"></span>1,000</span>
-                                </li>
-                                <li>
-                                    <span class="inline-block pq-benefits-image pricequote-sprite offers-pickup-icon margin-right10"></span>
-                                    <span class="inline-block pq-benefits-title">Document pickup and bike delivery</span>
-                                </li>
+                                <asp:Repeater ID="rptOffers" runat="server">
+                                    <ItemTemplate>
+                                        <li>
+                                            <span class="inline-block pq-benefits-image pricequote-sprite <%#  "offerIcon_" + DataBinder.Eval(Container.DataItem,"OfferId") %> margin-right10"></span>
+                                            <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"OfferText") %></span>
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                             </ul>
                             <div class="clear"></div>
                         </div>
                         <div class="clear"></div>
+                        <% } %>
                         <div class="grid-12 bg-light-grey content-inner-block-20">
                             <p class="font14 text-bold margin-bottom20">Get buying assistance from this dealer:</p>
                             <div class="buying-assistance-form">
                                 <div class="form-control-box margin-right10">
-                                    <input type="text" class="form-control" placeholder="Name" id="assistanceGetName">
+                                    <input type="text" class="form-control" placeholder="Name" id="assistanceGetName" data-bind="value: fullName">
                                     <span class="bwsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
                                 <div class="form-control-box margin-right10">
-                                    <input type="text" class="form-control" placeholder="Email id" id="assistanceGetEmail">
+                                    <input type="text" class="form-control" placeholder="Email id" id="assistanceGetEmail" data-bind="value: emailId">
                                     <span class="bwsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
                                 <div class="form-control-box margin-right10 assistance-form-mobile">
-                                    <input type="text" class="form-control" placeholder="Number" id="assistanceGetMobile">
+                                    <input type="text" class="form-control" placeholder="Number" id="assistanceGetMobile" data-bind="value: mobileNo">
                                     <span class="bwsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
@@ -257,27 +264,29 @@
                             </div>
                         </div>
                         <div class="clear"></div>
+
+                        <%if (isUSPBenfits && dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+                          { %>
                         <div class="grid-12 padding-top20 padding-right20 padding-bottom5 padding-left20 font14">
                             <p class="text-bold margin-bottom5">Benefits of buying a bike from this dealer:</p>
                             <ul class="pricequote-benefits-list text-light-grey">
-                                <li>
-                                    <span class="inline-block pq-benefits-image pricequote-sprite benefit-offers-icon margin-right10"></span>
-                                    <span class="inline-block pq-benefits-title">Exclusive offers</span>
-                                </li>
-                                <li>
-                                    <span class="inline-block pq-benefits-image pricequote-sprite benefit-assistance-icon margin-right10"></span>
-                                    <span class="inline-block pq-benefits-title">Complete buying assistance</span>
-                                </li>
-                                <li>
-                                    <span class="inline-block pq-benefits-image pricequote-sprite benefit-cancel-icon margin-right10"></span>
-                                    <span class="inline-block pq-benefits-title">Easy cancellations</span>
-                                </li>
+                                <asp:Repeater ID="rptUSPBenefits" runat="server">
+                                    <ItemTemplate>
+                                        <li>
+                                            <span class="inline-block pq-benefits-image pricequote-sprite <%#  "benifitsIcon_" + DataBinder.Eval(Container.DataItem,"OfferId") %> margin-right10"></span>
+                                            <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"OfferText") %></span>
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                             </ul>
                             <div class="clear"></div>
                         </div>
                         <div class="clear"></div>
+                        <%} %>
+                        <%if (bookingAmount > 0)
+                          { %>
                         <div class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
-                            <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="fa fa-rupee"></span>5,000 online and book this bike:</p>
+                            <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="fa fa-rupee"></span><%= bookingAmount %> online and book this bike:</p>
                             <ul class="pricequote-benefits-list pq-benefits-booking-list text-light-grey">
                                 <li>
                                     <p>Save on dealer visits</p>
@@ -292,16 +301,17 @@
                             <div class="clear"></div>
                             <div class="grid-12 alpha omega margin-top10">
                                 <div class="grid-9 alpha">
-                                    <p class="font14 text-light-grey">The booking amount of <span class="fa fa-rupee"></span>5,000 has to be paid online and balance amount of <span class="fa fa-rupee"></span>1,21,000 has to be paid at the dealership.</p>
+                                    <p class="font14 text-light-grey">The booking amount of <span class="fa fa-rupee"></span><%= bookingAmount %> has to be paid online and balance amount of <span class="fa fa-rupee"></span><%= totalPrice - bookingAmount  %> has to be paid at the dealership.</p>
                                 </div>
                                 <div class="grid-3 omega text-right">
-                                    <a class="btn btn-grey btn-sm font14">Book now</a>
+                                    <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey btn-sm font14">Book now</a>
                                 </div>
                                 <div class="clear"></div>
                             </div>
                             <div class="clear"></div>
                         </div>
                         <div class="clear"></div>
+                        <%} %>
 
                         <div id="EMISection" data-bind="visible: true" style="display: none" class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
                             <p class="text-bold padding-top20 margin-bottom15 border-light-top">Get EMI quote from this dealer:</p>
@@ -432,32 +442,45 @@
                     <div class="grid-4 padding-top20" id="PQDealerSidebarContainer">
                         <div class="pqdealer-and-listing-container">
                             <div class="pqdealer-sidebar-panel position-rel">
-                                <p class="font18 text-bold text-darker-black">Dealership Name</p>
-                                <p class="font14 text-light-grey margin-bottom15">Area</p>
+                                <p class="font18 text-bold text-darker-black"><%= dealerShipName %></p>
+                                <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
+                                      { %>
+                                <p class="font14 text-light-grey margin-bottom15"><%= dealerarea %></p>
+                                <%} %>
                                 <div class="border-solid-top padding-top15">
-                                    <p class="font14 text-light-grey margin-bottom10">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</p>
-                                    <p class="font16 text-bold margin-bottom15"><span class="fa fa-phone"></span>022-6667 8888</p>
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30165.66210531427!2d72.98105033863713!3d19.076582232598167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b519107b%3A0x8452b99754be0fc8!2sVashi%2C+Navi+Mumbai%2C+Maharashtra+400703!5e0!3m2!1sen!2sin!4v1457345328664" frameborder="0" width="100%" height="90" style="border: 1px solid #e2e2e2"></iframe>
-                                    <a class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
+                                    <p class="font14 text-light-grey margin-bottom10"><%= dealerAdd %></p>
+                                    <% if(string.IsNullOrEmpty( maskingNum )) { %>
+                                        <p class="font16 text-bold margin-bottom15"><span class="fa fa-phone"></span> <%= maskingNum %></p>
+                                    <%} %>
+                                    <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+                                      { %>
+                                        <%--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30165.66210531427!2d72.98105033863713!3d19.076582232598167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b519107b%3A0x8452b99754be0fc8!2sVashi%2C+Navi+Mumbai%2C+Maharashtra+400703!5e0!3m2!1sen!2sin!4v1457345328664"
+                                            frameborder="0" width="100%" height="90" style="border: 1px solid #e2e2e2"></iframe>--%>
+                                        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+                                        <div style="border: 1px solid #e2e2e2" data-bind="googlemap: { latitude: <%= latitude %>    , longitude: <%=longitude%>}"></div>
+                                    <% } %>
+                                    <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
+                                      { %>
+                                        <a id="leadBtn" class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
+                                    <% } %>
                                 </div>
                             </div>
+                            <%if (detailedDealer.SecondaryDealerCount > 0)
+                              { %>
                             <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
-                                <p class="padding-bottom15">Prices available from 27 more dealers:</p>
+                                <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealerCount %> more dealers:</p>
                                 <ul>
-                                    <li>
-                                        <p class="font18 text-darker-black text-bold">Dealership 1</p>
-                                        <p class="font14 text-light-grey">Area</p>
-                                    </li>
-                                    <li>
-                                        <p class="font18 text-darker-black text-bold">Dealership 2</p>
-                                        <p class="font14 text-light-grey">Area</p>
-                                    </li>
-                                    <li>
-                                        <p class="font18 text-darker-black text-bold">Dealership 3</p>
-                                        <p class="font14 text-light-grey">Area</p>
-                                    </li>
+                                    <asp:Repeater ID="rptDealers" runat="server">
+                                        <ItemTemplate>
+                                            <li>
+                                                <p class="font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></p>
+                                                <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
                                 </ul>
                             </div>
+                            <% } %>
                         </div>
                         <!--
                         <div id="toggleDealerList" class="text-center margin-top20">
@@ -675,19 +698,19 @@
             var freeInsurance = $("img.insurance-free-icon");
             if (!freeInsurance.length) {
                 cityArea = GetGlobalCityArea();
-                $("table tr td.PQDetailsTableTitle:contains('Insurance')").first().append(" <br/><div style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objPrice.objMake.MakeName,objPrice.objModel.ModelName,objPrice.objVersion.VersionName)%>" + cityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
+                $("table tr td.PQDetailsTableTitle:contains('Insurance')").first().append(" <br/><div style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",makeName,modelName,versionName)%>" + cityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
             }
 
             // JavaScript Document
 
-            var leadBtnBookNow = $("#leadBtnBookNow,#leadLink"), leadCapturePopup = $("#leadCapturePopup");
-            var fullName = $("#getFullName");
-            var emailid = $("#getEmailID");
-            var mobile = $("#getMobile");
+            var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#leadBtn"), leadCapturePopup = $("#leadCapturePopup");
+            var fullName = $("#getFullName, #assistanceGetName");
+            var emailid = $("#getEmailID,#assistanceGetEmail");
+            var mobile = $("#getMobile,#assistanceGetMobile");
             var otpContainer = $(".mobile-verification-container");
 
 
-            var detailsSubmitBtn = $("#user-details-submit-btn");
+            var detailsSubmitBtn = $("#user-details-submit-btn,#buyingAssistanceSubmitBtn");
             var otpText = $("#getOTP");
             var otpBtn = $("#otp-submit-btn");
 
@@ -1148,7 +1171,36 @@
             });
 
 
+            $("input[name*='btnVariant']").on("click", function () {
+                if ($(this).attr('versionid') == $('#hdnVariant').val()) {
+                    return false;
+                }
+                $('#hdnVariant').val($(this).attr('title'));
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
+            });
+            ko.bindingHandlers.googlemap = {
+                update: function (element, valueAccessor) {
+                    console.log("map callled" );
+                    latLng = new google.maps.LatLng(<%= latitude %>, <%= longitude%>),
+                    mapOptions = {
+                        zoom: 13,
+                        center: latLng,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    },
+                    map = new google.maps.Map(element, mapOptions),
+                    marker = new google.maps.Marker({
+                        title: "Dealer's Location",
+                        position: latLng,
+                        map: map,
+                        animation: google.maps.Animation.DROP
+                    });
 
+                    google.maps.event.addListenerOnce(map, 'idle', function () {
+                        
+                        viewModel.IsMapLoaded = true;
+                    });
+                }
+            };
         </script>
 
         <script type="text/javascript">
