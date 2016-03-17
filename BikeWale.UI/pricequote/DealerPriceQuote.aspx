@@ -516,7 +516,7 @@
                                 <p class="font14 text-light-grey margin-bottom15"><%= dealerArea %></p>
                                 <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard || !String.IsNullOrEmpty(maskingNum))
                                    { %>
-                                <div class="border-solid-top padding-top15">
+                                    <div class="border-solid-top padding-top15">
                                     <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
                                       { %>
                                     <p class="font14 text-light-grey margin-bottom10"><%= dealerAddress %></p>
@@ -556,7 +556,7 @@
                                     <% } %>
                                 </div>
                                 <% } %>
-                            </div>
+                                </div>
                             <%} %>
                             <%else { %>
                                  <div class="pq-no-premium-dealer font14 text-light-grey">Sorry, there are no dealers nearby</div>
