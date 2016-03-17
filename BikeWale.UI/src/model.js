@@ -379,7 +379,6 @@ $("#getMobile, #assistGetMobile").on("focus", function () {
 });
 
 emailid.on("blur", function () {
-alert(1)
     if (prevEmail != emailid.val().trim()) {
         if (validateEmail(emailid)) {
             customerViewModel.IsVerified(false);
