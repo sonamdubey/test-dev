@@ -109,7 +109,7 @@ namespace Bikewale.PriceQuote
                 {
                     mmv.GetVersionDetails(versionId.ToString());
                     //imgPath = ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + mmv.LargePic, mmv.HostUrl);
-                    imgPath = Bikewale.Utility.Image.GetPathToShowImages(mmv.OriginalImagePath, mmv.HostUrl, Bikewale.Utility.ImageSize._210x118);
+                    imgPath = Bikewale.Utility.Image.GetPathToShowImages(mmv.OriginalImagePath, mmv.HostUrl, Bikewale.Utility.ImageSize._310x174);
 
                     ucLocateDealer.Make = mmv.MakeId + '_' + mmv.MakeMappingName;
 

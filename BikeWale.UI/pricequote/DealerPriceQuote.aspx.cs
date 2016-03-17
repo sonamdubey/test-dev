@@ -191,8 +191,7 @@ namespace Bikewale.BikeBooking
                                 Response.Redirect("/pricequote/quotation.aspx", false);
                             }
 
-                            //set primary dealer Detail
-                            primarydealer.DealerDetails = null;
+                            
                             if (primarydealer.DealerDetails != null)
                             {
                                 NewBikeDealers dealerDetails = primarydealer.DealerDetails;
@@ -202,7 +201,7 @@ namespace Bikewale.BikeBooking
                                 maskingNum = dealerDetails.MaskingNumber;
                                 latitude = dealerDetails.objArea.Latitude;
                                 longitude = dealerDetails.objArea.Longitude;
-                                dealerType = DealerPackageTypes.Deluxe;
+                                dealerType = DealerPackageTypes.Premium;
                             }
 
                             //bind Offer
