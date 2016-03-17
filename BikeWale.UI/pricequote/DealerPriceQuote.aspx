@@ -204,7 +204,6 @@
                         <%if (primarydealer.DealerDetails != null)//Hide from lead capture form to EMI Section
                           { %>
                         <div id="dealerAssistance">
-
                         <!--Lead capture form-->
                         <div class="grid-12 bg-light-grey content-inner-block-20">
                             <div id="buying-assistance-form">
@@ -221,7 +220,8 @@
                                         <div class="bw-blackbg-tooltip errorText"></div>
                                     </div>
                                     <div class="form-control-box margin-right10 assistance-form-mobile">
-                                        <input type="text" class="form-control" placeholder="Number" id="assistanceGetMobile" data-bind="textInput: mobileNo">
+                                    <p class="mobile-prefix">+91</p>
+                                    <input type="text" class="form-control padding-left40" maxlength="10" placeholder="Number" id="assistanceGetMobile" data-bind="textInput: mobileNo">
                                         <span class="bwsprite error-icon errorIcon"></span>
                                         <div class="bw-blackbg-tooltip errorText"></div>
                                     </div>
@@ -506,78 +506,79 @@
                                         <div class="clear"></div>
                                     </div>
                                     <div class="grid-4 omega text-right">
-                                        <a class="btn btn-grey btn-md font14">Get EMI quote</a>
+                                        <a id="btnEmiQuote"class="btn btn-grey btn-md font14">Get EMI quote</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                             </div>
                         </div>
-
-
                         <!-- EMI section ends  -->
                         <% } %>
 
                         <% } %>
                         <div class="clear"></div>
+                        <%} %>
+                        <div class="clear"></div>
                         <p id="disclaimerText" class="margin-top15 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span>On-road price and EMI calculator is provided for information. BikeWale does not own any responsibility for the same.</p>
                     </div>
-                        <%} %>
 
                     <!--Primary Dealer Section-->
                     <div class="grid-4 padding-top20 <%= primarydealer.DealerDetails != null ? "dealer-pointer" : "" %> " id="PQDealerSidebarContainer">
                         <div class="pqdealer-and-listing-container">
+                            <div class="pqdealer-sidebar-panel position-rel">
                             <%if (primarydealer.DealerDetails != null)
                               { %>
-                            <div class="pqdealer-sidebar-panel position-rel">
-                                <p class="font18 text-bold text-darker-black"><%= dealerName %></p>
-                                <p class="font14 text-light-grey margin-bottom15"><%= dealerArea %></p>
-                                <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard || !String.IsNullOrEmpty(maskingNum))
-                                   { %>
-                                <div class="border-solid-top padding-top15">
-                                    <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
-                                      { %>
-                                    <p class="font14 text-light-grey margin-bottom10"><%= dealerAddress %></p>
-                                    <%} %>
-                                    <% if (!string.IsNullOrEmpty(maskingNum))
+                                <div>
+                                    <p class="font18 text-bold text-darker-black"><%= dealerName %></p>
+                                    <p class="font14 text-light-grey margin-bottom15"><%= dealerArea %></p>
+                                    <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard || !String.IsNullOrEmpty(maskingNum))
                                        { %>
-                                    <p class="font16 text-bold margin-bottom15"><span class="fa fa-phone"></span>&nbsp;<%= maskingNum %></p>
-                                    <%} %>
-                                    <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
-                                      { %>
-                                    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
-                                    <div id="dealerMap" style="height: 100px; position: relative; text-align: center">
-                                        <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+                                    <div class="border-solid-top padding-top15">
+                                        <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
+                                          { %>
+                                        <p class="font14 text-light-grey margin-bottom10"><%= dealerAddress %></p>
+                                        <%} %>
+                                        <% if (!string.IsNullOrEmpty(maskingNum))
+                                           { %>
+                                        <p class="font16 text-bold"><span class="fa fa-phone"></span>&nbsp;<%= maskingNum %></p>
+                                        <%} %>
+                                        <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+                                          { %>
+                                        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+                                        <div id="dealerMap" class=" margin-top15" style="height: 100px; position: relative; text-align: center">
+                                            <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+                                        </div>
+                                        <script type="text/javascript">
+                                            function initializeDealerMap(element,latitude,longitude) {
+                                                latLng = new google.maps.LatLng(latitude, longitude),
+                                                mapOptions = {
+                                                    zoom: 13,
+                                                    center: latLng,
+                                                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                                                },
+                                                map = new google.maps.Map(element, mapOptions),
+                                                marker = new google.maps.Marker({
+                                                    title: "Dealer's Location",
+                                                    position: latLng,
+                                                    map: map,
+                                                    animation: google.maps.Animation.DROP
+                                                });
+                                            }
+                                            google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0],<%= latitude %>,<%= longitude %>));
+                                        </script>
+                                        <% } %>
+                                        <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
+                                          { %>
+                                        <a id="leadBtn" class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
+                                        <% } %>
                                     </div>
-                                    <script type="text/javascript">
-                                        function initializeDealerMap(element,latitude,longitude) {
-                                            latLng = new google.maps.LatLng(latitude, longitude),
-                                            mapOptions = {
-                                                zoom: 13,
-                                                center: latLng,
-                                                mapTypeId: google.maps.MapTypeId.ROADMAP
-                                            },
-                                            map = new google.maps.Map(element, mapOptions),
-                                            marker = new google.maps.Marker({
-                                                title: "Dealer's Location",
-                                                position: latLng,
-                                                map: map,
-                                                animation: google.maps.Animation.DROP
-                                            });
-                                        }
-                                        google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0],<%= latitude %>,<%= longitude %>));
-                                    </script>
-                                    <% } %>
-                                    <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
-                                      { %>
-                                    <a id="leadBtn" class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
                                     <% } %>
                                 </div>
-                                <% } %>
-                            </div>
                             <%} %>
                             <%else { %>
                                  <div class="pq-no-premium-dealer font14 text-light-grey">Sorry, there are no dealers nearby</div>
                             <%} %>
+                            </div>
                             <%if (detailedDealer != null && detailedDealer.SecondaryDealerCount > 0)
                               { %>
                             <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
@@ -709,7 +710,7 @@
         </div>
         <!-- Terms and condition Popup Ends -->
 
-        <!-- #include file="/includes/footerBW.aspx" -->
+        
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
             var bikeName = "<%= BikeName %>";
@@ -728,7 +729,7 @@
 
             // JavaScript Document
 
-            var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#leadBtn"), leadCapturePopup = $("#leadCapturePopup");
+            var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#leadBtn,#btnEmiQuote"), leadCapturePopup = $("#leadCapturePopup");
             var fullName = $("#getFullName, #assistanceGetName");
             var emailid = $("#getEmailID,#assistanceGetEmail");
             var mobile = $("#getMobile,#assistanceGetMobile");
@@ -1382,7 +1383,7 @@
         </script>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
-
+        <!-- #include file="/includes/footerBW.aspx" -->
     </form>
 </body>
 </html>
