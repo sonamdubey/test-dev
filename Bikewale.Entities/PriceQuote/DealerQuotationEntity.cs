@@ -16,7 +16,7 @@ namespace Bikewale.Entities.PriceQuote
     public class DealerQuotationEntity
     {
         [JsonProperty("isBookingAvailable")]
-        public bool IsBookingAvailable { get; set; } 
+        public bool IsBookingAvailable { get; set; }
 
         [JsonProperty("bookingAmount")]
         public uint BookingAmount { get; set; }

@@ -198,6 +198,7 @@
     <Compile Include="PriceQuote\BookingPageDetailsEntity.cs" />
     <Compile Include="PriceQuote\DealerDetails.cs" />
     <Compile Include="PriceQuote\DealerOfferEntity.cs" />
+    <Compile Include="PriceQuote\DealerPackageTypes.cs" />
     <Compile Include="PriceQuote\DealerPriceCategoryItemEntity.cs" />
     <Compile Include="PriceQuote\DealerQuotationEntity.cs" />
     <Compile Include="PriceQuote\DealerVersionPriceItemEntity.cs" />

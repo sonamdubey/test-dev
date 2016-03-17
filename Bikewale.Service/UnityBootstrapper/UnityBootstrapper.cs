@@ -108,6 +108,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBookingListing, BookingListingRepository>();
             container.RegisterType<IOffer, OfferRepository>();
             container.RegisterType<IDeepLinking, DeepLinking>();
+            container.RegisterType<Bikewale.Interfaces.PriceQuote.IDealerPriceQuoteDetail, Bikewale.BAL.PriceQuote.DealerPriceQuoteDetail>();
             return container;
         }
     }
