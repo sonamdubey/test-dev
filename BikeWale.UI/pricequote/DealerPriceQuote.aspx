@@ -116,6 +116,7 @@
                             </div>
 
                         </div>
+                        <!--Price List Section-->
                         <div class="grid-6 padding-top15 padding-bottom20 padding-right20" id="PQDetailsContainer">
                             <% if (detailedDealer != null)
                                { %>
@@ -224,6 +225,7 @@
                             <div id="div_ShowErrorMsg" runat="server" class="grey-bg border-light content-block text-highlight margin-top15"></div>
                         </div>
                         <div class="clear"></div>
+                        <!--offer List Section-->
                         <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && isoffer)
                           { %>
                         <div class="grid-12 padding-right20 padding-bottom10 padding-left20 font14">
@@ -242,6 +244,10 @@
                         </div>
                         <div class="clear"></div>
                         <% } %>
+
+                        <%if (primarydealer.DealerDetails != null)//Hide from lead capture form to EMI Section
+                          { %>
+                        <!--Lead capture form-->
                         <div class="grid-12 bg-light-grey content-inner-block-20">
                             <p class="font14 text-bold margin-bottom20">Get buying assistance from this dealer:</p>
                             <div class="buying-assistance-form">
@@ -454,8 +460,13 @@
                           <div class="clear"></div>
                          <p id="disclaimerText" class="margin-top15 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span> On-road price and EMI calculator is provided for information. BikeWale does not own any responsibility for the same.</p>
                     </div>
-                    <div class="grid-4 padding-top20" id="PQDealerSidebarContainer">
+                        <%} %>
+
+                    <!--Primary Dealer Section-->
+                    <div class="grid-4 padding-top20 <%= primarydealer.DealerDetails != null ? "dealer-pointer" : "" %> " id="PQDealerSidebarContainer">
                         <div class="pqdealer-and-listing-container">
+                            <%if (primarydealer.DealerDetails != null)
+                              { %>
                             <div class="pqdealer-sidebar-panel position-rel">
                                 <p class="font18 text-bold text-darker-black"><%= dealerName %></p>   
                                 <p class="font14 text-light-grey margin-bottom15"><%= dealerArea %></p>
@@ -492,7 +503,6 @@
                                             });
 
                                             google.maps.event.addListenerOnce(map, 'idle', function () {
-                                                console.log("map loaded");
                                             });
                                         }
                                         google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0],<%= latitude %>,<%= longitude %>));
@@ -505,6 +515,10 @@
                                 </div>
                                 <% } %>
                             </div>
+                            <%} %>
+                            <%else { %>
+                                 <div class="pq-no-premium-dealer font14 text-light-grey">Sorry, there are no dealers nearby</div>
+                            <%} %>
                             <%if (detailedDealer!=null && detailedDealer.SecondaryDealerCount > 0)
                               { %>
                             <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
@@ -1232,7 +1246,6 @@
                 init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
                     var options = allBindingsAccessor().sliderOptions || {};
                     $("#" + element.id).slider(options);
-                    // console.log((element.id) + "   options "); console.log(options);
                     ko.utils.registerEventHandler("#" + element.id, "slide", function (event, ui) {
                         var observable = valueAccessor();
                         observable(ui.value);
@@ -1241,11 +1254,9 @@
                 update: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
                     var options = allBindingsAccessor().sliderOptions || {};
                     $("#" + element.id).slider(options);
-                    // console.log((element.id) + "   options : "); console.log(options);
                     var value = ko.utils.unwrapObservable(valueAccessor());
                     if (isNaN(value)) value = 0;
                     $("#" + element.id).slider("value", value);
-                    // console.log((element.id) + "   value : " + value);
                 }
             };
 
@@ -1267,7 +1278,6 @@
                 self.rateofinterest = ko.observable(14);
                 self.downPayment = ko.pureComputed({
                     read: function () {
-                        console.log("Loan : " + self.loan() + " exshowroom  : " + self.exshowroomprice());
                         if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
                             self.loan($.LoanAmount(self.exshowroomprice(), 70));
                         return (($.LoanAmount(self.exshowroomprice(), 100)) - self.loan());
@@ -1305,7 +1315,6 @@
                     finalEmi = Math.ceil((totalRepay / tenure) + proFees);
                 }
                 catch (e) {
-                    // console.log(e.message);
                 }
                 return formatPrice(finalEmi);
             };
@@ -1317,7 +1326,6 @@
                     price = Math.ceil(price / 100.0) * 100;
                 }
                 catch (e) {
-                    //console.log(e.message);
                 }
                 return price;
             };
