@@ -266,7 +266,7 @@
             <div class="grid-12 float-button float-fixed">
                  <%if (!string.IsNullOrEmpty(maskingNum)){ %>
                      <div class="grid-5 alpha">
-                        <a id="calldealer" class="btn btn-grey btn-full-width btn-sm rightfloat" href="tel:+91<%= maskingNum %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
+                        <a id="calldealer" class="btn btn-grey btn-full-width btn-sm rightfloat" href="tel:<%= maskingNum %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                     </div> 
                 <%} %>
                  <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-7 omega" : "" %>">
