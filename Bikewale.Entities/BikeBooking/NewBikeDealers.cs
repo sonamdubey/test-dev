@@ -47,9 +47,6 @@ namespace Bikewale.Entities.BikeBooking
 
         public AreaEntityBase objArea { get; set; }
 
-        [JsonProperty("maskingNumber")]
-        public string MaskingNumber { get; set; }
-
         [JsonProperty("dealerPackageType")]
         public DealerPackageTypes DealerPackageType { get; set; }
     }   //End of Class

@@ -140,11 +140,11 @@ namespace Bikewale.Mobile.BikeBooking
                             isPriceAvailable = true;
                         }
 
-                        if (objResponse.Disclaimer != null && objResponse.Disclaimer.Count > 0)
-                        {
-                            rptDisclaimer.DataSource = objResponse.Disclaimer;
-                            rptDisclaimer.DataBind();
-                        }
+                        //if (objResponse.Disclaimer != null && objResponse.Disclaimer.Count > 0)
+                        //{
+                        //    rptDisclaimer.DataSource = objResponse.Disclaimer;
+                        //    rptDisclaimer.DataBind();
+                        //}
 
                         if (objResponse.PrimaryDealer != null)
                         {
