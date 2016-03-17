@@ -99,13 +99,13 @@
                                         <asp:Repeater ID="rptVersion" runat="server">
                                             <ItemTemplate>
                                                 <li>
-                                                    <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>'
-                                                         OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>'
-                                                         CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button>
+                                                    <asp:Button Style="width: 100%; text-align: left" ID="btnVariant"
+                                                        OnCommand="btnVariant_Command" versionid='<%# DataBinder.Eval(Container.DataItem,"VersionId") %>' CommandName='<%# DataBinder.Eval(Container.DataItem,"VersionId") %>'
+                                                        CommandArgument='<%# DataBinder.Eval(Container.DataItem,"VersionName") %>' runat="server" Text='<%# DataBinder.Eval(Container.DataItem,"VersionName") %>'></asp:Button>
                                                 </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <asp:HiddenField ID="hdnVariant" Value='<%#Eval("VersionId") %>' runat="server" />
+                                        <asp:HiddenField ID="hdnVariant" Value='<%= versionId %>' runat="server" />
                                     </ul>
                                 </div>
                                 <% }
@@ -118,14 +118,9 @@
                         </div>
                         <!--Price List Section-->
                         <div class="grid-6 padding-top15 padding-bottom20 padding-right20" id="PQDetailsContainer">
-                            <% if (detailedDealer != null)
-                               { %>
-                            <%--<p class="font20 text-bold margin-bottom20"><%= makeName + " " + modelName + " " +versionName%></p>--%>
-                            <% } %>
-                            <% if (!String.IsNullOrEmpty(cityArea))
-                               { %>
+
                             <p class="font14 text-default text-bold margin-bottom15">On-road price - <%= dealerName %></p>
-                            <% } %>
+
                             <div runat="server">
                                 <div>
                                     <% if (detailedDealer != null)
@@ -135,7 +130,7 @@
                                             <ItemTemplate>
                                                 <tr>
                                                     <td width="210" class="PQDetailsTableTitle padding-bottom15 text-light-grey">
-                                                        <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
+                                                        <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> 
                                                     </td>
                                                     <td align="right" class="PQDetailsTableAmount padding-bottom10 text-default ">
                                                         <span class="fa fa-rupee"></span>&nbsp;<span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
@@ -148,44 +143,7 @@
                                                 <div class="border-solid-top padding-bottom10"></div>
                                                 <td>
                                         </tr>
-                                        <%
-                                           if (IsDiscount)//if (IsInsuranceFree)
-                                           {
-                                        %>
-                                        <tr>
-                                            <td class="PQDetailsTableTitle padding-bottom10 text-grey text-bold">On-road price</td>
-                                            <td align="right" class="PQDetailsTableAmount padding-bottom10 text-grey text-bold">
-                                                <span class="fa fa-rupee"></span>&nbsp;<span style="text-decoration: line-through;"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
-                                            </td>
-                                        </tr>
-                                        <asp:Repeater ID="rptDiscount" runat="server">
-                                            <ItemTemplate>
-                                                <tr>
-                                                    <td width="210" class="PQDetailsTableTitle padding-bottom10 ">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> 
-                                                    </td>
-                                                    <td align="right" class="PQDetailsTableAmount padding-bottom10 text-grey">
-                                                        <span class="fa fa-rupee"></span>&nbsp;<span id="exShowroomPrice">
-                                                            <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
-                                                    </td>
-                                                </tr>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
-                                        <tr>
-                                            <td colspan="2">
-                                                <div class="border-solid-top padding-bottom10"></div>
-                                                <td>
-                                        </tr>
-                                        <tr>
-                                            <td valign="middle" class="PQDetailsTableTitle font14 PQOnRoadPrice text-grey text-bold">On-road price</td>
-                                            <td align="right" class="PQDetailsTableAmount font18 text-grey text-bold">
-                                                <span class="fa fa-rupee"></span>&nbsp;&nbsp;<span><%= CommonOpn.FormatPrice((totalPrice - totalDiscount).ToString()) %></span>
-                                            </td>
-                                        </tr>
-                                        <%
-                                           }
-                                           else
-                                           {
-                                        %>
+                                        
                                         <tr>
                                             <td class="PQDetailsTableTitle font14  PQOnRoadPrice text-grey text-bold">On-road price</td>
                                             <td align="right" class="PQDetailsTableAmount font18 text-grey text-bold">
@@ -193,8 +151,6 @@
 
                                             </td>
                                         </tr>
-
-                                        <% } %>
 
                                         <tr>
                                             <td colspan="2" class="text-right padding-top5"><a class="font14 text-link " id="leadLink" name="leadLink" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a></td>
@@ -247,218 +203,306 @@
 
                         <%if (primarydealer.DealerDetails != null)//Hide from lead capture form to EMI Section
                           { %>
+                        <div id="dealerAssistance">
+
                         <!--Lead capture form-->
                         <div class="grid-12 bg-light-grey content-inner-block-20">
                             <p class="font14 text-bold margin-bottom20">Get buying assistance from this dealer:</p>
                             <div class="buying-assistance-form">
                                 <div class="form-control-box margin-right10">
-                                    <input type="text" class="form-control" placeholder="Name" id="assistanceGetName" data-bind="value: fullName">
+                                    <input type="text" class="form-control" placeholder="Name" id="assistanceGetName" data-bind="textInput: fullName">
                                     <span class="bwsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
                                 <div class="form-control-box margin-right10">
-                                    <input type="text" class="form-control" placeholder="Email id" id="assistanceGetEmail" data-bind="value: emailId">
+                                    <input type="text" class="form-control" placeholder="Email id" id="assistanceGetEmail" data-bind="textInput: emailId">
                                     <span class="bwsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
                                 <div class="form-control-box margin-right10 assistance-form-mobile">
-                                    <input type="text" class="form-control" placeholder="Number" id="assistanceGetMobile" data-bind="value: mobileNo">
+                                    <input type="text" class="form-control" placeholder="Number" id="assistanceGetMobile" data-bind="textInput: mobileNo">
                                     <span class="bwsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
-                                <a class="btn btn-orange leftfloat" id="buyingAssistanceSubmitBtn" data-bind="event: { click: submitLead }" >Submit</a>
+                                <a class="btn btn-orange leftfloat" id="buyingAssistanceSubmitBtn" data-bind="event: { click: submitLead }">Submit</a>
                                 <div class="clear"></div>
                             </div>
                         </div>
+
+                        <!-- lead capture popup start-->
+                        <div id="leadCapturePopup" class="text-center rounded-corner2">
+                            <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                            <!-- contact details starts here -->
+                            <div id="contactDetailsPopup">
+                                <div class="icon-outer-container rounded-corner50">
+                                    <div class="icon-inner-container rounded-corner50">
+                                        <span class="bwsprite user-contact-details-icon margin-top25"></span>
+                                    </div>
+                                </div>
+                                <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
+                                <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
+                                <div class="personal-info-form-container">
+                                    <div class="form-control-box personal-info-list">
+                                        <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
+                                            id="getFullName" data-bind="textInput: fullName">
+                                        <span class="bwsprite error-icon errorIcon"></span>
+                                        <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                                    </div>
+                                    <div class="form-control-box personal-info-list">
+                                        <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
+                                            id="getEmailID" data-bind="textInput: emailId">
+                                        <span class="bwsprite error-icon errorIcon"></span>
+                                        <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+                                    </div>
+                                    <div class="form-control-box personal-info-list">
+                                        <p class="mobile-prefix">+91</p>
+                                        <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
+                                            id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
+                                        <span class="bwsprite error-icon errorIcon"></span>
+                                        <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                                </div>
+                            </div>
+                            <!-- contact details ends here -->
+                            <!-- otp starts here -->
+                            <div id="otpPopup">
+                                <div class="icon-outer-container rounded-corner50">
+                                    <div class="icon-inner-container rounded-corner50">
+                                        <span class="bwsprite otp-icon margin-top25"></span>
+                                    </div>
+                                </div>
+                                <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
+                                <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                                <div>
+                                    <div class="lead-mobile-box lead-otp-box-container font22">
+                                        <span class="fa fa-phone"></span>
+                                        <span class="text-light-grey font24">+91</span>
+                                        <span class="lead-mobile font24"></span>
+                                        <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
+                                    </div>
+                                    <div class="otp-box lead-otp-box-container">
+                                        <div class="form-control-box margin-bottom10">
+                                            <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP" data-bind="value: otpCode">
+                                            <span class="bwsprite error-icon errorIcon"></span>
+                                            <div class="bw-blackbg-tooltip errorText"></div>
+                                        </div>
+                                        <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP
+                                        </a>
+                                        <p class="otp-alert-text margin-left10 otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
+                                            OTP has been already sent to your mobile
+                                        </p>
+                                        <div class="clear"></div>
+                                        <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
+                                    </div>
+                                    <div class="update-mobile-box">
+                                        <div class="form-control-box text-left">
+                                            <p class="mobile-prefix">+91</p>
+                                            <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
+                                            <span class="bwsprite error-icon errorIcon"></span>
+                                            <div class="bw-blackbg-tooltip errorText"></div>
+                                        </div>
+                                        <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- otp ends here -->
+                        </div>
+                        <!-- lead capture popup End-->
+                         </div>
                         <div class="clear"></div>
 
-                        <% if(dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium ) { %>
+                        <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+                           { %>
 
-                            <% if (isUSPBenfits) { %>
-                            <!--  Dealer Benefits starts-->
-                            <div class="grid-12 padding-top20 padding-right20 padding-bottom5 padding-left20 font14">
-                                <p class="text-bold margin-bottom5">Benefits of buying a bike from this dealer:</p>
-                                <ul class="pricequote-benefits-list text-light-grey">
-                                    <asp:Repeater ID="rptUSPBenefits" runat="server">
-                                        <ItemTemplate>
-                                            <li>
-                                                <span class="inline-block pq-benefits-image pricequote-sprite <%#  "benifitIcon_" + DataBinder.Eval(Container.DataItem,"CatId") %> margin-right10"></span>
-                                                <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"BenefitText") %></span>
-                                            </li>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </ul>
+                        <% if (isUSPBenfits)
+                           { %>
+                        <!--  Dealer Benefits starts-->
+                        <div class="grid-12 padding-top20 padding-right20 padding-bottom5 padding-left20 font14">
+                            <p class="text-bold margin-bottom5">Benefits of buying a bike from this dealer:</p>
+                            <ul class="pricequote-benefits-list text-light-grey">
+                                <asp:Repeater ID="rptUSPBenefits" runat="server">
+                                    <ItemTemplate>
+                                        <li>
+                                            <span class="inline-block pq-benefits-image pricequote-sprite <%#  "benifitIcon_" + DataBinder.Eval(Container.DataItem,"CatId") %> margin-right10"></span>
+                                            <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"BenefitText") %></span>
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                        <!--  Dealer Benefits  ends -->
+                        <% } %>
+
+                        <%if (primarydealer.IsBookingAvailable)
+                          { %>
+                        <!--  Booking availability starts-->
+                        <div class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
+                            <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> online and book this bike:</p>
+                            <ul class="pricequote-benefits-list pq-benefits-booking-list text-light-grey">
+                                <li>
+                                    <p>Save on dealer visits</p>
+                                </li>
+                                <li>
+                                    <p>Secure online payments</p>
+                                </li>
+                                <li>
+                                    <p>Complete buyer protection</p>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                            <div class="grid-12 alpha omega margin-top10">
+                                <div class="grid-9 alpha">
+                                    <p class="font14 text-light-grey">The booking amount of <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> has to be paid online and balance amount of <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice((totalPrice - bookingAmount).ToString()) %> has to be paid at the dealership.</p>
+                                </div>
+                                <div class="grid-3 omega text-right">
+                                    <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey btn-sm font14">Book now</a>
+                                </div>
                                 <div class="clear"></div>
                             </div>
                             <div class="clear"></div>
-                            <!--  Dealer Benefits  ends -->
-                            <% } %>
-                        
-                            <%if (primarydealer.IsBookingAvailable)
-                              { %> 
-                            <!--  Booking availability starts-->
-                            <div class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
-                                <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> online and book this bike:</p>
-                                <ul class="pricequote-benefits-list pq-benefits-booking-list text-light-grey">
-                                    <li>
-                                        <p>Save on dealer visits</p>
-                                    </li>
-                                    <li>
-                                        <p>Secure online payments</p>
-                                    </li>
-                                    <li>
-                                        <p>Complete buyer protection</p>
-                                    </li>
-                                </ul>
-                                <div class="clear"></div>
-                                <div class="grid-12 alpha omega margin-top10">
-                                    <div class="grid-9 alpha">
-                                        <p class="font14 text-light-grey">The booking amount of <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> has to be paid online and balance amount of <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice((totalPrice - bookingAmount).ToString()) %> has to be paid at the dealership.</p>
+                        </div>
+                        <div class="clear"></div>
+                        <!--  Booking availability ends-->
+                        <%} %>
+
+                        <% if (primarydealer.EMIDetails != null)
+                           { %>
+                        <!-- EMI section starts -->
+                        <div id="EMISection" data-bind="visible: true" style="display: none" class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
+                            <p class="text-bold padding-top20 margin-bottom15 border-light-top">Get EMI quote from this dealer:</p>
+                            <div class="finance-emi-container">
+                                <div class="emi-slider-box">
+                                    <div class="emi-slider-box-left-section">
+                                        <p>Down payment</p>
+                                        <div id="downPaymentSlider"
+                                            data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2 ) + minDnPay()) }"
+                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        </div>
+                                        <div class="slider-range-points">
+                                            <ul class="range-five-pointsUL range-pointsUL" data-bind="">
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minDnPay())"></span></li>
+                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(Math.round((($index() + 1) * ($parent.maxDnPay() - $parent.minDnPay())/$parent.breakPoints()) + $parent.minDnPay()))"></span></li>
+                                                <!-- /ko -->
+                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay())"></span></li>
+
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="grid-3 omega text-right">
-                                        <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey btn-sm font14">Book now</a>
+                                    <div class="emi-slider-box-right-section font16">
+                                        <span class="fa fa-rupee"></span>&nbsp;
+                                            <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="clear"></div>   
-                            <!--  Booking availability ends-->
-                            <%} %>
-
-                             <% if(primarydealer.EMIDetails!=null ) { %>
-                              <!-- EMI section starts -->
-                            <div id="EMISection" data-bind="visible: true" style="display: none" class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
-                                <p class="text-bold padding-top20 margin-bottom15 border-light-top">Get EMI quote from this dealer:</p>
-                                <div class="finance-emi-container">
-                                    <div class="emi-slider-box">
-                                        <div class="emi-slider-box-left-section">
-                                            <p>Down payment</p>
-                                            <div id="downPaymentSlider"
-                                                data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 20, value: $.LoanAmount(maxDnPay() / 2, 30) }"
-                                                class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                            </div>
-                                            <div class="slider-range-points">
-                                                <ul class="range-five-pointsUL range-pointsUL" data-bind="">
-                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minDnPay())"></span></li>
-                                                    <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter($.LoanAmount($parent.maxDnPay(), ($index() + 1) * 20))"></span></li>
-                                                    <!-- /ko -->
-                                                    <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay())"></span></li>
-
-                                                </ul>
-                                            </div>
+                                <div class="emi-slider-box">
+                                    <div class="emi-slider-box-left-section">
+                                        <p>Loan Amount</p>
+                                        <div id="loanAmountSlider"
+                                            data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
+                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                         </div>
-                                        <div class="emi-slider-box-right-section font16">
-                                            <span class="fa fa-rupee"></span>&nbsp;
-                                            <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(downPayment())"></span>
+                                        <div class="slider-range-points">
+                                            <ul class="range-five-pointsUL range-pointsUL" data-bind="">
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(bikePrice() - maxDnPay())"></span></li>
+                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(Math.round((($index() + 1) * ($parent.maxDnPay() - $parent.minDnPay())/$parent.breakPoints()) + ($parent.bikePrice() - $parent.maxDnPay())))"></span></li>
+                                                <!-- /ko -->
+                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(bikePrice() - minDnPay())"></span></li>
+                                            </ul>
                                         </div>
+                                    </div>
+                                    <div class="emi-slider-box-right-section font16">
+                                        <span class="fa fa-rupee"></span>&nbsp;
+                                            <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="emi-slider-box">
+                                    <div class="emi-slider-box-left-section">
+                                        <p>Tenure (Months)</p>
+                                        <div id="tenureSlider"
+                                            data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
+                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        </div>
+                                        <div class="slider-range-points">
+                                            <ul class="range-five-pointsUL  range-pointsUL tenure-rate-interest" data-bind="">
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minTenure())"></span></li>
+                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter((($index() + 1) * ($parent.maxTenure() - $parent.minTenure()) / $parent.breakPoints()) + $parent.minTenure())"></span></li>
+                                                <!-- /ko -->
+                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxTenure())"></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="emi-slider-box-right-section">
+                                        <span id="tenurePeriod" class="font16 text-bold" data-bind="text: tenure"></span>
+                                        <span class="font12">Months</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="emi-slider-box">
+                                    <div class="emi-slider-box-left-section">
+                                        <p>Rate of interest (Percentage)</p>
+                                        <div id="rateOfInterestSlider"
+                                            data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
+                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        </div>
+                                        <div class="slider-range-points">
+                                            <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest.">
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minROI())"></span></li>
+                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter((($index() + 1) * ($parent.maxROI() - $parent.minROI())/$parent.breakPoints()) + $parent.minROI())"></span></li>
+                                                <!-- /ko -->
+                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxROI())"></span></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="emi-slider-box-right-section font16">
+                                        <span id="rateOfInterestPercentage" class="text-bold" data-bind="text: rateofinterest">5</span>
+                                        <span>%</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                                <div class="margin-top10">
+                                    <div class="grid-8 alpha text-grey text-bold padding-top10">
+                                        <p class="leftfloat margin-right10 position-rel pos-top3">Indicative EMI:</p>
+                                        <div class="indicative-emi-amount margin-right10 leftfloat">
+                                            <span class="font18"><span class="fa fa-rupee"></span>&nbsp;</span>
+                                            <span id="emiAmount" class="font18" data-bind="text: monthlyEMI"></span>
+                                        </div>
+                                        <p class="font14 leftfloat position-rel pos-top3">per month</p>
                                         <div class="clear"></div>
                                     </div>
-                                    <div class="emi-slider-box">
-                                        <div class="emi-slider-box-left-section">
-                                            <p>Loan Amount</p>
-                                            <div id="loanAmountSlider"
-                                                data-bind="slider: loan, sliderOptions: { min: 0, max: maxDnPay() - minDnPay(), range: 'min', step: 20 }"
-                                                class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                            </div>
-                                            <div class="slider-range-points">
-                                                <ul class="range-five-pointsUL range-pointsUL" data-bind="">
-                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter(0)"></span></li>
-                                                    <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter($.LoanAmount($parent.maxDnPay(), ($index() + 1) * 20))"></span></li>
-                                                    <!-- /ko -->
-                                                    <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay() - minDnPay())"></span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="emi-slider-box-right-section font16">
-                                            <span class="fa fa-rupee"></span>&nbsp;
-                                            <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(loan())"></span>
-                                        </div>
-                                        <div class="clear"></div>
+                                    <div class="grid-4 omega text-right">
+                                        <a class="btn btn-grey btn-md font14">Get EMI quote</a>
                                     </div>
-                                    <div class="emi-slider-box">
-                                        <div class="emi-slider-box-left-section">
-                                            <p>Tenure (Months)</p>
-                                            <div id="tenureSlider"
-                                                data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
-                                                class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                            </div>
-                                            <div class="slider-range-points">
-                                                <ul class="range-five-pointsUL  range-pointsUL tenure-rate-interest" data-bind="">
-                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minTenure())"></span></li>
-                                                    <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                    <li class="range-points-bar"><span data-bind="text: Math.floor((($index() + 1) * ($parent.maxTenure() - $parent.minTenure()) / $parent.breakPoints()) + $parent.minTenure())"></span></li>
-                                                    <!-- /ko -->
-                                                    <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxTenure())"></span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="emi-slider-box-right-section">
-                                            <span id="tenurePeriod" class="font16 text-bold" data-bind="text: tenure"></span>
-                                            <span class="font12">Months</span>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="emi-slider-box">
-                                        <div class="emi-slider-box-left-section">
-                                            <p>Rate of interest (Percentage)</p>
-                                            <div id="rateOfInterestSlider"
-                                                data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
-                                                class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                            </div>
-                                            <div class="slider-range-points">
-                                                <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest.">
-                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minROI())"></span></li>
-                                                    <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter((($index() + 1) * ($parent.maxROI() - $parent.minROI())/$parent.breakPoints()) + $parent.minROI())"></span></li>
-                                                    <!-- /ko -->
-                                                    <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxROI())"></span></li>
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="emi-slider-box-right-section font16">
-                                            <span id="rateOfInterestPercentage" class="text-bold" data-bind="text: rateofinterest">5</span>
-                                            <span>%</span>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-
-                                    <div class="margin-top10">
-                                        <div class="grid-8 alpha text-grey text-bold padding-top10">
-                                            <p class="leftfloat margin-right10 position-rel pos-top3">Indicative EMI:</p>
-                                            <div class="indicative-emi-amount margin-right10 leftfloat">
-                                                <span class="font18"><span class="fa fa-rupee"></span>&nbsp;</span>
-                                                <span id="emiAmount" class="font18" data-bind="text: monthlyEMI"></span>
-                                            </div>
-                                            <p class="font14 leftfloat position-rel pos-top3">per month</p>
-                                            <div class="clear"></div>
-                                        </div>
-                                        <div class="grid-4 omega text-right">
-                                            <a class="btn btn-grey btn-md font14">Get EMI quote</a>
-                                        </div>
-                                        <div class="clear"></div>                                      
-                                    </div>
+                                    <div class="clear"></div>
                                 </div>
                             </div>
+                        </div>
 
-                             
-                             <!-- EMI section ends  -->
-                            <% } %>
+
+                        <!-- EMI section ends  -->
+                        <% } %>
 
                         <% } %>
-                          <div class="clear"></div>
-                         <p id="disclaimerText" class="margin-top15 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span> On-road price and EMI calculator is provided for information. BikeWale does not own any responsibility for the same.</p>
+                        <div class="clear"></div>
+                        <p id="disclaimerText" class="margin-top15 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span>On-road price and EMI calculator is provided for information. BikeWale does not own any responsibility for the same.</p>
                     </div>
                         <%} %>
 
@@ -468,7 +512,7 @@
                             <%if (primarydealer.DealerDetails != null)
                               { %>
                             <div class="pqdealer-sidebar-panel position-rel">
-                                <p class="font18 text-bold text-darker-black"><%= dealerName %></p>   
+                                <p class="font18 text-bold text-darker-black"><%= dealerName %></p>
                                 <p class="font14 text-light-grey margin-bottom15"><%= dealerArea %></p>
                                 <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard || !String.IsNullOrEmpty(maskingNum))
                                    { %>
@@ -485,7 +529,8 @@
                                       { %>
                                     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
                                     <div id="dealerMap" style="height: 100px; position: relative; text-align: center">
-                                        <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" /></div>
+                                        <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+                                    </div>
                                     <script type="text/javascript">
                                         function initializeDealerMap(element,latitude,longitude) {
                                             latLng = new google.maps.LatLng(latitude, longitude),
@@ -500,9 +545,6 @@
                                                 position: latLng,
                                                 map: map,
                                                 animation: google.maps.Animation.DROP
-                                            });
-
-                                            google.maps.event.addListenerOnce(map, 'idle', function () {
                                             });
                                         }
                                         google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0],<%= latitude %>,<%= longitude %>));
@@ -519,15 +561,15 @@
                             <%else { %>
                                  <div class="pq-no-premium-dealer font14 text-light-grey">Sorry, there are no dealers nearby</div>
                             <%} %>
-                            <%if (detailedDealer!=null && detailedDealer.SecondaryDealerCount > 0)
+                            <%if (detailedDealer != null && detailedDealer.SecondaryDealerCount > 0)
                               { %>
                             <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
                                 <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealerCount %> more dealers:</p>
-                                <ul id="dealerList" >
+                                <ul id="dealerList">
                                     <asp:Repeater ID="rptDealers" runat="server">
                                         <ItemTemplate>
-                                            <li dealerId="<%# DataBinder.Eval(Container.DataItem,"dealerId") %>" >
-                                                <p class="font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></p>
+                                            <li dealerid="<%# DataBinder.Eval(Container.DataItem,"dealerId") %>">
+                                                <h3><a href="" class="font18 text-bold text-darker-black margin-right20"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
                                                 <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
                                             </li>
                                         </ItemTemplate>
@@ -563,89 +605,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-
-
-        <!-- lead capture popup start-->
-        <div id="leadCapturePopup" class="text-center rounded-corner2">
-            <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-            <!-- contact details starts here -->
-            <div id="contactDetailsPopup">
-                <div class="icon-outer-container rounded-corner50">
-                    <div class="icon-inner-container rounded-corner50">
-                        <span class="bwsprite user-contact-details-icon margin-top25"></span>
-                    </div>
-                </div>
-                <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
-                <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
-                <div class="personal-info-form-container">
-                    <div class="form-control-box personal-info-list">
-                        <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
-                            id="getFullName" data-bind="value: fullName">
-                        <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
-                    </div>
-                    <div class="form-control-box personal-info-list">
-                        <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
-                            id="getEmailID" data-bind="value: emailId">
-                        <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
-                    </div>
-                    <div class="form-control-box personal-info-list">
-                        <p class="mobile-prefix">+91</p>
-                        <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
-                            id="getMobile" maxlength="10" data-bind="value: mobileNo">
-                        <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
-                    </div>
-                    <div class="clear"></div>
-                    <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                </div>
-            </div>
-            <!-- contact details ends here -->
-            <!-- otp starts here -->
-            <div id="otpPopup">
-                <div class="icon-outer-container rounded-corner50">
-                    <div class="icon-inner-container rounded-corner50">
-                        <span class="bwsprite otp-icon margin-top25"></span>
-                    </div>
-                </div>
-                <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
-                <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
-                <div>
-                    <div class="lead-mobile-box lead-otp-box-container font22">
-                        <span class="fa fa-phone"></span>
-                        <span class="text-light-grey font24">+91</span>
-                        <span class="lead-mobile font24"></span>
-                        <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
-                    </div>
-                    <div class="otp-box lead-otp-box-container">
-                        <div class="form-control-box margin-bottom10">
-                            <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP" data-bind="value: otpCode">
-                            <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP
-                        </a>
-                        <p class="otp-alert-text margin-left10 otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
-                            OTP has been already sent to your mobile
-                        </p>
-                        <div class="clear"></div>
-                        <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
-                    </div>
-                    <div class="update-mobile-box">
-                        <div class="form-control-box text-left">
-                            <p class="mobile-prefix">+91</p>
-                            <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
-                            <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
-                    </div>
-                </div>
-            </div>
-            <!-- otp ends here -->
-        </div>
-        <!-- lead capture popup End-->
 
         <!-- Terms and condition Popup start -->
         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
@@ -792,7 +751,7 @@
                 });
             });
 
-            ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
+            ko.applyBindings(customerViewModel, $('#dealerAssistance')[0]);
 
             function CustomerModel() {
                 var arr = setuserDetails();
@@ -918,6 +877,9 @@
                             window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
                         }
                         else {
+                            $("#leadCapturePopup").show();
+                            $('body').addClass('lock-browser-scroll');
+                            $(".blackOut-window").show();
                             $("#contactDetailsPopup").hide();
                             $("#otpPopup").show();
                             var leadMobileVal = mobile.val();
@@ -1274,15 +1236,16 @@
                 self.exshowroomprice = ko.observable(bikeVersionPrice);
                 self.loan = ko.observable();
 
-                self.tenure = ko.observable(36);
-                self.rateofinterest = ko.observable(14);
+                self.tenure = ko.observable((self.maxTenure() - self.minTenure())/2 + self.minTenure());
+                self.rateofinterest = ko.observable((self.maxROI() - self.minROI())/2 + self.minROI());
                 self.downPayment = ko.pureComputed({
                     read: function () {
                         if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
                             self.loan($.LoanAmount(self.exshowroomprice(), 70));
                         return (($.LoanAmount(self.exshowroomprice(), 100)) - self.loan());
                     },
-                    write: function (value) {                        
+                    write: function (value) {
+                        console.log("Loan : " + self.loan() + " exshowroom  : " + self.exshowroomprice() + " value : " + value );
                         self.loan((($.LoanAmount(self.exshowroomprice(), 100))) - value);
                     },
                     owner: this
@@ -1369,12 +1332,12 @@
                     },
                     success: function (json) {
                         var jsonObj = json;                                               
-                         if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
-                             cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + versionId + "&DealerId=" + secondaryDealerId;
+                        if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
+                            cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + versionId + "&DealerId=" + secondaryDealerId;
                             window.location = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
                         }
-                         else {
-                             window.location = "/pricequote/";
+                        else {
+                            window.location = "/pricequote/";
                         }
                     },
                     error: function (e) {
