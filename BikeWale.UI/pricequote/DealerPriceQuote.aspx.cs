@@ -202,10 +202,6 @@ namespace Bikewale.BikeBooking
                                 longitude = dealerDetails.objArea.Longitude;
                                 dealerType = dealerDetails.DealerPackageType;
                             }
-                            else
-                            {
-                                Response.Redirect("/pricequote/quotation.aspx", false);
-                            }
 
                             //bind Offer
                             if (primarydealer.OfferList != null && primarydealer.OfferList.Count() > 0)

@@ -68,6 +68,7 @@
 .pqdealer-sidebar-panel { border:1px solid #e2e2e2; padding:15px 20px 20px;}
 .pqdealer-sidebar-panel::before {border-right: 11px solid #e2e2e2;border-top: 11px solid transparent;border-bottom: 11px solid transparent;content: "";position: absolute; top:44px; left: -1px;z-index: 1;}
 .pqdealer-sidebar-panel::after { border-right: 11px solid #ffffff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; content: ""; position: absolute; top:44px;left: 1px; z-index: 1; }
+.pq-no-premium-dealer {border: 1px solid #e2e2e2;background: #fff;padding: 20px;}
 .pq-sidebar-dealer-listing li { padding-top:15px; padding-bottom:15px; border-top:1px solid #f1f1f1; }
 .show-more-dealers { display:block; }
 .show-less-dealers { display:none; }

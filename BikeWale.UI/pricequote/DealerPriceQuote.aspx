@@ -116,6 +116,7 @@
                             </div>
 
                         </div>
+                        <!--Price List Section-->
                         <div class="grid-6 padding-top15 padding-bottom20 padding-right20" id="PQDetailsContainer">
 
                             <p class="font14 text-default text-bold margin-bottom15">On-road price - <%= dealerName %></p>
@@ -180,6 +181,7 @@
                             <div id="div_ShowErrorMsg" runat="server" class="grey-bg border-light content-block text-highlight margin-top15"></div>
                         </div>
                         <div class="clear"></div>
+                        <!--offer List Section-->
                         <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && isoffer)
                           { %>
                         <div class="grid-12 padding-right20 padding-bottom10 padding-left20 font14">
@@ -199,8 +201,11 @@
                         <div class="clear"></div>
                         <% } %>
 
+                        <%if (primarydealer.DealerDetails != null)//Hide from lead capture form to EMI Section
+                          { %>
                         <div id="dealerAssistance">
 
+                        <!--Lead capture form-->
                         <div class="grid-12 bg-light-grey content-inner-block-20">
                             <div>
                                 <p class="font14 text-bold margin-bottom20">Get buying assistance from this dealer:</p>
@@ -507,8 +512,13 @@
                         <div class="clear"></div>
                         <p id="disclaimerText" class="margin-top15 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span>On-road price and EMI calculator is provided for information. BikeWale does not own any responsibility for the same.</p>
                     </div>
-                    <div class="grid-4 padding-top20" id="PQDealerSidebarContainer">
+                        <%} %>
+
+                    <!--Primary Dealer Section-->
+                    <div class="grid-4 padding-top20 <%= primarydealer.DealerDetails != null ? "dealer-pointer" : "" %> " id="PQDealerSidebarContainer">
                         <div class="pqdealer-and-listing-container">
+                            <%if (primarydealer.DealerDetails != null)
+                              { %>
                             <div class="pqdealer-sidebar-panel position-rel">
                                 <p class="font18 text-bold text-darker-black"><%= dealerName %></p>
                                 <p class="font14 text-light-grey margin-bottom15"><%= dealerArea %></p>
@@ -555,6 +565,10 @@
                                 </div>
                                 <% } %>
                             </div>
+                            <%} %>
+                            <%else { %>
+                                 <div class="pq-no-premium-dealer font14 text-light-grey">Sorry, there are no dealers nearby</div>
+                            <%} %>
                             <%if (detailedDealer != null && detailedDealer.SecondaryDealerCount > 0)
                               { %>
                             <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
@@ -1234,7 +1248,6 @@
                 self.rateofinterest = ko.observable((self.maxROI() - self.minROI())/2 + self.minROI());
                 self.downPayment = ko.pureComputed({
                     read: function () {
-                        console.log("Loan : " + self.loan() + " exshowroom  : " + self.exshowroomprice());
                         if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
                             self.loan($.LoanAmount(self.exshowroomprice(), 70));
                         return (($.LoanAmount(self.exshowroomprice(), 100)) - self.loan());
@@ -1273,7 +1286,6 @@
                     finalEmi = Math.ceil((totalRepay / tenure) + proFees);
                 }
                 catch (e) {
-                    // //console.log(e.message);
                 }
                 return formatPrice(finalEmi);
             };
@@ -1285,7 +1297,6 @@
                     price = Math.ceil(price / 100.0) * 100;
                 }
                 catch (e) {
-                    ////console.log(e.message);
                 }
                 return price;
             };
