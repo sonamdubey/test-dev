@@ -185,7 +185,7 @@
                     <%} %>                            
                     <%if(isOfferAvailable && (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)){ %>       
                     <div class="padding-top15 padding-bottom15 border-light-top">
-                        <span class="font15 text-bold"><%= offerCount %> offers available</span>
+                        <span class="font15 text-bold"><%= offerCount == 1 ? " offer" : " offers" %> available</span>
                         <span class="text-link view-offers-target">View offers</span>
                     </div>                  
                     <div id="offersPopup" class="bwm-fullscreen-popup text-center padding-top30">
@@ -246,7 +246,7 @@
             <%} %>
             <%if (isSecondaryDealer) {%>
             <div id="pqMoreDealers" class="padding-top15 padding-right10 padding-left10">
-                <p class="font14 text-bold margin-bottom15">Prices available from <%=secondaryDealersCount %> more dealers:</p>
+                <p class="font14 text-bold margin-bottom15">Prices available from <%=secondaryDealersCount == 1 ? " more dealer" : " more dealers" %> :</p>
                 <ul class="pq-dealer-listing">
                     <%--bind secondary dealers--%>                    
                     <asp:Repeater ID ="rptSecondaryDealers" runat="server">
