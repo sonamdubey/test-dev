@@ -282,17 +282,6 @@ namespace Bikewale.New
         }
 
         /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   18 Nov 2015
-        /// Description     :   To change price and Minspecs when variant changes
-        /// </summary>
-        public void ddlVariant_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            variantId = Convert.ToInt32(ddlVariant.SelectedValue);
-            FetchVariantDetails(variantId);            
-        }
-
-        /// <summary>
         /// Modified by     :   Sumit Kate on 15 Feb 2016
         /// Description     :   Replace First() with FirstOrDefault() for BPQOutput.Varient.Where function call
         /// </summary>

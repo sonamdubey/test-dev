@@ -215,7 +215,6 @@ function CustomerModel() {
         if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {
             self.verifyCustomer();
             if (self.IsValid()) {                             
-                //$("#leadCapturePopup .leadCapture-close-btn").click();
                 if ($("#leadCapturePopup").css('display') === 'none') {
                     $("#leadCapturePopup").show();
                     $(".blackOut-window-model").show();
@@ -223,9 +222,6 @@ function CustomerModel() {
                 $("#contactDetailsPopup").hide();
                 $('#notify-response .notify-leadUser').text(self.fullName());
                 $('#notify-response').show();
-
-                //var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                //window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
             }
             else {
                 $("#leadCapturePopup").show();
@@ -235,7 +231,6 @@ function CustomerModel() {
                 var leadMobileVal = mobile.val();
                 $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
                 otpContainer.removeClass("hide").addClass("show");
-                //detailsSubmitBtn.hide();
                 nameValTrue();
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
