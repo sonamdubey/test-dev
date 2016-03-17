@@ -202,25 +202,33 @@
                         <div id="dealerAssistance">
 
                         <div class="grid-12 bg-light-grey content-inner-block-20">
-                            <p class="font14 text-bold margin-bottom20">Get buying assistance from this dealer:</p>
-                            <div class="buying-assistance-form">
-                                <div class="form-control-box margin-right10">
-                                    <input type="text" class="form-control" placeholder="Name" id="assistanceGetName" data-bind="textInput: fullName">
-                                    <span class="bwsprite error-icon errorIcon"></span>
-                                    <div class="bw-blackbg-tooltip errorText"></div>
+                            <div>
+                                <p class="font14 text-bold margin-bottom20">Get buying assistance from this dealer:</p>
+                                <div class="buying-assistance-form">
+                                    <div class="form-control-box margin-right10">
+                                        <input type="text" class="form-control" placeholder="Name" id="assistanceGetName" data-bind="textInput: fullName">
+                                        <span class="bwsprite error-icon errorIcon"></span>
+                                        <div class="bw-blackbg-tooltip errorText"></div>
+                                    </div>
+                                    <div class="form-control-box margin-right10">
+                                        <input type="text" class="form-control" placeholder="Email id" id="assistanceGetEmail" data-bind="textInput: emailId">
+                                        <span class="bwsprite error-icon errorIcon"></span>
+                                        <div class="bw-blackbg-tooltip errorText"></div>
+                                    </div>
+                                    <div class="form-control-box margin-right10 assistance-form-mobile">
+                                        <input type="text" class="form-control" placeholder="Number" id="assistanceGetMobile" data-bind="textInput: mobileNo">
+                                        <span class="bwsprite error-icon errorIcon"></span>
+                                        <div class="bw-blackbg-tooltip errorText"></div>
+                                    </div>
+                                    <a class="btn btn-orange leftfloat" id="buyingAssistanceSubmitBtn" data-bind="event: { click: submitLead }">Submit</a>
+                                    <div class="clear"></div>
                                 </div>
-                                <div class="form-control-box margin-right10">
-                                    <input type="text" class="form-control" placeholder="Email id" id="assistanceGetEmail" data-bind="textInput: emailId">
-                                    <span class="bwsprite error-icon errorIcon"></span>
-                                    <div class="bw-blackbg-tooltip errorText"></div>
-                                </div>
-                                <div class="form-control-box margin-right10 assistance-form-mobile">
-                                    <input type="text" class="form-control" placeholder="Number" id="assistanceGetMobile" data-bind="textInput: mobileNo">
-                                    <span class="bwsprite error-icon errorIcon"></span>
-                                    <div class="bw-blackbg-tooltip errorText"></div>
-                                </div>
-                                <a class="btn btn-orange leftfloat" id="buyingAssistanceSubmitBtn" data-bind="event: { click: submitLead }">Submit</a>
+                            </div>
+                            <div>
+                                <p class="font14 leftfloat">Thank you for your interest. Kamala Landmarc Motorbikes will get in touch shortly</p>
+                                <span class="assistance-response-close bwsprite cross-lg-lgt-grey cur-pointer rightfloat"></span>
                                 <div class="clear"></div>
+
                             </div>
                         </div>
 

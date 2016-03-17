@@ -105,3 +105,4 @@ a.text-darker-black:hover { text-decoration:none; }
 .mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999}
 #otpPopup .errorIcon,#otpPopup .errorText{display:none}
 .input-border-bottom{border-bottom:1px solid #ccc}
+.assistance-response-close.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
