@@ -207,7 +207,7 @@
 
                         <!--Lead capture form-->
                         <div class="grid-12 bg-light-grey content-inner-block-20">
-                            <div>
+                            <div id="buying-assistance-form">
                                 <p class="font14 text-bold margin-bottom20">Get buying assistance from this dealer:</p>
                                 <div class="buying-assistance-form">
                                     <div class="form-control-box margin-right10">
@@ -225,15 +225,14 @@
                                         <span class="bwsprite error-icon errorIcon"></span>
                                         <div class="bw-blackbg-tooltip errorText"></div>
                                     </div>
-                                    <a class="btn btn-orange leftfloat" id="buyingAssistanceSubmitBtn" data-bind="event: { click: submitLead }">Submit</a>
+                                    <a class="btn btn-orange leftfloat" leadSrcId="2" id="buyingAssistanceSubmitBtn" data-bind="event: { click: submitLead }">Submit</a>
                                     <div class="clear"></div>
                                 </div>
                             </div>
-                            <div>
-                                <p class="font14 leftfloat">Thank you for your interest. Kamala Landmarc Motorbikes will get in touch shortly</p>
+                            <div id="dealer-assist-msg" class="hide">
+                                <p class="font14 leftfloat">Thank you for your interest. <%= dealerName %> will get in touch shortly</p>
                                 <span class="assistance-response-close bwsprite cross-lg-lgt-grey cur-pointer rightfloat"></span>
                                 <div class="clear"></div>
-
                             </div>
                         </div>
 
@@ -316,6 +315,16 @@
                                 </div>
                             </div>
                             <!-- otp ends here -->
+                            <div id="dealer-lead-msg" class="hide">
+                                 <div class="icon-outer-container rounded-corner50">
+                                    <div class="icon-inner-container rounded-corner50">
+                                        <span class="bwsprite otp-icon margin-top25"></span>
+                                    </div>
+                                </div>
+                                <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <%= dealerName %>, <%= dealerArea %> will get in touch with you soon.</p>
+                                
+                                <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
+                            </div>
                         </div>
                         <!-- lead capture popup End-->
                          </div>
@@ -739,6 +748,7 @@
             $(function () {
                 leadBtnBookNow.on('click', function () {
                     leadCapturePopup.show();
+                    $("#dealer-lead-msg").hide();
                     $("div#contactDetailsPopup").show();
                     $("#otpPopup").hide();
                     $('body').addClass('lock-browser-scroll');
@@ -879,10 +889,17 @@
                     if (ValidateUserDetail()) {
                         self.verifyCustomer();
                         if (self.IsValid()) {
-                            $("#personalInfo").hide();
-                            $("#leadCapturePopup .leadCapture-close-btn").click();
-                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                            window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                            if(event.currentTarget.id == 'buyingAssistanceSubmitBtn')
+                            {
+                                $("#buying-assistance-form").hide();
+                                $("#dealer-assist-msg").fadeIn();
+
+                            }else{
+                                $("#contactDetailsPopup").hide();
+                                $("#personalInfo").hide()
+                                $("#otpPopup").hide();
+                                $("#dealer-lead-msg").fadeIn();
+                            }
                         }
                         else {
                             $("#leadCapturePopup").show();
@@ -922,8 +939,10 @@
                             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
                             $("#leadCapturePopup .leadCapture-close-btn").click();
 
-                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                            window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                            $("#contactDetailsPopup").hide();
+                            $("#personalInfo").hide()
+                            $("#otpPopup").hide();
+                            $("#dealer-lead-msg").fadeIn();
                         }
                         else {
                             $('#processing').hide();
@@ -1311,6 +1330,13 @@
                 return num;
             }
 
+            $("#dealer-assist-msg .assistance-response-close").click(function(){
+                $("#dealer-assist-msg").parent().slideUp();
+            });
+
+            $("#dealer-lead-msg .okay-thanks-msg").click(function(){
+                $(".leadCapture-close-btn").click();
+            });
 
             var EMIviewModel = new BikeEMI;
             ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
