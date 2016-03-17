@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.PriceQuote;
+using Bikewale.Entities;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
@@ -21,6 +22,7 @@ namespace Bikewale.BindViewModels.Webforms
         public string AreaName { get; set; }
         public int SecondaryDealerCount { get; set; }
         public string MaskingNumber {get;set;}
+        public IEnumerable<OfferEntityBase> Offers { get; set; }
         
         public ModelPageVM(uint cityId, uint versionId, uint dealerId)
         {
@@ -35,6 +37,7 @@ namespace Bikewale.BindViewModels.Webforms
                         AreaName = DealerCampaign.PrimaryDealer.DealerDetails.objArea.AreaName;
                     SecondaryDealerCount = DealerCampaign.SecondaryDealerCount;
                     MaskingNumber = DealerCampaign.PrimaryDealer.DealerDetails.MaskingNumber;
+                    Offers = DealerCampaign.PrimaryDealer.OfferList;
                 }
             }
             catch (Exception ex)

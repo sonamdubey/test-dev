@@ -44,7 +44,7 @@ namespace Bikewale.New
         protected PQOnRoadPrice pqOnRoad;
         protected string modelId = string.Empty;
         protected int variantId = 0;
-        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptCategory, rptVariants, rptDiscount,rptSecondaryDealers;
+        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptCategory, rptVariants, rptDiscount, rptSecondaryDealers;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
         protected uint cityId = 0;
@@ -1285,7 +1285,7 @@ namespace Bikewale.New
                     viewModel = new ModelPageVM(cityId, Convert.ToUInt32(variantId), Convert.ToUInt32(dealerId));
                     if (viewModel.DealerCampaign.PrimaryDealer.OfferList != null && viewModel.DealerCampaign.PrimaryDealer.OfferList.Count() > 0)
                     {
-                        rptOffers.DataSource = viewModel.DealerCampaign.PrimaryDealer.OfferList;
+                        rptOffers.DataSource = viewModel.Offers; ;
                         rptOffers.DataBind();
                         isOfferAvailable = true;
                     }
