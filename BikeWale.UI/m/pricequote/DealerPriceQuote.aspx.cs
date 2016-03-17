@@ -50,6 +50,7 @@ namespace Bikewale.Mobile.BikeBooking
         protected uint offerCount = 0, secondaryDealersCount = 0;
         protected bool isEMIAvailable = false, isUSPAvailable = false, isOfferAvailable = false, isPrimaryDealer = false, isSecondaryDealer = false, isBookingAvailable = false;
         protected DealerPackageTypes dealerType = 0;
+        protected DealerQuotationEntity primarydealer = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -148,7 +149,7 @@ namespace Bikewale.Mobile.BikeBooking
 
                         if (objResponse.PrimaryDealer != null)
                         {
-                            DealerQuotationEntity primarydealer = objResponse.PrimaryDealer;
+                            primarydealer = objResponse.PrimaryDealer;
                             IEnumerable<PQ_Price> priceList = objResponse.PrimaryDealer.PriceList;
                             if (priceList != null && priceList.Count() > 0)
                             {

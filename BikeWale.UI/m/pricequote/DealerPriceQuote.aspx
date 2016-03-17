@@ -307,106 +307,118 @@
             </div>
             <p class="font16 text-bold margin-top25 margin-bottom10">EMI Calculator</p>
             <div class="finance-emi-container">
-                <div class="finance-emi-left-box alpha">
-                    <div class="emi-slider-box">
-                        <div class="emi-slider-box-left-section">
-                            <div class="clearfix font14">
-                                <p class="grid-8 alpha text-light-grey text-left">Down payment</p>
-                                    <div class="emi-slider-box-right-section grid-4 omega">
-                                    <span class="bwmsprite inr-xxsm-icon"></span>
-                                    <span id="downPaymentAmount"></span>
+                <div class="finance-emi-container">
+                                <div class="emi-slider-box">
+                                    <div class="emi-slider-box-left-section">
+                                        <p>Down payment</p>
+                                        <div id="downPaymentSlider"
+                                            data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2 ) + minDnPay()) }"
+                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        </div>
+                                        <div class="slider-range-points">
+                                            <ul class="range-five-pointsUL range-pointsUL" data-bind="">
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minDnPay())"></span></li>
+                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(Math.round((($index() + 1) * ($parent.maxDnPay() - $parent.minDnPay())/$parent.breakPoints()) + $parent.minDnPay()))"></span></li>
+                                                <!-- /ko -->
+                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay())"></span></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="emi-slider-box-right-section font16">
+                                        <span class="fa fa-rupee"></span>&nbsp;
+                                            <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
-                            </div>
-                            <div id="downPaymentSlider"></div>
-                            <div class="slider-range-points">
-                                <ul class="range-five-pointsUL range-pointsUL">
-                                    <li class="range-points-bar"><span>0</span></li>
-                                    <li class="range-points-bar" style="left:5%"><span>2.5L</span></li>
-                                    <li class="range-points-bar" style="left:10%"><span>5L</span></li>
-                                    <li class="range-points-bar" style="left:15%"><span>7.5L</span></li>
-                                    <li class="range-points-bar" style="left:19.9%"><span>10L</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="emi-slider-box">
-                        <div class="emi-slider-box-left-section">
-                            <div class="clearfix font14">
-	                            <p class="grid-8 alpha text-light-grey text-left">Loan Amount</p>
-                                <div class="emi-slider-box-right-section grid-4 omega">
-                                    <span class="bwmsprite inr-xxsm-icon"></span>
-                                    <span id="loanAmount"></span>
+                                <div class="emi-slider-box">
+                                    <div class="emi-slider-box-left-section">
+                                        <p>Loan Amount</p>
+                                        <div id="loanAmountSlider"
+                                            data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
+                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        </div>
+                                        <div class="slider-range-points">
+                                            <ul class="range-five-pointsUL range-pointsUL" data-bind="">
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(bikePrice() - maxDnPay())"></span></li>
+                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(Math.round((($index() + 1) * ($parent.maxDnPay() - $parent.minDnPay())/$parent.breakPoints()) + ($parent.bikePrice() - $parent.maxDnPay())))"></span></li>
+                                                <!-- /ko -->
+                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(bikePrice() - minDnPay())"></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="emi-slider-box-right-section font16">
+                                        <span class="fa fa-rupee"></span>&nbsp;
+                                            <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
-                            </div>
-                            <div id="loanAmountSlider"></div>
-                            <div class="slider-range-points">
-                                <ul class="range-five-pointsUL range-pointsUL">
-                                    <li class="range-points-bar"><span>0</span></li>
-                                    <li class="range-points-bar" style="left:5%"><span>2.5L</span></li>
-                                    <li class="range-points-bar" style="left:10%"><span>5L</span></li>
-                                    <li class="range-points-bar" style="left:15%"><span>7.5L</span></li>
-                                    <li class="range-points-bar" style="left:19.9%"><span>10L</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="emi-slider-box">
-                        <div class="emi-slider-box-left-section">
-                            <div class="clearfix font14">
-	                            <p class="grid-8 alpha text-light-grey text-left">Tenure</p>
-                                <div class="emi-slider-box-right-section grid-4 omega">
-                                    <span id="tenurePeriod"></span>
-                                    <span class="font12">Months</span>
+                                <div class="emi-slider-box">
+                                    <div class="emi-slider-box-left-section">
+                                        <p>Tenure (Months)</p>
+                                        <div id="tenureSlider"
+                                            data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
+                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        </div>
+                                        <div class="slider-range-points">
+                                            <ul class="range-five-pointsUL  range-pointsUL tenure-rate-interest" data-bind="">
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minTenure())"></span></li>
+                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter((($index() + 1) * ($parent.maxTenure() - $parent.minTenure()) / $parent.breakPoints()) + $parent.minTenure())"></span></li>
+                                                <!-- /ko -->
+                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxTenure())"></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="emi-slider-box-right-section">
+                                        <span id="tenurePeriod" class="font16 text-bold" data-bind="text: tenure"></span>
+                                        <span class="font12">Months</span>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
-                            </div>
-                            <div id="tenureSlider"></div>
-                            <div class="slider-range-points">
-                                <ul class="range-pointsUL month-range tenure-rate-interest">
-                                    <li class="range-points-bar" style="left: 0"><span>12</span></li>
-                                    <li class="range-points-bar" style="left: 2%"><span>18</span></li>
-                                    <li class="range-points-bar" style="left: 5%"><span>24</span></li>
-                                    <li class="range-points-bar" style="left: 7%"><span>30</span></li>
-                                    <li class="range-points-bar" style="left: 9%"><span>36</span></li>
-                                    <li class="range-points-bar" style="left: 12%"><span>42</span></li>
-                                    <li class="range-points-bar" style="left: 14%"><span>48</span></li>
-                                    <li class="range-points-bar" style="left: 16.8%"><span>54</span></li>
-                                    <li class="range-points-bar" style="left: 20%"><span>60</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="emi-slider-box">
-                        <div class="emi-slider-box-left-section">
-                            <div class="clearfix font14">
-	                            <p class="grid-8 alpha text-light-grey text-left">Rate of interest</p>
-                                <div class="emi-slider-box-right-section grid-4 omega">
-                                    <span id="rateOfInterestPercentage"></span>
-                                    <span>%</span>
+                                <div class="emi-slider-box">
+                                    <div class="emi-slider-box-left-section">
+                                        <p>Rate of interest (Percentage)</p>
+                                        <div id="rateOfInterestSlider"
+                                            data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
+                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        </div>
+                                        <div class="slider-range-points">
+                                            <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest.">
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minROI())"></span></li>
+                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
+                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter((($index() + 1) * ($parent.maxROI() - $parent.minROI())/$parent.breakPoints()) + $parent.minROI())"></span></li>
+                                                <!-- /ko -->
+                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxROI())"></span></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="emi-slider-box-right-section font16">
+                                        <span id="rateOfInterestPercentage" class="text-bold" data-bind="text: rateofinterest">5</span>
+                                        <span>%</span>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
+
                             </div>
-                            <div id="rateOfInterestSlider"></div>
-                            <div class="slider-range-points">
-                                <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest">
-                                    <li class="range-points-bar"><span>7</span></li>
-                                    <li class="range-points-bar" style="left: 5%"><span>10.25</span></li>
-                                    <li class="range-points-bar" style="left: 10%"><span>13.5</span></li>
-                                    <li class="range-points-bar" style="left: 15%"><span>16.5</span></li>
-                                    <li class="range-points-bar" style="left: 19.9%"><span>20</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
+
                 <div class="finance-emi-right-box omega margin-top15 margin-bottom25">
                     <div class="clearfix">
 	                    <p class="grid-8 font14 text-left alpha position-rel pos-top2">Indicative EMI<span class="font12 text-light-grey"> (per month)</span></p>
                         <div class="indicative-emi-amount text-right grid-4 omega">
                             <span class="bwmsprite inr-xsm-icon"></span>
-                            <span class="font16" id="emiAmount">12,000</span>
+                           <span id="emiAmount" class="font16" data-bind="text: monthlyEMI"></span>
                         </div>
                     </div>     
                 </div>
@@ -588,7 +600,8 @@
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
-            var bikeName = '<%= BikeName %>';
+            var bikeName = "<%= BikeName %>";
+            var bikeVersionPrice = "<%= totalPrice %>";
             var getCityArea = GetGlobalCityArea();
             var areaId = '<%= areaId %>';
             $('#getDealerDetails,#btnBookBike').click(function () {
@@ -596,13 +609,6 @@
                 window.location.href = '/m/pricequote/bookingsummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
             });
 
-            var freeInsurance = $("img.insurance-free-icon");
-            if (!freeInsurance.length) {
-                cityArea = GetGlobalCityArea();
-                $("table tr td.text-medium-grey:contains('Insurance')").first().html("Insurance  (<a href='/m/insurance/' style='position: relative; font-size: 12px; margin-top: 1px;' target='_blank' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objResponse.objMake.MakeName,objResponse.objModel.ModelName,objResponse.objVersion.VersionName)%>" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
-            }
-
-           
             var leadBtnBookNow = $("#leadBtnBookNow,#leadLink"), leadCapturePopup = $("#leadCapturePopup");
             var fullname = $("#getFullName");
             var emailid = $("#getEmailID");
@@ -1136,6 +1142,104 @@
                     }
                 });
             }
+
+
+            <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+               { %>  
+
+            ko.bindingHandlers.slider = {
+                init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
+                    var options = allBindingsAccessor().sliderOptions || {};
+                    $("#" + element.id).slider(options);
+                    ko.utils.registerEventHandler("#" + element.id, "slide", function (event, ui) {
+                        var observable = valueAccessor();
+                        observable(ui.value);
+                    });
+                },
+                update: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
+                    var options = allBindingsAccessor().sliderOptions || {};
+                    $("#" + element.id).slider(options);
+                    var value = ko.utils.unwrapObservable(valueAccessor());
+                    if (isNaN(value)) value = 0;
+                    $("#" + element.id).slider("value", value);
+                }
+            };
+
+            var BikeEMI = function () {
+                var self = this;
+                self.breakPoints = ko.observable(5);
+                self.bikePrice = ko.observable(bikeVersionPrice);
+                self.minDnPay = ko.observable(<%= primarydealer.EMIDetails.MinDownPayment %> * bikeVersionPrice/100);
+                self.maxDnPay = ko.observable(<%= primarydealer.EMIDetails.MaxDownPayment %> * bikeVersionPrice/100);
+                self.minTenure = ko.observable(<%= primarydealer.EMIDetails.MinTenure %>);
+                self.maxTenure = ko.observable(<%= primarydealer.EMIDetails.MaxTenure  %>);
+                self.minROI = ko.observable(<%= primarydealer.EMIDetails.MinRateOfInterest %>);
+                self.maxROI = ko.observable(<%= primarydealer.EMIDetails.MaxRateOfInterest %>);
+                self.processingFees = ko.observable(<%= primarydealer.EMIDetails.ProcessingFee %>);
+                self.exshowroomprice = ko.observable(bikeVersionPrice);
+                self.loan = ko.observable();
+
+                self.tenure = ko.observable((self.maxTenure() - self.minTenure())/2 + self.minTenure());
+                self.rateofinterest = ko.observable((self.maxROI() - self.minROI())/2 + self.minROI());
+                self.downPayment = ko.pureComputed({
+                    read: function () {
+                        if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
+                            self.loan($.LoanAmount(self.exshowroomprice(), 70));
+                        return (($.LoanAmount(self.exshowroomprice(), 100)) - self.loan());
+                    },
+                    write: function (value) {
+                        self.loan((($.LoanAmount(self.exshowroomprice(), 100))) - value);
+                    },
+                    owner: this
+                });
+
+                self.monthlyEMI = ko.pureComputed({
+                    read: function () {
+                        return $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest(),self.processingFees());
+                    },
+                    owner: this
+                });
+            }          
+
+
+            $.calculateEMI = function (loanAmount, tenure, rateOfInterest,proFees) {
+                var interest, totalRepay, finalEmi;
+                try {
+                    interest = (loanAmount * tenure * rateOfInterest) / (12 * 100);
+                    totalRepay = loanAmount + interest;
+                    finalEmi = Math.ceil((totalRepay / tenure) + proFees);
+                }
+                catch (e) {
+                }
+                return formatPrice(finalEmi);
+            };
+
+            $.LoanAmount = function (onRoadPrice, percentage) {
+                var price;
+                try {
+                    price = (onRoadPrice * percentage) / 100;
+                    price = Math.ceil(price / 100.0) * 100;
+                }
+                catch (e) {
+                }
+                return price;
+            };
+
+            $.valueFormatter = function (num) {
+                if (num >= 100000) {
+                    return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
+                }
+                if (num >= 1000) {
+                    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+                }
+                return num;
+            }
+
+            var EMIviewModel = new BikeEMI;
+            ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
+
+
+            <% } %>
 
         </script>
 

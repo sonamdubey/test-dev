@@ -546,8 +546,8 @@
                                         <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                                           { %>
                                         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
-                                        <div id="dealerMap" class=" margin-top15" style="height: 100px; position: relative; text-align: center">
-                                            <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+                                        <div id="dealerMap" class=" margin-top15 text-center position-rel" style="height: 100px">
+                                            <img class="position-abs" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
                                         </div>
                                         <script type="text/javascript">
                                             function initializeDealerMap(element,latitude,longitude) {
@@ -625,8 +625,6 @@
             </div>
         </section>
 
-
-
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
 
@@ -690,17 +688,7 @@
                     },
                     owner: this
                 });
-            }
-
-            function formatPrice(price) {
-                price = price.toString();
-                var lastThree = price.substring(price.length - 3);
-                var otherNumbers = price.substring(0, price.length - 3);
-                if (otherNumbers != '')
-                    lastThree = ',' + lastThree;
-                var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
-                return price;
-            }
+            }          
 
 
             $.calculateEMI = function (loanAmount, tenure, rateOfInterest,proFees) {
@@ -736,6 +724,12 @@
                 return num;
             }
 
+            var EMIviewModel = new BikeEMI;
+            ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
+
+
+            <% } %>
+            
             $("#dealer-assist-msg .assistance-response-close").click(function(){
                 $("#dealer-assist-msg").parent().slideUp();
             });
@@ -744,22 +738,11 @@
                 $(".leadCapture-close-btn").click();
             });
 
-            var EMIviewModel = new BikeEMI;
-            ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
-
-
-            <% } %>
             
             $('#btnGetDealerDetails, #btnBikeBooking').click(function () {
                 var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
                 window.location.href = '/pricequote/bookingsummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
             });
-
-            var freeInsurance = $("img.insurance-free-icon");
-            if (!freeInsurance.length) {
-                cityArea = GetGlobalCityArea();
-                $("table tr td.PQDetailsTableTitle:contains('Insurance')").first().append(" <br/><div style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",makeName,modelName,versionName)%>" + cityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
-            }
 
             $("#leadBtnBookNow").on("click", function () {
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_More_Details_Clicked_Button', 'lab': bikeName + '_' + getCityArea });
@@ -768,11 +751,6 @@
             $("#leadLink").on("click", function () {
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_More_Details_Clicked_Link', 'lab': bikeName + '_' + getCityArea });
             });
-
-            $(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
-                $("div#termsPopUpContainer").hide();
-                $(".blackOut-window").hide();
-            });  
 
             $("input[name*='btnVariant']").on("click", function () {
                 if ($(this).attr('versionid') == $('#hdnVariant').val()) {
@@ -824,6 +802,16 @@
                         window.location = "/pricequote/";
                     }
                 });
+            }
+
+            function formatPrice(price) {
+                price = price.toString();
+                var lastThree = price.substring(price.length - 3);
+                var otherNumbers = price.substring(0, price.length - 3);
+                if (otherNumbers != '')
+                    lastThree = ',' + lastThree;
+                var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+                return price;
             }
         </script>
 
