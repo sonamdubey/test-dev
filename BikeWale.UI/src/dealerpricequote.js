@@ -133,13 +133,13 @@ $(document).ready(function () {
             disclaimerTextOffset = disclaimerText.offset(),
             dealerPriceQuoteContainerOffset = dealerPriceQuoteContainer.offset();
         if (windowScrollTop < dealerPriceQuoteContainerOffset.top - 50) {
-            PQDealerSidebarContainer.css({ 'position': 'relative', 'top': '0', 'right': '0' })
+            PQDealerSidebarContainer.css({ 'position': 'relative', 'top': '0', 'right' : '0' })
         }
         else if (windowScrollTop > (disclaimerTextOffset.top - PQDealerSidebarHeight - 80)) {
                 PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 150, 'right': '0' })
             }
             else {
-                PQDealerSidebarContainer.css({ 'position': 'fixed', 'top': '50px', 'right': '187px' })
+            PQDealerSidebarContainer.css({ 'position': 'fixed', 'top': '50px', 'right': $(window).innerWidth() - (996 + $('#dealerPriceQuoteContainer').offset().left - 11) })
             }
     });
 });
