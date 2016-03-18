@@ -231,7 +231,7 @@
             <%if (isSecondaryDealer)
               {%>
             <div id="pqMoreDealers" class="padding-top15 padding-right10 padding-left10">
-                <p class="font14 text-bold margin-bottom15">Prices available from <%=secondaryDealersCount == 1 ? " more dealer" : " more dealers" %> :</p>
+                <p class="font14 text-bold margin-bottom15">Prices available from <%= secondaryDealersCount == 1 ? secondaryDealersCount + " more dealer" : secondaryDealersCount + " more dealers" %> :</p>
                 <ul class="pq-dealer-listing">
                     <%--bind secondary dealers--%>
                     <asp:Repeater ID="rptSecondaryDealers" runat="server">
