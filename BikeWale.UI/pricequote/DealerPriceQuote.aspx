@@ -1347,9 +1347,8 @@
                 });
             }
         </script>
-
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/includes/footerBW.aspx" --> 
     </form>
 </body>
 </html>
