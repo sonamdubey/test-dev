@@ -683,6 +683,10 @@
       <DependentUpon>VideosControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="dealerlocator\dealerlisting.aspx.cs">
+      <DependentUpon>dealerlisting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Default_old.aspx.cs">
       <DependentUpon>Default_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1749,6 +1753,7 @@
     <Content Include="css\css-new-photos.css" />
     <Content Include="css\css-research-photos.css" />
     <Content Include="css\datepicker.css" />
+    <Content Include="css\dealerlisting.css" />
     <Content Include="css\dealerpricequote.css" />
     <Content Include="css\global.css" />
     <Content Include="css\home.css" />
@@ -1779,6 +1784,7 @@
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
+    <Content Include="dealerlocator\dealerlisting.aspx" />
     <Content Include="Default_old.aspx" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
@@ -2326,6 +2332,7 @@
     <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common.js" />
     <Content Include="src\common\chosen.jquery.min.js" />
+    <Content Include="src\dealerlisting.js" />
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
