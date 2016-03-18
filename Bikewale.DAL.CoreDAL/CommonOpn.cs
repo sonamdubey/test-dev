@@ -561,10 +561,6 @@ namespace Bikewale.CoreDAL
                 //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
                 msg.Body = body;
 
-                // Mail Server Configuration. Needed for Rediff Hosting.
-                //msg.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 1;
-                //msg.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory"] = "C:\\inetpub\\mailroot\\pickup";
-
                 // Send the e-mail
                 client.Send(msg);
 
@@ -572,9 +568,7 @@ namespace Bikewale.CoreDAL
             }
             catch (Exception err)
             {
-                objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                //ErrorClass objErr = new ErrorClass(err,"SendMail in CommonOpn");
-                //objErr.SendMail();
+                objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);                
             }
         }
 		///<summary>
@@ -673,16 +667,11 @@ namespace Bikewale.CoreDAL
 				{
 					imgPath = "http://img.aeplcdn.com/";
 
-					// remove the following line as soon as 
-					// images.carwale.com is activated.
-					//imgPath = CommonOpn.AppPath + "img/";
 				}
 				else
 				{
 					imgPath = AppPath + "images/";
 				}
-							
-				//HttpContext.Current.Trace.Warn( "Image Path : " + imgPath );
 
 				return imgPath;
 			}
@@ -692,29 +681,17 @@ namespace Bikewale.CoreDAL
 		{
 			
 			Page myPage = new Page();
-			//HttpContext.Current.Trace.Warn( "Original Image Path : " + imgPath);
-			//string absPath = myPage.Server.MapPath( "/" );
 			string absPath = "";
 			
 			if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf( "carwale.com" ) >= 0 )
 			{
 				absPath = myPage.Server.MapPath( imgPath.Replace("http://img.aeplcdn.com/","/") ).ToLower().Replace( "\\carwale\\","\\carwaleimg\\" );
-
-				// remove the following line as soon as 
-				// images.carwale.com is activated.
-				//imgPath = CommonOpn.AppPath + "img/";
-			}
+            }
 			else
 			{
 				absPath = myPage.Server.MapPath( imgPath );
 			}
-			
-			//return makePleskCompatible; 
-			
-			//HttpContext.Current.Trace.Warn( "Index Of : " + imgPath.IndexOf( "images.carwale.com" ) );
-			
-			//absPath = absPath.Replace( "\\default\\htdocs\\","\\carwale.com\\subdomains\\images\\httpdocs\\" )
-					//+ imgPath.Replace( "http://images.carwale.com", "" ).Replace( "/", "\\" );
+
 
 			HttpContext.Current.Trace.Warn( "Resolved Image Path : " + absPath );
 			return absPath;
@@ -1569,7 +1546,6 @@ namespace Bikewale.CoreDAL
                 double months = 84; // 84 Months.
 
                 double interest = rate / (12 * 100);
-                //HttpContext.Current.Trace.Warn("interest : " + loanAmount.ToString());
                 double finalEmi = (loanAmount * interest * Math.Pow(1 + interest, months)) / (Math.Pow(1 + interest, months) - 1);
 
                 emi = Math.Round(finalEmi, 0).ToString();
@@ -1899,13 +1875,7 @@ namespace Bikewale.CoreDAL
         }
 
         private static double lattSecPerKm = 32.57940665;
-        //private static double lattKmPerSec = 0.030694236;
-
         private static double longSecPerKm = 34.63696611;
-
-      //  private static double longKmPerSec = 0.028870889;
-
-        //private static double longKmPerSec = 0.028870889;
 
 
         public static double GetLattitude(int diffKm)
@@ -1988,33 +1958,7 @@ namespace Bikewale.CoreDAL
         /// <returns></returns>
         public static string GetClientIP()
         {
-            // Commented by sadhana Upadhyay
-            // Capturing CarWale server Address
-
-
-            //string ip, trueIP = string.Empty;
-
-            //ip = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            //HttpContext.Current.Trace.Warn("ClientIp", ip);
-
-            //if (!string.IsNullOrEmpty(ip))
-            //{
-            //    string[] ipRange = ip.Split(',');
-            //    trueIP = ipRange[ipRange.Length - 1];
-            //}
-            //else
-            //{
-            //    trueIP = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
-            //}
-
-            //IPAddress result;
-            //if (!IPAddress.TryParse(trueIP, out result))
-            //    result = IPAddress.None;
-
-            //return result.ToString();
-
             string clientIp = HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
-
             return clientIp;
         }
 
@@ -2054,7 +1998,6 @@ namespace Bikewale.CoreDAL
         public static void RedirectPermanent(string newPath)
         {
             HttpContext.Current.Response.Clear();
-            //HttpContext.Current.Response.Status = "301 Moved Permanently";
             HttpContext.Current.Response.StatusCode = 301;
             HttpContext.Current.Response.AddHeader("Location", newPath);
             HttpContext.Current.Response.End();
@@ -2082,68 +2025,6 @@ namespace Bikewale.CoreDAL
             return _contentTypes;
 
         } //End of GetContentTypes
-
-        ///// <summary>
-        ///// Written By : Ashwini Todkar on 30 Oct 2014
-        ///// </summary>
-        ///// <param name="eMI">Tenure,LoanAmount and ROI</param>
-        ///// <param name="exShowroom">Bike Price</param>
-        ///// <returns></returns>
-        //public static CalculatedEMI GetCalculatedReducingEmi(EMI eMI, UInt32 exShowroom, UInt32 totalOnroadPrice)
-        //{
-        //    CalculatedEMI objEMI = new CalculatedEMI();
-        //    objEMI.objEMI = eMI;
-
-        //    // Calculate min down payment
-        //    UInt32 loanAmount = exShowroom * eMI.LoanToValue / 100;
-        //    objEMI.LoanAmount = loanAmount;
-        //    // Calculate loan amount
-        //    uint downPayment = totalOnroadPrice - loanAmount;
-        //    objEMI.DownPayment = downPayment;
-        //    // Calculate monthly interest
-        //    float interest = ((float)eMI.RateOfInterest / (12 * 100));
-
-        //    // Calculate Emi
-        //    double finalEmi = (loanAmount * interest * Math.Pow(1 + interest, eMI.Tenure - 1)) / (Math.Pow(1 + interest, eMI.Tenure) - 1);
-
-        //    objEMI.EMI = finalEmi;
-
-        //    return objEMI;
-        //}
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 4 dec 2014
-        /// </summary>
-        /// <param name="eMI">Tenure,LoanAmount and ROI</param>
-        /// <param name="totalOnroadPrice">Bike Price</param>
-        /// <returns></returns>
-        //public static CalculatedEMI GetCalculatedFlatEmi(EMI eMI, UInt32 totalOnroadPrice)
-        //{
-        //    CalculatedEMI objEMI = new CalculatedEMI();
-        //    objEMI.objEMI = eMI;
-
-        //    // Calculate min down payment
-        //    UInt32 loanAmount = totalOnroadPrice * eMI.LoanToValue / 100;
-
-        //    objEMI.LoanAmount = loanAmount;
-        //    // Calculate loan amount
-        //    uint downPayment = totalOnroadPrice - loanAmount;
-
-        //    objEMI.DownPayment = downPayment;
-      
-        //    // Calculate total simple interest (P*N*R)
-        //    float interest = (loanAmount * (((float)eMI.Tenure) / 12) * (eMI.RateOfInterest / 100));
-
-     
-        //    float totalRepayment = loanAmount + interest;
-
-        //    // Calculate Emi
-        //    double finalEmi = Math.Round((totalRepayment / (eMI.Tenure))); //(loanAmount * interest * Math.Pow(1 + interest, eMI.Tenure - 1)) / (Math.Pow(1 + interest, eMI.Tenure) - 1);
-
-        //    objEMI.EMI = finalEmi;
-
-        //    return objEMI;
-        //}
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 5 Nov 2014

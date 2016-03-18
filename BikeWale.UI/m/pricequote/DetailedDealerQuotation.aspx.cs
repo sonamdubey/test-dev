@@ -291,9 +291,6 @@ namespace Bikewale.Mobile.BikeBooking
                         if (isBasicAvail && isShowroomPriceAvail)
                             TotalPrice = TotalPrice - exShowroomCost;
 
-                        //if (_objPQ.objEmi != null && exShowroomCost > 0)
-                        //    objCEMI = CommonOpn.GetCalculatedFlatEmi(_objPQ.objEmi, TotalPrice);
-
                         foreach (var price in _objPQ.objQuotation.PriceList)
                         {
                             Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), _objPQ.objQuotation.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
@@ -330,7 +327,7 @@ namespace Bikewale.Mobile.BikeBooking
                         organization = _objPQ.objDealer.Organization;
                         lattitude = _objPQ.objDealer.objArea.Latitude;
                         longitude = _objPQ.objDealer.objArea.Longitude;
-                        address = _objPQ.objDealer.objArea.AreaName + ", " + _objPQ.objDealer.objCity.CityName;// +"," + _objPQ.objDealer.objArea.PinCode + ", " + _objPQ.objDealer.objState.StateName;
+                        address = _objPQ.objDealer.objArea.AreaName + ", " + _objPQ.objDealer.objCity.CityName;
 
                         if (!String.IsNullOrEmpty(address) && !String.IsNullOrEmpty(_objPQ.objDealer.objArea.PinCode))
                         {

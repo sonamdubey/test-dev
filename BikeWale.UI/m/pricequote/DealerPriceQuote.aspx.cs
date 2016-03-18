@@ -113,7 +113,7 @@ namespace Bikewale.Mobile.BikeBooking
                         BikeName = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " +
                                    objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "";
                         //Added By : Ashwini Todkar on 1 Dec 2014
-                        if (objPriceQuote.PrimaryDealer.PriceList != null && objPriceQuote.PrimaryDealer.PriceList.Count() > 0)
+                        if (objPriceQuote.PrimaryDealer!=null && objPriceQuote.PrimaryDealer.PriceList != null && objPriceQuote.PrimaryDealer.PriceList.Count() > 0)
                         {
                             isPrimaryDealer = true;
                             MakeModel = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " +
@@ -181,12 +181,15 @@ namespace Bikewale.Mobile.BikeBooking
                             }
 
                             //bind secondary Dealer
-                            secondaryDealersCount = Convert.ToUInt32(objPriceQuote.SecondaryDealerCount);
-                            if (secondaryDealersCount > 0)
+                            if (objPriceQuote.SecondaryDealerCount !=null )
                             {
-                                isSecondaryDealer = true;
-                                rptSecondaryDealers.DataSource = objPriceQuote.SecondaryDealers;
-                                rptSecondaryDealers.DataBind();
+                                secondaryDealersCount = Convert.ToUInt32(objPriceQuote.SecondaryDealerCount);
+                                if (secondaryDealersCount > 0)
+                                {
+                                    isSecondaryDealer = true;
+                                    rptSecondaryDealers.DataSource = objPriceQuote.SecondaryDealers;
+                                    rptSecondaryDealers.DataBind();
+                                } 
                             }
 
                             //booking amount
@@ -295,14 +298,13 @@ namespace Bikewale.Mobile.BikeBooking
                     objVersionDetails = objVersion.GetById(versionId);
                     versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
 
-                    if (versionList.Count > 0)
+                    if (versionList!=null && versionList.Count > 0)
                     {
                         ddlVersion.DataSource = versionList;
                         ddlVersion.DataValueField = "VersionId";
                         ddlVersion.DataTextField = "VersionName";
                         ddlVersion.DataBind();
-
-                        ddlVersion.SelectedValue = PriceQuoteQueryString.VersionId;
+                        ddlVersion.SelectedValue = Convert.ToString(versionId);
                     }
                 }
             }

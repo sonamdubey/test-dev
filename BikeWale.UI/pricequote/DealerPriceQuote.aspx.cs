@@ -323,7 +323,10 @@ namespace Bikewale.BikeBooking
         } 
         #endregion
 
-
+        /// <summary>
+        /// Description : To bind alternative bikes controle.
+        /// </summary>
+        /// <param name="versionId"></param>
         private void BindAlternativeBikeControl(String versionId)
         {
             ctrlAlternativeBikes.TopCount = 6;
@@ -358,7 +361,7 @@ namespace Bikewale.BikeBooking
                     {
                         objPQEntity.CityId = cityId;
                         objPQEntity.AreaId = areaId;
-                        objPQEntity.ClientIP = CommonOpn.GetClientIP();
+                        objPQEntity.ClientIP = CommonOpn.GetClientIP(); 
                         objPQEntity.SourceId = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["sourceId"]);
                         objPQEntity.VersionId = selectedVersionId;
                         objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_DPQ_Quotation);

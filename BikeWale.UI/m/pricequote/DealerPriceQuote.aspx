@@ -53,9 +53,11 @@
            
             <div class="margin-top10 padding-right10 padding-left10">
                 <p class="grid-3 alpha omega version-label-text font14 text-light-grey margin-top5 leftfloat">Version:</p>
-                 <%if (versionList.Count > 1){ %>
+                 <%if (versionList!=null && versionList.Count > 1)
+                   { %>
                 <asp:DropDownList ID="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
-                <%} else if(objPriceQuote.objVersion != null){ %>
+                <%} 
+                  else if(objPriceQuote.objVersion != null){ %>
                 <span id='versText' class="margin-left10 font14 text-light-grey leftfloat margin-top7 text-light-grey margin-right20 text-bold"><%= objPriceQuote.objVersion.VersionName %></span>
                 <%} %>
             </div>
@@ -67,7 +69,7 @@
                         <ItemTemplate>
                             <tr>
                                 <td align="left" width="75%" class="text-light-grey padding-bottom15"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
-                                <td align="right" width="25%" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
+                                <td align="right" width="25%" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
@@ -82,13 +84,13 @@
                     %>
                     <tr>
                         <td align="left" class="text-light-grey padding-bottom15">Total On Road Price</td>
-                        <td align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><span style="text-decoration: line-through"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span></td>
+                        <td align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><span style="text-decoration: line-through"><%= Bikewale.Utility.Format.FormatPrice(totalPrice.ToString()) %></span></td>
                     </tr>
                     <asp:Repeater ID="rptDiscount" runat="server">
                         <ItemTemplate>
                             <tr>
                                 <td align="left" class="text-light-grey padding-bottom15">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
-                                <td align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
+                                <td align="right" class="padding-bottom15"><span class="bwmsprite inr-xxsm-icon"></span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
@@ -98,7 +100,7 @@
                     <tr>
                         <td align="left" class="text-dark-black padding-bottom15">On-road price</td>
                         <td align="right" class="text-dark-black padding-bottom15">
-                            <div><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice((totalPrice - totalDiscount).ToString()) %></div>
+                            <div><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice((totalPrice - totalDiscount).ToString()) %></div>
                         </td>
                     </tr>
                     <%
@@ -108,7 +110,7 @@
                     <tr>
                         <td align="left" class="text-dark-black padding-bottom15">Total On Road Price</td>
                         <td align="right" class="text-dark-black padding-bottom15">
-                            <div><span class="bwmsprite inr-sm-icon"></span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></div>
+                            <div><span class="bwmsprite inr-sm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(totalPrice.ToString()) %></div>
 
                         </td>
                     </tr>
@@ -119,8 +121,9 @@
             </div>
             <!--Price Breakup ends here-->
 
+            <%if(isPrimaryDealer){ %>
             <!-- Dealer Widget starts here -->
-            <div id="pqDealerDetails" class="<%= isPrimaryDealer ? "" : "hide" %>">
+            <div id="pqDealerDetails">
                 <!-- hide this div when no premium dealer -->
                 <div id="pqDealerHeader">
                     <div class="padding-top7 padding-right10 padding-left10 border-trl">
@@ -145,31 +148,35 @@
                     </div>
                     <script type="text/javascript">
                         function initializeDealerMap(element, latitude, longitude) {
-                            mapUrl = "http://maps.google.com/?q=" + latitude + "," + longitude;
-                            latLng = new google.maps.LatLng(latitude, longitude),
-                            mapOptions = {
-                                zoom: 13,
-                                center: latLng,
-                                mapTypeId: google.maps.MapTypeId.ROADMAP
-                            },
-                            map = new google.maps.Map(element, mapOptions),
-                            marker = new google.maps.Marker({
-                                title: "Dealer's Location",
-                                position: latLng,
-                                map: map,
-                                animation: google.maps.Animation.DROP
-                            });
+                            try {
+                                mapUrl = "http://maps.google.com/?q=" + latitude + "," + longitude;
+                                latLng = new google.maps.LatLng(latitude, longitude),
+                                mapOptions = {
+                                    zoom: 13,
+                                    center: latLng,
+                                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                                },
+                                map = new google.maps.Map(element, mapOptions),
+                                marker = new google.maps.Marker({
+                                    title: "Dealer's Location",
+                                    position: latLng,
+                                    map: map,
+                                    animation: google.maps.Animation.DROP
+                                });
 
-                            google.maps.event.addListener(marker, 'click', function() {
-                                window.open(mapUrl, '_blank');
-                            });
+                                google.maps.event.addListener(marker, 'click', function () {
+                                    window.open(mapUrl, '_blank');
+                                });
 
-                            google.maps.event.addListener(map, 'click', function() {
-                                window.open(mapUrl, '_blank');
-                            });
+                                google.maps.event.addListener(map, 'click', function () {
+                                    window.open(mapUrl, '_blank');
+                                });
 
-                            google.maps.event.addListenerOnce(map, 'idle', function () {
-                            });
+                                google.maps.event.addListenerOnce(map, 'idle', function () {
+                                });
+                            } catch (e) {
+                                return;
+                            }
                         }
                         google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0],'<%= latitude %>','<%= longitude %>'));
                     </script>
@@ -221,8 +228,8 @@
                     <%if (isBookingAvailable)
                       {%>
                     <div class="padding-top15 padding-bottom15 border-light-top">
-                        <p class="font15 text-bold margin-bottom10">Pay <span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice((objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> online and book bike:</p>
-                        <p class="text-light-grey margin-bottom20">The booking amount of <span class="bwmsprite inr-grey-xxsm-icon"></span><%=CommonOpn.FormatPrice((objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> has to be paid online and balance amount of <span class="bwmsprite inr-grey-xxsm-icon"></span><%=CommonOpn.FormatPrice((totalPrice - objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> has to be paid at the dealership</p>
+                        <p class="font15 text-bold margin-bottom10">Pay <span class="bwmsprite inr-xxsm-icon"></span><%=Bikewale.Utility.Format.FormatPrice((objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> online and book bike:</p>
+                        <p class="text-light-grey margin-bottom20">The booking amount of <span class="bwmsprite inr-grey-xxsm-icon"></span><%=Bikewale.Utility.Format.FormatPrice((objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> has to be paid online and balance amount of <span class="bwmsprite inr-grey-xxsm-icon"></span><%=Bikewale.Utility.Format.FormatPrice((totalPrice - objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> has to be paid at the dealership</p>
                         <a id="btnBookNow" class="btn btn-grey btn-full-width">Book now</a>
                     </div>
                     <%} %>
@@ -237,8 +244,7 @@
                 </div>
             </div>
             <!-- show below div when no premium dealer -->
-            <%if (!isPrimaryDealer)
-              { %>
+            <%} else { %>
             <div class="font14 text-light-grey border-solid padding-top20 padding-right10 padding-bottom20 padding-left10">Sorry, there are no dealers nearby</div>
             <%} %>
             <%if (isSecondaryDealer)
