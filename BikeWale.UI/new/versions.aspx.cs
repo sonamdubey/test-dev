@@ -282,17 +282,6 @@ namespace Bikewale.New
         }
 
         /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   18 Nov 2015
-        /// Description     :   To change price and Minspecs when variant changes
-        /// </summary>
-        public void ddlVariant_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            variantId = Convert.ToInt32(ddlVariant.SelectedValue);
-            FetchVariantDetails(variantId);            
-        }
-
-        /// <summary>
         /// Modified by     :   Sumit Kate on 15 Feb 2016
         /// Description     :   Replace First() with FirstOrDefault() for BPQOutput.Varient.Where function call
         /// </summary>
@@ -333,7 +322,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "rptVarients_ItemDataBound");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "rptVarients_ItemDataBound");
                 objErr.SendMail();
             }
         }
@@ -404,7 +393,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : LoadVariants");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : LoadVariants");
                 objErr.SendMail();
             }
         }
@@ -495,7 +484,7 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Trace.Warn("exception 1 : ");
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
                 objErr.SendMail();
 
                 Response.Redirect("/new/", false);
@@ -669,7 +658,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
                 objErr.SendMail();
             }
         }
@@ -796,7 +785,7 @@ namespace Bikewale.New
             {
                 if (string.IsNullOrEmpty(errorParams))
                     errorParams = "=== modelpage ===" + Newtonsoft.Json.JsonConvert.SerializeObject(modelPage);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "-" + "FetchOnRoadPrice" + " ===== parameters ========= " + errorParams);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "-" + "FetchOnRoadPrice" + " ===== parameters ========= " + errorParams);
                 objErr.SendMail();
             }
         }
@@ -884,7 +873,7 @@ namespace Bikewale.New
                                 }
                                 catch (Exception ex)
                                 {
-                                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "GetOnRoadPrice" + "-" + api);
+                                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "GetOnRoadPrice" + "-" + api);
                                     objErr.SendMail();
                                 }
                             }
@@ -894,7 +883,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "GetOnRoadPrice");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "GetOnRoadPrice");
                 objErr.SendMail();
             }
             return pqOnRoad;
@@ -1139,7 +1128,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
                 objErr.SendMail();
             }
         }
@@ -1164,7 +1153,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "FetchCityByModelId");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchCityByModelId");
                 objErr.SendMail();
             }
             return cityList;
@@ -1195,7 +1184,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "GetAreaForCityAndModel");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "GetAreaForCityAndModel");
                 objErr.SendMail();
             }
 
@@ -1283,22 +1272,22 @@ namespace Bikewale.New
                 if (cityId > 0 && variantId > 0)
                 {
                     viewModel = new ModelPageVM(cityId, Convert.ToUInt32(variantId), Convert.ToUInt32(dealerId));
-                    if (viewModel.DealerCampaign.PrimaryDealer.OfferList != null && viewModel.DealerCampaign.PrimaryDealer.OfferList.Count() > 0)
+                    if (viewModel.Offers != null && viewModel.Offers.Count() > 0)
                     {
-                        rptOffers.DataSource = viewModel.Offers; ;
+                        rptOffers.DataSource = viewModel.Offers;
                         rptOffers.DataBind();
                         isOfferAvailable = true;
                     }
-                    if (viewModel.DealerCampaign.SecondaryDealerCount > 0)
+                    if (viewModel.SecondaryDealers!= null && viewModel.SecondaryDealerCount > 0)
                     {
-                        rptSecondaryDealers.DataSource = viewModel.DealerCampaign.SecondaryDealers;
+                        rptSecondaryDealers.DataSource = viewModel.SecondaryDealers;
                         rptSecondaryDealers.DataBind();
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "FillViewModel");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FillViewModel");
                 objErr.SendMail();
             }
 

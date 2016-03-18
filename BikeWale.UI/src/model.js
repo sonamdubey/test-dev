@@ -215,7 +215,6 @@ function CustomerModel() {
         if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {
             self.verifyCustomer();
             if (self.IsValid()) {                             
-                //$("#leadCapturePopup .leadCapture-close-btn").click();
                 if ($("#leadCapturePopup").css('display') === 'none') {
                     $("#leadCapturePopup").show();
                     $(".blackOut-window-model").show();

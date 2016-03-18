@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Bikewale.Notifications;
+using Bikewale.Entities;
 
 namespace Bikewale.BindViewModels.Webforms
 {
@@ -20,11 +22,13 @@ namespace Bikewale.BindViewModels.Webforms
         public DetailedDealerQuotationEntity DealerCampaign { get; set; }
         public string Organization { get; set; }
         public string AreaName { get; set; }
-        public int SecondaryDealerCount { get; set; }
+        public short SecondaryDealerCount { get; set; }
         public string MaskingNumber {get;set;}
         public IEnumerable<OfferEntityBase> Offers { get; set; }
         public ushort OfferCount { get; set; }
+        public IEnumerable<NewBikeDealerBase> SecondaryDealers { get; set; }
         public string MobileNo { get; set; }
+
         public ModelPageVM(uint cityId, uint versionId, uint dealerId)
         {
             try
@@ -36,17 +40,18 @@ namespace Bikewale.BindViewModels.Webforms
                     Organization = DealerCampaign.PrimaryDealer.DealerDetails.Organization;
                     if (DealerCampaign.PrimaryDealer.DealerDetails.objArea != null)
                         AreaName = DealerCampaign.PrimaryDealer.DealerDetails.objArea.AreaName;
-                    SecondaryDealerCount = DealerCampaign.SecondaryDealerCount;
+                    SecondaryDealerCount = Convert.ToInt16(DealerCampaign.SecondaryDealerCount);
                     MaskingNumber = DealerCampaign.PrimaryDealer.DealerDetails.MaskingNumber;
                     Offers = DealerCampaign.PrimaryDealer.OfferList;
                     MobileNo = DealerCampaign.PrimaryDealer.DealerDetails.MobileNo;
+                    SecondaryDealers = DealerCampaign.SecondaryDealers;
                     if (DealerCampaign.PrimaryDealer.OfferList != null)
                         OfferCount = Convert.ToUInt16(DealerCampaign.PrimaryDealer.OfferList.Count());
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.ModelPageVM constructor");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.ModelPageVM constructor");
                 objErr.SendMail();
             }
         }
@@ -68,7 +73,7 @@ namespace Bikewale.BindViewModels.Webforms
             }
             catch (Exception ex)
             {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.GetDetailedDealer");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.GetDetailedDealer");
                 objErr.SendMail();
             }
             return detailedDealer;

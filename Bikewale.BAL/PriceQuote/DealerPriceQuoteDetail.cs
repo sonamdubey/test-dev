@@ -32,20 +32,16 @@ namespace Bikewale.BAL.PriceQuote
         {
             DetailedDealerQuotationEntity dealerQuotation = null;
             try
-            {
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json", _apiUrl = string.Empty;
-                _apiUrl = String.Format("/api/v2/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionID, dealerId);
-
-                dealerQuotation = new DetailedDealerQuotationEntity();
+            {                
+                string _apiUrl = String.Format("/api/v2/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionID, dealerId);
                 using (BWHttpClient objClient = new BWHttpClient())
                 {
-                    dealerQuotation = objClient.GetApiResponseSync<DetailedDealerQuotationEntity>(APIHost.AB, _requestType, _apiUrl, dealerQuotation);
+                    dealerQuotation = objClient.GetApiResponseSync<DetailedDealerQuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerQuotation);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "DealerPriceQuoteDetail.GetDealerQuotation");
                 objErr.SendMail();
             }
             return dealerQuotation;

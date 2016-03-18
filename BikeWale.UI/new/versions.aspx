@@ -546,8 +546,19 @@
                     <% if (viewModel !=null && viewModel.Organization != null)
                        { %>
                     <%--<h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>--%>
+                    <%
+                        if(viewModel!= null) {
+                     %>
                     <h3 class="font18 margin-bottom25">On-road price <%=viewModel.Organization %></h3>
                     <% } %>
+                        }
+                        else
+                        {
+                     %>
+                    <h3 class="font18 margin-bottom25">On-road price</h3>
+                     <%     
+                        }
+                     %>
                     <% if (isBikeWalePQ)
 					   { %>
                     <table width="100%" class="font14">
