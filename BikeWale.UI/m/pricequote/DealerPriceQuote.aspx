@@ -305,7 +305,7 @@
                                 <ul class="range-five-pointsUL range-pointsUL" data-bind="">
                                     <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minDnPay())"></span></li>
                                     <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter(Math.round((($index() + 1) * ($parent.maxDnPay() - $parent.minDnPay())/$parent.breakPoints()) + $parent.minDnPay()))"></span></li>
+                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minDnPay(), $parent.maxDnPay(), $parent.breakPoints())"></span></li>
                                     <!-- /ko -->
                                     <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay())"></span></li>
 
@@ -333,7 +333,7 @@
                                 <ul class="range-five-pointsUL range-pointsUL" data-bind="">
                                     <li class="range-points-bar"><span data-bind="text: $.valueFormatter(bikePrice() - maxDnPay())"></span></li>
                                     <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter(Math.round((($index() + 1) * ($parent.maxDnPay() - $parent.minDnPay())/$parent.breakPoints()) + ($parent.bikePrice() - $parent.maxDnPay())))"></span></li>
+                                    <li class="range-points-bar"><span data-bind="text:  $.createSliderPoints($index() + 1, $parent.bikePrice() - $parent.maxDnPay(), $parent.bikePrice() - $parent.minDnPay(), $parent.breakPoints())"></span></li>
                                     <!-- /ko -->
                                     <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(bikePrice() - minDnPay())"></span></li>
                                 </ul>
@@ -362,7 +362,7 @@
                                 <ul class="range-five-pointsUL  range-pointsUL tenure-rate-interest" data-bind="">
                                     <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minTenure())"></span></li>
                                     <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter((($index() + 1) * ($parent.maxTenure() - $parent.minTenure()) / $parent.breakPoints()) + $parent.minTenure())"></span></li>
+                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minTenure(), $parent.maxTenure() , $parent.breakPoints())"></span></li>
                                     <!-- /ko -->
                                     <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxTenure())"></span></li>
                                 </ul>
@@ -391,7 +391,7 @@
                                 <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest.">
                                     <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minROI())"></span></li>
                                     <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                    <li class="range-points-bar"><span data-bind="text: $.valueFormatter((($index() + 1) * ($parent.maxROI() - $parent.minROI())/$parent.breakPoints()) + $parent.minROI())"></span></li>
+                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minROI(), $parent.maxROI() , $parent.breakPoints())"></span></li>
                                     <!-- /ko -->
                                     <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxROI())"></span></li>
 
@@ -526,13 +526,7 @@
                 window.location.href = '/m/pricequote/bookingsummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
             });
 
-            var freeInsurance = $("img.insurance-free-icon");
-            if (!freeInsurance.length) {
-                cityArea = GetGlobalCityArea();
-                $("table tr td.text-medium-grey:contains('Insurance')").first().html("Insurance  (<a href='/m/insurance/' style='position: relative; font-size: 12px; margin-top: 1px;' target='_blank' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objPriceQuote.objMake.MakeName,objPriceQuote.objModel.ModelName,objPriceQuote.objVersion.VersionName)%>" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
-            }
-
-           
+            
             var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#btnEmiQuote"), leadCapturePopup = $("#leadCapturePopup");
             var fullname = $("#getFullName");
             var emailid = $("#getEmailID");
@@ -1126,6 +1120,10 @@
                 }
                 return price;
             };
+
+            $.createSliderPoints = function (index, min, max, breaks) {
+                return $.valueFormatter(Math.round(min + (index * (max - min) / breaks)));
+            }
 
             $.valueFormatter = function (num) {
                 if (num >= 100000) {

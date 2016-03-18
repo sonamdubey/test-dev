@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.DealerPriceQuote" Trace="false" Async="true" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.DealerPriceQuote" Trace="false" EnableEventValidation="false" %>
 
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
@@ -105,7 +105,7 @@
                                                 </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <asp:HiddenField ID="hdnVariant" Value='<%= versionId %>' runat="server" />
+                                        <asp:HiddenField ID="hdnVariant" runat="server" />
                                     </ul>
                                 </div>
                                 <% }
@@ -406,7 +406,7 @@
                                             <ul class="range-five-pointsUL range-pointsUL" data-bind="">
                                                 <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minDnPay())"></span></li>
                                                 <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(Math.round((($index() + 1) * ($parent.maxDnPay() - $parent.minDnPay())/$parent.breakPoints()) + $parent.minDnPay()))"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minDnPay(), $parent.maxDnPay(), $parent.breakPoints())"></span></li>
                                                 <!-- /ko -->
                                                 <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay())"></span></li>
 
@@ -432,7 +432,7 @@
                                             <ul class="range-five-pointsUL range-pointsUL" data-bind="">
                                                 <li class="range-points-bar"><span data-bind="text: $.valueFormatter(bikePrice() - maxDnPay())"></span></li>
                                                 <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(Math.round((($index() + 1) * ($parent.maxDnPay() - $parent.minDnPay())/$parent.breakPoints()) + ($parent.bikePrice() - $parent.maxDnPay())))"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.bikePrice() - $parent.maxDnPay(), $parent.bikePrice() - $parent.minDnPay(), $parent.breakPoints())"></span></li>
                                                 <!-- /ko -->
                                                 <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(bikePrice() - minDnPay())"></span></li>
                                             </ul>
@@ -457,7 +457,7 @@
                                             <ul class="range-five-pointsUL  range-pointsUL tenure-rate-interest" data-bind="">
                                                 <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minTenure())"></span></li>
                                                 <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter((($index() + 1) * ($parent.maxTenure() - $parent.minTenure()) / $parent.breakPoints()) + $parent.minTenure())"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minTenure(), $parent.maxTenure() , $parent.breakPoints())"></span></li>
                                                 <!-- /ko -->
                                                 <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxTenure())"></span></li>
                                             </ul>
@@ -482,7 +482,7 @@
                                             <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest.">
                                                 <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minROI())"></span></li>
                                                 <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter((($index() + 1) * ($parent.maxROI() - $parent.minROI())/$parent.breakPoints()) + $parent.minROI())"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text:  $.createSliderPoints($index() + 1, $parent.minROI(), $parent.maxROI() , $parent.breakPoints())"></span></li>
                                                 <!-- /ko -->
                                                 <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxROI())"></span></li>
 
@@ -712,6 +712,11 @@
                 }
                 return formatPrice(finalEmi);
             };
+
+            $.createSliderPoints = function(index,min,max,breaks)
+            {
+                return $.valueFormatter(Math.round(min + (index * (max - min)/breaks)));
+            }
 
             $.LoanAmount = function (onRoadPrice, percentage) {
                 var price;

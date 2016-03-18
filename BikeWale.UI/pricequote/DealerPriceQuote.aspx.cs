@@ -73,14 +73,10 @@ namespace Bikewale.BikeBooking
 
             ProcessQueryString();
 
-            if (String.IsNullOrEmpty(hdnVariant.Value) || hdnVariant.Value == "0" || !UInt32.TryParse(hdnVariant.Value, out versionId))
-            {
-                hdnVariant.Value = Convert.ToString(versionId);
-            }
-
             if (versionId > 0)
             {
                 BindVersion();
+                hdnVariant.Value = versionId.ToString();
                 BindAlternativeBikeControl(versionId.ToString());
                 clientIP = CommonOpn.GetClientIP();
                 cityArea = GetLocationCookie();
@@ -111,9 +107,10 @@ namespace Bikewale.BikeBooking
                 defaultVariant.Text = Convert.ToString(e.CommandArgument);
                 SavePriceQuote();
             }
-        } 
+        }
         #endregion
 
+      
         #region Dealer PriceQuote Details Binding
         /// <summary>
         /// Created By : Lucky Rathore
@@ -393,12 +390,7 @@ namespace Bikewale.BikeBooking
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-                    else
-                    {
-                        Response.Redirect("/pricequote/", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
+
                 }
                 else
                 {
@@ -467,7 +459,6 @@ namespace Bikewale.BikeBooking
                     UInt32.TryParse(PriceQuoteQueryString.AreaId, out areaId);
                     clientIP = Bikewale.Common.CommonOpn.GetClientIP();
                     pageUrl = Request.ServerVariables["URL"];
-
                 }
                 else
                 {
