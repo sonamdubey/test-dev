@@ -22,7 +22,7 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.BikeBooking
 {
-    public class DealerPriceQuote : System.Web.UI.Page
+    public class DealerPriceQuote : PageBase
     {
         protected Repeater rptPriceList, rptColors, rptDisclaimer, rptOffers, rptDiscount, rptSecondaryDealers, rptBenefits;
         protected DropDownList ddlVersion;
