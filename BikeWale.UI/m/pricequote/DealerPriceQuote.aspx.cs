@@ -44,8 +44,8 @@ namespace Bikewale.Mobile.BikeBooking
         protected String clientIP = string.Empty;
         protected bool IsDiscount = false;
         protected UInt32 totalDiscount = 0;
-        protected DetailedDealerQuotationEntity objResponse = null;
-        protected string dealerShipName = string.Empty, dealerArea = string.Empty, dealerAdd = string.Empty, maskingNum = string.Empty;
+        protected DetailedDealerQuotationEntity objPriceQuote = null;
+        protected string dealerName = string.Empty, dealerArea = string.Empty, dealerAdd = string.Empty, maskingNum = string.Empty;
         protected double latitude = 0, longitude = 0;
         protected uint offerCount = 0, secondaryDealersCount = 0;
         protected bool isEMIAvailable = false, isUSPAvailable = false, isOfferAvailable = false, isPrimaryDealer = false, isSecondaryDealer = false, isBookingAvailable = false;
@@ -108,31 +108,34 @@ namespace Bikewale.Mobile.BikeBooking
                 {
                     container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
                     IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
-                    objResponse = objIPQ.GetDealerQuotation(cityId, versionId, dealerId);
+                    objPriceQuote = objIPQ.GetDealerQuotation(cityId, versionId, dealerId);
 
-                    if (objResponse != null)
+                    if (objPriceQuote != null)
                     {
-                        BikeName = objResponse.objMake.MakeName + " " + objResponse.objModel.ModelName;
+                        BikeName = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " +
+                                   objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "" + " " +
+                                   objPriceQuote.objVersion != null ? objPriceQuote.objVersion.VersionName : "";
                         //Added By : Ashwini Todkar on 1 Dec 2014
-                        if (objResponse.PrimaryDealer.PriceList != null && objResponse.PrimaryDealer.PriceList.Count() > 0)
+                        if (objPriceQuote.PrimaryDealer.PriceList != null && objPriceQuote.PrimaryDealer.PriceList.Count() > 0)
                         {
                             isPrimaryDealer = true;
-                            MakeModel = objResponse.objMake.MakeName + " " + objResponse.objModel.ModelName;
+                            MakeModel = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " +
+                                        objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "";
 
-                            rptPriceList.DataSource = objResponse.PrimaryDealer.PriceList;
+                            rptPriceList.DataSource = objPriceQuote.PrimaryDealer.PriceList;
                             rptPriceList.DataBind();
 
-                            foreach (var price in objResponse.PrimaryDealer.PriceList)
+                            foreach (var price in objPriceQuote.PrimaryDealer.PriceList)
                             {
                                 totalPrice += price.Price;
                             }
 
                             //dealerId = objPrice.PriceList[0].DealerId;
-                            dealerId = objResponse.PrimaryDealer.DealerDetails.DealerId;
+                            dealerId = objPriceQuote.PrimaryDealer.DealerDetails.DealerId;
 
-                            foreach (var price in objResponse.PrimaryDealer.PriceList)
+                            foreach (var price in objPriceQuote.PrimaryDealer.PriceList)
                             {
-                                Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), objResponse.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
+                                Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), objPriceQuote.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
                             }
                             if (insuranceAmount > 0)
                             {
@@ -141,16 +144,16 @@ namespace Bikewale.Mobile.BikeBooking
                             isPriceAvailable = true;
                         }
 
-                        //if (objResponse.Disclaimer != null && objResponse.Disclaimer.Count > 0)
+                        //if (objPriceQuote.Disclaimer != null && objPriceQuote.Disclaimer.Count > 0)
                         //{
-                        //    rptDisclaimer.DataSource = objResponse.Disclaimer;
+                        //    rptDisclaimer.DataSource = objPriceQuote.Disclaimer;
                         //    rptDisclaimer.DataBind();
                         //}
 
-                        if (objResponse.PrimaryDealer != null)
+                        if (objPriceQuote.PrimaryDealer != null)
                         {
-                            primarydealer = objResponse.PrimaryDealer;
-                            IEnumerable<PQ_Price> priceList = objResponse.PrimaryDealer.PriceList;
+                            primarydealer = objPriceQuote.PrimaryDealer;
+                            IEnumerable<PQ_Price> priceList = objPriceQuote.PrimaryDealer.PriceList;
                             if (priceList != null && priceList.Count() > 0)
                             {
                                 rptPriceList.DataSource = priceList;
@@ -160,7 +163,7 @@ namespace Bikewale.Mobile.BikeBooking
                             if (primarydealer.DealerDetails != null)
                             {
                                 NewBikeDealers dealerDetails = primarydealer.DealerDetails;
-                                dealerShipName = dealerDetails.Organization;
+                                dealerName = dealerDetails.Organization;
                                 dealerArea = dealerDetails.objArea.AreaName;
                                 dealerAdd = dealerDetails.Address;
                                 maskingNum = dealerDetails.MaskingNumber;
@@ -192,11 +195,11 @@ namespace Bikewale.Mobile.BikeBooking
                             }
 
                             //bind secondary Dealer
-                            secondaryDealersCount = Convert.ToUInt32(objResponse.SecondaryDealerCount);
+                            secondaryDealersCount = Convert.ToUInt32(objPriceQuote.SecondaryDealerCount);
                             if (secondaryDealersCount > 0)
                             {
                                 isSecondaryDealer = true;
-                                rptSecondaryDealers.DataSource = objResponse.SecondaryDealers;
+                                rptSecondaryDealers.DataSource = objPriceQuote.SecondaryDealers;
                                 rptSecondaryDealers.DataBind();
                             }
 
