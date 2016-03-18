@@ -306,9 +306,8 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons a:hover span.fa-twitter { background: #1dadea; }
 .footer-social-icons a:hover span.fa-google-plus { background: #db4c3f; }
 
-
 /* sprite classes */
-.bwsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?v1=14Mar2016v1) no-repeat; display: inline-block; }
+.bwsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?v1=18Mar2016v1) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
@@ -695,7 +694,7 @@ a.action-btn:hover{text-decoration:none;}
 .pos-bottom20 { bottom: 20px; }
 
 .border-red { border: 1px solid #F00; }
-.border-solid { border: 1px solid #ccc; }
+.border-solid { border: 1px solid #e2e2e2; }
 .border-solid-left { border-left: 1px solid #e2e2e2; }
 .border-solid-right { border-right: 1px solid #e2e2e2; }
 .border-solid-top { border-top: 1px solid #e2e2e2; }
