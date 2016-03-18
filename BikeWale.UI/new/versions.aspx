@@ -542,7 +542,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="breakup-text-container padding-bottom10>
+                <div class="breakup-text-container padding-bottom10">
                     <% if (viewModel !=null && viewModel.Organization != null)
                        { %>
                     <%--<h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>--%>

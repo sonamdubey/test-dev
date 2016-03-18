@@ -243,13 +243,14 @@ function CustomerModel() {
 
     self.submitLead = function () {
 
-        var isValidCustomer = ValidateUserDetail();        
-        if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {          
+        var isValidCustomer = ValidateUserDetail();
+        if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {
             self.verifyCustomer();
             if (self.IsValid()) {
-                $("#contactDetailsPopup").hide();
-                $('#notify-response .notify-leadUser').text(self.fullName());
-                $('#notify-response').show();
+                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
+                window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                //$("#personalInfo").hide();
+                //$("#leadCapturePopup .leadCapture-close-btn").click();                
             }
             else {
                 $("#contactDetailsPopup").hide();
@@ -257,6 +258,7 @@ function CustomerModel() {
                 var leadMobileVal = mobile.val();
                 $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
                 otpContainer.removeClass("hide").addClass("show");
+                //detailsSubmitBtn.hide();
                 nameValTrue();
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
@@ -265,12 +267,13 @@ function CustomerModel() {
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Lead_Submitted', 'lab': bikeVersionLocation });
         }
 
-        else if (isValidCustomer && isDealerPriceAvailable == "False" && campaignId > 0) {           
+        else if (isValidCustomer && isDealerPriceAvailable == "False" && campaignId > 0) {
             self.submitCampaignLead();
 
             setPQUserCookie();
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Lead_Submitted', 'lab': bikeVersionLocation });
         }
+
     };
 
     self.submitCampaignLead = function () {
@@ -299,18 +302,26 @@ function CustomerModel() {
             async: false,
             contentType: "application/json",
             success: function (response) {
+                //var obj = ko.toJS(response);
                 $("#personalInfo,#otpPopup").hide();
                 $('#processing').hide();
+                //validationSuccess($(".get-lead-mobile"));
                 $("#contactDetailsPopup").hide();
                 $('#notify-response .notify-leadUser').text(self.fullName());
                 $('#notify-response').show();
+
+                //$("#leadCapturePopup .leadCapture-close-btn").click();
+
+                //var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + manufacturerId;
+                //window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#contactDetailsPopup,#otpPopup").hide();
                 $('#processing').hide();
                 var leadMobileVal = mobile.val(); otpContainer.removeClass("hide").addClass("show");
+                //detailsSubmitBtn.hide();
                 nameValTrue();
-                hideError(mobile);               
+                hideError(mobile);
             }
         });
     };
@@ -323,6 +334,7 @@ function CustomerModel() {
         if (validateOTP() && ValidateUserDetail()) {
             customerViewModel.generateOTP();
             if (customerViewModel.IsVerified()) {
+                // $.customizeState();
                 $("#personalInfo").hide();
                 $(".booking-dealer-details").removeClass("hide").addClass("show");
                 $('#processing').hide();
@@ -331,7 +343,7 @@ function CustomerModel() {
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
                 var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);                
+                window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
             }
             else {
                 $('#processing').hide();
@@ -339,6 +351,7 @@ function CustomerModel() {
             }
         }
     });
+
 }
 
 function ValidateUserDetail() {
@@ -555,6 +568,8 @@ var validateUpdatedMobile = function () {
     return isValid;
 };
 
+
+
 //photos corousel function
 var slideToClick = function (swiper) {
     var clickedSlide = swiper.slides[swiper.clickedIndex];
@@ -627,6 +642,7 @@ $(".modelgallery-close-btn").click(function () {
 
 function showImgTitle(swiper) {
     imgTitle = $(galleryThumbs.slides[swiper.activeIndex]).find('img').attr('title');
+    //console.log(imgTitle);
     imgTotalCount = galleryThumbs.slides.length;
     $(".leftfloatbike-gallery-details").text(imgTitle);
     $(".bike-gallery-count").text(swiper.activeIndex + 1 + "/" + imgTotalCount.toString());
@@ -716,6 +732,7 @@ $(document).mouseup(function (e) {
     }
 });
 
+// GA Tags
 $('#btnGetOnRoadPrice').on('click', function (e) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Click', 'lab': bikeVersionLocation });
 });
@@ -773,6 +790,7 @@ function LoadTerms(offerId) {
     }
     else {
         $("#terms").load("/statichtml/tnc.html");
+        //$('#terms').html($("#orig-terms").html());
     }
     $('#termspinner').hide();
 }
@@ -782,6 +800,8 @@ $('#locslug').on('click', function (e) {
 $('#calldealer').on('click', function (e) {
     triggerGA('Model_Page', 'Call_Dealer_Clicked', myBikeName + '_' + bikeVersionLocation);
 });
+
+//
 $('.more-dealers-link').on('click', function () {
     $(this).parent().prev('#moreDealersList').slideDown();
     $(this).hide().next('.less-dealers-link').show();

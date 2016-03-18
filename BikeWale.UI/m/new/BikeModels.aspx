@@ -359,7 +359,7 @@
                             <a id="calldealer" class="btn btn-white btn-full-width btn-sm rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                         </div>
                         <div class="grid-6 alpha omega padding-left10">
-                            <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+919167969266"><span class="bwmsprite tel-white-icon margin-right5"></span>Get assistance</a>
+                            <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat" href="javascript:void(0);"><span class="bwmsprite tel-white-icon margin-right5"></span>Get assistance</a>
                         </div>
                         <%} %>
                         <%} %>
