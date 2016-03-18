@@ -10,7 +10,7 @@ namespace Bikewale.DTO.PriceQuote
     /// <summary>
     /// Price Quote Customer Details Input entity
     /// Author  :   Sumit Kate
-    /// Date    :   21 Aug 2015
+    /// Date    :   21 Aug 2015    
     /// </summary>
     public class PQCustomerDetailInput
     {

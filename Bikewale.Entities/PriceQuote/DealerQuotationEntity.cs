@@ -1,10 +1,6 @@
 ﻿using Bikewale.Entities.BikeBooking;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.PriceQuote
 {
@@ -33,13 +29,13 @@ namespace Bikewale.Entities.PriceQuote
         [JsonProperty("bikeAvailability")]
         public uint BikeAvailability { get; set; }
 
-        //[JsonProperty("availabilityByColor")]
-        //public IEnumerable<BikeColorAvailability> AvailabilityByColor { get; set; }
-
         [JsonProperty("benefits")]
         public IEnumerable<DealerBenefitEntity> Benefits { get; set; }
 
         [JsonProperty("emiDetails")]
         public EMI EMIDetails { get; set; }
+
+        [JsonProperty("hasBenefits")]
+        public bool HasBenefits { get; set; }
     }
 }

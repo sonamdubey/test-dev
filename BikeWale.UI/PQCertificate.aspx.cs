@@ -35,11 +35,9 @@ namespace Bikewale.BikeBooking
 
             if (objPQ != null)
             {
-                //ImgPath = ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + objPQ.objQuotation.LargePicUrl, objPQ.objQuotation.HostUrl);
                 ImgPath = Bikewale.Utility.Image.GetPathToShowImages(objPQ.objQuotation.OriginalImagePath, objPQ.objQuotation.HostUrl,Bikewale.Utility.ImageSize._210x118);
                 BikeName = objPQ.objQuotation.objMake.MakeName + " " + objPQ.objQuotation.objModel.ModelName + " " + objPQ.objQuotation.objVersion.VersionName;
                 noOfDays = Convert.ToUInt32(Request.QueryString["availability"]);
-                //exShowroomCost = Convert.ToUInt32(Request.QueryString["exshowroom"]);
                 TotalPrice = Convert.ToUInt32(Request.QueryString["totalPrice"]);
                 Trace.Warn("total price", TotalPrice.ToString());
                 Organization = objPQ.objDealer.Organization;
@@ -74,12 +72,6 @@ namespace Bikewale.BikeBooking
                 {
                     rptDisclaimer.DataSource = objPQ.objQuotation.Disclaimer;
                     rptDisclaimer.DataBind();
-                }
-
-
-                if (objPQ.objEmi != null)
-                {
-                    objCEMI = CommonOpn.GetCalculatedFlatEmi(objPQ.objEmi, TotalPrice);
                 }
             }
         }
