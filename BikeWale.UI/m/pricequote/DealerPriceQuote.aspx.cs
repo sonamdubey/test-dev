@@ -111,8 +111,7 @@ namespace Bikewale.Mobile.BikeBooking
                     if (objPriceQuote != null)
                     {
                         BikeName = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " +
-                                   objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "" + " " +
-                                   objPriceQuote.objVersion != null ? objPriceQuote.objVersion.VersionName : "";
+                                   objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "";
                         //Added By : Ashwini Todkar on 1 Dec 2014
                         if (objPriceQuote.PrimaryDealer.PriceList != null && objPriceQuote.PrimaryDealer.PriceList.Count() > 0)
                         {
@@ -128,7 +127,6 @@ namespace Bikewale.Mobile.BikeBooking
                                 totalPrice += price.Price;
                             }
 
-                            //dealerId = objPrice.PriceList[0].DealerId;
                             dealerId = objPriceQuote.PrimaryDealer.DealerDetails.DealerId;
 
                             foreach (var price in objPriceQuote.PrimaryDealer.PriceList)
@@ -141,12 +139,6 @@ namespace Bikewale.Mobile.BikeBooking
                             }
                             isPriceAvailable = true;
                         }
-
-                        //if (objPriceQuote.Disclaimer != null && objPriceQuote.Disclaimer.Count > 0)
-                        //{
-                        //    rptDisclaimer.DataSource = objPriceQuote.Disclaimer;
-                        //    rptDisclaimer.DataBind();
-                        //}
 
                         if (objPriceQuote.PrimaryDealer != null)
                         {
@@ -168,10 +160,6 @@ namespace Bikewale.Mobile.BikeBooking
                                 latitude = dealerDetails.objArea.Latitude;
                                 longitude = dealerDetails.objArea.Longitude;
                                 dealerType = dealerDetails.DealerPackageType;
-                            }
-                            else
-                            {
-                                //handle if not available 
                             }
 
                             //bind Offer
@@ -442,15 +430,6 @@ namespace Bikewale.Mobile.BikeBooking
                 ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_DPQ_Alternative;
             }
         }
-        //private UInt32 TotalDiscountedPrice()
-        //{
-        //    UInt32 totalPrice = 0;
-        //    foreach (var priceListObj in objPrice.discountedPriceList)
-        //    {
-        //        totalPrice += priceListObj.Price;
-        //    }
-        //    return totalPrice;
-        //}
 
     }   //End of class
 }   //End of namespace

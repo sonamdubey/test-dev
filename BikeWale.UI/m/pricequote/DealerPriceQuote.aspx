@@ -7,8 +7,8 @@
 <html>
 <head>
     <%
-        title = objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName + " " + objPriceQuote.objVersion.VersionName + " Price Quote ";
-        description = objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName + " " + objPriceQuote.objVersion.VersionName + " price quote";
+        title = String.Format("{0} {1} {2} Price Quote", objPriceQuote.objMake.MakeName, objPriceQuote.objModel.ModelName, objPriceQuote.objVersion.VersionName);
+        description = String.Format("{0} {1} {2} price quote", objPriceQuote.objMake.MakeName, objPriceQuote.objModel.ModelName, objPriceQuote.objVersion.VersionName);
         keywords = "";
         canonical = "";
         AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
@@ -50,12 +50,16 @@
             </div>
             <div class="clear"></div>
 
-
-            <div class="<%= versionList.Count>1 ?"":"hide" %> margin-top10 padding-right10 padding-left10">
+           
+            <div class="margin-top10 padding-right10 padding-left10">
                 <p class="grid-3 alpha omega version-label-text font14 text-light-grey margin-top5 leftfloat">Version:</p>
+                 <%if (versionList.Count > 1){ %>
                 <asp:DropDownList ID="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
+                <%} else if(objPriceQuote.objVersion != null){ %>
+                <span id='versText' class="margin-left10 font14 text-light-grey leftfloat margin-top7 text-light-grey margin-right20 text-bold"><%= objPriceQuote.objVersion.VersionName %></span>
+                <%} %>
             </div>
-
+            
             <!--Price Breakup starts here-->
             <div class="margin-top15 padding-left10 padding-right10">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
@@ -140,7 +144,8 @@
                         <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
                     </div>
                     <script type="text/javascript">
-                        function initializeDealerMap(element,latitude,longitude) {
+                        function initializeDealerMap(element, latitude, longitude) {
+                            mapUrl = "http://maps.google.com/?q=" + latitude + "," + longitude;
                             latLng = new google.maps.LatLng(latitude, longitude),
                             mapOptions = {
                                 zoom: 13,
@@ -239,7 +244,7 @@
             <%if (isSecondaryDealer)
               {%>
             <div id="pqMoreDealers" class="padding-top15 padding-right10 padding-left10">
-                <p class="font14 text-bold margin-bottom15">Prices available from <%=secondaryDealersCount == 1 ? " more dealer" : " more dealers" %> :</p>
+                <p class="font14 text-bold margin-bottom15">Prices available from <%= secondaryDealersCount == 1 ? secondaryDealersCount + " more dealer" : secondaryDealersCount + " more dealers" %> :</p>
                 <ul class="pq-dealer-listing">
                     <%--bind secondary dealers--%>
                     <asp:Repeater ID="rptSecondaryDealers" runat="server">
