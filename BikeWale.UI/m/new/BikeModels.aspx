@@ -1297,11 +1297,11 @@
                         <div class="update-mobile-box">
                             <div class="form-control-box text-left">
                                 <p class="mobile-prefix">+91</p>
-                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" />
+                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
                                 <span class="bwmsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" />
+                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
                         </div>
                     </div>
 

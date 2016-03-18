@@ -242,15 +242,14 @@ function CustomerModel() {
     };
 
     self.submitLead = function () {
-
         var isValidCustomer = ValidateUserDetail();
         if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {
             self.verifyCustomer();
             if (self.IsValid()) {
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
-                //$("#personalInfo").hide();
-                //$("#leadCapturePopup .leadCapture-close-btn").click();                
+                $("#contactDetailsPopup").hide();
+                $("#otpPopup").hide();
+                $('#notify-response .notify-leadUser').text(self.fullName());
+                $('#notify-response').show();
             }
             else {
                 $("#contactDetailsPopup").hide();
@@ -338,12 +337,13 @@ function CustomerModel() {
                 $("#personalInfo").hide();
                 $(".booking-dealer-details").removeClass("hide").addClass("show");
                 $('#processing').hide();
-
                 detailsSubmitBtn.show();
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                $("#contactDetailsPopup").hide();
+                $("#otpPopup").hide();
+                $('#notify-response .notify-leadUser').text(self.fullName());
+                $('#notify-response').show();
             }
             else {
                 $('#processing').hide();
