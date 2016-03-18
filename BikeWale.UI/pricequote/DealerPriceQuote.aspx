@@ -331,10 +331,7 @@
 
                         <div class="clear"></div>
 
-                        <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
-                           { %>
-
-                        <% if (isUSPBenfits)
+                        <% if (isUSPBenfits && dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium )
                            { %>
                         <!--  Dealer Benefits starts-->
                         <div class="grid-12 padding-top20 padding-right20 padding-bottom5 padding-left20 font14">
@@ -627,7 +624,6 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-
         <script type="text/javascript">
 
             var bikeName = "<%= BikeName %>";
@@ -767,6 +763,9 @@
                 $('#hdnDealerId').val($(this).attr('title'));
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
             });
+            $("#dealerList li").click(function(){
+                registerPQ($(this).attr('dealerId'));
+            });
 
             function registerPQ(secondaryDealerId) {
                 var obj = {
@@ -815,7 +814,6 @@
             }
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW.aspx" --> 
     </form>
 </body>
 </html>
