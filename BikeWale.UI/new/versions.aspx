@@ -550,7 +550,7 @@
                         if(viewModel!= null) {
                      %>
                     <h3 class="font18 margin-bottom25">On-road price <%=viewModel.Organization %></h3>
-                    <% } %>
+                    <% } 
                         }
                         else
                         {

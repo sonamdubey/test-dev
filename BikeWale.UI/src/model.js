@@ -211,6 +211,7 @@ function CustomerModel() {
     };
 
     self.submitLead = function () {
+        self.IsVerified(false)
         var isValidCustomer = ValidateUserDetail(fullName, emailid, mobile);
         if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {
             self.verifyCustomer();
