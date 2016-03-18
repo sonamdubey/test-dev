@@ -69,6 +69,16 @@
 .offers-voucher-icon { height:24px; background-position:-39px 0; }
 .offers-pickup-icon { height:30px; background-position:-79px 0; }
 
+.offerIcon_1,.offerIcon_2,.offerIcon_3,.offerIcon_4,.offerIcon_5,.offerIcon_6,.offerIcon_7{ width:30px; }
+.offerIcon_1 { height:30px; background-position:0 0;     }
+.offerIcon_2 { height:24px; background-position:-39px 0; }
+.offerIcon_3 { height:30px; background-position:-79px 0; }
+.offerIcon_4 { height:30px; background-position:0 0;      }
+.offerIcon_5 { height:24px; background-position:-39px 0;  }
+.offerIcon_6 { height:30px; background-position:-79px 0;  }
+.offerIcon_7 { height:30px; background-position:-79px 0; }
+
+
 /**/
 #otpPopup { display:none; }
 .user-contact-details-icon { width:36px; height:44px; background-position: -107px -227px; }

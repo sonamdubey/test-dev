@@ -23,7 +23,8 @@ namespace Bikewale.BindViewModels.Webforms
         public int SecondaryDealerCount { get; set; }
         public string MaskingNumber {get;set;}
         public IEnumerable<OfferEntityBase> Offers { get; set; }
-        
+        public ushort OfferCount { get; set; }
+        public string MobileNo { get; set; }
         public ModelPageVM(uint cityId, uint versionId, uint dealerId)
         {
             try
@@ -38,11 +39,14 @@ namespace Bikewale.BindViewModels.Webforms
                     SecondaryDealerCount = DealerCampaign.SecondaryDealerCount;
                     MaskingNumber = DealerCampaign.PrimaryDealer.DealerDetails.MaskingNumber;
                     Offers = DealerCampaign.PrimaryDealer.OfferList;
+                    MobileNo = DealerCampaign.PrimaryDealer.DealerDetails.MobileNo;
+                    if (DealerCampaign.PrimaryDealer.OfferList != null)
+                        OfferCount = Convert.ToUInt16(DealerCampaign.PrimaryDealer.OfferList.Count());
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "ModelPageVM constructor");
+                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.ModelPageVM constructor");
                 objErr.SendMail();
             }
         }
@@ -62,10 +66,9 @@ namespace Bikewale.BindViewModels.Webforms
                     detailedDealer = objIPQ.GetDealerQuotation(cityId, versionId, dealerId);
                 }
             }
-
             catch (Exception ex)
             {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "GetDetailedDealer");
+                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.GetDetailedDealer");
                 objErr.SendMail();
             }
             return detailedDealer;
