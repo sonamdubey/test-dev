@@ -97,7 +97,6 @@ namespace Bikewale.BikeBooking
                 BindVersion();
                 BindAlternativeBikeControl(versionId.ToString());
                 clientIP = CommonOpn.GetClientIP();
-                PreFillCustomerDetails();
                 cityArea = GetLocationCookie();
                 SetDealerPriceQuoteDetail(cityId, versionId, dealerId);
                 mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId), Convert.ToString(dealerId)));
@@ -131,6 +130,8 @@ namespace Bikewale.BikeBooking
         /// Created By : Lucky Rathore
         /// Created on : 15 March 2016
         /// Description : for Dealer Basics details.
+        /// Modified By : Sushil Kumar on 17th March 2016
+        /// Description  : Added default values for emi if no emi details is available
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="versionId"></param>
@@ -164,7 +165,7 @@ namespace Bikewale.BikeBooking
                             modelName = detailedDealer.objModel.ModelName;
                         }
 
-                        BikeName = makeName + " " + modelName;
+                        BikeName = String.Format("{0} {1}",makeName,modelName);
 
                         if (detailedDealer.objVersion != null)
                         {
@@ -190,7 +191,7 @@ namespace Bikewale.BikeBooking
                                 Response.Redirect("/pricequote/quotation.aspx", false);
                             }
 
-                            //set primary dealer Detail
+                            
                             if (primarydealer.DealerDetails != null)
                             {
                                 NewBikeDealers dealerDetails = primarydealer.DealerDetails;
@@ -231,7 +232,7 @@ namespace Bikewale.BikeBooking
                             {
                                 bookingAmount = Convert.ToUInt16(Utility.Format.FormatPrice(Convert.ToString(primarydealer.BookingAmount)));
                             }
-                            //EMI deatails
+                            //EMI details
                             if (primarydealer.EMIDetails != null)
                             {
                                 EMI _objEMI = setEMIDetails();
@@ -265,7 +266,7 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                Trace.Warn("getEMIDetails Ex: ", ex.Message);
+                Trace.Warn("SetDealerPriceQuoteDetail Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -297,32 +298,6 @@ namespace Bikewale.BikeBooking
             return _objEMI;
         }
 
-        /// <summary>
-        /// Created BY : Sadhana Upadhyay on 14 Nov 2014
-        /// Summary : To fill Customer detail when customer is loged in
-        /// </summary>
-        protected void PreFillCustomerDetails()
-        {
-            try
-            {
-                if (Bikewale.Common.CurrentUser.Id != "-1")
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
-                        ICustomer<CustomerEntity, UInt32> objCust = container.Resolve<ICustomer<CustomerEntity, UInt32>>();
-
-                        objCustomer = objCust.GetById(Convert.ToUInt32(Bikewale.Common.CurrentUser.Id));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn("PreFillCustomerDetails Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 2 Dec 2014
