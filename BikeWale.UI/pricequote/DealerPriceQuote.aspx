@@ -331,7 +331,10 @@
 
                         <div class="clear"></div>
 
-                        <% if (isUSPBenfits && dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium )
+                        <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+                           { %>
+
+                        <% if (isUSPBenfits)
                            { %>
                         <!--  Dealer Benefits starts-->
                         <div class="grid-12 padding-top20 padding-right20 padding-bottom5 padding-left20 font14">
