@@ -1,10 +1,11 @@
 ﻿var getCityArea = GetGlobalCityArea();
 
 var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#leadBtn,#btnEmiQuote"), leadCapturePopup = $("#leadCapturePopup");
-var fullName = $("#getFullName, #assistanceGetName");
-var emailid = $("#getEmailID,#assistanceGetEmail");
-var mobile = $("#getMobile,#assistanceGetMobile");
+var fullName = $("#getFullName");
+var emailid = $("#getEmailID");
+var mobile = $("#getMobile");
 var otpContainer = $(".mobile-verification-container");
+
 
 
 var detailsSubmitBtn = $("#user-details-submit-btn, #buyingAssistBtn");
@@ -160,10 +161,16 @@ function CustomerModel() {
     };
 
     self.submitLead = function () {
-        if (event.currentTarget.id == 'buyingAssistBtn')
+        isValidDetails = false;
+        if (event.currentTarget.id == 'buyingAssistBtn') {
             self.isAssist(true);
-        else self.isAssist(false);
-        if (ValidateUserDetail()) {
+            isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
+        }
+        else {
+            self.isAssist(false);
+            isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
+        }
+        if (isValidDetails) {
             self.verifyCustomer();
             if (self.IsValid()) {
                 if (self.isAssist()) {
@@ -233,33 +240,10 @@ function CustomerModel() {
     });
 }
 
-function ValidateUserDetail() {
-    var isValid = true;
-    isValid = validateEmail();
-    isValid &= validateMobile();
-    isValid &= validateName();
-    return isValid;
+function ValidateUserDetail(fullName, emailid, mobile) {
+    return validateUserInfo(fullName, emailid, mobile);
 };
 
-function validateName() {
-    var isValid = true;
-    var a = fullName.val().length;
-    if ((/&/).test(fullName.val())) {
-        isValid = false;
-        setError(fullName, 'Invalid name');
-    }
-    else
-        if (a == 0) {
-            isValid = false;
-            setError(fullName, 'Please enter your first name');
-        }
-        else if (a >= 1) {
-            isValid = true;
-            nameValTrue()
-        }
-    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Name', 'lab': getCityArea }); }
-    return isValid;
-}
 
 function nameValTrue() {
     hideError(fullName)
@@ -324,53 +308,14 @@ otpText.on("focus", function () {
     otpText.siblings("span, div").hide();
 });
 
-function setError(ele, msg) {
-    ele.addClass("border-red");
-    ele.siblings("span, div").show();
-    ele.siblings("div").text(msg);
-}
+var setError = function (element, msg) {
+    element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
+    element.siblings("div.errorText").text(msg);
+};
 
-function hideError(ele) {
-    ele.removeClass("border-red");
-    ele.siblings("span, div").hide();
-}
-/* Email validation */
-function validateEmail() {
-    var isValid = true;
-    var emailID = emailid.val();
-    var reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
-
-    if (emailID == "") {
-        setError(emailid, 'Please enter email address');
-        isValid = false;
-    }
-    else if (!reEmail.test(emailID)) {
-        setError(emailid, 'Invalid Email');
-        isValid = false;
-    }
-    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Email', 'lab': getCityArea }); }
-    return isValid;
-}
-
-function validateMobile() {
-    var isValid = true;
-    var reMobile = /^[0-9]{10}$/;
-    var mobileNo = mobile.val();
-    if (mobileNo == "") {
-        isValid = false;
-        setError(mobile, "Please enter your Mobile Number");
-    }
-    else if (!reMobile.test(mobileNo) && isValid) {
-        isValid = false;
-        setError(mobile, "Mobile Number should be 10 digits");
-    }
-    else {
-        hideError(mobile)
-    }
-    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Mobile', 'lab': getCityArea }); }
-    return isValid;
-}
-
+var hideError = function (element) {
+    element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
+};
 var otpVal = function (msg) {
     otpText.addClass("border-red");
     otpText.siblings("span, div").show();
@@ -421,31 +366,13 @@ $(".edit-mobile-btn").on("click", function () {
 });
 
 $("#generateNewOTP").on("click", function () {
-    if (validateUpdatedMobile()) {
+    if (validateMobileNo($("#getUpdatedMobile"))) {
         var updatedNumber = $(".update-mobile-box").find("#getUpdatedMobile").val();
         $(".update-mobile-box").hide();
         $(".lead-otp-box-container").show();
         $(".lead-mobile-box").find(".lead-mobile").text(updatedNumber);
     }
 });
-
-var validateUpdatedMobile = function () {
-    var isValid = true,
-        mobileNo = $("#getUpdatedMobile"),
-        mobileVal = mobileNo.val(),
-        reMobile = /^[0-9]{10}$/;
-    if (mobileVal == "") {
-        setError(mobileNo, "Please enter your Mobile Number");
-        isValid = false;
-    }
-    else if (!reMobile.test(mobileVal) && isValid) {
-        setError(mobileNo, "Mobile Number should be 10 digits");
-        isValid = false;
-    }
-    else
-        hideError(mobileNo)
-    return isValid;
-};
 
 
 var variantsDropdown = $(".variants-dropdown"),
@@ -470,7 +397,6 @@ $.variantChangeUp = function (variantsDropdown) {
     variantUL.slideUp();
 };
 
-//TODO handle the version selection event
 
 $(document).mouseup(function (e) {
     if (!$(".variants-dropdown, .variant-selection-tab, .variant-selection-tab #upDownArrow").is(e.target)) {
@@ -482,9 +408,6 @@ var assistanceGetName = $('#assistanceGetName'),
     assistanceGetEmail = $('#assistanceGetEmail'),
     assistanceGetMobile = $('#assistanceGetMobile');
 
-$('#buyingAssistBtn').on('click', function () {
-    (validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile));
-});
 
 var validateUserInfo = function (leadUsername, leadEmailId, leadMobileNo) {
     var isValid = true;
@@ -530,27 +453,22 @@ var validateEmailId = function (leadEmailId) {
 var validateMobileNo = function (leadMobileNo) {
     var isValid = true,
 		mobileVal = leadMobileNo.val(),
-		reMobile = /^[0-9]{10}$/;
+		reMobile = /^[1-9][0-9]{9}$/;
     if (mobileVal == "") {
         setError(leadMobileNo, "Please enter your mobile no.");
         isValid = false;
     }
+    else if (mobileVal[0] == "0") {
+        setError(leadMobileNo, "Mobile no. should not start with zero");
+        isValid = false;
+    }
     else if (!reMobile.test(mobileVal) && isValid) {
-        setError(leadMobileNo, "Mobile no. should be 10 digits");
+        setError(leadMobileNo, "Mobile no. should be 10 digits only");
         isValid = false;
     }
     else
         hideError(leadMobileNo)
     return isValid;
-};
-
-var setError = function (element, msg) {
-    element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
-    element.siblings("div.errorText").text(msg);
-};
-
-var hideError = function (element) {
-    element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
 };
 
 var prevEmail = "",
