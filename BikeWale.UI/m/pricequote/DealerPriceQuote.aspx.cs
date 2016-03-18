@@ -88,8 +88,6 @@ namespace Bikewale.Mobile.BikeBooking
                 else
                     SavePriceQuote();
 
-                PreFillCustomerDetails();
-
                 cityArea = GetLocationCookie();
             }
             else
@@ -210,9 +208,32 @@ namespace Bikewale.Mobile.BikeBooking
                                 bookingAmount = Convert.ToUInt16(Utility.Format.FormatPrice(Convert.ToString(primarydealer.BookingAmount)));
                             }
 
+                            //EMI details
                             if (primarydealer.EMIDetails != null)
                             {
-                                isEMIAvailable = true;
+                                EMI _objEMI = setEMIDetails();
+                                if (primarydealer.EMIDetails.MinDownPayment < 1 || primarydealer.EMIDetails.MaxDownPayment < 1)
+                                {
+                                    primarydealer.EMIDetails.MinDownPayment = _objEMI.MinDownPayment;
+                                    primarydealer.EMIDetails.MaxDownPayment = _objEMI.MaxDownPayment;
+                                }
+
+                                if (primarydealer.EMIDetails.MinTenure < 1 || primarydealer.EMIDetails.MaxTenure < 1)
+                                {
+                                    primarydealer.EMIDetails.MinTenure = _objEMI.MinTenure;
+                                    primarydealer.EMIDetails.MaxTenure = _objEMI.MaxTenure;
+                                }
+
+                                if (primarydealer.EMIDetails.MinRateOfInterest < 1 || primarydealer.EMIDetails.MaxRateOfInterest < 1)
+                                {
+                                    primarydealer.EMIDetails.MinRateOfInterest = _objEMI.MinRateOfInterest;
+                                    primarydealer.EMIDetails.MaxRateOfInterest = _objEMI.MaxRateOfInterest;
+                                }
+
+                            }
+                            else
+                            {
+                                primarydealer.EMIDetails = setEMIDetails();
                             }
                         }
 
@@ -243,30 +264,30 @@ namespace Bikewale.Mobile.BikeBooking
         }
 
         /// <summary>
-        /// Created BY : Sadhana Upadhyay on 14 Nov 2014
-        /// Summary : To fill Customer detail when customer is loged in
+        /// Created BY : Sushil Kumar on 14th March 2015
+        /// Summary : To set EMI details for the dealer if no EMI Details available for the dealer
         /// </summary>
-        protected void PreFillCustomerDetails()
+        private EMI setEMIDetails()
         {
+            EMI _objEMI = null;
             try
             {
-                if (Bikewale.Common.CurrentUser.Id != "-1")
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
-                        ICustomer<CustomerEntity, UInt32> objCust = container.Resolve<ICustomer<CustomerEntity, UInt32>>();
-
-                        objCustomer = objCust.GetById(Convert.ToUInt32(Bikewale.Common.CurrentUser.Id));
-                    }
-                }
+                _objEMI = new EMI();
+                _objEMI.MaxDownPayment = 40;
+                _objEMI.MinDownPayment = 10;
+                _objEMI.MaxTenure = 48;
+                _objEMI.MinTenure = 12;
+                _objEMI.MaxRateOfInterest = 15;
+                _objEMI.MinRateOfInterest = 10;
+                _objEMI.ProcessingFee = 2000;
             }
             catch (Exception ex)
             {
-                Trace.Warn("PreFillCustomerDetails Ex: ", ex.Message);
+                Trace.Warn("getEMIDetails Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+            return _objEMI;
         }
 
 
