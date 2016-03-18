@@ -44,7 +44,7 @@ namespace Bikewale.New
         protected PQOnRoadPrice pqOnRoad;
         protected string modelId = string.Empty;
         protected int variantId = 0;
-        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptCategory, rptVariants, rptDiscount,rptSecondaryDealers;
+        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptCategory, rptVariants, rptDiscount, rptSecondaryDealers;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
         protected uint cityId = 0;

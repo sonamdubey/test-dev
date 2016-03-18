@@ -366,6 +366,8 @@
                                     <div class="clear"></div>
                                 </div>
                             </div>
+                            <% if (viewModel.Offers != null && viewModel.OfferCount > 0)
+                               { %>
                             <div class="font14 content-inner-block-20">
                                 <p class="text-bold margin-bottom10">Exclusive offers on this bike from <%=viewModel.Organization %>, <%=viewModel.AreaName %>:</p>
                                 <ul class="dealership-benefit-list">
@@ -380,6 +382,7 @@
                                 </ul>
                                 <div class="clear"></div>
                             </div>
+                            <% } %>
                             <div id="dealerAssistance">
                             <div id="buyingAssistance" class="bg-light-grey font14 content-inner-block-20">
                                 <p class="text-bold margin-bottom20">Get assistance on buying this bike:</p>
@@ -449,7 +452,9 @@
                                             </div>
                                         </div>
                                         <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                                        <p class="font16 margin-bottom40">We would get back to you shortly with additional information.</p>
+                                        <% if(viewModel!=null){ %>
+                                        <p class="font16 margin-bottom40"><%=viewModel.Organization %>, <%=viewModel.AreaName %> will get in touch with you soon</p>
+                                        <% } %>
                                         <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
                                     </div>
                                     <!-- thank you message ends here -->
@@ -514,18 +519,6 @@
                                 </ItemTemplate>
                             </asp:Repeater>
                         <% } %>
-                            <%--<li>
-                                <a href="" class="font18 text-bold text-darker-black margin-right20">Dealership Name 1</a>
-                                <span class="font16 text-bold"><span class="fa fa-phone"></span> 022-6667 8888</span>
-                            </li>
-                            <li>
-                                <a href="" class="font18 text-bold text-darker-black margin-right20">Dealership Name 2</a>
-                                <span class="font16 text-bold"><span class="fa fa-phone"></span> 022-6667 8888</span>
-                            </li>
-                            <li>
-                                <a href="" class="font18 text-bold text-darker-black margin-right20">Dealership Name 3</a>
-                                <span class="font16 text-bold"><span class="fa fa-phone"></span> 022-6667 8888</span>
-                            </li>--%>
                         </ul>
                         <% if (viewModel!=null && viewModel.SecondaryDealerCount > 0)
                            { %>
@@ -550,12 +543,14 @@
                     </div>
                 </div>
                 <div class="breakup-text-container padding-bottom10">
+                    <% if (viewModel !=null && viewModel.Organization != null)
+                       { %>
                     <%--<h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>--%>
                     <%
                         if(viewModel!= null) {
                      %>
                     <h3 class="font18 margin-bottom25">On-road price <%=viewModel.Organization %></h3>
-                    <%
+                    <% } %>
                         }
                         else
                         {
@@ -1567,7 +1562,6 @@
                 var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID;
                 window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
             }
-
         </script>
     </form>
 </body>

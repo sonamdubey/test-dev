@@ -66,7 +66,7 @@ var leadCapturePopupCloseBtn = function () {
     $(".blackOut-window").hide();
 }
 
-$('#getMoreDetailsBtn').on('click', function (e) {
+$('#getMoreDetailsBtn,#getAssistance').on('click', function (e) {
     $("#leadCapturePopup").show();
     $(".blackOut-window").show();
     appendHash("contactDetails");
@@ -242,15 +242,14 @@ function CustomerModel() {
     };
 
     self.submitLead = function () {
-
-        var isValidCustomer = ValidateUserDetail();        
-        if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {          
+        var isValidCustomer = ValidateUserDetail();
+        if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {
             self.verifyCustomer();
             if (self.IsValid()) {
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
-                //$("#personalInfo").hide();
-                //$("#leadCapturePopup .leadCapture-close-btn").click();                
+                $("#contactDetailsPopup").hide();
+                $("#otpPopup").hide();
+                $('#notify-response .notify-leadUser').text(self.fullName());
+                $('#notify-response').show();
             }
             else {
                 $("#contactDetailsPopup").hide();
@@ -267,7 +266,7 @@ function CustomerModel() {
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Lead_Submitted', 'lab': bikeVersionLocation });
         }
 
-        else if (isValidCustomer && isDealerPriceAvailable == "False" && campaignId > 0) {           
+        else if (isValidCustomer && isDealerPriceAvailable == "False" && campaignId > 0) {
             self.submitCampaignLead();
 
             setPQUserCookie();
@@ -321,7 +320,7 @@ function CustomerModel() {
                 var leadMobileVal = mobile.val(); otpContainer.removeClass("hide").addClass("show");
                 //detailsSubmitBtn.hide();
                 nameValTrue();
-                hideError(mobile);               
+                hideError(mobile);
             }
         });
     };
@@ -338,12 +337,13 @@ function CustomerModel() {
                 $("#personalInfo").hide();
                 $(".booking-dealer-details").removeClass("hide").addClass("show");
                 $('#processing').hide();
-
                 detailsSubmitBtn.show();
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);                
+                $("#contactDetailsPopup").hide();
+                $("#otpPopup").hide();
+                $('#notify-response .notify-leadUser').text(self.fullName());
+                $('#notify-response').show();
             }
             else {
                 $('#processing').hide();

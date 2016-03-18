@@ -219,7 +219,7 @@ function CustomerModel() {
                     $("#leadCapturePopup").show();
                     $(".blackOut-window-model").show();
                 }
-                $("#contactDetailsPopup").hide();
+                $("#contactDetailsPopup,#otpPopup").hide();
                 $('#notify-response .notify-leadUser').text(self.fullName());
                 $('#notify-response').show();
             }
@@ -275,19 +275,11 @@ function CustomerModel() {
             async: false,
             contentType: "application/json",
             success: function (response) {
-                //var obj = ko.toJS(response);
                 $("#personalInfo,#otpPopup").hide();
                 $('#processing').hide();
-
-                //validationSuccess($(".get-lead-mobile"));
                 $("#contactDetailsPopup").hide();
                 $('#notify-response .notify-leadUser').text(self.fullName());
                 $('#notify-response').show();
-
-                //$("#leadCapturePopup .leadCapture-close-btn").click();
-
-                //var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + manufacturerId;
-                //window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $('#processing').hide();
@@ -312,9 +304,10 @@ function CustomerModel() {
                 detailsSubmitBtn.show();
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
-                $("#leadCapturePopup .leadCapture-close-btn").click();
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                //$("#leadCapturePopup .leadCapture-close-btn").click();
+                $("#contactDetailsPopup,#otpPopup").hide();
+                $('#notify-response .notify-leadUser').text(self.fullName());
+                $('#notify-response').show();
             }
             else {
                 $('#processing').hide();
