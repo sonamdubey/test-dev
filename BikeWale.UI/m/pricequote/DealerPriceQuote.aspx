@@ -311,7 +311,7 @@
                                 <ul class="range-five-pointsUL range-pointsUL" data-bind="">
                                     <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minDnPay())"></span></li>
                                     <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minDnPay(), $parent.maxDnPay(), $parent.breakPoints())"></span></li>
+                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minDnPay(), $parent.maxDnPay(), $parent.breakPoints(),1)"></span></li>
                                     <!-- /ko -->
                                     <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay())"></span></li>
 
@@ -324,7 +324,7 @@
                     <div class="emi-slider-box">
                         <div class="emi-slider-box-left-section">
                             <div class="clearfix font14">
-                                <p class="grid-8 alpha text-light-grey text-left">Tenure</p>
+                                <p class="grid-8 alpha text-light-grey text-left">Loan Amount</p>
                                 <div class="emi-slider-box-right-section grid-4 omega">
                                     <span id="loanAmount" data-bind="text: formatPrice(Math.round(loan()))"></span>
                                 </div>
@@ -339,7 +339,7 @@
                                 <ul class="range-five-pointsUL range-pointsUL" data-bind="">
                                     <li class="range-points-bar"><span data-bind="text: $.valueFormatter(bikePrice() - maxDnPay())"></span></li>
                                     <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                    <li class="range-points-bar"><span data-bind="text:  $.createSliderPoints($index() + 1, $parent.bikePrice() - $parent.maxDnPay(), $parent.bikePrice() - $parent.minDnPay(), $parent.breakPoints())"></span></li>
+                                    <li class="range-points-bar"><span data-bind="text:  $.createSliderPoints($index() + 1, $parent.bikePrice() - $parent.maxDnPay(), $parent.bikePrice() - $parent.minDnPay(), $parent.breakPoints(),1)"></span></li>
                                     <!-- /ko -->
                                     <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(bikePrice() - minDnPay())"></span></li>
                                 </ul>
@@ -368,7 +368,7 @@
                                 <ul class="range-five-pointsUL  range-pointsUL tenure-rate-interest" data-bind="">
                                     <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minTenure())"></span></li>
                                     <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minTenure(), $parent.maxTenure() , $parent.breakPoints())"></span></li>
+                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minTenure(), $parent.maxTenure() , $parent.breakPoints(),2)"></span></li>
                                     <!-- /ko -->
                                     <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxTenure())"></span></li>
                                 </ul>
@@ -1127,8 +1127,24 @@
                 return price;
             };
 
-            $.createSliderPoints = function (index, min, max, breaks) {
-                return $.valueFormatter(Math.round(min + (index * (max - min) / breaks)));
+            $.createSliderPoints = function (index, min, max, breaks, sliderType) {
+                var svar = "";
+                try {
+                    switch (sliderType) {
+                        case 1:
+                            svar = $.valueFormatter(Math.round(min + (index * (max - min) / breaks)));
+                            break;
+                        case 2:
+                            svar = Math.round(min + (index * (max - min) / breaks));
+                            break;
+                        default:
+                            svar = (min + (index * (max - min) / breaks)).toFixed(2);
+                            break;
+                    }
+                } catch (e) {
+
+                }
+                return svar;
             }
 
             $.valueFormatter = function (num) {

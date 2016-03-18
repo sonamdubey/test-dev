@@ -8,9 +8,8 @@
 <html>
 <head>
     <%
-        title = makeName + " " + modelName + " " + versionName + " Price Quote ";
-        description = makeName + " " + modelName + " " + versionName + " price quote";
-        keywords = "";
+        title = String.Format("{0} {1} Price Quote", BikeName, versionName);
+        description = String.Format("{0} {1} price quote", BikeName, versionName);
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_PQ_";
         isAd970x90Shown = true;
@@ -23,14 +22,7 @@
         var ABHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]%>';
         var versionId = '<%= versionId%>';
         var cityId = '<%= cityId%>';
-        var areaId = '<%= areaId%>';
-        var Customername = "", email = "", mobileNo = "";
-        var CustomerId = '<%= CurrentUser.Id %>';
-        if (CustomerId != '-1') {
-            Customername = '<%= objCustomer.CustomerName%>', email = '<%= objCustomer.CustomerEmail%>', mobileNo = '<%= objCustomer.CustomerMobile%>';
-        } else {
-            Customername = '<%= CustomerDetailCookie.CustomerName%>', email = '<%= CustomerDetailCookie.CustomerEmail%>', mobileNo = '<%= CustomerDetailCookie.CustomerMobile %>';
-        }
+        var areaId = '<%= areaId%>';   
         var clientIP = "<%= clientIP%>";
         var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
     </script>
@@ -80,7 +72,7 @@
                             <% if (detailedDealer != null)
                                { %>
                             <div class="pqBikeImage margin-bottom15">
-                                <img alt="<%= makeName + " " + modelName + " " + versionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="<%= makeName + " " + modelName + " " + versionName%> Photos" />
+                                <img alt="<%= String.Format("{0} {1}",BikeName,versionName) %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="<%= String.Format("{0} {1}",BikeName,versionName) %> Photos" />
                             </div>
                             <% } %>
 
@@ -406,7 +398,7 @@
                                             <ul class="range-five-pointsUL range-pointsUL" data-bind="">
                                                 <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minDnPay())"></span></li>
                                                 <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minDnPay(), $parent.maxDnPay(), $parent.breakPoints())"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minDnPay(), $parent.maxDnPay(), $parent.breakPoints(),1)"></span></li>
                                                 <!-- /ko -->
                                                 <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay())"></span></li>
 
@@ -432,7 +424,7 @@
                                             <ul class="range-five-pointsUL range-pointsUL" data-bind="">
                                                 <li class="range-points-bar"><span data-bind="text: $.valueFormatter(bikePrice() - maxDnPay())"></span></li>
                                                 <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.bikePrice() - $parent.maxDnPay(), $parent.bikePrice() - $parent.minDnPay(), $parent.breakPoints())"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.bikePrice() - $parent.maxDnPay(), $parent.bikePrice() - $parent.minDnPay(), $parent.breakPoints(),1)"></span></li>
                                                 <!-- /ko -->
                                                 <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(bikePrice() - minDnPay())"></span></li>
                                             </ul>
@@ -457,7 +449,7 @@
                                             <ul class="range-five-pointsUL  range-pointsUL tenure-rate-interest" data-bind="">
                                                 <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minTenure())"></span></li>
                                                 <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minTenure(), $parent.maxTenure() , $parent.breakPoints())"></span></li>
+                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minTenure(), $parent.maxTenure() , $parent.breakPoints(),2)"></span></li>
                                                 <!-- /ko -->
                                                 <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxTenure())"></span></li>
                                             </ul>
@@ -593,7 +585,7 @@
                             </div>
                             <%if (detailedDealer != null && detailedDealer.SecondaryDealerCount > 0)
                               { %>
-                            <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">                                 
+                            <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
                                 <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?"more dealers":"more dealer" %> :</p>
                                 <ul id="dealerList">
                                     <asp:Repeater ID="rptDealers" runat="server">
@@ -712,9 +704,25 @@
                 return formatPrice(finalEmi);
             };
 
-            $.createSliderPoints = function(index,min,max,breaks)
-            {
-                return $.valueFormatter(Math.round(min + (index * (max - min)/breaks)));
+            $.createSliderPoints = function(index,min,max,breaks,sliderType)
+            {   var svar = "";
+                try {
+                    switch(sliderType)
+                    {
+                        case 1: 
+                            svar =  $.valueFormatter(Math.round(min + (index * (max - min)/breaks)));
+                            break;
+                        case 2:
+                            svar =  Math.round(min + (index * (max - min)/breaks));
+                            break;
+                        default:
+                            svar =  (min + (index * (max - min)/breaks)).toFixed(2);
+                            break;
+                    } 
+                } catch (e) {
+    
+                }
+                return svar;
             }
 
             $.LoanAmount = function (onRoadPrice, percentage) {
