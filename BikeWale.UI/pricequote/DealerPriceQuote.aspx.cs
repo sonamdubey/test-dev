@@ -182,7 +182,7 @@ namespace Bikewale.BikeBooking
                                 maskingNum = dealerDetails.MaskingNumber;
                                 latitude = dealerDetails.objArea.Latitude;
                                 longitude = dealerDetails.objArea.Longitude;
-                                dealerType = DealerPackageTypes.Premium;
+                                dealerType = dealerDetails.DealerPackageType;
                             }
 
                             //bind Offer
