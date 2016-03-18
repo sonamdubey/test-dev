@@ -225,7 +225,7 @@
                                             <span class="bwsprite error-icon errorIcon"></span>
                                             <div class="bw-blackbg-tooltip errorText"></div>
                                         </div>
-                                        <a class="btn btn-orange leftfloat" leadsrcid="2" id="buyingAssistanceSubmitBtn" data-bind="event: { click: submitLead }">Submit</a>
+                                        <a class="btn btn-orange leftfloat" id="buyingAssistBtn" data-bind="event: { click: submitLead }">Submit</a>
                                         <div class="clear"></div>
                                     </div>
                                 </div>
@@ -551,6 +551,7 @@
                                         </div>
                                         <script type="text/javascript">
                                             function initializeDealerMap(element,latitude,longitude) {
+                                                mapUrl  = "http://maps.google.com/?q=" + latitude + "," + longitude;
                                                 latLng = new google.maps.LatLng(latitude, longitude),
                                                 mapOptions = {
                                                     zoom: 13,
@@ -564,8 +565,17 @@
                                                     map: map,
                                                     animation: google.maps.Animation.DROP
                                                 });
+
+                                                google.maps.event.addListener(marker, 'click', function() {
+                                                    window.open(mapUrl, '_blank');
+                                                });
+
+                                                google.maps.event.addListener(map, 'click', function() {
+                                                    window.open(mapUrl, '_blank');
+                                                });
                                             }
                                             google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0],<%= latitude %>,<%= longitude %>));
+
                                         </script>
                                         <% } %>
                                         <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
@@ -583,8 +593,8 @@
                             </div>
                             <%if (detailedDealer != null && detailedDealer.SecondaryDealerCount > 0)
                               { %>
-                            <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
-                                <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealerCount %> more dealers:</p>
+                            <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">                                 
+                                <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?"more dealers":"more dealer" %> :</p>
                                 <ul id="dealerList">
                                     <asp:Repeater ID="rptDealers" runat="server">
                                         <ItemTemplate>
@@ -726,7 +736,6 @@
 
             var EMIviewModel = new BikeEMI;
             ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
-
 
             <% } %>
             

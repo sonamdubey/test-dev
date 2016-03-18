@@ -7,7 +7,7 @@ var mobile = $("#getMobile,#assistanceGetMobile");
 var otpContainer = $(".mobile-verification-container");
 
 
-var detailsSubmitBtn = $("#user-details-submit-btn, #buyingAssistanceSubmitBtn");
+var detailsSubmitBtn = $("#user-details-submit-btn, #buyingAssistBtn");
 var otpText = $("#getOTP");
 var otpBtn = $("#otp-submit-btn");
 
@@ -41,7 +41,7 @@ $(function () {
     });
 });
 
-if($('#dealerAssistance').length > 0) 
+if ($('#dealerAssistance').length > 0)
     ko.applyBindings(customerViewModel, $('#dealerAssistance')[0]);
 
 function CustomerModel() {
@@ -61,6 +61,7 @@ function CustomerModel() {
     self.NoOfAttempts = ko.observable(0);
     self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
     self.otpCode = ko.observable();
+    self.isAssist = ko.observable(false);
 
     self.verifyCustomer = function () {
         if (!self.IsVerified()) {
@@ -100,8 +101,8 @@ function CustomerModel() {
             });
         }
     };
-                
-                
+
+
     self.generateOTP = function () {
         if (!self.IsVerified()) {
             var objCust = {
@@ -159,15 +160,17 @@ function CustomerModel() {
     };
 
     self.submitLead = function () {
+        if (event.currentTarget.id == 'buyingAssistBtn')
+            self.isAssist(true);
+        else self.isAssist(false);
         if (ValidateUserDetail()) {
             self.verifyCustomer();
             if (self.IsValid()) {
-                if(event.currentTarget.id == 'buyingAssistanceSubmitBtn')
-                {
+                if (self.isAssist()) {
                     $("#buying-assistance-form").hide();
                     $("#dealer-assist-msg").fadeIn();
 
-                }else{
+                } else {
                     $("#contactDetailsPopup").hide();
                     $("#personalInfo").hide()
                     $("#otpPopup").hide();
@@ -202,20 +205,23 @@ function CustomerModel() {
             if (customerViewModel.IsVerified()) {
                 $("#personalInfo").hide();
                 $(".booking-dealer-details").removeClass("hide").addClass("show");
-                $('#processing').hide();
-
                 detailsSubmitBtn.show();
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
-
-                // OTP Success
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
-                $("#leadCapturePopup .leadCapture-close-btn").click();
-
-                $("#contactDetailsPopup").hide();
                 $("#personalInfo").hide()
                 $("#otpPopup").hide();
-                $("#dealer-lead-msg").fadeIn();
+
+                if (self.isAssist()) {
+                    $("#leadCapturePopup .leadCapture-close-btn").click();
+                    $("#buying-assistance-form").hide();
+                    $("#dealer-assist-msg").fadeIn();
+                }
+                else {
+                    $("#dealer-lead-msg").fadeIn();
+                }
+                
+                // OTP Success
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
             }
             else {
                 $('#processing').hide();
@@ -476,9 +482,8 @@ var assistanceGetName = $('#assistanceGetName'),
     assistanceGetEmail = $('#assistanceGetEmail'),
     assistanceGetMobile = $('#assistanceGetMobile');
 
-$('#buyingAssistanceSubmitBtn').on('click', function () {
-    if (validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile)) {
-    }
+$('#buyingAssistBtn').on('click', function () {
+    (validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile));
 });
 
 var validateUserInfo = function (leadUsername, leadEmailId, leadMobileNo) {
@@ -580,11 +585,11 @@ $(document).ready(function () {
             PQDealerSidebarContainer.css({ 'position': 'relative', 'top': '0', 'right': '0' })
         }
         else if (windowScrollTop > (disclaimerTextOffset.top - PQDealerSidebarHeight - 80)) {
-                PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 150, 'right': '0' })
-            }
-            else {
-                PQDealerSidebarContainer.css({ 'position': 'fixed', 'top': '50px', 'right': '187px' })
-            }
+            PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 150, 'right': '0' })
+        }
+        else {
+            PQDealerSidebarContainer.css({ 'position': 'fixed', 'top': '50px', 'right': '187px' })
+        }
     });
 });
 

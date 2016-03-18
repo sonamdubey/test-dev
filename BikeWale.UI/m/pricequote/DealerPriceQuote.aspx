@@ -155,6 +155,14 @@
                                 animation: google.maps.Animation.DROP
                             });
 
+                            google.maps.event.addListener(marker, 'click', function() {
+                                window.open(mapUrl, '_blank');
+                            });
+
+                            google.maps.event.addListener(map, 'click', function() {
+                                window.open(mapUrl, '_blank');
+                            });
+
                             google.maps.event.addListenerOnce(map, 'idle', function () {
                             });
                         }

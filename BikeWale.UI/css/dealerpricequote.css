@@ -42,7 +42,7 @@
 .btn-inv-grey { background: #82888b; color: #fff; border:1px solid #82888b; }
 .btn-inv-grey:hover { text-decoration: none; background: #4d5057; border:1px solid #4d5057; }
 .assistance-form-mobile .bw-blackbg-tooltip { font-size:11px; padding:4px 5px; }
-#buyingAssistanceSubmitBtn.btn { width:114px; padding:8px 0; }
+#buyingAssistBtn.btn { width:114px; padding:8px 0; }
 /* booking-config */
 .emi-slider-box { padding-bottom:20px; padding-top:20px; }
 .emi-slider-box:first-child { padding-top:10px; }
