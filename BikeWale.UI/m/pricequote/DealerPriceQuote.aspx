@@ -7,8 +7,8 @@
 <html>
 <head>
     <%
-        title = objResponse.objMake.MakeName + " " + objResponse.objModel.ModelName + " " + objResponse.objVersion.VersionName + " Price Quote ";
-        description = objResponse.objMake.MakeName + " " + objResponse.objModel.ModelName + " " + objResponse.objVersion.VersionName + " price quote";
+        title = objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName + " " + objPriceQuote.objVersion.VersionName + " Price Quote ";
+        description = objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName + " " + objPriceQuote.objVersion.VersionName + " price quote";
         keywords = "";
         canonical = "";
         AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
@@ -16,9 +16,6 @@
     %>
     <script>var quotationPage = true;</script>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <!--
-        <link rel="stylesheet" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" />
-    -->
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <script type="text/javascript">
         var dealerId = '<%= dealerId%>';
@@ -34,7 +31,7 @@
             Customername = '<%= CustomerDetailCookie.CustomerName%>', email = '<%= CustomerDetailCookie.CustomerEmail%>', mobileNo = '<%= CustomerDetailCookie.CustomerMobile %>';
         }
         var clientIP = "<%= clientIP%>";
-        var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;       
+        var pageUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.BwHostUrl %>" + "/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;       
 
     </script>
     <style type="text/css">
@@ -42,14 +39,14 @@
     </style>
 </head>
 <body class="bg-light-grey">
-    <form runat="server" id="frmPriceQuote">
+    <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <div class="bg-white pq-inner-block-10 bottom-shadow">
             <div class="bike-name-image-wrapper margin-top5">
                 <div class="bike-img">
-                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objResponse.OriginalImagePath,objResponse.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="" title="" border="0" />
+                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPriceQuote.OriginalImagePath,objPriceQuote.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="" title="" border="0" />
                 </div>
-                <h1 class="padding-left10 font18 text-dark-black"><%= objResponse.objMake.MakeName + " " + objResponse.objModel.ModelName + " " + objResponse.objVersion.VersionName %> Price Quote</h1>
+                <h1 class="padding-left10 font18 text-dark-black"><%= BikeName %> Price Quote</h1>
             </div>
             <div class="clear"></div>
 
@@ -123,7 +120,7 @@
                 <!-- hide this div when no premium dealer -->
                 <div id="pqDealerHeader">
                     <div class="padding-top7 padding-right10 padding-left10 border-trl">
-                        <h2 class="dealership-name font18 text-dark-black"><%= dealerShipName %></h2>
+                        <h2 class="dealership-name font18 text-dark-black"><%= dealerName %></h2>
                     </div>
                 </div>
                 <div id="pqDealerBody" class="font14 padding-right10 padding-left10 border-rbl">
@@ -219,16 +216,18 @@
                     <%if (isBookingAvailable)
                       {%>
                     <div class="padding-top15 padding-bottom15 border-light-top">
-                        <p class="font15 text-bold margin-bottom10">Pay <span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice((objResponse.PrimaryDealer.BookingAmount).ToString()) %> online and book bike:</p>
-                        <p class="text-light-grey margin-bottom20">The booking amount of <span class="bwmsprite inr-grey-xxsm-icon"></span><%=CommonOpn.FormatPrice((objResponse.PrimaryDealer.BookingAmount).ToString()) %> has to be paid online and balance amount of <span class="bwmsprite inr-grey-xxsm-icon"></span><%=CommonOpn.FormatPrice((totalPrice - objResponse.PrimaryDealer.BookingAmount).ToString()) %> has to be paid at the dealership</p>
+                        <p class="font15 text-bold margin-bottom10">Pay <span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice((objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> online and book bike:</p>
+                        <p class="text-light-grey margin-bottom20">The booking amount of <span class="bwmsprite inr-grey-xxsm-icon"></span><%=CommonOpn.FormatPrice((objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> has to be paid online and balance amount of <span class="bwmsprite inr-grey-xxsm-icon"></span><%=CommonOpn.FormatPrice((totalPrice - objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> has to be paid at the dealership</p>
                         <a id="btnBookNow" class="btn btn-grey btn-full-width">Book now</a>
                     </div>
                     <%} %>
+                    <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium){ %>
                     <div class="padding-top15 padding-bottom15 border-light-top">
                         <span class="font15 text-bold leftfloat">Get EMI quote</span>
                         <span class="text-link rightfloat calculate-emi-target">Calculate now</span>
                         <div class="clear"></div>
                     </div>
+                    <%} %>
                     <div id="pqRemoveHeader"></div>
                 </div>
             </div>
@@ -271,7 +270,7 @@
             <div class="clear"></div>
             <!--Exciting Offers section ends here-->
         </div>
-
+        <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium){ %>
         <div id="emiPopup" data-bind="visible: true" style="display: none" class="bwm-fullscreen-popup text-center padding-top30">
             <div class="emi-popup-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="icon-outer-container rounded-corner50percent">
@@ -412,12 +411,12 @@
                 <a id="btnEmiQuote" class="btn btn-orange emi-quote-btn margin-bottom20">Get EMI quote</a>
             </div>
         </div>
-
+        <%} %>
 
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
             <div class="container margin-bottom30">
                 <div class="grid-12">
-                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= objResponse.objMake.MakeName + " " + objResponse.objModel.ModelName  %> alternatives</h2>
+                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName  %> alternatives</h2>
 
                     <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
                         <div class="swiper-wrapper">
@@ -525,7 +524,7 @@
             var freeInsurance = $("img.insurance-free-icon");
             if (!freeInsurance.length) {
                 cityArea = GetGlobalCityArea();
-                $("table tr td.text-medium-grey:contains('Insurance')").first().html("Insurance  (<a href='/m/insurance/' style='position: relative; font-size: 12px; margin-top: 1px;' target='_blank' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objResponse.objMake.MakeName,objResponse.objModel.ModelName,objResponse.objVersion.VersionName)%>" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
+                $("table tr td.text-medium-grey:contains('Insurance')").first().html("Insurance  (<a href='/m/insurance/' style='position: relative; font-size: 12px; margin-top: 1px;' target='_blank' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objPriceQuote.objMake.MakeName,objPriceQuote.objModel.ModelName,objPriceQuote.objVersion.VersionName)%>" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
             }
 
            
@@ -1016,7 +1015,7 @@
                     'CityId': cityId,
                     'AreaId': areaId,                    
                     'ClientIP': clientIP,
-                    'SourceType': '2',
+                    'SourceType': '<%=Bikewale.Utility.BWConfiguration.Instance.SourceId %>',
                     'VersionId': versionId,
                     'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
                     'deviceId': getCookie('BWC'),
@@ -1067,8 +1066,8 @@
                 var self = this;
                 self.breakPoints = ko.observable(5);
                 self.bikePrice = ko.observable(bikeVersionPrice);
-                self.minDnPay = ko.observable(<%= primarydealer.EMIDetails.MinDownPayment %> * bikeVersionPrice/100);
-                self.maxDnPay = ko.observable(<%= primarydealer.EMIDetails.MaxDownPayment %> * bikeVersionPrice/100);
+                self.minDnPay = ko.observable('<%= primarydealer.EMIDetails.MinDownPayment %>' * bikeVersionPrice/100);
+                self.maxDnPay = ko.observable('<%= primarydealer.EMIDetails.MaxDownPayment %>' * bikeVersionPrice/100);
                 self.minTenure = ko.observable(<%= primarydealer.EMIDetails.MinTenure %>);
                 self.maxTenure = ko.observable(<%= primarydealer.EMIDetails.MaxTenure  %>);
                 self.minROI = ko.observable(<%= primarydealer.EMIDetails.MinRateOfInterest %>);
