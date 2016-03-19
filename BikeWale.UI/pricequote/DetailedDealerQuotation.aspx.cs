@@ -345,10 +345,10 @@ namespace Bikewale.BikeBooking
                         if (isBasicAvail && isShowroomPriceAvail)
                             TotalPrice = TotalPrice - exShowroomCost;
 
-                        if (_objPQ.objEmi != null && TotalPrice > 0)
-                        {
-                            objCEMI = CommonOpn.GetCalculatedFlatEmi(_objPQ.objEmi, TotalPrice);
-                        }
+                        //if (_objPQ.objEmi != null && TotalPrice > 0)
+                        //{
+                        //    objCEMI = CommonOpn.GetCalculatedFlatEmi(_objPQ.objEmi, TotalPrice);
+                        //}
 
                     }
 

@@ -2088,27 +2088,27 @@ namespace Bikewale.Common
         /// <param name="eMI">Tenure,LoanAmount and ROI</param>
         /// <param name="exShowroom">Bike Price</param>
         /// <returns></returns>
-        public static CalculatedEMI GetCalculatedReducingEmi(EMI eMI, UInt32 exShowroom, UInt32 totalOnroadPrice)
-        {
-            CalculatedEMI objEMI = new CalculatedEMI();
-            objEMI.objEMI = eMI;
+        //public static CalculatedEMI GetCalculatedReducingEmi(EMI eMI, UInt32 exShowroom, UInt32 totalOnroadPrice)
+        //{
+        //    CalculatedEMI objEMI = new CalculatedEMI();
+        //    objEMI.objEMI = eMI;
 
-            // Calculate min down payment
-            UInt32 loanAmount = exShowroom * eMI.LoanToValue / 100;
-            objEMI.LoanAmount = loanAmount;
-            // Calculate loan amount
-            uint downPayment = totalOnroadPrice - loanAmount;
-            objEMI.DownPayment = downPayment;
-            // Calculate monthly interest
-            float interest = ((float)eMI.RateOfInterest / (12 * 100));
+        //    // Calculate min down payment
+        //    UInt32 loanAmount = exShowroom * eMI.LoanToValue / 100;
+        //    objEMI.LoanAmount = loanAmount;
+        //    // Calculate loan amount
+        //    uint downPayment = totalOnroadPrice - loanAmount;
+        //    objEMI.DownPayment = downPayment;
+        //    // Calculate monthly interest
+        //    float interest = ((float)eMI.RateOfInterest / (12 * 100));
 
-            // Calculate Emi
-            double finalEmi = (loanAmount * interest * Math.Pow(1 + interest, eMI.Tenure - 1)) / (Math.Pow(1 + interest, eMI.Tenure) - 1);
+        //    // Calculate Emi
+        //    double finalEmi = (loanAmount * interest * Math.Pow(1 + interest, eMI.Tenure - 1)) / (Math.Pow(1 + interest, eMI.Tenure) - 1);
 
-            objEMI.EMI = finalEmi;
+        //    objEMI.EMI = finalEmi;
 
-            return objEMI;
-        }
+        //    return objEMI;
+        //}
 
         /// <summary>
         /// Written By : Ashwini Todkar on 4 dec 2014
@@ -2116,33 +2116,33 @@ namespace Bikewale.Common
         /// <param name="eMI">Tenure,LoanAmount and ROI</param>
         /// <param name="totalOnroadPrice">Bike Price</param>
         /// <returns></returns>
-        public static CalculatedEMI GetCalculatedFlatEmi(EMI eMI, UInt32 totalOnroadPrice)
-        {
-            CalculatedEMI objEMI = new CalculatedEMI();
-            objEMI.objEMI = eMI;
+        //public static CalculatedEMI GetCalculatedFlatEmi(EMI eMI, UInt32 totalOnroadPrice)
+        //{
+        //    CalculatedEMI objEMI = new CalculatedEMI();
+        //    objEMI.objEMI = eMI;
 
-            // Calculate min down payment
-            UInt32 loanAmount = totalOnroadPrice * eMI.LoanToValue / 100;
+        //    // Calculate min down payment
+        //    UInt32 loanAmount = totalOnroadPrice * eMI.LoanToValue / 100;
 
-            objEMI.LoanAmount = loanAmount;
-            // Calculate loan amount
-            uint downPayment = totalOnroadPrice - loanAmount;
+        //    objEMI.LoanAmount = loanAmount;
+        //    // Calculate loan amount
+        //    uint downPayment = totalOnroadPrice - loanAmount;
 
-            objEMI.DownPayment = downPayment;
+        //    objEMI.DownPayment = downPayment;
       
-            // Calculate total simple interest (P*N*R)
-            float interest = (loanAmount * (((float)eMI.Tenure) / 12) * (eMI.RateOfInterest / 100));
+        //    // Calculate total simple interest (P*N*R)
+        //    float interest = (loanAmount * (((float)eMI.Tenure) / 12) * (eMI.RateOfInterest / 100));
 
      
-            float totalRepayment = loanAmount + interest;
+        //    float totalRepayment = loanAmount + interest;
 
-            // Calculate Emi
-            double finalEmi = Math.Round((totalRepayment / (eMI.Tenure))); //(loanAmount * interest * Math.Pow(1 + interest, eMI.Tenure - 1)) / (Math.Pow(1 + interest, eMI.Tenure) - 1);
+        //    // Calculate Emi
+        //    double finalEmi = Math.Round((totalRepayment / (eMI.Tenure))); //(loanAmount * interest * Math.Pow(1 + interest, eMI.Tenure - 1)) / (Math.Pow(1 + interest, eMI.Tenure) - 1);
 
-            objEMI.EMI = finalEmi;
+        //    objEMI.EMI = finalEmi;
 
-            return objEMI;
-        }
+        //    return objEMI;
+        //}
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 5 Nov 2014

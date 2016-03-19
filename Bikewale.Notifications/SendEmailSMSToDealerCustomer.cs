@@ -4,9 +4,6 @@ using Bikewale.Notifications.MailTemplates;
 using Bikewale.Notifications.NotificationDAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.Notifications
@@ -204,6 +201,8 @@ namespace Bikewale.Notifications
         /// <summary>
         /// Created by  :   Sumit Kate on 08 Jan 2016
         /// Description :   Saves the Customer Lead SMS
+        /// Modified By : Lucky Rathore on 17 March 2016
+        /// Description : Add Message Template for Subscription Model.
         /// </summary>
         /// <param name="pqId">Price Quote Id</param>
         /// <param name="objDPQSmsEntity">DPQ SMS Entity</param>
@@ -234,6 +233,10 @@ namespace Bikewale.Notifications
                     case DPQTypes.AndroidAppOfferNoBooking:
                         message = String.Format("Hi {0}, thanks for your interest on BikeWale. {1},{2} ({3}) will call you regarding your bike inquiry.", objDPQSmsEntity.CustomerName, objDPQSmsEntity.DealerName, objDPQSmsEntity.Locality, objDPQSmsEntity.DealerMobile);
                         break;
+                    case DPQTypes.SubscriptionModel:
+                        message = String.Format("Contact {0}, {1} at {2} or visit at {3} for further assistance.", objDPQSmsEntity.DealerName, objDPQSmsEntity.DealerArea, objDPQSmsEntity.DealerMobile, objDPQSmsEntity.DealerAdd);
+                        break;
+
                 }
                 if (objDPQSmsEntity != null && !String.IsNullOrEmpty(objDPQSmsEntity.CustomerMobile) && !String.IsNullOrEmpty(message) && pqId > 0)
                 {

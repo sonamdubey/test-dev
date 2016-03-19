@@ -1,33 +1,33 @@
-﻿using System;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Customer;
+using Bikewale.BAL.PriceQuote;
+using Bikewale.Common;
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Customer;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Customer;
+using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Configuration;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Common;
-using Bikewale.Mobile.PriceQuote;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.Customer;
-using Bikewale.Entities.Customer;
-using Bikewale.BAL.Customer;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.BAL.BikeData;
-using Bikewale.Mobile.Controls;
-using Bikewale.Utility;
 
 namespace Bikewale.Mobile.BikeBooking
 {
-    public class DealerPriceQuote : System.Web.UI.Page
+    public class DealerPriceQuote : PageBase
     {
-        protected Repeater rptPriceList, rptColors, rptDisclaimer, rptOffers, rptDiscount;
+        protected Repeater rptPriceList, rptColors, rptDisclaimer, rptOffers, rptDiscount, rptSecondaryDealers, rptBenefits;
         protected DropDownList ddlVersion;
 
-        protected PQ_QuotationEntity objPrice = null;
+        //protected PQ_QuotationEntity objPrice = null;
         protected UInt64 totalPrice = 0;
         protected string pqId = string.Empty, areaId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty;
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0;
@@ -44,6 +44,13 @@ namespace Bikewale.Mobile.BikeBooking
         protected String clientIP = string.Empty;
         protected bool IsDiscount = false;
         protected UInt32 totalDiscount = 0;
+        protected DetailedDealerQuotationEntity objPriceQuote = null;
+        protected string dealerName = string.Empty, dealerArea = string.Empty, dealerAdd = string.Empty, maskingNum = string.Empty;
+        protected double latitude = 0, longitude = 0;
+        protected uint offerCount = 0, secondaryDealersCount = 0;
+        protected bool isEMIAvailable = false, isUSPAvailable = false, isOfferAvailable = false, isPrimaryDealer = false, isSecondaryDealer = false, isBookingAvailable = false;
+        protected DealerPackageTypes dealerType = 0;
+        protected DealerQuotationEntity primarydealer = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -74,14 +81,12 @@ namespace Bikewale.Mobile.BikeBooking
                     BindVersion();
 
                     GetDealerPriceQuote(cityId, versionId, dealerId);
-                    GetVersionColors(versionId);                    
+                    GetVersionColors(versionId);
                     BindAlternativeBikeControl(versionId.ToString());
                     clientIP = CommonOpn.GetClientIP();
                 }
                 else
                     SavePriceQuote();
-
-                PreFillCustomerDetails();
 
                 cityArea = GetLocationCookie();
             }
@@ -93,83 +98,142 @@ namespace Bikewale.Mobile.BikeBooking
             }
         }
 
-        protected async void GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
+        protected void GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
         {
             try
-            {                
-                string api = "/api/DealerPriceQuote/GetDealerPriceQuote/?cityid=" + cityId + "&versionid=" + versionId + "&dealerid=" + dealerId;
-
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            {
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    objPrice = await objClient.GetApiResponse<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
-                }
-                
-                if (objPrice != null)
-                {
-                    BikeName = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName;
-                    //Added By : Ashwini Todkar on 1 Dec 2014
-                    if (objPrice.PriceList != null && objPrice.PriceList.Count > 0)
+                    container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
+                    IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
+                    objPriceQuote = objIPQ.GetDealerQuotation(cityId, versionId, dealerId);
+
+                    if (objPriceQuote != null)
                     {
-                        MakeModel = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName;
-
-                        rptPriceList.DataSource = objPrice.PriceList;
-                        rptPriceList.DataBind();
-
-                        foreach (var price in objPrice.PriceList)
+                        BikeName = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " +
+                                   objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "";
+                        //Added By : Ashwini Todkar on 1 Dec 2014
+                        if (objPriceQuote.PrimaryDealer!=null && objPriceQuote.PrimaryDealer.PriceList != null && objPriceQuote.PrimaryDealer.PriceList.Count() > 0)
                         {
-                            totalPrice += price.Price;
-                        }
+                            isPrimaryDealer = true;
+                            MakeModel = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " +
+                                        objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "";
 
-                        dealerId = objPrice.PriceList[0].DealerId;
-                        foreach (var price in objPrice.PriceList)
-                        {
-                            Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), objPrice.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
-                        }
-                        if (insuranceAmount > 0)
-                        {
-                            IsInsuranceFree = true;
-                        }
-                        isPriceAvailable = true;
-                    }
+                            rptPriceList.DataSource = objPriceQuote.PrimaryDealer.PriceList;
+                            rptPriceList.DataBind();
 
-                    if (objPrice.Disclaimer != null && objPrice.Disclaimer.Count > 0)
-                    {
-                        rptDisclaimer.DataSource = objPrice.Disclaimer;
-                        rptDisclaimer.DataBind();
-                    }
-
-                    if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
-                    {
-
-                        rptOffers.DataSource = objPrice.objOffers;
-                        rptOffers.DataBind();
-
-                    }
-                    if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
-                    {
-                        objPrice.discountedPriceList = OfferHelper.ReturnDiscountPriceList(objPrice.objOffers, objPrice.PriceList);
-                        rptDiscount.DataSource = objPrice.discountedPriceList;
-                        rptDiscount.DataBind();
-                        if (objPrice.discountedPriceList != null && objPrice.discountedPriceList.Count > 0)
-                        {
-                            IsDiscount = true;
-                        }
-                        totalDiscount = TotalDiscountedPrice();
-                    }
-
-                    if (objPrice.Varients != null && objPrice.Varients.Count() > 0)
-                    {
-
-                       //Capture Lead
-                        foreach (var i in objPrice.Varients)
-                        {
-                            if (i.objVersion.VersionId == versionId)
+                            foreach (var price in objPriceQuote.PrimaryDealer.PriceList)
                             {
-                                bookingAmount = i.BookingAmount;
-                                break;
+                                totalPrice += price.Price;
+                            }
+
+                            dealerId = objPriceQuote.PrimaryDealer.DealerDetails.DealerId;
+
+                            foreach (var price in objPriceQuote.PrimaryDealer.PriceList)
+                            {
+                                Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), objPriceQuote.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
+                            }
+                            if (insuranceAmount > 0)
+                            {
+                                IsInsuranceFree = true;
+                            }
+                            isPriceAvailable = true;
+                        }
+
+                        if (objPriceQuote.PrimaryDealer != null)
+                        {
+                            primarydealer = objPriceQuote.PrimaryDealer;
+                            IEnumerable<PQ_Price> priceList = objPriceQuote.PrimaryDealer.PriceList;
+                            if (priceList != null && priceList.Count() > 0)
+                            {
+                                rptPriceList.DataSource = priceList;
+                                rptPriceList.DataBind();
+                            }
+                            //set primary dealer Detail
+                            if (primarydealer.DealerDetails != null)
+                            {
+                                NewBikeDealers dealerDetails = primarydealer.DealerDetails;
+                                dealerName = dealerDetails.Organization;
+                                dealerArea = dealerDetails.objArea.AreaName;
+                                dealerAdd = dealerDetails.Address;
+                                maskingNum = dealerDetails.MaskingNumber;
+                                latitude = dealerDetails.objArea.Latitude;
+                                longitude = dealerDetails.objArea.Longitude;
+                                dealerType = dealerDetails.DealerPackageType;
+                            }
+
+                            //bind Offer
+
+                            offerCount = Convert.ToUInt32(primarydealer.OfferList.Count());
+
+                            if (primarydealer.OfferList != null && offerCount > 0)
+                            {
+                                isOfferAvailable = true;
+                                rptOffers.DataSource = primarydealer.OfferList;
+                                rptOffers.DataBind();
+                            }
+
+                            if (primarydealer.Benefits != null && primarydealer.Benefits.Count() > 0)
+                            {
+                                isUSPAvailable = true;
+                                rptBenefits.DataSource = primarydealer.Benefits;
+                                rptBenefits.DataBind();
+                            }
+
+                            //bind secondary Dealer
+                            if (objPriceQuote.SecondaryDealerCount !=null )
+                            {
+                                secondaryDealersCount = Convert.ToUInt32(objPriceQuote.SecondaryDealerCount);
+                                if (secondaryDealersCount > 0)
+                                {
+                                    isSecondaryDealer = true;
+                                    rptSecondaryDealers.DataSource = objPriceQuote.SecondaryDealers;
+                                    rptSecondaryDealers.DataBind();
+                                } 
+                            }
+
+                            //booking amount
+                            if (primarydealer.IsBookingAvailable)
+                            {
+                                isBookingAvailable = true;
+                                bookingAmount = Convert.ToUInt16(Utility.Format.FormatPrice(Convert.ToString(primarydealer.BookingAmount)));
+                            }
+
+                            //EMI details
+                            if (primarydealer.EMIDetails != null)
+                            {
+                                EMI _objEMI = setEMIDetails();
+                                if (primarydealer.EMIDetails.MinDownPayment < 1 || primarydealer.EMIDetails.MaxDownPayment < 1)
+                                {
+                                    primarydealer.EMIDetails.MinDownPayment = _objEMI.MinDownPayment;
+                                    primarydealer.EMIDetails.MaxDownPayment = _objEMI.MaxDownPayment;
+                                }
+
+                                if (primarydealer.EMIDetails.MinTenure < 1 || primarydealer.EMIDetails.MaxTenure < 1)
+                                {
+                                    primarydealer.EMIDetails.MinTenure = _objEMI.MinTenure;
+                                    primarydealer.EMIDetails.MaxTenure = _objEMI.MaxTenure;
+                                }
+
+                                if (primarydealer.EMIDetails.MinRateOfInterest < 1 || primarydealer.EMIDetails.MaxRateOfInterest < 1)
+                                {
+                                    primarydealer.EMIDetails.MinRateOfInterest = _objEMI.MinRateOfInterest;
+                                    primarydealer.EMIDetails.MaxRateOfInterest = _objEMI.MaxRateOfInterest;
+                                }
+
+                            }
+                            else
+                            {
+                                primarydealer.EMIDetails = setEMIDetails();
                             }
                         }
 
+                    }
+                    else
+                    {
+                        Response.Redirect("/m/pricequote/quotation.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
                     }
                 }
             }
@@ -191,30 +255,30 @@ namespace Bikewale.Mobile.BikeBooking
         }
 
         /// <summary>
-        /// Created BY : Sadhana Upadhyay on 14 Nov 2014
-        /// Summary : To fill Customer detail when customer is loged in
+        /// Created BY : Sushil Kumar on 14th March 2015
+        /// Summary : To set EMI details for the dealer if no EMI Details available for the dealer
         /// </summary>
-        protected void PreFillCustomerDetails()
+        private EMI setEMIDetails()
         {
+            EMI _objEMI = null;
             try
             {
-                if (Bikewale.Common.CurrentUser.Id != "-1")
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
-                        ICustomer<CustomerEntity, UInt32> objCust = container.Resolve<ICustomer<CustomerEntity, UInt32>>();
-
-                        objCustomer = objCust.GetById(Convert.ToUInt32(Bikewale.Common.CurrentUser.Id));
-                    }
-                }
+                _objEMI = new EMI();
+                _objEMI.MaxDownPayment = 40;
+                _objEMI.MinDownPayment = 10;
+                _objEMI.MaxTenure = 48;
+                _objEMI.MinTenure = 12;
+                _objEMI.MaxRateOfInterest = 15;
+                _objEMI.MinRateOfInterest = 10;
+                _objEMI.ProcessingFee = 2000;
             }
             catch (Exception ex)
             {
-                Trace.Warn("PreFillCustomerDetails Ex: ", ex.Message);
+                Trace.Warn("getEMIDetails Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+            return _objEMI;
         }
 
 
@@ -234,14 +298,13 @@ namespace Bikewale.Mobile.BikeBooking
                     objVersionDetails = objVersion.GetById(versionId);
                     versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
 
-                    if (versionList.Count > 0)
+                    if (versionList!=null && versionList.Count > 0)
                     {
                         ddlVersion.DataSource = versionList;
                         ddlVersion.DataValueField = "VersionId";
                         ddlVersion.DataTextField = "VersionName";
                         ddlVersion.DataBind();
-
-                        ddlVersion.SelectedValue = PriceQuoteQueryString.VersionId;
+                        ddlVersion.SelectedValue = Convert.ToString(versionId);
                     }
                 }
             }
@@ -303,7 +366,7 @@ namespace Bikewale.Mobile.BikeBooking
                 {
                     // Save pq cookie
                     //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "");
-                    
+
                     Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "")), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
@@ -368,15 +431,6 @@ namespace Bikewale.Mobile.BikeBooking
                 ctrlAlternateBikes.VersionId = Convert.ToInt32(versionId);
                 ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_DPQ_Alternative;
             }
-        }
-        private UInt32 TotalDiscountedPrice()
-        {
-            UInt32 totalPrice = 0;
-            foreach (var priceListObj in objPrice.discountedPriceList)
-            {
-                totalPrice += priceListObj.Price;
-            }
-            return totalPrice;
         }
 
     }   //End of class
