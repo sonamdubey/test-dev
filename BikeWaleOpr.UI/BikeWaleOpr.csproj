@@ -199,6 +199,8 @@
     <Compile Include="common\Ajax\AjaxManufacturerCampaign.cs" />
     <Compile Include="common\Ajax\ImageReplication.cs" />
     <Compile Include="common\ManageDealerBenefits.cs" />
+    <Compile Include="common\ManageDealerCampaign.cs" />
+    <Compile Include="common\ManageDealerCampaignRule.cs" />
     <Compile Include="content\frmManageAppVersions.aspx.cs">
       <DependentUpon>frmManageAppVersions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
