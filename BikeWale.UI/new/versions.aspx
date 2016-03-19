@@ -1449,31 +1449,6 @@
             </div>
         </section>
 
-        <%if ((isBookingAvailable && isOfferAvailable) || (isBookingAvailable && !isOfferAvailable))
-		  { %>
-        <section>
-            <div class="container margin-bottom30">
-                <div class="grid-12">
-                    <div class="content-box-shadow content-inner-block-20">
-                        <div class="inline-block text-center margin-right30">
-                            <div class="icon-outer-container rounded-corner50">
-                                <div class="icon-inner-container rounded-corner50">
-                                    <span class="bwsprite question-mark-icon margin-top25"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="inline-block">
-                            <h3 class="margin-bottom10">Questions?</h3>
-                            <p class="text-light-grey font14">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <span class="text-dark-grey">1800 120 8300</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-        <%} %>
-
-
         <!-- get on road price popup -->
         <div id="onRoadPricePopup" class="rounded-corner2 content-inner-block-20 text-center hide">
             <div class="onroadPriceCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
