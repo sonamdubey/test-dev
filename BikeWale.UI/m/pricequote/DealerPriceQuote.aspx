@@ -13,6 +13,7 @@
         canonical = "";
         AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
         AdId = "1398766000399";
+        PopupWidget.Visible = false;
     %>
     <script>var quotationPage = true;</script>
     <!-- #include file="/includes/headscript_mobile.aspx" -->

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Default" EnableViewState="false" %>
 
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
@@ -17,13 +17,12 @@
         AdId = "1395985604192";
         alternate = "http://www.bikewale.com/m/";
         canonical = "http://www.bikewale.com/";
-    %>
-    <%
         isAd970x90Shown = false;
         isAd970x90BottomShown = false;
         isAd976x400FirstShown = true;
         isAd976x400SecondShown = true;
         isAd976x204 = true;
+        PopupWidget.Visible = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">

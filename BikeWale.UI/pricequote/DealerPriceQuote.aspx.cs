@@ -45,7 +45,7 @@ namespace Bikewale.BikeBooking
         protected Label defaultVariant;
         protected DealerPackageTypes dealerType;
         protected DealerQuotationEntity primarydealer = null;
-
+        
 
 
         protected override void OnInit(EventArgs e)
