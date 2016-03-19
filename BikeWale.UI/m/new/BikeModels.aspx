@@ -112,16 +112,18 @@
                         <%-- <div class="bikeTitle">
                             <h1 class="padding-bottom10"><%= bikeName %></h1>
                         </div>--%>
-                        <div class="margin-bottom10 font14 text-light-grey">Expected price</div>
-                        <div>
-                            <span class="font24 text-bold"><span class="bwmsprite inr-lg-icon"></span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
-                        </div>
-                        <div class="border-solid-bottom margin-top15 margin-bottom15"></div>
-                        <div class="margin-bottom10 font14 text-light-grey">Expected launch date</div>
-                        <div class="font18 text-grey margin-bottom5">
-                            <span class="text-bold"><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
-                        </div>
-
+                          <% if (modelPage.UpcomingBike != null) {%>
+                         <div class="margin-bottom10 font14 text-light-grey">Expected price</div>
+                         <div>
+                             <span class="font24 text-bold"><span class="bwmsprite inr-lg-icon"></span>
+                                 <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
+                         </div>
+                         <div class="border-solid-bottom margin-top15 margin-bottom15"></div>
+                         <div class="margin-bottom10 font14 text-light-grey">Expected launch date</div>
+                         <div class="font18 text-grey margin-bottom5">
+                             <span class="text-bold"><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
+                         </div>
+                        <% } %>
                         <p class="font14 text-grey"><%= bikeName %> is not launched in India yet. Information on this page is tentative.</p>
                     </div>
                     <% } %>
@@ -163,42 +165,7 @@
                            {  %>
                         <p id='versText' class="variantText text-medium-grey grid-10 text-bold font14 margin-top10"><%= variantText %></p>
                         <% } %>
-                        <%--<div class="leftfloat grid-10 omega">
-                        	<select class="form-control">
-	                            <option>Alloy, Self</option>
-                            	<option>Alloy, Double Disc, Self</option>
-                                <option>Double Disc, Self</option>
-                            </select>
-                        </div>--%>
                     </div>
-
-                    <div class="model-specs-overview text-xt-light-grey border-solid-bottom font14 margin-right10 margin-left10">
-                        <div class="odd btmAftBorder">
-                            <span class="block border-light-right">
-                                <span>125</span>
-                                <span>cc</span>
-                            </span>
-                        </div>
-                        <div class="even btmAftBorder">
-                            <span class="block">
-                                <span>125</span>
-                                <span>kmpl</span>
-                            </span>
-                        </div>
-                        <div class="odd">
-                            <span class="block border-light-right">
-                                <span>125</span>
-                                <span>bhp</span>
-                            </span>
-                        </div>
-                        <div class="even">
-                            <span class="block">
-                                <span>125</span>
-                                <span>kg</span>
-                            </span>
-                        </div>
-                    </div>
-
                     <div class="padding-right10 padding-left10">
 
                         <% if (isDiscontinued)
@@ -268,12 +235,12 @@
                      %>
                     <div class="margin-top20 content-inner-block-10 border-solid">
                         <h2 class="font18 text-darker-black"><%=viewModel.Organization %></h2>
-                        <p class="font14 text-light-grey padding-bottom10 border-solid-bottom"><%=viewModel.AreaName %></p>
+                        <p class="font14 text-light-grey padding-bottom10 "><%=viewModel.AreaName %></p>
                         <%
                            if (viewModel.Offers != null && viewModel.OfferCount > 0)
                            { 
                          %>
-                        <p class="font16 text-bold margin-top15 margin-bottom15">Exclusive offers on this bike:</p>
+                        <p class="font16 text-bold margin-top15 margin-bottom15 border-solid-top">Exclusive offers on this bike:</p>
                         <ul class="dealers-benefits-list text-light-grey margin-bottom10">     
                             <asp:Repeater ID="rptOffers" runat="server">
                               <ItemTemplate>
@@ -335,7 +302,6 @@
                     </div>
                 </div>
                 <% } %>
-            </div>
 
             <!-- floating buttons -->
             <%-- <div class="grid-12 float-button float-fixed clearfix">--%>
@@ -351,22 +317,34 @@
                    {   %>
                 <div class="grid-12 float-button float-fixed clearfix">
                     <div class="show padding-top10">
-                        <% if (modelPage.ModelDetails.New)
-                           {   %>
-                        <% if (viewModel != null && viewModel.IsPremiumDealer)
-                           { %>
-                        <div class="grid-6 alpha omega">
-                            <a id="calldealer" class="btn btn-white btn-full-width btn-sm rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
-                        </div>
-                        <div class="grid-6 alpha omega padding-left10">
-                            <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat" href="javascript:void(0);"><span class="bwmsprite tel-white-icon margin-right5"></span>Get assistance</a>
-                        </div>
-                        <%} %>
-                        <%} %>
+                        <% if (modelPage.ModelDetails.New && viewModel != null )
+                           {   
+                         %>
+                            <% if ( viewModel.IsPremiumDealer)
+                               { 
+                            %>
+                                    <div class="grid-6 alpha omega">
+                                        <a id="calldealer" class="btn btn-white btn-full-width btn-sm rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
+                                    </div>
+                                    <div class="grid-6 alpha omega padding-left10">
+                                        <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get assistance</a>
+                                    </div>
+                            <% }
+                              else
+                              { 
+                            %>
+                                <div class="grid-12 float-button float-fixed clearfix">
+                                    <a href="javascript:void(0)" onclick="secondarydealer_Click(<%=dealerId %>);" id="checkDealerDetails" style="width: 100%" class="btn btn-orange margin-top10 margin-right10 leftfloat">Check dealer details</a>
+                                </div>
+                        <%    }
+                           }  
+                        %>
                     </div>
                 </div>
-                <%  }
-               }%>
+                <%
+                }
+               }
+               %>
             </div>
         </section>
         <% if (Ad_300x250)
