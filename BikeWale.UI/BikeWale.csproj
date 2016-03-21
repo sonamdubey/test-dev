@@ -882,6 +882,10 @@
       <DependentUpon>dealerlisting.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\dealerlocator\dealerdetails.aspx.cs">
+      <DependentUpon>dealerdetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2230,6 +2234,7 @@
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\dealerlocator\dealerlisting.aspx" />
+    <Content Include="m\dealerlocator\dealerdetails.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\Default_old.aspx" />
     <Content Include="m\faq.aspx" />
