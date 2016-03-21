@@ -32,6 +32,7 @@ namespace BikewaleOpr.Common
                 {
                     using (SqlCommand cmd = new SqlCommand("BW_FetchBWDealerCampaignRules"))
                     {
+                        db = new Database();
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@CampaignId", campaignId);
                         cmd.Parameters.AddWithValue("@DealerID", dealerId);
