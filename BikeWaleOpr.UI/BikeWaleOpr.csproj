@@ -1961,6 +1961,7 @@
     <Content Include="editor\tiny_mce_old\utils\form_utils.js" />
     <Content Include="editor\tiny_mce_old\utils\mctabs.js" />
     <Content Include="editor\tiny_mce_old\utils\validate.js" />
+    <Content Include="images\calendar.png" />
     <Content Include="includes\footerNew.aspx" />
     <Content Include="includes\headerNew.aspx" />
     <Content Include="includes\HeaderUser.aspx" />
