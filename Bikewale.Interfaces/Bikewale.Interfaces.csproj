@@ -72,6 +72,7 @@
     <Compile Include="Customer\ICustomerAuthentication.cs" />
     <Compile Include="Customer\ICustomerRepository.cs" />
     <Compile Include="Dealer\IDealer.cs" />
+    <Compile Include="Dealer\IDealerCacheRepository.cs" />
     <Compile Include="Dealer\IOffer.cs" />
     <Compile Include="Feedback\IFeedback.cs" />
     <Compile Include="Insurance\IInsuranceDetail.cs" />

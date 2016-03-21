@@ -8,9 +8,12 @@ using System.Threading.Tasks;
 namespace Bikewale.Entities.PriceQuote
 {
     /// <summary>
-    /// Created By : Lucky Rathore
-    /// Created on : 15 March 2016
+    /// Modified By : Lucky Rathore
+    /// Modified on : 15 March 2016
     /// Description : for Dealer Basics details.
+    /// Modified By : Lucky Rathore
+    /// Modified on : 21 March 2016
+    /// Description : DealerPkgType added.
     /// </summary>
     public class NewBikeDealerBase
     {
@@ -25,5 +28,8 @@ namespace Bikewale.Entities.PriceQuote
 
         [JsonProperty("maskingNumber")]
         public string MaskingNumber { get; set; }
+
+        [JsonProperty("dealerPackageType")]
+        public DealerPackageTypes DealerPkgType { get; set; }
     }
 }
