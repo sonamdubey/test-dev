@@ -8,9 +8,12 @@ using System.Threading.Tasks;
 namespace Bikewale.Entities.PriceQuote
 {
     /// <summary>
-    /// Created By : Lucky Rathore
-    /// Created on : 15 March 2016
+    /// Modified By : Lucky Rathore
+    /// Modified on : 15 March 2016
     /// Description : for Dealer Basics details.
+    /// Modified By : Lucky Rathore
+    /// Modified on : 21 March 2016
+    /// Description : DealerPkgType added.
     /// </summary>
     public class NewBikeDealerBase
     {

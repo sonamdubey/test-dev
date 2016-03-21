@@ -11,10 +11,8 @@ namespace Bikewale.Entities.BikeData
     {
         private BikeMakeEntityBase objmakeBase = new BikeMakeEntityBase();
         public BikeMakeEntityBase MakeBase { get { return objmakeBase; } set { objmakeBase = value; } }
-
         private BikeSeriesEntityBase objEntityBase = new BikeSeriesEntityBase();
         public BikeSeriesEntityBase ModelSeries { get { return objEntityBase; } set { objEntityBase = value; } }
-        
         public bool New { get; set; }   //Added by suresh prajapati
         public bool Used { get; set; }  //Added by suresh prajapati
         public bool Futuristic { get; set; }

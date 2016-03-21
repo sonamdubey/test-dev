@@ -34,7 +34,6 @@ namespace Bikewale.Entities.BikeBooking
         [JsonProperty("workingTime")]
         public string WorkingTime { get; set; }
 
-
         [JsonProperty("address")]
         public string Address { get; set; }
 
