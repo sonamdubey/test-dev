@@ -161,6 +161,8 @@ function CustomerModel() {
     };
 
     self.submitLead = function () {
+        $("#dealer-lead-msg").hide();
+        self.IsVerified(false);
         isValidDetails = false;
         if (event.currentTarget.id == 'buyingAssistBtn') {
             self.isAssist(true);
@@ -193,7 +195,7 @@ function CustomerModel() {
                 var leadMobileVal = mobile.val();
                 $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
                 otpContainer.removeClass("hide").addClass("show");
-                nameValTrue();
+                //nameValTrue();
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
@@ -204,15 +206,24 @@ function CustomerModel() {
 
     otpBtn.click(function () {
         $('#processing').show();
+        isValidDetails = false;
         if (!validateOTP())
             $('#processing').hide();
 
-        if (validateOTP() && ValidateUserDetail()) {
+        if (event.currentTarget.id == 'buyingAssistBtn') {
+            self.isAssist(true);
+            isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
+        }
+        else {
+            self.isAssist(false);
+            isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
+        }
+
+        if (validateOTP() && isValidDetails) {
             customerViewModel.generateOTP();
             if (customerViewModel.IsVerified()) {
                 $("#personalInfo").hide();
                 $(".booking-dealer-details").removeClass("hide").addClass("show");
-                detailsSubmitBtn.show();
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
                 $("#personalInfo").hide()
@@ -245,55 +256,44 @@ function ValidateUserDetail(fullName, emailid, mobile) {
 };
 
 
-function nameValTrue() {
-    hideError(fullName)
-    fullName.siblings("div").text('');
-};
+var prevEmail = "",
+	prevMobile = "";
 
-fullName.on("focus", function () {
-    hideError(fullName);
+$("#assistanceGetName,#getFullName").on("focus", function () {
+    hideError($(this));
 });
 
-emailid.on("focus", function () {
-    hideError(emailid);
-    prevEmail = emailid.val().trim();
+$("#assistanceGetEmail,#getEmailID").on("focus", function () {
+    hideError($(this));
+    prevEmail = $(this).val().trim();
 });
 
-mobile.on("focus", function () {
-    hideError(mobile)
-    prevMobile = mobile.val().trim();
-
+$("#assistanceGetMobile,#getMobile,#getUpdatedMobile").on("focus", function () {
+    hideError($(this));
+    prevMobile = $(this).val().trim();
 });
 
-emailid.on("blur", function () {
-    if (prevEmail != emailid.val().trim()) {
-        if (validateEmail()) {
+
+
+$("#assistanceGetEmail,#getEmailID").on("blur", function () {
+    if (prevEmail != $(this).val().trim()) {
+        if (validateEmailId($(this))) {
             customerViewModel.IsVerified(false);
-            detailsSubmitBtn.show();
             otpText.val('');
             otpContainer.removeClass("show").addClass("hide");
-            hideError(emailid);
+            hideError($(this));
         }
-        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
-        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
     }
 });
 
-mobile.on("blur", function () {
-    if (mobile.val().length < 10) {
-        $("#user-details-submit-btn").show();
-        $(".mobile-verification-container").removeClass("show").addClass("hide");
-    }
-    if (prevMobile != mobile.val().trim()) {
-        if (validateMobile()) {
+$("#assistanceGetMobile,#getMobile,#getUpdatedMobile").on("blur", function () {
+    if (prevMobile != $(this).val().trim()) {
+        if (validateMobileNo($(this))) {
             customerViewModel.IsVerified(false);
-            detailsSubmitBtn.show();
             otpText.val('');
             otpContainer.removeClass("show").addClass("hide");
-            hideError(mobile);
+            hideError($(this));
         }
-        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
-        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
     }
 });
 
@@ -354,7 +354,7 @@ function setuserDetails() {
 }
 
 function setPQUserCookie() {
-    var val = fullName.val() + '&' + emailid.val() + '&' + mobile.val();
+    var val = customerViewModel.fullName() + '&' + customerViewModel.emailId() + '&' + customerViewModel.mobileNo();
     SetCookie("_PQUser", val);
 }
 
@@ -470,23 +470,6 @@ var validateMobileNo = function (leadMobileNo) {
         hideError(leadMobileNo)
     return isValid;
 };
-
-var prevEmail = "",
-	prevMobile = "";
-
-$("#assistanceGetName").on("focus", function () {
-    hideError($(this));
-});
-
-$("#assistanceGetEmail").on("focus", function () {
-    hideError($(this));
-    prevEmail = $(this).val().trim();
-});
-
-$("#assistanceGetMobile").on("focus", function () {
-    hideError($(this));
-    prevMobile = $(this).val().trim();
-});
 
 $(document).ready(function () {
     var $window = $(window),
