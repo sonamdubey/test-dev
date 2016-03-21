@@ -57,9 +57,10 @@ namespace Bikewale.New
             ProcessQueryString();
             GetMakeIdByMakeMaskingName(makeMaskingName);
 
-            if (makeId > 0)
+            if (makeId > 0 && cityId > 0)
             {
                 BindMakesDropdown();
+                BindCitiesDropdown();
             }
 
         }
@@ -92,6 +93,33 @@ namespace Bikewale.New
             }
         }
 
+        private void BindCitiesDropdown()
+        {
+            IEnumerable<CityEntityBase> _cities = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICityCacheRepository, CityCacheRepository>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<ICity, CityRepository>()
+                            ;
+                    var objCache = container.Resolve<ICityCacheRepository>();
+                    _cities = objCache.GetPriceQuoteCities(99);
+                    if (_cities != null && _cities.Count() > 0)
+                    {
+                        rptCities.DataSource = _cities;
+                        rptCities.DataBind();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindRepeaters");
+                objErr.SendMail();
+            }
+        }
 
         private void GetMakeIdByMakeMaskingName(string maskingName)
         {
