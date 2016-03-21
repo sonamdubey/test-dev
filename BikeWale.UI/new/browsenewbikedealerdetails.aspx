@@ -4,6 +4,7 @@
 <html>
 <head>
     <%
+        isAd970x90Shown = false;
         //keywords = makeName + " dealers city, Make showrooms " + strCity + "," + strCity + " bike dealers, " + makeName + " dealers, " + strCity + " bike showrooms, bike dealers, bike showrooms, dealerships";
         //description = makeName + " bike dealers/showrooms in " + strCity + ". Find " + makeName + " bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc.";
         //title = makeName + " Dealers in city | " + makeName + " New bike Showrooms in " + strCity + " - BikeWale";
@@ -59,7 +60,7 @@
                             <select id="ddlMakes" class="form-control  chosen-select">
                                 <asp:Repeater ID="rptMakes" runat="server">
                                     <ItemTemplate>
-                                        <option maskingName="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>" <%# ((DataBinder.Eval(Container.DataItem,"MakeId")) != makeId.ToString())?string.Empty:"selected" %> ><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </option>
+                                        <option maskingname="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>" <%# ((DataBinder.Eval(Container.DataItem,"MakeId")) != makeId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </option>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </select>
@@ -71,7 +72,7 @@
                             <select id="ddlCities" class="form-control  chosen-select">
                                 <asp:Repeater ID="rptCities" runat="server">
                                     <ItemTemplate>
-                                      <option maskingName="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>" <%# ((DataBinder.Eval(Container.DataItem,"CityId")) != cityId.ToString())?string.Empty:"selected" %> ><%# DataBinder.Eval(Container.DataItem,"CityName") %></option>
+                                        <option maskingname="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>" <%# ((DataBinder.Eval(Container.DataItem,"CityId")) != cityId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"CityName") %></option>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </select>
@@ -90,59 +91,28 @@
 
                 <div id="dealerListingSidebar" class="bg-white position-abt pos-right0">
                     <div class="dealerSidebarHeading padding-top15 padding-right20 padding-left20">
-                        <h1 id="sidebarHeader" class="font16 border-solid-bottom padding-bottom15">Hero dealers in Mumbai <span class="font14 text-light-grey">(4)</span></h1>
+                        <h1 id="sidebarHeader" class="font16 border-solid-bottom padding-bottom15"><%= makeName %> dealers in <%= cityName %> <span class="font14 text-light-grey">(<%= totalDealers %>)</span></h1>
                     </div>
                     <ul id="dealersList">
-                        <li data-dealer-id="10">
-                            <div class="font14">
-                                <h2 class="font16 margin-bottom10">
-                                    <span class="featured-tag text-white text-center font14 margin-bottom5">Featured
-                                    </span>
-                                    <span class="dealer-pointer-arrow"></span>
-                                    <a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold">Dealer 1</a>
-                                </h2>
-                                <p class="text-light-grey margin-bottom5">Andheri, Mumbai</p>
-                                <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span>9876543210</p>
-                                <a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span>bikewale@motors.com</a>
-                                <input type="button" class="btn btn-white-orange margin-top15 get-assistance-btn" value="Get assistance">
-                            </div>
-                        </li>
-                        <li data-dealer-id="21">
-                            <div class="font14">
-                                <h2 class="font16 margin-bottom10"><a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold">Dealer 2</a></h2>
-                                <p class="text-light-grey margin-bottom5">Andheri, Mumbai</p>
-                                <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span>9876543210</p>
-                                <a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span>bikewale@motors.com</a>
-                                <input type="button" class="btn btn-white-orange margin-top15 get-assistance-btn" value="Get assistance">
-                            </div>
-                        </li>
-                        <li data-dealer-id="32">
-                            <div class="font14">
-                                <h2 class="font16 margin-bottom10"><a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold">Dealer 3</a></h2>
-                                <p class="text-light-grey margin-bottom5">Andheri, Mumbai</p>
-                                <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span>9876543210</p>
-                                <a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span>bikewale@motors.com</a>
-                                <input type="button" class="btn btn-white-orange margin-top15 get-assistance-btn" value="Get assistance">
-                            </div>
-                        </li>
-                        <li data-dealer-id="43">
-                            <div class="font14">
-                                <h2 class="font16 margin-bottom10"><a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold">Dealer 4</a></h2>
-                                <p class="text-light-grey margin-bottom5">Andheri, Mumbai</p>
-                                <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span>9876543210</p>
-                                <a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span>bikewale@motors.com</a>
-                                <input type="button" class="btn btn-white-orange margin-top15 get-assistance-btn" value="Get assistance">
-                            </div>
-                        </li>
-                        <li data-dealer-id="54">
-                            <div class="font14">
-                                <h2 class="font16 margin-bottom10"><a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold">Dealer 5</a></h2>
-                                <p class="text-light-grey margin-bottom5">Andheri, Mumbai</p>
-                                <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span>9876543210</p>
-                                <a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span>bikewale@motors.com</a>
-                                <input type="button" class="btn btn-white-orange margin-top15 get-assistance-btn" value="Get assistance">
-                            </div>
-                        </li>
+                        <asp:Repeater ID="rptDealers" runat="server">
+                            <ItemTemplate>
+                                <li data-dealer-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>">
+                                    <div class="font14">
+                                        <h2 class="font16 margin-bottom10">
+                                            <span class="<%# ((int)DataBinder.Eval(Container.DataItem,"DealerPkgType")!=1)?"":"hide" %> featured-tag text-white text-center font14 margin-bottom5">Featured
+                                            </span>
+                                            <span class="<%# ((int)DataBinder.Eval(Container.DataItem,"DealerPkgType")!=1)?"":"hide" %> dealer-pointer-arrow"></span>
+                                            <a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a>
+                                        </h2>
+                                        <p class="text-light-grey margin-bottom5"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
+                                        <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></p>
+                                        <a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span>bikewale@motors.com</a>
+                                        <a href="Javascript:void(0)" class="btn btn-white-orange margin-top15 get-assistance-btn">Get assistance</a>
+                                    </div>
+                                </li>
+                            </ItemTemplate>
+                        </asp:Repeater>
+
                         <li class="dummy-card"></li>
                     </ul>
                 </div>
@@ -174,18 +144,18 @@
                     <div id="buyingAssistanceForm" class="margin-top20 content-inner-block-1520">
                         <p class="font14 text-bold margin-bottom15">Get buying assistance from this dealer:</p>
                         <div class="name-email-mobile-box form-control-box leftfloat margin-right20">
-                            <input type="text" class="form-control" placeholder="Name" id="assistGetName" />
+                            <input type="text" class="form-control" placeholder="Name" id="assistGetName" data-bind="textInput: fullName" />
                             <span class="bwsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="name-email-mobile-box form-control-box leftfloat margin-right40">
-                            <input type="text" class="form-control" placeholder="Email id" id="assistGetEmail" />
+                            <input type="text" class="form-control" placeholder="Email id" id="assistGetEmail"  data-bind="textInput: emailId" />
                             <span class="bwsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="name-email-mobile-box form-control-box leftfloat">
                             <p class="mobile-prefix">+91</p>
-                            <input type="text" class="mobile-box form-control" placeholder="Mobile" maxlength="10" id="assistGetMobile" />
+                            <input type="text" class="mobile-box form-control" placeholder="Mobile" maxlength="10" id="assistGetMobile"  data-bind="textInput: mobileNo" />
                             <span class="bwsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
@@ -196,7 +166,7 @@
                                 <span class="bwsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" value="Submit" />
+                            <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" value="Submit"  data-bind="event: { click: submitLead }" />
                         </div>
                         <div class="clear"></div>
                         <div class="hide">
@@ -300,6 +270,98 @@
             </div>
             <div class="clear"></div>
         </section>
+
+        <!-- lead capture popup start-->
+        <div id="leadCapturePopup" class="text-center rounded-corner2">
+            <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+            <!-- contact details starts here -->
+            <div id="contactDetailsPopup">
+                <div class="icon-outer-container rounded-corner50">
+                    <div class="icon-inner-container rounded-corner50">
+                        <span class="bwsprite user-contact-details-icon margin-top25"></span>
+                    </div>
+                </div>
+                <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
+                <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
+                <div class="personal-info-form-container">
+                    <div class="form-control-box personal-info-list">
+                        <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
+                            id="getFullName" data-bind="textInput: fullName">
+                        <span class="bwsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                    </div>
+                    <div class="form-control-box personal-info-list">
+                        <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
+                            id="getEmailID" data-bind="textInput: emailId">
+                        <span class="bwsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+                    </div>
+                    <div class="form-control-box personal-info-list">
+                        <p class="mobile-prefix">+91</p>
+                        <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
+                            id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
+                        <span class="bwsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                    </div>
+                    <div class="clear"></div>
+                    <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                </div>
+            </div>
+            <!-- contact details ends here -->
+            <!-- otp starts here -->
+            <div id="otpPopup">
+                <div class="icon-outer-container rounded-corner50">
+                    <div class="icon-inner-container rounded-corner50">
+                        <span class="bwsprite otp-icon margin-top25"></span>
+                    </div>
+                </div>
+                <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
+                <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                <div>
+                    <div class="lead-mobile-box lead-otp-box-container font22">
+                        <span class="fa fa-phone"></span>
+                        <span class="text-light-grey font24">+91</span>
+                        <span class="lead-mobile font24"></span>
+                        <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
+                    </div>
+                    <div class="otp-box lead-otp-box-container">
+                        <div class="form-control-box margin-bottom10">
+                            <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP" data-bind="value: otpCode">
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText"></div>
+                        </div>
+                        <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP
+                        </a>
+                        <p class="otp-alert-text margin-left10 otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
+                            OTP has been already sent to your mobile
+                        </p>
+                        <div class="clear"></div>
+                        <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
+                    </div>
+                    <div class="update-mobile-box">
+                        <div class="form-control-box text-left">
+                            <p class="mobile-prefix">+91</p>
+                            <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText"></div>
+                        </div>
+                        <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
+                    </div>
+                </div>
+            </div>
+            <!-- otp ends here -->
+            <div id="dealer-lead-msg" class="hide">
+                <div class="icon-outer-container rounded-corner50">
+                    <div class="icon-inner-container rounded-corner50">
+                        <span class="bwsprite otp-icon margin-top25"></span>
+                    </div>
+                </div>
+                <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. DealerName, DealerArea will get in touch with you soon.</p>
+
+                <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
+            </div>
+        </div>
+        <!-- lead capture popup End-->
 
         <section>
             <div class="grid-12 alpha omega">

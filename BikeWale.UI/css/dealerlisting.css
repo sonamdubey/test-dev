@@ -26,7 +26,7 @@ body { overflow-x:hidden; }
 #dealersList li.active h2 .dealer-pointer-arrow::before {border-right: 14px solid #e2e2e2;border-top: 14px solid transparent;border-bottom: 14px solid transparent;content: "";position: absolute; top:50px; left: -35px;z-index: 1;}
 #dealersList li.active h2 .dealer-pointer-arrow::after { border-right: 14px solid #f9f9f9; border-top: 14px solid transparent; border-bottom: 14px solid transparent; content: ""; position: absolute; top:50px;left: -34px; z-index: 1; }
 #dealersList h2 { padding-top:18px; border-top:1px solid #e2e2e2; }
-#dealersList .btn.get-assistance-btn {padding:8px 35px;}
+#dealersList .btn.get-assistance-btn {padding:8px 35px;width:180px}
 #dealersList a { display:block; }
 #dealersList a:hover, #dealerDetailsSliderCard a:hover { text-decoration:none; }
 .featured-tag {position:relative;left:-20px;top:-5px;width:100px;display:block;background:#4d5057;z-index:1; line-height:28px; }
@@ -75,3 +75,22 @@ a.text-black:hover { text-decoration:none; }
 .get-direction-icon, .sendto-phone-icon { width:10px; height:10px; margin-right:3px; }
 .get-direction-icon { background-position:-113px -446px; }
 .sendto-phone-icon { background-position:-132px -446px; }
+
+#leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:10%;right:5%;left:5%;z-index:10;padding:30px 40px}
+.personal-info-form-container{margin:10px auto;width:300px;min-height:100px}
+.personal-info-form-container .personal-info-list{margin:0 auto;width:280px;float:left;margin-bottom:20px;border-radius:0}
+.personal-info-list .errorIcon,.personal-info-list .errorText{display:none}
+#otpPopup{display:none}
+#otpPopup .otp-box,#otpPopup .update-mobile-box{width:280px;margin:15px auto 0}
+#otpPopup .update-mobile-box .form-control-box{margin-top:25px;margin-bottom:50px}
+#otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}
+#otpPopup .update-mobile-box{display:none}
+#otpPopup .edit-mobile-btn,.resend-otp-btn{cursor:pointer}
+.icon-outer-container{width:102px;height:102px;margin:0 auto;background:#fff;border:1px solid #ccc}
+.icon-inner-container{width:92px;height:92px;margin:4px auto;background:#fff;border:1px solid #666}
+.user-contact-details-icon{width:36px;height:44px;background-position:0 -391px}
+.otp-icon{width:30px;height:40px;background-position:-46px -391px}
+.mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999}
+#otpPopup .errorIcon,#otpPopup .errorText{display:none}
+.input-border-bottom{border-bottom:1px solid #ccc}
+.assistance-response-close.cross-lg-lgt-grey:hover { background-position: -36px -252px; }

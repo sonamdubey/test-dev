@@ -5,7 +5,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Data;
 using System.Data.SqlClient;
-using Bikewale.Common;
+
 using Bikewale.Memcache;
 using Bikewale.Entities.PriceQuote;
 using Microsoft.Practices.Unity;
@@ -21,6 +21,10 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Cache.Location;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.DealerLocator;
+using Bikewale.Notifications;
+using Bikewale.Interfaces.PriceQuote;
+using Bikewale.BAL.PriceQuote;
 
 namespace Bikewale.New
 {
@@ -32,7 +36,8 @@ namespace Bikewale.New
     {
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty;
         protected uint cityId, makeId;
-        protected Repeater rptMakes, rptCities;
+        protected ushort totalDealers;
+        protected Repeater rptMakes, rptCities, rptDealers;
 
 
         protected override void OnInit(EventArgs e)
@@ -51,7 +56,7 @@ namespace Bikewale.New
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
 
-            DeviceDetection dd = new DeviceDetection(originalUrl);
+            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
             dd.DetectDevice();
 
             ProcessQueryString();
@@ -61,8 +66,50 @@ namespace Bikewale.New
             {
                 BindMakesDropdown();
                 BindCitiesDropdown();
+
+                BindDealerList();
             }
 
+        }
+
+        private void BindDealerList()
+        {
+            DealersEntity _dealers = null;
+            DetailedDealerQuotationEntity detailedDealer = null; 
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    //container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                    //         .RegisterType<ICacheManager, MemcacheManager>()
+                    //         .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                    //        ;
+                    //var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                   // _makes = objCache.GetMakesByType(EnumBikeType.New);
+
+                    container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
+                    IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
+                    detailedDealer = objIPQ.GetDealerQuotation(1, 832, 4);
+                    //_dealers.Dealers = detailedDealer.SecondaryDealers;
+
+                    //if (_dealers != null && _dealers.TotalCount > 0)
+                    //{
+                    //    rptDealers.DataSource = _dealers.Dealers;
+                    //    rptDealers.DataBind();
+                    //    totalDealers = _dealers.TotalCount;
+                    //}
+
+                    rptDealers.DataSource = detailedDealer.SecondaryDealers;
+                    rptDealers.DataBind();
+                    totalDealers = Convert.ToUInt16(detailedDealer.SecondaryDealerCount);
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, "BindDealerList");
+                objErr.SendMail();
+            }
         }
 
         private void BindMakesDropdown()
@@ -81,14 +128,15 @@ namespace Bikewale.New
                     if (_makes != null && _makes.Count() > 0)
                     {
                         rptMakes.DataSource = _makes;
-                        rptMakes.DataBind();  
+                        rptMakes.DataBind();   
+                        makeName = _makes.Where(x => x.MakeId == makeId).FirstOrDefault().MakeName;
                     }
                 }
             }
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindRepeaters");
+                ErrorClass objErr = new ErrorClass(ex, "BindMakesDropdown");
                 objErr.SendMail();
             }
         }
@@ -105,18 +153,19 @@ namespace Bikewale.New
                              .RegisterType<ICity, CityRepository>()
                             ;
                     var objCache = container.Resolve<ICityCacheRepository>();
-                    _cities = objCache.GetPriceQuoteCities(99);
+                    _cities = objCache.GetPriceQuoteCities(59);
                     if (_cities != null && _cities.Count() > 0)
                     {
                         rptCities.DataSource = _cities;
                         rptCities.DataBind();
+                        cityName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityName;
                     }
                 }
             }
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindRepeaters");
+                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown");
                 objErr.SendMail();
             }
         }
@@ -130,14 +179,14 @@ namespace Bikewale.New
                     string _makeId = MakeMapping.GetMakeId(maskingName);
                     if (string.IsNullOrEmpty(_makeId) || !uint.TryParse(_makeId, out makeId))
                     {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
                 }
                 else
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -145,7 +194,7 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Trace.Warn("GetMakeIdByMakeMaskingName Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown");
                 objErr.SendMail();
             }
         }
