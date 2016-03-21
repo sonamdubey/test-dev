@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="DealersRules.aspx.cs" Inherits="BikewaleOpr.Campaign.DealersRules" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.DealersRules" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 
