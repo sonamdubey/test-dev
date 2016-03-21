@@ -38,11 +38,19 @@ namespace BikewaleOpr.Campaign
 
         private void DeleteRules(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(hdnCheckedRules.Value))
+            try
             {
-                campaign.DeleteDealerCampaignRules(currentUserId, hdnCheckedRules.Value);
-                BindRules();
-                lblErrorSummary.Text = "Selected rules have been deleted !";
+                if (!string.IsNullOrEmpty(hdnCheckedRules.Value))
+                {
+                    campaign.DeleteDealerCampaignRules(currentUserId, hdnCheckedRules.Value);
+                    BindRules();
+                    lblErrorSummary.Text = "Selected rules have been deleted !";
+                }
+            } 
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.DeleteRules");
+                objErr.SendMail();
             }
         }
 
@@ -65,7 +73,7 @@ namespace BikewaleOpr.Campaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.FillMakes");
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.SaveRules");
                 objErr.SendMail();
             }
         }
@@ -164,13 +172,21 @@ namespace BikewaleOpr.Campaign
         /// </summary>
         private void ParseQueryString()
         {
-            if (!string.IsNullOrEmpty(Request.QueryString["campaignid"]))
+            try
             {
-                campaignId = Convert.ToInt32(Request.QueryString["campaignId"]);
+                if (!string.IsNullOrEmpty(Request.QueryString["campaignid"]))
+                {
+                    campaignId = Convert.ToInt32(Request.QueryString["campaignId"]);
+                }
+                if (!string.IsNullOrEmpty(Request.QueryString["dealerid"]))
+                {
+                    dealerId = Convert.ToInt32(Request.QueryString["dealerid"]);
+                }
             }
-            if (!string.IsNullOrEmpty(Request.QueryString["dealerid"]))
+            catch (Exception ex)
             {
-                dealerId = Convert.ToInt32(Request.QueryString["dealerid"]);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ParseQueryString");
+                objErr.SendMail();
             }
         }
 
@@ -180,11 +196,19 @@ namespace BikewaleOpr.Campaign
         /// </summary>
         private void BindRules()
         {
-            DataTable dbRules = campaign.FetchBWDealerCampaignRules(campaignId, dealerId);
-            if (dbRules != null && dbRules.Rows.Count > 0)
+            try
             {
-                rptRules.DataSource = dbRules;
-                rptRules.DataBind();
+                DataTable dbRules = campaign.FetchBWDealerCampaignRules(campaignId, dealerId);
+                if (dbRules != null && dbRules.Rows.Count > 0)
+                {
+                    rptRules.DataSource = dbRules;
+                    rptRules.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.BindRules");
+                objErr.SendMail();
             }
         }
         #endregion
