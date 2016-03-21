@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Entities.Dealer;
 using Bikewale.Notifications;
@@ -12,8 +9,6 @@ using Bikewale.CoreDAL;
 using System.Data.SqlClient;
 using System.Data;
 using System.Web;
-using Bikewale.Entities.Customer;
-using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.DealerLocator;
 
@@ -481,9 +476,9 @@ namespace Bikewale.DAL.Dealer
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
         /// <returns></returns>
-        public Dealers GetDealerByMakeCity(uint cityId, uint makeId)
+        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
         {
-            Dealers dealers = null;
+            DealersEntity dealers = null;
             IList<DealersList> dealerList = new List<DealersList>();
             Database db = null;
             
@@ -498,7 +493,7 @@ namespace Bikewale.DAL.Dealer
                     cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                     cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
 
-                    dealers = new Dealers(); 
+                    dealers = new DealersEntity(); 
 
                     using (SqlDataReader dr = db.SelectQry(cmd))
                     {
@@ -514,7 +509,7 @@ namespace Bikewale.DAL.Dealer
                                         DealerId = Convert.ToUInt16(dr["DealerId"]),
                                         Name = Convert.ToString(dr["DealerName"]),
                                         Type = (DealerPackageTypes) Convert.ToUInt16(dr["DealerType"]),
-                                        Area = new AreaEntityBase
+                                        objArea = new AreaEntityBase
                                         {
                                             AreaName = Convert.ToString(dr["Area"]),
                                             Longitude = Convert.ToDouble(dr["Longitude"]),
@@ -534,7 +529,7 @@ namespace Bikewale.DAL.Dealer
                         }
                     }
                 }
-                dealers.DealerList = dealerList;
+                dealers.Dealers = dealerList;
             }
             catch (SqlException ex)
             {

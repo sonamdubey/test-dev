@@ -25,6 +25,9 @@ using Bikewale.Entities.DealerLocator;
 using Bikewale.Notifications;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.BAL.PriceQuote;
+using Bikewale.Interfaces.Dealer;
+using Bikewale.Cache.DealersLocator;
+using Bikewale.DAL.Dealer;
 
 namespace Bikewale.New
 {
@@ -74,34 +77,24 @@ namespace Bikewale.New
 
         private void BindDealerList()
         {
-            DealersEntity _dealers = null;
-            DetailedDealerQuotationEntity detailedDealer = null; 
+            DealersEntity _dealers = null;            
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    //container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                    //         .RegisterType<ICacheManager, MemcacheManager>()
-                    //         .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                    //        ;
-                    //var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-                   // _makes = objCache.GetMakesByType(EnumBikeType.New);
+                    container.RegisterType<IDealerCacheRepository,DealerCacheRepository>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IDealer, DealersRepository>()
+                            ;
+                    var objCache = container.Resolve<IDealerCacheRepository>();
+                    _dealers = objCache.GetDealerByMakeCity(cityId,makeId);
 
-                    container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
-                    IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
-                    detailedDealer = objIPQ.GetDealerQuotation(1, 832, 4);
-                    //_dealers.Dealers = detailedDealer.SecondaryDealers;
-
-                    //if (_dealers != null && _dealers.TotalCount > 0)
-                    //{
-                    //    rptDealers.DataSource = _dealers.Dealers;
-                    //    rptDealers.DataBind();
-                    //    totalDealers = _dealers.TotalCount;
-                    //}
-
-                    rptDealers.DataSource = detailedDealer.SecondaryDealers;
-                    rptDealers.DataBind();
-                    totalDealers = Convert.ToUInt16(detailedDealer.SecondaryDealerCount);
+                    if (_dealers != null && _dealers.TotalCount > 0)
+                    {
+                        rptDealers.DataSource = _dealers.Dealers;
+                        rptDealers.DataBind();
+                        totalDealers = _dealers.TotalCount;
+                    }
                 }
             }
             catch (Exception ex)

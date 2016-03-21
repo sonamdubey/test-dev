@@ -156,7 +156,6 @@
     <Compile Include="DealerLocator\DealersList.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
     <Compile Include="Dealer\Dealers.cs" />
-    <Compile Include="Dealer\DealersList.cs" />
     <Compile Include="Dealer\EnumNewBikeDealerClient.cs" />
     <Compile Include="Dealer\ManufacturerLeadEntity.cs" />
     <Compile Include="Dealer\NewBikeDealerEntity.cs" />

@@ -33,14 +33,14 @@ namespace Bikewale.Cache.DealersLocator
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
         /// <returns></returns>
-        public Dealers GetDealerByMakeCity(uint cityId, uint makeId)
+        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
         {
             //IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
-            Entities.DealerLocator.Dealers dealers = null;
+            Entities.DealerLocator.DealersEntity dealers = null;
             string key = String.Format("BW_DealerList_Make_{0}_City_{1}", makeId, cityId);
             try
             {
-                dealers = _cache.GetFromCache<Entities.DealerLocator.Dealers>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerByMakeCity(cityId, makeId));
+                dealers = _cache.GetFromCache<Entities.DealerLocator.DealersEntity>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerByMakeCity(cityId, makeId));
             }
             catch (Exception ex)
             {

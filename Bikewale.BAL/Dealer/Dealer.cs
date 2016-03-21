@@ -160,7 +160,7 @@ namespace Bikewale.BAL.Dealer
         /// <param name="cityId"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public Dealers GetDealerByMakeCity(uint cityId, uint makeId)
+        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
         {
             throw new NotImplementedException();
         }
