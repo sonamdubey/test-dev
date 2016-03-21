@@ -55,9 +55,43 @@ namespace Bikewale.New
             dd.DetectDevice();
 
             ProcessQueryString();
+            GetMakeIdByMakeMaskingName(makeMaskingName);
+
             
 
         }
+
+
+        private void GetMakeIdByMakeMaskingName(string maskingName)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(maskingName))
+                {
+                    string _makeId = MakeMapping.GetMakeId(maskingName);
+                    if (string.IsNullOrEmpty(_makeId) || !uint.TryParse(_makeId, out makeId))
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                }
+                else
+                {
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn("GetMakeIdByMakeMaskingName Ex: ", ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
+
+
 
         #region Private Method to process querystring
         /// <summary>
