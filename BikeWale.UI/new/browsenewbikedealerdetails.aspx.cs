@@ -57,8 +57,39 @@ namespace Bikewale.New
             ProcessQueryString();
             GetMakeIdByMakeMaskingName(makeMaskingName);
 
-            
+            if (makeId > 0)
+            {
+                BindMakesDropdown();
+            }
 
+        }
+
+        private void BindMakesDropdown()
+        {
+            IEnumerable<BikeMakeEntityBase> _makes = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            ;
+                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    _makes = objCache.GetMakesByType(EnumBikeType.New);
+                    if (_makes != null && _makes.Count() > 0)
+                    {
+                        rptMakes.DataSource = _makes;
+                        rptMakes.DataBind();  
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindRepeaters");
+                objErr.SendMail();
+            }
         }
 
 
