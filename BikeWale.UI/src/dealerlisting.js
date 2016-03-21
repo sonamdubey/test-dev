@@ -14,13 +14,19 @@ $(window).scroll(function () {
     }
 });
 
-var dealerArr = [
-	{ id: 10, isPremium: true, name: 'Dealer 1', address: 'Bhagwan Mahaveer Rd, Sector 30A, Vashi', latitude: 19.066206, longitude: 72.999041 },
-	{ id: 21, isPremium: false, name: 'Dealer 2', address: 'Panvel Hwy, Sector 17, Vashi Navi Mumbai, Maharashtra', latitude: 19.068118, longitude: 72.998643 },
-	{ id: 32, isPremium: false, name: 'Dealer 3', address: 'Sector 17, Vashi, Navi Mumbai', latitude: 19.072285, longitude: 72.998139 },
-	{ id: 43, isPremium: true, name: 'Dealer 4', address: 'Sector 2, Vashi, Maharashtra', latitude: 19.073218, longitude: 72.995725 },
-    { id: 54, isPremium: false, name: 'Dealer 5', address: 'Sector 2, Maharashtra', latitude: 19.074218, longitude: 72.996725 }
-];
+var dealerArr = [];
+var i = 0;
+$("ul#dealersList li").each(function () {
+    _self = $(this);
+    _dealer = new Object();
+    _dealer.id = _self.attr("data-item-id");
+    _dealer.isPremium = _self.attr("data-item-type");
+    _dealer.latitude = _self.attr("data-lat");
+    _dealer.longitude = _self.attr("data-log");
+    _dealer.address = _self.attr("data-address");
+    _dealer.name = _self.find("a.dealer-sidebar-link").text();
+    dealerArr.push(_dealer);
+});
 
 var markerArr = [];
 var map, infowindow;
@@ -28,9 +34,10 @@ var blackMarkerImage = 'http://imgd2.aeplcdn.com/0x0/bw/static/design15/map-mark
 var redMarkerImage = 'http://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
 
 function initializeMap(dealerArr) {
+
     var mapProp = {
-        center: new google.maps.LatLng(19.07016, 73), //vashi
-        zoom: 15,
+        center: new google.maps.LatLng(dealerArr[0].latitude, dealerArr[0].longitude), //vashi
+        zoom: 2,
         scrollwheel: false,
         streetViewControl: false,
         mapTypeControl: false,
@@ -78,6 +85,11 @@ function initializeMap(dealerArr) {
             };
         })(marker, content, infowindow));
 
+        google.maps.event.addDomListener(window, 'resize', function () {
+            google.maps.event.trigger(map, "resize")
+            map.setCenter(new google.maps.LatLng(map.center.lat(), map.center.lng()));
+        });
+
         google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
             return function () {
                 infowindow.close();
@@ -94,7 +106,7 @@ $('#dealersMap').on('click', 'a.tooltip-target-link', function () {
 
 $('#dealersList li').mouseover(function () {
     var currentLI = $(this),
-        currentDealerId = currentLI.attr('data-dealer-id');
+        currentDealerId = currentLI.attr('data-item-id');
     for (var i = 0; i < markerArr.length; i++) {
         if (markerArr[i].dealerId == currentDealerId) {
             infowindow.setContent(markerArr[i].dealerName);
@@ -108,7 +120,7 @@ $('#dealersList li').mouseout(function () {
     infowindow.close();
 });
 
-$('#dealersList li').on('click', 'a.dealer-sidebar-link,a.get-assistance-btn', function () {
+$('#dealersList li').on('click', 'a.dealer-sidebar-link', function () {
     var parentLI = $(this).parents('li');
     selectedDealer(parentLI);
 });
@@ -118,7 +130,7 @@ var getDealerFromSidebar = function (tooltipId) {
     var dealer;
     $('#dealersList li').each(function () {
         dealer = $(this);
-        if (dealer.attr('data-dealer-id') == tooltipId) {
+        if (dealer.attr('data-item-id') == tooltipId) {
             flag = true;
             if (!dealer.hasClass('active')) {
                 selectedDealer(dealer);
@@ -132,17 +144,89 @@ var getDealerFromSidebar = function (tooltipId) {
 var dealerId;
 
 var selectedDealer = function (dealer) {
-    infowindow.close();
-    
+    infowindow.close();     
     $('#sidebarHeader').removeClass('border-solid-bottom');
     $('html, body').animate({ scrollTop: dealer.offset().top - 103 }, { complete: function () { $('body').addClass('hide-scroll') } });
     $('#dealerDetailsSliderCard').show().animate({ 'right': '338px' });
     $('#dealerDetailsSliderCard').css({ 'height': $(window).innerHeight() - 52 });
     dealer.addClass('active');
     dealer.siblings().removeClass('active');
-    dealerId = dealer.attr('data-dealer-id');
+    dealerId = dealer.attr('data-item-id');
     $("#assistGetName").focus();
+    getDealerDetails(dealerId)
 };
+
+
+
+
+var DealerDetails = function () {
+    var self = this;
+    self.name = ko.observable();
+    self.mobile = ko.observable();
+    self.address = ko.observable();
+    self.city = ko.observable();
+    self.area = ko.observable();
+    self.workingHours = ko.observable();
+    self.email = ko.observable();
+    self.dealerType = ko.observable();
+}
+
+var DealerBikesList = function (data) {
+    var self = this;
+    self.bikeName = ko.observable(data.BikeName);
+    self.bikePrice = ko.observable();
+    self.minSpecs = ko.observable();
+    self.displacement = ko.observable();
+    self.fuelEffecient = ko.observable();
+    self.maxpower = ko.observable();
+    self.displayMinSpec = ko.computed(function () {
+        var spec = '';
+        if (self.displacement() && self.displacement() != "0")
+            str += "<span><span>" + self.displacement() + "</span><span class='text-light-grey'> CC</span></span>";
+
+        if (self.fuelEffecient() && self.fuelEffecient() != "0")
+            str += "<span>, <span>" + self.fuelEffecient() + "</span><span class='text-light-grey'> Kmpl</span></span>";
+
+        if (self.maxpower() && self.maxpower() != "0")
+            str += "<span>, <span>" + self.maxpower() + "</span><span class='text-light-grey'> bhp</span></span>";
+
+        if (spec != "")
+            return spec;
+        else
+            return "Specs Unavailable";
+    }, this);
+
+}
+
+function getDealerDetails(id)
+{
+    var obj = new Object();
+    if (id != "0")
+    {
+        $.ajax({
+            type: "GET",
+            url: "http://172.16.5.38:9011/api/DealerBikes/?dealerId=4",
+            contentType: "application/json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('utma', getCookie('__utma'));
+                xhr.setRequestHeader('utmz', getCookie('__utmz'));
+            },
+            success: function (response) {
+                obj = ko.toJS(response);
+
+                DealerDetails(obj);
+                ko.applyBindings(customerViewModel, $('#dealerDetailsSliderCard')[0]);
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+
+            }
+        });
+    }   
+    
+    return obj;
+}
+
 
 initializeMap(dealerArr);
 
@@ -176,7 +260,7 @@ $(document).keydown(function (e) {
 
 var getCityArea = GetGlobalCityArea();
 
-var leadBtnBookNow = $("#get-assistance-btn"), leadCapturePopup = $("#leadCapturePopup");
+var leadBtnBookNow = $("a.get-assistance-btn"), leadCapturePopup = $("#leadCapturePopup");
 var fullName = $("#getFullName");
 var emailid = $("#getEmailID");
 var mobile = $("#getMobile");
@@ -646,49 +730,6 @@ var validateMobileNo = function (leadMobileNo) {
     return isValid;
 };
 
-var DealerDetails = function()
-{
-    var self = this;
-    self.name = ko.observable();
-    self.mobile = ko.observable();
-    self.address = ko.observable();
-    self.city = ko.observable();
-    self.area = ko.observable();
-    self.workingHours = ko.observable();
-    self.email = ko.observable();
-    self.dealerType = ko.observable();
-}
-
-var DealerBikesList  = function()
-{
-    var self = this;
-    self.bikeName = ko.observable();
-    self.bikePrice = ko.observable();
-    self.minSpecs = ko.observable();
-    self.displacement = ko.observable();
-    self.fuelEffecient = ko.observable();
-    self.maxpower = ko.observable();
-    self.displayMinSpec = ko.computed(function () {
-        var spec = '';
-        if (self.displacement() && self.displacement() != "0")
-            str += "<span><span>"+ self.displacement() +"</span><span class='text-light-grey'> CC</span></span>";
-
-        if (self.fuelEffecient() && self.fuelEffecient() != "0")
-            str += "<span>, <span>" + self.fuelEffecient() + "</span><span class='text-light-grey'> Kmpl</span></span>";
-
-        if (self.maxpower() && self.maxpower() != "0")
-            str += "<span>, <span>" + self.maxpower() + "</span><span class='text-light-grey'> bhp</span></span>";
-
-        if (spec != "")
-            return spec;
-        else
-            return "Specs Unavailable";
-    }, this);
-
-    
-
-
-}
 
 var DealerModel = function() {
     var self = this;
@@ -711,9 +752,6 @@ var DealerModel = function() {
     self.state = ko.observable(state);
     self.websiteUrl = ko.observable(websiteUrl);                
 }
-
-
-ko.applyBindings(customerViewModel, $('#dealerDetailsSliderCard')[0]);
 
 ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
 

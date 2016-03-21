@@ -499,8 +499,7 @@ namespace Bikewale.DAL.Dealer
                     {
                         if(dr != null)
                         {                            
-                            //dealers.dealerList = new Enumerable<DealerListEntity>();
-                            if (dr.Read() && dr.HasRows)
+                            if (dr.HasRows)
                             {
                                 while (dr.Read())
                                 {
@@ -508,7 +507,7 @@ namespace Bikewale.DAL.Dealer
                                     {
                                         DealerId = Convert.ToUInt16(dr["DealerId"]),
                                         Name = Convert.ToString(dr["DealerName"]),
-                                        Type = (DealerPackageTypes) Convert.ToUInt16(dr["DealerType"]),
+                                        //Type = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"])),
                                         objArea = new AreaEntityBase
                                         {
                                             AreaName = Convert.ToString(dr["Area"]),
@@ -521,15 +520,18 @@ namespace Bikewale.DAL.Dealer
                                         Address = Convert.ToString(dr["Address"]),
                                     });
                                 }
+
+                                if (dr.NextResult() && dr.Read())
+                                {
+                                    dealers.TotalCount = Convert.ToUInt16(dr["TotalCount"]);
+                                }
+
+                                dealers.Dealers = dealerList; 
                             }
-                            if (dr.NextResult())
-                            {
-                                dealers.TotalCount = Convert.ToUInt16(dr["TotalCount"]);
-                            }
+                           
                         }
                     }
                 }
-                dealers.Dealers = dealerList;
             }
             catch (SqlException ex)
             {
