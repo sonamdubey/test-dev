@@ -9,6 +9,6 @@ namespace Bikewale.Entities.DealerLocator
 {
     public class BikeModelDetails : MostPopularBikesBase
     {
-
+        
     }
 }

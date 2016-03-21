@@ -112,6 +112,8 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IOffer, OfferRepository>();
             container.RegisterType<IDeepLinking, DeepLinking>();
             container.RegisterType<Bikewale.Interfaces.PriceQuote.IDealerPriceQuoteDetail, Bikewale.BAL.PriceQuote.DealerPriceQuoteDetail>();
+            container.RegisterType<Bikewale.Interfaces.DealerLocator.IDealer, Bikewale.DAL.DealerLocator.DealerRepository>();
+            container.RegisterType<Bikewale.Interfaces.Dealer.IDealerCacheRepository, Bikewale.Cache.DealersLocator.DealerCacheRepository>();
             return container;
         }
     }

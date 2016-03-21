@@ -12,7 +12,7 @@ namespace Bikewale.DTO.DealerLocator
     /// Created By : Lucky Rathore on 21 March 2016
     /// Description : for Dealer Details. 
     /// </summary>
-    public class DealerDetail
+    public class DealerDetail : DealerBase
     {
         public PQAreaBase Area { get; set; }
         public DealerPackageType Type { get; set; }

@@ -196,6 +196,7 @@
     <Compile Include="AutoMappers\BookingSummary\PQCustomerMapper.cs" />
     <Compile Include="AutoMappers\Compare\BikeCompareEntityMapper.cs" />
     <Compile Include="AutoMappers\Compare\TopBikeCompareBaseMapper.cs" />
+    <Compile Include="AutoMappers\DealerLocator\DealerBikesEntityMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
     <Compile Include="AutoMappers\Make\MakePageEntityMapper.cs" />
     <Compile Include="AutoMappers\NewBikeSearch\SearchOutputMapper.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Controllers\Customer\CustomerController.cs" />
     <Compile Include="Controllers\Customer\LoginInputParameters.cs" />
     <Compile Include="Controllers\Customer\RegisterInputParameters.cs" />
+    <Compile Include="Controllers\DealerLocator\DealerBikesController.cs" />
     <Compile Include="Controllers\Dealer\DealersListController.cs" />
     <Compile Include="Controllers\Dealer\OffersController.cs" />
     <Compile Include="Controllers\Dealer\TermsController.cs" />
