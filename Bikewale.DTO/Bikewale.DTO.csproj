@@ -94,6 +94,7 @@
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerBase.cs" />
     <Compile Include="Customer\RegisteredCustomer.cs" />
+    <Compile Include="DealerLocator\DealerBase.cs" />
     <Compile Include="DealerLocator\DealerBikes.cs" />
     <Compile Include="DealerLocator\DealerDetail.cs" />
     <Compile Include="Dealer\NewBikeDealerBase.cs" />
