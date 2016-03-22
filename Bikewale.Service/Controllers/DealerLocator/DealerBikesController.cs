@@ -14,6 +14,11 @@ using System.Web.Http;
 
 namespace Bikewale.Service.Controllers.DealerLocator
 {
+    /// <summary>
+    /// Created By : Lucky Rathore
+    /// Created on : 22 march 2016
+    /// Description : for getting dealer detail and bike detail w.r.t dealer.
+    /// </summary>
     public class DealerBikesController : ApiController
     {
         private readonly Bikewale.Interfaces.DealerLocator.IDealer _dealer = null;
@@ -25,6 +30,13 @@ namespace Bikewale.Service.Controllers.DealerLocator
             _cache = cache;
         }
 
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created On : 22 March 2016
+        /// Description : To get Detail of Bikes for specific Dealer.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public IHttpActionResult Get(UInt16 dealerId)
         {
             try
@@ -33,9 +45,6 @@ namespace Bikewale.Service.Controllers.DealerLocator
                 DealerBikes bikes;
                 if (dealerBikes != null)
                 {
-                    // If android, IOS client sanitize the article content 
-                    
-                    //compareDTO = BikeCompareEntityMapper.Convert(compareEntity);
                     bikes = DealerBikesEntityMapper.Convert(dealerBikes);
                     return Ok(bikes);
                 }

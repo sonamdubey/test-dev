@@ -19,6 +19,14 @@ namespace Bikewale.DAL.DealerLocator
 {
     public class DealerRepository : Bikewale.Interfaces.DealerLocator.IDealer
     {
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created on : 22 march 2016
+        /// Description : for getting dealer detail and bike detail w.r.t dealer.
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+   
         public DealerBikesEntity GetDealerBikes(UInt16 dealerId)
         {
             DealerBikesEntity dealers = new DealerBikesEntity();
@@ -49,7 +57,7 @@ namespace Bikewale.DAL.DealerLocator
                                         {
                                             AreaName = Convert.ToString(dr["Area"]),
                                             Longitude = Convert.ToDouble(dr["Longitude"]),
-                                            Latitude = Convert.ToDouble(dr["Longitude"])
+                                            Latitude = Convert.ToDouble(dr["Lattitude"])
                                         };
                                 dealers.DealerDetail.City = Convert.ToString(dr["City"]);                                
                                 dealers.DealerDetail.DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"]));
@@ -90,8 +98,8 @@ namespace Bikewale.DAL.DealerLocator
 
                                     specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                     specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                    specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                    specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                    specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+                                    specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaxPowerRPM"]);
 
                                     bikes.objMake = objMake;
                                     bikes.objModel = objModel;
@@ -100,7 +108,7 @@ namespace Bikewale.DAL.DealerLocator
 
                                     models.Add(bikes);    
                                 }
-                                dealers.models = models;
+                                dealers.Models = models;
                             }
                         }
                     }

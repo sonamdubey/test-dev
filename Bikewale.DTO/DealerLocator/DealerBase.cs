@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace Bikewale.DTO.DealerLocator
 {
+    /// <summary>
+    /// Created By : Lucky Rathore
+    /// Created On : 22 March 2016
+    /// Summary : DTO for Dealer Base for dealer Locator.
+    /// </summary>
     public class DealerBase
     {
         [JsonProperty("id")]

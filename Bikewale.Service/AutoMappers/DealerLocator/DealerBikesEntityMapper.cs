@@ -18,6 +18,11 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.DealerLocator
 {
+    /// <summary>
+    /// Created By : Lucky Rathore
+    /// Created On : 22 March 2016
+    /// Summary : Map DealerBikes and DealerBikesEntity
+    /// </summary>
     public class DealerBikesEntityMapper
     {
         internal static DTO.DealerLocator.DealerBikes Convert(Entities.DealerLocator.DealerBikesEntity dealerBikes)

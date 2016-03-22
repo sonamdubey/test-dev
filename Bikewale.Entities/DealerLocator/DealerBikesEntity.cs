@@ -15,6 +15,6 @@ namespace Bikewale.Entities.DealerLocator
     public class DealerBikesEntity
     {
         public DealerDetailEntity DealerDetail { get; set; }
-        public IEnumerable<MostPopularBikesBase> models { get; set; }
+        public IEnumerable<MostPopularBikesBase> Models { get; set; }
     }
 }

@@ -518,7 +518,7 @@ namespace Bikewale.DAL.Dealer
                                         {
                                             AreaName = Convert.ToString(dr["Area"]),
                                             Longitude = Convert.ToDouble(dr["Longitude"]),
-                                            Latitude = Convert.ToDouble(dr["Longitude"])
+                                            Latitude = Convert.ToDouble(dr["Lattitude"])
                                         },
                                         City = Convert.ToString(dr["City"]),
                                         MaskingNumber = Convert.ToString(dr["MaskingNumber"]),
