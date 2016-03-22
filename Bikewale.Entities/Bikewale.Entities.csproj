@@ -149,6 +149,11 @@
     <Compile Include="Customer\CustomerEntity.cs" />
     <Compile Include="Customer\CustomerEntityBase.cs" />
     <Compile Include="DealerBenefitEntity.cs" />
+    <Compile Include="DealerLocator\BikeModelDetails.cs" />
+    <Compile Include="DealerLocator\DealerBikesEntity.cs" />
+    <Compile Include="DealerLocator\DealerDetailEntity.cs" />
+    <Compile Include="DealerLocator\Dealers.cs" />
+    <Compile Include="DealerLocator\DealersList.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
     <Compile Include="Dealer\EnumNewBikeDealerClient.cs" />
     <Compile Include="Dealer\ManufacturerLeadEntity.cs" />

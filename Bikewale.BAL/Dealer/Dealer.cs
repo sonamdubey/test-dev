@@ -9,6 +9,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Entities.Location;
 using Microsoft.Practices.Unity;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.DealerLocator;
 
 namespace Bikewale.BAL.Dealer
 {
@@ -150,6 +151,18 @@ namespace Bikewale.BAL.Dealer
             }
 
             return lstCity;
+        }
+        
+        /// <summary>
+        /// Created By : Lucky Rathore on 21 March 2016
+        /// Descritption : Implemented in DAL
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public Dealers GetDealerByMakeCity(uint cityId, uint makeId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

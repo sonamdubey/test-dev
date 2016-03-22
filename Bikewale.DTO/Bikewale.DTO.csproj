@@ -94,6 +94,9 @@
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerBase.cs" />
     <Compile Include="Customer\RegisteredCustomer.cs" />
+    <Compile Include="DealerLocator\DealerBase.cs" />
+    <Compile Include="DealerLocator\DealerBikes.cs" />
+    <Compile Include="DealerLocator\DealerDetail.cs" />
     <Compile Include="Dealer\NewBikeDealerBase.cs" />
     <Compile Include="Dealer\NewBikeDealerList.cs" />
     <Compile Include="Insurance\ClientResponse.cs" />
@@ -147,6 +150,7 @@
     <Compile Include="PriceQuote\BikeQuotation\OtherVersionInfoDTO.cs" />
     <Compile Include="PriceQuote\City\v2\PQCityBase.cs" />
     <Compile Include="PriceQuote\City\v2\PQCityList.cs" />
+    <Compile Include="PriceQuote\DealerPackageType.cs" />
     <Compile Include="PriceQuote\DealerPriceQuote\DPQ_BikeVarient.cs" />
     <Compile Include="PriceQuote\PQOnRoad.cs" />
     <Compile Include="PriceQuote\PQUpdateInput.cs" />

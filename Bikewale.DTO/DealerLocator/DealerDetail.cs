@@ -1,0 +1,42 @@
+﻿using Bikewale.DTO.PriceQuote;
+using Bikewale.DTO.PriceQuote.Area;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Bikewale.DTO.DealerLocator
+{
+    /// <summary>
+    /// Created By : Lucky Rathore on 21 March 2016
+    /// Description : for Dealer Details. 
+    /// </summary>
+    public class DealerDetail : DealerBase
+    {
+        [JsonProperty("area")]
+        public PQAreaBase Area { get; set; }
+
+        [JsonProperty("type")]
+        public DealerPackageType Type { get; set; }
+
+        [JsonProperty("city")]
+        public string City { get; set; }
+
+        [JsonProperty("eMail")]
+        public string EMail { get; set; }
+
+        [JsonProperty("address")]
+        public string Address { get; set; }
+
+        [JsonProperty("showRoomStartTime")]
+        public DateTime ShowRoomStartTime { get; set; }
+
+        [JsonProperty("showRoomEndTime")]
+        public DateTime ShowRoomEndTime { get; set; }
+
+        [JsonProperty("workingHours")]
+        public string WorkingHours { get; set; }
+    }
+}

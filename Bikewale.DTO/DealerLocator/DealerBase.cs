@@ -1,21 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using Bikewale.DTO.PriceQuote;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bikewale.Entities.PriceQuote
+namespace Bikewale.DTO.DealerLocator
 {
     /// <summary>
-    /// Modified By : Lucky Rathore
-    /// Modified on : 15 March 2016
-    /// Description : for Dealer Basics details.
-    /// Modified By : Lucky Rathore
-    /// Modified on : 21 March 2016
-    /// Description : DealerPkgType added.
+    /// Created By : Lucky Rathore
+    /// Created On : 22 March 2016
+    /// Summary : DTO for Dealer Base for dealer Locator.
     /// </summary>
-    public class NewBikeDealerBase
+    public class DealerBase
     {
         [JsonProperty("id")]
         public UInt32 DealerId { get; set; }
@@ -30,6 +28,6 @@ namespace Bikewale.Entities.PriceQuote
         public string MaskingNumber { get; set; }
 
         [JsonProperty("dealerPackageType")]
-        public DealerPackageTypes DealerPkgType { get; set; }
+        public DealerPackageType DealerPkgType { get; set; }
     }
 }
