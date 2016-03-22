@@ -592,7 +592,7 @@
                                     <asp:Repeater ID="rptDealers" runat="server">
                                         <ItemTemplate>
                                             <li dealerid="<%# DataBinder.Eval(Container.DataItem,"dealerId") %>">
-                                                <h3><a href="" class="font18 text-bold text-darker-black margin-right20"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
+                                                <h3><a href="#" class="font18 text-bold text-darker-black margin-right20"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
                                                 <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
                                             </li>
                                         </ItemTemplate>
