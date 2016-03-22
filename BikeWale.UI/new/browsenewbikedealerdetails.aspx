@@ -60,7 +60,7 @@
                             <select id="ddlMakes" class="form-control  chosen-select">
                                 <asp:Repeater ID="rptMakes" runat="server">
                                     <ItemTemplate>
-                                        <option maskingname="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>" <%# ((DataBinder.Eval(Container.DataItem,"MakeId")) != makeId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </option>
+                                        <option maskingName="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>" <%# ((DataBinder.Eval(Container.DataItem,"MakeId")).ToString() != makeId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </option>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </select>
@@ -72,7 +72,7 @@
                             <select id="ddlCities" class="form-control  chosen-select">
                                 <asp:Repeater ID="rptCities" runat="server">
                                     <ItemTemplate>
-                                        <option maskingname="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>" <%# ((DataBinder.Eval(Container.DataItem,"CityId")) != cityId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"CityName") %></option>
+                                        <option maskingName="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>" <%# ((DataBinder.Eval(Container.DataItem,"CityId")).ToString() != cityId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"CityName") %></option>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </select>
@@ -99,9 +99,9 @@
                                 <li data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>">
                                     <div class="font14">
                                         <h2 class="font16 margin-bottom10">
-                                            <span class="<%# ((int)DataBinder.Eval(Container.DataItem,"DealerPkgType")!=1)?"":"hide" %> featured-tag text-white text-center font14 margin-bottom5">Featured
+                                            <span class="<%# (DataBinder.Eval(Container.DataItem,"DealerPkgType").ToString()!="1")?"":"hide" %> featured-tag text-white text-center font14 margin-bottom5">Featured
                                             </span>
-                                            <span class="<%# ((int)DataBinder.Eval(Container.DataItem,"DealerPkgType")!=1)?"":"hide" %> dealer-pointer-arrow"></span>
+                                            <span class="<%# (DataBinder.Eval(Container.DataItem,"DealerPkgType").ToString()!="1")?"":"hide" %> dealer-pointer-arrow"></span>
                                             <a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a>
                                         </h2>
                                         <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
@@ -119,7 +119,7 @@
                     </ul>
                 </div>
 
-                <div data-bind="visible: true" style="display: none" id="dealerDetailsSliderCard" class="bg-white font14">
+                <div id="dealerDetailsSliderCard" class="bg-white font14">
                     <div class="dealer-slider-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
                     <div class="padding-top20 padding-right20 padding-left20" data-bind="with: DealerDetails">
                         <p class="featured-tag text-white text-center margin-bottom5">
@@ -181,29 +181,31 @@
                     </div>
                     <div>
                         <p class="font14 text-bold padding-top20 padding-right20 padding-left20 margin-bottom15">Models available with the dealer:</p>
-                        <ul id="modelsAvailable" data-bind="foreach: DealerBikes">
+                        <ul id="modelsAvailable" data-bind="template: { name: 'dealerBikesTemplate', foreach: DealerBikes }"></ul>
+
+                        <script id="dealerBikesTemplate" type="text/html">
                             <li>
                                 <div class="contentWrapper">
                                     <div class="imageWrapper">
-                                        <a href="">
-                                            <img data-bind="attr: { src: imagePath, title: bikeName, alt : bikeName  }" />
+                                        <a href="" data-bind="attr: { href: bikeUrl(), title: bikeName()}">
+                                            <img data-bind="attr: { src: imagePath(), title: bikeName(), alt: bikeName() }" />
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
                                         <div class="bikeTitle margin-bottom7">
-                                            <h3 class="font16 text-dark-black"><a href="" title=""  data-bind="text: bikeName"></a></h3>
+                                            <h3 class="font16 text-dark-black"><a href="" title="" data-bind="text: bikeName()"></a></h3>
                                         </div>
                                         <div class="font16 text-bold margin-bottom5">
                                             <span class="fa fa-rupee"></span>
-                                            <span class="font18" data-bind="text: bikePrice"></span> <span class="font16">onwards</span>
+                                            <span class="font18" data-bind="CurrencyText : bikePrice() "></span><span class="font16">&nbsp;onwards</span>
                                         </div>
                                         <div class="font14 text-light-grey">
-                                            <span data-bind="html: displayMinSpec"></span>
+                                            <span data-bind="html: displayMinSpec() "></span>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                        </ul>
+                        </script>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -324,9 +326,11 @@
             $ddlMakes = $("#ddlMakes");
 
             $("#applyFiltersBtn").click(function () {
-                makemasking = $("ddlMakes option:selected").attr("maskingName");
-                cityMasking = $("#ddlCities option : Selected").attr("maskingNUmber")
-                window.location.href = "/new/" + makemasking + "-dealers/" + "cityId-" + cityMasking + "/";
+                ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
+                ddlcityId = $("#ddlCities option:selected").val();
+                ddlcityMasking = $("#ddlCities option:selected").text().toLowerCase();
+
+                window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId  + "-" + ddlcityMasking + ".html";
             });
 
             $ddlCities.chosen({ no_results_text: "No matches found!!" });

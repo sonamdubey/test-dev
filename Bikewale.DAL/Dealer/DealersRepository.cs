@@ -508,7 +508,7 @@ namespace Bikewale.DAL.Dealer
                                     {
                                         DealerId = Convert.ToUInt16(dr["DealerId"]),
                                         Name = Convert.ToString(dr["DealerName"]),
-                                        //Type = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"])),
+                                        //DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"])),
                                         objArea = new AreaEntityBase
                                         {
                                             AreaName = Convert.ToString(dr["Area"]),

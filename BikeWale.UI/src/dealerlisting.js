@@ -14,6 +14,31 @@ $(window).scroll(function () {
     }
 });
 
+$(document).on('click', '#dealerDetailsSliderCard div.dealer-slider-close-btn', function () {
+    $('#sidebarHeader').addClass('border-solid-bottom');
+    $('body').removeClass('hide-scroll');
+    $('#dealerDetailsSliderCard').animate({ 'right': '-338px' }, { complete: function () { $('#dealerDetailsSliderCard').hide().css({ 'height': '0' }); } });
+    $('#dealersList li').removeClass('active');
+    console.log(dealerId);
+    showPrevDealer(dealerId);
+});
+
+var showPrevDealer = function (dealerId) {
+    for (var i = 0; i < markerArr.length; i++) {
+        if (markerArr[i].dealerId == dealerId) {
+            infowindow.setContent(markerArr[i].dealerName);
+            infowindow.open(map, markerArr[i]);
+            break;
+        }
+    }
+}
+
+$(document).keydown(function (e) {
+    if (e.keyCode == 27) {
+        $('.dealer-slider-close-btn').trigger('click');
+    }
+});
+
 var dealerArr = [];
 var i = 0;
 $("ul#dealersList li").each(function () {
@@ -163,14 +188,18 @@ var dealerDetails = function (data) {
     self.mobile = ko.observable(data.maskingNumber);
     self.address = ko.observable(data.address);
     self.city = ko.observable(data.cityName);
-    self.area = ko.observable(data.Area.areaName);
     self.workingHours = ko.observable(data.workingHours);
     self.email = ko.observable(data.email);
     self.dealerType = ko.observable(data.dealerPackageType);
-    self.lat = ko.observable(data.Area.latitude);
-    self.lng = ko.observable(data.Area.longitude);
     self.showRoomOpeningHours = ko.observable(data.showRoomOpeningHours);
     self.showRoomClosingHours = ko.observable(data.showRoomClosingHours);
+    if (data.Area)
+    {
+        self.area = ko.observable(data.Area.areaName);
+        self.lat = ko.observable(data.Area.latitude);
+        self.lng = ko.observable(data.Area.longitude);
+    }  
+    
 }
 
 var dealerBikes = function (data) {
@@ -178,6 +207,7 @@ var dealerBikes = function (data) {
     var self = this;
     self.bikeName = ko.observable(data.bike);
     self.bikePrice = ko.observable(data.versionPrice);
+    self.bikeUrl = ko.observable("");
     self.minSpecs = ko.observable(data.specs);
     self.imagePath = ko.observable(data.hostUrl + "/310x174/" + data.imagePath);
 
@@ -186,8 +216,8 @@ var dealerBikes = function (data) {
 
     if (data.model)
     {
-       self.modelName = ko.observable(data.model.modelName);
-    self.modelId = ko.observable(data.model.modelId);
+        self.modelName = ko.observable(data.model.modelName);
+        self.modelId = ko.observable(data.model.modelId);
     }
    
     if (data.version)
@@ -214,7 +244,20 @@ var dealerBikes = function (data) {
             return "Specs Unavailable";
     }, this);
 
+    if(data.make && data.model)
+    {
+        self.bikeUrl("/" + data.make.maskingName + "-bikes/" + data.model.maskingName + "/");
+    }
+
 }
+
+ko.bindingHandlers.CurrencyText = {
+    update: function (element, valueAccessor) {
+        var amount = valueAccessor();
+        var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
+        $(element).text(formattedAmount);
+    }
+};
 
 var DealerModel  = function(data)
 {
@@ -233,7 +276,7 @@ function getDealerDetails(id)
     {
         $.ajax({
             type: "GET",
-            url: "http://localhost:9011/api/DealerBikes/?dealerId=4",
+            url: "http://localhost:9011/api/DealerBikes/?dealerId=" + dealerId,
             contentType: "application/json",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('utma', getCookie('__utma'));
@@ -256,30 +299,7 @@ function getDealerDetails(id)
 
 initializeMap(dealerArr);
 
-$('.dealer-slider-close-btn').on('click', function () {
-    $('#sidebarHeader').addClass('border-solid-bottom');
-    $('body').removeClass('hide-scroll');
-    $('#dealerDetailsSliderCard').animate({ 'right': '-338px' }, { complete: function () { $('#dealerDetailsSliderCard').hide().css({ 'height': '0' }); } });
-    $('#dealersList li').removeClass('active');
-    console.log(dealerId);
-    showPrevDealer(dealerId);
-});
 
-var showPrevDealer = function (dealerId) {
-    for (var i = 0; i < markerArr.length; i++) {
-        if (markerArr[i].dealerId == dealerId) {
-            infowindow.setContent(markerArr[i].dealerName);
-            infowindow.open(map, markerArr[i]);
-            break;
-        }
-    }
-}
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 27) {
-        $('.dealer-slider-close-btn').trigger('click');
-    }
-});
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
