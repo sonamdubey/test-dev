@@ -930,6 +930,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\newbikedealers\Default_old.aspx.cs">
+      <DependentUpon>Default_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\newbikedealers\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2273,6 +2277,7 @@
     <Content Include="m\new\compare\CompareBike.aspx" />
     <Content Include="m\new\compare\CompareBikeDetails.aspx" />
     <Content Include="m\new\Default.aspx" />
+    <Content Include="m\new\newbikedealers\Default_old.aspx" />
     <Content Include="m\new\newbikedealers\Default.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />

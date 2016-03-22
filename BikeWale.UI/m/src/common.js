@@ -1197,6 +1197,9 @@ var appendHash = function (state) {
         case "assistancePopup":
             window.location.hash = state;
             break;
+        case "locatorsearch":
+            window.location.hash = state;
+            break;
         default:
             return true;
     }
@@ -1237,6 +1240,9 @@ var closePopUp = function (state) {
             break;
         case "assistancePopup":
             assistancePopupClose($('#leadCapturePopup'));
+            break;
+        case "locatorsearch":
+            locatorSearchClose();
             break;
         default:
             return true;
