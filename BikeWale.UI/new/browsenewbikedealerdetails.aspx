@@ -96,7 +96,7 @@
                     <ul id="dealersList">
                         <asp:Repeater ID="rptDealers" runat="server">
                             <ItemTemplate>
-                                <li data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address ="<%# DataBinder.Eval(Container.DataItem,"Address") %>">
+                                <li data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>">
                                     <div class="font14">
                                         <h2 class="font16 margin-bottom10">
                                             <span class="<%# ((int)DataBinder.Eval(Container.DataItem,"DealerPkgType")!=1)?"":"hide" %> featured-tag text-white text-center font14 margin-bottom5">Featured
@@ -105,7 +105,9 @@
                                             <a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a>
                                         </h2>
                                         <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
-                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>"><p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></p>  </div>
+                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>">
+                                            <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></p>
+                                        </div>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"Email") %></a> </div>
                                         <a href="Javascript:void(0)" class="btn btn-white-orange margin-top15 get-assistance-btn">Get assistance</a>
                                     </div>
@@ -117,31 +119,33 @@
                     </ul>
                 </div>
 
-                <div id="dealerDetailsSliderCard" class="bg-white font14">
+                <div data-bind="visible: true" style="display: none" id="dealerDetailsSliderCard" class="bg-white font14">
                     <div class="dealer-slider-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                    <div class="padding-top20 padding-right20 padding-left20">
+                    <div class="padding-top20 padding-right20 padding-left20" data-bind="with: DealerDetails">
                         <p class="featured-tag text-white text-center margin-bottom5">
                             Featured
                         </p>
                         <div class="padding-bottom20 border-solid-bottom">
-                            <h3 class="font18 text-dark-black margin-bottom10">Kamala Landmarc Motorbikes</h3>
-                            <p class="text-light-grey margin-bottom5">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</p>
+                            <h3 class="font18 text-dark-black margin-bottom10" data-bind="text: name"></h3>
+                            <p class="text-light-grey margin-bottom5" data-bind="text: address"></p>
                             <div class="margin-bottom5">
-                                <span class="font16 text-bold margin-right10"><span class="bwsprite phone-black-icon"></span>9876543210</span>
-                                <a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span>bikewale@motors.com</a>
+                                <span class="font16 text-bold margin-right10"><span class="bwsprite phone-black-icon"></span><span data-bind="text: mobile"></span></span>
+                                <a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span><span data-bind="text: email"></span></a>
                             </div>
-                            <p class="text-light-grey margin-bottom5">Working hours: Monday- Saturday 9.00 am- 6.00 pm<span class="border-dark-left margin-left10 padding-left10">Sunday 9.00 am- 2.00 pm</span></p>
-                            <a href=""><span class="bwsprite get-direction-icon"></span>Get directions</a>
-                            <a href="" class="border-dark-left margin-left10 padding-left10"><span class="bwsprite sendto-phone-icon"></span>Send to phone</a>
+
+                            <p class="text-light-grey margin-bottom5" data-bind="visible: workingHours"></p>
+                            <p class="text-light-grey margin-bottom5" data-bind="visible: !workingHours">Showroom Hours : <span data-bind="    text: showRoomClosingHours"></span>to <span data-bind="    text: showRoomOpeningHours"></span></p>
+                            <%-- <a href=""><span class="bwsprite get-direction-icon"></span>Get directions</a>
+                            <a href="" class="border-dark-left margin-left10 padding-left10"><span class="bwsprite sendto-phone-icon"></span>Send to phone</a>--%>
                         </div>
-                        <div class="padding-top15">
+                        <%-- <div class="padding-top15">
                             <p class="font14 text-bold margin-bottom15">Get commute distance and time:</p>
                             <div class="commute-distance-form form-control-box">
                                 <input type="text" class="form-control" placeholder="Enter your location" />
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
-                    <div id="buyingAssistanceForm" class="margin-top20 content-inner-block-1520">
+                    <div id="buyingAssistanceForm" data-bind="with: CustomerDetails" class="margin-top20 content-inner-block-1520">
                         <p class="font14 text-bold margin-bottom15">Get buying assistance from this dealer:</p>
                         <div class="name-email-mobile-box form-control-box leftfloat margin-right20">
                             <input type="text" class="form-control" placeholder="Name" id="assistGetName" data-bind="textInput: fullName" />
@@ -149,13 +153,13 @@
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="name-email-mobile-box form-control-box leftfloat margin-right40">
-                            <input type="text" class="form-control" placeholder="Email id" id="assistGetEmail"  data-bind="textInput: emailId" />
+                            <input type="text" class="form-control" placeholder="Email id" id="assistGetEmail" data-bind="textInput: emailId" />
                             <span class="bwsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="name-email-mobile-box form-control-box leftfloat">
                             <p class="mobile-prefix">+91</p>
-                            <input type="text" class="mobile-box form-control" placeholder="Mobile" maxlength="10" id="assistGetMobile"  data-bind="textInput: mobileNo" />
+                            <input type="text" class="mobile-box form-control" placeholder="Mobile" maxlength="10" id="assistGetMobile" data-bind="textInput: mobileNo" />
                             <span class="bwsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
@@ -166,7 +170,7 @@
                                 <span class="bwsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" value="Submit"  data-bind="event: { click: submitLead }" />
+                            <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" value="Submit" data-bind="event: { click: submitLead }" />
                         </div>
                         <div class="clear"></div>
                         <div class="hide">
@@ -177,87 +181,24 @@
                     </div>
                     <div>
                         <p class="font14 text-bold padding-top20 padding-right20 padding-left20 margin-bottom15">Models available with the dealer:</p>
-                        <ul id="modelsAvailable">
+                        <ul id="modelsAvailable" data-bind="foreach: DealerBikes">
                             <li>
                                 <div class="contentWrapper">
                                     <div class="imageWrapper">
                                         <a href="">
-                                            <img title="" alt="" src="http://imgd1.aeplcdn.com//310X174//bw/models/royal-enfield-classic-350-standard-136.jpg?20151209202137">
+                                            <img data-bind="attr: { src: imagePath, title: bikeName, alt : bikeName  }" />
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
                                         <div class="bikeTitle margin-bottom7">
-                                            <h3 class="font16 text-dark-black"><a href="" title="">Royal Enfield Classic 350</a></h3>
+                                            <h3 class="font16 text-dark-black"><a href="" title=""  data-bind="text: bikeName"></a></h3>
                                         </div>
                                         <div class="font16 text-bold margin-bottom5">
                                             <span class="fa fa-rupee"></span>
-                                            <span class="font18">1,29,356</span> <span class="font16">onwards</span>
+                                            <span class="font18" data-bind="text: bikePrice"></span> <span class="font16">onwards</span>
                                         </div>
                                         <div class="font14 text-light-grey">
-                                            <span>346 CC, 37 Kmpl, 19.8 bhp</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="">
-                                            <img title="" alt="" src="http://imgd1.aeplcdn.com//310X174//bw/models/honda-cb-shine-kick/drum/spokes-111.jpg?20151209184344">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom7">
-                                            <h3 class="font16 text-dark-black"><a href="" title="">Royal Enfield Classic 350</a></h3>
-                                        </div>
-                                        <div class="font16 text-bold margin-bottom5">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font18">1,29,356</span> <span class="font16">onwards</span>
-                                        </div>
-                                        <div class="font14 text-light-grey">
-                                            <span>346 CC, 37 Kmpl, 19.8 bhp</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="">
-                                            <img title="" alt="" src="http://imgd1.aeplcdn.com//310X174//bw/models/bajaj-pulsar-rs200.jpg?20150710124439">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom7">
-                                            <h3 class="font16 text-dark-black"><a href="" title="">Royal Enfield Classic 350</a></h3>
-                                        </div>
-                                        <div class="font16 text-bold margin-bottom5">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font18">1,29,356</span> <span class="font16">onwards</span>
-                                        </div>
-                                        <div class="font14 text-light-grey">
-                                            <span>346 CC, 37 Kmpl, 19.8 bhp</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="">
-                                            <img title="" alt="" src="http://imgd2.aeplcdn.com//310X174//bw/models/honda-cb-hornet-160r.jpg?20151012195209">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom7">
-                                            <h3 class="font16 text-dark-black"><a href="" title="">Royal Enfield Classic 350</a></h3>
-                                        </div>
-                                        <div class="font16 text-bold margin-bottom5">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font18">1,29,356</span> <span class="font16">onwards</span>
-                                        </div>
-                                        <div class="font14 text-light-grey">
-                                            <span>346 CC, 37 Kmpl, 19.8 bhp</span>
+                                            <span data-bind="html: displayMinSpec"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -383,7 +324,9 @@
             $ddlMakes = $("#ddlMakes");
 
             $("#applyFiltersBtn").click(function () {
-                window.location.href = "/new/";
+                makemasking = $("ddlMakes option:selected").attr("maskingName");
+                cityMasking = $("#ddlCities option : Selected").attr("maskingNUmber")
+                window.location.href = "/new/" + makemasking + "-dealers/" + "cityId-" + cityMasking + "/";
             });
 
             $ddlCities.chosen({ no_results_text: "No matches found!!" });

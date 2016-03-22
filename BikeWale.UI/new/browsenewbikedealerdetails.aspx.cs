@@ -75,6 +75,11 @@ namespace Bikewale.New
 
         }
 
+        /// <summary>
+        /// Created By  : Sushil Kumar
+        /// Created On  : 20th March 2016
+        /// Description : To bind dealerlist
+        /// </summary>
         private void BindDealerList()
         {
             DealersEntity _dealers = null;            
@@ -105,6 +110,12 @@ namespace Bikewale.New
             }
         }
 
+
+        /// <summary>
+        /// Created By  : Sushil Kumar
+        /// Created On  : 20th March 2016
+        /// Description : To bind makes list to dropdown
+        /// </summary>
         private void BindMakesDropdown()
         {
             IEnumerable<BikeMakeEntityBase> _makes = null;
@@ -134,6 +145,12 @@ namespace Bikewale.New
             }
         }
 
+
+        /// <summary>
+        /// Created By  : Sushil Kumar
+        /// Created On  : 20th March 2016
+        /// Description : To bind cities list to dropdown
+        /// </summary>
         private void BindCitiesDropdown()
         {
             IEnumerable<CityEntityBase> _cities = null;
@@ -163,6 +180,12 @@ namespace Bikewale.New
             }
         }
 
+
+        /// <summary>
+        /// Created By  : Sushil Kumar
+        /// Created On  : 20th March 2016
+        /// Description : To get makeId from make masking name
+        /// </summary>
         private void GetMakeIdByMakeMaskingName(string maskingName)
         {
             try

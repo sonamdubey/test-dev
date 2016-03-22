@@ -9,6 +9,6 @@ namespace Bikewale.Interfaces.DealerLocator
 {
     public interface IDealer
     {
-        DealerBikesEntity GetDealerBikes(UInt16 dealerId);
+       
     }
 }

@@ -2,7 +2,6 @@
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.Interfaces.DealerLocator;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.DealerLocator;
 using System;
@@ -14,17 +13,25 @@ using System.Web.Http;
 
 namespace Bikewale.Service.Controllers.DealerLocator
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DealerBikesController : ApiController
     {
-        private readonly Bikewale.Interfaces.DealerLocator.IDealer _dealer = null;
+        private readonly IDealer _dealer = null;
         private readonly IDealerCacheRepository _cache = null;
 
-        public DealerBikesController(Bikewale.Interfaces.DealerLocator.IDealer dealer, IDealerCacheRepository cache)
+        public DealerBikesController(IDealer dealer, IDealerCacheRepository cache)
         {
             _dealer = dealer;
             _cache = cache;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public IHttpActionResult Get(UInt16 dealerId)
         {
             try
@@ -33,9 +40,6 @@ namespace Bikewale.Service.Controllers.DealerLocator
                 DealerBikes bikes;
                 if (dealerBikes != null)
                 {
-                    // If android, IOS client sanitize the article content 
-                    
-                    //compareDTO = BikeCompareEntityMapper.Convert(compareEntity);
                     bikes = DealerBikesEntityMapper.Convert(dealerBikes);
                     return Ok(bikes);
                 }

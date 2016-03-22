@@ -19,13 +19,12 @@ namespace Bikewale.Cache.DealersLocator
 
         private readonly ICacheManager _cache;
         private readonly IDealer _objDealers;
-        private readonly Bikewale.Interfaces.DealerLocator.IDealer _objModels;
 
-        public DealerCacheRepository(ICacheManager cache, IDealer objDealers, Bikewale.Interfaces.DealerLocator.IDealer objModels)
+        public DealerCacheRepository(ICacheManager cache, IDealer objDealers)
         {
             _cache = cache;
             _objDealers = objDealers;
-            _objModels = objModels;
+
         }
 
         /// <summary>
@@ -55,16 +54,18 @@ namespace Bikewale.Cache.DealersLocator
         /// <summary>
         /// Created By : Lucky Rathore on 21 March 2016
         /// Description : Cahing of bike models for specific dealer
+        /// Modified By  :Sushil Kumar on 22 March 2016
+        /// Description : Changed Cacke key from BWDealerBikeModel_{0} to BW_DealerBikeModel_{0}
         /// </summary>
         /// <param name="dealerId">e.g. 1</param>
         /// <returns>DealerBikesEntity</returns>
         public DealerBikesEntity GetDealerBikes(UInt16 dealerId)
         {
             DealerBikesEntity models = null;
-            string key = String.Format("BWDealerBikeModel_{0}", dealerId);
+            string key = String.Format("BW_DealerBikeModel_{0}", dealerId);
             try
             {
-                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(1, 0, 0), () => _objModels.GetDealerBikes(dealerId));
+                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerBikes(dealerId));
             }
             catch (Exception ex)
             {

@@ -164,5 +164,11 @@ namespace Bikewale.BAL.Dealer
         {
             throw new NotImplementedException();
         }
+
+
+        public DealerBikesEntity GetDealerBikes(ushort dealerId)
+        {
+            return dealerRepository.GetDealerBikes(dealerId);
+        }
     }
 }

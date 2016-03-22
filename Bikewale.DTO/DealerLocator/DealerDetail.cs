@@ -1,5 +1,6 @@
 ﻿using Bikewale.DTO.PriceQuote;
 using Bikewale.DTO.PriceQuote.Area;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,25 @@ namespace Bikewale.DTO.DealerLocator
     /// </summary>
     public class DealerDetail : DealerBase
     {
+        [JsonProperty("Area")]
         public PQAreaBase Area { get; set; }
-        public DealerPackageType Type { get; set; }
+
+        [JsonProperty("cityName")]
         public string City { get; set; }
+
+        [JsonProperty("email")]
         public string EMail { get; set; }
+
+        [JsonProperty("address")]
         public string Address { get; set; }
+
+        [JsonProperty("showRoomOpeningHours")]
         public DateTime ShowRoomStartTime { get; set; }
+
+        [JsonProperty("showRoomClosingHours")]
         public DateTime ShowRoomEndTime { get; set; }
+
+        [JsonProperty("workingHours")]
         public string WorkingHours { get; set; }
     }
 }

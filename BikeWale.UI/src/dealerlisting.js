@@ -36,8 +36,8 @@ var redMarkerImage = 'http://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker
 function initializeMap(dealerArr) {
 
     var mapProp = {
-        center: new google.maps.LatLng(dealerArr[0].latitude, dealerArr[0].longitude), //vashi
-        zoom: 2,
+        center: new google.maps.LatLng(dealerArr[0].latitude, dealerArr[0].longitude), 
+        zoom: 13,
         scrollwheel: false,
         streetViewControl: false,
         mapTypeControl: false,
@@ -157,38 +157,56 @@ var selectedDealer = function (dealer) {
 };
 
 
-
-
-var DealerDetails = function () {
+var dealerDetails = function (data) {
     var self = this;
-    self.name = ko.observable();
-    self.mobile = ko.observable();
-    self.address = ko.observable();
-    self.city = ko.observable();
-    self.area = ko.observable();
-    self.workingHours = ko.observable();
-    self.email = ko.observable();
-    self.dealerType = ko.observable();
+    self.name = ko.observable(data.name);
+    self.mobile = ko.observable(data.maskingNumber);
+    self.address = ko.observable(data.address);
+    self.city = ko.observable(data.cityName);
+    self.area = ko.observable(data.Area.areaName);
+    self.workingHours = ko.observable(data.workingHours);
+    self.email = ko.observable(data.email);
+    self.dealerType = ko.observable(data.dealerPackageType);
+    self.lat = ko.observable(data.Area.latitude);
+    self.lng = ko.observable(data.Area.longitude);
+    self.showRoomOpeningHours = ko.observable(data.showRoomOpeningHours);
+    self.showRoomClosingHours = ko.observable(data.showRoomClosingHours);
 }
 
-var DealerBikesList = function (data) {
+var dealerBikes = function (data) {
+
     var self = this;
-    self.bikeName = ko.observable(data.BikeName);
-    self.bikePrice = ko.observable();
-    self.minSpecs = ko.observable();
-    self.displacement = ko.observable();
-    self.fuelEffecient = ko.observable();
-    self.maxpower = ko.observable();
+    self.bikeName = ko.observable(data.bike);
+    self.bikePrice = ko.observable(data.versionPrice);
+    self.minSpecs = ko.observable(data.specs);
+    self.imagePath = ko.observable(data.hostUrl + "/310x174/" + data.imagePath);
+
+    if (data.make)
+        self.makeName = ko.observable(data.make.makeName);
+
+    if (data.model)
+    {
+       self.modelName = ko.observable(data.model.modelName);
+    self.modelId = ko.observable(data.model.modelId);
+    }
+   
+    if (data.version)
+        self.versionId = ko.observable(data.version.versionId);
+
     self.displayMinSpec = ko.computed(function () {
         var spec = '';
-        if (self.displacement() && self.displacement() != "0")
-            str += "<span><span>" + self.displacement() + "</span><span class='text-light-grey'> CC</span></span>";
+        if (self.minSpecs().displacement && self.minSpecs().displacement != "0")
+            spec += "<span><span>" + self.minSpecs().displacement + "</span><span class='text-light-grey'> CC</span></span>";
 
-        if (self.fuelEffecient() && self.fuelEffecient() != "0")
-            str += "<span>, <span>" + self.fuelEffecient() + "</span><span class='text-light-grey'> Kmpl</span></span>";
+        if (self.minSpecs().fuelEffeciency && self.minSpecs().fuelEffeciency != "0")
+            spec += "<span>, <span>" + self.minSpecs().fuelEffeciency + "</span><span class='text-light-grey'> Kmpl</span></span>";
 
-        if (self.maxpower() && self.maxpower() != "0")
-            str += "<span>, <span>" + self.maxpower() + "</span><span class='text-light-grey'> bhp</span></span>";
+        if (self.minSpecs().maxPower && self.minSpecs().maxPower != "0")
+            spec += "<span>, <span>" + self.minSpecs().maxPower + "</span><span class='text-light-grey'> bhp</span></span>";
+
+        if (self.minSpecs().maxTorque && self.minSpecs().displacement != "0")
+            spec += "<span><span>" + self.minSpecs().displacement + "</span><span class='text-light-grey'> CC</span></span>";
+
 
         if (spec != "")
             return spec;
@@ -198,6 +216,16 @@ var DealerBikesList = function (data) {
 
 }
 
+var DealerModel  = function(data)
+{
+    var self = this;
+    self.DealerDetails = ko.observable(new dealerDetails(data.dealerDetails));
+    self.DealerBikes = ko.utils.arrayMap(data.dealerBikes, function (item) {
+        return new dealerBikes(item);
+    });
+    self.CustomerDetails = ko.observable(customerViewModel);
+}
+
 function getDealerDetails(id)
 {
     var obj = new Object();
@@ -205,7 +233,7 @@ function getDealerDetails(id)
     {
         $.ajax({
             type: "GET",
-            url: "http://172.16.5.38:9011/api/DealerBikes/?dealerId=4",
+            url: "http://localhost:9011/api/DealerBikes/?dealerId=4",
             contentType: "application/json",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('utma', getCookie('__utma'));
@@ -213,10 +241,8 @@ function getDealerDetails(id)
             },
             success: function (response) {
                 obj = ko.toJS(response);
-
-                DealerDetails(obj);
-                ko.applyBindings(customerViewModel, $('#dealerDetailsSliderCard')[0]);
-
+                ko.cleanNode($('#dealerDetailsSliderCard')[0]);
+                ko.applyBindings(new DealerModel(obj), $('#dealerDetailsSliderCard')[0]); 
             },
             error: function (xhr, ajaxOptions, thrownError) {
 
@@ -729,29 +755,6 @@ var validateMobileNo = function (leadMobileNo) {
         hideError(leadMobileNo)
     return isValid;
 };
-
-
-var DealerModel = function() {
-    var self = this;
-    self.address1 = ko.observable(address1);
-    self.address2 = ko.observable(address2);
-    self.area = ko.observable(area);
-    self.city = ko.observable(city);
-    self.contactHours = ko.observable(contactHours);
-    self.emailId = ko.observable(emailId);
-    self.faxNo = ko.observable(faxNo);
-    self.firstName = ko.observable(firstName);
-    self.id = ko.observable(id);
-    self.lastName = ko.observable(lastName);
-    self.lattitude = ko.observable(lattitude);
-    self.longitude = ko.observable(longitude);
-    self.mobileNo = ko.observable(mobileNo);
-    self.organization = ko.observable(organization);
-    self.phoneNo = ko.observable(phoneNo);
-    self.pincode = ko.observable(pincode);
-    self.state = ko.observable(state);
-    self.websiteUrl = ko.observable(websiteUrl);                
-}
 
 ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
 

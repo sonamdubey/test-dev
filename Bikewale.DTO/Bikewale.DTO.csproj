@@ -57,6 +57,7 @@
     <Compile Include="BikeBooking\BikeBookingOfferDTO.cs" />
     <Compile Include="BikeBooking\BookingListingFilterDTO.cs" />
     <Compile Include="BikeBooking\PageUrl.cs" />
+    <Compile Include="BikeData\v2\MinSpecs.cs" />
     <Compile Include="Compare\BikeColorDTO.cs" />
     <Compile Include="BikeBooking\BikeCancellationCustomer.cs" />
     <Compile Include="Compare\BikeCompareDTO.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Videos\VideosList.cs" />
     <Compile Include="Widgets\MostPopularBikes.cs" />
     <Compile Include="Widgets\MostPopularBikesList.cs" />
+    <Compile Include="Widgets\v2\MostPopularBikes.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
