@@ -21,11 +21,11 @@ namespace Bikewale.New
     ///     Created By : Ashish G. Kamble on 10/8/2012
     ///     Class to search the Bike dealers
     /// </summary>
-    public class LocateNewBikeDealers : Page
+    public class LocateNewBikeDealers_old : Page
     {
         protected DataList dlShowMakes;
         protected DropDownList cmbCity, cmbMake;
-
+        protected NewBikeLaunches ctrl_NewBikeLaunches;
 
         protected override void OnInit(EventArgs e)
         {
@@ -53,7 +53,7 @@ namespace Bikewale.New
                 FillMakes();
                 BindControl();
             }
-            
+            ctrl_NewBikeLaunches.PQSourceId = (int)PQSourceEnum.Desktop_LocateDealer_NewLaunches;
         }
 
         private void FillMakes()
