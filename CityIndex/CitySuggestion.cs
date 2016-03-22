@@ -11,7 +11,7 @@ namespace CityAutoSuggest
         public List<string> input { get; set; }                                     //  For Inputs
         public string output { get; set; }                                          //  For Output
         public Payload payload { get; set; }                                        //  Define Payload
-        public int Weight { get; set; }                                             //  Weight For Ordering
+        public int weight { get; set; }                                             //  Weight For Ordering
     }
     public class Payload
     {

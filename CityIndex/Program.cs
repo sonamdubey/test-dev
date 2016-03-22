@@ -15,7 +15,7 @@ namespace CityAutoSuggest
         static void Main(string[] args)
         {
             List<CityTempList> objCityList = GetCityList.CityList();                                    //  Call City SP
-            Logs.WriteInfoLog("city List count : " + objCityList.Count);
+            //Logs.WriteInfoLog("city List count : " + objCityList.Count);
 
             List<CityList> CityList = GetCityList.GetSuggestList(objCityList);                          //  Create Inputs, Outputs and Payload
 
