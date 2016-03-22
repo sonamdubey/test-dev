@@ -18,5 +18,6 @@ namespace CityAutoSuggest
         public int CityId { get; set; }                                             //  CityId For Payload
         public string CityName { get; set; }                                        //  CityName For Payload
         public string MaskingName { get; set; }                                     //  Masking Name For Payload
+        public int Wt { get; set; }                                                 //  For Weight
     }
 }

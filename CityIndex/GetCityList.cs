@@ -23,11 +23,12 @@ namespace CityAutoSuggest
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "GetCities";
+                        //cmd.CommandText = "GetCities";                //----------------------------Old SP-------------------------------------
+                        cmd.CommandText = "GetCitiesPQ";                //----------------------------New SP-------------------------------------
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = con;
 
-                        cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = 7;
+                        //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = 7;          //-----------------For Old SP set id =7---
 
                         con.Open();
 
@@ -39,9 +40,14 @@ namespace CityAutoSuggest
                                 while (dr.Read())
                                     objCity.Add(new CityTempList()
                                     {
-                                        CityId = Convert.ToInt32(dr["Value"]),                          //  Add CityId into Payload
-                                        CityName = dr["Text"].ToString(),                               //  Add CityName into Payload
-                                        MaskingName = dr["MaskingName"].ToString()                      //  Add Masking Name into Payload
+                                        //CityId = Convert.ToInt32(dr["Value"]),                            //  Add CityId into Payload
+                                        //CityName = dr["Text"].ToString(),                                 //  Add CityName into Payload
+                                        //MaskingName = dr["MaskingName"].ToString()                        //  Add Masking Name into Payload
+
+                                        CityId = Convert.ToInt32(dr["ID"]),                                 //  Add CityId 
+                                        CityName = dr["Name"].ToString(),                                   //  Add CityName 
+                                        MaskingName = dr["citymaskingname"].ToString(),                     //  Add CityMaskingName
+                                        Wt = Convert.ToInt32(dr["Cnt"])                                     //  Add Weight
                                     });
                             }
                         }
@@ -100,6 +106,7 @@ namespace CityAutoSuggest
 
                     ObjTemp.mm_suggest = new CitySuggestion();
                     ObjTemp.mm_suggest.output = cityItem.CityName;
+                    ObjTemp.mm_suggest.weight = cityItem.Wt;
 
                     ObjTemp.mm_suggest.payload = new Payload()
                     {
@@ -107,7 +114,7 @@ namespace CityAutoSuggest
                         CityMaskingName = cityItem.MaskingName.Trim()
                     };
 
-                    ObjTemp.mm_suggest.Weight = count;
+                    //ObjTemp.mm_suggest.Weight = count;
 
                     ObjTemp.mm_suggest.input = new List<string>();
                     cityName = cityName.Replace('-', ' ');
@@ -126,10 +133,10 @@ namespace CityAutoSuggest
                     {
                         newcity = ht[cityName].ToString();
                         string[] newcombinations = newcity.Split(' ');
-                        int l_new = combinations.Length;
+                        int l_new = newcombinations.Length;
                         for (int p = 1; p <= l_new; p++)
                         {
-                            printSeq(l_new, p, combinations, ObjTemp);
+                            printSeq(l_new, p, newcombinations, ObjTemp);
                         }
                     }
 
