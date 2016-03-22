@@ -52,7 +52,7 @@
         </section>
 
         <section>
-            <div class="dealer-filter-dropdown grid-11 text-center margin-left30">
+            <div class="dealer-filter-dropdown grid-11 text-center">
                 <div id="locateDealerFilter" class="box-light-shadow bg-white content-inner-block-12">
                     <p class="font16 leftfloat margin-top8 margin-right20">Locate dealers:</p>
                     <div class="leftfloat margin-right10">
@@ -165,10 +165,19 @@
                         </div>
                         <div class="clear"></div>
                         <div class="margin-top20">
+                            <!--
                             <div class="select-model-box form-control-box leftfloat margin-right40">
                                 <input type="text" class="form-control" placeholder="Type to select model" id="assistGetModel" />
                                 <span class="bwsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            -->
+                            <div class="select-model-box form-control-box leftfloat margin-right40">
+                                <select id="assistGetModel" class="form-control chosen-select">
+                                    <option>1</option>
+                                    <option>3</option>
+                                    <option>2</option>
+                                </select>
                             </div>
                             <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" value="Submit" data-bind="event: { click: submitLead }" />
                         </div>
@@ -222,27 +231,34 @@
                         <span class="bwsprite user-contact-details-icon margin-top25"></span>
                     </div>
                 </div>
-                <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
+                <p class="font20 margin-top20 margin-bottom10">Provide contact details</p>
                 <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
                 <div class="personal-info-form-container">
+                    <div class="form-control-box personal-info-list">
+                        <select id="getModelName" class="form-control  chosen-select">
+                            <option>1</option>
+                            <option>3</option>
+                            <option>2</option>
+                        </select>
+                    </div>
                     <div class="form-control-box personal-info-list">
                         <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
                             id="getFullName" data-bind="textInput: fullName">
                         <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                        <div class="bw-blackbg-tooltip errorText"></div>
                     </div>
                     <div class="form-control-box personal-info-list">
                         <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
                             id="getEmailID" data-bind="textInput: emailId">
                         <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+                        <div class="bw-blackbg-tooltip errorText"></div>
                     </div>
                     <div class="form-control-box personal-info-list">
                         <p class="mobile-prefix">+91</p>
                         <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
                             id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
                         <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                        <div class="bw-blackbg-tooltip errorText"></div>
                     </div>
                     <div class="clear"></div>
                     <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
