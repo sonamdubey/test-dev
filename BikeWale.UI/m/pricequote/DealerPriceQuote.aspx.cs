@@ -1,5 +1,4 @@
 ﻿using Bikewale.BAL.BikeData;
-using Bikewale.BAL.Customer;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
@@ -8,7 +7,6 @@ using Bikewale.Entities.Customer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
@@ -29,7 +27,7 @@ namespace Bikewale.Mobile.BikeBooking
 
         //protected PQ_QuotationEntity objPrice = null;
         protected UInt64 totalPrice = 0;
-        protected string pqId = string.Empty, areaId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty;
+        protected string pqId = string.Empty, areaId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty, mpqQueryString = string.Empty;
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0;
         private bool isPriceAvailable = false;
         protected List<VersionColor> objColors = null;
@@ -84,6 +82,7 @@ namespace Bikewale.Mobile.BikeBooking
                     GetVersionColors(versionId);
                     BindAlternativeBikeControl(versionId.ToString());
                     clientIP = CommonOpn.GetClientIP();
+                    mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId), Convert.ToString(dealerId)));
                 }
                 else
                     SavePriceQuote();
@@ -110,10 +109,9 @@ namespace Bikewale.Mobile.BikeBooking
 
                     if (objPriceQuote != null)
                     {
-                        BikeName = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " +
-                                   objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "";
+                        BikeName = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " + objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "";
                         //Added By : Ashwini Todkar on 1 Dec 2014
-                        if (objPriceQuote.PrimaryDealer!=null && objPriceQuote.PrimaryDealer.PriceList != null && objPriceQuote.PrimaryDealer.PriceList.Count() > 0)
+                        if (objPriceQuote.PrimaryDealer != null && objPriceQuote.PrimaryDealer.PriceList != null && objPriceQuote.PrimaryDealer.PriceList.Count() > 0)
                         {
                             isPrimaryDealer = true;
                             MakeModel = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " +
@@ -181,7 +179,7 @@ namespace Bikewale.Mobile.BikeBooking
                             }
 
                             //bind secondary Dealer
-                            if (objPriceQuote.SecondaryDealerCount !=null )
+                            if (objPriceQuote.SecondaryDealerCount != null)
                             {
                                 secondaryDealersCount = Convert.ToUInt32(objPriceQuote.SecondaryDealerCount);
                                 if (secondaryDealersCount > 0)
@@ -189,7 +187,7 @@ namespace Bikewale.Mobile.BikeBooking
                                     isSecondaryDealer = true;
                                     rptSecondaryDealers.DataSource = objPriceQuote.SecondaryDealers;
                                     rptSecondaryDealers.DataBind();
-                                } 
+                                }
                             }
 
                             //booking amount
@@ -298,7 +296,7 @@ namespace Bikewale.Mobile.BikeBooking
                     objVersionDetails = objVersion.GetById(versionId);
                     versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
 
-                    if (versionList!=null && versionList.Count > 0)
+                    if (versionList != null && versionList.Count > 0)
                     {
                         ddlVersion.DataSource = versionList;
                         ddlVersion.DataValueField = "VersionId";
