@@ -574,7 +574,7 @@
 
                 $(".leadCapture-close-btn").on("click", function () {
                     leadCapturePopup.hide();
-
+                    $("#dealer-assist-msg").hide();
                     window.history.back();
                 });
 
@@ -586,8 +586,7 @@
                 });
 
                 $("#aOkayButton").click(function () {
-                    $("#leadCapturePopup .leadCapture-close-btn").click();
-                    $("#dealer-assist-msg").hide();
+                    $("#leadCapturePopup .leadCapture-close-btn").click();                    
                 });
 
             });
