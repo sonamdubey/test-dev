@@ -1,16 +1,17 @@
 ﻿.header-fixed { z-index:5 !important; }
 body { overflow-x:hidden; }
 .opacity0 { opacity:0; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; filter: alpha(opacity=0); -moz-opacity: 0; -khtml-opacity: 0; height:0; }
-.dealer-filter-dropdown { position:fixed; top:60px; z-index:1; }
+.dealer-filter-dropdown { position:fixed; top:60px; z-index:1; margin-left:45px; }
 #locateDealerFilter { width:646px; height:65px; margin:0 auto;z-index:2; }
 .dealer-map-wrapper { width:100%;height:580px;display:block; }
-.box-light-shadow {-moz-box-shadow:0 2px 3px #e2e2e2;-webkit-box-shadow:0 2px 3px #e2e2e2;-o-box-shadow:0 2px 3px #e2e2e2;-ms-box-shadow:0 2px 3px #e2e2e2;box-shadow: 0 2px 3px #e2e2e2; } 
+.box-light-shadow {-moz-box-shadow:0 1px 2px #aaa;-webkit-box-shadow:0 1px 2px #aaa;-o-box-shadow:0 1px 2px #aaa;-ms-box-shadow:0 1px 2px #aaa;box-shadow: 0 1px 2px #aaa; } 
 .content-inner-block-12 { padding:13px 12px 12px; }
 .content-inner-block-1520 { padding:15px 20px; }
 .margin-top8 { margin-top:8px; }
 .brand-city-filter {width: 180px;height: 40px;border:1px solid #e2e2e2;text-align:left;font-size:14px;cursor:pointer;}
 .placeholder-loading-text.form-control { padding:8px;border:none;border-radius:0; }
 .brand-city-filter select { display:none; width:180px; height: 38px; color: #82888b; border: none;}
+.brand-city-filter .chosen-container { border:none; }
 .brand-city-filter .btnSpinner, .brand-city-filter .error-tooltip-siblings { display:none; }
 .brand-city-filter .chosen-container:first-child { border: 0; border-radius: 2px !important;}
 #applyFiltersBtn.btn { padding:8px 31px; }
@@ -41,7 +42,7 @@ body { overflow-x:hidden; }
 #dealersList::-webkit-scrollbar-thumb {background: #ddd;}
 #dealersList::-webkit-scrollbar-thumb:hover {background: #bbb;}
 a.text-black:hover { text-decoration:none; }
-#dealerDetailsSliderCard { display:none; width:674px; min-height:200px; position:fixed; right:-338px; z-index:2; overflow-y:scroll; }
+#dealerDetailsSliderCard { display:none; width:680px; min-height:200px; position:fixed; right:-338px; z-index:2; overflow-y:scroll; }
 #dealerDetailsSliderCard::-webkit-scrollbar {width: 5px;}
 #dealerDetailsSliderCard::-webkit-scrollbar-track {background: #fff;}
 #dealerDetailsSliderCard::-webkit-scrollbar-thumb {background: #ddd;}
@@ -76,7 +77,7 @@ a.text-black:hover { text-decoration:none; }
 .get-direction-icon { background-position:-113px -446px; }
 .sendto-phone-icon { background-position:-132px -446px; }
 
-#leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:10%;right:5%;left:5%;z-index:10;padding:30px 40px}
+#leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:5%;right:5%;left:5%;z-index:10;padding:30px 40px}
 .personal-info-form-container{margin:10px auto;width:300px;min-height:100px}
 .personal-info-form-container .personal-info-list{margin:0 auto;width:280px;float:left;margin-bottom:20px;border-radius:0}
 .personal-info-list .errorIcon,.personal-info-list .errorText{display:none}
@@ -94,3 +95,9 @@ a.text-black:hover { text-decoration:none; }
 #otpPopup .errorIcon,#otpPopup .errorText{display:none}
 .input-border-bottom{border-bottom:1px solid #ccc}
 .assistance-response-close.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
+.ui-autocomplete.availableBrandList { height:100px; overflow-y:scroll; }
+.ui-autocomplete.availableBrandList li.ui-menu-item { padding:6px; }
+@-moz-document url-prefix() {
+    .brand-city-filter .chosen-container {padding: 9px;}
+    #applyFiltersBtn.btn{padding:7px 31px;}
+}
