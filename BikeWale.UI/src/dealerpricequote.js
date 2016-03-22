@@ -472,10 +472,26 @@ var validateMobileNo = function (leadMobileNo) {
 };
 
 $(document).ready(function () {
+    var sidebarHeight = false;
     if ($('#pqBikeDetails').height() < 400) {
         $('#PQDealerSidebarContainer').css({'padding-bottom': '20px'});
-        $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '360px'});
+        $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '350px' });
+        sidebarHeight = true;
     }
+    if (!sidebarHeight) {
+        if ($('#pqBikeDetails').height() < 500) {
+            $('#PQDealerSidebarContainer').css({ 'padding-bottom': '20px' });
+            $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '450px' });
+        }
+    }
+    
+    var breadcrumbFlag,
+        breadcrumbOffsetTop = $('.breadcrumb').offset().top;
+    if(breadcrumbOffsetTop < 100)
+        breadcrumbFlag = true;
+    else
+        breadcrumbFlag = false;
+
     var $window = $(window),
         disclaimerText = $('#disclaimerText'),
         PQDealerSidebarContainer = $('#PQDealerSidebarContainer'),
@@ -491,7 +507,10 @@ $(document).ready(function () {
                 PQDealerSidebarContainer.css({ 'position': 'relative', 'top': '0', 'right' : '0' })
             }
             else if (windowScrollTop > (disclaimerTextOffset.top - PQDealerSidebarHeight - 80)) {
-                PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 150, 'right': '0' })
+                if (breadcrumbFlag)
+                    PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 150, 'right': '0' })
+                else
+                    PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 240, 'right': '0' })
             }
             else {
                 PQDealerSidebarContainer.css({ 'position': 'fixed', 'top': '50px', 'right': $(window).innerWidth() - (996 + $('#dealerPriceQuoteContainer').offset().left - 11) })
