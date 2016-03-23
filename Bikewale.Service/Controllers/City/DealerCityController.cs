@@ -72,7 +72,7 @@ namespace Bikewale.Service.Controllers.City
         }
 
         /// <summary>
-        /// Created by  :   Sumit Kate on 22 Mae 2016
+        /// Created by  :   Sumit Kate on 22 Mar 2016
         /// Make wise Dealer City List
         /// It Includes BW Dealer Cities and AB Dealer Cities
         /// </summary>
