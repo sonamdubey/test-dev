@@ -60,7 +60,7 @@
                             <select id="ddlMakes" class="form-control  chosen-select">
                                 <asp:Repeater ID="rptMakes" runat="server">
                                     <ItemTemplate>
-                                        <option maskingName="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>" <%# ((DataBinder.Eval(Container.DataItem,"MakeId")).ToString() != makeId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </option>
+                                        <option maskingname="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>" <%# ((DataBinder.Eval(Container.DataItem,"MakeId")).ToString() != makeId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </option>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </select>
@@ -72,7 +72,7 @@
                             <select id="ddlCities" class="form-control  chosen-select">
                                 <asp:Repeater ID="rptCities" runat="server">
                                     <ItemTemplate>
-                                        <option maskingName="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>" <%# ((DataBinder.Eval(Container.DataItem,"CityId")).ToString() != cityId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"CityName") %></option>
+                                        <option maskingname="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>" <%# ((DataBinder.Eval(Container.DataItem,"CityId")).ToString() != cityId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"CityName") %></option>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </select>
@@ -86,7 +86,7 @@
             <div class="clear"></div>
         </section>
 
-        <section>
+        <section id="dealerInfo">
             <div class="grid-12 alpha omega">
 
                 <div id="dealerListingSidebar" class="bg-white position-abt pos-right0">
@@ -109,7 +109,7 @@
                                             <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></p>
                                         </div>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"Email") %></a> </div>
-                                        <a href="Javascript:void(0)" class="btn btn-white-orange margin-top15 get-assistance-btn">Get assistance</a>
+                                        <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" class="btn btn-white-orange margin-top15 get-assistance-btn">Get assistance</a>
                                     </div>
                                 </li>
                             </ItemTemplate>
@@ -138,52 +138,54 @@
                             <%-- <a href=""><span class="bwsprite get-direction-icon"></span>Get directions</a>
                             <a href="" class="border-dark-left margin-left10 padding-left10"><span class="bwsprite sendto-phone-icon"></span>Send to phone</a>--%>
                         </div>
-                        <%-- <div class="padding-top15">
+                        <div class="padding-top15">
                             <p class="font14 text-bold margin-bottom15">Get commute distance and time:</p>
                             <div class="commute-distance-form form-control-box">
                                 <input type="text" class="form-control" placeholder="Enter your location" />
                             </div>
-                        </div>--%>
+                        </div>
                     </div>
                     <div id="buyingAssistanceForm" data-bind="with: CustomerDetails" class="margin-top20 content-inner-block-1520">
-                        <p class="font14 text-bold margin-bottom15">Get buying assistance from this dealer:</p>
-                        <div class="name-email-mobile-box form-control-box leftfloat margin-right20">
-                            <input type="text" class="form-control" placeholder="Name" id="assistGetName" data-bind="textInput: fullName" />
-                            <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <div class="name-email-mobile-box form-control-box leftfloat margin-right40">
-                            <input type="text" class="form-control" placeholder="Email id" id="assistGetEmail" data-bind="textInput: emailId" />
-                            <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <div class="name-email-mobile-box form-control-box leftfloat">
-                            <p class="mobile-prefix">+91</p>
-                            <input type="text" class="mobile-box form-control" placeholder="Mobile" maxlength="10" id="assistGetMobile" data-bind="textInput: mobileNo" />
-                            <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <div class="clear"></div>
-                        <div class="margin-top20">
-                            <!--
+                        <div id="buying-assistance-form">
+                            <p class="font14 text-bold margin-bottom15">Get buying assistance from this dealer:</p>
+                            <div class="name-email-mobile-box form-control-box leftfloat margin-right20">
+                                <input type="text" class="form-control" placeholder="Name" id="assistanceGetName" data-bind="textInput: fullName" />
+                                <span class="bwsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <div class="name-email-mobile-box form-control-box leftfloat margin-right40">
+                                <input type="text" class="form-control" placeholder="Email id" id="assistanceGetEmail" data-bind="textInput: emailId" />
+                                <span class="bwsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <div class="name-email-mobile-box form-control-box leftfloat">
+                                <p class="mobile-prefix">+91</p>
+                                <input type="text" class="mobile-box form-control" placeholder="Mobile" maxlength="10" id="assistanceGetMobile" data-bind="textInput: mobileNo" />
+                                <span class="bwsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="margin-top20">
+                                <!--
                             <div class="select-model-box form-control-box leftfloat margin-right40">
                                 <input type="text" class="form-control" placeholder="Type to select model" id="assistGetModel" />
                                 <span class="bwsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
                             -->
-                            <div class="select-model-box form-control-box leftfloat margin-right40">
-                                <select id="assistGetModel" class="form-control chosen-select">
-                                    <option>1</option>
-                                    <option>3</option>
-                                    <option>2</option>
-                                </select>
+                                <div class="select-model-box form-control-box leftfloat margin-right40">
+                                    <%--<select id="assistGetModel" data-placeholder="Choose a bike model" data-bind="template: { name: 'bikesTemplate', foreach: bikes, chosen: { no_results_text: 'No matches found!!', width: '100℅' } }" class="form-control chosen-select"></select>
+                                <script id="bikesTemplate" type="text/html">
+                                    <option data-bind="text: bike, attr: { value: model.modelId, versionId: version.versionId }, click: function (data, event) { return $parent.selectVersion(data, event) }"></option>
+                                </script>--%>
+                                    <select id="assistGetModel" data-placeholder="Choose a bike model" data-bind="event: { change: $parent.selectVersion }, attr: { modelId: 'model.modelId' }, options: bikes, optionsText: 'bike', optionsValue: 'version.versionId', chosen: { no_results_text: 'No matches found!!', width: '100℅' }" class="form-control chosen-select"></select>
+                                </div>
+                                <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" value="Submit" data-bind="event: { click: submitLead }" />
                             </div>
-                            <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" value="Submit" data-bind="event: { click: submitLead }" />
+                            <div class="clear"></div>
                         </div>
-                        <div class="clear"></div>
-                        <div class="hide">
-                            <p class="leftfloat font14">Thank you for your interest. Kamala Landmarc Motorbikes will get in touch shortly</p>
+                        <div id="dealer-assist-msg" class="hide">
+                            <p class="leftfloat font14">Thank you for your interest. <span data-bind="text: dealerName()"></span>will get in touch shortly</p>
                             <span class="rightfloat bwsprite cross-lg-lgt-grey cur-pointer"></span>
                             <div class="clear"></div>
                         </div>
@@ -196,7 +198,7 @@
                             <li>
                                 <div class="contentWrapper">
                                     <div class="imageWrapper">
-                                        <a href="" data-bind="attr: { href: bikeUrl(), title: bikeName()}">
+                                        <a href="" data-bind="attr: { href: bikeUrl(), title: bikeName() }">
                                             <img data-bind="attr: { src: imagePath(), title: bikeName(), alt: bikeName() }" />
                                         </a>
                                     </div>
@@ -206,7 +208,7 @@
                                         </div>
                                         <div class="font16 text-bold margin-bottom5">
                                             <span class="fa fa-rupee"></span>
-                                            <span class="font18" data-bind="CurrencyText : bikePrice() "></span><span class="font16">&nbsp;onwards</span>
+                                            <span class="font18" data-bind="CurrencyText: bikePrice() "></span><span class="font16">&nbsp;onwards</span>
                                         </div>
                                         <div class="font14 text-light-grey">
                                             <span data-bind="html: displayMinSpec() "></span>
@@ -220,107 +222,108 @@
                 </div>
 
             </div>
+
+
+            <!-- lead capture popup start-->
+            <div id="leadCapturePopup" data-bind="with: CustomerDetails" class="text-center rounded-corner2">
+                <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                <!-- contact details starts here -->
+                <div id="contactDetailsPopup">
+                    <div class="icon-outer-container rounded-corner50">
+                        <div class="icon-inner-container rounded-corner50">
+                            <span class="bwsprite user-contact-details-icon margin-top25"></span>
+                        </div>
+                    </div>
+                    <p class="font20 margin-top20 margin-bottom10">Provide contact details</p>
+                    <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
+                    <div class="personal-info-form-container">
+                        <div class="form-control-box personal-info-list">                        
+                           <select id="getModelName" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: bikes, optionsText: 'bike'" class="form-control chosen-select"></select>                            
+                        </div>
+                        <div class="form-control-box personal-info-list">
+                            <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
+                                id="getFullName" data-bind="textInput: fullName">
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText"></div>
+                        </div>
+                        <div class="form-control-box personal-info-list">
+                            <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
+                                id="getEmailID" data-bind="textInput: emailId">
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText"></div>
+                        </div>
+                        <div class="form-control-box personal-info-list">
+                            <p class="mobile-prefix">+91</p>
+                            <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
+                                id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText"></div>
+                        </div>
+                        <div class="clear"></div>
+                        <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                    </div>
+                </div>
+                <!-- contact details ends here -->
+                <!-- otp starts here -->
+                <div id="otpPopup">
+                    <div class="icon-outer-container rounded-corner50">
+                        <div class="icon-inner-container rounded-corner50">
+                            <span class="bwsprite otp-icon margin-top25"></span>
+                        </div>
+                    </div>
+                    <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
+                    <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                    <div>
+                        <div class="lead-mobile-box lead-otp-box-container font22">
+                            <span class="fa fa-phone"></span>
+                            <span class="text-light-grey font24">+91</span>
+                            <span class="lead-mobile font24"></span>
+                            <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
+                        </div>
+                        <div class="otp-box lead-otp-box-container">
+                            <div class="form-control-box margin-bottom10">
+                                <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP" data-bind="value: otpCode">
+                                <span class="bwsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP
+                            </a>
+                            <p class="otp-alert-text margin-left10 otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
+                                OTP has been already sent to your mobile
+                            </p>
+                            <div class="clear"></div>
+                            <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
+                        </div>
+                        <div class="update-mobile-box">
+                            <div class="form-control-box text-left">
+                                <p class="mobile-prefix">+91</p>
+                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
+                                <span class="bwsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
+                        </div>
+                    </div>
+                </div>
+                <!-- otp ends here -->
+                <div id="dealer-lead-msg" class="hide">
+                    <div class="icon-outer-container rounded-corner50">
+                        <div class="icon-inner-container rounded-corner50">
+                            <span class="bwsprite otp-icon margin-top25"></span>
+                        </div>
+                    </div>
+                    <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="dealerName"></span>, <span data-bind="dealerArea"></span> will get in touch with you soon.</p>
+
+                    <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
+                </div>
+            </div>
+            <!-- lead capture popup End-->
+
+
             <div class="clear"></div>
         </section>
 
-        <!-- lead capture popup start-->
-        <div id="leadCapturePopup" class="text-center rounded-corner2">
-            <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-            <!-- contact details starts here -->
-            <div id="contactDetailsPopup">
-                <div class="icon-outer-container rounded-corner50">
-                    <div class="icon-inner-container rounded-corner50">
-                        <span class="bwsprite user-contact-details-icon margin-top25"></span>
-                    </div>
-                </div>
-                <p class="font20 margin-top20 margin-bottom10">Provide contact details</p>
-                <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
-                <div class="personal-info-form-container">
-                    <div class="form-control-box personal-info-list">
-                        <select id="getModelName" class="form-control  chosen-select">
-                            <option>1</option>
-                            <option>3</option>
-                            <option>2</option>
-                        </select>
-                    </div>
-                    <div class="form-control-box personal-info-list">
-                        <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
-                            id="getFullName" data-bind="textInput: fullName">
-                        <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText"></div>
-                    </div>
-                    <div class="form-control-box personal-info-list">
-                        <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
-                            id="getEmailID" data-bind="textInput: emailId">
-                        <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText"></div>
-                    </div>
-                    <div class="form-control-box personal-info-list">
-                        <p class="mobile-prefix">+91</p>
-                        <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
-                            id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
-                        <span class="bwsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText"></div>
-                    </div>
-                    <div class="clear"></div>
-                    <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                </div>
-            </div>
-            <!-- contact details ends here -->
-            <!-- otp starts here -->
-            <div id="otpPopup">
-                <div class="icon-outer-container rounded-corner50">
-                    <div class="icon-inner-container rounded-corner50">
-                        <span class="bwsprite otp-icon margin-top25"></span>
-                    </div>
-                </div>
-                <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
-                <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
-                <div>
-                    <div class="lead-mobile-box lead-otp-box-container font22">
-                        <span class="fa fa-phone"></span>
-                        <span class="text-light-grey font24">+91</span>
-                        <span class="lead-mobile font24"></span>
-                        <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
-                    </div>
-                    <div class="otp-box lead-otp-box-container">
-                        <div class="form-control-box margin-bottom10">
-                            <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP" data-bind="value: otpCode">
-                            <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP
-                        </a>
-                        <p class="otp-alert-text margin-left10 otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
-                            OTP has been already sent to your mobile
-                        </p>
-                        <div class="clear"></div>
-                        <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
-                    </div>
-                    <div class="update-mobile-box">
-                        <div class="form-control-box text-left">
-                            <p class="mobile-prefix">+91</p>
-                            <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
-                            <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
-                    </div>
-                </div>
-            </div>
-            <!-- otp ends here -->
-            <div id="dealer-lead-msg" class="hide">
-                <div class="icon-outer-container rounded-corner50">
-                    <div class="icon-inner-container rounded-corner50">
-                        <span class="bwsprite otp-icon margin-top25"></span>
-                    </div>
-                </div>
-                <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. DealerName, DealerArea will get in touch with you soon.</p>
 
-                <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
-            </div>
-        </div>
-        <!-- lead capture popup End-->
 
         <section>
             <div class="grid-12 alpha omega">
@@ -336,25 +339,30 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerlisting.js?<%= staticFileVersion %>1234"></script>
+
         <script type="text/javascript">
             $ddlCities = $("#ddlCities");
             $ddlMakes = $("#ddlMakes");
-
+            bikeCityId = $("#ddlCities").val();
+            // $ddlModels = $("#assistGetModel,#getModelName");
+            //$("#assistGetModel,#getModelName").chosen({ width: "100%" });
             $("#applyFiltersBtn").click(function () {
                 ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
                 ddlcityId = $("#ddlCities option:selected").val();
                 ddlcityMasking = $("#ddlCities option:selected").text().toLowerCase();
 
-                window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId  + "-" + ddlcityMasking + ".html";
+                window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
             });
 
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
             $ddlMakes.chosen({ no_results_text: "No matches found!!" });
+           // $ddlModels.chosen({ no_results_text: "No matches found!!", width: "100%" });
             $('div.chosen-container').attr('style', 'width:100%;border:0');
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
 
         </script>
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerlisting.js?<%= staticFileVersion %>1234"></script>
     </form>
 </body>
 </html>

@@ -164,7 +164,7 @@ function CustomerModel() {
         $("#dealer-lead-msg").hide();
         self.IsVerified(false);
         isValidDetails = false;
-        if (event.currentTarget.id == 'buyingAssistBtn') {
+        if (event.target.id == 'buyingAssistBtn') {
             self.isAssist(true);
             isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
         }
