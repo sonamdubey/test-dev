@@ -25,11 +25,17 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
     /// </summary>
     public class DealerBikesEntityMapper
     {
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created On : 22 March 2016
+        /// Summary : Map DealerBikes and DealerBikesEntity
+        /// </summary>
+        /// <param name="dealerBikes"></param>
+        /// <returns></returns>
         internal static DTO.DealerLocator.DealerBikes Convert(Entities.DealerLocator.DealerBikesEntity dealerBikes)
         {
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
             Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
             Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
             Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();

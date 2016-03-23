@@ -17,6 +17,11 @@ using System.Web;
 
 namespace Bikewale.DAL.DealerLocator
 {
+    /// <summary>
+    /// Created By : Lucky Rathore
+    /// Created on : 22 march 2016
+    /// Description : for Dealer Locator Functionality.
+    /// </summary>
     public class DealerRepository : Bikewale.Interfaces.DealerLocator.IDealer
     {
         /// <summary>
@@ -25,8 +30,7 @@ namespace Bikewale.DAL.DealerLocator
         /// Description : for getting dealer detail and bike detail w.r.t dealer.
         /// </summary>
         /// <param name="dealerId"></param>
-        /// <returns></returns>
-   
+        /// <returns></returns>   
         public DealerBikesEntity GetDealerBikes(UInt16 dealerId)
         {
             DealerBikesEntity dealers = new DealerBikesEntity();
@@ -50,6 +54,7 @@ namespace Bikewale.DAL.DealerLocator
                         {
                             if (dr.Read() && dr.HasRows)
                             {
+                                DealerPackageTypes dpType;
                                 dealers.DealerDetail = new DealerDetailEntity();
                                 dealers.DealerDetail.Name = Convert.ToString(dr["DealerName"]);
                                 dealers.DealerDetail.Address = Convert.ToString(dr["Address"]);
@@ -59,8 +64,8 @@ namespace Bikewale.DAL.DealerLocator
                                             Longitude = Convert.ToDouble(dr["Longitude"]),
                                             Latitude = Convert.ToDouble(dr["Lattitude"])
                                         };
-                                dealers.DealerDetail.City = Convert.ToString(dr["City"]);                                
-                                dealers.DealerDetail.DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"]));
+                                dealers.DealerDetail.City = Convert.ToString(dr["City"]);
+                                dealers.DealerDetail.DealerPkgType = Enum.TryParse<DealerPackageTypes>(Convert.ToString(dr["DealerType"]), out dpType) ? dpType : DealerPackageTypes.Invalid;
                                 dealers.DealerDetail.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                             }
@@ -86,14 +91,15 @@ namespace Bikewale.DAL.DealerLocator
                                     specs = new MinSpecsEntity();
 
                                     objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                    objMake.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToInt32(dr["MakeId"]) : default(Int32);
                                     objMake.MakeName = Convert.ToString(dr["Make"]);
                                     objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
 
-                                    objModel.ModelId = Convert.ToInt32(dr["ModelID"]);
+                                    objModel.ModelId = !Convert.IsDBNull(dr["ModelId"]) ? Convert.ToInt32(dr["ModelId"]) : default(Int32);
                                     objModel.ModelName = Convert.ToString(dr["Model"]);
                                     objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
 
-                                    objVersion.VersionId = Convert.ToInt32(dr["VersionId"]);
+                                    objVersion.VersionId = !Convert.IsDBNull(dr["VersionId"]) ? Convert.ToInt32(dr["VersionId"]) : default(Int32);
                                     objVersion.VersionName = Convert.ToString(dr["Version"]);
 
                                     specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);

@@ -507,18 +507,19 @@ namespace Bikewale.DAL.Dealer
                             //dealers.dealerList = new Enumerable<DealerListEntity>();
                             if (dr.Read() && dr.HasRows)
                             {
+                                DealerPackageTypes dpType;
                                 while (dr.Read())
                                 {
                                     dealerList.Add(new DealersList
                                     {
-                                        DealerId = Convert.ToUInt16(dr["DealerId"]),
+                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(int),
                                         Name = Convert.ToString(dr["DealerName"]),
-                                        Type = (DealerPackageTypes) Convert.ToUInt16(dr["DealerType"]),
+                                        Type = Enum.TryParse<DealerPackageTypes>(Convert.ToString(dr["DealerType"]), out dpType) ? dpType : DealerPackageTypes.Invalid,
                                         Area = new AreaEntityBase
                                         {
                                             AreaName = Convert.ToString(dr["Area"]),
-                                            Longitude = Convert.ToDouble(dr["Longitude"]),
-                                            Latitude = Convert.ToDouble(dr["Lattitude"])
+                                            Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(double),
+                                            Latitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(double)
                                         },
                                         City = Convert.ToString(dr["City"]),
                                         MaskingNumber = Convert.ToString(dr["MaskingNumber"]),
@@ -529,7 +530,7 @@ namespace Bikewale.DAL.Dealer
                             }
                             if (dr.NextResult())
                             {
-                                dealers.TotalCount = Convert.ToUInt16(dr["TotalCount"]);
+                                dealers.TotalCount = !Convert.IsDBNull(dr["TotalCount"]) ? Convert.ToUInt16(dr["TotalCount"]) : default(UInt16);
                             }
                         }
                     }

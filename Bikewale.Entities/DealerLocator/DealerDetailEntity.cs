@@ -19,8 +19,6 @@ namespace Bikewale.Entities.DealerLocator
         public string City { get; set; }
         public string EMail { get; set; }
         public string Address { get; set; }
-        public DateTime ShowRoomStartTime { get; set; }
-        public DateTime ShowRoomEndTime { get; set; }
         public string WorkingHours { get; set; }
     }
 }

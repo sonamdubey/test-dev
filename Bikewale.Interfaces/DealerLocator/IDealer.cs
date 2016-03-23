@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Interfaces.DealerLocator
 {
+    /// <summary>
+    /// Created By : Lucky Rathore
+    /// Created On : 21 March 2016
+    /// Description : Used for functionality for Dealer Bikes.
+    /// </summary>
     public interface IDealer
     {
         DealerBikesEntity GetDealerBikes(UInt16 dealerId);

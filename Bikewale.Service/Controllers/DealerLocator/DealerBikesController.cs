@@ -24,6 +24,13 @@ namespace Bikewale.Service.Controllers.DealerLocator
         private readonly Bikewale.Interfaces.DealerLocator.IDealer _dealer = null;
         private readonly IDealerCacheRepository _cache = null;
 
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created on : 22 march 2016
+        /// Description : for Resolving IDealer and IDealerCacheRepository.
+        /// </summary>
+        /// <param name="dealer"></param>
+        /// <param name="cache"></param>
         public DealerBikesController(Bikewale.Interfaces.DealerLocator.IDealer dealer, IDealerCacheRepository cache)
         {
             _dealer = dealer;
@@ -55,7 +62,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.Controllers.DealerLocatorGet");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.DealerLocator.DealerBikesController");
                 objErr.SendMail();
                 return InternalServerError();
             }
