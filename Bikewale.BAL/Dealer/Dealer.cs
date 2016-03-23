@@ -151,5 +151,25 @@ namespace Bikewale.BAL.Dealer
 
             return lstCity;
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 22 Mar 2016
+        /// Description :   Calls the DAL
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId)
+        {
+            try
+            {
+                return dealerRepository.FetchDealerCitiesByMake(makeId);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "FetchDealerCitiesByMake");
+                objErr.SendMail();
+                return null;
+            }
+        }
     }
 }

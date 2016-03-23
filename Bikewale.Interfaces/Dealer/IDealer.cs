@@ -12,12 +12,14 @@ namespace Bikewale.Interfaces.Dealer
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 4 June 2014
-    /// </summary>
-    
+    /// Modified by :   Sumit Kate on 22 Mar 2016
+    /// Description :   Added new function FetchDealerCitiesByMake    
+    /// </summary>    
     public interface IDealer
     {
         List<NewBikeDealersMakeEntity> GetDealersMakesList();
         NewBikeDealersListEntity GetDealersCitiesListByMakeId(uint makeId);
+        IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId);
         List<NewBikeDealerEntity> GetDealersList(uint makeId, uint cityId);
         List<BikeMakeEntityBase> GetDealersMakeListByCityId(uint cityId);
         List<CityEntityBase> GetDealersCitiesList();
