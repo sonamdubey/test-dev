@@ -18,6 +18,10 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
     /// Modified By : Sushil Kumar on 21st March 2016
     /// Description : Changed minspecs and DealerBase DO refrence to v2 of each repectively.
     /// </summary>
+    /// Created By : Lucky Rathore
+    /// Created On : 22 March 2016
+    /// Summary : Map DealerBikes and DealerBikesEntity
+    /// </summary>
     public class DealerBikesEntityMapper
     {
         internal static DTO.DealerLocator.DealerBikes Convert(Entities.DealerLocator.DealerBikesEntity dealerBikes)

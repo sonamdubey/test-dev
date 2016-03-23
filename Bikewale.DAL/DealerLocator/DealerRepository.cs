@@ -19,6 +19,6 @@ namespace Bikewale.DAL.DealerLocator
 {
     public class DealerRepository : Bikewale.Interfaces.DealerLocator.IDealer
     {
-       
+        
     }
 }

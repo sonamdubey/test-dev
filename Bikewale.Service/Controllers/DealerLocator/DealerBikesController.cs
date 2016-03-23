@@ -14,7 +14,9 @@ using System.Web.Http;
 namespace Bikewale.Service.Controllers.DealerLocator
 {
     /// <summary>
-    /// 
+    /// Created By : Lucky Rathore
+    /// Created on : 22 march 2016
+    /// Description : for getting dealer detail and bike detail w.r.t dealer.
     /// </summary>
     public class DealerBikesController : ApiController
     {
@@ -28,7 +30,9 @@ namespace Bikewale.Service.Controllers.DealerLocator
         }
 
         /// <summary>
-        /// 
+        /// Created By : Lucky Rathore
+        /// Created On : 22 March 2016
+        /// Description : To get Detail of Bikes for specific Dealer.
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>

@@ -502,36 +502,34 @@ namespace Bikewale.DAL.Dealer
                         {
                             if (dr.HasRows)
                             {
+                                DealersList dealerdetail;
+                                DealerPackageTypes dpType;
                                 while (dr.Read())
                                 {
-                                    dealerList.Add(new DealersList
-                                    {
-                                        DealerId = Convert.ToUInt16(dr["DealerId"]),
-                                        Name = Convert.ToString(dr["DealerName"]),
-                                        DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes),Convert.ToString(dr["DealerPackage"])),
-                                        objArea = new AreaEntityBase
-                                        {
-                                            AreaName = Convert.ToString(dr["Area"]),
-                                            Longitude = Convert.ToDouble(dr["Longitude"]),
-                                            Latitude = Convert.ToDouble(dr["Lattitude"])
-                                        },
-                                        City = Convert.ToString(dr["City"]),
-                                        MaskingNumber = Convert.ToString(dr["MaskingNumber"]),
-                                        EMail = Convert.ToString(dr["EMail"]),
-                                        Address = Convert.ToString(dr["Address"]),
-                                    });
-                                }
+                                    dealerdetail = new DealersList();
+                                    dealerdetail.Area = new AreaEntityBase();
 
+                                    dealerdetail.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt16(dr["DealerId"]) : default(UInt16);
+                                    dealerdetail.Name = Convert.ToString(dr["DealerName"]);
+                                    dealerdetail.DealerType = !Convert.IsDBNull(dr["DealerPackage"]) ? Convert.ToUInt16(dr["DealerPackage"]) : default(UInt16);
+                                    dealerdetail.Area.AreaName = Convert.ToString(dr["Area"]);
+                                    dealerdetail.Area.Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(Double);
+                                    dealerdetail.Area.Latitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(Double);
+                                    dealerdetail.City = Convert.ToString(dr["City"]);
+                                    dealerdetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
+                                    dealerdetail.EMail = Convert.ToString(dr["EMail"]);
+                                    dealerdetail.Address = Convert.ToString(dr["Address"]);
+
+                                    dealerList.Add(dealerdetail);
+                                }
                                 if (dr.NextResult() && dr.Read())
                                 {
-                                    dealers.TotalCount = Convert.ToUInt16(dr["TotalCount"]);
+                                    dealers.TotalCount = !Convert.IsDBNull(dr["TotalCount"]) ? Convert.ToUInt16(dr["TotalCount"]) : default(UInt16);
                                 }
-
-                                dealers.Dealers = dealerList;
-                            }
-
-                        }
+                                        DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes),Convert.ToString(dr["DealerPackage"])),
+                                        objArea = new AreaEntityBase
                     }
+                    dealers.DealerList = dealerList;
                 }
             }
             catch (SqlException ex)
@@ -554,10 +552,17 @@ namespace Bikewale.DAL.Dealer
             return dealers;
         }
 
-
-
-        public DealerBikesEntity GetDealerBikes(ushort dealerId)
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created on : 22 march 2016
+        /// Description : for getting dealer detail and bike detail w.r.t dealer.
+        /// </summary>
+        /// <param name="dealerId">e.g. 4</param>
+        /// <returns>DealerBikesEntity Entity object.</returns>
+        public DealerBikesEntity GetDealerBikes(UInt16 dealerId)
         {
+            GetDealerByMakeCity(1, 7);
+            GetDealerByMakeCity(1, 7);   
             DealerBikesEntity dealers = new DealerBikesEntity();
 
             //IList<DealersList> dealerList = new List<DealersList>();
@@ -579,8 +584,20 @@ namespace Bikewale.DAL.Dealer
                         {
                             if (dr.Read() && dr.HasRows)
                             {
-
-                                dealers.DealerDetails = new DealerDetailEntity();
+                                DealerPackageTypes dpType;
+                                dealers.DealerDetail = new DealerDetailEntity();
+                                dealers.DealerDetail.Name = Convert.ToString(dr["DealerName"]);
+                                dealers.DealerDetail.Address = Convert.ToString(dr["Address"]);
+                                dealers.DealerDetail.Area = new AreaEntityBase
+                                {
+                                    AreaName = Convert.ToString(dr["Area"]),
+                                    Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(UInt16),
+                                    Latitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(UInt16)
+                                };
+                                dealers.DealerDetail.City = Convert.ToString(dr["City"]);
+                                dealers.DealerDetail.DealerPkgType = Enum.TryParse<DealerPackageTypes>(Convert.ToString(dr["DealerType"]), out dpType) ? dpType : DealerPackageTypes.Invalid;
+                                dealers.DealerDetail.EMail = Convert.ToString(dr["EMail"]);
+                                dealers.DealerDetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealers.DealerDetails.DealerId = dealerId;
                                 dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
                                 dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
@@ -616,21 +633,21 @@ namespace Bikewale.DAL.Dealer
                                     objVersion = new BikeVersionsListEntity();
                                     specs = new MinSpecsEntity();
 
-                                    objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                    objMake.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
                                     objMake.MakeName = Convert.ToString(dr["Make"]);
                                     objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
 
-                                    objModel.ModelId = Convert.ToInt32(dr["ModelID"]);
+                                    objModel.ModelId = !Convert.IsDBNull(dr["ModelId"]) ? Convert.ToUInt16(dr["ModelId"]) : default(int);
                                     objModel.ModelName = Convert.ToString(dr["Model"]);
                                     objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
 
-                                    objVersion.VersionId = Convert.ToInt32(dr["VersionId"]);
+                                    objVersion.VersionId = !Convert.IsDBNull(dr["VersionId"]) ? Convert.ToUInt16(dr["VersionId"]) : default(int);
                                     objVersion.VersionName = Convert.ToString(dr["Version"]);
 
                                     specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                     specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                    specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                    specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                    specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+                                    specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaxPowerRPM"]);
 
                                     bikes.objMake = objMake;
                                     bikes.objModel = objModel;
@@ -661,7 +678,6 @@ namespace Bikewale.DAL.Dealer
             {
                 db.CloseConnection();
             }
-
             return dealers;
         }
 
