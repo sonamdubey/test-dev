@@ -513,7 +513,7 @@
                         <div class="clear"></div>
                         <%} %>
                         <div class="clear"></div>
-                        <p id="disclaimerText" class="padding-left20 margin-top15 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span>On-road price <%= (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)?"": "and EMI calculator" %> is provided for information. BikeWale does not own any responsibility for the same.</p>
+                        <p id="disclaimerText" class="padding-left20 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span>On-road price <%= (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)?"": "and EMI calculator" %> is provided for information. BikeWale does not own any responsibility for the same.</p>
                     </div>
 
                     <!--Primary Dealer Section-->
