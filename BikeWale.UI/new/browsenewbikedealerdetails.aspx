@@ -97,12 +97,14 @@
                     <ul id="dealersList">
                         <asp:Repeater ID="rptDealers" runat="server">
                             <ItemTemplate>
-                                <li data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>">
+                                <li data-item-tye="<%# (DataBinder.Eval(Container.DataItem,"DealerPkgType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>">
                                     <div class="font14">
                                         <h2 class="font16 margin-bottom10">
-                                            <span class="<%# (DataBinder.Eval(Container.DataItem,"DealerPkgType").ToString()!="1")?"":"hide" %> featured-tag text-white text-center font14 margin-bottom5">Featured
-                                            </span>
-                                            <span class="<%# (DataBinder.Eval(Container.DataItem,"DealerPkgType").ToString()!="1")?"":"hide" %> dealer-pointer-arrow"></span>
+                                            <div class= " <%# ((DataBinder.Eval(Container.DataItem,"DealerPkgType").ToString() == "Premium") || (DataBinder.Eval(Container.DataItem,"DealerPkgType").ToString() == "Deluxe"))? "" : "hide" %>">
+                                                  <span  class="featured-tag text-white text-center font14 margin-bottom5">Featured
+                                                </span>
+                                                <span class="dealer-pointer-arrow"></span>
+                                            </div>
                                             <a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a>
                                         </h2>
                                         <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
@@ -342,7 +344,7 @@
                 ddlcityId = $("#ddlCities option:selected").val();
                 if(ddlcityId != "0")
                 {
-                    ddlcityMasking = $("#ddlCities option:selected").text().toLowerCase();   
+                    ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");   
                     window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
                 }
                 else{

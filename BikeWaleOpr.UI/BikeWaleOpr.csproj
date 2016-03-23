@@ -177,10 +177,6 @@
       <DependentUpon>DealersRules.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="campaign\ManageDealers.aspx.cs">
-      <DependentUpon>ManageDealers.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="classified\classified.cs" />
     <Compile Include="classified\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -1378,7 +1374,6 @@
     <Content Include="bin\System.Web.Providers.dll" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="campaign\DealersRules.aspx" />
-    <Content Include="campaign\ManageDealers.aspx" />
     <Content Include="classified\classifiedMenu.aspx" />
     <Content Include="classified\Default.aspx" />
     <Content Include="classified\ListingPhotos.aspx" />

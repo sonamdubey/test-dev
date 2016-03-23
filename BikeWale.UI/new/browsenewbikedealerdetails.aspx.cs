@@ -159,12 +159,10 @@ namespace Bikewale.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<ICityCacheRepository, CityCacheRepository>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<ICity, CityRepository>()
-                            ;
-                    var objCache = container.Resolve<ICityCacheRepository>();
-                    _cities = objCache.GetPriceQuoteCities(59);
+                    container.RegisterType<IDealer, DealersRepository>();
+
+                    var objCities = container.Resolve<IDealer>();
+                    _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {
                         rptCities.DataSource = _cities;

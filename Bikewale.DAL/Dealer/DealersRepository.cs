@@ -482,7 +482,7 @@ namespace Bikewale.DAL.Dealer
             DealersEntity dealers = null;
             IList<DealersList> dealerList = new List<DealersList>();
             Database db = null;
-            
+
             try
             {
                 db = new Database();
@@ -494,12 +494,12 @@ namespace Bikewale.DAL.Dealer
                     cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                     cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
 
-                    dealers = new DealersEntity(); 
+                    dealers = new DealersEntity();
 
                     using (SqlDataReader dr = db.SelectQry(cmd))
                     {
-                        if(dr != null)
-                        {                            
+                        if (dr != null)
+                        {
                             if (dr.HasRows)
                             {
                                 while (dr.Read())
@@ -508,7 +508,7 @@ namespace Bikewale.DAL.Dealer
                                     {
                                         DealerId = Convert.ToUInt16(dr["DealerId"]),
                                         Name = Convert.ToString(dr["DealerName"]),
-                                        //DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"])),
+                                        DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes),Convert.ToString(dr["DealerPackage"])),
                                         objArea = new AreaEntityBase
                                         {
                                             AreaName = Convert.ToString(dr["Area"]),
@@ -527,9 +527,9 @@ namespace Bikewale.DAL.Dealer
                                     dealers.TotalCount = Convert.ToUInt16(dr["TotalCount"]);
                                 }
 
-                                dealers.Dealers = dealerList; 
+                                dealers.Dealers = dealerList;
                             }
-                           
+
                         }
                     }
                 }
@@ -664,5 +664,59 @@ namespace Bikewale.DAL.Dealer
 
             return dealers;
         }
+
+
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 22 Mar 2016
+        /// Description :   FetchDealerCitiesByMake. It Includes BW Dealer Cities and AB Dealer Cities
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId)
+        {
+            IList<CityEntityBase> objCityList = null;
+            Database db = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    db = new Database();
+
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "GetDealersCitiesByMakeId_22032016";
+                        cmd.Parameters.AddWithValue("@MakeId", Convert.ToInt32(makeId));
+                        objCityList = new List<CityEntityBase>();
+
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            while (dr.Read())
+                            {
+                                objCityList.Add(new CityEntityBase
+                                {
+                                    CityId = !Convert.IsDBNull(dr["CityId"]) ? Convert.ToUInt32(dr["CityId"]) : default(UInt32),
+                                    CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
+                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(String)
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "FetchDealerCitiesByMake");
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return objCityList;
+        }
+
+
     }//End class
 }
