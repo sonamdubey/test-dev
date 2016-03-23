@@ -354,13 +354,13 @@
                         <div class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
                             <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> online and book this bike:</p>
                             <ul class="pricequote-benefits-list pq-benefits-booking-list text-light-grey">
-                                <li>
+                                <li class="bullet-point">
                                     <p>Save on dealer visits</p>
                                 </li>
-                                <li>
+                                <li class="bullet-point">
                                     <p>Secure online payments</p>
                                 </li>
-                                <li>
+                                <li class="bullet-point">
                                     <p>Complete buyer protection</p>
                                 </li>
                             </ul>
@@ -517,12 +517,12 @@
                     </div>
 
                     <!--Primary Dealer Section-->
-                    <div class="grid-4 padding-top20 <%= primarydealer.DealerDetails != null ? "dealer-pointer" : "" %> " id="PQDealerSidebarContainer">
+                    <div class="grid-4 alpha padding-top20 <%= primarydealer.DealerDetails != null ? "dealer-pointer" : "" %> " id="PQDealerSidebarContainer">
                         <div class="pqdealer-and-listing-container">
-                            <div class="pqdealer-sidebar-panel position-rel">
+                            <div class="margin-left10">
                                 <%if (primarydealer.DealerDetails != null)
                                   { %>
-                                <div>
+                                <div class="pqdealer-sidebar-panel position-rel">
                                     <p class="font18 text-bold text-darker-black"><%= dealerName %></p>
                                     <p class="font14 text-light-grey margin-bottom15"><%= dealerArea %></p>
                                     <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard || !String.IsNullOrEmpty(maskingNum))
@@ -586,7 +586,7 @@
                             </div>
                             <%if (detailedDealer != null && detailedDealer.SecondaryDealerCount > 0)
                               { %>
-                            <div class="pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
+                            <div class="margin-left10 pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
                                 <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?"more dealers":"more dealer" %> :</p>
                                 <ul id="dealerList">
                                     <asp:Repeater ID="rptDealers" runat="server">

@@ -175,7 +175,6 @@ namespace Bikewale.Mobile.New
                 rptVarients.DataSource = modelPage.ModelVersions;
                 rptVarients.DataBind();
             }
-            ctrlUsersTestimonials.TopCount = 6;
             ToggleOfferDiv();
             if (variantId != 0)
             {

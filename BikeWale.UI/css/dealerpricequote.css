@@ -34,8 +34,7 @@
 .buying-assistance-form .form-control-box { width:160px; float:left; }
 .buying-assistance-form .form-control { border-radius:2px; }
 .buying-assistance-form .errorIcon, .buying-assistance-form .errorText { display:none; }
-.pricequote-benefits-list.pq-benefits-booking-list { list-style:disc;}
-.pricequote-benefits-list.pq-benefits-booking-list li { width:185px; margin-left:20px; }
+.bullet-point { padding-left:20px; background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBEOTBCRUM4RUY0NDExRTVBNTBFRkU2RTlDMDk3NjRFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBEOTBCRUM5RUY0NDExRTVBNTBFRkU2RTlDMDk3NjRFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MEQ5MEJFQzZFRjQ0MTFFNUE1MEVGRTZFOUMwOTc2NEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEQ5MEJFQzdFRjQ0MTFFNUE1MEVGRTZFOUMwOTc2NEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7hX8MiAAAARElEQVR42mJs6uhmY2Bg6AbiGCBmBOLFQFzKAiS6gDiPAQFA7O9MQCKWAROkMjHgAExQM9HBHJAdZVBLYUaCFNYCBBgAgMEJ/XDLDMMAAAAASUVORK5CYII=) no-repeat 0% 50%; }
 .margin-top7 { margin-top:7px; }
 .pos-top3 { top:3px; }
 .text-darker-black { color:#1a1a1a; }
@@ -65,11 +64,9 @@
 /*sidebar*/
 #PQDealerSidebarContainer { background:#fff; position:relative; right:0; overflow:hidden; }
 .pqdealer-and-listing-container { max-height:540px; overflow-y:scroll; }
-.pqdealer-sidebar-panel { border:1px solid #e2e2e2; padding:15px 20px 20px;}
-/*
-.pqdealer-sidebar-panel::before {border-right: 11px solid #e2e2e2;border-top: 11px solid transparent;border-bottom: 11px solid transparent;content: "";position: absolute; top:44px; left: -1px;z-index: 1;}
-.pqdealer-sidebar-panel::after { border-right: 11px solid #ffffff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; content: ""; position: absolute; top:44px;left: 1px; z-index: 1; }
-*/
+.pqdealer-sidebar-panel, .pq-no-premium-dealer { border:1px solid #e2e2e2; padding:15px 20px 20px;}
+.pqdealer-sidebar-panel::before {border-right: 11px solid #e2e2e2;border-top: 11px solid transparent;border-bottom: 11px solid transparent;content: "";position: absolute; top:44px; left: -12px;z-index: 1;}
+.pqdealer-sidebar-panel::after { border-right: 11px solid #ffffff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; content: ""; position: absolute; top:44px;left: -11px; z-index: 1; }
 .pq-sidebar-dealer-listing li { padding-top:15px; padding-bottom:15px; border-top:1px solid #f1f1f1; }
 .show-more-dealers { display:block; }
 .show-less-dealers { display:none; }
