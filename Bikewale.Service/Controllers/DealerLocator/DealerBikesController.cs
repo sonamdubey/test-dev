@@ -2,7 +2,6 @@
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.Interfaces.DealerLocator;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.DealerLocator;
 using System;
@@ -21,10 +20,10 @@ namespace Bikewale.Service.Controllers.DealerLocator
     /// </summary>
     public class DealerBikesController : ApiController
     {
-        private readonly Bikewale.Interfaces.DealerLocator.IDealer _dealer = null;
+        private readonly IDealer _dealer = null;
         private readonly IDealerCacheRepository _cache = null;
 
-        public DealerBikesController(Bikewale.Interfaces.DealerLocator.IDealer dealer, IDealerCacheRepository cache)
+        public DealerBikesController(IDealer dealer, IDealerCacheRepository cache)
         {
             _dealer = dealer;
             _cache = cache;

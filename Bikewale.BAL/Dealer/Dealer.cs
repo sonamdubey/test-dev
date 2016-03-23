@@ -164,5 +164,20 @@ namespace Bikewale.BAL.Dealer
         {
             throw new NotImplementedException();
         }
+
+
+        public DealerBikesEntity GetDealerBikes(ushort dealerId)
+        {
+            try
+            {
+                return (new Bikewale.DAL.Dealer.DealersRepository()).GetDealerBikes(dealerId);
+            }
+            catch(Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, System.Web.HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+                return null;
+            }
+        }
     }
 }

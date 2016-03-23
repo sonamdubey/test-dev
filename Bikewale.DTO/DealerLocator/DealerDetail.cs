@@ -19,7 +19,7 @@ namespace Bikewale.DTO.DealerLocator
         public PQAreaBase Area { get; set; }
 
         [JsonProperty("type")]
-        public DealerPackageType Type { get; set; }
+        public UInt16 DealerType { get; set; }
 
         [JsonProperty("city")]
         public string City { get; set; }
@@ -29,12 +29,6 @@ namespace Bikewale.DTO.DealerLocator
 
         [JsonProperty("address")]
         public string Address { get; set; }
-
-        [JsonProperty("showRoomStartTime")]
-        public DateTime ShowRoomStartTime { get; set; }
-
-        [JsonProperty("showRoomEndTime")]
-        public DateTime ShowRoomEndTime { get; set; }
 
         [JsonProperty("workingHours")]
         public string WorkingHours { get; set; }
