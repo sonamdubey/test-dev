@@ -35,10 +35,10 @@ namespace Bikewale.Mobile
                     dealer = dealerModels.GetDealerBikes(dealerId);
                     if (dealer != null)
                     {
-                        if (dealer.DealerDetail != null)
+                        if (dealer.DealerDetails != null)
                         {
                             isDealerDetail = true;
-                            dealerDetail = dealer.DealerDetail;
+                            dealerDetail = dealer.DealerDetails;
                         }
                         if (dealer.Models != null)
                         {

@@ -507,14 +507,14 @@ namespace Bikewale.DAL.Dealer
                                 while (dr.Read())
                                 {
                                     dealerdetail = new DealersList();
-                                    dealerdetail.Area = new AreaEntityBase();
+                                    dealerdetail.objArea = new AreaEntityBase();
 
                                     dealerdetail.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt16(dr["DealerId"]) : default(UInt16);
                                     dealerdetail.Name = Convert.ToString(dr["DealerName"]);
                                     dealerdetail.DealerType = !Convert.IsDBNull(dr["DealerPackage"]) ? Convert.ToUInt16(dr["DealerPackage"]) : default(UInt16);
-                                    dealerdetail.Area.AreaName = Convert.ToString(dr["Area"]);
-                                    dealerdetail.Area.Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(Double);
-                                    dealerdetail.Area.Latitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(Double);
+                                    dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
+                                    dealerdetail.objArea.Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(Double);
+                                    dealerdetail.objArea.Latitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(Double);
                                     dealerdetail.City = Convert.ToString(dr["City"]);
                                     dealerdetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                     dealerdetail.EMail = Convert.ToString(dr["EMail"]);
@@ -526,10 +526,11 @@ namespace Bikewale.DAL.Dealer
                                 {
                                     dealers.TotalCount = !Convert.IsDBNull(dr["TotalCount"]) ? Convert.ToUInt16(dr["TotalCount"]) : default(UInt16);
                                 }
-                                        DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes),Convert.ToString(dr["DealerPackage"])),
-                                        objArea = new AreaEntityBase
+
+                            }
+                            dealers.Dealers = dealerList;
+                        }
                     }
-                    dealers.DealerList = dealerList;
                 }
             }
             catch (SqlException ex)
@@ -560,12 +561,8 @@ namespace Bikewale.DAL.Dealer
         /// <param name="dealerId">e.g. 4</param>
         /// <returns>DealerBikesEntity Entity object.</returns>
         public DealerBikesEntity GetDealerBikes(UInt16 dealerId)
-        {
-            GetDealerByMakeCity(1, 7);
-            GetDealerByMakeCity(1, 7);   
+        {  
             DealerBikesEntity dealers = new DealerBikesEntity();
-
-            //IList<DealersList> dealerList = new List<DealersList>();
             Database db = null;
 
             try
@@ -585,19 +582,19 @@ namespace Bikewale.DAL.Dealer
                             if (dr.Read() && dr.HasRows)
                             {
                                 DealerPackageTypes dpType;
-                                dealers.DealerDetail = new DealerDetailEntity();
-                                dealers.DealerDetail.Name = Convert.ToString(dr["DealerName"]);
-                                dealers.DealerDetail.Address = Convert.ToString(dr["Address"]);
-                                dealers.DealerDetail.Area = new AreaEntityBase
+                                dealers.DealerDetails = new DealerDetailEntity();
+                                dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
+                                dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
+                                dealers.DealerDetails.Area = new AreaEntityBase
                                 {
                                     AreaName = Convert.ToString(dr["Area"]),
                                     Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(UInt16),
                                     Latitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(UInt16)
                                 };
-                                dealers.DealerDetail.City = Convert.ToString(dr["City"]);
-                                dealers.DealerDetail.DealerPkgType = Enum.TryParse<DealerPackageTypes>(Convert.ToString(dr["DealerType"]), out dpType) ? dpType : DealerPackageTypes.Invalid;
-                                dealers.DealerDetail.EMail = Convert.ToString(dr["EMail"]);
-                                dealers.DealerDetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
+                                dealers.DealerDetails.City = Convert.ToString(dr["City"]);
+                                dealers.DealerDetails.DealerPkgType = Enum.TryParse<DealerPackageTypes>(Convert.ToString(dr["DealerType"]), out dpType) ? dpType : 0 ;
+                                dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
+                                dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealers.DealerDetails.DealerId = dealerId;
                                 dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
                                 dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
@@ -608,7 +605,7 @@ namespace Bikewale.DAL.Dealer
                                     Latitude = Convert.ToDouble(dr["Longitude"])
                                 };
                                 dealers.DealerDetails.City = Convert.ToString(dr["City"]);
-                                dealers.DealerDetails.DealerPkgType = (DealerPackageTypes)Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"]));
+                                dealers.DealerDetails.DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"]));
                                 dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                             }

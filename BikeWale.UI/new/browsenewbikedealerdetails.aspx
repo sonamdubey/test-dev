@@ -97,10 +97,10 @@
                     <ul id="dealersList">
                         <asp:Repeater ID="rptDealers" runat="server">
                             <ItemTemplate>
-                                <li data-item-tye="<%# (DataBinder.Eval(Container.DataItem,"DealerPkgType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>">
+                                <li data-item-tye="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>">
                                     <div class="font14">
                                         <h2 class="font16 margin-bottom10">
-                                            <div class= " <%# ((DataBinder.Eval(Container.DataItem,"DealerPkgType").ToString() == "Premium") || (DataBinder.Eval(Container.DataItem,"DealerPkgType").ToString() == "Deluxe"))? "" : "hide" %>">
+                                            <div class= " <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
                                                   <span  class="featured-tag text-white text-center font14 margin-bottom5">Featured
                                                 </span>
                                                 <span class="dealer-pointer-arrow"></span>

@@ -165,12 +165,6 @@ namespace Bikewale.BAL.Dealer
             throw new NotImplementedException();
         }
 
-
-        public DealerBikesEntity GetDealerBikes(ushort dealerId)
-        {
-            return dealerRepository.GetDealerBikes(dealerId);
-        }
-
         /// <summary>
         /// Created by  :   Sumit Kate on 22 Mar 2016
         /// Description :   Calls the DAL

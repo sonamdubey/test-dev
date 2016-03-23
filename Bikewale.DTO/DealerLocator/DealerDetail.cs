@@ -31,10 +31,6 @@ namespace Bikewale.DTO.DealerLocator
         public string Address { get; set; }
 
         [JsonProperty("workingHours")]
-
-        [JsonProperty("showRoomClosingHours")]
-
-        [JsonProperty("workingHours")]
         public string WorkingHours { get; set; }
     }
 }
