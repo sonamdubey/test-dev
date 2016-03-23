@@ -20,13 +20,11 @@ namespace BikewaleOpr.Campaign
         protected string dealerName;
         protected Button btnUpdate;
         protected ManageDealerCampaign dealerCampaign;
-        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtStartDate, txtEndDate;
+        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber;
         protected string startDate, endDate;
         public Label lblGreenMessage, lblErrorSummary;
         public HtmlGenericControl textArea;
-        public HiddenField hdnStartDate, hdnEndDate;
-        public DateTime dtStart, dtEnd;
-        bool isCampaignActive;
+        bool isCampaignPresent;
         
         #endregion
 
@@ -35,28 +33,39 @@ namespace BikewaleOpr.Campaign
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
-            btnUpdate.Click += new EventHandler(UpdateDealerCampaign);
+            btnUpdate.Click += new EventHandler(InserOrUpdateDealerCampaign);
         }
 
-        private void UpdateDealerCampaign(object sender, EventArgs e)
+        private void InserOrUpdateDealerCampaign(object sender, EventArgs e)
         {
             dealerCampaign = new ManageDealerCampaign();
-
-            if (DateTime.Now > dtStart && DateTime.Now < dtEnd)
-                isCampaignActive = true;
-
-            dealerCampaign.InsertBWDealerCampaign(
-                isCampaignActive,
-                currentUserId,
-                dealerId,
-                contractId,
-                Convert.ToInt16(txtdealerRadius.Text),
-                dtStart,
-                dtEnd,
-                txtMaskingNumber.Text,
-                dealerName,
-                txtDealerEmail.Text,
-                false);
+            if (isCampaignPresent)
+            {
+                dealerCampaign.InsertBWDealerCampaign(
+                    true,
+                    currentUserId,
+                    dealerId,
+                    contractId,
+                    Convert.ToInt16(txtdealerRadius.Text),
+                    txtMaskingNumber.Text,
+                    dealerName,
+                    txtDealerEmail.Text,
+                    false);
+            }
+            else
+            {
+                dealerCampaign.UpdateBWDealerCampaign(
+                    true,
+                    campaignId,
+                    currentUserId,
+                    dealerId,
+                    contractId,
+                    Convert.ToInt16(txtdealerRadius.Text),
+                    txtMaskingNumber.Text,
+                    dealerName,
+                    txtDealerEmail.Text,
+                    false);
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -84,6 +93,8 @@ namespace BikewaleOpr.Campaign
                 {
                     txtdealerRadius.Text = dtCampaign.Rows[0]["DealerLeadServingRadius"].ToString();
                     txtMaskingNumber.Text = dtCampaign.Rows[0]["Number"].ToString();
+                    txtDealerEmail.Text = dtCampaign.Rows[0]["DealerEmailId"].ToString();
+                    isCampaignPresent = true;
                 }
             }
             catch (Exception ex)
@@ -102,24 +113,12 @@ namespace BikewaleOpr.Campaign
             try
             {
                 currentUserId = Convert.ToInt32(CurrentUser.Id);
-                if (!string.IsNullOrEmpty(hdnStartDate.Value))
-                {
-                    dtStart = DateTime.ParseExact(hdnStartDate.Value, "dd-MM-yyyy", CultureInfo.CurrentCulture);
-                }
-                if (!string.IsNullOrEmpty(hdnEndDate.Value))
-                {
-                    dtEnd = DateTime.ParseExact(hdnEndDate.Value, "dd-MM-yyyy", CultureInfo.CurrentCulture);
-                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.SetPageVariables");
                 objErr.SendMail();
             }
-            //startDate = Request.Form[txtStartDate.UniqueID];
-            //endDate = Request.Form[txtEndDate.UniqueID];
-            //var dateStr = @"2011-03-21 13:26";
-            //var dateTime = DateTime.ParseExact(dateStr, "yyyy-MM-dd HH:mm", CultureInfo.CurrentCulture);
         }
 
         /// <summary>
@@ -155,24 +154,6 @@ namespace BikewaleOpr.Campaign
                 objErr.SendMail();
             }
         }
-
-        /// <summary>
-        /// Created By : Sangram Nandkhile on 21st March 2016.
-        /// Description : 
-        /// </summary>
-        private void Test()
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.");
-                objErr.SendMail();
-            }
-        }
- 
         #endregion
     }
 }
