@@ -107,7 +107,6 @@ function initializeMap(dealerArr) {
         markerArr.push(marker);
         marker.setMap(map);
 
-        //content = '<div class="dealer-info-tooltip"><h3 class="font16 margin-bottom5"><a href="javascript:void(0)" data-tooltip-id="' + dealer.id + '" class="text-black tooltip-target-link">' + dealer.name + '</a></h3><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div class="margin-bottom5"><span class="bwsprite tel-sm-grey-icon"></span><span>' + 9876543210 + '</span></div><div class="margin-bottom10"><a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span>bikewale@motors.com</a></div><div class="text-link"><a href="">Get direction</a></div></div></div>';
         content = '<div class="dealer-info-tooltip"><h3 class="font16 margin-bottom5"><a href="javascript:void(0)" data-tooltip-id="' + dealer.id + '" class="text-black tooltip-target-link">' + dealer.name + '</a></h3><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-grey-icon"></span><span>' + 9876543210 + '</span></div></div></div>';
 
         google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
@@ -269,21 +268,21 @@ ko.bindingHandlers.CurrencyText = {
 //for jquery chosen : knockout event 
 ko.bindingHandlers.chosen = {
     init: function (element, valueAccessor, allBindings, customerViewModel, bindingContext) {
-        //var $element = $(element);
-        //var options = ko.unwrap(valueAccessor()) + {width : "100%" };
-        //if (typeof options === 'object')
-        //    $element.chosen(options);
+        var $element = $(element);
+        var options = ko.unwrap(valueAccessor()) + {width : "100%" };
+        if (typeof options === 'object')
+            $element.chosen(options);
 
-        //['options', 'selectedOptions', 'value'].forEach(function (propName) {
-        //    if (allBindings.has(propName)) {
-        //        var prop = allBindings.get(propName);
-        //        if (ko.isObservable(prop)) {
-        //            prop.subscribe(function () {
-        //                $element.trigger('chosen:updated');
-        //            });
-        //        }
-        //    }
-        //});
+        ['options', 'selectedOptions', 'value'].forEach(function (propName) {
+            if (allBindings.has(propName)) {
+                var prop = allBindings.get(propName);
+                if (ko.isObservable(prop)) {
+                    prop.subscribe(function () {
+                        $element.trigger('chosen:updated');
+                    });
+                }
+            }
+        });
         return;
     }
 }
@@ -306,7 +305,7 @@ function getDealerDetails(id)
     {
         $.ajax({
             type: "GET",
-            url: "http://localhost:9011/api/DealerBikes/?dealerId=" + id,
+            url: "/api/DealerBikes/?dealerId=" + id,
             contentType: "application/json",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('utma', getCookie('__utma'));
@@ -901,4 +900,4 @@ var validateMobileNo = function (leadMobileNo) {
     return isValid;
 };
 
-
+ 

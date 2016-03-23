@@ -5,14 +5,15 @@
 <head>
     <%
         isAd970x90Shown = false;
-        //keywords = makeName + " dealers city, Make showrooms " + strCity + "," + strCity + " bike dealers, " + makeName + " dealers, " + strCity + " bike showrooms, bike dealers, bike showrooms, dealerships";
-        //description = makeName + " bike dealers/showrooms in " + strCity + ". Find " + makeName + " bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc.";
-        //title = makeName + " Dealers in city | " + makeName + " New bike Showrooms in " + strCity + " - BikeWale";
-        //canonical = "http://www.bikewale.com/new/" + MakeMaskingName + "-dealers/" + cityId + "-" + strCity + ".html";
-        //alternate = "http://www.bikewale.com/m/new/" + MakeMaskingName + "-dealers/" + cityId + "-" + strCity + ".html";
-        //AdId = "1395986297721";
-        //AdPath = "/1017752/BikeWale_New_";
-        //isAd970x90Shown = false;
+
+        keywords = String.Format("{0} dealers city, Make showrooms  {1}, {1} bike dealers, {0} dealers, {1} bike showrooms, bike dealers, bike showrooms, dealerships", makeName, cityName);
+        description = String.Format("{0} bike dealers/showrooms in {1}. Find {0} bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc",makeName,cityName);
+        title = String.Format("{0} Dealers in {1} city | {0} New bike Showrooms in {1} - BikeWale",makeName,cityName);
+        canonical = String.Format("http://www.bikewale.com/new/{0}-dealers/{1}-{2}.html",makeMaskingName,cityId,cityMaskingName);
+        alternate = String.Format("http://www.bikewale.com/m/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, cityMaskingName);
+        AdId = "1395986297721";
+        AdPath = "/1017752/BikeWale_New_";
+        isAd970x90Shown = false;
     %>
     <title></title>
     <!-- #include file="/includes/headscript.aspx" -->
@@ -166,19 +167,10 @@
                             </div>
                             <div class="clear"></div>
                             <div class="margin-top20">
-                                <!--
-                            <div class="select-model-box form-control-box leftfloat margin-right40">
-                                <input type="text" class="form-control" placeholder="Type to select model" id="assistGetModel" />
-                                <span class="bwsprite error-icon errorIcon"></span>
-                                <div class="bw-blackbg-tooltip errorText"></div>
-                            </div>
-                            -->
                                 <div class="select-model-box form-control-box leftfloat margin-right40">
-                                    <%--<select id="assistGetModel" data-placeholder="Choose a bike model" data-bind="template: { name: 'bikesTemplate', foreach: bikes, chosen: { no_results_text: 'No matches found!!', width: '100℅' } }" class="form-control chosen-select"></select>
-                                <script id="bikesTemplate" type="text/html">
-                                    <option data-bind="text: bike, attr: { value: model.modelId, versionId: version.versionId }, click: function (data, event) { return $parent.selectVersion(data, event) }"></option>
-                                </script>--%>
-                                    <select id="assistGetModel" data-placeholder="Choose a bike model" data-bind="event: { change: $parent.selectVersion }, attr: { modelId: 'model.modelId' }, options: bikes, optionsText: 'bike', optionsValue: 'version.versionId', chosen: { no_results_text: 'No matches found!!', width: '100℅' }" class="form-control chosen-select"></select>
+                                    <select id="assistGetModel" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: bikes, optionsText: 'bike',chosen: { no_results_text: 'No matches found!!', width: '100℅' }" class="form-control chosen-select"></select>
+                                    <span class="bwsprite error-icon errorIcon"></span>
+                                    <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
                                 <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" value="Submit" data-bind="event: { click: submitLead }" />
                             </div>
@@ -237,8 +229,8 @@
                     <p class="font20 margin-top20 margin-bottom10">Provide contact details</p>
                     <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
                     <div class="personal-info-form-container">
-                        <div class="form-control-box personal-info-list">                        
-                           <select id="getModelName" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: bikes, optionsText: 'bike'" class="form-control chosen-select"></select>                            
+                        <div class="form-control-box personal-info-list">
+                            <select id="getModelName" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: bikes, optionsText: 'bike',chosen: { no_results_text: 'No matches found!!', width: '100℅' }" class="form-control chosen-select"></select>
                         </div>
                         <div class="form-control-box personal-info-list">
                             <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
@@ -312,7 +304,7 @@
                             <span class="bwsprite otp-icon margin-top25"></span>
                         </div>
                     </div>
-                    <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="dealerName"></span>, <span data-bind="dealerArea"></span> will get in touch with you soon.</p>
+                    <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="dealerName"></span>, <span data-bind="    dealerArea"></span>will get in touch with you soon.</p>
 
                     <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
                 </div>
@@ -344,21 +336,80 @@
             $ddlCities = $("#ddlCities");
             $ddlMakes = $("#ddlMakes");
             bikeCityId = $("#ddlCities").val();
-            // $ddlModels = $("#assistGetModel,#getModelName");
-            //$("#assistGetModel,#getModelName").chosen({ width: "100%" });
             $("#applyFiltersBtn").click(function () {
+
                 ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
                 ddlcityId = $("#ddlCities option:selected").val();
-                ddlcityMasking = $("#ddlCities option:selected").text().toLowerCase();
+                if(ddlcityId != "0")
+                {
+                    ddlcityMasking = $("#ddlCities option:selected").text().toLowerCase();   
+                    window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                }
+                else{
 
-                window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                }
+
+                
             });
 
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
             $ddlMakes.chosen({ no_results_text: "No matches found!!" });
-           // $ddlModels.chosen({ no_results_text: "No matches found!!", width: "100%" });
+            // $ddlModels.chosen({ no_results_text: "No matches found!!", width: "100%" });
             $('div.chosen-container').attr('style', 'width:100%;border:0');
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
+
+            var key = "dealerCities_";
+            lscache.setBucket('DLPage');
+            
+            $ddlMakes.change(function () {
+                selMakeId = $ddlMakes.val();
+                $ddlCities.empty();
+                if (!isNaN(selMakeId) && selMakeId != "0") {
+                    if (!checkCacheCityAreas(selMakeId)) {
+                        $.ajax({
+                            type: "GET",
+                            url: "http://webserver:9011/api/v2/DealerCity/?makeId=" + selMakeId,
+                            contentType: "application/json",
+                            success: function (data) {
+                                lscache.set(key + selMakeId, data.City, 30);
+                                setOptions(data.City);
+                            },
+                            complete: function (xhr) {
+                                if (xhr.status == 404 || xhr.status == 204) {
+                                    lscache.set(key + selMakeId, null, 30);
+                                    setOptions(null);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        data = lscache.get(key + selMakeId.toString());
+                        setOptions(data);
+                    }
+                }
+                else {
+                    setOptions(null);
+                }
+            });
+
+            function checkCacheCityAreas(cityId) {
+                bKey = key + cityId;
+                if (lscache.get(bKey)) return true;
+                else return false;
+            }
+
+            function setOptions(optList) {
+                if (optList != null)
+                {
+                    $ddlCities.append($('<option>').text(" Select City ").attr({ 'value': "0" }));
+                    $.each(optList, function (i, value) {
+                        $ddlCities.append($('<option>').text(value.cityName).attr({'value' : value.cityId , 'maskingName' : value.cityMaskingName }));
+                    });
+                }
+                                
+                $ddlCities.trigger('chosen:updated');
+                $("#ddlCities_chosen .chosen-single.chosen-default span").text("No Areas available");
+            }
 
         </script>
 
