@@ -218,7 +218,7 @@
                                             <span class="bwsprite error-icon errorIcon"></span>
                                             <div class="bw-blackbg-tooltip errorText"></div>
                                         </div>
-                                        <a class="btn btn-orange leftfloat" id="buyingAssistBtn" data-bind="event: { click: submitLead }">Submit</a>
+                                        <a class="btn btn-orange leftfloat" id="buyingAssistBtn" data-bind="event: { click: submitLead } ">Submit</a>
                                         <div class="clear"></div>
                                     </div>
                                 </div>
@@ -752,16 +752,16 @@
 
             <% } %>
             
-            $("#dealer-assist-msg .assistance-response-close").click(function(){
+            $("#dealer-assist-msg .assistance-response-close").on("click", function(){
                 $("#dealer-assist-msg").parent().slideUp();
             });
 
-            $("#dealer-lead-msg .okay-thanks-msg").click(function(){
+            $("#dealer-lead-msg .okay-thanks-msg").on("click", function(){
                 $(".leadCapture-close-btn").click();
             });
 
             
-            $('#btnGetDealerDetails, #btnBikeBooking').click(function () {
+            $('#btnGetDealerDetails, #btnBikeBooking').on("click", function () {
                 var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
                 window.location.href = '/pricequote/bookingsummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
             });
@@ -789,17 +789,17 @@
                 $('#hdnDealerId').val($(this).attr('title'));
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
             });
-            $("#dealerList li").click(function(){
+            $("#dealerList li").on("click", function(){
                 registerPQ($(this).attr('dealerId'));
             });
 
             function registerPQ(secondaryDealerId) {
                 var obj = {
-                    'CityId': cityId,
-                    'AreaId': areaId,
-                    'ClientIP': clientIP,
-                    'SourceType': <%=Bikewale.Utility.BWConfiguration.Instance.SourceId%>,
-                    'VersionId': versionId,
+                    'cityId': cityId,
+                    'areaId': areaId,
+                    'clientIP': clientIP,
+                    'sourceType': <%=Bikewale.Utility.BWConfiguration.Instance.SourceId%>,
+                    'versionId': versionId,
                     'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
                     'deviceId': getCookie('BWC'),
                     'dealerId': secondaryDealerId
@@ -817,10 +817,10 @@
                         var jsonObj = json;                                               
                         if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                             cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + versionId + "&DealerId=" + secondaryDealerId;
-                            window.location = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
+                            window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
                         }
                         else {
-                            window.location = "/pricequote/";
+                            window.location.href = "/pricequote/";
                         }
                     },
                     error: function (e) {

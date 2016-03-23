@@ -160,11 +160,12 @@ function CustomerModel() {
         }
     };
 
-    self.submitLead = function () {
+    self.submitLead = function (data, event) {
         $("#dealer-lead-msg").hide();
         self.IsVerified(false);
         isValidDetails = false;
-        if (event.currentTarget.id == 'buyingAssistBtn') {
+        var btnId = event.target.id;
+        if (btnId == 'buyingAssistBtn') {
             self.isAssist(true);
             isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
         }
@@ -204,18 +205,16 @@ function CustomerModel() {
         }
     };
 
-    otpBtn.click(function () {
+    otpBtn.on("click", function (event) {
         $('#processing').show();
         isValidDetails = false;
         if (!validateOTP())
             $('#processing').hide();
-
-        if (event.currentTarget.id == 'buyingAssistBtn') {
-            self.isAssist(true);
+        
+        if (self.isAssist() == true) {            
             isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
         }
-        else {
-            self.isAssist(false);
+        else {            
             isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
         }
 
