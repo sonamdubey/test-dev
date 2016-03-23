@@ -817,10 +817,10 @@
                         var jsonObj = json;                                               
                         if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                             cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + versionId + "&DealerId=" + secondaryDealerId;
-                            window.location = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
+                            window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
                         }
                         else {
-                            window.location = "/pricequote/";
+                            window.location.href = "/pricequote/";
                         }
                     },
                     error: function (e) {

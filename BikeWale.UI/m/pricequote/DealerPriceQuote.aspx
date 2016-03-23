@@ -257,7 +257,7 @@
                     <asp:Repeater ID="rptSecondaryDealers" runat="server">
                         <ItemTemplate>
                             <li>
-                                <a href="" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="secondary-dealer font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a><br />
+                                <a href="#" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="secondary-dealer font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a><br />
                                 <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
                             </li>
                         </ItemTemplate>
@@ -1044,7 +1044,7 @@
                         var jsonObj = json;
                         if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                             cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + versionId + "&DealerId=" + secondaryDealerId;
-                            window.location = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
+                            window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
                         }
                     }
                 });
