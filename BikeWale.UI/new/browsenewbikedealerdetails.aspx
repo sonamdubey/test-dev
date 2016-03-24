@@ -78,6 +78,8 @@
                                 </asp:Repeater>
                             </select>
                             <div class="clear"></div>
+                            <span class="bwsprite error-icon errorIcon hide" ></span>
+                            <div class="bw-blackbg-tooltip errorText hide" ></div>
                         </div>
                     </div>
                     <input type="button" id="applyFiltersBtn" class="btn btn-orange leftfloat" value="Apply" />
@@ -355,7 +357,7 @@
                     window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
                 }
                 else{
-
+                    toggleErrorMsg($ddlCities, true ,"Choose a city" );
                 }
 
                 
@@ -396,10 +398,14 @@
                         setOptions(data);
                     }
                 }
-                else {
+                else {                    
                     setOptions(null);
                 }
             });
+
+            $ddlCities.change(function(){
+                toggleErrorMsg($ddlCities, false );
+            }) ;
 
             function checkCacheCityAreas(cityId) {
                 bKey = key + cityId;
@@ -408,6 +414,7 @@
             }
 
             function setOptions(optList) {
+                toggleErrorMsg($ddlCities, false );
                 if (optList != null)
                 {
                     $ddlCities.append($('<option>').text(" Select City ").attr({ 'value': "0" }));
