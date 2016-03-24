@@ -3,6 +3,7 @@
         windowHeight = window.innerHeight;
     $('#dealerMapWrapper, #dealersMap').css({ 'width': windowWidth - 355, 'height': windowHeight - 50 });
     $('.dealer-map-wrapper').css({ 'height': $('#dealerListingSidebar').height() + 1 });
+    $("img.lazy").lazyload();
 });
 
 $(window).scroll(function () {
@@ -367,35 +368,46 @@ var DealerModel = function (data) {
 
 
 function getDealerDetails(id) {
-    var obj = new Object();
-    if (id != "0") {
-        $.ajax({
-            type: "GET",
-            url: "/api/DealerBikes/?dealerId=" + id,
-            contentType: "application/json",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('utma', getCookie('__utma'));
-                xhr.setRequestHeader('utmz', getCookie('__utmz'));
-            },
-            success: function (response) {
-                obj = ko.toJS(response);
+    var obj = new Object(); 
 
-
-                customerViewModel = new CustomerModel(obj);
-
-                ko.cleanNode($('#dealerInfo')[0]);
-                ko.applyBindings(new DealerModel(obj), $('#dealerInfo')[0]);
-
-            },
-            complete: function (xhr) {
-                if (xhr.status == 204 || xhr.status == 404) {
-
+    if (!isNaN(id) && id != "0") {
+        var dealerKey = "dealerDetails_" + id;
+        var dealerInfo = lscache.get(dealerKey);
+        if (!dealerInfo) {
+            $.ajax({
+                type: "GET",
+                url: "/api/DealerBikes/?dealerId=" + id,
+                contentType: "application/json",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('utma', getCookie('__utma'));
+                    xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                },
+                success: function (response) {
+                    lscache.set(dealerKey, response, 30);
+                    bindDealerDetails(response);
+                },
+                complete: function (xhr) {                     
+                    if (xhr.status == 204 || xhr.status == 404) {
+                        lscache.set(dealerKey, null, 30);
+                    }
                 }
-            }
-        });
+            });
+        }
+        else {
+            bindDealerDetails(dealerInfo);
+        }
     }
 
     return obj;
+}
+
+function bindDealerDetails(response)
+{
+    obj = ko.toJS(response);
+    customerViewModel = new CustomerModel(obj);
+    ko.cleanNode($('#dealerInfo')[0]);
+    ko.applyBindings(new DealerModel(obj), $('#dealerInfo')[0]);
+   // $("#dealerDetailsSliderCard img.lazy").lazyload();
 }
 
 
@@ -909,4 +921,4 @@ var validateMobileNo = function (leadMobileNo) {
         hideError(leadMobileNo)
     return isValid;
 };
-
+

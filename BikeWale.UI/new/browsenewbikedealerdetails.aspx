@@ -140,12 +140,11 @@
                             <h3 class="font18 text-dark-black margin-bottom10" data-bind="text: name"></h3>
                             <p class="text-light-grey margin-bottom5" data-bind="text: address"></p>
                             <div class="margin-bottom5">
-                                <span class="font16 text-bold margin-right10"><span class="bwsprite phone-black-icon"></span><span data-bind="text: mobile"></span></span>
-                                <a href="" class="text-light-grey" data-bind="attr : { href :'mailto:' + email }"><span class="bwsprite mail-grey-icon"></span><span data-bind="text: email"></span></a>
+                                <span class="font16 text-bold margin-right10" data-bind="visible : mobile && mobile.length > 0"><span class="bwsprite phone-black-icon"></span><span data-bind="text: mobile"></span></span>
+                                <a href="#" class="text-light-grey" data-bind="visible : email && email.length > 0,attr : { href :'mailto:' + email }"><span class="bwsprite mail-grey-icon"></span><span data-bind="    text: email"></span></a>
                             </div>
 
-                            <p class="text-light-grey margin-bottom5" data-bind="visible: workingHours"></p>
-                            <p class="text-light-grey margin-bottom5" data-bind="visible: !workingHours">Showroom Hours : <span data-bind="    text: showRoomClosingHours"></span>to <span data-bind="    text: showRoomOpeningHours"></span></p>
+                            <p class="text-light-grey margin-bottom5" data-bind="visible: workingHours && workingHours.length > 0,text : workingHours"> Working Hours : </p>
                             <%-- <a href=""><span class="bwsprite get-direction-icon"></span>Get directions</a>
                             <a href="" class="border-dark-left margin-left10 padding-left10"><span class="bwsprite sendto-phone-icon"></span>Send to phone</a>--%>
                         </div>
@@ -200,13 +199,13 @@
                             <li>
                                 <div class="contentWrapper">
                                     <div class="imageWrapper">
-                                        <a href="" data-bind="attr: { href: bikeUrl(), title: bikeName() }">
-                                            <img data-bind="attr: { src: imagePath(), title: bikeName(), alt: bikeName() }" />
+                                        <a href="#" data-bind="attr: { href: bikeUrl(), title: bikeName() }">
+                                            <img class="lazy" data-bind="attr: { 'data-original' : imagePath(), title: bikeName(), alt: bikeName() }" />
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
                                         <div class="bikeTitle margin-bottom7">
-                                            <h3 class="font16 text-dark-black"><a href="" title="" data-bind="text: bikeName()"></a></h3>
+                                            <h3 class="font16 text-dark-black"><a href="#" title="" data-bind="text: bikeName(),attr: { href: bikeUrl(), title: bikeName() }"></a></h3>
                                         </div>
                                         <div class="font16 text-bold margin-bottom5">
                                             <span class="fa fa-rupee"></span>
@@ -378,7 +377,7 @@
                     if (!checkCacheCityAreas(selMakeId)) {
                         $.ajax({
                             type: "GET",
-                            url: "http://webserver:9011/api/v2/DealerCity/?makeId=" + selMakeId,
+                            url: "/api/v2/DealerCity/?makeId=" + selMakeId,
                             contentType: "application/json",
                             success: function (data) {
                                 lscache.set(key + selMakeId, data.City, 30);
