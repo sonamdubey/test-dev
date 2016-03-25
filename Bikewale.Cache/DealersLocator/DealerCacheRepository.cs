@@ -24,7 +24,6 @@ namespace Bikewale.Cache.DealersLocator
         {
             _cache = cache;
             _objDealers = objDealers;
-
         }
 
         /// <summary>

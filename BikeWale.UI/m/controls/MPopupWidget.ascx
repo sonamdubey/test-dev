@@ -120,8 +120,9 @@
         $(".blackOut-window").hide();
         $('a.fillPopupData').removeClass('ui-btn-active');
     });
-
+    
     $('body').on("click", "a.fillPopupData", function (e) {
+        
         e.stopPropagation();
         $("#errMsgPopUp").empty();
         var str = $(this).attr('modelId');

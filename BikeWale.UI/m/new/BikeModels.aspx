@@ -5,7 +5,6 @@
 <%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="/m/controls/UserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
-<%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html> 
 <html>
 <head>
@@ -1033,51 +1032,6 @@
             </div>
         </section>
 
-        <% if (ctrlUsersTestimonials.FetchedCount > 0 && bookingAmt > 0)
-           { %>
-        <section class="bg-white">
-            <div id="testimonialWrapper" class="content-box-shadow padding-top15 padding-bottom20 margin-bottom30">
-                <h2 class="text-bold text-center margin-bottom15 font24">What do our customers say</h2>
-                <div class="swiper-container text-center">
-                    <div class="swiper-wrapper padding-bottom20">
-                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </section>
-        <%
-           }        
-        %>
-
-
-        <% if (bookingAmt > 0)
-           { %>
-        <section>
-            <div class="container margin-top20 margin-bottom30">
-                <div id="faqSlug" class="grid-12">
-                    <div class="faq-slug-container content-box-shadow content-inner-block-20">
-                        <div class="question-icon-container text-center leftfloat">
-                            <div class="icon-outer-container rounded-corner50percent">
-                                <div class="icon-inner-container rounded-corner50percent">
-                                    <span class="bwmsprite question-mark-icon margin-top20"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="question-text-container leftfloat padding-left15">
-                            <p class="question-title font16 text-bold text-black">Questions?</p>
-                            <p class="question-subtitle text-light-grey font14">
-                                We’re here to help.<br />
-                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a>
-                            </p>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-        <%} %>
         <!-- Terms and condition Popup Ends -->
         <!-- View BreakUp Popup Starts here-->
         <div class="breakupPopUpContainer bwm-fullscreen-popup hide" id="breakupPopUpContainer">

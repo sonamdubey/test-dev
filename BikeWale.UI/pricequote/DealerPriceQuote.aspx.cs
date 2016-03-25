@@ -1,5 +1,4 @@
 ﻿using Bikewale.BAL.BikeData;
-using Bikewale.BAL.Customer;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.Common;
 using Bikewale.Controls;
@@ -10,7 +9,6 @@ using Bikewale.Entities.Customer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -34,18 +32,18 @@ namespace Bikewale.BikeBooking
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
         protected AlternativeBikes ctrlAlternativeBikes;
-        protected string BikeName = string.Empty, pageUrl = string.Empty, clientIP = string.Empty,cityArea = string.Empty, city = string.Empty, area = string.Empty ;
-        protected uint totalPrice = 0, bookingAmount, dealerId = 0, cityId = 0, versionId = 0, pqId = 0, areaId = 0,insuranceAmount = 0,totalDiscount = 0;
-        protected bool IsInsuranceFree ,isUSPBenfits, isoffer, isEMIAvailable,IsDiscount; 
-        protected CustomerEntity objCustomer = new CustomerEntity(); 
-        protected DetailedDealerQuotationEntity detailedDealer = null; 
+        protected string BikeName = string.Empty, pageUrl = string.Empty, clientIP = string.Empty, cityArea = string.Empty, city = string.Empty, area = string.Empty;
+        protected uint totalPrice = 0, bookingAmount, dealerId = 0, cityId = 0, versionId = 0, pqId = 0, areaId = 0, insuranceAmount = 0, totalDiscount = 0;
+        protected bool IsInsuranceFree, isUSPBenfits, isoffer, isEMIAvailable, IsDiscount;
+        protected CustomerEntity objCustomer = new CustomerEntity();
+        protected DetailedDealerQuotationEntity detailedDealer = null;
         protected string dealerName, dealerArea, maskingNum, dealerAddress, makeName, modelName, versionName, mpqQueryString;
         protected double latitude, longitude;
         protected HiddenField hdnVariant, hdnDealerId;
         protected Label defaultVariant;
         protected DealerPackageTypes dealerType;
         protected DealerQuotationEntity primarydealer = null;
-        
+
 
 
         protected override void OnInit(EventArgs e)
@@ -110,6 +108,7 @@ namespace Bikewale.BikeBooking
         }
         #endregion   
       
+
         #region Dealer PriceQuote Details Binding
         /// <summary>
         /// Created By : Lucky Rathore
@@ -166,7 +165,7 @@ namespace Bikewale.BikeBooking
                             }
                             else
                             {
-                                Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId),"")), false);
+                                Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId), "")), false);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                                 this.Page.Visible = false;
                             }
@@ -256,7 +255,7 @@ namespace Bikewale.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-        } 
+        }
         #endregion
 
         #region Set Default EMI details
@@ -285,8 +284,8 @@ namespace Bikewale.BikeBooking
                 objErr.SendMail();
             }
             return _objEMI;
-        } 
-        #endregion      
+        }
+        #endregion
 
         #region Bind Versions
         /// <summary>
@@ -319,7 +318,7 @@ namespace Bikewale.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-        } 
+        }
         #endregion
 
         /// <summary>
@@ -360,7 +359,7 @@ namespace Bikewale.BikeBooking
                     {
                         objPQEntity.CityId = cityId;
                         objPQEntity.AreaId = areaId;
-                        objPQEntity.ClientIP = CommonOpn.GetClientIP(); 
+                        objPQEntity.ClientIP = CommonOpn.GetClientIP();
                         objPQEntity.SourceId = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["sourceId"]);
                         objPQEntity.VersionId = selectedVersionId;
                         objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_DPQ_Quotation);
@@ -401,7 +400,7 @@ namespace Bikewale.BikeBooking
                     this.Page.Visible = false;
                 }
             }
-        } 
+        }
         #endregion
 
         #region Set user location from location cookie
@@ -429,7 +428,7 @@ namespace Bikewale.BikeBooking
                         else
                         {
                             location = String.Format("<span>{0}</span>", arr[1]);
-                        } 
+                        }
                     }
                 }
             }

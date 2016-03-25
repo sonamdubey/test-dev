@@ -13,7 +13,7 @@
         canonical = "";
         AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
         AdId = "1398766000399";
-        PopupWidget.Visible = false;
+        PopupWidget.Visible = true;
     %>
     <script>var quotationPage = true;</script>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -47,7 +47,7 @@
                 <div class="bike-img">
                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPriceQuote.OriginalImagePath,objPriceQuote.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="" title="" border="0" />
                 </div>
-                <h1 class="padding-left10 font18 text-dark-black"><%= BikeName %> Price Quote</h1>
+                <h1 class="padding-left10 font18 text-dark-black"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName %> Price Quote</h1>
             </div>
             <div class="clear"></div>
 
@@ -111,7 +111,7 @@
                     <tr>
                         <td align="left" class="text-dark-black padding-bottom15">Total On Road Price</td>
                         <td align="right" class="text-dark-black padding-bottom15">
-                            <div><span class="bwmsprite inr-sm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(totalPrice.ToString()) %></div>
+                            <div><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(totalPrice.ToString()) %></div>
 
                         </td>
                     </tr>
@@ -185,7 +185,7 @@
                     <%if (isOfferAvailable && (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
                       { %>
                     <div class="padding-top15 padding-bottom15 border-light-top">
-                        <span class="font15 text-bold"><%= offerCount == 1 ? " offer" : " offers" %> available</span>
+                        <span class="font15 text-bold"><%=offerCount%> <%= offerCount == 1 ? "offer" : "offers" %> available</span>
                         <span class="text-link view-offers-target">View offers</span>
                     </div>
                     <div id="offersPopup" class="bwm-fullscreen-popup text-center padding-top30">
@@ -231,7 +231,7 @@
                     <div class="padding-top15 padding-bottom15 border-light-top">
                         <p class="font15 text-bold margin-bottom10">Pay <span class="bwmsprite inr-xxsm-icon"></span><%=Bikewale.Utility.Format.FormatPrice((objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> online and book bike:</p>
                         <p class="text-light-grey margin-bottom20">The booking amount of <span class="bwmsprite inr-grey-xxsm-icon"></span><%=Bikewale.Utility.Format.FormatPrice((objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> has to be paid online and balance amount of <span class="bwmsprite inr-grey-xxsm-icon"></span><%=Bikewale.Utility.Format.FormatPrice((totalPrice - objPriceQuote.PrimaryDealer.BookingAmount).ToString()) %> has to be paid at the dealership</p>
-                        <a id="btnBookNow" class="btn btn-grey btn-full-width">Book now</a>
+                        <a href="/m/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey btn-full-width">Book now</a>
                     </div>
                     <%} %>
                     <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium){ %>
@@ -272,11 +272,11 @@
                 <%if (!string.IsNullOrEmpty(maskingNum))
                   { %>
                 <div class="grid-5 alpha">
-                    <a id="calldealer" class="btn btn-grey btn-full-width btn-sm rightfloat" href="tel:<%= maskingNum %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
+                    <a id="calldealer" class="btn btn-grey btn-full-width btn-sm rightfloat" href="tel:<%= maskingNum %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
                 </div>
                 <%} %>
                 <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-7 omega" : "" %>">
-                    <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-full-width btn-orange" value="Get Assistance" />
+                    <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-full-width btn-orange" value="Get assistance" />
                 </div>
             </div>
             <div class="clear"></div>
@@ -452,7 +452,7 @@
                 <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
                 <div id="contactDetailsPopup">
                     <!-- Contact details Popup starts here -->
-                    <h2 class="margin-top10 margin-bottom10">Get Assistance on this bike</h2>
+                    <h2 class="margin-top10 margin-bottom10">Get buying Assistance on this bike</h2>
                     <p class="text-light-grey margin-bottom10">Please provide contact info to see more details</p>
 
                     <div class="personal-info-form-container">
@@ -476,6 +476,18 @@
                         <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
                     </div>
                     <input type="button" class="btn btn-full-width btn-orange hide rounded-corner5" value="Submit" onclick="validateDetails();" data-role="none" id="btnSubmit" />
+                </div>
+                <!--thank you message starts here -->
+                <div id="dealer-assist-msg" class="hide">
+                    <div class="icon-outer-container rounded-corner50">
+                        <div class="icon-inner-container rounded-corner50">
+                            <span class="bwsprite otp-icon margin-top25"></span>
+                        </div>
+                    </div>
+                    <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <%= dealerName %>, <%= dealerArea %> will get in touch with you soon.</p>
+
+                    <a href="javascript:void(0)" id="aOkayButton" class="btn btn-orange okay-thanks-msg">Okay</a>
+                    <div class="clear"></div>
                 </div>
                 <!-- Contact details Popup ends here -->
                 <div id="otpPopup">
@@ -562,6 +574,7 @@
 
                 $(".leadCapture-close-btn").on("click", function () {
                     leadCapturePopup.hide();
+                    $("#dealer-assist-msg").hide();
                     window.history.back();
                 });
 
@@ -570,6 +583,10 @@
                         $("#leadCapturePopup .leadCapture-close-btn").click();
                         $("div.termsPopUpCloseBtn").click();
                     }
+                });
+
+                $("#aOkayButton").click(function () {
+                    $("#leadCapturePopup .leadCapture-close-btn").click();                    
                 });
 
             });
@@ -691,10 +708,8 @@
                     if (ValidateUserDetail()) {
                         self.verifyCustomer();
                         if (self.IsValid()) {
-                            $("#personalInfo").hide();
-                            $("#leadCapturePopup .leadCapture-close-btn").click();                            
-                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                            window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                            $("#contactDetailsPopup").hide();
+                            $("#dealer-assist-msg").show();                          
                         }
                         else {
                             $("#contactDetailsPopup").hide();
@@ -720,7 +735,6 @@
                     if (validateOTP() && ValidateUserDetail()) {
                         customerViewModel.generateOTP();
                         if (customerViewModel.IsVerified()) {
-                            $("#personalInfo").hide();
                             $(".booking-dealer-details").removeClass("hide").addClass("show");
                             $('#processing').hide();
 
@@ -728,9 +742,8 @@
                             otpText.val('');
                             otpContainer.removeClass("show").addClass("hide");
                             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
-                            $("#leadCapturePopup .leadCapture-close-btn").click();                            
-                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                            window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                            $("#contactDetailsPopup").hide();
+                            $("#dealer-assist-msg").show();
                         }
                         else {
                             $('#processing').hide();
@@ -999,18 +1012,7 @@
             $(".termsPopUpCloseBtn").on('mouseup click', function (e) {
                 $("div#termsPopUpContainer").hide();
                 $(".blackOut-window").hide();
-            });           
-
-            $("#btnBookNow").click(function () {
-                BookNow();
-            });
-
-            function BookNow() {                
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Book_Now_Clicked', 'lab': bikeVersionLocation });
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = "/m/pricequote/bookingSummary_new.aspx?MPQ=" + Base64.encode(cookieValue);               
-            }
-
+            });                      
 
             $(".secondary-dealer").click(function () {
                 registerPQ($(this).attr("dealerId"));

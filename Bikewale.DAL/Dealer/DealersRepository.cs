@@ -482,7 +482,7 @@ namespace Bikewale.DAL.Dealer
             DealersEntity dealers = null;
             IList<DealersList> dealerList = new List<DealersList>();
             Database db = null;
-            
+
             try
             {
                 db = new Database();
@@ -494,42 +494,41 @@ namespace Bikewale.DAL.Dealer
                     cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                     cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
 
-                    dealers = new DealersEntity(); 
+                    dealers = new DealersEntity();
 
                     using (SqlDataReader dr = db.SelectQry(cmd))
                     {
-                        if(dr != null)
-                        {                            
+                        if (dr != null)
+                        {
                             if (dr.HasRows)
                             {
+                                DealersList dealerdetail;
+                                DealerPackageTypes dpType;
                                 while (dr.Read())
                                 {
-                                    dealerList.Add(new DealersList
-                                    {
-                                        DealerId = Convert.ToUInt16(dr["DealerId"]),
-                                        Name = Convert.ToString(dr["DealerName"]),
-                                        //DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"])),
-                                        objArea = new AreaEntityBase
-                                        {
-                                            AreaName = Convert.ToString(dr["Area"]),
-                                            Longitude = Convert.ToDouble(dr["Longitude"]),
-                                            Latitude = Convert.ToDouble(dr["Lattitude"])
-                                        },
-                                        City = Convert.ToString(dr["City"]),
-                                        MaskingNumber = Convert.ToString(dr["MaskingNumber"]),
-                                        EMail = Convert.ToString(dr["EMail"]),
-                                        Address = Convert.ToString(dr["Address"]),
-                                    });
-                                }
+                                    dealerdetail = new DealersList();
+                                    dealerdetail.objArea = new AreaEntityBase();
 
+                                    dealerdetail.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt16(dr["DealerId"]) : default(UInt16);
+                                    dealerdetail.Name = Convert.ToString(dr["DealerName"]);
+                                    dealerdetail.DealerType = !Convert.IsDBNull(dr["DealerPackage"]) ? Convert.ToUInt16(dr["DealerPackage"]) : default(UInt16);
+                                    dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
+                                    dealerdetail.objArea.Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(Double);
+                                    dealerdetail.objArea.Latitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(Double);
+                                    dealerdetail.City = Convert.ToString(dr["City"]);
+                                    dealerdetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
+                                    dealerdetail.EMail = Convert.ToString(dr["EMail"]);
+                                    dealerdetail.Address = Convert.ToString(dr["Address"]);
+
+                                    dealerList.Add(dealerdetail);
+                                }
                                 if (dr.NextResult() && dr.Read())
                                 {
-                                    dealers.TotalCount = Convert.ToUInt16(dr["TotalCount"]);
+                                    dealers.TotalCount = !Convert.IsDBNull(dr["TotalCount"]) ? Convert.ToUInt16(dr["TotalCount"]) : default(UInt16);
                                 }
 
-                                dealers.Dealers = dealerList; 
                             }
-                           
+                            dealers.Dealers = dealerList;
                         }
                     }
                 }
@@ -554,13 +553,16 @@ namespace Bikewale.DAL.Dealer
             return dealers;
         }
 
-
-
-        public DealerBikesEntity GetDealerBikes(ushort dealerId)
-        {
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created on : 22 march 2016
+        /// Description : for getting dealer detail and bike detail w.r.t dealer.
+        /// </summary>
+        /// <param name="dealerId">e.g. 4</param>
+        /// <returns>DealerBikesEntity Entity object.</returns>
+        public DealerBikesEntity GetDealerBikes(UInt16 dealerId)
+        {  
             DealerBikesEntity dealers = new DealerBikesEntity();
-
-            //IList<DealersList> dealerList = new List<DealersList>();
             Database db = null;
 
             try
@@ -579,8 +581,20 @@ namespace Bikewale.DAL.Dealer
                         {
                             if (dr.Read() && dr.HasRows)
                             {
-
+                                DealerPackageTypes dpType;
                                 dealers.DealerDetails = new DealerDetailEntity();
+                                dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
+                                dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
+                                dealers.DealerDetails.Area = new AreaEntityBase
+                                {
+                                    AreaName = Convert.ToString(dr["Area"]),
+                                    Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(UInt16),
+                                    Latitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(UInt16)
+                                };
+                                dealers.DealerDetails.City = Convert.ToString(dr["City"]);
+                                dealers.DealerDetails.DealerPkgType = Enum.TryParse<DealerPackageTypes>(Convert.ToString(dr["DealerType"]), out dpType) ? dpType : 0 ;
+                                dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
+                                dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealers.DealerDetails.DealerId = dealerId;
                                 dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
                                 dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
@@ -591,7 +605,7 @@ namespace Bikewale.DAL.Dealer
                                     Latitude = Convert.ToDouble(dr["Longitude"])
                                 };
                                 dealers.DealerDetails.City = Convert.ToString(dr["City"]);
-                                dealers.DealerDetails.DealerPkgType = (DealerPackageTypes)Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"]));
+                                dealers.DealerDetails.DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"]));
                                 dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                             }
@@ -616,21 +630,21 @@ namespace Bikewale.DAL.Dealer
                                     objVersion = new BikeVersionsListEntity();
                                     specs = new MinSpecsEntity();
 
-                                    objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                    objMake.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
                                     objMake.MakeName = Convert.ToString(dr["Make"]);
                                     objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
 
-                                    objModel.ModelId = Convert.ToInt32(dr["ModelID"]);
+                                    objModel.ModelId = !Convert.IsDBNull(dr["ModelId"]) ? Convert.ToUInt16(dr["ModelId"]) : default(int);
                                     objModel.ModelName = Convert.ToString(dr["Model"]);
                                     objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
 
-                                    objVersion.VersionId = Convert.ToInt32(dr["VersionId"]);
+                                    objVersion.VersionId = !Convert.IsDBNull(dr["VersionId"]) ? Convert.ToUInt16(dr["VersionId"]) : default(int);
                                     objVersion.VersionName = Convert.ToString(dr["Version"]);
 
                                     specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                     specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                    specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                    specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                    specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+                                    specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaxPowerRPM"]);
 
                                     bikes.objMake = objMake;
                                     bikes.objModel = objModel;
@@ -661,8 +675,61 @@ namespace Bikewale.DAL.Dealer
             {
                 db.CloseConnection();
             }
-
             return dealers;
         }
+
+
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 22 Mar 2016
+        /// Description :   FetchDealerCitiesByMake. It Includes BW Dealer Cities and AB Dealer Cities
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId)
+        {
+            IList<CityEntityBase> objCityList = null;
+            Database db = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    db = new Database();
+
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "GetDealersCitiesByMakeId_22032016";
+                        cmd.Parameters.AddWithValue("@MakeId", Convert.ToInt32(makeId));
+                        objCityList = new List<CityEntityBase>();
+
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            while (dr.Read())
+                            {
+                                objCityList.Add(new CityEntityBase
+                                {
+                                    CityId = !Convert.IsDBNull(dr["CityId"]) ? Convert.ToUInt32(dr["CityId"]) : default(UInt32),
+                                    CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
+                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(String)
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "FetchDealerCitiesByMake");
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return objCityList;
+        }
+
+
     }//End class
 }

@@ -165,10 +165,39 @@ namespace Bikewale.BAL.Dealer
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 22 Mar 2016
+        /// Description :   Calls the DAL
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId)
+        {
+            try
+            {
+                return dealerRepository.FetchDealerCitiesByMake(makeId);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "FetchDealerCitiesByMake");
+                objErr.SendMail();
+                return null;
+            }
+        }
+
 
         public DealerBikesEntity GetDealerBikes(ushort dealerId)
         {
-            return dealerRepository.GetDealerBikes(dealerId);
+            try
+            {
+                return (new Bikewale.DAL.Dealer.DealersRepository()).GetDealerBikes(dealerId);
+            }
+            catch(Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, System.Web.HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+                return null;
+            }
         }
     }
 }

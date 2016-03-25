@@ -37,7 +37,7 @@ namespace Bikewale.New
     /// </summary>
     public class BrowseNewBikeDealerDetails : Page
     {
-        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty;
+        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty;
         protected uint cityId, makeId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
@@ -134,6 +134,7 @@ namespace Bikewale.New
                         rptMakes.DataSource = _makes;
                         rptMakes.DataBind();   
                         makeName = _makes.Where(x => x.MakeId == makeId).FirstOrDefault().MakeName;
+                        makeMaskingName = _makes.Where(x => x.MakeId == makeId).FirstOrDefault().MaskingName;
                     }
                 }
             }
@@ -158,17 +159,16 @@ namespace Bikewale.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<ICityCacheRepository, CityCacheRepository>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<ICity, CityRepository>()
-                            ;
-                    var objCache = container.Resolve<ICityCacheRepository>();
-                    _cities = objCache.GetPriceQuoteCities(59);
+                    container.RegisterType<IDealer, DealersRepository>();
+
+                    var objCities = container.Resolve<IDealer>();
+                    _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {
                         rptCities.DataSource = _cities;
                         rptCities.DataBind();
                         cityName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityName;
+                        cityMaskingName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityMaskingName;
                     }
                 }
             }

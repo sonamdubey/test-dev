@@ -16,7 +16,7 @@ namespace Bikewale.Entities.DealerLocator
     public class DealersList : NewBikeDealerBase
     {
         public AreaEntityBase objArea { get; set; }
-        public DealerPackageTypes DealerType { get; set; }
+        public UInt16 DealerType { get; set; }
         public string City { get; set; }
         public string EMail { get; set; }
         public string Address { get; set; }

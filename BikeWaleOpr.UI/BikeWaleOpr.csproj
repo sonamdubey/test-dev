@@ -173,6 +173,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="campaign\DealersRules.aspx.cs">
+      <DependentUpon>DealersRules.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="classified\classified.cs" />
     <Compile Include="classified\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -199,6 +203,8 @@
     <Compile Include="common\Ajax\AjaxManufacturerCampaign.cs" />
     <Compile Include="common\Ajax\ImageReplication.cs" />
     <Compile Include="common\ManageDealerBenefits.cs" />
+    <Compile Include="common\ManageDealerCampaign.cs" />
+    <Compile Include="common\ManageDealerCampaignRule.cs" />
     <Compile Include="content\frmManageAppVersions.aspx.cs">
       <DependentUpon>frmManageAppVersions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1367,6 +1373,7 @@
     <Content Include="bin\System.Web.Optimization.dll" />
     <Content Include="bin\System.Web.Providers.dll" />
     <Content Include="bin\WebGrease.dll" />
+    <Content Include="campaign\DealersRules.aspx" />
     <Content Include="classified\classifiedMenu.aspx" />
     <Content Include="classified\Default.aspx" />
     <Content Include="classified\ListingPhotos.aspx" />
@@ -1956,7 +1963,6 @@
     <Content Include="newbikebooking\DealerDetailedPriceQuote.aspx" />
     <Content Include="newbikebooking\DealerShowroomPrices.aspx" />
     <Content Include="newbikebooking\Default.aspx" />
-    <Content Include="newbikebooking\emi.js" />
     <Content Include="newbikebooking\ManageBikeAvailability.aspx" />
     <Content Include="newbikebooking\ManageBikeAvailabilityByColorAndCost.aspx" />
     <Content Include="newbikebooking\ManageBookingAmount.aspx" />

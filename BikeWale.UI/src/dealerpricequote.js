@@ -164,7 +164,7 @@ function CustomerModel() {
         $("#dealer-lead-msg").hide();
         self.IsVerified(false);
         isValidDetails = false;
-        if (event.currentTarget.id == 'buyingAssistBtn') {
+        if (event.target.id == 'buyingAssistBtn') {
             self.isAssist(true);
             isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
         }
@@ -472,6 +472,10 @@ var validateMobileNo = function (leadMobileNo) {
 };
 
 $(document).ready(function () {
+    if ($('#pqBikeDetails').height() < 400) {
+        $('#PQDealerSidebarContainer').css({'padding-bottom': '20px'});
+        $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '360px'});
+    }
     var $window = $(window),
         disclaimerText = $('#disclaimerText'),
         PQDealerSidebarContainer = $('#PQDealerSidebarContainer'),
@@ -482,14 +486,16 @@ $(document).ready(function () {
         var windowScrollTop = $window.scrollTop(),
             disclaimerTextOffset = disclaimerText.offset(),
             dealerPriceQuoteContainerOffset = dealerPriceQuoteContainer.offset();
-        if (windowScrollTop < dealerPriceQuoteContainerOffset.top - 50) {
-            PQDealerSidebarContainer.css({ 'position': 'relative', 'top': '0', 'right' : '0' })
-        }
-        else if (windowScrollTop > (disclaimerTextOffset.top - PQDealerSidebarHeight - 80)) {
-            PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 150, 'right': '0' })
-        }
-        else {
-            PQDealerSidebarContainer.css({ 'position': 'fixed', 'top': '50px', 'right': $(window).innerWidth() - (996 + $('#dealerPriceQuoteContainer').offset().left - 11) })
+        if ($('#dealerPriceQuoteContainer').height() > 500) {
+            if (windowScrollTop < dealerPriceQuoteContainerOffset.top - 50) {
+                PQDealerSidebarContainer.css({ 'position': 'relative', 'top': '0', 'right' : '0' })
+            }
+            else if (windowScrollTop > (disclaimerTextOffset.top - PQDealerSidebarHeight - 80)) {
+                PQDealerSidebarContainer.css({ 'position': 'relative', 'top': disclaimerTextOffset.top - PQDealerSidebarHeight - 150, 'right': '0' })
+            }
+            else {
+                PQDealerSidebarContainer.css({ 'position': 'fixed', 'top': '50px', 'right': $(window).innerWidth() - (996 + $('#dealerPriceQuoteContainer').offset().left - 11) })
+            }
         }
     });
 });

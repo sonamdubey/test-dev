@@ -2,12 +2,13 @@
     var windowWidth = window.innerWidth,
         windowHeight = window.innerHeight;
     $('#dealerMapWrapper, #dealersMap').css({ 'width': windowWidth - 355, 'height': windowHeight - 50 });
-    $('.dealer-map-wrapper').css({ 'height': $('#dealerListingSidebar').height() + 1});
+    $('.dealer-map-wrapper').css({ 'height': $('#dealerListingSidebar').height() + 1 });
+    $("img.lazy").lazyload();
 });
 
 $(window).scroll(function () {
     if ($(window).scrollTop() + $(window).innerHeight() > $(document).height() - $('#bg-footer').innerHeight()) {
-        $('#dealerMapWrapper').css({ 'position': 'relative', 'top': $('#bg-footer').offset().top - $('#dealerMapWrapper').height() - 52 });        
+        $('#dealerMapWrapper').css({ 'position': 'relative', 'top': $('#bg-footer').offset().top - $('#dealerMapWrapper').height() - 52 });
     }
     else {
         $('#dealerMapWrapper').css({ 'position': 'fixed', 'top': '50px' });
@@ -19,7 +20,6 @@ $(document).on('click', '#dealerDetailsSliderCard div.dealer-slider-close-btn', 
     $('body').removeClass('hide-scroll');
     $('#dealerDetailsSliderCard').animate({ 'right': '-338px' }, { complete: function () { $('#dealerDetailsSliderCard').hide().css({ 'height': '0' }); } });
     $('#dealersList li').removeClass('active');
-    console.log(dealerId);
     showPrevDealer(dealerId);
 });
 
@@ -39,13 +39,21 @@ $(document).keydown(function (e) {
     }
 });
 
+
+var customerViewModel;
+var assistanceGetName = $('#assistanceGetName'),
+    assistanceGetEmail = $('#assistanceGetEmail'),
+    assistanceGetMobile = $('#assistanceGetMobile'),
+    getModelName = $("#getModelName"),
+    assistGetModel = $("#assistGetModel");
+
 var dealerArr = [];
 var i = 0;
 $("ul#dealersList li").each(function () {
     _self = $(this);
     _dealer = new Object();
     _dealer.id = _self.attr("data-item-id");
-    _dealer.isPremium = _self.attr("data-item-type");
+    _dealer.isFeatured = (_self.attr("data-item-type") == "3" || _self.attr("data-item-type") == "2");
     _dealer.latitude = _self.attr("data-lat");
     _dealer.longitude = _self.attr("data-log");
     _dealer.address = _self.attr("data-address");
@@ -61,7 +69,7 @@ var redMarkerImage = 'http://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker
 function initializeMap(dealerArr) {
 
     var mapProp = {
-        center: new google.maps.LatLng(dealerArr[0].latitude, dealerArr[0].longitude), 
+        center: new google.maps.LatLng(dealerArr[0].latitude, dealerArr[0].longitude),
         zoom: 13,
         scrollwheel: false,
         streetViewControl: false,
@@ -75,82 +83,147 @@ function initializeMap(dealerArr) {
 
     map = new google.maps.Map(document.getElementById("dealersMap"), mapProp);
     infowindow = new google.maps.InfoWindow();
-    
+
     var i, marker, dealer, markerPosition, content, zIndex;
 
     for (i = 0; i < dealerArr.length; i++) {
         dealer = dealerArr[i];
-        markerPosition = new google.maps.LatLng(dealer.latitude, dealer.longitude);
-        markerIcon = blackMarkerImage;
-        zIndex = 100;
+        if (dealer && (dealer.latitude != "0" || dealer.longitude != "0"))
+        {
+            markerPosition = new google.maps.LatLng(dealer.latitude, dealer.longitude);
+            zIndex = 100;
 
-        if (dealer.isPremium) {
-            markerIcon = redMarkerImage;
-            zIndex = 101;
+            if (dealer.isFeatured) {
+                markerIcon = redMarkerImage;
+            } else {
+                markerIcon = blackMarkerImage;
+            }
+
+            marker = new google.maps.Marker({
+                dealerId: dealer.id,
+                dealerName: dealer.name,
+                position: markerPosition,
+                icon: markerIcon,
+                zIndex: zIndex
+            });
+
+            markerArr.push(marker);
+            marker.setMap(map);
+
+            content = '<div class="dealer-info-tooltip"><h3 class="font16 margin-bottom5"><a href="javascript:void(0)" data-tooltip-id="' + dealer.id + '" class="text-black tooltip-target-link">' + dealer.name + '</a></h3><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-grey-icon"></span><span>' + 9876543210 + '</span></div></div></div>';
+
+            google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
+                return function () {
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                };
+            })(marker, content, infowindow));
+
+
+
+            google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
+                return function () {
+                    infowindow.close();
+                    getDealerFromSidebar(marker.dealerId);
+                };
+            })(marker, infowindow));
         }
-
-        marker = new google.maps.Marker({
-            dealerId: dealer.id,
-            dealerName: dealer.name,
-            position: markerPosition,
-            icon: markerIcon,
-            zIndex: zIndex
-        });
-
-        markerArr.push(marker);
-        marker.setMap(map);
-
-        //content = '<div class="dealer-info-tooltip"><h3 class="font16 margin-bottom5"><a href="javascript:void(0)" data-tooltip-id="' + dealer.id + '" class="text-black tooltip-target-link">' + dealer.name + '</a></h3><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div class="margin-bottom5"><span class="bwsprite tel-sm-grey-icon"></span><span>' + 9876543210 + '</span></div><div class="margin-bottom10"><a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span>bikewale@motors.com</a></div><div class="text-link"><a href="">Get direction</a></div></div></div>';
-        content = '<div class="dealer-info-tooltip"><h3 class="font16 margin-bottom5"><a href="javascript:void(0)" data-tooltip-id="' + dealer.id + '" class="text-black tooltip-target-link">' + dealer.name + '</a></h3><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-grey-icon"></span><span>' + 9876543210 + '</span></div></div></div>';
-
-        google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
-            return function () {
-                infowindow.setContent(content);
-                infowindow.open(map, marker);
-            };
-        })(marker, content, infowindow));
-
-        google.maps.event.addDomListener(window, 'resize', function () {
-            google.maps.event.trigger(map, "resize")
-            map.setCenter(new google.maps.LatLng(map.center.lat(), map.center.lng()));
-        });
-
-        google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
-            return function () {
-                infowindow.close();
-                getDealerFromSidebar(marker.dealerId);
-            };
-        })(marker, infowindow));
+            
     }
 
+    google.maps.event.addDomListener(window, 'resize', function () {
+        google.maps.event.trigger(map, "resize")
+        map.setCenter(new google.maps.LatLng(map.center.lat(), map.center.lng()));
+    });
 }
 
 $('#dealersMap').on('click', 'a.tooltip-target-link', function () {
     getDealerFromSidebar($(this).attr('data-tooltip-id'));
 });
 
-$('#dealersList li').mouseover(function () {
-    var currentLI = $(this),
-        currentDealerId = currentLI.attr('data-item-id');
-    for (var i = 0; i < markerArr.length; i++) {
-        if (markerArr[i].dealerId == currentDealerId) {
-            infowindow.setContent(markerArr[i].dealerName);
-            infowindow.open(map, markerArr[i]);
-            break;
+$('body').on('mouseover', '#dealersList li', function () {
+    if (!$("body").hasClass("hide-scroll")) {
+        var currentLI = $(this),
+         currentDealerId = currentLI.attr('data-item-id');
+        for (var i = 0; i < markerArr.length; i++) {
+            if (markerArr[i].dealerId == currentDealerId) {
+                infowindow.setContent(markerArr[i].dealerName);
+                infowindow.open(map, markerArr[i]);
+                break;
+            }
         }
     }
+
 });
 
 $('#dealersList li').mouseout(function () {
     infowindow.close();
 });
 
-$('#dealersList li').on('click', 'a.dealer-sidebar-link', function () {
+$("body").on('click', 'a.dealer-sidebar-link', function () {
     var parentLI = $(this).parents('li');
     selectedDealer(parentLI);
 });
 
 var flag = false;
+
+var getCityArea = GetGlobalCityArea();
+
+var leadBtnBookNow = $("a.get-assistance-btn"), leadCapturePopup = $("#leadCapturePopup");
+var fullName = $("#getFullName");
+var emailid = $("#getEmailID");
+var mobile = $("#getMobile");
+var otpContainer = $(".mobile-verification-container");
+
+
+
+var detailsSubmitBtn = $("#user-details-submit-btn, #submitAssistanceFormBtn");
+var otpText = $("#getOTP");
+var otpBtn = $("#otp-submit-btn");
+
+var prevEmail = "";
+var prevMobile = "";
+
+var getCityArea = GetGlobalCityArea();
+
+
+$(function () {
+    $("body").on('click', '#dealersList a.get-assistance-btn', function () {
+
+        id = $(this).attr("data-item-id");
+        type = $(this).attr("data-item-type");
+
+        if (type != "0" || type != "1") {
+            leadCapturePopup.show();
+            $("#dealer-lead-msg").hide();
+            $("div#contactDetailsPopup").show();
+            $("#otpPopup").hide();
+            $('body').addClass('lock-browser-scroll');
+            $(".blackOut-window").show();
+            getDealerDetails(id)
+        }
+        else {
+            $('body').removeClass('lock-browser-scroll');
+        }
+
+
+
+    });
+    $("body").on("click mouseup", ".leadCapture-close-btn, .blackOut-window", function () {
+        leadCapturePopup.hide();
+        $('body').removeClass('lock-browser-scroll');
+        $(".blackOut-window").hide();
+    });
+
+    $(document).on('keydown', function (e) {
+        if (e.keyCode === 27) {
+            leadCapturePopup.hide();
+            $('body').removeClass('lock-browser-scroll');
+            $(".blackOut-window").hide();
+        }
+    });
+});
+
 var getDealerFromSidebar = function (tooltipId) {
     var dealer;
     $('#dealersList li').each(function () {
@@ -169,16 +242,26 @@ var getDealerFromSidebar = function (tooltipId) {
 var dealerId;
 
 var selectedDealer = function (dealer) {
-    infowindow.close();     
+
+    infowindow.close();
     $('#sidebarHeader').removeClass('border-solid-bottom');
-    $('html, body').animate({ scrollTop: dealer.offset().top - 103 }, { complete: function () { $('body').addClass('hide-scroll') } });
-    $('#dealerDetailsSliderCard').show().animate({ 'right': '338px' });
-    $('#dealerDetailsSliderCard').css({ 'height': $(window).innerHeight() - 52 });
+    $('html, body').animate({ scrollTop: dealer.offset().top - 103 });
     dealer.addClass('active');
     dealer.siblings().removeClass('active');
-    dealerId = dealer.attr('data-item-id');
-    $("#assistGetName").focus();
-    getDealerDetails(dealerId)
+    dealerId = dealer.attr("data-item-id");
+    type = dealer.attr("data-item-type");
+    if (type == "2" || type == "3") {
+        $('#dealerDetailsSliderCard').show().animate({ 'right': '338px' });
+        $('#dealerDetailsSliderCard').css({ 'height': $(window).innerHeight() - 52 });
+        $("#assistGetName").focus();
+        $('body').addClass('hide-scroll')
+        getDealerDetails(dealerId)
+    }
+    else {
+        $('#dealerDetailsSliderCard').hide().animate({ 'right': '-338px' }, { complete: function () { $('#dealerDetailsSliderCard').hide().css({ 'height': '0' }); } });
+        $('body').removeClass('hide-scroll');
+    }
+
 };
 
 
@@ -193,13 +276,12 @@ var dealerDetails = function (data) {
     self.dealerType = ko.observable(data.dealerPackageType);
     self.showRoomOpeningHours = ko.observable(data.showRoomOpeningHours);
     self.showRoomClosingHours = ko.observable(data.showRoomClosingHours);
-    if (data.Area)
-    {
+    if (data.Area) {
         self.area = ko.observable(data.Area.areaName);
         self.lat = ko.observable(data.Area.latitude);
         self.lng = ko.observable(data.Area.longitude);
-    }  
-    
+    }
+
 }
 
 var dealerBikes = function (data) {
@@ -214,12 +296,11 @@ var dealerBikes = function (data) {
     if (data.make)
         self.makeName = ko.observable(data.make.makeName);
 
-    if (data.model)
-    {
+    if (data.model) {
         self.modelName = ko.observable(data.model.modelName);
         self.modelId = ko.observable(data.model.modelId);
     }
-   
+
     if (data.version)
         self.versionId = ko.observable(data.version.versionId);
 
@@ -244,8 +325,7 @@ var dealerBikes = function (data) {
             return "Specs Unavailable";
     }, this);
 
-    if(data.make && data.model)
-    {
+    if (data.make && data.model) {
         self.bikeUrl("/" + data.make.maskingName + "-bikes/" + data.model.maskingName + "/");
     }
 
@@ -259,8 +339,29 @@ ko.bindingHandlers.CurrencyText = {
     }
 };
 
-var DealerModel  = function(data)
-{
+//for jquery chosen : knockout event 
+ko.bindingHandlers.chosen = {
+    init: function (element, valueAccessor, allBindings, customerViewModel, bindingContext) {
+        var $element = $(element);
+        var options = ko.unwrap(valueAccessor()) + { width: "100%" };
+        if (typeof options === 'object')
+            $element.chosen(options);
+
+        ['options', 'selectedOptions', 'value'].forEach(function (propName) {
+            if (allBindings.has(propName)) {
+                var prop = allBindings.get(propName);
+                if (ko.isObservable(prop)) {
+                    prop.subscribe(function () {
+                        $element.trigger('chosen:updated');
+                    });
+                }
+            }
+        });
+        return;
+    }
+}
+
+var DealerModel = function (data) {
     var self = this;
     self.DealerDetails = ko.observable(new dealerDetails(data.dealerDetails));
     self.DealerBikes = ko.utils.arrayMap(data.dealerBikes, function (item) {
@@ -269,31 +370,47 @@ var DealerModel  = function(data)
     self.CustomerDetails = ko.observable(customerViewModel);
 }
 
-function getDealerDetails(id)
-{
-    var obj = new Object();
-    if (id != "0")
-    {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:9011/api/DealerBikes/?dealerId=" + dealerId,
-            contentType: "application/json",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('utma', getCookie('__utma'));
-                xhr.setRequestHeader('utmz', getCookie('__utmz'));
-            },
-            success: function (response) {
-                obj = ko.toJS(response);
-                ko.cleanNode($('#dealerDetailsSliderCard')[0]);
-                ko.applyBindings(new DealerModel(obj), $('#dealerDetailsSliderCard')[0]); 
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
 
-            }
-        });
-    }   
-    
+function getDealerDetails(id) {
+    var obj = new Object();
+
+    if (!isNaN(id) && id != "0") {
+        var dealerKey = "dealerDetails_" + id;
+        var dealerInfo = lscache.get(dealerKey);
+        if (!dealerInfo) {
+            $.ajax({
+                type: "GET",
+                url: "/api/DealerBikes/?dealerId=" + id,
+                contentType: "application/json",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('utma', getCookie('__utma'));
+                    xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                },
+                success: function (response) {
+                    lscache.set(dealerKey, response, 30);
+                    bindDealerDetails(response);
+                },
+                complete: function (xhr) {
+                    if (xhr.status == 204 || xhr.status == 404) {
+                        lscache.set(dealerKey, null, 30);
+                    }
+                }
+            });
+        }
+        else {
+            bindDealerDetails(dealerInfo);
+        }
+    }
+
     return obj;
+}
+
+function bindDealerDetails(response) {
+    obj = ko.toJS(response);
+    customerViewModel = new CustomerModel(obj);
+    ko.cleanNode($('#dealerInfo')[0]);
+    ko.applyBindings(new DealerModel(obj), $('#dealerInfo')[0]);
+    // $("#dealerDetailsSliderCard img.lazy").lazyload();
 }
 
 
@@ -301,56 +418,25 @@ initializeMap(dealerArr);
 
 
 
+var bikesList = function (data) {
+    var self = this;
+    self.makeName = ko.observable();
+    self.modelName = ko.observable();
+    self.modelId = ko.observable();
+    self.versionId = ko.observable();
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if (data.make)
+        self.makeName(data.make.makeName);
+    if (data.model) {
+        self.modelName(data.model.modelName);
+        self.modelId(data.model.modelId);
+    }
+    if (data.version)
+        self.versionId(data.version.versionId);
+}
 
-var getCityArea = GetGlobalCityArea();
-
-var leadBtnBookNow = $("a.get-assistance-btn"), leadCapturePopup = $("#leadCapturePopup");
-var fullName = $("#getFullName");
-var emailid = $("#getEmailID");
-var mobile = $("#getMobile");
-var otpContainer = $(".mobile-verification-container");
-
-
-
-var detailsSubmitBtn = $("#user-details-submit-btn, #buyingAssistBtn");
-var otpText = $("#getOTP");
-var otpBtn = $("#otp-submit-btn");
-
-var prevEmail = "";
-var prevMobile = "";
-
-var getCityArea = GetGlobalCityArea();
-var customerViewModel = new CustomerModel();
-
-$(function () {
-    leadBtnBookNow.on('click', function () {
-        leadCapturePopup.show();
-        $("#dealer-lead-msg").hide();
-        $("div#contactDetailsPopup").show();
-        $("#otpPopup").hide();
-        $('body').addClass('lock-browser-scroll');
-        $(".blackOut-window").show();
-
-    });
-    $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
-        leadCapturePopup.hide();
-        $('body').removeClass('lock-browser-scroll');
-        $(".blackOut-window").hide();
-    });
-
-    $(document).on('keydown', function (e) {
-        if (e.keyCode === 27) {
-            leadCapturePopup.hide();
-            $('body').removeClass('lock-browser-scroll');
-            $(".blackOut-window").hide();
-        }
-    });
-});
-
-
-function CustomerModel() {
+function CustomerModel(obj) {
+    data = obj.dealerBikes;
     var arr = setuserDetails();
     var self = this;
     if (arr != null && arr.length > 0) {
@@ -363,24 +449,34 @@ function CustomerModel() {
         self.emailId = ko.observable();
         self.mobileNo = ko.observable();
     }
+    self.selectedBike = ko.observable();
+    self.dealerId = ko.observable(obj.dealerDetails.id);
+    self.versionId = ko.observable(0);
+    self.dealerName = ko.observable(obj.dealerDetails.name);
     self.IsVerified = ko.observable(false);
     self.NoOfAttempts = ko.observable(0);
     self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
     self.otpCode = ko.observable();
     self.isAssist = ko.observable(false);
+    self.pqId = ko.observable();
+    self.modelId = ko.observable(0);
+
+    self.chosenUpdate = function () { $ddlModels.trigger("chosen:updated"); };
+
+    self.bikes = ko.observableArray(obj.dealerBikes);
 
     self.verifyCustomer = function () {
         if (!self.IsVerified()) {
             var objCust = {
-                "dealerId": dealerId,
-                "pqId": "21643185",  //to be removed
+                "dealerId": self.dealerId(),
+                "pqId": self.pqId(),
                 "customerName": self.fullName(),
                 "customerMobile": self.mobileNo(),
                 "customerEmail": self.emailId(),
                 "clientIP": "",
                 "pageUrl": "",
-                "versionId": 165,
-                "cityId": 1,
+                "versionId": self.versionId(),
+                "cityId": bikeCityId,
                 "leadSourceId": 1,
                 "deviceId": getCookie('BWC')
             }
@@ -412,14 +508,14 @@ function CustomerModel() {
     self.generateOTP = function () {
         if (!self.IsVerified()) {
             var objCust = {
-                "pqId": pqId,
+                "pqId": self.pqId(),
                 "customerMobile": self.mobileNo(),
                 "customerEmail": self.emailId(),
                 "cwiCode": self.otpCode(),
-                "branchId": dealerId,
+                "branchId": self.dealerId(),
                 "customerName": self.fullName(),
-                "versionId": versionId,
-                "cityId": cityId
+                "versionId": self.versionId(),
+                "cityId": bikeCityId
             }
             $.ajax({
                 type: "POST",
@@ -465,18 +561,66 @@ function CustomerModel() {
         }
     };
 
-    self.submitLead = function () {
-        $("#dealer-lead-msg").hide();
+    self.generatePQ = function (data, event) {
         self.IsVerified(false);
+        isSuccess = false;
         isValidDetails = false;
-        if (event.currentTarget.id == 'buyingAssistBtn') {
+        if (event.target.id == 'submitAssistanceFormBtn') {
             self.isAssist(true);
             isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
+            isValidDetails &= validateBike(assistGetModel);
         }
         else {
             self.isAssist(false);
             isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
+            isValidDetails &= validateBike(getModelName);
         }
+        var bike = self.selectedBike();
+        if (bike) {
+            self.versionId(bike.version.versionId);
+            self.modelId(bike.model.modelId);
+        }
+        if (isValidDetails && self.modelId() && self.versionId()) {
+            var url = '/api/RegisterPQ/';
+            var objData = {
+                "dealerId": self.dealerId(),
+                "modelId": self.modelId(),
+                "clientIP": "",
+                "pageUrl": "",
+                "versionId": self.versionId(),
+                "cityId": bikeCityId,
+                "areaId": 0,
+                "sourceType": 1,
+                "pQLeadId": 1,
+                "deviceId": getCookie('BWC')
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                async: false,
+                data: ko.toJSON(objData),
+                contentType: "application/json",
+                success: function (response) {
+                    self.pqId(response.quoteId);
+                    isSuccess = true;
+                },
+                complete: function (xhr) {
+                    if (xhr.status == 404 || xhr.status == 204) {
+                        self.IsVerified(false);
+                        isSuccess = false;
+                    }
+
+                }
+            });
+        }
+
+        return isSuccess;
+
+    }
+
+    self.submitLead = function (data, event) {
+        var isValidDetails = self.generatePQ(data, event);
+        $("#dealer-lead-msg").hide();
         if (isValidDetails) {
             self.verifyCustomer();
             if (self.IsValid()) {
@@ -505,11 +649,11 @@ function CustomerModel() {
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
             setPQUserCookie();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': bikeName + '_' + getCityArea });
+            // dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': bikeName + '_' + getCityArea });
         }
     };
 
-    otpBtn.click(function () {
+    $("body").on('click', '#otp-submit-btn', function () {
         $('#processing').show();
         isValidDetails = false;
         if (!validateOTP())
@@ -709,10 +853,6 @@ $(document).mouseup(function (e) {
     }
 });
 
-var assistanceGetName = $('#assistanceGetName'),
-    assistanceGetEmail = $('#assistanceGetEmail'),
-    assistanceGetMobile = $('#assistanceGetMobile');
-
 
 var validateUserInfo = function (leadUsername, leadEmailId, leadMobileNo) {
     var isValid = true;
@@ -721,6 +861,15 @@ var validateUserInfo = function (leadUsername, leadEmailId, leadMobileNo) {
     isValid &= validateMobileNo(leadMobileNo);
     return isValid;
 };
+
+var validateBike = function (bike) {
+    var selectedVersion = bike.val();
+    if (selectedVersion != "0") {
+        return true;
+    }
+
+    return false;
+}
 
 var validateUserName = function (leadUsername) {
     var isValid = true,
@@ -775,6 +924,4 @@ var validateMobileNo = function (leadMobileNo) {
         hideError(leadMobileNo)
     return isValid;
 };
-
-ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
-
+

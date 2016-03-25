@@ -393,10 +393,10 @@ namespace Bikewale.DAL.PriceQuote
                             objQuotation = new PriceQuoteParametersEntity();
                             while (dr.Read())
                             {
-                                objQuotation.AreaId = Convert.ToUInt32(dr["AreaId"]);
-                                objQuotation.CityId = Convert.ToUInt32(dr["cityid"]);
-                                objQuotation.VersionId = Convert.ToUInt32(dr["BikeVersionId"]);
-                                objQuotation.DealerId = Convert.ToUInt32(dr["DealerId"]);
+                                objQuotation.AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32);
+                                objQuotation.CityId = !Convert.IsDBNull(dr["cityid"]) ? Convert.ToUInt32(dr["cityid"]) : default(UInt32);
+                                objQuotation.VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32);
+                                objQuotation.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
                             }
                         }
 
