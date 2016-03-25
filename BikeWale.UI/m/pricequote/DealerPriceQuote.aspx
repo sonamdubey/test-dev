@@ -47,12 +47,12 @@
                 <div class="bike-img">
                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPriceQuote.OriginalImagePath,objPriceQuote.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="" title="" border="0" />
                 </div>
-                <h1 class="padding-left10 font18 text-dark-black"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName %> Price Quote</h1>
+                <h1 class="padding-left10 font18 text-dark-black"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName %></h1>
             </div>
             <div class="clear"></div>
 
            
-            <div class="margin-top10 padding-right10 padding-left10">
+            <div id="versionsDropdownWrapper" class="margin-top10 padding-right10 padding-left10">
                 <p class="grid-3 alpha omega version-label-text font14 text-light-grey margin-top5 leftfloat">Version:</p>
                  <%if (versionList!=null && versionList.Count > 1)
                    { %>

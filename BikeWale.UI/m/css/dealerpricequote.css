@@ -1,4 +1,5 @@
-﻿.pq-inner-block-10 { padding:10px 10px 5px; }
+﻿#bwheader-logo, .navbarBtn, .global-location, .sort-btn { display:none; }
+.pq-inner-block-10 { padding:10px 10px 5px; }
 .bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }
 .bike-name-image-wrapper, .pricequote-benefits-list { display:table; width:100%; }
 .bike-name-image-wrapper .bike-img , .bike-name-image-wrapper h1, .pricequote-benefits-list .pq-benefits-image, .pricequote-benefits-list .pq-benefits-title { display:table-cell; vertical-align:middle; }
@@ -6,6 +7,7 @@
 .bike-img img { width:100%; }
 .text-dark-black { color:#1a1a1a; }
 .grid-3.version-label-text { width:65px; }
+#versionsDropdownWrapper .form-control { width:70%; padding:5px; }
 .grid-9.variantDropDown { width:70%; max-width:300px; }
 .version-div { height:32px; padding:5px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
 .version-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:100%; }
@@ -50,6 +52,8 @@
 .offerIcon_6 { height:30px; background-position:-79px 0; }
 .cal-emi-icon { width:37px; height:48px; background-position:-114px -22px; }
 .tel-sm-icon { width: 15px; height: 15px;background-position: -84px -323px; position: relative; top: 2px;}
+#calldealer.btn-sm { padding:8px 12px; }
+#calldealer .tel-grey-icon{position: relative;top: 2px}
 
 .emi-slider-box { border-top:1px solid #e2e2e2; padding-bottom:20px; padding-top:20px; margin-top: 5px; margin-right:20px; }
 .emi-slider-box:first-child { border-top:none; padding-top:10px; }
