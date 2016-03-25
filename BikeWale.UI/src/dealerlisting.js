@@ -219,6 +219,10 @@ function initializeMap(dealerArr) {
 
     }
 
+    $(window).resize(function () {
+        google.maps.event.trigger(map, "resize");
+    });
+
 
 }
 
@@ -248,12 +252,12 @@ $('#dealersList li').mouseout(function () {
 $("body").on('click', 'a.dealer-sidebar-link', function () {
     var parentLI = $(this).parents('li');
     selectedDealer(parentLI);
-    isInquired = parentLI.attr("data-item-inquired");
-    if (isInquired != "false") {
-        $("#buying-assistance-form").show().siblings("#dealer-assist-msg").hide();
+    isInquired = (parentLI.attr("data-item-inquired") == "true") ? true : false;
+    if (isInquired) {
+        $("#buying-assistance-form").hide().siblings("#dealer-assist-msg").show();
     }
     else {
-        $("#buying-assistance-form").hide().siblings("#dealer-assist-msg").show();
+        $("#buying-assistance-form").show().siblings("#dealer-assist-msg").hide();
     }
 });
 
@@ -264,7 +268,7 @@ $(function () {
 
         id = $(this).attr("data-item-id");
         type = $(this).attr("data-item-type");
-        isInquired = $(this).attr("data-item-inquired");
+        isInquired = ($(this).parents("li").attr("data-item-inquired") == "true") ? true : false;
 
         if (type != "0" || type != "1") {
             leadCapturePopup.show();
@@ -279,11 +283,11 @@ $(function () {
             $('body').removeClass('lock-browser-scroll');
         }
 
-        if (isInquired != "false") {
-            $("#contactDetailsPopup").show().siblings("#dealer-lead-msg").hide();
+        if (isInquired) {
+            $("#contactDetailsPopup").hide().siblings("#dealer-lead-msg").show();
         }
         else {
-            $("#contactDetailsPopup").hide().siblings("#dealer-lead-msg").show();
+            $("#contactDetailsPopup").show().siblings("#dealer-lead-msg").hide();           
         }
 
     });

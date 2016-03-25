@@ -40,7 +40,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
         {
             try
             {
-                DealerBikesEntity dealerBikes = _cache.GetDealerBikes(dealerId);
+                DealerBikesEntity dealerBikes = _cache.GetDealerDetailsAndBikes(dealerId);
                 DealerBikes bikes;
                 if (dealerBikes != null)
                 {

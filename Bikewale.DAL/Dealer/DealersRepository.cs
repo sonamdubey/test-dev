@@ -560,7 +560,7 @@ namespace Bikewale.DAL.Dealer
         /// </summary>
         /// <param name="dealerId">e.g. 4</param>
         /// <returns>DealerBikesEntity Entity object.</returns>
-        public DealerBikesEntity GetDealerBikes(UInt16 dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
         {  
             DealerBikesEntity dealers = new DealerBikesEntity();
             Database db = null;

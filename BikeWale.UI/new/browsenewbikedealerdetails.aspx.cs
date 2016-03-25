@@ -100,6 +100,12 @@ namespace Bikewale.New
                         rptDealers.DataBind();
                         totalDealers = _dealers.TotalCount;
                     }
+                    else
+                    {
+                        Response.Redirect("/pagenotfound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                 }
             }
             catch (Exception ex)

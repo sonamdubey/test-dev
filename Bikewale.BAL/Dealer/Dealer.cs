@@ -186,11 +186,11 @@ namespace Bikewale.BAL.Dealer
         }
 
 
-        public DealerBikesEntity GetDealerBikes(ushort dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
         {
             try
             {
-                return (new Bikewale.DAL.Dealer.DealersRepository()).GetDealerBikes(dealerId);
+                return dealerRepository.GetDealerDetailsAndBikes(dealerId);
             }
             catch(Exception ex)
             {

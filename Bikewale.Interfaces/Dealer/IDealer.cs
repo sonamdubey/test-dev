@@ -33,6 +33,6 @@ namespace Bikewale.Interfaces.Dealer
         IEnumerable<NewBikeDealerEntityBase> GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null);
         bool SaveManufacturerLead(ManufacturerLeadEntity customer);
         DealersEntity GetDealerByMakeCity(uint cityId, uint makeId);
-        DealerBikesEntity GetDealerBikes(UInt16 dealerId);
+        DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId);
     }
 }

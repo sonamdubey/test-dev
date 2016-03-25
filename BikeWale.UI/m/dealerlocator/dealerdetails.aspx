@@ -161,55 +161,53 @@
             <div class="leftfloat dealer-back-btn">
                 <a href="javascript:void(0)"><span class="bwmsprite fa-arrow-back"></span></a>
             </div>
-            <%if (isDealerDetail)
-              { %>
-            <div class="dealer-header-text leftfloat margin-top10 font18"><%= dealerDetail.Name %></div>
-            <%} %>
+            <div class="dealer-header-text leftfloat margin-top10 font18"><%= dealerDetails.Name %></div>
             <div class="clear"></div>
         </header>
-        <!--Dealer Deatail section-->
-        <%if (isDealerDetail)
-          { %>
+        <!--Dealer Details section-->
         <section class="container bg-white padding-top48">
             <div id="dealerDetailsCard" class="padding-top20 padding-right20 padding-left20 font14">
-                <%if (dealerDetail.DealerType == 1)
+                <%if (dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
                   { %>
                 <div class="featured-tag text-white text-center margin-bottom10">
                     Featured
                 </div>
                 <%} %>
-                <h1 class="font18 text-pure-black margin-bottom5"><%= dealerDetail.Name %></h1>
+                <h1 class="font18 text-pure-black margin-bottom5"><%= dealerDetails.Name %></h1>
                 <div class="dealer-details-section text-light-grey padding-bottom15 border-light-bottom">
-                    <p class="margin-bottom5"><%= dealerDetail.Address %></p>
+                    <p class="margin-bottom5"><%= dealerDetails.Address %></p>
+                    <% if (!string.IsNullOrEmpty(dealerDetails.EMail))
+                       { %>
                     <div class="margin-bottom5">
-                        <a href="mailto:<%= dealerDetail.EMail %>" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span><%= dealerDetail.EMail %></a>
+                        <a href="mailto:<%= dealerDetails.EMail %>" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span><%= dealerDetails.EMail %></a>
                     </div>
+                    <% } if (!string.IsNullOrEmpty(dealerDetails.MaskingNumber))
+                       { %>
                     <div class="margin-bottom5">
-                        <a href="tel:9876543210" class="text-default font16 text-bold"><span class="bwmsprite tel-sm-grey-icon"></span><%= dealerDetail.MaskingNumber %></a>
+                        <a href="tel:<%= dealerDetails.MaskingNumber %>" class="text-default font16 text-bold"><span class="bwmsprite tel-sm-grey-icon"></span><%= dealerDetails.MaskingNumber %></a>
                     </div>
-                    <%if (!string.IsNullOrEmpty(dealerDetail.WorkingHours))
-                      { %>
+                    <% } if (!string.IsNullOrEmpty(dealerDetails.WorkingHours))
+                       { %>
                     <p>
                         Working hours:<br />
-                        <%= dealerDetail.WorkingHours %>
+                        <%= dealerDetails.WorkingHours %>
                     </p>
-                    <%--Handle br specialy <p>Working hours:<br />Mon - Sat: 9.00 am - 6.00 pm<br />Sun: 9.00 am - 2.00 pm</p>--%>
                     <%} %>
 
-                    <a href=""><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
-                    <a href="" class="divider-left"><span class="bwmsprite sendto-phone-icon margin-right5"></span>Send to phone</a>
+                    <%--<a href=""><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    <a href="" class="divider-left"><span class="bwmsprite sendto-phone-icon margin-right5"></span>Send to phone</a>--%>
                 </div>
-                <div class="padding-top15 padding-bottom20 border-light-bottom">
+                <%--<div class="padding-top15 padding-bottom20 border-light-bottom">
                     <h3 class="font14 margin-bottom15">Get commute distance and time:</h3>
                     <div class="form-control-box">
                         <input type="text" class="form-control" placeholder="Enter your location" />
                     </div>
-                </div>
+                </div>--%>
             </div>
             <div class="grid-12 float-button clearfix float-fixed">
                 <div class="show padding-top10">
                     <div class="grid-6 alpha omega">
-                        <a id="calldealer" class="btn btn-white btn-full-width btn-sm rightfloat text-bold text-default font14" href="tel:<%= dealerDetail.MaskingNumber %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
+                        <a id="calldealer" class="btn btn-white btn-full-width btn-sm rightfloat text-bold text-default font14" href="tel:<%= dealerDetails.MaskingNumber %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
                     </div>
                     <div class="grid-6 alpha omega padding-left10">
                         <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat font14" href="javascript:void(0);">Get assistance</a>
@@ -217,9 +215,8 @@
                 </div>
             </div>
         </section>
-        <%} %>
         <!--Dealer Deatail section end and models section start.-->
-        <%if (dealer.Models != null)
+        <%if (dealerBikesCount > 0)
           { %>
         <section class="container bg-white margin-bottom20">
             <div class="padding-right20 padding-bottom10 padding-left20 box-shadow font14">
@@ -231,22 +228,21 @@
                                 <div class="front">
                                     <div class="contentWrapper">
                                         <div class="imageWrapper margin-bottom20">
-                                            <a class="modelurl" href="">
-                                                <img class="lazy" 
-                                                    data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" 
+                                            <a class="modelurl" href="<%# String.Format("/{0}-bikes/{1}/",DataBinder.Eval(Container.DataItem, "objMake.MaskingName"),DataBinder.Eval(Container.DataItem, "objModel.MaskingName")) %>">
+                                                <img class="lazy"
+                                                    data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>"
                                                     title="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>"
                                                     alt="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
                                             </a>
                                         </div>
                                         <div class="bikeDescWrapper">
-                                            <h3 class="margin-bottom5"><a href="" class="text-pure-black" title="Bajaj CT100"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></a></h3>
+                                            <h3 class="margin-bottom5"><a href="<%# String.Format("/{0}-bikes/{1}/",DataBinder.Eval(Container.DataItem, "objMake.MaskingName"),DataBinder.Eval(Container.DataItem, "objModel.MaskingName")) %>" class="text-pure-black" title="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></a></h3>
                                             <div class="margin-bottom5 text-default text-bold">
                                                 <span class="bwmsprite inr-sm-icon"></span>
                                                 <span class="font18"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))) %><span class="font16"> Onwards</span></span>
                                             </div>
                                             <div class="font14 text-light-grey">
-                                                <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %> 
-                                                <%-- <span><%# DataBinder.Eval(Container.DataItem, "Specs.Displacement") %></span> CC<span>, <span><%# DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall") %></span> Kmpl</span><span>, <span><%# DataBinder.Eval(Container.DataItem, "Specs.MaxPower") %></span> bhp</span>--%>
+                                                <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
                                             </div>
                                         </div>
                                     </div>
