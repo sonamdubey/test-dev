@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.dealerlocator.dealerlisting" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.dealerlocator.dealerlisting" EnableViewState="false" %>
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!DOCTYPE html>
 <html>
@@ -41,6 +41,10 @@
         .edit-blue-icon { width:14px; height:16px; background-position: -114px -121px; }
         #otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
     </style>
+    <script type="text/javascript">
+        var makeName = "<%=makeName%>";
+        var cityName = "<%=cityName%>";
+    </script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -58,38 +62,24 @@
         <section class="container padding-top60 margin-bottom10">
             <div class="grid-12">
                 <div class="bg-white content-inner-block-1520 box-shadow">
-                    <h1 class="font16 text-pure-black margin-bottom15">Hero dealers in Mumbai <span class="font14 text-light-grey">(4)</span></h1>
+                    <h1 class="font16 text-pure-black margin-bottom15"><%=makeName %> dealers in Mumbai <span class="font14 text-light-grey">(<%=totalDealers %>)</span></h1>
                     <ul id="dealersList">
-                        <li>
-                            <div class="featured-tag text-white text-center font14 margin-bottom5">
-                                Featured
-                            </div>
-                            <div class="font14">
-                                <h2 class="font16 margin-bottom10"><a href="" class="text-black">Kamala Landmarc Motorbikes</a></h2>
-                                <p class="text-light-grey margin-bottom5">Andheri, Mumbai</p>
-                                <a href="tel:9876543210" class="text-light-grey margin-bottom5"><span class="bwmsprite tel-sm-grey-icon"></span> 9876543210</a>
-                                <a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span> bikewale@motors.com</a>
-                                <input type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn" value="Get assistance">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="font14">
-                                <h2 class="font16 margin-bottom10"><a href="" class="text-black">Kamala Landmarc Motorbikes</a></h2>
-                                <p class="text-light-grey margin-bottom5">Andheri, Mumbai</p>
-                                <a href="tel:9876543210" class="text-light-grey margin-bottom5"><span class="bwmsprite tel-sm-grey-icon"></span> 9876543210</a>
-                                <a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span> bikewale@motors.com</a>
-                                <input type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn" value="Get assistance">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="font14">
-                                <h2 class="font16 margin-bottom10"><a href="" class="text-black">Kamala Landmarc Motorbikes</a></h2>
-                                <p class="text-light-grey margin-bottom5">Andheri, Mumbai</p>
-                                <a href="tel:9876543210" class="text-light-grey margin-bottom5"><span class="bwmsprite tel-sm-grey-icon"></span> 9876543210</a>
-                                <a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span> bikewale@motors.com</a>
-                                <input type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn" value="Get assistance">
-                            </div>
-                        </li>
+                        <asp:Repeater ID="rptDealers" runat="server">
+                            <ItemTemplate>
+                                <li>
+                                    <div class="<%# (DataBinder.Eval(Container.DataItem,"DealerPkgType").ToString()!="0")?"":"hide" %> featured-tag text-white text-center font14 margin-bottom5">
+                                        Featured
+                                    </div>
+                                    <div class="font14">
+                                        <h2 class="font16 margin-bottom10"><a href="#" class="text-black"><%# DataBinder.Eval(Container.DataItem,"Name").ToString() %></a></h2>
+                                        <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
+                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>"><a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-light-grey margin-bottom5"><span class="bwmsprite tel-sm-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a></div>
+                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"Email") %></a></div>
+                                        <input type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn" value="Get assistance">
+                                    </div>
+                                </li>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </ul>
                 </div>
             </div>
@@ -105,16 +95,16 @@
                 <div id="dealerFilterReset" class="resetrTitle">Reset</div>
                 <div class="clear"></div>
             </div>
-            <div class="user-selected-brand-city-container content-inner-block-20">
+            <div class="user-selected-brand-city-container content-inner-block-20" id="divMakeCity">
                 <div id="selectBrand" class="form-control text-left input-sm position-rel margin-bottom20">
                     <span class="position-abt progress-bar"></span>
-                    <div class="user-selected">Select brand</div>
+                    <div class="user-selected" data-bind="text: makeName"></div>
                     <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
                     <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
                 </div>
                 <div id="selectCity" class="form-control text-left input-sm position-rel margin-bottom20">
                     <span class="position-abt progress-bar"></span>
-                    <div class="user-selected">Select city</div>
+                    <div class="user-selected" data-bind="text: cityName"></div>
                     <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
                     <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
                 </div>
@@ -129,14 +119,14 @@
                         <span class="dealers-back-arrow-box">
                             <span class="bwmsprite back-long-arrow-left"></span>
                         </span>
-                        <input class="form-control" type="text" id="dealersBrandInput" autocomplete="off" placeholder="Select brand" />
+                        <input class="form-control" type="text" id="dealersBrandInput" autocomplete="on" placeholder="Select brand" />
                     </div>
                     <ul id="filterBrandList" class="filter-brand-city-ul margin-top40" data-filter-type="brand-filter">
-                        <li>Brand 1</li>
-                        <li>Brand 2</li>
-                        <li>Brand 3</li>
-                        <li>Brand 4</li>
-                        <li>Brand 5</li>
+                        <asp:Repeater ID="rptMakes" runat="server">
+                            <ItemTemplate>
+                                <li maskingName="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>"><%# DataBinder.Eval(Container.DataItem,"MakeName") %></li>                                 
+                             </ItemTemplate>
+                        </asp:Repeater>                      
                     </ul>
                 </div>
 
@@ -145,14 +135,14 @@
                         <span class="dealers-back-arrow-box">
                             <span class="bwmsprite back-long-arrow-left"></span>
                         </span>
-                        <input class="form-control" type="text" id="dealersCityInput" autocomplete="off" placeholder="Select city" />
+                        <input class="form-control" type="text" id="dealersCityInput" autocomplete="on" placeholder="Select city" />
                     </div>
                     <ul id="filterCityList" class="filter-brand-city-ul margin-top40" data-filter-type="city-filter">
-                        <li>City 1</li>
-                        <li>City 2</li>
-                        <li>City 3</li>
-                        <li>City 4</li>
-                        <li>City 5</li>
+                         <asp:Repeater ID="rptCities" runat="server">
+                            <ItemTemplate>
+                                <li maskingName="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>"><%# DataBinder.Eval(Container.DataItem,"CityName") %></li>                                
+                            </ItemTemplate>
+                        </asp:Repeater>                         
                     </ul>
                 </div>
             </div>
@@ -239,6 +229,14 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
+
+            var makeCityViewModel = function () {
+                makeCityViewModel.makeName = ko.observable(makeName != "" ? makeName : 'Select brand');
+                makeCityViewModel.cityName = ko.observable(cityName != "" ? cityName : 'Select City');
+            };
+
+            ko.applyBindings(makeCityViewModel, $('#divMakeCity')[0]);            
+
             $('.listing-filter-btn').on('click', function () {
                 $('#dealersFilterWrapper').animate({ 'left': '0' }, 500);
             });
@@ -260,7 +258,7 @@
                 animateFilterList();
             });
 
-            var animateFilterList = function() {
+            var animateFilterList = function () {
                 dealerFilterContent.addClass("open").stop().animate({ 'left': '0' }, 500);
                 $(".user-input-box").stop().animate({ 'left': '0' }, 500);
             }
@@ -279,24 +277,25 @@
                     selectedElementValue = selectedElement.text(),
                     selectedElementParent = selectedElement.parent(),
                     selectedElementInputField = selectedElementParent.siblings("div.user-input-box"),
-                    selectedElementParentAttr = selectedElementParent.attr("data-filter-type"),
-                    userSelectionType;
+                    selectedElementParentAttr = selectedElementParent.attr("data-filter-type");
+                    
                 selectedElementInputField.find("input").val(selectedElementValue);
+
                 if (selectedElementParentAttr == "brand-filter")
-                    userSelectionType = $("#selectBrand");
+                    makeCityViewModel.makeName(selectedElementValue);
                 else
-                    userSelectionType = $("#selectCity");
-                setUserSelection(selectedElementValue, userSelectionType);
+                    makeCityViewModel.cityName(selectedElementValue);
+               
+                setUserSelection();
             });
 
-            var setUserSelection = function (selectedElementValue, userSelectionType) {
-                userSelectionType.find('.user-selected').text(selectedElementValue);
+            var setUserSelection = function () {                
                 $(".dealers-brand-city-wrapper .dealers-back-arrow-box").trigger("click");
             };
 
             $("#dealerFilterReset").on("click", function () {
-                $("#selectBrand .user-selected").text("Select brand");
-                $("#selectCity .user-selected").text("Select city");
+                makeCityViewModel.makeName("Select brand");
+                makeCityViewModel.cityName("Select city");
                 $("#dealerFilterContent").find("input").val("");
             });
 
@@ -313,8 +312,13 @@
             });            $(".leadCapture-close-btn, #notifyOkayBtn").on("click", function () {
                 assistancePopupClose();
                 window.history.back();
-            });            var assistancePopupClose = function () {                $("#leadCapturePopup").hide();
-                $("#notify-response").hide();            };            $("#user-details-submit-btn").on("click", function () {                if (validateUserDetail()) {                    $("#contactDetailsPopup").hide();                    $("#otpPopup").show();                    $(".lead-mobile").text($("#getMobile").val());                    //$(".notify-leadUser").text($("#getFullName").val());                    //$("#notify-response").show();                }            });            var validateUserDetail = function () {
+            });            var assistancePopupClose = function () {
+                $("#leadCapturePopup").hide();
+                $("#notify-response").hide();
+            };            $("#user-details-submit-btn").on("click", function () {
+                if (validateUserDetail()) {
+                    $("#contactDetailsPopup").hide();                    $("#otpPopup").show();                    $(".lead-mobile").text($("#getMobile").val());                    //$(".notify-leadUser").text($("#getFullName").val());                    //$("#notify-response").show();                }
+            });            var validateUserDetail = function () {
                 var isValid = true;
                 isValid = validateName();
                 isValid &= validateEmail();
