@@ -1,17 +1,15 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
-using Bikewale.Cache.Location;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
-using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.Interfaces.Location;
+using Bikewale.Memcache;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -29,7 +27,7 @@ namespace Bikewale.m.dealerlocator
     /// </summary>
     public class dealerlisting : PageBase
     {
-        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty;
+        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty;
         protected uint cityId, makeId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
@@ -146,26 +144,27 @@ namespace Bikewale.m.dealerlocator
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<ICityCacheRepository, CityCacheRepository>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<ICity, CityRepository>()
-                            ;
-                    var objCache = container.Resolve<ICityCacheRepository>();
-                    _cities = objCache.GetPriceQuoteCities(59);
+                    container.RegisterType<IDealer, DealersRepository>();
+
+                    var objCities = container.Resolve<IDealer>();
+                    _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {
                         rptCities.DataSource = _cities;
                         rptCities.DataBind();
                         cityName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityName;
+                        cityMaskingName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityMaskingName;
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown : " + ex.ToString());
+                Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown");
                 objErr.SendMail();
             }
         }
+
 
 
         /// <summary>
@@ -179,7 +178,7 @@ namespace Bikewale.m.dealerlocator
             {
                 if (!string.IsNullOrEmpty(maskingName))
                 {
-                    string _makeId = "7";//MakeMapping.GetMakeId(maskingName);
+                    string _makeId = MakeMapping.GetMakeId(maskingName);
                     if (string.IsNullOrEmpty(_makeId) || !uint.TryParse(_makeId, out makeId))
                     {
                         Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);

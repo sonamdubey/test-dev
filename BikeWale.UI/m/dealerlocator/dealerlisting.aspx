@@ -43,7 +43,11 @@
     </style>
     <script type="text/javascript">
         var makeName = "<%=makeName%>";
+        var makeMaskingName = "<%=makeMaskingName%>";
+        var makeId = "<%=makeId%>";
         var cityName = "<%=cityName%>";
+        var cityId = "<%= cityId%>";
+        var cityMaskingName = "<%= cityMaskingName%>";
     </script>
 </head>
 <body class="bg-light-grey">
@@ -67,7 +71,7 @@
                         <asp:Repeater ID="rptDealers" runat="server">
                             <ItemTemplate>
                                 <li>
-                                    <div class="<%# (DataBinder.Eval(Container.DataItem,"DealerPkgType").ToString()!="0")?"":"hide" %> featured-tag text-white text-center font14 margin-bottom5">
+                                    <div class="<%# (DataBinder.Eval(Container.DataItem,"DealerType").ToString()!="0")?"":"hide" %> featured-tag text-white text-center font14 margin-bottom5">
                                         Featured
                                     </div>
                                     <div class="font14">
@@ -75,7 +79,7 @@
                                         <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>"><a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-light-grey margin-bottom5"><span class="bwmsprite tel-sm-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a></div>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"Email") %></a></div>
-                                        <input type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn" value="Get assistance">
+                                        <input data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn" value="Get assistance">
                                     </div>
                                 </li>
                             </ItemTemplate>
@@ -100,13 +104,17 @@
                     <span class="position-abt progress-bar"></span>
                     <div class="user-selected" data-bind="text: makeName"></div>
                     <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
-                    <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
+                    <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>                  
+                    <span class="bwsprite error-icon errorIcon hide" ></span>
+                    <div class="bw-blackbg-tooltip errorText hide" ></div>
                 </div>
                 <div id="selectCity" class="form-control text-left input-sm position-rel margin-bottom20">
                     <span class="position-abt progress-bar"></span>
                     <div class="user-selected" data-bind="text: cityName"></div>
                     <span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span>
                     <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
+                    <span class="bwsprite error-icon errorIcon hide" ></span>
+                    <div class="bw-blackbg-tooltip errorText hide" ></div>
                 </div>
                 <div class="text-center position-rel">
                     <span class="position-abt progress-bar btn-loader"></span>
@@ -127,7 +135,9 @@
                                 <li maskingName="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>"><%# DataBinder.Eval(Container.DataItem,"MakeName") %></li>                                 
                              </ItemTemplate>
                         </asp:Repeater>                      
-                    </ul>
+                    </ul>                    
+                    <span class="bwsprite error-icon errorIcon hide" ></span>
+                    <div class="bw-blackbg-tooltip errorText hide" ></div>
                 </div>
 
                 <div class="dealers-city-popup-box bwm-brand-city-box bike-city-list-container form-control-box text-left">
@@ -143,7 +153,7 @@
                                 <li maskingName="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>"><%# DataBinder.Eval(Container.DataItem,"CityName") %></li>                                
                             </ItemTemplate>
                         </asp:Repeater>                         
-                    </ul>
+                    </ul>                    
                 </div>
             </div>
         </div>
@@ -228,262 +238,8 @@
     
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript">
 
-            var makeCityViewModel = function () {
-                makeCityViewModel.makeName = ko.observable(makeName != "" ? makeName : 'Select brand');
-                makeCityViewModel.cityName = ko.observable(cityName != "" ? cityName : 'Select City');
-            };
-
-            ko.applyBindings(makeCityViewModel, $('#divMakeCity')[0]);            
-
-            $('.listing-filter-btn').on('click', function () {
-                $('#dealersFilterWrapper').animate({ 'left': '0' }, 500);
-            });
-            $('.filterBackArrow').on('click', function () {
-                $('#dealersFilterWrapper').animate({ 'left': '100%' }, 500);
-            });
-
-            var selectBrand = $('#selectBrand'),
-                selectCity = $('#selectCity'),
-                dealerFilterContent = $('#dealerFilterContent');
-
-            selectBrand.on("click", function () {
-                $("#dealerFilterContent .dealers-brand-popup-box").show().siblings("div.dealers-city-popup-box").hide();
-                animateFilterList();
-            });
-
-            selectCity.on("click", function () {
-                $("#dealerFilterContent .dealers-brand-popup-box").hide().siblings("div.dealers-city-popup-box").show();
-                animateFilterList();
-            });
-
-            var animateFilterList = function () {
-                dealerFilterContent.addClass("open").stop().animate({ 'left': '0' }, 500);
-                $(".user-input-box").stop().animate({ 'left': '0' }, 500);
-            }
-
-            $(".dealers-brand-city-wrapper .dealers-back-arrow-box").on("click", function () {
-                dealerFilterContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
-                $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
-            });
-
-            $("#dealersBrandInput, #dealersCityInput").on("keyup", function () {
-                locationFilter($(this));
-            });
-
-            $(".filter-brand-city-ul").on("click", "li", function () {
-                var selectedElement = $(this),
-                    selectedElementValue = selectedElement.text(),
-                    selectedElementParent = selectedElement.parent(),
-                    selectedElementInputField = selectedElementParent.siblings("div.user-input-box"),
-                    selectedElementParentAttr = selectedElementParent.attr("data-filter-type");
-                    
-                selectedElementInputField.find("input").val(selectedElementValue);
-
-                if (selectedElementParentAttr == "brand-filter")
-                    makeCityViewModel.makeName(selectedElementValue);
-                else
-                    makeCityViewModel.cityName(selectedElementValue);
-               
-                setUserSelection();
-            });
-
-            var setUserSelection = function () {                
-                $(".dealers-brand-city-wrapper .dealers-back-arrow-box").trigger("click");
-            };
-
-            $("#dealerFilterReset").on("click", function () {
-                makeCityViewModel.makeName("Select brand");
-                makeCityViewModel.cityName("Select city");
-                $("#dealerFilterContent").find("input").val("");
-            });
-
-            $("#applyDealerFilter").on("click", function () {
-                $(".filterBackArrow").trigger("click");
-            });
-
-            //assistance form
-            $(".get-assistance-btn").on('click', function () {
-                $("#leadCapturePopup").show();
-                appendHash("assistancePopup");
-                $("div#contactDetailsPopup").show();
-                $("#otpPopup").hide();
-            });            $(".leadCapture-close-btn, #notifyOkayBtn").on("click", function () {
-                assistancePopupClose();
-                window.history.back();
-            });            var assistancePopupClose = function () {
-                $("#leadCapturePopup").hide();
-                $("#notify-response").hide();
-            };            $("#user-details-submit-btn").on("click", function () {
-                if (validateUserDetail()) {
-                    $("#contactDetailsPopup").hide();                    $("#otpPopup").show();                    $(".lead-mobile").text($("#getMobile").val());                    //$(".notify-leadUser").text($("#getFullName").val());                    //$("#notify-response").show();                }
-            });            var validateUserDetail = function () {
-                var isValid = true;
-                isValid = validateName();
-                isValid &= validateEmail();
-                isValid &= validateMobile();
-                isValid &= validateModel();
-                return isValid;
-            };
-
-            var validateName = function () {
-                var isValid = true,
-                    name = $("#getFullName"),
-                    nameLength = name.val().length;
-                if (name.val().indexOf('&') != -1) {
-                    setError(name, 'Invalid name');
-                    isValid = false;
-                }
-                else if (nameLength == 0) {
-                    setError(name, 'Please enter your name');
-                    isValid = false;
-                }
-                else if (nameLength >= 1) {
-                    hideError(name);
-                    isValid = true;
-                }
-                return isValid;
-            };
-
-            var validateEmail = function () {
-                var isValid = true,
-                    emailId = $("#getEmailID"),
-                    emailVal = emailId.val(),
-                    reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
-                if (emailVal == "") {
-                    setError(emailId, 'Please enter email address');
-                    isValid = false;
-                }
-                else if (!reEmail.test(emailVal)) {
-                    setError(emailId, 'Invalid Email');
-                    isValid = false;
-                }
-                return isValid;
-            };
-
-            var validateMobile = function () {
-                var isValid = true,
-                    mobileNo = $("#getMobile"),
-                    mobileVal = mobileNo.val(),
-                    reMobile = /^[0-9]{10}$/;
-                if (mobileVal == "") {
-                    setError(mobileNo, "Please enter your Mobile Number");
-                    isValid = false;
-                }
-                else if (!reMobile.test(mobileVal) && isValid) {
-                    setError(mobileNo, "Mobile number should be 10 digits");
-                    isValid = false;
-                }
-                else
-                    hideError(mobileNo)
-                return isValid;
-            };
-
-            var validateModel = function () {
-                var isValid = true,
-                    model = $("#getModelName"),
-                    modelLength = model.val().length;
-                if (model.val().indexOf('&') != -1) {
-                    setError(model, 'Invalid model name');
-                    isValid = false;
-                }
-                else if (modelLength == 0) {
-                    setError(model, 'Please enter model name');
-                    isValid = false;
-                }
-                else if (modelLength >= 1) {
-                    hideError(model);
-                    isValid = true;
-                }
-                return isValid;
-            };
-
-            var setError = function (element, msg) {
-                element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
-                element.siblings("div.errorText").text(msg);
-            };
-
-            var hideError = function (element) {
-                element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
-            };
-
-            $("#getMobile, #getFullName, #getEmailID, #getModelName, #getUpdatedMobile, #getOTP").on("focus", function () {
-                hideError($(this));
-            });
-
-            //otp form
-            $("#otpPopup .edit-mobile-btn").on("click", function () {
-                var prevMobile = $(this).prev("span.lead-mobile").text();
-                $(".lead-otp-box-container").hide();
-                $(".update-mobile-box").show();
-                $("#getUpdatedMobile").val(prevMobile).focus();
-            });
-
-            $("#generateNewOTP").on("click", function () {
-                if (validateUpdatedMobile()) {
-                    var updatedNumber = $(".update-mobile-box").find("#getUpdatedMobile").val();
-                    $(".update-mobile-box").hide();
-                    $(".lead-otp-box-container").show();
-                    $(".lead-mobile-box").find(".lead-mobile").text(updatedNumber);
-                }
-            });
-
-            var validateUpdatedMobile = function () {
-                var isValid = true,
-                    mobileNo = $("#getUpdatedMobile"),
-                    mobileVal = mobileNo.val(),
-                    reMobile = /^[0-9]{10}$/;
-                if (mobileVal == "") {
-                    setError(mobileNo, "Please enter your Mobile number");
-                    isValid = false;
-                }
-                else if (!reMobile.test(mobileVal) && isValid) {
-                    setError(mobileNo, "Mobile number should be 10 digits");
-                    isValid = false;
-                }
-                else
-                    hideError(mobileNo)
-                return isValid;
-            };
-
-            var otpText = $("#getOTP"),
-                otpBtn = $("#otp-submit-btn");
-
-            otpBtn.on("click", function () {
-                if (validateOTP()) {
-
-                }
-            });
-
-            var otpVal = function (msg) {
-                otpText.addClass("border-red");
-                otpText.siblings("span, div").show();
-                otpText.siblings("div").text(msg);
-            };
-
-            function validateOTP() {
-                var retVal = true;
-                var isNumber = /^[0-9]{5}$/;
-                var cwiCode = otpText.val();
-                if (cwiCode == "") {
-                    retVal = false;
-                    otpVal("Please enter your Verification Code");
-                }
-                else {
-                    if (isNaN(cwiCode)) {
-                        retVal = false;
-                        otpVal("Verification code should be numeric");
-                    }
-                    else if (cwiCode.length != 5) {
-                        retVal = false;
-                        otpVal("Verification code should be of 5 digits");
-                    }
-                }
-                return retVal;
-            }
-
-        </script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerlisting.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>
