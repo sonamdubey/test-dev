@@ -155,10 +155,6 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.AddWithValue("@UpdatedBy", userId);
                     //Optional Parameters
                     cmd.Parameters.AddWithValue("@IsBookingAvailable", isBookingAvailable);
-                    //if (startDate.HasValue)
-                    //    cmd.Parameters.AddWithValue("@StartDate", startDate.Value);
-                    //if (endDate.HasValue)
-                    //    cmd.Parameters.AddWithValue("@EndDate", endDate.Value);
                     isSuccess = db.UpdateQry(cmd);
                 }
             }
@@ -177,9 +173,9 @@ namespace BikewaleOpr.Common
         }
 
         /// <summary>
-        /// Created by  :   Sumit Kate on 19 Mar 2016
-        /// Description :   Fetch the Dealer Campaign details
-        ///                 SP Called : BW_FetchBWDealerCampaign
+        /// Created by  :   Sangram Nandkhile on 22 Mar 2016
+        /// Description :   Fetch the Dealer Campaigns for contacts
+        ///                 SP Called : BW_FetchBWCampaigns
         /// </summary>
         /// <param name="campaignId">Campaign Id</param>
         /// <returns></returns>

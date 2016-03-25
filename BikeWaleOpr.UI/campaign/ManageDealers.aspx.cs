@@ -12,6 +12,10 @@ using System.Web.UI.WebControls;
 
 namespace BikewaleOpr.Campaign
 {
+    /// <summary>
+    /// Created by: Sangram Nandkhile on 25 Mar 2016
+    /// Desc:       To manage dealer campaigs with add/update/delete options
+    /// </summary>
     public class ManageDealers : System.Web.UI.Page
     {
         #region variable

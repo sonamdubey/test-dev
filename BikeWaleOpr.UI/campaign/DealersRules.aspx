@@ -211,7 +211,6 @@
                 }
             }
             function bindDropDownList(response, cmbToFill, viewStateId, selectString) {
-                debugger;
                 if (response.Table != null) {
                     if (!selectString || selectString == '') selectString = "--Select--";
                     $(cmbToFill).empty().append("<option value=\"0\" title='" + selectString + "'>" + selectString + "</option>").removeAttr("disabled");

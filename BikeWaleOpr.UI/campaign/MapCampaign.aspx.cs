@@ -11,6 +11,10 @@ using System.Web.UI.WebControls;
 
 namespace BikewaleOpr.Campaign
 {
+    /// <summary>
+    /// Created By :    Sangram Nandkhile on 22 March 2016.
+    /// Description :   To manage campaigns for contract
+    /// </summary>
     public class MapCampaign : System.Web.UI.Page
     {
         #region Variables
@@ -36,7 +40,6 @@ namespace BikewaleOpr.Campaign
         private void InitializeComponent()
         {
             base.Load += new EventHandler(Page_Load);
-            btnProceed.Click += new EventHandler(btnProceed_Click);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -73,19 +76,6 @@ namespace BikewaleOpr.Campaign
             }
         }
 
-        private void btnProceed_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //MapCampaignToContract();
-                //SaveMaskingNumber();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "btnProceed_Click");
-                objErr.SendMail();
-            }
-        }
 
         #endregion
 
@@ -123,6 +113,7 @@ namespace BikewaleOpr.Campaign
             else
                 return "display: none;";
         }
+
         #endregion
 
 

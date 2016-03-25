@@ -80,35 +80,6 @@
             this.value = this.value.replace(/[^0-9]/g, '');
         });
 
-        //$(function () {
-        //    $("[id$=txtStartDate]").datepicker({
-        //        showOn: 'button',
-        //        dateFormat: 'dd-mm-yy',
-        //        buttonImageOnly: true,
-        //        buttonImage: '../images/calendar.png',
-        //        numberOfMonths: 2,
-        //        onSelect: function (selected) {
-        //            var dateParts = selected.split('-');
-        //            var dt = new Date(dateParts[1] + "/" + dateParts[0] + "/" + dateParts[2]);
-        //            dt.setDate(dt.getDate() + 1);
-        //            $("#txtEndDate").datepicker("option", "minDate", dt);
-        //        }
-        //    });
-        //    $("[id$=txtEndDate]").datepicker({
-        //        showOn: 'button',
-        //        dateFormat: 'dd-mm-yy',
-        //        buttonImageOnly: true,
-        //        buttonImage: '../images/calendar.png',
-        //        numberOfMonths: 2,
-        //        onSelect: function (selected) {
-        //            var dateParts = selected.split('-');
-        //            var dt = new Date(dateParts[1] + "/" + dateParts[0] + "/" + dateParts[2]);
-        //            dt.setDate(dt.getDate() + 1);
-        //            $("#txtStartDate").datepicker("option", "maxDate", dt);
-        //        }   
-        //    });
-        //});
-
         function ValidateForm() {
             var isValid = true;
             $('#lblErrorSummary').html('');
@@ -131,10 +102,6 @@
                         isValid = false;
                 }
             }
-            //if (isValid) {
-            //    $('#hdnStartDate').val($('#txtStartDate').val());
-            //    $('#hdnEndDate').val($('#txtEndDate').val());
-            //}
             return isValid;
         }
         function isValidEmailAddress(emailAddress) {
@@ -164,9 +131,6 @@
                 $('#' + 'btnUpdateResume').hide();
                 $("#txtMaskingNumber").val("");
                 maskingCurrentAction = "Add";
-                //$('#chkMaskingNumber').attr('disabled', false);
-                //$('#mapNewMaskingNumber').text("Map new number");
-                //$('#chkMaskingNumber').attr("checked", false);
             }
         }
     </script>
