@@ -596,18 +596,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealers.DealerDetails.DealerId = dealerId;
-                                dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
-                                dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
-                                dealers.DealerDetails.Area = new AreaEntityBase
-                                {
-                                    AreaName = Convert.ToString(dr["Area"]),
-                                    Longitude = Convert.ToDouble(dr["Longitude"]),
-                                    Latitude = Convert.ToDouble(dr["Longitude"])
-                                };
-                                dealers.DealerDetails.City = Convert.ToString(dr["City"]);
-                                dealers.DealerDetails.DealerPkgType = (DealerPackageTypes) Enum.Parse(typeof(DealerPackageTypes), Convert.ToString(dr["DealerType"]));
-                                dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
-                                dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
+                               
                             }
                             if (dr.NextResult())
                             {

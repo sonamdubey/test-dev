@@ -99,7 +99,7 @@
                     <ul id="dealersList">
                         <asp:Repeater ID="rptDealers" runat="server">
                             <ItemTemplate>
-                                <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>">
+                                <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>">
                                     <div class="font14">
                                         <h2 class="font16 margin-bottom10">
                                             <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
@@ -138,26 +138,26 @@
                         <p class="featured-tag text-white text-center margin-bottom5">
                             Featured
                         </p>
-                        <div class="padding-bottom20 border-solid-bottom">
+                        <div class="padding-bottom20 ">
                             <h3 class="font18 text-dark-black margin-bottom10" data-bind="text: name"></h3>
-                            <p class="text-light-grey margin-bottom5" data-bind="text: address"></p>
+                            <p class="text-light-grey margin-bottom5" data-bind="visible :address() && address().length > 0,text: address()"></p>
                             <div class="margin-bottom5">
-                                <span class="font16 text-bold margin-right10" data-bind="visible : mobile && mobile.length > 0"><span class="bwsprite phone-black-icon"></span><span data-bind="text: mobile"></span></span>
-                                <a href="#" class="text-light-grey" data-bind="visible : email && email.length > 0,attr : { href :'mailto:' + email }"><span class="bwsprite mail-grey-icon"></span><span data-bind="    text: email"></span></a>
+                                <span class="font16 text-bold margin-right10" data-bind="visible : mobile() && mobile().length > 0"><span class="bwsprite phone-black-icon"></span><span data-bind="text: mobile()"></span></span>
+                                <a href="#" class="text-light-grey" data-bind="visible : email() && email().length > 0,attr : { href :'mailto:' + email() }"><span class="bwsprite mail-grey-icon"></span><span data-bind="text: email()"></span></a>
                             </div>
 
                             <p class="text-light-grey margin-bottom5" data-bind="visible: workingHours && workingHours.length > 0,text : workingHours"> Working Hours : </p>
-                            <%-- <a href=""><span class="bwsprite get-direction-icon"></span>Get directions</a>
-                            <a href="" class="border-dark-left margin-left10 padding-left10"><span class="bwsprite sendto-phone-icon"></span>Send to phone</a>--%>
+                           <a href="" target="_blank" data-bind="attr : { href : 'https://maps.google.com/?saddr=' + userLocation + '&daddr=' + lat() + ',' + lng() + '' }" ><span class="bwsprite get-direction-icon"></span>Get directions</a>
+                             <%-- <a href="" class="border-dark-left margin-left10 padding-left10"><span class="bwsprite sendto-phone-icon"></span>Send to phone</a>--%>
                         </div>
-                        <div class="padding-top15">
+                       <%-- <div class="padding-top15">
                             <p class="font14 text-bold margin-bottom15">Get commute distance and time:</p>
                             <div class="commute-distance-form form-control-box">
                                 <input type="text" class="form-control" placeholder="Enter your location" />
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
-                    <div id="buyingAssistanceForm" data-bind="with: CustomerDetails" class="margin-top20 content-inner-block-1520">
+                    <div id="buyingAssistanceForm" data-bind="with: CustomerDetails" class="border-solid-top content-inner-block-1520">
                         <div id="buying-assistance-form">
                             <p class="font14 text-bold margin-bottom15">Get buying assistance from this dealer:</p>
                             <div class="name-email-mobile-box form-control-box leftfloat margin-right20">
@@ -179,7 +179,7 @@
                             <div class="clear"></div>
                             <div class="margin-top20">
                                 <div class="select-model-box form-control-box leftfloat margin-right40">
-                                    <select id="assistGetModel" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: bikes, optionsText: 'bike',chosen: { no_results_text: 'No matches found!!', width: '100℅' }" class="form-control chosen-select"></select>
+                                    <select id="assistGetModel" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: bikes, optionsText: 'bike',optionsCaption: 'Select a bike'" class="form-control chosen-select"></select>
                                     <span class="bwsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
@@ -193,8 +193,8 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <div>
-                        <p class="font14 text-bold padding-top20 padding-right20 padding-left20 margin-bottom15">Models available with the dealer:</p>
+                    <div class="border-solid-top" data-bind="visible : DealerBikes.length > 0">
+                        <p class="font14 text-bold padding-top20 padding-right20 padding-left20 margin-bottom15"><span data-bind="text : (DealerBikes.length > 1 )?'Models':'Model'"></span> available with the dealer:</p>
                         <ul id="modelsAvailable" data-bind="template: { name: 'dealerBikesTemplate', foreach: DealerBikes }"></ul>
 
                         <script id="dealerBikesTemplate" type="text/html">
@@ -202,7 +202,7 @@
                                 <div class="contentWrapper">
                                     <div class="imageWrapper">
                                         <a href="#" data-bind="attr: { href: bikeUrl(), title: bikeName() }">
-                                            <img class="lazy" data-bind="attr: { 'data-original' : imagePath(), title: bikeName(), alt: bikeName() }" />
+                                            <img  data-bind="attr: { src : imagePath(), title: bikeName(), alt: bikeName() }" />
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
@@ -241,7 +241,9 @@
                     <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
                     <div class="personal-info-form-container">
                         <div class="form-control-box personal-info-list">
-                            <select id="getModelName" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: bikes, optionsText: 'bike',chosen: { no_results_text: 'No matches found!!', width: '100℅' }" class="form-control chosen-select"></select>
+                            <select id="getModelName" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: bikes, optionsText: 'bike',optionsCaption: 'Select a bike'" class="form-control chosen-select"></select>
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="form-control-box personal-info-list">
                             <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
@@ -344,9 +346,9 @@
         <!-- #include file="/includes/footerscript.aspx" -->
 
         <script type="text/javascript">
-            $ddlCities = $("#ddlCities");
-            $ddlMakes = $("#ddlMakes");
-            bikeCityId = $("#ddlCities").val();
+            var $ddlCities = $("#ddlCities"), $ddlMakes = $("#ddlMakes"), $ddlModels = $("#getModelName,#assistGetModel");
+            var bikeCityId = $("#ddlCities").val();
+            lscache.flushExpired();
             $("#applyFiltersBtn").click(function () {
 
                 ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
@@ -364,8 +366,8 @@
             });
 
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
-            $ddlMakes.chosen({ no_results_text: "No matches found!!" });
-            // $ddlModels.chosen({ no_results_text: "No matches found!!", width: "100%" });
+            $ddlMakes.chosen({ no_results_text: "No matches found!!" });  
+            //$ddlModels.chosen({ no_results_text: "No matches found!!", width: "100%" });
             $('div.chosen-container').attr('style', 'width:100%;border:0');
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
 
