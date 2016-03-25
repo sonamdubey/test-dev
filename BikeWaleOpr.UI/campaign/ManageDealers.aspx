@@ -13,6 +13,7 @@
     <style>
         .required {color: red;}
         .redmsg{ border: 1px solid red; background: #FFCECE; }
+        .greenMessage { color:#6B8E23;font-size: 11px;}
     </style>
 </head>
 <body>
@@ -72,11 +73,24 @@
 
               <asp:Label class="errMessage margin-bottom10 margin-left10 required" ID="lblErrorSummary" runat="server" />
                 <br />
-                <asp:Label class="margin-bottom10 margin-left10 greenMessage" ID="lblGreenMessage" runat="server" />
+                <asp:Label class="greenMessage margin-bottom10 margin-left10" ID="lblGreenMessage" runat="server" />
                 <br />
 
             </div>
         </fieldset>
+        <% if(isCampaignPresent){ %>
+        <fieldset class="margin-left10">
+            <legend>Define Components</legend>
+            <table class="table-default-style">
+                <tbody>
+                    <tr>
+                        <td><strong>Edit rules:</strong> </td>
+                        <td><a href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></td>
+                    </tr>
+                    </tbody>
+            </table>
+        </fieldset>
+        <% } %>
     </form>
     <script type="text/javascript">
         $('.numeric').on('input', function (event) {

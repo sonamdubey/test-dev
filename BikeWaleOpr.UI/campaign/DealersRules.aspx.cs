@@ -161,9 +161,12 @@ namespace BikewaleOpr.Campaign
         private void FillDropDowns()
         {
             ParseQueryString();
-            BindRules();
             FillMakes();
             FillStates();
+            if(!IsPostBack)
+            {
+                BindRules();
+            }
         }
 
         /// <summary>
@@ -198,12 +201,14 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
+                rptRules.DataSource = null;
                 DataTable dbRules = campaign.FetchBWDealerCampaignRules(campaignId, dealerId);
                 if (dbRules != null && dbRules.Rows.Count > 0)
                 {
                     rptRules.DataSource = dbRules;
                     rptRules.DataBind();
                 }
+                
             }
             catch (Exception ex)
             {

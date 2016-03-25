@@ -24,7 +24,7 @@ namespace BikewaleOpr.Campaign
         protected string startDate, endDate;
         public Label lblGreenMessage, lblErrorSummary;
         public HtmlGenericControl textArea;
-        bool isCampaignPresent;
+        public bool isCampaignPresent;
         
         #endregion
 
@@ -41,19 +41,6 @@ namespace BikewaleOpr.Campaign
             dealerCampaign = new ManageDealerCampaign();
             if (isCampaignPresent)
             {
-                dealerCampaign.InsertBWDealerCampaign(
-                    true,
-                    currentUserId,
-                    dealerId,
-                    contractId,
-                    Convert.ToInt16(txtdealerRadius.Text),
-                    txtMaskingNumber.Text,
-                    dealerName,
-                    txtDealerEmail.Text,
-                    false);
-            }
-            else
-            {
                 dealerCampaign.UpdateBWDealerCampaign(
                     true,
                     campaignId,
@@ -65,14 +52,34 @@ namespace BikewaleOpr.Campaign
                     dealerName,
                     txtDealerEmail.Text,
                     false);
+                lblGreenMessage.Text = "Selecte campaign has been Updated !";
+            }
+            else
+            {
+                dealerCampaign.InsertBWDealerCampaign(
+                    true,
+                    currentUserId,
+                    dealerId,
+                    contractId,
+                    Convert.ToInt16(txtdealerRadius.Text),
+                    txtMaskingNumber.Text,
+                    dealerName,
+                    txtDealerEmail.Text,
+                    false);
+                lblGreenMessage.Text = "New campaign has been added !";
             }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             ParseQueryString();
             SetPageVariables();
-            FetchDealeCampaign();
+            if (!IsPostBack)
+            {
+                if (isCampaignPresent)
+                    FetchDealeCampaign();
+            }
         }
 
         #endregion
@@ -88,13 +95,16 @@ namespace BikewaleOpr.Campaign
             try
             {
                 dealerCampaign = new ManageDealerCampaign();
-                DataTable dtCampaign = dealerCampaign.FetchBWDealerCampaign(contractId);
+                DataTable dtCampaign = dealerCampaign.FetchBWDealerCampaign(campaignId);
                 if(dtCampaign !=null && dtCampaign.Rows.Count > 0)
                 {
                     txtdealerRadius.Text = dtCampaign.Rows[0]["DealerLeadServingRadius"].ToString();
                     txtMaskingNumber.Text = dtCampaign.Rows[0]["Number"].ToString();
                     txtDealerEmail.Text = dtCampaign.Rows[0]["DealerEmailId"].ToString();
-                    isCampaignPresent = true;
+                }
+                else
+                {
+                    //Response.Redirect("../pagenotfound.aspx");
                 }
             }
             catch (Exception ex)
@@ -146,7 +156,11 @@ namespace BikewaleOpr.Campaign
                 {
                     dealerName = Request.QueryString["dealername"];
                 }
-
+                if (!string.IsNullOrEmpty(Request.QueryString["campaignid"]))
+                {
+                    campaignId = Convert.ToInt32(Request.QueryString["campaignid"]);
+                    isCampaignPresent = true;
+                }
             }
             catch (Exception ex)
             {
