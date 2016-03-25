@@ -185,9 +185,6 @@
       <DependentUpon>MapCampaign.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="campaign\MapCampaign.aspx.designer.cs">
-      <DependentUpon>MapCampaign.aspx</DependentUpon>
-    </Compile>
     <Compile Include="classified\classified.cs" />
     <Compile Include="classified\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

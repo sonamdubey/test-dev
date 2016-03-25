@@ -217,7 +217,7 @@
                     $(cmbToFill).empty().append("<option value=\"0\" title='" + selectString + "'>" + selectString + "</option>").removeAttr("disabled");
                     var hdnValues = "";
                     // Add select all option for Models
-                    if ($(cmbToFill).attr('id')) {
+                    if (($(cmbToFill).attr('id') == 'ddlModel')) {
                         $(cmbToFill).append("<option value=\"-1\" title='-- Select all --'>" + '-- Select all --' + "</option>");
                     }
                     for (var i = 0; i < response.Table.length; i++) {

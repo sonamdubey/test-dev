@@ -38,7 +38,6 @@
                         <td><strong>Dealer Email ID :</strong><b class="required">*</b></td>
                         <td>
                             <asp:TextBox TextMode="multiline" multiline="true" Height="50" Width="200" runat="server" id="txtDealerEmail" placeholder="Enter Email ids separated by comma" class="req width300" />
-                            <%--<textarea runat="server" id="textArea" style="height:50px;width:200px;" />--%>
                             <span id="spnDealerEmail" class="Required marginleft18"></span>
                         </td>
                     </tr>
@@ -48,22 +47,6 @@
                             <asp:TextBox runat="server" id="txtdealerRadius" placeholder="" class="numeric req width300" />
                         </td>
                     </tr>
-                       <%-- <tr>
-                            <td><strong> Start date:</strong> <b class="required">*</b>
-                            </td>
-                             <td>
-                                 <asp:TextBox ID="txtStartDate" class="req" runat="server" ReadOnly = "true"></asp:TextBox>
-                                 <asp:HiddenField ID="hdnStartDate" runat="server" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>End date: </strong><b class="required">*</b>
-                            </td>
-                             <td>
-                                  <asp:TextBox ID="txtEndDate" class="req" runat="server" ReadOnly = "true"></asp:TextBox>
-                                 <asp:HiddenField ID="hdnEndDate" runat="server" />
-                            </td>
-                        </tr>--%>
                          <tr>
                         <td colspan="2">
                             <asp:Button ID="btnUpdate" OnClientClick="return ValidateForm();" Text="Update" runat="server" />
@@ -160,7 +143,6 @@
         };
 
         function ShowMapMaskingNumberPopup() {
-            alert(1)
             var maskingCurrentAction = 'Add';
             if (maskingCurrentAction == "Add") {
                 var dealerId = 11743;
@@ -170,6 +152,7 @@
                 }
                 $("#mapDealerMaskingIFrame").remove();
                 var applyIframe = false;
+                debugger;
                 var GB_Html = '<iframe id="mapDealerMaskingIFrame" src="http://webserver:8082/DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=' + 4 + '" style="width:99%; height:100%; display:none;"></iframe>';
                 GB_show("Map Dealer Masking", "", 400, 200, applyIframe, GB_Html);
             }

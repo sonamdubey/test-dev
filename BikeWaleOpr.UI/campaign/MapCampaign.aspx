@@ -52,7 +52,7 @@
                                         <td><%#Eval("DealerName") %></td>
                                         <td><%#(bool)Eval("IsActive")== true? "Active" : "Inactive" %></td>
                                         <td>
-                                            <a target="_blank" onclick="mapCampaign.showMapMaskingNumberPopup(<%#Eval("CampaignId") %>)" id="addMaskingNumberLink_<%#Eval("CampaignId") %>">Add Masking Number</a>
+                                            <%--<a target="_blank" onclick="mapCampaign.showMapMaskingNumberPopup(<%#Eval("CampaignId") %>)" id="addMaskingNumberLink_<%#Eval("CampaignId") %>">Add Masking Number</a>--%>
                                             <span id="addMaskingNumber_<%#Eval("CampaignId") %>"><%#Eval("Number").ToString() == "" ? "" : Eval("Number") %></span>
                                         </td>
                                     </tr>
@@ -116,13 +116,13 @@
             });
 
             function mapCampaign(campaignId) {
+                alert('Campaign has been mapped with contract');
                 $.ajax({
                     type: "POST",
                     url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
                     data: '{"contractId":"' + contractId + '" , "campaignId":"' + campaignId + '"}',
                     beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "MapCampaign"); },
                     success: function (response) {
-                        alert('Campaign has been mapped with contract')
                     }
                 });
             }
