@@ -329,7 +329,7 @@
                                         <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get assistance</a>
                                     </div>
                             <% }
-                              else
+                              else if(!isBikeWalePQ)
                               { 
                             %>
                                 <div class="grid-12 float-button float-fixed clearfix">
