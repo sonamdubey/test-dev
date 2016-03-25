@@ -44,7 +44,7 @@ var cityArr = [
 
 var markerArr = [];
 var map, infowindow;
-var markerIcon = '/images/marker-icon.png';
+var markerIcon = 'http://imgd2.aeplcdn.com/0x0/bw/static/design15/marker-icon.png';
 
 function initializeMap(arrList, latPos, longPos, zoomLevel) {
     var mapProp = {

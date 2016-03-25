@@ -478,6 +478,13 @@ $(document).ready(function () {
         sidebarHeight = true;
     }
     if (!sidebarHeight) {
+        if ($('#pqBikeDetails').height() < 470) {
+            $('#PQDealerSidebarContainer').css({ 'padding-bottom': '20px' });
+            $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '400px' });
+            sidebarHeight = true;
+        }
+    }
+    if (!sidebarHeight) {
         if ($('#pqBikeDetails').height() < 500) {
             $('#PQDealerSidebarContainer').css({ 'padding-bottom': '20px' });
             $('#PQDealerSidebarContainer .pqdealer-and-listing-container').css({ 'height': '450px' });
