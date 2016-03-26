@@ -8,10 +8,8 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 
@@ -20,7 +18,7 @@ namespace Bikewale.Mobile
     /// <summary>
     /// Modified By :Sushil Kumar
     /// Modified On : 25 March 2016
-    /// Description : 
+    /// Description : To show dealer details based on dealer id an campaign id
     /// </summary>
     public class DealerDetails : System.Web.UI.Page
     {

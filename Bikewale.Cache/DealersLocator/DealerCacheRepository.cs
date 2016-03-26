@@ -35,7 +35,6 @@ namespace Bikewale.Cache.DealersLocator
         /// <returns>Dealers</returns>
         public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
         {
-            //IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
             Entities.DealerLocator.DealersEntity dealers = null;
             string key = String.Format("BW_DealerList_Make_{0}_City_{1}", makeId, cityId);
             try
@@ -44,7 +43,7 @@ namespace Bikewale.Cache.DealersLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakesByType");
+                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerByMakeCity");
                 objErr.SendMail();
             }
             return dealers;

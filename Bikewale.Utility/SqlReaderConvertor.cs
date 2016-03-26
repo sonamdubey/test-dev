@@ -45,5 +45,57 @@ namespace Bikewale.Utility
             Int64 retVal = 0;
             return ((DBNull.Value != reader) ? Convert.ToInt64(reader) : retVal);
         }
+
+        /// <summary>
+        ///  Created By : Sushil Kumar on 26th March 2016
+        ///  Description : Check for Dbnull and parse value to uint16 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static UInt16 ParseToInt16(object reader)
+        {
+            UInt16 retVal = default(UInt16);
+            if(DBNull.Value != reader)
+            {
+                UInt16.TryParse(reader.ToString(),out retVal);
+            }
+            return retVal;
+            
+        }
+
+        /// <summary>
+        ///  Created By : Sushil Kumar on 26th March 2016
+        ///  Description : Check for Dbnull and parse value to uint 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static uint ParseToInt32(object reader)
+        {
+            uint retVal = default(uint);
+            if (DBNull.Value != reader)
+            {
+                uint.TryParse(reader.ToString(), out retVal);
+            }
+            return retVal;
+
+        }
+
+
+        /// <summary>
+        ///  Created By : Sushil Kumar on 26th March 2016
+        ///  Description : Check for Dbnull and parse value to double
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static double ParseToDouble(object reader)
+        {
+            double retVal = default(double);
+            if (DBNull.Value != reader)
+            {
+                double.TryParse(reader.ToString(), out retVal);
+            }
+            return retVal;
+
+        }
     }
 }

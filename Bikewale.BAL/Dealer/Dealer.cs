@@ -185,7 +185,12 @@ namespace Bikewale.BAL.Dealer
             }
         }
 
-
+        /// <summary>
+        /// Created By : Sushil Kumar on 25th March 2016
+        /// Description : Calls DAL method to get dealer's bikes and details
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
         {
             try
@@ -194,7 +199,7 @@ namespace Bikewale.BAL.Dealer
             }
             catch(Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, System.Web.HttpContext.Current.Request.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerDetailsAndBikes");
                 objErr.SendMail();
                 return null;
             }

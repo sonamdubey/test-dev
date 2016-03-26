@@ -1051,6 +1051,8 @@
     </Compile>
     <Compile Include="new\browsenewbikedealerdetails_old.aspx.cs">
       <DependentUpon>browsenewbikedealerdetails_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\locatenewbikedealers_old.aspx.cs">
       <DependentUpon>locatenewbikedealers_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
