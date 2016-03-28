@@ -105,7 +105,7 @@
                         if ($(this).is(':checked')) {
                             campaignId = $(this).val();
                             mapCampaign(campaignId);
-                            location.href = "/campaign/ManageDealers.aspx?contractid=" + contractId + "&campaignid="+ campaignId +"&dealerid=" + dealerId + "&dealername=" + dealerName;
+                            //location.href = "/campaign/ManageDealers.aspx?contractid=" + contractId + "&campaignid="+ campaignId +"&dealerid=" + dealerId + "&dealername=" + dealerName;
                         }
                     });
                 }
@@ -116,13 +116,14 @@
             });
 
             function mapCampaign(campaignId) {
-                alert('Campaign has been mapped with contract');
                 $.ajax({
                     type: "POST",
                     url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
                     data: '{"contractId":"' + contractId + '" , "campaignId":"' + campaignId + '"}',
                     beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "MapCampaign"); },
                     success: function (response) {
+                        alert('Campaign has been mapped with contract');
+                        location.href = "/campaign/ManageDealers.aspx?contractid=" + contractId + "&campaignid=" + campaignId + "&dealerid=" + dealerId + "&dealername=" + dealerName;
                     }
                 });
             }

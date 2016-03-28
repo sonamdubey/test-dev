@@ -63,8 +63,8 @@ namespace BikewaleOpr.Campaign
                 DataTable dtCampaigns = dealerCampaign.FetchBWCampaigns(contractId);
                 if (dtCampaigns != null && dtCampaigns.Rows.Count > 0)
                 {
-                    dealerId = dtCampaigns.Rows[0]["DealerId"].ToString();
-                    dealerName = dtCampaigns.Rows[0]["Organization"].ToString();
+                    dealerId = Convert.ToString(dtCampaigns.Rows[0]["DealerId"]);
+                    dealerName = Convert.ToString(dtCampaigns.Rows[0]["Organization"]);
                     rptCampaigns.DataSource = dtCampaigns;
                     rptCampaigns.DataBind();
                 }

@@ -38,39 +38,47 @@ namespace BikewaleOpr.Campaign
         {
             this.Load += new EventHandler(Page_Load);
             btnUpdate.Click += new EventHandler(InserOrUpdateDealerCampaign);
+            dealerCampaign = new ManageDealerCampaign();
         }
 
         private void InserOrUpdateDealerCampaign(object sender, EventArgs e)
         {
-            dealerCampaign = new ManageDealerCampaign();
-            if (isCampaignPresent)
+            try
             {
-                dealerCampaign.UpdateBWDealerCampaign(
-                    true,
-                    campaignId,
-                    currentUserId,
-                    dealerId,
-                    contractId,
-                    Convert.ToInt16(txtdealerRadius.Text),
-                    txtMaskingNumber.Text,
-                    dealerName,
-                    txtDealerEmail.Text,
-                    false);
-                lblGreenMessage.Text = "Selecte campaign has been Updated !";
+                if (isCampaignPresent)
+                {
+                    dealerCampaign.UpdateBWDealerCampaign(
+                        true,
+                        campaignId,
+                        currentUserId,
+                        dealerId,
+                        contractId,
+                        Convert.ToInt16(txtdealerRadius.Text),
+                        txtMaskingNumber.Text,
+                        dealerName,
+                        txtDealerEmail.Text,
+                        false);
+                    lblGreenMessage.Text = "Selecte campaign has been Updated !";
+                }
+                else
+                {
+                    dealerCampaign.InsertBWDealerCampaign(
+                        true,
+                        currentUserId,
+                        dealerId,
+                        contractId,
+                        Convert.ToInt16(txtdealerRadius.Text),
+                        txtMaskingNumber.Text,
+                        dealerName,
+                        txtDealerEmail.Text,
+                        false);
+                    lblGreenMessage.Text = "New campaign has been added !";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                dealerCampaign.InsertBWDealerCampaign(
-                    true,
-                    currentUserId,
-                    dealerId,
-                    contractId,
-                    Convert.ToInt16(txtdealerRadius.Text),
-                    txtMaskingNumber.Text,
-                    dealerName,
-                    txtDealerEmail.Text,
-                    false);
-                lblGreenMessage.Text = "New campaign has been added !";
+                
+                throw;
             }
         }
 
@@ -98,7 +106,6 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                dealerCampaign = new ManageDealerCampaign();
                 DataTable dtCampaign = dealerCampaign.FetchBWDealerCampaign(campaignId);
                 if(dtCampaign !=null && dtCampaign.Rows.Count > 0)
                 {
