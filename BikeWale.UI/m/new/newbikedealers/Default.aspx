@@ -192,7 +192,7 @@
                 <ul id="sliderBrandList" class="slider-brand-list margin-top40">
                     <asp:Repeater ID="rptMakes" runat="server">
                         <ItemTemplate>
-                            <li maskingname="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>"><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </li>
+                            <li makeMaskingName="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" makeId="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>"><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </li>
                         </ItemTemplate>
                     </asp:Repeater>
                 </ul>
@@ -205,14 +205,14 @@
                 <ul id="sliderCityList" class="slider-city-list margin-top40">
                     <asp:Repeater ID="rptCities" runat="server">
                         <ItemTemplate>
-                            <li maskingname="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>" <%# ((DataBinder.Eval(Container.DataItem,"CityId")).ToString() != cityId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"CityName") %></li>
+                            <li class="<%# ((DataBinder.Eval(Container.DataItem,"CityId")).ToString() != cityId.ToString())?string.Empty:"activeCity" %>" cityMaskingName="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" cityId="<%# DataBinder.Eval(Container.DataItem,"CityId") %>" ><%# DataBinder.Eval(Container.DataItem,"CityName") %></li>
                         </ItemTemplate>
                     </asp:Repeater>
                 </ul>
             </div>
         </div>
 
-        <section>
+        <%--<section>
             <div class="container text-center">
                 <h2 class="margin-top25 margin-bottom20">Locate dealers by brand</h2>
                 <div class="brand-type-container">
@@ -220,7 +220,7 @@
                         <asp:Repeater ID="rptPopularBrands" runat="server">
                             <ItemTemplate>
                                 <li>
-                                    <a href="/m/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-bikes/">
+                                    <a href="/m/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
                                         <span class="brand-type">
                                             <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?<%= staticFileVersion %>"></span>
                                         </span>
@@ -234,7 +234,7 @@
                         <asp:Repeater ID="rptOtherBrands" runat="server">
                             <ItemTemplate>
                                 <li>
-                                    <a href="/m/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-bikes/">
+                                    <a href="/m/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
                                         <span class="brand-type">
                                             <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?<%= staticFileVersion %>"></span>
 
@@ -250,11 +250,13 @@
                     <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View more brands</a>
                 </div>
             </div>
-        </section>
+        </section>--%>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
             var locatorSearchBar = $("#locatorSearchBar"),
+                $ddlCities = $("#sliderCityList"),
+                $ddlMakes = $("#sliderBrandList"),
                 searchBrandDiv = $(".locator-search-brand"),
                 searchCityDiv = $(".locator-search-city");
             searchBrandDiv.on('click', function () {
@@ -282,31 +284,39 @@
 
             });
 
-            var setError = function (element, msg) {
-                element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
-                element.siblings("div.errorText").text(msg);
-            };
+            var key = "dealerCitiesByMake_";
+            lscache.flushExpired();
+            lscache.setBucket('DLPage');
+            var selCityId = '<%= (cityId > 0)?cityId:0%>';
+            var selMakeId = 0;
 
-            var hideError = function (element) {
-                element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
-            };
+            if (($ddlCities.find("li.activeCity")).length > 0) {
+                $("div.locator-search-city-form span").text($ddlCities.find("li.activeCity:first").text());
+            }
+            
 
-            $("#sliderBrandList").on("click", "li", function () {
+            $ddlMakes.on("click", "li", function () {
                 var _self = $(this),
-                    selectedElement = _self.text();
+                        selectedElement = _self.text();
                 setSelectedElement(_self, selectedElement);
                 _self.addClass('activeBrand').siblings().removeClass('activeBrand');
                 $("div.locator-search-brand-form").find("span").text(selectedElement);
+                selMakeId = $(this).attr("makeId");
+                getCities(selMakeId);
                 $(".user-input-box").animate({ 'left': '100%' }, 500);
+
             });
 
-            $("#sliderCityList").on("click", "li", function () {
+            $ddlCities.on("click", "li", function () {
                 var _self = $(this),
                     selectedElement = _self.text();
                 setSelectedElement(_self, selectedElement);
                 _self.addClass('activeCity').siblings().removeClass('activeCity');
+                if (!isNaN(selMakeId) && selMakeId != "0") {
+                    selCityId = $(this).attr("cityId");
+                }
                 $(".user-input-box").animate({ 'left': '100%' }, 500);
-                $("div.locator-search-city-form").find("span").text(selectedElement);
+                $("div.locator-search-city-form span").text(selectedElement);
             });
 
             $(".bwm-brand-city-box .back-arrow-box").on("click", function () {
@@ -336,116 +346,58 @@
                 else
                     targetLink.attr("href", "javascript:void(0)");
             });
-        </script>
 
-        <script>
-            var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList"), $liCities = $("#sliderCityList"), $liAreas = $("#sliderAreaList");
-            var key = "dealerCitiesByMake_";
-            lscache.flushExpired();
-            lscache.setBucket('BLPage');
-            var selCityId = '<%= (cityId > 0)?cityId:0%>';
-            var selAreaId = '<%= (makeId > 0)?makeId:0%>';
-            $(function () {
-
-                if (($liCities.find("li.activeCity")).length > 0) {
-
-                    $("div.booking-search-city-form span").text($liCities.find("li.activeCity:first").text());
-                    if (($liAreas.find("li.activeArea")).length > 0) {
-                        $("div.booking-search-area-form span").text($liAreas.find("li.activeArea:first").text());
-                    }
-                    else {
-                        $("div.booking-search-area-form span").text("Select Area");
-                    }
-
-                }
-                else {
-
-                    $("div.booking-search-city-form span").text("Select City");
-                    $("div.booking-search-area-form span").text("Please select city first");
-
-                }
-
-
-
-
-                $("#sliderCityList").on("click", "li", function () {
-                    var _self = $(this),
-                        selectedElement = _self.text();
-                    setSelectedElement(_self, selectedElement);
-                    _self.addClass('activeCity').siblings().removeClass('activeCity');
-                    $("div.booking-search-city-form").find("span").text(selectedElement);
-                    aid = _self.attr("cityId");
-                    selCityId = aid;
-                    $(".user-input-box").animate({ 'left': '100%' }, 500);
-                    getAreas(aid);
-                });
-
-                $("#sliderAreaList").on("click", "li", function () {
-                    var _self = $(this),
-                        selectedElement = _self.text();
-                    setSelectedElement(_self, selectedElement);
-                    _self.addClass('activeArea').siblings().removeClass('activeArea');
-                    if (!isNaN(selCityId) && selCityId != "0") {
-                        selAreaId = _self.attr("areaId");
-                    }
-                    $(".user-input-box").animate({ 'left': '100%' }, 500);
-                    $("div.booking-search-area-form").find("span").text(selectedElement);
-
-                });
-
-                $("input[type='button'].booking-landing-search-btn").click(function () {
-                    if (!isNaN(selCityId) && selCityId != "0") {
-                        if (!isNaN(selAreaId) && selAreaId != "0") {
-                            var CookieValue = selCityId + "_" + $liCities.find("li.activeCity").text() + '_' + selAreaId + "_" + $liAreas.find("li.activeArea").text();
-                            SetCookieInDays("location", CookieValue, 365);
-                            window.location.href = "/m/bikebooking/bookinglisting.aspx"
-                        }
-                        else {
-                            setError($("div.booking-search-area-form"), "Please select area !");
-                        }
-                    }
-                    else {
-                        setError($("div.booking-search-city-form"), "Please Select City !");
-                    }
-                });
-
-            });
-
-            function getAreas(cid) {
-                $liAreas.empty();
-                selAreaId = "0";
-                if (!isNaN(selCityId) && selCityId != "0") {
-                    if (!checkCacheCityAreas(cid)) {
+            function getCities(mId) {
+                $ddlCities.empty();
+                if (!isNaN(mId) && mId != "0") {
+                    if (!checkCacheCityAreas(mId)) {
                         $.ajax({
                             type: "GET",
-                            url: "/api/BBAreaList/?cityId=" + cid,
+                            url: "/api/v2/DealerCity/?makeId=" + mId,
                             contentType: "application/json",
                             beforeSend: function () {
-                                $("div.booking-search-area-form span").text("Loading areas..");
+                                $("div.locator-search-city-form span").text("Loading cities..");
                             },
                             success: function (data) {
-                                lscache.set(key + cid, data.areas, 30);
-                                $("div.booking-search-area-form span").text("Select an area");
-                                setOptions(data.areas);
+                                lscache.set(key + mId, data.City, 30);
+                                $("div.locator-search-city-form span").text("Select a city");
+                                setOptions(data.City);
                             },
                             complete: function (xhr) {
-                                if (xhr.status == 404 || xhr.status == 204) {
-                                    $("div.booking-search-area-form span").text("No areas available");
-                                    lscache.set(key + cid, null, 30);
-                                    setOptions(null);
-
+                                if (xhr.status != 200) {
+                                    $("div.locator-search-city-form span").text("No cities available");
+                                    lscache.set(key + mId, null, 30);
+                                    setOptions(null);  
                                 }
                             }
                         });
                     }
                     else {
-                        $("div.booking-search-area-form span").text("Select an area")
-                        data = lscache.get(key + cid);
+                        $("div.locator-search-city-form span").text("Select a city")
+                        data = lscache.get(key + mId);
                         setOptions(data);
                     }
 
                 }
             }
+
+            $("input[type='button'].locator-submit-btn").click(function () {
+                ddlmakemasking = $ddlMakes.find("li.activeBrand").attr("makeMaskingName");
+                ddlcityId = $ddlCities.find("li.activeCity").attr("cityId");
+                if (!isNaN(selMakeId) && selMakeId != "0") {
+                    if (!isNaN(selCityId) && selCityId != "0") {
+                        ddlcityMasking = $ddlCities.find("li.activeCity").attr("cityMaskingName");
+                        window.location.href = "/m/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                    }
+                    else {
+                        setError($("div.locator-search-city-form"), "Please select city !");
+                    }
+                }
+                else {
+                    setError($("div.locator-search-brand-form"), "Please Select bike brand !");
+                }
+            });
+
 
             function checkCacheCityAreas(cityId) {
                 bKey = key + cityId;
@@ -455,13 +407,12 @@
 
             function setOptions(optList) {
                 if (optList != null) {
-
                     $.each(optList, function (i, value) {
-                        $liAreas.append($('<li>').text(value.areaName).attr('areaId', value.areaId));
+                        $ddlCities.append($('<li>').text(value.cityName).attr('cityId', value.cityId).attr('cityMaskingName', value.cityMaskingName));
                     });
                 }
                 else {
-                    $("div.booking-search-area-form span").text("No areas available");
+                    $("div.locator-search-city-form span").text("No cities available");
                 }
             }
 
@@ -474,63 +425,9 @@
                 element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
             };
 
+
         </script>
 
-        <script type="text/javascript">
-            var bookingSearchBar = $("#bookingSearchBar"),
-                searchCityDiv = $(".booking-search-city"),
-                searchAreaDiv = $(".booking-search-area");
-            searchCityDiv.on('click', function () {
-                $('.booking-area-slider-wrapper').hide();
-                $('.booking-city-slider-wrapper').show();
-                bookingSearchBar.addClass('open').animate({
-                    'left': '0px'
-                }, 500);
-                $(".user-input-box").animate({ 'left': '0px' }, 500);
-                $("#bookingCityInput").focus();
-                hideError(searchCityDiv.find("div.booking-search-city-form"));
-                appendHash("bookingsearch");
-            });
-            searchAreaDiv.on('click', function () {
-                if ($liAreas.find("li").length > 0) {
-                    $('.booking-city-slider-wrapper').hide();
-                    $('.booking-area-slider-wrapper').show();
-                    bookingSearchBar.addClass('open').animate({
-                        'left': '0px'
-                    }, 500);
-                    $(".user-input-box").animate({ 'left': '0px' }, 500);
-                    $("#bookingAreaInput").focus();
-                    hideError(searchAreaDiv.find("div.booking-search-area-form"));
-                    appendHash("bookingsearch");
-                }
-                else {
-                    setError($("div.booking-search-city-form"), "Please Select City!");
-                }
-
-
-            });
-            $(".bwm-city-area-box .back-arrow-box").on("click", function () {
-                bookingSearchBar.removeClass("open").animate({ 'left': '100%' }, 500);
-                $(".user-input-box").animate({ 'left': '100%' }, 500);
-            });
-
-            function bookingSearchClose() {
-                $(".bwm-city-area-box .back-arrow-box").trigger("click");
-            }
-
-            $("#bookingCityInput, #bookingAreaInput").on("keyup", function () {
-                locationFilter($(this));
-            });
-
-            function setSelectedElement(_self, selectedElement) {
-                _self.parent().prev("input[type='text']").val(selectedElement);
-                bookingSearchBar.addClass('open').animate({
-                    'left': '100%'
-                }, 500);
-            };
-        </script>  
-
-        
     </form>
 </body>
 </html>

@@ -26,8 +26,7 @@ namespace Bikewale.Mobile.New.DealerLocator
     {
         protected uint cityId, makeId;
         protected ushort totalDealers;
-        protected Repeater rptMakes, rptCities, rptPopularBrands, rptOtherBrands;
-        protected string clientIP = String.Empty, pageUrl = String.Empty;
+        protected Repeater rptMakes, rptCities;//, rptPopularBrands, rptOtherBrands;
 
 
         protected override void OnInit(EventArgs e)
@@ -79,14 +78,11 @@ namespace Bikewale.Mobile.New.DealerLocator
                         rptMakes.DataSource = _makes;
                         rptMakes.DataBind();
 
-                        rptPopularBrands.DataSource = _makes.Take(6);
-                        rptPopularBrands.DataBind();
+                        //rptPopularBrands.DataSource = _makes.Take(6);
+                        //rptPopularBrands.DataBind();
 
-                        rptOtherBrands.DataSource = _makes.Skip(6).OrderBy(m => m.MakeName);
-                        rptOtherBrands.DataBind();
-
-                        if (_makes.FirstOrDefault() != null)
-                            uint.TryParse(_makes.FirstOrDefault().MakeId.ToString(), out makeId);
+                        //rptOtherBrands.DataSource = _makes.Skip(6).OrderBy(m => m.MakeName);
+                        //rptOtherBrands.DataBind();
                     }
                 }
             }

@@ -246,7 +246,6 @@
 
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
             $ddlMakes.chosen({ no_results_text: "No matches found!!" });
-            //$ddlModels.chosen({ no_results_text: "No matches found!!", width: "100%" });
             $('div.chosen-container').attr('style', 'width:100%;border:0');
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
 
