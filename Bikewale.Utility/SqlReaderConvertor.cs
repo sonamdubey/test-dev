@@ -69,7 +69,7 @@ namespace Bikewale.Utility
         /// </summary>
         /// <param name="reader"></param>
         /// <returns></returns>
-        public static uint ParseToInt32(object reader)
+        public static uint ParseToUInt32(object reader)
         {
             uint retVal = default(uint);
             if (DBNull.Value != reader)

@@ -98,7 +98,7 @@
                     <ul id="dealersList">
                         <asp:Repeater ID="rptDealers" runat="server">
                             <ItemTemplate>
-                                <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-item-number="<%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>">
+                                <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-item-number="<%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>" data-campId="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>">
                                     <div class="font14">
                                         <h2 class="font16 margin-bottom10">
                                             <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
@@ -149,17 +149,21 @@
                                 <a href="" target="_blank" data-bind="attr : { href : 'https://maps.google.com/?saddr=' + userLocation + '&daddr=' + lat() + ',' + lng() + '' }"><span class="bwsprite get-direction-icon"></span>Get directions</a>
                                 <%-- <a href="" class="border-dark-left margin-left10 padding-left10"><span class="bwsprite sendto-phone-icon"></span>Send to phone</a>--%>
                             </div>
-                            <div class="padding-top15 margin-bottom15">
+                            <%--<div class="padding-top15 margin-bottom15 border-solid-top">
                                 <p class="font14 text-bold margin-bottom15">Get commute distance and time:</p>
-                                <div class="commute-distance-form form-control-box">
-                                    <input id="locationSearch" type="text" class="form-control" placeholder="Enter your location" />
-                                    <div class="padding-top10 padding-bottom10">
+                                <div class="commute-distance-form">
+                                    <div class="leftfloat form-control-box">
+                                        <input id="locationSearch" type="text" class="form-control margin-right10" placeholder="Enter your location" />
+                                        <span class="font18"><span class="fa fa-compass position-abt pos-right20 pos-top10 text-grey"></span></span>
+                                    </div>
+                                    <div class="location-details padding-top10 padding-bottom10 leftfloat">
                                         <span class="fa fa-clock-o"></span> Time : <span id="commuteDuration"></span>&nbsp; &nbsp;
                                         <span class="fa fa-road"></span> Distance : <span id="commuteDistance"></span>
                                     </div>
+                                    <div class="clear"></div>
                                 </div>
                                 <div id="commuteResults"></div>
-                            </div>
+                            </div>--%>
                         </div>
                         <div id="buyingAssistanceForm" data-bind="with: CustomerDetails" class="border-solid-top content-inner-block-1520">
                             <div id="buying-assistance-form">
@@ -429,6 +433,10 @@
                 $ddlCities.trigger('chosen:updated');
                 $("#ddlCities_chosen .chosen-single.chosen-default span").text("No Areas available");
             }
+
+            $(document).on("change",$ddlModels,function(){
+                hideError($ddlModels);
+            });
 
         </script>
 

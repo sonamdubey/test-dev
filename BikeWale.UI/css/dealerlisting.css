@@ -52,8 +52,9 @@ a.text-black:hover { text-decoration:none; }
 #dealerDetailsSliderCard .featured-tag { top:-10px; }
 .text-dark-black { color:#1a1a1a; }
 .border-dark-left { border-left:1px solid #82888b; }
-.commute-distance-form { width:295px; }
-#dealerDetailsSliderCard .form-control { font-size:14px; padding:9px; border-radius:2px; }
+.commute-distance-form .form-control { width:295px; }
+.location-details { display:none; }
+#dealerDetailsSliderCard .form-control { font-size:14px; padding:9px 35px 9px 9px; border-radius:2px; }
 #buyingAssistanceForm { background:#f5f5f5; }
 #buyingAssistanceForm .errorIcon, #buyingAssistanceForm .errorText { display:none; }
 .name-email-mobile-box { width:184px; }

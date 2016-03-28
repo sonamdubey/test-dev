@@ -62,7 +62,7 @@ namespace Bikewale.Mobile
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealer = objCache.GetDealerDetailsAndBikes(dealerId);
+                    _dealer = objCache.GetDealerDetailsAndBikes(dealerId,campaignId);
 
                     if (_dealer != null && _dealer.DealerDetails != null)
                     {

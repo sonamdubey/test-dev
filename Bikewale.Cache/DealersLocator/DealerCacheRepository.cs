@@ -57,13 +57,13 @@ namespace Bikewale.Cache.DealersLocator
         /// </summary>
         /// <param name="dealerId">e.g. 1</param>
         /// <returns>DealerBikesEntity</returns>
-        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId)
         {
             DealerBikesEntity models = null;
             string key = String.Format("BW_DealerBikeModel_{0}", dealerId);
             try
             {
-                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerDetailsAndBikes(dealerId));
+                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerDetailsAndBikes(dealerId,campaignId));
             }
             catch (Exception ex)
             {

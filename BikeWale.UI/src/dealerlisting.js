@@ -178,23 +178,25 @@ function initializeMap(dealerArr) {
     var directionsDisplay = new google.maps.DirectionsRenderer;
     directionsDisplay.setMap(map);
 
-    originPlace = new google.maps.places.Autocomplete(
-      /** @type {!HTMLInputElement} */(document.getElementById('locationSearch')),
-      { types: ['geocode'] });
+    //originPlace = new google.maps.places.Autocomplete(
+    //  (document.getElementById('locationSearch')),         
+    //  {
+    //      types: ['geocode'],
+    //      componentRestrictions: {country: "in"}
+    //  });
 
-    // When the user selects an address from the dropdown, populate the address
-    // fields in the form.
-    originPlace.addListener('place_changed', function () {
-        var place = originPlace.getPlace();
-        if (!place.geometry) {
-            origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
-        }
-        else origin_place_id = place.geometry.location;
+    //originPlace.addListener('place_changed', function () {
+    //    var place = originPlace.getPlace();
+    //    if (!place.geometry) {
+    //        origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
+    //    }
+    //    else origin_place_id = place.geometry.location;
 
-        travel_mode = google.maps.TravelMode.WALKING; 
+    //    travel_mode = google.maps.TravelMode.WALKING;
 
-        route(origin_place_id, travel_mode, directionsService, directionsDisplay);
-    });
+    //    route(origin_place_id, travel_mode, directionsService, directionsDisplay);
+    //    $('.location-details').show();
+    //});
 
     infowindow = new google.maps.InfoWindow();
 
@@ -274,14 +276,14 @@ function route(origin_place_id, travel_mode, directionsService, directionsDispla
 
 function getCommuteInfo(result) {
     var totalDistance = 0;
-    var totalDuration = 0; 
-    var legs = result.routes[0].legs; 
-    for (var i = 0; i < legs.length; ++i) {    
+    var totalDuration = 0;
+    var legs = result.routes[0].legs;
+    for (var i = 0; i < legs.length; ++i) {
         totalDistance += legs[i].distance.value;
-        totalDuration += legs[i].duration.value; 
+        totalDuration += legs[i].duration.value;
     }
-    $('#commuteDistance').text((totalDistance/1000).toFixed(3) + " kms");
-    $('#commuteDuration').text((totalDuration/60).toFixed(1) + " mins");
+    $('#commuteDistance').text((totalDistance / 1000).toFixed(3) + " kms");
+    $('#commuteDuration').text((totalDuration / 60).toFixed(1) + " mins");
 
 }
 
@@ -336,7 +338,8 @@ $(function () {
             $("#otpPopup").hide();
             $('body').addClass('lock-browser-scroll');
             $(".blackOut-window").show();
-            getDealerDetails(id)
+            campId = $(this).parents("li").attr("data-campId");
+            getDealerDetails(id, campId);
         }
         else {
             $('body').removeClass('lock-browser-scroll');
@@ -401,7 +404,8 @@ var selectedDealer = function (dealer) {
             $('#dealerDetailsSliderCard').css({ 'height': $(window).innerHeight() - 52 });
             $("#assistGetName").focus();
             $('body').addClass('hide-scroll')
-            getDealerDetails(dealerId)
+            campId = $("ul#dealersList li.active").attr("data-campId");
+            getDealerDetails(dealerId, campId)
         }
         else {
             $('#dealerDetailsSliderCard').hide().animate({ 'right': '-338px' }, { complete: function () { $('#dealerDetailsSliderCard').hide().css({ 'height': '0' }); } });
@@ -426,8 +430,7 @@ var dealerDetails = function (data) {
     self.workingHours = ko.observable(data.workingHours);
     self.email = ko.observable(data.email);
     self.dealerType = ko.observable(data.dealerPackageType);
-    self.showRoomOpeningHours = ko.observable(data.showRoomOpeningHours);
-    self.showRoomClosingHours = ko.observable(data.showRoomClosingHours);
+
 
     if (data.Area) {
         self.area = ko.observable(data.Area.areaName);
@@ -499,16 +502,16 @@ var DealerModel = function (data) {
 }
 
 
-function getDealerDetails(id) {
+function getDealerDetails(id, campId) {
     var obj = new Object();
 
-    if (!isNaN(id) && id != "0") {
-        var dealerKey = "dealerDetails_" + id;
+    if (!isNaN(id) && id != "0" && campId != "0") {
+        var dealerKey = "dealerDetails_" + id + "_camp_" + campId;
         var dealerInfo = lscache.get(dealerKey);
         if (!dealerInfo) {
             $.ajax({
                 type: "GET",
-                url: "/api/DealerBikes/?dealerId=" + id,
+                url: "/api/DealerBikes/?dealerId=" + id + "&campaignId=" + campId,
                 contentType: "application/json",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('utma', getCookie('__utma'));
@@ -567,6 +570,7 @@ var bikesList = function (data) {
 function CustomerModel(obj) {
     data = obj.dealerBikes;
     var arr = setuserDetails();
+    hideFormErrors();
     var self = this;
     if (arr != null && arr.length > 0) {
         self.fullName = ko.observable(arr[0]);
@@ -590,7 +594,7 @@ function CustomerModel(obj) {
     self.pqId = ko.observable();
     self.modelId = ko.observable(0);
     self.bikes = ko.observableArray([]);
-    self.chosenUpdate = function () { $ddlModels.trigger("chosen:updated"); };
+
 
     if (obj.dealerBikes && obj.dealerBikes.length > 0) {
         //(obj.dealerBikes).push({"bike" : "Select a bike model"})
@@ -840,6 +844,19 @@ function ValidateUserDetail(fullName, emailid, mobile) {
     return validateUserInfo(fullName, emailid, mobile);
 };
 
+function hideFormErrors()
+{
+    
+    hideError(getModelName);
+    hideError(fullName);
+    hideError(emailid);
+    hideError(mobile);
+    hideError(assistanceGetEmail);
+    hideError(assistanceGetMobile);
+    hideError(assistanceGetName);
+    hideError(assistGetModel);
+   
+}
 
 $("#assistanceGetName,#getFullName").on("focus", function () {
     hideError($(this));

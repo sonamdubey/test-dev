@@ -35,14 +35,15 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// Description : To get Detail of Bikes for specific Dealer.
         /// </summary>
         /// <param name="dealerId"></param>
+        /// <param name="campaignId"></param>
         /// <returns></returns>
-        public IHttpActionResult Get(UInt16 dealerId)
+        public IHttpActionResult Get(UInt16 dealerId, uint campaignId)
         {
             try
             {
-                if (dealerId > 0)
+                if (dealerId > 0 && campaignId > 0)
                 {
-                    DealerBikesEntity dealerBikes = _cache.GetDealerDetailsAndBikes(dealerId);
+                    DealerBikesEntity dealerBikes = _cache.GetDealerDetailsAndBikes(dealerId,campaignId);
                     DealerBikes bikes;
                     if (dealerBikes != null)
                     {

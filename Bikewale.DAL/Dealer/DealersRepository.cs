@@ -513,7 +513,7 @@ namespace Bikewale.DAL.Dealer
                                     dealerdetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                     dealerdetail.EMail = Convert.ToString(dr["EMail"]);
                                     dealerdetail.Address = Convert.ToString(dr["Address"]);
-
+                                    dealerdetail.CampaignId = SqlReaderConvertor.ParseToUInt32(dr["CampaignId"]);
                                     dealerdetail.objArea = new AreaEntityBase();
                                     dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
                                     dealerdetail.objArea.Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]);
@@ -556,7 +556,7 @@ namespace Bikewale.DAL.Dealer
         /// </summary>
         /// <param name="dealerId">e.g. 4</param>
         /// <returns>DealerBikesEntity Entity object.</returns>
-        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId)
         {
             DealerBikesEntity dealers = new DealerBikesEntity();
             Database db = null;
@@ -570,6 +570,7 @@ namespace Bikewale.DAL.Dealer
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "GetDealerBikeDetails";
                     cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
+                    cmd.Parameters.Add("@CampaignId", SqlDbType.Int).Value = campaignId;
 
                     using (SqlDataReader dr = db.SelectQry(cmd))
                     {
@@ -585,10 +586,11 @@ namespace Bikewale.DAL.Dealer
                                 {
                                     AreaName = Convert.ToString(dr["Area"]),
                                     Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]), 
-                                    Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"])  
+                                    Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"])
+  
                                 };
                                 dealers.DealerDetails.City = Convert.ToString(dr["City"]);
-                                dealers.DealerDetails.DealerPkgType = Enum.TryParse<DealerPackageTypes>(Convert.ToString(dr["DealerType"]), out dpType) ? dpType : 0;
+                                dealers.DealerDetails.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerType"]);
                                 dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealers.DealerDetails.DealerId = dealerId;
