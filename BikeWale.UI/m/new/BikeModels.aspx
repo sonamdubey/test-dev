@@ -1042,7 +1042,9 @@
                 </div>
             </div>
             <div class="breakup-text-container padding-bottom10">
-                <h3 class="breakup-header margin-bottom25">On-road price - Dealership Name</h3>
+                <%if (viewModel != null){ %>
+                <h3 class="breakup-header margin-bottom25">On-road price - <%=viewModel.Organization %></h3>
+               <% } %>
                 <% if (isBikeWalePQ)
                    { %>
                 <table class="font14" width="100%">
