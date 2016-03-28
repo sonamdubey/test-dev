@@ -1061,6 +1061,10 @@
       <DependentUpon>browsenewbikedealerdetails_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="new\listnewbikedealersbycity.aspx.cs">
+      <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\locatenewbikedealers_old.aspx.cs">
       <DependentUpon>locatenewbikedealers_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1100,8 +1104,8 @@
       <DependentUpon>EMILoan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\listnewbikedealersbycity.aspx.cs">
-      <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
+    <Compile Include="new\ListNewBikeDealersByCity_New.aspx.cs">
+      <DependentUpon>ListNewBikeDealersByCity_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\locatenewbikedealers.aspx.cs">
@@ -2343,7 +2347,7 @@
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="new\browsenewbikedealerdetails_old.aspx" />
     <Content Include="new\locatenewbikedealers_old.aspx" />
-    <Content Include="new\listnewbikedealersbycity_old.aspx" />
+    <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
@@ -2379,7 +2383,7 @@
     <Content Include="new\compare\default.aspx" />
     <Content Include="new\default.aspx" />
     <Content Include="new\EMILoan.aspx" />
-    <Content Include="new\listnewbikedealersbycity.aspx" />
+    <Content Include="new\ListNewBikeDealersByCity_New.aspx" />
     <Content Include="new\locatenewbikedealers.aspx" />
     <Content Include="new\models.aspx" />
     <Content Include="new\newbikelaunch\Default.aspx" />
