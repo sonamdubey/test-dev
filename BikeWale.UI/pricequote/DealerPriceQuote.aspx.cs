@@ -106,8 +106,8 @@ namespace Bikewale.BikeBooking
                 SavePriceQuote();
             }
         }
-        #endregion
-
+        #endregion   
+      
 
         #region Dealer PriceQuote Details Binding
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿using Bikewale.DTO.BikeData;
-using Bikewale.DTO.Widgets;
+using Bikewale.DTO.Widgets.v2;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,10 +15,10 @@ namespace Bikewale.DTO.DealerLocator
     /// </summary>
     public class DealerBikes
     {
-        [JsonProperty("dealerDetail")]
-        public DealerDetail DealerDetail { get; set; }
+        [JsonProperty("dealerDetails")]
+        public DealerDetail DealerDetails { get; set; }
 
-        [JsonProperty("models")]
+        [JsonProperty("dealerBikes")]
         public IEnumerable<MostPopularBikes> Models { get; set; }
     }
 }

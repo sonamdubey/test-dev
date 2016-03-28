@@ -9,7 +9,7 @@ using Bikewale.Memcache;
 
 namespace Bikewale.New
 {
-    public class ListNewBikeDealersByCity_old : Page
+    public class ListNewBikeDealersByCity_New : Page
     {
         protected Repeater rptState;
         protected DataList dlCity;

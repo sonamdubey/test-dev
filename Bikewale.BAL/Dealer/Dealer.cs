@@ -160,7 +160,7 @@ namespace Bikewale.BAL.Dealer
         /// <param name="cityId"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public Dealers GetDealerByMakeCity(uint cityId, uint makeId)
+        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
         {
             throw new NotImplementedException();
         }
@@ -180,6 +180,26 @@ namespace Bikewale.BAL.Dealer
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "FetchDealerCitiesByMake");
+                objErr.SendMail();
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 25th March 2016
+        /// Description : Calls DAL method to get dealer's bikes and details
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId)
+        {
+            try
+            {
+                return dealerRepository.GetDealerDetailsAndBikes(dealerId,campaignId);
+            }
+            catch(Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerDetailsAndBikes");
                 objErr.SendMail();
                 return null;
             }

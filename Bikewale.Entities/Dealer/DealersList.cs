@@ -6,20 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bikewale.Entities.DealerLocator
+namespace Bikewale.Entities.Dealer
 {
     /// <summary>
-    /// Created By : Lucky Rathore
+    /// Created By : Sushil Kumar
     /// Created on : 21 March 2016
-    /// Description : for Dealer Detail.
+    /// Description : DealersList for dealer locator
     /// </summary>
-    public class DealerDetailEntity : NewBikeDealerBase
+    public class DealersList : Bikewale.Entities.PriceQuote.NewBikeDealerBase
     {
         public AreaEntityBase Area { get; set; }
-        public UInt16 DealerType { get; set; }
+        public DealerPackageTypes Type { get; set; }
         public string City { get; set; }
         public string EMail { get; set; }
         public string Address { get; set; }
-        public string WorkingHours { get; set; }
     }
 }

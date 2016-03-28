@@ -883,8 +883,8 @@
       <DependentUpon>dealerlisting.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\dealerlocator\dealerdetails.aspx.cs">
-      <DependentUpon>dealerdetails.aspx</DependentUpon>
+    <Compile Include="m\dealerlocator\DealerDetails.aspx.cs">
+      <DependentUpon>DealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\Default.aspx.cs">
@@ -1058,8 +1058,12 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\listnewbikedealersbycity_old.aspx.cs">
-      <DependentUpon>listnewbikedealersbycity_old.aspx</DependentUpon>
+    <Compile Include="new\browsenewbikedealerdetails_old.aspx.cs">
+      <DependentUpon>browsenewbikedealerdetails_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\listnewbikedealersbycity.aspx.cs">
+      <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\locatenewbikedealers_old.aspx.cs">
@@ -1101,8 +1105,8 @@
       <DependentUpon>EMILoan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\listnewbikedealersbycity.aspx.cs">
-      <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
+    <Compile Include="new\ListNewBikeDealersByCity_New.aspx.cs">
+      <DependentUpon>ListNewBikeDealersByCity_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\locatenewbikedealers.aspx.cs">
@@ -2251,7 +2255,7 @@
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\dealerlocator\dealerlisting.aspx" />
-    <Content Include="m\dealerlocator\dealerdetails.aspx" />
+    <Content Include="m\dealerlocator\DealerDetails.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\Default_old.aspx" />
     <Content Include="m\faq.aspx" />
@@ -2342,8 +2346,9 @@
     <Content Include="m\videos\VideoCategories.aspx" />
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
+    <Content Include="new\browsenewbikedealerdetails_old.aspx" />
     <Content Include="new\locatenewbikedealers_old.aspx" />
-    <Content Include="new\listnewbikedealersbycity_old.aspx" />
+    <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
@@ -2379,7 +2384,7 @@
     <Content Include="new\compare\default.aspx" />
     <Content Include="new\default.aspx" />
     <Content Include="new\EMILoan.aspx" />
-    <Content Include="new\listnewbikedealersbycity.aspx" />
+    <Content Include="new\ListNewBikeDealersByCity_New.aspx" />
     <Content Include="new\locatenewbikedealers.aspx" />
     <Content Include="new\models.aspx" />
     <Content Include="new\newbikelaunch\Default.aspx" />

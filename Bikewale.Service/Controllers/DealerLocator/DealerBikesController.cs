@@ -2,7 +2,6 @@
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.Interfaces.DealerLocator;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.DealerLocator;
 using System;
@@ -21,7 +20,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
     /// </summary>
     public class DealerBikesController : ApiController
     {
-        private readonly Bikewale.Interfaces.DealerLocator.IDealer _dealer = null;
+        private readonly IDealer _dealer = null;
         private readonly IDealerCacheRepository _cache = null;
 
         /// <summary>
@@ -31,7 +30,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// </summary>
         /// <param name="dealer"></param>
         /// <param name="cache"></param>
-        public DealerBikesController(Bikewale.Interfaces.DealerLocator.IDealer dealer, IDealerCacheRepository cache)
+        public DealerBikesController(IDealer dealer, IDealerCacheRepository cache)
         {
             _dealer = dealer;
             _cache = cache;
@@ -41,33 +40,43 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// Created By : Lucky Rathore
         /// Created On : 22 March 2016
         /// Description : To get Detail of Bikes for specific Dealer.
+        /// Modified By : Sushil Kumar on 26th March 2016
+        /// Description : Added campaignId as a parameter to fetch dealer info based on camapign Id
         /// </summary>
         /// <param name="dealerId"></param>
+        /// <param name="campaignId"></param>
         /// <returns></returns>
-        public IHttpActionResult Get(UInt16 dealerId)
+        public IHttpActionResult Get(UInt16 dealerId, uint campaignId)
         {
             try
             {
-                DealerBikesEntity dealerBikes = _cache.GetDealerBikes(dealerId);
-                DealerBikes bikes;
-                if (dealerBikes != null)
+                if (dealerId > 0 && campaignId > 0)
                 {
-                    bikes = DealerBikesEntityMapper.Convert(dealerBikes);
-                    return Ok(bikes);
+                    DealerBikesEntity dealerBikes = _cache.GetDealerDetailsAndBikes(dealerId, campaignId);
+                    DealerBikes bikes;
+                    if (dealerBikes != null)
+                    {
+                        bikes = DealerBikesEntityMapper.Convert(dealerBikes);
+                        return Ok(bikes);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
                 else
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.DealerLocator.DealerBikesController");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.Controllers.DealerLocator.Get");
                 objErr.SendMail();
                 return InternalServerError();
             }
         }
-        
+
 
     }
 }

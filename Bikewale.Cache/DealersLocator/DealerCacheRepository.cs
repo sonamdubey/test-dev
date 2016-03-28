@@ -19,13 +19,11 @@ namespace Bikewale.Cache.DealersLocator
 
         private readonly ICacheManager _cache;
         private readonly IDealer _objDealers;
-        private readonly Bikewale.Interfaces.DealerLocator.IDealer _objModels;
 
-        public DealerCacheRepository(ICacheManager cache, IDealer objDealers, Bikewale.Interfaces.DealerLocator.IDealer objModels)
+        public DealerCacheRepository(ICacheManager cache, IDealer objDealers)
         {
             _cache = cache;
             _objDealers = objDealers;
-            _objModels = objModels;
         }
 
         /// <summary>
@@ -35,18 +33,17 @@ namespace Bikewale.Cache.DealersLocator
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
         /// <returns>Dealers</returns>
-        public Dealers GetDealerByMakeCity(uint cityId, uint makeId)
+        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
         {
-            //IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
-            Entities.DealerLocator.Dealers dealers = null;
+            Entities.DealerLocator.DealersEntity dealers = null;
             string key = String.Format("BW_DealerList_Make_{0}_City_{1}", makeId, cityId);
             try
             {
-                dealers = _cache.GetFromCache<Entities.DealerLocator.Dealers>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerByMakeCity(cityId, makeId));
+                dealers = _cache.GetFromCache<Entities.DealerLocator.DealersEntity>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerByMakeCity(cityId, makeId));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakesByType");
+                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerByMakeCity");
                 objErr.SendMail();
             }
             return dealers;
@@ -55,16 +52,18 @@ namespace Bikewale.Cache.DealersLocator
         /// <summary>
         /// Created By : Lucky Rathore on 21 March 2016
         /// Description : Cahing of bike models for specific dealer
+        /// Modified By  :Sushil Kumar on 22 March 2016
+        /// Description : Changed Cacke key from BWDealerBikeModel_{0} to BW_DealerBikeModel_{0}
         /// </summary>
         /// <param name="dealerId">e.g. 1</param>
         /// <returns>DealerBikesEntity</returns>
-        public DealerBikesEntity GetDealerBikes(UInt16 dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId)
         {
             DealerBikesEntity models = null;
-            string key = String.Format("BWDealerBikeModel_{0}", dealerId);
+            string key = String.Format("BW_DealerBikeModel_{0}", dealerId);
             try
             {
-                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(1, 0, 0), () => _objModels.GetDealerBikes(dealerId));
+                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerDetailsAndBikes(dealerId,campaignId));
             }
             catch (Exception ex)
             {

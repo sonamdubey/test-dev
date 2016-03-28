@@ -15,16 +15,16 @@ namespace Bikewale.DTO.DealerLocator
     /// </summary>
     public class DealerDetail : DealerBase
     {
-        [JsonProperty("area")]
+        [JsonProperty("Area")]
         public PQAreaBase Area { get; set; }
 
-        [JsonProperty("type")]
-        public DealerPackageType Type { get; set; }
+        [JsonProperty("cityName")]
+        public UInt16 DealerType { get; set; }
 
         [JsonProperty("city")]
         public string City { get; set; }
 
-        [JsonProperty("eMail")]
+        [JsonProperty("email")]
         public string EMail { get; set; }
 
         [JsonProperty("address")]

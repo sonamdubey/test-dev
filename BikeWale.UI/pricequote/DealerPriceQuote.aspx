@@ -13,7 +13,7 @@
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_PQ_";
         isAd970x90Shown = true;
-        PopupWidget.Visible = true;
+        
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -324,10 +324,7 @@
 
                         <div class="clear"></div>
 
-                        <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
-                           { %>
-
-                        <% if (isUSPBenfits)
+                        <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium && isUSPBenfits)
                            { %>
                         <!--  Dealer Benefits starts-->
                         <div class="grid-12 padding-top20 padding-right20 padding-bottom5 padding-left20 font14">
@@ -380,7 +377,7 @@
                         <!--  Booking availability ends-->
                         <%} %>
 
-                        <% if (primarydealer.EMIDetails != null)
+                        <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium &&  primarydealer.EMIDetails != null)
                            { %>
                         <!-- EMI section starts -->
                         <div id="EMISection" data-bind="visible: true" style="display: none" class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
@@ -507,8 +504,6 @@
                             </div>
                         </div>
                         <!-- EMI section ends  -->
-                        <% } %>
-
                         <% } %>
                         <div class="clear"></div>
                         <%} %>
