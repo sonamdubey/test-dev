@@ -51,7 +51,9 @@ namespace Bikewale.New.DealerLocator
             dd.DetectDevice();
 
             BindMakes();
-            BindCitiesDropdown();
+
+            if(makeId > 0)
+                BindCitiesDropdown();
 
 
         }
@@ -85,9 +87,6 @@ namespace Bikewale.New.DealerLocator
 
                         rptOtherBrands.DataSource = _makes.Where(m => m.PopularityIndex == 0);
                         rptOtherBrands.DataBind();
-
-                        if (_makes.FirstOrDefault()!=null)
-                            uint.TryParse(_makes.FirstOrDefault().MakeId.ToString(),out makeId);
                     }
                 }
             }
