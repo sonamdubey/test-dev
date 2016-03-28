@@ -32,10 +32,9 @@ namespace Bikewale.New
     /// </summary>
     public class LocateNewBikeDealers : Page
     {
-        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty;
         protected uint cityId, makeId;
         protected ushort totalDealers;
-        protected Repeater rptMakes, rptCities, rptDealers;
+        protected Repeater rptMakes, rptCities, rptPopularBrands, rptOtherBrands;
         protected string clientIP = String.Empty, pageUrl = String.Empty;
 
 
@@ -58,7 +57,7 @@ namespace Bikewale.New
             Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            BindMakesDropdown();
+            BindMakes();
             BindCitiesDropdown();
 
 
@@ -70,7 +69,7 @@ namespace Bikewale.New
         /// Created On  : 25th March 2016
         /// Description : To bind makes list to dropdown
         /// </summary>
-        private void BindMakesDropdown()
+        private void BindMakes()
         {
             IEnumerable<BikeMakeEntityBase> _makes = null;
             try
@@ -87,6 +86,13 @@ namespace Bikewale.New
                     {
                         rptMakes.DataSource = _makes;
                         rptMakes.DataBind();
+
+                        rptPopularBrands.DataSource = _makes.Where(m => m.PopularityIndex > 0);
+                        rptPopularBrands.DataBind();
+
+                        rptOtherBrands.DataSource = _makes.Where(m => m.PopularityIndex == 0);
+                        rptOtherBrands.DataBind();
+
                         if (_makes.FirstOrDefault()!=null)
                             uint.TryParse(_makes.FirstOrDefault().MakeId.ToString(),out makeId);
                     }

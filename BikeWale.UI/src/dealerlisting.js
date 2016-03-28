@@ -845,8 +845,7 @@ function ValidateUserDetail(fullName, emailid, mobile) {
 };
 
 function hideFormErrors()
-{
-    
+{    
     hideError(getModelName);
     hideError(fullName);
     hideError(emailid);
@@ -854,8 +853,7 @@ function hideFormErrors()
     hideError(assistanceGetEmail);
     hideError(assistanceGetMobile);
     hideError(assistanceGetName);
-    hideError(assistGetModel);
-   
+    hideError(assistGetModel);    
 }
 
 $("#assistanceGetName,#getFullName").on("focus", function () {

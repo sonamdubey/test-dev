@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.LocateNewBikeDealers" EnableViewState="false"%>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.LocateNewBikeDealers" EnableViewState="false" %>
+
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
@@ -17,7 +18,112 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
-        .dealerlocator-banner { background:#8d8c8a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/booking-landing-banner.jpg) no-repeat left top; height:489px; padding-top: 1px;}.locator-search-container { margin:0 auto; width:600px; }.locator-search-container .form-control { padding:8px; border-radius:0; }.locator-search-brand, .locator-search-city { width:233px; height:40px; float:left;}.locator-search-brand select, .locator-search-city select { width: 233px; height: 38px; color: #555; border: none;}.locator-search-city .chosen-container { border-left:1px solid #ccc !important; }.locator-search-brand .chosen-container, .locator-search-city .chosen-container { border: 0; border-radius: 0;}.locator-search-brand .chosen-container:first-child, .locator-search-city .chosen-container:first-child  { border: 0; border-radius: 2px !important;}.locator-search-btn { width:133px; }.locator-search-btn.btn-lg { padding:7px 20px; padding:8px 20px 7px\9; }.brandlogosprite { background-image: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?21Mar2016v1); background-repeat:no-repeat; display:inline-block; }.brand-type-container li {display:inline-block; *display:inline; *zoom:1; vertical-align:top;width:180px;height:85px;margin:0 5px 30px;text-align:center;font-size:14px;-moz-border-radius: 2px;-webkit-border-radius: 2px;-o-border-radius: 2px;-ms-border-radius: 2px;border-radius: 2px;}.brand-type { width:180px; height:50px; display:block; margin:0 auto; }.brand-type-title { margin-top:10px; display:block; }.brand-type-container a { text-decoration:none; color:#1a1a1a; display: inline-block; }.brand-type-container li:hover span.brand-type-title {font-weight: bold; }.brand-bottom-border {overflow:hidden;}@-moz-document url-prefix() {.locator-search-btn.btn-lg { padding:6px 20px; }}
+        .dealerlocator-banner {
+            background: #8d8c8a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/booking-landing-banner.jpg) no-repeat left top;
+            height: 489px;
+            padding-top: 1px;
+        }
+
+        .locator-search-container {
+            margin: 0 auto;
+            width: 600px;
+        }
+
+            .locator-search-container .form-control {
+                padding: 8px;
+                border-radius: 0;
+            }
+
+        .locator-search-brand, .locator-search-city {
+            width: 233px;
+            height: 40px;
+            float: left;
+        }
+
+            .locator-search-brand select, .locator-search-city select {
+                width: 233px;
+                height: 38px;
+                color: #555;
+                border: none;
+            }
+
+            .locator-search-city .chosen-container {
+                border-left: 1px solid #ccc !important;
+            }
+
+            .locator-search-brand .chosen-container, .locator-search-city .chosen-container {
+                border: 0;
+                border-radius: 0;
+            }
+
+                .locator-search-brand .chosen-container:first-child, .locator-search-city .chosen-container:first-child {
+                    border: 0;
+                    border-radius: 2px !important;
+                }
+
+        .locator-search-btn {
+            width: 133px;
+        }
+
+            .locator-search-btn.btn-lg {
+                padding: 7px 20px;
+                padding: 8px 20px 7px\9;
+            }
+
+        .brandlogosprite {
+            background-image: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?21Mar2016v1);
+            background-repeat: no-repeat;
+            display: inline-block;
+        }
+
+        .brand-type-container li {
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+            vertical-align: top;
+            width: 180px;
+            height: 85px;
+            margin: 0 5px 30px;
+            text-align: center;
+            font-size: 14px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            -o-border-radius: 2px;
+            -ms-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+        .brand-type {
+            width: 180px;
+            height: 50px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .brand-type-title {
+            margin-top: 10px;
+            display: block;
+        }
+
+        .brand-type-container a {
+            text-decoration: none;
+            color: #1a1a1a;
+            display: inline-block;
+        }
+
+        .brand-type-container li:hover span.brand-type-title {
+            font-weight: bold;
+        }
+
+        .brand-bottom-border {
+            overflow: hidden;
+        }
+
+        @-moz-document url-prefix() {
+            .locator-search-btn.btn-lg {
+                padding: 6px 20px;
+            }
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -30,28 +136,28 @@
                     <p class="font20 margin-bottom50">Locate dealers near you</p>
                     <div class="locator-search-container">
                         <div class="locator-search-brand form-control-box">
-                          <select id="ddlMakes" class="form-control  chosen-select">
+                            <select id="ddlMakes" class="form-control  chosen-select">
                                 <asp:Repeater ID="rptMakes" runat="server">
                                     <ItemTemplate>
-                                        <option maskingname="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>" ><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </option>
+                                        <option maskingname="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>"><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </option>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </select>
-                             <div class="clear"></div>
-                            <span class="bwsprite error-icon errorIcon hide" ></span>
-                            <div class="bw-blackbg-tooltip errorText hide" ></div>
+                            <div class="clear"></div>
+                            <span class="bwsprite error-icon errorIcon hide"></span>
+                            <div class="bw-blackbg-tooltip errorText hide"></div>
                         </div>
                         <div class="locator-search-city form-control-box">
-                           <select id="ddlCities" class="form-control  chosen-select">
+                            <select id="ddlCities" class="form-control  chosen-select">
                                 <asp:Repeater ID="rptCities" runat="server">
                                     <ItemTemplate>
                                         <option maskingname="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>" <%# ((DataBinder.Eval(Container.DataItem,"CityId")).ToString() != cityId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"CityName") %></option>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </select>
-                             <div class="clear"></div>
-                            <span class="bwsprite error-icon errorIcon hide" ></span>
-                            <div class="bw-blackbg-tooltip errorText hide" ></div>
+                            <div class="clear"></div>
+                            <span class="bwsprite error-icon errorIcon hide"></span>
+                            <div class="bw-blackbg-tooltip errorText hide"></div>
                         </div>
                         <input type="button" id="applyFiltersBtn" class="btn btn-orange font16 btn-lg leftfloat locator-search-btn rounded-corner-no-left" value="Search" />
                         <div class="clear"></div>
@@ -65,160 +171,34 @@
                 <h2 class="text-bold text-center margin-top40 margin-bottom30 font28">Discover your bike</h2>
                 <div class="brand-type-container">
                     <ul class="text-center">
-                        <li>
-                            <a href="">
-                                <span class="brand-type"><span class="brandlogosprite brand-honda"></span></span>
-                                <span class="brand-type-title">Honda</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="brand-type"><span class="brandlogosprite brand-bajaj"></span></span>
-                                <span class="brand-type-title">Bajaj</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="brand-type"><span class="brandlogosprite brand-hero"></span></span>
-                                <span class="brand-type-title">Hero</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="brand-type"><span class="brandlogosprite brand-tvs"></span></span>
-                                <span class="brand-type-title">TVS</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="brand-type"><span class="brandlogosprite brand-royalenfield"></span></span>
-                                <span class="brand-type-title">Royal Enfield</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="brand-type"><span class="brandlogosprite brand-yamaha"></span></span>
-                                <span class="brand-type-title">Yamaha</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="brand-type"><span class="brandlogosprite brand-suzuki"></span></span>
-                                <span class="brand-type-title">Suzuki</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="brand-type"><span class="brandlogosprite brand-ktm"></span></span>
-                                <span class="brand-type-title">KTM</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="brand-type"><span class="brandlogosprite brand-mahindra"></span></span>
-                                <span class="brand-type-title">Mahindra</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="brand-type"><span class="brandlogosprite brand-harleydavidson"></span></span>
-                                <span class="brand-type-title">Harley Davidson</span>
-                            </a>
-                        </li>                     
+                        <asp:Repeater ID="rptPopularBrands" runat="server">
+                            <ItemTemplate>
+                                <li>
+                                    <a href="/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
+                                        <span class="brand-type">
+                                            <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                        </span>
+                                        <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
+                                    </a>
+                                </li>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </ul>
                     <div class="brand-bottom-border border-solid-top margin-left20 margin-right20 hide"></div>
-                    <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">             
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-aprilia"></span></span>
-                            <span class="brand-type-title">Aprilia</span>
-                        </a>
-                    </li>               
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-benelli"></span></span>
-                            <span class="brand-type-title">Benelli</span>
-                        </a>
-                    </li>            
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-bmw"></span></span>
-                            <span class="brand-type-title">BMW</span>
-                        </a>
-                    </li>            
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-ducati"></span></span>
-                            <span class="brand-type-title">Ducati</span>
-                        </a>
-                    </li>            
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-heroelectric"></span></span>
-                            <span class="brand-type-title">Hero Electric</span>
-                        </a>
-                    </li>                
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-hyosung"></span></span>
-                            <span class="brand-type-title">Hyosung</span>
-                        </a>
-                    </li>                 
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-indian"></span></span>
-                            <span class="brand-type-title">Indian</span>
-                        </a>
-                    </li>                
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-kawasaki"></span></span>
-                            <span class="brand-type-title">Kawasaki</span>
-                        </a>
-                    </li>                
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-lml"></span></span>
-                            <span class="brand-type-title">LML</span>
-                        </a>
-                    </li>                
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-motoguzzi"></span></span>
-                            <span class="brand-type-title">Moto Guzzi</span>
-                        </a>
-                    </li>                
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-mv-agusta"></span></span>
-                            <span class="brand-type-title">MV Agusta</span>
-                        </a>
-                    </li>               
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-triumph"></span></span>
-                            <span class="brand-type-title">Triumph</span>
-                        </a>
-                    </li>                
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-um"></span></span>
-                            <span class="brand-type-title">UM</span>
-                        </a>
-                    </li>                
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-vespa"></span></span>
-                            <span class="brand-type-title">Vespa</span>
-                        </a>
-                    </li>                
-                    <li>
-                        <a href="">
-                            <span class="brand-type"><span class="brandlogosprite brand-yo"></span></span>
-                            <span class="brand-type-title">Yo</span>
-                        </a>
-                    </li>                   
-                </ul>
+                    <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
+                        <asp:Repeater ID="rptOtherBrands" runat="server">
+                            <ItemTemplate>
+                                <li>
+                                    <a href="/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
+                                        <span class="brand-type">
+                                            <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                        </span>
+                                        <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
+                                    </a>
+                                </li>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </ul>
                 </div>
                 <div class="view-brandType text-center padding-bottom30">
                     <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View <span>more</span> brands</a>
@@ -328,7 +308,7 @@
             }
 
         </script>
-    
+
     </form>
 </body>
 </html>
