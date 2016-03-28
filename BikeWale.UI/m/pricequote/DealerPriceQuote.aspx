@@ -47,12 +47,12 @@
                 <div class="bike-img">
                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPriceQuote.OriginalImagePath,objPriceQuote.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="" title="" border="0" />
                 </div>
-                <h1 class="padding-left10 font18 text-dark-black"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName %> Price Quote</h1>
+                <h1 class="padding-left10 font18 text-dark-black"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName %></h1>
             </div>
             <div class="clear"></div>
 
            
-            <div class="margin-top10 padding-right10 padding-left10">
+            <div id="versionsDropdownWrapper" class="margin-top10 padding-right10 padding-left10">
                 <p class="grid-3 alpha omega version-label-text font14 text-light-grey margin-top5 leftfloat">Version:</p>
                  <%if (versionList!=null && versionList.Count > 1)
                    { %>
@@ -257,7 +257,7 @@
                     <asp:Repeater ID="rptSecondaryDealers" runat="server">
                         <ItemTemplate>
                             <li>
-                                <a href="" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="secondary-dealer font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a><br />
+                                <a href="#" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="secondary-dealer font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a><br />
                                 <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
                             </li>
                         </ItemTemplate>
@@ -516,11 +516,11 @@
                         <div class="update-mobile-box">
                             <div class="form-control-box text-left">
                                 <p class="mobile-prefix">+91</p>
-                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" />
+                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
                                 <span class="bwmsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" />
+                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }"/>
                         </div>
                     </div>
 
@@ -709,6 +709,7 @@
                         self.verifyCustomer();
                         if (self.IsValid()) {
                             $("#contactDetailsPopup").hide();
+                            $("#otpPopup").hide();
                             $("#dealer-assist-msg").show();                          
                         }
                         else {
@@ -743,6 +744,7 @@
                             otpContainer.removeClass("show").addClass("hide");
                             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
                             $("#contactDetailsPopup").hide();
+                            $("#otpPopup").hide();
                             $("#dealer-assist-msg").show();
                         }
                         else {
@@ -1042,7 +1044,7 @@
                         var jsonObj = json;
                         if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                             cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + versionId + "&DealerId=" + secondaryDealerId;
-                            window.location = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
+                            window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
                         }
                     }
                 });

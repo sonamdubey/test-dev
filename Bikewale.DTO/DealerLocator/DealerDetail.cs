@@ -29,7 +29,7 @@ namespace Bikewale.DTO.DealerLocator
 
         [JsonProperty("address")]
         public string Address { get; set; }
-
+        
         [JsonProperty("workingHours")]
         public string WorkingHours { get; set; }
     }

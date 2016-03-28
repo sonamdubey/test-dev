@@ -8,10 +8,10 @@
     <style type="text/css">
         .greenMessage {
             color:#6B8E23;
+            font-size: 11px;
         }
         .redmsg{
-            border: 1px solid red;
-            background: #FFCECE;
+            color: #FFCECE;
         }
         .errMessage {color:#FF4A4A;}
     </style>
@@ -48,12 +48,18 @@
                 </table>
             </div>
         </fieldset>
-        <asp:Label class="errMessage margin-bottom10 margin-left10 greenMessage" ID="lblErrorSummary" runat="server" />
+        <asp:Label class="redmsg errMessage margin-bottom10 margin-left10 greenMessage" ID="lblErrorSummary" runat="server" />
         <br />
-        <asp:Label class="margin-bottom10 margin-left10 greenMessage" ID="lblGreenMessage" runat="server" />
+        <asp:Label class="greenMessage margin-bottom10 margin-left10" ID="lblGreenMessage" runat="server" />
         <br />
+        <% 
+            if(rptRules.DataSource!= null){ 
+        %>
         <asp:Button runat="server" OnClientClick="return deleteRules();" class="margin-bottom10 margin-left10" ID="btnDelete" Text="Delete" />
         <br />
+        <% 
+            } 
+        %>
         <asp:Repeater ID="rptRules" runat="server">
                     <HeaderTemplate>
                         <h1>Added Rule(s) :</h1>
@@ -87,6 +93,7 @@
                         </table>
                     </FooterTemplate>
                 </asp:Repeater>
+
         <asp:HiddenField ID="hdnCheckedRules" runat="server" Value="" />
         <script type="text/javascript">
             $(document).ready(function () {
@@ -208,6 +215,10 @@
                     if (!selectString || selectString == '') selectString = "--Select--";
                     $(cmbToFill).empty().append("<option value=\"0\" title='" + selectString + "'>" + selectString + "</option>").removeAttr("disabled");
                     var hdnValues = "";
+                    // Add select all option for Models
+                    if (($(cmbToFill).attr('id') == 'ddlModel')) {
+                        $(cmbToFill).append("<option value=\"-1\" title='-- Select all --'>" + '-- Select all --' + "</option>");
+                    }
                     for (var i = 0; i < response.Table.length; i++) {
                         $(cmbToFill).append("<option value=" + response.Table[i].Value + " title='" + response.Table[i].Text + "'>" + response.Table[i].Text + "</option>");
                         if (hdnValues == "")

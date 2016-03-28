@@ -13,12 +13,12 @@ namespace Bikewale.Interfaces.Dealer
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 4 June 2014
-    /// Modified By : Lucky Rathore on 21 March 2016
-    /// Description : DealerLocatorEntity GetDealerByMakeCity(uint cityId, uint makeId);  added, used in DealerLocator.
     /// Modified by :   Sumit Kate on 22 Mar 2016
     /// Description :   Added new function FetchDealerCitiesByMake    
     /// Modified By : Lucky Rathore on 23 March 2016
     /// Description : DealerBikesEntity GetDealerBikes(UInt16 dealerId);  added, used in DealerLocator.
+    
+    /// Description : DealerLocatorEntity GetDealerByMakeCity(uint cityId, uint makeId);  added, used in DealerLocator.
     /// </summary>    
     public interface IDealer
     {

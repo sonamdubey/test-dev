@@ -63,7 +63,7 @@
 .tel-sm-icon { width:8px; height:13px; background-position:-88px -324px; margin-right:3px; }
 /*sidebar*/
 #PQDealerSidebarContainer { background:#fff; position:relative; right:0; overflow:hidden; }
-.pqdealer-and-listing-container { max-height:540px; overflow-y:scroll; }
+.pqdealer-and-listing-container { max-height:540px; overflow-y:scroll; overflow-x:hidden; }
 .pqdealer-sidebar-panel, .pq-no-premium-dealer { border:1px solid #e2e2e2; padding:15px 20px 20px;}
 .pqdealer-sidebar-panel::before {border-right: 11px solid #e2e2e2;border-top: 11px solid transparent;border-bottom: 11px solid transparent;content: "";position: absolute; top:44px; left: -12px;z-index: 1;}
 .pqdealer-sidebar-panel::after { border-right: 11px solid #ffffff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; content: ""; position: absolute; top:44px;left: -11px; z-index: 1; }

@@ -23,7 +23,13 @@ namespace Bikewale.Service.Controllers.DealerLocator
         private readonly IDealer _dealer = null;
         private readonly IDealerCacheRepository _cache = null;
 
-        public DealerBikesController(IDealer dealer, IDealerCacheRepository cache)
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created on : 22 march 2016
+        /// Description : for Resolving IDealer and IDealerCacheRepository.
+        /// </summary>
+        /// <param name="dealer"></param>
+        /// <param name="cache"></param>
         {
             _dealer = dealer;
             _cache = cache;

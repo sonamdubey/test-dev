@@ -17,7 +17,8 @@ namespace BikewaleOpr.Campaign
     public class DealersRules : System.Web.UI.Page
     {
         #region variable
-        public int campaignId, dealerId, currentUserId, cityId, stateId, modelId, makeId;
+        public int campaignId, dealerId, currentUserId, cityId, stateId, makeId;
+        public int? modelId;
         public DropDownList ddlMake, ddlModel, ddlState, ddlCity;
         public Button btnSaveRule, btnReset, btnDeleteRules, btnDelete;
         public Repeater rptRules;
@@ -67,7 +68,7 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, cityId, dealerId, makeId, stateId, modelId);
+                campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, cityId, dealerId, makeId, stateId, modelId== -1? null: modelId);
                 lblGreenMessage.Text = "Rule has been added !";
                 BindRules();
             }
@@ -161,9 +162,12 @@ namespace BikewaleOpr.Campaign
         private void FillDropDowns()
         {
             ParseQueryString();
-            BindRules();
             FillMakes();
             FillStates();
+            if(!IsPostBack)
+            {
+                BindRules();
+            }
         }
 
         /// <summary>
@@ -198,12 +202,13 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
+                rptRules.DataSource = null;
                 DataTable dbRules = campaign.FetchBWDealerCampaignRules(campaignId, dealerId);
                 if (dbRules != null && dbRules.Rows.Count > 0)
                 {
                     rptRules.DataSource = dbRules;
-                    rptRules.DataBind();
                 }
+                rptRules.DataBind();
             }
             catch (Exception ex)
             {

@@ -329,7 +329,7 @@
                                         <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get assistance</a>
                                     </div>
                             <% }
-                              else
+                              else if(!isBikeWalePQ)
                               { 
                             %>
                                 <div class="grid-12 float-button float-fixed clearfix">
@@ -1042,7 +1042,9 @@
                 </div>
             </div>
             <div class="breakup-text-container padding-bottom10">
-                <h3 class="breakup-header margin-bottom25">On-road price - Dealership Name</h3>
+                <%if (viewModel != null){ %>
+                <h3 class="breakup-header margin-bottom25">On-road price - <%=viewModel.Organization %></h3>
+               <% } %>
                 <% if (isBikeWalePQ)
                    { %>
                 <table class="font14" width="100%">
