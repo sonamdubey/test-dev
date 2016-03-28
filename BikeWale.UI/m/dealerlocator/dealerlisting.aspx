@@ -3,6 +3,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <% 
+        keywords = String.Format("{0} dealers city, Make showrooms  {1}, {1} bike dealers, {0} dealers, {1} bike showrooms, bike dealers, bike showrooms, dealerships", makeName, cityName);
+        description = String.Format("{0} bike dealers/showrooms in {1}. Find {0} bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc", makeName, cityName);
+        title = String.Format("{0} Dealers in {1} city | {0} New bike Showrooms in {1} - BikeWale", makeName, cityName);
+        canonical = String.Format("http://www.bikewale.com/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, cityMaskingName);
+        alternate = String.Format("http://www.bikewale.com/m/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, cityMaskingName);
+        AdId = "1395986297721";
+        AdPath = "/1017752/BikeWale_New_";
+        //need to add isAd970x90Shown
+    %>
+
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
         #listingHeader{background:#313131;color:#fff;width:100%;height:48px;position:fixed;overflow:hidden;z-index:2;}.listing-back-btn, .listing-filter-btn, #dealersFilterWrapper .filterBackArrow {padding:12px 15px;cursor:pointer;}#dealersFilterWrapper .filterTitle { margin-top:10px; }.fa-arrow-back{width:12px;height:20px;background-position:-63px -162px;}.filter-icon{width: 20px;height: 20px;background-position: -158px -144px;}.content-inner-block-1520 { padding:15px 20px; }.box-shadow { -webkit-box-shadow:0 0 1px #e2e2e2; -moz-box-shadow:0 0 1px #e2e2e2; box-shadow:0 0 1px #e2e2e2; }.text-pure-black { color:#000; }.featured-tag {position:relative;left:-20px;top:-5px;width:100px;background:#4d5057;z-index:1; line-height:28px; }.featured-tag:after {content:'';width:12px; height:28px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=15Mar2016) no-repeat right top;position:absolute;left:98px;}
@@ -46,7 +58,7 @@
         <section class="container padding-top60 margin-bottom10">
             <div class="grid-12">
                 <div class="bg-white content-inner-block-1520 box-shadow">
-                    <h1 class="font16 text-pure-black margin-bottom15"><%=makeName %> dealers in Mumbai <span class="font14 text-light-grey">(<%=totalDealers %>)</span></h1>
+                    <h1 class="font16 text-pure-black margin-bottom15"><%=makeName %> dealers in <%=cityName %> <span class="font14 text-light-grey">(<%=totalDealers %>)</span></h1>
                     <ul id="dealersList">
                         <asp:Repeater ID="rptDealers" runat="server">
                             <ItemTemplate>
@@ -55,11 +67,11 @@
                                         Featured
                                     </div>
                                     <div class="font14">
-                                        <h2 class="font16 margin-bottom10"><a href="/m/new/?MPQ=<%#Bikewale.Utility.EncodingDecodingHelper.EncodeTo64("DealerId=" + DataBinder.Eval(Container.DataItem,"DealerId").ToString() + "&CampaignId=" + DataBinder.Eval(Container.DataItem,"CampaignId").ToString()) %>">" class="text-black"><%# DataBinder.Eval(Container.DataItem,"Name").ToString() %></a></h2>
+                                        <h2 class="font16 margin-bottom10"><a class="text-black" href="/m/dealerlocator/dealerdetails.aspx/?query=<%#Bikewale.Utility.EncodingDecodingHelper.EncodeTo64("DealerId=" + DataBinder.Eval(Container.DataItem,"DealerId").ToString() + "&campId=" + DataBinder.Eval(Container.DataItem,"CampaignId").ToString()) %>"><%# DataBinder.Eval(Container.DataItem,"Name").ToString() %></a></h2>
                                         <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>"><a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-light-grey margin-bottom5"><span class="bwmsprite tel-sm-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a></div>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"Email") %></a></div>
-                                        <input data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn" value="Get assistance">
+                                        <input data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn <%# (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "0")?"hide":"" %>" value="Get assistance">
                                     </div>
                                 </li>
                             </ItemTemplate>
@@ -167,14 +179,7 @@
                             <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="textInput: mobileNo">
                             <span class="bwmsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        <!--
-                        <div class="form-control-box margin-top20">
-                            <select id="getModelName" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: bikes, optionsText: 'bike', optionsCaption: 'Select a bike'" class="form-control get-model-name"></select>                            
-                            <span class="bwmsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
-                        -->
+                        </div>                        
                         <div class="clear"></div>
                         <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
                     </div>
@@ -185,8 +190,8 @@
                                 <span class="back-arrow-box"><span class="bwmsprite back-long-arrow-left"></span></span>
                                 <input class="form-control" type="text" id="assistanceBrandInput" placeholder="Select brand" />
                             </div>
-                            <ul id="sliderBrandList" class="slider-brand-list margin-top40"  data-bind="foreach: dealerBikes">
-                               <li data-bind="text: bike, click: function () { CustomerModel.versionId = this.version.versionId; CustomerModel.modelId = this.model.modelId; }"></li>
+                            <ul id="sliderBrandList" class="slider-brand-list margin-top40"  data-bind="foreach: bikes">
+                               <li data-bind="text: bike, click: function () { customerViewModel.versionId(this.version.versionId); customerViewModel.modelId( this.model.modelId); }"></li>
                             </ul>
                          </div>
                     </div>
@@ -211,12 +216,12 @@
                         </div>
                         <div class="otp-box lead-otp-box-container">
                             <div class="form-control-box margin-bottom10">
-                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" />
+                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" data-bind="value: otpCode"/>
                                 <span class="bwmsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode">Resend OTP</a>
-                            <p class="margin-left10 margin-top10 otp-notify-text text-light-grey font12">
+                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                            <p class="margin-left10 margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
                                 OTP has been already sent to your mobile
                             </p>
                             <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
@@ -224,11 +229,11 @@
                         <div class="update-mobile-box">
                             <div class="form-control-box text-left">
                                 <p class="mobile-prefix">+91</p>
-                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" />
+                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo"  />
                                 <span class="bwmsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" />
+                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
                         </div>
                     </div>
                 </div>
