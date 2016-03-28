@@ -1,4 +1,5 @@
 ﻿<BW:PopupWidget runat="server" id="PopupWidget" />
+<%@ Register Src="~/controls/LoginControlNew.ascx" TagPrefix="BW" TagName="Login" %>
 <% if(isAd970x90Shown){ %>
 <section>
         <!-- #include file="/ads/Ad970x90_Bottom.aspx" -->
@@ -59,6 +60,7 @@
     </div>
 </footer>
 <!-- Ends here -->
+<BW:Login ID="ctrlLogin" runat="server" />
 <!-- #include file="/feedback/feedback.aspx" -->
 <!-- #include file="/includes/footerscript.aspx" -->
 </form>
