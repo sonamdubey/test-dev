@@ -185,9 +185,8 @@
                                 <span class="back-arrow-box"><span class="bwmsprite back-long-arrow-left"></span></span>
                                 <input class="form-control" type="text" id="assistanceBrandInput" placeholder="Select brand" />
                             </div>
-                            <ul id="sliderBrandList" class="slider-brand-list margin-top40"  data-bind="foreach: bikes">
-                               <li data-bind="text: bike"></li>
-                                <%--select id="getModelName" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: bikes, optionsText: 'bike', optionsCaption: 'Select a bike'" class="form-control get-model-name"></select>--%>
+                            <ul id="sliderBrandList" class="slider-brand-list margin-top40"  data-bind="foreach: dealerBikes">
+                               <li data-bind="text: bike, click: function () { CustomerModel.versionId = this.version.versionId; CustomerModel.modelId = this.model.modelId; }"></li>
                             </ul>
                          </div>
                     </div>

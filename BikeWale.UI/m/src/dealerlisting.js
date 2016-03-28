@@ -185,7 +185,9 @@ $(".get-assistance-btn").on('click', function () {
 
     getDealerBikes($(this).attr("data-item-id"));
 
-});
+});
+
+
 function getDealerBikes(id) {
     var obj = new Object();
 
@@ -204,6 +206,7 @@ function getDealerBikes(id) {
                 success: function (response) {
                     lscache.set(dealerKey, response, 30);
                     bindDealerDetails(response);
+                    ko.applyBindings(response, $('#sliderBrandList')[0]);
                 },
                 complete: function (xhr) {
                     if (xhr.status == 204 || xhr.status == 404) {
@@ -214,23 +217,32 @@ function getDealerBikes(id) {
         }
         else {
             bindDealerDetails(dealerInfo);
+            ko.applyBindings(dealerInfo, $('#sliderBrandList')[0]);
         }
     }
 
     return obj;
-}var customerViewModel;var leadBtnBookNow = $("a.get-assistance-btn"), leadCapturePopup = $("#leadCapturePopup"), fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile"), otpContainer = $(".mobile-verification-container");function bindDealerDetails(response) {    
+}
+
+var customerViewModel;
+var leadBtnBookNow = $("a.get-assistance-btn"), leadCapturePopup = $("#leadCapturePopup"), fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile"), otpContainer = $(".mobile-verification-container");
+
+function bindDealerDetails(response) {    
     obj = ko.toJS(response);
     customerViewModel = new CustomerModel(obj);   
     //$ddlModels.chosen('destroy');
     //$ddlModels.trigger("chosen : updated");
 }
-function setuserDetails() {
+
+function setuserDetails() {
     var cookieName = "_PQUser";
     if (isCookieExists(cookieName)) {
         var arr = getCookie(cookieName).split("&");
         return arr;
     }
-}function CustomerModel(obj) {   
+}
+
+function CustomerModel(obj) {   
     data = obj.dealerBikes;
     var arr = setuserDetails();
     var self = this;
@@ -255,7 +267,7 @@ function getDealerBikes(id) {
     self.modelId = ko.observable(0);
     self.bikes = ko.observableArray([]);    
     
-    alert(obj.dealerBikes.length);
+    //alert(obj.dealerBikes.length);
 
     if (obj.dealerBikes && obj.dealerBikes.length > 0) {
         alert(1);
@@ -480,16 +492,29 @@ function getDealerBikes(id) {
             }
         }
     });
-}$(".leadCapture-close-btn, #notifyOkayBtn").on("click", function () {
+}
+
+$(".leadCapture-close-btn, #notifyOkayBtn").on("click", function () {
     assistancePopupClose();
     window.history.back();
-});var assistancePopupClose = function () {
+});
+
+var assistancePopupClose = function () {
     $("#leadCapturePopup").hide();
     $("#notify-response").hide();
-};$("#user-details-submit-btn").on("click", function () {
+};
+
+$("#user-details-submit-btn").on("click", function () {
     if (validateUserDetail()) {
-        $("#contactDetailsPopup").hide();        $("#otpPopup").show();        $(".lead-mobile").text($("#getMobile").val());        //$(".notify-leadUser").text($("#getFullName").val());        //$("#notify-response").show();    }
-});var validateUserDetail = function () {
+        $("#contactDetailsPopup").hide();
+        $("#otpPopup").show();
+        $(".lead-mobile").text($("#getMobile").val());
+        //$(".notify-leadUser").text($("#getFullName").val());
+        //$("#notify-response").show();
+    }
+});
+
+var validateUserDetail = function () {
     var isValid = true;
     isValid = validateName();
     isValid &= validateEmail();
