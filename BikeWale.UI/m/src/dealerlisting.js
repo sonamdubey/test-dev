@@ -149,7 +149,7 @@ $("#applyDealerFilter").click(function () {
         toggleErrorMsg($("#selectCity"), false);
         $(".filterBackArrow").trigger("click");
         //window.location.href = "/m/dealerlocator/" + ddlmakemasking + "/" + ddlcityId + "-" + ddlcityMasking + ".html";
-        alert(1);
+        window.location.href = "/m/dealerlocator/dealerlisting.aspx?make=" + ulmakemasking + "&cityId=" + ulcityId;
     }
     else {
         toggleErrorMsg($("#selectCity"), true, "Choose a city");
