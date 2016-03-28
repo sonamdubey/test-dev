@@ -31,6 +31,7 @@ namespace BikewaleOpr.Common
                 {
                     using (SqlCommand cmd = new SqlCommand("BW_FetchBWDealerCampaign"))
                     {
+                        db = new Database();
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@CampaignId", campaignId);
                         DataSet ds = db.SelectAdaptQry(cmd);
@@ -72,7 +73,7 @@ namespace BikewaleOpr.Common
         /// <param name="dealerEmailId"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public bool InsertBWDealerCampaign(bool isActive,  int userId, int dealerId, int contractId, int dealerLeadServingRadius, DateTime? startDate, DateTime? endDate, string maskingNumber, string dealerName, string dealerEmailId, bool isBookingAvailable = false)
+        public bool InsertBWDealerCampaign(bool isActive,  int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, bool isBookingAvailable = false)
         {
             bool isSuccess = false;
             Database db = null;
@@ -93,10 +94,10 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.AddWithValue("@UpdatedBy", userId);
                     //Optional Parameters
                     cmd.Parameters.AddWithValue("@IsBookingAvailable",isBookingAvailable);
-                    if(startDate.HasValue)
-                        cmd.Parameters.AddWithValue("@StartDate",startDate.Value);
-                    if(endDate.HasValue)
-                        cmd.Parameters.AddWithValue("@EndDate", endDate.Value);
+                    //if(startDate.HasValue)
+                    //    cmd.Parameters.AddWithValue("@StartDate",startDate.Value);
+                    //if(endDate.HasValue)
+                    //    cmd.Parameters.AddWithValue("@EndDate", endDate.Value);
                     isSuccess = db.InsertQry(cmd);
                 }
             }
@@ -132,7 +133,7 @@ namespace BikewaleOpr.Common
         /// <param name="dealerEmailId"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, int dealerLeadServingRadius, DateTime? startDate, DateTime? endDate, string maskingNumber, string dealerName, string dealerEmailId, bool isBookingAvailable = false)
+        public bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, bool isBookingAvailable = false)
         {
             bool isSuccess = false;
             Database db = null;
@@ -154,10 +155,6 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.AddWithValue("@UpdatedBy", userId);
                     //Optional Parameters
                     cmd.Parameters.AddWithValue("@IsBookingAvailable", isBookingAvailable);
-                    if (startDate.HasValue)
-                        cmd.Parameters.AddWithValue("@StartDate", startDate.Value);
-                    if (endDate.HasValue)
-                        cmd.Parameters.AddWithValue("@EndDate", endDate.Value);
                     isSuccess = db.UpdateQry(cmd);
                 }
             }
@@ -173,6 +170,48 @@ namespace BikewaleOpr.Common
                 db = null;
             }
             return isSuccess;
+        }
+
+        /// <summary>
+        /// Created by  :   Sangram Nandkhile on 22 Mar 2016
+        /// Description :   Fetch the Dealer Campaigns for contacts
+        ///                 SP Called : BW_FetchBWCampaigns
+        /// </summary>
+        /// <param name="campaignId">Campaign Id</param>
+        /// <returns></returns>
+        public DataTable FetchBWCampaigns(int contractId)
+        {
+            DataTable dtDealerCampaign = null;
+            Database db = null;
+            try
+            {
+                if (contractId > 0)
+                {
+                    using (SqlCommand cmd = new SqlCommand("BW_FetchBWCampaigns"))
+                    {
+                        db = new Database();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@ContractId", contractId);
+                        DataSet ds = db.SelectAdaptQry(cmd);
+                        if (ds != null && ds.Tables.Count > 0)
+                        {
+                            dtDealerCampaign = ds.Tables[0];
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.FetchBWCampaigns");
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (db != null)
+                    db.CloseConnection();
+                db = null;
+            }
+            return dtDealerCampaign;
         }
     }
 }

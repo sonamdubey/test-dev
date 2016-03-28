@@ -591,5 +591,39 @@ namespace BikeWaleOpr.Common
             }
             return jsonCities;
         }
+
+        /// <summary>
+        ///  Written By : Sangram Nandkhile on 25 Mar 2016
+        ///  Method to Map campaign againts contract
+        /// </summary>
+        [AjaxPro.AjaxMethod()]
+        public void MapCampaign(string contractId, string campaignId)
+        {
+            bool isSuccess = false;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("BW_UpdateBWDealerContractCampaign"))
+                {
+                    db = new Database();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ContractId", contractId);
+                    cmd.Parameters.AddWithValue("@CampaignId", campaignId);
+                    isSuccess = db.UpdateQry(cmd);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (db != null)
+                    db.CloseConnection();
+                db = null;
+            }
+        }
     }   // End of class
+
 }   // End of namespace
