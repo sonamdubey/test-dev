@@ -218,9 +218,8 @@
             </div>
         </section>
         
-        <%--<script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>--%>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <script>
+        <script type="text/javascript">
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList"), $liCities = $("#sliderCityList"), $liAreas = $("#sliderAreaList");
             var key = "bCity_";
             lscache.setBucket('BLPage');  

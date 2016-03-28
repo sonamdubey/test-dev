@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
-using System.Data;
-using System.Data.SqlClient;
 using Microsoft.Practices.Unity;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.BAL.Dealer;
 using System.Collections.Generic;
-using Bikewale.Entities.Dealer;
 using System.Linq;
-using Bikewale.Controls;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Cache.BikeData;
@@ -23,7 +16,7 @@ using Bikewale.Entities.Location;
 using Bikewale.DAL.Dealer;
 
 
-namespace Bikewale.New
+namespace Bikewale.New.DealerLocator
 {
     /// <summary>
     /// Created By  : Sushil Kumar 

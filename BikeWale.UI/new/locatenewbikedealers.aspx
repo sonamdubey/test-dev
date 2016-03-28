@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.LocateNewBikeDealers" EnableViewState="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealerLocator.LocateNewBikeDealers" EnableViewState="false" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
@@ -168,7 +168,7 @@
 
         <section class="container">
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top40 margin-bottom30 font28">Discover your bike</h2>
+                <h2 class="text-bold text-center margin-top40 margin-bottom30 font28">Locate dealers by brand</h2>
                 <div class="brand-type-container">
                     <ul class="text-center">
                         <asp:Repeater ID="rptPopularBrands" runat="server">
@@ -250,7 +250,7 @@
             $('div.chosen-container').attr('style', 'width:100%;border:0');
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
 
-            var key = "dealerCities_";
+            var key = "dealerCitiesByMake_";
             lscache.setBucket('DLPage');
 
             $ddlMakes.change(function () {
