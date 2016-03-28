@@ -33,7 +33,7 @@
                           <select id="ddlMakes" class="form-control  chosen-select">
                                 <asp:Repeater ID="rptMakes" runat="server">
                                     <ItemTemplate>
-                                        <option maskingname="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>" <%# ((DataBinder.Eval(Container.DataItem,"MakeId")).ToString() != makeId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </option>
+                                        <option maskingname="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>" ><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </option>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </select>

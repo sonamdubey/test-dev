@@ -174,6 +174,28 @@ function initializeMap(dealerArr) {
     };
 
     map = new google.maps.Map(document.getElementById("dealersMap"), mapProp);
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsDisplay.setMap(map);
+
+    originPlace = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('locationSearch')),
+      { types: ['geocode'] });
+
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    originPlace.addListener('place_changed', function () {
+        var place = originPlace.getPlace();
+        if (!place.geometry) {
+            origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
+        }
+        else origin_place_id = place.geometry.location;
+
+        travel_mode = google.maps.TravelMode.WALKING; 
+
+        route(origin_place_id, travel_mode, directionsService, directionsDisplay);
+    });
+
     infowindow = new google.maps.InfoWindow();
 
     for (i = 0; i < dealerArr.length; i++) {
@@ -223,7 +245,43 @@ function initializeMap(dealerArr) {
     $(window).resize(function () {
         google.maps.event.trigger(map, "resize");
     });
+}
 
+function route(origin_place_id, travel_mode, directionsService, directionsDisplay) {
+
+    activeItem = $("ul#dealersList li.active");
+    _lat = activeItem.attr("data-lat");
+    _lng = activeItem.attr("data-log");
+    destination_place_id = new google.maps.LatLng(_lat, _lng);
+
+    if (!origin_place_id || !destination_place_id) {
+        return;
+    }
+    directionsService.route({
+        origin: origin_place_id,
+        destination: destination_place_id,
+        travelMode: travel_mode
+    }, function (response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+            getCommuteInfo(response);
+            directionsDisplay.setDirections(response);
+        } else {
+            window.alert('Directions request failed due to ' + status);
+        }
+    });
+
+}
+
+function getCommuteInfo(result) {
+    var totalDistance = 0;
+    var totalDuration = 0; 
+    var legs = result.routes[0].legs; 
+    for (var i = 0; i < legs.length; ++i) {    
+        totalDistance += legs[i].distance.value;
+        totalDuration += legs[i].duration.value; 
+    }
+    $('#commuteDistance').text((totalDistance/1000).toFixed(3) + " kms");
+    $('#commuteDuration').text((totalDuration/60).toFixed(1) + " mins");
 
 }
 
@@ -288,7 +346,7 @@ $(function () {
             $("#contactDetailsPopup").hide().siblings("#dealer-lead-msg").show();
         }
         else {
-            $("#contactDetailsPopup").show().siblings("#dealer-lead-msg").hide();           
+            $("#contactDetailsPopup").show().siblings("#dealer-lead-msg").hide();
         }
 
     });
@@ -772,7 +830,7 @@ function CustomerModel(obj) {
             }
             else {
                 $('#processing').hide();
-                otpVal("Please enter a valid OTP.");                 
+                otpVal("Please enter a valid OTP.");
             }
         }
     });

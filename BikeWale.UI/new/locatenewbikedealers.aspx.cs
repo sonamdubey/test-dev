@@ -121,7 +121,6 @@ namespace Bikewale.New
                     {
                         rptCities.DataSource = _cities;
                         rptCities.DataBind();
-                        //cityName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityName;
                     }
                 }
             }
@@ -134,11 +133,35 @@ namespace Bikewale.New
         }
 
 
+        #region Set user location from location cookie
         /// <summary>
-        /// Created By  : Sushil Kumar
-        /// Created On  : 20th March 2016
-        /// Description : To get makeId from make masking name
+        /// Created By : Sushil Kumar on 25th March 2016
+        /// Description : To set user location
         /// </summary>
+        /// <returns></returns>
+        private void GetLocationCookie()
+        {
+            string location = String.Empty;
+            try
+            {
+                if (this.Context.Request.Cookies.AllKeys.Contains("location") && !string.IsNullOrEmpty(this.Context.Request.Cookies["location"].Value) && this.Context.Request.Cookies["location"].Value != "0")
+                {
+                    location = this.Context.Request.Cookies["location"].Value;
+                    string[] arr = System.Text.RegularExpressions.Regex.Split(location, "_");
+
+                    if (arr.Length > 0)
+                    {
+                        uint.TryParse(arr[0], out cityId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetLocationCookie");
+                objErr.SendMail();
+            }
+        }
+        #endregion
 
     }
 }

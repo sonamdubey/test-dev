@@ -18,7 +18,7 @@
     <title></title>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerlisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDjG8tpNdQI86DH__-woOokTaknrDQkMC8"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDjG8tpNdQI86DH__-woOokTaknrDQkMC8&libraries=places"></script>
 </head>
 <body class="bg-light-grey padding-top50">
     <form runat="server">
@@ -149,12 +149,17 @@
                                 <a href="" target="_blank" data-bind="attr : { href : 'https://maps.google.com/?saddr=' + userLocation + '&daddr=' + lat() + ',' + lng() + '' }"><span class="bwsprite get-direction-icon"></span>Get directions</a>
                                 <%-- <a href="" class="border-dark-left margin-left10 padding-left10"><span class="bwsprite sendto-phone-icon"></span>Send to phone</a>--%>
                             </div>
-                            <%-- <div class="padding-top15">
-                            <p class="font14 text-bold margin-bottom15">Get commute distance and time:</p>
-                            <div class="commute-distance-form form-control-box">
-                                <input type="text" class="form-control" placeholder="Enter your location" />
+                            <div class="padding-top15 margin-bottom15">
+                                <p class="font14 text-bold margin-bottom15">Get commute distance and time:</p>
+                                <div class="commute-distance-form form-control-box">
+                                    <input id="locationSearch" type="text" class="form-control" placeholder="Enter your location" />
+                                    <div class="padding-top10 padding-bottom10">
+                                        <span class="fa fa-clock-o"></span> Time : <span id="commuteDuration"></span>&nbsp; &nbsp;
+                                        <span class="fa fa-road"></span> Distance : <span id="commuteDistance"></span>
+                                    </div>
+                                </div>
+                                <div id="commuteResults"></div>
                             </div>
-                        </div>--%>
                         </div>
                         <div id="buyingAssistanceForm" data-bind="with: CustomerDetails" class="border-solid-top content-inner-block-1520">
                             <div id="buying-assistance-form">
@@ -187,7 +192,7 @@
                                 <div class="clear"></div>
                             </div>
                             <div id="dealer-assist-msg" class="hide">
-                                <p class="leftfloat font14">Thank you for your interest. <span data-bind="text: dealerName()"></span>will get in touch shortly</p>
+                                <p class="leftfloat font14">Thank you for your interest. <span data-bind="text: dealerName()"> </span> will get in touch shortly</p>
                                 <span class="rightfloat bwsprite cross-lg-lgt-grey cur-pointer"></span>
                                 <div class="clear"></div>
                             </div>
@@ -312,7 +317,7 @@
                                     <span class="bwsprite otp-icon margin-top25"></span>
                                 </div>
                             </div>
-                            <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="dealerName"></span>, <span data-bind="    dealerArea"></span>will get in touch with you soon.</p>
+                            <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="dealerName"></span>, <span data-bind="    dealerArea"> </span> will get in touch with you soon.</p>
 
                             <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
                         </div>
