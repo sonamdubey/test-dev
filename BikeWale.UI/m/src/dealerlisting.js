@@ -43,7 +43,7 @@ $(".dealers-brand-city-wrapper .dealers-back-arrow-box").on("click", function ()
     $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
 });
 
-$("#dealersBrandInput, #dealersCityInput").on("keyup", function () {
+$("#dealersBrandInput, #dealersCityInput, #assistanceBrandInput").on("keyup", function () {
     locationFilter($(this));
 });
 
@@ -156,6 +156,8 @@ $("#applyDealerFilter").click(function () {
     }
 });
 
+
+
 var setUserSelection = function () {
     $(".dealers-brand-city-wrapper .dealers-back-arrow-box").trigger("click");
 };
@@ -180,7 +182,305 @@ $(".get-assistance-btn").on('click', function () {
     appendHash("assistancePopup");
     $("div#contactDetailsPopup").show();
     $("#otpPopup").hide();
-});$(".leadCapture-close-btn, #notifyOkayBtn").on("click", function () {
+
+    getDealerBikes($(this).attr("data-item-id"));
+
+});
+function getDealerBikes(id) {
+    var obj = new Object();
+
+    if (!isNaN(id) && id != "0") {
+        var dealerKey = "dealerDetails_" + id;
+        var dealerInfo = lscache.get(dealerKey);
+        if (!dealerInfo) {
+            $.ajax({
+                type: "GET",
+                url: "http://172.16.1.72:9011/api/DealerBikes/?dealerId=4&campaignId=1",
+                contentType: "application/json",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('utma', getCookie('__utma'));
+                    xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                },
+                success: function (response) {
+                    lscache.set(dealerKey, response, 30);
+                    bindDealerDetails(response);
+                },
+                complete: function (xhr) {
+                    if (xhr.status == 204 || xhr.status == 404) {
+                        lscache.set(dealerKey, null, 30);
+                    }
+                }
+            });
+        }
+        else {
+            bindDealerDetails(dealerInfo);
+        }
+    }
+
+    return obj;
+}var customerViewModel;var leadBtnBookNow = $("a.get-assistance-btn"), leadCapturePopup = $("#leadCapturePopup"), fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile"), otpContainer = $(".mobile-verification-container");function bindDealerDetails(response) {    
+    obj = ko.toJS(response);
+    customerViewModel = new CustomerModel(obj);   
+    //$ddlModels.chosen('destroy');
+    //$ddlModels.trigger("chosen : updated");
+}
+function setuserDetails() {
+    var cookieName = "_PQUser";
+    if (isCookieExists(cookieName)) {
+        var arr = getCookie(cookieName).split("&");
+        return arr;
+    }
+}function CustomerModel(obj) {   
+    data = obj.dealerBikes;
+    var arr = setuserDetails();
+    var self = this;
+    if (arr != null && arr.length > 0) {
+        self.fullName = ko.observable(arr[0]);
+        self.emailId = ko.observable(arr[1]);
+        self.mobileNo = ko.observable(arr[2]);
+    }
+    else {
+        self.fullName = ko.observable();
+        self.emailId = ko.observable();
+        self.mobileNo = ko.observable();
+    }
+    self.selectedBike = ko.observable();
+    //self.dealerId = ko.observable(obj.dealerDetails.id);
+    self.versionId = ko.observable(0);   
+    self.IsVerified = ko.observable(false);
+    self.NoOfAttempts = ko.observable(0);
+    self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
+    self.otpCode = ko.observable();   
+    self.pqId = ko.observable();
+    self.modelId = ko.observable(0);
+    self.bikes = ko.observableArray([]);    
+    
+    alert(obj.dealerBikes.length);
+
+    if (obj.dealerBikes && obj.dealerBikes.length > 0) {
+        alert(1);
+        //(obj.dealerBikes).push({"bike" : "Select a bike model"})
+        self.bikes = ko.observableArray(obj.dealerBikes);
+    }
+
+
+    self.verifyCustomer = function () {
+        if (!self.IsVerified()) {
+            var objCust = {
+                "dealerId": self.dealerId(),
+                "pqId": self.pqId(),
+                "customerName": self.fullName(),
+                "customerMobile": self.mobileNo(),
+                "customerEmail": self.emailId(),
+                "clientIP": "",
+                "pageUrl": "",
+                "versionId": self.versionId(),
+                "cityId": bikeCityId,
+                "leadSourceId": 1,
+                "deviceId": getCookie('BWC')
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/PQCustomerDetail/",
+                data: ko.toJSON(objCust),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('utma', getCookie('__utma'));
+                    xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                },
+                async: false,
+                contentType: "application/json",
+                success: function (response) {
+                    var obj = ko.toJS(response);
+                    self.IsVerified(obj.isSuccess);
+                    if (!self.IsVerified()) {
+                        self.NoOfAttempts(obj.noOfAttempts);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    self.IsVerified(false);
+                }
+            });
+        }
+    };
+
+
+    self.generateOTP = function () {
+        if (!self.IsVerified()) {
+            var objCust = {
+                "pqId": self.pqId(),
+                "customerMobile": self.mobileNo(),
+                "customerEmail": self.emailId(),
+                "cwiCode": self.otpCode(),
+                "branchId": self.dealerId(),
+                "customerName": self.fullName(),
+                "versionId": self.versionId(),
+                "cityId": bikeCityId
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/PQMobileVerification/",
+                data: ko.toJSON(objCust),
+                async: false,
+                contentType: "application/json",
+                success: function (response) {
+                    var obj = ko.toJS(response);
+                    self.IsVerified(obj.isSuccess);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    self.IsVerified(false);
+                }
+            });
+        }
+    };
+
+    self.regenerateOTP = function () {
+        if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
+            var url = '/api/ResendVerificationCode/';
+            var objCustomer = {
+                "customerName": self.fullName(),
+                "customerMobile": self.mobileNo(),
+                "customerEmail": self.emailId(),
+                "source": 1
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                async: false,
+                data: ko.toJSON(objCustomer),
+                contentType: "application/json",
+                success: function (response) {
+                    self.IsVerified(false);
+                    self.NoOfAttempts(response.noOfAttempts);
+                    alert("You will receive the new OTP via SMS shortly.");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    self.IsVerified(false);
+                }
+            });
+        }
+    };
+
+    self.generatePQ = function (data, event) {
+        self.IsVerified(false);
+        isSuccess = false;
+        isValidDetails = false;
+        isValidDetails &= validateBike(getModelName);            
+        isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
+
+        
+        var bike = self.selectedBike();
+        if (bike && bike.version && bike.model) {
+            self.versionId(bike.version.versionId);
+            self.modelId(bike.model.modelId);
+        }
+        else {
+            self.versionId(0);
+            self.modelId(0);
+        }
+
+        if (isValidDetails && self.modelId() && self.versionId()) {
+            var url = '/api/RegisterPQ/';
+            var objData = {
+                "dealerId": self.dealerId(),
+                "modelId": self.modelId(),
+                "clientIP": "",
+                "pageUrl": "",
+                "versionId": self.versionId(),
+                "cityId": bikeCityId,
+                "areaId": 0,
+                "sourceType": 1,
+                "pQLeadId": 1,
+                "deviceId": getCookie('BWC')
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                async: false,
+                data: ko.toJSON(objData),
+                contentType: "application/json",
+                success: function (response) {
+                    self.pqId(response.quoteId);
+                    isSuccess = true;
+                },
+                complete: function (xhr) {
+                    if (xhr.status == 404 || xhr.status == 204) {
+                        self.IsVerified(false);
+                        isSuccess = false;
+                    }
+
+                }
+            });
+        }
+
+        return isSuccess;
+
+    }
+
+    self.submitLead = function (data, event) {
+        var isValidDetails = self.generatePQ(data, event);
+        $("#dealer-lead-msg").hide();
+        if (isValidDetails) {
+            self.verifyCustomer();
+            if (self.IsValid()) {
+                $("#contactDetailsPopup").hide();
+                $("#personalInfo").hide()
+                $("#otpPopup").hide();
+                $("#dealer-lead-msg").fadeIn();
+
+                $("ul#dealersList li[data-item-id=" + self.dealerId() + "]").attr("data-item-inquired", true);
+            }
+            else {
+                $("#leadCapturePopup").show();
+                $('body').addClass('lock-browser-scroll');
+                $(".blackOut-window").show();
+                $("#contactDetailsPopup").hide();
+                $("#otpPopup").show();
+                var leadMobileVal = mobile.val();
+                $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
+               // otpContainer.removeClass("hide").addClass("show");
+                //nameValTrue();
+                hideError(mobile);
+                otpText.val('').removeClass("border-red").siblings("span, div").hide();
+            }
+            setPQUserCookie();
+            // dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': bikeName + '_' + getCityArea });
+        }
+    };
+
+    $("body").on('click', '#otp-submit-btn', function () {
+        $('#processing').show();
+        isValidDetails = false;
+        if (!validateOTP())
+            $('#processing').hide();
+             
+            isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
+        
+
+        if (validateOTP() && isValidDetails) {
+            customerViewModel.generateOTP();
+            if (customerViewModel.IsVerified()) {
+                $("#personalInfo").hide();
+                $(".booking-dealer-details").removeClass("hide").addClass("show");
+                otpText.val('');
+                otpContainer.removeClass("show").addClass("hide");
+                $("#personalInfo").hide()
+                $("#otpPopup").hide();
+            
+                $("#dealer-lead-msg").fadeIn();
+                
+
+                // OTP Success
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
+            }
+            else {
+                $('#processing').hide();
+                otpVal("Please enter a valid OTP.");
+                // push OTP invalid
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
+            }
+        }
+    });
+}$(".leadCapture-close-btn, #notifyOkayBtn").on("click", function () {
     assistancePopupClose();
     window.history.back();
 });var assistancePopupClose = function () {
@@ -253,17 +553,13 @@ var validateMobile = function () {
 
 var validateModel = function () {
     var isValid = true,
-        model = $("#getModelName"),
-        modelLength = model.val().length;
-    if (model.val().indexOf('&') != -1) {
-        setError(model, 'Invalid model name');
+        model = $('.dealer-search-brand-form');
+
+    if (!model.hasClass('selection-done')) {
+        setError(model, 'Please select a model');
         isValid = false;
     }
-    else if (modelLength == 0) {
-        setError(model, 'Please enter model name');
-        isValid = false;
-    }
-    else if (modelLength >= 1) {
+    else if (model.hasClass('selection-done')) {
         hideError(model);
         isValid = true;
     }
@@ -382,3 +678,30 @@ function toggleErrorMsg(element, error, msg) {
         element.removeClass('border-red');
     }
 }
+
+var brandSearchBar = $("#brandSearchBar"),
+                dealerSearchBrand = $(".dealer-search-brand"),
+                dealerSearchBrandForm = $(".dealer-search-brand-form");
+dealerSearchBrand.on('click', function () {
+    $('.dealer-brand-wrapper').show();
+    brandSearchBar.addClass('open').animate({ 'left': '0px' }, 500);
+    brandSearchBar.find(".user-input-box").animate({ 'left': '0px' }, 500);
+    $("#assistanceBrandInput").focus();
+});
+$("#sliderBrandList").on("click", "li", function () {
+    var _self = $(this),
+        selectedElement = _self.text();
+    setSelectedElement(_self, selectedElement);
+    _self.addClass('activeBrand').siblings().removeClass('activeBrand');
+    dealerSearchBrandForm.addClass('selection-done').find("span").text(selectedElement);
+    brandSearchBar.find(".user-input-box").animate({ 'left': '100%' }, 500);
+    hideError(dealerSearchBrandForm);
+});
+function setSelectedElement(_self, selectedElement) {
+    _self.parent().prev("input[type='text']").val(selectedElement);
+    brandSearchBar.addClass('open').animate({ 'left': '100%' }, 500);
+};
+$(".dealer-brand-wrapper .back-arrow-box").on("click", function () {
+    brandSearchBar.removeClass("open").animate({ 'left': '100%' }, 500);
+    brandSearchBar.find(".user-input-box").animate({ 'left': '100%' }, 500);
+});

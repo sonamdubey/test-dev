@@ -1298,7 +1298,7 @@ var locationFilter = function (filterContent) {
         });
     }
     else {
-        $(this).parent("div.user-input-box").siblings("ul").find("li").each(function () {
+        $(filterContent).parent("div.user-input-box").siblings("ul").find("li").each(function () {
             $(this).show();
         });
     }
