@@ -35,26 +35,34 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// Description : To get Detail of Bikes for specific Dealer.
         /// </summary>
         /// <param name="dealerId"></param>
+        /// <param name="campaignId"></param>
         /// <returns></returns>
-        public IHttpActionResult Get(UInt16 dealerId)
+        public IHttpActionResult Get(UInt16 dealerId, uint campaignId)
         {
             try
             {
-                DealerBikesEntity dealerBikes = _cache.GetDealerBikes(dealerId);
-                DealerBikes bikes;
-                if (dealerBikes != null)
+                if (dealerId > 0 && campaignId > 0)
                 {
-                    bikes = DealerBikesEntityMapper.Convert(dealerBikes);
-                    return Ok(bikes);
+                    DealerBikesEntity dealerBikes = _cache.GetDealerDetailsAndBikes(dealerId,campaignId);
+                    DealerBikes bikes;
+                    if (dealerBikes != null)
+                    {
+                        bikes = DealerBikesEntityMapper.Convert(dealerBikes);
+                        return Ok(bikes);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    } 
                 }
                 else
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.Controllers.DealerLocatorGet");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.Controllers.DealerLocator.Get");
                 objErr.SendMail();
                 return InternalServerError();
             }

@@ -22,7 +22,7 @@
         isAd976x400FirstShown = true;
         isAd976x400SecondShown = true;
         isAd976x204 = true;
-        PopupWidget.Visible = false;
+        PopupWidget.Visible = true;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">

@@ -14,7 +14,7 @@ namespace Bikewale.Interfaces.Dealer
     /// </summary>
     public interface IDealerCacheRepository
     {
-        DealersEntity GetDealerByMakeCity(uint cityId, uint makeId); 
-        DealerBikesEntity GetDealerBikes(UInt16 dealerId);
+        DealersEntity GetDealerByMakeCity(uint cityId, uint makeId);
+        DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId);
     }
 }

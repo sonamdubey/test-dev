@@ -35,7 +35,6 @@ namespace Bikewale.Cache.DealersLocator
         /// <returns>Dealers</returns>
         public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
         {
-            //IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
             Entities.DealerLocator.DealersEntity dealers = null;
             string key = String.Format("BW_DealerList_Make_{0}_City_{1}", makeId, cityId);
             try
@@ -44,7 +43,7 @@ namespace Bikewale.Cache.DealersLocator
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakesByType");
+                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerByMakeCity");
                 objErr.SendMail();
             }
             return dealers;
@@ -58,13 +57,13 @@ namespace Bikewale.Cache.DealersLocator
         /// </summary>
         /// <param name="dealerId">e.g. 1</param>
         /// <returns>DealerBikesEntity</returns>
-        public DealerBikesEntity GetDealerBikes(UInt16 dealerId)
+        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId)
         {
             DealerBikesEntity models = null;
             string key = String.Format("BW_DealerBikeModel_{0}", dealerId);
             try
             {
-                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerBikes(dealerId));
+                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerDetailsAndBikes(dealerId,campaignId));
             }
             catch (Exception ex)
             {

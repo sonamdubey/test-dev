@@ -2,12 +2,8 @@
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Data;
-using System.Data.SqlClient;
 
 using Bikewale.Memcache;
-using Bikewale.Entities.PriceQuote;
 using Microsoft.Practices.Unity;
 using System.Collections.Generic;
 using Bikewale.Entities.BikeData;
@@ -17,14 +13,9 @@ using Bikewale.Cache.Core;
 using System.Linq;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.DAL.BikeData;
-using Bikewale.Interfaces.Location;
-using Bikewale.Cache.Location;
-using Bikewale.DAL.Location;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Notifications;
-using Bikewale.Interfaces.PriceQuote;
-using Bikewale.BAL.PriceQuote;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.DAL.Dealer;
@@ -41,6 +32,7 @@ namespace Bikewale.New
         protected uint cityId, makeId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
+        protected string clientIP = string.Empty, pageUrl = string.Empty;
 
 
         protected override void OnInit(EventArgs e)
@@ -68,9 +60,14 @@ namespace Bikewale.New
             if (makeId > 0 && cityId > 0)
             {
                 BindMakesDropdown();
-                BindCitiesDropdown();
-
-                BindDealerList();
+                BindCitiesDropdown();     
+                BindDealerList();  
+            }
+            else
+            {
+                Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
 
         }
@@ -99,6 +96,12 @@ namespace Bikewale.New
                         rptDealers.DataSource = _dealers.Dealers;
                         rptDealers.DataBind();
                         totalDealers = _dealers.TotalCount;
+                    }
+                    else
+                    {
+                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
                     }
                 }
             }
@@ -132,9 +135,13 @@ namespace Bikewale.New
                     if (_makes != null && _makes.Count() > 0)
                     {
                         rptMakes.DataSource = _makes;
-                        rptMakes.DataBind();   
-                        makeName = _makes.Where(x => x.MakeId == makeId).FirstOrDefault().MakeName;
-                        makeMaskingName = _makes.Where(x => x.MakeId == makeId).FirstOrDefault().MaskingName;
+                        rptMakes.DataBind();  
+                        var firstMake = _makes.FirstOrDefault(x => x.MakeId == makeId);
+                        if(firstMake!=null)
+                        {
+                            makeName = firstMake.MakeName ;
+                            makeMaskingName = firstMake.MaskingName;
+                        }                         
                     }
                 }
             }
@@ -167,8 +174,12 @@ namespace Bikewale.New
                     {
                         rptCities.DataSource = _cities;
                         rptCities.DataBind();
-                        cityName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityName;
-                        cityMaskingName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityMaskingName;
+                        var firstCity = _cities.FirstOrDefault(x => x.CityId == cityId);
+                        if (firstCity != null)
+                        {
+                            cityName = firstCity.CityName;
+                            cityMaskingName = firstCity.CityMaskingName;
+                        }                        
                     }
                 }
             }
@@ -209,8 +220,8 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                Trace.Warn("GetMakeIdByMakeMaskingName Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown");
+                Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, "GetMakeIdByMakeMaskingName");
                 objErr.SendMail();
             }
         }
@@ -233,10 +244,12 @@ namespace Bikewale.New
                 {
                     makeMaskingName = currentReq.QueryString["make"];
                     uint.TryParse(currentReq.QueryString["cityId"], out cityId);
+                    clientIP = Bikewale.Common.CommonOpn.GetClientIP();
+                    pageUrl = currentReq.ServerVariables["URL"];
                 }
                 else
                 {
-                    Response.Redirect("/new/locate-dealers/.aspx", false);
+                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }

@@ -17,6 +17,7 @@ namespace Bikewale.Entities.BikeBooking
         DealerPQ_Mobile = 4,
         BookingSummary_Mobile = 5,
         ModelPage_Mobile = 6,
-        ModelPage_Android = 7
+        ModelPage_Android = 7,
+        DealerLocator_Desktop = 8
     }
 }

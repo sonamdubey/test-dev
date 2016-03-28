@@ -21,5 +21,6 @@ namespace Bikewale.Entities.DealerLocator
         public string EMail { get; set; }
         public string Address { get; set; }
         public string WorkingHours { get; set; }
+        public uint CampaignId { get; set; }
     }
 }

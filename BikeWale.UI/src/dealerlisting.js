@@ -142,6 +142,7 @@ $("ul#dealersList li").each(function () {
     _dealer.longitude = _self.attr("data-log");
     _dealer.address = _self.attr("data-address");
     _dealer.name = _self.find("a.dealer-sidebar-link").text();
+    _dealer.maskingNumber = _self.attr("data-item-number");
     dealerArr.push(_dealer);
 });
 
@@ -173,6 +174,30 @@ function initializeMap(dealerArr) {
     };
 
     map = new google.maps.Map(document.getElementById("dealersMap"), mapProp);
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsDisplay.setMap(map);
+
+    //originPlace = new google.maps.places.Autocomplete(
+    //  (document.getElementById('locationSearch')),         
+    //  {
+    //      types: ['geocode'],
+    //      componentRestrictions: {country: "in"}
+    //  });
+
+    //originPlace.addListener('place_changed', function () {
+    //    var place = originPlace.getPlace();
+    //    if (!place.geometry) {
+    //        origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
+    //    }
+    //    else origin_place_id = place.geometry.location;
+
+    //    travel_mode = google.maps.TravelMode.WALKING;
+
+    //    route(origin_place_id, travel_mode, directionsService, directionsDisplay);
+    //    $('.location-details').show();
+    //});
+
     infowindow = new google.maps.InfoWindow();
 
     for (i = 0; i < dealerArr.length; i++) {
@@ -198,7 +223,7 @@ function initializeMap(dealerArr) {
             markerArr.push(marker);
             marker.setMap(map);
 
-            content = '<div class="dealer-info-tooltip"><h3 class="font16 margin-bottom5"><a href="javascript:void(0)" data-tooltip-id="' + dealer.id + '" class="text-black tooltip-target-link">' + dealer.name + '</a></h3><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-grey-icon"></span><span>' + 9876543210 + '</span></div></div></div>';
+            content = '<div class="dealer-info-tooltip"><h3 class="font16 margin-bottom5"><a href="javascript:void(0)" data-tooltip-id="' + dealer.id + '" class="text-black tooltip-target-link">' + dealer.name + '</a></h3><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-grey-icon"></span><span>' + dealer.maskingNumber + '</span></div></div></div>';
 
             google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
                 return function () {
@@ -219,6 +244,46 @@ function initializeMap(dealerArr) {
 
     }
 
+    $(window).resize(function () {
+        google.maps.event.trigger(map, "resize");
+    });
+}
+
+function route(origin_place_id, travel_mode, directionsService, directionsDisplay) {
+
+    activeItem = $("ul#dealersList li.active");
+    _lat = activeItem.attr("data-lat");
+    _lng = activeItem.attr("data-log");
+    destination_place_id = new google.maps.LatLng(_lat, _lng);
+
+    if (!origin_place_id || !destination_place_id) {
+        return;
+    }
+    directionsService.route({
+        origin: origin_place_id,
+        destination: destination_place_id,
+        travelMode: travel_mode
+    }, function (response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+            getCommuteInfo(response);
+            directionsDisplay.setDirections(response);
+        } else {
+            window.alert('Directions request failed due to ' + status);
+        }
+    });
+
+}
+
+function getCommuteInfo(result) {
+    var totalDistance = 0;
+    var totalDuration = 0;
+    var legs = result.routes[0].legs;
+    for (var i = 0; i < legs.length; ++i) {
+        totalDistance += legs[i].distance.value;
+        totalDuration += legs[i].duration.value;
+    }
+    $('#commuteDistance').text((totalDistance / 1000).toFixed(3) + " kms");
+    $('#commuteDuration').text((totalDuration / 60).toFixed(1) + " mins");
 
 }
 
@@ -248,12 +313,12 @@ $('#dealersList li').mouseout(function () {
 $("body").on('click', 'a.dealer-sidebar-link', function () {
     var parentLI = $(this).parents('li');
     selectedDealer(parentLI);
-    isInquired = parentLI.attr("data-item-inquired");
-    if (isInquired != "false") {
-        $("#buying-assistance-form").show().siblings("#dealer-assist-msg").hide();
+    isInquired = (parentLI.attr("data-item-inquired") == "true") ? true : false;
+    if (isInquired) {
+        $("#buying-assistance-form").hide().siblings("#dealer-assist-msg").show();
     }
     else {
-        $("#buying-assistance-form").hide().siblings("#dealer-assist-msg").show();
+        $("#buying-assistance-form").show().siblings("#dealer-assist-msg").hide();
     }
 });
 
@@ -264,7 +329,7 @@ $(function () {
 
         id = $(this).attr("data-item-id");
         type = $(this).attr("data-item-type");
-        isInquired = $(this).attr("data-item-inquired");
+        isInquired = ($(this).parents("li").attr("data-item-inquired") == "true") ? true : false;
 
         if (type != "0" || type != "1") {
             leadCapturePopup.show();
@@ -273,17 +338,18 @@ $(function () {
             $("#otpPopup").hide();
             $('body').addClass('lock-browser-scroll');
             $(".blackOut-window").show();
-            getDealerDetails(id)
+            campId = $(this).parents("li").attr("data-campId");
+            getDealerDetails(id, campId);
         }
         else {
             $('body').removeClass('lock-browser-scroll');
         }
 
-        if (isInquired != "false") {
-            $("#contactDetailsPopup").show().siblings("#dealer-lead-msg").hide();
+        if (isInquired) {
+            $("#contactDetailsPopup").hide().siblings("#dealer-lead-msg").show();
         }
         else {
-            $("#contactDetailsPopup").hide().siblings("#dealer-lead-msg").show();
+            $("#contactDetailsPopup").show().siblings("#dealer-lead-msg").hide();
         }
 
     });
@@ -338,7 +404,8 @@ var selectedDealer = function (dealer) {
             $('#dealerDetailsSliderCard').css({ 'height': $(window).innerHeight() - 52 });
             $("#assistGetName").focus();
             $('body').addClass('hide-scroll')
-            getDealerDetails(dealerId)
+            campId = $("ul#dealersList li.active").attr("data-campId");
+            getDealerDetails(dealerId, campId)
         }
         else {
             $('#dealerDetailsSliderCard').hide().animate({ 'right': '-338px' }, { complete: function () { $('#dealerDetailsSliderCard').hide().css({ 'height': '0' }); } });
@@ -363,8 +430,7 @@ var dealerDetails = function (data) {
     self.workingHours = ko.observable(data.workingHours);
     self.email = ko.observable(data.email);
     self.dealerType = ko.observable(data.dealerPackageType);
-    self.showRoomOpeningHours = ko.observable(data.showRoomOpeningHours);
-    self.showRoomClosingHours = ko.observable(data.showRoomClosingHours);
+
 
     if (data.Area) {
         self.area = ko.observable(data.Area.areaName);
@@ -436,16 +502,16 @@ var DealerModel = function (data) {
 }
 
 
-function getDealerDetails(id) {
+function getDealerDetails(id, campId) {
     var obj = new Object();
 
-    if (!isNaN(id) && id != "0") {
-        var dealerKey = "dealerDetails_" + id;
+    if (!isNaN(id) && id != "0" && campId != "0") {
+        var dealerKey = "dealerDetails_" + id + "_camp_" + campId;
         var dealerInfo = lscache.get(dealerKey);
         if (!dealerInfo) {
             $.ajax({
                 type: "GET",
-                url: "/api/DealerBikes/?dealerId=" + id,
+                url: "/api/DealerBikes/?dealerId=" + id + "&campaignId=" + campId,
                 contentType: "application/json",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('utma', getCookie('__utma'));
@@ -504,6 +570,7 @@ var bikesList = function (data) {
 function CustomerModel(obj) {
     data = obj.dealerBikes;
     var arr = setuserDetails();
+    hideFormErrors();
     var self = this;
     if (arr != null && arr.length > 0) {
         self.fullName = ko.observable(arr[0]);
@@ -527,7 +594,7 @@ function CustomerModel(obj) {
     self.pqId = ko.observable();
     self.modelId = ko.observable(0);
     self.bikes = ko.observableArray([]);
-    self.chosenUpdate = function () { $ddlModels.trigger("chosen:updated"); };
+
 
     if (obj.dealerBikes && obj.dealerBikes.length > 0) {
         //(obj.dealerBikes).push({"bike" : "Select a bike model"})
@@ -543,11 +610,11 @@ function CustomerModel(obj) {
                 "customerName": self.fullName(),
                 "customerMobile": self.mobileNo(),
                 "customerEmail": self.emailId(),
-                "clientIP": "",
-                "pageUrl": "",
+                "clientIP": clientIP,
+                "pageUrl": pageUrl,
                 "versionId": self.versionId(),
                 "cityId": bikeCityId,
-                "leadSourceId": 1,
+                "leadSourceId": leadSrcId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -662,13 +729,13 @@ function CustomerModel(obj) {
             var objData = {
                 "dealerId": self.dealerId(),
                 "modelId": self.modelId(),
-                "clientIP": "",
-                "pageUrl": "",
+                "clientIP": clientIP,
+                "pageUrl": pageUrl,
                 "versionId": self.versionId(),
                 "cityId": bikeCityId,
                 "areaId": 0,
-                "sourceType": 1,
-                "pQLeadId": 1,
+                "sourceType": pageSrcId,
+                "pQLeadId": leadSrcId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -727,7 +794,6 @@ function CustomerModel(obj) {
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
             setPQUserCookie();
-            // dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': bikeName + '_' + getCityArea });
         }
     };
 
@@ -765,14 +831,10 @@ function CustomerModel(obj) {
                     $("#dealer-lead-msg").fadeIn();
                 }
 
-                // OTP Success
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
             }
             else {
                 $('#processing').hide();
                 otpVal("Please enter a valid OTP.");
-                // push OTP invalid
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
             }
         }
     });
@@ -782,6 +844,17 @@ function ValidateUserDetail(fullName, emailid, mobile) {
     return validateUserInfo(fullName, emailid, mobile);
 };
 
+function hideFormErrors()
+{    
+    hideError(getModelName);
+    hideError(fullName);
+    hideError(emailid);
+    hideError(mobile);
+    hideError(assistanceGetEmail);
+    hideError(assistanceGetMobile);
+    hideError(assistanceGetName);
+    hideError(assistGetModel);    
+}
 
 $("#assistanceGetName,#getFullName").on("focus", function () {
     hideError($(this));
@@ -898,29 +971,6 @@ $("#generateNewOTP").on("click", function () {
     }
 });
 
-variantsDropdown.click(function (e) {
-    if (!variantsDropdown.hasClass("open"))
-        $.variantChangeDown(variantsDropdown);
-    else
-        $.variantChangeUp(variantsDropdown);
-});
-
-$.variantChangeDown = function (variantsDropdown) {
-    variantsDropdown.addClass("open");
-    variantUL.show();
-};
-
-$.variantChangeUp = function (variantsDropdown) {
-    variantsDropdown.removeClass("open");
-    variantUL.slideUp();
-};
-
-
-$(document).mouseup(function (e) {
-    if (!$(".variants-dropdown, .variant-selection-tab, .variant-selection-tab #upDownArrow").is(e.target)) {
-        $.variantChangeUp($(".variants-dropdown"));
-    }
-});
 
 $("body").on('click', '#dealer-lead-msg .okay-thanks-msg', function () {
     $(".leadCapture-close-btn").click();
@@ -1002,4 +1052,4 @@ var validateMobileNo = function (leadMobileNo) {
         hideError(leadMobileNo)
     return isValid;
 };
-
+

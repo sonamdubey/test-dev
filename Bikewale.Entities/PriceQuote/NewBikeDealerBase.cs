@@ -29,7 +29,5 @@ namespace Bikewale.Entities.PriceQuote
         [JsonProperty("maskingNumber")]
         public string MaskingNumber { get; set; }
 
-        [JsonProperty("dealerPkgType")]
-        public DealerPackageTypes DealerPkgType { get; set; }
     }
 }
