@@ -137,6 +137,7 @@
                     <div class="locator-search-container">
                         <div class="locator-search-brand form-control-box">
                             <select id="ddlMakes" class="form-control  chosen-select">
+                                <option value="0" >Select a brand</option>
                                 <asp:Repeater ID="rptMakes" runat="server">
                                     <ItemTemplate>
                                         <option maskingname="<%# DataBinder.Eval(Container.DataItem,"MaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"MakeId") %>"><%# DataBinder.Eval(Container.DataItem,"MakeName") %> </option>
@@ -149,6 +150,7 @@
                         </div>
                         <div class="locator-search-city form-control-box">
                             <select id="ddlCities" class="form-control  chosen-select">
+                                <option value="0" >Select a city</option>
                                 <asp:Repeater ID="rptCities" runat="server">
                                     <ItemTemplate>
                                         <option maskingname="<%# DataBinder.Eval(Container.DataItem,"CityMaskingName") %>" value="<%# DataBinder.Eval(Container.DataItem,"CityId") %>" <%# ((DataBinder.Eval(Container.DataItem,"CityId")).ToString() != cityId.ToString())?string.Empty:"selected" %>><%# DataBinder.Eval(Container.DataItem,"CityName") %></option>
@@ -210,7 +212,13 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
 
-        <script type="text/javascript">
+        <script type="text/javascript"> 
+            var $ddlCities = $("#ddlCities"), $ddlMakes = $("#ddlMakes");
+            var bikeCityId = $("#ddlCities").val();
+            lscache.flushExpired();
+            var key = "dealerCitiesByMake_";
+            lscache.setBucket('DLPage');  
+
             $(window).on("scroll", function () {
                 if ($(window).scrollTop() > 40)
                     $('#header').removeClass("header-landing").addClass("header-fixed");
@@ -226,22 +234,24 @@
                 borderDivider.slideToggle();
             });
 
-            var $ddlCities = $("#ddlCities"), $ddlMakes = $("#ddlMakes");
-            var bikeCityId = $("#ddlCities").val();
-            lscache.flushExpired();
-            $("#applyFiltersBtn").click(function () {
+           
 
+            $("#applyFiltersBtn").click(function () { 
                 ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
                 ddlcityId = $("#ddlCities option:selected").val();
-                if (ddlcityId != "0") {
-                    ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
-                    window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                ddlmakeId = $("#ddlMakes option:selected").val();
+                if (!isNaN(ddlmakeId) && ddlmakeId!="0") {
+                    if (ddlcityId != "0") {
+                        ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
+                        window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                    }
+                    else {
+                        toggleErrorMsg($ddlCities, true, "Choose a city");
+                    }
                 }
                 else {
-                    toggleErrorMsg($ddlCities, true, "Choose a city");
+                    toggleErrorMsg($ddlMakes, true, "Choose a city");
                 }
-
-
             });
 
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
@@ -249,10 +259,10 @@
             $('div.chosen-container').attr('style', 'width:100%;border:0');
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
 
-            var key = "dealerCitiesByMake_";
-            lscache.setBucket('DLPage');
+           
 
             $ddlMakes.change(function () {
+                toggleErrorMsg($ddlMakes, false);
                 selMakeId = $ddlMakes.val();
                 $ddlCities.empty();
                 if (!isNaN(selMakeId) && selMakeId != "0") {
@@ -305,6 +315,13 @@
                 $ddlCities.trigger('chosen:updated');
                 $("#ddlCities_chosen .chosen-single.chosen-default span").text("No Areas available");
             }
+            if ($("#ddlCities option").length < 2)
+            {
+                $ddlCities.empty();
+                $ddlCities.trigger('chosen:updated');
+                $("#ddlCities_chosen .chosen-single span").text("No Areas available");
+            }
+                
 
         </script>
 

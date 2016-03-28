@@ -49,7 +49,9 @@ namespace Bikewale.Mobile.New.DealerLocator
             dd.DetectDevice();
 
             BindMakes();
-            BindCitiesDropdown();
+
+            if (makeId > 0)
+                BindCitiesDropdown();
 
 
         }
