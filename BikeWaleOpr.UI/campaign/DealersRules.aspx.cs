@@ -69,7 +69,7 @@ namespace BikewaleOpr.Campaign
             try
             {
                 campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, cityId, dealerId, makeId, stateId, modelId== -1? null: modelId);
-                lblGreenMessage.Text = "Rule has been added !";
+                lblGreenMessage.Text = "Rule(s) have been added !";
                 BindRules();
             }
             catch (Exception ex)

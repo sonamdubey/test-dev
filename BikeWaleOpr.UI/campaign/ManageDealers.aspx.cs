@@ -74,6 +74,7 @@ namespace BikewaleOpr.Campaign
                         false);
                     lblGreenMessage.Text = "New campaign has been added !";
                 }
+                ClearForm(Page.Form.Controls, true);
             }
             catch (Exception ex)
             {
@@ -177,6 +178,24 @@ namespace BikewaleOpr.Campaign
             {
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.ParseQueryString");
                 objErr.SendMail();
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Sangram Nandkhile on 14-March-2016
+        /// Description : Resets all the Textboxes
+        /// </summary>
+        public void ClearForm(ControlCollection controls, bool? clearLabels)
+        {
+            bool toClearLabel = clearLabels == null ? false : true;
+            foreach (Control c in controls)
+            {
+                if (c.GetType() == typeof(System.Web.UI.WebControls.TextBox))
+                {
+                    System.Web.UI.WebControls.TextBox t = (System.Web.UI.WebControls.TextBox)c;
+                    t.Text = String.Empty;
+                }
+                if (c.Controls.Count > 0) ClearForm(c.Controls, clearLabels);
             }
         }
         #endregion

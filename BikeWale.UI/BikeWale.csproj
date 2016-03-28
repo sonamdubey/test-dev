@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PublishDatabases>false</PublishDatabases>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -1057,10 +1058,11 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-	<Compile Include="new\listnewbikedealersbycity_old.aspx.cs">
+    <Compile Include="new\listnewbikedealersbycity_old.aspx.cs">
       <DependentUpon>listnewbikedealersbycity_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>    <Compile Include="new\locatenewbikedealers_old.aspx.cs">
+    </Compile>
+    <Compile Include="new\locatenewbikedealers_old.aspx.cs">
       <DependentUpon>locatenewbikedealers_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
