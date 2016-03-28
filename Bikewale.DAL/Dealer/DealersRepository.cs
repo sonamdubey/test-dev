@@ -659,13 +659,6 @@ namespace Bikewale.DAL.Dealer
         }
 
 
-                db.CloseConnection();
-            }
-
-            return dealers;
-        }
-
-
         /// <summary>
         /// Created by  :   Sumit Kate on 22 Mar 2016
         /// Description :   FetchDealerCitiesByMake. It Includes BW Dealer Cities and AB Dealer Cities

@@ -30,6 +30,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// </summary>
         /// <param name="dealer"></param>
         /// <param name="cache"></param>
+        public DealerBikesController(IDealer dealer, IDealerCacheRepository cache)
         {
             _dealer = dealer;
             _cache = cache;
@@ -39,6 +40,8 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// Created By : Lucky Rathore
         /// Created On : 22 March 2016
         /// Description : To get Detail of Bikes for specific Dealer.
+        /// Modified By : Sushil Kumar on 26th March 2016
+        /// Description : Added campaignId as a parameter to fetch dealer info based on camapign Id
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="campaignId"></param>
@@ -49,7 +52,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
             {
                 if (dealerId > 0 && campaignId > 0)
                 {
-                    DealerBikesEntity dealerBikes = _cache.GetDealerDetailsAndBikes(dealerId,campaignId);
+                    DealerBikesEntity dealerBikes = _cache.GetDealerDetailsAndBikes(dealerId, campaignId);
                     DealerBikes bikes;
                     if (dealerBikes != null)
                     {
@@ -59,7 +62,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
                     else
                     {
                         return NotFound();
-                    } 
+                    }
                 }
                 else
                 {
@@ -73,7 +76,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
                 return InternalServerError();
             }
         }
-        
+
 
     }
 }
