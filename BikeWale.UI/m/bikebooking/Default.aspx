@@ -244,10 +244,7 @@
                     $("div.booking-search-city-form span").text("Select City");
                     $("div.booking-search-area-form span").text("Please select city first");
                     
-                }
-
-
-               
+                }               
 
                 $("#sliderCityList").on("click", "li", function () {
                     var _self = $(this),
