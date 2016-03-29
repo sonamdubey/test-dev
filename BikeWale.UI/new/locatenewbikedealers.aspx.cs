@@ -63,6 +63,8 @@ namespace Bikewale.New.DealerLocator
         /// Created By  : Sushil Kumar
         /// Created On  : 25th March 2016
         /// Description : To bind makes list to dropdown
+        /// Modified by :   Sumit Kate on 29 Mar 2016
+        /// Description :   Get the makes list of BW and AB dealers
         /// </summary>
         private void BindMakes()
         {
@@ -76,7 +78,7 @@ namespace Bikewale.New.DealerLocator
                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                             ;
                     var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-                    _makes = objCache.GetMakesByType(EnumBikeType.New);
+                    _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
                     if (_makes != null && _makes.Count() > 0)
                     {
                         rptMakes.DataSource = _makes;
