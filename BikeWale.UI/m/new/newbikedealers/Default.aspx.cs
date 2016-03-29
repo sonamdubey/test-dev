@@ -1,19 +1,19 @@
-﻿using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Microsoft.Practices.Unity;
+using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Dealer;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Cache.BikeData;
-using Bikewale.DAL.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.Entities.Location;
-using Bikewale.DAL.Dealer;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.New.DealerLocator
 {
@@ -44,9 +44,6 @@ namespace Bikewale.Mobile.New.DealerLocator
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
-
-            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
-            dd.DetectDevice();
 
             BindMakes();
 
