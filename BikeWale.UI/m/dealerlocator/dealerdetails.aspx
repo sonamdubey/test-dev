@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    title = "";
+    description = "";
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
         #dealerHeader{background:#313131;color:#fff;width:100%;height:48px;position:fixed;overflow:hidden;z-index:2;}.dealer-back-btn {padding:12px 15px;cursor:pointer;}.fa-arrow-back{width:12px;height:20px;background-position:-63px -162px;}.dealer-header-text { width:80%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }.padding-top48 { padding-top:48px; }.box-shadow { -webkit-box-shadow:0 0 1px #e2e2e2; -moz-box-shadow:0 0 1px #e2e2e2; box-shadow:0 0 1px #e2e2e2; }.text-pure-black { color:#1a1a1a; }.featured-tag {position:relative;left:-20px;top:-5px;width:100px;background:#4d5057;z-index:1; line-height:28px; }.featured-tag:after {content:'';width:12px; height:28px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=15Mar2016) no-repeat right top;position:absolute;left:98px;}.dealer-details-section {line-height:1.8;}.tel-sm-grey-icon{width: 12px;height: 15px;background-position: -86px -323px;position: relative;top: 2px;}.mail-grey-icon{width: 15px;height: 9px;background-position: -19px -437px;}.text-default { color:#4d5057; }.get-direction-icon, .sendto-phone-icon { width:12px; height:10px; }.get-direction-icon { background-position: -31px -421px; }.sendto-phone-icon { background-position: -49px -421px; }.divider-left { border-left: 1px solid #82888b; padding-left:7px; margin-left:7px; }.border-light-bottom { border-bottom:1px solid #f1f1f1; }.tel-grey-icon { position:relative;top:2px; }.float-button.float-fixed {position: fixed;bottom: 0;z-index: 8;left: 0;right: 0;}.float-button {background-color: #f5f5f5; padding: 0px 10px 10px 10px;}#bikesAvailableList .front {margin-top:20px; height: auto;border-radius: 0;box-shadow: none;-moz-box-shadow: none;-ms-box-shadow: none;border: 0 none;}#bikesAvailableList .bikeDescWrapper { padding:0; }#bikesAvailableList .imageWrapper { height:143px; }#bikesAvailableList .imageWrapper img { width: 254px;height: 143px;}.btn-sm {padding:8px 14px;}
@@ -211,9 +213,6 @@
             </div>
         </section>
         <!--Dealer Deatail section end and models section start.-->
-        <%if (dealerBikesCount > 0)
-          { %>
-
         <!-- Lead Capture pop up start  -->
         <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
             <div class="popup-inner-container text-center">
@@ -229,23 +228,23 @@
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="form-control-box margin-top20">
-                            <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName">
+                            <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName" data-bind="textInput: fullName">
                             <span class="bwmsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="form-control-box margin-top20">
-                            <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID">
+                            <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="textInput: emailId">
                             <span class="bwmsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="form-control-box margin-top20">
                             <p class="mobile-prefix">+91</p>
-                            <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile">
+                            <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="textInput: mobileNo">
                             <span class="bwmsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
-                        </div>
+                        </div>                        
                         <div class="clear"></div>
-                        <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn">Submit</a>
+                        <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
                     </div>
 
                     <div id="brandSearchBar">
@@ -254,12 +253,13 @@
                                 <span class="back-arrow-box"><span class="bwmsprite back-long-arrow-left"></span></span>
                                 <input class="form-control" type="text" id="assistanceBrandInput" placeholder="Select brand" />
                             </div>
+                            
                             <ul id="sliderBrandList" class="slider-brand-list margin-top40">
-                                <li>Brand 1</li>
-                                <li>Brand 2</li>
-                                <li>Brand 3</li>
-                                <li>Brand 4</li>
-                                <li>Brand 5</li>
+                                <asp:Repeater ID="rptModelList" runat="server">
+                                    <ItemTemplate>
+                                        <li modelId="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId") %>" versionId="<%# DataBinder.Eval(Container.DataItem, "objVersion.VersionId") %>"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                             </ul>
                          </div>
                     </div>
@@ -284,12 +284,12 @@
                         </div>
                         <div class="otp-box lead-otp-box-container">
                             <div class="form-control-box margin-bottom10">
-                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" />
+                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" data-bind="value: otpCode"/>
                                 <span class="bwmsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode">Resend OTP</a>
-                            <p class="margin-left10 margin-top10 otp-notify-text text-light-grey font12">
+                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                            <p class="margin-left10 margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
                                 OTP has been already sent to your mobile
                             </p>
                             <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
@@ -297,18 +297,19 @@
                         <div class="update-mobile-box">
                             <div class="form-control-box text-left">
                                 <p class="mobile-prefix">+91</p>
-                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" />
+                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo"  />
                                 <span class="bwmsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" />
+                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Lead Capture pop up end  -->
-
+        <%if (dealerBikesCount > 0)
+          { %>
         <section class="container bg-white margin-bottom20">
             <div class="padding-right20 padding-bottom10 padding-left20 box-shadow font14">
                 <div class="padding-top15">
@@ -348,7 +349,8 @@
         <!--Dealer models section start.-->
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript">
+         <script type="text/javascript">
+            var versionId, dealrId = <%= dealerId %>, cityId = <%= cityId %>, clientIP = <%= Bikewale.Common.CommonOpn.GetClientIP()%>;
             var bodHt, footerHt, scrollPosition;
             $(window).scroll(function () {
                 bodHt = $('body').height();
@@ -361,84 +363,7 @@
                 if (scrollPosition + $(window).height() + 60 < (bodHt - footerHt))
                     $('.float-button').addClass('float-fixed');
             });
-            //validation code
-            var validateUserDetail = function () {
-                var isValid = true;
-                isValid = validateName();
-                isValid = validateEmail();
-                isValid = validateMobile();
-                return isValid;
-            };
-
-
-
-            var validateName = function () {
-                var isValid = true,
-                    name = $("#getLeadName"),
-                    nameLength = name.val().length;
-                if (name.val().indexOf('&') != -1) {
-                    setError(name, 'Invalid name');
-                    isValid = false;
-                }
-                else if (nameLength == 0) {
-                    setError(name, 'Please enter your name');
-                    isValid = false;
-                }
-                else if (nameLength >= 1) {
-                    hideError(name);
-                    isValid = true;
-                }
-                return isValid;
-            };
-
-            var validateEmail = function () {
-                var isValid = true,
-                    emailId = $("#getEmailID"),
-                    emailVal = emailId.val(),
-                    reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
-                if (emailVal == "") {
-                    setError(emailId, 'Please enter email address');
-                    isValid = false;
-                }
-                else if (!reEmail.test(emailVal)) {
-                    setError(emailId, 'Invalid Email');
-                    isValid = false;
-                }
-                return isValid;
-            };
-
-            var validateMobile = function () {
-                var isValid = true,
-                    mobileNo = $("#getMobile"),
-                    mobileVal = mobileNo.val(),
-                    reMobile = /^[0-9]{10}$/;
-                if (mobileVal == "") {
-                    setError(mobileNo, "Please enter your Mobile Number");
-                    isValid = false;
-                }
-                else if (!reMobile.test(mobileVal) && isValid) {
-                    setError(mobileNo, "Mobile Number should be 10 digits");
-                    isValid = false;
-                }
-                else
-                    hideError(mobileNo)
-                return isValid;
-            };
-
-            var setError = function (element, msg) {
-                element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
-                element.siblings("div.errorText").text(msg);
-            };
-
-            var hideError = function (element) {
-                element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
-            };
-
-            $("#getMobile,#getLeadName,#getEmailID,#getOTP,#getUpdatedMobile").on("focus", function () {
-                hideError($(this));
-            });
-
-            //assistance form
+           
             $("#getAssistance").on('click', function () {
                 $("#leadCapturePopup").show();
                 appendHash("assistancePopup");
@@ -446,11 +371,7 @@
                 $("#otpPopup").hide();
             });
 
-            $(".leadCapture-close-btn, #notifyOkayBtn").on("click", function () {
-                assistancePopupClose();
-                window.history.back();
-            });
-
+            /*need needmodification*/   
             var assistancePopupClose = function () {
                 $("#leadCapturePopup").hide();
                 $("#notify-response").hide();
@@ -461,69 +382,9 @@
                     $("#contactDetailsPopup").hide();
                     $("#otpPopup").show();
                     $(".lead-mobile").text($("#getMobile").val());
-                    //$(".notify-leadUser").text($("#getFullName").val());
-                    //$("#notify-response").show();
                 }
             });
 
-            var validateUserDetail = function () {
-                var isValid = true;
-                isValid = validateName();
-                isValid &= validateEmail();
-                isValid &= validateMobile();
-                isValid &= validateModel();
-                return isValid;
-            };
-            var validateName = function () {
-                var isValid = true,
-                    name = $("#getFullName"),
-                    nameLength = name.val().length;
-                if (name.val().indexOf('&') != -1) {
-                    setError(name, 'Invalid name');
-                    isValid = false;
-                }
-                else if (nameLength == 0) {
-                    setError(name, 'Please enter your name');
-                    isValid = false;
-                }
-                else if (nameLength >= 1) {
-                    hideError(name);
-                    isValid = true;
-                }
-                return isValid;
-            };
-            var validateEmail = function () {
-                var isValid = true,
-                    emailId = $("#getEmailID"),
-                    emailVal = emailId.val(),
-                    reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
-                if (emailVal == "") {
-                    setError(emailId, 'Please enter email address');
-                    isValid = false;
-                }
-                else if (!reEmail.test(emailVal)) {
-                    setError(emailId, 'Invalid Email');
-                    isValid = false;
-                }
-                return isValid;
-            };
-            var validateMobile = function () {
-                var isValid = true,
-                    mobileNo = $("#getMobile"),
-                    mobileVal = mobileNo.val(),
-                    reMobile = /^[0-9]{10}$/;
-                if (mobileVal == "") {
-                    setError(mobileNo, "Please enter your Mobile Number");
-                    isValid = false;
-                }
-                else if (!reMobile.test(mobileVal) && isValid) {
-                    setError(mobileNo, "Mobile number should be 10 digits");
-                    isValid = false;
-                }
-                else
-                    hideError(mobileNo)
-                return isValid;
-            };
             var validateModel = function () {
                 var isValid = true,
                     model = $('.dealer-search-brand-form');
@@ -538,16 +399,6 @@
                 }
                 return isValid;
             };
-            var setError = function (element, msg) {
-                element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
-                element.siblings("div.errorText").text(msg);
-            };
-            var hideError = function (element) {
-                element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
-            };
-            $("#getMobile, #getFullName, #getEmailID, #getUpdatedMobile, #getOTP").on("focus", function () {
-                hideError($(this));
-            });
             //otp form
             $("#otpPopup .edit-mobile-btn").on("click", function () {
                 var prevMobile = $(this).prev("span.lead-mobile").text();
@@ -563,6 +414,7 @@
                     $(".lead-mobile-box").find(".lead-mobile").text(updatedNumber);
                 }
             });
+
             var validateUpdatedMobile = function () {
                 var isValid = true,
                     mobileNo = $("#getUpdatedMobile"),
@@ -582,10 +434,6 @@
             };
             var otpText = $("#getOTP"),
                 otpBtn = $("#otp-submit-btn");
-            otpBtn.on("click", function () {
-                if (validateOTP()) {
-                }
-            });
             var otpVal = function (msg) {
                 otpText.addClass("border-red");
                 otpText.siblings("span, div").show();
@@ -620,15 +468,6 @@
                 brandSearchBar.find(".user-input-box").animate({ 'left': '0px' }, 500);
                 $("#assistanceBrandInput").focus();
             });
-            $("#sliderBrandList").on("click", "li", function () {
-                var _self = $(this),
-                    selectedElement = _self.text();
-                setSelectedElement(_self, selectedElement);
-                _self.addClass('activeBrand').siblings().removeClass('activeBrand');
-                dealerSearchBrandForm.addClass('selection-done').find("span").text(selectedElement);
-                brandSearchBar.find(".user-input-box").animate({ 'left': '100%' }, 500);
-                hideError(dealerSearchBrandForm);
-            });
             function setSelectedElement(_self, selectedElement) {
                 _self.parent().prev("input[type='text']").val(selectedElement);
                 brandSearchBar.addClass('open').animate({ 'left': '100%' }, 500);
@@ -639,6 +478,8 @@
             });
 
         </script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerDetail.js?<%= staticFileVersion %>"></script>
+       
     </form>
 </body>
 </html>
