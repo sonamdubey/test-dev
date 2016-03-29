@@ -251,7 +251,7 @@ function CustomerModel() {
         }
     });
 }
-$(".leadCapture-close-btn, #notifyOkayBtn,.fa-arrow-back").on("click", function () {
+$(".leadCapture-close-btn, #notifyOkayBtn").on("click", function () {
     assistancePopupClose();
     window.history.back();
 });

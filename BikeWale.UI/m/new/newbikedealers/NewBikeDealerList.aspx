@@ -47,7 +47,7 @@
     <form runat="server">
         <header id="listingHeader">
             <div class="leftfloat listing-back-btn">
-                <a href="javascript:void(0)"><span class="bwmsprite fa-arrow-back"></span></a>
+                <a href="javascript:history.back()"><span class="bwmsprite fa-arrow-back"></span></a>
             </div>
             <span class="leftfloat margin-top10 font18">Dealer locator</span>
             <div class="rightfloat listing-filter-btn margin-right5">
@@ -72,7 +72,7 @@
                                         <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>"><a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-light-grey margin-bottom5"><span class="bwmsprite tel-sm-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a></div>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"Email") %></a></div>
-                                        <input data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" campId="<%# (DataBinder.Eval(Container.DataItem,"CampaignId")) %>" type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn <%# (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "0")?"hide":"" %>" value="Get assistance">
+                                        <input data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" campId="<%# (DataBinder.Eval(Container.DataItem,"CampaignId")) %>" type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get assistance">
                                     </div>
                                 </li>
                             </ItemTemplate>
