@@ -879,10 +879,6 @@
       <DependentUpon>VideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\dealerlocator\dealerlisting.aspx.cs">
-      <DependentUpon>dealerlisting.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\dealerlocator\DealerDetails.aspx.cs">
       <DependentUpon>DealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -945,6 +941,10 @@
     </Compile>
     <Compile Include="m\new\newbikedealers\NewBikeDealerList.aspx.cs">
       <DependentUpon>NewBikeDealerList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\newbikedealers\NewBikeDealerList_old.aspx.cs">
+      <DependentUpon>NewBikeDealerList_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\newbikelaunch\Default.aspx.cs">
@@ -2254,7 +2254,6 @@
     <Content Include="m\css\style.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
-    <Content Include="m\dealerlocator\dealerlisting.aspx" />
     <Content Include="m\dealerlocator\DealerDetails.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\Default_old.aspx" />
@@ -2298,6 +2297,7 @@
     <Content Include="m\new\newbikedealers\Default.aspx" />
     <Content Include="m\new\newbikedealers\listnewbikedealersbycity.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
+    <Content Include="m\new\newbikedealers\NewBikeDealerList_old.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />
     <Content Include="m\bikebooking\BookingListing.aspx" />
     <Content Include="m\offerterms.aspx" />
@@ -2327,6 +2327,7 @@
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
     <Content Include="m\src\dealerDetail.js" />
+    <Content Include="m\src\dealerlisting.js" />
     <Content Include="m\src\dealerpricequote.js" />
     <Content Include="m\src\frameworks.js" />
     <Content Include="m\src\home.js" />
