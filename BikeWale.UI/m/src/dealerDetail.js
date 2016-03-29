@@ -1,5 +1,4 @@
-﻿var userLat, userLong;
-$(".get-assistance-btn").on('click', function () {
+﻿$(".get-assistance-btn").on('click', function () {
     $("#leadCapturePopup").show();
     appendHash("assistancePopup");
     $("div#contactDetailsPopup").show();
@@ -37,8 +36,8 @@ function CustomerModel() {
         self.emailId = ko.observable();
         self.mobileNo = ko.observable();
     }
-    self.cityId = ko.observable(ctyId);
-    self.dealerId = ko.observable(dealrId);
+    self.cityId = ko.observable(cityId);
+    self.dealerId = ko.observable(dealerId);
     self.versionId = ko.observable(0);
     self.IsVerified = ko.observable(false);
     self.NoOfAttempts = ko.observable(0); 
@@ -466,9 +465,7 @@ function getLocation() {
     }
 }
 function setUserLocation(position) {
-    userLat = position.coords.latitude;
-    userLong = position.coords.longitude;
-    $("#anchorGetDir").attr("href", "https://maps.google.com/?saddr=" + userLat + "," + userLong + "&daddr=" + dealerLat + "," + dealerLong + '');
+    $("#anchorGetDir").attr("href", "https://maps.google.com/?saddr=" + position.coords.latitude + "," + position.coords.longitude + "&daddr=" + dealerLat + "," + dealerLong + '');
 }
 $("#assistanceBrandInput").on("keyup", function () {
     locationFilter($(this));

@@ -352,7 +352,7 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
          <script type="text/javascript">
-            var versionId, dealrId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>";                                              
+             var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>";                                              
              var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
              var pqSource = "<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail %>";
             var bodHt, footerHt, scrollPosition;
