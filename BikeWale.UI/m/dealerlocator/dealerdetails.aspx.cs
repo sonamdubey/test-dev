@@ -22,8 +22,8 @@ namespace Bikewale.Mobile
     /// </summary>
     public class DealerDetails : System.Web.UI.Page
     {
-        protected Repeater rptModels;
-        protected uint dealerId, campaignId;
+        protected Repeater rptModels, rptModelList;
+        protected uint dealerId, campaignId, cityId;
         protected int dealerBikesCount = 0;
         protected DealerDetailEntity dealerDetails;
         protected bool isDealerDetail;
@@ -73,6 +73,8 @@ namespace Bikewale.Mobile
                             rptModels.DataSource = _dealer.Models;
                             rptModels.DataBind();
                             dealerBikesCount = _dealer.Models.Count();
+                            rptModelList.DataSource = _dealer.Models;
+                            rptModelList.DataBind();
                         }
                     }
                     else
@@ -113,6 +115,7 @@ namespace Bikewale.Mobile
                         dealerQuery = EncodingDecodingHelper.DecodeFrom64(_dealerQuery);
                         uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("dealerId"), out dealerId);
                         uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("campId"), out campaignId);
+                        uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("cityId"), out cityId);
                         return true;
                     } 
                 }
