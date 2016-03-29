@@ -163,7 +163,7 @@
                                                 <span class="bwsprite mail-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"Email") %></a>
                                         </div>
 
-                                        <div class="<%# (DataBinder.Eval(Container.DataItem,"DealerType").ToString() != "1" || DataBinder.Eval(Container.DataItem,"DealerType").ToString() != "2")?"hide":"" %>">
+                                        <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
                                             <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" class="btn btn-white-orange margin-top15 get-assistance-btn">Get assistance</a>
                                         </div>
                                     </div>
