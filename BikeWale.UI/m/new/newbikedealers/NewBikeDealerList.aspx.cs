@@ -32,7 +32,7 @@ namespace Bikewale.Mobile.New
         protected uint cityId, makeId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
-
+        protected string clientIP = string.Empty, pageUrl = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -92,7 +92,7 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindDealerList : " + ex.ToString());
+                ErrorClass objErr = new ErrorClass(ex, "BindDealerList : ");
                 objErr.SendMail();
             }
         }
@@ -127,7 +127,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "BindMakesDropdown : " + ex.ToString());
+                ErrorClass objErr = new ErrorClass(ex, "BindMakesDropdown : ");
                 objErr.SendMail();
             }
         }
@@ -196,7 +196,7 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown + " + ex.ToString());
+                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown ");
                 objErr.SendMail();
             }
         }
@@ -219,17 +219,19 @@ namespace Bikewale.Mobile.New
                 {
                     makeMaskingName = currentReq.QueryString["make"];
                     uint.TryParse(currentReq.QueryString["city"], out cityId);
+                    clientIP = Bikewale.Common.CommonOpn.GetClientIP();
+                    pageUrl = currentReq.ServerVariables["URL"];
                 }
                 else
                 {
-                    Response.Redirect("/new/locate-dealers/.aspx", false);
+                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"] + " : " + ex.ToString());
+                ErrorClass objErr = new ErrorClass(ex, " : ProcessQueryString ");
                 objErr.SendMail();
             }
 

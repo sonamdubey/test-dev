@@ -8,11 +8,7 @@
         keywords = String.Format("{0} dealers city, Make showrooms  {1}, {1} bike dealers, {0} dealers, {1} bike showrooms, bike dealers, bike showrooms, dealerships", makeName, cityName);
         description = String.Format("{0} bike dealers/showrooms in {1}. Find {0} bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc", makeName, cityName);
         title = String.Format("{0} Dealers in {1} city | {0} New bike Showrooms in {1} - BikeWale", makeName, cityName);
-        canonical = String.Format("http://www.bikewale.com/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, cityMaskingName);
-        alternate = String.Format("http://www.bikewale.com/m/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, cityMaskingName);
-        AdId = "1395986297721";
-        AdPath = "/1017752/BikeWale_New_";
-        //need to add isAd970x90Shown
+        canonical = String.Format("http://www.bikewale.com/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, cityMaskingName);              
     %>
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -40,6 +36,11 @@
         var cityName = "<%=cityName%>";
         var cityId = "<%= cityId%>";
         var cityMaskingName = "<%= cityMaskingName%>";
+        var clientIP = "<%= clientIP %>";
+        var pageUrl = "<%= pageUrl%>";
+        var leadSrcId = eval("<%= (int)(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_MobileListing) %>");
+        var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
+
     </script>
 </head>
 <body class="bg-light-grey">
@@ -67,11 +68,11 @@
                                         Featured
                                     </div>
                                     <div class="font14">
-                                        <h2 class="font16 margin-bottom10"><a class="text-black" href="/m/dealerlocator/dealerdetails.aspx/?query=<%#Bikewale.Utility.EncodingDecodingHelper.EncodeTo64("DealerId=" + DataBinder.Eval(Container.DataItem,"DealerId").ToString() + "&campId=" + DataBinder.Eval(Container.DataItem,"CampaignId").ToString() + "&cityId=" + cityId) %>"><%# DataBinder.Eval(Container.DataItem,"Name").ToString() %></a></h2>
+                                        <h2 class="font16 margin-bottom10"><a class="text-black" href="/m/dealerlocator/dealerdetails.aspx/?query=<%#Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(String.Format("DealerId={0}&campId={1}&cityId={2}" ,DataBinder.Eval(Container.DataItem,"DealerId").ToString(),DataBinder.Eval(Container.DataItem,"CampaignId").ToString(),cityId)) %>"><%# DataBinder.Eval(Container.DataItem,"Name").ToString() %></a></h2>
                                         <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>"><a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-light-grey margin-bottom5"><span class="bwmsprite tel-sm-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a></div>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"Email") %></a></div>
-                                        <input data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn <%# (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "0")?"hide":"" %>" value="Get assistance">
+                                        <input data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" campId="<%# (DataBinder.Eval(Container.DataItem,"CampaignId")) %>" type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn <%# (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "0")?"hide":"" %>" value="Get assistance">
                                     </div>
                                 </li>
                             </ItemTemplate>
