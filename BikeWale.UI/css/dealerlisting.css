@@ -15,10 +15,11 @@ body { overflow-x:hidden; }
 .brand-city-filter .btnSpinner, .brand-city-filter .error-tooltip-siblings { display:none; }
 .brand-city-filter .chosen-container:first-child { border: 0; border-radius: 2px !important;}
 #applyFiltersBtn.btn { padding:8px 31px; }
-#dealerListingSidebar { width:338px; min-height:580px; border:1px solid #f1f1f1; background:#fff; z-index:3; }
+.dealer-info-tooltip { max-width:350px; }
+#dealerListingSidebar { width:338px; min-height:600px; border:1px solid #f1f1f1; background:#fff; z-index:3; }
 .dealerSidebarHeading { width:338px; position:fixed; top:51px; background:#fff; z-index:3; }
 .dealerSidebarHeading h1 { color:#000; }
-#dealersList { width:100%; min-height:540px; background:#fff; padding:52px 0 15px;}
+#dealersList { width:100%; min-height:600px; background:#fff; padding:52px 0 15px;}
 #dealersList li { padding:0 20px 18px; border:1px solid #fff; }
 #dealersList li:first-child h2 { border-top:0; }
 #dealersList li.active { background:#f9f9f9; border:1px solid #e2e2e2; }
