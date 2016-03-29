@@ -1,4 +1,5 @@
-﻿$(".get-assistance-btn").on('click', function () {
+﻿var userLat, userLong;
+$(".get-assistance-btn").on('click', function () {
     $("#leadCapturePopup").show();
     appendHash("assistancePopup");
     $("div#contactDetailsPopup").show();
@@ -36,7 +37,7 @@ function CustomerModel() {
         self.emailId = ko.observable();
         self.mobileNo = ko.observable();
     }
-    self.cityId = ko.observable(cityId);
+    self.cityId = ko.observable(ctyId);
     self.dealerId = ko.observable(dealrId);
     self.versionId = ko.observable(0);
     self.IsVerified = ko.observable(false);
@@ -160,7 +161,7 @@ function CustomerModel() {
                 "cityId": self.cityId(),
                 "areaId": 0,
                 "sourceType": 2,
-                "pQLeadId": 41,
+                "pQLeadId": pqSource,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -455,4 +456,20 @@ function setSelectedElement(_self, selectedElement) {
 $(".dealer-brand-wrapper .back-arrow-box").on("click", function () {
     brandSearchBar.removeClass("open").animate({ 'left': '100%' }, 500);
     brandSearchBar.find(".user-input-box").animate({ 'left': '100%' }, 500);
+});
+getLocation();
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            setUserLocation
+        );
+    }
+}
+function setUserLocation(position) {
+    userLat = position.coords.latitude;
+    userLong = position.coords.longitude;
+    $("#anchorGetDir").attr("href", "https://maps.google.com/?saddr=" + userLat + "," + userLong + "&daddr=" + dealerLat + "," + dealerLong + '');
+}
+$("#assistanceBrandInput").on("keyup", function () {
+    locationFilter($(this));
 });
