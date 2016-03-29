@@ -14,6 +14,7 @@
             color: #FFCECE;
         }
         .errMessage {color:#FF4A4A;}
+        .valign { vertical-align: top;}
     </style>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
@@ -25,17 +26,18 @@
             <div id="box" class="box">
                 <table>
                     <tr>
-                        <td class="margin-left20">Make:
+                        <td class="valign margin-left20">Make:
                             <asp:DropDownList ID="ddlMake" runat="server" Width="100%" />
                         </td>
-                        <td class="margin-left20">Model:
-                            <asp:DropDownList ID="ddlModel" runat="server" Width="100%" />
+                        <td class="valign margin-left20">Model:
+                            <%--<asp:DropDownList ID="ddlModel" runat="server" Width="100%" />--%>
+                            <asp:DropDownList ID="ddlModel" multiple="multiple" runat="server" style="width:100%;height: 100px;" />
                             <asp:HiddenField ID="hdnSelectedModel" runat="server" />
                         </td>
-                        <td class="margin-left20">State:
+                        <td class="valign margin-left20">State:
                             <asp:DropDownList ID="ddlState" runat="server" Width="100%" />
                         </td>
-                        <td class="margin-left20">City:
+                        <td class="valign margin-left20">City:
                             <asp:DropDownList ID="ddlCity" runat="server" Width="100%" />
                             <asp:HiddenField ID="hdnSelectedCity" runat="server" />
                         </td>
@@ -103,6 +105,10 @@
                 if ($("#ddlState").val() > 0) {
                     loadStateCities();
                 }
+                $("#ddlModel").append("<option value='0' title=''> -- Select Models --</option>");
+                $("#ddlCity").append("<option value='0' title=''> -- Select City --</option>");
+                $('#ddlModel').prop('disabled', true);
+                $('#ddlCity').prop('disabled', true);
             });
 
             $("#ddlMake").change(function () {
@@ -117,9 +123,12 @@
                 $('#hdnSelectedCity').val('');
             });
 
-            $("#ddlModel").change(function () {
-                $('#hdnSelectedModel').val($("#ddlModel").val());
-            });
+            //$("#ddlModel").change(function () {
+            //    alert(1)
+            //    if ($("#ddlModel").val() != 0) {
+            //        $('#hdnSelectedModel').val($("#ddlModel").val());
+            //    }
+            //});
 
             $("#ddlCity").change(function () {
                 $('#hdnSelectedCity').val($("#ddlCity").val());
@@ -145,6 +154,7 @@
                     return false;
                 }
                 else {
+                    $('#hdnSelectedModel').val($("#ddlModel").val());
                     return true;
                 }
             }
@@ -183,7 +193,7 @@
                         success: function (response) {
                             var responseJSON = eval('(' + response + ')');
                             var resObj = eval('(' + responseJSON.value + ')');
-                            bindDropDownList(resObj, $("#ddlModel"), "", "--Select Model--");
+                            bindDropDownList(resObj, $("#ddlModel"), "", "");
                         }
                     });
                 } else {
@@ -212,13 +222,17 @@
             }
             function bindDropDownList(response, cmbToFill, viewStateId, selectString) {
                 if (response.Table != null) {
-                    if (!selectString || selectString == '') selectString = "--Select--";
-                    $(cmbToFill).empty().append("<option value=\"0\" title='" + selectString + "'>" + selectString + "</option>").removeAttr("disabled");
+                    //if (!selectString || selectString == '') selectString = "--Select--";
+                    $(cmbToFill).empty();
+                    $(cmbToFill).prop('disabled', false);
+                    if (selectString != '') {
+                        $(cmbToFill).append("<option value=\"0\" title='" + selectString + "'>" + selectString + "</option>");
+                    }
                     var hdnValues = "";
                     // Add select all option for Models
-                    if (($(cmbToFill).attr('id') == 'ddlModel')) {
-                        $(cmbToFill).append("<option value=\"-1\" title='-- Select all --'>" + '-- Select all --' + "</option>");
-                    }
+                    //if (($(cmbToFill).attr('id') == 'ddlModel')) {
+                    //    $(cmbToFill).append("<option value=\"-1\" title='-- Select all --'>" + '-- Select all --' + "</option>");
+                    //}
                     for (var i = 0; i < response.Table.length; i++) {
                         $(cmbToFill).append("<option value=" + response.Table[i].Value + " title='" + response.Table[i].Text + "'>" + response.Table[i].Text + "</option>");
                         if (hdnValues == "")
