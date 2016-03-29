@@ -335,13 +335,6 @@ $("body").on('click', 'a.dealer-sidebar-link', function () {
     selectedDealer(parentLI);
     $("#buying-assistance-form").show().siblings("#dealer-assist-msg").hide();
     getLocation();
-    //isInquired = (parentLI.attr("data-item-inquired") == "true") ? true : false;
-    //if (isInquired) {
-    //    $("#buying-assistance-form").hide().siblings("#dealer-assist-msg").show();
-    //}
-    //else {
-    //    $("#buying-assistance-form").show().siblings("#dealer-assist-msg").hide();
-    //}
 });
 
 
@@ -373,13 +366,6 @@ $(function () {
         else {
             $('body').removeClass('lock-browser-scroll');
         }
-
-        //if (isInquired) {
-        //    $("#contactDetailsPopup").hide().siblings("#dealer-lead-msg").show();
-        //}
-        //else {
-        //    $("#contactDetailsPopup").show().siblings("#dealer-lead-msg").hide();
-        //}
         $("#contactDetailsPopup").show().siblings("#dealer-lead-msg").hide();
 
         setMapCenter(parentLi.attr("data-lat"), parentLi.attr("data-log"));
@@ -901,7 +887,6 @@ function CustomerModel(obj) {
                     $("#personalInfo").hide()
                     $("#otpPopup").hide();
                     $("#dealer-lead-msg").fadeIn();
-                    // startLoading($("#user-details-submit-btn").parent());
                 }
             }
             else {
@@ -1062,7 +1047,6 @@ function validateOTP() {
     if (cwiCode == "") {
         retVal = false;
         otpVal("Please enter your Verification Code");
-        // bindInsuranceText();
     }
     else {
         if (isNaN(cwiCode)) {
