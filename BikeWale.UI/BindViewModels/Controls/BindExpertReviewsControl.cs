@@ -11,6 +11,8 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
+using Grpc.CMS;
+using Bikewale.News.GrpcFiles;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -26,6 +28,8 @@ namespace Bikewale.BindViewModels.Controls
         public int FetchedRecordsCount { get; set; }
 
         string cacheKey = "BW_CMS_";
+
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
 
         /// <summary>
         /// Summary : Function to bind the expert reviews control. Function will cache the data from CW api on bikewale
@@ -55,7 +59,7 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<ICacheManager, MemcacheManager>();
                     ICacheManager _cache = container.Resolve<ICacheManager>();
 
-                    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetReviewsFromCWAPI(_contentType));
+                    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetReviewsFromCW(_contentType));
                 }
 
                 if (_objArticleList != null && _objArticleList.Count() > 0)
@@ -73,13 +77,45 @@ namespace Bikewale.BindViewModels.Controls
             }
         }
 
+        private IEnumerable<ArticleSummary> GetReviewsFromCW(string contentTypeList)
+        {
+            try
+            {
+                if (_useGrpc)
+                {
+                    var _objGrpcArticleSummaryList = GrpcMethods.MostRecentList(contentTypeList, TotalRecords, MakeId, ModelId);
+
+                    if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.Summary.Count > 0)
+                    {
+                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticleSummaryList);
+                    }
+                    else
+                    {
+                        return GetReviewsFromCWAPIOldWay(contentTypeList);
+                    }
+
+                }
+                else
+                {
+                    return GetReviewsFromCWAPIOldWay(contentTypeList);
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+                return GetReviewsFromCWAPIOldWay(contentTypeList);
+            }
+        }
+
+
         /// <summary>
         /// Written By : Ashish G. Kamble on 28 Feb 2016
         /// Summary : Function to get the data from the carwale cms api.
         /// </summary>
         /// <param name="contentTypeList">comma separated content ids.</param>
         /// <returns></returns>
-        private IEnumerable<ArticleSummary> GetReviewsFromCWAPI(string contentTypeList)
+        private IEnumerable<ArticleSummary> GetReviewsFromCWAPIOldWay(string contentTypeList)
         {
             IEnumerable<ArticleSummary> _objArticleList = null;
 

@@ -8,7 +8,7 @@ namespace Bikewale.News.GrpcFiles
 {
     public class GrpcToBikeWaleConvert
     {
-        internal static CMSContent ConvertFromCarwaleToBikeWale(GrpcCMSContent data)
+        internal static CMSContent ConvertFromGrpcToBikeWale(GrpcCMSContent data)
         {
             CMSContent dataNew = new CMSContent();
             dataNew.RecordCount = data.RecordCount;
@@ -36,6 +36,39 @@ namespace Bikewale.News.GrpcFiles
                 dataNew.Articles.Add(curArt);
             }
             return dataNew;
+        }
+
+
+        internal static IList<ArticleSummary> ConvertFromGrpcToBikeWale(GrpcArticleSummaryList data)
+        {
+            List<ArticleSummary> retData = new List<ArticleSummary>();
+            ArticleSummary curArticleSummary;
+            foreach (var curGrpcArticleSummary in data.Summary)
+            {
+                curArticleSummary = new ArticleSummary()
+                {
+                    ArticleUrl = curGrpcArticleSummary.ArticleBase.ArticleUrl,
+                    AuthorName = curGrpcArticleSummary.AuthorName,
+                    BasicId = curGrpcArticleSummary.ArticleBase.BasicId,
+                    CategoryId = (ushort)curGrpcArticleSummary.CategoryId,
+                    Description = curGrpcArticleSummary.Description,
+                    DisplayDate = Convert.ToDateTime(curGrpcArticleSummary.DisplayDate),
+                    FacebookCommentCount = curGrpcArticleSummary.FacebookCommentCount,
+                    HostUrl = curGrpcArticleSummary.HostUrl,
+                    //IsFeatured=curGrpcArticleSummary.fe
+                    IsSticky = curGrpcArticleSummary.IsSticky,
+                    LargePicUrl = curGrpcArticleSummary.LargePicUrl,
+                    OriginalImgUrl = curGrpcArticleSummary.OriginalImgUrl,
+                    SmallPicUrl = curGrpcArticleSummary.SmallPicUrl,
+                    Title = curGrpcArticleSummary.ArticleBase.Title,
+                    Views = curGrpcArticleSummary.Views
+                };
+
+
+                retData.Add(curArticleSummary);
+            }
+
+            return retData;
         }
     }
 }

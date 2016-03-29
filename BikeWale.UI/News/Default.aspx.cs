@@ -36,6 +36,8 @@ namespace Bikewale.News
 
         protected string prevUrl = string.Empty,nextUrl = string.Empty;
 
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+
         //current page number 
         private int _pageNumber = 1;
 
@@ -86,10 +88,8 @@ namespace Bikewale.News
         private void GetNews()
         {
             try
-            {
-                string useGrpc = ConfigurationManager.AppSettings["UseGrpc"];
-
-                if (!string.IsNullOrEmpty(useGrpc) && Convert.ToBoolean(useGrpc))
+            {                
+                if (_useGrpc)
                 {
                     // get pager instance
                     IPager objPager = GetPager();
@@ -103,7 +103,7 @@ namespace Bikewale.News
 
                     if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
                     {
-                        BindNews(GrpcToBikeWaleConvert.ConvertFromCarwaleToBikeWale(_objGrpcArticle));
+                        BindNews(GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle));
                         BindLinkPager(objPager, Convert.ToInt32(_objGrpcArticle.RecordCount));
                     }
                     else
