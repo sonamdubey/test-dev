@@ -36,7 +36,7 @@
       <HintPath>..\Libs\BookingSMS\Consumer.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\Libs\BookingSMS\log4net.dll</HintPath>
+      <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.2.4.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
