@@ -18,7 +18,9 @@ namespace Bikewale.Mobile
     /// <summary>
     /// Modified By : Sushil Kumar
     /// Modified On : 25 March 2016
-    /// Description : To show dealer details based on dealer id an campaign id
+    /// Description : To show dealer details based on dealer id an campaign id/// Modified By : Sushil Kumar
+    /// Modified By : Lucky Rathore on 29 March 2016
+    /// Description : dealerLat and dealerLong added.
     /// </summary>
     public class DealerDetails : System.Web.UI.Page
     {
@@ -28,6 +30,7 @@ namespace Bikewale.Mobile
         protected DealerDetailEntity dealerDetails;
         protected bool isDealerDetail;
         private string dealerQuery = string.Empty;
+        protected double dealerLat, dealerLong;
 
         protected override void OnInit(EventArgs e)
         {
@@ -49,6 +52,8 @@ namespace Bikewale.Mobile
         /// Created By : Sushil Kumar
         /// Created On : 25th March 2016 
         /// Description : To get dealer details and bikes available at dealership
+        /// Modified By : Lucky Rathore on 29 March 2016
+        /// Description : dealerLat and dealerLong Intialize.
         /// </summary>
         private void GetDealerDetails()
         {
@@ -68,6 +73,8 @@ namespace Bikewale.Mobile
                     {
                         dealerDetails = _dealer.DealerDetails;
                         isDealerDetail = true;
+                        dealerLat = dealerDetails.Area.Latitude;
+                        dealerLong = dealerDetails.Area.Longitude;
                         if (_dealer.Models != null && _dealer.Models.Count() > 0)
                         {
                             rptModels.DataSource = _dealer.Models;
