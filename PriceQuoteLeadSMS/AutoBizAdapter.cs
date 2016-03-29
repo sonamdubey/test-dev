@@ -29,8 +29,7 @@ namespace PriceQuoteLeadSMS
             string abInquiryId = string.Empty;
 
             try
-            {
-                //string jsonInquiryDetails = "{\"CustomerName\":\"" + customerName + "\", \"CustomerMobile\":\"" + customerMobile + "\", \"CustomerEmail\":\"" + customerEmail + "\", \"VersionId\":\"" + versionId + "\", \"CityId\":\"" + cityId + "\", \"CampaignId\":\"" + campaignId + "\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}";
+            {                
                 string jsonInquiryDetails = String.Format("{{ 'CustomerName': '{0}', 'CustomerMobile':'{1}', 'CustomerEmail':'{2}', 'VersionId':'{3}', 'CityId':'{4}', 'CampaignId':'{5}', 'InquirySourceId':'39', 'Eagerness':'1','ApplicationId':'2'}}", customerName, customerMobile, customerEmail, versionId, cityId, campaignId);
 
                 TCApi_Inquiry objInquiry = new TCApi_Inquiry();
