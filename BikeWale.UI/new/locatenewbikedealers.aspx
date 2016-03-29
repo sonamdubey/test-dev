@@ -313,13 +313,13 @@
                 }
 
                 $ddlCities.trigger('chosen:updated');
-                $("#ddlCities_chosen .chosen-single.chosen-default span").text("No Areas available");
+                $("#ddlCities_chosen .chosen-single.chosen-default span").text("No cities available");
             }
             if ($("#ddlCities option").length < 2)
             {
                 $ddlCities.empty();
                 $ddlCities.trigger('chosen:updated');
-                $("#ddlCities_chosen .chosen-single span").text("No Areas available");
+                $("#ddlCities_chosen .chosen-single span").text("No cities available");
             }
                 
 
