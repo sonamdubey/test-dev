@@ -64,11 +64,11 @@
                         <asp:Repeater ID="rptDealers" runat="server">
                             <ItemTemplate>
                                 <li>
-                                    <div class="<%# (DataBinder.Eval(Container.DataItem,"DealerType").ToString()!="0")?"":"hide" %> featured-tag text-white text-center font14 margin-bottom5">
+                                    <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %> featured-tag text-white text-center font14 margin-bottom5">
                                         Featured
                                     </div>
                                     <div class="font14">
-                                        <h2 class="font16 margin-bottom10"><a class="text-black" href="/m/dealerlocator/dealerdetails.aspx/?query=<%#Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(String.Format("dealerId={0}&campId={1}&cityId={2}" ,DataBinder.Eval(Container.DataItem,"DealerId").ToString(),DataBinder.Eval(Container.DataItem,"CampaignId").ToString(),cityId)) %>"><%# DataBinder.Eval(Container.DataItem,"Name").ToString() %></a></h2>
+                                        <h2 class="font16 margin-bottom10"><%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %></h2>
                                         <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>"><a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-light-grey margin-bottom5"><span class="bwmsprite tel-sm-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a></div>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"Email") %></a></div>

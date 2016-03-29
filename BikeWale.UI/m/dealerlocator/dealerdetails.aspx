@@ -4,8 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    title = "";
-    description = "";
+    <%
+        title = "";
+        description = "";
+    %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
         #dealerHeader{background:#313131;color:#fff;width:100%;height:48px;position:fixed;overflow:hidden;z-index:2;}.dealer-back-btn {padding:12px 15px;cursor:pointer;}.fa-arrow-back{width:12px;height:20px;background-position:-63px -162px;}.dealer-header-text { width:80%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }.padding-top48 { padding-top:48px; }.box-shadow { -webkit-box-shadow:0 0 1px #e2e2e2; -moz-box-shadow:0 0 1px #e2e2e2; box-shadow:0 0 1px #e2e2e2; }.text-pure-black { color:#1a1a1a; }.featured-tag {position:relative;left:-20px;top:-5px;width:100px;background:#4d5057;z-index:1; line-height:28px; }.featured-tag:after {content:'';width:12px; height:28px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=15Mar2016) no-repeat right top;position:absolute;left:98px;}.dealer-details-section {line-height:1.8;}.tel-sm-grey-icon{width: 12px;height: 15px;background-position: -86px -323px;position: relative;top: 2px;}.mail-grey-icon{width: 15px;height: 9px;background-position: -19px -437px;}.text-default { color:#4d5057; }.get-direction-icon, .sendto-phone-icon { width:12px; height:10px; }.get-direction-icon { background-position: -31px -421px; }.sendto-phone-icon { background-position: -49px -421px; }.divider-left { border-left: 1px solid #82888b; padding-left:7px; margin-left:7px; }.border-light-bottom { border-bottom:1px solid #f1f1f1; }.tel-grey-icon { position:relative;top:2px; }.float-button.float-fixed {position: fixed;bottom: 0;z-index: 8;left: 0;right: 0;}.float-button {background-color: #f5f5f5; padding: 0px 10px 10px 10px;}#bikesAvailableList .front {margin-top:20px; height: auto;border-radius: 0;box-shadow: none;-moz-box-shadow: none;-ms-box-shadow: none;border: 0 none;}#bikesAvailableList .bikeDescWrapper { padding:0; }#bikesAvailableList .imageWrapper { height:143px; }#bikesAvailableList .imageWrapper img { width: 254px;height: 143px;}.btn-sm {padding:8px 14px;}
@@ -350,7 +352,7 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
          <script type="text/javascript">
-            var versionId, dealrId = <%= dealerId %>, cityId = <%= cityId %>, clientIP = <%= Bikewale.Common.CommonOpn.GetClientIP()%>;
+            var versionId, dealrId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>";
             var bodHt, footerHt, scrollPosition;
             $(window).scroll(function () {
                 bodHt = $('body').height();

@@ -39,9 +39,9 @@ namespace Bikewale.Mobile
 
             if (ProcessQueryString() && dealerId > 0 && campaignId > 0)
             {
-              GetDealerDetails();
+                GetDealerDetails();
             }
-            
+
         }
 
         #region Get Dealer Details
@@ -62,7 +62,7 @@ namespace Bikewale.Mobile
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealer = objCache.GetDealerDetailsAndBikes(dealerId,campaignId);
+                    _dealer = objCache.GetDealerDetailsAndBikes(dealerId, campaignId);
 
                     if (_dealer != null && _dealer.DealerDetails != null)
                     {
@@ -92,7 +92,7 @@ namespace Bikewale.Mobile
                 objErr.SendMail();
             }
 
-        } 
+        }
         #endregion
 
         #region Private Method to process querystring
@@ -117,7 +117,7 @@ namespace Bikewale.Mobile
                         uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("campId"), out campaignId);
                         uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("cityId"), out cityId);
                         return true;
-                    } 
+                    }
                 }
                 else
                 {

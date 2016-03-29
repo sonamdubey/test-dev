@@ -236,6 +236,25 @@ namespace Bikewale.Mobile.New
             }
 
         }
+
+        public string GetDealerDetailLink(string dealerType, string dealerId, string campId, string dealerName)
+        {
+            string link = string.Empty;
+            string retString = string.Empty;
+            if (dealerType == "2" || dealerType == "3")
+            {
+                link = "/m/dealerlocator/dealerdetails.aspx/?query=" + Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(String.Format("dealerId={0}&campId={1}&cityId={2}", dealerId, campId, cityId));
+                retString = String.Format("<a class=\"text-black\" href=\"{0}\">{1}</a>", link, dealerName);
+            }
+
+            else
+            {
+                retString = dealerName;
+            }
+
+            return retString;
+        }
+
         #endregion
     }   // End of class
 }   // End of namespace
