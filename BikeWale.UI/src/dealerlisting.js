@@ -441,7 +441,9 @@ $("body").on('click', '#dealer-assist-msg .cur-pointer', function () {
 
 var dealerDetails = function (data) {
     var self = this;
-    self.userLocation = userLocation.latitude + "," + userLocation.longitude;
+    if (userLocation.latitude != "" && userLocation.longitude != "")
+        self.userSrcLocation = userLocation.latitude + "," + userLocation.longitude;
+    else self.userSrcLocation = "";
     self.name = ko.observable(data.name);
     self.mobile = ko.observable(data.maskingNumber);
     self.address = ko.observable(data.address);
@@ -565,6 +567,7 @@ function showDealerDetailsLoader() {
     $("#dealerPersonalInfo").css("visibility", "hidden");
     $("#buying-assistance-form").css("visibility", "hidden");
     $("#dealerModelwiseBikes").css("visibility", "hidden");
+    $("#commute-distance-form").css("visibility", "hidden");
     $("#BWloader").empty().html("<span class='fa fa-spinner fa-spin' ></span> Loading " + dname + " dealer details...").show();
     startLoading(ele);
 }
@@ -576,9 +579,11 @@ function hideDealerDetailsLoader(ele, dname) {
     popupEle.prev().hide();
     $("#dealerPersonalInfo").css("visibility", "visible");
     $("#buying-assistance-form").css("visibility", "visible");
+    $("#commute-distance-form").css("visibility", "visible");
     $("#dealerModelwiseBikes").css("visibility", "visible");
     $("#BWloader").hide();
     stopLoading(ele);
+
 }
 
 
