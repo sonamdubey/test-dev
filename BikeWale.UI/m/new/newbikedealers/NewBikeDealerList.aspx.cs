@@ -1,166 +1,239 @@
-﻿using Bikewale.BAL.Dealer;
-using Bikewale.Common;
-using Bikewale.Entities.Dealer;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.DealersLocator;
+using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Dealer;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Memcache;
+using Bikewale.Notifications;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+
 
 namespace Bikewale.Mobile.New
 {
     /// <summary>
-    /// Created By : Ashwini Todkar on 5 June 2014
+    /// Created By : Sushil Kumar on 19th March 2016
+    /// Class to show the bike dealers details
     /// </summary>
-    public class NewBikeDealerList : System.Web.UI.Page
-	{
-        protected Repeater rptDealers;
-        protected string make = String.Empty, city = String.Empty, canonicalUrl = String.Empty;
-        protected int dealerCount = 0;
-        uint makeId = 0, cityId = 0;
+    public class NewBikeDealerList : PageBase
+    {
+        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty;
+        protected uint cityId, makeId;
+        protected ushort totalDealers;
+        protected Repeater rptMakes, rptCities, rptDealers;
+
 
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
         }
 
-        private void InitializeComponent()
+        void InitializeComponent()
         {
-            base.Load += new EventHandler(Page_Load);
+            base.Load += new EventHandler(this.Page_Load);
         }
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
-           
-
-            if (!IsPostBack)
-            {
-                if (ProcessQS())
-                {
-                    MakeModelVersion objMMV = new MakeModelVersion();
-
-                    objMMV.GetMakeDetails(makeId.ToString());
-                    make = objMMV.BikeName;
-                    GetDealerDetailsList(makeId, cityId);                
-                }
-                else
-                {
-                    Response.Redirect("/m/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-            }
-		}
-
-        private bool ProcessQS()
+        protected void Page_Load(object sender, EventArgs e)
         {
-            bool isSuccess = true;
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
 
-            if (!String.IsNullOrEmpty(Request.QueryString["make"]) && !String.IsNullOrEmpty(Request.QueryString["city"]))
-            {
-                if (!UInt32.TryParse(Request.QueryString["city"], out cityId))
-                {
-                    isSuccess = false;
-                }
+            ProcessQueryString();
+            GetMakeIdByMakeMaskingName(makeMaskingName);
 
-                if (!String.IsNullOrEmpty(MakeMapping.GetMakeId(Request.QueryString["make"].ToLower())))
-                    makeId = Convert.ToUInt32(MakeMapping.GetMakeId(Request.QueryString["make"].ToLower()));
-                else
-                {
-                    isSuccess = false;
-                }
-            }
-            else
+            if (makeId > 0 && cityId > 0)
             {
-                isSuccess = false;
+                BindMakesDropdown();
+                BindCitiesDropdown();
+
+                BindDealerList();
             }
 
-            return isSuccess;
         }
 
-        private void GetDealerDetailsList(uint makeId, uint cityId)
+        /// <summary>
+        /// Created By  : Sushil Kumar
+        /// Created On  : 20th March 2016
+        /// Description : To bind dealerlist
+        /// </summary>
+        private void BindDealerList()
         {
+            DealersEntity _dealers = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealer, Dealer>();
+                    container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IDealer, DealersRepository>()
+                            ;
+                    var objCache = container.Resolve<IDealerCacheRepository>();
+                    _dealers = objCache.GetDealerByMakeCity(cityId, makeId);
 
-                    IDealer objDealer = container.Resolve<IDealer>();
-
-                    List<NewBikeDealerEntity> objDealerList = objDealer.GetDealersList(makeId, cityId);
-
-                    dealerCount = objDealerList.Count;
-
-                    if (objDealerList.Count > 0)
+                    if (_dealers != null && _dealers.TotalCount > 0)
                     {
-                        rptDealers.DataSource = objDealerList;
+                        rptDealers.DataSource = _dealers.Dealers;
                         rptDealers.DataBind();
-                    }
-                    else
-                    {
-                        Response.Redirect("/m/new/", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        totalDealers = _dealers.TotalCount;
                     }
                 }
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                Trace.Warn("Exception in GetDealerDetailsList() " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "BindDealerList : " + ex.ToString());
                 objErr.SendMail();
             }
         }
 
-        protected string GetDealerCity( string cityName)
+
+        /// <summary>
+        /// Created By  : Sushil Kumar
+        /// Created On  : 20th March 2016
+        /// Description : To bind makes list to dropdown
+        /// </summary>
+        private void BindMakesDropdown()
         {
-            city = cityName;
-            canonicalUrl = "http://www.bikewale.com/m/new/" + Request.QueryString["make"] + "-" + "dealers/" + Request.QueryString["city"] + "-" + city.ToLower() + ".html";
-            return "";
+            IEnumerable<BikeMakeEntityBase> _makes = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            ;
+                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    _makes = objCache.GetMakesByType(EnumBikeType.New);
+                    if (_makes != null && _makes.Count() > 0)
+                    {
+                        rptMakes.DataSource = _makes;
+                        rptMakes.DataBind();
+                        makeName = _makes.Where(x => x.MakeId == makeId).FirstOrDefault().MakeName;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "BindMakesDropdown : " + ex.ToString());
+                objErr.SendMail();
+            }
         }
 
-        // function to return formatted address 
-        protected string GetFormattedAddress(string address, string city, string state, string pinCode)
+
+        /// <summary>
+        /// Created By  : Sushil Kumar
+        /// Created On  : 20th March 2016
+        /// Description : To bind cities list to dropdown
+        /// </summary>
+        private void BindCitiesDropdown()
         {
-            string add = "";
-
-            if (address != "")
-                add = "Address : " + address;
-
-            if (city != "")
+            IEnumerable<CityEntityBase> _cities = null;
+            try
             {
-                if (add == "")
-                    add = city;
-                else
-                    add += "<br>" + city;
-            }
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealer, DealersRepository>();
 
-            if (state != "")
-            {
-                if (add == "")
-                    add = state;
-                else
-                    add += ", " + state;
+                    var objCities = container.Resolve<IDealer>();
+                    _cities = objCities.FetchDealerCitiesByMake(makeId);
+                    if (_cities != null && _cities.Count() > 0)
+                    {
+                        rptCities.DataSource = _cities;
+                        rptCities.DataBind();
+                        cityName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityName;
+                        cityMaskingName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityMaskingName;
+                    }
+                }
             }
-
-            if (pinCode != "" && pinCode != "0")
+            catch (Exception ex)
             {
-                if (add == "")
-                    add = pinCode;
-                else
-                    add += " - " + pinCode;
+                Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown");
+                objErr.SendMail();
             }
-
-            if (add != "")
-            {
-                add = "<p>" + add + "</p>";
-            }
-            return add;
         }
-	}
-}
+
+
+
+        /// <summary>
+        /// Created By  : Sushil Kumar
+        /// Created On  : 20th March 2016
+        /// Description : To get makeId from make masking name
+        /// </summary>
+        private void GetMakeIdByMakeMaskingName(string maskingName)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(maskingName))
+                {
+                    string _makeId = MakeMapping.GetMakeId(maskingName);
+                    if (string.IsNullOrEmpty(_makeId) || !uint.TryParse(_makeId, out makeId))
+                    {
+                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                }
+                else
+                {
+                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BindCitiesDropdown + " + ex.ToString());
+                objErr.SendMail();
+            }
+        }
+
+
+
+        #region Private Method to process querystring
+        /// <summary>
+        /// Created By : Sushil Kumar
+        /// Created On : 16th March 2016 
+        /// Description : Private Method to query string fro make masking name and cityId
+        /// </summary>
+        private void ProcessQueryString()
+        {
+            var currentReq = HttpContext.Current.Request;
+            try
+            {
+
+                if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
+                {
+                    makeMaskingName = currentReq.QueryString["make"];
+                    uint.TryParse(currentReq.QueryString["city"], out cityId);
+                }
+                else
+                {
+                    Response.Redirect("/new/locate-dealers/.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"] + " : " + ex.ToString());
+                objErr.SendMail();
+            }
+
+        }
+        #endregion
+    }   // End of class
+}   // End of namespace

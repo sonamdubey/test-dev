@@ -130,11 +130,9 @@ function setOptions(optList) {
 
 $("#applyDealerFilter").click(function () {
 
-    //$ulCities = $("#filterCityList");
-    //$ullMakes = $("#filterBrandList");
-    var ulmakemasking = makeCityViewModel.selectedMakeMaskingName();
-    var ulMakeId = makeCityViewModel.selectedCityId();
-    var ulcityId = makeCityViewModel.selectedCityId();   
+    var ulmakeMasking = makeCityViewModel.selectedMakeMaskingName();
+    var ulMakeId = makeCityViewModel.selectedMakeId();
+    var ulcityId = makeCityViewModel.selectedCityId();      
 
     if (ulMakeId == "0") {
         toggleErrorMsg($("#selectBrand"), true, "Choose a brand");
@@ -147,9 +145,8 @@ $("#applyDealerFilter").click(function () {
     if (ulcityId != "0" && ulMakeId != "0") {
         var ulcityMasking = makeCityViewModel.selectedCityMaskingName();
         toggleErrorMsg($("#selectCity"), false);
-        $(".filterBackArrow").trigger("click");
-        //window.location.href = "/m/dealerlocator/" + ddlmakemasking + "/" + ddlcityId + "-" + ddlcityMasking + ".html";
-        window.location.href = "/m/dealerlocator/dealerlisting.aspx?make=" + ulmakemasking + "&cityId=" + ulcityId;
+        $(".filterBackArrow").trigger("click");        
+        window.location.href = "/m/new/" + ulmakeMasking + "-dealers/" + ulcityId + "-" + ulcityMasking + ".html";
     }
     else {
         toggleErrorMsg($("#selectCity"), true, "Choose a city");
@@ -262,8 +259,7 @@ function CustomerModel(obj) {
     self.modelId = ko.observable(0);
     self.bikes = ko.observableArray([]);    
     
-    if (obj.dealerBikes && obj.dealerBikes.length > 0) {       
-        //(obj.dealerBikes).push({"bike" : "Select a bike model"})
+    if (obj.dealerBikes && obj.dealerBikes.length > 0) {             
         self.bikes = ko.observableArray(obj.dealerBikes);
     }
 
@@ -436,8 +432,7 @@ function CustomerModel(obj) {
                 $("#otpPopup").show();
                 var leadMobileVal = mobile.val();
                 $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
-               // otpContainer.removeClass("hide").addClass("show");
-                //nameValTrue();
+              
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
@@ -498,16 +493,6 @@ var assistancePopupClose = function () {
     $("#leadCapturePopup").hide();
     $("#notify-response").hide();
 };
-
-//$("#user-details-submit-btn").on("click", function () {
-//    if (validateUserDetail()) {
-//        $("#contactDetailsPopup").hide();
-//        $("#otpPopup").show();
-//        $(".lead-mobile").text($("#getMobile").val());
-//        //$(".notify-leadUser").text($("#getFullName").val());
-//        //$("#notify-response").show();
-//    }
-//});
 
 function validateUserDetail() {
     var isValid = true;
