@@ -163,7 +163,7 @@
                                                 <span class="bwsprite mail-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"Email") %></a>
                                         </div>
 
-                                        <div class="<%# (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "0")?"hide":"" %>">
+                                        <div class="<%# (DataBinder.Eval(Container.DataItem,"DealerType").ToString() != "0" || DataBinder.Eval(Container.DataItem,"DealerType").ToString() != "2")?"hide":"" %>">
                                             <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" class="btn btn-white-orange margin-top15 get-assistance-btn">Get assistance</a>
                                         </div>
                                     </div>
@@ -208,8 +208,8 @@
                                         
                                     </div>
                                     <div class="location-details padding-top10 padding-bottom10 leftfloat">
-                                        <span class="fa fa-clock-o"></span>Time : <span id="commuteDuration"></span>&nbsp; &nbsp;
-                                        <span class="fa fa-road"></span>Distance : <span id="commuteDistance"></span>
+                                        <span class="fa fa-clock-o"></span>&nbsp;Time : <span id="commuteDuration"></span>&nbsp; &nbsp;
+                                        <span class="fa fa-road"></span>&nbsp;Distance : <span id="commuteDistance"></span>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
