@@ -195,8 +195,7 @@ namespace Bikewale.Service.Controllers.CMS
                 }
                 apiUrl += "&startindex=" + startIndex + "&endindex=" + endIndex;
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    //objFeaturedArticles = objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
+                {                                        
                     objFeaturedArticles = objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
                 }
 

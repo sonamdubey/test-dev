@@ -45,7 +45,7 @@ namespace Bikewale.Utility
                 if (httpClient != null)
                 {
                     //HTTP GET
-                    using (HttpResponseMessage _response = await httpClient.GetAsync(apiUrl))
+                    using (HttpResponseMessage _response = await httpClient.GetAsync(apiUrl).ConfigureAwait(false))
                     {
                         //_response.EnsureSuccessStatusCode(); //Throw if not a success code.
 
@@ -64,7 +64,16 @@ namespace Bikewale.Utility
             }
             return objTask;
         }
-             
+         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="apiHost"></param>
+        /// <param name="requestType"></param>
+        /// <param name="apiUrl"></param>
+        /// <param name="responseType"></param>
+        /// <returns></returns>
         public T GetApiResponseSync<T>(APIHost apiHost, string requestType, string apiUrl, T responseType)
         {
             T objTask = default(T);
@@ -91,16 +100,40 @@ namespace Bikewale.Utility
                 if (httpClient != null)
                 {
                     //HTTP GET
-                    using (HttpResponseMessage _response = httpClient.GetAsync(apiUrl).Result)
+                    if (Utility.BWConfiguration.Instance.ApiMaxWaitTime <= 0)
                     {
-                        //_response.EnsureSuccessStatusCode(); //Throw if not a success code.                    
-                        if (_response.IsSuccessStatusCode)
+                        using (HttpResponseMessage _response = httpClient.GetAsync(apiUrl).Result)
                         {
-                            if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                            //_response.EnsureSuccessStatusCode(); //Throw if not a success code.                    
+                            if (_response.IsSuccessStatusCode)
                             {
-                                objTask = _response.Content.ReadAsAsync<T>().Result;
-                                _response.Content.Dispose();
-                                _response.Content = null;
+                                if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                                {
+                                    objTask = _response.Content.ReadAsAsync<T>().Result;
+                                    _response.Content.Dispose();
+                                    _response.Content = null;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var task = httpClient.GetAsync(apiUrl);
+
+                        if (task.Wait(Utility.BWConfiguration.Instance.ApiMaxWaitTime))
+                        {
+                            using (HttpResponseMessage _response = task.Result)
+                            {
+                                //_response.EnsureSuccessStatusCode(); //Throw if not a success code.                    
+                                if (_response.IsSuccessStatusCode)
+                                {
+                                    if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                                    {
+                                        objTask = _response.Content.ReadAsAsync<T>().Result;
+                                        _response.Content.Dispose();
+                                        _response.Content = null;
+                                    }
+                                }
                             }
                         }
                     }
@@ -140,25 +173,49 @@ namespace Bikewale.Utility
                 if (httpClient != null)
                 {
                     //Add parameter
-                    if (headerParameters != null && headerParameters.Count() > 0)
+                    //if (headerParameters != null && headerParameters.Count() > 0)
+                    //{
+                    //    foreach (var param in headerParameters)
+                    //    {
+                    //        httpClient.DefaultRequestHeaders.Add(param.Key, param.Value);
+                    //    }
+                    //}
+
+                    if (Utility.BWConfiguration.Instance.ApiMaxWaitTime <= 0)
                     {
-                        foreach (var param in headerParameters)
+                        //HTTP GET
+                        using (HttpResponseMessage _response = httpClient.GetAsync(apiUrl).Result)
                         {
-                            httpClient.DefaultRequestHeaders.Add(param.Key, param.Value);
+                            //_response.EnsureSuccessStatusCode(); //Throw if not a success code.                    
+                            if (_response.IsSuccessStatusCode)
+                            {
+                                if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                                {
+                                    objTask = _response.Content.ReadAsAsync<T>().Result;
+                                    _response.Content.Dispose();
+                                    _response.Content = null;
+                                }
+                            }
                         }
                     }
-
-                    //HTTP GET
-                    using (HttpResponseMessage _response = httpClient.GetAsync(apiUrl).Result)
+                    else
                     {
-                        //_response.EnsureSuccessStatusCode(); //Throw if not a success code.                    
-                        if (_response.IsSuccessStatusCode)
+                        var task = httpClient.GetAsync(apiUrl);
+
+                        if (task.Wait(Utility.BWConfiguration.Instance.ApiMaxWaitTime))
                         {
-                            if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                            using (HttpResponseMessage _response = task.Result)
                             {
-                                objTask = _response.Content.ReadAsAsync<T>().Result;
-                                _response.Content.Dispose();
-                                _response.Content = null;
+                                //_response.EnsureSuccessStatusCode(); //Throw if not a success code.                    
+                                if (_response.IsSuccessStatusCode)
+                                {
+                                    if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                                    {
+                                        objTask = _response.Content.ReadAsAsync<T>().Result;
+                                        _response.Content.Dispose();
+                                        _response.Content = null;
+                                    }
+                                }
                             }
                         }
                     }
@@ -171,13 +228,13 @@ namespace Bikewale.Utility
             }
             finally
             {
-                if (httpClient != null && headerParameters != null && headerParameters.Count() > 0)
-                {
-                    foreach (var param in headerParameters)
-                    {
-                        httpClient.DefaultRequestHeaders.Remove(param.Key);
-                    }
-                }
+                //if (httpClient != null && headerParameters != null && headerParameters.Count() > 0)
+                //{
+                //    foreach (var param in headerParameters)
+                //    {
+                //        httpClient.DefaultRequestHeaders.Remove(param.Key);
+                //    }
+                //}
             }
             return objTask;
         }
@@ -340,14 +397,14 @@ namespace Bikewale.Utility
 
                 if (httpClient != null)
                 {
-                    if (headerParameters != null && headerParameters.Count() > 0)
-                    {
-                        foreach (var param in headerParameters)
-                        {
-                            httpClient.DefaultRequestHeaders.Add(param.Key, param.Value);
-                        }
-                    }
 
+                    //if (headerParameters != null && headerParameters.Count() > 0)
+                    //{
+                    //    foreach (var param in headerParameters)
+                    //    {
+                    //        httpClient.DefaultRequestHeaders.Add(param.Key, param.Value);
+                    //    }
+                    //}
 
                     using (var response = httpClient.PostAsJsonAsync(apiUrl, objToPost).Result)
                     {
@@ -365,13 +422,13 @@ namespace Bikewale.Utility
             }
             finally
             {
-                if (httpClient != null && headerParameters != null && headerParameters.Count() > 0)
-                {
-                    foreach (var param in headerParameters)
-                    {
-                        httpClient.DefaultRequestHeaders.Remove(param.Key);
-                    }
-                }
+                //if (httpClient != null && headerParameters != null && headerParameters.Count() > 0)
+                //{
+                //    foreach (var param in headerParameters)
+                //    {
+                //        httpClient.DefaultRequestHeaders.Remove(param.Key);
+                //    }
+                //}
             }
             return objResponse;
         }

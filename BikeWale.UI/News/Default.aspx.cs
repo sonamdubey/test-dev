@@ -20,6 +20,9 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.BAL.Pager;
 using Bikewale.Entities.CMS;
 using Bikewale.Utility;
+using Grpc.CMS;
+using Grpc.Core;
+using Bikewale.News.GrpcFiles;
 
 namespace Bikewale.News
 {
@@ -80,55 +83,83 @@ namespace Bikewale.News
         /// Summary    : method to fetch news list and total record count from carwale api
         /// </summary>
 
-        private async void GetNews()
+        private void GetNews()
         {
             try
             {
-                using (var client = new HttpClient())
+                string useGrpc = ConfigurationManager.AppSettings["UseGrpc"];
+
+                if (!string.IsNullOrEmpty(useGrpc) && Convert.ToBoolean(useGrpc))
                 {
-                   
-                     //sets the base URI for HTTP requests
-                    string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                    client.BaseAddress = new Uri(_cwHostUrl);
-
-                    //sets the Accept header to "application/json", which tells the server to send data in JSON format.
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
                     // get pager instance
                     IPager objPager = GetPager();
 
                     int _startIndex = 0, _endIndex = 0;
                     objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
-                    List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                    categorList.Add(EnumCMSContentType.News);
-                    categorList.Add(EnumCMSContentType.AutoExpo2016);
-                    string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
-                    // Send HTTP GET requests 
-                    HttpResponseMessage response = await client.GetAsync("webapi/article/listbycategory/?applicationid=2&categoryidlist=" + contentTypeList + "&startindex=" + _startIndex + "&endindex=" + _endIndex);
 
-                    response.EnsureSuccessStatusCode();    // Throw if not a success code.
+                    string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.News, EnumCMSContentType.AutoExpo2016 });
 
-                    if (response.IsSuccessStatusCode) //success status 200 above Status
-                    {                     
-                        CMSContent _objArticleList = await response.Content.ReadAsAsync<CMSContent>();
+                    var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(contentTypeList, (uint)_startIndex, (uint)_endIndex);
 
-                        BindNews(_objArticleList);
-                        BindLinkPager(objPager,Convert.ToInt32(_objArticleList.RecordCount));             
+                    if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
+                    {
+                        BindNews(GrpcToBikeWaleConvert.ConvertFromCarwaleToBikeWale(_objGrpcArticle));
+                        BindLinkPager(objPager, Convert.ToInt32(_objGrpcArticle.RecordCount));
                     }
+                    else
+                    {
+                        GetNewsOldWay();
+                    }
+
                 }
-            }
-            catch (HttpRequestException ex)
-            {
-                Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                else
+                {
+                    GetNewsOldWay();
+                }
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
+            }
+        }
+
+
+        private async void GetNewsOldWay()
+        {
+            using (var client = new HttpClient())
+            {
+
+                //sets the base URI for HTTP requests
+                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+                client.BaseAddress = new Uri(_cwHostUrl);
+
+                //sets the Accept header to "application/json", which tells the server to send data in JSON format.
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // get pager instance
+                IPager objPager = GetPager();
+
+                int _startIndex = 0, _endIndex = 0;
+                objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.News);
+                categorList.Add(EnumCMSContentType.AutoExpo2016);
+                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+                // Send HTTP GET requests 
+                HttpResponseMessage response = await client.GetAsync("webapi/article/listbycategory/?applicationid=2&categoryidlist=" + contentTypeList + "&startindex=" + _startIndex + "&endindex=" + _endIndex);
+
+                response.EnsureSuccessStatusCode();    // Throw if not a success code.
+
+                if (response.IsSuccessStatusCode) //success status 200 above Status
+                {
+                    CMSContent _objArticleList = await response.Content.ReadAsAsync<CMSContent>();
+
+                    BindNews(_objArticleList);
+                    BindLinkPager(objPager, Convert.ToInt32(_objArticleList.RecordCount));
+                }
             }
         }
 
