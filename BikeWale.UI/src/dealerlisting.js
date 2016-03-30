@@ -191,7 +191,7 @@ function initializeMap(dealerArr) {
             userAddress = place.formatted_address;
         };
 
-        travel_mode = google.maps.TravelMode.WALKING;
+        travel_mode = google.maps.TravelMode.TRANSIT;
 
         route(origin_place_id, travel_mode, directionsService, directionsDisplay);
         $('.location-details').show();
