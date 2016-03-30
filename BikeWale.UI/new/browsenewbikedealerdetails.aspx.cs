@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-
+using System.Web.UI.WebControls; 
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
 using System.Collections.Generic;
@@ -33,6 +32,7 @@ namespace Bikewale.New
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
+        protected bool areDealersPremium = false;
 
 
         protected override void OnInit(EventArgs e)
@@ -96,6 +96,13 @@ namespace Bikewale.New
                         rptDealers.DataSource = _dealers.Dealers;
                         rptDealers.DataBind();
                         totalDealers = _dealers.TotalCount;
+
+                        if(totalDealers < 5)
+                        {
+                            var _lastTwoDealers = _dealers.Dealers.Skip(totalDealers - 2);
+                            areDealersPremium = (_lastTwoDealers.FirstOrDefault().DealerType > 1) || (_lastTwoDealers.LastOrDefault().DealerType > 1);
+                        }
+
                     }
                     else
                     {
