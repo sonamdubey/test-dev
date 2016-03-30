@@ -186,7 +186,7 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </ul>
-                    <div class="brand-bottom-border border-solid-top margin-left20 margin-right20 hide"></div>
+                    <div class="brand-bottom-border border-solid-top hide">
                     <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
                         <asp:Repeater ID="rptOtherBrands" runat="server">
                             <ItemTemplate>
@@ -201,6 +201,7 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </ul>
+                    </div>
                 </div>
                 <div class="view-brandType text-center padding-bottom30">
                     <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View <span>more</span> brands</a>
@@ -230,10 +231,11 @@
                 $("a.view-more-btn").click(function (e) {
                     moreBrandList = $(this).parent().parent().find("ul.brand-style-moreBtn"),
                     moreText = $(this).find("span"),
-                    borderDivider = $(".brand-bottom-border");
+                    borderDivider = $(".brand-bottom-border");                    
                     moreBrandList.slideToggle();
-                    moreText.text(moreText.text() === "more" ? "less" : "more");
                     borderDivider.slideToggle();
+                    moreText.text(moreText.text() === "more" ? "less" : "more");
+                    
                 });
 
 
