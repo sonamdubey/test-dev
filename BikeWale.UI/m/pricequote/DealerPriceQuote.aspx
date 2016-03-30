@@ -200,8 +200,8 @@
                             <asp:Repeater ID="rptOffers" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <span class="pricequote-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferId") %>"></span>
-                                        <span class="pq-benefits-title padding-left15"><%# DataBinder.Eval(Container.DataItem,"OfferText") %></span>
+                                        <span class="leftfloat offer-benefit-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferId") %>"></span>
+                                        <span class="leftfloat pq-benefits-title padding-top5 padding-left15"><%# DataBinder.Eval(Container.DataItem,"OfferText") %></span>
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -217,8 +217,8 @@
                             <asp:Repeater ID="rptBenefits" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <span class="pricequote-sprite benifitIcon_<%# DataBinder.Eval(Container.DataItem,"CatId") %>"></span>
-                                        <span class="pq-benefits-title padding-left15"><%# DataBinder.Eval(Container.DataItem,"BenefitText") %></span>
+                                        <span class="leftfloat offer-benefit-sprite benifitIcon_<%# DataBinder.Eval(Container.DataItem,"CatId") %>"></span>
+                                        <span class="leftfloat pq-benefits-title padding-left15"><%# DataBinder.Eval(Container.DataItem,"BenefitText") %></span>
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>
