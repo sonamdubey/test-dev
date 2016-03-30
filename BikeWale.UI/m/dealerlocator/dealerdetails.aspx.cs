@@ -18,9 +18,9 @@ namespace Bikewale.Mobile
     /// <summary>
     /// Modified By : Sushil Kumar
     /// Modified On : 25 March 2016
-    /// Description : To show dealer details based on dealer id an campaign id/// Modified By : Sushil Kumar
-    /// Modified By : Lucky Rathore on 29 March 2016
-    /// Description : dealerLat and dealerLong added.
+    /// Description : To show dealer details based on dealer id an campaign id.
+    /// Modified By : Lucky Rathore on 30 March 2016
+    /// Description : dealerLat, dealerLong, dealerName, dealerArea, dealerCity added and _dealerQuery removed.
     /// </summary>
     public class DealerDetails : System.Web.UI.Page
     {
@@ -29,8 +29,7 @@ namespace Bikewale.Mobile
         protected int dealerBikesCount = 0;
         protected DealerDetailEntity dealerDetails;
         protected bool isDealerDetail;
-        protected string makeName = string.Empty, dealerName, dealerArea, dealerCity;
-        private string dealerQuery = string.Empty;
+        protected string makeName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty;
         protected double dealerLat, dealerLong;
 
         protected override void OnInit(EventArgs e)
@@ -53,8 +52,8 @@ namespace Bikewale.Mobile
         /// Created By : Sushil Kumar
         /// Created On : 25th March 2016 
         /// Description : To get dealer details and bikes available at dealership
-        /// Modified By : Lucky Rathore on 29 March 2016
-        /// Description : dealerLat and dealerLong Intialize.
+        /// Modified By : Lucky Rathore on 30 March 2016
+        /// Description : dealerLat, dealerLong, dealerName, dealerArea, dealerCity Intialize, renamed dealer from _dealer.
         /// </summary>
         private void GetDealerDetails()
         {
@@ -115,6 +114,8 @@ namespace Bikewale.Mobile
         /// Created By : Sushil Kumar
         /// Created On : 16th March 2016 
         /// Description : Private Method to parse encoded query string and get values for dealerId and campaignId
+        /// Modified By : Lucky Rathore on 30 March 2016
+        /// Description : Renamed dealerQuery from _dealerQuery.
         /// </summary>
         private bool ProcessQueryString()
         {
