@@ -520,7 +520,7 @@ function initializeMap() {
             userAddress = place.formatted_address;
         };
 
-        travel_mode = google.maps.TravelMode.TRANSIT;
+        travel_mode = google.maps.TravelMode.DRIVING;
 
         var directionsService = new google.maps.DirectionsService;
 
