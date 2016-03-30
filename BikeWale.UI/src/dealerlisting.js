@@ -80,6 +80,10 @@ $(document).keydown(function (e) {
     }
 });
 
+$(document).on("click", "#submitassistanceformbtn", function () {
+    
+});
+
 function getLocation() {
     if (userAddress != "") {
         $("#locationSearch").val("").val(userAddress);
@@ -330,7 +334,9 @@ $('#dealersList li').mouseout(function () {
 $("body").on('click', 'a.dealer-sidebar-link', function () {
     var parentLI = $(this).parents('li');
     selectedDealer(parentLI);
+    $("#buyingAssistanceForm").show();
     $("#buying-assistance-form").show().siblings("#dealer-assist-msg").hide();
+    stopLoading('#buyingAssistanceForm');
     
 });
 

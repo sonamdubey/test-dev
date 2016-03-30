@@ -894,6 +894,7 @@ $(".leadCapture-close-btn, .blackOut-window-model, #notifyOkayBtn").on("click", 
 $("#viewBreakupText").on('click', function (e) {
     $("div#breakupPopUpContainer").show();
     $(".blackOut-window").show();
+    triggerGA('Model_Page', 'View_Breakup_Clicked', bikeVersionLocation);
 });
 $(".breakupCloseBtn,.blackOut-window").on('mouseup click',function (e) {         
     $("div#breakupPopUpContainer").hide();

@@ -62,7 +62,7 @@ function CustomerModel() {
                 "pageUrl": "/m/dealerlocator/dealerdetails.aspx",
                 "versionId": self.versionId(),
                 "cityId": self.cityId(),
-                "leadSourceId": 2,
+                "leadSourceId": leadSrcId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({

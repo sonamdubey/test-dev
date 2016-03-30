@@ -171,7 +171,8 @@
                                 </li>
                             </ItemTemplate>
                         </asp:Repeater>
-                        <%if (totalDealers < 6) { %>
+                        <%if (areDealersPremium)
+                          { %>
                         <li class="dummy-card"></li>
                         <% } %>
                     </ul>
