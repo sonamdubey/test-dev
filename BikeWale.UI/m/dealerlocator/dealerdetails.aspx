@@ -366,7 +366,7 @@
              var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>";                                              
              var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
              var pqSource = "<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail %>";
-             var bodHt, footerHt, scrollPosition;            
+             var bodHt, footerHt, scrollPosition;                         
 
             $(window).scroll(function () {
                 bodHt = $('body').height();

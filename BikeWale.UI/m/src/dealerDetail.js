@@ -12,6 +12,9 @@ var customerViewModel;
 var leadBtnBookNow = $("a.get-assistance-btn"), leadCapturePopup = $("#leadCapturePopup"), fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile"), otpContainer = $(".mobile-verification-container"), getModelName = $("#getModelName");
 var getCityArea = GetGlobalCityArea();
 
+var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
+initializeMap();
+
 customerViewModel = new CustomerModel();
 ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
 
@@ -456,14 +459,38 @@ $(".dealer-brand-wrapper .back-arrow-box").on("click", function () {
     brandSearchBar.removeClass("open").animate({ 'left': '100%' }, 500);
     brandSearchBar.find(".user-input-box").animate({ 'left': '100%' }, 500);
 });
-getLocation();
+
 function getLocation() {
     if (navigator.geolocation) {
+        debugger;
         navigator.geolocation.getCurrentPosition(
-            setUserLocation
+            savePosition,
+            showError,
+            { enableHighAccuracy: true, maximumAge: 600000 }
         );
-    }
+    }    
 }
+
+$(document).on("click", "#getUserLocation", function () { getLocation(); });
+
+function savePosition(position) {
+    userLocation = {
+        "latitude": position.coords.latitude,
+        "longitude": position.coords.longitude
+    }   
+    if (userAddress == "") {
+        $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + userLocation.latitude + "," + userLocation.longitude + "&key=AIzaSyDjG8tpNdQI86DH__-woOokTaknrDQkMC8", function (data) {
+            userAddress = data;
+            if (data.status == "OK") {
+                userAddress = userAddress.results[0].formatted_address;
+                $("#locationSearch").val("").val(userAddress);
+                google.maps.event.trigger(originPlace, 'place_changed');
+            }
+        });
+    }
+    setUserLocation(position);
+}
+
 function setUserLocation(position) {
     $("#anchorGetDir").attr("href", "https://maps.google.com/?saddr=" + position.coords.latitude + "," + position.coords.longitude + "&daddr=" + dealerLat + "," + dealerLong + '');
 }
@@ -471,11 +498,8 @@ $("#assistanceBrandInput").on("keyup", function () {
     locationFilter($(this));
 });
 
-initializeMap();
-
-var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "", currentCityName = "Mumbai";
-
-function initializeMap() {        
+function initializeMap() {
+    getLocation();
     originPlace = new google.maps.places.Autocomplete(
       (document.getElementById('locationSearch')),
       {
@@ -503,19 +527,11 @@ function initializeMap() {
 
         route(origin_place_id, travel_mode, directionsService);
         $('.location-details').show();
-    });    
-
-    var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ 'address': currentCityName }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            map.setCenter(results[0].geometry.location);
-            map.fitBounds(results[0].geometry.viewport);
-        }
-    });
+    });        
 }
 
+
 function route(origin_place_id, travel_mode, directionsService) {
-    debugger;
    
     _lat = dealerLat;
     _lng = dealerLong;
@@ -534,7 +550,6 @@ function route(origin_place_id, travel_mode, directionsService) {
             getCommuteInfo(response);          
         }
     });
-
 }
 
 function getCommuteInfo(result) {
@@ -547,4 +562,35 @@ function getCommuteInfo(result) {
     }    
     $('#commuteDistance').text((totalDistance / 1000).toFixed(2) + " kms");
     $('#commuteDuration').text(totalDuration.toString().toHHMMSS());
+}
+
+
+function showError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            console.log("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            console.log("Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            console.log("The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            console.log("An unknown error occurred.");
+            break;
+    }
+}
+
+String.prototype.toHHMMSS = function () {
+    var sec_num = parseInt(this, 10);
+    var hrs = Math.floor(sec_num / 3600);
+    var mins = Math.floor((sec_num - (hrs * 3600)) / 60);
+    var secs = sec_num - (hrs * 3600) - (mins * 60);
+
+    if (hrs < 10) { hrs = "0" + hrs; }
+    if (mins < 10) { mins = "0" + mins; }
+    if (secs < 10) { secs = "0" + secs; }
+    var time = hrs + ' hrs ' + mins + ' mins ';// + secs +" s";
+    return time;
 }

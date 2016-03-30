@@ -75,6 +75,7 @@ namespace Bikewale.Mobile
                         isDealerDetail = true;
                         dealerLat = dealerDetails.Area.Latitude;
                         dealerLong = dealerDetails.Area.Longitude;
+
                         if (_dealer.Models != null && _dealer.Models.Count() > 0)
                         {
                             rptModels.DataSource = _dealer.Models;
