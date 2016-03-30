@@ -39,7 +39,7 @@ namespace Bikewale.Cache.DealersLocator
             string key = String.Format("BW_DealerList_Make_{0}_City_{1}", makeId, cityId);
             try
             {
-                dealers = _cache.GetFromCache<Entities.DealerLocator.DealersEntity>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerByMakeCity(cityId, makeId));
+                dealers = _cache.GetFromCache<Entities.DealerLocator.DealersEntity>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetDealerByMakeCity(cityId, makeId));
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace Bikewale.Cache.DealersLocator
             string key = String.Format("BW_DealerBikeModel_{0}", dealerId);
             try
             {
-                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerDetailsAndBikes(dealerId,campaignId));
+                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetDealerDetailsAndBikes(dealerId,campaignId));
             }
             catch (Exception ex)
             {

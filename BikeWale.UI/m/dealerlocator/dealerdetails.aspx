@@ -193,7 +193,7 @@
                     </p>
                     <%} %>
 
-                    <a id="anchorGetDir" href="#"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    <a id="anchorGetDir" href="#" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                     <%--<a href="" class="divider-left"><span class="bwmsprite sendto-phone-icon margin-right5"></span>Send to phone</a>--%>
                 </div>
                 <%--<div class="padding-top15 padding-bottom20 border-light-bottom">
@@ -322,7 +322,7 @@
                                 <div class="front">
                                     <div class="contentWrapper">
                                         <div class="imageWrapper margin-bottom20">
-                                            <a class="modelurl" href="<%# String.Format("/m/{0}-bikes/{1}/",DataBinder.Eval(Container.DataItem, "objMake.MaskingName"),DataBinder.Eval(Container.DataItem, "objModel.MaskingName")) %>">
+                                            <a class="modelurl">
                                                 <img class="lazy"
                                                     data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>"
                                                     title="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>"
@@ -330,7 +330,7 @@
                                             </a>
                                         </div>
                                         <div class="bikeDescWrapper">
-                                            <h3 class="margin-bottom5"><a href="<%# String.Format("/m/{0}-bikes/{1}/",DataBinder.Eval(Container.DataItem, "objMake.MaskingName"),DataBinder.Eval(Container.DataItem, "objModel.MaskingName")) %>" class="text-pure-black" title="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></a></h3>
+                                            <h3 class="margin-bottom5"><a class="text-pure-black"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></a></h3>
                                             <div class="margin-bottom5 text-default text-bold">
                                                 <span class="bwmsprite inr-sm-icon"></span>
                                                 <span class="font18"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))) %><span class="font16"> Onwards</span></span>
@@ -355,6 +355,7 @@
              var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>";                                              
              var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
              var pqSource = "<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail %>";
+             var leadSrcId = "<%= (int)(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_MobileListing) %>";
             var bodHt, footerHt, scrollPosition;
             $(window).scroll(function () {
                 bodHt = $('body').height();
