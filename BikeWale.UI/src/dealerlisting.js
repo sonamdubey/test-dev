@@ -1,5 +1,5 @@
 ﻿
-var customerViewModel, userLocation = { "latitude": "", "longitude": "" }, assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile'), getModelName = $("#getModelName"), assistGetModel = $("#assistGetModel");
+var customerViewModel,dealerDetailsViewModel, userLocation = { "latitude": "", "longitude": "" }, assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile'), getModelName = $("#getModelName"), assistGetModel = $("#assistGetModel");
 var dealerArr = [];
 var markerArr = [];
 var originPlace;
@@ -107,7 +107,8 @@ function savePosition(position) {
     userLocation = {
         "latitude": position.coords.latitude,
         "longitude": position.coords.longitude
-    } 
+    }
+    dealerDetailsViewModel.CustomerDetails().userSrcLocation(userLocation.latitude + "," + userLocation.longitude);
     if (userAddress=="") {
         $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + userLocation.latitude + "," + userLocation.longitude + "&key=AIzaSyDjG8tpNdQI86DH__-woOokTaknrDQkMC8", function (data) {
             userAddress = data;
@@ -426,8 +427,9 @@ var selectedDealer = function (dealer) {
             $('body').addClass('hide-scroll')
             campId = $("ul#dealersList li.active").attr("data-campId");
             dname = dealer.find("a.dealer-sidebar-link").text();
-            getDealerDetails(dealerId, campId, dname)
             getLocation();
+            getDealerDetails(dealerId, campId, dname)
+            
         }
         else {
             $('#dealerDetailsSliderCard').hide().animate({ 'right': '-338px' }, { complete: function () { $('#dealerDetailsSliderCard').hide().css({ 'height': '0' }); } });
@@ -444,9 +446,6 @@ $("body").on('click', '#dealer-assist-msg .cur-pointer', function () {
 
 var dealerDetails = function (data) {
     var self = this;
-    if (userLocation.latitude != "" && userLocation.longitude != "")
-        self.userSrcLocation = userLocation.latitude + "," + userLocation.longitude;
-    else self.userSrcLocation = "";
     self.name = ko.observable(data.name);
     self.mobile = ko.observable(data.maskingNumber);
     self.address = ko.observable(data.address);
@@ -455,6 +454,7 @@ var dealerDetails = function (data) {
     self.email = ko.observable(data.email);
     self.dealerType = ko.observable(data.dealerPackageType);
 
+    
 
     if (data.Area) {
         self.area = ko.observable(data.Area.areaName);
@@ -576,11 +576,11 @@ function hideDealerDetailsLoader(ele, dname) {
     popupEle = $("#getModelName");
     stopLoading(popupEle.parent());
     popupEle.prev().hide();
+    $("#BWloader").hide();
     $("#dealerPersonalInfo").css("visibility", "visible");
     $("#buying-assistance-form").css("visibility", "visible");
     $("#commute-distance-form").css("visibility", "visible");
     $("#dealerModelwiseBikes").css("visibility", "visible");
-    $("#BWloader").hide();
     stopLoading(ele);
 
 }
@@ -603,12 +603,11 @@ function stopLoading(ele) {
 }
 
 function bindDealerDetails(response) {
-    obj = ko.toJS(response);
-    customerViewModel = new CustomerModel(obj);
+    obj = ko.toJS(response);    
     ko.cleanNode($('#dealerInfo')[0]);
-    ko.applyBindings(new DealerModel(obj), $('#dealerInfo')[0]);
-    //$ddlModels.chosen('destroy');
-    //$ddlModels.trigger("chosen : updated");
+    customerViewModel = new CustomerModel(obj);
+    dealerDetailsViewModel = new DealerModel(obj)
+    ko.applyBindings(dealerDetailsViewModel, $('#dealerInfo')[0]);
 }
 
 
@@ -660,7 +659,9 @@ function CustomerModel(obj) {
     self.pqId = ko.observable();
     self.modelId = ko.observable(0);
     self.bikes = ko.observableArray([]);
-
+    self.userSrcLocation = ko.observable("");
+    if (userLocation.latitude != "" && userLocation.longitude != "")
+        self.userSrcLocation = ko.observable(userLocation.latitude + "," + userLocation.longitude);
 
     if (obj.dealerBikes && obj.dealerBikes.length > 0) {
         //(obj.dealerBikes).push({"bike" : "Select a bike model"})
