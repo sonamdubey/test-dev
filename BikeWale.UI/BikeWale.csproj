@@ -2556,6 +2556,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="msmq\" />
+    <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
   </ItemGroup>
