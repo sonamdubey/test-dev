@@ -191,7 +191,7 @@ function initializeMap(dealerArr) {
             userAddress = place.formatted_address;
         };
 
-        travel_mode = google.maps.TravelMode.WALKING;
+        travel_mode = google.maps.TravelMode.TRANSIT;
 
         route(origin_place_id, travel_mode, directionsService, directionsDisplay);
         $('.location-details').show();
@@ -795,19 +795,18 @@ function CustomerModel(obj) {
         self.IsVerified(false);
         isSuccess = false;
         isValidDetails = false;
-        if (event.target.id == 'submitAssistanceFormBtn') {
-            self.isAssist(true);
-            isValidDetails &= validateBike(assistGetModel);
-            isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
-            startLoading($("#buyingAssistanceForm"));
-        }
-        else {
-            isValidDetails &= validateBike(getModelName);
-            self.isAssist(false);
-            isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
-            startLoading($("#user-details-submit-btn").parent());
+            if (event.target.id == 'submitAssistanceFormBtn') {
+                isValidDetails &= validateBike(assistGetModel);
+                isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
+                startLoading($("#buyingAssistanceForm"));
+                self.isAssist(true);
+            }
+            else {
+                isValidDetails &= validateBike(getModelName);
+                isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
+                startLoading($("#user-details-submit-btn").parent());
+            }
 
-        }
         var bike = self.selectedBike();
         if (bike && bike.version && bike.model) {
             self.versionId(bike.version.versionId);
@@ -875,15 +874,16 @@ function CustomerModel(obj) {
             }
             self.verifyCustomer();
             if (self.IsValid()) {
+                $("#contactDetailsPopup").hide();
+                $("#personalInfo").hide()
+                $("#otpPopup").hide();
                 if (self.isAssist()) {
+                    $("#leadCapturePopup .leadCapture-close-btn").click();
                     $("#buying-assistance-form").hide();
                     $("#dealer-assist-msg").fadeIn();
                     startLoading($("#buyingAssistanceForm"));
 
-                } else {
-                    $("#contactDetailsPopup").hide();
-                    $("#personalInfo").hide()
-                    $("#otpPopup").hide();
+                } else {                    
                     $("#dealer-lead-msg").fadeIn();
                 }
             }
@@ -920,12 +920,10 @@ function CustomerModel(obj) {
         if (!validateOTP())
             $('#processing').hide();
 
-        if (event.target.id == 'submitAssistanceFormBtn') {
-            self.isAssist(true);
+        if (self.isAssist() == true) {
             isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
         }
         else {
-            self.isAssist(false);
             isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
         }
 
@@ -933,7 +931,6 @@ function CustomerModel(obj) {
             customerViewModel.generateOTP();
             if (customerViewModel.IsVerified()) {
                 $("#personalInfo").hide();
-                $(".booking-dealer-details").removeClass("hide").addClass("show");
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
                 $("#personalInfo").hide()
