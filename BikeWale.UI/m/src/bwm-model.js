@@ -76,6 +76,7 @@ $('#getMoreDetailsBtn,#getAssistance').on('click', function (e) {
 $("#viewBreakupText").on('click', function (e) {
     $("div#breakupPopUpContainer").show();
     $(".blackOut-window").show();
+    triggerGA('Model_Page', 'View_Breakup_Clicked', bikeVersionLocation);
     appendHash("viewBreakup");
 });
 $(".breakupCloseBtn, #notifyOkayBtn").on('click', function (e) {
