@@ -25,6 +25,8 @@ namespace Bikewale.Cache.DealersLocator
         /// <summary>
         /// Created By : Lucky Rathore on 21 March 2016
         /// Description : Cahing of Dealer detail By Make and City
+        /// Modified By : Lucky Rathore on 30 March 2016
+        /// Description : TIme reduced to 1/2 hour
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
@@ -50,6 +52,8 @@ namespace Bikewale.Cache.DealersLocator
         /// Description : Cahing of bike models for specific dealer
         /// Modified By  :Sushil Kumar on 22 March 2016
         /// Description : Changed Cacke key from BWDealerBikeModel_{0} to BW_DealerBikeModel_{0}
+        /// Modified By : Lucky Rathore on 30 March 2016
+        /// Description : TIme reduced to 1/2 hour.
         /// </summary>
         /// <param name="dealerId">e.g. 1</param>
         /// <returns>DealerBikesEntity</returns>
@@ -59,7 +63,7 @@ namespace Bikewale.Cache.DealersLocator
             string key = String.Format("BW_DealerBikeModel_{0}", dealerId);
             try
             {
-                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetDealerDetailsAndBikes(dealerId, campaignId));
+                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetDealerDetailsAndBikes(dealerId,campaignId));
             }
             catch (Exception ex)
             {

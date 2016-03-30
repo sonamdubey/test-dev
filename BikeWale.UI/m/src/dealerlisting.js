@@ -276,7 +276,7 @@ function CustomerModel(obj) {
                 "pageUrl": pageUrl,
                 "versionId": self.versionId(),
                 "cityId": makeCityViewModel.selectedCityId(),
-                "leadSourceId": leadSrcId,
+                "leadSourceId": pqSrcId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -376,7 +376,7 @@ function CustomerModel(obj) {
                 "versionId": self.versionId(),
                 "cityId": makeCityViewModel.selectedCityId(),
                 "areaId": 0,
-                "sourceType": pageSrcId,
+                "sourceType": 2,
                 "pQLeadId": leadSrcId,
                 "deviceId": getCookie('BWC')
             }

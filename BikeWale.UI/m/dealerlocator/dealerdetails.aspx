@@ -195,7 +195,7 @@
                     </p>
                     <%} %>
 
-                    <a id="anchorGetDir" href="#"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    <a id="anchorGetDir" href="#" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                     <%--<a href="" class="divider-left"><span class="bwmsprite sendto-phone-icon margin-right5"></span>Send to phone</a>--%>
                 </div>
                 <div class="padding-top15 padding-bottom20 border-light-bottom">
@@ -342,7 +342,7 @@
                                         </div>
                                         <div class="bikeDescWrapper">
                                             <h3 class="margin-bottom5"><a><%# DataBinder.Eval(Container.DataItem, "BikeName") %></a></h3>
-                                            <div class="margin-bottom5 text-default text-bold">
+                                             <div class="margin-bottom5 text-default text-bold">
                                                 <span class="bwmsprite inr-sm-icon"></span>
                                                 <span class="font18"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))) %><span class="font16"> Onwards</span></span>
                                             </div>
@@ -366,6 +366,7 @@
              var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>";                                              
              var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
              var pqSource = "<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail %>";
+             var leadSrcId = "<%= (int)(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_MobileListing) %>";
              var bodHt, footerHt, scrollPosition;                         
 
             $(window).scroll(function () {
