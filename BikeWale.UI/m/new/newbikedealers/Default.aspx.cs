@@ -1,19 +1,19 @@
-﻿using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Microsoft.Practices.Unity;
+using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Dealer;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Cache.BikeData;
-using Bikewale.DAL.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.Entities.Location;
-using Bikewale.DAL.Dealer;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.New.DealerLocator
 {
@@ -45,11 +45,10 @@ namespace Bikewale.Mobile.New.DealerLocator
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
 
-            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
-            dd.DetectDevice();
-
             BindMakes();
-            BindCitiesDropdown();
+
+            if (makeId > 0)
+                BindCitiesDropdown();
 
 
         }
@@ -59,6 +58,8 @@ namespace Bikewale.Mobile.New.DealerLocator
         /// Created By  : Sushil Kumar
         /// Created On  : 27th March 2016
         /// Description : To bind makes list to dropdown
+        /// Modified by :   Sumit Kate on 29 Mar 2016
+        /// Description :   Get the makes list of BW and AB dealers
         /// </summary>
         private void BindMakes()
         {
@@ -72,7 +73,7 @@ namespace Bikewale.Mobile.New.DealerLocator
                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                             ;
                     var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-                    _makes = objCache.GetMakesByType(EnumBikeType.New);
+                    _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
                     if (_makes != null && _makes.Count() > 0)
                     {
                         rptMakes.DataSource = _makes;

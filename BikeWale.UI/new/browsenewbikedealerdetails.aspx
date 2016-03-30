@@ -15,10 +15,54 @@
         AdPath = "/1017752/BikeWale_New_";
         isAd970x90Shown = false;
     %>
-    <title></title>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerlisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDjG8tpNdQI86DH__-woOokTaknrDQkMC8&libraries=places"></script>
+    <style>
+        .popup-btn-progress-wrapper {
+            width: 138px;
+            margin: 0 auto;
+        }
+
+        .popup-otp-progress-wrapper {
+            width: 180px;
+            margin: 0 auto;
+        }
+
+            .popup-btn-progress-wrapper .btn, .popup-otp-progress-wrapper .btn {
+                width: 100%;
+            }
+
+        .progress-bar {
+            width: 0;
+            height: 4px;
+            background: #16A085;
+            bottom: 0px;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .btn-loader {
+            background-color: #822821;
+        }
+
+        .btnSpinner {
+            right: 22px;
+            top: 10px;
+            z-index: 9;
+            background: rgb(255, 255, 255);
+        }
+
+        #BWloader {
+            text-align: center;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 20px;
+            bottom: 0;
+            width: 100%;
+        }
+        #getUserLocation {position:absolute;cursor:pointer}
+    </style>
 </head>
 <body class="bg-light-grey padding-top50">
     <form runat="server">
@@ -98,7 +142,7 @@
                     <ul id="dealersList">
                         <asp:Repeater ID="rptDealers" runat="server">
                             <ItemTemplate>
-                                <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-item-number="<%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>" data-campId="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>">
+                                <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-item-number="<%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>">
                                     <div class="font14">
                                         <h2 class="font16 margin-bottom10">
                                             <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
@@ -119,25 +163,27 @@
                                                 <span class="bwsprite mail-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"Email") %></a>
                                         </div>
 
-                                        <div class="<%# (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "0")?"hide":"" %>">
+                                        <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
                                             <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" class="btn btn-white-orange margin-top15 get-assistance-btn">Get assistance</a>
                                         </div>
                                     </div>
                                 </li>
                             </ItemTemplate>
                         </asp:Repeater>
-
+                        <%if (totalDealers < 6) { %>
                         <li class="dummy-card"></li>
+                        <% } %>
                     </ul>
                 </div>
                 <div id="dealerInfo">
-                    <div id="dealerDetailsSliderCard" class="bg-white font14">
+                    <div id="dealerDetailsSliderCard" class="bg-white font14 position-rel">
+
                         <div class="dealer-slider-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
                         <div class="padding-top20 padding-right20 padding-left20" data-bind="with: DealerDetails">
                             <p class="featured-tag text-white text-center margin-bottom5">
                                 Featured
                             </p>
-                            <div class="padding-bottom20 ">
+                            <div class="padding-bottom20 position-rel" id="dealerPersonalInfo">
                                 <h3 class="font18 text-dark-black margin-bottom10" data-bind="text: name"></h3>
                                 <p class="text-light-grey margin-bottom5" data-bind="visible :address() && address().length > 0,text: address()"></p>
                                 <div class="margin-bottom5">
@@ -146,26 +192,35 @@
                                 </div>
 
                                 <p class="text-light-grey margin-bottom5" data-bind="visible: workingHours && workingHours.length > 0,text : workingHours">Working Hours : </p>
-                                <a href="" target="_blank" data-bind="attr : { href : 'https://maps.google.com/?saddr=' + userLocation + '&daddr=' + lat() + ',' + lng() + '' }"><span class="bwsprite get-direction-icon"></span>Get directions</a>
+                                <a href="" target="_blank" data-bind="attr: { href: 'https://maps.google.com/?saddr=' + userSrcLocation + '&daddr=' + lat() + ',' + lng() + '' }"><span class="bwsprite get-direction-icon"></span>Get directions</a>
                                 <%-- <a href="" class="border-dark-left margin-left10 padding-left10"><span class="bwsprite sendto-phone-icon"></span>Send to phone</a>--%>
                             </div>
-                            <%--<div class="padding-top15 margin-bottom15 border-solid-top">
+                            
+                            <div id="commute-distance-form" class="padding-top15 margin-bottom15 border-solid-top">
                                 <p class="font14 text-bold margin-bottom15">Get commute distance and time:</p>
                                 <div class="commute-distance-form">
                                     <div class="leftfloat form-control-box">
                                         <input id="locationSearch" type="text" class="form-control margin-right10" placeholder="Enter your location" />
-                                        <span class="font18"><span class="fa fa-compass position-abt pos-right20 pos-top10 text-grey"></span></span>
+                                        <span id="getUserLocation" class="fa-stack font12 position-abt pos-right20 pos-top10 text-grey">
+                                            <i class="fa fa-crosshairs fa-stack-2x"></i>
+                                            <i class="fa fa-circle fa-stack-1x"></i>
+                                        </span>
+                                        
                                     </div>
                                     <div class="location-details padding-top10 padding-bottom10 leftfloat">
-                                        <span class="fa fa-clock-o"></span> Time : <span id="commuteDuration"></span>&nbsp; &nbsp;
-                                        <span class="fa fa-road"></span> Distance : <span id="commuteDistance"></span>
+                                        <span class="fa fa-clock-o"></span>&nbsp;Time : <span id="commuteDuration"></span>&nbsp; &nbsp;
+                                        <span class="fa fa-road"></span>&nbsp;Distance : <span id="commuteDistance"></span>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                                 <div id="commuteResults"></div>
-                            </div>--%>
+                            </div>
+
+                            <div id="BWloader" style="display: block !important;"></div>
                         </div>
-                        <div id="buyingAssistanceForm" data-bind="with: CustomerDetails" class="border-solid-top content-inner-block-1520">
+
+                        <div id="buyingAssistanceForm" data-bind="with: CustomerDetails" class="border-solid-top content-inner-block-1520  position-rel">
+                            <span class="position-abt progress-bar" style="top: 0"></span>
                             <div id="buying-assistance-form">
                                 <p class="font14 text-bold margin-bottom15">Get buying assistance from this dealer:</p>
                                 <div class="name-email-mobile-box form-control-box leftfloat margin-right20">
@@ -196,12 +251,12 @@
                                 <div class="clear"></div>
                             </div>
                             <div id="dealer-assist-msg" class="hide">
-                                <p class="leftfloat font14">Thank you for your interest. <span data-bind="text: dealerName()"> </span> will get in touch shortly</p>
+                                <p class="leftfloat font14">Thank you for your interest. <span data-bind="text: dealerName()"></span>&nbsp;will get in touch shortly</p>
                                 <span class="rightfloat bwsprite cross-lg-lgt-grey cur-pointer"></span>
                                 <div class="clear"></div>
                             </div>
                         </div>
-                        <div class="border-solid-top" data-bind="visible : DealerBikes.length > 0">
+                        <div id="dealerModelwiseBikes" class="border-solid-top" data-bind="visible : DealerBikes.length > 0">
                             <p class="font14 text-bold padding-top20 padding-right20 padding-left20 margin-bottom15"><span data-bind="text : (DealerBikes.length > 1 )?'Models':'Model'"></span>available with the dealer:</p>
                             <ul id="modelsAvailable" data-bind="template: { name: 'dealerBikesTemplate', foreach: DealerBikes }"></ul>
 
@@ -209,13 +264,13 @@
                                 <li>
                                     <div class="contentWrapper">
                                         <div class="imageWrapper">
-                                            <a href="#" data-bind="attr: { href: bikeUrl(), title: bikeName() }">
+                                            <a href="#" data-bind="attr: {title: bikeName() }">
                                                 <img data-bind="attr: { src : imagePath(), title: bikeName(), alt: bikeName() }" />
                                             </a>
                                         </div>
                                         <div class="bikeDescWrapper">
                                             <div class="bikeTitle margin-bottom7">
-                                                <h3 class="font16 text-dark-black"><a href="#" title="" data-bind="text: bikeName(),attr: { href: bikeUrl(), title: bikeName() }"></a></h3>
+                                                <h3 class="font16 text-dark-black"><a href="#" title="" data-bind="text: bikeName(),attr: { title: bikeName() }"></a></h3>
                                             </div>
                                             <div class="font16 text-bold margin-bottom5">
                                                 <span class="fa fa-rupee"></span>
@@ -244,10 +299,12 @@
                             <p class="font20 margin-top20 margin-bottom10">Provide contact details</p>
                             <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
                             <div class="personal-info-form-container">
-                                <div class="form-control-box personal-info-list">
+                                <div class="form-control-box personal-info-list position-rel">
+                                    <div class="placeholder-loading-text position-abt form-control border-solid" style="display: none; height: 40px; border: 1px solid #e2e2e2;">Loading dealer bikes..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
                                     <select id="getModelName" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: bikes, optionsText: 'bike',optionsCaption: 'Select a bike'" class="form-control chosen-select"></select>
                                     <span class="bwsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
+                                    <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
                                 </div>
                                 <div class="form-control-box personal-info-list">
                                     <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
@@ -269,7 +326,12 @@
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
                                 <div class="clear"></div>
-                                <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                                <div class="form-control-box personal-info-list text-center">
+                                    <div class="popup-btn-progress-wrapper position-rel">
+                                        <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                                        <span class="position-abt progress-bar btn-loader" style="width: 100%; overflow: hidden; display: none;"></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- contact details ends here -->
@@ -301,35 +363,44 @@
                                         OTP has been already sent to your mobile
                                     </p>
                                     <div class="clear"></div>
-                                    <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
-                                </div>
-                                <div class="update-mobile-box">
-                                    <div class="form-control-box text-left">
-                                        <p class="mobile-prefix">+91</p>
-                                        <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
-                                        <span class="bwsprite error-icon errorIcon"></span>
-                                        <div class="bw-blackbg-tooltip errorText"></div>
+                                    <div class="form-control-box personal-info-list">
+                                        <div class="popup-otp-progress-wrapper position-rel">
+                                            <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
+                                            <span class="position-abt progress-bar btn-loader" style="width: 100%; overflow: hidden; display: none;"></span>
+                                        </div>
                                     </div>
-                                    <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
+                                    <div class="update-mobile-box">
+                                        <div class="form-control-box text-left">
+                                            <p class="mobile-prefix">+91</p>
+                                            <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
+                                            <span class="bwsprite error-icon errorIcon"></span>
+                                            <div class="bw-blackbg-tooltip errorText"></div>
+                                        </div>
+
+                                        <div class="form-control-box personal-info-list position-rel">
+                                            <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
+                                            <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- otp ends here -->
+
                         </div>
-                        <!-- otp ends here -->
                         <div id="dealer-lead-msg" class="hide">
                             <div class="icon-outer-container rounded-corner50">
                                 <div class="icon-inner-container rounded-corner50">
                                     <span class="bwsprite otp-icon margin-top25"></span>
                                 </div>
                             </div>
-                            <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="dealerName"></span>, <span data-bind="    dealerArea"> </span> will get in touch with you soon.</p>
+                            <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text : dealerName()"></span>&nbsp; will get in touch with you soon.</p>
 
                             <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
                         </div>
+                        <!-- inquiry capture popup End-->
                     </div>
-                    <!-- inquiry capture popup End-->
                 </div>
-            </div>
-            <div class="clear"></div>
+                <div class="clear"></div>
         </section>
         <section>
             <div class="grid-12 alpha omega">
@@ -350,21 +421,26 @@
             var $ddlCities = $("#ddlCities"), $ddlMakes = $("#ddlMakes"), $ddlModels = $("#getModelName,#assistGetModel");
             var bikeCityId = $("#ddlCities").val();
             var clientIP = "<%= clientIP %>";
+            var currentCityName = "<%= cityName %>";
             var pageUrl = "<%= pageUrl%>";
+            var key = "dealerCities_";
+            lscache.setBucket('DLPage');
             var leadSrcId = eval("<%= (int)(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_Desktop) %>");
             var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
-            // lscache.flushExpired();
+            lscache.flushExpired();
             $("#applyFiltersBtn").click(function () {
-
                 ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
                 ddlcityId = $("#ddlCities option:selected").val();
-                if(ddlcityId != "0")
+                if(!isNaN(ddlcityId) && ddlcityId != "0")
                 {
                     ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");   
                     window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
                 }
                 else{
-                    toggleErrorMsg($ddlCities, true ,"Choose a city" );
+                    if($ddlCities.find("option").length < 2)
+                        toggleErrorMsg($ddlCities, true ,"No cities available. Choose another brand !" );
+                    else
+                        toggleErrorMsg($ddlCities, true ,"Choose a city" );
                 }
 
                 
@@ -376,8 +452,7 @@
             $('div.chosen-container').attr('style', 'width:100%;border:0');
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
 
-            var key = "dealerCities_";
-            lscache.setBucket('DLPage');
+            
             
             $ddlMakes.change(function () {
                 selMakeId = $ddlMakes.val();
@@ -431,7 +506,7 @@
                 }
                                 
                 $ddlCities.trigger('chosen:updated');
-                $("#ddlCities_chosen .chosen-single.chosen-default span").text("No Areas available");
+                $("#ddlCities_chosen .chosen-single.chosen-default span").text("No cities available");
             }
 
             $(document).on("change",$ddlModels,function(){
