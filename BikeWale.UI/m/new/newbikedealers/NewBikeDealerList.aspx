@@ -38,8 +38,8 @@
         var cityMaskingName = "<%= cityMaskingName%>";
         var clientIP = "<%= clientIP %>";
         var pageUrl = "<%= pageUrl%>";
-        var leadSrcId = eval("<%= (int)(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_MobileListing) %>");
-        var pqSrcId = eval("<%= (int)(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail) %>");
+        var leadSrcId = "<%= Convert.ToUInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_MobileListing) %>";
+        var pqSrcId = "<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail) %>";
         var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
 
     </script>
