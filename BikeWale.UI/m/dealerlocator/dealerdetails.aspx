@@ -5,8 +5,10 @@
 <html>
 <head>
     <%
-        title = "";
-        description = "";
+        title = string.Format("{0} in {1} {2} - BikeWale", dealerName, dealerArea, dealerCity);
+        description = string.Format("{0} is a {1} dealer in {2} {3}. Check out the on road price, offers and benefits of buying bike from {0}.",
+            dealerName, makeName, dealerArea, dealerCity);
+        keywords = string.Format("{0}, {0} in {1} {2}, {3} dealer in {1} {2}", dealerName, dealerArea, dealerCity, makeName);
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
@@ -160,7 +162,7 @@
             <div class="leftfloat dealer-back-btn">
                 <a href="javascript:history.back()"><span class="bwmsprite fa-arrow-back"></span></a>
             </div>
-            <div class="dealer-header-text leftfloat margin-top10 font18"><%= dealerDetails.Name %></div>
+            <div class="dealer-header-text leftfloat margin-top10 font18"><%= dealerName %></div>
             <div class="clear"></div>
         </header>
         <!--Dealer Details section-->

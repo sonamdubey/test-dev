@@ -29,6 +29,7 @@ namespace Bikewale.Mobile
         protected int dealerBikesCount = 0;
         protected DealerDetailEntity dealerDetails;
         protected bool isDealerDetail;
+        protected string makeName = string.Empty, dealerName, dealerArea, dealerCity;
         private string dealerQuery = string.Empty;
         protected double dealerLat, dealerLong;
 
@@ -57,7 +58,7 @@ namespace Bikewale.Mobile
         /// </summary>
         private void GetDealerDetails()
         {
-            DealerBikesEntity _dealer = null;
+            DealerBikesEntity dealer = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -67,20 +68,27 @@ namespace Bikewale.Mobile
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealer = objCache.GetDealerDetailsAndBikes(dealerId, campaignId);
+                    dealer = objCache.GetDealerDetailsAndBikes(dealerId, campaignId);
 
-                    if (_dealer != null && _dealer.DealerDetails != null)
+                    if (dealer != null && dealer.DealerDetails != null)
                     {
-                        dealerDetails = _dealer.DealerDetails;
+                        dealerDetails = dealer.DealerDetails;
                         isDealerDetail = true;
+                        
+                        dealerName = dealerDetails.Name;
+                        dealerArea = dealerDetails.Area.AreaName;
+                        dealerCity = dealerDetails.City;
+
                         dealerLat = dealerDetails.Area.Latitude;
                         dealerLong = dealerDetails.Area.Longitude;
-                        if (_dealer.Models != null && _dealer.Models.Count() > 0)
+                        
+                        if (dealer.Models != null && dealer.Models.Count() > 0)
                         {
-                            rptModels.DataSource = _dealer.Models;
+                            makeName = dealer.Models.FirstOrDefault().objMake.MakeName;
+                            rptModels.DataSource = dealer.Models;
                             rptModels.DataBind();
-                            dealerBikesCount = _dealer.Models.Count();
-                            rptModelList.DataSource = _dealer.Models;
+                            dealerBikesCount = dealer.Models.Count();
+                            rptModelList.DataSource = dealer.Models;
                             rptModelList.DataBind();
                         }
                     }
@@ -116,10 +124,10 @@ namespace Bikewale.Mobile
 
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
-                    string _dealerQuery = currentReq.QueryString["query"];
-                    if (!String.IsNullOrEmpty(_dealerQuery))
+                    string dealerQuery = currentReq.QueryString["query"];
+                    if (!String.IsNullOrEmpty(dealerQuery))
                     {
-                        dealerQuery = EncodingDecodingHelper.DecodeFrom64(_dealerQuery);
+                        dealerQuery = EncodingDecodingHelper.DecodeFrom64(dealerQuery);
                         uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("dealerId"), out dealerId);
                         uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("campId"), out campaignId);
                         uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("cityId"), out cityId);
