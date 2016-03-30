@@ -5,8 +5,10 @@
 <html>
 <head>
     <%
-        title = "";
-        description = "";
+        title = string.Format("{0} in {1} {2} - BikeWale", dealerName, dealerArea, dealerCity);
+        description = string.Format("{0} is a {1} dealer in {2} {3}. Check out the on road price, offers and benefits of buying bike from {0}.",
+            dealerName, makeName, dealerArea, dealerCity);
+        keywords = string.Format("{0}, {0} in {1} {2}, {3} dealer in {1} {2}", dealerName, dealerArea, dealerCity, makeName);
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
@@ -162,7 +164,7 @@
             <div class="leftfloat dealer-back-btn">
                 <a href="javascript:history.back()"><span class="bwmsprite fa-arrow-back"></span></a>
             </div>
-            <div class="dealer-header-text leftfloat margin-top10 font18"><%= dealerDetails.Name %></div>
+            <div class="dealer-header-text leftfloat margin-top10 font18"><%= dealerName %></div>
             <div class="clear"></div>
         </header>
         <!--Dealer Details section-->
@@ -341,7 +343,7 @@
                                             </a>
                                         </div>
                                         <div class="bikeDescWrapper">
-                                            <h3 class="margin-bottom5"><a><%# DataBinder.Eval(Container.DataItem, "BikeName") %></a></h3>
+                                            <h3 class="margin-bottom5 text-black"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></h3>
                                              <div class="margin-bottom5 text-default text-bold">
                                                 <span class="bwmsprite inr-sm-icon"></span>
                                                 <span class="font18"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))) %><span class="font16"> Onwards</span></span>

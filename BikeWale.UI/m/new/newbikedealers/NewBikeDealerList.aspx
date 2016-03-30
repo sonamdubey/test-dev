@@ -201,8 +201,8 @@
                 </div>
                  <!-- thank you message starts here -->
                 <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
-                    <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                    <p class="font16 margin-bottom40">Dealer would get back to you shortly with additional information.</p>
+                    <p class="font18 text-bold margin-bottom20">Thank you</p>
+                    <p class="font16 margin-bottom40"><span class="notify-dealerName"></span> would get back to you shortly with additional information.</p>
                     <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
                 </div>
 				<!-- thank you message ends here -->

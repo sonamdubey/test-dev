@@ -257,7 +257,8 @@ function CustomerModel(obj) {
     self.otpCode = ko.observable();   
     self.pqId = ko.observable();
     self.modelId = ko.observable(0);
-    self.bikes = ko.observableArray([]);    
+    self.bikes = ko.observableArray([]);
+    self.dealerName = ko.observable(obj.dealerDetails.name);
     
     if (obj.dealerBikes && obj.dealerBikes.length > 0) {             
         self.bikes = ko.observableArray(obj.dealerBikes);
@@ -416,10 +417,8 @@ function CustomerModel(obj) {
                 $("#dealer-lead-msg").fadeIn();
 
                 $(".lead-mobile").text(self.mobileNo());
-                $(".notify-leadUser").text(self.fullName());
-                $("#notify-response").show();
-
-                //$("ul#dealersList li[data-item-id=" + self.dealerId() + "]").attr("data-item-inquired", true);
+                $(".notify-dealerName").text(self.dealerName());
+                $("#notify-response").show();               
             }
             else {
                 $("#leadCapturePopup").show();
@@ -464,7 +463,7 @@ function CustomerModel(obj) {
                 
                 // OTP Success
 
-                $(".notify-leadUser").text(self.fullName());
+                $(".notify-dealerName").text(self.dealerName());
                 $("#notify-response").show();              
             }
             else {

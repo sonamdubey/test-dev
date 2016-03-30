@@ -18,9 +18,9 @@ namespace Bikewale.Mobile
     /// <summary>
     /// Modified By : Sushil Kumar
     /// Modified On : 25 March 2016
-    /// Description : To show dealer details based on dealer id an campaign id/// Modified By : Sushil Kumar
-    /// Modified By : Lucky Rathore on 29 March 2016
-    /// Description : dealerLat and dealerLong added.
+    /// Description : To show dealer details based on dealer id an campaign id.
+    /// Modified By : Lucky Rathore on 30 March 2016
+    /// Description : dealerLat, dealerLong, dealerName, dealerArea, dealerCity added and _dealerQuery removed.
     /// </summary>
     public class DealerDetails : System.Web.UI.Page
     {
@@ -29,7 +29,8 @@ namespace Bikewale.Mobile
         protected int dealerBikesCount = 0;
         protected DealerDetailEntity dealerDetails;
         protected bool isDealerDetail;
-        private string dealerQuery = string.Empty, cityName = string.Empty;
+        private string cityName = string.Empty;
+        protected string makeName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty;
         protected double dealerLat, dealerLong;
 
         protected override void OnInit(EventArgs e)
@@ -52,12 +53,12 @@ namespace Bikewale.Mobile
         /// Created By : Sushil Kumar
         /// Created On : 25th March 2016 
         /// Description : To get dealer details and bikes available at dealership
-        /// Modified By : Lucky Rathore on 29 March 2016
-        /// Description : dealerLat and dealerLong Intialize.
+        /// Modified By : Lucky Rathore on 30 March 2016
+        /// Description : dealerLat, dealerLong, dealerName, dealerArea, dealerCity Intialize, renamed dealer from _dealer.
         /// </summary>
         private void GetDealerDetails()
         {
-            DealerBikesEntity _dealer = null;
+            DealerBikesEntity dealer = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -67,21 +68,28 @@ namespace Bikewale.Mobile
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealer = objCache.GetDealerDetailsAndBikes(dealerId, campaignId);
+                    dealer = objCache.GetDealerDetailsAndBikes(dealerId, campaignId);
 
-                    if (_dealer != null && _dealer.DealerDetails != null)
+                    if (dealer != null && dealer.DealerDetails != null)
                     {
-                        dealerDetails = _dealer.DealerDetails;
+                        dealerDetails = dealer.DealerDetails;
                         isDealerDetail = true;
+                        
+                        dealerName = dealerDetails.Name;
+                        dealerArea = dealerDetails.Area.AreaName;
+                        dealerCity = dealerDetails.City;
+
                         dealerLat = dealerDetails.Area.Latitude;
                         dealerLong = dealerDetails.Area.Longitude;
 
-                        if (_dealer.Models != null && _dealer.Models.Count() > 0)
+                        
+                        if (dealer.Models != null && dealer.Models.Count() > 0)
                         {
-                            rptModels.DataSource = _dealer.Models;
+                            makeName = dealer.Models.FirstOrDefault().objMake.MakeName;
+                            rptModels.DataSource = dealer.Models;
                             rptModels.DataBind();
-                            dealerBikesCount = _dealer.Models.Count();
-                            rptModelList.DataSource = _dealer.Models;
+                            dealerBikesCount = dealer.Models.Count();
+                            rptModelList.DataSource = dealer.Models;
                             rptModelList.DataBind();
                         }
                     }
@@ -108,6 +116,8 @@ namespace Bikewale.Mobile
         /// Created By : Sushil Kumar
         /// Created On : 16th March 2016 
         /// Description : Private Method to parse encoded query string and get values for dealerId and campaignId
+        /// Modified By : Lucky Rathore on 30 March 2016
+        /// Description : Renamed dealerQuery from _dealerQuery.
         /// </summary>
         private bool ProcessQueryString()
         {
@@ -117,10 +127,10 @@ namespace Bikewale.Mobile
 
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
-                    string _dealerQuery = currentReq.QueryString["query"];
-                    if (!String.IsNullOrEmpty(_dealerQuery))
+                    string dealerQuery = currentReq.QueryString["query"];
+                    if (!String.IsNullOrEmpty(dealerQuery))
                     {
-                        dealerQuery = EncodingDecodingHelper.DecodeFrom64(_dealerQuery);
+                        dealerQuery = EncodingDecodingHelper.DecodeFrom64(dealerQuery);
                         uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("dealerId"), out dealerId);
                         uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("campId"), out campaignId);
                         uint.TryParse(HttpUtility.ParseQueryString(dealerQuery).Get("cityId"), out cityId);
