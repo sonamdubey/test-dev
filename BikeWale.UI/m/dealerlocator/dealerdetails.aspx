@@ -341,7 +341,7 @@
                                             </a>
                                         </div>
                                         <div class="bikeDescWrapper">
-                                            <h3 class="margin-bottom5"><a><%# DataBinder.Eval(Container.DataItem, "BikeName") %></a></h3>
+                                            <h3 class="margin-bottom5 text-black"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></h3>
                                             <div class="margin-bottom5 text-default text-bold">
                                                 <span class="bwmsprite inr-sm-icon"></span>
                                                 <span class="font18"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))) %><span class="font16"> Onwards</span></span>

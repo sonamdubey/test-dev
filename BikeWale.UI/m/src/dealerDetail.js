@@ -461,8 +461,7 @@ $(".dealer-brand-wrapper .back-arrow-box").on("click", function () {
 });
 
 function getLocation() {
-    if (navigator.geolocation) {
-        debugger;
+    if (navigator.geolocation) {        
         navigator.geolocation.getCurrentPosition(
             savePosition,
             showError,
