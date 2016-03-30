@@ -152,7 +152,9 @@
                 width: 254px;
                 height: 143px;
             }
+            #getUserLocation {position:absolute;cursor:pointer}
     </style>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDjG8tpNdQI86DH__-woOokTaknrDQkMC8&libraries=places"></script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -193,15 +195,24 @@
                     </p>
                     <%} %>
 
-                    <a id="anchorGetDir" href="#"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    <a id="anchorGetDir" href="#" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                     <%--<a href="" class="divider-left"><span class="bwmsprite sendto-phone-icon margin-right5"></span>Send to phone</a>--%>
                 </div>
-                <%--<div class="padding-top15 padding-bottom20 border-light-bottom">
+                <div class="padding-top15 padding-bottom20 border-light-bottom">
                     <h3 class="font14 margin-bottom15">Get commute distance and time:</h3>
                     <div class="form-control-box">
-                        <input type="text" class="form-control" placeholder="Enter your location" />
+                        <input id="locationSearch" type="text" class="form-control" placeholder="Enter your location" />
+                        <span id="getUserLocation" class="fa-stack font12 position-abt pos-right20 pos-top10 text-grey">
+                           Get
+                        </span>
                     </div>
-                </div>--%>
+                    <div class="location-details padding-top10 padding-bottom10 leftfloat">
+                        <span class="fa fa-clock-o"></span>&nbsp;Time : <span id="commuteDuration"></span>&nbsp; &nbsp;
+                        <span class="fa fa-road"></span>&nbsp;Distance : <span id="commuteDistance"></span>
+                    </div>
+                    <div class="clear"></div>
+                    <div id="commuteResults"></div>
+                </div>
             </div>
             <div class="grid-12 float-button clearfix float-fixed">
                 <div class="show padding-top10">
@@ -322,7 +333,7 @@
                                 <div class="front">
                                     <div class="contentWrapper">
                                         <div class="imageWrapper margin-bottom20">
-                                            <a class="modelurl" href="<%# String.Format("/m/{0}-bikes/{1}/",DataBinder.Eval(Container.DataItem, "objMake.MaskingName"),DataBinder.Eval(Container.DataItem, "objModel.MaskingName")) %>">
+                                            <a class="modelurl">
                                                 <img class="lazy"
                                                     data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>"
                                                     title="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>"
@@ -330,8 +341,8 @@
                                             </a>
                                         </div>
                                         <div class="bikeDescWrapper">
-                                            <h3 class="margin-bottom5"><a href="<%# String.Format("/m/{0}-bikes/{1}/",DataBinder.Eval(Container.DataItem, "objMake.MaskingName"),DataBinder.Eval(Container.DataItem, "objModel.MaskingName")) %>" class="text-pure-black" title="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></a></h3>
-                                            <div class="margin-bottom5 text-default text-bold">
+                                            <h3 class="margin-bottom5"><a><%# DataBinder.Eval(Container.DataItem, "BikeName") %></a></h3>
+                                             <div class="margin-bottom5 text-default text-bold">
                                                 <span class="bwmsprite inr-sm-icon"></span>
                                                 <span class="font18"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))) %><span class="font16"> Onwards</span></span>
                                             </div>
@@ -354,8 +365,10 @@
          <script type="text/javascript">
              var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>";                                              
              var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
-             var pqSource = "<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail %>";
-            var bodHt, footerHt, scrollPosition;
+             var pqSource = "<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail) %>";
+             var leadSrcId = "<%= Convert.ToUInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_MobileListing) %>";
+             var bodHt, footerHt, scrollPosition;                         
+
             $(window).scroll(function () {
                 bodHt = $('body').height();
                 footerHt = $('footer').height();

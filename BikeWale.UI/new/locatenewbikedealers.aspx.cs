@@ -84,10 +84,10 @@ namespace Bikewale.New.DealerLocator
                         rptMakes.DataSource = _makes;
                         rptMakes.DataBind();
 
-                        rptPopularBrands.DataSource = _makes.Where(m => m.PopularityIndex > 0);
+                        rptPopularBrands.DataSource = _makes.Take(10);
                         rptPopularBrands.DataBind();
 
-                        rptOtherBrands.DataSource = _makes.Where(m => m.PopularityIndex == 0);
+                        rptOtherBrands.DataSource = _makes.Skip(10).OrderBy(m => m.MakeName);
                         rptOtherBrands.DataBind();
                     }
                 }

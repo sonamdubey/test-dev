@@ -170,7 +170,6 @@ function CustomerModel() {
             isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
         }
         else {
-            self.isAssist(false);
             isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
         }
         if (isValidDetails) {
@@ -222,7 +221,6 @@ function CustomerModel() {
             customerViewModel.generateOTP();
             if (customerViewModel.IsVerified()) {
                 $("#personalInfo").hide();
-                $(".booking-dealer-details").removeClass("hide").addClass("show");
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
                 $("#personalInfo").hide()

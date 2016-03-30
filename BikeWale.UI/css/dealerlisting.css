@@ -89,6 +89,8 @@ a.text-black:hover { text-decoration:none; }
 #otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}
 #otpPopup .update-mobile-box{display:none}
 #otpPopup .edit-mobile-btn,.resend-otp-btn{cursor:pointer}
+.edit-blue-icon{width:16px;height:16px}
+.edit-blue-icon{background-position:-115px -250px}
 .icon-outer-container{width:102px;height:102px;margin:0 auto;background:#fff;border:1px solid #ccc}
 .icon-inner-container{width:92px;height:92px;margin:4px auto;background:#fff;border:1px solid #666}
 .user-contact-details-icon{width:36px;height:44px;background-position:0 -391px}

@@ -186,7 +186,7 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </ul>
-                    <div class="brand-bottom-border border-solid-top margin-left20 margin-right20 hide"></div>
+                    <div class="brand-bottom-border border-solid-top hide">
                     <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
                         <asp:Repeater ID="rptOtherBrands" runat="server">
                             <ItemTemplate>
@@ -201,6 +201,7 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </ul>
+                    </div>
                 </div>
                 <div class="view-brandType text-center padding-bottom30">
                     <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View <span>more</span> brands</a>
@@ -219,82 +220,93 @@
             var key = "dealerCitiesByMake_";
             lscache.setBucket('DLPage');  
 
-            $(window).on("scroll", function () {
-                if ($(window).scrollTop() > 40)
-                    $('#header').removeClass("header-landing").addClass("header-fixed");
-                else
-                    $('#header').removeClass("header-fixed").addClass("header-landing");
-            });
-            $("a.view-more-btn").click(function (e) {
-                moreBrandList = $(this).parent().parent().find("ul.brand-style-moreBtn"),
-                moreText = $(this).find("span"),
-                borderDivider = $(".brand-bottom-border");
-                moreBrandList.slideToggle();
-                moreText.text(moreText.text() === "more" ? "less" : "more");
-                borderDivider.slideToggle();
-            });
+            $(function () {
+                $(window).on("scroll", function () {
+                    if ($(window).scrollTop() > 40)
+                        $('#header').removeClass("header-landing").addClass("header-fixed");
+                    else
+                        $('#header').removeClass("header-fixed").addClass("header-landing");
+                });
 
-           
+                $("a.view-more-btn").click(function (e) {
+                    moreBrandList = $(this).parent().parent().find("ul.brand-style-moreBtn"),
+                    moreText = $(this).find("span"),
+                    borderDivider = $(".brand-bottom-border");                    
+                    moreBrandList.slideToggle();
+                    borderDivider.slideToggle();
+                    moreText.text(moreText.text() === "more" ? "less" : "more");
+                    
+                });
 
-            $("#applyFiltersBtn").click(function () { 
-                ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
-                ddlcityId = $("#ddlCities option:selected").val();
-                ddlmakeId = $("#ddlMakes option:selected").val();
-                if (!isNaN(ddlmakeId) && ddlmakeId!="0") {
-                    if (ddlcityId != "0") {
-                        ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
-                        window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+
+                $('select').prop('selectedIndex', 0);
+
+                $("#applyFiltersBtn").click(function () {
+                    ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
+                    ddlcityId = $("#ddlCities option:selected").val();
+                    ddlmakeId = $("#ddlMakes option:selected").val();
+                    if (!isNaN(ddlmakeId) && ddlmakeId != "0") {
+                        if (!isNaN(ddlcityId) && ddlcityId != "0") {
+                            ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
+                            window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                        }
+                        else {
+                            toggleErrorMsg($ddlCities, true, "Choose a city");
+                        }
                     }
                     else {
-                        toggleErrorMsg($ddlCities, true, "Choose a city");
+                        toggleErrorMsg($ddlMakes, true, "Choose a brand");
                     }
-                }
-                else {
-                    toggleErrorMsg($ddlMakes, true, "Choose a city");
-                }
-            });
+                });
 
-            $ddlCities.chosen({ no_results_text: "No matches found!!" });
-            $ddlMakes.chosen({ no_results_text: "No matches found!!" });
-            $('div.chosen-container').attr('style', 'width:100%;border:0');
-            $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
+                $ddlCities.chosen({ no_results_text: "No matches found!!" });
+                $ddlMakes.chosen({ no_results_text: "No matches found!!" });
+                $('div.chosen-container').attr('style', 'width:100%;border:0');
+                $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
 
-           
 
-            $ddlMakes.change(function () {
-                toggleErrorMsg($ddlMakes, false);
-                selMakeId = $ddlMakes.val();
-                $ddlCities.empty();
-                if (!isNaN(selMakeId) && selMakeId != "0") {
-                    if (!checkCacheCityAreas(selMakeId)) {
-                        $.ajax({
-                            type: "GET",
-                            url: "/api/v2/DealerCity/?makeId=" + selMakeId,
-                            contentType: "application/json",
-                            success: function (data) {
-                                lscache.set(key + selMakeId, data.City, 30);
-                                setOptions(data.City);
-                            },
-                            complete: function (xhr) {
-                                if (xhr.status == 404 || xhr.status == 204) {
-                                    lscache.set(key + selMakeId, null, 30);
-                                    setOptions(null);
+
+                $ddlMakes.change(function () {
+                    toggleErrorMsg($ddlMakes, false);
+                    selMakeId = $ddlMakes.val();
+                    $ddlCities.empty();
+                    if (!isNaN(selMakeId) && selMakeId != "0") {
+                        if (!checkCacheCityAreas(selMakeId)) {
+                            $.ajax({
+                                type: "GET",
+                                url: "/api/v2/DealerCity/?makeId=" + selMakeId,
+                                contentType: "application/json",
+                                success: function (data) {
+                                    lscache.set(key + selMakeId, data.City, 30);
+                                    setOptions(data.City);
+                                },
+                                complete: function (xhr) {
+                                    if (xhr.status == 404 || xhr.status == 204) {
+                                        lscache.set(key + selMakeId, null, 30);
+                                        setOptions(null);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
+                        else {
+                            data = lscache.get(key + selMakeId.toString());
+                            setOptions(data);
+                        }
                     }
                     else {
-                        data = lscache.get(key + selMakeId.toString());
-                        setOptions(data);
+                        setOptions(null);
                     }
-                }
-                else {
-                    setOptions(null);
-                }
-            });
+                });
 
-            $ddlCities.change(function () {
-                toggleErrorMsg($ddlCities, false);
+                $ddlCities.change(function () {
+                    toggleErrorMsg($ddlCities, false);
+                });
+
+                if ($("#ddlCities option").length < 2) {
+                    $ddlCities.empty();
+                    $ddlCities.trigger('chosen:updated');
+                    $("#ddlCities_chosen .chosen-single span").text("No cities available");
+                }
             });
 
             function checkCacheCityAreas(cityId) {
@@ -315,12 +327,7 @@
                 $ddlCities.trigger('chosen:updated');
                 $("#ddlCities_chosen .chosen-single.chosen-default span").text("No cities available");
             }
-            if ($("#ddlCities option").length < 2)
-            {
-                $ddlCities.empty();
-                $ddlCities.trigger('chosen:updated');
-                $("#ddlCities_chosen .chosen-single span").text("No cities available");
-            }
+            
                 
 
         </script>
