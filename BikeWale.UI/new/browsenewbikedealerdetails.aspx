@@ -60,8 +60,9 @@
             margin-bottom: 20px;
             bottom: 0;
             width: 100%;
+
         }
-        #getUserLocation {position:absolute;cursor:pointer}
+        #getUserLocation {position:absolute;cursor:pointer;font-size:9px;}
     </style>
 </head>
 <body class="bg-light-grey padding-top50">
@@ -369,20 +370,21 @@
                                             <span class="position-abt progress-bar btn-loader" style="width: 100%; overflow: hidden; display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="update-mobile-box">
-                                        <div class="form-control-box text-left">
-                                            <p class="mobile-prefix">+91</p>
-                                            <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
-                                            <span class="bwsprite error-icon errorIcon"></span>
-                                            <div class="bw-blackbg-tooltip errorText"></div>
-                                        </div>
+                                </div>
+                                <div class="update-mobile-box">
+                                    <div class="form-control-box text-left">
+                                        <p class="mobile-prefix">+91</p>
+                                        <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
+                                        <span class="bwsprite error-icon errorIcon"></span>
+                                        <div class="bw-blackbg-tooltip errorText"></div>
+                                    </div>
 
-                                        <div class="form-control-box personal-info-list position-rel">
-                                            <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
-                                            <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
-                                        </div>
+                                    <div class="form-control-box personal-info-list position-rel">
+                                        <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
+                                        <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
                                     </div>
                                 </div>
+                                
                             </div>
                             <!-- otp ends here -->
 
