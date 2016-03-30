@@ -470,3 +470,81 @@ function setUserLocation(position) {
 $("#assistanceBrandInput").on("keyup", function () {
     locationFilter($(this));
 });
+
+initializeMap();
+
+var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "", currentCityName = "Mumbai";
+
+function initializeMap() {        
+    originPlace = new google.maps.places.Autocomplete(
+      (document.getElementById('locationSearch')),
+      {
+          types: ['geocode'],
+          componentRestrictions: { country: "in" }
+      });
+
+    google.maps.event.addListener(originPlace, 'place_changed', function () {
+
+        var place = originPlace.getPlace();
+        if (!(place && place.geometry)) {
+            origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
+        }
+        else {
+
+            origin_place_id = place.geometry.location
+            userLocation.latitude = place.geometry.location.lat();
+            userLocation.longitude = place.geometry.location.lng();
+            userAddress = place.formatted_address;
+        };
+
+        travel_mode = google.maps.TravelMode.TRANSIT;
+
+        var directionsService = new google.maps.DirectionsService;
+
+        route(origin_place_id, travel_mode, directionsService);
+        $('.location-details').show();
+    });    
+
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': currentCityName }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            map.fitBounds(results[0].geometry.viewport);
+        }
+    });
+}
+
+function route(origin_place_id, travel_mode, directionsService) {
+    debugger;
+   
+    _lat = dealerLat;
+    _lng = dealerLong;
+    destination_place_id = new google.maps.LatLng(_lat, _lng);
+
+    if (!origin_place_id || !destination_place_id) {
+        return;
+    }
+
+    directionsService.route({
+        origin: origin_place_id,
+        destination: destination_place_id,
+        travelMode: travel_mode
+    }, function (response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+            getCommuteInfo(response);          
+        }
+    });
+
+}
+
+function getCommuteInfo(result) {
+    var totalDistance = 0;
+    var totalDuration = 0;
+    var legs = result.routes[0].legs;
+    for (var i = 0; i < legs.length; ++i) {
+        totalDistance += legs[i].distance.value;
+        totalDuration += legs[i].duration.value;
+    }    
+    $('#commuteDistance').text((totalDistance / 1000).toFixed(2) + " kms");
+    $('#commuteDuration').text(totalDuration.toString().toHHMMSS());
+}
