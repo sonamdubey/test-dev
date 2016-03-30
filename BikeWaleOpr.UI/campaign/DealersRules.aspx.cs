@@ -18,7 +18,7 @@ namespace BikewaleOpr.Campaign
     {
         #region variable
         public int campaignId, dealerId, currentUserId, cityId, stateId, makeId;
-        public int? modelId;
+        public string modelId;
         public DropDownList ddlMake, ddlModel, ddlState, ddlCity;
         public Button btnSaveRule, btnReset, btnDeleteRules, btnDelete;
         public Repeater rptRules;
@@ -68,8 +68,15 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, cityId, dealerId, makeId, stateId, modelId== -1? null: modelId);
-                lblGreenMessage.Text = "Rule(s) have been added !";
+                if(campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, cityId, dealerId, makeId, stateId, modelId))
+                {
+                    lblGreenMessage.Text = "Rule(s) have been added !";
+                }
+                else
+                {
+                    lblErrorSummary.Text = "Some error has occurred !";
+                }
+                
                 BindRules();
             }
             catch (Exception ex)
@@ -92,7 +99,7 @@ namespace BikewaleOpr.Campaign
             if (!string.IsNullOrEmpty(hdnSelectedCity.Value))
                 cityId = Convert.ToInt32(hdnSelectedCity.Value);
             if (!string.IsNullOrEmpty(hdnSelectedModel.Value))
-                modelId = Convert.ToInt32(hdnSelectedModel.Value);
+                modelId = hdnSelectedModel.Value;
             if (!string.IsNullOrEmpty(ddlMake.SelectedValue))
                 makeId = Convert.ToInt32(ddlMake.SelectedValue);
             if (!string.IsNullOrEmpty(ddlState.SelectedValue))
