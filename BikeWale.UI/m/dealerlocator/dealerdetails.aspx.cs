@@ -29,7 +29,7 @@ namespace Bikewale.Mobile
         protected int dealerBikesCount = 0;
         protected DealerDetailEntity dealerDetails;
         protected bool isDealerDetail;
-        private string dealerQuery = string.Empty;
+        private string dealerQuery = string.Empty, cityName = string.Empty;
         protected double dealerLat, dealerLong;
 
         protected override void OnInit(EventArgs e)
@@ -75,6 +75,7 @@ namespace Bikewale.Mobile
                         isDealerDetail = true;
                         dealerLat = dealerDetails.Area.Latitude;
                         dealerLong = dealerDetails.Area.Longitude;
+
                         if (_dealer.Models != null && _dealer.Models.Count() > 0)
                         {
                             rptModels.DataSource = _dealer.Models;
