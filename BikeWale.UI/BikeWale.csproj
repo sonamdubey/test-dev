@@ -2326,7 +2326,7 @@
     <Content Include="m\src\bwm-newbikes.js" />
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
-    <Content Include="m\src\dealerDetail.js" />
+    <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\dealerlisting.js" />
     <Content Include="m\src\dealerpricequote.js" />
     <Content Include="m\src\frameworks.js" />
