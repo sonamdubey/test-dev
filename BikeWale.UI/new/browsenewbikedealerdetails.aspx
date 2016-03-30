@@ -60,8 +60,9 @@
             margin-bottom: 20px;
             bottom: 0;
             width: 100%;
+
         }
-        #getUserLocation {position:absolute;cursor:pointer}
+        #getUserLocation {position:absolute;cursor:pointer;font-size:9px;}
     </style>
 </head>
 <body class="bg-light-grey padding-top50">
@@ -163,7 +164,7 @@
                                                 <span class="bwsprite mail-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"Email") %></a>
                                         </div>
 
-                                        <div class="<%# (DataBinder.Eval(Container.DataItem,"DealerType").ToString() != "0" || DataBinder.Eval(Container.DataItem,"DealerType").ToString() != "2")?"hide":"" %>">
+                                        <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
                                             <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" class="btn btn-white-orange margin-top15 get-assistance-btn">Get assistance</a>
                                         </div>
                                     </div>
@@ -192,11 +193,11 @@
                                 </div>
 
                                 <p class="text-light-grey margin-bottom5" data-bind="visible: workingHours && workingHours.length > 0,text : workingHours">Working Hours : </p>
-                                <a href="" target="_blank" data-bind="attr : { href : 'https://maps.google.com/?saddr=' + userLocation + '&daddr=' + lat() + ',' + lng() + '' }"><span class="bwsprite get-direction-icon"></span>Get directions</a>
+                                <a href="" target="_blank" data-bind="attr: { href: 'https://maps.google.com/?saddr=' + userSrcLocation + '&daddr=' + lat() + ',' + lng() + '' }"><span class="bwsprite get-direction-icon"></span>Get directions</a>
                                 <%-- <a href="" class="border-dark-left margin-left10 padding-left10"><span class="bwsprite sendto-phone-icon"></span>Send to phone</a>--%>
                             </div>
-                            <div id="BWloader" style="display: block !important;"></div>
-                            <div class="padding-top15 margin-bottom15 border-solid-top">
+                            
+                            <div id="commute-distance-form" class="padding-top15 margin-bottom15 border-solid-top">
                                 <p class="font14 text-bold margin-bottom15">Get commute distance and time:</p>
                                 <div class="commute-distance-form">
                                     <div class="leftfloat form-control-box">
@@ -215,6 +216,8 @@
                                 </div>
                                 <div id="commuteResults"></div>
                             </div>
+
+                            <div id="BWloader" style="display: block !important;"></div>
                         </div>
 
                         <div id="buyingAssistanceForm" data-bind="with: CustomerDetails" class="border-solid-top content-inner-block-1520  position-rel">
@@ -367,20 +370,21 @@
                                             <span class="position-abt progress-bar btn-loader" style="width: 100%; overflow: hidden; display: none;"></span>
                                         </div>
                                     </div>
-                                    <div class="update-mobile-box">
-                                        <div class="form-control-box text-left">
-                                            <p class="mobile-prefix">+91</p>
-                                            <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
-                                            <span class="bwsprite error-icon errorIcon"></span>
-                                            <div class="bw-blackbg-tooltip errorText"></div>
-                                        </div>
+                                </div>
+                                <div class="update-mobile-box">
+                                    <div class="form-control-box text-left">
+                                        <p class="mobile-prefix">+91</p>
+                                        <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
+                                        <span class="bwsprite error-icon errorIcon"></span>
+                                        <div class="bw-blackbg-tooltip errorText"></div>
+                                    </div>
 
-                                        <div class="form-control-box personal-info-list position-rel">
-                                            <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
-                                            <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
-                                        </div>
+                                    <div class="form-control-box personal-info-list position-rel">
+                                        <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
+                                        <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
                                     </div>
                                 </div>
+                                
                             </div>
                             <!-- otp ends here -->
 
@@ -391,7 +395,7 @@
                                     <span class="bwsprite otp-icon margin-top25"></span>
                                 </div>
                             </div>
-                            <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="dealerName()"></span>, <span data-bind="    dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+                            <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text : dealerName()"></span>&nbsp; will get in touch with you soon.</p>
 
                             <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
                         </div>

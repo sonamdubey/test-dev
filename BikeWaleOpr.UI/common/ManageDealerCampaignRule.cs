@@ -72,7 +72,7 @@ namespace BikewaleOpr.Common
         /// <param name="stateId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public bool InsertBWDealerCampaignRules(int userId, int campaignId, int cityId, int dealerId, int makeId, int stateId,int? modelId)
+        public bool InsertBWDealerCampaignRules(int userId, int campaignId, int cityId, int dealerId, int makeId, int stateId, string modelId)
         {
             bool isSuccess = false;
             Database db = null;
@@ -88,9 +88,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.AddWithValue("@StateId", stateId);
                     cmd.Parameters.AddWithValue("@MakeId", makeId);
                     cmd.Parameters.AddWithValue("@UserID", userId);
-                    //Optional Parameters                    
-                    if (modelId.HasValue && modelId.Value > 0)
-                        cmd.Parameters.AddWithValue("@ModelId", modelId.Value);
+                    cmd.Parameters.AddWithValue("@ModelId", modelId);
                     isSuccess = db.InsertQry(cmd);
                 }
             }
