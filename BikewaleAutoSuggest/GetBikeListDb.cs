@@ -1,19 +1,17 @@
-﻿using Consumer;
+﻿using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace BikewaleAutoSuggest
 {
     public class GetBikeListDb
     {
         private static string _con = ConfigurationManager.AppSettings["connectionString"];
-
+        protected static readonly ILog log = LogManager.GetLogger(typeof(GetBikeListDb));
         public static List<TempList> GetBikeList()
         {
             List<TempList> objList = null;
@@ -73,6 +71,7 @@ namespace BikewaleAutoSuggest
             }
             catch (Exception ex)
             {
+                log.Error(MethodBase.GetCurrentMethod().Name, ex);
                 Console.WriteLine("Exception Message  : " + ex.Message);
             }
             return objList;
@@ -286,7 +285,7 @@ namespace BikewaleAutoSuggest
             catch(Exception ex)
             {
                 Console.WriteLine("Get Suggest List Exception  : " + ex.Message);
-                Logs.WriteErrorLog("Exception in Generating Suggestion List for make model : " + ex.Message);
+                log.Error(MethodBase.GetCurrentMethod().Name + " :Exception in Generating Suggestion List for make model :", ex);
             }
             return objSuggestList;
         }
