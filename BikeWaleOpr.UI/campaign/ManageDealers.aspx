@@ -14,13 +14,17 @@
         .required {color: red;}
         .redmsg{ border: 1px solid red; background: #FFCECE; }
         .greenMessage { color:#6B8E23;font-size: 11px;}
+        .hide { display: none; }
+        .show { display: block; }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <fieldset class="margin-left10">
+         <a id='backbutton' href="javascript:void(0)">Back to contract page</a>
          <legend>Manage Dealer Campaigns</legend>
           <div id="box" class="box">
+
               <table class="table-default-style">
                     <tbody><tr>
                         <td><strong>Dealer :</strong> </td>
@@ -76,6 +80,7 @@
         <% } %>
     </form>
     <script type="text/javascript">
+        var dialog;
         $('.numeric').on('input', function (event) {
             this.value = this.value.replace(/[^0-9]/g, '');
         });
@@ -119,9 +124,32 @@
                 }
                 $("#mapDealerMaskingIFrame").remove();
                 var applyIframe = false;
-                debugger;
-                var GB_Html = '<iframe id="mapDealerMaskingIFrame" src="http://webserver:8082/DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=' + 4 + '" style="width:99%; height:100%; display:none;"></iframe>';
-                GB_show("Map Dealer Masking", "", 400, 200, applyIframe, GB_Html);
+                //var GB_Html = '<iframe id="mapDealerMaskingIFrame" src="http://webserver:8082/DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=' + 4 + '" style="width:99%; height:100%; display:none;"></iframe>';
+                //var GB_Html = '<iframe id="mapDealerMaskingIFrame" src="http://www.google.com" style="width:99%; height:100%; display:none;"></iframe>';
+                //GB_show("Map Dealer Masking", "", 400, 200, applyIframe, GB_Html);
+                //var src = "http://http://localhost:8084/";
+                var src = 'http://webserver:8082/DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=4';
+                var title = 'Map a masking number'
+                var width = 1100;
+                var height = 600;
+                var iframe = $('<iframe id="mapDealerMaskingIFrame" onload="mapDealerMaskingIFrameLoad()" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>');
+                dialog = $("<div></div>").append(iframe).appendTo("body").dialog({
+                    autoOpen: false,
+                    modal: true,
+                    resizable: false,
+                    width: "auto",
+                    height: "auto",
+                    close: function () {
+                        iframe.attr("src", "");
+                    }
+                });
+
+                iframe.attr({
+                    width: +width,
+                    height: +height,
+                    src: src
+                });
+                dialog.dialog("option", "title", title).dialog("open");
             }
             else if (maskingCurrentAction == "Remove") {
                 var confirmResult = confirm('Are you sure you want to release the masked number for ' + $('#spnDealerName').text().split('(')[0]);
@@ -133,6 +161,39 @@
                 maskingCurrentAction = "Add";
             }
         }
+
+        function updateMaskingNumber(maskingNumber, userMobileNumber, dealerType, ncdBrandId, maskingNumberId) {
+            alert(maskingNumber);
+            $('#txtMaskingNumber').val(maskingNumber);
+            dialog.dialog('close');
+        }
+
+        function mapDealerMaskingIFrameLoad() {
+            //Hiding all items that are not required in popup - Header, Footer, etc..
+            var iFrameContents = $("#mapDealerMaskingIFrame").contents();
+            iFrameContents.find(".header").css('display', 'none');
+            iFrameContents.find(".right").css('display', 'none');
+            iFrameContents.find(".footer").css('display', 'none');
+            iFrameContents.find("#breadcrumbsDiv").css('display', 'none');
+            iFrameContents.find("fieldset").css('border', 'none');
+            iFrameContents.find("legend").css('display', 'none');
+            iFrameContents.find("html").css('margin-top', '0px');
+            iFrameContents.find("#drpStateValue").text(iFrameContents.find("#drpState :selected").text());
+            iFrameContents.find("#drpState").css('display', 'none');
+            iFrameContents.find("#drpCityValue").text(iFrameContents.find("#drpCity :selected").text());
+            iFrameContents.find("#drpCity").css('display', 'none');
+            iFrameContents.find("#drpDealerValue").text(iFrameContents.find("#drpDealer :selected").text());
+            iFrameContents.find("#drpDealer").css('display', 'none');
+            iFrameContents.find("#btnSave").css('display', 'none');
+
+            //Initially width and height is set to 1% each so that
+            //first above things get completed and then iFrame is displayed.
+            $("#mapDealerMaskingIFrame").css('display', 'block');
+        }
+        $("#backbutton").on("click", function () {
+            window.location.href = '/campaign/MapCampaign.aspx?contractid='+ '<%= contractId %>';
+        });
+        
     </script>
 </body>
 </html>

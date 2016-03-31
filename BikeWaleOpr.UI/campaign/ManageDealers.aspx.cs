@@ -58,11 +58,11 @@ namespace BikewaleOpr.Campaign
                         dealerName,
                         txtDealerEmail.Text,
                         false);
-                    lblGreenMessage.Text = "Selecte campaign has been Updated !";
+                    lblGreenMessage.Text = "Selected campaign has been Updated !";
                 }
                 else
                 {
-                    dealerCampaign.InsertBWDealerCampaign(
+                   campaignId = dealerCampaign.InsertBWDealerCampaign(
                         true,
                         currentUserId,
                         dealerId,
@@ -73,6 +73,7 @@ namespace BikewaleOpr.Campaign
                         txtDealerEmail.Text,
                         false);
                     lblGreenMessage.Text = "New campaign has been added !";
+                    isCampaignPresent = true;
                 }
                 ClearForm(Page.Form.Controls, true);
             }
