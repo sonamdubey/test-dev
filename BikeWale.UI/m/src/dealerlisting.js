@@ -71,6 +71,7 @@ $(".filter-brand-city-ul").on("click", "li", function () {
         $ulCities.empty();
         var selMakeId = makeCityViewModel.selectedMakeId();
         startLoading($("#selectCity"));
+        makeCityViewModel.cityName("Loading cities")
         if (!isNaN(selMakeId) && selMakeId != "0") {
             if (!checkCacheCityAreas(selMakeId)) {
                 $.ajax({
@@ -648,6 +649,7 @@ function validateOTP() {
 
 function startLoading(ele) {
     try {
+        $("#btnSpinner").removeClass("hide");
         var _self = $(ele).find(".progress-bar").css({ 'width': '0' }).show();
         _self.animate({ width: '100%' }, 7000);
     }
@@ -656,6 +658,7 @@ function startLoading(ele) {
 
 function stopLoading(ele) {
     try {
+        $("#btnSpinner").addClass("hide");
         var _self = $(ele).find(".progress-bar");
         _self.stop(true, true).css({ 'width': '100%' }).fadeOut(1000);
     }
