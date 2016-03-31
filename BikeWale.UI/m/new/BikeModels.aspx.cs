@@ -102,13 +102,13 @@ namespace Bikewale.Mobile.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            #region Do not change the sequence
+            Trace.Warn("Trace 3 : ParseQueryString Start");
+            ParseQueryString();
+            Trace.Warn("Trace 4 : ParseQueryString End");
             try
             {
-                #region Do not change the sequence
-                Trace.Warn("Trace 3 : ParseQueryString Start");
-                ParseQueryString();
-                Trace.Warn("Trace 4 : ParseQueryString End");
-
                 if (!string.IsNullOrEmpty(modelId))
                 {
                     Trace.Warn("Trace 5 : CheckCityCookie Start");
@@ -118,7 +118,7 @@ namespace Bikewale.Mobile.New
                     if (hdnVariant.Value != "0")
                         variantId = Convert.ToInt32(hdnVariant.Value);
 
-                #endregion
+            #endregion
                     Trace.Warn("Trace 7 : FetchModelPageDetails Start");
                     FetchModelPageDetails();
                     Trace.Warn("Trace 8 : FetchModelPageDetails End");

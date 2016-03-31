@@ -193,24 +193,24 @@ namespace Bikewale.New
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            Trace.Warn("Trace 1 : DeviceDetection Start");
+            //device detection
+            // Modified By :Ashish Kamble on 5 Feb 2016
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
+            Trace.Warn("Trace 2 : DeviceDetection End");
+
+            #region Do Not change the sequence
+            Trace.Warn("Trace 3 : ParseQueryString Start");
+            ParseQueryString();
+            Trace.Warn("Trace 4 : ParseQueryString End");
             try
-            {
-                Trace.Warn("Trace 1 : DeviceDetection Start");
-                //device detection
-                // Modified By :Ashish Kamble on 5 Feb 2016
-                string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-                if (String.IsNullOrEmpty(originalUrl))
-                    originalUrl = Request.ServerVariables["URL"];
-
-                DeviceDetection dd = new DeviceDetection(originalUrl);
-                dd.DetectDevice();
-                Trace.Warn("Trace 2 : DeviceDetection End");
-
-                #region Do Not change the sequence
-                Trace.Warn("Trace 3 : ParseQueryString Start");
-                ParseQueryString();
-                Trace.Warn("Trace 4 : ParseQueryString End");
-
+            {                
                 if (!String.IsNullOrEmpty(modelId))
                 {
                     Trace.Warn("Trace 5 : CheckCityCookie Start");
@@ -221,7 +221,7 @@ namespace Bikewale.New
                     if (hdnVariant.Value != "0")
                         variantId = Convert.ToInt32(hdnVariant.Value);
 
-                #endregion
+            #endregion
 
                     Trace.Warn("Trace 7 : FetchModelPageDetails Start");
                     FetchModelPageDetails();
@@ -277,12 +277,12 @@ namespace Bikewale.New
                     {
                         isreadonly.SetValue(this.Request.QueryString, false, null);
                         this.Request.QueryString.Clear();
-                    } 
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"].ToString());
                 objErr.SendMail();
             }
         }
@@ -295,7 +295,7 @@ namespace Bikewale.New
         public void ddlVariant_SelectedIndexChanged(object sender, EventArgs e)
         {
             variantId = Convert.ToInt32(ddlVariant.SelectedValue);
-            FetchVariantDetails(variantId);            
+            FetchVariantDetails(variantId);
         }
 
         /// <summary>
@@ -315,7 +315,7 @@ namespace Bikewale.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
-                        
+
                         var totalDiscount = totalDiscountedPrice;
                         //if ((isCitySelected && !isAreaAvailable))
                         if (isOnRoadPrice)
@@ -396,7 +396,7 @@ namespace Bikewale.New
                                     defaultVariant.Text = firstVer.VersionName;
                             }
                             rptVariants.DataSource = modelPage.ModelVersions;
-                            rptVariants.DataBind();                            
+                            rptVariants.DataBind();
                         }
                         else if (modelPage.ModelVersions.Count == 1)
                         {

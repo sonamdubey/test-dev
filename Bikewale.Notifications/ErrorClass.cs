@@ -38,6 +38,10 @@ namespace Bikewale.Notifications
         //used for writing the debug messages
         private HttpContext objTrace = HttpContext.Current;
 
+        static ErrorClass()
+        {
+            log4net.Config.XmlConfigurator.Configure();
+        }
         
         /// <summary>
         /// constructor which assigns the exception
@@ -46,7 +50,7 @@ namespace Bikewale.Notifications
         /// <param name="pageUrl">Page URL on which error occured. If possible pass function name also.</param>
         public ErrorClass(Exception ex, string pageUrl)
         {
-            log4net.Config.XmlConfigurator.Configure();
+            //log4net.Config.XmlConfigurator.Configure();
             Error = ex;	//assign the exception
             PageUrl = pageUrl;		//assign the page url
             log.Error(pageUrl, ex);
