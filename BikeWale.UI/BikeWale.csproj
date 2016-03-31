@@ -685,10 +685,6 @@
       <DependentUpon>VideosControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="dealerlocator\dealerlisting.aspx.cs">
-      <DependentUpon>dealerlisting.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Default_old.aspx.cs">
       <DependentUpon>Default_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1810,7 +1806,6 @@
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
-    <Content Include="dealerlocator\dealerlisting.aspx" />
     <Content Include="Default_old.aspx" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
