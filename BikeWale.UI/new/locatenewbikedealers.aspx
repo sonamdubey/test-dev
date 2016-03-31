@@ -227,8 +227,8 @@
                         $('#header').removeClass("header-fixed").addClass("header-landing");
                 });
 
-                $("a.view-more-btn").on('click', function (e) {
-                    var moreBrandList = $(this).parent().parent().find("ul.brand-style-moreBtn"),
+                $("a.view-more-btn").click(function (e) {
+                    var moreBrandList = $("ul.brand-style-moreBtn"),
                         moreText = $(this).find("span"),
                         borderDivider = $(".brand-bottom-border");                    
                     moreBrandList.slideToggle();
@@ -255,14 +255,7 @@
                     else {
                         toggleErrorMsg($ddlMakes, true, "Choose a brand");
                     }
-                });
-
-                $ddlCities.chosen({ no_results_text: "No matches found!!" });
-                $ddlMakes.chosen({ no_results_text: "No matches found!!" });
-                $('div.chosen-container').attr('style', 'width:100%;border:0');
-                $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
-
-
+                });        
 
                 $ddlMakes.change(function () {
                     toggleErrorMsg($ddlMakes, false);
@@ -325,7 +318,11 @@
                 $ddlCities.trigger('chosen:updated');
                 $("#ddlCities_chosen .chosen-single.chosen-default span").text("No cities available");
             }
-            
+
+            $ddlCities.chosen({ no_results_text: "No matches found!!" });
+            $ddlMakes.chosen({ no_results_text: "No matches found!!" });
+            $('div.chosen-container').attr('style', 'width:100%;border:0');
+            $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
                 
 
         </script>
