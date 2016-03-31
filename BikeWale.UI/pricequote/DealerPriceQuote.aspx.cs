@@ -22,9 +22,14 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.BikeBooking
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore
+    /// Modified On : 31 March 2016
+    /// Description : Removed rptColors function.
+    /// </summary>
     public class DealerPriceQuote : System.Web.UI.Page
     {
-        protected Repeater rptPriceList, rptColors, rptDisclaimer, rptOffers, rptDiscount, rptVersion, rptUSPBenefits, rptDealers;
+        protected Repeater rptPriceList, rptDisclaimer, rptOffers, rptDiscount, rptVersion, rptUSPBenefits, rptDealers;
         protected DropDownList ddlVersion;
         protected HtmlGenericControl div_GetPQ;
         protected PQ_QuotationEntity objPrice = null;
