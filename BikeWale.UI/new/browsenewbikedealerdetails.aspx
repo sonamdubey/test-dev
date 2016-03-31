@@ -19,49 +19,7 @@
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerlisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <style>
-        .popup-btn-progress-wrapper {
-            width: 138px;
-            margin: 0 auto;
-        }
-
-        .popup-otp-progress-wrapper {
-            width: 180px;
-            margin: 0 auto;
-        }
-
-            .popup-btn-progress-wrapper .btn, .popup-otp-progress-wrapper .btn {
-                width: 100%;
-            }
-
-        .progress-bar {
-            width: 0;
-            height: 4px;
-            background: #16A085;
-            bottom: 0px;
-            left: 0;
-            border-radius: 2px;
-        }
-
-        .btn-loader {
-            background-color: #822821;
-        }
-
-        .btnSpinner {
-            right: 22px;
-            top: 10px;
-            z-index: 9;
-            background: rgb(255, 255, 255);
-        }
-
-        #BWloader {
-            text-align: center;
-            position: relative;
-            font-size: 16px;
-            margin-bottom: 20px;
-            bottom: 0;
-            width: 100%;
-
-        }
+        .popup-btn-progress-wrapper{width:138px;margin:0 auto}.popup-otp-progress-wrapper{width:180px;margin:0 auto}.popup-btn-progress-wrapper .btn,.popup-otp-progress-wrapper .btn{width:100%}.progress-bar{width:0;height:4px;background:#16A085;bottom:0;left:0;border-radius:2px}.btn-loader{background-color:#822821}.btnSpinner{right:22px;top:10px;z-index:9;background:#fff}#BWloader{text-align:center;position:relative;font-size:16px;margin-bottom:20px;bottom:0;width:100%}
         #getUserLocation {position:absolute;cursor:pointer;font-size:9px;}
         .thankyou-icon {width:52px; height:58px; background-position: -165px -436px; }
     </style>

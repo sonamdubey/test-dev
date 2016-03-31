@@ -205,10 +205,10 @@
                 <div class="padding-top15 padding-bottom20 border-light-bottom">
                     <h3 class="font14 margin-bottom15">Get commute distance and time:</h3>
                     <div class="form-control-box">
-                        <input id="locationSearch" type="text" class="form-control" placeholder="Enter your location" />
+                        <input id="locationSearch" type="text" class="form-control padding-right50" placeholder="Enter your location" />
                         <span id="getUserLocation" class="crosshair-icon fa-stack font12 position-abt pos-right20 pos-top10 text-grey"></span>
                     </div>
-                    <div class="location-details padding-top10 padding-bottom10 leftfloat">
+                    <div class="location-details padding-top10 padding-bottom10 leftfloat hide">
                         <span class="fa fa-clock-o"></span>&nbsp;Time : <span id="commuteDuration"></span>&nbsp; &nbsp;
                         <span class="fa fa-road"></span>&nbsp;Distance : <span id="commuteDistance"></span>
                     </div>
@@ -238,7 +238,7 @@
 
                     <div class="personal-info-form-container">
                         <div class="dealer-search-brand form-control-box">
-                            <div class="dealer-search-brand-form"><span>Select brand</span></div>
+                            <div class="dealer-search-brand-form"><span>Select a bike</span></div>
                             <span class="bwmsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
@@ -266,7 +266,7 @@
                         <div class="dealer-brand-wrapper bwm-dealer-brand-box form-control-box text-left">
                             <div class="user-input-box">
                                 <span class="back-arrow-box"><span class="bwmsprite back-long-arrow-left"></span></span>
-                                <input class="form-control" type="text" id="assistanceBrandInput" placeholder="Select brand" />
+                                <input class="form-control" type="text" id="assistanceBrandInput" placeholder="Select a bike" />
                             </div>
                             
                             <ul id="sliderBrandList" class="slider-brand-list margin-top40">
@@ -375,6 +375,7 @@
              var pqSource = "<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail) %>";
              var leadSrcId = "<%= Convert.ToUInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_MobileListing) %>";
              var bodHt, footerHt, scrollPosition;                         
+             var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
 
             $(window).scroll(function () {
                 bodHt = $('body').height();
@@ -414,7 +415,7 @@
                     model = $('.dealer-search-brand-form');
 
                 if (!model.hasClass('selection-done')) {
-                    setError(model, 'Please select a model');
+                    setError(model, 'Please select a bike');
                     isValid = false;
                 }
                 else if (model.hasClass('selection-done')) {

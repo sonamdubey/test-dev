@@ -1,5 +1,5 @@
 ﻿var makeCityViewModel = {
-    makeName : ko.observable(makeName != "" ? makeName : 'Select brand'),
+    makeName : ko.observable(makeName != "" ? makeName : 'Select a bike'),
     selectedMakeId: ko.observable(makeId),
     selectedMakeMaskingName: ko.observable(makeMaskingName),
     cityName : ko.observable(cityName != "" ? cityName : 'Select City'),
@@ -161,7 +161,7 @@ var setUserSelection = function () {
 };
 
 $("#dealerFilterReset").on("click", function () {
-    makeCityViewModel.makeName("Select brand");
+    makeCityViewModel.makeName("Select a bike");
     makeCityViewModel.cityName("Select city");
     makeCityViewModel.selectedMakeId(0);
     makeCityViewModel.selectedCityId(0);
@@ -553,7 +553,7 @@ var validateModel = function () {
         model = $('.dealer-search-brand-form');
 
     if (!model.hasClass('selection-done')) {
-        setError(model, 'Please select a model');
+        setError(model, 'Please select a bike');
         isValid = false;
     }
     else if (model.hasClass('selection-done')) {

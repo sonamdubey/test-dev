@@ -325,7 +325,7 @@ var validateModel = function () {
         model = $('.dealer-search-brand-form');
 
     if (!model.hasClass('selection-done')) {
-        setError(model, 'Please select a model');
+        setError(model, 'Please select a bike');
         isValid = false;
     }
     else if (model.hasClass('selection-done')) {
@@ -546,7 +546,10 @@ function route(origin_place_id, travel_mode, directionsService) {
         travelMode: travel_mode
     }, function (response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
-            getCommuteInfo(response);          
+            getCommuteInfo(response);
+        }
+        else {
+            $(".location-details").addClass("hide");
         }
     });
 }
@@ -558,9 +561,10 @@ function getCommuteInfo(result) {
     for (var i = 0; i < legs.length; ++i) {
         totalDistance += legs[i].distance.value;
         totalDuration += legs[i].duration.value;
-    }    
+    }
     $('#commuteDistance').text((totalDistance / 1000).toFixed(2) + " kms");
     $('#commuteDuration').text(totalDuration.toString().toHHMMSS());
+    $(".location-details").removeClass("hide");
 }
 
 
