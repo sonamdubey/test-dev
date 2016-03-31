@@ -39,7 +39,12 @@ ko.bindingHandlers.CurrencyText = {
 $(document).ready(function () {
     var windowWidth = window.innerWidth,
         windowHeight = window.innerHeight;
-    $('#dealerMapWrapper, #dealersMap').css({ 'width': windowWidth - 355, 'height': windowHeight - 50 });
+    if ($('#sidebarHeader').height() > 30) {
+        $('#dealersList').css({ 'padding-top': '72px' });
+        $('#dealerMapWrapper, #dealersMap').css({ 'width': windowWidth - 355, 'height': windowHeight - 30 });
+    }
+    else
+        $('#dealerMapWrapper, #dealersMap').css({ 'width': windowWidth - 355, 'height': windowHeight - 50 });
     $('#dealerListingSidebar').css({ 'min-height': windowHeight - 50 });
     $('.dealer-map-wrapper').css({ 'height': $('#dealerListingSidebar').height() + 1 });
 });
@@ -91,8 +96,7 @@ function getLocation() {
     }
     else {
        if (navigator.geolocation) {
-            var timeoutVal = 10 * 1000 * 1000;
-            navigator.geolocation.watchPosition(
+            navigator.geolocation.getCurrentPosition(
                 savePosition,
                 showError,
                 { enableHighAccuracy: true, maximumAge: 600000 }
@@ -108,11 +112,12 @@ function savePosition(position) {
         "latitude": position.coords.latitude,
         "longitude": position.coords.longitude
     }
-    dealerDetailsViewModel.CustomerDetails().userSrcLocation(userLocation.latitude + "," + userLocation.longitude);
+    if (dealerDetailsViewModel && dealerDetailsViewModel.CustomerDetails())
+        dealerDetailsViewModel.CustomerDetails().userSrcLocation(userLocation.latitude + "," + userLocation.longitude);
     if (userAddress=="") {
         $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + userLocation.latitude + "," + userLocation.longitude + "&key=AIzaSyC9JjTQyUpYSQMKBsYi5fQQwv_qRuP-k-s", function (data) {
-            userAddress = data;
             if (data.status == "OK") {
+                userAddress = data;
                 userAddress = userAddress.results[0].formatted_address;
                 $("#locationSearch").val("").val(userAddress);
                 google.maps.event.trigger(originPlace, 'place_changed');
@@ -426,9 +431,9 @@ var selectedDealer = function (dealer) {
             $("#assistGetName").focus();
             $('body').addClass('hide-scroll')
             campId = $("ul#dealersList li.active").attr("data-campId");
-            dname = dealer.find("a.dealer-sidebar-link").text();
+            dname = dealer.find("a.dealer-sidebar-link").text();              
+            getDealerDetails(dealerId, campId, dname);
             getLocation();
-            getDealerDetails(dealerId, campId, dname)
             
         }
         else {

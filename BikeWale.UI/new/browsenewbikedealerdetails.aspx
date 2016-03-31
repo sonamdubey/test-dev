@@ -266,7 +266,7 @@
                                 <li>
                                     <div class="contentWrapper">
                                         <div class="imageWrapper">
-                                            <a href="#" data-bind="attr: {title: bikeName() }">
+                                            <a href="#" class="cursor-pointer" data-bind="attr: {title: bikeName() }">
                                                 <img data-bind="attr: { src : imagePath(), title: bikeName(), alt: bikeName() }" />
                                             </a>
                                         </div>
