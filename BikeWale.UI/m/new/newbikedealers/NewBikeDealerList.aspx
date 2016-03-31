@@ -41,7 +41,7 @@
         var leadSrcId = "<%= Convert.ToUInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_MobileListing) %>";
         var pqSrcId = "<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail) %>";
         var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
-
+        var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
     </script>
 </head>
 <body class="bg-light-grey">

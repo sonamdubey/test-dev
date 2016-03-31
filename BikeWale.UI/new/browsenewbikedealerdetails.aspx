@@ -17,7 +17,7 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerlisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC9JjTQyUpYSQMKBsYi5fQQwv_qRuP-k-s&libraries=places"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <style>
         .popup-btn-progress-wrapper {
             width: 138px;
@@ -203,10 +203,7 @@
                                 <div class="commute-distance-form">
                                     <div class="leftfloat form-control-box">
                                         <input id="locationSearch" type="text" class="form-control margin-right10" placeholder="Enter your location" />
-                                        <span id="getUserLocation" class="fa-stack font12 position-abt pos-right20 pos-top10 text-grey">
-                                            <i class="fa fa-crosshairs fa-stack-2x"></i>
-                                            <i class="fa fa-circle fa-stack-1x"></i>
-                                        </span>
+                                        <span id="getUserLocation" class="crosshair-icon fa-stack font12 position-abt pos-right20 pos-top10 text-grey"></span>
                                         
                                     </div>
                                     <div class="location-details padding-top10 padding-bottom10 leftfloat">
@@ -430,6 +427,7 @@
             lscache.setBucket('DLPage');
             var leadSrcId = eval("<%= (int)(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_Desktop) %>");
             var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
+            var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
             lscache.flushExpired();
             $("#applyFiltersBtn").click(function () {
                 ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
