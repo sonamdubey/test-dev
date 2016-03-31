@@ -19,7 +19,7 @@
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
         .dealerlocator-banner {
-            background: #8d8c8a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/booking-landing-banner.jpg) no-repeat left top;
+            background: #8d8c8a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/dealer-locator-banner.jpg) no-repeat left top;
             height: 489px;
             padding-top: 1px;
         }
