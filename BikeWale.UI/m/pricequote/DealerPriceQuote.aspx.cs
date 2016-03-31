@@ -20,12 +20,15 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.BikeBooking
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore
+    /// Modified On : 31 March 2016
+    /// Description : Removed rptColors and GetVersionColor function.
+    /// </summary>
     public class DealerPriceQuote : PageBase
     {
-        protected Repeater rptPriceList, rptColors, rptDisclaimer, rptOffers, rptDiscount, rptSecondaryDealers, rptBenefits;
+        protected Repeater rptPriceList, rptDisclaimer, rptOffers, rptDiscount, rptSecondaryDealers, rptBenefits;
         protected DropDownList ddlVersion;
-
-        //protected PQ_QuotationEntity objPrice = null;
         protected UInt64 totalPrice = 0;
         protected string pqId = string.Empty, areaId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty, mpqQueryString = string.Empty;
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0;
@@ -79,7 +82,6 @@ namespace Bikewale.Mobile.BikeBooking
                     BindVersion();
 
                     GetDealerPriceQuote(cityId, versionId, dealerId);
-                    GetVersionColors(versionId);
                     BindAlternativeBikeControl(versionId.ToString());
                     clientIP = CommonOpn.GetClientIP();
                     mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId), Convert.ToString(dealerId)));
@@ -375,31 +377,7 @@ namespace Bikewale.Mobile.BikeBooking
                 }
             }
         }
-        public void GetVersionColors(uint versionId)
-        {
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
-                    IBikeVersions<BikeVersionEntity, uint> objVersions = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
-
-                    objColors = objVersions.GetColorByVersion(versionId);
-
-                    if (objColors.Count > 0)
-                    {
-                        rptColors.DataSource = objColors;
-                        rptColors.DataBind();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-
+        
         private string GetLocationCookie()
         {
             string location = String.Empty;

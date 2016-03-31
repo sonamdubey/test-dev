@@ -239,16 +239,23 @@ namespace Bikewale.Mobile.New
 
         }
 
+        /// <summary>
+        /// Modified By : Lucky Rathore on 30 March 2016
+        /// Description : link URL changed.
+        /// </summary>
+        /// <param name="dealerType"></param>
+        /// <param name="dealerId"></param>
+        /// <param name="campId"></param>
+        /// <param name="dealerName"></param>
+        /// <returns></returns>
         public string GetDealerDetailLink(string dealerType, string dealerId, string campId, string dealerName)
         {
-            string link = string.Empty;
             string retString = string.Empty;
             if (dealerType == "2" || dealerType == "3")
             {
-                link = "/m/dealerlocator/dealerdetails.aspx/?query=" + Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(String.Format("dealerId={0}&campId={1}&cityId={2}", dealerId, campId, cityId));
+                string link = "/m/new/newbikedealers/dealerdetails.aspx/?query=" + Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(String.Format("dealerId={0}&campId={1}&cityId={2}", dealerId, campId, cityId));
                 retString = String.Format("<a class=\"text-black\" href=\"{0}\">{1}</a>", link, dealerName);
             }
-
             else
             {
                 retString = dealerName;

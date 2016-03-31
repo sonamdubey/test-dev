@@ -875,7 +875,7 @@
       <DependentUpon>VideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\dealerlocator\DealerDetails.aspx.cs">
+    <Compile Include="m\new\newbikedealers\DealerDetails.aspx.cs">
       <DependentUpon>DealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -2249,7 +2249,7 @@
     <Content Include="m\css\style.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
-    <Content Include="m\dealerlocator\DealerDetails.aspx" />
+    <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\Default_old.aspx" />
     <Content Include="m\faq.aspx" />
@@ -2551,6 +2551,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="msmq\" />
+    <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
   </ItemGroup>
