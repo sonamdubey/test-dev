@@ -155,6 +155,8 @@
                 height: 143px;
             }
             #getUserLocation {position:absolute;cursor:pointer}
+            .thankyou-icon {width:34px; height:38px; background-position: -143px -406px;}
+            .crosshair-icon {width: 20px;height: 20px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat;}
     </style>
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC9JjTQyUpYSQMKBsYi5fQQwv_qRuP-k-s&libraries=places"></script>
 </head>
@@ -204,9 +206,7 @@
                     <h3 class="font14 margin-bottom15">Get commute distance and time:</h3>
                     <div class="form-control-box">
                         <input id="locationSearch" type="text" class="form-control" placeholder="Enter your location" />
-                        <span id="getUserLocation" class="fa-stack font12 position-abt pos-right20 pos-top10 text-grey">
-                           Get
-                        </span>
+                        <span id="getUserLocation" class="crosshair-icon fa-stack font12 position-abt pos-right20 pos-top10 text-grey"></span>
                     </div>
                     <div class="location-details padding-top10 padding-bottom10 leftfloat">
                         <span class="fa fa-clock-o"></span>&nbsp;Time : <span id="commuteDuration"></span>&nbsp; &nbsp;
@@ -282,7 +282,12 @@
                 </div>
                  <!-- thank you message starts here -->
                 <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
-                    <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+                    <div class="icon-outer-container rounded-corner50percent">
+                        <div class="icon-inner-container rounded-corner50percent">
+                            <span class="bwmsprite thankyou-icon margin-top25"></span>
+                        </div>
+                    </div>
+                    <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
                     <p class="font16 margin-bottom40">Dealer would get back to you shortly with additional information.</p>
                     <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
                 </div>

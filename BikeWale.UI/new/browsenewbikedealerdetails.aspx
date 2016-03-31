@@ -63,6 +63,7 @@
 
         }
         #getUserLocation {position:absolute;cursor:pointer;font-size:9px;}
+        .thankyou-icon {width:52px; height:58px; background-position: -165px -436px; }
     </style>
 </head>
 <body class="bg-light-grey padding-top50">
@@ -393,7 +394,7 @@
                         <div id="dealer-lead-msg" class="hide">
                             <div class="icon-outer-container rounded-corner50">
                                 <div class="icon-inner-container rounded-corner50">
-                                    <span class="bwsprite otp-icon margin-top25"></span>
+                                    <span class="bwsprite thankyou-icon margin-top15"></span>
                                 </div>
                             </div>
                             <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text : dealerName()"></span>&nbsp; will get in touch with you soon.</p>

@@ -24,7 +24,7 @@ namespace Bikewale.Mobile.BikeBooking
     /// Modified By : Lucky Rathore
     /// Modified On : 31 March 2016
     /// Description : Removed rptColors and GetVersionColor function.
-    /// </summary>
+    /// </summary>  
     public class DealerPriceQuote : PageBase
     {
         protected Repeater rptPriceList, rptDisclaimer, rptOffers, rptDiscount, rptSecondaryDealers, rptBenefits;
