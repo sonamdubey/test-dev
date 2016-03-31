@@ -124,15 +124,11 @@
                 }
                 $("#mapDealerMaskingIFrame").remove();
                 var applyIframe = false;
-                //var GB_Html = '<iframe id="mapDealerMaskingIFrame" src="http://webserver:8082/DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=' + 4 + '" style="width:99%; height:100%; display:none;"></iframe>';
-                //var GB_Html = '<iframe id="mapDealerMaskingIFrame" src="http://www.google.com" style="width:99%; height:100%; display:none;"></iframe>';
-                //GB_show("Map Dealer Masking", "", 400, 200, applyIframe, GB_Html);
-                //var src = "http://http://localhost:8084/";
                 var src = 'http://webserver:8082/DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=4';
                 var title = 'Map a masking number'
                 var width = 1100;
                 var height = 600;
-                var iframe = $('<iframe id="mapDealerMaskingIFrame" onload="mapDealerMaskingIFrameLoad()" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>');
+                var iframe = $('<iframe id="mapDealerMaskingIFrame" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>');
                 dialog = $("<div></div>").append(iframe).appendTo("body").dialog({
                     autoOpen: false,
                     modal: true,
@@ -161,35 +157,7 @@
                 maskingCurrentAction = "Add";
             }
         }
-
-        function updateMaskingNumber(maskingNumber, userMobileNumber, dealerType, ncdBrandId, maskingNumberId) {
-            alert(maskingNumber);
-            $('#txtMaskingNumber').val(maskingNumber);
-            dialog.dialog('close');
-        }
-
-        function mapDealerMaskingIFrameLoad() {
-            //Hiding all items that are not required in popup - Header, Footer, etc..
-            var iFrameContents = $("#mapDealerMaskingIFrame").contents();
-            iFrameContents.find(".header").css('display', 'none');
-            iFrameContents.find(".right").css('display', 'none');
-            iFrameContents.find(".footer").css('display', 'none');
-            iFrameContents.find("#breadcrumbsDiv").css('display', 'none');
-            iFrameContents.find("fieldset").css('border', 'none');
-            iFrameContents.find("legend").css('display', 'none');
-            iFrameContents.find("html").css('margin-top', '0px');
-            iFrameContents.find("#drpStateValue").text(iFrameContents.find("#drpState :selected").text());
-            iFrameContents.find("#drpState").css('display', 'none');
-            iFrameContents.find("#drpCityValue").text(iFrameContents.find("#drpCity :selected").text());
-            iFrameContents.find("#drpCity").css('display', 'none');
-            iFrameContents.find("#drpDealerValue").text(iFrameContents.find("#drpDealer :selected").text());
-            iFrameContents.find("#drpDealer").css('display', 'none');
-            iFrameContents.find("#btnSave").css('display', 'none');
-
-            //Initially width and height is set to 1% each so that
-            //first above things get completed and then iFrame is displayed.
-            $("#mapDealerMaskingIFrame").css('display', 'block');
-        }
+        
         $("#backbutton").on("click", function () {
             window.location.href = '/campaign/MapCampaign.aspx?contractid='+ '<%= contractId %>';
         });
