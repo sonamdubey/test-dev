@@ -124,7 +124,8 @@
                 }
                 $("#mapDealerMaskingIFrame").remove();
                 var applyIframe = false;
-                var src = 'http://webserver:8082/DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=4';
+                var CwOprHostUrl = '<%= ConfigurationManager.AppSettings["CwOprHostUrl"]%>';
+                var src = CwOprHostUrl + 'DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=4';
                 var title = 'Map a masking number'
                 var width = 1100;
                 var height = 600;
