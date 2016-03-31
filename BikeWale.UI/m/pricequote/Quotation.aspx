@@ -53,6 +53,7 @@
         #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
         .mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; z-index:2; }
         #getMobile { padding:9px 40px; }
+        #ddlVersion.form-control{padding:6px;}
     </style>
     
     <script type="text/javascript">
@@ -82,26 +83,10 @@
 
             <div class="<%= versionList.Count>1 ?"":"hide" %> margin-top10 padding-right10 padding-left10">
                 <p class="grid-3 alpha omega version-label-text font14 text-light-grey margin-top5 leftfloat">Version:</p>
-                <div class="form-control-box variantDropDown leftfloat grid-9 alpha omega">
-                    <div class="version-div rounded-corner2">
-                        <div class="version-by-title">
-                            <span class="leftfloat version-select-btn">
-                                <span id="defaultVariant">Version 1</span>
-                            </span>
-                            <span class="clear"></span>
-                        </div>
-                        <span id="upDownArrow" class="rightfloat bwmsprite fa-angle-down position-abt pos-top13 pos-right10"></span>
-                    </div>
-                    <div class="version-selection-div version-list-items hide">
-                        <ul id="versionbike">
-                            <li><input type="submit" value="Variant 1"/></li>
-                            <li><input type="submit" value="Variant 2 Variant 2 Variant 2 Variant 2" /></li>
-                        </ul>
-                        <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />
-                    </div>
+                <div class="grid-8">
+                    <asp:DropDownList ID="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
                 </div>
                 <div class="clear"></div>
-                <asp:DropDownList ID="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
             </div>
 
             <div class="margin-top15 padding-left10 padding-right10">
