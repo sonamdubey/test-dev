@@ -194,6 +194,7 @@ namespace Bikewale.New
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
+
             Trace.Warn("Trace 1 : DeviceDetection Start");
             //device detection
             // Modified By :Ashish Kamble on 5 Feb 2016
@@ -209,75 +210,80 @@ namespace Bikewale.New
             Trace.Warn("Trace 3 : ParseQueryString Start");
             ParseQueryString();
             Trace.Warn("Trace 4 : ParseQueryString End");
+            try
+            {                
+                if (!String.IsNullOrEmpty(modelId))
+                {
+                    Trace.Warn("Trace 5 : CheckCityCookie Start");
+                    CheckCityCookie();
+                    SetFlags();
+                    Trace.Warn("Trace 6 : CheckCityCookie End");
 
-            Trace.Warn("Trace 5 : CheckCityCookie Start");
-            CheckCityCookie();
-            SetFlags();
-            Trace.Warn("Trace 6 : CheckCityCookie End");
+                    if (hdnVariant.Value != "0")
+                        variantId = Convert.ToInt32(hdnVariant.Value);
 
-            //if (!string.IsNullOrEmpty(ddlVariant.SelectedValue) && ddlVariant.SelectedValue != "0")
-            if (hdnVariant.Value != "0")
-                variantId = Convert.ToInt32(hdnVariant.Value);
-            //if (!IsPostBack)
-            //{hdnVariant
-            //    Trace.Warn("Trace 6.1 : urlVersionId set using url");
-            //    variantId = urlVersionId;
-            //}
             #endregion
 
-            Trace.Warn("Trace 7 : FetchModelPageDetails Start");
-            FetchModelPageDetails();
-            Trace.Warn("Trace 8 : FetchModelPageDetails End");
+                    Trace.Warn("Trace 7 : FetchModelPageDetails Start");
+                    FetchModelPageDetails();
+                    Trace.Warn("Trace 8 : FetchModelPageDetails End");
 
-            if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
-            {
-                Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
-                FetchOnRoadPrice();
+                    if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
+                    {
+                        Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
+                        FetchOnRoadPrice();
                 FillViewModel();
-                Trace.Warn("Trace 10 : FetchOnRoadPrice End");
+                        Trace.Warn("Trace 10 : FetchOnRoadPrice End");
+                    }
+                    BindPhotoRepeater();
+                    clientIP = CommonOpn.GetClientIP();
+                    LoadVariants();
+                    Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
+                    BindAlternativeBikeControl();
+                    Trace.Warn("Trace 19 : BindAlternativeBikeControl End");
+
+                    int _modelId;
+                    Int32.TryParse(modelId, out _modelId);
+                    ////news,videos,revews, user reviews
+                    ctrlNews.TotalRecords = 3;
+                    ctrlNews.ModelId = _modelId;
+
+                    ctrlExpertReviews.TotalRecords = 3;
+                    ctrlExpertReviews.ModelId = _modelId;
+                    ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+                    ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+
+                    ctrlVideos.TotalRecords = 3;
+                    ctrlVideos.ModelId = _modelId;
+                    ctrlVideos.MakeId = modelPage.ModelDetails.MakeBase.MakeId;
+                    ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+                    ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+
+                    ctrlUserReviews.ReviewCount = 4;
+                    ctrlUserReviews.PageNo = 1;
+                    ctrlUserReviews.PageSize = 4;
+                    ctrlUserReviews.ModelId = _modelId;
+                    ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+
+                    ToggleOfferDiv();
+                    if (variantId != 0)
+                    {
+                        FetchVariantDetails(variantId);
+                    }
+                    Trace.Warn("Trace 20 : Page Load ends");
+                    // Clear trailing query string -- added on 09-feb-2016 by Sangram
+                    PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                    if (isreadonly != null)
+                    {
+                        isreadonly.SetValue(this.Request.QueryString, false, null);
+                        this.Request.QueryString.Clear();
+                    }
+                }
             }
-            BindPhotoRepeater();
-            clientIP = CommonOpn.GetClientIP();
-            LoadVariants();
-            Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
-            BindAlternativeBikeControl();
-            Trace.Warn("Trace 19 : BindAlternativeBikeControl End");
-
-            int _modelId;
-            Int32.TryParse(modelId, out _modelId);
-            ////news,videos,revews, user reviews
-            ctrlNews.TotalRecords = 3;
-            ctrlNews.ModelId = _modelId;
-
-            ctrlExpertReviews.TotalRecords = 3;
-            ctrlExpertReviews.ModelId = _modelId;
-            ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
-            ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-
-            ctrlVideos.TotalRecords = 3;
-            ctrlVideos.ModelId = _modelId;
-            ctrlVideos.MakeId = modelPage.ModelDetails.MakeBase.MakeId;
-            ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
-            ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-
-            ctrlUserReviews.ReviewCount = 4;
-            ctrlUserReviews.PageNo = 1;
-            ctrlUserReviews.PageSize = 4;
-            ctrlUserReviews.ModelId = _modelId;
-            ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
-
-            ToggleOfferDiv();
-            if (variantId != 0)
+            catch (Exception ex)
             {
-                FetchVariantDetails(variantId);
-            }
-            Trace.Warn("Trace 20 : Page Load ends");
-            // Clear trailing query string -- added on 09-feb-2016 by Sangram
-            PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (isreadonly != null)
-            {
-                isreadonly.SetValue(this.Request.QueryString, false, null);
-                this.Request.QueryString.Clear();
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"].ToString());
+                objErr.SendMail();
             }
         }
 
@@ -298,7 +304,7 @@ namespace Bikewale.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
-                        
+
                         var totalDiscount = totalDiscountedPrice;
                         //if ((isCitySelected && !isAreaAvailable))
                         if (isOnRoadPrice)
@@ -379,7 +385,7 @@ namespace Bikewale.New
                                     defaultVariant.Text = firstVer.VersionName;
                             }
                             rptVariants.DataSource = modelPage.ModelVersions;
-                            rptVariants.DataBind();                            
+                            rptVariants.DataBind();
                         }
                         else if (modelPage.ModelVersions.Count == 1)
                         {

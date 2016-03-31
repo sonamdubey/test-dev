@@ -11,6 +11,8 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
+using Grpc.CMS;
+using Bikewale.News.GrpcFiles;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -22,7 +24,7 @@ namespace Bikewale.BindViewModels.Controls
         public int FetchedRecordsCount { get; set; }
 
         string cacheKey = "BW_CMS_";
-
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 28 Feb 2016
@@ -61,7 +63,7 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<ICacheManager, MemcacheManager>();
                     ICacheManager _cache = container.Resolve<ICacheManager>();
 
-                    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCWAPI(contentTypeList));
+                    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(contentTypeList));
                 }
 
                 if (_objArticleList != null && _objArticleList.Count() > 0)
@@ -80,13 +82,44 @@ namespace Bikewale.BindViewModels.Controls
         }
 
 
+        private IEnumerable<ArticleSummary> GetNewsFromCW(string contentTypeList)
+        {
+            try
+            {
+                if (_useGrpc)
+                {
+                    var _objGrpcArticleSummaryList = GrpcMethods.MostRecentList(contentTypeList, TotalRecords, MakeId, ModelId);
+
+                    if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.Summary.Count > 0)
+                    {
+                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticleSummaryList);
+                    }
+                    else
+                    {
+                        return GetNewsFromCWAPIInOldWay(contentTypeList);
+                    }
+
+                }
+                else
+                {
+                    return GetNewsFromCWAPIInOldWay(contentTypeList);
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+                return GetNewsFromCWAPIInOldWay(contentTypeList);
+            }
+        }
+
         /// <summary>
         /// Written By : Ashish G. Kamble on 28 Feb 2016
         /// Summary : Function to get the data from the carwale cms api.
         /// </summary>
         /// <param name="contentTypeList">comma separated content ids.</param>
         /// <returns></returns>
-        private IEnumerable<ArticleSummary> GetNewsFromCWAPI(string contentTypeList)
+        private IEnumerable<ArticleSummary> GetNewsFromCWAPIInOldWay(string contentTypeList)
         {
             IEnumerable<ArticleSummary> _objArticleList = null;
 
