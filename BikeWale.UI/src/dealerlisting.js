@@ -262,7 +262,7 @@ function setMarkersNInfo()
         google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
             return function () {
                 infowindow.close();                 
-                toggleBounce(marker);
+                //toggleBounce(marker);
                 getDealerFromSidebar(marker.dealerId);
             };
         })(marker, infowindow));
@@ -341,7 +341,7 @@ $('body').on('mouseenter', '#dealersList li', function () {
             if (markerArr[i].dealerId == currentDealerId) {
                 infowindow.setContent(markerArr[i].dealerName);
                 infowindow.open(map, markerArr[i]);
-                toggleBounce(markerArr[i]);
+                //toggleBounce(markerArr[i]);
                 break;
             }
         }

@@ -296,7 +296,7 @@
                 if ($("#ddlCities option").length < 2) {
                     $ddlCities.empty();
                     $ddlCities.trigger('chosen:updated');
-                    $("#ddlCities_chosen .chosen-single span").text("No cities available");
+                    $("#ddlCities_chosen .chosen-single span").text("Please select brand");
                 }
             });
 
@@ -322,7 +322,6 @@
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
             $ddlMakes.chosen({ no_results_text: "No matches found!!" });
             $('div.chosen-container').attr('style', 'width:100%;border:0');
-            $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
 
                 
 
