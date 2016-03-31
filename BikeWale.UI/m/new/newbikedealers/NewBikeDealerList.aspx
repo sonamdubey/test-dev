@@ -29,6 +29,7 @@
         #getMobile {padding: 9px 40px;}.otp-icon { width:30px; height:40px; background-position: -107px -177px; }.edit-blue-icon { width:14px; height:16px; background-position: -114px -121px; }#otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
         #brandSearchBar { padding:0; background: #f5f5f5; z-index: 11; position: fixed; left: 100%; top: 0; overflow-y: scroll; width: 100%; height: 100%;}#brandSearchBar li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor: pointer;}#brandSearchBar li:hover { background: #ededed; }.dealer-brand-wrapper { display:none; }.bwm-dealer-brand-box .back-arrow-box { height: 30px; width: 40px; position: absolute; top: 5px; z-index: 11; cursor: pointer; }.bwm-dealer-brand-box span.back-long-arrow-left {position: absolute;top: 7px;left: 10px;}.bwm-dealer-brand-box .back-arrow-box {position: absolute;left: 5px;}.bwm-dealer-brand-box .form-control {padding: 10px 50px;}.activeBrand {font-weight: bold;background-color: #ddd;}.dealer-search-brand-form { padding:10px 25px 10px 10px; text-align:left; cursor:pointer; background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; text-align:left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-radius:2px;border: 1px solid #ccc; }.dealer-search-brand { width:100%; height: 40px;}.border-red { border:1px solid #f00 !important; }
         .btnSpinner{right:8px;top:10px;z-index:9;display:none;background:#fff;}
+        .thankyou-icon {width:34px; height:38px; background-position: -143px -406px;}
     </style>
     <script type="text/javascript">
         var makeName = "<%=makeName%>";
@@ -202,7 +203,12 @@
                 </div>
                  <!-- thank you message starts here -->
                 <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
-                    <p class="font18 text-bold margin-bottom20">Thank you</p>
+                    <div class="icon-outer-container rounded-corner50percent">
+                        <div class="icon-inner-container rounded-corner50percent">
+                            <span class="bwmsprite thankyou-icon margin-top25"></span>
+                        </div>
+                    </div>
+                    <p class="font18 text-bold margin-top20 margin-bottom20">Thank you</p>
                     <p class="font16 margin-bottom40"><span class="notify-dealerName"></span> would get back to you shortly with additional information.</p>
                     <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
                 </div>

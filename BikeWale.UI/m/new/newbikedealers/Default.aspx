@@ -15,7 +15,7 @@
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
         .locator-landing-banner {
-            background: #8d8c8a url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/m-booking-landing-banner.jpg) no-repeat center top;
+            background: #8d8c8a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/dealer-locator-banner.jpg) no-repeat center bottom;
             background-size: cover;
             height: 330px;
             padding-top: 1px;
