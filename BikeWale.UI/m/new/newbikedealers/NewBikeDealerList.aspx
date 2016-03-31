@@ -123,7 +123,7 @@
                         <span class="dealers-back-arrow-box">
                             <span class="bwmsprite back-long-arrow-left"></span>
                         </span>
-                        <input class="form-control" type="text" id="dealersBrandInput" autocomplete="on" placeholder="Select brand" />
+                        <input class="form-control" type="text" id="dealersBrandInput" autocomplete="on" placeholder="Select a bike" />
                     </div>
                     <ul id="filterBrandList" class="filter-brand-city-ul margin-top40" data-filter-type="brand-filter">
                         <asp:Repeater ID="rptMakes" runat="server">
@@ -164,7 +164,7 @@
 
                     <div class="personal-info-form-container">
                         <div class="dealer-search-brand form-control-box">
-                            <div class="dealer-search-brand-form"><span>Select brand</span></div>
+                            <div class="dealer-search-brand-form"><span>Select a bike</span></div>
                             <span class="bwmsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
@@ -192,7 +192,7 @@
                         <div class="dealer-brand-wrapper bwm-dealer-brand-box form-control-box text-left">
                             <div class="user-input-box">
                                 <span class="back-arrow-box"><span class="bwmsprite back-long-arrow-left"></span></span>
-                                <input class="form-control" type="text" id="assistanceBrandInput" placeholder="Select brand" />
+                                <input class="form-control" type="text" id="assistanceBrandInput" placeholder="Select a bike" />
                             </div>
                             <ul id="sliderBrandList" class="slider-brand-list margin-top40"  data-bind="foreach: bikes">
                                <li data-bind="text: bike, click: function () { customerViewModel.versionId(this.version.versionId); customerViewModel.modelId( this.model.modelId); }"></li>

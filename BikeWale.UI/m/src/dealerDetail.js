@@ -325,7 +325,7 @@ var validateModel = function () {
         model = $('.dealer-search-brand-form');
 
     if (!model.hasClass('selection-done')) {
-        setError(model, 'Please select a model');
+        setError(model, 'Please select a bike');
         isValid = false;
     }
     else if (model.hasClass('selection-done')) {

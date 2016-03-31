@@ -238,7 +238,7 @@
 
                     <div class="personal-info-form-container">
                         <div class="dealer-search-brand form-control-box">
-                            <div class="dealer-search-brand-form"><span>Select brand</span></div>
+                            <div class="dealer-search-brand-form"><span>Select a bike</span></div>
                             <span class="bwmsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
@@ -266,7 +266,7 @@
                         <div class="dealer-brand-wrapper bwm-dealer-brand-box form-control-box text-left">
                             <div class="user-input-box">
                                 <span class="back-arrow-box"><span class="bwmsprite back-long-arrow-left"></span></span>
-                                <input class="form-control" type="text" id="assistanceBrandInput" placeholder="Select brand" />
+                                <input class="form-control" type="text" id="assistanceBrandInput" placeholder="Select a bike" />
                             </div>
                             
                             <ul id="sliderBrandList" class="slider-brand-list margin-top40">
@@ -415,7 +415,7 @@
                     model = $('.dealer-search-brand-form');
 
                 if (!model.hasClass('selection-done')) {
-                    setError(model, 'Please select a model');
+                    setError(model, 'Please select a bike');
                     isValid = false;
                 }
                 else if (model.hasClass('selection-done')) {
