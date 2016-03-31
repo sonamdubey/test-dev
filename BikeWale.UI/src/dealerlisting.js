@@ -262,12 +262,7 @@ function setMarkersNInfo()
         google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
             return function () {
                 infowindow.close();                 
-                if (marker.getAnimation() != null) {
-                    marker.setAnimation(null);
-                } else {
-                    marker.setAnimation(google.maps.Animation.BOUNCE);
-                }
-                setTimeout(function () { marker.setAnimation(null); }, 1500);
+                toggleBounce(marker);
                 getDealerFromSidebar(marker.dealerId);
             };
         })(marker, infowindow));
@@ -323,25 +318,37 @@ function getCommuteInfo(result) {
 
 }
 
+function toggleBounce(_marker)
+{
+    if (_marker.getAnimation() != null) {
+        _marker.setAnimation(null);
+    } else {
+        _marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+    setTimeout(function () { _marker.setAnimation(null); }, 1500);
+}
+
+
 $('body').on('click', ' #dealersMap a.tooltip-target-link', function () {
     getDealerFromSidebar($(this).attr('data-tooltip-id'));
 });
 
-$('body').on('mouseover', '#dealersList li', function () {
+$('body').on('mouseenter', '#dealersList li', function () {
     if (!$("body").hasClass("hide-scroll")) {
         var currentLI = $(this),
          currentDealerId = currentLI.attr('data-item-id');
         for (var i = 0; i < markerArr.length; i++) {
             if (markerArr[i].dealerId == currentDealerId) {
-                google.maps.event.trigger(markerArr[i], 'click');
                 infowindow.setContent(markerArr[i].dealerName);
-                infowindow.open(map, markerArr[i]);                
+                infowindow.open(map, markerArr[i]);
+                toggleBounce(markerArr[i]);
                 break;
             }
         }
     }
 
 });
+
 
 $('#dealersList li').mouseout(function () {
     infowindow.close();
