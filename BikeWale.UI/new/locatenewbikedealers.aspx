@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealerLocator.LocateNewBikeDealers" EnableViewState="false" %>
+<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealerLocator.LocateNewBikeDealers" EnableViewState="false" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
@@ -239,7 +239,7 @@
 
                 $('select').prop('selectedIndex', 0);
 
-                $("#applyFiltersBtn").on('click', function () {
+                $("#applyFiltersBtn").click(function () {
                     ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");
                     ddlcityId = $("#ddlCities option:selected").val();
                     ddlmakeId = $("#ddlMakes option:selected").val();
