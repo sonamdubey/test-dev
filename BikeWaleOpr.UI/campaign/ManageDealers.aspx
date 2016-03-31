@@ -124,10 +124,6 @@
                 }
                 $("#mapDealerMaskingIFrame").remove();
                 var applyIframe = false;
-                //var GB_Html = '<iframe id="mapDealerMaskingIFrame" src="http://webserver:8082/DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=' + 4 + '" style="width:99%; height:100%; display:none;"></iframe>';
-                //var GB_Html = '<iframe id="mapDealerMaskingIFrame" src="http://www.google.com" style="width:99%; height:100%; display:none;"></iframe>';
-                //GB_show("Map Dealer Masking", "", 400, 200, applyIframe, GB_Html);
-                //var src = "http://http://localhost:8084/";
                 var src = 'http://webserver:8082/DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=4';
                 var title = 'Map a masking number'
                 var width = 1100;
