@@ -22,12 +22,10 @@
               <h3 class="margin-left40">Map with existing campaign(s) or a Create a new Campaign</h3>
                 <legend class="font14"><b>Map Campaign</b></legend>
                 <div>
-                    <fieldset style="width: 800px; margin-left: 250px;">
+                    <% if(rptCampaigns.DataSource != null){ %>
+                    <fieldset style="width: 800px; margin-left: 50px;">
                         <legend class="font14"><b>Map Campaign for "<%=dealerName %>"</b></legend>
                         <asp:Panel ID="pnlExisting" runat="server">
-<%--                            <b>
-                               <asp:RadioButton runat="server" GroupName="ExistingOrNew" ID="rdbExistingCamp" Text="Map With Existing Campaign" Checked="true" /><%=string.IsNullOrEmpty(dealerName)?"":" for Dealer '"+dealerName +"'" %>
-                                </b>--%>
                             <asp:Repeater runat="server" ID="rptCampaigns">
                                 <HeaderTemplate>
                                     <table cellpadding="5" class="lstcamptable">
@@ -63,7 +61,10 @@
                             </asp:Repeater>
                         </asp:Panel>
                     </fieldset>
-                    <br />
+                    <%} else{%>
+                    <p  class="margin-left40">There are no existing campaigns associated with dealer <%=string.IsNullOrEmpty(dealerName)? "":" '"+dealerName +"' " %>.Click on proceed to create new campaign.</p>
+                    <% } %>
+                                        <br /><br />
                     <p class="margin-left40"><strong>Create a new campaign for <%=dealerName %></strong></p>
                     <b id="rdNewCamp" class="margin-left40">
                         <asp:RadioButton runat="server" GroupName="ExistingOrNew" ID="rdbNewCamp" Text="Create New Campaign" />
