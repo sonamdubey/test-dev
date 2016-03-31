@@ -594,6 +594,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.EMail = Convert.ToString(dr["EMail"]);
                                 dealers.DealerDetails.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
                                 dealers.DealerDetails.DealerId = dealerId;
+                                dealers.DealerDetails.WorkingHours = Convert.ToString(dr["WorkingHours"]);
 
                             }
                             if (dr.NextResult())
