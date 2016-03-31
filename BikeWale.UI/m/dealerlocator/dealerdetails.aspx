@@ -156,7 +156,7 @@
             }
             #getUserLocation {position:absolute;cursor:pointer}
     </style>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC9JjTQyUpYSQMKBsYi5fQQwv_qRuP-k-s&libraries=places"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">

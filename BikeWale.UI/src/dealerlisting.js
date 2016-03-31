@@ -115,7 +115,7 @@ function savePosition(position) {
     if (dealerDetailsViewModel && dealerDetailsViewModel.CustomerDetails())
         dealerDetailsViewModel.CustomerDetails().userSrcLocation(userLocation.latitude + "," + userLocation.longitude);
     if (userAddress=="") {
-        $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + userLocation.latitude + "," + userLocation.longitude + "&key=AIzaSyC9JjTQyUpYSQMKBsYi5fQQwv_qRuP-k-s", function (data) {
+        $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + userLocation.latitude + "," + userLocation.longitude + "&key=" + googleMapAPIKey, function (data) {
             if (data.status == "OK") {
                 userAddress = data;
                 userAddress = userAddress.results[0].formatted_address;

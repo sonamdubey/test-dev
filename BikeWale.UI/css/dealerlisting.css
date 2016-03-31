@@ -78,6 +78,7 @@ a.text-black:hover { text-decoration:none; }
 .get-direction-icon, .sendto-phone-icon { width:10px; height:10px; margin-right:3px; }
 .get-direction-icon { background-position:-113px -446px; }
 .sendto-phone-icon { background-position:-132px -446px; }
+.crosshair-icon { width:20px; height:20px; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat; }
 
 #leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:5%;right:5%;left:5%;z-index:10;padding:30px 40px}
 .personal-info-form-container{margin:10px auto;width:300px;min-height:100px}

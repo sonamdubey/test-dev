@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealerLocator.LocateNewBikeDealers" EnableViewState="false" %>
+<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealerLocator.LocateNewBikeDealers" EnableViewState="false" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
@@ -186,7 +186,7 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </ul>
-                    <div class="brand-bottom-border border-solid-top hide">
+                    <div class="brand-bottom-border border-solid-top hide"></div>
                     <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
                         <asp:Repeater ID="rptOtherBrands" runat="server">
                             <ItemTemplate>
@@ -201,7 +201,6 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </ul>
-                    </div>
                 </div>
                 <div class="view-brandType text-center padding-bottom30">
                     <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View <span>more</span> brands</a>
@@ -228,14 +227,13 @@
                         $('#header').removeClass("header-fixed").addClass("header-landing");
                 });
 
-                $("a.view-more-btn").click(function (e) {
-                    moreBrandList = $(this).parent().parent().find("ul.brand-style-moreBtn"),
-                    moreText = $(this).find("span"),
-                    borderDivider = $(".brand-bottom-border");                    
+                $("a.view-more-btn").on('click', function (e) {
+                    var moreBrandList = $(this).parent().parent().find("ul.brand-style-moreBtn"),
+                        moreText = $(this).find("span"),
+                        borderDivider = $(".brand-bottom-border");                    
                     moreBrandList.slideToggle();
-                    borderDivider.slideToggle();
                     moreText.text(moreText.text() === "more" ? "less" : "more");
-                    
+                    borderDivider.slideToggle();
                 });
 
 
