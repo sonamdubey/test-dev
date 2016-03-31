@@ -200,7 +200,7 @@
                             <asp:Repeater ID="rptOffers" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <span class="leftfloat offer-benefit-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferId") %>"></span>
+                                        <span class="leftfloat offer-benefit-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId") %>"></span>
                                         <span class="leftfloat pq-benefits-title padding-top5 padding-left15"><%# DataBinder.Eval(Container.DataItem,"OfferText") %></span>
                                     </li>
                                 </ItemTemplate>

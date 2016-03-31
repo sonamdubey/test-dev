@@ -183,7 +183,7 @@
                                 <asp:Repeater ID="rptOffers" runat="server">
                                     <ItemTemplate>
                                         <li>
-                                            <span class="inline-block pq-benefits-image offer-benefit-sprite <%#  "offerIcon_" + DataBinder.Eval(Container.DataItem,"OfferId") %> margin-right10"></span>
+                                            <span class="inline-block pq-benefits-image offer-benefit-sprite <%#  "offerIcon_" + DataBinder.Eval(Container.DataItem,"OfferCategoryId") %> margin-right10"></span>
                                             <span class="inline-block pq-benefits-title"><%#  DataBinder.Eval(Container.DataItem,"OfferText") %></span>
                                         </li>
                                     </ItemTemplate>
