@@ -29,8 +29,6 @@ namespace Bikewale.Mobile.BikeBooking
     {
         protected Repeater rptPriceList, rptDisclaimer, rptOffers, rptDiscount, rptSecondaryDealers, rptBenefits;
         protected DropDownList ddlVersion;
-
-        //protected PQ_QuotationEntity objPrice = null;
         protected UInt64 totalPrice = 0;
         protected string pqId = string.Empty, areaId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty, mpqQueryString = string.Empty;
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0;
