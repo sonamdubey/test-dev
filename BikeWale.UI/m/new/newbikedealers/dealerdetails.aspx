@@ -198,8 +198,7 @@
                         <%= dealerDetails.WorkingHours %>
                     </p>
                     <%} %>
-
-                    <a id="anchorGetDir" href="#" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
+                    <a id="anchorGetDir" href="http://maps.google.com/maps?z=12&t=m&q=loc:<%= dealerLat %>,<%= dealerLong %>" target="_blank"><span class="bwmsprite get-direction-icon margin-right5"></span>Get directions</a>
                     <%--<a href="" class="divider-left"><span class="bwmsprite sendto-phone-icon margin-right5"></span>Send to phone</a>--%>
                 </div>
                 <div class="padding-top15 padding-bottom20 border-light-bottom">
