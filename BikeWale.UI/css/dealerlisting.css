@@ -65,9 +65,8 @@ a.text-black:hover { text-decoration:none; }
 #modelsAvailable { overflow:hidden; margin-left:20px; padding-bottom:20px; }
 #modelsAvailable li { width:295px; min-height:260px; display:inline-block; vertical-align:top; margin-top:20px; margin-right:20px; background:#fff;}
 #modelsAvailable .imageWrapper { width:254px; height:143px; overflow:hidden; text-align:center; }
-#modelsAvailable .imageWrapper a { width:254px; height:143px; }
-#modelsAvailable .imageWrapper a img { height: 143px; }
-#modelsAvailable h3 a:hover { text-decoration:underline; }
+#modelsAvailable .imageWrapper .model-image-wrapper { width:254px; height:143px; }
+#modelsAvailable .imageWrapper .model-image-wrapper img { height: 143px; }
 .margin-bottom7 { margin-bottom:7px; }
 #modelsAvailable .bikeDescWrapper { padding:20px 0 10px; }
 .hide-scroll { overflow:hidden; }

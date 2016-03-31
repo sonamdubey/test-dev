@@ -323,6 +323,7 @@
             $ddlMakes.chosen({ no_results_text: "No matches found!!" });
             $('div.chosen-container').attr('style', 'width:100%;border:0');
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
+
                 
 
         </script>

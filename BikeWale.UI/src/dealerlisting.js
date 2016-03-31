@@ -1,5 +1,5 @@
 ﻿
-var customerViewModel,dealerDetailsViewModel, userLocation = { "latitude": "", "longitude": "" }, assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile'), getModelName = $("#getModelName"), assistGetModel = $("#assistGetModel");
+var customerViewModel,dealerDetailsViewModel,iterator=0, userLocation = { "latitude": "", "longitude": "" }, assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile'), getModelName = $("#getModelName"), assistGetModel = $("#assistGetModel");
 var dealerArr = [];
 var markerArr = [];
 var originPlace;
@@ -162,9 +162,7 @@ $("ul#dealersList li").each(function () {
 
 
 function initializeMap(dealerArr) {
-    var zoomLevel, centerPoint;
-    var i, marker, dealer, markerPosition, content, zIndex;
-
+    var i, marker, dealer, markerPosition, content, zIndex;  
     var mapProp = {
         scrollwheel: false,
         streetViewControl: false,
@@ -210,47 +208,9 @@ function initializeMap(dealerArr) {
     infowindow = new google.maps.InfoWindow();
 
     for (i = 0; i < dealerArr.length; i++) {
-        dealer = dealerArr[i];
-        if (dealer && (dealer.latitude != "0" || dealer.longitude != "0")) {
-            markerPosition = new google.maps.LatLng(dealer.latitude, dealer.longitude);
-            zIndex = 100;
-
-            if (dealer.isFeatured) {
-                markerIcon = redMarkerImage;
-            } else {
-                markerIcon = blackMarkerImage;
-            }
-
-            marker = new google.maps.Marker({
-                dealerId: dealer.id,
-                dealerName: dealer.name,
-                position: markerPosition,
-                animation: google.maps.Animation.DROP,
-                icon: markerIcon,
-                zIndex: zIndex
-            });
-
-            markerArr.push(marker);
-            marker.setMap(map);
-
-            content = '<div class="dealer-info-tooltip"><h3 class="font16 margin-bottom5"><a href="javascript:void(0)" data-tooltip-id="' + dealer.id + '" class="text-black tooltip-target-link">' + dealer.name + '</a></h3><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-grey-icon"></span><span>' + dealer.maskingNumber + '</span></div></div></div>';
-
-            google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
-                return function () {
-                    infowindow.setContent(content);
-                    infowindow.open(map, marker);
-                };
-            })(marker, content, infowindow));
-
-
-
-            google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
-                return function () {
-                    infowindow.close();
-                    getDealerFromSidebar(marker.dealerId);
-                };
-            })(marker, infowindow));
-        }       
+        setTimeout(function () {
+            setMarkersNInfo();
+        }, i * 200);       
 
     }
 
@@ -263,6 +223,55 @@ function initializeMap(dealerArr) {
     });
 
     
+}
+
+function setMarkersNInfo()
+{
+    dealer = dealerArr[iterator++];
+    if (dealer && (dealer.latitude != "0" || dealer.longitude != "0")) {
+        markerPosition = new google.maps.LatLng(dealer.latitude, dealer.longitude);
+        zIndex = 100;
+
+        if (dealer.isFeatured) {
+            markerIcon = redMarkerImage;
+        } else {
+            markerIcon = blackMarkerImage;
+        }
+
+        marker = new google.maps.Marker({
+            dealerId: dealer.id,
+            dealerName: dealer.name,
+            position: markerPosition,
+            animation: google.maps.Animation.DROP,
+            icon: markerIcon,
+            zIndex: zIndex
+        });
+
+        markerArr.push(marker);
+        marker.setMap(map);
+
+        content = '<div class="dealer-info-tooltip"><h3 class="font16 margin-bottom5"><a href="javascript:void(0)" data-tooltip-id="' + dealer.id + '" class="text-black tooltip-target-link">' + dealer.name + '</a></h3><div class="font14 text-light-grey"><div class="margin-bottom5">' + dealer.address + '</div><div><span class="bwsprite phone-grey-icon"></span><span>' + dealer.maskingNumber + '</span></div></div></div>';
+
+        google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
+            return function () {
+                infowindow.setContent(content);
+                infowindow.open(map, marker);
+            };
+        })(marker, content, infowindow));
+
+        google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
+            return function () {
+                infowindow.close();                 
+                if (marker.getAnimation() != null) {
+                    marker.setAnimation(null);
+                } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+                setTimeout(function () { marker.setAnimation(null); }, 1500);
+                getDealerFromSidebar(marker.dealerId);
+            };
+        })(marker, infowindow));
+    }
 }
 
 function setMapCenter(newLat, newLng) {
@@ -324,8 +333,9 @@ $('body').on('mouseover', '#dealersList li', function () {
          currentDealerId = currentLI.attr('data-item-id');
         for (var i = 0; i < markerArr.length; i++) {
             if (markerArr[i].dealerId == currentDealerId) {
+                google.maps.event.trigger(markerArr[i], 'click');
                 infowindow.setContent(markerArr[i].dealerName);
-                infowindow.open(map, markerArr[i]);
+                infowindow.open(map, markerArr[i]);                
                 break;
             }
         }

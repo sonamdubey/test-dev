@@ -263,13 +263,13 @@
                                 <li>
                                     <div class="contentWrapper">
                                         <div class="imageWrapper">
-                                            <a href="#" class="cursor-pointer" data-bind="attr: {title: bikeName() }">
+                                            <div class="model-image-wrapper">
                                                 <img data-bind="attr: { src : imagePath(), title: bikeName(), alt: bikeName() }" />
-                                            </a>
+                                            </div>
                                         </div>
                                         <div class="bikeDescWrapper">
                                             <div class="bikeTitle margin-bottom7">
-                                                <h3 class="font16 text-dark-black"><a href="#" title="" data-bind="text: bikeName(),attr: { title: bikeName() }"></a></h3>
+                                                <h3 class="font16 text-dark-black" data-bind="text: bikeName()"></h3>
                                             </div>
                                             <div class="font16 text-bold margin-bottom5">
                                                 <span class="fa fa-rupee"></span>
