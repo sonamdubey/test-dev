@@ -61,7 +61,7 @@ namespace BikewaleOpr.Common
         /// Description :   Save the new Dealer Campaign
         ///                 SP Called : BW_InsertBWDealerCampaign
         /// Updated by  :   Sangram Nandkhile on 31st March 2016
-        /// Description :   Used out parameter 'NewCampaignId'
+        /// Description :   Used out parameter 'NewCampaignId' and changed return type
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="userId"></param>
