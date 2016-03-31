@@ -203,7 +203,7 @@
                                 <div class="commute-distance-form">
                                     <div class="leftfloat form-control-box">
                                         <input id="locationSearch" type="text" class="form-control margin-right10" placeholder="Enter your location" />
-                                        <span id="getUserLocation" class="crosshair-icon fa-stack font12 position-abt pos-right20 pos-top10 text-grey"></span>
+                                        <span id="getUserLocation" class="crosshair-icon font12 position-abt pos-right20 pos-top10 text-grey"></span>
                                         
                                     </div>
                                     <div class="location-details padding-top10 padding-bottom10 leftfloat">
