@@ -191,7 +191,7 @@
                 if ($("#ddlCities option").length < 2) {
                     $ddlCities.empty();
                     $ddlCities.trigger('chosen:updated');
-                    $("#ddlCities_chosen .chosen-single span").text("Please select brand");
+                    $("#ddlCities_chosen .chosen-single span").text("Select City");
                 }
             });
 
