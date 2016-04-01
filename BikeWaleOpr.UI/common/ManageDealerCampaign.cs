@@ -60,6 +60,8 @@ namespace BikewaleOpr.Common
         /// Created by  :   Sumit Kate on 19 Mar 2016
         /// Description :   Save the new Dealer Campaign
         ///                 SP Called : BW_InsertBWDealerCampaign
+        /// Updated by  :   Sangram Nandkhile on 31st March 2016
+        /// Description :   Used out parameter 'NewCampaignId' and changed return type
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="userId"></param>
@@ -73,32 +75,33 @@ namespace BikewaleOpr.Common
         /// <param name="dealerEmailId"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public bool InsertBWDealerCampaign(bool isActive,  int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, bool isBookingAvailable = false)
+        public int InsertBWDealerCampaign(bool isActive,  int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, bool isBookingAvailable = false)
         {
-            bool isSuccess = false;
-            Database db = null;
+            int newCampaignId = 0;
+            Database db = new Database();
             try
             {
-                using (SqlCommand cmd = new SqlCommand("BW_InsertBWDealerCampaign"))
+                using (SqlConnection conn = new SqlConnection(db.GetConString()))
                 {
-                    db = new Database();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    
-                    cmd.Parameters.AddWithValue("@DealerId",dealerId);
-                    cmd.Parameters.AddWithValue("@DealerName",dealerName);
-                    cmd.Parameters.AddWithValue("@Phone",maskingNumber);
-                    cmd.Parameters.AddWithValue("@DealerEmail",dealerEmailId);
-                    cmd.Parameters.AddWithValue("@IsActive",isActive);
-                    cmd.Parameters.AddWithValue("@ContractId",contractId);
-                    cmd.Parameters.AddWithValue("@DealerLeadServingRadius", dealerLeadServingRadius);
-                    cmd.Parameters.AddWithValue("@UpdatedBy", userId);
-                    //Optional Parameters
-                    cmd.Parameters.AddWithValue("@IsBookingAvailable",isBookingAvailable);
-                    //if(startDate.HasValue)
-                    //    cmd.Parameters.AddWithValue("@StartDate",startDate.Value);
-                    //if(endDate.HasValue)
-                    //    cmd.Parameters.AddWithValue("@EndDate", endDate.Value);
-                    isSuccess = db.InsertQry(cmd);
+                    using (SqlCommand cmd = new SqlCommand("BW_InsertBWDealerCampaign"))
+                    {
+                        cmd.Connection = conn;
+                        conn.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@DealerId", dealerId);
+                        cmd.Parameters.AddWithValue("@DealerName", dealerName);
+                        cmd.Parameters.AddWithValue("@Phone", maskingNumber);
+                        cmd.Parameters.AddWithValue("@DealerEmail", dealerEmailId);
+                        cmd.Parameters.AddWithValue("@IsActive", isActive);
+                        cmd.Parameters.AddWithValue("@ContractId", contractId);
+                        cmd.Parameters.AddWithValue("@DealerLeadServingRadius", dealerLeadServingRadius);
+                        cmd.Parameters.AddWithValue("@UpdatedBy", userId);
+                        cmd.Parameters.AddWithValue("@IsBookingAvailable", isBookingAvailable);
+                        cmd.Parameters.Add("@NewCampaignId", SqlDbType.Int).Direction = ParameterDirection.Output;
+                        cmd.ExecuteNonQuery();
+                        newCampaignId = Convert.ToInt32(cmd.Parameters["@NewCampaignId"].Value);
+                        conn.Close();
+                    }
                 }
             }
             catch (Exception ex)
@@ -108,11 +111,9 @@ namespace BikewaleOpr.Common
             }
             finally
             {
-                if (db != null)
-                    db.CloseConnection();
                 db = null;
             }
-            return isSuccess;
+            return newCampaignId;
         }
 
         /// <summary>

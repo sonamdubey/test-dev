@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+<!-- #Include file="/includes/headerWithoutForm.aspx" -->
 <head runat="server">
     <title>Dealer Rules</title>
     <style type="text/css">
