@@ -152,7 +152,7 @@
                                     <a href="#" class="text-light-grey" data-bind="visible : email() && email().length > 0,attr : { href :'mailto:' + email() }"><span class="bwsprite mail-grey-icon"></span><span data-bind="    text: email()"></span></a>
                                 </div>
 
-                                <p class="text-light-grey margin-bottom5" data-bind="visible: workingHours && workingHours.length > 0,text : workingHours">Working Hours : </p>
+                                <p class="text-light-grey margin-bottom5" data-bind="visible: workingHours() && workingHours().length > 0" >Working Hours : <span data-bind="text: workingHours()"></span> </p>
                                 <a href="javscript:void(0)" target="_blank" data-bind="attr: { href: 'https://maps.google.com/?saddr=' + $root.CustomerDetails().userSrcLocation() + '&daddr=' + lat() + ',' + lng() + '' }"><span class="bwsprite get-direction-icon"></span>Get directions</a>
                                 <%-- <a href="" class="border-dark-left margin-left10 padding-left10"><span class="bwsprite sendto-phone-icon"></span>Send to phone</a>--%>
                             </div>
