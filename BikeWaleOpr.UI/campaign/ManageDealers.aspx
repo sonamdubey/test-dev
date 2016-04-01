@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.ManageDealers" %>
 
 <!DOCTYPE html>
-
+<!-- #Include file="/includes/headerWithoutForm.aspx" -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Manage Dealers</title>
@@ -35,7 +35,7 @@
                         <td>
                             <asp:TextBox runat="server" id="txtMaskingNumber" MaxLength="10" class="req numeric width300" Enabled="true" />
                             <span id="spnMaskingNumber" class="errorMessage"></span>
-                            <span id="mapNewMaskingNumber" class="link" onclick="ShowMapMaskingNumberPopup()">Release number</span>
+                            <a id="mapNewMaskingNumber" href="javascript:void(0)" onclick="ShowMapMaskingNumberPopup()">Map new Masking number</a>
                         </td>
                     </tr>
                     <tr>
@@ -125,9 +125,9 @@
                 $("#mapDealerMaskingIFrame").remove();
                 var applyIframe = false;
                 var CwOprHostUrl = '<%= ConfigurationManager.AppSettings["CwOprHostUrl"]%>';
-                var src = CwOprHostUrl + 'DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=4';
+                var src = CwOprHostUrl + 'DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=<%= dealerId %>';
                 var title = 'Map a masking number'
-                var width = 1100;
+                var width = 900;
                 var height = 600;
                 var iframe = $('<iframe id="mapDealerMaskingIFrame" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>');
                 dialog = $("<div></div>").append(iframe).appendTo("body").dialog({
@@ -159,10 +159,22 @@
             }
         }
         
+        
         $("#backbutton").on("click", function () {
             window.location.href = '/campaign/MapCampaign.aspx?contractid='+ '<%= contractId %>';
         });
-        
+
+        // iFrame listener code starts
+         var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+         var eventer = window[eventMethod];
+         var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+         //Listen to message from child window
+         eventer(messageEvent, function (e) {
+             console.log('parent received message!:  ', e.data);
+             $("#txtMaskingNumber").val(e.data);
+             dialog.dialog('close')
+         }, false);
+        // iFrame listener code ends
     </script>
 </body>
 </html>

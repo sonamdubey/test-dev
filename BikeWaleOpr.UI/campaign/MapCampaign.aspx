@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+<!-- #Include file="/includes/headerWithoutForm.aspx" -->
 <head runat="server">
-    <title></title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
     <script type="text/javascript">
