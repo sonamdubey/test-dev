@@ -65,8 +65,11 @@ namespace BikewaleOpr.Campaign
                 {
                     dealerId = Convert.ToString(dtCampaigns.Rows[0]["DealerId"]);
                     dealerName = Convert.ToString(dtCampaigns.Rows[0]["Organization"]);
-                    rptCampaigns.DataSource = dtCampaigns;
-                    rptCampaigns.DataBind();
+                    if (!string.IsNullOrEmpty(Convert.ToString(dtCampaigns.Rows[0][0])))
+                    {
+                        rptCampaigns.DataSource = dtCampaigns;
+                        rptCampaigns.DataBind();
+                    }
                 }
             }
             catch (Exception ex)
@@ -115,7 +118,5 @@ namespace BikewaleOpr.Campaign
         }
 
         #endregion
-
-
     }
 }

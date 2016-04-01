@@ -213,6 +213,10 @@
     <Compile Include="common\ManageDealerBenefits.cs" />
     <Compile Include="common\ManageDealerCampaign.cs" />
     <Compile Include="common\ManageDealerCampaignRule.cs" />
+    <Compile Include="content\DealerDefault.aspx.cs">
+      <DependentUpon>DealerDefault.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="content\frmManageAppVersions.aspx.cs">
       <DependentUpon>frmManageAppVersions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1406,6 +1410,8 @@
     <Content Include="content\CompareFeaturedBike.aspx" />
     <Content Include="content\ComparisonBikes.aspx" />
     <Content Include="content\ContentsMenu.aspx" />
+    <Content Include="content\DealerDefault.aspx" />
+    <Content Include="content\DealerMenu.aspx" />
     <Content Include="content\Default.aspx" />
     <Content Include="content\EditDealers.aspx" />
     <Content Include="content\ExpectedLanuches.aspx" />
