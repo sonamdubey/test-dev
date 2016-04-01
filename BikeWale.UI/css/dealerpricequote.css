@@ -15,7 +15,7 @@
 .border-light-top { border-top: 1px solid #f1f1f1; }
 .border-light-bottom { border-bottom: 1px solid #f1f1f1; }
 .offer-benefit-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
-.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6 { width:30px; }
+.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
 .benifitIcon_1 { height:26px; background-position:0 -181px; }
 .benifitIcon_2 { height:30px; background-position:0 -141px; }
 .benifitIcon_3 { height:25px; background-position:0 -75px; }
@@ -24,7 +24,7 @@
 .offerIcon_2 { height:25px; background-position:0 -321px; }
 .offerIcon_3 { height:30px; background-position:0 0; }
 .offerIcon_4 { height:26px; background-position:0 -257px; }
-.offerIcon_5 { height:30px; background-position:0 -217px; }
+.offerIcon_5, .benifitIcon_5, .offerIcon_7  { height:30px; background-position:0 -217px; }
 .offerIcon_6 { height:21px; background-position:0 -110px; }
 .pricequote-benefits-list { overflow:hidden; }
 .pricequote-benefits-list li { width:205px; padding-right:10px; margin-top:10px; margin-bottom:10px; display:inline-block; vertical-align:middle;}

@@ -37,8 +37,8 @@
 #offersPopup ul li { width:100%; margin-top:15px; margin-bottom:15px; }
 #offersPopup ul li:first-child { margin-top:0; }
 .pricequote-benefits-list li { width:100%; min-height:35px;}
-.offer-benefit-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
-.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6 { width:30px; }
+.offer-benefit-sprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/offerbenefitsprite.png?v1=1Apr2016v1) no-repeat; display: inline-block; }
+.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
 .benifitIcon_1 { height:26px; background-position:0 -181px; }
 .benifitIcon_2 { height:30px; background-position:0 -141px; }
 .benifitIcon_3 { height:25px; background-position:0 -75px; }
@@ -47,9 +47,9 @@
 .offerIcon_2 { height:25px; background-position:0 -321px; }
 .offerIcon_3 { height:30px; background-position:0 0; }
 .offerIcon_4 { height:26px; background-position:0 -257px; }
-.offerIcon_5 { height:30px; background-position:0 -217px; }
+.offerIcon_5, .benifitIcon_5, .offerIcon_7 { height:30px; background-position:0 -217px; }
 .offerIcon_6 { height:21px; background-position:0 -110px; }
-.cal-emi-icon { width:37px; height:48px; background-position:-114px -22px; }
+.cal-emi-icon {width:37px; height: 48px; background-position:0 -356px}
 .tel-sm-icon { width: 15px; height: 15px;background-position: -84px -323px; position: relative; top: 2px;}
 #calldealer.btn-sm { padding:8px 12px; }
 #calldealer .tel-grey-icon{position: relative;top: 2px}

@@ -287,7 +287,7 @@
             <div class="emi-popup-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="icon-outer-container rounded-corner50percent">
                 <div class="icon-inner-container rounded-corner50percent">
-                    <span class="pricequote-sprite cal-emi-icon margin-top20"></span>
+                    <span class="offer-benefit-sprite cal-emi-icon margin-top20"></span>
                 </div>
             </div>
             <p class="font16 text-bold margin-top25 margin-bottom10">EMI Calculator</p>
