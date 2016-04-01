@@ -9,7 +9,6 @@
 <title>BikeWale Operations</title>
 </head>
 <body>
-    <form runat="server">
 	<div class="content">
 			<div class="header">
 				<div class="top_info_right">
@@ -45,5 +44,7 @@
                     <li><a href="/newbikebooking/ManageDealerCampaigns.aspx" accesskey="e">Manage Dealer Campaigns</a></li>--%>
                 </ul>
 			</div>
-	
+
+	</div>
+</body>
 
