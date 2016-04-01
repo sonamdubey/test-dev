@@ -1976,6 +1976,7 @@
     <Content Include="includes\footerNew.aspx" />
     <Content Include="includes\headerNew.aspx" />
     <Content Include="includes\HeaderUser.aspx" />
+    <Content Include="includes\headerWithoutForm.aspx" />
     <Content Include="MobileApp\AppVersioning.aspx" />
     <Content Include="newbikebooking\DealerDetailedPriceQuote.aspx" />
     <Content Include="newbikebooking\DealerShowroomPrices.aspx" />
@@ -2010,6 +2011,8 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="newbikebooking\web.config" />
+    <Content Include="campaign\web.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
