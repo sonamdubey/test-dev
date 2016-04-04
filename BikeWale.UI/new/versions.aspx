@@ -374,7 +374,7 @@
                                     <asp:Repeater ID="rptOffers" runat="server">
                                         <ItemTemplate>
 		                                    <li>
-                                                <span class="benefit-list-image model-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%>"></span>
+                                                <span class="benefit-list-image offer-benefit-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%>"></span>
                                                 <span class="benefit-list-title"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText"))%></span>
 		                                    </li>
                                         </ItemTemplate>
