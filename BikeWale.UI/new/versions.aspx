@@ -513,7 +513,8 @@
                             <asp:Repeater ID="rptSecondaryDealers" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <a href="javascript:void(0);" onclick="secondarydealer_Click(<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)" class="font18 text-bold text-darker-black margin-right20 secondary"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %></a>
+                                        <a href="javascript:void(0);" onclick="secondarydealer_Click(
+                                            <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)" class="font18 text-bold text-darker-black margin-right20 secondary"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %>, <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Area")) %></a>
                                         <span class="font16 text-bold"><span class="fa fa-phone"></span> <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MaskingNumber")) %></span>
                                     </li>
                                 </ItemTemplate>
