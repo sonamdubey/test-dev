@@ -267,7 +267,7 @@
                             <ItemTemplate>
                                 <li>
                                     <a href="javascript:void(0)" class="font18 text-bold text-darker-black margin-right20" onclick="secondarydealer_Click(<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %></a><br />
-                                    <span class="font14 text-light-grey">Area</span>
+                                    <span class="font14 text-light-grey"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Area")) %></span>
                                 </li>
                             </ItemTemplate>
                         </asp:Repeater>
