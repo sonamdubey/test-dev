@@ -668,6 +668,7 @@ function CustomerModel(obj) {
             isValidDetails &= validateBike(getModelName);
             isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
             startLoading($("#user-details-submit-btn").parent());
+            self.isAssist(false);
         }
 
         var bike = self.selectedBike();
