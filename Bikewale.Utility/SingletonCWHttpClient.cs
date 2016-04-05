@@ -16,7 +16,20 @@ namespace Bikewale.Utility
         /// <summary>
         /// 
         /// </summary>
-        private SingletonCWHttpClient() { }
+        private SingletonCWHttpClient() {
+        }
+
+        static SingletonCWHttpClient()
+        {
+            _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri(BWConfiguration.Instance.CwApiHostUrl);
+
+            _httpClient.DefaultRequestHeaders.Add("clientid", "5");
+            _httpClient.DefaultRequestHeaders.Add("platformid", "2");
+
+            //sets the Accept header to "application/json", which tells the server to send data in JSON format.
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(BWConfiguration.Instance.APIRequestTypeJSON));
+        }
 
         /// <summary>
         /// Create singleton of the http client
@@ -42,12 +55,12 @@ namespace Bikewale.Utility
                 //        }
                 //    }
                 //}
-                _httpClient = new HttpClient();
-                _httpClient.BaseAddress = new Uri(BWConfiguration.Instance.CwApiHostUrl);
-                _httpClient.DefaultRequestHeaders.Accept.Clear();
+                //_httpClient = new HttpClient();
+                //_httpClient.BaseAddress = new Uri(BWConfiguration.Instance.CwApiHostUrl);
+                //_httpClient.DefaultRequestHeaders.Accept.Clear();
 
-                //sets the Accept header to "application/json", which tells the server to send data in JSON format.
-                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(BWConfiguration.Instance.APIRequestTypeJSON));
+                ////sets the Accept header to "application/json", which tells the server to send data in JSON format.
+                //_httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(BWConfiguration.Instance.APIRequestTypeJSON));
                 return _httpClient;
             }
         }

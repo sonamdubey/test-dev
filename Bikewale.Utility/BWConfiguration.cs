@@ -63,7 +63,8 @@ namespace Bikewale.Utility
             _apiRequestTypeJSON = String.Empty,
             _BWSmsQueue = String.Empty,
             _GoogleApiKey = string.Empty,
-            _GoogleMapApiKey = String.Empty;
+            _GoogleMapApiKey = String.Empty,
+            _apiMaxWaitTime = string.Empty;
        
 
         // Private constructor, so no outsiders have access.
@@ -115,6 +116,7 @@ namespace Bikewale.Utility
             _BWSmsQueue = ConfigurationManager.AppSettings["PrioritySmsQueue"];
             _GoogleApiKey = ConfigurationManager.AppSettings["APIKey"];
             _GoogleMapApiKey = ConfigurationManager.AppSettings["GoogleMapApiKey"];
+            _apiMaxWaitTime = ConfigurationManager.AppSettings["ApiMaxWaitTime"];
         }
 
         // Static method to provide access to instance
@@ -212,5 +214,6 @@ namespace Bikewale.Utility
         public string BWSmsQueue { get { return _BWSmsQueue; } }
         public string GoogleApiKey { get { return _GoogleApiKey; } }
         public string GoogleMapApiKey { get { return _GoogleMapApiKey; } }
+        public int ApiMaxWaitTime { get { return string.IsNullOrEmpty(_apiMaxWaitTime) ? 0 : Convert.ToInt32(_apiMaxWaitTime); } }
     }   // class
 }   // namespace

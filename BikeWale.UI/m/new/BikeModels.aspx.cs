@@ -107,85 +107,97 @@ namespace Bikewale.Mobile.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             #region Do not change the sequence
             Trace.Warn("Trace 3 : ParseQueryString Start");
             ParseQueryString();
             Trace.Warn("Trace 4 : ParseQueryString End");
-            Trace.Warn("Trace 5 : CheckCityCookie Start");
-            CheckCityCookie();
-            SetFlags();
-            Trace.Warn("Trace 6 : CheckCityCookie End");
-            if (hdnVariant.Value != "0")
-                variantId = Convert.ToInt32(hdnVariant.Value);
+            try
+            {
+                if (!string.IsNullOrEmpty(modelId))
+                {
+                    Trace.Warn("Trace 5 : CheckCityCookie Start");
+                    CheckCityCookie();
+                    SetFlags();
+                    Trace.Warn("Trace 6 : CheckCityCookie End");
+                    if (hdnVariant.Value != "0")
+                        variantId = Convert.ToInt32(hdnVariant.Value);
 
             #endregion
-            Trace.Warn("Trace 7 : FetchModelPageDetails Start");
-            FetchModelPageDetails();
-            Trace.Warn("Trace 8 : FetchModelPageDetails End");
-            if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
-            {
+                    Trace.Warn("Trace 7 : FetchModelPageDetails Start");
+                    FetchModelPageDetails();
+                    Trace.Warn("Trace 8 : FetchModelPageDetails End");
+                    if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
+                    {
 
-                Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
-                FetchOnRoadPrice();
+                        Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
+                        FetchOnRoadPrice();
                 FillViewModel();
-                Trace.Warn("Trace 10 : FetchOnRoadPrice End");
+                        Trace.Warn("Trace 10 : FetchOnRoadPrice End");
+                    }
+
+                    Trace.Warn("Trace 11 : !IsPostBack");
+                    #region Do not change the sequence of these functions
+                    Trace.Warn("Trace 12 : BindRepeaters Start");
+                    BindRepeaters();
+                    Trace.Warn("Trace 13 : BindRepeaters End");
+                    //BindModelGallery();
+                    Trace.Warn("Trace 14 : BindAlternativeBikeControl Start");
+                    BindAlternativeBikeControl();
+                    Trace.Warn("Trace 15 : BindAlternativeBikeControl End");
+                    Trace.Warn("Trace 16 : GetClientIP Start");
+                    clientIP = CommonOpn.GetClientIP();
+                    Trace.Warn("Trace 17 : GetClientIP End");
+                    Trace.Warn("Trace 18 : LoadVariants Start");
+                    LoadVariants();
+                    Trace.Warn("Trace 19 : LoadVariants End");
+                    #endregion
+
+                    ////news,videos,revews, user reviews
+                    ctrlNews.TotalRecords = 3;
+                    ctrlNews.ModelId = Convert.ToInt32(modelId);
+
+                    ctrlExpertReviews.TotalRecords = 3;
+                    ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
+
+                    ctrlVideos.TotalRecords = 3;
+                    ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+                    ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+                    ctrlVideos.ModelId = Convert.ToInt32(modelId);
+
+                    ctrlUserReviews.ReviewCount = 4;
+                    ctrlUserReviews.PageNo = 1;
+                    ctrlUserReviews.PageSize = 4;
+                    ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
+                    ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+
+                    ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+                    ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+                    Trace.Warn("Trace 20 : Page Load ends");
+
+                    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                    {
+                        rptVarients.DataSource = modelPage.ModelVersions;
+                        rptVarients.DataBind();
+                    }
+                    ToggleOfferDiv();
+                    if (variantId != 0)
+                    {
+                        FetchVariantDetails(variantId);
+                    }
+                    // Clear trailing query string -- added on 09-feb-2016 by Sangram
+                    PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                    if (isreadonly != null)
+                    {
+                        isreadonly.SetValue(this.Request.QueryString, false, null);
+                        this.Request.QueryString.Clear();
+                    }
+                }
             }
-
-            Trace.Warn("Trace 11 : !IsPostBack");
-            #region Do not change the sequence of these functions
-            Trace.Warn("Trace 12 : BindRepeaters Start");
-            BindRepeaters();
-            Trace.Warn("Trace 13 : BindRepeaters End");
-            //BindModelGallery();
-            Trace.Warn("Trace 14 : BindAlternativeBikeControl Start");
-            BindAlternativeBikeControl();
-            Trace.Warn("Trace 15 : BindAlternativeBikeControl End");
-            Trace.Warn("Trace 16 : GetClientIP Start");
-            clientIP = CommonOpn.GetClientIP();
-            Trace.Warn("Trace 17 : GetClientIP End");
-            Trace.Warn("Trace 18 : LoadVariants Start");
-            LoadVariants();
-            Trace.Warn("Trace 19 : LoadVariants End");
-            #endregion
-
-            ////news,videos,revews, user reviews
-            ctrlNews.TotalRecords = 3;
-            ctrlNews.ModelId = Convert.ToInt32(modelId);
-
-            ctrlExpertReviews.TotalRecords = 3;
-            ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
-
-            ctrlVideos.TotalRecords = 3;
-            ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
-            ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-            ctrlVideos.ModelId = Convert.ToInt32(modelId);
-
-            ctrlUserReviews.ReviewCount = 4;
-            ctrlUserReviews.PageNo = 1;
-            ctrlUserReviews.PageSize = 4;
-            ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
-            ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
-
-            ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
-            ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-            Trace.Warn("Trace 20 : Page Load ends");
-
-            if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+            catch (Exception ex)
             {
-                rptVarients.DataSource = modelPage.ModelVersions;
-                rptVarients.DataBind();
-            }
-            ToggleOfferDiv();
-            if (variantId != 0)
-            {
-                FetchVariantDetails(variantId);
-            }
-            // Clear trailing query string -- added on 09-feb-2016 by Sangram
-            PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (isreadonly != null)
-            {
-                isreadonly.SetValue(this.Request.QueryString, false, null);
-                this.Request.QueryString.Clear();
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
 
         }
