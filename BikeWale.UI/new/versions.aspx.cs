@@ -238,7 +238,6 @@ namespace Bikewale.New
                     BindPhotoRepeater();
                     clientIP = CommonOpn.GetClientIP();
                     LoadVariants();
-
                     Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
                     BindAlternativeBikeControl();
                     Trace.Warn("Trace 19 : BindAlternativeBikeControl End");

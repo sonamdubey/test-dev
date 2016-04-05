@@ -1,7 +1,7 @@
-﻿var customerViewModel,dealerDetailsViewModel,iterator=0,originPlace,map, infowindow, dealerId, userLocation = { "latitude": "", "longitude": "" }, assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile'), getModelName = $("#getModelName"), assistGetModel = $("#assistGetModel");
-var dealerArr = [],markerArr = [];
+﻿var customerViewModel, dealerDetailsViewModel, iterator = 0, originPlace, map, infowindow, dealerId, userLocation = { "latitude": "", "longitude": "" }, assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile'), getModelName = $("#getModelName"), assistGetModel = $("#assistGetModel");
+var dealerArr = [], markerArr = [];
 var blackMarkerImage = 'http://imgd2.aeplcdn.com/0x0/bw/static/design15/map-marker-black.png';
-var redMarkerImage = 'http://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';  
+var redMarkerImage = 'http://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
 var flag = false;
 var userAddress = "";
 var getCityArea = GetGlobalCityArea();
@@ -73,7 +73,7 @@ $(document).keydown(function (e) {
 });
 
 $(document).on("click", "#submitassistanceformbtn", function () {
-    
+
 });
 
 function getLocation() {
@@ -82,7 +82,7 @@ function getLocation() {
         google.maps.event.trigger(originPlace, 'place_changed');
     }
     else {
-       if (navigator.geolocation) {
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 savePosition,
                 showError,
@@ -101,18 +101,19 @@ function savePosition(position) {
     }
     if (dealerDetailsViewModel && dealerDetailsViewModel.CustomerDetails())
         dealerDetailsViewModel.CustomerDetails().userSrcLocation(userLocation.latitude + "," + userLocation.longitude);
-    if (userAddress=="") {
+    if (userAddress == "") {
         $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + userLocation.latitude + "," + userLocation.longitude + "&key=" + googleMapAPIKey, function (data) {
-            if (data.status == "OK") {
-                userAddress = data;
-                userAddress = userAddress.results[0].formatted_address;
-                $("#locationSearch").val("").val(userAddress);
-                google.maps.event.trigger(originPlace, 'place_changed');
+            if (data.status == "OK" && data.results.length > 0) {
+                userAddress = data.results[0].formatted_address;
             }
-
+            else {
+                userAddress = "Your location";
+            }
+            $("#locationSearch").val("").val(userAddress);
+            google.maps.event.trigger(originPlace, 'place_changed');
         });
     }
-    
+
 }
 
 function showError(error) {
@@ -130,7 +131,7 @@ function showError(error) {
             console.log("An unknown error occurred.");
             break;
     }
-}      
+}
 
 $("ul#dealersList li").each(function () {
     _self = $(this);
@@ -146,7 +147,7 @@ $("ul#dealersList li").each(function () {
 });
 
 function initializeMap(dealerArr) {
-    var i, marker, dealer, markerPosition, content, zIndex;  
+    var i, marker, dealer, markerPosition, content, zIndex;
     var mapProp = {
         scrollwheel: false,
         streetViewControl: false,
@@ -170,13 +171,13 @@ function initializeMap(dealerArr) {
           componentRestrictions: { country: "in" }
       });
 
-    google.maps.event.addListener(originPlace, 'place_changed', function () {         
+    google.maps.event.addListener(originPlace, 'place_changed', function () {
         var place = originPlace.getPlace();
         if (!(place && place.geometry)) {
             origin_place_id = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
         }
-        else { 
-            
+        else {
+
             origin_place_id = place.geometry.location
             userLocation.latitude = place.geometry.location.lat();
             userLocation.longitude = place.geometry.location.lng();
@@ -194,7 +195,7 @@ function initializeMap(dealerArr) {
     for (i = 0; i < dealerArr.length; i++) {
         setTimeout(function () {
             setMarkersNInfo();
-        }, i * 200);       
+        }, i * 200);
 
     }
 
@@ -206,11 +207,10 @@ function initializeMap(dealerArr) {
         }
     });
 
-    
+
 }
 
-function setMarkersNInfo()
-{
+function setMarkersNInfo() {
     dealer = dealerArr[iterator++];
     if (dealer && (dealer.latitude != "0" || dealer.longitude != "0")) {
         markerPosition = new google.maps.LatLng(dealer.latitude, dealer.longitude);
@@ -245,7 +245,7 @@ function setMarkersNInfo()
 
         google.maps.event.addListener(marker, 'click', (function (marker, infowindow) {
             return function () {
-                infowindow.close();                 
+                infowindow.close();
                 //toggleBounce(marker);
                 getDealerFromSidebar(marker.dealerId);
             };
@@ -261,7 +261,7 @@ function setMapCenter(newLat, newLng) {
         });
     }
 
-}   
+}
 
 function route(origin_place_id, travel_mode, directionsService, directionsDisplay) {
 
@@ -300,8 +300,7 @@ function getCommuteInfo(result) {
 
 }
 
-function toggleBounce(_marker)
-{
+function toggleBounce(_marker) {
     if (_marker.getAnimation() != null) {
         _marker.setAnimation(null);
     } else {
@@ -310,11 +309,11 @@ function toggleBounce(_marker)
     setTimeout(function () { _marker.setAnimation(null); }, 1500);
 }
 
-$('body').on('click', ' #dealersMap a.tooltip-target-link', function () {
+$(document).on('click', ' #dealersMap a.tooltip-target-link', function () {
     getDealerFromSidebar($(this).attr('data-tooltip-id'));
 });
 
-$('body').on('mouseenter', '#dealersList li', function () {
+$(document).on('mouseover', '#dealersList li', function () {
     if (!$("body").hasClass("hide-scroll")) {
         var currentLI = $(this),
          currentDealerId = currentLI.attr('data-item-id');
@@ -330,20 +329,20 @@ $('body').on('mouseenter', '#dealersList li', function () {
 
 });
 
-$('#dealersList li').mouseout(function () {
+$(document).on('mouseout', '#dealersList li', function () {
     infowindow.close();
 });
 
-$("body").on('click', 'a.dealer-sidebar-link', function () {
+$(document).on('click', 'a.dealer-sidebar-link', function () {
     var parentLI = $(this).parents('li');
     selectedDealer(parentLI);
     $("#buyingAssistanceForm").show();
     $("#buying-assistance-form").show().siblings("#dealer-assist-msg").hide();
     stopLoading('#buyingAssistanceForm');
-    
+
 });
 
-$("body").on('click', '#dealersList a.get-assistance-btn', function (e) {   
+$(document).on('click', '#dealersList a.get-assistance-btn', function (e) {
     id = $(this).attr("data-item-id");
     type = $(this).attr("data-item-type");
     parentLi = $(this).parents("li");
@@ -374,7 +373,7 @@ $("body").on('click', '#dealersList a.get-assistance-btn', function (e) {
 
 });
 
-$("body").on("click mouseup", ".leadCapture-close-btn, .blackOut-window", function () {
+$(document).on("click mouseup", ".leadCapture-close-btn, .blackOut-window", function () {
     leadCapturePopup.hide();
     $('body').removeClass('lock-browser-scroll');
     $(".blackOut-window").hide();
@@ -421,10 +420,10 @@ var selectedDealer = function (dealer) {
             $("#assistGetName").focus();
             $('body').addClass('hide-scroll')
             campId = $("ul#dealersList li.active").attr("data-campId");
-            dname = dealer.find("a.dealer-sidebar-link").text();              
+            dname = dealer.find("a.dealer-sidebar-link").text();
             getDealerDetails(dealerId, campId, dname);
             getLocation();
-            
+
         }
         else {
             $('#dealerDetailsSliderCard').hide().animate({ 'right': '-338px' }, { complete: function () { $('#dealerDetailsSliderCard').hide().css({ 'height': '0' }); } });
@@ -434,7 +433,7 @@ var selectedDealer = function (dealer) {
 
 };
 
-$("body").on('click', '#dealer-assist-msg .cur-pointer', function () {
+$(document).on('click', '#dealer-assist-msg .cur-pointer', function () {
     $("#dealer-assist-msg").parent().slideUp();
 });
 
@@ -448,7 +447,7 @@ var dealerDetails = function (data) {
     self.email = ko.observable(data.email);
     self.dealerType = ko.observable(data.dealerPackageType);
 
-    
+
 
     if (data.Area) {
         self.area = ko.observable(data.Area.areaName);
@@ -594,7 +593,7 @@ function stopLoading(ele) {
 }
 
 function bindDealerDetails(response) {
-    obj = ko.toJS(response);    
+    obj = ko.toJS(response);
     ko.cleanNode($('#dealerInfo')[0]);
     customerViewModel = new CustomerModel(obj);
     dealerDetailsViewModel = new DealerModel(obj)
@@ -653,7 +652,7 @@ function CustomerModel(obj) {
 
     if (obj.dealerBikes && obj.dealerBikes.length > 0) {
         self.bikes = ko.observableArray(obj.dealerBikes);
-    } 
+    }
 
     self.generatePQ = function (data, event) {
         self.IsVerified(false);
@@ -780,7 +779,7 @@ function CustomerModel(obj) {
         }
 
 
-    };   
+    };
 
     self.generateOTP = function () {
         if (self.isAssist()) {
@@ -875,7 +874,7 @@ function CustomerModel(obj) {
                     $("#dealer-assist-msg").fadeIn();
                     startLoading($("#buyingAssistanceForm"));
 
-                } else {                    
+                } else {
                     $("#dealer-lead-msg").fadeIn();
                 }
             }
@@ -988,7 +987,7 @@ $(document).on("blur", "#assistanceGetEmail,#getEmailID", function () {
     }
 });
 
-$(document).on("blur","#assistanceGetMobile,#getMobile,#getUpdatedMobile", function () {
+$(document).on("blur", "#assistanceGetMobile,#getMobile,#getUpdatedMobile", function () {
     if (prevMobile != $(this).val().trim()) {
         if (validateMobileNo($(this))) {
             customerViewModel.IsVerified(false);
@@ -997,7 +996,7 @@ $(document).on("blur","#assistanceGetMobile,#getMobile,#getUpdatedMobile", funct
             hideError($(this));
         }
     }
-});    
+});
 
 $(document).on("click", ".edit-mobile-btn", function () {
     var prevMobile = $(this).prev("span.lead-mobile").text();
@@ -1015,9 +1014,9 @@ $(document).on("click", "#generateNewOTP", function () {
     }
 });
 
-$("body").on('click', '#dealer-lead-msg .okay-thanks-msg', function () {
+$(document).on('click', '#dealer-lead-msg .okay-thanks-msg', function () {
     $(".leadCapture-close-btn").click();
-});  
+});
 
 $(document).on("focus", "#getOTP", function () {
     otpText.val('');
@@ -1131,7 +1130,7 @@ var validateMobileNo = function (leadMobileNo) {
     else
         hideError(leadMobileNo)
     return isValid;
-};  
+};
 
 var setError = function (element, msg) {
     element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
