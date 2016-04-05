@@ -214,5 +214,71 @@ namespace BikewaleOpr.Common
             }
             return dtDealerCampaign;
         }
+
+        /// <summary>
+        /// Created by  :   Sangram Nandkhile on 04 Apr 2016
+        /// Description :   Fetch the Dealer Campaigns for contacts
+        ///                 SP Called : GetMaskingNumbers
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public DataTable BindMaskingNumbers(int dealerId)
+        {
+            Database db = null;
+            DataTable dtb = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("BW_GetMaskingNumbers"))
+                {
+                    db = new Database();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
+                    DataSet ds = db.SelectAdaptQry(cmd);
+                    if (ds != null && ds.Tables.Count > 0)
+                    {
+                        dtb = ds.Tables[0];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindMaskingNumbers");
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return dtb;
+        }
+
+        void AutoPauseCampaign(int CampaignId)
+        {
+            try
+            {
+                //isActiveFlag.Value = "False";
+                //int.TryParse(hdnCampaignId.Value, out CampaignId);
+                SqlConnection con;
+                Database db = new Database();
+                con = new SqlConnection(db.GetConString());
+                bool activateCampaign = false;
+                using (SqlCommand cmd = new SqlCommand("UpdateCampaignStatus", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@Ids", SqlDbType.VarChar, 500).Value = CampaignId;
+                    cmd.Parameters.Add("@DeletedBy", SqlDbType.Int).Value = CurrentUser.Id;
+                    cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = activateCampaign;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "AutoPauseCampaign");
+                objErr.SendMail();
+            }
+        }
     }
 }

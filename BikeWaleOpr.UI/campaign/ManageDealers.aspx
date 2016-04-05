@@ -33,9 +33,10 @@
                     <tr>
                         <td><strong>Dealer Masking Number :</strong><b class='required'>*</b></td>
                         <td>
-                            <asp:TextBox runat="server" id="txtMaskingNumber" MaxLength="10" class="req numeric width300" Enabled="true" />
-                            <span id="spnMaskingNumber" class="errorMessage"></span>
-                            <a id="mapNewMaskingNumber" href="javascript:void(0)" onclick="ShowMapMaskingNumberPopup()">Map new Masking number</a>
+                            <asp:TextBox runat="server" ReadOnly="true" name="maskingNumber" id="txtMaskingNumber" MaxLength="10" class="req numeric width300" Enabled="true" />
+                            <asp:DropDownList ID="ddlMaskingNumber" runat="server" />
+                            <asp:HiddenField ID="hdnOldMaskingNumber" runat="server" />
+                            <%--<a id="mapNewMaskingNumber" href="javascript:void(0)" onclick="ShowMapMaskingNumberPopup()">Map new Masking number</a>--%>
                         </td>
                     </tr>
                     <tr>
@@ -97,6 +98,7 @@
                     $(this).removeClass('redmsg');
                 }
             });
+
             if (!isValid) {
                 $('#lblErrorSummary').html('Please fill values');
             }
@@ -113,68 +115,14 @@
             var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
             return pattern.test(emailAddress);
         };
+       
+        $("#ddlMaskingNumber").change(function () {
+            $('#txtMaskingNumber').val($(this).find("option:selected").text());
+        });
 
-        function ShowMapMaskingNumberPopup() {
-            var maskingCurrentAction = 'Add';
-            if (maskingCurrentAction == "Add") {
-                var dealerId = 11743;
-                if (dealerId == "" || dealerId == null || dealerId == 0 || dealerId == -1) {
-                    alert('Please select dealer first');
-                    return;
-                }
-                $("#mapDealerMaskingIFrame").remove();
-                var applyIframe = false;
-                var CwOprHostUrl = '<%= ConfigurationManager.AppSettings["CwOprHostUrl"]%>';
-                var src = CwOprHostUrl + 'DCRM/Masters/MapDealerMasking.aspx?DealerIdForMasking=<%= dealerId %>';
-                var title = 'Map a masking number'
-                var width = 900;
-                var height = 600;
-                var iframe = $('<iframe id="mapDealerMaskingIFrame" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>');
-                dialog = $("<div></div>").append(iframe).appendTo("body").dialog({
-                    autoOpen: false,
-                    modal: true,
-                    resizable: false,
-                    width: "auto",
-                    height: "auto",
-                    close: function () {
-                        iframe.attr("src", "");
-                    }
-                });
-
-                iframe.attr({
-                    width: +width,
-                    height: +height,
-                    src: src
-                });
-                dialog.dialog("option", "title", title).dialog("open");
-            }
-            else if (maskingCurrentAction == "Remove") {
-                var confirmResult = confirm('Are you sure you want to release the masked number for ' + $('#spnDealerName').text().split('(')[0]);
-                if (!confirmResult) {
-                    return;
-                }
-                $('#' + 'btnUpdateResume').hide();
-                $("#txtMaskingNumber").val("");
-                maskingCurrentAction = "Add";
-            }
-        }
-        
-        
         $("#backbutton").on("click", function () {
             window.location.href = '/campaign/MapCampaign.aspx?contractid='+ '<%= contractId %>';
         });
-
-        // iFrame listener code starts
-         var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-         var eventer = window[eventMethod];
-         var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-         //Listen to message from child window
-         eventer(messageEvent, function (e) {
-             console.log('parent received message!:  ', e.data);
-             $("#txtMaskingNumber").val(e.data);
-             dialog.dialog('close')
-         }, false);
-        // iFrame listener code ends
     </script>
 </body>
 </html>
