@@ -521,7 +521,7 @@
                             </asp:Repeater>
                         <% } %>
                         </ul>
-                        <% if (viewModel!=null && viewModel.SecondaryDealerCount > 0)
+                        <% if (viewModel!=null && !isBikeWalePQ && viewModel.SecondaryDealerCount > 0)
                            { %>
                         <div class="text-center margin-top20">
                             <a href="javascript:void(0)" class="font14 more-dealers-link">Check price from <%=viewModel.SecondaryDealerCount %> more dealers <span class="font12"><span class="fa fa-chevron-down"></span></span></a>
@@ -544,22 +544,22 @@
                     </div>
                 </div>
                 <div class="breakup-text-container padding-bottom10">
-                    <% if (viewModel !=null && viewModel.Organization != null)
+                    <% if (viewModel != null && viewModel.Organization != null)
                        { %>
-                    <%--<h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>--%>
                     <%
-                        if(viewModel!= null) {
-                     %>
+                           if (viewModel != null && !isBikeWalePQ)
+                           {
+                    %>
                     <h3 class="font18 margin-bottom25">On-road price <%=viewModel.Organization %></h3>
-                    <% } 
-                        }
-                        else
-                        {
-                     %>
+                    <% }
+                       }
+                       else
+                       {
+                    %>
                     <h3 class="font18 margin-bottom25">On-road price</h3>
-                     <%     
+                    <%     
                         }
-                     %>
+                    %>
                     <% if (isBikeWalePQ)
 					   { %>
                     <table width="100%" class="font14">

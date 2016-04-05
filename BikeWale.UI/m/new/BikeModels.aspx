@@ -230,7 +230,7 @@
                             <% } %>
                     </div>                    
                     <%
-                       if (viewModel != null && viewModel.IsPremiumDealer) { 
+                       if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) { 
                      %>
                     <div class="margin-top20 content-inner-block-10 border-solid">
                         <h2 class="font18 text-darker-black"><%=viewModel.Organization %></h2>
@@ -261,7 +261,6 @@
                     <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && viewModel.SecondaryDealerCount > 0)
                            { 
                      %>
-
                     <ul id="moreDealersList">
                         <asp:Repeater ID="rptSecondaryDealers" runat="server">
                             <ItemTemplate>
@@ -316,7 +315,7 @@
                    {   %>
                 <div class="grid-12 float-button float-fixed clearfix">
                     <div class="show padding-top10">
-                        <% if (modelPage.ModelDetails.New && viewModel != null )
+                        <% if (modelPage.ModelDetails.New && viewModel != null && !isBikeWalePQ )
                            {   
                          %>
                             <% if ( viewModel.IsPremiumDealer)
@@ -1042,9 +1041,12 @@
                 </div>
             </div>
             <div class="breakup-text-container padding-bottom10">
-                <%if (viewModel != null){ %>
+                <%if (viewModel != null && !isBikeWalePQ){ %>
                 <h3 class="breakup-header margin-bottom25">On-road price - <%=viewModel.Organization %></h3>
-               <% } %>
+               <% }
+                  else {%>
+                 <h3 class="breakup-header margin-bottom25">On-road price</h3>
+                <% } %>
                 <% if (isBikeWalePQ)
                    { %>
                 <table class="font14" width="100%">
