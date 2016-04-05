@@ -62,7 +62,7 @@ namespace BikewaleOpr.Campaign
                         dealerId,
                         contractId,
                         Convert.ToInt16(txtdealerRadius.Text),
-                        txtMaskingNumber.Text,
+                        reqFormMaskingNumber,
                         dealerName,
                         txtDealerEmail.Text,
                         false);
@@ -82,7 +82,7 @@ namespace BikewaleOpr.Campaign
                         dealerId,
                         contractId,
                         Convert.ToInt16(txtdealerRadius.Text),
-                        txtMaskingNumber.Text,
+                        reqFormMaskingNumber,
                         dealerName,
                         txtDealerEmail.Text,
                         false);
