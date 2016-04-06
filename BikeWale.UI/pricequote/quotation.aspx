@@ -326,13 +326,6 @@
     variantUL = $(".variants-dropdown-list"),
     variantListLI = $(".variants-dropdown-list li");
 
-    variantsDropdown.click(function (e) {
-        if (!variantsDropdown.hasClass("open"))
-            $.variantChangeDown(variantsDropdown);
-        else
-            $.variantChangeUp(variantsDropdown);
-    });
-
     $.variantChangeDown = function (variantsDropdown) {
         variantsDropdown.addClass("open");
         variantUL.show();
@@ -342,6 +335,13 @@
         variantsDropdown.removeClass("open");
         variantUL.slideUp();
     };
+
+    variantsDropdown.click(function (e) {
+        if (!variantsDropdown.hasClass("open"))
+            $.variantChangeDown(variantsDropdown);
+        else
+            $.variantChangeUp(variantsDropdown);
+    });
 
     //TODO show the selected variant from dropdown
 

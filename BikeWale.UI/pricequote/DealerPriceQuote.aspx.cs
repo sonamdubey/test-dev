@@ -303,11 +303,13 @@ namespace Bikewale.BikeBooking
 
                     objVersionDetails = objVersion.GetById(versionId);
                     versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
-                    if (versionList.Count > 0)
+                    if (versionList != null && versionList.Count > 0)
                     {
                         rptVersion.DataSource = versionList;
                         rptVersion.DataBind();
-                        defaultVariant.Text = versionList.Find(x => x.VersionId == versionId).VersionName;
+                        var defVar = versionList.Find(x => x.VersionId == versionId);
+                        if(defVar!=null)
+                            defaultVariant.Text = defVar.VersionName;
                     }
 
                 }
