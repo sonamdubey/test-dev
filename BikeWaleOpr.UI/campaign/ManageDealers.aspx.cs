@@ -23,7 +23,7 @@ namespace BikewaleOpr.Campaign
         #region variable
 
         protected int dealerId, contractId, campaignId, currentUserId;
-        protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber;
+        protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqFormRadius;
         protected Button btnUpdate;
         protected ManageDealerCampaign dealerCampaign;
         protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber;
@@ -61,7 +61,7 @@ namespace BikewaleOpr.Campaign
                         currentUserId,
                         dealerId,
                         contractId,
-                        Convert.ToInt16(txtdealerRadius.Text),
+                        Convert.ToInt16(reqFormRadius),
                         reqFormMaskingNumber,
                         dealerName,
                         txtDealerEmail.Text,
@@ -81,7 +81,7 @@ namespace BikewaleOpr.Campaign
                         currentUserId,
                         dealerId,
                         contractId,
-                        Convert.ToInt16(txtdealerRadius.Text),
+                        Convert.ToInt16(reqFormRadius),
                         reqFormMaskingNumber,
                         dealerName,
                         txtDealerEmail.Text,
@@ -109,6 +109,11 @@ namespace BikewaleOpr.Campaign
             {
                 reqFormMaskingNumber = Convert.ToString(Request.Form["txtMaskingNumber"]);
             }
+            if (Request.Form["txtdealerRadius"] != null)
+            {
+                reqFormRadius = Convert.ToString(Request.Form["txtdealerRadius"]);
+            }
+            
             SetPageVariables();
             if (isCampaignPresent)
                 FetchDealeCampaign();
