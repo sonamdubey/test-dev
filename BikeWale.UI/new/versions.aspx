@@ -307,9 +307,11 @@
                             </div>
                             <div class="clear"></div>
                              <%  }
-                               else if (viewModel != null && !isBikeWalePQ)
+                               else if (viewModel != null && !toShowOnRoadPriceButton && !isBikeWalePQ)
                                { %>
-                            <a href="javascript:void(0)" onclick="secondarydealer_Click(<%=dealerId %>);" id="checkDealerDetails" class="btn btn-orange margin-top10 margin-right10 leftfloat">Check dealer details</a>
+                            <a href="javascript:void(0)" onclick="secondarydealer_Click(<%=dealerId %>);" id="checkDealerDetails" class="btn btn-orange margin-top10 margin-right10 leftfloat">
+                                Check dealer details
+                            </a>
                             <% } %>
 
                             <% } %>
