@@ -67,7 +67,7 @@ function Calender( calenderId, curYear,curMonth, tol )
 		}
 
 	    //Validate Make year month
-		if (calMakeYear_cmbMonth.value == curYear) {
+		if (calMakeYear_cmbMonth && calMakeYear_cmbMonth.value == curYear) {
 		    if (monthNo > curMonth) {
 		        $("#calMakeYear_cmbMonth").val(curMonth);
 		    }

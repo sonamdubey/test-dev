@@ -453,14 +453,16 @@
         if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0) {
             self.SelectedCity(ko.toJS({ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }));
             self.SelectedCityId(onCookieObj.PQCitySelectedId);
-            self.hasAreas(findCityById(onCookieObj.PQCitySelectedId).hasAreas);
+            var cityFound = findCityById(onCookieObj.PQCitySelectedId);
+            if (cityFound != null) {
+                self.hasAreas(cityFound.hasAreas);
+            }
             if (!self.oBrowser()) {
                 $("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
             }
             else {
                 self.selectCity(self, null);
             }
-
         }
     }
 

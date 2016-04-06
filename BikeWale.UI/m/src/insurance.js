@@ -126,8 +126,6 @@ function nextSection() {
 	
 }
 
-/**************/
-
 var isDataAvailable = true,
     modelList = [],
     versionList = [],
@@ -138,11 +136,7 @@ var isDataAvailable = true,
     insauranceModel = new insuranceDetailViewModel();
 
 $(function () {
-    //$("#bikeRegistrationDate").keydown(function (e) {
-    //    e.preventDefault();
-    //    return false;
-    //});
-    ko.applyBindings(insauranceModel);
+    ko.applyBindings(insauranceModel, $("#insuranceQuote")[0]);
 });
 
 $("#userSelectCity").blur(function () {
