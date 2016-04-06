@@ -1497,7 +1497,7 @@ function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.
                 $.ajax({
                     type: "POST", url: "/api/JSException/", data: error,
                     error: function (event, request, settings) {
-                        request.abort();
+                        //request.abort();
                         return false;
                     }
                 });
@@ -1515,7 +1515,7 @@ function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.
             error.ErrorType = err.name || "Uncatched Exception";
             error.LineNo = lineno || "Unable to trace";
             error.Trace = (err.stack.toString() || '-');
-            errorLog(error);
+           // errorLog(error);
         } catch (e) {
             return false;
         }
