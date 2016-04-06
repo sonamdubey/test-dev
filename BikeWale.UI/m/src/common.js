@@ -1483,7 +1483,7 @@ function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.
                 "Response Text": request.responseText || ""
             });
             error.Message = "Ajax Error Occured";
-            errorLog(error);
+            //errorLog(error);
         } catch (e) {
             return false;
         }
