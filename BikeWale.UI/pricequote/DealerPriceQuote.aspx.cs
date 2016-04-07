@@ -214,7 +214,7 @@ namespace Bikewale.BikeBooking
                             //booking amount
                             if (primarydealer.IsBookingAvailable)
                             {
-                                bookingAmount = Convert.ToUInt16(Utility.Format.FormatPrice(Convert.ToString(primarydealer.BookingAmount)));
+                                bookingAmount = primarydealer.BookingAmount;
                             }
                             //EMI details
                             if (primarydealer.EMIDetails != null)
