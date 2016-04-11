@@ -9,6 +9,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Entities.Location;
 using Microsoft.Practices.Unity;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.DealerLocator;
 
 namespace Bikewale.BAL.Dealer
 {
@@ -150,6 +151,58 @@ namespace Bikewale.BAL.Dealer
             }
 
             return lstCity;
+        }
+        
+        /// <summary>
+        /// Created By : Lucky Rathore on 21 March 2016
+        /// Descritption : Implemented in DAL
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 22 Mar 2016
+        /// Description :   Calls the DAL
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId)
+        {
+            try
+            {
+                return dealerRepository.FetchDealerCitiesByMake(makeId);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "FetchDealerCitiesByMake");
+                objErr.SendMail();
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 25th March 2016
+        /// Description : Calls DAL method to get dealer's bikes and details
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId)
+        {
+            try
+            {
+                return dealerRepository.GetDealerDetailsAndBikes(dealerId,campaignId);
+            }
+            catch(Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerDetailsAndBikes");
+                objErr.SendMail();
+                return null;
+            }
         }
     }
 }

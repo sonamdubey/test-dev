@@ -6,6 +6,8 @@ namespace PriceQuoteLeadSMS
     /// Summary : To store price quote lead notification details
     /// Modified by :   Sumit Kate on 14 Jan 2016
     /// Summary     :   Added Customer Id
+    /// Modified by :   Sumit Kate on 29 Mar 2016
+    /// Summary     :   Added CampaignId
     /// </summary>
     public class LeadNotificationEntity
     {
@@ -31,5 +33,6 @@ namespace PriceQuoteLeadSMS
         public string EmailToDealerSubject { get; set; }
         public string EmailToDealerReplyTo { get; set; }
         public ulong CustomerId { get; set; }
+        public string CampaignId { get; set; }
     }
 }

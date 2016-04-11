@@ -1,7 +1,9 @@
 ﻿using Bikewale.DTO.City;
 using Bikewale.Entities.Dealer;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.City;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +69,47 @@ namespace Bikewale.Service.Controllers.City
                 return InternalServerError();
             }
             return NotFound();
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 22 Mar 2016
+        /// Make wise Dealer City List
+        /// It Includes BW Dealer Cities and AB Dealer Cities
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(CityList)), Route("api/v2/DealerCity/")]
+        public IHttpActionResult GetV2(uint makeId)
+        {
+            IEnumerable<CityEntityBase> cities = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    cities = _objDealer.FetchDealerCitiesByMake(makeId);
+                    if (cities != null && cities.Count() > 0)
+                    {
+                        CityList dtoCities = new CityList();
+                        dtoCities.City = CityListMapper.Convert(cities);
+                        return Ok(dtoCities);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Service.Controllers.City.DealerCityController.Get");
+                objErr.SendMail();
+                return InternalServerError();
+            }
         }
     }
 }

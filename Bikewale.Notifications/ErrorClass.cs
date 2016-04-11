@@ -6,11 +6,14 @@ using System.Text;
 using System.Web;
 using Bikewale.Notifications.MailTemplates;
 using Bikewale.Notifications.Configuration;
+using log4net;
 
 namespace Bikewale.Notifications
 {
     public class ErrorClass
     {
+        protected static readonly ILog log = LogManager.GetLogger(typeof(ErrorClass));
+
         /// <summary>
         /// Error object.
         /// </summary>
@@ -35,6 +38,10 @@ namespace Bikewale.Notifications
         //used for writing the debug messages
         private HttpContext objTrace = HttpContext.Current;
 
+        static ErrorClass()
+        {
+            log4net.Config.XmlConfigurator.Configure();
+        }
         
         /// <summary>
         /// constructor which assigns the exception
@@ -43,8 +50,11 @@ namespace Bikewale.Notifications
         /// <param name="pageUrl">Page URL on which error occured. If possible pass function name also.</param>
         public ErrorClass(Exception ex, string pageUrl)
         {
+            //log4net.Config.XmlConfigurator.Configure();
             Error = ex;	//assign the exception
             PageUrl = pageUrl;		//assign the page url
+            log.Error(pageUrl, ex);
+            
         }
 
         /// <summary>
@@ -56,6 +66,7 @@ namespace Bikewale.Notifications
         {
             Error = (Exception)ex;	//convert the sqlexceptio to exception
             PageUrl = pageUrl;		//assign the page url
+            log.Error(pageUrl, ex);
         }
 
         /// <summary>
@@ -67,6 +78,7 @@ namespace Bikewale.Notifications
         {
             Error = (Exception)ex;	//convert the sqlexceptio to exception
             PageUrl = pageUrl;		//assign the page url
+            log.Error(pageUrl, ex);
         }
 
         /********************************************************************************************

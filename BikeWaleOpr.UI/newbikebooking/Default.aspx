@@ -12,8 +12,10 @@
 <div>
     You are here &raquo; New Bike Booking
 </div>
-
-    <div style="border: 1px solid black; margin-left: 180px;" class="padding10">
+    <div>
+    <!-- #Include file="/content/DealerMenu.aspx" -->
+    </div>
+    <div style="border: 1px solid black; margin-left: 200px;" class="padding10">
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
             <tr id="city">
                 Dealer's City : <font color="red">* &nbsp</font>
@@ -39,6 +41,7 @@
                     <%--<input type ="button" value="Manage Bike Avalability" id="btngoAvailable"/>--%>&nbsp;&nbsp;
                     <input type="button" value="Manage Dealer Disclaimer" id="btnDisclaimer" />&nbsp;&nbsp;
                     <input type="button" value="Manage Booking Amount" id="btnBkgAmount" />&nbsp;&nbsp;
+                    <input type="button" value="Manage Benefits/ USP" id="btnManageBenefits" />&nbsp;&nbsp;
                 </td>
             </tr>
         </table>
@@ -203,8 +206,7 @@
             </asp:repeater>
         <footertemplate>
     </div>
-    </FooterTemplate>
-        </div>
+
      <%--   <asp:HiddenField  ID="hdnCityId" runat="server" />
         <asp:HiddenField  ID="hdnMakeId" runat="server" />
         <asp:HiddenField  ID="hdnDealerId" runat="server" />--%>
@@ -492,6 +494,18 @@
                 alert("Please select dealer");
         });
 
+        $("#btnManageBenefits").click(function () {
+            $("#bindModels").addClass("hide");
+            $("#selectCityPriceHead").addClass("hide");
+            var dealerId = $("#drpDealer").val();
+            var cityId = $('#drpCity').val();
+            if (dealerId > 0) {
+                window.open('/newbikebooking/ManageDealerBenefits.aspx?dealerId=' + dealerId + '&cityId=' + cityId, 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
+            }
+            else
+                alert("Please select dealer");
+        });
+        
         $("#btnManagePrice").click(function () {
 
             var dealerId = $("#drpDealer").val();

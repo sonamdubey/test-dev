@@ -28,7 +28,7 @@ namespace PriceQuoteLeadSMS
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "GetPQLeadNotificationsInfo";
+                        cmd.CommandText = "GetPQLeadNotificationsInfo_29032016";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
 
@@ -54,17 +54,18 @@ namespace PriceQuoteLeadSMS
                                         SMSToCustomerNumbers = Convert.ToString(dr["SMSToCustomerNumbers"]),
                                         SMSToCustomerServiceType = Convert.ToUInt16(dr["SMSToCustomerServiceType"]),
                                         SMSToCustomerPageUrl = Convert.ToString(dr["SMSToCustomerPageUrl"]),
-                                        EmailToCustomerMessageBody = dr["EmailToCustomerMessageBody"].ToString(),
-                                        EmailToCustomerReplyTo = dr["EmailToCustomerReplyTo"].ToString(),
-                                        EmailToCustomerSubject = dr["EmailToCustomerSubject"].ToString(),
-                                        SMSToDealerMessage = dr["SMSToDealerMessage"].ToString(),
-                                        SMSToDealerNumbers = dr["SMSToDealerNumbers"].ToString(),
-                                        SMSToDealerPageUrl = dr["SMSToDealerPageUrl"].ToString(),
+                                        EmailToCustomerMessageBody = Convert.ToString(dr["EmailToCustomerMessageBody"]),
+                                        EmailToCustomerReplyTo = Convert.ToString(dr["EmailToCustomerReplyTo"]),
+                                        EmailToCustomerSubject = Convert.ToString(dr["EmailToCustomerSubject"]),
+                                        SMSToDealerMessage = Convert.ToString(dr["SMSToDealerMessage"]),
+                                        SMSToDealerNumbers = Convert.ToString(dr["SMSToDealerNumbers"]),
+                                        SMSToDealerPageUrl = Convert.ToString(dr["SMSToDealerPageUrl"]),
                                         SMSToDealerServiceType = Convert.ToUInt16(dr["SMSToDealerServiceType"]),
-                                        EmailToDealerMessageBody = dr["EmailToDealerMessageBody"].ToString(),
-                                        EmailToDealerReplyTo = dr["EmailToDealerReplyTo"].ToString(),
-                                        EmailToDealerSubject = dr["EmailToDealerSubject"].ToString(),
-                                        CustomerId = Convert.ToUInt64(dr["CustomerId"])
+                                        EmailToDealerMessageBody = Convert.ToString(dr["EmailToDealerMessageBody"]),
+                                        EmailToDealerReplyTo = Convert.ToString(dr["EmailToDealerReplyTo"]),
+                                        EmailToDealerSubject = Convert.ToString(dr["EmailToDealerSubject"]),
+                                        CustomerId = Convert.ToUInt64(dr["CustomerId"]),
+                                        CampaignId = Convert.ToString(dr["CampaignId"])
                                     });
                                 }
                             }
@@ -85,6 +86,8 @@ namespace PriceQuoteLeadSMS
         /// <summary>
         /// Modified by :   Sumit Kate on 14 Jan 2016
         /// Description :   No notification is sent to Dealer if already notified
+        /// Modified by :   Sumit Kate on 29 Mar 2016
+        /// Description :   Pass CampaignId to AutoBizAdaptor.PushInquiryInAB
         /// </summary>
         internal void SendLeadsToCustDealer()
         {
@@ -131,7 +134,7 @@ namespace PriceQuoteLeadSMS
                         }
 
                         //SendMail(string email, string subject, string body, string replyTo)
-                        AutoBizAdaptor.PushInquiryInAB(item.DealerId.ToString(), item.PQId, item.CustomerName, item.CustomerMobile, item.CustomerEmail, item.BikeVersionId.ToString(), item.CityId.ToString());
+                        AutoBizAdaptor.PushInquiryInAB(item.DealerId.ToString(), item.PQId, item.CustomerName, item.CustomerMobile, item.CustomerEmail, item.BikeVersionId.ToString(), item.CityId.ToString(),item.CampaignId);
                         objSmsDal.UpdatePQLeadNotifiedFlag(item.PQId);
                     }
                 }

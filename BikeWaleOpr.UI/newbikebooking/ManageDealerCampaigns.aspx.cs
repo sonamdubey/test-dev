@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace BikewaleOpr.newbikebooking
+namespace BikewaleOpr.NewBikeBooking
 {
     public class ManageDealerCampaigns : System.Web.UI.Page
     {

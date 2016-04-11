@@ -18,6 +18,8 @@ using System.Configuration;
 using System.Net.Http.Headers;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Utility;
+using Grpc.CMS;
+using Bikewale.News.GrpcFiles;
 
 namespace Bikewale.Mobile.News
 {
@@ -33,6 +35,8 @@ namespace Bikewale.Mobile.News
         protected ListPagerControl listPager;
         private const int _pageSize = 10;
 
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -46,7 +50,7 @@ namespace Bikewale.Mobile.News
                     if (!Int32.TryParse(Request.QueryString["pn"], out curPageNo))
                         curPageNo = 1;
 
-                GetNewsList();
+                GetNews();
             }
         }
 
@@ -116,12 +120,53 @@ namespace Bikewale.Mobile.News
             rptNews.DataBind();
         }
 
+
+        private void GetNews()
+        {
+            try
+            {
+                if (_useGrpc)
+                {
+                    // get pager instance
+                    IPager objPager = GetPager();
+
+                    int _startIndex = 0, _endIndex = 0;
+                    objPager.GetStartEndIndex(_pageSize, curPageNo, out _startIndex, out _endIndex);
+
+                    string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.News, EnumCMSContentType.AutoExpo2016 });
+
+                    var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(contentTypeList, (uint)_startIndex, (uint)_endIndex);
+
+                    if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
+                    {
+                        BindNews(GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle));
+                        BindListPager(objPager, Convert.ToInt32(_objGrpcArticle.RecordCount));
+                    }
+                    else
+                    {
+                        GetNewsOldWay();
+                    }
+
+                }
+                else
+                {
+                    GetNewsOldWay();
+                }
+            }
+            catch (Exception err)
+            {
+                Trace.Warn(err.Message);
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
+
         /// <summary>
         /// Written By : Ashwini Todkar on 1 Oct 2014
         /// Summary    : method to fetch news list and total record count from carwale api
         /// </summary>
 
-        private async void GetNewsList()
+        private async void GetNewsOldWay()
         {
             try
             {

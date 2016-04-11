@@ -1178,3 +1178,58 @@ ko.bindingHandlers.formateDate = {
         $(element).text(formattedDate);
     }
 };
+
+(function () {
+
+    $(document).ajaxError(function (event, request, settings) { 
+        try {
+            error = {};
+            error.ErrorType = event.type || "";
+            error.SourceFile = (event.target) ? event.target.URL || "" : "";
+            error.Trace = JSON.stringify({
+                "API": settings.url || "",
+                "Error Occured": request.status || "" + request.statusText || "",
+                "Response Text": request.responseText || ""
+            });
+            error.Message = "Ajax Error Occured";
+            //errorLog(error);
+        } catch (e) {
+            return false;
+        }
+    });
+
+
+    'use strict';
+    var errorLog = function (error) {
+        try {
+            if (error) {
+                $.ajax({ type:"POST",url:"/api/JSException/",data:error,
+                    error : function(event,request,settings)
+                    {
+                       // request.abort();
+                        return false;
+                    }
+                });
+            }
+        } catch (e) {
+            return false;
+        }
+    }
+
+    window.onerror = function (message, filename, lineno, colno, err) {
+        error = {};
+        try {
+            error.Message = err.message || message || "";
+            error.SourceFile = err.fileName || filename || "";
+            error.ErrorType = err.name || "Uncatched Exception";
+            error.LineNo = lineno || "Unable to trace";
+            error.Trace = (err.stack.toString() || '-');
+            //errorLog(error);
+        } catch (e) {
+            return false;
+        }
+    };
+
+    window.errorLog = errorLog;
+})();
+

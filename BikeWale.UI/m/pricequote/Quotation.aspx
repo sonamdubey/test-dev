@@ -14,26 +14,35 @@
     %>
     <script>var quotationPage = true;</script>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!--
     <link rel="stylesheet" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" />
-   
+    -->
     <style type="text/css">
-        .inner-section {
-            background: #fff;
-            clear: both;
-            overflow: hidden;
-        }
-
-        .alternatives-carousel .jcarousel li.front {
-            border: none;
-        }
-
-        .discover-bike-carousel .jcarousel li {
-            height: auto;
-        }
-
-        .discover-bike-carousel .front {
-            height: auto;
-        }
+        .bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }
+        .bike-name-image-wrapper { display:table; }
+        .bike-name-image-wrapper .bike-img , .bike-name-image-wrapper h1 { display:table-cell; vertical-align:middle; }
+        .bike-img { width:70px; height:40px; }
+        .bike-img img { width:100%; }
+        .text-dark-black { color:#1a1a1a; }
+        .grid-3.version-label-text { width:65px; }
+        .grid-9.variantDropDown { width:70%; max-width:300px; }
+        .version-div { height:32px; padding:5px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
+        .version-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:100%; }
+        .pos-top13 { top:13px; }
+        .version-selection-div { background:#fff; border:1px solid #ccc; position:absolute; z-index:2; left:0; right:0; }
+        .version-selection-div ul li { margin-bottom:5px; margin-top:5px; font-size:14px; }
+        .version-selection-div ul li.selected { font-weight:bold; }
+        .version-selection-div ul li input{background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px; width:100%; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; text-align:left;}
+        .text-truncate { width:100%; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; text-align:left; }
+        .version-selection-div ul li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff; }
+        #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px; }
+        .version-div .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
+        .version-div.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
+        .break-line { border-top:1px solid #e2e2e2; }
+        .inner-section {background: #fff; clear: both; overflow: hidden;}
+        .alternatives-carousel .jcarousel li.front {border: none;}
+        .discover-bike-carousel .jcarousel li {height: auto;}
+        .discover-bike-carousel .front {height: auto;}
         .city-unveil-offer-container { margin-top:20px; border:1px dashed #82888b; width:100%; min-height:115px; padding:10px; }
         .city-unveil-offer-container ul { margin-left:20px; list-style-type:disc; }
         .city-unveil-offer-container ul li { margin-top:5px; padding-bottom:5px; font-size: 14px;}
@@ -44,6 +53,7 @@
         #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
         .mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; z-index:2; }
         #getMobile { padding:9px 40px; }
+        #ddlVersion.form-control{padding:6px;}
     </style>
     
     <script type="text/javascript">
@@ -63,53 +73,55 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-        <div class="box1 box-top bot-red bg-white">
-
-
-            <div class="bike-img new-line10">
-                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objVersionDetails.OriginalImagePath,objVersionDetails.HostUrl,Bikewale.Utility.ImageSize._640x348) %>" alt="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" title="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" border="0" />
-            </div>
-            <h1 class="margin-top20 font18 padding-left10 padding-right10" style="margin-left: 0px;"><%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%></h1>
-
-            <div class="<%= versionList.Count>1 ?"":"hide" %> margin-top20">
-                <asp:DropDownList ID="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
+        <div class="bg-white content-inner-block-10 bottom-shadow">
+            <div class="bike-name-image-wrapper margin-top5">
+                <div class="bike-img">
+                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objVersionDetails.OriginalImagePath,objVersionDetails.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" title="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" border="0" />
+                </div>
+                <h1 class="padding-left10 font18 text-dark-black"><%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%></h1>
             </div>
 
-            <div class="new-line15 padding-left10 padding-right10" style="margin-top: 20px;">
+            <div class="<%= versionList.Count>1 ?"":"hide" %> margin-top10 padding-right10 padding-left10">
+                <p class="grid-3 alpha omega version-label-text font14 text-light-grey margin-top5 leftfloat">Version:</p>
+                <div class="grid-8">
+                    <asp:DropDownList ID="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="margin-top15 padding-left10 padding-right10">
                 <%if (objQuotation != null && objQuotation.ExShowroomPrice > 0)
                   { %>
-                <h2 class="font16" style="font-weight: normal">On-road price in 
+                <%--<h2 class="font16" style="font-weight: normal">On-road price in 
                     <%= (String.IsNullOrEmpty(objQuotation.Area))?objQuotation.City:(objQuotation.Area + ", " + objQuotation.City) %>
-                </h2>
+                </h2>--%>
                 <% } %>
 
                 <% if (objQuotation != null && objQuotation.ExShowroomPrice > 0)
                    {%>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
                     <tr>
-                        <td class="text-medium-grey" width="70%" align="left">Ex-Showroom Price</td>
-                        <td class="text-grey text-bold" width="30%" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objQuotation.ExShowroomPrice.ToString()) %></td>
+                        <td class="text-light-grey padding-bottom15" width="75%" align="left">Ex-Showroom Price</td>
+                        <td class="padding-bottom15" width="25%" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objQuotation.ExShowroomPrice.ToString()) %></td>
                     </tr>
                     <tr>
-                        <td class="text-medium-grey" align="left">RTO</td>
-                        <td class="text-grey text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objQuotation.RTO.ToString()) %></td>
+                        <td class="text-light-grey padding-bottom15" align="left">RTO</td>
+                        <td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objQuotation.RTO.ToString()) %></td>
                     </tr>
                     <tr>
-                        <td class="text-medium-grey" align="left">Insurance (<a target="_blank" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" href="/m/insurance/" style="display: inline-block; position: relative; font-size: 11px; margin-top: 1px;">
+                        <td class="text-light-grey padding-bottom15" align="left">Insurance (<a target="_blank" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" href="/m/insurance/" style="display: inline-block; position: relative; font-size: 11px; margin-top: 1px;">
                                 Up to 60% off - PolicyBoss                                
                         </a>)<span style="margin-left: 5px; vertical-align: super; font-size: 9px;">Ad</span>
                         </td>
-                        <td class="text-grey text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objQuotation.Insurance.ToString()) %></td>
+                        <td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objQuotation.Insurance.ToString()) %></td>
                     </tr>
+                    
                     <tr align="left">
-                        <td height="10" colspan="2" style="padding: 0;"></td>
-                    </tr>
-                    <tr align="left">
-                        <td height="1" colspan="2" class="break-line" style="padding: 0 0 10px;"></td>
+                        <td height="1" colspan="2" class="break-line padding-bottom10"></td>
                     </tr>
                     <tr>
-                        <td class="text-grey font16" align="left">Total On Road Price</td>
-                        <td class="text-grey text-bold font18" align="right" class="f-bold"><span class="bwmsprite inr-sm-icon"></span><%=CommonOpn.FormatPrice(objQuotation.OnRoadPrice.ToString()) %></td>
+                        <td class="text-dark-black padding-bottom15" align="left">On-road price</td>
+                        <td class="text-dark-black padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objQuotation.OnRoadPrice.ToString()) %></td>
                     </tr>
                 </table>
                 <%}
@@ -230,7 +242,36 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-       
+        <script type="text/javascript">
+            var versionByDiv = $(".version-div"),
+            versionListDiv = $(".version-selection-div"),
+            versionListLI = $(".version-selection-div ul li");
+
+            versionByDiv.click(function () {
+                if (!versionByDiv.hasClass("open"))
+                    $.versionChangeDown(versionByDiv);
+                else
+                    $.versionChangeUp(versionByDiv);
+            });
+
+            $.versionChangeDown = function (versionByDiv) {
+                versionByDiv.addClass("open");
+                versionListDiv.show();
+            };
+
+            $.versionChangeUp = function (sortByDiv) {
+                versionByDiv.removeClass("open");
+                versionListDiv.slideUp();
+            };
+
+            $(document).mouseup(function (e) {
+                if (!$(".variantDropDown, .version-div, .version-div #upDownArrow, .version-by-title").is(e.target)) {
+                    $.versionChangeUp($(".version-div"));
+                }
+            });
+            //TODO handle version select event
+
+        </script>
         <script type="text/javascript">
             ga_pg_id = "6";
 

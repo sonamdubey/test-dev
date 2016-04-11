@@ -152,7 +152,7 @@ $(function () {
         e.preventDefault();
         return false;
     });
-    ko.applyBindings(insauranceModel);
+    ko.applyBindings(insauranceModel, $("#insuranceAssistance")[0]);
 });
 
 $("#userSelectCity").blur(function () {

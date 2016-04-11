@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.newbikebooking.DealerDetailedPriceQuote" trace="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.NewBikeBooking.DealerDetailedPriceQuote" trace="false" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <%--<script type="text/javascript" src="/src/common/common.js?V1.1"></script>--%>
 <script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>
@@ -11,6 +11,9 @@
     .dtItem {font-size:larger;}
 </style>
 <div>
+    <!-- #Include file="/content/DealerMenu.aspx" -->
+    </div>
+<div style="margin-left:50px;">
     <div>
         <div class="margin-top10">
             <asp:DropDownList ID="ddlMake" runat="server"><asp:ListItem Value="0" Text="--Selected Make--" ></asp:ListItem></asp:DropDownList>

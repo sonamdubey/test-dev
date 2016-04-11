@@ -6,6 +6,12 @@ using System.Data;
 using System.Data.SqlClient;
 using Bikewale.Common;
 using Bikewale.Memcache;
+using System.Linq;
+using Bikewale.Entities.Location;
+using Microsoft.Practices.Unity;
+using Bikewale.DAL.Dealer;
+using Bikewale.Interfaces.Dealer;
+using System.Collections.Generic;
 
 namespace Bikewale.New
 {
@@ -19,6 +25,8 @@ namespace Bikewale.New
 
         public string makeId = "";
         public int StateCount = 0, DealerCount = 0;
+        private uint cityId;
+        private string makeMaskingName = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -30,6 +38,12 @@ namespace Bikewale.New
             base.Load += new EventHandler(this.Page_Load);
         }
 		
+        /// <summary>
+        /// Modified By : Sushil Kumar on 31st March 2016
+        /// Description : Added method to redirect user to dealer listing page if make and city is available
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             //code for device detection added by Ashwini Todkar
@@ -41,17 +55,65 @@ namespace Bikewale.New
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            if (ProcessQS())
-            {
-                if (!IsPostBack)
-                {
-                    objMMV = new MakeModelVersion();
-                    objMMV.GetMakeDetails(makeId);
+            ushort _makeId = 0;
 
-                    BindControl();
-                    BindStates();
+            if (ProcessQS() && ushort.TryParse(makeId,out _makeId))
+            {
+                GetLocationCookie();
+
+                if (cityId > 0)
+                {
+                    checkDealersForMakeCity(_makeId);  
+                }
+                else
+                {
+                    if (!IsPostBack)
+                    {
+                        objMMV = new MakeModelVersion();
+                        objMMV.GetMakeDetails(makeId);
+
+                        BindControl();
+                        BindStates();
+                    }
                 }
             }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar bon 31st March 2016
+        /// Description : To redirect user to dealer listing page if make and city already provided by user
+        /// </summary>
+        /// <param name="_makeId"></param>
+        private void checkDealersForMakeCity(ushort _makeId)
+        {
+            IEnumerable<CityEntityBase> _cities = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealer, DealersRepository>();
+
+                    var objCities = container.Resolve<IDealer>();
+                    _cities = objCities.FetchDealerCitiesByMake(_makeId);
+                    if (_cities != null && _cities.Count() > 0)
+                    {
+                        var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
+                        if (_city != null)
+                        {
+                            string _redirectUrl = String.Format("/new/{0}-dealers/{1}-{2}.html", makeMaskingName,cityId,_city.CityMaskingName);
+                            Response.Redirect(_redirectUrl, false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, "checkDealersForMakeCity");
+                objErr.SendMail();
+            }  
         }
 
         private void BindControl()
@@ -149,11 +211,12 @@ namespace Bikewale.New
 
         protected bool ProcessQS()
         {
+            var _make = Request.QueryString["make"];
             bool isSuccess = true;
-            if (Request["make"] == null || Request.QueryString["make"] == "")
+            if (Request["make"] == null || _make == "")
             {
                 //invalid make id, hence redirect to he browsebikes.aspx page
-                Trace.Warn("make id : ",Request.QueryString["make"]);
+                Trace.Warn("make id : ",_make);
                 Response.Redirect("/new/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
@@ -161,7 +224,7 @@ namespace Bikewale.New
             }
             else
             {
-                makeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());
+                makeId = MakeMapping.GetMakeId(_make.ToLower());
 
                 //verify the id as passed in the url
                 if (CommonOpn.CheckId(makeId) == false)
@@ -171,9 +234,43 @@ namespace Bikewale.New
                     this.Page.Visible = false;
                     isSuccess = false;
                 }
+                else
+                {
+                    makeMaskingName = _make;
+                }
             }
             return isSuccess;
         }
+
+        #region Set user location from location cookie
+        /// <summary>
+        /// Created By : Sushil Kumar on 31th March 2016
+        /// Description : To set user location
+        /// </summary>
+        /// <returns></returns>
+        private void GetLocationCookie()
+        {
+            string location = String.Empty;
+            try
+            {
+                if (this.Context.Request.Cookies.AllKeys.Contains("location") && !string.IsNullOrEmpty(this.Context.Request.Cookies["location"].Value) && this.Context.Request.Cookies["location"].Value != "0")
+                {
+                    location = this.Context.Request.Cookies["location"].Value;
+                    string[] arr = System.Text.RegularExpressions.Regex.Split(location, "_");
+
+                    if (arr.Length > 0)
+                    {
+                        uint.TryParse(arr[0], out cityId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetLocationCookie");
+                objErr.SendMail();
+            }
+        }
+        #endregion
 
     }   // End of class
 }   // End of namespace

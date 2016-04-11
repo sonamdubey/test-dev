@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bikewale.Entities.BikeBooking
 {
     /// <summary>
@@ -17,6 +12,9 @@ namespace Bikewale.Entities.BikeBooking
         DealerPQ_Mobile = 4,
         BookingSummary_Mobile = 5,
         ModelPage_Mobile = 6,
-        ModelPage_Android = 7
+        ModelPage_Android = 7,
+        DealerLocator_Desktop = 8,
+        DealerLocator_MobileListing = 9,
+        DealerLocator_MoibileDetails = 10
     }
 }

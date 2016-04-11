@@ -44,11 +44,10 @@ namespace Bikewale.New
         protected PQOnRoadPrice pqOnRoad;
         protected string modelId = string.Empty;
         protected int variantId = 0;
-        protected int versionId = 0;
-        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, /*rptMoreOffers,*/ rptCategory, rptVariants, rptDiscount;
+        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptCategory, rptVariants, rptDiscount, rptSecondaryDealers;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
-        protected int cityId = 0;
+        protected uint cityId = 0;
         protected int areaId = 0;
         protected string cityName = string.Empty;
         protected string areaName = string.Empty;
@@ -66,13 +65,9 @@ namespace Bikewale.New
         protected DropDownList ddlVariant;
         protected string variantText = string.Empty;
         protected uint bookingAmt = 0;
-        protected int urlVersionId = 0;
-        protected int grid1_size = 9;
-        protected int grid2_size = 3;
-        protected string cssOffers = "noOffers";
-        protected string offerDivHide = "hide";
-        protected string price = string.Empty;
-        protected string viewbreakUpText = string.Empty;
+        protected int urlVersionId = 0,grid1_size = 9,grid2_size = 3;
+        protected string cssOffers = "noOffers", offerDivHide = "hide", price = string.Empty;
+        //protected string viewbreakUpText = string.Empty;
         protected UInt32 onRoadPrice = 0;
         protected UInt32 totalDiscountedPrice = 0;
         protected List<CityEntityBase> objCityList = null;
@@ -86,15 +81,19 @@ namespace Bikewale.New
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
         protected string mpqQueryString = String.Empty;
-        protected UsersTestimonials ctrlUsersTestimonials;
         protected bool isDealerAssitance = false;
-        protected uint campaignId;
-        protected uint manufacturerId;
-        protected string bikeModelName = string.Empty;
-        protected string bikeMakeName = string.Empty;
+        protected uint campaignId, manufacturerId;
+        protected string bikeModelName = string.Empty, bikeMakeName = string.Empty;
+
+        #region Subscription model variables
+
+        protected ModelPageVM viewModel = null;
+
+        #endregion Subscription model ends
 
         #endregion
 
+        #region enums
         public enum Overviews
         {
             Capacity,
@@ -180,6 +179,8 @@ namespace Bikewale.New
             ChassisType
         }
 
+        #endregion
+
         #region Events
 
         protected override void OnInit(EventArgs e)
@@ -193,6 +194,7 @@ namespace Bikewale.New
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
+
             Trace.Warn("Trace 1 : DeviceDetection Start");
             //device detection
             // Modified By :Ashish Kamble on 5 Feb 2016
@@ -208,110 +210,81 @@ namespace Bikewale.New
             Trace.Warn("Trace 3 : ParseQueryString Start");
             ParseQueryString();
             Trace.Warn("Trace 4 : ParseQueryString End");
+            try
+            {                
+                if (!String.IsNullOrEmpty(modelId))
+                {
+                    Trace.Warn("Trace 5 : CheckCityCookie Start");
+                    CheckCityCookie();
+                    SetFlags();
+                    Trace.Warn("Trace 6 : CheckCityCookie End");
 
-            Trace.Warn("Trace 5 : CheckCityCookie Start");
-            CheckCityCookie();
-            SetFlags();
-            Trace.Warn("Trace 6 : CheckCityCookie End");
+                    if (hdnVariant.Value != "0")
+                        variantId = Convert.ToInt32(hdnVariant.Value);
 
-            //if (!string.IsNullOrEmpty(ddlVariant.SelectedValue) && ddlVariant.SelectedValue != "0")
-            if (hdnVariant.Value != "0")
-                variantId = Convert.ToInt32(hdnVariant.Value);
-            //if (!IsPostBack)
-            //{hdnVariant
-            //    Trace.Warn("Trace 6.1 : urlVersionId set using url");
-            //    variantId = urlVersionId;
-            //}
             #endregion
 
-            Trace.Warn("Trace 7 : FetchModelPageDetails Start");
-            FetchModelPageDetails();
-            Trace.Warn("Trace 8 : FetchModelPageDetails End");
+                    Trace.Warn("Trace 7 : FetchModelPageDetails Start");
+                    FetchModelPageDetails();
+                    Trace.Warn("Trace 8 : FetchModelPageDetails End");
 
-            if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
-            {
-                Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
-                FetchOnRoadPrice();
-                Trace.Warn("Trace 10 : FetchOnRoadPrice End");
+                    if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
+                    {
+                        Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
+                        FetchOnRoadPrice();
+                FillViewModel();
+                        Trace.Warn("Trace 10 : FetchOnRoadPrice End");
+                    }
+                    BindPhotoRepeater();
+                    clientIP = CommonOpn.GetClientIP();
+                    LoadVariants();
+                    Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
+                    BindAlternativeBikeControl();
+                    Trace.Warn("Trace 19 : BindAlternativeBikeControl End");
+
+                    int _modelId;
+                    Int32.TryParse(modelId, out _modelId);
+                    ////news,videos,revews, user reviews
+                    ctrlNews.TotalRecords = 3;
+                    ctrlNews.ModelId = _modelId;
+
+                    ctrlExpertReviews.TotalRecords = 3;
+                    ctrlExpertReviews.ModelId = _modelId;
+                    ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+                    ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+
+                    ctrlVideos.TotalRecords = 3;
+                    ctrlVideos.ModelId = _modelId;
+                    ctrlVideos.MakeId = modelPage.ModelDetails.MakeBase.MakeId;
+                    ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+                    ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+
+                    ctrlUserReviews.ReviewCount = 4;
+                    ctrlUserReviews.PageNo = 1;
+                    ctrlUserReviews.PageSize = 4;
+                    ctrlUserReviews.ModelId = _modelId;
+                    ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+
+                    ToggleOfferDiv();
+                    if (variantId != 0)
+                    {
+                        FetchVariantDetails(variantId);
+                    }
+                    Trace.Warn("Trace 20 : Page Load ends");
+                    // Clear trailing query string -- added on 09-feb-2016 by Sangram
+                    PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+                    if (isreadonly != null)
+                    {
+                        isreadonly.SetValue(this.Request.QueryString, false, null);
+                        this.Request.QueryString.Clear();
+                    }
+                }
             }
-            BindPhotoRepeater();
-            clientIP = CommonOpn.GetClientIP();
-            LoadVariants();
-            //if (!IsPostBack)
-            //{
-            //    Trace.Warn("Trace 11 : !IsPostBack");
-            //    #region Do not change the sequence
-            //    Trace.Warn("Trace 12 : BindPhotoRepeater Start");
-            //    BindPhotoRepeater();
-            //    Trace.Warn("Trace 13 : BindPhotoRepeater End");
-            //    Trace.Warn("Trace 14 : GetClientIP Start");
-            //    clientIP = CommonOpn.GetClientIP();
-            //    Trace.Warn("Trace 15 : GetClientIP End");
-            //    Trace.Warn("Trace 16 : LoadVariants Start");
-            //    LoadVariants();
-            //    Trace.Warn("Trace 17 : LoadVariants End");
-            //    #endregion
-            //}
-            //else
-            //{
-            //    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
-            //    {
-            //        rptVarients.DataSource = modelPage.ModelVersions;
-            //        rptVarients.DataBind();
-            //    }
-            //}
-            ctrlUsersTestimonials.TopCount = 6;
-            Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
-            BindAlternativeBikeControl();
-            Trace.Warn("Trace 19 : BindAlternativeBikeControl End");
-
-            int _modelId;
-            Int32.TryParse(modelId, out _modelId);
-            ////news,videos,revews, user reviews
-            ctrlNews.TotalRecords = 3;
-            ctrlNews.ModelId = _modelId;
-
-            ctrlExpertReviews.TotalRecords = 3;
-            ctrlExpertReviews.ModelId = _modelId;
-            ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
-            ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-
-            ctrlVideos.TotalRecords = 3;
-            ctrlVideos.ModelId = _modelId;
-            ctrlVideos.MakeId = modelPage.ModelDetails.MakeBase.MakeId;
-            ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
-            ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-
-            ctrlUserReviews.ReviewCount = 4;
-            ctrlUserReviews.PageNo = 1;
-            ctrlUserReviews.PageSize = 4;
-            ctrlUserReviews.ModelId = _modelId;
-            ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
-
-            ToggleOfferDiv();
-            if (variantId != 0)
+            catch (Exception ex)
             {
-                FetchVariantDetails(variantId);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"].ToString());
+                objErr.SendMail();
             }
-            Trace.Warn("Trace 20 : Page Load ends");
-            // Clear trailing query string -- added on 09-feb-2016 by Sangram
-            PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (isreadonly != null)
-            {
-                isreadonly.SetValue(this.Request.QueryString, false, null);
-                this.Request.QueryString.Clear();
-            }
-        }
-
-        /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   18 Nov 2015
-        /// Description     :   To change price and Minspecs when variant changes
-        /// </summary>
-        public void ddlVariant_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            variantId = Convert.ToInt32(ddlVariant.SelectedValue);
-            FetchVariantDetails(variantId);            
         }
 
         /// <summary>
@@ -331,7 +304,7 @@ namespace Bikewale.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
-                        
+
                         var totalDiscount = totalDiscountedPrice;
                         //if ((isCitySelected && !isAreaAvailable))
                         if (isOnRoadPrice)
@@ -355,7 +328,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "rptVarients_ItemDataBound");
                 objErr.SendMail();
             }
         }
@@ -412,7 +385,7 @@ namespace Bikewale.New
                                     defaultVariant.Text = firstVer.VersionName;
                             }
                             rptVariants.DataSource = modelPage.ModelVersions;
-                            rptVariants.DataBind();                            
+                            rptVariants.DataBind();
                         }
                         else if (modelPage.ModelVersions.Count == 1)
                         {
@@ -426,7 +399,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : LoadVariants");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : LoadVariants");
                 objErr.SendMail();
             }
         }
@@ -517,7 +490,7 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Trace.Warn("exception 1 : ");
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
                 objErr.SendMail();
 
                 Response.Redirect("/new/", false);
@@ -590,7 +563,7 @@ namespace Bikewale.New
                     if (locArray.Length > 0)
                     {
                         //cityId = Convert.ToInt16(locArray[0]);
-                        Int32.TryParse(locArray[0], out cityId);
+                        UInt32.TryParse(locArray[0], out cityId);
                         if (!string.IsNullOrEmpty(modelId))
                         {
                             objCityList = FetchCityByModelId(modelId);
@@ -605,10 +578,6 @@ namespace Bikewale.New
                             cityName = locArray[1];
                             isCitySelected = true;
                         }
-                        //if (GetAreaForCityAndModel() != null)
-                        //{
-                        //    //isAreaAvailable = true;
-                        //}
                     }
 
                     objAreaList = GetAreaForCityAndModel();
@@ -688,8 +657,6 @@ namespace Bikewale.New
                                         bikeMakeName = modelPage.ModelDetails.MakeBase.MakeName;
                                     bikeName = bikeMakeName + " " + bikeModelName;
                                 }
-                                //string jsonModel = JsonConvert.SerializeObject(modelPage);
-                                //ViewState["modelPage"] = jsonModel;
                             }
                         }
                     }
@@ -697,7 +664,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
                 objErr.SendMail();
             }
         }
@@ -739,19 +706,6 @@ namespace Bikewale.New
                             {
                                 onRoadPrice = selectedVariant.OnRoadPrice;
                                 price = onRoadPrice.ToString();
-                                if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
-                                {
-                                    //IEnumerable<OfferEntity> moreOffers = null;
-                                    rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers;//.Take<OfferEntity>(2);
-                                    rptOffers.DataBind();
-                                    //if (pqOnRoad.DPQOutput.objOffers.Count > 2)
-                                    //{
-                                    //    moreOffers = pqOnRoad.DPQOutput.objOffers.Skip(2).Take<OfferEntity>(pqOnRoad.DPQOutput.objOffers.Count - 2);
-                                    //    rptMoreOffers.DataSource = moreOffers;
-                                    //    rptMoreOffers.DataBind();
-                                    //}
-                                    isOfferAvailable = true;
-                                }
                                 if (selectedVariant.PriceList != null)
                                 {
                                     priceList = selectedVariant.PriceList;
@@ -762,21 +716,9 @@ namespace Bikewale.New
                                         rptDiscount.DataSource = pqOnRoad.discountedPriceList;
                                         rptDiscount.DataBind();
                                     }
-
                                     totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
-                                    // String operation
-                                    viewbreakUpText = "(";
-                                    foreach (var text in selectedVariant.PriceList)
-                                    {
-                                        viewbreakUpText += " + " + text.CategoryName;
-                                    }
-                                    if (viewbreakUpText.Length > 2)
-                                    {
-                                        viewbreakUpText = viewbreakUpText.Remove(2, 1);
-                                    }
-                                    viewbreakUpText += ")";
                                 }
-                                // String operation ends
+                                
                                 bookingAmt = selectedVariant.BookingAmount;
                                 if (bookingAmt > 0)
                                     isBookingAvailable = true;
@@ -849,7 +791,7 @@ namespace Bikewale.New
             {
                 if (string.IsNullOrEmpty(errorParams))
                     errorParams = "=== modelpage ===" + Newtonsoft.Json.JsonConvert.SerializeObject(modelPage);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "-" + MethodBase.GetCurrentMethod().Name + " ===== parameters ========= " + errorParams);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "-" + "FetchOnRoadPrice" + " ===== parameters ========= " + errorParams);
                 objErr.SendMail();
             }
         }
@@ -885,7 +827,7 @@ namespace Bikewale.New
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
                     if (variantId == 0)
                     {
-                        if (objPQOutput != null && objPQOutput.VersionId != null)
+                        if (objPQOutput != null)
                         {
                             variantId = Convert.ToInt32(objPQOutput.VersionId);
                         }
@@ -937,7 +879,7 @@ namespace Bikewale.New
                                 }
                                 catch (Exception ex)
                                 {
-                                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name + "-" + api);
+                                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "GetOnRoadPrice" + "-" + api);
                                     objErr.SendMail();
                                 }
                             }
@@ -947,7 +889,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "GetOnRoadPrice");
                 objErr.SendMail();
             }
             return pqOnRoad;
@@ -1192,7 +1134,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
                 objErr.SendMail();
             }
         }
@@ -1217,7 +1159,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchCityByModelId");
                 objErr.SendMail();
             }
             return cityList;
@@ -1248,7 +1190,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "GetAreaForCityAndModel");
                 objErr.SendMail();
             }
 
@@ -1324,6 +1266,39 @@ namespace Bikewale.New
             }
             return Bikewale.Utility.Format.FormatPrice(Convert.ToString(price));
         }
+
+        /// <summary>
+        /// Created By: Sangram Nandkhile on 16-Mar-2016
+        /// Summary   : To create Viewmodel for Version Page View
+        /// </summary>
+        private void FillViewModel()
+        {
+            try
+            {
+                if (cityId > 0 && variantId > 0)
+                {
+                    viewModel = new ModelPageVM(cityId, Convert.ToUInt32(variantId), Convert.ToUInt32(dealerId));
+                    if (viewModel.Offers != null && viewModel.Offers.Count() > 0)
+                    {
+                        rptOffers.DataSource = viewModel.Offers;
+                        rptOffers.DataBind();
+                        isOfferAvailable = true;
+                    }
+                    if (viewModel.SecondaryDealers!= null && viewModel.SecondaryDealerCount > 0)
+                    {
+                        rptSecondaryDealers.DataSource = viewModel.SecondaryDealers;
+                        rptSecondaryDealers.DataBind();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FillViewModel");
+                objErr.SendMail();
+            }
+
+        }
+
         #endregion
     }
 }

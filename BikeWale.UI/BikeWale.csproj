@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <PublishDatabases>false</PublishDatabases>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -98,6 +99,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Enyim.Caching.dll</HintPath>
     </Reference>
+    <Reference Include="Gelf4Net, Version=2.0.3.11, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Gelf4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net.UdpAppender, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\Libs\grpc\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Core">
+      <HintPath>..\Libs\grpc\Grpc.Core.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\Libs\itextsharp.dll</HintPath>
     </Reference>
@@ -147,6 +162,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Interactive.Async">
+      <HintPath>..\Libs\grpc\System.Interactive.Async.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -290,6 +308,7 @@
     <Compile Include="BindViewModels\Controls\BindVideosSectionSubCatwise.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
+    <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />
@@ -851,6 +870,7 @@
     </Compile>
     <Compile Include="m\controls\SimilarVideos.ascx.cs">
       <DependentUpon>SimilarVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\TopUserReviews.ascx.cs">
       <DependentUpon>TopUserReviews.ascx</DependentUpon>
@@ -870,6 +890,10 @@
     </Compile>
     <Compile Include="m\controls\VideosWidget.ascx.cs">
       <DependentUpon>VideosWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\newbikedealers\DealerDetails.aspx.cs">
+      <DependentUpon>DealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\Default.aspx.cs">
@@ -916,12 +940,24 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\newbikedealers\Default_old.aspx.cs">
+      <DependentUpon>Default_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\newbikedealers\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\newbikedealers\listnewbikedealersbycity.aspx.cs">
+      <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\newbikedealers\NewBikeDealerList.aspx.cs">
       <DependentUpon>NewBikeDealerList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\newbikedealers\NewBikeDealerList_old.aspx.cs">
+      <DependentUpon>NewBikeDealerList_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\newbikelaunch\Default.aspx.cs">
@@ -954,6 +990,10 @@
     </Compile>
     <Compile Include="m\pricequote\BookingSummary_New.aspx.cs">
       <DependentUpon>BookingSummary_New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\pricequote\DealerPriceQuote_old.aspx.cs">
+      <DependentUpon>DealerPriceQuote_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\pricequote\DealerPriceQuote.aspx.cs">
@@ -989,6 +1029,7 @@
     </Compile>
     <Compile Include="m\videos\video.aspx.cs">
       <DependentUpon>video.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\videos\VideoCategories.aspx.cs">
       <DependentUpon>VideoCategories.aspx</DependentUpon>
@@ -1010,6 +1051,11 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="News\GrpcFiles\Article.cs" />
+    <Compile Include="News\GrpcFiles\ArticleGrpc.cs" />
+    <Compile Include="News\GrpcFiles\CustomGRPCLoadBalancer.cs" />
+    <Compile Include="News\GrpcFiles\GrpcMethods.cs" />
+    <Compile Include="News\GrpcFiles\GrpcToBikeWaleConvert.cs" />
     <Compile Include="News\news.aspx.cs">
       <DependentUpon>news.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1028,6 +1074,18 @@
     </Compile>
     <Compile Include="BikeBooking\BookingListing.aspx.cs">
       <DependentUpon>BookingListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\browsenewbikedealerdetails_old.aspx.cs">
+      <DependentUpon>browsenewbikedealerdetails_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\listnewbikedealersbycity.aspx.cs">
+      <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\locatenewbikedealers_old.aspx.cs">
+      <DependentUpon>locatenewbikedealers_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\versions.aspx.cs">
@@ -1065,8 +1123,8 @@
       <DependentUpon>EMILoan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\listnewbikedealersbycity.aspx.cs">
-      <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
+    <Compile Include="new\ListNewBikeDealersByCity_New.aspx.cs">
+      <DependentUpon>ListNewBikeDealersByCity_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\locatenewbikedealers.aspx.cs">
@@ -1143,6 +1201,10 @@
     </Compile>
     <Compile Include="pricequote\BookingSummary_New.aspx.cs">
       <DependentUpon>BookingSummary_New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\DealerPriceQuote_old.aspx.cs">
+      <DependentUpon>DealerPriceQuote_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pricequote\DealerPriceQuote.aspx.cs">
@@ -1735,6 +1797,8 @@
     <Content Include="css\css-new-photos.css" />
     <Content Include="css\css-research-photos.css" />
     <Content Include="css\datepicker.css" />
+    <Content Include="css\dealerlisting.css" />
+    <Content Include="css\dealerpricequote.css" />
     <Content Include="css\global.css" />
     <Content Include="css\home.css" />
     <Content Include="css\images\animated-overlay.gif" />
@@ -2194,6 +2258,7 @@
     <Content Include="m\css\bwm-common-style.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
+    <Content Include="m\css\dealerpricequote.css" />
     <Content Include="m\css\design.css" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\insurance.css" />
@@ -2206,6 +2271,7 @@
     <Content Include="m\css\style.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
+    <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\Default_old.aspx" />
     <Content Include="m\faq.aspx" />
@@ -2244,8 +2310,11 @@
     <Content Include="m\new\compare\CompareBike.aspx" />
     <Content Include="m\new\compare\CompareBikeDetails.aspx" />
     <Content Include="m\new\Default.aspx" />
+    <Content Include="m\new\newbikedealers\Default_old.aspx" />
     <Content Include="m\new\newbikedealers\Default.aspx" />
+    <Content Include="m\new\newbikedealers\listnewbikedealersbycity.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
+    <Content Include="m\new\newbikedealers\NewBikeDealerList_old.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />
     <Content Include="m\bikebooking\BookingListing.aspx" />
     <Content Include="m\offerterms.aspx" />
@@ -2255,6 +2324,7 @@
     <Content Include="m\pricequote\BikeDealerDetails.aspx" />
     <Content Include="m\pricequote\BookingSummary.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
+    <Content Include="m\pricequote\DealerPriceQuote_old.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
     <Content Include="m\pricequote\Default.aspx" />
     <Content Include="m\pricequote\DetailedDealerQuotation.aspx" />
@@ -2273,6 +2343,9 @@
     <Content Include="m\src\bwm-newbikes.js" />
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
+    <Content Include="m\src\dealerdetail.js" />
+    <Content Include="m\src\dealerlisting.js" />
+    <Content Include="m\src\dealerpricequote.js" />
     <Content Include="m\src\frameworks.js" />
     <Content Include="m\src\home.js" />
     <Content Include="m\src\html5.js" />
@@ -2292,12 +2365,16 @@
     <Content Include="m\videos\VideoCategories.aspx" />
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
+    <Content Include="new\browsenewbikedealerdetails_old.aspx" />
+    <Content Include="new\locatenewbikedealers_old.aspx" />
+    <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
     <Content Include="customerror.aspx" />
     <Content Include="pricequote\BikeDealerDetails.aspx" />
     <Content Include="pricequote\BookingSummary_New.aspx" />
+    <Content Include="pricequote\DealerPriceQuote_old.aspx" />
     <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
@@ -2306,6 +2383,9 @@
     <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common.js" />
     <Content Include="src\common\chosen.jquery.min.js" />
+    <Content Include="src\dealerlisting.js" />
+    <Content Include="src\dealerpricequote.js" />
+    <Content Include="src\dealersbycity.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
     <Content Include="m\src\loadPhotos.js" />
@@ -2323,7 +2403,7 @@
     <Content Include="new\compare\default.aspx" />
     <Content Include="new\default.aspx" />
     <Content Include="new\EMILoan.aspx" />
-    <Content Include="new\listnewbikedealersbycity.aspx" />
+    <Content Include="new\ListNewBikeDealersByCity_New.aspx" />
     <Content Include="new\locatenewbikedealers.aspx" />
     <Content Include="new\models.aspx" />
     <Content Include="new\newbikelaunch\Default.aspx" />
@@ -2493,6 +2573,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="msmq\" />
+    <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
   </ItemGroup>

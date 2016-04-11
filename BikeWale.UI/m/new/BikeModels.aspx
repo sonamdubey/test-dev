@@ -5,7 +5,6 @@
 <%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="/m/controls/UserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
-<%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html> 
 <html>
 <head>
@@ -47,20 +46,20 @@
                 <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
                     <% if (modelPage.ModelDetails.New)
-                       { %><h1 class="padding-top15 padding-left20 padding-right20"><%= bikeName %></h1>
+                       { %><h1 class="font18 text-darker-black padding-top15 padding-left20 padding-right20"><%= bikeName %></h1>
                     <% } %>
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %>
                     <div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Upcoming</div>
                     <div class="bikeTitle">
-                        <h1 class="padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
+                        <h1 class="font18 text-darker-black padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
                     </div>
                     <% } %>
                     <% if(!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
                        { %>
                     <div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
                     <div class="bikeTitle">
-                        <h1 class="padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
+                        <h1 class="font18 text-darker-black padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
                     </div>
                     <% } %>
 
@@ -87,7 +86,7 @@
                     </div>
                     <% } %>
 
-                    <div class="swiper-container padding-bottom20 model" id="bikeBannerImageCarousel">
+                    <div class="swiper-container padding-bottom10 model" id="bikeBannerImageCarousel">
                         <div class="swiper-wrapper stage" id="ulModelPhotos">
                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                 <ItemTemplate>
@@ -112,16 +111,18 @@
                         <%-- <div class="bikeTitle">
                             <h1 class="padding-bottom10"><%= bikeName %></h1>
                         </div>--%>
-                        <div class="margin-bottom10 font14 text-light-grey">Expected price</div>
-                        <div>
-                            <span class="font24 text-bold"><span class="bwmsprite inr-lg-icon"></span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
-                        </div>
-                        <div class="border-light-bottom margin-top15 margin-bottom15"></div>
-                        <div class="margin-bottom10 font14 text-light-grey">Expected launch date</div>
-                        <div class="font18 text-grey margin-bottom5">
-                            <span class="text-bold"><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
-                        </div>
-
+                          <% if (modelPage.UpcomingBike != null) {%>
+                         <div class="margin-bottom10 font14 text-light-grey">Expected price</div>
+                         <div>
+                             <span class="font24 text-bold"><span class="bwmsprite inr-lg-icon"></span>
+                                 <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
+                         </div>
+                         <div class="border-solid-bottom margin-top15 margin-bottom15"></div>
+                         <div class="margin-bottom10 font14 text-light-grey">Expected launch date</div>
+                         <div class="font18 text-grey margin-bottom5">
+                             <span class="text-bold"><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
+                         </div>
+                        <% } %>
                         <p class="font14 text-grey"><%= bikeName %> is not launched in India yet. Information on this page is tentative.</p>
                     </div>
                     <% } %>
@@ -130,19 +131,19 @@
                    { %>
                 <div class="grid-12 bg-white box-shadow" id="dvBikePrice">
 
-                    <div class="clearfix">
-                        <div class="font14 text-light-grey alpha omega grid-2 margin-top10">Version:</div>
+                    <div class="clearfix padding-right10 padding-left10 margin-bottom15">
+                        <div class="font14 text-light-grey alpha omega grid-3 version-label-text margin-top5">Version:</div>
                         <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 1)
                            { %>
-                        <div class="form-control-box variantDropDown leftfloat grid-10 omega">
+                        <div class="form-control-box variantDropDown leftfloat grid-9 alpha omega">
                             <div class="sort-div rounded-corner2">
                                 <div class="sort-by-title" id="sort-by-container">
-                                    <span class="leftfloat sort-select-btn abc">
+                                    <span class="leftfloat sort-select-btn">
                                         <asp:Label runat="server" ID="defaultVariant"></asp:Label>
                                     </span>
                                     <span class="clear"></span>
                                 </div>
-                                <span id="upDownArrow" class="rightfloat bwmsprite fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                <span id="upDownArrow" class="rightfloat bwmsprite fa-angle-down position-abt pos-top13 pos-right10"></span>
                             </div>
                             <div class="sort-selection-div sort-list-items hide">
                                 <ul id="sortbike">
@@ -163,20 +164,12 @@
                            {  %>
                         <p id='versText' class="variantText text-medium-grey grid-10 text-bold font14 margin-top10"><%= variantText %></p>
                         <% } %>
-                        <%--<div class="leftfloat grid-10 omega">
-                        	<select class="form-control">
-	                            <option>Alloy, Self</option>
-                            	<option>Alloy, Double Disc, Self</option>
-                                <option>Double Disc, Self</option>
-                            </select>
-                        </div>--%>
                     </div>
-                    <div>
-
+                    <div class="padding-right10 padding-left10">
 
                         <% if (isDiscontinued)
                            { %>
-                        <p class="margin-top20 margin-left10 font14 text-light-grey clear fillPopupData">Last known Ex-showroom price</p>
+                        <p class="margin-top15 margin-left10 font14 text-light-grey clear fillPopupData">Last known Ex-showroom price</p>
                         <% } %>
                         <% else
                                if (!isCitySelected)
@@ -191,29 +184,18 @@
                             <% else
                                    if (!isOnRoadPrice)
                                    {%>
-                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
-                                Ex-showroom price in <span class="font14 text-grey"><%= areaName %> <%= cityName %></span>
+                            <p class="margin-top15 margin-bottom10 font14 text-light-grey clear">
+                                Ex-showroom price in <span class="text-grey"><%= areaName %> <%= cityName %></span>
                                 <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite loc-change-blue-icon"></span></a>
                             </p>
                             <% } %>
                             <% else
                                    {%>
-                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
-                                On-road price in <span class="font14 text-grey "><%= areaName %> <%= cityName %></span>
+                            <p class="margin-top15 margin-bottom10 font14 text-light-grey clear">
+                                On-road price in <span class="text-grey "><%= areaName %> <%= cityName %></span>
                                 <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite loc-change-blue-icon"></span></a>
                             </p>
                             <% } %>
-                            <% if (totalDiscountedPrice != 0)
-                               { %>
-                            <p>
-                                <span class="offertxt strike padding-right10 font14"><span class="bwmsprite inr-grey-xxsm-icon"></span>
-                                    <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %>
-                                </span>
-                                ( <span class="offertxt red-font text-bold font14"><span class="bwmsprite inr-red-xxsm-icon"></span>
-                                    <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalDiscountedPrice)) %>
-                                     Off</span> )
-                            </p>
-                             <% } %>
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                 <p class="leftfloat">
 
@@ -237,14 +219,7 @@
                             <%if (isOnRoadPrice)
                               {%>
                             <p id="viewBreakupText" class="font14 text-light-grey leftfloat viewBreakupText">View Breakup</p>
-                            <%if (isBikeWalePQ && price != "0" && price != string.Empty)
-                              {%>
-                            <p class="font12 text-light-grey clear ">Ex-showroom + RTO + Insurance(Comprehensive)</p>
-                            <%}
-                              else
-                              { %>
-                            <p class="font12 text-xt-light-grey clear"><%=viewbreakUpText %></p>
-                            <%} %>
+                            <p class="font12 text-light-grey clear" />
                             <% } %>
                             <% if (!toShowOnRoadPriceButton && isBikeWalePQ)
                                { %>
@@ -253,162 +228,62 @@
                                 </a>
                             </p>
                             <% } %>
-                    </div>
-
-                    <% if (toShowOnRoadPriceButton && modelPage.ModelDetails.New)
-                       {%>
+                    </div>                    
+                    <%
+                       if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) { 
+                     %>
+                    <div class="margin-top20 content-inner-block-10 border-solid">
+                        <h2 class="font18 text-darker-black"><%=viewModel.Organization %></h2>
+                        <p class="font14 text-light-grey padding-bottom10 "><%=viewModel.AreaName %></p>
+                        <%
+                           if (viewModel.Offers != null && viewModel.OfferCount > 0)
+                           { 
+                         %>
+                        <p class="font16 text-bold margin-top15 margin-bottom15 border-solid-top">Exclusive offers on this bike:</p>
+                        <ul class="dealers-benefits-list text-light-grey margin-bottom10">     
+                            <asp:Repeater ID="rptOffers" runat="server">
+                              <ItemTemplate>
+                                <li>
+                                    <span class="dealers-benefits-image offer-benefit-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%>"></span>
+                                    <span class="dealers-benefits-title padding-left15"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                </li>
+                            </ItemTemplate>
+                            </asp:Repeater>
+                        </ul>
+                        <%
+                            }
+                         %>
                         <div class="clear"></div>
-                        <div id="benefitsOfBookingContainer" class=" grey padding-top10 padding-bottom10 margin-top10 margin-bottom10">
-                            <div class="padding-bottom20 border-light-bottom">
-                                <p class="font18 text-bold">Benefits of booking online</p>
-                                <a id="locslug" href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData font14">Available in Mumbai, Pune & Bangalore</a>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="benefits-item">
-                                        <span class="model-sprite benefit-offers-ico margin-right15"></span>
-                                    </div>
-                                    <div class="benefits-item text-uppercase">
-                                        <p>Exclusive</p>
-                                        <span>Offers</span>
-                                    </div>
-                                </li>
-                                <li class="benefits-dealer-visits">
-                                    <div class="benefits-item">
-                                        <span class="model-sprite benefit-dealer-visits-ico margin-right10"></span>
-                                    </div>
-                                    <div class="benefits-item text-uppercase">
-                                        <p>Save on</p>
-                                        <span>Dealer visits</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="benefits-item">
-                                        <span class="model-sprite benefit-assistance-ico margin-right15"></span>
-                                    </div>
-                                    <div class="benefits-item text-uppercase">
-                                        <p>Complete</p>
-                                        <span>Buying assistance</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="benefits-item">
-                                        <span class="bwmsprite cancel-policy-lg-icon margin-right15"></span>
-                                    </div>
-                                    <div class="benefits-item text-uppercase">
-                                        <p>Easy</p>
-                                        <span>Cancellation</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    <%} %>
-                    
-                    <% if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0) && !toShowOnRoadPriceButton)
-                       {%>                    
-
-                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
-                        <div class="available-offers-container content-inner-block-10">                                                       
-                            <div class="offer-list-container" id="dvAvailableOffer">
-                                <%if (isBookingAvailable && bookingAmt > 0 && campaignId == 0)
-                                  { %>
-                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite offers-icon"></span>
-                                    Pay <span class="bwmsprite inr-xsm-icon"></span> <%=bookingAmt %> to book your bike and get:
-                                </h4>
-                                <%    } %>
-                                <% if (isOfferAvailable && campaignId == 0)
-                                   { %>
-                                <ul class="offersList" style="list-style: none">
-                                    <asp:Repeater ID="rptOffers" runat="server">
-                                        <ItemTemplate>
-                                            <li class="offertxt float-left">
-                                                <span style='display: inline;' class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
-                                                <%# "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>"  %>
-                                                <%--<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span  class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>--%>
-                                                <%--<% if (pqOnRoad.DPQOutput.objOffers.Count > 2)
-                                                   { %>
-                                                <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
-                                                <% } %>--%>
-                                            </li>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </ul>
-                                <%--<ul class="moreOffersList hide" style="list-style: none">
-                                    <asp:Repeater ID="rptMoreOffers" runat="server">
-                                        <ItemTemplate>
-                                            <li class="offertxt float-left">
-                                                <span style="display: inline;" class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
-                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span  class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
-                                            </li>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </ul>--%>
-                                <% } %>
-
-                                <%= (isOfferAvailable && campaignId == 0)?"<div class=\"border-top1 margin-top10 margin-bottom10\"></div>":string.Empty %>
-                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite disclaimer-icon margin-right5"></span>
-                                    <%if (pqOnRoad.IsDealerPriceAvailable) {%>
-                                        Get following details on this bike:
-                                    <%}
-                                      else if (campaignId > 0) {%>
-                                        Get following details from <%=bikeName.Split(' ')[0] %>:
-                                    <%} %>
-                                </h4>
-                                <ul class="bike-details-list-ul">
-
-                                    <li>
-                                        <span class="show">Offers from the nearest dealers</span>
-                                    </li>
-                                    <li>
-
-                                        <span class="show">Waiting period on this bike at the dealership</span>
-                                    </li>
-                                    <li>
-
-                                        <span class="show">Nearest dealership from your place</span>
-                                    </li>
-                                    <li>
-                                        <span class="show">Finance options on this bike</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
-                    <% } %>
-                    <% if (bookingAmt > 0 && isDealerAssitance)
-                           { %>
-                            <div class="grid-12 alpha omega margin-bottom20">
-                                <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
-                            </div>
-                        <%} %>
+                    <%
+                       }
+                     %>
+                    <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && viewModel.SecondaryDealerCount > 0)
+                           { 
+                     %>
+                    <ul id="moreDealersList">
+                        <asp:Repeater ID="rptSecondaryDealers" runat="server">
+                            <ItemTemplate>
+                                <li>
+                                    <a href="javascript:void(0)" class="font18 text-bold text-darker-black margin-right20" onclick="secondarydealer_Click(<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %></a><br />
+                                    <span class="font14 text-light-grey"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Area")) %></span>
+                                </li>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </ul>
+                    <div class="text-center margin-top20 margin-bottom20 font14">
+                        <a href="javascript:void(0)" class="more-dealers-link">Check price from <%=viewModel.SecondaryDealerCount %> more dealers <span class="bwmsprite fa-chevron-down"></span></a>
+                        <a href="javascript:void(0)" class="less-dealers-link">Show less dealers <span class="bwmsprite fa-chevron-up"></span></a>
+                    </div>
+                    <%
+                       }
+                     %>
+                    </div>
                 </div>
                 <% } %>
                 <% if(!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
                    { %>
                 <div class="container clearfix box-shadow">
-                    <%--                    <div class="bikeTitle">
-                        <h1 class="padding-bottom15 padding-left15"><%= bikeName %></h1>
-                    </div>
-                    <div class="leftfloat">
-                        <div class="padding-left5 padding-right5 ">
-                            <div>
-                                <span class="margin-bottom10  <%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %>">
-                                    <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
-                                </span>
-                                <span class="margin-bottom10 <%= modelPage.ModelDetails.ReviewCount > 0 ? "hide" : ""  %>">Not rated yet
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="leftfloat border-left1">
-                        <div class="padding-left5 padding-right5 ">
-                            <span class="font16 text-light-grey">
-                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> margin-right10 padding-left10 line-Ht22">
-                                    <%= modelPage.ModelDetails.ReviewCount %> Reviews</a>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="clear"></div>--%>
                     <div class="bike-price-container margin-bottom15">
                         <span class="font14 text-grey padding-left10">Last known Ex-showroom Price</span>
                     </div>
@@ -425,7 +300,6 @@
                     </div>
                 </div>
                 <% } %>
-            </div>
 
             <!-- floating buttons -->
             <%-- <div class="grid-12 float-button float-fixed clearfix">--%>
@@ -441,35 +315,35 @@
                    {   %>
                 <div class="grid-12 float-button float-fixed clearfix">
                     <div class="show padding-top10">
-                        <% if (modelPage.ModelDetails.New)
-                           {   %>
-                        <% if (bookingAmt > 0  && !isDealerAssitance)
-                           { %>
-                            <div class="grid-5 omega">
-                                <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
-                            </div>
-                        <%} %>
-
-                        <% if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0) && !toShowOnRoadPriceButton)
-                           { %>
-                        <div class="grid-<%=btMoreDtlsSize %> ">
-                            <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat <%= (isDealerAssitance && bookingAmt > 0 && campaignId == 0) ? "btn-grey" : "btn-orange"   %>" id="getMoreDetailsBtn" />
-                        </div>
-                        <%} %>
-
-                        <% if (bookingAmt > 0 && isDealerAssitance)
-                           { %>
-                        <div class="grid-5 alpha omega">
-                            <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+919167969266"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
-                          </div>
-                          <%} %>
-                        <%} %>
+                        <% if (modelPage.ModelDetails.New && viewModel != null && !isBikeWalePQ )
+                           {   
+                         %>
+                            <% if ( viewModel.IsPremiumDealer)
+                               { 
+                            %>
+                                    <div class="grid-6 alpha omega">
+                                        <a id="calldealer" class="btn btn-white btn-full-width btn-sm rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
+                                    </div>
+                                    <div class="grid-6 alpha omega padding-left10">
+                                        <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get assistance</a>
+                                    </div>
+                            <% }
+                              else if(!isBikeWalePQ)
+                              { 
+                            %>
+                                <div class="grid-12 float-button float-fixed clearfix">
+                                    <a href="javascript:void(0)" onclick="secondarydealer_Click(<%=dealerId %>);" id="checkDealerDetails" style="width: 100%" class="btn btn-orange margin-top10 margin-right10 leftfloat">Check dealer details</a>
+                                </div>
+                        <%    }
+                           }  
+                        %>
                     </div>
                 </div>
-                <%  }
-               }%>
+                <%
+                }
+               }
+               %>
             </div>
-
         </section>
         <% if (Ad_300x250)
            { %>
@@ -1157,72 +1031,37 @@
             </div>
         </section>
 
-        <% if (ctrlUsersTestimonials.FetchedCount > 0 && bookingAmt > 0)
-           { %>
-        <section class="bg-white">
-            <div id="testimonialWrapper" class="content-box-shadow padding-top15 padding-bottom20 margin-bottom30">
-                <h2 class="text-bold text-center margin-bottom15 font24">What do our customers say</h2>
-                <div class="swiper-container text-center">
-                    <div class="swiper-wrapper padding-bottom20">
-                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </section>
-        <%
-           }        
-        %>
-
-
-        <% if (bookingAmt > 0)
-           { %>
-        <section>
-            <div class="container margin-top20 margin-bottom30">
-                <div id="faqSlug" class="grid-12">
-                    <div class="faq-slug-container content-box-shadow content-inner-block-20">
-                        <div class="question-icon-container text-center leftfloat">
-                            <div class="icon-outer-container rounded-corner50percent">
-                                <div class="icon-inner-container rounded-corner50percent">
-                                    <span class="bwmsprite question-mark-icon margin-top20"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="question-text-container leftfloat padding-left15">
-                            <p class="question-title font16 text-bold text-black">Questions?</p>
-                            <p class="question-subtitle text-light-grey font14">
-                                We’re here to help.<br />
-                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a>
-                            </p>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-        <%} %>
         <!-- Terms and condition Popup Ends -->
         <!-- View BreakUp Popup Starts here-->
         <div class="breakupPopUpContainer bwm-fullscreen-popup hide" id="breakupPopUpContainer">
             <div class="breakupCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
+            <div class="margin-top20 text-center margin-bottom20 icon-outer-container rounded-corner50percent">
+                <div class="icon-inner-container rounded-corner50percent">
+                    <span class="bwmsprite orp-location-icon margin-top20"></span>
+                </div>
+            </div>
             <div class="breakup-text-container padding-bottom10">
-                <h3 class="breakup-header margin-bottom5"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
+                <%if (viewModel != null && !isBikeWalePQ){ %>
+                <h3 class="breakup-header margin-bottom25">On-road price - <%=viewModel.Organization %></h3>
+               <% }
+                  else {%>
+                 <h3 class="breakup-header margin-bottom25">On-road price</h3>
+                <% } %>
                 <% if (isBikeWalePQ)
                    { %>
                 <table class="font14" width="100%">
                     <tbody>
                         <tr>
-                            <td width="60%" class="padding-bottom10">Ex-showroom (Mumbai)</td>
-                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price)) %></td>
+                            <td width="60%" class="padding-bottom10 text-light-grey">Ex-showroom (Mumbai)</td>
+                            <td align="right" class="padding-bottom10 text-right"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price)) %></td>
                         </tr>
                         <tr>
-                            <td class="padding-bottom10">RTO</td>
-                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.RTO)) %></td>
+                            <td class="padding-bottom10 text-light-grey">RTO</td>
+                            <td align="right" class="padding-bottom10 text-right"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.RTO)) %></td>
                         </tr>
                         <tr>
-                            <td class="padding-bottom10">Insurance<a style="position: relative; font-size: 11px; margin-top: 1px;" target="_blank" href="/m/insurance/"> Up to 60% off - PolicyBoss </a></td>
-                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Insurance)) %></td>
+                            <td class="padding-bottom10 text-light-grey">Insurance<a style="position: relative; font-size: 11px; margin-top: 1px;" target="_blank" href="/m/insurance/"> Up to 60% off - PolicyBoss </a></td>
+                            <td align="right" class="padding-bottom10 text-right"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Insurance)) %></td>
                         </tr>
                         <tr>
                             <td colspan="2">
@@ -1231,7 +1070,7 @@
                         </tr>
                         <tr>
                             <!-- ko if :BWPriceList -->
-                            <td class="padding-bottom10 text-bold">Total on road price</td>
+                            <td class="padding-bottom10">Total on road price</td>
                             <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="bwmsprite inr-sm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price + objSelectedVariant.RTO + objSelectedVariant.Insurance)) %></td>
                             <!-- /ko -->
                         </tr>
@@ -1246,13 +1085,13 @@
                         <asp:Repeater ID="rptCategory" runat="server">
                             <ItemTemplate>
                                 <tr class="carwale">
-                                    <td width="60%" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %>
+                                    <td width="60%" class="padding-bottom10 text-light-grey"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %>
                                         <% if (!pqOnRoad.IsInsuranceFree)
                                            { %>
                                         <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : ""  %>
                                         <% } %>
                                     </td>
-                                    <td align="right" class="padding-bottom10 text-bold text-right"><span class="bwmsprite inr-xxsm-icon"></span>
+                                    <td align="right" class="padding-bottom10 text-right"><span class="bwmsprite inr-xxsm-icon"></span>
                                         <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></td>
                                 </tr>
                             </ItemTemplate>
@@ -1266,14 +1105,14 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="padding-bottom10">Total on road price</td>
-                            <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></td>
+                            <td class="padding-bottom10 text-light-grey">Total on road price</td>
+                            <td align="right" class="padding-bottom10" style="text-decoration: line-through;"><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></td>
                         </tr>
                         <asp:Repeater ID="rptDiscount" runat="server">
                             <ItemTemplate>
                                 <tr class="carwale">
-                                    <td width="350" class="padding-bottom10">Minus <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %></td>
-                                    <td align="right" class="padding-bottom10 text-bold"><span class="bwmsprite inr-sm-icon"></span>
+                                    <td width="350" class="padding-bottom10 text-light-grey">Minus <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %></td>
+                                    <td align="right" class="padding-bottom10"><span class="bwmsprite inr-xxsm-icon"></span>
                                         <span><%# Bikewale.Utility.Format.FormatPrice(
                                                   Convert.ToString(DataBinder.Eval(Container.DataItem, "Price")))  %></span></td>
                                 </tr>
@@ -1305,26 +1144,21 @@
                         <tr>
                             <% if (pqOnRoad.DPQOutput.PriceList.Count > 0)
                                {%>
-                            <td class="padding-bottom10 text-bold">Total on road price</td>
+                            <td class="padding-bottom10">Total on road price</td>
                             <% if (pqOnRoad.InsuranceAmount > 0)
                                {
                             %>
-                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="bwmsprite inr-sm-icon"></span>
+                            <td align="right" class="padding-bottom10 font18 text-right"><span class="bwmsprite inr-sm-icon"></span>
                                 <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice -totalDiscountedPrice)) %>
 
                             </td>
                             <% }
                                else
                                { %>
-                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="bwmsprite inr-sm-icon"></span>
+                            <td align="right" class="padding-bottom10 font18 text-right"><span class="bwmsprite inr-sm-icon"></span>
                                 <%= Bikewale.Utility.Format.FormatPrice(price) %>
                                 <%} %>
                                 <%} %>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <div class="border-solid-top padding-bottom10"></div>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -1368,7 +1202,9 @@
                  <!-- thank you message starts here -->
                 <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
                         <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                        <p class="font16 margin-bottom40"><%=bikeName.Split(' ')[0]%> Company would get back to you shortly with additional information.</p>
+                        <%if(viewModel != null){ %>
+                            <p class="font16 margin-bottom40"><%=viewModel.Organization %>, <%=viewModel.AreaName %> will get in touch with you soon</p>
+                        <%} %>
                         <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
                 </div>
 				<!-- thank you message ends here -->
@@ -1397,11 +1233,11 @@
                         <div class="update-mobile-box">
                             <div class="form-control-box text-left">
                                 <p class="mobile-prefix">+91</p>
-                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" />
+                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
                                 <span class="bwmsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" />
+                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
                         </div>
                     </div>
 
@@ -1461,7 +1297,10 @@
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
                 }
             });
-
+            function secondarydealer_Click(dealerID) {
+                var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+                window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+            }
         </script>
     </form>
 </body>
