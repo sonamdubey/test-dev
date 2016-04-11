@@ -216,9 +216,7 @@
 
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
             $ddlMakes.chosen({ no_results_text: "No matches found!!" });
-            $('div.chosen-container').attr('style', 'width:100%;border:0');
-
-                
+            $('div.chosen-container').attr('style', 'width:100%;border:0');                 
 
         </script>
 

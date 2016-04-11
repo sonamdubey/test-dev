@@ -220,11 +220,22 @@ function getDealerBikes(id, campId) {
 var customerViewModel;
 var leadBtnBookNow = $("a.get-assistance-btn"), leadCapturePopup = $("#leadCapturePopup"), fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile"), otpContainer = $(".mobile-verification-container"), getModelName = $("#getModelName");
 var getCityArea = GetGlobalCityArea();
-
-function bindDealerDetails(response) {    
+var binded = false;
+function bindDealerDetails(response) {
     obj = ko.toJS(response);
-    customerViewModel = new CustomerModel(obj);
-    ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);   
+    if (!binded) {
+        customerViewModel = new CustomerModel(obj);
+        ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
+        binded = true;
+    }
+    else {
+        customerViewModel.dealerId(obj.dealerDetails.id);
+        customerViewModel.dealerName(obj.dealerDetails.name);
+        if (obj.dealerBikes && obj.dealerBikes.length > 0) {             
+            customerViewModel.bikes(obj.dealerBikes);
+        }
+    }
+       
 }
 
 function setuserDetails() {

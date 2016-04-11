@@ -171,6 +171,7 @@ function CustomerModel() {
         }
         else {
             isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
+            self.isAssist(false);
         }
         if (isValidDetails) {
             self.verifyCustomer();

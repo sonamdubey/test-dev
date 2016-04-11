@@ -1192,7 +1192,7 @@ ko.bindingHandlers.formateDate = {
                 "Response Text": request.responseText || ""
             });
             error.Message = "Ajax Error Occured";
-            errorLog(error);
+            //errorLog(error);
         } catch (e) {
             return false;
         }
@@ -1206,7 +1206,7 @@ ko.bindingHandlers.formateDate = {
                 $.ajax({ type:"POST",url:"/api/JSException/",data:error,
                     error : function(event,request,settings)
                     {
-                        request.abort();
+                       // request.abort();
                         return false;
                     }
                 });
@@ -1224,7 +1224,7 @@ ko.bindingHandlers.formateDate = {
             error.ErrorType = err.name || "Uncatched Exception";
             error.LineNo = lineno || "Unable to trace";
             error.Trace = (err.stack.toString() || '-');
-            errorLog(error);
+            //errorLog(error);
         } catch (e) {
             return false;
         }

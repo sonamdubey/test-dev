@@ -1,7 +1,9 @@
-﻿using BikewaleOpr.Common;
+﻿using BikewaleOpr.common;
+using BikewaleOpr.Common;
 using BikeWaleOpr.Common;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.Linq;
@@ -21,7 +23,7 @@ namespace BikewaleOpr.Campaign
         #region variable
 
         protected int dealerId, contractId, campaignId, currentUserId;
-        protected string dealerName;
+        protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqFormRadius;
         protected Button btnUpdate;
         protected ManageDealerCampaign dealerCampaign;
         protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber;
@@ -29,6 +31,8 @@ namespace BikewaleOpr.Campaign
         public Label lblGreenMessage, lblErrorSummary;
         public HtmlGenericControl textArea;
         public bool isCampaignPresent;
+        public DropDownList ddlMaskingNumber;
+        public HiddenField hdnOldMaskingNumber;
         
         #endregion
 
@@ -43,8 +47,12 @@ namespace BikewaleOpr.Campaign
 
         private void InserOrUpdateDealerCampaign(object sender, EventArgs e)
         {
+            KnowlarityAPI callApp = new KnowlarityAPI();
+            bool isMaskingChanged = hdnOldMaskingNumber.Value == reqFormMaskingNumber ? false : true;
+            bool IsProd  = Convert.ToBoolean(ConfigurationManager.AppSettings["isProduction"]);
             try
             {
+                // Update campaign
                 if (isCampaignPresent)
                 {
                     dealerCampaign.UpdateBWDealerCampaign(
@@ -53,46 +61,100 @@ namespace BikewaleOpr.Campaign
                         currentUserId,
                         dealerId,
                         contractId,
-                        Convert.ToInt16(txtdealerRadius.Text),
-                        txtMaskingNumber.Text,
+                        Convert.ToInt16(reqFormRadius),
+                        reqFormMaskingNumber,
                         dealerName,
                         txtDealerEmail.Text,
                         false);
                     lblGreenMessage.Text = "Selected campaign has been Updated !";
+                    if (IsProd && isMaskingChanged)
+                    {
+                        // Release previous number and add new number
+                        callApp.clearMaskingNumber(hdnOldMaskingNumber.Value);
+                        callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);
+                    }
                 }
-                else
+                else // Insert new campaign
                 {
                    campaignId = dealerCampaign.InsertBWDealerCampaign(
                         true,
                         currentUserId,
                         dealerId,
                         contractId,
-                        Convert.ToInt16(txtdealerRadius.Text),
-                        txtMaskingNumber.Text,
+                        Convert.ToInt16(reqFormRadius),
+                        reqFormMaskingNumber,
                         dealerName,
                         txtDealerEmail.Text,
                         false);
                     lblGreenMessage.Text = "New campaign has been added !";
                     isCampaignPresent = true;
+                    if (IsProd)
+                    {
+                        // Add new number to knowlarity
+                        callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);
+                    }
                 }
                 ClearForm(Page.Form.Controls, true);
             }
-            catch (Exception ex)
+            catch
             {
-                
                 throw;
             }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             ParseQueryString();
+            if (Request.Form["txtMaskingNumber"] != null)
+            {
+                reqFormMaskingNumber = Convert.ToString(Request.Form["txtMaskingNumber"]);
+            }
+            if (Request.Form["txtdealerRadius"] != null)
+            {
+                reqFormRadius = Convert.ToString(Request.Form["txtdealerRadius"]);
+            }
+            
             SetPageVariables();
+            if (isCampaignPresent)
+                FetchDealeCampaign();
             if (!IsPostBack)
             {
-                if (isCampaignPresent)
-                    FetchDealeCampaign();
+                LoadMaskingNumbers();
+            }
+
+        }
+
+        /// <summary>
+        /// Created By : Sangram Nandkhile on 05-Apr-2016
+        /// Description : To Load masking numbers dropdown
+        /// </summary>
+        private void LoadMaskingNumbers()
+        {
+            try
+            {
+                DataTable dtb = dealerCampaign.BindMaskingNumbers(dealerId);
+                List<ListItem> maskingList = new List<ListItem>();
+                if (dtb != null)
+                {
+                    foreach ( DataRow dr in dtb.Rows )
+                    {
+                        ListItem lst = new ListItem(Convert.ToString(dr[1]), Convert.ToString(dr[0]));
+                        if(dr[2].ToString() == "1")
+                        {
+                            lst.Attributes.Add("disabled", "disabled");
+                        }
+                        maskingList.Add(lst);
+                    }
+                    ddlMaskingNumber.Items.AddRange(maskingList.ToArray());
+                    ddlMaskingNumber.DataBind();
+                    ListItem item = new ListItem("--Select Number--", "0");
+                    ddlMaskingNumber.Items.Insert(0, item);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.LoadMaskingNumbers");
+                objErr.SendMail();
             }
         }
 
@@ -103,6 +165,8 @@ namespace BikewaleOpr.Campaign
         /// <summary>
         /// Created By : Sangram Nandkhile on 21st March 2016.
         /// Description : To fetch current campaign details
+        /// Updated by: Sangram
+        /// Summary:    Added dealerMobile,hdnOldMaskingNumber,oldMaskingNumber
         /// </summary>
         private void FetchDealeCampaign()
         {
@@ -112,8 +176,15 @@ namespace BikewaleOpr.Campaign
                 if(dtCampaign !=null && dtCampaign.Rows.Count > 0)
                 {
                     txtdealerRadius.Text = dtCampaign.Rows[0]["DealerLeadServingRadius"].ToString();
-                    txtMaskingNumber.Text = dtCampaign.Rows[0]["Number"].ToString();
+                    if (!String.IsNullOrEmpty(Convert.ToString(dtCampaign.Rows[0]["Number"])))
+                    {
+                        txtMaskingNumber.Text = Convert.ToString(dtCampaign.Rows[0]["Number"]);
+                        oldMaskingNumber = txtMaskingNumber.Text;
+                        hdnOldMaskingNumber.Value = txtMaskingNumber.Text;
+                    }
+                    oldMaskingNumber = txtMaskingNumber.Text;
                     txtDealerEmail.Text = dtCampaign.Rows[0]["DealerEmailId"].ToString();
+                    dealerMobile = dtCampaign.Rows[0]["dealerMobile"].ToString();
                 }
                 else
                 {

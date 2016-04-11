@@ -479,12 +479,14 @@ function savePosition(position) {
     }   
     if (userAddress == "") {
         $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + userLocation.latitude + "," + userLocation.longitude + "&key=" + googleMapAPIKey, function (data) {
-            userAddress = data;
-            if (data.status == "OK") {
-                userAddress = userAddress.results[0].formatted_address;
-                $("#locationSearch").val("").val(userAddress);
-                google.maps.event.trigger(originPlace, 'place_changed');
+            if (data.status == "OK" && data.results.length > 0) {
+                userAddress = data.results[0].formatted_address;                
             }
+            else {
+                userAddress = "Your Location";
+            }
+            $("#locationSearch").val("").val(userAddress);
+            google.maps.event.trigger(originPlace, 'place_changed');
         });
     }
     setUserLocation(position);
