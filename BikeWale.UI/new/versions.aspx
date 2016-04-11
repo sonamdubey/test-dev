@@ -567,7 +567,7 @@
                     <table width="100%" class="font14">
                         <tbody>
                             <tr>
-                                <td width="300" class="padding-bottom10 text-light-grey">Ex-showroom (Mumbai)</td>
+                                <td width="300" class="padding-bottom10 text-light-grey">Ex-showroom (<%= cityName %>)</td>
                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price)) %> </td>
                             </tr>
                             <tr>
