@@ -8,6 +8,9 @@ using System.Web.Http.Description;
 using Bikewale.DTO.Model;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Notifications;
+using Bikewale.BAL.PriceQuote;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.DTO.Model.v3;
 
 
 
@@ -38,11 +41,11 @@ namespace Bikewale.Service.Controllers.Model
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
-        [ResponseType(typeof(ModelPage)), Route("api/model/details/")]
+        [ResponseType(typeof(Bikewale.DTO.Model.ModelPage)), Route("api/model/details/")]
         public IHttpActionResult Get(int modelId)
         {
             BikeModelPageEntity objModelPage = null;
-            ModelPage objDTOModelPage = null;
+            Bikewale.DTO.Model.ModelPage objDTOModelPage = null;
             //List<EnumCMSContentType> categorList = null;
 
             try
@@ -89,7 +92,7 @@ namespace Bikewale.Service.Controllers.Model
                     }
 
                     // Auto map the properties
-                    objDTOModelPage = new ModelPage();
+                    objDTOModelPage = new Bikewale.DTO.Model.ModelPage();
                     objDTOModelPage = ModelMapper.Convert(objModelPage);
 
                     if (objModelPage != null)
@@ -295,7 +298,7 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="modelId"></param>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
-        public IHttpActionResult GetV3(int modelId)
+        public IHttpActionResult GetV3(int modelId, int? cityId, int? areaId)
         {
             Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
             try
@@ -311,6 +314,8 @@ namespace Bikewale.Service.Controllers.Model
                         platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if(platformId == "3")
                         {
+                            #region Mapping from Entities to DTO
+
                             objDTOModelPage = new DTO.Model.v3.ModelPage();
                             objDTOModelPage.SmallDescription = objModelPage.ModelDesc.SmallDescription;
                             objDTOModelPage.MakeId = objModelPage.ModelDetails.MakeBase.MakeId;
@@ -320,16 +325,18 @@ namespace Bikewale.Service.Controllers.Model
                             objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
                             objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
                             objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
-                            //objDTOModelPage.overviewList = objModelPage.objOverview;
 
                             if (objModelPage.objOverview != null)
                             {
-                                var overView = new Bikewale.Entities.BikeData.Specs();
+                                var overViewList = new List<Bikewale.Entities.BikeData.Specs>();
                                 foreach(var spec in objModelPage.objOverview.OverviewList)
                                 {
-                                    //overView = new Entities.BikeData.Overview(){
-                                    //    DisplayName = spec.DisplayText
-                                    //};
+                                    var ov = new Entities.BikeData.Specs()
+                                    {
+                                        DisplayText  = spec.DisplayText,
+                                        DisplayValue = spec.DisplayValue
+                                    };
+                                    overViewList.Add(ov);
                                 }
                                 objDTOModelPage.overviewList = null;
                             }
@@ -347,72 +354,70 @@ namespace Bikewale.Service.Controllers.Model
                                 }
                                 objDTOModelPage.Photos = photos;
                             }
-                            //var variantList = new List
+                            if (objModelPage.ModelVersions != null)
+                            {
+                                List<VersionDetail> modelSpecs = new List<VersionDetail>();
+                                foreach (var version in objModelPage.ModelVersions)
+                                {
+                                    VersionDetail ver = new VersionDetail();
+                                    ver.AlloyWheels = version.AlloyWheels;
+                                    ver.AntilockBrakingSystem = version.AntilockBrakingSystem;
+                                    ver.BrakeType = version.BrakeType;
+                                    ver.ElectricStart = version.ElectricStart;
+                                    ver.VersionId = version.VersionId;
+                                    ver.VersionName = version.VersionName;
+                                    ver.Price = version.Price;
+                                    modelSpecs.Add(ver);
+                                }
+                                objDTOModelPage.ModelVersions = modelSpecs;
+                            }
+                            #endregion
+
+                            #region On road pricing for versions
+                            PQOnRoadPrice pqOnRoad = new PQOnRoadPrice();
+                            if (cityId > 0)
+                            {
+                                PQByCityArea getPQ = new PQByCityArea();
+                                pqOnRoad = getPQ.GetOnRoadPrice(modelId, cityId, areaId, 0);
+                                if (pqOnRoad != null)
+                                {
+                                    if (pqOnRoad.DPQOutput!=null)
+                                    {
+                                        foreach (var version in objDTOModelPage.ModelVersions)
+                                        {
+                                            var selected = pqOnRoad.DPQOutput.Varients.Where(p => p.objVersion.VersionId == version.VersionId).FirstOrDefault();
+                                            if (selected != null)
+                                            {
+                                                version.Price = selected.OnRoadPrice;
+                                                version.IsDealerPriceQuote = true;
+                                            }
+                                            else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
+                                            {
+                                                var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
+                                                if (selectedBPQ != null)
+                                                {
+                                                    version.Price = selectedBPQ.OnRoadPrice;
+                                                    version.IsDealerPriceQuote = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            #endregion
+                            // Check if bike has more than 1 version and send base version as the first version in VersionList
+                            if (objDTOModelPage.ModelVersions != null && objDTOModelPage.ModelVersions.Count > 1 && pqOnRoad!=null)
+                            {
+                                List<VersionDetail> swappedVersions = new List<VersionDetail>();
+                                var baseModelVersion = objDTOModelPage.ModelVersions.FindAll(p => p.VersionId == pqOnRoad.BaseVersion).FirstOrDefault();
+                                swappedVersions.Add(baseModelVersion);
+                                objDTOModelPage.ModelVersions.RemoveAll(p => p.VersionId == pqOnRoad.BaseVersion);
+                                swappedVersions.AddRange(objDTOModelPage.ModelVersions);
+                                objDTOModelPage.ModelVersions = swappedVersions;
+                            }
                         }
                     }
-                    //if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
-                    //{
-                    //    objModelPage.ModelVersionSpecs = null;
-                    //}
-                    //else
-                    //{
-                    //    if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
-                    //    {
-                    //        objModelPage.objFeatures.FeaturesList.Clear();
-                    //        objModelPage.objFeatures.FeaturesList = null;
-                    //        objModelPage.objFeatures = null;
-                    //    }
-                    //    if (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null)
-                    //    {
-                    //        objModelPage.objOverview.OverviewList.Clear();
-                    //        objModelPage.objOverview.OverviewList = null;
-                    //        objModelPage.objOverview = null;
-                    //    }
-                    //    if (objModelPage.objSpecs != null && objModelPage.objSpecs.SpecsCategory != null)
-                    //    {
-                    //        objModelPage.objSpecs.SpecsCategory.Clear();
-                    //        objModelPage.objSpecs.SpecsCategory = null;
-                    //        objModelPage.objSpecs = null;
-                    //    }
-                    //}
-
-                    // Auto map the properties
-                    //objDTOModelPage = new Bikewale.DTO.Model.v3.ModelPage();
-                    //objDTOModelPage = ModelMapper.ConvertV3(objModelPage);
-
-                    //if (objModelPage != null)
-                    //{
-                    //    if (objModelPage.ModelColors != null)
-                    //    {
-                    //        objModelPage.ModelColors = null;
-                    //    }
-                    //    if (objModelPage.ModelVersions != null)
-                    //    {
-                    //        objModelPage.ModelVersions.Clear();
-                    //        objModelPage.ModelVersions = null;
-                    //    }
-                    //    if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
-                    //    {
-                    //        objModelPage.objFeatures.FeaturesList.Clear();
-                    //        objModelPage.objFeatures.FeaturesList = null;
-                    //    }
-                    //    if (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null)
-                    //    {
-                    //        objModelPage.objOverview.OverviewList.Clear();
-                    //        objModelPage.objOverview.OverviewList = null;
-                    //    }
-                    //    if (objModelPage.objSpecs != null && objModelPage.objSpecs.SpecsCategory != null)
-                    //    {
-                    //        objModelPage.objSpecs.SpecsCategory.Clear();
-                    //        objModelPage.objSpecs.SpecsCategory = null;
-                    //    }
-                    //    if (objModelPage.Photos != null)
-                    //    {
-                    //        objModelPage.Photos.Clear();
-                    //        objModelPage.Photos = null;
-                    //    }
-                    //}
-
                     return Ok(objDTOModelPage);
                 }
                 else
