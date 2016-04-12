@@ -5,15 +5,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
+
 namespace CityAutoSuggest
 {
     public class GetCityList
     {
         private static string _con = ConfigurationManager.AppSettings["connectionString"];
-
         public static List<CityTempList> CityList()
         {
             List<CityTempList> objCity = null;
@@ -51,7 +49,7 @@ namespace CityAutoSuggest
             catch (Exception ex)
             {
                 Console.WriteLine("Error in CityList : " + ex.Message);
-                Logs.WriteErrorLog("Error in fetching CityList from Database : " + ex.Message);
+                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name + " :Error in fetching CityList from Database: ", ex);
             }
             return objCity;
         }
@@ -140,7 +138,7 @@ namespace CityAutoSuggest
             catch (Exception ex)
             {
                 Console.WriteLine("Get Suggest List Exception  : " + ex.Message);
-                Logs.WriteErrorLog("Error In creating City autosuggest list : " + ex.Message);
+                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name + " :Error In creating City autosuggest list: ", ex);
             }
             return objSuggestList;
         }

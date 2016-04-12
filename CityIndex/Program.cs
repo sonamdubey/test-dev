@@ -3,10 +3,8 @@ using Nest;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ElasticClientManager;
+using System.Reflection;
 
 namespace CityAutoSuggest
 {
@@ -14,6 +12,7 @@ namespace CityAutoSuggest
     {
         static void Main(string[] args)
         {
+            log4net.Config.XmlConfigurator.Configure();
             List<CityTempList> objCityList = GetCityList.CityList();                                    //  Call City SP
             Logs.WriteInfoLog("city List count : " + objCityList.Count);
 
@@ -53,6 +52,7 @@ namespace CityAutoSuggest
             }
             catch (Exception ex)
             {
+                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name, ex);
                 Console.WriteLine(ex.Message);
             }
         }

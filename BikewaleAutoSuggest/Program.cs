@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ElasticClientManager;
+using System.Reflection;
 
 namespace BikewaleAutoSuggest
 {
@@ -14,6 +13,7 @@ namespace BikewaleAutoSuggest
     {
         static void Main(string[] args)
         {
+            log4net.Config.XmlConfigurator.Configure();
             List<TempList> objList = GetBikeListDb.GetBikeList();
 
             Logs.WriteInfoLog("All Make Model List : " + objList.Count);
@@ -63,6 +63,7 @@ namespace BikewaleAutoSuggest
             }
             catch(Exception ex)
             {
+                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name, ex);
                 Console.WriteLine(ex.Message);
             }
         }
