@@ -1,31 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using Microsoft.Practices.Unity;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.DAL.BikeData;
-using AutoMapper;
 using System.Web.Http.Description;
 using Bikewale.DTO.Model;
-using Bikewale.DTO.Series;
-using Bikewale.DTO.Make;
-using Bikewale.DTO.Version;
-using Bikewale.Service.Controllers.Version;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Notifications;
-using Bikewale.Entities.CMS;
-using Bikewale.Utility;
-using System.Configuration;
-using Bikewale.DTO.CMS.Photos;
-using Bikewale.Service.AutoMappers.CMS;
-using Bikewale.Entities.CMS.Photos;
-using System.Web;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.BikeData;
+
+
 
 namespace Bikewale.Service.Controllers.Model
 {
@@ -303,6 +287,146 @@ namespace Bikewale.Service.Controllers.Model
                 return InternalServerError();
             }
         }   // Get  Model Page
+        /// <summary>
+        /// Created by  :   Sangram Nandkhile on 16 Apr 2016
+        /// Description :   This the new version v3 of existing API.        
+        /// Removed specs, colors, features and unnecessary properties
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
+        public IHttpActionResult GetV3(int modelId)
+        {
+            Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
+            try
+            {
+                BikeModelPageEntity objModelPage = null;
+                objModelPage = _cache.GetModelPageDetails(modelId);
+                if (objModelPage != null)
+                {
+                    // If android, IOS client sanitize the article content 
+                    string platformId = string.Empty;
+                    if (Request.Headers.Contains("platformId"))
+                    {
+                        platformId = Request.Headers.GetValues("platformId").First().ToString();
+                        if(platformId == "3")
+                        {
+                            objDTOModelPage = new DTO.Model.v3.ModelPage();
+                            objDTOModelPage.SmallDescription = objModelPage.ModelDesc.SmallDescription;
+                            objDTOModelPage.MakeId = objModelPage.ModelDetails.MakeBase.MakeId;
+                            objDTOModelPage.MakeName = objModelPage.ModelDetails.MakeBase.MakeName;
+                            objDTOModelPage.ModelId = objModelPage.ModelDetails.ModelId;
+                            objDTOModelPage.ModelName = objModelPage.ModelDetails.ModelName;
+                            objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
+                            objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
+                            objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
+                            //objDTOModelPage.overviewList = objModelPage.objOverview;
+
+                            if (objModelPage.objOverview != null)
+                            {
+                                var overView = new Bikewale.Entities.BikeData.Specs();
+                                foreach(var spec in objModelPage.objOverview.OverviewList)
+                                {
+                                    //overView = new Entities.BikeData.Overview(){
+                                    //    DisplayName = spec.DisplayText
+                                    //};
+                                }
+                                objDTOModelPage.overviewList = null;
+                            }
+                            if (objModelPage.Photos != null)
+                            {
+                                var photos = new List<DTO.Model.v3.CMSModelImageBase>();
+                                foreach (var photo in objModelPage.Photos)
+                                {
+                                    var addPhoto = new DTO.Model.v3.CMSModelImageBase()
+                                    {
+                                        HostUrl = photo.HostUrl,
+                                        OriginalImgPath = photo.OriginalImgPath
+                                    };
+                                    photos.Add(addPhoto);
+                                }
+                                objDTOModelPage.Photos = photos;
+                            }
+                            //var variantList = new List
+                        }
+                    }
+                    //if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
+                    //{
+                    //    objModelPage.ModelVersionSpecs = null;
+                    //}
+                    //else
+                    //{
+                    //    if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
+                    //    {
+                    //        objModelPage.objFeatures.FeaturesList.Clear();
+                    //        objModelPage.objFeatures.FeaturesList = null;
+                    //        objModelPage.objFeatures = null;
+                    //    }
+                    //    if (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null)
+                    //    {
+                    //        objModelPage.objOverview.OverviewList.Clear();
+                    //        objModelPage.objOverview.OverviewList = null;
+                    //        objModelPage.objOverview = null;
+                    //    }
+                    //    if (objModelPage.objSpecs != null && objModelPage.objSpecs.SpecsCategory != null)
+                    //    {
+                    //        objModelPage.objSpecs.SpecsCategory.Clear();
+                    //        objModelPage.objSpecs.SpecsCategory = null;
+                    //        objModelPage.objSpecs = null;
+                    //    }
+                    //}
+
+                    // Auto map the properties
+                    //objDTOModelPage = new Bikewale.DTO.Model.v3.ModelPage();
+                    //objDTOModelPage = ModelMapper.ConvertV3(objModelPage);
+
+                    //if (objModelPage != null)
+                    //{
+                    //    if (objModelPage.ModelColors != null)
+                    //    {
+                    //        objModelPage.ModelColors = null;
+                    //    }
+                    //    if (objModelPage.ModelVersions != null)
+                    //    {
+                    //        objModelPage.ModelVersions.Clear();
+                    //        objModelPage.ModelVersions = null;
+                    //    }
+                    //    if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
+                    //    {
+                    //        objModelPage.objFeatures.FeaturesList.Clear();
+                    //        objModelPage.objFeatures.FeaturesList = null;
+                    //    }
+                    //    if (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null)
+                    //    {
+                    //        objModelPage.objOverview.OverviewList.Clear();
+                    //        objModelPage.objOverview.OverviewList = null;
+                    //    }
+                    //    if (objModelPage.objSpecs != null && objModelPage.objSpecs.SpecsCategory != null)
+                    //    {
+                    //        objModelPage.objSpecs.SpecsCategory.Clear();
+                    //        objModelPage.objSpecs.SpecsCategory = null;
+                    //    }
+                    //    if (objModelPage.Photos != null)
+                    //    {
+                    //        objModelPage.Photos.Clear();
+                    //        objModelPage.Photos = null;
+                    //    }
+                    //}
+
+                    return Ok(objDTOModelPage);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        } 
         #endregion
     }
 }
