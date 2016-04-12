@@ -33,6 +33,8 @@ namespace Bikewale.Service.Controllers.Version
         #region Version Details
         /// <summary>
         /// To get versions Details for Dropdowns
+        /// Modified by :   Sumit Kate on 12 Apr 2016
+        /// Description :   Send BadRequest if versionid <= 0
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns>Version Minimum Details</returns>
@@ -43,15 +45,22 @@ namespace Bikewale.Service.Controllers.Version
             VersionDetails objDTOVersionList = null;
             try
             {
-                objVersion = _versionRepository.GetById(versionId);
-
-                if (objVersion != null)
+                if (versionId > 0)
                 {
-                    // Auto map the properties
-                    objDTOVersionList = new VersionDetails();  
-                    objDTOVersionList = VersionListMapper.Convert(objVersion);
+                    objVersion = _versionRepository.GetById(versionId);
 
-                    return Ok(objDTOVersionList);
+                    if (objVersion != null)
+                    {
+                        // Auto map the properties
+                        objDTOVersionList = new VersionDetails();
+                        objDTOVersionList = VersionListMapper.Convert(objVersion);
+
+                        return Ok(objDTOVersionList);
+                    } 
+                }
+                else
+                {
+                    return BadRequest();
                 }
 
             }
