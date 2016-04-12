@@ -41,12 +41,8 @@ namespace Bikewale.Cache.Core
                         {
                             t = dbCallback();
 
-                            bool temp = mc.Store(StoreMode.Add, key, t, DateTime.Now.Add(cacheDuration));
-                            if (temp)
-                            {
-
-                            }
-
+                            mc.Store(StoreMode.Add, key, t, DateTime.Now.Add(cacheDuration));
+                            
                             mc.Remove(key + "_lock");
                         }
                         else
