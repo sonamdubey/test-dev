@@ -11,7 +11,6 @@ namespace Bikewale.DTO.Model.v3
     /// <summary>
     /// Created by  :   Sangram Nandkhile on 29 Jan 2016
     /// Description :   This new DTO for Model Page API v3
-    /// New model multi-tone colors are replaced with old model colours.
     /// </summary>
     public class ModelPage
     {
@@ -47,7 +46,7 @@ namespace Bikewale.DTO.Model.v3
         public Overview overviewList { get; set; }
 
         [JsonProperty("versionList")]
-        public List<Bikewale.DTO.Version.VersionMinSpecs> ModelVersions { get; set; }
+        public List<VersionDetail> ModelVersions { get; set; }
 
     }
 }
