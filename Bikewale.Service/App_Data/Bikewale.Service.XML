@@ -568,6 +568,16 @@
             <param name="compareEntity"></param>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "T:Bikewale.Service.AutoMappers.DealerLocator.DealerBikesEntityMapper" -->
+        <member name="M:Bikewale.Service.AutoMappers.DealerLocator.DealerBikesEntityMapper.Convert(Bikewale.Entities.DealerLocator.DealerBikesEntity)">
+            <summary>
+            Created By : Lucky Rathore
+            Created On : 22 March 2016
+            Summary : Map DealerBikes and DealerBikesEntity
+            </summary>
+            <param name="dealerBikes"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.AutoMappers.Dealer.DealerListMapper">
             <summary>
             Created By : Sushil Kumar
@@ -906,6 +916,15 @@
             <param name="makeId">Make Id</param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.Controllers.City.DealerCityController.GetV2(System.UInt32)">
+            <summary>
+            Created by  :   Sumit Kate on 22 Mar 2016
+            Make wise Dealer City List
+            It Includes BW Dealer Cities and AB Dealer Cities
+            </summary>
+            <param name="makeId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.CMS.CMSListController">
             <summary>
             Edit CMS List Controller :  Operations related to list of content 
@@ -1034,6 +1053,34 @@
             <param name="password"></param>
             <param name="clientIP"></param>
             <returns>Returns registered customers data.</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.DealerLocator.DealerBikesController">
+            <summary>
+            Created By : Lucky Rathore
+            Created on : 22 march 2016
+            Description : for getting dealer detail and bike detail w.r.t dealer.
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.DealerLocator.DealerBikesController.#ctor(Bikewale.Interfaces.Dealer.IDealer,Bikewale.Interfaces.Dealer.IDealerCacheRepository)">
+            <summary>
+            Created By : Lucky Rathore
+            Created on : 22 march 2016
+            Description : for Resolving IDealer and IDealerCacheRepository.
+            </summary>
+            <param name="dealer"></param>
+            <param name="cache"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.DealerLocator.DealerBikesController.Get(System.UInt16,System.UInt32)">
+            <summary>
+            Created By : Lucky Rathore
+            Created On : 22 March 2016
+            Description : To get Detail of Bikes for specific Dealer.
+            Modified By : Sushil Kumar on 26th March 2016
+            Description : Added campaignId as a parameter to fetch dealer info based on camapign Id
+            </summary>
+            <param name="dealerId"></param>
+            <param name="campaignId"></param>
+            <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.Dealer.DealersListController">
             <summary>
@@ -1466,6 +1513,16 @@
             <param name="input">Mobile Verification Input</param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.SaveCustomerSMS(Bikewale.DTO.PriceQuote.PQMobileVerificationInput,Bikewale.Entities.Customer.CustomerEntity,Bikewale.Entities.BikeBooking.PQ_DealerDetailEntity,System.UInt32)">
+            <summary>
+            Modified By : Lucky Rathore
+            Description : change sms type to subscription model for Desktop and mobile site customer. 
+            </summary>
+            <param name="input"></param>
+            <param name="objCust"></param>
+            <param name="dealerDetailEntity"></param>
+            <param name="bookingAmount"></param>
+        </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.MobileVerification.ResendVerificationCodeController">
             <summary>
             Resend Mobile Verification Code Controller
@@ -1561,6 +1618,17 @@
             </summary>
             <param name="input">Customer details with price quote details</param>
             <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.SaveCustomerSMS(Bikewale.DTO.PriceQuote.PQCustomerDetailInput,Bikewale.Entities.Customer.CustomerEntity,Bikewale.Entities.BikeBooking.PQ_DealerDetailEntity,System.UInt32)">
+            <summary>
+            Modified by : Lucky Rathore
+            Created On : 17 March 2016
+            Description : Dealer Area and address added in DPQSmsEntity.
+            </summary>
+            <param name="input"></param>
+            <param name="objCust"></param>
+            <param name="dealerDetailEntity"></param>
+            <param name="bookingAmount"></param>
         </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Get(System.UInt32)">
             <summary>
@@ -1675,6 +1743,20 @@
             </summary>
             <param name="modelId">model Id</param>
             <param name="cityId">city id</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.AutoMappers.City.CityListMapper">
+            <summary>
+            Modified By :   Sumit Kate on 22 Mar 2016
+            Description :   Added Mapper for IEnumerable of CityEntityBase
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.City.CityListMapper.Convert(System.Collections.Generic.IEnumerable{Bikewale.Entities.Location.CityEntityBase})">
+            <summary>
+            Created by  :   Sumit Kate on 22 Mar 2016
+            Converts Entity IEnumerable to DTO IEnumerable
+            </summary>
+            <param name="objCityList"></param>
             <returns></returns>
         </member>
         <member name="M:Bikewale.Service.AutoMappers.Model.ModelMapper.ConvertV2(Bikewale.Entities.BikeData.BikeModelPageEntity)">
@@ -2314,6 +2396,8 @@
             Description :   Register IBookingListing, BookingListingRepository
             Modified By :   Lucky Rathore on 10 March 2016
             Description :   Register IDeepLinking, DeepLinking
+            Modified By :   Lucky Rathore on 21 March 2016
+            Description :   Register IDealerCacheRepository, DealerCacheRepository
             </summary>
             <returns></returns>
         </member>
