@@ -12,8 +12,10 @@
 <div>
     You are here &raquo; New Bike Booking
 </div>
-
-    <div style="border: 1px solid black; margin-left: 180px;" class="padding10">
+    <div>
+    <!-- #Include file="/content/DealerMenu.aspx" -->
+    </div>
+    <div style="border: 1px solid black; margin-left: 200px;" class="padding10">
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
             <tr id="city">
                 Dealer's City : <font color="red">* &nbsp</font>
@@ -204,8 +206,7 @@
             </asp:repeater>
         <footertemplate>
     </div>
-    </FooterTemplate>
-        </div>
+
      <%--   <asp:HiddenField  ID="hdnCityId" runat="server" />
         <asp:HiddenField  ID="hdnMakeId" runat="server" />
         <asp:HiddenField  ID="hdnDealerId" runat="server" />--%>

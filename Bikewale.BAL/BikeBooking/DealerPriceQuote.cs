@@ -308,6 +308,8 @@ namespace Bikewale.BAL.BikeBooking
         /// <summary>
         /// Created By : Sadhana Upadhyay on 20 July 2015
         /// Summary : To process price Quote
+        /// Modified By :   Sumit Kate on 21 Mar 2016
+        /// Description :   Consume the newer Subscription Model AB API version
         /// </summary>
         /// <param name="PQParams"></param>
         /// <returns></returns>
@@ -326,7 +328,7 @@ namespace Bikewale.BAL.BikeBooking
 
                 if (PQParams.VersionId > 0 && PQParams.AreaId > 0)
                 {
-                    string api = "/api/DealerPriceQuote/IsDealerExists/?areaid=" + PQParams.AreaId + "&versionid=" + PQParams.VersionId;
+                    string api = "/api/v2/DealerPriceQuote/IsDealerExists/?areaid=" + PQParams.AreaId + "&versionid=" + PQParams.VersionId;
 
                     using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                     {

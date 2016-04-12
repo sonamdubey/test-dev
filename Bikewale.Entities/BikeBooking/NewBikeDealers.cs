@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Newtonsoft.Json;
-using Bikewale.Entities.Location;
+using System;
 
 namespace Bikewale.Entities.BikeBooking
 {
@@ -12,6 +9,9 @@ namespace Bikewale.Entities.BikeBooking
     {
         [JsonProperty("dealerId")]
         public UInt32 DealerId { get; set; }
+
+        [JsonProperty("areaId")]
+        public UInt32 AreaId { get; set; }
 
         [JsonProperty("dealerName")]
         public string Name { get; set; }
@@ -34,14 +34,19 @@ namespace Bikewale.Entities.BikeBooking
         [JsonProperty("workingTime")]
         public string WorkingTime { get; set; }
 
-
         [JsonProperty("address")]
         public string Address { get; set; }
+
+        [JsonProperty("maskingNumber")]
+        public string MaskingNumber { get; set; }
 
         public StateEntityBase objState { get; set; }
 
         public CityEntityBase objCity { get; set; }
 
         public AreaEntityBase objArea { get; set; }
+        
+        [JsonProperty("dealerPackageType")]
+        public DealerPackageTypes DealerPackageType { get; set; }
     }   //End of Class
 }   //End of namespace

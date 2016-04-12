@@ -309,6 +309,15 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
         }
 
+        /// <summary>
+        /// Modified by : Lucky Rathore
+        /// Created On : 17 March 2016
+        /// Description : Dealer Area and address added in DPQSmsEntity.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="objCust"></param>
+        /// <param name="dealerDetailEntity"></param>
+        /// <param name="bookingAmount"></param>
         private void SaveCustomerSMS(PQCustomerDetailInput input, CustomerEntity objCust, PQ_DealerDetailEntity dealerDetailEntity, uint bookingAmount)
         {
             UrlShortner objUrlShortner = new UrlShortner();
@@ -322,7 +331,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
                 objDPQSmsEntity.BookingAmount = bookingAmount;
                 objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
-                
+                objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName;
+                objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
                 PriceQuoteParametersEntity pqEntity = _objPriceQuote.FetchPriceQuoteDetailsById(input.PQId);
                 String mpqQueryString = String.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", pqEntity.CityId, pqEntity.AreaId, input.PQId, pqEntity.VersionId, pqEntity.DealerId);
                 objDPQSmsEntity.LandingPageShortUrl = objUrlShortner.GetShortUrl(String.Format("{0}/pricequote/BikeDealerDetails.aspx?MPQ={1}", BWConfiguration.Instance.BwHostUrlForJs, EncodingDecodingHelper.EncodeTo64(mpqQueryString))).Id;
@@ -338,28 +348,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 }
                 else
                 {
-                    if ((dealerDetailEntity.objOffers != null) && (dealerDetailEntity.objOffers.Count > 0))
-                    {
-                        if (bookingAmount > 0)
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.OfferAndBooking);
-                        }
-                        else
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.OfferNoBooking);
-                        }
-                    }
-                    else
-                    {
-                        if (bookingAmount > 0)
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.NoOfferOnlineBooking);
-                        }
-                        else
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.NoOfferNoBooking);
-                        }
-                    }
+                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.SubscriptionModel);
+                    
                 }
             }
             catch (Exception ex)

@@ -1197,6 +1197,9 @@ var appendHash = function (state) {
         case "assistancePopup":
             window.location.hash = state;
             break;
+        case "locatorsearch":
+            window.location.hash = state;
+            break;
         default:
             return true;
     }
@@ -1237,6 +1240,9 @@ var closePopUp = function (state) {
             break;
         case "assistancePopup":
             assistancePopupClose($('#leadCapturePopup'));
+            break;
+        case "locatorsearch":
+            locatorSearchClose();
             break;
         default:
             return true;
@@ -1298,7 +1304,7 @@ var locationFilter = function (filterContent) {
         });
     }
     else {
-        $(this).parent("div.user-input-box").siblings("ul").find("li").each(function () {
+        $(filterContent).parent("div.user-input-box").siblings("ul").find("li").each(function () {
             $(this).show();
         });
     }
@@ -1477,7 +1483,7 @@ function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.
                 "Response Text": request.responseText || ""
             });
             error.Message = "Ajax Error Occured";
-            errorLog(error);
+            //errorLog(error);
         } catch (e) {
             return false;
         }
@@ -1491,7 +1497,7 @@ function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.
                 $.ajax({
                     type: "POST", url: "/api/JSException/", data: error,
                     error: function (event, request, settings) {
-                        request.abort();
+                        //request.abort();
                         return false;
                     }
                 });
@@ -1509,7 +1515,7 @@ function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.
             error.ErrorType = err.name || "Uncatched Exception";
             error.LineNo = lineno || "Unable to trace";
             error.Trace = (err.stack.toString() || '-');
-            errorLog(error);
+           // errorLog(error);
         } catch (e) {
             return false;
         }

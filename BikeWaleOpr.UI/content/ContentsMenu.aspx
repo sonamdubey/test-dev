@@ -41,4 +41,11 @@
         <li><a href="/content/cities.aspx">Cities</a></li>
     </ul>
     </div>
+
+    <h3>Mobile App</h3>
+    <div class="right_articles">
+    <ul id="sidemenulist3">
+        <li><a href="/MobileApp/AppVersioning.aspx">Manage App version</a></li>
+    </ul>
+    </div>
 </div>	

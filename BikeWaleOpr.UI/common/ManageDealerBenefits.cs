@@ -19,6 +19,8 @@ namespace BikewaleOpr.common
         /// <summary>
         /// Written By : Sangram on 10 Mar 2016
         /// Summary    : Retrieves all benefits for dealers
+        /// Modified by :   Sumit Kate on 19 Mar 2016
+        /// Description :   Close the db connection in finally
         /// </summary>
         /// <param name="dealerId"> DealerID</param>
         /// <returns></returns>
@@ -26,10 +28,10 @@ namespace BikewaleOpr.common
         {
             DataSet ds = null;
             DataTable dt = null;
-            Dictionary<int, string> catList = null;
+            Database db = null;
             try
             {
-                Database db = new Database();
+                db = new Database();
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -50,6 +52,12 @@ namespace BikewaleOpr.common
                 HttpContext.Current.Trace.Warn("ex : ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, "GetDealerCategories");
                 objErr.SendMail();
+            }
+            finally
+            {
+                if (db != null)
+                    db.CloseConnection();
+                db = null;
             }
             return dt;
         }

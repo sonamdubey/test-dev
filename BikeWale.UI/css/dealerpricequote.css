@@ -9,36 +9,37 @@
 .variants-dropdown .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
 .variants-dropdown.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
 .variants-dropdown-list { display:none; width:210px; overflow:hidden; background: #fff; border: 1px solid #ccc; position: absolute; top:40px; left:82px; z-index: 2;}
-.variants-dropdown-list li { margin-bottom:5px; margin-top:5px; font-size:14px; }
 .variants-dropdown-list li.selected { font-weight:bold; }
-.variants-dropdown-list li input{ width:100%; text-align:left;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px;}
-.variants-dropdown-list li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff; }
+.variants-dropdown-list li input{ width:100%; text-align:left;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;background: #fff;color:rgb(77, 80, 87); padding:10px}
+.variants-dropdown-list li:hover input{cursor:pointer; background:#82888b; color:#fff; }
 .border-light-top { border-top: 1px solid #f1f1f1; }
 .border-light-bottom { border-bottom: 1px solid #f1f1f1; }
-.pricequote-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/pricequote-sprite.png?v1=11Mar2016v1) no-repeat; display: inline-block; }
-.benefit-offers-icon, .benefit-assistance-icon, .benefit-cancel-icon { width:25px; }  
-.benefit-offers-icon { height:26px; background-position:0 -40px; }
-.benefit-assistance-icon { height:29px; background-position:-34px -40px; }
-.benefit-cancel-icon { height:27px; background-position:-69px -40px; }
-.offers-insurance-icon, .offers-voucher-icon, .offers-pickup-icon { width:30px; }
-.offers-insurance-icon { height:30px; background-position:0 0; }
-.offers-voucher-icon { height:24px; background-position:-39px 0; }
-.offers-pickup-icon { height:30px; background-position:-79px 0; }
+.offer-benefit-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
+.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
+.benifitIcon_1 { height:26px; background-position:0 -181px; }
+.benifitIcon_2 { height:30px; background-position:0 -141px; }
+.benifitIcon_3 { height:25px; background-position:0 -75px; }
+.benifitIcon_4 { height:18px; background-position:0 -293px; }
+.offerIcon_1 { height:25px; background-position:0 -40px; }
+.offerIcon_2 { height:25px; background-position:0 -321px; }
+.offerIcon_3 { height:30px; background-position:0 0; }
+.offerIcon_4 { height:26px; background-position:0 -257px; }
+.offerIcon_5, .benifitIcon_5, .offerIcon_7  { height:30px; background-position:0 -217px; }
+.offerIcon_6 { height:21px; background-position:0 -110px; }
 .pricequote-benefits-list { overflow:hidden; }
 .pricequote-benefits-list li { width:205px; padding-right:10px; margin-top:10px; margin-bottom:10px; display:inline-block; vertical-align:middle;}
 .pq-benefits-title { width: 140px; }
 .buying-assistance-form .form-control-box { width:160px; float:left; }
 .buying-assistance-form .form-control { border-radius:2px; }
 .buying-assistance-form .errorIcon, .buying-assistance-form .errorText { display:none; }
-.pricequote-benefits-list.pq-benefits-booking-list { list-style:disc;}
-.pricequote-benefits-list.pq-benefits-booking-list li { width:185px; margin-left:20px; }
+.bullet-point { padding-left:20px; background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBEOTBCRUM4RUY0NDExRTVBNTBFRkU2RTlDMDk3NjRFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBEOTBCRUM5RUY0NDExRTVBNTBFRkU2RTlDMDk3NjRFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MEQ5MEJFQzZFRjQ0MTFFNUE1MEVGRTZFOUMwOTc2NEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEQ5MEJFQzdFRjQ0MTFFNUE1MEVGRTZFOUMwOTc2NEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7hX8MiAAAARElEQVR42mJs6uhmY2Bg6AbiGCBmBOLFQFzKAiS6gDiPAQFA7O9MQCKWAROkMjHgAExQM9HBHJAdZVBLYUaCFNYCBBgAgMEJ/XDLDMMAAAAASUVORK5CYII=) no-repeat 0% 50%; }
 .margin-top7 { margin-top:7px; }
 .pos-top3 { top:3px; }
 .text-darker-black { color:#1a1a1a; }
 .btn-inv-grey { background: #82888b; color: #fff; border:1px solid #82888b; }
 .btn-inv-grey:hover { text-decoration: none; background: #4d5057; border:1px solid #4d5057; }
 .assistance-form-mobile .bw-blackbg-tooltip { font-size:11px; padding:4px 5px; }
-#buyingAssistanceSubmitBtn.btn { width:114px; padding:8px 0; }
+#buyingAssistBtn.btn { width:114px; padding:8px 0; }
 /* booking-config */
 .emi-slider-box { padding-bottom:20px; padding-top:20px; }
 .emi-slider-box:first-child { padding-top:10px; }
@@ -51,7 +52,7 @@
 .emi-slider-box-right-section { width:138px; height:40px; border:1px solid #e2e2e2; float:right; margin-top:10px; padding:8px; text-align:center; }
 /* range points */
 .slider-range-points ul li { float:left; position:relative; }
-.slider-range-points ul.range-pointsUL li { width:10%; }
+.slider-range-points ul.range-pointsUL li { width:12.5%; }
 .range-points-bar { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/slider-sprite.png?v=27012016v1) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
 .range-points-bar span { position:absolute; top:5px; left:-7px; font-size:11px; }
 .range-points-bar:first-child span { left:0px; }
@@ -59,13 +60,14 @@
 .disclaimer-sm-icon { width:12px; height:11px; background-position:-59px -323px; margin-right:3px; }
 .tel-sm-icon { width:8px; height:13px; background-position:-88px -324px; margin-right:3px; }
 /*sidebar*/
-#PQDealerSidebarContainer { background:#fff; position:fixed; right:187px; overflow:hidden; }
-.pqdealer-and-listing-container { max-height:540px; overflow-y:scroll; }
-.pqdealer-sidebar-panel { border:1px solid #e2e2e2; padding:15px 20px 20px; min-height:20px; }
-#PQDealerSidebarContainer.dealer-pointer::before {border-right: 11px solid #e2e2e2;border-top: 11px solid transparent;border-bottom: 11px solid transparent;content: "";position: absolute; top:44px; left: -1px;z-index: 1;}
-#PQDealerSidebarContainer.dealer-pointer::after { border-right: 11px solid #ffffff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; content: ""; position: absolute; top:44px;left: 1px; z-index: 1; }
+#PQDealerSidebarContainer { background:#fff; position:relative; right:0; overflow:hidden; }
+.pqdealer-and-listing-container { max-height:540px; overflow-y:scroll; overflow-x:hidden; }
+.pqdealer-sidebar-panel, .pq-no-premium-dealer { border:1px solid #e2e2e2; padding:15px 20px 20px;}
+.pqdealer-sidebar-panel::before {border-right: 11px solid #e2e2e2;border-top: 11px solid transparent;border-bottom: 11px solid transparent;content: "";position: absolute; top:44px; left: -12px;z-index: 1;}
+.pqdealer-sidebar-panel::after { border-right: 11px solid #ffffff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; content: ""; position: absolute; top:44px;left: -11px; z-index: 1; }
 .pq-sidebar-dealer-listing li { padding-top:15px; padding-bottom:15px; border-top:1px solid #f1f1f1; }
-.pq-no-premium-dealer { display:none; }
+.show-more-dealers { display:block; }
+.show-less-dealers { display:none; }
 .pqdealer-and-listing-container::-webkit-scrollbar {width: 5px;}
 .pqdealer-and-listing-container::-webkit-scrollbar-track {background: #fff;}
 .pqdealer-and-listing-container::-webkit-scrollbar-thumb {background: #ddd;}
@@ -100,3 +102,4 @@ a.text-darker-black:hover { text-decoration:none; }
 .mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999}
 #otpPopup .errorIcon,#otpPopup .errorText{display:none}
 .input-border-bottom{border-bottom:1px solid #ccc}
+.assistance-response-close.cross-lg-lgt-grey:hover { background-position: -36px -252px; }

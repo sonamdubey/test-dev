@@ -41,7 +41,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             UInt64 pqId = 0;
             try
             {
-                if (input.DealerId.HasValue && input.AreaId > 0 && input.VersionId > 0)
+                if (input.DealerId.HasValue && input.CityId > 0 && input.VersionId > 0)
                 {
                     PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
                     objPQEntity.CityId = input.CityId;

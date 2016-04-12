@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.PriceQuote
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore
+    /// Modified On : 29 March 2016
+    /// Description : Mobile_DealerLocator_Detail = 41 and Mobile_DealerLocator_Listing = 42 added.
+    /// </summary>
     public enum PQSourceEnum
     {
         Desktop_HP_PQ_Widget = 1,
@@ -47,6 +52,8 @@ namespace Bikewale.Entities.PriceQuote
         DeskTop_AutoSuggest = 37,
         Mobile_AutoSuggest = 38,
         Desktop_BookingListing = 39,
-        Mobile_BookingListing = 40
+        Mobile_BookingListing = 40,
+        Mobile_DealerLocator_Detail = 41,
+        Mobile_DealerLocator_Listing = 42
     }
 }

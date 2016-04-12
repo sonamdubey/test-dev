@@ -25,7 +25,7 @@
     .PQOffersUL{margin-left:18px;list-style:disc}
     .PQOffersUL li{padding-bottom:15px}
     .margin-top7 { margin-top:7px; }
-    .pqVariants .variants-dropdown{ width:210px; height: 40px; padding: 9px; margin-left: 12px; border: 1px solid #ccc; color: #555; position: relative; cursor: pointer; background: #fff;}
+    .pqVariants .variants-dropdown{ width:210px; height: 40px; margin-left: 12px; color: #555; position: relative; cursor: pointer; background: #fff;}
     .variant-selection-tab { width:90%; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
     #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px;}
     .variants-dropdown .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
@@ -106,7 +106,7 @@
                     </ul>
                     <div class="clear"></div>
                 </div>
-                <h1 class="font26 margin-bottom10">On-road price for <%= mmv.BikeName %> in Area, <%= objQuotation.City %></h1>
+                <h1 class="font26 margin-bottom10">On-road price for <%= mmv.BikeName %> in <%= objQuotation.City %></h1>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
@@ -122,20 +122,7 @@
                     </div>
                     <div class="pqVariants <%=(versionList.Count > 1)?"":"hide" %>">
                         <p class="margin-left10 font16 text-light-grey leftfloat margin-top7">Version:</p>
-                        <div class="position-rel">
-                            <div class="variants-dropdown rounded-corner2 leftfloat">
-                                <div class="variant-selection-tab">
-                                    <span id="defaultVariant">Variant 1</span>
-                                </div>
-                                <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
-                            </div>
-                            <ul class="variants-dropdown-list">
-                                <li><input type="submit" value="Variant 1"/></li>
-                                <li><input type="submit" value="Variant 2 Variant 2 Variant 2 Variant 2" /></li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="form-control-box">
+                        <div class="form-control-box position-rel variants-dropdown rounded-corner2 leftfloat">
                             <asp:DropDownList id="ddlVersion" class="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
                         </div>
                     </div>
@@ -326,13 +313,6 @@
     variantUL = $(".variants-dropdown-list"),
     variantListLI = $(".variants-dropdown-list li");
 
-    variantsDropdown.click(function (e) {
-        if (!variantsDropdown.hasClass("open"))
-            $.variantChangeDown(variantsDropdown);
-        else
-            $.variantChangeUp(variantsDropdown);
-    });
-
     $.variantChangeDown = function (variantsDropdown) {
         variantsDropdown.addClass("open");
         variantUL.show();
@@ -342,6 +322,13 @@
         variantsDropdown.removeClass("open");
         variantUL.slideUp();
     };
+
+    variantsDropdown.click(function (e) {
+        if (!variantsDropdown.hasClass("open"))
+            $.variantChangeDown(variantsDropdown);
+        else
+            $.variantChangeUp(variantsDropdown);
+    });
 
     //TODO show the selected variant from dropdown
 

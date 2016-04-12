@@ -30,6 +30,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary : Added HostUrl and LogoUrl for BikeMakeEntityBase in GetMakesByType function.
         /// Modified by :   Sumit Kate on 03 Mar 2016
         /// Description :   Updated SP GetBikeMakes_New_03032016. Populate PopularityIndex.
+        /// Modified by :   Sumit Kate on 29 Mar 2016
+        /// Description :   GetBikeMakes_New_29032016 support Dealer request type which returns the makes list of BW and AB dealers
         /// </summary>
         /// <param name="makeType">Type of bike data</param>
         /// <returns>Returns list of type BikeMakeEntityBase</returns>
@@ -41,7 +43,7 @@ namespace Bikewale.DAL.BikeData
             
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetBikeMakes_New_03032016"))
+                using (SqlCommand cmd = new SqlCommand("GetBikeMakes_New_29032016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = makeType.ToString();

@@ -48,6 +48,7 @@ using Bikewale.Cache.Location;
 using Bikewale.DAL.Dealer;
 using Bikewale.Interfaces.AppDeepLinking;
 using Bikewale.BAL.AppDeepLinking;
+using Bikewale.Cache.DealersLocator;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -65,6 +66,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register IBookingListing, BookingListingRepository
         /// Modified By :   Lucky Rathore on 10 March 2016
         /// Description :   Register IDeepLinking, DeepLinking
+        /// Modified By :   Lucky Rathore on 21 March 2016
+        /// Description :   Register IDealerCacheRepository, DealerCacheRepository
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -108,6 +111,8 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBookingListing, BookingListingRepository>();
             container.RegisterType<IOffer, OfferRepository>();
             container.RegisterType<IDeepLinking, DeepLinking>();
+            container.RegisterType<Bikewale.Interfaces.PriceQuote.IDealerPriceQuoteDetail, Bikewale.BAL.PriceQuote.DealerPriceQuoteDetail>();
+            container.RegisterType<Bikewale.Interfaces.Dealer.IDealerCacheRepository, Bikewale.Cache.DealersLocator.DealerCacheRepository>();
             return container;
         }
     }

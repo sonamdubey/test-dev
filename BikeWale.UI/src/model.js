@@ -93,7 +93,9 @@ $(function () {
     });
 });
 
-ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
+if ($('#dealerAssistance').length > 0) {
+    ko.applyBindings(customerViewModel, $('#dealerAssistance')[0]);
+}
 
 function CustomerModel() {
     var arr = setuserDetails();
@@ -209,25 +211,27 @@ function CustomerModel() {
     };
 
     self.submitLead = function () {
-
+        self.IsVerified(false)
         var isValidCustomer = ValidateUserDetail(fullName, emailid, mobile);
-
         if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {
             self.verifyCustomer();
             if (self.IsValid()) {                             
-                $("#personalInfo").hide();
-                $("#leadCapturePopup .leadCapture-close-btn").click();
-                
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                if ($("#leadCapturePopup").css('display') === 'none') {
+                    $("#leadCapturePopup").show();
+                    $(".blackOut-window-model").show();
+                }
+                $("#contactDetailsPopup,#otpPopup").hide();
+                $('#notify-response .notify-leadUser').text(self.fullName());
+                $('#notify-response').show();
             }
             else {
+                $("#leadCapturePopup").show();
                 $("#contactDetailsPopup").hide();
                 $("#otpPopup").show();
+                $(".blackOut-window-model").show();
                 var leadMobileVal = mobile.val();
                 $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
                 otpContainer.removeClass("hide").addClass("show");
-                //detailsSubmitBtn.hide();
                 nameValTrue();
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
@@ -272,19 +276,11 @@ function CustomerModel() {
             async: false,
             contentType: "application/json",
             success: function (response) {
-                //var obj = ko.toJS(response);
                 $("#personalInfo,#otpPopup").hide();
                 $('#processing').hide();
-
-                //validationSuccess($(".get-lead-mobile"));
                 $("#contactDetailsPopup").hide();
                 $('#notify-response .notify-leadUser').text(self.fullName());
                 $('#notify-response').show();
-
-                //$("#leadCapturePopup .leadCapture-close-btn").click();
-
-                //var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + manufacturerId;
-                //window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $('#processing').hide();
@@ -300,7 +296,6 @@ function CustomerModel() {
         $('#processing').show();
         if (!validateOTP())
             $('#processing').hide();
-        debugger;
         if (validateOTP() && ValidateUserDetail(fullName, emailid, mobile)) {
             customerViewModel.generateOTP(); 
             if (customerViewModel.IsVerified()) {
@@ -310,9 +305,10 @@ function CustomerModel() {
                 detailsSubmitBtn.show();
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
-                $("#leadCapturePopup .leadCapture-close-btn").click();
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                //$("#leadCapturePopup .leadCapture-close-btn").click();
+                $("#contactDetailsPopup,#otpPopup").hide();
+                $('#notify-response .notify-leadUser').text(self.fullName());
+                $('#notify-response').show();
             }
             else {
                 $('#processing').hide();
@@ -340,7 +336,7 @@ function validateName(parameterName) {
     else
         if (a == 0) {
         isValid = false;
-        setError(parameterName, 'Please enter your first name');
+        setError(parameterName, 'Please enter your name');
     }
     else if (a >= 1) {
         isValid = true;
@@ -350,8 +346,10 @@ function validateName(parameterName) {
 }
 
 function nameValTrue(parameterName) {
-    hideError(parameterName)
-    parameterName.siblings("div").text('');
+    if (parameterName != null) {
+        hideError(parameterName)
+        parameterName.siblings("div").text('');
+    }
 };
 
 $("#getFullName, #assistGetName").on("focus", function () {
@@ -371,7 +369,7 @@ $("#getMobile, #assistGetMobile").on("focus", function () {
 
 emailid.on("blur", function () {
     if (prevEmail != emailid.val().trim()) {
-        if (validateEmail()) {
+        if (validateEmail(emailid)) {
             customerViewModel.IsVerified(false);
             detailsSubmitBtn.show();
             otpText.val('');
@@ -387,7 +385,7 @@ mobile.on("blur", function () {
         $(".mobile-verification-container").removeClass("show").addClass("hide");
     }
     if (prevMobile != mobile.val().trim()) {
-        if (validateMobile()) {
+        if (validateMobile(mobile)) {
             customerViewModel.IsVerified(false);
             detailsSubmitBtn.show();
             otpText.val('');
@@ -415,8 +413,10 @@ function setError(ele, msg) {
 }
 
 function hideError(ele) {
-    ele.removeClass("border-red");
-    ele.siblings("span, div").hide();
+    if (ele != null) {
+        ele.removeClass("border-red");
+        ele.siblings("span, div").hide();
+    }
 }
 /* Email validation */
 function validateEmail(parameterEmail) {
@@ -864,7 +864,6 @@ $.sortChangeDown = function (sortByDiv) {
     sortListDiv.show();
 };
 
-
 $.sortChangeUp = function (sortByDiv) {
     sortByDiv.removeClass("open");
     sortListDiv.slideUp();
@@ -877,7 +876,7 @@ $("input[name*='btnVariant']").on("click", function () {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
 });
 
-$("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign").on("click", function () {
+$("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign, #getassistance").on("click", function () {
     $("#leadCapturePopup").show();
     $('body').addClass('lock-browser-scroll');
     $(".blackOut-window-model").show();
@@ -895,6 +894,7 @@ $(".leadCapture-close-btn, .blackOut-window-model, #notifyOkayBtn").on("click", 
 $("#viewBreakupText").on('click', function (e) {
     $("div#breakupPopUpContainer").show();
     $(".blackOut-window").show();
+    triggerGA('Model_Page', 'View_Breakup_Clicked', bikeVersionLocation);
 });
 $(".breakupCloseBtn,.blackOut-window").on('mouseup click',function (e) {         
     $("div#breakupPopUpContainer").hide();
@@ -1008,7 +1008,6 @@ function LoadTerms(offerId) {
         });
     } else {
         $("#terms").load("/statichtml/tnc.html");
-        //$('#terms').html($("#orig-terms").html());
     }
 
     $(".termsPopUpContainer").css('height', '500');

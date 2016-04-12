@@ -256,6 +256,14 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
             }
         }
 
+        /// <summary>
+        /// Modified By : Lucky Rathore
+        /// Description : change sms type to subscription model for Desktop and mobile site customer. 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="objCust"></param>
+        /// <param name="dealerDetailEntity"></param>
+        /// <param name="bookingAmount"></param>
         private void SaveCustomerSMS(PQMobileVerificationInput input, CustomerEntity objCust, PQ_DealerDetailEntity dealerDetailEntity, uint bookingAmount)
         {
             UrlShortner objUrlShortner = new UrlShortner();
@@ -285,28 +293,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                 }
                 else
                 {
-                    if ((dealerDetailEntity.objOffers != null) && (dealerDetailEntity.objOffers.Count > 0))
-                    {
-                        if (bookingAmount > 0)
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQMobileVerification", objDPQSmsEntity, DPQTypes.OfferAndBooking);
-                        }
-                        else
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQMobileVerification", objDPQSmsEntity, DPQTypes.OfferNoBooking);
-                        }
-                    }
-                    else
-                    {
-                        if (bookingAmount > 0)
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQMobileVerification", objDPQSmsEntity, DPQTypes.NoOfferOnlineBooking);
-                        }
-                        else
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQMobileVerification", objDPQSmsEntity, DPQTypes.NoOfferNoBooking);
-                        }
-                    }
+                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQMobileVerification", objDPQSmsEntity, DPQTypes.SubscriptionModel);
                 }
             }
             catch (Exception ex)

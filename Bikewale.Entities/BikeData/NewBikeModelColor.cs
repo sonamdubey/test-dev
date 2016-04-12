@@ -9,7 +9,10 @@ namespace Bikewale.Entities.BikeData
         /// Model Color DTO
         /// Author  : Sushil Kumar  
         /// Date    : 21st Jan 2016 
+        /// Modified by  :   Sumit Kate on 07 Apr 2016
+        /// Added Serializable attribute
         /// </summary>
+        [Serializable]
         public class NewBikeModelColor
         {
             public uint Id { get; set; }

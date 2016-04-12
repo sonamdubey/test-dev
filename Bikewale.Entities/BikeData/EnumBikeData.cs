@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 29 Mar 2016
+    /// Description :   Dealer value is added
+    /// </summary>
     public enum EnumBikeType
     {
         PriceQuote = 1,
@@ -19,6 +23,7 @@ namespace Bikewale.Entities.BikeData
         //Added By Sadhana Upadhyay on 25 Aug 2014
         NewBikeSpecs = 9,
         UsedBikeSpecs = 10,
-        NewBikeSpecification = 11
+        NewBikeSpecification = 11,
+        Dealer = 12
     }
 }

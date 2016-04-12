@@ -173,6 +173,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="campaign\DealersRules.aspx.cs">
+      <DependentUpon>DealersRules.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="campaign\ManageDealers.aspx.cs">
+      <DependentUpon>ManageDealers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="campaign\MapCampaign.aspx.cs">
+      <DependentUpon>MapCampaign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="classified\classified.cs" />
     <Compile Include="classified\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -198,7 +210,14 @@
     <Compile Include="common\Ajax\AjaxCommon.cs" />
     <Compile Include="common\Ajax\AjaxManufacturerCampaign.cs" />
     <Compile Include="common\Ajax\ImageReplication.cs" />
+    <Compile Include="common\KnowlarityApi.cs" />
     <Compile Include="common\ManageDealerBenefits.cs" />
+    <Compile Include="common\ManageDealerCampaign.cs" />
+    <Compile Include="common\ManageDealerCampaignRule.cs" />
+    <Compile Include="content\DealerDefault.aspx.cs">
+      <DependentUpon>DealerDefault.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="content\frmManageAppVersions.aspx.cs">
       <DependentUpon>frmManageAppVersions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1367,6 +1386,9 @@
     <Content Include="bin\System.Web.Optimization.dll" />
     <Content Include="bin\System.Web.Providers.dll" />
     <Content Include="bin\WebGrease.dll" />
+    <Content Include="campaign\DealersRules.aspx" />
+    <Content Include="campaign\ManageDealers.aspx" />
+    <Content Include="campaign\MapCampaign.aspx" />
     <Content Include="classified\classifiedMenu.aspx" />
     <Content Include="classified\Default.aspx" />
     <Content Include="classified\ListingPhotos.aspx" />
@@ -1389,6 +1411,8 @@
     <Content Include="content\CompareFeaturedBike.aspx" />
     <Content Include="content\ComparisonBikes.aspx" />
     <Content Include="content\ContentsMenu.aspx" />
+    <Content Include="content\DealerDefault.aspx" />
+    <Content Include="content\DealerMenu.aspx" />
     <Content Include="content\Default.aspx" />
     <Content Include="content\EditDealers.aspx" />
     <Content Include="content\ExpectedLanuches.aspx" />
@@ -1949,14 +1973,15 @@
     <Content Include="editor\tiny_mce_old\utils\form_utils.js" />
     <Content Include="editor\tiny_mce_old\utils\mctabs.js" />
     <Content Include="editor\tiny_mce_old\utils\validate.js" />
+    <Content Include="images\calendar.png" />
     <Content Include="includes\footerNew.aspx" />
     <Content Include="includes\headerNew.aspx" />
     <Content Include="includes\HeaderUser.aspx" />
+    <Content Include="includes\headerWithoutForm.aspx" />
     <Content Include="MobileApp\AppVersioning.aspx" />
     <Content Include="newbikebooking\DealerDetailedPriceQuote.aspx" />
     <Content Include="newbikebooking\DealerShowroomPrices.aspx" />
     <Content Include="newbikebooking\Default.aspx" />
-    <Content Include="newbikebooking\emi.js" />
     <Content Include="newbikebooking\ManageBikeAvailability.aspx" />
     <Content Include="newbikebooking\ManageBikeAvailabilityByColorAndCost.aspx" />
     <Content Include="newbikebooking\ManageBookingAmount.aspx" />
@@ -1987,6 +2012,8 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="newbikebooking\web.config" />
+    <Content Include="campaign\web.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

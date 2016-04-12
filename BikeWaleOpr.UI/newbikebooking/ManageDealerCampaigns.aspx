@@ -27,7 +27,10 @@
     }
 </style>
 <div>
-    <div id="mfgCampaigns">
+    <div>
+    <!-- #Include file="/content/DealerMenu.aspx" -->
+    </div>
+    <div id="mfgCampaigns" style="padding-left:20px;">
         <h3> Manage Manufacturer's Campaigns</h3>
         <hr />
         <input name="actionCamp" class="rdbtn" type="radio" value="1" data-bind="checked: selectedAction" /> Add Campaign
