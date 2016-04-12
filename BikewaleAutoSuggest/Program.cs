@@ -5,14 +5,12 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using ElasticClientManager;
-using log4net;
 using System.Reflection;
 
 namespace BikewaleAutoSuggest
 {
     class Program
     {
-        protected static readonly ILog log = LogManager.GetLogger(typeof(Program));
         static void Main(string[] args)
         {
             log4net.Config.XmlConfigurator.Configure();
@@ -65,7 +63,7 @@ namespace BikewaleAutoSuggest
             }
             catch(Exception ex)
             {
-                log.Error(MethodBase.GetCurrentMethod().Name, ex);
+                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name, ex);
                 Console.WriteLine(ex.Message);
             }
         }

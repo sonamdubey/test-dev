@@ -4,14 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using ElasticClientManager;
-using log4net;
 using System.Reflection;
 
 namespace CityAutoSuggest
 {
     class Program
     {
-        protected static readonly ILog log = LogManager.GetLogger(typeof(Program));
         static void Main(string[] args)
         {
             log4net.Config.XmlConfigurator.Configure();
@@ -54,7 +52,7 @@ namespace CityAutoSuggest
             }
             catch (Exception ex)
             {
-                log.Error(MethodBase.GetCurrentMethod().Name, ex);
+                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name, ex);
                 Console.WriteLine(ex.Message);
             }
         }
