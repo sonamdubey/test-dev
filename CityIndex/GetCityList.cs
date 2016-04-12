@@ -56,6 +56,12 @@ namespace CityAutoSuggest
             return objCity;
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 12 Apr 2016
+        /// Description :   Corrected the new combination string
+        /// </summary>
+        /// <param name="objCityList"></param>
+        /// <returns></returns>
         public static List<CityList> GetSuggestList(List<CityTempList> objCityList)
         {
             List<CityList> objSuggestList = null;
@@ -126,10 +132,10 @@ namespace CityAutoSuggest
                     {
                         newcity = ht[cityName].ToString();
                         string[] newcombinations = newcity.Split(' ');
-                        int l_new = combinations.Length;
+                        int l_new = newcombinations != null ? newcombinations.Length : 0;
                         for (int p = 1; p <= l_new; p++)
                         {
-                            printSeq(l_new, p, combinations, ObjTemp);
+                            printSeq(l_new, p, newcombinations, ObjTemp);
                         }
                     }
 
