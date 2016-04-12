@@ -18,8 +18,8 @@ namespace Bikewale.Cache.Core
 
         public MemcacheManager()
         {
-            _useMemcached = ConfigurationManager.AppSettings["IsMemcachedUsed"].ToLower() == "true" ? true : false;
-
+            bool.TryParse(ConfigurationManager.AppSettings["IsMemcachedUsed"].ToLower(),out _useMemcached);
+            LogManager.AssignFactory(new MemcacheLogFactory());
             if (mc == null && _useMemcached)
             {
                 mc = new MemcachedClient("memcached");
@@ -41,7 +41,11 @@ namespace Bikewale.Cache.Core
                         {
                             t = dbCallback();
 
-                            mc.Store(StoreMode.Add, key, t, DateTime.Now.Add(cacheDuration));
+                            bool temp = mc.Store(StoreMode.Add, key, t, DateTime.Now.Add(cacheDuration));
+                            if (temp)
+                            {
+
+                            }
 
                             mc.Remove(key + "_lock");
                         }
