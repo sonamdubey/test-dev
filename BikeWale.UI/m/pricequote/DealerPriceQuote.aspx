@@ -200,8 +200,8 @@
                             <asp:Repeater ID="rptOffers" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <span class="leftfloat offer-benefit-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId") %>"></span>
-                                        <span class="leftfloat pq-benefits-title padding-top5 padding-left15"><%# DataBinder.Eval(Container.DataItem,"OfferText") %></span>
+                                        <span class="offer-benefit-sprite offerIcon_<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId") %>"></span>
+                                        <span class="pq-benefits-title padding-top5 padding-left15"><%# DataBinder.Eval(Container.DataItem,"OfferText") %></span>
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -217,8 +217,8 @@
                             <asp:Repeater ID="rptBenefits" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <span class="leftfloat offer-benefit-sprite benifitIcon_<%# DataBinder.Eval(Container.DataItem,"CatId") %>"></span>
-                                        <span class="leftfloat pq-benefits-title padding-left15"><%# DataBinder.Eval(Container.DataItem,"BenefitText") %></span>
+                                        <span class="offer-benefit-sprite benifitIcon_<%# DataBinder.Eval(Container.DataItem,"CatId") %>"></span>
+                                        <span class="pq-benefits-title padding-left15"><%# DataBinder.Eval(Container.DataItem,"BenefitText") %></span>
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -271,12 +271,12 @@
             <div class="grid-12 float-button float-fixed">
                 <%if (!string.IsNullOrEmpty(maskingNum))
                   { %>
-                <div class="grid-5 alpha">
+                <div class="grid-6 alpha omega">
                     <a id="calldealer" class="btn btn-grey btn-full-width btn-sm rightfloat" href="tel:<%= maskingNum %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
                 </div>
                 <%} %>
-                <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-7 omega" : "" %>">
-                    <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-full-width btn-orange" value="Get assistance" />
+                <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega" : "" %>">
+                    <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-sm btn-full-width btn-orange" value="Get assistance" />
                 </div>
             </div>
             <div class="clear"></div>
