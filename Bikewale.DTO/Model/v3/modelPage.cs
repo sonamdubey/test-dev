@@ -39,11 +39,20 @@ namespace Bikewale.DTO.Model.v3
         [JsonProperty("isDiscontinued")]
         public bool IsDiscontinued { get; set; }
 
+        [JsonProperty("isExShowroomPrice")]
+        public bool IsExShowroomPrice { get; set; }
+
+        [JsonProperty("isCityExists")]
+        public bool IsCityExists { get; set; }
+
+        [JsonProperty("isAreaExists")]
+        public bool IsAreaExists { get; set; }
+
         [JsonProperty("photos")]
         public List<CMSModelImageBase> Photos { get; set; }
 
         [JsonProperty("overviewList")]
-        public Overview overviewList { get; set; }
+        public List<Specs> OverviewList { get; set; }
 
         [JsonProperty("versionList")]
         public List<VersionDetail> ModelVersions { get; set; }

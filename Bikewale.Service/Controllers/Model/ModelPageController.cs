@@ -11,6 +11,15 @@ using Bikewale.Notifications;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.DTO.Model.v3;
+using Microsoft.Practices.Unity;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Location;
+using Bikewale.DAL.Location;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
+using Bikewale.Interfaces.BikeBooking;
+using Bikewale.BAL.BikeBooking;
 
 
 
@@ -328,17 +337,17 @@ namespace Bikewale.Service.Controllers.Model
 
                             if (objModelPage.objOverview != null)
                             {
-                                var overViewList = new List<Bikewale.Entities.BikeData.Specs>();
+                                var overViewList = new List<Bikewale.DTO.Model.Specs>();
                                 foreach(var spec in objModelPage.objOverview.OverviewList)
                                 {
-                                    var ov = new Entities.BikeData.Specs()
+                                    var ov = new Bikewale.DTO.Model.Specs()
                                     {
                                         DisplayText  = spec.DisplayText,
                                         DisplayValue = spec.DisplayValue
                                     };
                                     overViewList.Add(ov);
                                 }
-                                objDTOModelPage.overviewList = null;
+                                objDTOModelPage.OverviewList = overViewList;
                             }
                             if (objModelPage.Photos != null)
                             {
@@ -374,22 +383,52 @@ namespace Bikewale.Service.Controllers.Model
                             #endregion
 
                             #region On road pricing for versions
+
                             PQOnRoadPrice pqOnRoad = new PQOnRoadPrice();
                             if (cityId > 0)
                             {
+                                bool isAreaSelected = false;
+                                var cityList = FetchCityByModelId(modelId);
+                                objDTOModelPage.IsCityExists = cityList != null && cityList.Any(p => p.CityId == cityId);
+                                if (objDTOModelPage.IsCityExists)
+                                {
+                                    var areaList = GetAreaForCityAndModel(modelId, Convert.ToInt16(cityId));
+                                    objDTOModelPage.IsAreaExists = (areaList != null && areaList.Count() > 0);
+                                    if (areaId > 0) // If area is provided, check if area exists in list
+                                    {
+                                        isAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
+                                    }
+                                }
                                 PQByCityArea getPQ = new PQByCityArea();
                                 pqOnRoad = getPQ.GetOnRoadPrice(modelId, cityId, areaId, 0);
                                 if (pqOnRoad != null)
                                 {
-                                    if (pqOnRoad.DPQOutput!=null)
+                                    objDTOModelPage.IsExShowroomPrice = pqOnRoad.DPQOutput == null && pqOnRoad.BPQOutput == null;
+                                    // When City has areas and area is not selected then show ex-showrrom price so user can select it
+                                    bool isAreaExistAndSelected = objDTOModelPage.IsAreaExists && isAreaSelected;
+                                    // when DPQ OR Only city level pricing exists
+                                    if (isAreaExistAndSelected || (!objDTOModelPage.IsAreaExists))
                                     {
+                                        #region  Iterate over version to fetch Dealer PQ or BikeWalePQ
                                         foreach (var version in objDTOModelPage.ModelVersions)
                                         {
-                                            var selected = pqOnRoad.DPQOutput.Varients.Where(p => p.objVersion.VersionId == version.VersionId).FirstOrDefault();
-                                            if (selected != null)
+                                            if (pqOnRoad.DPQOutput != null)
                                             {
-                                                version.Price = selected.OnRoadPrice;
-                                                version.IsDealerPriceQuote = true;
+                                                var selected = pqOnRoad.DPQOutput.Varients.Where(p => p.objVersion.VersionId == version.VersionId).FirstOrDefault();
+                                                if (selected != null)
+                                                {
+                                                    version.Price = selected.OnRoadPrice;
+                                                    version.IsDealerPriceQuote = true;
+                                                }
+                                                else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
+                                                {
+                                                    var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
+                                                    if (selectedBPQ != null)
+                                                    {
+                                                        version.Price = selectedBPQ.OnRoadPrice;
+                                                        version.IsDealerPriceQuote = false;
+                                                    }
+                                                }
                                             }
                                             else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                                             {
@@ -401,10 +440,18 @@ namespace Bikewale.Service.Controllers.Model
                                                 }
                                             }
                                         }
+                                        #endregion
+                                    }
+                                    else
+                                    {
+                                        objDTOModelPage.IsExShowroomPrice = true;
                                     }
                                 }
                             }
-
+                            else if(cityId==null && areaId==null)
+                            {
+                                objDTOModelPage.IsExShowroomPrice = true;
+                            }
                             #endregion
                             // Check if bike has more than 1 version and send base version as the first version in VersionList
                             if (objDTOModelPage.ModelVersions != null && objDTOModelPage.ModelVersions.Count > 1 && pqOnRoad!=null)
@@ -431,7 +478,68 @@ namespace Bikewale.Service.Controllers.Model
                 objErr.SendMail();
                 return InternalServerError();
             }
-        } 
+        }
+
+
+        /// <summary>
+        /// Author          :   Sangram Nandkhile
+        /// Created Date    :   24 Nov 2015
+        /// Description     :   Gets City Details by ModelId
+        /// </summary>
+        /// <param name="modelId">Model Id</param>
+        private IEnumerable<CityEntityBase> FetchCityByModelId(int modelId)
+        {
+            IEnumerable<CityEntityBase> cityList = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICity, CityRepository>()
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<ICityCacheRepository, CityCacheRepository>();
+                    ICityCacheRepository objcity = container.Resolve<ICityCacheRepository>();
+                    cityList = objcity.GetPriceQuoteCities(Convert.ToUInt16(modelId));
+                    return cityList;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPageController" + "FetchCityByModelId");
+                objErr.SendMail();
+            }
+            return cityList;
+        }
+
+        /// <summary>
+        /// Author          :   Sangram Nandkhile
+        /// Created Date    :   24 Nov 2015
+        /// Description     :   Get List of Area depending on City and Model Id
+        /// </summary>
+        private IEnumerable<Bikewale.Entities.Location.AreaEntityBase> GetAreaForCityAndModel(int modelId, int cityId)
+        {
+            IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
+            try
+            {
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealerPriceQuote, DealerPriceQuote>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<IAreaCacheRepository, AreaCacheRepository>();
+
+                    IAreaCacheRepository objArea = container.Resolve<IAreaCacheRepository>();
+                    areaList = objArea.GetAreaList(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId));
+                    return areaList;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPageController" + "GetAreaForCityAndModel");
+                objErr.SendMail();
+            }
+
+            return areaList;
+        }
         #endregion
     }
 }
