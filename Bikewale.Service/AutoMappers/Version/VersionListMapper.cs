@@ -20,9 +20,9 @@ namespace Bikewale.Service.AutoMappers.Version
         /// <returns></returns>
         internal static DTO.Version.VersionDetails Convert(Entities.BikeData.BikeVersionEntity objVersion)
         {
-            Mapper.CreateMap<BikeVersionEntity, VersionDetails>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();            
+            Mapper.CreateMap<BikeVersionEntity, VersionDetails>();
             return Mapper.Map<BikeVersionEntity, VersionDetails>(objVersion);
         }
 
