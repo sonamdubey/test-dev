@@ -155,8 +155,17 @@ namespace Bikewale.Mobile.New
                     {
                         rptCities.DataSource = _cities;
                         rptCities.DataBind();
-                        cityName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityName;
-                        cityMaskingName = _cities.Where(x => x.CityId == cityId).FirstOrDefault().CityMaskingName;
+
+                        var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
+                        if (_city != null)
+                        {
+                            cityName = _city.CityName;
+                            cityMaskingName = _city.CityMaskingName;
+                        }
+                        else
+                        {
+                            Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        }
                     }
                 }
             }
