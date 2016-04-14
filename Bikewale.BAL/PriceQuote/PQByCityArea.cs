@@ -15,16 +15,20 @@ using System.Threading.Tasks;
 
 namespace Bikewale.BAL.PriceQuote
 {
+    /// <summary>
+    /// Created By: Sangram Nandkhile on 13 Apr 2016
+    /// summary   : Class to have a common logic to get pq by Model, city and area
+    /// </summary>
     public class PQByCityArea
     {
         /// <summary>
-        /// Created By: Sangram Nandkhile on 16 Apr 2016
+        /// Created By: Sangram Nandkhile on 13 Apr 2016
         /// summary   : Get On road price of all the version for modelId
         /// </summary>
-        /// <param name="modelId"></param>
-        /// <param name="variantId"></param>
-        /// <param name="cityId"></param>
-        /// <param name="areaId"></param>
+        /// <param name="modelId">model Id</param>
+        /// <param name="variantId">Model's version id</param>
+        /// <param name="cityId">City id (optional)</param>
+        /// <param name="areaId">Area id (optional)</param>
         /// <returns></returns>
         public PQOnRoadPrice GetOnRoadPrice(int modelId, int? cityId, int? areaId, int? versionId, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null)
         {
