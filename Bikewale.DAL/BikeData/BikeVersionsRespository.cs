@@ -162,6 +162,8 @@ namespace Bikewale.DAL.BikeData
 
         /// <summary>
         /// Summary : Function to get all details of a particular version.
+        /// Modified By :   Sumit Kate on 12 Apr 2016
+        /// Summary :   Fetch the New,used and futuristic flags
         /// </summary>
         /// <param name="id">Version id should be a positive number.</param>
         /// <returns>Returns object containing details of the given version id.</returns>
@@ -179,7 +181,7 @@ namespace Bikewale.DAL.BikeData
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetVersionDetails_New";
+                        cmd.CommandText = "GetVersionDetails_New_12042016";
                         cmd.Connection = conn;
                         SqlParameterCollection paramColl = cmd.Parameters;
 
@@ -197,6 +199,9 @@ namespace Bikewale.DAL.BikeData
                         paramColl.Add("@MaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                         paramColl.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                         paramColl.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
+                        paramColl.Add("@New", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        paramColl.Add("@Used", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        paramColl.Add("@Futuristic", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         conn.Open();
                         cmd.ExecuteNonQuery();
                         conn.Close();
@@ -218,6 +223,9 @@ namespace Bikewale.DAL.BikeData
                             t.ModelBase.MaskingName = paramColl["@MaskingName"].Value.ToString();
                             t.MakeBase.MaskingName = paramColl["@MakeMaskingName"].Value.ToString();
                             t.OriginalImagePath = paramColl["@OriginalImagePath"].Value.ToString();
+                            t.New = !Convert.IsDBNull(paramColl["@New"].Value) ? Convert.ToBoolean(paramColl["@New"].Value) : default(bool);
+                            t.Used = !Convert.IsDBNull(paramColl["@Used"].Value) ? Convert.ToBoolean(paramColl["@Used"].Value) : default(bool);
+                            t.Futuristic = !Convert.IsDBNull(paramColl["@Futuristic"].Value) ? Convert.ToBoolean(paramColl["@Futuristic"].Value) : default(bool);
                         }
                     }
                 }

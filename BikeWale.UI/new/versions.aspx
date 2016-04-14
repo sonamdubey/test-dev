@@ -735,7 +735,7 @@
 		   { %>
         <section class="container">
             <!--  Discover bikes section code starts here -->
-            <div class="grid-12">
+            <div id="discoverBikeTabsWrapper" class="grid-12">
                 <div class="content-box-shadow content-inner-block-10 discover-bike-tabs-container">
                     <div class="bw-overall-rating">
                         <a class="active" href="#overview">Overview</a>
@@ -1347,6 +1347,7 @@
                             </asp:Repeater>
                         </div>
                     </div>
+                    <div id="discoverTabsFooter"></div>
                 </div>
             </div>
         </section>
@@ -1508,15 +1509,24 @@
                     section_height.trigger('heightChangeNone');
             });
 
-            $window.scroll(function () {
-                $menu.toggleClass('affix', sectionContainer_height >= $window.scrollTop() && $window.scrollTop() > sectionStart);
+            var discoverBikeTabsWrapper = $('#discoverBikeTabsWrapper'),
+                discoverTabsFooter = $('#discoverTabsFooter');
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > discoverBikeTabsWrapper.offset().top) {
+                    nav.addClass('affix');
+                    if ((discoverTabsFooter.offset().top - 50) < $(window).scrollTop())
+                        nav.removeClass('affix');
+                }
+                else if ($(window).scrollTop() < discoverBikeTabsWrapper.offset().top) {
+                    nav.removeClass('affix');
+                }
                 var cur_pos = $(this).scrollTop();
-                sections.each(function () {
+                $('.discover-bike-tabs-container .bw-tabs-data.margin-bottom20').each(function () {
                     var top = $(this).offset().top - 10 - nav_height,
-					bottom = top + $(this).outerHeight();
+                    bottom = top + $(this).outerHeight();
                     if (cur_pos >= top && cur_pos <= bottom) {
                         nav.find('a').removeClass('active');
-                        sections.removeClass('active');
+                        $('.discover-bike-tabs-container .bw-tabs-data.margin-bottom20').removeClass('active');
 
                         $(this).addClass('active');
                         nav.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
