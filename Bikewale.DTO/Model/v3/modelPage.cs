@@ -1,10 +1,5 @@
-﻿using Bikewale.DTO.BikeData;
-using Newtonsoft.Json;
-using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.Model.v3
 {
@@ -53,11 +48,26 @@ namespace Bikewale.DTO.Model.v3
         [JsonProperty("photos")]
         public List<CMSModelImageBase> Photos { get; set; }
 
-        [JsonProperty("overviewList")]
-        public List<Specs> OverviewList { get; set; }
-
         [JsonProperty("versionList")]
         public List<VersionDetail> ModelVersions { get; set; }
+
+        [JsonProperty("capacity")]
+        public string Capacity { get; set; }
+
+        [JsonProperty("mileage")]
+        public string Mileage { get; set; }
+
+        [JsonProperty("maxPower")]
+        public string MaxPower { get; set; }
+
+        [JsonProperty("weight")]
+        public string Weight { get; set; }
+
+        [JsonProperty("dealerId")]
+        public uint DealerId { get; set; }
+
+        [JsonProperty("pqId")]
+        public ulong PQId { get; set; }
 
     }
 }

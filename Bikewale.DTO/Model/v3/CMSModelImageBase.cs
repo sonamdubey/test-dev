@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.Model.v3
 {
@@ -15,6 +10,7 @@ namespace Bikewale.DTO.Model.v3
     {
         [JsonProperty("hostUrl")]
         public string HostUrl { get; set; }
+
         [JsonProperty("originalImgPath")]
         public string OriginalImgPath { get; set; }
     }
