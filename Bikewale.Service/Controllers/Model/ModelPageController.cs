@@ -1,25 +1,24 @@
-﻿using System;
+﻿using Bikewale.BAL.BikeBooking;
+using Bikewale.BAL.PriceQuote;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
+using Bikewale.DAL.Location;
+using Bikewale.DTO.Model.v3;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Location;
+using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Model;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
 using System.Web.Http.Description;
-using Bikewale.DTO.Model;
-using Bikewale.Service.AutoMappers.Model;
-using Bikewale.Notifications;
-using Bikewale.BAL.PriceQuote;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.DTO.Model.v3;
-using Microsoft.Practices.Unity;
-using Bikewale.Entities.Location;
-using Bikewale.Interfaces.Location;
-using Bikewale.DAL.Location;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.Location;
-using Bikewale.Interfaces.BikeBooking;
-using Bikewale.BAL.BikeBooking;
 
 
 
@@ -284,7 +283,7 @@ namespace Bikewale.Service.Controllers.Model
                             objModelPage.Photos = null;
                         }
                     }
-                    
+
                     return Ok(objDTOModelPage);
                 }
                 else
@@ -300,7 +299,7 @@ namespace Bikewale.Service.Controllers.Model
             }
         }   // Get  Model Page
         /// <summary>
-        /// Created by  :   Sangram Nandkhile on 16 Apr 2016
+        /// Created by  :   Sangram Nandkhile on 13 Apr 2016
         /// Description :   This the new version v3 of existing API.        
         /// Removed specs, colors, features and unnecessary properties
         /// </summary>
@@ -321,7 +320,7 @@ namespace Bikewale.Service.Controllers.Model
                     if (Request.Headers.Contains("platformId"))
                     {
                         platformId = Request.Headers.GetValues("platformId").First().ToString();
-                        if(platformId == "3")
+                        if (platformId == "3")
                         {
                             #region Mapping from Entities to DTO
 
@@ -338,11 +337,11 @@ namespace Bikewale.Service.Controllers.Model
                             if (objModelPage.objOverview != null)
                             {
                                 var overViewList = new List<Bikewale.DTO.Model.Specs>();
-                                foreach(var spec in objModelPage.objOverview.OverviewList)
+                                foreach (var spec in objModelPage.objOverview.OverviewList)
                                 {
                                     var ov = new Bikewale.DTO.Model.Specs()
                                     {
-                                        DisplayText  = spec.DisplayText,
+                                        DisplayText = spec.DisplayText,
                                         DisplayValue = spec.DisplayValue
                                     };
                                     overViewList.Add(ov);
@@ -448,13 +447,13 @@ namespace Bikewale.Service.Controllers.Model
                                     }
                                 }
                             }
-                            else if(cityId==null && areaId==null)
+                            else if (cityId == null && areaId == null)
                             {
                                 objDTOModelPage.IsExShowroomPrice = true;
                             }
                             #endregion
                             // Check if bike has more than 1 version and send base version as the first version in VersionList
-                            if (objDTOModelPage.ModelVersions != null && objDTOModelPage.ModelVersions.Count > 1 && pqOnRoad!=null)
+                            if (objDTOModelPage.ModelVersions != null && objDTOModelPage.ModelVersions.Count > 1 && pqOnRoad != null)
                             {
                                 List<VersionDetail> swappedVersions = new List<VersionDetail>();
                                 var baseModelVersion = objDTOModelPage.ModelVersions.FindAll(p => p.VersionId == pqOnRoad.BaseVersion).FirstOrDefault();

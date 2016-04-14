@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Bikewale.DTO.Model.v3
 {
     /// <summary>
-    /// Created by  :   Sangram Nandkhile on 29 Jan 2016
+    /// Created by  :   Sangram Nandkhile on 12 Apr 2016
     /// Description :   This new DTO for Model Page API v3 Version Details
     /// </summary
     public class VersionDetail
