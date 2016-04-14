@@ -165,6 +165,8 @@ namespace Bikewale.Mobile.New
                         else
                         {
                             Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
                         }
                     }
                 }
