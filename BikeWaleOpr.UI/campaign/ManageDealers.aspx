@@ -30,6 +30,10 @@
                         <td><strong>Dealer :</strong> </td>
                         <td><span id="spnDealerName"><%= dealerName  %></span></td>
                     </tr>
+                        <tr>
+                        <td><strong>Campaign Name :</strong> </td>
+                        <td><asp:TextBox runat="server" name="maskingNumber" id="txtCampaignName" MaxLength="100" class="req width300" Enabled="true" /></td>
+                    </tr>
                     <tr>
                         <td><strong>Dealer Masking Number :</strong><b class='required'>*</b></td>
                         <td>
