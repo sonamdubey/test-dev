@@ -5,7 +5,7 @@
 .swiper-container.model .swiper-slide { background-color: #fff; width:100%; margin:0; min-height:180px; max-height:268px; position:relative; text-align:center;}
 .swiper-container.model .swiper-slide > img {min-width:320px; max-width:100%; }
 .colours-wrap .jcarousel li {width:120px; height:auto;}
-
+#versText { width:75%; }
 .rating-wrap img { width:18px;}
 .line-Ht22{line-height:22px;}
 .pos-top3{top:3px;}
@@ -35,8 +35,8 @@
 .sort-selection-div ul li input{background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px;  white-space:nowrap; text-overflow:ellipsis; overflow:hidden; text-align:left;}
 .sort-selection-div ul li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff;}
 .pos-top13 { top:13px; }
-.dealers-benefits-list { display:table; width:100%; }
-.dealers-benefits-list .dealers-benefits-image, .dealers-benefits-list .dealers-benefits-title { display:table-cell; vertical-align:middle; }
+.dealers-benefits-list .dealers-benefits-image, .dealers-benefits-list .dealers-benefits-title { display:inline-block; vertical-align:middle; }
+.dealers-benefits-list .dealers-benefits-title { width:85%; text-align:left; }
 .dealers-benefits-list li { padding-top:22px; }
 .dealers-benefits-list li:first-child { padding-top:0; }
 .less-dealers-link { display:none; }
