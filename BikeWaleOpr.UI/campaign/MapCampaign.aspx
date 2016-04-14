@@ -33,7 +33,7 @@
                                             <th></th>
                                             <th>CampaignId</th>
                                             <th width="150">Email Id</th>
-                                            <th>Dealer Name</th>
+                                            <th>Campaign Name</th>
                                             <th>Status</th>
                                             <th>Masking Number</th>
                                         </tr>
