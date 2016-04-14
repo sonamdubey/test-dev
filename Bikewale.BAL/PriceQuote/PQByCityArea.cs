@@ -8,10 +8,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -30,7 +26,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="cityId">City id (optional)</param>
         /// <param name="areaId">Area id (optional)</param>
         /// <returns></returns>
-        public PQOnRoadPrice GetOnRoadPrice(int modelId, int? cityId, int? areaId, int? versionId, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null)
+        public PQOnRoadPrice GetOnRoadPrice(int modelId, int? cityId=null, int? areaId= null, int? versionId = null, ushort? sourceId = null, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null)
         {
             PQOnRoadPrice pqOnRoad = null;
             try
@@ -48,15 +44,15 @@ namespace Bikewale.BAL.PriceQuote
                     objPQEntity.CityId = Convert.ToUInt32(cityId);
                     objPQEntity.AreaId = Convert.ToUInt32(areaId);
                     objPQEntity.ClientIP = clientIP;
-                    objPQEntity.SourceId = 1;
+                    objPQEntity.SourceId = Convert.ToUInt16(sourceId);
                     objPQEntity.ModelId = Convert.ToUInt32(modelId);
-                    //objPQEntity.VersionId = Convert.ToUInt32(variantId);
+                    objPQEntity.VersionId = Convert.ToUInt32(versionId);
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_ModelPage);
                     objPQEntity.UTMA = UTMA;
                     objPQEntity.UTMZ = UTMZ;
                     objPQEntity.DeviceId = DeviceId;
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
-                    if (objPQOutput != null )
+                    if (objPQOutput != null)
                     {
                         versionId = Convert.ToInt32(objPQOutput.VersionId);
                     }

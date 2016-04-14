@@ -303,112 +303,63 @@ namespace Bikewale.Service.Controllers.Model
         /// Description :   This the new version v3 of existing API.        
         /// Removed specs, colors, features and unnecessary properties
         /// </summary>
-        /// <param name="modelId"></param>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
-        public IHttpActionResult GetV3(int modelId, int? cityId, int? areaId)
+        public IHttpActionResult GetV3(uint modelId, int? cityId, int? areaId)
         {
+            int _modelId = Convert.ToInt32(modelId);
             Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
             try
             {
+                if (modelId == 0 || cityId <= 0 || areaId <= 0)
+                {
+                    return BadRequest();
+                }
                 BikeModelPageEntity objModelPage = null;
-                objModelPage = _cache.GetModelPageDetails(modelId);
+                objModelPage = _cache.GetModelPageDetails(_modelId);
                 if (objModelPage != null)
                 {
-                    // If android, IOS client sanitize the article content 
-                    string platformId = string.Empty;
                     if (Request.Headers.Contains("platformId"))
                     {
-                        platformId = Request.Headers.GetValues("platformId").First().ToString();
+                        string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
-                            #region Mapping from Entities to DTO
-
-                            objDTOModelPage = new DTO.Model.v3.ModelPage();
-                            objDTOModelPage.SmallDescription = objModelPage.ModelDesc.SmallDescription;
-                            objDTOModelPage.MakeId = objModelPage.ModelDetails.MakeBase.MakeId;
-                            objDTOModelPage.MakeName = objModelPage.ModelDetails.MakeBase.MakeName;
-                            objDTOModelPage.ModelId = objModelPage.ModelDetails.ModelId;
-                            objDTOModelPage.ModelName = objModelPage.ModelDetails.ModelName;
-                            objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
-                            objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
-                            objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
-
-                            if (objModelPage.objOverview != null)
-                            {
-                                var overViewList = new List<Bikewale.DTO.Model.Specs>();
-                                foreach (var spec in objModelPage.objOverview.OverviewList)
-                                {
-                                    var ov = new Bikewale.DTO.Model.Specs()
-                                    {
-                                        DisplayText = spec.DisplayText,
-                                        DisplayValue = spec.DisplayValue
-                                    };
-                                    overViewList.Add(ov);
-                                }
-                                objDTOModelPage.OverviewList = overViewList;
-                            }
-                            if (objModelPage.Photos != null)
-                            {
-                                var photos = new List<DTO.Model.v3.CMSModelImageBase>();
-                                foreach (var photo in objModelPage.Photos)
-                                {
-                                    var addPhoto = new DTO.Model.v3.CMSModelImageBase()
-                                    {
-                                        HostUrl = photo.HostUrl,
-                                        OriginalImgPath = photo.OriginalImgPath
-                                    };
-                                    photos.Add(addPhoto);
-                                }
-                                objDTOModelPage.Photos = photos;
-                            }
-                            if (objModelPage.ModelVersions != null)
-                            {
-                                List<VersionDetail> modelSpecs = new List<VersionDetail>();
-                                foreach (var version in objModelPage.ModelVersions)
-                                {
-                                    VersionDetail ver = new VersionDetail();
-                                    ver.AlloyWheels = version.AlloyWheels;
-                                    ver.AntilockBrakingSystem = version.AntilockBrakingSystem;
-                                    ver.BrakeType = version.BrakeType;
-                                    ver.ElectricStart = version.ElectricStart;
-                                    ver.VersionId = version.VersionId;
-                                    ver.VersionName = version.VersionName;
-                                    ver.Price = version.Price;
-                                    modelSpecs.Add(ver);
-                                }
-                                objDTOModelPage.ModelVersions = modelSpecs;
-                            }
-                            #endregion
+                            objDTOModelPage = ModelMapper.ConvertV3(objModelPage);
 
                             #region On road pricing for versions
-
                             PQOnRoadPrice pqOnRoad = new PQOnRoadPrice();
                             if (cityId > 0)
                             {
                                 bool isAreaSelected = false;
-                                var cityList = FetchCityByModelId(modelId);
+                                var cityList = FetchCityByModelId(_modelId);
                                 objDTOModelPage.IsCityExists = cityList != null && cityList.Any(p => p.CityId == cityId);
                                 if (objDTOModelPage.IsCityExists)
                                 {
-                                    var areaList = GetAreaForCityAndModel(modelId, Convert.ToInt16(cityId));
+                                    var areaList = GetAreaForCityAndModel(_modelId, Convert.ToInt16(cityId));
                                     objDTOModelPage.IsAreaExists = (areaList != null && areaList.Count() > 0);
-                                    if (areaId > 0) // If area is provided, check if area exists in list
+
+                                    // If area is provided, check if area exists in list
+                                    if (areaId > 0)
                                     {
                                         isAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                                     }
                                 }
                                 PQByCityArea getPQ = new PQByCityArea();
-                                pqOnRoad = getPQ.GetOnRoadPrice(modelId, cityId, areaId, 0);
+                                pqOnRoad = getPQ.GetOnRoadPrice(_modelId, cityId, areaId);
+
                                 if (pqOnRoad != null)
                                 {
+                                    objDTOModelPage.PQId = pqOnRoad.PriceQuote.PQId;
+                                    objDTOModelPage.DealerId = pqOnRoad.PriceQuote.DealerId;
                                     objDTOModelPage.IsExShowroomPrice = pqOnRoad.DPQOutput == null && pqOnRoad.BPQOutput == null;
+
                                     // When City has areas and area is not selected then show ex-showrrom price so user can select it
                                     bool isAreaExistAndSelected = objDTOModelPage.IsAreaExists && isAreaSelected;
                                     // when DPQ OR Only city level pricing exists
                                     if (isAreaExistAndSelected || (!objDTOModelPage.IsAreaExists))
                                     {
                                         #region  Iterate over version to fetch Dealer PQ or BikeWalePQ
+
                                         foreach (var version in objDTOModelPage.ModelVersions)
                                         {
                                             if (pqOnRoad.DPQOutput != null)
@@ -447,7 +398,7 @@ namespace Bikewale.Service.Controllers.Model
                                     }
                                 }
                             }
-                            else if (cityId == null && areaId == null)
+                            else if (cityId == null)
                             {
                                 objDTOModelPage.IsExShowroomPrice = true;
                             }
@@ -455,12 +406,7 @@ namespace Bikewale.Service.Controllers.Model
                             // Check if bike has more than 1 version and send base version as the first version in VersionList
                             if (objDTOModelPage.ModelVersions != null && objDTOModelPage.ModelVersions.Count > 1 && pqOnRoad != null)
                             {
-                                List<VersionDetail> swappedVersions = new List<VersionDetail>();
-                                var baseModelVersion = objDTOModelPage.ModelVersions.FindAll(p => p.VersionId == pqOnRoad.BaseVersion).FirstOrDefault();
-                                swappedVersions.Add(baseModelVersion);
-                                objDTOModelPage.ModelVersions.RemoveAll(p => p.VersionId == pqOnRoad.BaseVersion);
-                                swappedVersions.AddRange(objDTOModelPage.ModelVersions);
-                                objDTOModelPage.ModelVersions = swappedVersions;
+                                List<VersionDetail> swappedVersions = SwapVersionList(objDTOModelPage, pqOnRoad);
                             }
                         }
                     }
@@ -476,6 +422,30 @@ namespace Bikewale.Service.Controllers.Model
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
                 objErr.SendMail();
                 return InternalServerError();
+            }
+        }
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 14 Apr 2016
+        /// Put BaseVersion in the list as Zero'th element
+        /// </summary>
+        /// <param name="objDTOModelPage"></param>
+        /// <param name="pqOnRoad"></param>
+        /// <returns></returns>
+        private List<VersionDetail> SwapVersionList(ModelPage objDTOModelPage, PQOnRoadPrice pqOnRoad)
+        {
+            try
+            {
+                List<VersionDetail> swappedList = new List<VersionDetail>();
+                var baseModelVersion = objDTOModelPage.ModelVersions.FindAll(p => p.VersionId == pqOnRoad.BaseVersion).FirstOrDefault();
+                swappedList.Add(baseModelVersion);
+                objDTOModelPage.ModelVersions.RemoveAll(p => p.VersionId == pqOnRoad.BaseVersion);
+                swappedList.AddRange(objDTOModelPage.ModelVersions);
+                objDTOModelPage.ModelVersions = swappedList;
+                return swappedList;
+            }
+            catch
+            {
+
             }
         }
 
