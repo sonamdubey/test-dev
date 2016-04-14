@@ -1,23 +1,23 @@
-﻿using System;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.DealersLocator;
+using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Dealer;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Dealer;
+using Bikewale.Memcache;
+using Bikewale.Notifications;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls; 
-using Bikewale.Memcache;
-using Microsoft.Practices.Unity;
-using System.Collections.Generic;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
-using System.Linq;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.DAL.BikeData;
-using Bikewale.Entities.Location;
-using Bikewale.Entities.DealerLocator;
-using Bikewale.Notifications;
-using Bikewale.Interfaces.Dealer;
-using Bikewale.Cache.DealersLocator;
-using Bikewale.DAL.Dealer;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
@@ -60,8 +60,8 @@ namespace Bikewale.New
             if (makeId > 0 && cityId > 0)
             {
                 BindMakesDropdown();
-                BindCitiesDropdown();     
-                BindDealerList();  
+                BindCitiesDropdown();
+                BindDealerList();
             }
             else
             {
@@ -79,17 +79,17 @@ namespace Bikewale.New
         /// </summary>
         private void BindDealerList()
         {
-            DealersEntity _dealers = null;            
+            DealersEntity _dealers = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealerCacheRepository,DealerCacheRepository>()
+                    container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>()
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealers = objCache.GetDealerByMakeCity(cityId,makeId);
+                    _dealers = objCache.GetDealerByMakeCity(cityId, makeId);
 
                     if (_dealers != null && _dealers.TotalCount > 0)
                     {
@@ -97,12 +97,14 @@ namespace Bikewale.New
                         rptDealers.DataBind();
                         totalDealers = _dealers.TotalCount;
 
-                        if(totalDealers < 5)
+                        if (totalDealers > 0)
                         {
-                            var _lastTwoDealers = _dealers.Dealers.Skip(totalDealers - 2);
-                            areDealersPremium = (_lastTwoDealers.FirstOrDefault().DealerType > 1) || (_lastTwoDealers.LastOrDefault().DealerType > 1);
+                            int _countStdDealers = _dealers.Dealers.Count(m => m.DealerType < 2);// counting only standard or invalid dealers
+                            if (_countStdDealers <= 3)
+                            {
+                                areDealersPremium = true;
+                            }
                         }
-
                     }
                     else
                     {
@@ -144,13 +146,13 @@ namespace Bikewale.New
                     if (_makes != null && _makes.Count() > 0)
                     {
                         rptMakes.DataSource = _makes;
-                        rptMakes.DataBind();  
+                        rptMakes.DataBind();
                         var firstMake = _makes.FirstOrDefault(x => x.MakeId == makeId);
-                        if(firstMake!=null)
+                        if (firstMake != null)
                         {
-                            makeName = firstMake.MakeName ;
+                            makeName = firstMake.MakeName;
                             makeMaskingName = firstMake.MaskingName;
-                        }                         
+                        }
                     }
                 }
             }
@@ -188,7 +190,7 @@ namespace Bikewale.New
                         {
                             cityName = firstCity.CityName;
                             cityMaskingName = firstCity.CityMaskingName;
-                        }                        
+                        }
                     }
                 }
             }
