@@ -118,8 +118,6 @@ namespace BikewaleOpr.Campaign
                 reqFormMaskingNumber = Request.Form["txtMaskingNumber"] as string;
             if (Request.Form["txtdealerRadius"] != null)
                 reqFormRadius = Request.Form["txtdealerRadius"] as string;
-            if (Request.Form["txtCampaignName"] != null)
-                txtCampaignName.Text = Request.Form["txtCampaignName"] as string;
             SetPageVariables();
         }
 
