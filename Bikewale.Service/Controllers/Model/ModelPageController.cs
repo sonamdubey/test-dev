@@ -406,7 +406,7 @@ namespace Bikewale.Service.Controllers.Model
                             // Check if bike has more than 1 version and send base version as the first version in VersionList
                             if (objDTOModelPage.ModelVersions != null && objDTOModelPage.ModelVersions.Count > 1 && pqOnRoad != null)
                             {
-                                List<VersionDetail> swappedVersions = SwapVersionList(objDTOModelPage, pqOnRoad);
+                                objDTOModelPage.ModelVersions = SwapVersionList(objDTOModelPage.ModelVersions, pqOnRoad.BaseVersion);
                             }
                         }
                     }
@@ -431,22 +431,21 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="objDTOModelPage"></param>
         /// <param name="pqOnRoad"></param>
         /// <returns></returns>
-        private List<VersionDetail> SwapVersionList(ModelPage objDTOModelPage, PQOnRoadPrice pqOnRoad)
+        private List<VersionDetail> SwapVersionList(List<VersionDetail> modelVersions, uint baseVersion)
         {
             try
             {
-                List<VersionDetail> swappedList = new List<VersionDetail>();
-                var baseModelVersion = objDTOModelPage.ModelVersions.FindAll(p => p.VersionId == pqOnRoad.BaseVersion).FirstOrDefault();
-                swappedList.Add(baseModelVersion);
-                objDTOModelPage.ModelVersions.RemoveAll(p => p.VersionId == pqOnRoad.BaseVersion);
-                swappedList.AddRange(objDTOModelPage.ModelVersions);
-                objDTOModelPage.ModelVersions = swappedList;
-                return swappedList;
+                int baseVersionPos = modelVersions.FindIndex(p => p.VersionId == baseVersion);
+                var tempVersion = modelVersions[0];
+                modelVersions[0] = modelVersions[baseVersionPos];
+                modelVersions[baseVersionPos] = tempVersion;
             }
-            catch
+            catch (Exception ex)
             {
-
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.SwapVersionList");
+                objErr.SendMail();
             }
+            return modelVersions;
         }
 
 

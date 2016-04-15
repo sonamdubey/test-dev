@@ -41,7 +41,6 @@ namespace Bikewale.DTO.Model.v3
         [JsonProperty("isCityExists")]
         public bool IsCityExists { get; set; }
 
-        [JsonIgnore]
         [JsonProperty("isAreaExists")]
         public bool IsAreaExists { get; set; }
 
