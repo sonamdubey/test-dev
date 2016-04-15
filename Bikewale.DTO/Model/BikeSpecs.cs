@@ -36,8 +36,6 @@ namespace Bikewale.DTO.Model
         [JsonProperty("isExShowroomPrice")]
         public bool IsExShowroomPrice { get; set; }
 
-        [JsonProperty("isExShowroomPrice")]
-        public bool IsExShowroomPrice { get; set; }
 
         [JsonProperty("isAreaExists")]
         public bool IsAreaExists { get; set; }
