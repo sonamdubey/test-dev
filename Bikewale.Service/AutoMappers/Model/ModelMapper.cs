@@ -198,5 +198,93 @@ namespace Bikewale.Service.AutoMappers.Model
             }
             return objDTOModelPage;
         }
+
+        internal static DTO.Model.v3.ModelPage ConvertV3(BikeModelPageEntity objModelPage, Entities.PriceQuote.PQByCityAreaEntity pqEntity)
+        {
+            Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
+            try
+            {
+                objDTOModelPage = new DTO.Model.v3.ModelPage();
+                objDTOModelPage.SmallDescription = objModelPage.ModelDesc.SmallDescription;
+                objDTOModelPage.MakeId = objModelPage.ModelDetails.MakeBase.MakeId;
+                objDTOModelPage.MakeName = objModelPage.ModelDetails.MakeBase.MakeName;
+                objDTOModelPage.ModelId = objModelPage.ModelDetails.ModelId;
+                objDTOModelPage.ModelName = objModelPage.ModelDetails.ModelName;
+                objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
+                objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
+                objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
+
+                if (objModelPage.objOverview != null)
+                {
+                    foreach (var spec in objModelPage.objOverview.OverviewList)
+                    {
+                        switch (spec.DisplayText)
+                        {
+                            case "Capacity":
+                                objDTOModelPage.Capacity = spec.DisplayValue;
+                                break;
+                            case "Mileage":
+                                objDTOModelPage.Mileage = spec.DisplayValue;
+                                break;
+                            case "Max power":
+                                objDTOModelPage.MaxPower = spec.DisplayValue;
+                                break;
+                            case "Weight":
+                                objDTOModelPage.Weight = spec.DisplayValue;
+                                break;
+                        }
+                    }
+                }
+                if (objModelPage.Photos != null)
+                {
+                    var photos = new List<DTO.Model.v3.CMSModelImageBase>();
+                    foreach (var photo in objModelPage.Photos)
+                    {
+                        var addPhoto = new DTO.Model.v3.CMSModelImageBase()
+                        {
+                            HostUrl = photo.HostUrl,
+                            OriginalImgPath = photo.OriginalImgPath
+                        };
+                        photos.Add(addPhoto);
+                    }
+                    objDTOModelPage.Photos = photos;
+                }
+                if (pqEntity != null)
+                {
+                    objDTOModelPage.IsCityExists = pqEntity.IsCityExists;
+                    objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists;
+                    objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
+
+                    //List<VersionDetail> modelSpecs = new List<VersionDetail>();
+                    //foreach (var version in pqEntity.VersionList)
+                    //{
+                    //    VersionDetail ver = new VersionDetail();
+                    //    ver.AlloyWheels = version.AlloyWheels;
+                    //    ver.AntilockBrakingSystem = version.AntilockBrakingSystem;
+                    //    ver.BrakeType = version.BrakeType;
+                    //    ver.ElectricStart = version.ElectricStart;
+                    //    ver.VersionId = version.VersionId;
+                    //    ver.VersionName = version.VersionName;
+                    //    ver.IsDealerPriceQuote = version.IsDealerPriceQuote;
+                    //    ver.Price = version.Price;
+                    //    modelSpecs.Add(ver);
+                    //}
+                    objDTOModelPage.ModelVersions = Convert(pqEntity.VersionList);
+                }
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            return objDTOModelPage;
+        }
+
+        private static List<VersionDetail> Convert(IEnumerable<BikeVersionMinSpecs> enumerable)
+        {
+            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
+            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
+            return Mapper.Map<IEnumerable<BikeVersionMinSpecs>, List<VersionDetail>>(enumerable);
+        }
     }
 }
