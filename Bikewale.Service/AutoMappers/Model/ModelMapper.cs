@@ -13,6 +13,10 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.Model
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore on 15 Apr 2016
+    /// Description : Add BikeSpecs ConvertToBikeSpecs(BikeModelPageEntity objModelPage).
+    /// </summary>
     public class ModelMapper
     {
         internal static DTO.Model.ModelDetails Convert(Entities.BikeData.BikeModelEntity objModel)
@@ -116,6 +120,26 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
             return Mapper.Map<List<MostPopularBikesBase>, List<MostPopularBikes>>(objModelList);
 
+        }
+
+        /// <summary>
+        /// Created By : Lucky Rathore on 15 Apr 2016
+        /// Description : Mapper for BikeSpecs DTO and BikeModelPageEntity Entity
+        /// </summary>
+        /// <param name="objModelPage">object of BikeModelPageEntity</param>
+        /// <returns>BikeSpecs DTO</returns>
+        internal static BikeSpecs ConvertToBikeSpecs(BikeModelPageEntity objModelPage)
+        {
+            Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
+            Mapper.CreateMap<BikeVersionMinSpecs, VersionMinSpecs>();
+            Mapper.CreateMap<BikeModelPageEntity, BikeSpecs>();
+            Mapper.CreateMap<NewBikeModelColor, NewModelColor>();
+            Mapper.CreateMap<Bikewale.Entities.BikeData.Features, Bikewale.DTO.Model.Features>();
+            Mapper.CreateMap<Bikewale.Entities.BikeData.Specifications, Bikewale.DTO.Model.v2.Specifications>();
+            Mapper.CreateMap<Bikewale.Entities.BikeData.Specs, Bikewale.DTO.Model.Specs>();
+            Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.v2.SpecsCategory>();
+            return Mapper.Map<BikeModelPageEntity, BikeSpecs>(objModelPage);
+            
         }
     }
 }
