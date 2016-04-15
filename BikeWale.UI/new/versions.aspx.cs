@@ -1114,7 +1114,7 @@ namespace Bikewale.New
                 {
                     container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
                     IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-                    modelPage.ModelVersionSpecs = objVersion.MVSpecsFeatures(Convert.ToInt32(variantId));
+                    modelPage.ModelVersionSpecs = objVersion.MVSpecsFeatures(versionId);
                 }
             }
             catch (Exception ex)

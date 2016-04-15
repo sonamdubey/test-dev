@@ -17,27 +17,19 @@ namespace Bikewale.Entities.BikeData
         
         public BikeModelEntity ModelDetails { get; set; }
 
-
         public List<BikeVersionMinSpecs> ModelVersions { get; set; }
-
 
         public BikeSpecificationEntity ModelVersionSpecs { get; set; }
 
-
         public IEnumerable<NewBikeModelColor> ModelColors { get; set; }
-
 
         public UpcomingBikeEntity UpcomingBike { get; set; }
 
-
         public List<ModelImage> Photos { get; set; }
-
 
         public Overview objOverview { get; set; }
 
-
         public Features objFeatures { get; set; }
-
 
         public Specifications objSpecs { get; set; } 
     }
