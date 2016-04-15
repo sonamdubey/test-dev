@@ -1,21 +1,10 @@
-﻿using Bikewale.BAL.BikeBooking;
-using Bikewale.BAL.PriceQuote;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.Location;
-using Bikewale.DAL.Location;
-using Bikewale.DTO.Model.v3;
+﻿using Bikewale.BAL.PriceQuote;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
-using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -307,7 +296,7 @@ namespace Bikewale.Service.Controllers.Model
         [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
         public IHttpActionResult GetV3(uint modelId, int? cityId, int? areaId)
         {
-            int _modelId = Convert.ToInt32(modelId);
+            int modelID = Convert.ToInt32(modelId);
             Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
             try
             {
@@ -316,7 +305,7 @@ namespace Bikewale.Service.Controllers.Model
                     return BadRequest();
                 }
                 BikeModelPageEntity objModelPage = null;
-                objModelPage = _cache.GetModelPageDetails(_modelId);
+                objModelPage = _cache.GetModelPageDetails(modelID);
                 if (objModelPage != null)
                 {
                     if (Request.Headers.Contains("platformId"))
@@ -324,90 +313,15 @@ namespace Bikewale.Service.Controllers.Model
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
-                            objDTOModelPage = ModelMapper.ConvertV3(objModelPage);
 
                             #region On road pricing for versions
                             PQOnRoadPrice pqOnRoad = new PQOnRoadPrice();
-                            if (cityId > 0)
-                            {
-                                bool isAreaSelected = false;
-                                var cityList = FetchCityByModelId(_modelId);
-                                objDTOModelPage.IsCityExists = cityList != null && cityList.Any(p => p.CityId == cityId);
-                                if (objDTOModelPage.IsCityExists)
-                                {
-                                    var areaList = GetAreaForCityAndModel(_modelId, Convert.ToInt16(cityId));
-                                    objDTOModelPage.IsAreaExists = (areaList != null && areaList.Count() > 0);
+                            PQByCityArea getPQ = new PQByCityArea();
+                            PQByCityAreaEntity pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId);
 
-                                    // If area is provided, check if area exists in list
-                                    if (areaId > 0)
-                                    {
-                                        isAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
-                                    }
-                                }
-                                PQByCityArea getPQ = new PQByCityArea();
-                                pqOnRoad = getPQ.GetOnRoadPrice(_modelId, cityId, areaId);
+                            objDTOModelPage = ModelMapper.ConvertV3(objModelPage, pqEntity);
 
-                                if (pqOnRoad != null)
-                                {
-                                    objDTOModelPage.PQId = pqOnRoad.PriceQuote.PQId;
-                                    objDTOModelPage.DealerId = pqOnRoad.PriceQuote.DealerId;
-                                    objDTOModelPage.IsExShowroomPrice = pqOnRoad.DPQOutput == null && pqOnRoad.BPQOutput == null;
-
-                                    // When City has areas and area is not selected then show ex-showrrom price so user can select it
-                                    bool isAreaExistAndSelected = objDTOModelPage.IsAreaExists && isAreaSelected;
-                                    // when DPQ OR Only city level pricing exists
-                                    if (isAreaExistAndSelected || (!objDTOModelPage.IsAreaExists))
-                                    {
-                                        #region  Iterate over version to fetch Dealer PQ or BikeWalePQ
-
-                                        foreach (var version in objDTOModelPage.ModelVersions)
-                                        {
-                                            if (pqOnRoad.DPQOutput != null)
-                                            {
-                                                var selected = pqOnRoad.DPQOutput.Varients.Where(p => p.objVersion.VersionId == version.VersionId).FirstOrDefault();
-                                                if (selected != null)
-                                                {
-                                                    version.Price = selected.OnRoadPrice;
-                                                    version.IsDealerPriceQuote = true;
-                                                }
-                                                else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
-                                                {
-                                                    var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
-                                                    if (selectedBPQ != null)
-                                                    {
-                                                        version.Price = selectedBPQ.OnRoadPrice;
-                                                        version.IsDealerPriceQuote = false;
-                                                    }
-                                                }
-                                            }
-                                            else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
-                                            {
-                                                var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
-                                                if (selectedBPQ != null)
-                                                {
-                                                    version.Price = selectedBPQ.OnRoadPrice;
-                                                    version.IsDealerPriceQuote = false;
-                                                }
-                                            }
-                                        }
-                                        #endregion
-                                    }
-                                    else
-                                    {
-                                        objDTOModelPage.IsExShowroomPrice = true;
-                                    }
-                                }
-                            }
-                            else if (cityId == null)
-                            {
-                                objDTOModelPage.IsExShowroomPrice = true;
-                            }
                             #endregion
-                            // Check if bike has more than 1 version and send base version as the first version in VersionList
-                            if (objDTOModelPage.ModelVersions != null && objDTOModelPage.ModelVersions.Count > 1 && pqOnRoad != null)
-                            {
-                                objDTOModelPage.ModelVersions = SwapVersionList(objDTOModelPage.ModelVersions, pqOnRoad.BaseVersion);
-                            }
                         }
                     }
                     return Ok(objDTOModelPage);
@@ -424,90 +338,8 @@ namespace Bikewale.Service.Controllers.Model
                 return InternalServerError();
             }
         }
-        /// <summary>
-        /// Created by: Sangram Nandkhile on 14 Apr 2016
-        /// Put BaseVersion in the list as Zero'th element
-        /// </summary>
-        /// <param name="objDTOModelPage"></param>
-        /// <param name="pqOnRoad"></param>
-        /// <returns></returns>
-        private List<VersionDetail> SwapVersionList(List<VersionDetail> modelVersions, uint baseVersion)
-        {
-            try
-            {
-                int baseVersionPos = modelVersions.FindIndex(p => p.VersionId == baseVersion);
-                var tempVersion = modelVersions[0];
-                modelVersions[0] = modelVersions[baseVersionPos];
-                modelVersions[baseVersionPos] = tempVersion;
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.SwapVersionList");
-                objErr.SendMail();
-            }
-            return modelVersions;
-        }
 
 
-        /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   24 Nov 2015
-        /// Description     :   Gets City Details by ModelId
-        /// </summary>
-        /// <param name="modelId">Model Id</param>
-        private IEnumerable<CityEntityBase> FetchCityByModelId(int modelId)
-        {
-            IEnumerable<CityEntityBase> cityList = null;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<ICity, CityRepository>()
-                                 .RegisterType<ICacheManager, MemcacheManager>()
-                                 .RegisterType<ICityCacheRepository, CityCacheRepository>();
-                    ICityCacheRepository objcity = container.Resolve<ICityCacheRepository>();
-                    cityList = objcity.GetPriceQuoteCities(Convert.ToUInt16(modelId));
-                    return cityList;
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPageController" + "FetchCityByModelId");
-                objErr.SendMail();
-            }
-            return cityList;
-        }
-
-        /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   24 Nov 2015
-        /// Description     :   Get List of Area depending on City and Model Id
-        /// </summary>
-        private IEnumerable<Bikewale.Entities.Location.AreaEntityBase> GetAreaForCityAndModel(int modelId, int cityId)
-        {
-            IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
-            try
-            {
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealerPriceQuote, DealerPriceQuote>()
-                        .RegisterType<ICacheManager, MemcacheManager>()
-                        .RegisterType<IAreaCacheRepository, AreaCacheRepository>();
-
-                    IAreaCacheRepository objArea = container.Resolve<IAreaCacheRepository>();
-                    areaList = objArea.GetAreaList(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId));
-                    return areaList;
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPageController" + "GetAreaForCityAndModel");
-                objErr.SendMail();
-            }
-
-            return areaList;
-        }
         #endregion
     }
 }
