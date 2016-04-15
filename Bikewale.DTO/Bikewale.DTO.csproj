@@ -120,6 +120,7 @@
     <Compile Include="Make\MakePage.cs" />
     <Compile Include="Make\NewBikeDealersMakeBase.cs" />
     <Compile Include="Make\NewBikedealersMakeList.cs" />
+    <Compile Include="Model\BikeSpecs.cs" />
     <Compile Include="Model\Features.cs" />
     <Compile Include="Model\ModelColor.cs" />
     <Compile Include="Model\ModelDetail.cs" />
@@ -132,6 +133,10 @@
     <Compile Include="Model\v3\CMSModelImageBase.cs" />
     <Compile Include="Model\v3\modelPage.cs" />
     <Compile Include="Model\v3\VersionDetails.cs" />
+    <Compile Include="Model\v2\Specifications.cs" />
+    <Compile Include="Model\v2\SpecsCategory.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="NewBikeSearch\Pager.cs" />
     <Compile Include="NewBikeSearch\SearchOutput.cs" />
     <Compile Include="NewBikeSearch\SearchOutputBase.cs" />
