@@ -215,6 +215,7 @@
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PQOnRoadPrice.cs" />
     <Compile Include="PriceQuote\PQSourceEnum.cs" />
+    <Compile Include="PriceQuote\PQVersionList.cs" />
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteStates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
