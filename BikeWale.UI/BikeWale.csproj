@@ -110,7 +110,8 @@
     <Reference Include="Google.Protobuf">
       <HintPath>..\Libs\grpc\Google.Protobuf.dll</HintPath>
     </Reference>
-    <Reference Include="Grpc.Core">
+    <Reference Include="Grpc.Core, Version=0.13.1.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\grpc\Grpc.Core.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp">
@@ -162,7 +163,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Interactive.Async">
+    <Reference Include="System.Interactive.Async, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\grpc\System.Interactive.Async.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
