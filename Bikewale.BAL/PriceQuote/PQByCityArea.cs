@@ -179,7 +179,12 @@ namespace Bikewale.BAL.PriceQuote
             return areaList;
         }
 
-
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 15 Apr 2016
+        /// Summary:To map versionList Object for V3 model entity
+        /// </summary>
+        /// <param name="objModelPage"></param>
+        /// <returns></returns>
         public PQByCityAreaEntity GetVersionList(int modelID, IEnumerable<BikeVersionMinSpecs> modelVersions, int? cityId, int? areaId)
         {
             PQByCityAreaEntity pqEntity = new PQByCityAreaEntity();
@@ -264,8 +269,10 @@ namespace Bikewale.BAL.PriceQuote
                 pqEntity.VersionList = modelVersions;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : PQByCityArea GetVersionList");
+                objErr.SendMail();
             }
             return pqEntity;
         }
@@ -288,7 +295,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.SwapVersionList");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : PQByCityArea .SwapVersionList");
                 objErr.SendMail();
             }
             return modelVersions;

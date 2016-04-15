@@ -310,8 +310,8 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     if (Request.Headers.Contains("platformId"))
                     {
-                        //string platformId =  as string();
-                        if (Request.Headers.GetValues("platformId").First() == "3")
+                        string platformId = Request.Headers.GetValues("platformId").First().ToString();
+                        if (platformId == "3")
                         {
 
                             #region On road pricing for versions
@@ -340,6 +340,6 @@ namespace Bikewale.Service.Controllers.Model
         }
 
 
-                            #endregion
+        #endregion
     }
 }

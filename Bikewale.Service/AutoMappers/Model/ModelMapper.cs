@@ -198,7 +198,12 @@ namespace Bikewale.Service.AutoMappers.Model
             }
             return objDTOModelPage;
         }
-
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 15 Apr 2016
+        /// Summary:To map Object for V3 model entity and PQ entity
+        /// </summary>
+        /// <param name="objModelPage"></param>
+        /// <returns></returns>
         internal static DTO.Model.v3.ModelPage ConvertV3(BikeModelPageEntity objModelPage, Entities.PriceQuote.PQByCityAreaEntity pqEntity)
         {
             Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
