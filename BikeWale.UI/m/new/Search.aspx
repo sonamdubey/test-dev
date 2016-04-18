@@ -11,6 +11,9 @@
         canonical = "http://www.bikewale.com";
         AdPath = "/1017752/Bikewale_Mobile_Homepage";
         AdId = "1398766000399";
+        Ad_320x50 = true;
+        Ad_Bot_320x50 = true;
+        Ad_300x250 = true;
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <script>ga_pg_id = '5';</script>

@@ -721,7 +721,7 @@ $("input[name*='btnVariant']").on("click", function () {
     if ($(this).attr('versionid') == $('#hdnVariant').val()) {
         return false;
     }
-    $('#hdnVariant').val($(this).attr('title'));
+    $('#hdnVariant').val($(this).attr('versionid'));
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
 });
 

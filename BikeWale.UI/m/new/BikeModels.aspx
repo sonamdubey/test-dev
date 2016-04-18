@@ -150,7 +150,7 @@
                                     <asp:Repeater ID="rptVariants" runat="server">
                                         <ItemTemplate>
                                             <li>
-                                                <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button>
+                                                <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionName") %>' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button>
                                             </li>
                                             <asp:HiddenField ID="hdn" Value='<%#Eval("VersionId") %>' runat="server" />
                                         </ItemTemplate>
@@ -162,7 +162,7 @@
                         <% }
                            else
                            {  %>
-                        <p id='versText' class="variantText text-medium-grey grid-10 text-bold font14 margin-top10"><%= variantText %></p>
+                        <p id='versText' class="variantText text-grey grid-10 alpha font14 margin-top5"><%= variantText %></p>
                         <% } %>
                     </div>
                     <div class="padding-right10 padding-left10">
@@ -239,7 +239,7 @@
                            if (viewModel.Offers != null && viewModel.OfferCount > 0)
                            { 
                          %>
-                        <p class="font16 text-bold margin-top15 margin-bottom15 border-solid-top">Exclusive offers on this bike:</p>
+                        <p class="font16 text-bold padding-top15 margin-bottom15 border-solid-top">Exclusive offers on this bike:</p>
                         <ul class="dealers-benefits-list text-light-grey margin-bottom10">     
                             <asp:Repeater ID="rptOffers" runat="server">
                               <ItemTemplate>
