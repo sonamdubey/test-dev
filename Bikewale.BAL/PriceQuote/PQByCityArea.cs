@@ -262,7 +262,7 @@ namespace Bikewale.BAL.PriceQuote
                     pqEntity.IsExShowroomPrice = true;
                 }
                 // Check if bike has more than 1 version and send base version as the first version in VersionList
-                if (modelVersions != null && modelVersions.Count() > 1 && pqOnRoad != null)
+                if (modelVersions != null && modelVersions.Count() > 1 && pqOnRoad != null && pqOnRoad.BaseVersion > 0)
                 {
                     modelVersions = SwapVersionList(modelVersions.ToList(), pqOnRoad.BaseVersion);
                 }
@@ -289,9 +289,12 @@ namespace Bikewale.BAL.PriceQuote
             try
             {
                 int baseVersionPos = modelVersions.FindIndex(p => p.VersionId == baseVersion);
-                var tempVersion = modelVersions[0];
-                modelVersions[0] = modelVersions[baseVersionPos];
-                modelVersions[baseVersionPos] = tempVersion;
+                if (baseVersionPos != -1)
+                {
+                    var tempVersion = modelVersions[0];
+                    modelVersions[0] = modelVersions[baseVersionPos];
+                    modelVersions[baseVersionPos] = tempVersion;
+                }
             }
             catch (Exception ex)
             {

@@ -77,7 +77,7 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="areaId"></param>
         /// <returns></returns>
         [ResponseType(typeof(BikeSpecs)), Route("api/model/bikespecs/")]
-        public IHttpActionResult GetBikeSpecs(int modelId, UInt16? cityId, UInt16? areaId)
+        public IHttpActionResult GetBikeSpecs(int modelId, int? cityId, int? areaId)
         {
             if (modelId <= 0 || cityId <= 0 || areaId <= 0)
             {
@@ -103,21 +103,20 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     return BadRequest();
                 }
-
                 
                 getPQ = new PQByCityArea();
-                objModelPage = _cache.GetModelPageDetails(modelId);
-                objPQ = getPQ.GetVersionList(modelId, objModelPage.ModelVersions, cityId, areaId);
-                if (objModelPage != null && objPQ != null)
+                objModelPage = _cache.GetModelPageDetails(modelId);                
+                if (objModelPage != null )
                 {
-                    specs = new BikeSpecs();
-                    specs = ModelMapper.ConvertToBikeSpecs(objModelPage, objPQ);
-                    return Ok(specs);
+                    objPQ = getPQ.GetVersionList(modelId, objModelPage.ModelVersions, cityId, areaId);
+                    if (objPQ != null)
+                    {
+                        specs = new BikeSpecs();
+                        specs = ModelMapper.ConvertToBikeSpecs(objModelPage, objPQ);
+                        return Ok(specs);
+                    }                    
                 }
-                else
-                {
-                    return NotFound();
-                }
+                return NotFound();                
             }
             catch (Exception ex)
             {
