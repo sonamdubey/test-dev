@@ -56,7 +56,6 @@ namespace BikewaleOpr.CommuteDistance
         /// <returns></returns>
         internal string FormatCSVLatLonArr(IEnumerable<GeoLocationEntity> locations)
         {
-            string strRetVal = String.Empty;
             StringBuilder retVal = new StringBuilder();
             int arrLen = locations != null ? locations.Count() : 0;
             for (int index = 0; index < arrLen; index++)
@@ -64,11 +63,8 @@ namespace BikewaleOpr.CommuteDistance
                 retVal.AppendFormat("{0}|", FormatCSVLatLon(locations.ElementAt(index)));
             }
             if (arrLen > 0)
-            {
-                strRetVal = retVal.ToString();
-                strRetVal = strRetVal.Substring(0, strRetVal.Length - 1);
-            }
-            return strRetVal;
+                retVal.Length--;
+            return retVal.ToString();
         }
         /// <summary>
         /// Author      :   Sumit Kate on 30 Mar 2016
@@ -80,116 +76,6 @@ namespace BikewaleOpr.CommuteDistance
         internal string FormatRequestUrl(GeoLocationEntity source, IEnumerable<GeoLocationEntity> destinations)
         {
             return String.Format(GoogleUrl, FormatCSVLatLon(source), FormatCSVLatLonArr(destinations), ConfigurationManager.AppSettings["GoogleDistanceMatrixAPIKey"]);
-        }
-
-        /// <summary>
-        /// Author      :   Sumit Kate on 30 Mar 2016
-        /// Description :   To Get Distance
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="destinations"></param>
-        /// <returns></returns>
-        public IEnumerable<GeoLocationDestinationEntity> GetDistance(GeoLocationEntity source, IEnumerable<GeoLocationEntity> destinations, bool showShortedFirst = false)
-        {
-            JObject response = null;
-            IList<GeoLocationDestinationEntity> lstGeoLocationDestination = null;
-            string url = String.Empty;
-            try
-            {
-                url = FormatRequestUrl(source, destinations);
-                lstGeoLocationDestination = new List<GeoLocationDestinationEntity>();
-                response = CallAPI(url);
-                if (response != null)
-                {
-                    int index = 0;
-                    var resp = JObject.FromObject(response);
-                    var watch = System.Diagnostics.Stopwatch.StartNew();
-
-                    var resultObjects = AllChildren(resp["rows"])
-            .First(c => c.Type == JTokenType.Array && c.Path.Contains("elements"))
-            .Children<JObject>();
-                    var distance = default(IEnumerable<JProperty>);
-                    foreach (JObject result in resultObjects)
-                    {
-                        distance = result.Properties().Where(m => m.Name == "distance");
-                        foreach (var dis in distance)
-                        {
-                            lstGeoLocationDestination.Add(
-                                new GeoLocationDestinationEntity()
-                                {
-                                    Source = source,
-                                    StrDistance = Convert.ToString(JObject.FromObject(dis.Value)["value"]),
-                                    Latitude = destinations.ElementAt(index).Latitude,
-                                    Longitude = destinations.ElementAt(index).Longitude
-                                }
-                            );
-                        }
-                        index++;
-                    }
-                    watch.Stop();
-                    var elapsedMs = watch.Elapsed;
-                }
-            }
-            catch (Exception)
-            {
-            }
-            if (showShortedFirst)
-            {
-                return lstGeoLocationDestination.OrderBy(m => m.DistanceInKm);
-            }
-            else
-            {
-                return lstGeoLocationDestination;
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="destinations"></param>
-        /// <returns></returns>
-        public IEnumerable<GeoLocationDestinationEntity> GetDistanceUsingLinq(GeoLocationEntity source, IEnumerable<GeoLocationEntity> destinations, bool showShortedFirst = false)
-        {
-            JObject response = null;
-            IEnumerable<GeoLocationDestinationEntity> lstLinqGeoLocationDestination = null;
-            string url = String.Empty;
-            try
-            {
-                url = FormatRequestUrl(source, destinations);
-                response = CallAPI(url);
-                if (response != null)
-                {
-                    int index = 0;
-                    var resp = JObject.FromObject(response);
-                    var watch = System.Diagnostics.Stopwatch.StartNew();
-                    var resultObjects = AllChildren(resp["rows"])
-            .First(c => c.Type == JTokenType.Array && c.Path.Contains("elements"))
-            .Children<JObject>();
-                    lstLinqGeoLocationDestination =
-                        from gResult in resultObjects
-                        from geoDistance in gResult.Properties().Where(m => m.Name == "distance")
-                        select new GeoLocationDestinationEntity()
-                        {
-                            StrDistance = Convert.ToString(JObject.FromObject(geoDistance.Value)["value"]),
-                            Source = source,
-                            Latitude = destinations.ElementAt(index).Latitude,
-                            Longitude = destinations.ElementAt(index).Longitude
-                        };
-                    watch.Stop();
-                    var elapsedMs = watch.Elapsed;
-                }
-            }
-            catch (Exception)
-            {
-            }
-            if (showShortedFirst)
-            {
-                return lstLinqGeoLocationDestination.OrderBy(m => m.DistanceInKm);
-            }
-            else
-            {
-                return lstLinqGeoLocationDestination;
-            }
         }
 
         /// <summary>
@@ -330,7 +216,7 @@ namespace BikewaleOpr.CommuteDistance
                 resp.Append(",");
             }
             resp.Length--;
-            return Convert.ToString(resp);
+            return resp.ToString();
         }
     }
 }
