@@ -1,5 +1,6 @@
 ﻿using BikewaleOpr.common;
 using BikewaleOpr.Common;
+using BikewaleOpr.CommuteDistance;
 using BikeWaleOpr.Common;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace BikewaleOpr.Campaign
         public bool isCampaignPresent;
         public DropDownList ddlMaskingNumber;
         public HiddenField hdnOldMaskingNumber;
-
+        protected CommuteDistanceBL objCommuteDistanceBL;
         #endregion
 
         #region events
@@ -42,6 +43,12 @@ namespace BikewaleOpr.Campaign
             dealerCampaign = new ManageDealerCampaign();
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 18 Apr 2016
+        /// Description :   Save the Areas to Dealer Commute Distance mapping
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InserOrUpdateDealerCampaign(object sender, EventArgs e)
         {
             KnowlarityAPI callApp = new KnowlarityAPI();
@@ -92,10 +99,18 @@ namespace BikewaleOpr.Campaign
                     }
                 }
                 ClearForm(Page.Form.Controls, true);
+                objCommuteDistanceBL = new CommuteDistanceBL();
+                objCommuteDistanceBL.DealerID = Convert.ToUInt16(dealerId);
+                objCommuteDistanceBL.LeadServingDistance = Convert.ToUInt16(reqFormRadius);
+                PageAsyncTask asynTask = new PageAsyncTask(objCommuteDistanceBL.OnBegin, objCommuteDistanceBL.OnEnd, null, null);
+                RegisterAsyncTask(asynTask);
+                ExecuteRegisteredAsyncTasks();
+
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                ErrorClass objErr = new ErrorClass(ex, "InserOrUpdateDealerCampaign");
+                objErr.SendMail();
             }
         }
 
