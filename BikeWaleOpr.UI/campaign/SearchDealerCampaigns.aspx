@@ -24,6 +24,23 @@
     .valign {
         vertical-align: top;
     }
+    .progress-bar {
+    width: 0;
+    display:none;
+    height: 2px;
+    background: #16A085;
+    bottom: 0px;
+    left: 0;
+    border-radius: 2px;
+}
+
+    .position-abt {
+    position: absolute;
+}
+
+    .position-rel {
+    position: relative;
+}
 </style>
 <div>
     You are here &raquo; Search Dealer Campaigns
@@ -32,7 +49,8 @@
     <!-- #Include file="/content/DealerMenu.aspx" -->
 </div>
 <div>
-    <div style="border: 1px solid #777; margin-left: 200px;" class="padding10">
+    <div id="inputSection" class="position-rel" style="margin-left:200px">
+    <div style="border: 1px solid #777;" class="padding10">
         <span>Dealer's City : <font color="red">* &nbsp</font>
             <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass" runat="server">
 					<asp:ListItem Text="--Select City--" Value="-1"/>
@@ -48,23 +66,27 @@
             <input id="getCampaigns" type="button" class="padding10" value="Get Campaigns" />
         </span>
     </div>
-
-    <div style="margin-left: 200px;display:none" id="DealerCampaignsList">
+    <span class="position-abt progress-bar" style="width: 100%;overflow: hidden;/* display: none; */"></span>
+    </div>
+    <div style="margin-left: 200px;display:none;overflow-x:auto;overflow-y:hidden" id="DealerCampaignsList">
+        <div class="padding10" >
+            <h4 id="selDealerHeading"></h4>
+        </div>
         <table class="margin-top10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 100%; border-collapse: collapse;">
             <thead>
                 <tr class="dtHeader">
-                    <td>CampaignName</td>
-                    <td>CampaignEmailId</td>
-                    <td>CampaignLeadServingRadius</td>
-                    <td>IsActiveCampaign</td>
-                    <td>MaskingNumber</td>
-                    <td>MobileNo</td>
-                    <td>MappedMaskingNo</td>
-                    <td>MappedMobileNo</td>
+                    <td>Campaign Name</td>
+                    <td>Campaign EmailId</td>
+                    <td>Campaign LeadServingRadius</td>
+                    <td>IsActive Campaign</td>
+                    <td>Masking Number</td>
+                    <td>Mobile No</td>
+                    <td>Mapped Masking No</td>
+                    <td>Mapped Mobile No</td>
                     <td>Organization</td>
-                    <td>ContractStartDate</td>
-                    <td>ContractEndDate</td>
-                    <td>ContractStatus</td>
+                    <td>Contract StartDate</td>
+                    <td>Contract EndDate</td>
+                    <td>Contract Status</td>
                     <td>NoOfRules</td>
                 </tr>
             </thead>
@@ -77,7 +99,7 @@
                 <td data-bind="text : CampaignName"></td>
                 <td data-bind="text : CampaignEmailId"> </td>
                 <td data-bind="text : CampaignLeadServingRadius"></td>
-                <td data-bind="text : IsActiveCampaign"></td>
+                <td data-bind="text: (IsActiveCampaign)?'Yes':'No'"></td>
                 <td data-bind="text : MaskingNumber"></td>
                 <td data-bind="text : MobileNo"></td>
                 <td data-bind="text : MappedMaskingNo"></td>
@@ -85,7 +107,7 @@
                 <td data-bind="text : Organization"></td>
                 <td data-bind="text : ContractStartDate" ></td>
                 <td data-bind="text : ContractEndDate"></td>
-                <td data-bind="text: ContractStatus"></td>  
+                <td data-bind="text: (ContractStatus)?'Active':'Inactive'"></td>  
                 <td data-bind="text: NoOfRules"></td>
             </tr>
         </script>
@@ -137,8 +159,11 @@
     };
 
     $("#getCampaigns").click(function () {
-        cityId = $("#drpCity option:selected").val();
-        dealerId = $("#drpDealer option:selected").val();
+        cId = $("#drpCity option:selected");
+        dId = $("#drpDealer option:selected"); 
+        cityId = cId.val();
+        dealerId = dId.val();
+       dealerHeading = cId.text() + " : " + dId.text() + "  Campaigns ";
         if (!isNaN(cityId) && cityId != "0") {
             if (!isNaN(dealerId) && dealerId != "0") {
                 var element = document.getElementById('DealerCampaignsList');
@@ -146,26 +171,38 @@
                     type: "POST",
                     url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
                     data: '{"dealerId":"' + dealerId + '"}',
-                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetDealerCampaigns"); },
+                    beforeSend: function (xhr) {
+                        startLoading($("#inputSection"));
+                        xhr.setRequestHeader("X-AjaxPro-Method", "GetDealerCampaigns");
+                    },
                     datatype: "json",
                     success: function (response) {
                         ko.cleanNode(element);                         
                         var responseJSON = eval('(' + response + ')');
-                        response = eval('(' + responseJSON.value + ')');
-                        if (response != null && response.Table!=null) {
-                            ko.applyBindings(new DealerViewModel(response), element);
-                            $('#DealerCampaignsList').show();
+                        if (responseJSON.value != "")
+                        {
+                            response = eval('(' + responseJSON.value + ')');
+                            if (response != null && response.Table != null) {
+                                ko.applyBindings(new DealerViewModel(response), element);
+                                $('#DealerCampaignsList').show();
+                            }
+                            else {
+                                $('#DealerCampaignsList').hide();
+                                alert(dealerHeading + "not available");
+                            }
                         }
                         else {
                             $('#DealerCampaignsList').hide();
-                            alert("No Dealer Present For perticular Area");
+                            alert(dealerHeading + "not available");
                         }
+                       
                     },
                     complete: function (xhr) {
                         if(xhr.status != 200)
                         {
                             alert("Something went wrong .Please try again !!")
                         }
+                        stopLoading($("#inputSection"));
                     }
                 });
             } else {
@@ -178,6 +215,21 @@
     });
 
     $("#drpCity").chosen({ width: "200px", no_results_text: "No matches found!!", search_contains: true });
-    $("#drpDealer").chosen({ width: "200px", no_results_text: "No matches found!!", search_contains: true });
+    $("#drpDealer").chosen({ width: "200px", no_results_text: "No matches found!!", search_contains: true });    function startLoading(ele) {
+        try {
+            var _self = $(ele).find(".progress-bar").css({ 'width': '0' }).show();
+            _self.animate({ width: '100%' }, 5000);
+        }
+        catch (e) { return };
+    }
+
+    function stopLoading(ele) {
+        try {
+            var _self = $(ele).find(".progress-bar");
+            _self.stop(true, true).css({ 'width': '100%' }).fadeOut(1000);
+        }
+        catch (e) { return };
+    }
+
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->
