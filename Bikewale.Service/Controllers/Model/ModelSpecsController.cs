@@ -94,7 +94,7 @@ namespace Bikewale.Service.Controllers.Model
                 if (Request.Headers.Contains("platformId"))
                 {
                     platformId = Request.Headers.GetValues("platformId").First().ToString();
-                    if (!string.IsNullOrEmpty(platformId) && (platformId != "3" || platformId != "4"))
+                    if (string.IsNullOrEmpty(platformId) || (platformId != "3" && platformId != "4"))
                     {
                         return BadRequest();
                     }
