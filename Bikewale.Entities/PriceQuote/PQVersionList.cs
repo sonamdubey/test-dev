@@ -1,6 +1,4 @@
-﻿using Bikewale.Entities.BikeData;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace Bikewale.Entities.PriceQuote
 {
@@ -24,12 +22,4 @@ namespace Bikewale.Entities.PriceQuote
 
     }
 
-    public class PQByCityAreaEntity
-    {
-        public bool IsCityExists { get; set; }
-        public bool IsAreaExists { get; set; }
-        public bool IsAreaSelected { get; set; }
-        public bool IsExShowroomPrice { get; set; }
-        public IEnumerable<BikeVersionMinSpecs> VersionList { get; set; }
-    }
 }

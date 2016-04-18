@@ -213,6 +213,7 @@
     <Compile Include="PriceQuote\NewBikeDealerBase.cs" />
     <Compile Include="PriceQuote\OfferHtmlEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
+    <Compile Include="PriceQuote\PQByCityAreaEntity.cs" />
     <Compile Include="PriceQuote\PQOnRoadPrice.cs" />
     <Compile Include="PriceQuote\PQSourceEnum.cs" />
     <Compile Include="PriceQuote\PQVersionList.cs" />

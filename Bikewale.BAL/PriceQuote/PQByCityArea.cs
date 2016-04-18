@@ -208,8 +208,8 @@ namespace Bikewale.BAL.PriceQuote
                     pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId);
                     if (pqOnRoad != null)
                     {
-                        ulong pQId = pqOnRoad.PriceQuote.PQId;
-                        uint dealerId = pqOnRoad.PriceQuote.DealerId;
+                        pqEntity.PqId = pqOnRoad.PriceQuote.PQId;
+                        pqEntity.DealerId = pqOnRoad.PriceQuote.DealerId;
                         pqEntity.IsExShowroomPrice = pqOnRoad.DPQOutput == null && pqOnRoad.BPQOutput == null;
 
                         // When City has areas and area is not selected then show ex-showrrom price so user can select it
