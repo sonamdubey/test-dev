@@ -280,5 +280,47 @@ namespace BikewaleOpr.Common
                 objErr.SendMail();
             }
         }
+
+        /// <summary>
+        ///  Created By : Sushil Kumar
+        ///  Created On : 18th April 2016
+        ///  Description : To get dealer camapigns and contracts mapping based on dealerId
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        public DataTable GetDealerCampaigns(uint dealerId)
+        {
+            DataTable dtDealerCampaigns = null;
+            Database db = null;
+            try
+            {
+                if (dealerId > 0)
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetDealerCampaigns"))
+                    {
+                        db = new Database();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@DealerId", Convert.ToInt32(dealerId));
+                        DataSet ds = db.SelectAdaptQry(cmd);
+                        if (ds != null && ds.Tables.Count > 0)
+                        {
+                            dtDealerCampaigns = ds.Tables[0];
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.GetDealerCampaigns");
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (db != null)
+                    db.CloseConnection();
+                db = null;
+            }
+            return dtDealerCampaigns;
+        }
     }
 }
