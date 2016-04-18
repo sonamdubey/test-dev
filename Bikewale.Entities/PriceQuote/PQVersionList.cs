@@ -22,4 +22,8 @@ namespace Bikewale.Entities.PriceQuote
 
     }
 
+    /// <summary>
+    /// Created By : Sangram
+    /// Created On : 15 Apr 2016 
+    /// </summary>
 }
