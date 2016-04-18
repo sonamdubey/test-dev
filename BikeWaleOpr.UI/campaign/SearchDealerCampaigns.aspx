@@ -24,23 +24,24 @@
     .valign {
         vertical-align: top;
     }
+
     .progress-bar {
-    width: 0;
-    display:none;
-    height: 2px;
-    background: #16A085;
-    bottom: 0px;
-    left: 0;
-    border-radius: 2px;
-}
+        width: 0;
+        display: none;
+        height: 2px;
+        background: #16A085;
+        bottom: 0px;
+        left: 0;
+        border-radius: 2px;
+    }
 
     .position-abt {
-    position: absolute;
-}
+        position: absolute;
+    }
 
     .position-rel {
-    position: relative;
-}
+        position: relative;
+    }
 </style>
 <div>
     You are here &raquo; Search Dealer Campaigns
@@ -49,74 +50,80 @@
     <!-- #Include file="/content/DealerMenu.aspx" -->
 </div>
 <div>
-    <div id="inputSection" class="position-rel" style="margin-left:200px">
-    <div style="border: 1px solid #777;" class="padding10">
-        <span>Dealer's City : <font color="red">* &nbsp</font>
-            <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass" runat="server">
+    <div id="inputSection" class="position-rel" style="margin-left: 200px">
+        <div style="border: 1px solid #777;" class="padding10">
+            <span>Dealer's City : <font color="red">* &nbsp</font>
+                <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass" runat="server">
 					<asp:ListItem Text="--Select City--" Value="-1"/>
 					</asp:dropdownlist>
-            <span style="font-weight: bold; color: red;" id="spndrpCity" class="error" />&nbsp&nbsp
-        </span>
-        <span>Dealer Name : <font color="red">* &nbsp</font>
-            <asp:dropdownlist id="drpDealer" enabled="True" cssclass="drpClass" runat="server">
+                <span style="font-weight: bold; color: red;" id="spndrpCity" class="error" />&nbsp&nbsp
+            </span>
+            <span>Dealer Name : <font color="red">* &nbsp</font>
+                <asp:dropdownlist id="drpDealer" enabled="True" cssclass="drpClass" runat="server">
 				<asp:ListItem Text="--Select Dealer--" Value="-1" />
 				</asp:dropdownlist>
-        </span>
-        <span>
-            <input id="getCampaigns" type="button" class="padding10" value="Get Campaigns" />
-        </span>
-    </div>
-    <span class="position-abt progress-bar" style="width: 100%;overflow: hidden;/* display: none; */"></span>
-    </div>
-    <div style="margin-left: 200px;display:none;overflow-x:auto;overflow-y:hidden" id="DealerCampaignsList">
-        <div class="padding10" >
-            <h4 id="selDealerHeading"></h4>
+            </span>
+            <span>
+                <input id="getCampaigns" type="button" class="padding10" value="Get Campaigns" />
+            </span>
         </div>
-        <table class="margin-top10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 100%; border-collapse: collapse;">
+        <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; /* display: none; */"></span>
+    </div> 
+
+    <div style="margin-left:200px">
+        <h4 id="selDealerHeading"></h4>
+    </div>
+    <div style="margin-left: 200px; display: none; overflow-x: auto; overflow-y: hidden" id="DealerCampaignsList">
+
+        <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 100%; border-collapse: collapse;">
             <thead>
                 <tr class="dtHeader">
+                    <td>Sr No.</td>
                     <td>Campaign Name</td>
                     <td>Campaign EmailId</td>
-                    <td>Campaign LeadServingRadius</td>
+                    <td>LeadServingRadius</td>
                     <td>IsActive Campaign</td>
                     <td>Masking Number</td>
-                    <td>Mobile No</td>
-                    <td>Mapped Masking No</td>
-                    <td>Mapped Mobile No</td>
-                    <td>Organization</td>
+                    <td>Mobile Number</td>
+                    <td>Dealer Name</td>
                     <td>Contract StartDate</td>
                     <td>Contract EndDate</td>
                     <td>Contract Status</td>
-                    <td>NoOfRules</td>
+                    <td>Rules</td>
+                     <td>Edit Campaign</td>
                 </tr>
             </thead>
-            <tbody data-bind="template: { name: 'DealerList', foreach: Table }">
+            <tbody data-bind="template: { name: 'DealerCampaignList', foreach: Table }">
             </tbody>
         </table>
-      </div>
-        <script type="text/html" id="DealerList">
-            <tr class="dtItem">
-                <td data-bind="text : CampaignName"></td>
-                <td data-bind="text : CampaignEmailId"> </td>
-                <td data-bind="text : CampaignLeadServingRadius"></td>
-                <td data-bind="text: (IsActiveCampaign)?'Yes':'No'"></td>
-                <td data-bind="text : MaskingNumber"></td>
-                <td data-bind="text : MobileNo"></td>
-                <td data-bind="text : MappedMaskingNo"></td>
-                <td data-bind="text : MappedMobileNo"></td>
-                <td data-bind="text : Organization"></td>
-                <td data-bind="text : ContractStartDate" ></td>
-                <td data-bind="text : ContractEndDate"></td>
-                <td data-bind="text: (ContractStatus)?'Active':'Inactive'"></td>  
-                <td data-bind="text: NoOfRules"></td>
-            </tr>
-        </script>
-    
+    </div>
+    <script type="text/html" id="DealerCampaignList">
+        <tr class="dtItem">
+            <td data-bind="text : $index() + 1"></td>
+            <td data-bind="text: CampaignName"></td>
+            <td data-bind="text: CampaignEmailId"></td>
+            <td data-bind="text: CampaignLeadServingRadius"></td>
+            <td data-bind="text: (IsActiveCampaign()) ? 'Yes' : 'No'"></td>
+            <td data-bind="text: MappedMaskingNo"></td>
+            <td data-bind="text: MappedMobileNo"></td>
+            <td data-bind="text: Organization"></td>
+            <td data-bind="text: ContractStartDate"></td>
+            <td data-bind="text: ContractEndDate"></td>
+            <td data-bind="text: (ContractStatus()) ? 'Active' : 'Inactive'"></td>
+            <td >
+                <a  data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid='+DealerId() },text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
+            </td>
+            <td >
+                <a  data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + Organization() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + DealerId() }" target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+            </td>
+        </tr>
+    </script>
 </div>
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
 <script>
     var ABApiHostUrl = '<%= cwHostUrl%>';
     var ddlDealer = $("#drpDealer");
+    var msg = $("#selDealerHeading");    
     var selectString = "--Select Dealer--";
     var onInitCity = $("#drpCity option:selected").val();
     if (onInitCity > 0) {
@@ -133,8 +140,9 @@
     }
 
     $("#drpCity").change(function () {
+       
         var cityId = $(this).val();
-        $("#hdnCityId").val(cityId);  
+        $("#hdnCityId").val(cityId);
         if (cityId > 0) {
             $.ajax({
                 type: "GET",
@@ -159,11 +167,12 @@
     };
 
     $("#getCampaigns").click(function () {
+        msg.text("");
         cId = $("#drpCity option:selected");
-        dId = $("#drpDealer option:selected"); 
+        dId = $("#drpDealer option:selected");
         cityId = cId.val();
         dealerId = dId.val();
-       dealerHeading = cId.text() + " : " + dId.text() + "  Campaigns ";
+        dealerHeading = dId.text();
         if (!isNaN(cityId) && cityId != "0") {
             if (!isNaN(dealerId) && dealerId != "0") {
                 var element = document.getElementById('DealerCampaignsList');
@@ -177,10 +186,9 @@
                     },
                     datatype: "json",
                     success: function (response) {
-                        ko.cleanNode(element);                         
+                        ko.cleanNode(element);
                         var responseJSON = eval('(' + response + ')');
-                        if (responseJSON.value != "")
-                        {
+                        if (responseJSON.value != "") {
                             response = eval('(' + responseJSON.value + ')');
                             if (response != null && response.Table != null) {
                                 ko.applyBindings(new DealerViewModel(response), element);
@@ -188,18 +196,17 @@
                             }
                             else {
                                 $('#DealerCampaignsList').hide();
-                                alert(dealerHeading + "not available");
+                                msg.text("Campaigns for " + dealerHeading + " not available ");
                             }
                         }
                         else {
                             $('#DealerCampaignsList').hide();
-                            alert(dealerHeading + "not available");
+                            msg.text("Campaigns for " + dealerHeading + " not available ");
                         }
-                       
+
                     },
                     complete: function (xhr) {
-                        if(xhr.status != 200)
-                        {
+                        if (xhr.status != 200) {
                             alert("Something went wrong .Please try again !!")
                         }
                         stopLoading($("#inputSection"));
