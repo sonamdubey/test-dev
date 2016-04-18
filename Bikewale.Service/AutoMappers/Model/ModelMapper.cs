@@ -259,22 +259,9 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.IsCityExists = pqEntity.IsCityExists;
                     objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists;
                     objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
-
-                    //List<VersionDetail> modelSpecs = new List<VersionDetail>();
-                    //foreach (var version in pqEntity.VersionList)
-                    //{
-                    //    VersionDetail ver = new VersionDetail();
-                    //    ver.AlloyWheels = version.AlloyWheels;
-                    //    ver.AntilockBrakingSystem = version.AntilockBrakingSystem;
-                    //    ver.BrakeType = version.BrakeType;
-                    //    ver.ElectricStart = version.ElectricStart;
-                    //    ver.VersionId = version.VersionId;
-                    //    ver.VersionName = version.VersionName;
-                    //    ver.IsDealerPriceQuote = version.IsDealerPriceQuote;
-                    //    ver.Price = version.Price;
-                    //    modelSpecs.Add(ver);
-                    //}
                     objDTOModelPage.ModelVersions = Convert(pqEntity.VersionList);
+                    objDTOModelPage.DealerId = pqEntity.DealerId;
+                    objDTOModelPage.PQId = pqEntity.PqId;
                 }
             }
             catch (System.Exception)

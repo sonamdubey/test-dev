@@ -1,8 +1,6 @@
 ﻿using BikeWaleOpr.Common;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Web;
 
@@ -41,7 +39,7 @@ namespace BikewaleOpr.common
                     rowcount = CallDealerMobilMaskingAPI(sql);
                     if (rowcount == 0)
                     {
-                        sql = "%20INSERT%20INTO%20carwale_agent_mappings_after_16Dec2013(Client_Id,mapped_numbers,knumber)%20VALUES%20('100013','" + dlrMobileNo + "', '" + newMaskingNumber + "')%20";
+                        sql = "%20INSERT%20INTO%20carwale_agent_mappings_after_16Dec2013(Client_Id,mapped_numbers,knumber)%20VALUES%20('100013','" + dlrMobileNo + "','" + newMaskingNumber + "')%20";
                         CallDealerMobilMaskingAPI(sql);
                     }
                 }
@@ -101,7 +99,7 @@ namespace BikewaleOpr.common
         /// <param name="maskingNumber">Masking Number</param>
         public void clearMaskingNumber(string maskingNumber)
         {
-            string urlSql = "%20UPDATE%20carwale_agent_mappings_after_16Dec2013%20SET%20mapped_numbers=''%20WHERE%20knumber='" + maskingNumber + "'";
+            string urlSql = "%20UPDATE%20carwale_agent_mappings_after_16Dec2013%20SET%20mapped_numbers=''%20WHERE%20knumber='" + maskingNumber.Trim() + "'";
             this.CallDealerMobilMaskingAPI(urlSql);
         }
     }

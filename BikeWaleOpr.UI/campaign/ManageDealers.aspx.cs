@@ -243,6 +243,11 @@ namespace BikewaleOpr.Campaign
                     campaignId = Convert.ToInt32(Request.QueryString["campaignid"]);
                     isCampaignPresent = true;
                 }
+                if (!string.IsNullOrEmpty(Request.QueryString["no"]))
+                {
+                    dealerMobile = Request.QueryString["no"];
+                }
+
             }
             catch (Exception ex)
             {
