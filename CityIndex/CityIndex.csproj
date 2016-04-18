@@ -41,9 +41,15 @@
     <Reference Include="Elasticsearch.Net">
       <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+    <Reference Include="Gelf4Net">
+      <HintPath>..\Libs\Gelf4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net.UdpAppender">
+      <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\BookingSMS\log4net.dll</HintPath>
+      <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Nest">
       <HintPath>..\Libs\Nest.dll</HintPath>

@@ -450,7 +450,7 @@
         }
         stopLoading($("#citySelection"));
         checkCookies();
-        if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0) {
+        if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && selectElementFromArray(self.BookingCities(), onCookieObj.PQCitySelectedId)) {
             self.SelectedCity(ko.toJS({ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }));
             self.SelectedCityId(onCookieObj.PQCitySelectedId);
             var cityFound = findCityById(onCookieObj.PQCitySelectedId);
@@ -490,7 +490,7 @@
 
         stopLoading($("#areaSelection"));
 
-        if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0) {
+        if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(self.BookingAreas(), onCookieObj.PQAreaSelectedId)) {
             if (!self.oBrowser()) {
                 $("ul#popupAreaList li[areaId='" + onCookieObj.PQAreaSelectedId + "']").click();
             }

@@ -5,15 +5,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
+
 namespace CityAutoSuggest
 {
     public class GetCityList
     {
         private static string _con = ConfigurationManager.AppSettings["connectionString"];
-
         public static List<CityTempList> CityList()
         {
             List<CityTempList> objCity = null;
@@ -51,11 +49,17 @@ namespace CityAutoSuggest
             catch (Exception ex)
             {
                 Console.WriteLine("Error in CityList : " + ex.Message);
-                Logs.WriteErrorLog("Error in fetching CityList from Database : " + ex.Message);
+                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name + " :Error in fetching CityList from Database: ", ex);
             }
             return objCity;
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 12 Apr 2016
+        /// Description :   Corrected the new combination string
+        /// </summary>
+        /// <param name="objCityList"></param>
+        /// <returns></returns>
         public static List<CityList> GetSuggestList(List<CityTempList> objCityList)
         {
             List<CityList> objSuggestList = null;
@@ -126,10 +130,10 @@ namespace CityAutoSuggest
                     {
                         newcity = ht[cityName].ToString();
                         string[] newcombinations = newcity.Split(' ');
-                        int l_new = combinations.Length;
+                        int l_new = newcombinations != null ? newcombinations.Length : 0;
                         for (int p = 1; p <= l_new; p++)
                         {
-                            printSeq(l_new, p, combinations, ObjTemp);
+                            printSeq(l_new, p, newcombinations, ObjTemp);
                         }
                     }
 
@@ -140,7 +144,7 @@ namespace CityAutoSuggest
             catch (Exception ex)
             {
                 Console.WriteLine("Get Suggest List Exception  : " + ex.Message);
-                Logs.WriteErrorLog("Error In creating City autosuggest list : " + ex.Message);
+                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name + " :Error In creating City autosuggest list: ", ex);
             }
             return objSuggestList;
         }

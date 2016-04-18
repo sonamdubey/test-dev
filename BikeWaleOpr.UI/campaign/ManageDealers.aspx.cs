@@ -23,7 +23,7 @@ namespace BikewaleOpr.Campaign
         protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqFormRadius;
         protected Button btnUpdate;
         protected ManageDealerCampaign dealerCampaign;
-        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber;
+        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName;
         protected string startDate, endDate;
         public Label lblGreenMessage, lblErrorSummary;
         public HtmlGenericControl textArea;
@@ -60,7 +60,7 @@ namespace BikewaleOpr.Campaign
                         contractId,
                         Convert.ToInt16(reqFormRadius),
                         reqFormMaskingNumber,
-                        dealerName,
+                        txtCampaignName.Text,
                         txtDealerEmail.Text,
                         false);
                     lblGreenMessage.Text = "Selected campaign has been Updated !";
@@ -80,7 +80,7 @@ namespace BikewaleOpr.Campaign
                          contractId,
                          Convert.ToInt16(reqFormRadius),
                          reqFormMaskingNumber,
-                         dealerName,
+                         txtCampaignName.Text,
                          txtDealerEmail.Text,
                          false);
                     lblGreenMessage.Text = "New campaign has been added !";
@@ -102,23 +102,23 @@ namespace BikewaleOpr.Campaign
         protected void Page_Load(object sender, EventArgs e)
         {
             ParseQueryString();
-            if (Request.Form["txtMaskingNumber"] != null)
-            {
-                reqFormMaskingNumber = Convert.ToString(Request.Form["txtMaskingNumber"]);
-            }
-            if (Request.Form["txtdealerRadius"] != null)
-            {
-                reqFormRadius = Convert.ToString(Request.Form["txtdealerRadius"]);
-            }
-
-            SetPageVariables();
-            if (isCampaignPresent)
-                FetchDealeCampaign();
             if (!IsPostBack)
             {
                 LoadMaskingNumbers();
+                if (isCampaignPresent)
+                {
+                    FetchDealeCampaign();
+                }
+                else
+                {
+                    txtCampaignName.Text = dealerName;
+                }
             }
-
+            if (Request.Form["txtMaskingNumber"] != null)
+                reqFormMaskingNumber = Request.Form["txtMaskingNumber"] as string;
+            if (Request.Form["txtdealerRadius"] != null)
+                reqFormRadius = Request.Form["txtdealerRadius"] as string;
+            SetPageVariables();
         }
 
         /// <summary>
@@ -178,6 +178,7 @@ namespace BikewaleOpr.Campaign
                         txtMaskingNumber.Text = Convert.ToString(dtCampaign.Rows[0]["Number"]);
                         oldMaskingNumber = txtMaskingNumber.Text;
                         hdnOldMaskingNumber.Value = txtMaskingNumber.Text;
+                        txtCampaignName.Text = Convert.ToString(dtCampaign.Rows[0]["DealerName"]);
                     }
                     oldMaskingNumber = txtMaskingNumber.Text;
                     txtDealerEmail.Text = dtCampaign.Rows[0]["DealerEmailId"].ToString();
