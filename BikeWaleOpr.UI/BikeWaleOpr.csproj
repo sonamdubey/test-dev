@@ -185,6 +185,10 @@
       <DependentUpon>MapCampaign.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="campaign\SearchDealerCampaigns.aspx.cs">
+      <DependentUpon>SearchDealerCampaigns.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="classified\classified.cs" />
     <Compile Include="classified\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -1396,6 +1400,7 @@
     <Content Include="campaign\DealersRules.aspx" />
     <Content Include="campaign\ManageDealers.aspx" />
     <Content Include="campaign\MapCampaign.aspx" />
+    <Content Include="campaign\SearchDealerCampaigns.aspx" />
     <Content Include="classified\classifiedMenu.aspx" />
     <Content Include="classified\Default.aspx" />
     <Content Include="classified\ListingPhotos.aspx" />
