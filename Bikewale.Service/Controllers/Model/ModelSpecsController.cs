@@ -9,6 +9,8 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.DTO.Model;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.BAL.PriceQuote;
 
 namespace Bikewale.Service.Controllers.Model
 {
@@ -75,18 +77,41 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="areaId"></param>
         /// <returns></returns>
         [ResponseType(typeof(BikeSpecs)), Route("api/model/bikespecs/")]
-        public IHttpActionResult Get(int modelId, UInt16? cityId, UInt16? areaId)
+        public IHttpActionResult GetBikeSpecs(int modelId, UInt16? cityId, UInt16? areaId)
         {
+            if (modelId <= 0 || cityId <= 0 || areaId <= 0)
+            {
+                return BadRequest();
+            }
+            PQByCityArea getPQ = null;
             BikeModelPageEntity objModelPage = null;
             BikeSpecs specs = null;
+            PQByCityAreaEntity objPQ = null;
             try
             {
-                objModelPage = _cache.GetModelPageDetails(modelId);
+                string platformId = string.Empty;
 
-                if (objModelPage != null)
+                if (Request.Headers.Contains("platformId"))
+                {
+                    platformId = Request.Headers.GetValues("platformId").First().ToString();
+                    if (!string.IsNullOrEmpty(platformId) && (platformId != "3" || platformId != "4"))
+                    {
+                        return BadRequest();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+                
+                getPQ = new PQByCityArea();
+                objModelPage = _cache.GetModelPageDetails(modelId);
+                objPQ = getPQ.GetVersionList(modelId, objModelPage.ModelVersions, cityId, areaId);
+                if (objModelPage != null && objPQ != null)
                 {
                     specs = new BikeSpecs();
-                    specs = ModelMapper.ConvertToBikeSpecs(objModelPage);
+                    specs = ModelMapper.ConvertToBikeSpecs(objModelPage, objPQ);
                     return Ok(specs);
                 }
                 else
@@ -96,7 +121,7 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.GetBikeSpecs");
                 objErr.SendMail();
                 return InternalServerError();
             }

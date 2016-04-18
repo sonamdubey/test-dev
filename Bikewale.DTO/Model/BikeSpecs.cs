@@ -1,9 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using Bikewale.DTO.Version;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.Model
 {
@@ -13,31 +10,28 @@ namespace Bikewale.DTO.Model
     /// </summary>
     public class BikeSpecs
     {
-        private Bikewale.DTO.Model.v2.SpecsCategory _specs;
-        
         [JsonProperty("versionList")]
-        public List<Bikewale.DTO.Version.VersionMinSpecs> ModelVersions { get; set; }
+        public IEnumerable<Bikewale.DTO.Model.v3.VersionDetail> ModelVersions { get; set; }
 
         [JsonProperty("modelColors")]
         public IEnumerable<NewModelColor> ModelColors { get; set; }
-        
-        [JsonIgnore,JsonProperty("features")]
+
+        [JsonIgnore, JsonProperty("features")]
         public Features objFeatures { get; set; }
 
         [JsonProperty("featuresList")]
-        public IEnumerable<Specs> FeaturesList { get { return objFeatures!=null ? objFeatures.FeaturesList : null; } }
+        public IEnumerable<Specs> FeaturesList { get { return objFeatures != null ? objFeatures.FeaturesList : null; } }
 
         [JsonIgnore, JsonProperty("specs")]
         public Bikewale.DTO.Model.v2.Specifications objSpecs { get; set; }
 
         [JsonProperty("specsCategory")]
-        public List<Bikewale.DTO.Model.v2.SpecsCategory> SpecsCategory { get { return objSpecs != null ? objSpecs.SpecsCategory : null; } }
+        public IEnumerable<Bikewale.DTO.Model.v2.SpecsCategory> SpecsCategory { get { return objSpecs != null ? objSpecs.SpecsCategory : null; } }
 
         [JsonProperty("isExShowroomPrice")]
         public bool IsExShowroomPrice { get; set; }
 
-
         [JsonProperty("isAreaExists")]
         public bool IsAreaExists { get; set; }
-        }
+    }
 }
