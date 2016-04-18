@@ -5,9 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Globalization;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -33,7 +30,7 @@ namespace BikewaleOpr.Campaign
         public bool isCampaignPresent;
         public DropDownList ddlMaskingNumber;
         public HiddenField hdnOldMaskingNumber;
-        
+
         #endregion
 
         #region events
@@ -49,7 +46,7 @@ namespace BikewaleOpr.Campaign
         {
             KnowlarityAPI callApp = new KnowlarityAPI();
             bool isMaskingChanged = hdnOldMaskingNumber.Value == reqFormMaskingNumber ? false : true;
-            bool IsProd  = Convert.ToBoolean(ConfigurationManager.AppSettings["isProduction"]);
+            bool IsProd = Convert.ToBoolean(ConfigurationManager.AppSettings["isProduction"]);
             try
             {
                 // Update campaign
@@ -76,16 +73,16 @@ namespace BikewaleOpr.Campaign
                 }
                 else // Insert new campaign
                 {
-                   campaignId = dealerCampaign.InsertBWDealerCampaign(
-                        true,
-                        currentUserId,
-                        dealerId,
-                        contractId,
-                        Convert.ToInt16(reqFormRadius),
-                        reqFormMaskingNumber,
-                        dealerName,
-                        txtDealerEmail.Text,
-                        false);
+                    campaignId = dealerCampaign.InsertBWDealerCampaign(
+                         true,
+                         currentUserId,
+                         dealerId,
+                         contractId,
+                         Convert.ToInt16(reqFormRadius),
+                         reqFormMaskingNumber,
+                         dealerName,
+                         txtDealerEmail.Text,
+                         false);
                     lblGreenMessage.Text = "New campaign has been added !";
                     isCampaignPresent = true;
                     if (IsProd)
@@ -113,7 +110,7 @@ namespace BikewaleOpr.Campaign
             {
                 reqFormRadius = Convert.ToString(Request.Form["txtdealerRadius"]);
             }
-            
+
             SetPageVariables();
             if (isCampaignPresent)
                 FetchDealeCampaign();
@@ -136,10 +133,10 @@ namespace BikewaleOpr.Campaign
                 List<ListItem> maskingList = new List<ListItem>();
                 if (dtb != null)
                 {
-                    foreach ( DataRow dr in dtb.Rows )
+                    foreach (DataRow dr in dtb.Rows)
                     {
                         ListItem lst = new ListItem(Convert.ToString(dr[1]), Convert.ToString(dr[0]));
-                        if(dr[2].ToString() == "1")
+                        if (dr[2].ToString() == "1")
                         {
                             lst.Attributes.Add("disabled", "disabled");
                         }
@@ -173,7 +170,7 @@ namespace BikewaleOpr.Campaign
             try
             {
                 DataTable dtCampaign = dealerCampaign.FetchBWDealerCampaign(campaignId);
-                if(dtCampaign !=null && dtCampaign.Rows.Count > 0)
+                if (dtCampaign != null && dtCampaign.Rows.Count > 0)
                 {
                     txtdealerRadius.Text = dtCampaign.Rows[0]["DealerLeadServingRadius"].ToString();
                     if (!String.IsNullOrEmpty(Convert.ToString(dtCampaign.Rows[0]["Number"])))
@@ -245,6 +242,11 @@ namespace BikewaleOpr.Campaign
                     campaignId = Convert.ToInt32(Request.QueryString["campaignid"]);
                     isCampaignPresent = true;
                 }
+                if (!string.IsNullOrEmpty(Request.QueryString["no"]))
+                {
+                    dealerMobile = Request.QueryString["no"];
+                }
+
             }
             catch (Exception ex)
             {

@@ -98,7 +98,7 @@
             );
             $("#btnProceed").click(function () {
                 if ($('#rdbNewCamp').is(':checked')) {
-                    location.href = "/campaign/ManageDealers.aspx?contractid=" + contractId + "&dealerid=" + dealerId + "&dealername=" + dealerName;
+                    location.href = "/campaign/ManageDealers.aspx?contractid=" + contractId + "&dealerid=" + dealerId + "&dealername=" + dealerName + "&no="+ <%=dealerNumber %> + "";
                 }
                 else if ($("input[name$='rdbCampaign']").is(":checked")) {
                     var campaignId = '';
@@ -124,7 +124,7 @@
                     beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "MapCampaign"); },
                     success: function (response) {
                         alert('Campaign has been mapped with contract');
-                        location.href = "/campaign/ManageDealers.aspx?contractid=" + contractId + "&campaignid=" + campaignId + "&dealerid=" + dealerId + "&dealername=" + dealerName;
+                        location.href = "/campaign/ManageDealers.aspx?contractid=" + contractId + "&campaignid=" + campaignId + "&dealerid=" + dealerId + "&dealername=" + dealerName + "&no=" + <%=dealerNumber %> + "";
                     }
                 });
             }
