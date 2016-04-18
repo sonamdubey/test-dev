@@ -216,7 +216,7 @@
                                     <%  } %>
                                 </p>
                             </div>
-                            <%if (isOnRoadPrice)
+                            <%if (isOnRoadPrice && price != "0")
                               {%>
                             <p id="viewBreakupText" class="font14 text-light-grey leftfloat viewBreakupText">View Breakup</p>
                             <p class="font12 text-light-grey clear" />

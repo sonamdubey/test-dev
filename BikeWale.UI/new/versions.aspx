@@ -262,7 +262,7 @@
                                 <p class="font14 text-light-grey">On-road price in <span><span class="font14 text-default city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 
                                 <% } %>
-                                <%  if (price == "" || price == "0")
+                                <%  if (price == string.Empty || price == "0")
 									{ %>
                                 <span class="font32">Price not available</span>
                                 <%  }
@@ -610,7 +610,7 @@
                                         <td width="300" class="padding-bottom10 text-light-grey"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %>
                                             <% if (!pqOnRoad.IsInsuranceFree)
 											   { %>
-                                            <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : ""  %>
+                                            <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : string.Empty  %>
                                             <% } %>
                                         </td>
                                         <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></td>

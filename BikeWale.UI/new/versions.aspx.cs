@@ -576,10 +576,11 @@ namespace Bikewale.New
                             }
                         }
                     }
+                    // This function will check if Areas are available for city and Model
+                    objAreaList = GetAreaForCityAndModel();
                     // locArray.Length = 4 Means City and area exists
                     if (locArray.Length > 3 && cityId != 0)
                     {
-                        objAreaList = GetAreaForCityAndModel();
                         Int32.TryParse(locArray[2], out areaId);
                         if (objAreaList != null)
                         {
