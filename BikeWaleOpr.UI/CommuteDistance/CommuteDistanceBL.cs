@@ -15,7 +15,7 @@ namespace BikewaleOpr.CommuteDistance
     /// </summary>
     public class CommuteDistanceBL
     {
-        private String _taskprogress;
+        private string _taskprogress;
         private AsyncTaskDelegate _dlgt;
         public UInt16 DealerID { get; set; }
         public UInt16 LeadServingDistance { get; set; }

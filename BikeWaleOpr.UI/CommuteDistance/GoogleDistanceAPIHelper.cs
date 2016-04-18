@@ -79,9 +79,7 @@ namespace BikewaleOpr.CommuteDistance
         /// <returns></returns>
         internal string FormatRequestUrl(GeoLocationEntity source, IEnumerable<GeoLocationEntity> destinations)
         {
-            string retURL = String.Empty;
-            retURL = String.Format(GoogleUrl, FormatCSVLatLon(source), FormatCSVLatLonArr(destinations), ConfigurationManager.AppSettings["GoogleDistanceMatrixAPIKey"]);
-            return retURL;
+            return String.Format(GoogleUrl, FormatCSVLatLon(source), FormatCSVLatLonArr(destinations), ConfigurationManager.AppSettings["GoogleDistanceMatrixAPIKey"]);
         }
 
         /// <summary>
@@ -130,7 +128,6 @@ namespace BikewaleOpr.CommuteDistance
                     }
                     watch.Stop();
                     var elapsedMs = watch.Elapsed;
-                    //Debug.Print("GetDistance elapsedMs : {0}", elapsedMs);
                 }
             }
             catch (Exception)
@@ -180,7 +177,6 @@ namespace BikewaleOpr.CommuteDistance
                         };
                     watch.Stop();
                     var elapsedMs = watch.Elapsed;
-                    //Debug.Print("GetDistanceUsingLinq elapsedMs : {0}", elapsedMs);
                 }
             }
             catch (Exception)
