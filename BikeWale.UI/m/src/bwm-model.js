@@ -51,9 +51,6 @@ $(".blackOut-window").on("click", function () {
     if ($("#leadCapturePopup").css("display") == "block") {
         leadCapturePopupCloseBtn();
     }
-    else if ($("div#breakupPopUpContainer").css("display") == "block") {
-        viewBreakUpClosePopup();
-    }
     else if ($("div#termsPopUpContainer").css("display") == "block") {
         $("div#termsPopUpContainer").hide();
         $(".blackOut-window").hide();
@@ -74,10 +71,8 @@ $('#getMoreDetailsBtn,#getAssistance').on('click', function (e) {
 });
 
 $("#viewBreakupText").on('click', function (e) {
-    $("div#breakupPopUpContainer").show();
-    $(".blackOut-window").show();
     triggerGA('Model_Page', 'View_Breakup_Clicked', bikeVersionLocation);
-    appendHash("viewBreakup");
+    secondarydealer_Click(dealerId);
 });
 $(".breakupCloseBtn, #notifyOkayBtn").on('click', function (e) {
     viewBreakUpClosePopup();
