@@ -40,16 +40,6 @@ namespace CityAutoSuggest
                                 while (dr.Read())
                                     objCity.Add(new CityTempList()
                                     {
-                                        //CityId = Convert.ToInt32(dr["Value"]),                            //  Add CityId into Payload
-                                        //CityName = dr["Text"].ToString(),                                 //  Add CityName into Payload
-                                        //MaskingName = dr["MaskingName"].ToString()                        //  Add Masking Name into Payload
-                                        
-                                        //old
-                                        //CityId = Convert.ToInt32(dr["ID"]),                                //  Add CityId 
-                                        //CityName = dr["Name"].ToString(),                                  //  Add CityName 
-                                        //MaskingName = dr["citymaskingname"].ToString(),                    //  Add CityMaskingName
-                                        //Wt = Convert.ToInt32(dr["Cnt"])                                    //  Add Weight
-
                                         CityId = Convert.ToInt32(dr["CityId"]),                              //  Add CityId into Payload
                                         CityName = dr["Name"].ToString(),                                    //  Add CityName into Payload
                                         MaskingName = dr["citymaskingname"].ToString(),
