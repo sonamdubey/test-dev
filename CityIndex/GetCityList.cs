@@ -43,11 +43,18 @@ namespace CityAutoSuggest
                                         //CityId = Convert.ToInt32(dr["Value"]),                            //  Add CityId into Payload
                                         //CityName = dr["Text"].ToString(),                                 //  Add CityName into Payload
                                         //MaskingName = dr["MaskingName"].ToString()                        //  Add Masking Name into Payload
+                                        
+                                        //old
+                                        //CityId = Convert.ToInt32(dr["ID"]),                                //  Add CityId 
+                                        //CityName = dr["Name"].ToString(),                                  //  Add CityName 
+                                        //MaskingName = dr["citymaskingname"].ToString(),                    //  Add CityMaskingName
+                                        //Wt = Convert.ToInt32(dr["Cnt"])                                    //  Add Weight
 
-                                        CityId = Convert.ToInt32(dr["ID"]),                                 //  Add CityId 
-                                        CityName = dr["Name"].ToString(),                                   //  Add CityName 
-                                        MaskingName = dr["citymaskingname"].ToString(),                     //  Add CityMaskingName
-                                        Wt = Convert.ToInt32(dr["Cnt"])                                     //  Add Weight
+                                        CityId = Convert.ToInt32(dr["CityId"]),                              //  Add CityId into Payload
+                                        CityName = dr["Name"].ToString(),                                    //  Add CityName into Payload
+                                        MaskingName = dr["citymaskingname"].ToString(),
+                                        Wt = Convert.ToInt32(dr["Cnt"]),
+                                        StateName = dr["StateName"].ToString()
                                     });
                             }
                         }
@@ -111,15 +118,17 @@ namespace CityAutoSuggest
                     ObjTemp.mm_suggest.payload = new Payload()
                     {
                         CityId = cityItem.CityId,
-                        CityMaskingName = cityItem.MaskingName.Trim()
+                        CityMaskingName = cityItem.MaskingName.Trim(),
+                        //StateName=cityItem.StateName.Trim()
                     };
 
-                    //ObjTemp.mm_suggest.Weight = count;
+                    //ObjTemp.mm_suggest.Weight = count;                                //This is Basically For Order By Text
 
                     ObjTemp.mm_suggest.input = new List<string>();
                     cityName = cityName.Replace('-', ' ');
                     string[] combinations = cityName.Split(' ');
 
+                    ObjTemp.mm_suggest.input.Add(ObjTemp.mm_suggest.output);            //Add output as input
                     //Generate all combination of a string
                     int l = combinations.Length;
                     for (int p = 1; p <= l; p++)

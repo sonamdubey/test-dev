@@ -17,5 +17,6 @@ namespace CityAutoSuggest
     {
         public int CityId { get; set; }                                             //  CityId for Url
         public string CityMaskingName { get; set; }                                 //  CityMaskingName for Url
+        //public string StateName { get; set; }                                       //  StateName For append after city
     }
 }
