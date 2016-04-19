@@ -276,6 +276,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                 objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Name;
                 objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
                 objDPQSmsEntity.BookingAmount = bookingAmount;
+                objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName;
+                objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
                 objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}",dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
                 
                 PriceQuoteParametersEntity pqEntity = _objPriceQuote.FetchPriceQuoteDetailsById(input.PQId);
