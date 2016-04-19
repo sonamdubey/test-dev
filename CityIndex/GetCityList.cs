@@ -112,7 +112,7 @@ namespace CityAutoSuggest
                     ObjTemp.name = cityItem.CityName.Trim();
 
                     ObjTemp.mm_suggest = new CitySuggestion();
-                    ObjTemp.mm_suggest.output = cityItem.CityName;
+                    ObjTemp.mm_suggest.output = cityItem.CityName + ", " + cityItem.StateName;
                     ObjTemp.mm_suggest.weight = cityItem.Wt;
 
                     ObjTemp.mm_suggest.payload = new Payload()
