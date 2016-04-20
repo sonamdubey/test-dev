@@ -208,18 +208,18 @@
                 <div class="cancel-policy-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
                 <h2>Cancellation & Refund Policy</h2>
                 <div class="popup-inner-content cancellation-list margin-top10">
-                    <ul>
-                        <li><strong>a.</strong> Cancellation must be requested <strong>within 15 calendar days of pre-booking the vehicle.</strong> </li>
-                        <li><strong>b.</strong> Please email your <strong>Pre-Booking Cancellation Request'</strong> to <a class="blue" href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating <strong>the booking reference number, your mobile number and email address (that you used while pre-booking).</strong></li>
+                     <ul>
+                            <li><strong>a.</strong> Cancellation must be requested <strong>within 15 days of booking the vehicle.</strong></li>
+                            <li><strong>b.</strong> To cancel the booking, you will have to reach out to the dealership and inform about the cancellation request mentioning booking reference number and your mobile number (that you used while booking).</li>
+                            <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
+                                    of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
+                                    submitting any documents, procurement of the vehicle by the dealership etc.
+                            </li>
+                            <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
 
-                        <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
-                                of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
-                                submitting any documents, procurement of the vehicle by the dealership etc.
-                        </li>
-                        <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s pre-booking, cancellation will not be possible.</li>
-
-                        <li><strong>e.</strong> For all valid requests, we will process the refund of full pre-booking amount to customer's account within 7 working days.</li>
-                    </ul>
+                            <li><strong>e.</strong> For all valid cancellation requests, full booking amount will be refunded back to you by the dealership within 15 working days.</li>
+                            <li><strong>f.</strong> Should you have any concerns regarding cancelling your booking, please feel free to write to us at <a href="mailto:contact@bikewale.com">contact@bikewale.com</a>.</li>
+                        </ul>
                 </div>
             </div>
         </div>

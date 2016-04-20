@@ -469,25 +469,26 @@
         </div>
         <!-- Terms and condition Popup Ends -->
         <!--cancellation popup starts here-->
-        <div class="bw-popup bw-popup-lg cancellation-popup hide">
-            <div class="popup-inner-container">
-                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                <h2>Cancellation & Refund Policy</h2>
-                <div class="popup-inner-content cancellation-list">
-                    <ul>
-                        <li><strong>a.</strong> Cancellation must be requested <strong>within 15 calendar days of booking the vehicle.</strong> </li>
-                        <li><strong>b.</strong>  You can conveniently place your cancellation request at BikeWale <a href="/bikebooking/cancellation.aspx" target="_blank">cancellation section</a> in 2 simple steps. You can also reach the cancellation section from the navigation menu on the top left corner.</li>
-                        <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
-                                of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
-                                submitting any documents, procurement of the vehicle by the dealership etc.
-                        </li>
-                        <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
+            <div class="bw-popup bw-popup-lg cancellation-popup hide">
+                <div class="popup-inner-container">
+                    <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                    <h2>Cancellation & Refund Policy</h2>
+                    <div class="popup-inner-content cancellation-list">
+                        <ul>
+                            <li><strong>a.</strong> Cancellation must be requested <strong>within 15 days of booking the vehicle.</strong></li>
+                            <li><strong>b.</strong> To cancel the booking, you will have to reach out to the dealership and inform about the cancellation request mentioning booking reference number and your mobile number (that you used while booking).</li>
+                            <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
+                                    of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
+                                    submitting any documents, procurement of the vehicle by the dealership etc.
+                            </li>
+                            <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
 
-                        <li><strong>e.</strong> For all valid requests, we will process the refund of full booking amount to customer's account within 7 working days.</li>
-                    </ul>
+                            <li><strong>e.</strong> For all valid cancellation requests, full booking amount will be refunded back to you by the dealership within 15 working days.</li>
+                            <li><strong>f.</strong> Should you have any concerns regarding cancelling your booking, please feel free to write to us at <a href="mailto:contact@bikewale.com">contact@bikewale.com</a>.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
         <!--cancellation popup ends here-->
 
         <section class="container margin-top10 lazy content-box-shadow booking-how-it-works" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/howItWorks.png?<%= staticFileVersion %>">

@@ -158,12 +158,17 @@
                             <span class="bwsprite cancel-policy-sm-icon margin-left5 inline-block"></span>
                             <span class="inline-block"><strong>Our cancellation policy</strong></span>
                         </p>
-                        <ul>
-                            <li>Cancellation must be requested within <span class="text-bold text-default">15 calendar days of booking the vehicle</span>.</li>
-                            <li>Please provide us with your <span class="text-bold text-default">Booking ID and your mobile number</span> (that you used while booking) to proceed with cancellation).</li>
-                            <li><span class="text-bold text-default">Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</span> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of the vehicle by the dealership etc.</li>
+                       <ul>
+                            <li>Cancellation must be requested <strong>within 15 days of booking the vehicle.</strong></li>
+                            <li>To cancel the booking, you will have to reach out to the dealership and inform about the cancellation request mentioning booking reference number and your mobile number (that you used while booking).</li>
+                            <li> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
+                                    of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
+                                    submitting any documents, procurement of the vehicle by the dealership etc.
+                            </li>
                             <li>If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
-                            <li>For all valid requests, we will process the refund of full booking amount to customer's account within 7 working days.</li>
+
+                            <li>For all valid cancellation requests, full booking amount will be refunded back to you by the dealership within 15 working days.</li>
+                            <li>Should you have any concerns regarding cancelling your booking, please feel free to write to us at <a href="mailto:contact@bikewale.com">contact@bikewale.com</a>.</li>
                         </ul>
                     </div>
                 </div>
