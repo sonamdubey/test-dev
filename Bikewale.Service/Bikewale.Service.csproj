@@ -198,7 +198,6 @@
     <Compile Include="AutoMappers\Compare\TopBikeCompareBaseMapper.cs" />
     <Compile Include="AutoMappers\DealerLocator\DealerBikesEntityMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
-    <Compile Include="AutoMappers\EntityMapper.cs" />
     <Compile Include="AutoMappers\Make\MakePageEntityMapper.cs" />
     <Compile Include="AutoMappers\NewBikeSearch\SearchOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Area\PQAreaListMapper.cs" />

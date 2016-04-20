@@ -49,6 +49,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
         /// Mobile Verification method
         /// Modified By :   Sumit Kate on 18 Nov 2015
         /// Description :   Save the State of the Booking Journey as Described in Task# 107795062 
+        /// Modified By :   Lucky Rathore on 20/04/2016
+        /// Description :   Changed making no. (mobile no.) of dealer to his phone no. for sms to customer.
         /// </summary>
         /// <param name="input">Mobile Verification Input</param>
         /// <returns></returns>
@@ -194,7 +196,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                                     //if (!isDealerNotified)
                                     {
                                         SendEmailSMSToDealerCustomer.SaveEmailToDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, insuranceAmount);
-                                        SendEmailSMSToDealerCustomer.SaveSMSToDealer(input.PQId, dealerDetailEntity.objDealer.MobileNo, objCust.CustomerName, objCust.CustomerMobile, bikeName, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName);
+                                        SendEmailSMSToDealerCustomer.SaveSMSToDealer(input.PQId, dealerDetailEntity.objDealer.PhoneNo, objCust.CustomerName, objCust.CustomerMobile, bikeName, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName);
                                     }
 
                                     if (dealerDetailEntity.objFacilities != null)
@@ -259,6 +261,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
         /// <summary>
         /// Modified By : Lucky Rathore
         /// Description : change sms type to subscription model for Desktop and mobile site customer. 
+        /// Modified By : Lucky Rathore on 20 April 2016
+        /// Description : Declare DPQSmsEntity's city and address.
         /// </summary>
         /// <param name="input"></param>
         /// <param name="objCust"></param>
@@ -276,11 +280,14 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                 objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Name;
                 objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
                 objDPQSmsEntity.BookingAmount = bookingAmount;
+                objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty; 
+                objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
                 objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}",dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
+                objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
+                objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
                 
                 PriceQuoteParametersEntity pqEntity = _objPriceQuote.FetchPriceQuoteDetailsById(input.PQId);
-                String mpqQueryString = String.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", pqEntity.CityId, pqEntity.AreaId, input.PQId, pqEntity.VersionId, pqEntity.DealerId);
-                objDPQSmsEntity.LandingPageShortUrl = objUrlShortner.GetShortUrl(String.Format("{0}/pricequote/BikeDealerDetails.aspx?MPQ={1}", BWConfiguration.Instance.BwHostUrlForJs, EncodingDecodingHelper.EncodeTo64(mpqQueryString))).Id;
+                
                 var platformId = "";
                 if (Request.Headers.Contains("platformId"))
                 {

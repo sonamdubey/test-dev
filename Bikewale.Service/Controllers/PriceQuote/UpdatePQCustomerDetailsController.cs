@@ -66,6 +66,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Similar to PQCustomer Controller but updates color and version
         /// Saves the Customer details if it is a new customer else updates version/color  for the same.
         /// Generates  the OTP for the non verified customer
+        /// Modified By : Lucky Rathore on 20/04/2016
+        /// Description : Changed making no. (mobile no.) of dealer to his phone no. for sms to customer.
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
@@ -233,7 +235,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             //if (!isDealerNotified)
                             {
                                 SendEmailSMSToDealerCustomer.SaveEmailToDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, insuranceAmount);
-                                SendEmailSMSToDealerCustomer.SaveSMSToDealer(input.PQId, dealerDetailEntity.objDealer.MobileNo, objCust.CustomerName, objCust.CustomerMobile, bikeName, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName);
+                                SendEmailSMSToDealerCustomer.SaveSMSToDealer(input.PQId, dealerDetailEntity.objDealer.PhoneNo, objCust.CustomerName, objCust.CustomerMobile, bikeName, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName);
                             }
 
                             // If customer is mobile verified push lead to autobiz
@@ -269,6 +271,14 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
         }
 
+        /// <summary>
+        /// Modified By : Lucky Rathore on 20 April 2016
+        /// Description : Declare DPQSmsEntity's city and address and change requestURL in SaveSMSToCustomer function.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="objCust"></param>
+        /// <param name="bookingAmount"></param>
+        /// <param name="dealerDetailEntity"></param>
         private void SaveCustomerSMS(UpdatePQCustomerInput input, CustomerEntity objCust, uint bookingAmount, PQ_DealerDetailEntity dealerDetailEntity)
         {
             UrlShortner objUrlShortner = new UrlShortner();
@@ -282,10 +292,12 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
                 objDPQSmsEntity.BookingAmount = bookingAmount;
                 objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}",dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
-                
+                objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty;
+                objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
+                objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
+                objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
                 PriceQuoteParametersEntity pqEntity = _objPriceQuote.FetchPriceQuoteDetailsById(input.PQId);
-                String mpqQueryString = String.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", pqEntity.CityId, pqEntity.AreaId, input.PQId, pqEntity.VersionId, pqEntity.DealerId);
-                objDPQSmsEntity.LandingPageShortUrl = objUrlShortner.GetShortUrl(String.Format("{0}/pricequote/BikeDealerDetails.aspx?MPQ={1}", BWConfiguration.Instance.BwHostUrlForJs, EncodingDecodingHelper.EncodeTo64(mpqQueryString))).Id;
+                
                 var platformId = "";
                 if (Request.Headers.Contains("platformId"))
                 {
@@ -294,32 +306,11 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                 if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                 {
-                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQMobileVerification", objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
+                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/UpdatePQCustomerDetails", objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
                 }
                 else
                 {
-                    if ((dealerDetailEntity.objOffers != null) && (dealerDetailEntity.objOffers.Count > 0))
-                    {
-                        if (bookingAmount > 0)
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQMobileVerification", objDPQSmsEntity, DPQTypes.OfferAndBooking);
-                        }
-                        else
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQMobileVerification", objDPQSmsEntity, DPQTypes.OfferNoBooking);
-                        }
-                    }
-                    else
-                    {
-                        if (bookingAmount > 0)
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQMobileVerification", objDPQSmsEntity, DPQTypes.NoOfferOnlineBooking);
-                        }
-                        else
-                        {
-                            SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQMobileVerification", objDPQSmsEntity, DPQTypes.NoOfferNoBooking);
-                        }
-                    }
+                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/UpdatePQCustomerDetails", objDPQSmsEntity, DPQTypes.SubscriptionModel);
                 }
             }
             catch (Exception ex)
