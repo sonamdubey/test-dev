@@ -49,6 +49,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
         /// Mobile Verification method
         /// Modified By :   Sumit Kate on 18 Nov 2015
         /// Description :   Save the State of the Booking Journey as Described in Task# 107795062 
+        /// Modified By :   Lucky Rathore on 20/04/2016
+        /// Description :   Changed making no. (mobile no.) of dealer to his phone no. for sms to customer.
         /// </summary>
         /// <param name="input">Mobile Verification Input</param>
         /// <returns></returns>
@@ -259,6 +261,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
         /// <summary>
         /// Modified By : Lucky Rathore
         /// Description : change sms type to subscription model for Desktop and mobile site customer. 
+        /// Modified By : Lucky Rathore on 20 April 2016
+        /// Description : Declare DPQSmsEntity's city and address.
         /// </summary>
         /// <param name="input"></param>
         /// <param name="objCust"></param>
