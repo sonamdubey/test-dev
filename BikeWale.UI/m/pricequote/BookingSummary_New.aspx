@@ -493,28 +493,26 @@
             </div>
         </div>
         <!--Cancellation & refund policy popup ends here-->
-        <section>
-            <div class="container margin-bottom30">
-                <div id="faqSlug">
-                    <div class="faq-slug-container content-box-shadow content-inner-block-20">
-                        <div class="question-icon-container text-center leftfloat">
-                            <div class="icon-outer-container rounded-corner50percent">
-                                <div class="icon-inner-container rounded-corner50percent">
-                                    <span class="bwmsprite question-mark-icon margin-top20"></span>
-                                </div>
-                            </div>
+       <section>
+            <div id="faqsWraper" class="container margin-bottom30">
+                <h2 class="padding-top25 text-center padding-bottom20">FAQs</h2>
+                <div class="swiper-container padding-left10 margin-bottom15">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <p class="font16">How can I book a bike on BikeWale?</p>
+                            <p class="font14 text-light-grey">To book a bike, you have to pay a fixedbooking amount online mentioned against the...<a href="/m/faq.aspx#2" target="_blank">read more</a></p>
                         </div>
-                        <div class="question-text-container leftfloat padding-left15">
-                            <p class="question-title font16 text-bold text-black">Questions?</p>
-                            <p class="question-subtitle text-light-grey font14">
-                                We’re here to help.<br />
-                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a> or <a href="mailto:contact@bikewale.com">Email Us</a><%-- or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a>--%>
-                            </p>
+                        <div class="swiper-slide">
+                            <p class="font16">Where do I have to pay the balance amount? How much will it be?</p>
+                            <p class="font14 text-light-grey">You will pay the balance amount directly to the assigned...<a href="/m/faq.aspx#14" target="_blank">read more</a></p>
                         </div>
-                        <div class="clear"></div>
+                        <div class="swiper-slide">
+                            <p class="font16">How will I get the benefits of the offers?</p>
+                            <p class="font14 text-light-grey">Depending upon the offer, you will get the benefit of some offers directly at the...<a href="/m/faq.aspx#16" target="_blank">read more</a></p>
+                        </div>
                     </div>
                 </div>
-                <div class="clear"></div>
+                <p class="padding-left10 padding-right10 font14 text-center">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com" target="_blank">email</a></p>
             </div>
         </section>
 

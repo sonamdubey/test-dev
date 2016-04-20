@@ -67,49 +67,50 @@
                     	<h3>9. Will I be charged any fee for pre-booking feature?</h3>
                         <p>No, BikeWale does not charge any fee for pre-booking. The full amount you pay is counted against the purchase price of the vehicle and gets adjusted in the final payment.</p>
                     </li>
+                    <li class="faq-content content-box-shadow content-inner-block-20 margin-bottom20" id="faq10">
+                	    <h3>10. I want to cancel the booking. How can I do that? What happens to the refund?</h3>
+                        <p>BikeWale strongly recommends you to carefully select your bike before booking. However, you still have the option to cancel a booking in case you change your mind. To cancel the booking, you will have to reach out to the dealership and inform about the cancellation request mentioning booking reference number and your mobile number (that you used while booking). For all valid cancellation requests, full booking amount will be refunded back to you by the dealership. Should you have any concerns regarding cancelling your booking, please feel free to write to us at contact@bikewale.com.<br>
+                        <strong>The important conditions for cancellation</strong> are following:</p>
+                        <ol>
+                    	    <li>a. Cancellation must be requested <strong>within 15 days</strong> of booking the vehicle.</li>
+                            <li>b. <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
+                            <li>c. If the dealer has initiated the procurement of the bike based upon your booking, cancellation will not be possible.</li>
+                        </ol>
+                    </li>                                      
                     <li>
-                    	<h3>10. I want to cancel the pre-booking. How can I do that? What happens to the refund?</h3>
-                        <p>BikeWale strongly recommends you to carefully select your bike before pre-booking. However, you still have the option to cancel a pre-booking in case you change your mind. For all valid cancellation requests, full pre-booking amount will be refunded back to you.  If you choose to cancel a pre-booking, you can email us the <strong>‘Pre-Booking Cancellation Request’</strong> on <a class="blue" href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating the pre-booking reference number, your mobile number, email address (that you used while pre-booking). Please note the following conditions to request cancellation and avail refund.</p>
-                        <p class="margin-top10"><strong>The important conditions for cancellation</strong> are following:</p>
-                        	<div class="faq-list">
-                                <ul>
-                                    <li>a. Cancellation must be requested <strong>within 15 calendar days of pre-booking the vehicle.</strong></li>
-                                    <li>b. <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.
-                                    </li>
-                                    <li>c. If the dealer has initiated the procurement of the bike upon your pre-booking, cancellation will not be possible.</li>
-                                </ul>
-                            </div>
-                    </li>
-                    <li>
-                    	<h3>11. When will I get my money refunded, once I request cancellation?</h3>
-                        <p>Upon requesting a cancellation, our team will perform a small verification with the dealership. Post successful verification, we will confirm your cancellation request and initiate the refund. The pre-booking amount should be credited back to your account within 7 working days.</p>
-                    </li>
-                    <li>
-                    	<h3>12. Will I be charged any fee for cancellation?</h3>
-                        <p>No, there is no fee for cancellation. Full pre-booking amount will be refunded to your account within 7 working days.</p>
-                    </li>
-                    <li>
-                    	<h3>13. What are the mandatory documents that I need to carry to the dealership?</h3>
+                    	<h3>11. What are the mandatory documents that I need to carry to the dealership?</h3>
                         <p>The documents include any Govt. Photo ID proof of the person on which the bike will be registered (PAN Card, Driving License etc.), Any Govt. Address Proof of the person on which the bike will be registered, Two photographs, Additional documents for Finance options (Last 6-months bank statement, last year’s Income Tax Return Copies etc)</p>
                         <p>The full list of documents is mentioned on our website in pre-booking process and also sent to your email address in the pre-booking confirmation email.</p>
                     </li>
                     <li>
-                    	<h3>14. Where do I have to pay the balance amount? How much will it be?</h3>
+                    	<h3>12. Where do I have to pay the balance amount? How much will it be?</h3>
                         <p>You will pay the balance amount directly to the assigned dealership during your visit to the showroom. The pre-booking amount will be adjusted in the final on-road price of the vehicle.</p>
                     </li>
                     <li>
-                    	<h3>15. Can I change the color preference post visiting the dealership?</h3>
+                    	<h3>13. Can I change the color preference post visiting the dealership?</h3>
                         <p>Yes you can. However, please note that different color versions might have different pricing / availability / waiting periods and some color variants might even not be available from the manufacturers end. Dealership will provide the exact details on your visit to dealership.</p>
                     </li>
                     <li>
-                    	<h3>16. How will I get the benefits of the offers?</h3>
+                    	<h3>14. How will I get the benefits of the offers?</h3>
                         <p>Depending upon the offer, you will get the benefit of some offers directly at the dealership, while taking
                            delivery. Such offers may include cash-back benefit, exchange bonus, free bike accessories, free bike insurance etc. 
                            Other offers will be delivered to you when you inform us about completion of your purchase by filling in a short form, which will be available on our website and shall be sent to your email as link. We will verify the purchase with dealership, and immediately ship the offer benefits to the provided address.</p>
                     </li>
                     <li>
-                    	<h3>17. Can I pre-book more than one bikes on BikeWale?</h3>
+                    	<h3>15. Can I pre-book more than one bikes on BikeWale?</h3>
                         <p>Yes. There is no limit to the number of pre-bookings allowed on BikeWale.</p>
+                    </li>
+                    <li class="faq-content content-box-shadow content-inner-block-20 margin-bottom20" id="faq8">
+                	    <h3>16. I have booked a model. Now I want to change it to another model?</h3>
+                        <p>We recommend you to thoroughly make up your mind for the vehicle you wish to purchase before you proceed for booking. You should avoid changing it later. However, if you still wish to change the model that you have booked on BikeWale, you can reach out to the dealership mentioning the BikeWale booking reference number, your mobile number (that you used while booking), along with the new model you now wish to book. If the vehicle is available with the dealership then he may allow you to change the model. However, it is at the dealer's discretion whether this change is permitted. Should you have any concerns regarding changing the bike model with the dealership, please feel free to write to us at contact@bikewale.com.</p>
+                    </li>                    
+                    <li>
+                    	<h3>17. When will I get my money refunded, once I request cancellation?</h3>
+                        <p>Upon requesting a cancellation with the dealership, the dealership will initiate the refund process. The booking amount will be refunded to you within 15 working days.</p>
+                    </li>
+                    <li>
+                    	<h3>18. Will I be charged any fee for cancellation?</h3>
+                        <p>No, there is no fee for cancellation. Full booking amount will be refunded to you within 15 working days.</p>
                     </li>
                 </ul>
             </div>
