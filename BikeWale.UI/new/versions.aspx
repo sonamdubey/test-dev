@@ -307,7 +307,7 @@
                             </div>
                             <div class="clear"></div>
                              <%  }
-                               else if (viewModel != null && !toShowOnRoadPriceButton && !isBikeWalePQ)
+                               else if (viewModel != null && !toShowOnRoadPriceButton && !isBikeWalePQ && dealerId != "0")
                                { %>
                             <a href="javascript:void(0)" onclick="secondarydealer_Click(<%=dealerId %>);" id="checkDealerDetails" class="btn btn-orange margin-top10 margin-right10 leftfloat">
                                 Check dealer details

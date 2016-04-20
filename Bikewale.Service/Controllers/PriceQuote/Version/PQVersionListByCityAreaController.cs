@@ -14,7 +14,8 @@ using System.Web.Http.Description;
 namespace Bikewale.Service.Controllers.PriceQuote.Version
 {
     /// <summary>
-    /// API to return PriceQuote for model by city and area
+    /// Created by: Sangram Nandkhile on 20 Apr 2016
+    /// Summary: API to return PriceQuote for model by city and area
     /// </summary>
     public class PQVersionListByCityAreaController : ApiController
     {
@@ -38,8 +39,12 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
         [ResponseType(typeof(PQByCityAreaEntity))]
         public IHttpActionResult Get(uint modelId, int? cityId = null, int? areaId = null)
         {
+            if (cityId < 0 || modelId < 0)
+            {
+                return BadRequest();
+            }
             List<BikeVersionMinSpecs> objVersionsList = null;
-            PQByCityAreaDTO objPQEntity = null;
+            PQByCityAreaDTO objPQDTO = null;
             PQByCityAreaEntity pqEntity = null;
             BikeModelsRepository<BikeModelEntity, int> modelMinSpec = new DAL.BikeData.BikeModelsRepository<BikeModelEntity, int>();
             objVersionsList = modelMinSpec.GetVersionMinSpecs((int)modelId, true);
@@ -50,10 +55,10 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                 {
                     PQByCityArea pqByCityArea = new PQByCityArea();
                     pqEntity = pqByCityArea.GetVersionList((int)modelId, objVersionsList, cityId, areaId);
-                    objPQEntity = ModelMapper.Convert(pqEntity);
+                    objPQDTO = ModelMapper.Convert(pqEntity);
                     objVersionsList.Clear();
                     objVersionsList = null;
-                    return Ok(objPQEntity);
+                    return Ok(objPQDTO);
                 }
                 else
                 {
