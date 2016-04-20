@@ -185,14 +185,13 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Name;
                 objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;                
                 objDPQSmsEntity.BookingAmount = dealerDetailEntity.objBookingAmt !=null ? dealerDetailEntity.objBookingAmt.Amount : 0;
-                objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName;
+                objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty;
                 objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
                 objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
-                objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity.CityName;
+                objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ?  dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
                 objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
                 PriceQuoteParametersEntity pqEntity = _objPQ.FetchPriceQuoteDetailsById(input.PQId);
-                String mpqQueryString = String.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", pqEntity.CityId, pqEntity.AreaId, input.PQId, pqEntity.VersionId, pqEntity.DealerId);
-
+                
                 var platformId = "";
                 if (Request.Headers.Contains("platformId"))
                 {
@@ -201,11 +200,11 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                 if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                 {
-                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
+                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/UpdatePQ", objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
                 }
                 else
                 {
-                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.SubscriptionModel);
+                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/UpdatePQ", objDPQSmsEntity, DPQTypes.SubscriptionModel);
                 }
             }
             catch (Exception ex)
