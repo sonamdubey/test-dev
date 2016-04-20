@@ -12,7 +12,7 @@ namespace Bikewale.Entities.PriceQuote
     /// Modified by : Lucky Rathore 18 March 2016
     /// Description : DealerArea and DealerAdd added.
     /// Modified by : Lucky Rathore 20 April 2016
-    /// Description : OrganisationNameadded.
+    /// Description : OrganisationName added.
     /// </summary>
     public class DPQSmsEntity
     {
