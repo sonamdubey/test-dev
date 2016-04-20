@@ -126,3 +126,5 @@ li.offertxt:hover span {display:inline}
 .select-color-box.color-count-three span:nth-child(3) { background:#eee; }
 
 #customizeBike ul.select-colorUL li.selected-color span.select-color-box.color-count-two + span.color-title-box { top:-37px; }
+#faqsWraper .grid-4 { width:312px; }
+#faqsWraper p.font14 { line-height:1.7; }

@@ -529,20 +529,24 @@
         %>
 
         <section>
-            <div class="container margin-bottom30">
+            <div id="faqsWraper" class="container margin-bottom30">
                 <div class="grid-12">
-                    <div class="content-box-shadow content-inner-block-20">
-                        <div class="inline-block text-center margin-right30">
-                            <div class="icon-outer-container rounded-corner50">
-                                <div class="icon-inner-container rounded-corner50">
-                                    <span class="bwsprite question-mark-icon margin-top25"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="inline-block">
-                            <h3 class="margin-bottom10">Questions?</h3>
-                            <p class="text-light-grey font14">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <span class="text-dark-grey">1800 120 8300</span></p>
-                        </div>
+                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">FAQs</h2>
+                    <div class="grid-4 content-box-shadow content-inner-block-20">
+                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
+                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted...<a href="/faq.aspx#2" target="_blank">read more</a></p>
+                    </div>
+                    <div class="grid-4 content-box-shadow content-inner-block-20 margin-left20 margin-right20">
+                        <p class="font16 margin-bottom20">Where do I have to pay the balance amount? How much will it be?</p>
+                        <p class="font14 text-light-grey">You will pay the balance amount directly to the assigned dealership during your visit to the showroom. The...<a href="/faq.aspx#14" target="_blank">read more</a></p>
+                    </div>
+                    <div class="grid-4 content-box-shadow content-inner-block-20">
+                        <p class="font16 margin-bottom20">How will I get the benefits of the offers?</p>
+                        <p class="font14 text-light-grey">Depending upon the offer, you will get the benefit of some offers directly at the dealership, while taking...<a href="/faq.aspx#16" target="_blank">read more</a></p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="margin-top20 font14 text-center">
+                        <p>We’re here to help. Read our <a href="/faq.aspx" target="_blank" class="text-blue">FAQs</a>, <a href="mailto:contact@bikewale.com" target="_blank" >email</a></p>
                     </div>
                 </div>
                 <div class="clear"></div>
