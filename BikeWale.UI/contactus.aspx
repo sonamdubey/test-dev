@@ -29,7 +29,7 @@
                 12th floor, Vishwaroop IT Park,<br />
                 Sector 30A, Vashi,<br />
                 Navi Mumbai - 400705<br />
-                Phone: 1800 120 8300<br />
+                Phone: (022) 6739 8888<br />
                 Fax: (022) 6645 9665, 6739 8877<br />
                 Email: contact@bikewale.com<br />
                 Working Hours: 10 a.m. - 7 p.m. (closed on Sundays and Holidays)

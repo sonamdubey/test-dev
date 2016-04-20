@@ -167,12 +167,12 @@
             </div>
         </section>
     
-        <section>
-    	    <div class="content-box-shadow content-inner-block-15 margin-bottom20 text-medium-grey text-center">
+       <%-- <section>
+            <div class="content-box-shadow content-inner-block-15 margin-bottom20 text-medium-grey text-center">
                 <p class="text-medium-grey font14 margin-bottom10">In case of queries call us toll-free on:</p>
-                <a href="tel:1800 457 9781" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration:none;"><span class="bwmsprite tel-green-icon text-green margin-right5"></span> 1800 457 9781</a>
+                <a href="#" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="bwmsprite tel-green-icon text-green margin-right5"></span>1800 457 9781</a>
             </div>
-        </section>
+        </section>--%>
         <asp:HiddenField ID="hdnBwid" Value="" runat="server" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->

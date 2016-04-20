@@ -419,10 +419,10 @@
                     </div>
                 </div>
                 <div class="clear"></div>
-                <div class="content-box-shadow content-inner-block-15 margin-top15 margin-bottom15 text-medium-grey text-center" data-bind="visible : $root.CurrentStep()==3">
+                <%--<div class="content-box-shadow content-inner-block-15 margin-top15 margin-bottom15 text-medium-grey text-center" data-bind="visible : $root.CurrentStep()==3">
                     <p class="text-medium-grey font14 margin-bottom10">In case of queries call us toll-free on:</p>
                     <a href="tel:1800 120 8300" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="bwmsprite tel-green-icon margin-right5"></span>1800 120 8300</a>
-                </div>
+                </div>--%>
             </div>
         </section>
 
@@ -550,7 +550,7 @@
                             <p class="question-title font16 text-bold text-black">Questions?</p>
                             <p class="question-subtitle text-light-grey font14">
                                 We’re here to help.<br />
-                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a>
+                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a> or <a href="mailto:contact@bikewale.com">Email Us</a><%-- or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a>--%>
                             </p>
                         </div>
                         <div class="clear"></div>

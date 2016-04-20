@@ -219,7 +219,7 @@
                     </div>
                     <div class="clear"></div>
                     <div class="margin-top20 font14 text-center">
-                        <p>We’re here to help. Read our <a href="/faq.aspx" target="_blank" class="text-blue">FAQs</a>, <a href="mailto:contact@bikewale.com" target="_blank" >email</a> or call us on <span class="text-bold text-default">1800 120 8300</span></p>
+                        <p>We’re here to help. Read our <a href="/faq.aspx" target="_blank" class="text-blue">FAQs</a> or <a href="mailto:contact@bikewale.com" target="_blank" >Email Us</a> <%--or call us on <span class="text-bold text-default">(022) 6739 8888</span>--%></p>
                     </div>
                 </div>
                 <div class="clear"></div>

@@ -214,7 +214,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="padding-left10 padding-right10 font14 text-center">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com" target="_blank">email</a> or call us on <a href="tel:18001208300" class="text-grey text-bold">1800 120 8300</a></p>
+                <p class="padding-left10 padding-right10 font14 text-center">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a> or <a href="mailto:contact@bikewale.com" target="_blank">Email Us</a> <%--or call us on <a href="tel:18001208300" class="text-grey text-bold">1800 120 8300</a>--%></p>
             </div>
         </section>
         

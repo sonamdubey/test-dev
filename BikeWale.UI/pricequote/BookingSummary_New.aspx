@@ -152,7 +152,7 @@
 
                         </div>
                         <div class="grid-12 alpha margin-top15 query-number-container">
-                            <p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
+                            <%--<p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>--%>
                             <%-- <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps">--%>
                             <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
                         </div>
@@ -366,7 +366,7 @@
                                 <div class="clear"></div>
                             </div>
                             <div class="grid-12 alpha margin-top15 query-number-container">
-                                <p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
+                                <%--<p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>--%>
                                 <%--<input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps">--%>
                                 <input type="submit" runat="server" value="Make payment" class="btn btn-orange rightfloat" id="deliveryDetailsNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);}">
                             </div>
@@ -495,38 +495,7 @@
             <div class="clear"></div>
         </section>
 
-        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
-
-        <% if (ctrlUsersTestimonials.FetchedCount > 0)
-           { %>
-        <section>
-            <div class="container margin-bottom30">
-                <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">What do our customers say</h2>
-                    <diV class="content-box-shadow padding-top20">
-                        <div id="testimonialWrapper">
-                            <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
-                        </div>
-                    </diV>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-        <%
-           }
-           else
-           {
-        %>
-        <section>
-            <div class="container margin-bottom30">
-                <div class="grid-12">
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-        <%           
-           }
-        %>
+        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />          
 
         <section>
             <div class="container margin-bottom30">
@@ -541,7 +510,7 @@
                         </div>
                         <div class="inline-block">
                             <h3 class="margin-bottom10">Questions?</h3>
-                            <p class="text-light-grey font14">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <span class="text-dark-grey">1800 120 8300</span></p>
+                            <p class="text-light-grey font14">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a> or <a href="mailto:contact@bikewale.com">Email Us</a> <%--or call us on <span class="text-dark-grey">1800 120 8300</span>--%></p>
                         </div>
                     </div>
                 </div>
