@@ -292,7 +292,7 @@
 								   else
 									   if (toShowOnRoadPriceButton)
 									   { %>
-                                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
+                                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Check On Road Price</a>
                                 <div class="clear"></div>
                                 
                                 <% } %>
@@ -300,7 +300,7 @@
 
                             <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
                                { %>
-                            <a href="javascript:void(0)" id="getassistance" class="btn btn-orange margin-top10 margin-right10 leftfloat">Get assistance</a>
+                            <a href="javascript:void(0)" id="getassistance" class="btn btn-orange margin-top10 margin-right10 leftfloat">Get offers from dealer</a>
                             <div class="leftfloat margin-top10">
                                 <span class="font12 text-light-grey">Powered by</span><br />
                                 <span class="font14"><%= viewModel.Organization %></span>
@@ -387,7 +387,7 @@
                             <% } %>
                             <div id="dealerAssistance">
                             <div id="buyingAssistance" class="bg-light-grey font14 content-inner-block-20">
-                                <p class="text-bold margin-bottom20">Get assistance on buying this bike:</p>
+                                <p class="text-bold margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
                                 <div>
                                     <div class="form-control-box form-control-username leftfloat margin-right20">
                                         <input type="text" class="form-control" placeholder="Name" id="assistGetName" data-bind="textInput: fullName" />
@@ -420,7 +420,7 @@
                                             </div>
                                         </div>
                                         <p class="font20 margin-top25 margin-bottom10">Get more details on this bike</p>
-                                        <p class="text-light-grey margin-bottom20">Please provide contact info to see more details</p>
+                                        <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
                                         <div class="personal-info-form-container">
                                             <div class="form-control-box personal-info-list">
                                                 <input type="text" class="form-control get-first-name" placeholder="Name (mandatory)"
@@ -1453,7 +1453,7 @@
             </div>
         </section>
 
-        <!-- get on road price popup -->
+        <!-- check on road price popup -->
         <div id="onRoadPricePopup" class="rounded-corner2 content-inner-block-20 text-center hide">
             <div class="onroadPriceCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="form-control-box padding-top30">

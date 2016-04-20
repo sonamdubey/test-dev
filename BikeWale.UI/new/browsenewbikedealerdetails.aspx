@@ -124,7 +124,7 @@
                                         </div>
 
                                         <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
-                                            <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" class="btn btn-white-orange margin-top15 get-assistance-btn">Get assistance</a>
+                                            <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" class="btn btn-white-orange margin-top15 get-assistance-btn">Get offers</a>
                                         </div>
                                     </div>
                                 </li>
@@ -255,7 +255,7 @@
                                 </div>
                             </div>
                             <p class="font20 margin-top20 margin-bottom10">Provide contact details</p>
-                            <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
+                            <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
                             <div class="personal-info-form-container">
                                 <div class="form-control-box personal-info-list position-rel">
                                     <div class="placeholder-loading-text position-abt form-control border-solid" style="display: none; height: 40px; border: 1px solid #e2e2e2;">Loading dealer bikes..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>

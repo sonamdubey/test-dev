@@ -221,7 +221,7 @@
                         <a id="calldealer" class="btn btn-white btn-full-width btn-sm rightfloat text-bold text-default font14" href="tel:<%= dealerDetails.MaskingNumber %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
                     </div>
                     <div class="grid-6 alpha omega padding-left10">
-                        <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat font14" href="javascript:void(0);">Get assistance</a>
+                        <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat font14" href="javascript:void(0);">Get offers</a>
                     </div>
                 </div>
             </div>
@@ -232,8 +232,8 @@
             <div class="popup-inner-container text-center">
                 <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
                 <div id="contactDetailsPopup">
-                    <h2 class="margin-top10 margin-bottom10">Get more details on this bike</h2>
-                    <p class="text-light-grey margin-bottom10">Please provide contact info to see more details</p>
+                    <h2 class="margin-top10 margin-bottom10">Provide contact details</h2>
+                    <p class="text-light-grey margin-bottom10">Dealership will get back to you with offers</p>
 
                     <div class="personal-info-form-container">
                         <div class="dealer-search-brand form-control-box">

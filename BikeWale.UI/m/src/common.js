@@ -923,7 +923,7 @@ function slideChangeStart() {
                 if (options.source == '1') {
                     if (item.payload.modelId > 0) {
                         if (item.payload.futuristic == 'False') {
-                            ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Get on road price</a>');
+                            ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On Road Price</a>');
                         } else {
                             ulItem.append('<span class="upcoming-link">coming soon</span>')
                         }
