@@ -155,6 +155,9 @@
                                 mapOptions = {
                                     zoom: 13,
                                     center: latLng,
+                                    scrollwheel: false,
+                                    navigationControl: false,
+                                    draggable: false,
                                     mapTypeId: google.maps.MapTypeId.ROADMAP
                                 },
                                 map = new google.maps.Map(element, mapOptions),
