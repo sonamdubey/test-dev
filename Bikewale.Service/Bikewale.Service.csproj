@@ -271,6 +271,7 @@
     <Compile Include="Controllers\PriceQuote\RegisterPQController.cs" />
     <Compile Include="Controllers\PriceQuote\UpdatePQController.cs" />
     <Compile Include="Controllers\PriceQuote\UpdatePQCustomerDetailsController.cs" />
+    <Compile Include="Controllers\PriceQuote\Version\PQVersionListByCityAreaController.cs" />
     <Compile Include="Controllers\PriceQuote\Version\PQVersionListController.cs" />
     <Compile Include="AutoMappers\Area\AreaListMapper.cs" />
     <Compile Include="AutoMappers\City\CityListMapper.cs" />

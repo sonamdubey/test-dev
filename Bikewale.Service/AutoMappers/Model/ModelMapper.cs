@@ -3,10 +3,12 @@ using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Model.v3;
+using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.DTO.Series;
 using Bikewale.DTO.Version;
 using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
@@ -153,9 +155,9 @@ namespace Bikewale.Service.AutoMappers.Model
                 bikespecs.IsAreaExists = pqEntity.IsAreaExists;
                 bikespecs.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
                 bikespecs.ModelVersions = Convert(pqEntity.VersionList);
-                return bikespecs;            
+                return bikespecs;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.ConvertToBikeSpecs");
                 objErr.SendMail();
@@ -247,6 +249,21 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
             Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
             return Mapper.Map<IEnumerable<BikeVersionMinSpecs>, List<VersionDetail>>(enumerable);
+        }
+
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 20 Apr 2016
+        /// Summary: Map PQByCityArea from PQByCityAreaEntity
+        /// </summary>
+        /// <param name="objModelPage"></param>
+        /// <returns></returns>
+
+        internal static PQByCityAreaDTO Convert(PQByCityAreaEntity pqEntity)
+        {
+            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
+            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
+            Mapper.CreateMap<PQByCityAreaEntity, PQByCityAreaDTO>();
+            return Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTO>(pqEntity);
         }
     }
 }
