@@ -171,16 +171,16 @@
             </div>
         </section>
     
-        <section>
+        <%--<section>
             <div class="container margin-bottom30">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20">
-                        <p class="font14 padding-left5"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
+                        <p class="font14 padding-left5"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">(022) 6739 8888</span></p>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
-        </section>
+        </section>--%>
         <asp:HiddenField ID="hdnBwid" Value="" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->

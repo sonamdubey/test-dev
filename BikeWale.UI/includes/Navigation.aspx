@@ -54,7 +54,7 @@
                 <li><a href="/bike-videos/">Videos</a></li>
             </ul>
         </li>
-        <li>
+<%--        <li>
             <a href="javascript:void(0)">
                 <span class="bwsprite newBikes-icon"></span>
                 <span class="navbarTitle">Bike Booking</span>
@@ -65,7 +65,7 @@
                 <li><a href="/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
                 <li><a href="/bikebooking/cancellation.aspx">Cancel Your Booking</a></li>
             </ul>
-        </li>
+        </li>--%>
         <li>
             <a href="/insurance/">
                 <span class="bwsprite insurance-icon"></span>

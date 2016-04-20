@@ -331,9 +331,9 @@
                         </div>
 
                         <div id="configBtnWrapper" data-bind="with: Bike">
-                            <div class="grid-8 alpha query-number-container" data-bind="visible: $root.CurrentStep() == 3">
+                            <%--<div class="grid-8 alpha query-number-container" data-bind="visible: $root.CurrentStep() == 3">
                                 <p class="font14 padding-left5"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
-                            </div>
+                            </div>--%>
                             <div class="disclaimer-container grid-8 text-left border-light-right alpha" data-bind="visible : $root.CurrentStep() == 2">
                                 <h3 class="padding-bottom10 margin-right20 border-light-bottom"><span class="bwsprite disclaimer-icon margin-left5 margin-right5"></span>Disclaimer:</h3>
                                 <ul class="disclaimerUL">
@@ -565,7 +565,7 @@
                         </div>
                         <div class="inline-block">
                             <h3 class="margin-bottom10">Questions?</h3>
-                            <p class="text-light-grey font14">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <span class="text-dark-grey">1800 120 8300</span></p>
+                            <p class="text-light-grey font14">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a> or <a href="mailto:contact@bikewale.com">Email Us</a><%-- or call us on <span class="text-dark-grey">1800 120 8300</span>--%></p>
                         </div>
                     </div>
                 </div>
