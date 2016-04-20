@@ -72,14 +72,14 @@ namespace CityAutoSuggest
                 ht.Add("Belgaum", "Belagavi");              ht.Add("Hospet", "Hosapete");        ht.Add("Chikmagalur", "Chikkamagaluru");    
                 ht.Add("Thiruvananthapuram", "Trivandrum"); ht.Add("Kochi", "Cochin");           ht.Add("Kozhikode", "Calicut");             
                 ht.Add("Mumbai", "Bombay");                 ht.Add("Pondicherry", "Puducherry"); ht.Add("Jalandhar", "Jullunder");           
-                ht.Add("Ropar", "Rupnagar");                ht.Add("Chennai", "Madras");         ht.Add("Kolkata", "Calcutta");              
-                ht.Add("Varanasi", "Banaras");              ht.Add("Bijapur", "Vijayapura");            
-                ht.Add("Pune", "Poona");                    ht.Add("Navi Mumbai", "New Bombay");
+                ht.Add("Ropar", "Rupnagar");                ht.Add("Chennai", "Madras");         ht.Add("Kolkata", "Calcutta");
+                ht.Add("Varanasi", "Banaras");              ht.Add("Bijapur", "Vijayapura");     ht.Add("Gurugram", "Gurgaon");
+                ht.Add("Pune", "Poona");                    ht.Add("Navi Mumbai", "New Bombay"); ht.Add("Nuh", "Mewat");
 
 
                 Hashtable htd = new Hashtable();                                                //For Removing Text After Bracket
-                htd.Add("Aurangabad (Bihar)", "Aurangabad");    htd.Add("Dindori - MH", "Dindori");
-                htd.Add("Una (Gujarat)","Una");                 htd.Add("Una (HP)", "Una");
+                htd.Add("Aurangabad (Bihar)", "Aurangabad");    htd.Add("Dindori - MH", "Dindori"); htd.Add("Mewat", "Nuh");
+                htd.Add("Una (Gujarat)", "Una");                htd.Add("Una (HP)", "Una");         htd.Add("Gurgaon", "Gurugram");
 
                 Hashtable htf = new Hashtable();                                                //HashTable for Duplicate       
 
