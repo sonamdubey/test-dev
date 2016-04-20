@@ -45,7 +45,7 @@ namespace Bikewale.New
         protected PQOnRoadPrice pqOnRoad;
         protected string modelId = string.Empty;
         protected int variantId = 0;
-        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptCategory, rptVariants, rptDiscount, rptSecondaryDealers;
+        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptVariants, rptSecondaryDealers;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
         protected uint cityId = 0;
@@ -658,6 +658,8 @@ namespace Bikewale.New
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   20 Nov 2015
         /// Description     :   Fetch On road price depending on City, Area and DealerPQ and BWPQ
+        /// Modified By     :   Sushil Kumar on 19th April 2016
+        /// Description     :   Removed repeater binding for rptCategory and rptDiscount as view breakup popup removed 
         /// </summary>
         private void FetchOnRoadPrice()
         {
@@ -694,14 +696,6 @@ namespace Bikewale.New
                                 price = onRoadPrice.ToString();
                                 if (selectedVariant.PriceList != null)
                                 {
-                                    priceList = selectedVariant.PriceList;
-                                    rptCategory.DataSource = selectedVariant.PriceList;
-                                    rptCategory.DataBind();
-                                    if (pqOnRoad.IsDiscount)
-                                    {
-                                        rptDiscount.DataSource = pqOnRoad.discountedPriceList;
-                                        rptDiscount.DataBind();
-                                    }
                                     totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
                                 }
 

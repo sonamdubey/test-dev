@@ -59,7 +59,7 @@ namespace Bikewale.Mobile.New
 
         // New Model Revamp
         protected bool isBookingAvailable, isOfferAvailable, isBikeWalePQ, isDiscontinued, isAreaAvailable;
-        protected Repeater rptOffers, rptMoreOffers, rptCategory, rptVariants, rptDiscount;
+        protected Repeater rptOffers, rptMoreOffers, rptVariants;
         static readonly string _bwHostUrl, _PageNotFoundPath;
         protected VersionSpecifications bikeSpecs;
         protected int variantId = 0;
@@ -586,6 +586,8 @@ namespace Bikewale.Mobile.New
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   27 Nov 2015
         /// Description     :   Fetch On road price depending on City, Area and DealerPQ and BWPQ
+        /// Modified By     :   Sushil Kumar on 19th April 2016
+        /// Description     :   Removed repeater binding for rptCategory and rptDiscount as view breakup popup removed 
         /// </summary>
         private void FetchOnRoadPrice()
         {
@@ -636,26 +638,7 @@ namespace Bikewale.Mobile.New
                                 }
                                 if (selectedVariant.PriceList != null)
                                 {
-                                    rptCategory.DataSource = selectedVariant.PriceList;
-                                    rptCategory.DataBind();
-                                    if (pqOnRoad.IsDiscount)
-                                    {
-                                        rptDiscount.DataSource = pqOnRoad.discountedPriceList;
-                                        rptDiscount.DataBind();
-                                    }
                                     totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
-
-                                    // String operation
-                                    viewbreakUpText = "(";
-                                    foreach (var text in selectedVariant.PriceList)
-                                    {
-                                        viewbreakUpText += " + " + text.CategoryName;
-                                    }
-                                    if (viewbreakUpText.Length > 2)
-                                    {
-                                        viewbreakUpText = viewbreakUpText.Remove(2, 1);
-                                    }
-                                    viewbreakUpText += ")";
                                 }
 
                                 bookingAmt = selectedVariant.BookingAmount;
