@@ -344,7 +344,7 @@
                                             <span data-bind="text: ShowReviewCount(bikemodel.reviewCount())"></span>
                                         </div>
                                         <div class="clear"></div>
-                                        <a data-bind="attr: { modelId: bikemodel.modelId, pqSourceId: PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey margin-top10 fillPopupData">Get on-road price</a>
+                                        <a data-bind="attr: { modelId: bikemodel.modelId, pqSourceId: PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey margin-top10 fillPopupData">Check On Road Price</a>
                                     </div>
                                 </div>
                             </li>

@@ -142,7 +142,7 @@
                                             </div>
                                         </div>
                                         <div class="clear"></div>
-                                        <a data-bind="attr: { modelId: bikemodel.modelId , pqSourceId : '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch%>    '}" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
+                                        <a data-bind="attr: { modelId: bikemodel.modelId , pqSourceId : '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch%>    '}" class="btn btn-sm btn-white margin-top10 fillPopupData">Check On Road Price</a>
                                     </div>
                                 </div>
                             </div>

@@ -319,7 +319,7 @@
 					                    <%# GetBikeSpecsMin(DataBinder.Eval(Container.DataItem,"Displacement").ToString(), DataBinder.Eval(Container.DataItem,"BikeFuelType").ToString(), DataBinder.Eval(Container.DataItem,"BikeTransmission").ToString(), DataBinder.Eval(Container.DataItem,"FuelEfficiencyOverall").ToString() )%>
 				                    </p>						
 			                    </td>			
-			                    <td><span class="text-highlight"><%# GetMinPrice(DataBinder.Eval(Container.DataItem,"VersionPrice").ToString()) %></span><p class="<%# String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"VersionPrice").ToString())||(mmv.IsNew==false && mmv.IsUsed==true) ? "hide" : "" %>"><a class="margin-top5 fillPopupData" pageCatId="3" modelId="<%=modelId %>" href="/pricequote/default.aspx?version=<%# DataBinder.Eval( Container.DataItem, "ID" ) %>"  >Check On-Road Price</a></p></td>
+			                    <td><span class="text-highlight"><%# GetMinPrice(DataBinder.Eval(Container.DataItem,"VersionPrice").ToString()) %></span><p class="<%# String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"VersionPrice").ToString())||(mmv.IsNew==false && mmv.IsUsed==true) ? "hide" : "" %>"><a class="margin-top5 fillPopupData" pageCatId="3" modelId="<%=modelId %>" href="/pricequote/default.aspx?version=<%# DataBinder.Eval( Container.DataItem, "ID" ) %>"  >Check On Road Price</a></p></td>
 		                    </tr>		
 		                 </itemtemplate>
                     </asp:repeater>

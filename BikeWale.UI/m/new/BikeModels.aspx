@@ -309,7 +309,7 @@
                    {   %>
             <div class="grid-12 float-button float-fixed clearfix">
 
-                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
+                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Check On Road Price</a>
                 <% }
                    else
                    {   %>
@@ -325,7 +325,7 @@
                                         <a id="calldealer" class="btn btn-white btn-full-width btn-sm rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
                                     </div>
                                     <div class="grid-6 alpha omega padding-left10">
-                                        <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get assistance</a>
+                                        <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get offers</a>
                                     </div>
                             <% }                              
                            }  
@@ -1032,8 +1032,8 @@
                 <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
                 <div id="contactDetailsPopup">
                     <!-- Contact details Popup starts here -->
-                    <h2 class="margin-bottom5">Get more details on this bike</h2>
-                    <p class="text-light-grey margin-bottom5">Please provide contact info to see more details</p>
+                    <h2 class="margin-bottom5">Provide contact details</h2>
+                    <p class="text-light-grey margin-bottom5">Dealership will get back to you with offers</p>
 
                     <div class="personal-info-form-container margin-top10">
                         <div class="form-control-box">

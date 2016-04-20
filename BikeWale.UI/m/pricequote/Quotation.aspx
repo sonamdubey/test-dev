@@ -199,8 +199,8 @@
                 <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
                 <div id="contactDetailsPopup">
                     <!-- Contact details Popup starts here -->
-                    <h2 class="margin-bottom5">Get more details on this bike</h2>
-                    <p class="text-light-grey margin-bottom5">Please provide contact info to see more details</p>
+                    <h2 class="margin-bottom5">Provide contact details</h2>
+                    <p class="text-light-grey margin-bottom5">Dealership will get back to you with offers</p>
 
                     <div class="personal-info-form-container margin-top10">
                         <div class="form-control-box">

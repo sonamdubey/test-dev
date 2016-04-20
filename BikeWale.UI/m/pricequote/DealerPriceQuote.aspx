@@ -279,7 +279,7 @@
                 </div>
                 <%} %>
                 <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega" : "" %>">
-                    <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-sm btn-full-width btn-orange" value="Get assistance" />
+                    <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-sm btn-full-width btn-orange" value="Get offers" />
                 </div>
             </div>
             <div class="clear"></div>
@@ -455,8 +455,8 @@
                 <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
                 <div id="contactDetailsPopup">
                     <!-- Contact details Popup starts here -->
-                    <h2 class="margin-top10 margin-bottom10">Get buying Assistance on this bike</h2>
-                    <p class="text-light-grey margin-bottom10">Please provide contact info to see more details</p>
+                    <h2 class="margin-top10 margin-bottom10">Provide contact details</h2>
+                    <p class="text-light-grey margin-bottom10">Dealership will get back to you with offers</p>
 
                     <div class="personal-info-form-container">
                         <div class="form-control-box">
