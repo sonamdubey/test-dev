@@ -234,7 +234,7 @@ namespace Bikewale.Notifications
                         message = String.Format("Hi {0}, thanks for your interest on BikeWale. {1},{2} ({3}) will call you regarding your bike inquiry.", objDPQSmsEntity.CustomerName, objDPQSmsEntity.DealerName, objDPQSmsEntity.Locality, objDPQSmsEntity.DealerMobile);
                         break;
                     case DPQTypes.SubscriptionModel:
-                        message = String.Format("Contact {0}, {1} at {2} or visit at {3} for further assistance.", objDPQSmsEntity.DealerName, objDPQSmsEntity.DealerArea, objDPQSmsEntity.DealerMobile, objDPQSmsEntity.DealerAdd);
+                        message = String.Format("Contact {0} at {1} or visit at {2}, {3}, {4} for further assistance.", objDPQSmsEntity.OrganisationName, objDPQSmsEntity.DealerMobile, objDPQSmsEntity.DealerAdd, objDPQSmsEntity.DealerArea, objDPQSmsEntity.DealerCity);
                         break;
 
                 }
