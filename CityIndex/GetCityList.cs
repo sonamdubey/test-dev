@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 namespace CityAutoSuggest
 {
@@ -17,6 +18,7 @@ namespace CityAutoSuggest
         public static List<CityTempList> CityList()
         {
             List<CityTempList> objCity = null;
+            Regex r = new Regex(@"\[([A-z0-9\s\S]+)?(\-)?([A-z0-9\s\S]+)?\]");
             try
             {
                 using (SqlConnection con = new SqlConnection(_con))
@@ -24,7 +26,7 @@ namespace CityAutoSuggest
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         //cmd.CommandText = "GetCities";                //----------------------------Old SP-------------------------------------
-                        cmd.CommandText = "GetCitiesPQ";                //----------------------------New SP-------------------------------------
+                        cmd.CommandText = "GetCitiesCS";                //----------------------------New SP-------------------------------------
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = con;
 
@@ -41,9 +43,9 @@ namespace CityAutoSuggest
                                     objCity.Add(new CityTempList()
                                     {
                                         CityId = Convert.ToInt32(dr["CityId"]),                              //  Add CityId into Payload
-                                        CityName = dr["Name"].ToString(),                                    //  Add CityName into Payload
+                                        CityName = dr["CityName"].ToString(),                                    //  Add CityName into Payload
                                         MaskingName = dr["citymaskingname"].ToString(),
-                                        Wt = Convert.ToInt32(dr["Cnt"]),
+                                        Wt = Convert.ToInt32(dr["Count"]),
                                         StateName = dr["StateName"].ToString()
                                     });
                             }
@@ -66,7 +68,7 @@ namespace CityAutoSuggest
             try
             {
                 Hashtable ht = new Hashtable();
-                ht.Add("Vijaywada", "Bezawada");           //Vijaywada
+                ht.Add("Vijaywada", "Bezawada");            //Vijaywada
                 ht.Add("Guwahati", "Gauhati");              //Guwahati
                 ht.Add("Vadodara", "Baroda");               //Vadodara
                 ht.Add("Valsad", "Bulsar");                 //Valsad
@@ -89,19 +91,50 @@ namespace CityAutoSuggest
                 ht.Add("Kolkata", "Calcutta");              //Kolkata
                 ht.Add("Varanasi", "Banaras");              //Varanasi
                 ht.Add("Bijapur", "Vijayapura");            //Vijayapura
-                ht.Add("Pune", "Poona");                     //Pune
-                ht.Add("Navi Mumbai", "New Bombay");         //Navi Mumbai
+                ht.Add("Pune", "Poona");                    //Pune
+                ht.Add("Navi Mumbai", "New Bombay");        //Navi Mumbai
+
+                //For Removing Text After Bracket
+                Hashtable htd = new Hashtable();
+                htd.Add("Aurangabad (Bihar)", "Aurangabad");
+                htd.Add("Dindori - MH", "Dindori");
+                htd.Add("Una (Gujarat)","Una");
+                htd.Add("Una (HP)", "Una");
+
+                Hashtable htf = new Hashtable();
+
+                Dictionary<string, decimal> City_Count = new Dictionary<string, decimal>();
+                foreach (CityTempList cityItem in objCityList)
+                {
+                    if (htd.ContainsKey(cityItem.CityName))
+                        cityItem.CityName = htd[cityItem.CityName].ToString();
+
+                    if (!City_Count.ContainsKey(cityItem.CityName))
+                        City_Count.Add(cityItem.CityName, 1);
+                    else
+                    {
+                        City_Count.Remove(cityItem.CityName);
+                        htf.Add(cityItem.CityName, "P");
+                        //City_Count.Add(cityItem.CityName, 2);
+                    }
+                }
+
                 objSuggestList = new List<CityList>();
 
                 foreach (CityTempList cityItem in objCityList)
                 {
-                    string cityName = cityItem.CityName.Trim();
                     CityList ObjTemp = new CityList();
 
                     ObjTemp.Id = cityItem.CityId.ToString();
                     ObjTemp.name = cityItem.CityName.Trim();
 
                     ObjTemp.mm_suggest = new CitySuggestion();
+
+                    if (htd.ContainsKey(cityItem.CityName))
+                        cityItem.CityName = htd[cityItem.CityName].ToString();
+
+                    string cityName = cityItem.CityName.Trim();
+
                     ObjTemp.mm_suggest.output = cityItem.CityName + ", " + cityItem.StateName;
                     ObjTemp.mm_suggest.weight = cityItem.Wt;
 
@@ -112,6 +145,9 @@ namespace CityAutoSuggest
                         //StateName=cityItem.StateName.Trim()
                     };
 
+                    if (htf.ContainsKey(cityItem.CityName))                             //Set flag true for duplicate city
+                        ObjTemp.mm_suggest.payload.IsDuplicate = true;
+                    
                     //ObjTemp.mm_suggest.Weight = count;                                //This is Basically For Order By Text
 
                     ObjTemp.mm_suggest.input = new List<string>();
@@ -119,6 +155,7 @@ namespace CityAutoSuggest
                     string[] combinations = cityName.Split(' ');
 
                     ObjTemp.mm_suggest.input.Add(ObjTemp.mm_suggest.output);            //Add output as input
+                    
                     //Generate all combination of a string
                     int l = combinations.Length;
                     for (int p = 1; p <= l; p++)
