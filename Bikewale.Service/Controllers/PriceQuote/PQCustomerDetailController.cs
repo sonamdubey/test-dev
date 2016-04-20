@@ -64,6 +64,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Description :   Update the Bike Version. Fixed the APP functionality.
         /// Modified By : Sadhana Upadhyay on 29 Dec 2015
         /// Summary : To capture device id, utma, utmz, Pq lead id etc.
+        /// Modified By : Lucky Rathore on 20/04/2016
+        /// Summary : Masking No. (mobile no.) of dealer is changed to dealer phone no. for sms to customer.
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
@@ -187,7 +189,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         }
 
                         dealer = objBookingPageDetailsDTO.Dealer;
-                        //objCust = _objCustomer.GetByEmail(input.CustomerEmail);
 
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetails(input.PQId);
                         objCust = pqCustomer.objCustomerBase;

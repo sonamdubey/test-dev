@@ -11,6 +11,8 @@ namespace Bikewale.Entities.PriceQuote
     /// Summary     :   Dealer Price Quote SMS Entity
     /// Modified by : Lucky Rathore 18 March 2016
     /// Description : DealerArea and DealerAdd added.
+    /// Modified by : Lucky Rathore 20 April 2016
+    /// Description : OrganisationNameadded.
     /// </summary>
     public class DPQSmsEntity
     {

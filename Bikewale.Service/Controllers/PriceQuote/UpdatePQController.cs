@@ -34,6 +34,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Updates the Price Quote data for given Price Quote Id
         /// Modified By : Sadhana Upadhyay on 22 Dec 2015
         /// Summary : To update Notification template in PQ_LeadNotification Table
+        /// Modified By : Lucky Rathore on 20/04/2016
+        /// Description : Changed making no. (mobile no.) of dealer to his phone no. for sms to customer.
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -164,6 +166,13 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
         }
 
+        /// <summary>
+        /// Modified By : Lucky Rathore on 20 April 2016
+        /// Description : Declare DPQSmsEntity's city and address.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="objCustomer"></param>
+        /// <param name="dealerDetailEntity"></param>
         private void SaveCustomerSMS(PQUpdateInput input, PQCustomerDetail objCustomer, PQ_DealerDetailEntity dealerDetailEntity)
         {
             UrlShortner objUrlShortner = new UrlShortner();

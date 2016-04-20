@@ -203,6 +203,8 @@ namespace Bikewale.Notifications
         /// Description :   Saves the Customer Lead SMS
         /// Modified By : Lucky Rathore on 17 March 2016
         /// Description : Add Message Template for Subscription Model.
+        /// Modified By : Lucky Rathore on 20 April 2016
+        /// Description : Change Message Template for Subscription Model.
         /// </summary>
         /// <param name="pqId">Price Quote Id</param>
         /// <param name="objDPQSmsEntity">DPQ SMS Entity</param>

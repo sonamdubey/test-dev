@@ -66,6 +66,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Similar to PQCustomer Controller but updates color and version
         /// Saves the Customer details if it is a new customer else updates version/color  for the same.
         /// Generates  the OTP for the non verified customer
+        /// Modified By : Lucky Rathore on 20/04/2016
+        /// Description : Changed making no. (mobile no.) of dealer to his phone no. for sms to customer.
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
@@ -269,6 +271,14 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
         }
 
+        /// <summary>
+        /// Modified By : Lucky Rathore on 20 April 2016
+        /// Description : Declare DPQSmsEntity's city and address and change requestURL in SaveSMSToCustomer function.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="objCust"></param>
+        /// <param name="bookingAmount"></param>
+        /// <param name="dealerDetailEntity"></param>
         private void SaveCustomerSMS(UpdatePQCustomerInput input, CustomerEntity objCust, uint bookingAmount, PQ_DealerDetailEntity dealerDetailEntity)
         {
             UrlShortner objUrlShortner = new UrlShortner();
@@ -297,11 +307,11 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                 if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                 {
-                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
+                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/UpdatePQCustomerDetails", objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
                 }
                 else
                 {
-                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.SubscriptionModel);
+                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/UpdatePQCustomerDetails", objDPQSmsEntity, DPQTypes.SubscriptionModel);
                 }
             }
             catch (Exception ex)
