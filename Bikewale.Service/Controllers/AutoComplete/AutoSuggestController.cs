@@ -1,20 +1,13 @@
-﻿using AutoMapper;
-using Bikewale.BAL.AutoComplete;
-using Bikewale.DTO.AutoComplete;
+﻿using Bikewale.DTO.AutoComplete;
 using Bikewale.Entities.AutoComplete;
 using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.AutoComplete;
-using Microsoft.Practices.Unity;
 using Nest;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
 
 namespace Bikewale.Service.Controllers.AutoComplete
 {
