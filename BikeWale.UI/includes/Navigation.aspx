@@ -21,6 +21,7 @@
                 <li><a href="/new/locate-dealers/">Locate Dealer</a></li>
                 <li><a href="/upcoming-bikes/">Upcoming Bikes</a></li>
                 <li><a href="/new-bikes-launches/">New Launches</a></li>
+                <li><a href="/bikebooking/default.aspx">Book Your Bike</a></li>
             </ul>
         </li>
         <li>
@@ -54,7 +55,7 @@
                 <li><a href="/bike-videos/">Videos</a></li>
             </ul>
         </li>
-<%--        <li>
+        <%--        <li>
             <a href="javascript:void(0)">
                 <span class="bwsprite newBikes-icon"></span>
                 <span class="navbarTitle">Bike Booking</span>
