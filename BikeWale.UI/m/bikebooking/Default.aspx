@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.bikebooking.Default" %>
-<%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html>
 
 <html>
@@ -175,26 +174,6 @@
                 </ul>
             </div>
         </section>
-
-        
-         <% if (ctrlUsersTestimonials.FetchedCount > 0 )
-           { %>
-        <section class="bg-white">
-            <div id="testimonialWrapper" class="container padding-bottom20">
-                <h2 class="text-bold text-center padding-top30 margin-bottom15 font24">What do our customers say</h2>
-                <div class="swiper-container text-center">
-                    <div class="swiper-wrapper padding-bottom20">
-                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </section>
-        <%
-           }        
-        %>
-
-
         <section>
             <div id="faqsWraper" class="container margin-bottom30">
                 <h2 class="padding-top25 text-center padding-bottom20">FAQs</h2>
