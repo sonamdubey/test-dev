@@ -482,9 +482,9 @@
                 </div>
                 <!--thank you message starts here -->
                 <div id="dealer-assist-msg" class="hide">
-                    <div class="icon-outer-container rounded-corner50">
-                        <div class="icon-inner-container rounded-corner50">
-                            <span class="bwsprite otp-icon margin-top25"></span>
+                    <div class="icon-outer-container rounded-corner50percent">
+                       <div class="icon-inner-container rounded-corner50percent">
+                           <span class="bwmsprite thankyou-icon margin-top25"></span>
                         </div>
                     </div>
                     <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <%= dealerName %>, <%= dealerArea %> will get in touch with you soon.</p>
