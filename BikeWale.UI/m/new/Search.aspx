@@ -15,13 +15,21 @@
         Ad_Bot_320x50 = true;
         Ad_300x250 = true;
     %>
+
+
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <script>ga_pg_id = '5';</script>
 </head>
 <body class="bg-light-grey">
     <!-- #include file="/includes/Navigation_Mobile.aspx" -->
+    <section>            
+        <div>
+            <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+        </div>
+    </section>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+   
     <div class="blackOut-window"></div>
     <!-- global-search-popup code starts here -->
 
