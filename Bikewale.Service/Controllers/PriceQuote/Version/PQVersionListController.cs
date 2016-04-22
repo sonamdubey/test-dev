@@ -1,18 +1,10 @@
-﻿using AutoMapper;
-using Bikewale.BAL.BikeData;
-using Bikewale.DAL.BikeBooking;
-using Bikewale.DTO.PriceQuote.Version;
+﻿using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote.Version;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 

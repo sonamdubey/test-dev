@@ -1,18 +1,15 @@
-﻿using System;
+﻿using Bikewale.CoreDAL;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Notifications;
+using Bikewale.Utility;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web;
-using Bikewale.CoreDAL;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.Notifications;
-using System.Collections;
-using Bikewale.DAL.BikeData;
-using Bikewale.Utility;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -212,7 +209,6 @@ namespace Bikewale.DAL.BikeData
                     db = new Database();
 
                     using (SqlDataReader dr = db.SelectQry(cmd))
-                    
                     {
                         if (dr != null)
                         {
@@ -362,7 +358,7 @@ namespace Bikewale.DAL.BikeData
             try
             {
                 db = new Database();
-                
+
 
                 using (SqlConnection conn = new SqlConnection(db.GetConString()))
                 {
@@ -594,7 +590,7 @@ namespace Bikewale.DAL.BikeData
                             objModel = new UpcomingBikeEntity()
                             {
                                 ExpectedLaunchId = Convert.ToUInt16(dr["id"]),
-                                ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"]))?Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMM yyyy"):"",
+                                ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMM yyyy") : "",
                                 EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]),
                                 EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]),
                                 HostUrl = Convert.ToString(dr["HostURL"]),
@@ -854,7 +850,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                                 objData.VersionPrice = SqlReaderConvertor.ToNullableInt64(dr["VersionPrice"]);
+                                objData.VersionPrice = SqlReaderConvertor.ToNullableInt64(dr["VersionPrice"]);
                                 objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
@@ -1156,7 +1152,7 @@ namespace Bikewale.DAL.BikeData
             IList<BikeMakeModelEntity> objList = null;
             try
             {
-                using(SqlCommand cmd =new SqlCommand())
+                using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.CommandText = "GetAllModels";
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -1164,12 +1160,12 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add("@RequestType", SqlDbType.TinyInt).Value = (int)requestType;
 
                     db = new Database();
-                    using (SqlDataReader reader=db.SelectQry(cmd))
+                    using (SqlDataReader reader = db.SelectQry(cmd))
                     {
-                        if(reader!=null)
+                        if (reader != null)
                         {
                             objList = new List<BikeMakeModelEntity>();
-                            while(reader.Read())
+                            while (reader.Read())
                             {
                                 objList.Add(new BikeMakeModelEntity()
                                 {
