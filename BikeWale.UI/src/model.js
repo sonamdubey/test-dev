@@ -957,7 +957,7 @@ else
 });
 
 /* GA Tags */
-$('#btnGetOnRoadPrice').on('click', function (e) {Check_On_Road_Price_Clicked
+$('#btnGetOnRoadPrice').on('click', function (e) {
     dataLayer.push({ "event": "Bikewale_all", "cat": "Model", "act": "Check_On_Road_Price_Clicked", "lab": myBikeName + "_" + getBikeVersion() });
 });
 
