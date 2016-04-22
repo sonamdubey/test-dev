@@ -25,7 +25,7 @@
         var cityId = '<%= cityId%>';
         var areaId = '<%= areaId%>';   
         var clientIP = "<%= clientIP%>";
-        var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
+        var pageUrl = "www.bikewale.com/pricequote/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;       
     </script>
 </head>
 <body class="bg-light-grey header-fixed-inner">
@@ -88,7 +88,7 @@
                                         </div>
                                         <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
                                     </div>
-                                    <ul class="variants-dropdown-list">
+                                    <ul class="variants-dropdown-list" id="ulVersions">
                                         <asp:Repeater ID="rptVersion" runat="server">
                                             <ItemTemplate>
                                                 <li>

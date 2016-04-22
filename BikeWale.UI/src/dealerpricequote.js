@@ -18,6 +18,10 @@ var prevMobile = "";
 var getCityArea = GetGlobalCityArea();
 var customerViewModel = new CustomerModel();
 
+var getOfferClick = false;
+var getMoreDetailsClick = false;
+var getEMIClick = false;
+
 $(function () {
     leadBtnBookNow.on('click', function () {
         leadCapturePopup.show();
@@ -39,6 +43,21 @@ $(function () {
             $("#leadCapturePopup .leadCapture-close-btn").click();
             $("div.termsPopUpCloseBtn").click();
         }
+    });
+    $("#leadBtn").on('click', function () {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_Offers_Clicked', 'lab': bikeName + '_' + versionName + '_' + getCityArea });
+        getOfferClick = true;
+        getEMIClick = false;
+    });
+
+    $("#btnEmiQuote").on('click', function () {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_EMI_Quote_Clicked', 'lab': bikeName + '_' + versionName + '_' + getCityArea });
+        getEMIClick = true;
+        getOfferClick = false;
+    });
+
+    $("#ulVersions li input").on('click', function () {        
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Version_Changed', 'lab': bikeName + '_' + getCityArea });
     });
 });
 
@@ -201,7 +220,19 @@ function CustomerModel() {
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
             setPQUserCookie();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': bikeName + '_' + getCityArea });
+            if (getOfferClick) {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': 'Main_Form_' + bikeName + '_' + versionName + '_' + getCityArea });
+                getOfferClick = false;
+            }
+            else if (btnId == 'buyingAssistBtn')
+            {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': 'Open_Form_' + bikeName + '_' + versionName + '_' + getCityArea });
+            }
+            else if(getEMIClick)
+            {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': 'Get_EMI_' + bikeName + '_' + versionName + '_' + getCityArea });
+                getEMIClick = false;
+            }
         }
     };
 
