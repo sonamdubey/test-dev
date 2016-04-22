@@ -371,7 +371,7 @@ $(document).on('click', '#dealersList a.get-assistance-btn', function (e) {
 
     setMapCenter(parentLi.attr("data-lat"), parentLi.attr("data-log"));
 
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_Locator', 'act': 'Get_Offers_Clicked', 'lab': makeName + '_' + currentCityName });
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_Locator", "act": "Get_Offers_Clicked", "lab": makeName + "_" + currentCityName });
 
 });
 
@@ -909,12 +909,12 @@ function CustomerModel(obj) {
 
         if(btnId == "submitAssistanceFormBtn")
         {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_Locator', 'act': 'Lead_Submitted', 'lab': 'Open_Form_' + makeName + '_' + bike.model.modelName + '_' + bike.version.version + '_' + currentCityName });
+            dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_Locator", "act": "Lead_Submitted", "lab": "Open_Form_" + makeName + "_" + bike.model.modelName + "_" + bike.version.version + "_" + currentCityName });
         }
 
         else if (btnId == "user-details-submit-btn")
         {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_Locator', 'act': 'Lead_Submitted', 'lab': 'Main_Form_' + makeName + '_' + bike.model.modelName + '_' + bike.version.version + '_' + currentCityName });
+            dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_Locator", "act": "Lead_Submitted", "lab": "Main_Form_" + makeName + "_" + bike.model.modelName + "_" + bike.version.version + "_" + currentCityName });
         }
 
     };

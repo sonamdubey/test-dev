@@ -45,19 +45,19 @@ $(function () {
         }
     });
     $("#leadBtn").on('click', function () {
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_Offers_Clicked', 'lab': bikeName + '_' + versionName + '_' + getCityArea });
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_Offers_Clicked", "lab": bikeName + "_" + versionName + "_" + getCityArea });
         getOfferClick = true;
         getEMIClick = false;
     });
 
     $("#btnEmiQuote").on('click', function () {
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_EMI_Quote_Clicked', 'lab': bikeName + '_' + versionName + '_' + getCityArea });
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_EMI_Quote_Clicked", "lab": bikeName + "_" + versionName + "_" + getCityArea });
         getEMIClick = true;
         getOfferClick = false;
     });
 
     $("#ulVersions li input").on('click', function () {        
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Version_Changed', 'lab': bikeName + '_' + getCityArea });
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + getCityArea });
     });
 });
 
@@ -221,16 +221,16 @@ function CustomerModel() {
             }
             setPQUserCookie();
             if (getOfferClick) {
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': 'Main_Form_' + bikeName + '_' + versionName + '_' + getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
                 getOfferClick = false;
             }
             else if (btnId == 'buyingAssistBtn')
             {
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': 'Open_Form_' + bikeName + '_' + versionName + '_' + getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
             }
             else if(getEMIClick)
             {
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': 'Get_EMI_' + bikeName + '_' + versionName + '_' + getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_EMI_" + bikeName + "_" + versionName + "_" + getCityArea });
                 getEMIClick = false;
             }
         }
@@ -268,13 +268,13 @@ function CustomerModel() {
                 }
                 
                 // OTP Success
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "DealerQuotation_Page", "act": "Step_1_OTP_Successful_Submit", "lab": getCityArea });
             }
             else {
                 $('#processing').hide();
                 otpVal("Please enter a valid OTP.");
                 // push OTP invalid
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "DealerQuotation Page", "act": "Step_1_OTP_Submit_Error", "lab": getCityArea });
             }
         }
     });

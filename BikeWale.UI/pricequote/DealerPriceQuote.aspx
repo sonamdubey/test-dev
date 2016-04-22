@@ -765,11 +765,11 @@
             });
 
             $("#leadBtnBookNow").on("click", function () {
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_More_Details_Clicked_Button', 'lab': bikeName + '_' + getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Button", "lab": bikeName + "_" + getCityArea });
             });
 
             $("#leadLink").on("click", function () {
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_More_Details_Clicked_Link', 'lab': bikeName + '_' + getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Link", "lab": bikeName + "_" + getCityArea });
             });
 
             $("input[name*='btnVariant']").on("click", function () {
@@ -777,7 +777,7 @@
                     return false;
                 }
                 $('#hdnVariant').val($(this).attr('title'));
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeVersionLocation });
             });
 
             $("input[name*='switchDealer']").on("click", function () {
@@ -785,7 +785,7 @@
                     return false;
                 }
                 $('#hdnDealerId').val($(this).attr('title'));
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeVersionLocation });
             });
             $("#dealerList li").on("click", function(){
                 registerPQ($(this).attr('dealerId'));
