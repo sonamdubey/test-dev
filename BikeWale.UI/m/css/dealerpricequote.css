@@ -109,3 +109,4 @@ a.text-darker-black:hover { text-decoration:none; }
 #otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}
 #otpPopup .update-mobile-box{display:none}
 #otpPopup .edit-mobile-btn{cursor:pointer}
+.thankyou-icon {width:48px; height:58px; background-position: -137px -404px; }
