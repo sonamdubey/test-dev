@@ -6,8 +6,10 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -20,13 +22,17 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
     public class PQVersionListByCityAreaController : ApiController
     {
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion = null;
+        private readonly IBikeModelsRepository<BikeModelEntity, int> _objModel = null;
+
         /// <summary>
         /// To Fetch PQ versionList, PQID and dealerId
         /// </summary>
         /// <param name="objVersion"></param>
-        public PQVersionListByCityAreaController(IBikeVersions<BikeVersionEntity, uint> objVersion)
+        /// <param name="objModel"></param>
+        public PQVersionListByCityAreaController(IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeModelsRepository<BikeModelEntity, int> objModel)
         {
             _objVersion = objVersion;
+            _objModel = objModel;
         }
 
         /// <summary>
@@ -36,27 +42,30 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
         /// <param name="cityId"></param>
         /// <param name="areaId"></param>
         /// <returns></returns>
-        [ResponseType(typeof(PQByCityAreaEntity))]
-        public IHttpActionResult Get(uint modelId, int? cityId = null, int? areaId = null)
+        [ResponseType(typeof(PQByCityAreaEntity)), Route("api/model/versionprice/")]
+        public IHttpActionResult Get(int modelId, int? cityId = null, int? areaId = null)
         {
             if (cityId < 0 || modelId < 0)
             {
                 return BadRequest();
             }
-            List<BikeVersionMinSpecs> objVersionsList = null;
+            IEnumerable<BikeVersionMinSpecs> objVersionsList = null;
             PQByCityAreaDTO objPQDTO = null;
             PQByCityAreaEntity pqEntity = null;
-            BikeModelsRepository<BikeModelEntity, int> modelMinSpec = new DAL.BikeData.BikeModelsRepository<BikeModelEntity, int>();
-            objVersionsList = modelMinSpec.GetVersionMinSpecs((int)modelId, true);
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+                IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
+                objVersionsList = objVersion.GetVersionMinSpecs(modelId, true);
+            }
+
             try
             {
-
-                if (objVersionsList != null && objVersionsList.Count > 0)
+                if (objVersionsList != null && objVersionsList.Count() > 0)
                 {
                     PQByCityArea pqByCityArea = new PQByCityArea();
-                    pqEntity = pqByCityArea.GetVersionList((int)modelId, objVersionsList, cityId, areaId);
+                    pqEntity = pqByCityArea.GetVersionList(modelId, objVersionsList, cityId, areaId);
                     objPQDTO = ModelMapper.Convert(pqEntity);
-                    objVersionsList.Clear();
                     objVersionsList = null;
                     return Ok(objPQDTO);
                 }
