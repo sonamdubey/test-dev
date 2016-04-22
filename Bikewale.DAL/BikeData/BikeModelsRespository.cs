@@ -136,6 +136,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Modified By : Sushil Kumar on 21st jan 2016
         /// Description : Moved Model color logic to BAL to process multitone colors with linq
+        /// Modified By : Lucky Rathore on 18th Apr 2016
+        /// Description : validation modelPage.ModelDetails and modelPage.ModelDesc added. 
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -148,7 +150,11 @@ namespace Bikewale.DAL.BikeData
                 modelPage.ModelDetails = GetById(modelId);
                 modelPage.ModelDesc = GetModelSynopsis(modelId);
 
-                if (modelPage != null)
+                if (modelPage.ModelDetails == null || modelPage.ModelDesc == null)
+                {
+                    return null;
+                }
+                if (modelPage.ModelDetails != null)
                 {
                     // If bike is upcoming Bike get the upcoming bike data
                     if (modelPage.ModelDetails.Futuristic)
@@ -166,7 +172,7 @@ namespace Bikewale.DAL.BikeData
                     }
 
                     //get model colors
-                    if(modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                     {
                         modelPage.ModelColors = GetModelColor(modelId);
                     }
@@ -356,7 +362,7 @@ namespace Bikewale.DAL.BikeData
             try
             {
                 db = new Database();
-                t = new T();
+                
 
                 using (SqlConnection conn = new SqlConnection(db.GetConString()))
                 {
@@ -397,7 +403,7 @@ namespace Bikewale.DAL.BikeData
 
                         if (!string.IsNullOrEmpty(cmd.Parameters["@MakeId"].Value.ToString()))
                         {
-
+                            t = new T();
                             t.ModelId = Convert.ToInt32(cmd.Parameters["@ModelId"].Value);
                             t.ModelName = cmd.Parameters["@Model"].Value.ToString();
                             t.MakeBase.MakeId = Convert.ToInt32(cmd.Parameters["@MakeId"].Value);

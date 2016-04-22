@@ -1,8 +1,10 @@
 ﻿#bwheader-logo, .navbarBtn, .global-location, .sort-btn { display:none; }
 .pq-inner-block-10 { padding:10px 10px 5px; }
 .bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }
-.bike-name-image-wrapper, .pricequote-benefits-list { display:table; width:100%; }
-.bike-name-image-wrapper .bike-img , .bike-name-image-wrapper h1, .pricequote-benefits-list .pq-benefits-image, .pricequote-benefits-list .pq-benefits-title { display:table-cell; vertical-align:middle; }
+.bike-name-image-wrapper { display:table; width:100%; }
+.bike-name-image-wrapper .bike-img , .bike-name-image-wrapper h1 { display:table-cell; vertical-align:middle; }
+.pricequote-benefits-list .pq-benefits-image, .pricequote-benefits-list .offer-benefit-sprite, .pricequote-benefits-list .pq-benefits-title { display:inline-block; vertical-align:middle; }
+.pricequote-benefits-list .pq-benefits-title { width:85%; text-align:left; }
 .bike-img { width:70px; height:40px; }
 .bike-img img { width:100%; }
 .text-dark-black { color:#1a1a1a; }

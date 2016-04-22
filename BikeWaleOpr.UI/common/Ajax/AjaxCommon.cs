@@ -7,6 +7,7 @@ using BikeWaleOpr.VO;
 using BikeWaleOpr.Classified;
 using System.Configuration;
 using Enyim.Caching;
+using BikewaleOpr.Common;
 
 namespace BikeWaleOpr.Common
 {
@@ -623,6 +624,37 @@ namespace BikeWaleOpr.Common
                     db.CloseConnection();
                 db = null;
             }
+        }
+
+        /// <summary>
+        ///  Created By : Sushil Kumar
+        ///  Created On : 18th April 2016
+        ///  Description : To get dealer camapigns and contracts mapping based on dealerId
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        [AjaxPro.AjaxMethod()]
+        public string GetDealerCampaigns(string dealerId)
+        {
+            string jsonDealerCampaigns = string.Empty;
+            DataTable dt = null;
+            try
+            {
+                ManageDealerCampaign objMa = new ManageDealerCampaign();
+
+                dt = objMa.GetDealerCampaigns(Convert.ToUInt32(dealerId));
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    jsonDealerCampaigns = JSON.GetJSONString(dt);
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetDealerCampaigns");
+                objErr.SendMail();
+            }
+            return jsonDealerCampaigns;
         }
     }   // End of class
 

@@ -1,10 +1,6 @@
 ﻿using Bikewale.DTO.BikeData;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.Model.v2
 {
@@ -29,7 +25,7 @@ namespace Bikewale.DTO.Model.v2
 
         [JsonProperty("photos")]
         public List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> Photos { get; set; }
-        
+
         [JsonProperty("modelColors")]
         public IEnumerable<NewModelColor> ModelColors { get; set; }
 
@@ -43,6 +39,6 @@ namespace Bikewale.DTO.Model.v2
         public Features objFeatures { get; set; }
 
         [JsonProperty("specs")]
-        public Specifications objSpecs { get; set; }
+        public Bikewale.DTO.Model.Specifications objSpecs { get; set; }
     }
 }

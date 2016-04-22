@@ -1,11 +1,7 @@
 ﻿using BikewaleOpr.Common;
 using BikeWaleOpr.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -26,7 +22,7 @@ namespace BikewaleOpr.Campaign
         protected HtmlInputHidden hdn_CampaignId;
         protected HtmlInputHidden hdnCurrentMaskingNumber, hdnCurrentUserMobileNumber, hdnCurrentDealerType, hdnCurrentNcdBrandId, hdnCurrentMaskingNumberId, hdnCurrentDealerId, hdnCurrentCampaignId;
         protected Button btnProceed, btnResumeAndMap;
-        protected string dealerName = string.Empty, CampaignId = string.Empty;
+        protected string dealerName = string.Empty, CampaignId = string.Empty, dealerNumber = string.Empty;
         protected ManageDealerCampaign dealerCampaign;
         #endregion
 
@@ -65,6 +61,7 @@ namespace BikewaleOpr.Campaign
                 {
                     dealerId = Convert.ToString(dtCampaigns.Rows[0]["DealerId"]);
                     dealerName = Convert.ToString(dtCampaigns.Rows[0]["Organization"]);
+                    dealerNumber = Convert.ToString(dtCampaigns.Rows[0]["MobileNo"]);
                     if (!string.IsNullOrEmpty(Convert.ToString(dtCampaigns.Rows[0][0])))
                     {
                         rptCampaigns.DataSource = dtCampaigns;

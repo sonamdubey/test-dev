@@ -185,6 +185,10 @@
       <DependentUpon>MapCampaign.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="campaign\SearchDealerCampaigns.aspx.cs">
+      <DependentUpon>SearchDealerCampaigns.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="classified\classified.cs" />
     <Compile Include="classified\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -214,6 +218,9 @@
     <Compile Include="common\ManageDealerBenefits.cs" />
     <Compile Include="common\ManageDealerCampaign.cs" />
     <Compile Include="common\ManageDealerCampaignRule.cs" />
+    <Compile Include="CommuteDistance\CommuteDistanceBL.cs" />
+    <Compile Include="CommuteDistance\CommuteDistanceRepository.cs" />
+    <Compile Include="CommuteDistance\GoogleDistanceAPIHelper.cs" />
     <Compile Include="content\DealerDefault.aspx.cs">
       <DependentUpon>DealerDefault.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -485,6 +492,7 @@
     </Compile>
     <Compile Include="Entities\AppVersionEntity.cs" />
     <Compile Include="Entities\AreaEntityBase.cs" />
+    <Compile Include="Entities\AreaLocationEntity.cs" />
     <Compile Include="Entities\BookingAmountEntity.cs" />
     <Compile Include="Entities\BookingAmountEntityBase.cs" />
     <Compile Include="Entities\CalculatedEMI.cs" />
@@ -493,9 +501,12 @@
     <Compile Include="Entities\DealerAreaDetails.cs" />
     <Compile Include="Entities\DealerBenefitEntity.cs" />
     <Compile Include="Entities\DealerDisclaimerEntity.cs" />
+    <Compile Include="Entities\DealerLocationEntity.cs" />
     <Compile Include="Entities\DealerPriceEntity.cs" />
     <Compile Include="Entities\EMI.cs" />
     <Compile Include="Entities\FacilityEntity.cs" />
+    <Compile Include="Entities\GeoLocationDestinationEntity.cs" />
+    <Compile Include="Entities\GeoLocationEntity.cs" />
     <Compile Include="Entities\MakeEntity.cs" />
     <Compile Include="Entities\MakeEntityBase.cs" />
     <Compile Include="Entities\ManufacturerCampaignEntity.cs" />
@@ -1389,6 +1400,7 @@
     <Content Include="campaign\DealersRules.aspx" />
     <Content Include="campaign\ManageDealers.aspx" />
     <Content Include="campaign\MapCampaign.aspx" />
+    <Content Include="campaign\SearchDealerCampaigns.aspx" />
     <Content Include="classified\classifiedMenu.aspx" />
     <Content Include="classified\Default.aspx" />
     <Content Include="classified\ListingPhotos.aspx" />

@@ -3,6 +3,7 @@ using Bikewale.BAL.BikeData;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
@@ -47,7 +48,7 @@ namespace Bikewale.Mobile.New
         protected Repeater rptModelPhotos, rptVarients, rptColors;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
-        protected int cityId = 0;
+        protected uint cityId = 0;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE class
         protected bool isUserReviewActive = false, isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -79,8 +80,8 @@ namespace Bikewale.Mobile.New
         protected string price = string.Empty, bikeMakeName = string.Empty, bikeModelName = string.Empty;
         protected string viewbreakUpText = string.Empty;
         protected UInt32 onRoadPrice = 0, totalDiscountedPrice = 0;
-        protected List<CityEntityBase> objCityList = null;
-        protected List<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
+        protected IEnumerable<CityEntityBase> objCityList = null;
+        protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected OtherVersionInfoEntity objSelectedVariant = null;
         protected ListView ListBox1;
         protected Label defaultVariant;
@@ -132,7 +133,7 @@ namespace Bikewale.Mobile.New
 
                         Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
                         FetchOnRoadPrice();
-                FillViewModel();
+                        FillViewModel();
                         Trace.Warn("Trace 10 : FetchOnRoadPrice End");
                     }
 
@@ -420,7 +421,6 @@ namespace Bikewale.Mobile.New
             // If No then drop area cookie
             string location = String.Empty;
             var cookies = this.Context.Request.Cookies;
-            objAreaList = GetAreaForCityAndModel();
             if (cookies.AllKeys.Contains("location"))
             {
                 location = cookies["location"].Value;
@@ -429,49 +429,35 @@ namespace Bikewale.Mobile.New
                     string[] locArray = location.Split('_');
                     if (locArray.Length > 0)
                     {
-                        //cityId = Convert.ToInt16(locArray[0]); //location.Substring(0, location.IndexOf('_'));
-                        Int32.TryParse(locArray[0], out cityId);
+                        UInt32.TryParse(locArray[0], out cityId);
                         if (!string.IsNullOrEmpty(modelId))
                         {
                             objCityList = FetchCityByModelId(modelId);
-                        }
-
-                        // If Model doesn't have current City then don't show it, Show Ex-showroom Mumbai
-                        if (objCityList != null && !objCityList.Any(p => p.CityId == cityId))
-                        {
-                            cityId = 0;
-                        }
-                        else
-                        {
-                            cityName = locArray[1];
-                            isCitySelected = true;
+                            if (objCityList != null && objCityList.Count() > 0)
+                            {
+                                // If Model doesn't have current City then don't show it, Show Ex-showroom Mumbai
+                                if (objCityList.Any(p => p.CityId == cityId))
+                                {
+                                    cityName = locArray[1];
+                                    isCitySelected = true;
+                                }
+                            }
                         }
                     }
-
+                    // This function will check if Areas are available for city and Model
                     objAreaList = GetAreaForCityAndModel();
-
+                    // locArray.Length = 4 Means City and area exists
                     if (locArray.Length > 3 && cityId != 0)
                     {
-                        //areaId = Convert.ToInt16(locArray[2]);
                         Int32.TryParse(locArray[2], out areaId);
                         if (objAreaList != null)
                         {
-                            //isAreaAvailable = true;
-                            if (!objAreaList.Any(p => p.AreaId == areaId))
-                            {
-                                areaId = 0;
-                            }
-                            else
+                            if (objAreaList.Any(p => p.AreaId == areaId))
                             {
                                 areaName = locArray[3] + ",";
                                 isAreaSelected = true;
                             }
                         }
-                        else
-                        {
-                            areaId = 0;
-                        }
-                        objAreaList = GetAreaForCityAndModel();
                     }
                 }
             }
@@ -800,22 +786,24 @@ namespace Bikewale.Mobile.New
         /// Description     :   Gets City Details by ModelId
         /// </summary>
         /// <param name="modelId">Model Id</param>
-        private List<CityEntityBase> FetchCityByModelId(string modelId)
+        private IEnumerable<CityEntityBase> FetchCityByModelId(string modelId)
         {
-            List<CityEntityBase> cityList = null;
+            IEnumerable<CityEntityBase> cityList = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<ICity, CityRepository>();
-                    ICity objcity = container.Resolve<CityRepository>();
+                    container.RegisterType<ICity, CityRepository>()
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<ICityCacheRepository, CityCacheRepository>();
+                    ICityCacheRepository objcity = container.Resolve<ICityCacheRepository>();
                     cityList = objcity.GetPriceQuoteCities(Convert.ToUInt16(modelId));
                     return cityList;
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchCityByModelId");
                 objErr.SendMail();
             }
             return cityList;
@@ -826,24 +814,30 @@ namespace Bikewale.Mobile.New
         /// Created Date    :   27 Nov 2015
         /// Description     :   Get List of Area depending on City and Model Id
         /// </summary>
-        private List<Bikewale.Entities.Location.AreaEntityBase> GetAreaForCityAndModel()
+        private IEnumerable<Bikewale.Entities.Location.AreaEntityBase> GetAreaForCityAndModel()
         {
-            List<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
+            IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                if (CommonOpn.CheckId(modelId))
                 {
-                    container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-                    areaList = objDealer.GetAreaList(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId));
-                    if (areaList != null && areaList.Count > 0)
-                        isAreaAvailable = true;
-                    return areaList;
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealerPriceQuote, DealerPriceQuote>()
+                            .RegisterType<ICacheManager, MemcacheManager>()
+                            .RegisterType<IAreaCacheRepository, AreaCacheRepository>();
+
+                        IAreaCacheRepository objArea = container.Resolve<IAreaCacheRepository>();
+                        areaList = objArea.GetAreaList(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId));
+                        if (areaList != null && areaList.Count() > 0)
+                            isAreaAvailable = true;
+                        return areaList;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "GetAreaForCityAndModel");
                 objErr.SendMail();
             }
 

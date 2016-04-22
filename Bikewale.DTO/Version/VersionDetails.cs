@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace Bikewale.DTO.Version
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 12 Apr 2016
+    /// Description :   Changed the access modifier for MakeBase and ModelBase from private to public
+    /// </summary>
     public class VersionDetails
     {
         [JsonProperty("new")]
@@ -39,10 +43,10 @@ namespace Bikewale.DTO.Version
         public string OriginalImagePath { get; set; }
 
         [JsonProperty("makeDetails")]
-        private MakeBase objmakeBase { get; set; }
+        public MakeBase MakeBase { get; set; }
 
         [JsonProperty("modelDetails")]
-        private ModelBase objmodelBase { get; set; }
+        public ModelBase ModelBase { get; set; }
 
 
     }

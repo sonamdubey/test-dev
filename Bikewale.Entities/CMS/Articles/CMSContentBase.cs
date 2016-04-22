@@ -1,12 +1,7 @@
-﻿using Bikewale.Entities.CMS.Articles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Bikewale.Entities.CMS.Articles
-{    
+{
     public class CMSContent
     {
         public IList<ArticleSummary> Articles { get; set; }

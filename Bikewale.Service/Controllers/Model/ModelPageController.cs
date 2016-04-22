@@ -1,31 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.BAL.PriceQuote;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.DAL.BikeData;
-using AutoMapper;
-using System.Web.Http.Description;
-using Bikewale.DTO.Model;
-using Bikewale.DTO.Series;
-using Bikewale.DTO.Make;
-using Bikewale.DTO.Version;
-using Bikewale.Service.Controllers.Version;
-using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Notifications;
-using Bikewale.Entities.CMS;
-using Bikewale.Utility;
-using System.Configuration;
-using Bikewale.DTO.CMS.Photos;
-using Bikewale.Service.AutoMappers.CMS;
-using Bikewale.Entities.CMS.Photos;
-using System.Web;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.BikeData;
+using Bikewale.Service.AutoMappers.Model;
+using System;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Description;
+
+
 
 namespace Bikewale.Service.Controllers.Model
 {
@@ -54,11 +38,11 @@ namespace Bikewale.Service.Controllers.Model
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
-        [ResponseType(typeof(ModelPage)), Route("api/model/details/")]
+        [ResponseType(typeof(Bikewale.DTO.Model.ModelPage)), Route("api/model/details/")]
         public IHttpActionResult Get(int modelId)
         {
             BikeModelPageEntity objModelPage = null;
-            ModelPage objDTOModelPage = null;
+            Bikewale.DTO.Model.ModelPage objDTOModelPage = null;
             //List<EnumCMSContentType> categorList = null;
 
             try
@@ -105,7 +89,7 @@ namespace Bikewale.Service.Controllers.Model
                     }
 
                     // Auto map the properties
-                    objDTOModelPage = new ModelPage();
+                    objDTOModelPage = new Bikewale.DTO.Model.ModelPage();
                     objDTOModelPage = ModelMapper.Convert(objModelPage);
 
                     if (objModelPage != null)
@@ -288,7 +272,7 @@ namespace Bikewale.Service.Controllers.Model
                             objModelPage.Photos = null;
                         }
                     }
-                    
+
                     return Ok(objDTOModelPage);
                 }
                 else
@@ -303,6 +287,59 @@ namespace Bikewale.Service.Controllers.Model
                 return InternalServerError();
             }
         }   // Get  Model Page
+        /// <summary>
+        /// Created by  :   Sangram Nandkhile on 13 Apr 2016
+        /// Description :   This the new version v3 of existing API.        
+        /// Removed specs, colors, features and unnecessary properties
+        /// </summary>
+        /// <returns></returns>
+        [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
+        public IHttpActionResult GetV3(uint modelId, int? cityId, int? areaId)
+        {
+            int modelID = Convert.ToInt32(modelId);
+            Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
+            try
+            {
+                if (modelId <= 0 || cityId <= 0 || areaId <= 0)
+                {
+                    return BadRequest();
+                }
+                BikeModelPageEntity objModelPage = null;
+                objModelPage = _cache.GetModelPageDetails(modelID);
+                if (objModelPage != null)
+                {
+                    if (Request.Headers.Contains("platformId"))
+                    {
+                        string platformId = Request.Headers.GetValues("platformId").First().ToString();
+                        if (platformId == "3")
+                        {
+
+                            #region On road pricing for versions
+                            PQOnRoadPrice pqOnRoad = new PQOnRoadPrice();
+                            PQByCityArea getPQ = new PQByCityArea();
+                            PQByCityAreaEntity pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId);
+
+                            objDTOModelPage = ModelMapper.ConvertV3(objModelPage, pqEntity);
+
+                            #endregion
+                        }
+                    }
+                    return Ok(objDTOModelPage);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+
+
         #endregion
     }
 }

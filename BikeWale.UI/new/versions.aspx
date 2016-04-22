@@ -188,7 +188,7 @@
                                                 <asp:Repeater ID="rptVariants" runat="server">
                                                     <ItemTemplate>
                                                         <li>
-                                                            <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>'  OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button>                                                            
+                                                            <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionName") %>' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button>                                                            
                                                         </li>
                                                         <asp:HiddenField ID="hdn" Value='<%#Eval("VersionId") %>' runat="server" />
                                                     </ItemTemplate>
@@ -262,7 +262,7 @@
                                 <p class="font14 text-light-grey">On-road price in <span><span class="font14 text-default city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 
                                 <% } %>
-                                <%  if (price == "" || price == "0")
+                                <%  if (price == string.Empty || price == "0")
 									{ %>
                                 <span class="font32">Price not available</span>
                                 <%  }
@@ -567,7 +567,7 @@
                     <table width="100%" class="font14">
                         <tbody>
                             <tr>
-                                <td width="300" class="padding-bottom10 text-light-grey">Ex-showroom (Mumbai)</td>
+                                <td width="300" class="padding-bottom10 text-light-grey">Ex-showroom (<%= cityName %>)</td>
                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price)) %> </td>
                             </tr>
                             <tr>
@@ -610,7 +610,7 @@
                                         <td width="300" class="padding-bottom10 text-light-grey"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %>
                                             <% if (!pqOnRoad.IsInsuranceFree)
 											   { %>
-                                            <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : ""  %>
+                                            <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : string.Empty  %>
                                             <% } %>
                                         </td>
                                         <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></td>
@@ -735,7 +735,7 @@
 		   { %>
         <section class="container">
             <!--  Discover bikes section code starts here -->
-            <div class="grid-12">
+            <div id="discoverBikeTabsWrapper" class="grid-12">
                 <div class="content-box-shadow content-inner-block-10 discover-bike-tabs-container">
                     <div class="bw-overall-rating">
                         <a class="active" href="#overview">Overview</a>
@@ -1347,6 +1347,7 @@
                             </asp:Repeater>
                         </div>
                     </div>
+                    <div id="discoverTabsFooter"></div>
                 </div>
             </div>
         </section>
@@ -1508,15 +1509,24 @@
                     section_height.trigger('heightChangeNone');
             });
 
-            $window.scroll(function () {
-                $menu.toggleClass('affix', sectionContainer_height >= $window.scrollTop() && $window.scrollTop() > sectionStart);
+            var discoverBikeTabsWrapper = $('#discoverBikeTabsWrapper'),
+                discoverTabsFooter = $('#discoverTabsFooter');
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > discoverBikeTabsWrapper.offset().top) {
+                    nav.addClass('affix');
+                    if ((discoverTabsFooter.offset().top - 50) < $(window).scrollTop())
+                        nav.removeClass('affix');
+                }
+                else if ($(window).scrollTop() < discoverBikeTabsWrapper.offset().top) {
+                    nav.removeClass('affix');
+                }
                 var cur_pos = $(this).scrollTop();
-                sections.each(function () {
+                $('.discover-bike-tabs-container .bw-tabs-data.margin-bottom20').each(function () {
                     var top = $(this).offset().top - 10 - nav_height,
-					bottom = top + $(this).outerHeight();
+                    bottom = top + $(this).outerHeight();
                     if (cur_pos >= top && cur_pos <= bottom) {
                         nav.find('a').removeClass('active');
-                        sections.removeClass('active');
+                        $('.discover-bike-tabs-container .bw-tabs-data.margin-bottom20').removeClass('active');
 
                         $(this).addClass('active');
                         nav.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');

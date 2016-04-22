@@ -19,5 +19,6 @@ namespace Bikewale.Entities.PriceQuote
         public uint InsuranceAmount { get; set; }
         public List<PQ_Price> discountedPriceList { get; set; }
         public bool IsDiscount { get; set; }
+        public uint BaseVersion { get; set; }
     }
 }

@@ -50,7 +50,7 @@
 .model-name-review-container:hover .write-review-text { display:block; }
 
 /*dealership*/
-.dealership-benefit-list li { width:290px; color:#82888b; float:left; margin-top:10px; }
+.dealership-benefit-list li { width:290px; color:#82888b; display:inline-block; vertical-align:middle; margin-top:10px; }
 .dealership-benefit-list .benefit-list-image, .dealership-benefit-list .benefit-list-title { display:inline-block; vertical-align:middle; }
 .dealership-benefit-list .benefit-list-title { width:255px; padding-right:10px; padding-left:10px; }
 .form-control-username { width:270px; }

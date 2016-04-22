@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Bikewale.DTO.Make;
+using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using System;
@@ -10,8 +12,16 @@ namespace Bikewale.Service.AutoMappers.Version
 {
     public class VersionListMapper
     {
+        /// <summary>
+        /// Modified by :   Sumit Kate on 12 Apr 2016
+        /// Description :   Mapping for MakeBase and ModelBase
+        /// </summary>
+        /// <param name="objVersion"></param>
+        /// <returns></returns>
         internal static DTO.Version.VersionDetails Convert(Entities.BikeData.BikeVersionEntity objVersion)
         {
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();            
             Mapper.CreateMap<BikeVersionEntity, VersionDetails>();
             return Mapper.Map<BikeVersionEntity, VersionDetails>(objVersion);
         }

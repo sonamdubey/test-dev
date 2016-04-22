@@ -4,16 +4,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace BikewaleAutoSuggest
 {
     public class GetBikeListDb
     {
         private static string _con = ConfigurationManager.AppSettings["connectionString"];
-
         public static List<TempList> GetBikeList()
         {
             List<TempList> objList = null;
@@ -73,6 +70,7 @@ namespace BikewaleAutoSuggest
             }
             catch (Exception ex)
             {
+                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name, ex);
                 Console.WriteLine("Exception Message  : " + ex.Message);
             }
             return objList;
@@ -286,7 +284,7 @@ namespace BikewaleAutoSuggest
             catch(Exception ex)
             {
                 Console.WriteLine("Get Suggest List Exception  : " + ex.Message);
-                Logs.WriteErrorLog("Exception in Generating Suggestion List for make model : " + ex.Message);
+                Logs.WriteErrorLog(MethodBase.GetCurrentMethod().Name + " :Exception in Generating Suggestion List for make model :", ex);
             }
             return objSuggestList;
         }
