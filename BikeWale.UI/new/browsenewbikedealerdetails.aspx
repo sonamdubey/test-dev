@@ -215,7 +215,7 @@
                             </div>
                         </div>
                         <div id="dealerModelwiseBikes" class="border-solid-top" data-bind="visible : DealerBikes.length > 0">
-                            <p class="font14 text-bold padding-top20 padding-right20 padding-left20 margin-bottom15"><span data-bind="text : (DealerBikes.length > 1 )?'Models':'Model'"></span>available with the dealer:</p>
+                            <p class="font14 text-bold padding-top20 padding-right20 padding-left20 margin-bottom15"><span data-bind="text : (DealerBikes.length > 1 )?'Models ':'Model '"></span>available with the dealer:</p>
                             <ul id="modelsAvailable" data-bind="template: { name: 'dealerBikesTemplate', foreach: DealerBikes }"></ul>
 
                             <script id="dealerBikesTemplate" type="text/html">
