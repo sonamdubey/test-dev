@@ -84,7 +84,7 @@ namespace Bikewale.BAL.PriceQuote
                                 PQ_QuotationEntity oblDealerPQ = null;
                                 try
                                 {
-                                    string api = String.Format("/api/v2/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionId, objPQOutput.DealerId);
+                                    string api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionId, objPQOutput.DealerId);
                                     using (Utility.BWHttpClient objDealerPqClient = new Utility.BWHttpClient())
                                     {
                                         oblDealerPQ = objDealerPqClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, oblDealerPQ);
@@ -190,7 +190,7 @@ namespace Bikewale.BAL.PriceQuote
             PQByCityAreaEntity pqEntity = new PQByCityAreaEntity();
             try
             {
-                PQOnRoadPrice pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId);
+                PQOnRoadPrice pqOnRoad = null;
                 if (cityId > 0)
                 {
                     IEnumerable<CityEntityBase> cityList = FetchCityByModelId(modelID);
