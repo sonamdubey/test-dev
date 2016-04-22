@@ -517,7 +517,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="padding-left10 padding-right10 font14 text-center">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com" target="_blank">email</a></p>
+                <p class="padding-left10 padding-right10 font14 text-center">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a> or <a href="mailto:contact@bikewale.com" target="_blank">email</a> us</p>
             </div>
         </section>
 
