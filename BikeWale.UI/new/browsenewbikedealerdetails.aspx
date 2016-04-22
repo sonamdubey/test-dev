@@ -387,6 +387,8 @@
             var leadSrcId = eval("<%= (int)(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_Desktop) %>");
             var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
             var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
+            var makeName = "<%= makeName%>";            
+
             lscache.flushExpired();
             $("#applyFiltersBtn").click(function () {
                 ddlmakemasking = $("#ddlMakes option:selected").attr("maskingName");

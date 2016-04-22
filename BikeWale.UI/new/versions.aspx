@@ -412,7 +412,7 @@
                                                 <span class="bwsprite user-contact-details-icon margin-top25"></span>
                                             </div>
                                         </div>
-                                        <p class="font20 margin-top25 margin-bottom10">Get more details on this bike</p>
+                                        <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
                                         <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
                                         <div class="personal-info-form-container">
                                             <div class="form-control-box personal-info-list">
