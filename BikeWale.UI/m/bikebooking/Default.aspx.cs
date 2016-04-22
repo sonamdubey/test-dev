@@ -1,6 +1,4 @@
 ﻿using Bikewale.BAL.Dealer;
-using Bikewale.Common;
-using Bikewale.Mobile.Controls;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Dealer;
@@ -9,7 +7,6 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI.WebControls;
 using System.Text;
 
 namespace Bikewale.Mobile.bikebooking
@@ -17,13 +14,14 @@ namespace Bikewale.Mobile.bikebooking
     /// <summary>
     /// Created By : Sushil Kumar
     /// Summary :  Booking Landing Page
+    /// Modified by :   Sumit Kate on 22 Apr 2016
+    /// Description :   Removed User testimonial
     /// </summary>
     public class Default : System.Web.UI.Page
     {
         List<CityEntityBase> bookingCities = null;
         IEnumerable<AreaEntityBase> bookingAreas = null;
         protected uint cityId = 0, areaId = 0;
-        protected UsersTestimonials ctrlUsersTestimonials;
         protected StringBuilder cityListData = new System.Text.StringBuilder(), areaListData = new System.Text.StringBuilder();
 
         protected override void OnInit(EventArgs e)
@@ -35,7 +33,6 @@ namespace Bikewale.Mobile.bikebooking
         {
             CheckLocationCookie();
             GetDealerCities();
-            ctrlUsersTestimonials.TopCount = 6;
         }
 
 
