@@ -25,6 +25,7 @@
         var cityId = '<%= cityId%>';
         var areaId = '<%= areaId%>';   
         var clientIP = "<%= clientIP%>";
+        var versionName = "<%= versionName%>";
         var pageUrl = "www.bikewale.com/pricequote/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;       
     </script>
 </head>
@@ -777,7 +778,7 @@
                     return false;
                 }
                 $('#hdnVariant').val($(this).attr('title'));
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeVersionLocation });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeName + "_" + versionName + "_" + getCityArea });
             });
 
             $("input[name*='switchDealer']").on("click", function () {
@@ -785,7 +786,7 @@
                     return false;
                 }
                 $('#hdnDealerId').val($(this).attr('title'));
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeVersionLocation });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeName + "_" + versionName + "_" + getCityArea });
             });
             $("#dealerList li").on("click", function(){
                 registerPQ($(this).attr('dealerId'));
