@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Data.Common;
 
 namespace Bikewale.DAL.Location
 {
@@ -25,19 +26,20 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public List<CityEntityBase> GetAllCities(EnumBikeType requestType)
         {
-            Database db = null;
+            
             List<CityEntityBase> objCityList = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetCities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("GetCities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@RequestType", requestType);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.Int], requestType));
+                    //cmd.Parameters.AddWithValue("@RequestType", requestType);
 
-                    db = new Database();
+                    
                     objCityList = new List<CityEntityBase>();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         while (dr.Read())
                         {
@@ -62,10 +64,6 @@ namespace Bikewale.DAL.Location
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return objCityList;
         }   // End of GetCities method
