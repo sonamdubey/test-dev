@@ -16,7 +16,7 @@
         <div class="grid_4 alpha margin-top15">
             <h3><a class="black-text" href="/new/">New Bikes</a></h3>
             <ul class="ul-normal">
-                <li><a href="/pricequote/">Check On Road Price in Your City</a></li>
+                <li><a href="/pricequote/">Check On-Road Price in Your City</a></li>
                 <li><a href="/upcoming-bikes/">Upcoming Bikes</a></li>
                 <li><a href="/comparebikes/">Compare Bikes</a></li>
                 <li><a href="/road-tests/">Road Tests</a></li>

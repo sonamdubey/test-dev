@@ -292,7 +292,7 @@
 								   else
 									   if (toShowOnRoadPriceButton)
 									   { %>
-                                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Check On Road Price</a>
+                                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Check On-Road Price</a>
                                 <div class="clear"></div>
                                 
                                 <% } %>
@@ -380,7 +380,7 @@
                             <% } %>
                             <div id="dealerAssistance">
                             <div id="buyingAssistance" class="bg-light-grey font14 content-inner-block-20">
-                                <p class="text-bold margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
+                                <p class="text-bold margin-bottom20">Get assistance on buying this bike:</p>
                                 <div>
                                     <div class="form-control-box form-control-username leftfloat margin-right20">
                                         <input type="text" class="form-control" placeholder="Name" id="assistGetName" data-bind="textInput: fullName" />
@@ -1293,7 +1293,7 @@
             </div>
         </section>
 
-        <!-- check on road price popup -->
+        <!-- Check On-Road Price popup -->
         <div id="onRoadPricePopup" class="rounded-corner2 content-inner-block-20 text-center hide">
             <div class="onroadPriceCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="form-control-box padding-top30">
