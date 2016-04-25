@@ -19,7 +19,7 @@
                         </div>
                         <div class="grid_2 alpha omega">
                             <p><span class="WebRupee">Rs.</span><strong><%#Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"VersionPrice").ToString()) %></strong></p>
-                            <div><a class="blue fillPopupData" href="Javascript:void(0);"  modelId="<%#DataBinder.Eval(Container.DataItem,"ModelBase.ModelId") %>">Check On Road Price</a></div>
+                            <div><a class="blue fillPopupData" href="Javascript:void(0);"  modelId="<%#DataBinder.Eval(Container.DataItem,"ModelBase.ModelId") %>">Check On-Road Price</a></div>
                             <%if (bikeVersionEntity != null && IsNew) {  %>
                             <a class="blue" href='/comparebikes/<%=bikeVersionEntity.MakeBase.MaskingName %>-<%=bikeVersionEntity.ModelBase.MaskingName %>-vs-<%#DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName") %>-<%#DataBinder.Eval(Container.DataItem,"ModelBase.MaskingName") %>/'>Compare with <%= bikeVersionEntity.ModelBase.ModelName %></a>
                             <% } %>

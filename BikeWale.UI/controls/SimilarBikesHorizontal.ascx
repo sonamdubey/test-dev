@@ -21,7 +21,7 @@
                         <div class="grid_2 alpha omega">
                             <a href='/<%# DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName") %>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelBase.MaskingName") %>/'><b><%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName")+ " " + DataBinder.Eval(Container.DataItem,"ModelBase.ModelName") %></b></a>
                             <p class="margin-top5"><span class="WebRupee">Rs.</span><strong><%#Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"VersionPrice").ToString()) %></strong></p>
-                            <div><a class="blue fillPopupData" href='/pricequote/default.aspx?model=<%#DataBinder.Eval(Container.DataItem,"ModelBase.ModelId") %>'  modelId="<%#DataBinder.Eval(Container.DataItem,"ModelBase.ModelId") %>">Check On Road Price</a></div>
+                            <div><a class="blue fillPopupData" href='/pricequote/default.aspx?model=<%#DataBinder.Eval(Container.DataItem,"ModelBase.ModelId") %>'  modelId="<%#DataBinder.Eval(Container.DataItem,"ModelBase.ModelId") %>">Check On-Road Price</a></div>
                             <%if (bikeVersionEntity != null && IsNew) {  %>
                             <a class="blue" href='/comparebikes/<%=bikeVersionEntity.MakeBase.MaskingName %>-<%=bikeVersionEntity.ModelBase.MaskingName %>-vs-<%#DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName") %>-<%#DataBinder.Eval(Container.DataItem,"ModelBase.MaskingName") %>/'>Compare with <%= bikeVersionEntity.ModelBase.ModelName %></a>
                             <% } %>
