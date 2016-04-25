@@ -1,5 +1,4 @@
 ﻿using Bikewale.DTO.PriceQuote;
-using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.MobileVerification;
@@ -13,10 +12,9 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Configuration;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Bikewale.Service.Controllers.PriceQuote
 {
@@ -216,20 +214,19 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             {
                                 platformId = Request.Headers.GetValues("platformId").First().ToString();
                             }
-
-                            if (platformId != "3" && platformId != "4")
+                            // Stop sending SMS and Email to LeadSourceId equals 2 and 5
+                            if (platformId != "3" && platformId != "4" && input.LeadSourceId != 2 && input.LeadSourceId != 5)
                             {
-
                                 SendEmailSMSToDealerCustomer.SaveEmailToCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail, dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, insuranceAmount);
                             }
 
                             hasBumperDealerOffer = OfferHelper.HasBumperDealerOffer(dealerDetailEntity.objDealer.DealerId.ToString(), "");
                             //if (bookingAmount > 0)
                             //{
-                                //SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, dealerDetailEntity, objCust.CustomerMobile, objCust.CustomerName, bikeName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Address, bookingAmount, insuranceAmount, hasBumperDealerOffer);
+                            //SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, dealerDetailEntity, objCust.CustomerMobile, objCust.CustomerName, bikeName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Address, bookingAmount, insuranceAmount, hasBumperDealerOffer);
                             //}
-
-                            SaveCustomerSMS(input, objCust, bookingAmount, dealerDetailEntity);
+                            if (input.LeadSourceId != 2 && input.LeadSourceId != 5)
+                                SaveCustomerSMS(input, objCust, bookingAmount, dealerDetailEntity);
 
                             //bool isDealerNotified = _objDealerPriceQuote.IsDealerNotified(input.DealerId, objCust.CustomerMobile, objCust.CustomerId);
                             //if (!isDealerNotified)
@@ -291,13 +288,13 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Organization;
                 objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
                 objDPQSmsEntity.BookingAmount = bookingAmount;
-                objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}",dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
+                objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
                 objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty;
                 objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
                 objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
                 objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
                 PriceQuoteParametersEntity pqEntity = _objPriceQuote.FetchPriceQuoteDetailsById(input.PQId);
-                
+
                 var platformId = "";
                 if (Request.Headers.Contains("platformId"))
                 {
