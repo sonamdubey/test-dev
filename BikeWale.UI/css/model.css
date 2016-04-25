@@ -116,7 +116,8 @@
 .benefit-dealer-visits-ico { background-position:-35px -36px; width:34px; height:22px; }
 .benefit-assistance-ico { background-position:-79px -36px; width:27px; height:30px; }
 .benefit-cancellation-ico { background-position:-116px -36px; width:23px; height:30px; }
-.loc-change-blue-icon { width:12px; height:16px; background-position:-205px -35px; cursor:pointer; position:relative; top:2px; }
+.loc-change-blue-icon { width:12px; height:16px; background-position:-205px -9px; cursor:pointer; position:relative; top:2px; }
+.loc-change-blue-icon:hover { background-position:-205px -35px; }
 
 .offers-insurance-icon, .offers-voucher-icon, .offers-pickup-icon { width:30px; }
 .offers-insurance-icon { height:30px; background-position:0 -155px; }
@@ -154,7 +155,7 @@
 .text-darker-black { color:#1a1a1a; }
 .text-blue { color:#0288d1; }
 .border-light { border:1px solid #e2e2e2; }
-.border-light-bottom { border-bottom:1px solid #e2e2e2; }
+.border-light-bottom { border-bottom:1px solid #f1f1f1; }
 .pos-top2 { top:2px; }
 
 /*news-videos tabs*/

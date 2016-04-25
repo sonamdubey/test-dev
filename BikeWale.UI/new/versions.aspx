@@ -134,7 +134,7 @@
                         </div>
                         <div class="grid-7 model-details-wrapper omega">
                             <div class="model-name-review-container">
-                                <h1 class="font24 text-black text-bold"><%= bikeName %></h1>
+                                <h1 class="font18 text-black text-bold"><%= bikeName %></h1>
                                 <% if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
 								   { %>
                                 <!-- Review & ratings -->
@@ -259,7 +259,7 @@
                                 <% } %>
                                 <% else
 								   {%>
-                                <p class="font14 text-light-grey">On-road price in <span><span class="font14 text-default city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                <p class="font14 text-light-grey">On-road price in <span><span class="city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 
                                 <% } %>
                                 <%  if (price == string.Empty || price == "0")
@@ -268,11 +268,11 @@
                                 <%  }
 									else
 									{ %>
-                                <div class="leftfloat margin-right15 <%= (isBookingAvailable && isDealerAssitance) ? "model-price-book-now-wrapper" : string.Empty %> " itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <div class="leftfloat margin-top5 margin-right15 <%= (isBookingAvailable && isDealerAssitance) ? "model-price-book-now-wrapper" : string.Empty %> " itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                     <span itemprop="priceCurrency" content="INR">
-                                        <span class="font22"><span class="fa fa-rupee"></span></span>
+                                        <span class="font20"><span class="fa fa-rupee"></span></span>
                                     </span>
-                                    <span id="new-bike-price" class="font24" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
+                                    <span id="new-bike-price" class="font22" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
                                     <%if (isOnRoadPrice)
 									  {%>
                                     <span id="viewBreakupText" class="font14 text-bold viewBreakupText">View detailed price</span>
@@ -500,6 +500,9 @@
                                 </div>
                                 <!-- lead capture popup End-->
                                 </div>
+                            <div class="font14 text-light-grey content-inner-block-20">
+                                <p>The booking amount of <span class="fa fa-rupee"></span> XX,XXX has to be paid online and balance amount of <span class="fa fa-rupee"></span> XX,XXX has to be paid at the dealership. <a href="">Book now</a></p>
+                            </div>
                         </div>
                         <% } %>
                         <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && viewModel.SecondaryDealerCount > 0)
