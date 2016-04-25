@@ -1,4 +1,3 @@
-// JavaScript Document
 var imgTitle, imgTotalCount;
 var leadBtnBookNow = $("#leadBtnBookNow"), leadCapturePopup = $("#leadCapturePopup");
 var fullname = $("#getFullName");
@@ -67,6 +66,7 @@ var leadCapturePopupCloseBtn = function () {
 }
 
 $('#getMoreDetailsBtn,#getAssistance').on('click', function (e) {
+    leadSourceId = $(this).attr("leadSourceId");
     $("#leadCapturePopup").show();
     $(".blackOut-window").show();
     appendHash("contactDetails");
@@ -159,7 +159,7 @@ function CustomerModel() {
                 "pageUrl": pageUrl,
                 "versionId": versionId,
                 "cityId": cityId,
-                "leadSourceId": 6,
+                "leadSourceId": leadSourceId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -288,7 +288,7 @@ function CustomerModel() {
             //"pageUrl": pageUrl,
             "versionId": versionId,
             "cityId": cityId,
-            "leadSourceId": 6,
+            "leadSourceId": leadSourceId,
             "deviceId": getCookie('BWC')
         }
         $.ajax({

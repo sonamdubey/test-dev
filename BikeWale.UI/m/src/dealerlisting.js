@@ -176,6 +176,7 @@ $("#dealerFilterReset").on("click", function () {
 
 //assistance form
 $(".get-assistance-btn").on('click', function () {
+    leadSourceId = $(this).attr("leadSourceId");
     $("#leadCapturePopup").show();
     appendHash("assistancePopup");
     $("div#contactDetailsPopup").show();
@@ -289,7 +290,7 @@ function CustomerModel(obj) {
                 "pageUrl": pageUrl,
                 "versionId": self.versionId(),
                 "cityId": makeCityViewModel.selectedCityId(),
-                "leadSourceId": pqSrcId,
+                "leadSourceId": leadSourceId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({

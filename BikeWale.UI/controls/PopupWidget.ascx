@@ -349,9 +349,9 @@
                     'SourceType': '1',
                     'VersionId': 0,
                     'pQLeadId': PQSourceId,
-                    'deviceId': getCookie('BWC')
+                    'deviceId': getCookie('BWC'),
+                    'refPQId': pqId
                 };
-
                 $.ajax({
                     type: 'POST',
                     url: "/api/PriceQuote/",

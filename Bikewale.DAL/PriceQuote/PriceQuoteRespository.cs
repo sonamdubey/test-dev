@@ -29,6 +29,8 @@ namespace Bikewale.DAL.PriceQuote
         /// Summary : Added Dealer id as parameter to save in newbikepricequotes table
         /// Modified By : Sadhana Upadhyay on 29 Dec 2015
         /// Summary : save utma. utmz, PQ Source id, device id 
+        /// Modified by : Lucky Rathore on 20 April 2016
+        /// Description : Added RefPQId .
         /// </summary>
         /// <param name="pqParams">All necessory parameters to save the price quote</param>
         /// <returns>Returns registered price quote id</returns>
@@ -47,13 +49,15 @@ namespace Bikewale.DAL.PriceQuote
                         using (SqlCommand cmd = new SqlCommand())
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.CommandText = "SavePriceQuote_New_30122015";
+                            cmd.CommandText = "SavePriceQuote_New_20042016";
                             cmd.Connection = conn;
 
                             cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = pqParams.CityId;
 
                             if (pqParams.AreaId > 0)
+                            {
                                 cmd.Parameters.Add("@AreaId", SqlDbType.Int).Value = pqParams.AreaId;
+                            }    
 
                             cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = pqParams.VersionId;
                             cmd.Parameters.Add("@SourceId", SqlDbType.TinyInt).Value = pqParams.SourceId;
@@ -76,6 +80,10 @@ namespace Bikewale.DAL.PriceQuote
                             if (!String.IsNullOrEmpty(pqParams.DeviceId))
                             {
                                 cmd.Parameters.Add("@deviceId", SqlDbType.VarChar, 25).Value = pqParams.DeviceId;
+                            }
+                            if(pqParams.RefPQId.HasValue)
+                            {
+                                cmd.Parameters.Add("@refPQId", SqlDbType.Int).Value = pqParams.RefPQId.Value;
                             }
 
                             conn.Open();

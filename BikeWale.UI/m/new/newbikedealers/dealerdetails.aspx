@@ -221,7 +221,7 @@
                         <a id="calldealer" class="btn btn-white btn-full-width btn-sm rightfloat text-bold text-default font14" href="tel:<%= dealerDetails.MaskingNumber %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
                     </div>
                     <div class="grid-6 alpha omega padding-left10">
-                        <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat font14" href="javascript:void(0);">Get assistance</a>
+                        <a id="getAssistance" leadSourceId="21" class="btn btn-orange btn-full-width btn-sm rightfloat font14" href="javascript:void(0);">Get assistance</a>
                     </div>
                 </div>
             </div>
@@ -372,8 +372,7 @@
              var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>";                                              
              var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
              var pqSource = "<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail) %>";
-             var leadSrcId = "<%= Convert.ToUInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_MobileListing) %>";
-             var bodHt, footerHt, scrollPosition;                         
+             var bodHt, footerHt, scrollPosition, leadSourceId;                         
              var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
 
             $(window).scroll(function () {
@@ -389,6 +388,7 @@
             });
            
             $("#getAssistance").on('click', function () {
+                leadSourceId = $(this).attr("leadSourceId");
                 $("#leadCapturePopup").show();
                 appendHash("assistancePopup");
                 $("div#contactDetailsPopup").show();

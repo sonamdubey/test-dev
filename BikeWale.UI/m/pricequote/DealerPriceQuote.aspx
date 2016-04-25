@@ -51,18 +51,19 @@
             </div>
             <div class="clear"></div>
 
-           
+
             <div id="versionsDropdownWrapper" class="margin-top10 padding-right10 padding-left10">
                 <p class="grid-3 alpha omega version-label-text font14 text-light-grey margin-top5 leftfloat">Version:</p>
-                 <%if (versionList!=null && versionList.Count > 1)
-                   { %>
+                <%if (versionList != null && versionList.Count > 1)
+                  { %>
                 <asp:DropDownList ID="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
-                <%} 
-                  else if(objPriceQuote.objVersion != null){ %>
+                <%}
+                  else if (objPriceQuote.objVersion != null)
+                  { %>
                 <span id='versText' class="margin-left10 font14 text-light-grey leftfloat margin-top7 text-light-grey margin-right20 text-bold"><%= objPriceQuote.objVersion.VersionName %></span>
                 <%} %>
             </div>
-            
+
             <!--Price Breakup starts here-->
             <div class="margin-top15 padding-left10 padding-right10">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
@@ -122,7 +123,8 @@
             </div>
             <!--Price Breakup ends here-->
 
-            <%if(isPrimaryDealer){ %>
+            <%if (isPrimaryDealer)
+              { %>
             <!-- Dealer Widget starts here -->
             <div id="pqDealerDetails">
                 <!-- hide this div when no premium dealer -->
@@ -179,7 +181,7 @@
                                 return;
                             }
                         }
-                        google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0],'<%= latitude %>','<%= longitude %>'));
+                        google.maps.event.addDomListener(window, 'load', initializeDealerMap($("#dealerMap")[0], '<%= latitude %>', '<%= longitude %>'));
                     </script>
                     <%} %>
                     <%if (isOfferAvailable && (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
@@ -234,7 +236,8 @@
                         <a href="/m/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey btn-full-width">Book now</a>
                     </div>
                     <%} %>
-                    <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium){ %>
+                    <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+                      { %>
                     <div class="padding-top15 padding-bottom15 border-light-top">
                         <span class="font15 text-bold leftfloat">Get EMI quote</span>
                         <span class="text-link rightfloat calculate-emi-target">Calculate now</span>
@@ -245,7 +248,9 @@
                 </div>
             </div>
             <!-- show below div when no premium dealer -->
-            <%} else { %>
+            <%}
+              else
+              { %>
             <div class="font14 text-light-grey border-solid padding-top20 padding-right10 padding-bottom20 padding-left10">Sorry, there are no dealers nearby</div>
             <%} %>
             <%if (isSecondaryDealer)
@@ -276,13 +281,14 @@
                 </div>
                 <%} %>
                 <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega" : "" %>">
-                    <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-sm btn-full-width btn-orange" value="Get assistance" />
+                    <input type="button" data-role="none" id="leadBtnBookNow" leadSourceId="17" name="leadBtnBookNow" class="btn btn-sm btn-full-width btn-orange" value="Get assistance" />
                 </div>
             </div>
             <div class="clear"></div>
             <!--Exciting Offers section ends here-->
         </div>
-        <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium){ %>
+        <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+          { %>
         <div id="emiPopup" data-bind="visible: true" style="display: none" class="bwm-fullscreen-popup text-center padding-top30">
             <div class="emi-popup-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="icon-outer-container rounded-corner50percent">
@@ -303,7 +309,7 @@
                                 </div>
                             </div>
                             <div id="downPaymentSlider"
-                                data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2 ) + minDnPay()) }"
+                                data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2) + minDnPay()) }"
                                 class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                                 <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
@@ -312,7 +318,7 @@
                                 <ul class="range-five-pointsUL range-pointsUL" data-bind="">
                                     <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minDnPay())"></span></li>
                                     <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minDnPay(), $parent.maxDnPay(), $parent.breakPoints(),1)"></span></li>
+                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minDnPay(), $parent.maxDnPay(), $parent.breakPoints(), 1)"></span></li>
                                     <!-- /ko -->
                                     <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxDnPay())"></span></li>
 
@@ -340,7 +346,7 @@
                                 <ul class="range-five-pointsUL range-pointsUL" data-bind="">
                                     <li class="range-points-bar"><span data-bind="text: $.valueFormatter(bikePrice() - maxDnPay())"></span></li>
                                     <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                    <li class="range-points-bar"><span data-bind="text:  $.createSliderPoints($index() + 1, $parent.bikePrice() - $parent.maxDnPay(), $parent.bikePrice() - $parent.minDnPay(), $parent.breakPoints(),1)"></span></li>
+                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.bikePrice() - $parent.maxDnPay(), $parent.bikePrice() - $parent.minDnPay(), $parent.breakPoints(), 1)"></span></li>
                                     <!-- /ko -->
                                     <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(bikePrice() - minDnPay())"></span></li>
                                 </ul>
@@ -369,7 +375,7 @@
                                 <ul class="range-five-pointsUL  range-pointsUL tenure-rate-interest" data-bind="">
                                     <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minTenure())"></span></li>
                                     <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minTenure(), $parent.maxTenure() , $parent.breakPoints(),2)"></span></li>
+                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minTenure(), $parent.maxTenure(), $parent.breakPoints(), 2)"></span></li>
                                     <!-- /ko -->
                                     <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxTenure())"></span></li>
                                 </ul>
@@ -398,7 +404,7 @@
                                 <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest.">
                                     <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minROI())"></span></li>
                                     <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minROI(), $parent.maxROI() , $parent.breakPoints())"></span></li>
+                                    <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minROI(), $parent.maxROI(), $parent.breakPoints())"></span></li>
                                     <!-- /ko -->
                                     <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxROI())"></span></li>
 
@@ -420,7 +426,7 @@
                     </div>
                 </div>
                 <div class="clear"></div>
-                <a id="btnEmiQuote" class="btn btn-orange emi-quote-btn margin-bottom20">Get EMI quote</a>
+                <a id="btnEmiQuote" leadSourceId="18" class="btn btn-orange emi-quote-btn margin-bottom20">Get EMI quote</a>
             </div>
         </div>
         <%} %>
@@ -479,9 +485,9 @@
                 </div>
                 <!--thank you message starts here -->
                 <div id="dealer-assist-msg" class="hide">
-                    <div class="icon-outer-container rounded-corner50">
-                        <div class="icon-inner-container rounded-corner50">
-                            <span class="bwsprite otp-icon margin-top25"></span>
+                    <div class="icon-outer-container rounded-corner50percent">
+                        <div class="icon-inner-container rounded-corner50percent">
+                            <span class="bwmsprite thankyou-icon margin-top25"></span>
                         </div>
                     </div>
                     <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <%= dealerName %>, <%= dealerArea %> will get in touch with you soon.</p>
@@ -520,7 +526,7 @@
                                 <span class="bwmsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }"/>
+                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
                         </div>
                     </div>
 
@@ -536,16 +542,17 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
+            var leadSourceId;
             var bikeName = "<%= BikeName %>";
             var bikeVersionPrice = "<%= totalPrice %>";
             var getCityArea = GetGlobalCityArea();
             var areaId = '<%= areaId %>';
             $('#getDealerDetails,#btnBookBike').click(function () {
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;                
+                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
                 window.location.href = '/m/pricequote/bookingsummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
             });
 
-            
+
             var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#btnEmiQuote"), leadCapturePopup = $("#leadCapturePopup");
             var fullname = $("#getFullName");
             var emailid = $("#getEmailID");
@@ -563,12 +570,12 @@
             var customerViewModel = new CustomerModel();
 
             $(function () {
-
                 leadBtnBookNow.on('click', function () {
+                    leadSourceId = $(this).attr("leadSourceId");
                     leadCapturePopup.show();
                     appendHash("dpqPopup");
                     $("div#contactDetailsPopup").show();
-                    $("#otpPopup").hide(); 
+                    $("#otpPopup").hide();
 
                 });
 
@@ -586,7 +593,7 @@
                 });
 
                 $("#aOkayButton").click(function () {
-                    $("#leadCapturePopup .leadCapture-close-btn").click();                    
+                    $("#leadCapturePopup .leadCapture-close-btn").click();
                 });
 
             });
@@ -621,7 +628,7 @@
                             "pageUrl": pageUrl,
                             "versionId": versionId,
                             "cityId": cityId,
-                            "leadSourceId": eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
+                            "leadSourceId": leadSourceId,
                             "deviceId": getCookie('BWC')
                         }
                         $.ajax({
@@ -710,7 +717,7 @@
                         if (self.IsValid()) {
                             $("#contactDetailsPopup").hide();
                             $("#otpPopup").hide();
-                            $("#dealer-assist-msg").show();                          
+                            $("#dealer-assist-msg").show();
                         }
                         else {
                             $("#contactDetailsPopup").hide();
@@ -974,6 +981,7 @@
             ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
             // GA Tags
             $("#leadBtnBookNow").on("click", function () {
+                leadSourceId = $(this).attr("leadSourceId");
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_More_Details_Clicked_Button', 'lab': bikeName + '_' + getCityArea });
             });
             $("#leadLink").on("click", function () {
@@ -1014,7 +1022,7 @@
             $(".termsPopUpCloseBtn").on('mouseup click', function (e) {
                 $("div#termsPopUpContainer").hide();
                 $(".blackOut-window").hide();
-            });                      
+            });
 
             $(".secondary-dealer").click(function () {
                 registerPQ($(this).attr("dealerId"));
@@ -1023,13 +1031,14 @@
             function registerPQ(secondaryDealerId) {
                 var obj = {
                     'CityId': cityId,
-                    'AreaId': areaId,                    
+                    'AreaId': areaId,
                     'ClientIP': clientIP,
-                    'SourceType': '<%=Bikewale.Utility.BWConfiguration.Instance.SourceId %>',
+                    'SourceType': '<%=Bikewale.Utility.BWConfiguration.Instance.MobileSourceId  %>',
                     'VersionId': versionId,
                     'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
                     'deviceId': getCookie('BWC'),
-                    'dealerId': secondaryDealerId
+                    'dealerId': secondaryDealerId,
+                    'refPQId': pqId
                 };
                 $.ajax({
                     type: 'POST',
@@ -1052,7 +1061,7 @@
 
 
             <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
-               { %>  
+               { %>
 
             ko.bindingHandlers.slider = {
                 init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
@@ -1076,8 +1085,8 @@
                 var self = this;
                 self.breakPoints = ko.observable(5);
                 self.bikePrice = ko.observable(bikeVersionPrice);
-                self.minDnPay = ko.observable('<%= primarydealer.EMIDetails.MinDownPayment %>' * bikeVersionPrice/100);
-                self.maxDnPay = ko.observable('<%= primarydealer.EMIDetails.MaxDownPayment %>' * bikeVersionPrice/100);
+                self.minDnPay = ko.observable('<%= primarydealer.EMIDetails.MinDownPayment %>' * bikeVersionPrice / 100);
+                self.maxDnPay = ko.observable('<%= primarydealer.EMIDetails.MaxDownPayment %>' * bikeVersionPrice / 100);
                 self.minTenure = ko.observable(<%= primarydealer.EMIDetails.MinTenure %>);
                 self.maxTenure = ko.observable(<%= primarydealer.EMIDetails.MaxTenure  %>);
                 self.minROI = ko.observable(<%= primarydealer.EMIDetails.MinRateOfInterest %>);
@@ -1086,8 +1095,8 @@
                 self.exshowroomprice = ko.observable(bikeVersionPrice);
                 self.loan = ko.observable();
 
-                self.tenure = ko.observable((self.maxTenure() - self.minTenure())/2 + self.minTenure());
-                self.rateofinterest = ko.observable((self.maxROI() - self.minROI())/2 + self.minROI());
+                self.tenure = ko.observable((self.maxTenure() - self.minTenure()) / 2 + self.minTenure());
+                self.rateofinterest = ko.observable((self.maxROI() - self.minROI()) / 2 + self.minROI());
                 self.downPayment = ko.pureComputed({
                     read: function () {
                         if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
@@ -1102,14 +1111,14 @@
 
                 self.monthlyEMI = ko.pureComputed({
                     read: function () {
-                        return $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest(),self.processingFees());
+                        return $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest(), self.processingFees());
                     },
                     owner: this
                 });
-            }          
+            }
 
 
-            $.calculateEMI = function (loanAmount, tenure, rateOfInterest,proFees) {
+            $.calculateEMI = function (loanAmount, tenure, rateOfInterest, proFees) {
                 var interest, totalRepay, finalEmi;
                 try {
                     interest = (loanAmount * tenure * rateOfInterest) / (12 * 100);
@@ -1163,7 +1172,7 @@
             }
 
             var EMIviewModel = new BikeEMI;
-            ko.applyBindings(EMIviewModel, $("#emiPopup")[0]);  
+            ko.applyBindings(EMIviewModel, $("#emiPopup")[0]);
 
             <% } %>
 

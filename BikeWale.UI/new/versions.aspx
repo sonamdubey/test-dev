@@ -300,7 +300,7 @@
 
                             <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
                                { %>
-                            <a href="javascript:void(0)" id="getassistance" class="btn btn-orange margin-top10 margin-right10 leftfloat">Get assistance</a>
+                            <a href="javascript:void(0)" id="getassistance" leadSourceId="12" class="btn btn-orange margin-top10 margin-right10 leftfloat">Get assistance</a>
                             <div class="leftfloat margin-top10">
                                 <span class="font12 text-light-grey">Powered by</span><br />
                                 <span class="font14"><%= viewModel.Organization %></span>
@@ -405,7 +405,7 @@
                                         <span class="bwsprite error-icon errorIcon"></span>
                                         <div class="bw-blackbg-tooltip errorText"></div>
                                     </div>
-                                    <a class="btn btn-inv-grey leftfloat" id="assistFormSubmit" data-bind="event: { click: submitLead }">Submit</a>
+                                    <a class="btn btn-inv-grey leftfloat" leadSourceId="13" id="assistFormSubmit" data-bind="event: { click: submitLead }">Submit</a>
                                     <div class="clear"></div>
                                 </div>
                             </div>
@@ -1476,7 +1476,7 @@
         <script type="text/javascript">
            
             // Cache selectors outside callback for performance.
-
+            var leadSourceId;
 			<% if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
 			   { %>
             var $window = $(window),
