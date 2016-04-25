@@ -56,8 +56,9 @@ $(function () {
         getOfferClick = false;
     });
 
-    $("#ulVersions li input").on('click', function () {        
-        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + getCityArea });
+    $("#ulVersions li input").on('click', function () {
+        versionName = $(this).attr("value");        
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + versionName + "_" + getCityArea });
     });
 });
 

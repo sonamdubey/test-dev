@@ -371,7 +371,7 @@ $(document).on('click', '#dealersList a.get-assistance-btn', function (e) {
 
     setMapCenter(parentLi.attr("data-lat"), parentLi.attr("data-log"));
 
-    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_Locator", "act": "Get_Offers_Clicked", "lab": makeName + "_" + currentCityName });
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_Locator", "act": "Get_Offers_Clicked", "lab": makeName + "_" + getCityArea });
 
 });
 
@@ -642,6 +642,7 @@ function CustomerModel(obj) {
     self.pqId = ko.observable();
     self.modelId = ko.observable(0);
     self.bikes = ko.observableArray([]);
+    self.selectedBikeName = ko.observable();
 
     if (arr != null && arr.length > 0) {
         self.fullName = ko.observable(arr[0]);
@@ -678,10 +679,12 @@ function CustomerModel(obj) {
         if (bike && bike.version && bike.model) {
             self.versionId(bike.version.versionId);
             self.modelId(bike.model.modelId);
+            self.selectedBikeName(bike.make.makeName + " " + bike.model.modelName + "_" + bike.version.versionName);
         }
         else {
             self.versionId(0);
             self.modelId(0);
+            self.selectedBikeName("");
         }
 
         if (isValidDetails && self.modelId() && self.versionId()) {
@@ -907,14 +910,16 @@ function CustomerModel(obj) {
             stopLoading($("#user-details-submit-btn").parent());
         }
 
+
+
         if(btnId == "submitAssistanceFormBtn")
-        {
-            dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_Locator", "act": "Lead_Submitted", "lab": "Open_Form_" + makeName + "_" + bike.model.modelName + "_" + bike.version.version + "_" + currentCityName });
+        {            
+            dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_Locator", "act": "Lead_Submitted", "lab": "Open_Form_" + self.selectedBikeName() + "_" + getCityArea });
         }
 
         else if (btnId == "user-details-submit-btn")
-        {
-            dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_Locator", "act": "Lead_Submitted", "lab": "Main_Form_" + makeName + "_" + bike.model.modelName + "_" + bike.version.version + "_" + currentCityName });
+        {            
+            dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_Locator", "act": "Lead_Submitted", "lab": "Main_Form_" + self.selectedBikeName() + "_" + getCityArea });
         }
 
     };

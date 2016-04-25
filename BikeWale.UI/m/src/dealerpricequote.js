@@ -65,35 +65,60 @@ $(".view-offers-target").on("click", function () {
     appendHash("offersPopup");
 });
 
+$("#ddlVersion").on("change", function () {
+    versionName = $(this).children(":selected").text();    
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + versionName + "_" + getCityArea });
+});
+
+$("#calldealer").on("click", function () {
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Call_Dealer_Clicked", "lab": bikeName + "_" + versionName + "_" + getCityArea });
+});
+
+$("#leadBtnBookNow").on("click", function () {   
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_Offers_Clicked", "lab": bikeName + "_" + versionName + "_" + getCityArea });
+    getOffersClicked = true;
+    getEMIClicked = false;
+});
+
+$("#btnEmiQuote").on("click", function () {
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_EMI_Quote_Clicked", "lab": bikeName + "_" + versionName + "_" + getCityArea });
+    getOffersClicked = false;
+    getEMIClicked = true;
+});
+
+$("#aDealerNumber").on("click", function () {
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Dealer_Number_Clicked", "lab": bikeName + "_" + versionName + "_" + getCityArea });
+});
+
 $(".offers-popup-close-btn").on("click", function () {
     offersPopupClose(offersPopupDiv);
     window.history.back();
 });
 
-var offersPopupOpen = function (offersPopupDiv) {
-    offersPopupDiv.show();
-};
+    var offersPopupOpen = function (offersPopupDiv) {
+        offersPopupDiv.show();
+    };
 
-var offersPopupClose = function (offersPopupDiv) {
-    offersPopupDiv.hide();
-};
+    var offersPopupClose = function (offersPopupDiv) {
+        offersPopupDiv.hide();
+    };
 
-var emiPopupDiv = $("#emiPopup");
+    var emiPopupDiv = $("#emiPopup");
 
-$(".calculate-emi-target").on("click", function () {
-    emiPopupOpen(emiPopupDiv);
-    appendHash("emiPopup");
-});
+    $(".calculate-emi-target").on("click", function () {
+        emiPopupOpen(emiPopupDiv);
+        appendHash("emiPopup");
+    });
 
-$(".emi-popup-close-btn").on("click", function () {
-    emiPopupClose(emiPopupDiv);
-    window.history.back();
-});
+    $(".emi-popup-close-btn").on("click", function () {
+        emiPopupClose(emiPopupDiv);
+        window.history.back();
+    });
 
-var emiPopupOpen = function (emiPopupDiv) {
-    emiPopupDiv.show();
-};
+    var emiPopupOpen = function (emiPopupDiv) {
+        emiPopupDiv.show();
+    };
 
-var emiPopupClose = function (emiPopupDiv) {
-    emiPopupDiv.hide();
-};
+    var emiPopupClose = function (emiPopupDiv) {
+        emiPopupDiv.hide();
+    };

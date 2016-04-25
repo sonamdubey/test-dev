@@ -19,6 +19,10 @@ $('.filterBackArrow').on('click', function () {
     $('#dealersFilterWrapper').animate({ 'left': '100%' }, 500);
 });
 
+$(".maskingNumber").on("click", function () {
+    triggerGA("Dealer_Locator", "Dealer_Number_Clicked", makeCityViewModel.makeName() + "_" + getCityArea);
+});
+
 var selectBrand = $('#selectBrand'),
     selectCity = $('#selectCity'),
     dealerFilterContent = $('#dealerFilterContent');
@@ -182,6 +186,7 @@ $(".get-assistance-btn").on('click', function () {
     $("#otpPopup").hide();
 
     getDealerBikes($(this).attr("data-item-id"), $(this).attr("campId"));
+    triggerGA("Dealer_Locator", "Get_Offers_Clicked", makeCityViewModel.makeName() + "_" + getCityArea);
 
 });
 
@@ -271,7 +276,8 @@ function CustomerModel(obj) {
     self.modelId = ko.observable(0);
     self.bikes = ko.observableArray([]);
     self.dealerName = ko.observable(obj.dealerDetails.name);
-    
+    self.selectedBikeName = ko.observable();
+
     if (obj.dealerBikes && obj.dealerBikes.length > 0) {             
         self.bikes = ko.observableArray(obj.dealerBikes);
     }
@@ -419,12 +425,13 @@ function CustomerModel(obj) {
 
     self.submitLead = function (data, event) {
         var isValidDetails = self.generatePQ(data, event);
+        var btnId = event.target.id;
         $("#dealer-lead-msg").hide();
         if (isValidDetails) {
             self.verifyCustomer();
             if (self.IsValid()) {
                 $("#contactDetailsPopup").hide();
-                $("#personalInfo").hide()
+                $("#personalInfo").hide();
                 $("#otpPopup").hide();
                 $("#dealer-lead-msg").fadeIn();
 
@@ -444,7 +451,11 @@ function CustomerModel(obj) {
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
-            setPQUserCookie();            
+            setPQUserCookie();
+            if (btnId == "user-details-submit-btn")
+            {                
+                triggerGA("Dealer_Locator", "Lead_Submitted", "Main_Form_" + customerViewModel.selectedBikeName() + "_" + getCityArea);
+            }
         }
     };
 
