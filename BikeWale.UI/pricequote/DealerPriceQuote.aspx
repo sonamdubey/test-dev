@@ -146,7 +146,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td colspan="2" class="text-right padding-top5"><a class="font14 text-link " id="leadLink" name="leadLink" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a></td>
+                                            <td colspan="2" class="text-right padding-top5"><a class="font14 text-link " leadSourceId="8" id="leadLink" name="leadLink" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a></td>
                                         </tr>
                                         <tr class="hide">
                                             <td colspan="3">
@@ -218,7 +218,7 @@
                                             <span class="bwsprite error-icon errorIcon"></span>
                                             <div class="bw-blackbg-tooltip errorText"></div>
                                         </div>
-                                        <a class="btn btn-orange leftfloat" id="buyingAssistBtn" data-bind="event: { click: submitLead } ">Submit</a>
+                                        <a class="btn btn-orange leftfloat" leadSourceId="10" id="buyingAssistBtn" data-bind="event: { click: submitLead } ">Submit</a>
                                         <div class="clear"></div>
                                     </div>
                                 </div>
@@ -497,7 +497,7 @@
                                         <div class="clear"></div>
                                     </div>
                                     <div class="grid-4 omega text-right">
-                                        <a id="btnEmiQuote" class="btn btn-grey btn-md font14">Get EMI quote</a>
+                                        <a id="btnEmiQuote" leadSourceId="11" class="btn btn-grey btn-md font14">Get EMI quote</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -571,7 +571,7 @@
                                         <% } %>
                                         <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
                                           { %>
-                                        <a id="leadBtn" class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
+                                        <a id="leadBtn" leadSourceId="9" class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
                                         <% } %>
                                     </div>
                                     <% } %>
@@ -632,7 +632,7 @@
 
             var bikeName = "<%= BikeName %>";
             var bikeVersionPrice = "<%= totalPrice %>";
-
+            var leadSourceId;
             <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                { %>  
 
@@ -796,11 +796,12 @@
                     'cityId': cityId,
                     'areaId': areaId,
                     'clientIP': clientIP,
-                    'sourceType': <%=Bikewale.Utility.BWConfiguration.Instance.SourceId%>,
+                    'sourceType': <%=Bikewale.Utility.BWConfiguration.Instance.SourceId %>,
                     'versionId': versionId,
-                    'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
+                    'pQLeadId': leadSourceId,
                     'deviceId': getCookie('BWC'),
-                    'dealerId': secondaryDealerId
+                    'dealerId': secondaryDealerId,
+                    'refPQId' : pqId
                 };
                 $.ajax({
                     type: 'POST',
@@ -836,6 +837,8 @@
                 var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
                 return price;
             }
+
+            
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
     </form>

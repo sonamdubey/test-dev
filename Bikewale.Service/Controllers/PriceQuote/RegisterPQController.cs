@@ -30,6 +30,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         }
         /// <summary>
         /// Registers a new price quote
+        /// Modified By : Lucky Rathore On 20 Apr 2016.
+        /// Description : RefPQId Added.
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -55,6 +57,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     objPQEntity.DeviceId = input.DeviceId;
                     objPQEntity.PQLeadId = input.PQLeadId;
                     objPQEntity.VersionId = input.VersionId;
+                    objPQEntity.RefPQId = input.RefPQId;
 
                     pqId = _objIPQ.RegisterPriceQuote(objPQEntity); 
                 }

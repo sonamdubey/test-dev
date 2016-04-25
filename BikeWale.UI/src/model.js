@@ -131,7 +131,7 @@ function CustomerModel() {
                 "pageUrl": pageUrl,
                 "versionId": versionId,
                 "cityId": cityId,
-                "leadSourceId": 3,
+                "leadSourceId": leadSourceId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -214,7 +214,11 @@ function CustomerModel() {
         }
     };
 
-    self.submitLead = function () {
+    self.submitLead = function (data, event) {
+        if (event.target.id == "assistFormSubmit")
+        {
+            leadSourceId = $(event.target).attr("leadSourceId");
+        }
         self.IsVerified(false)
         var isValidCustomer = ValidateUserDetail(fullName, emailid, mobile);
         if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {
@@ -273,7 +277,7 @@ function CustomerModel() {
             //"pageUrl": pageUrl,
             "versionId": versionId,
             "cityId": cityId,
-            "leadSourceId": 3,
+            "leadSourceId": leadSourceId,
             "deviceId": getCookie('BWC')
         }
         $.ajax({
@@ -888,6 +892,7 @@ $("input[name*='btnVariant']").on("click", function () {
 });
 
 $("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign, #getassistance").on("click", function () {
+    leadSourceId = $(this).attr("leadSourceId");
     $("#leadCapturePopup").show();
     $('body').addClass('lock-browser-scroll');
     $(".blackOut-window-model").show();
@@ -1056,6 +1061,7 @@ var assistFormSubmit = $('#assistFormSubmit'),
     assistGetMobile = $('#assistGetMobile');
 
 assistFormSubmit.on('click', function () {
+    leadSourceId = $(this).attr("leadSourceId");
     ValidateUserDetail(assistGetName, assistGetEmail, assistGetMobile);
     dataLayer.push({ "event": "Bikewale_all", "cat": "Model", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeVersionLocation });
 });

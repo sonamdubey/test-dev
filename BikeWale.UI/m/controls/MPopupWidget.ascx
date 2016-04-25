@@ -376,7 +376,8 @@
                         'SourceType': '2',
                         'VersionId': 0,
                         'pQLeadId': PQSourceId,
-                        'deviceId': getCookie('BWC')
+                        'deviceId': getCookie('BWC'),
+                        'refPQId': pqId
                     };
                     $.ajax({
                         type: 'POST',

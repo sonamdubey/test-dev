@@ -24,6 +24,7 @@ var getEMIClick = false;
 
 $(function () {
     leadBtnBookNow.on('click', function () {
+        leadSourceId = $(this).attr('leadSourceId');
         leadCapturePopup.show();
         $("#dealer-lead-msg").hide();
         $("div#contactDetailsPopup").show();
@@ -95,7 +96,7 @@ function CustomerModel() {
                 "pageUrl": pageUrl,
                 "versionId": versionId,
                 "cityId": cityId,
-                "leadSourceId": 1,
+                "leadSourceId": leadSourceId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -185,6 +186,7 @@ function CustomerModel() {
         isValidDetails = false;
         var btnId = event.target.id;
         if (btnId == 'buyingAssistBtn') {
+            leadSourceId = $("#" + event.target.id).attr("leadSourceId");
             self.isAssist(true);
             isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
         }

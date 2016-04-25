@@ -61,6 +61,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 objPQEntity.UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
                 objPQEntity.DeviceId = input.DeviceId;
                 objPQEntity.PQLeadId = input.PQLeadId;
+                objPQEntity.RefPQId = input.RefPQId;
 
                 objPQOutput = _objIPQ.ProcessPQ(objPQEntity);
 

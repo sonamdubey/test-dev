@@ -197,11 +197,14 @@ var BookingPageViewModel = function () {
         else {
             return false;
         }
-
     };
     
 
     self.verifyCustomer = function (data, event) {
+        if (event.target.id = "bikeSummaryNextBtn")
+        {
+            leadSourceId = $(event.target).attr("leadSourceId");
+        }
         var isSuccess = false, validate = validateUserDetail();
         var curCustInfo = '';
         if (viewModel.Customer().EmailId() != undefined && viewModel.Customer().MobileNo() != undefined) {
@@ -220,7 +223,7 @@ var BookingPageViewModel = function () {
                     "versionId": self.Bike().selectedVersionId(),
                     "cityId": self.Dealer().CityId(),
                     "colorId": self.Bike().selectedColorId(),
-                    "leadSourceId": 2,
+                    "leadSourceId": leadSourceId,
                     "deviceId": getCookie('BWC')
                 }
 
