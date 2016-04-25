@@ -70,7 +70,7 @@
 				        and that we may share your details with these partners.
 	        </p>
 	        <div class="new-line15">
-                <asp:LinkButton  id="btnSubmit" runat="server" data-theme="b" CssClass="getPrice" style="color : #fff !important;" Text="Check On Road Price" data-rel="popup" data-role="button" data-transition="pop" data-position-to="window"/>
+                <asp:LinkButton  id="btnSubmit" runat="server" data-theme="b" CssClass="getPrice" style="color : #fff !important;" Text="Check On-Road Price" data-rel="popup" data-role="button" data-transition="pop" data-position-to="window"/>
 	        </div>
 	        <div class="new-line5">&nbsp;</div>
         </div>
