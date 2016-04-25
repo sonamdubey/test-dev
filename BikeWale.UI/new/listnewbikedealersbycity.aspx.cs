@@ -27,7 +27,7 @@ namespace Bikewale.New
         public int StateCount = 0, DealerCount = 0;
         private uint cityId;
         private string makeMaskingName = string.Empty;
-
+        protected bool cityDetected = false;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -63,14 +63,15 @@ namespace Bikewale.New
 
                 if (cityId > 0)
                 {
-                    if (_makeId > 0 && (!checkDealersForMakeCity(_makeId)))
-                    {
-                        objMMV = new MakeModelVersion();
-                        objMMV.GetMakeDetails(makeId);
+                    cityDetected = checkDealersForMakeCity(_makeId);
+                }
+                if (_makeId > 0 && (!cityDetected))
+                {
+                    objMMV = new MakeModelVersion();
+                    objMMV.GetMakeDetails(makeId);
 
-                        BindControl();
-                        BindStates();
-                    }
+                    BindControl();
+                    BindStates();
                 }
             }
         }
