@@ -350,7 +350,7 @@
                     'VersionId': 0,
                     'pQLeadId': PQSourceId,
                     'deviceId': getCookie('BWC'),
-                    'refPQId': pqId
+                    'refPQId': typeof pqId != 'undefined' ? pqId : ''
                 };
                 $.ajax({
                     type: 'POST',
