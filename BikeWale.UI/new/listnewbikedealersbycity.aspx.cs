@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.DAL.Dealer;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Dealer;
+using Bikewale.Memcache;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
-using Bikewale.Common;
-using Bikewale.Memcache;
-using System.Linq;
-using Bikewale.Entities.Location;
-using Microsoft.Practices.Unity;
-using Bikewale.DAL.Dealer;
-using Bikewale.Interfaces.Dealer;
-using System.Collections.Generic;
 
 namespace Bikewale.New
 {
@@ -37,7 +37,7 @@ namespace Bikewale.New
         {
             base.Load += new EventHandler(this.Page_Load);
         }
-		
+
         /// <summary>
         /// Modified By : Sushil Kumar on 31st March 2016
         /// Description : Added method to redirect user to dealer listing page if make and city is available
@@ -57,13 +57,13 @@ namespace Bikewale.New
 
             ushort _makeId = 0;
 
-            if (ProcessQS() && ushort.TryParse(makeId,out _makeId))
+            if (ProcessQS() && ushort.TryParse(makeId, out _makeId))
             {
                 GetLocationCookie();
 
                 if (cityId > 0)
                 {
-                    checkDealersForMakeCity(_makeId);  
+                    checkDealersForMakeCity(_makeId);
                 }
                 else
                 {
@@ -100,11 +100,23 @@ namespace Bikewale.New
                         var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (_city != null)
                         {
-                            string _redirectUrl = String.Format("/new/{0}-dealers/{1}-{2}.html", makeMaskingName,cityId,_city.CityMaskingName);
+                            string _redirectUrl = String.Format("/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, _city.CityMaskingName);
                             Response.Redirect(_redirectUrl, false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
                         }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
                     }
                 }
             }
@@ -113,7 +125,7 @@ namespace Bikewale.New
                 Trace.Warn(ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, "checkDealersForMakeCity");
                 objErr.SendMail();
-            }  
+            }
         }
 
         private void BindControl()
@@ -216,7 +228,7 @@ namespace Bikewale.New
             if (Request["make"] == null || _make == "")
             {
                 //invalid make id, hence redirect to he browsebikes.aspx page
-                Trace.Warn("make id : ",_make);
+                Trace.Warn("make id : ", _make);
                 Response.Redirect("/new/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
