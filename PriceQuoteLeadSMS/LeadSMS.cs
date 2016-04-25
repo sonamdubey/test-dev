@@ -107,7 +107,6 @@ namespace PriceQuoteLeadSMS
                     foreach (LeadNotificationEntity item in objLeads)
                     {
                         Logs.WriteInfoLog(string.Format("process Lead for pqId {0}, Dealer Id : {1}", item.PQId, item.DealerId));
-
                         // Stop sending SMS and Email to LeadSourceId equals 2 and 5
                         if (item.LeadSourceId != 2 && item.LeadSourceId != 5)
                         {
@@ -139,7 +138,6 @@ namespace PriceQuoteLeadSMS
                                 }
                             }
                         }
-
                         //SendMail(string email, string subject, string body, string replyTo)
                         AutoBizAdaptor.PushInquiryInAB(item.DealerId.ToString(), item.PQId, item.CustomerName, item.CustomerMobile, item.CustomerEmail, item.BikeVersionId.ToString(), item.CityId.ToString(), item.CampaignId);
                         objSmsDal.UpdatePQLeadNotifiedFlag(item.PQId);
