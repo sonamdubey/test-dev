@@ -105,7 +105,7 @@
                                 <% }
                                    else
                                    { %>
-                                <span id="versText" class="margin-left10 font16 text-light-grey leftfloat margin-top7 text-light-grey margin-right20 text-bold"><%= versionName %></span>
+                                <span id="versText" class="margin-left10 font16 leftfloat margin-top7 margin-right20"><%= versionName %></span>
                                 <% } %>
                             </div>
 
