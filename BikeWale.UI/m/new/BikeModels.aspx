@@ -86,7 +86,7 @@
                     </div>
                     <% } %>
 
-                    <div class="swiper-container padding-bottom10 model" id="bikeBannerImageCarousel">
+                    <div class="swiper-container model margin-bottom10" id="bikeBannerImageCarousel">
                         <div class="swiper-wrapper stage" id="ulModelPhotos">
                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                 <ItemTemplate>

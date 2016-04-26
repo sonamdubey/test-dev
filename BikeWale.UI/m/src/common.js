@@ -439,7 +439,7 @@ $(document).ready(function () {
         var slideCount = function (swiper) {
             try {
                 imgTotalCount = swiper.slides.length;
-                $(document).find('.bike-model-gallery-count').text(swiper.activeIndex + 1 + "/" + imgTotalCount.toString());
+                $(document).find('.bike-model-gallery-count').text(swiper.activeIndex + 1 + " of " + imgTotalCount.toString());
             } catch (e) { }
         };
 
@@ -476,6 +476,13 @@ $(document).ready(function () {
                 $(this).parent().find('.swiper-lazy-preloader').remove();
         });
 
+        var bikeModelSwiper = $('#bikeBannerImageCarousel')[0].swiper;
+        var currentMainStageActiveImage;        
+        bikeModelSwiper.on('slideChangeStart', function () {
+            currentMainStageActiveImage = $('#bikeBannerImageCarousel .stage').find(".swiper-slide.swiper-slide-active img");
+            $('#bikeBannerImageCarousel').css({ 'height': currentMainStageActiveImage.height() });
+        });
+        
     });
     // common autocomplete data call function
     function dataListDisplay(availableTags, request, response) {

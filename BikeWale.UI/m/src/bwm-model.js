@@ -622,7 +622,6 @@ $("#bikeBannerImageCarousel .stage .swiper-slide").click(function () {
         galleryTop.slideTo($(this).index(), 500);
         galleryThumbs.slideTo($(this).index(), 500);
         showImgTitle(galleryTop);
-
     }
 });
 
@@ -635,13 +634,15 @@ $(".modelgallery-close-btn").click(function () {
     $('.sw-0').data('swiper').slideTo(galleryTop.activeIndex, 500);
 });
 
-
+var currentStagePhoto, currentStageActiveImage;
 function showImgTitle(swiper) {
     imgTitle = $(galleryThumbs.slides[swiper.activeIndex]).find('img').attr('title');
-    //console.log(imgTitle);
     imgTotalCount = galleryThumbs.slides.length;
     $(".leftfloatbike-gallery-details").text(imgTitle);
-    $(".bike-gallery-count").text(swiper.activeIndex + 1 + "/" + imgTotalCount.toString());
+    $(".bike-gallery-count").text(swiper.activeIndex + 1 + " of " + imgTotalCount.toString());
+    currentStagePhoto = $(".connected-carousels-photos .stage-photos");
+    currentStageActiveImage = currentStagePhoto.find(".swiper-slide.swiper-slide-active img");
+    currentStagePhoto.find('.carousel-stage-photos').css({ 'height': currentStageActiveImage.height() });
 }
 
 var videoiFrame = document.getElementById("video-iframe");
@@ -807,4 +808,3 @@ $('.less-dealers-link').on('click', function () {
     $(this).parent().prev('#moreDealersList').slideUp();
     $(this).hide().prev('.more-dealers-link').show();
 });
-

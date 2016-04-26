@@ -3,7 +3,7 @@
 
 .swiper-container.model{width:100%;}
 .swiper-container.model .swiper-slide { background-color: #fff; width:100%; margin:0; min-height:180px; max-height:268px; position:relative; text-align:center;}
-.swiper-container.model .swiper-slide > img {min-width:320px;max-width:100%; }
+.swiper-container.model .swiper-slide > img {max-width:100%; }
 .colours-wrap .jcarousel li {width:120px; height:auto;}
 #versText { width:75%; }
 .rating-wrap img { width:18px;}
@@ -46,12 +46,11 @@
 #moreDealersList a:hover { text-decoration:none; }
 .fa-chevron-up { width:10px; height:5px; background-position:-86px -162px; }
 .fa-chevron-down { width:10px; height:5px; background-position:-86px -167px; }
-.pagination-number { width:100%; bottom:16px; z-index:2; }
+.pagination-number { width:100%; bottom:2px; z-index:2; }
 .bike-model-gallery-count { background:rgba(49,49,49,0.7); padding:2px 10px; }
 .margin-bottom7 { margin-bottom:7px; }
 .border-light-top { border-top:1px solid #f1f1f1; }
 .tel-grey-icon { position:relative;top:2px; }
-#calldealer.btn-white{border:1px solid #00aa33; color:#4d5057;}
 
 #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px; }
 .sort-div .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
@@ -222,13 +221,14 @@
 /** Shared carousel styles **/
 .connected-carousels-photos .carousel-photos, .connected-carousels-videos .carousel-videos { overflow: hidden; position: relative; }
 .connected-carousels-photos .carousel-photos .swiper-slide, .connected-carousels-videos .carousel-videos .swiper-slide { width:100%; background-color:#fff; margin:0;max-height:268px; font-size:0; position:relative;height: auto; text-align:center;}
+#bikeBannerImageCarousel.swiper-container, .connected-carousels-photos .swiper-container { min-height:180px; }
 
 .connected-carousels-videos .carousel-videos .yt-iframe-preview{text-align:center;}
 .connected-carousels-videos .carousel-videos .yt-iframe-preview iframe { width:100%; max-width:476px; }
 
 /** Navigation carousel specific styles **/
 .connected-carousels-photos .carousel-navigation-photos, .connected-carousels-videos .carousel-navigation-videos { height: 100%; width: 100%; background: none; padding-left:0; }
-.navigation-photos .carousel-navigation-photos .swiper-slide, .navigation-videos .carousel-navigation-videos .swiper-slide { display: block; background-color: #fff; position:relative; width:83px; }
+.navigation-photos .carousel-navigation-photos .swiper-slide, .navigation-videos .carousel-navigation-videos .swiper-slide { display: block; background-color: #fff; position:relative; width:83px; height:48px; overflow:hidden; }
 .navigation-photos .carousel-navigation-photos .swiper-slide img { width:100%; height:auto; border: 2px solid #333; }
 .navigation-photos .carousel-navigation-photos .swiper-slide.swiper-slide-active img { border:2px solid #ccc; }
 
