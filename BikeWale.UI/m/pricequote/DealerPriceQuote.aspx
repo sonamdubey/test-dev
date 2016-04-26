@@ -281,7 +281,7 @@
                 <%if (!string.IsNullOrEmpty(maskingNum))
                   { %>
                 <div class="grid-6 alpha omega padding-right5">
-                    <a id="calldealer" class="btn btn-grey btn-full-width btn-sm rightfloat" href="tel:<%= maskingNum %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
+                    <a id="calldealer" class="btn btn-grey-state btn-full-width btn-sm rightfloat" href="tel:<%= maskingNum %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
                 </div>
                 <%} %>
                 <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega padding-left5" : "" %>">
