@@ -69,7 +69,7 @@
         <section class="container">
             <div class="grid-12 margin-bottom20" id="dealerPriceQuoteContainer">
                 <div class="content-box-shadow rounded-corner2">
-                    <div id="pqBikeDetails" class="grid-8 alpha omega">
+                    <div id="pqBikeDetails" class="grid-8 alpha omega bg-white">
                         <div class="grid-6 padding-bottom20" id="PQImageVariantContainer">
                             <% if (detailedDealer != null)
                                { %>
@@ -524,13 +524,14 @@
                                     <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard || !String.IsNullOrEmpty(maskingNum))
                                        { %>
                                     <div class="border-solid-top padding-top15">
+                                        <p class="font14 text-light-grey margin-bottom10">Dealership contact details:</p>
                                         <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
                                           { %>
-                                        <p class="font14 text-light-grey margin-bottom10"><%= dealerAddress %></p>
+                                        <p class="font14 margin-bottom10"><span class="bwsprite dealership-loc-icon vertical-top margin-right10"></span><span class="vertical-top dealership-address"><%= dealerAddress %></span></p>
                                         <%} %>
                                         <% if (!string.IsNullOrEmpty(maskingNum))
                                            { %>
-                                        <p class="font16 text-bold"><span class="fa fa-phone"></span>&nbsp;<%= maskingNum %></p>
+                                        <p class="font16 text-bold"><span class="bwsprite phone-black-icon"></span>&nbsp;<%= maskingNum %></p>
                                         <%} %>
                                         <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                                           { %>
