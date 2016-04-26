@@ -122,3 +122,8 @@ $(".offers-popup-close-btn").on("click", function () {
     var emiPopupClose = function (emiPopupDiv) {
         emiPopupDiv.hide();
     };
+
+$('.btn-grey-state').on('click', function () {
+    $(this).addClass('button-clicked-state');
+    setTimeout(function () { $('.btn-grey-state').removeClass('button-clicked-state'); }, 100);
+});

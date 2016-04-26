@@ -115,3 +115,6 @@ a.text-darker-black:hover { text-decoration:none; }
 .dealership-loc-icon { width:8px; height:12px; background-position:-41px -437px; position:relative;top:4px; }
 .dealership-address { width:92%; }
 .vertical-top { display:inline-block;vertical-align:top; }
+.btn-grey-state {background:#fff;color:#82888b;border:1px solid #82888b;}
+.button-clicked-state {background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b;}
+#calldealer:hover { text-decoration:none; }
