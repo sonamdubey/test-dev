@@ -116,7 +116,11 @@
 
                             <div id="otpPopup" class="rounded-corner2 text-center" style="display: none;" data-bind="with : Customer">
                                 <div class="otpPopup-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                                <div class="margin-top10 margin-bottom20"><span class="booking-flow-sprite otp-icon"></span></div>
+                                <div class="icon-outer-container rounded-corner50 margin-bottom20">
+                                    <div class="icon-inner-container rounded-corner50">
+                                        <span class="bwsprite booking-otp-icon margin-top25"></span>
+                                    </div>
+                                </div>
                                 <p class="font18 margin-bottom20">Verify your mobile number</p>
                                 <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
                                 <div>
