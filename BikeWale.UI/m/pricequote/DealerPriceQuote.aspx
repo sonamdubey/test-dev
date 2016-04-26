@@ -60,7 +60,7 @@
                 <%}
                   else if (objPriceQuote.objVersion != null)
                   { %>
-                <span id='versText' class="margin-left10 font14 text-light-grey leftfloat margin-top7 text-light-grey margin-right20 text-bold"><%= objPriceQuote.objVersion.VersionName %></span>
+                <span id='versText' class="font14 margin-bottom10 text-default leftfloat margin-top5 margin-right20"><%= objPriceQuote.objVersion.VersionName %></span>
                 <%} %>
             </div>
 
@@ -135,13 +135,14 @@
                 </div>
                 <div id="pqDealerBody" class="font14 padding-right10 padding-left10 border-rbl">
                     <p class="font14 text-light-grey padding-bottom10 margin-bottom15 border-light-bottom"><%= dealerArea %></p>
+                    <p class="text-light-grey margin-bottom10">Dealership contact details:</p>
                     <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
                        {%>
-                    <p class="text-light-grey margin-bottom5"><%= dealerAdd %></p>
+                    <p class="margin-bottom5"><span class="bwmsprite dealership-loc-icon vertical-top margin-right10"></span><span class="vertical-top dealership-address"><%= dealerAdd %></span></p>
                     <%} %>
                     <%if (!string.IsNullOrEmpty(maskingNum))
                       { %>
-                    <p class="margin-bottom15"><span class="bwmsprite tel-sm-icon"></span><a id="aDealerNumber" href="tel:<%= maskingNum %>" class="text-light-grey"><%= maskingNum %></a></p>
+                    <p class="margin-bottom10"><span class="bwmsprite tel-sm-icon"></span><a id="aDealerNumber" href="tel:<%= maskingNum %>" class="font16 text-default text-bold"><%= maskingNum %></a></p>
                     <%} %>
                     <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                       { %>
@@ -279,11 +280,11 @@
             <div class="grid-12 float-button float-fixed">
                 <%if (!string.IsNullOrEmpty(maskingNum))
                   { %>
-                <div class="grid-6 alpha omega">
+                <div class="grid-6 alpha omega padding-right5">
                     <a id="calldealer" class="btn btn-grey btn-full-width btn-sm rightfloat" href="tel:<%= maskingNum %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
                 </div>
                 <%} %>
-                <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega" : "" %>">
+                <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega padding-left5" : "" %>">
                     <input type="button" data-role="none" id="leadBtnBookNow" leadSourceId="17" name="leadBtnBookNow" class="btn btn-sm btn-full-width btn-orange" value="Get offers" />
                 </div>
             </div>
