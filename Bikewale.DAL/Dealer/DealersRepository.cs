@@ -12,6 +12,7 @@ using System.Web;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Utility;
+using System.Data.Common;
 
 namespace Bikewale.DAL.Dealer
 {
@@ -669,22 +670,20 @@ namespace Bikewale.DAL.Dealer
         public IEnumerable<CityEntityBase> FetchDealerCitiesByMake(uint makeId)
         {
             IList<CityEntityBase> objCityList = null;
-            Database db = null;
             try
             {
                 if (makeId > 0)
                 {
-                    db = new Database();
 
-                    using (SqlCommand cmd = new SqlCommand())
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getdealerscitiesbymakeid_22032016"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetDealersCitiesByMakeId_22032016";
-                        cmd.Parameters.AddWithValue("@MakeId", Convert.ToInt32(makeId));                        
+                        //cmd.Parameters.AddWithValue("@makeid", Convert.ToInt32(makeId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Convert.ToInt32(makeId)));
 
-                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                         {
-                            if (dr.HasRows)
+                            if (dr != null )
                             {
                                 objCityList = new List<CityEntityBase>();
                                 while (dr.Read())
@@ -706,10 +705,7 @@ namespace Bikewale.DAL.Dealer
                 ErrorClass objErr = new ErrorClass(ex, "FetchDealerCitiesByMake");
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return objCityList;
         }
 

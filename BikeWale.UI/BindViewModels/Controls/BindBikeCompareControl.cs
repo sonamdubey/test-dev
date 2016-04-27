@@ -53,7 +53,7 @@ namespace Bikewale.BindViewModels.Controls
         {
             try
             {
-                if (FetchedRecordCount > 0 && repeater != null)
+                if (FetchedRecordCount > 0 && repeater != null && CompareList!=null)
                 {
                     repeater.DataSource = CompareList.Skip(skipCount);
                     repeater.DataBind();

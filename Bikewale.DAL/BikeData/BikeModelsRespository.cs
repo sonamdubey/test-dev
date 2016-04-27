@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -730,17 +731,16 @@ namespace Bikewale.DAL.BikeData
             recordCount = 0;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes"))
                 {
-                    cmd.CommandText = "GetNewLaunchedBikes";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = startIndex;
-                    cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = endIndex;
+                    //cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = startIndex;
+                    //cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = endIndex;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], startIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], endIndex));
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -784,23 +784,12 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetNewLaunchedBikesList sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetNewLaunchedBikesList ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objModelList;
         }
 
@@ -808,24 +797,21 @@ namespace Bikewale.DAL.BikeData
         public List<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null)
         {
             List<MostPopularBikesBase> objList = null;
-            Database db = null;
             MostPopularBikesBase objData = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikes"))
                 {
-                    cmd.CommandText = "GetMostPopularBikes";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    if (topCount.HasValue)
-                        cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = topCount;
+                        //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = topCount;
+                        //cmd.Parameters.AddWithValue("@MakeId", makeId);
 
-                    if (makeId.HasValue)
-                        cmd.Parameters.AddWithValue("@MakeId", makeId);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
 
-                    db = new Database();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -861,21 +847,11 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException err)
-            {
-                HttpContext.Current.Trace.Warn("SQL Exception in GetModelsList", err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objList;
@@ -885,19 +861,16 @@ namespace Bikewale.DAL.BikeData
         public List<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId)
         {
             List<MostPopularBikesBase> objList = null;
-            Database db = null;
             MostPopularBikesBase objData = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymake"))
                 {
-                    cmd.CommandText = "GetMostPopularBikesByMake";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@MakeId", makeId);
+                    //cmd.Parameters.AddWithValue("@MakeId", makeId);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -946,11 +919,6 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objList;
         }
 

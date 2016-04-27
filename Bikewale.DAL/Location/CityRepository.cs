@@ -30,7 +30,7 @@ namespace Bikewale.DAL.Location
             List<CityEntityBase> objCityList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("GetCities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.Int], requestType));
