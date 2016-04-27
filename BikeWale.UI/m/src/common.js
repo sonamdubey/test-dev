@@ -1005,7 +1005,7 @@ function GetGlobalCityArea() {
     var cookieName = "location";
     var cityArea = '';
     if (isCookieExists(cookieName)) {
-        var arrays = getCookie(cookieName).split("_");
+        var arrays = getCookie(cookieName).split(",")[0].split("_");
         if (arrays.length > 3) {
             cityArea = arrays[1] + '_' + arrays[3];
         }

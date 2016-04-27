@@ -9,11 +9,11 @@
 });
 
 $("#calldealer").on("click", function () {
-    triggerGA("Dealer_Locator_Detail", "Call_Dealer_Clicked", makeName + "_" + getCityArea);
+    triggerGA("Dealer_Locator_Detail", "Call_Dealer_Clicked", makeName + "_" + cityArea);
 });
 
 $(".maskingNumber").on("click", function () {
-    triggerGA("Dealer_Locator_Detail", "Dealer_Number_Clicked", makeName + "_" + getCityArea);
+    triggerGA("Dealer_Locator_Detail", "Dealer_Number_Clicked", makeName + "_" + cityArea);
 });
 
 var customerViewModel;
@@ -212,6 +212,10 @@ function CustomerModel() {
                 $(".lead-mobile").text(self.mobileNo());
                 $(".notify-leadUser").text(self.fullName());
                 $("#notify-response").show();
+
+                if (btnId == "user-details-submit-btn") {
+                    triggerGA("Dealer_Locator_Detail", "Lead_Submitted", self.selectedBikeName() + "_" + cityArea);
+                }
             }
             else {
                 $("#leadCapturePopup").show();
@@ -225,11 +229,6 @@ function CustomerModel() {
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
             setPQUserCookie();
-
-            if (btnId == "user-details-submit-btn")
-            {               
-                triggerGA("Dealer_Locator_Detail", "Lead_Submitted", self.selectedBikeName() + "_" + getCityArea);
-            }
         }
     };
 

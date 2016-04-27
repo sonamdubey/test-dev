@@ -332,10 +332,7 @@
                     if ($('#ddlAreaPopup option:selected').index() > 0) {
                         selArea = '_' + $('#ddlAreaPopup option:selected').html();
                     }
-                    bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea;
-                    if (bikeVersionLocation != null) {
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_On_Road_Price_Selected', 'lab': bikeVersionLocation });
-                    }
+                    bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea;                  
                 }
                 catch (err) { }
                 window.location.reload();
