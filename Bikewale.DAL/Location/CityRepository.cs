@@ -133,16 +133,15 @@ namespace Bikewale.DAL.Location
         public List<CityEntityBase> GetPriceQuoteCities(uint modelId)
         {
             List<CityEntityBase> objCities = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetPriceQuoteCities_05022016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getpricequotecities_05022016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
+                    //cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], modelId));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -168,10 +167,6 @@ namespace Bikewale.DAL.Location
             {
                 ErrorClass objErr = new ErrorClass(ex, "ex in CityRepository : " + ex.Message);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objCities;

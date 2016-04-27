@@ -30,20 +30,17 @@ namespace Bikewale.DAL.BikeData
         public List<BikeModelEntityBase> GetModelsByType(EnumBikeType requestType, int makeId)
         {
             List<BikeModelEntityBase> objModelsList = null;
-
-            Database db = null;
-
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetBikeModels_New"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemodels_new"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType.ToString();
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType.ToString();
+                    //cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.Int], requestType.ToString()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -62,21 +59,11 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objModelsList;

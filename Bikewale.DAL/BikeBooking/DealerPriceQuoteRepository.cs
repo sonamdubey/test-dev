@@ -15,6 +15,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Location;
 using System.Configuration;
 using Bikewale.Entities.PriceQuote;
+using System.Data.Common;
 
 namespace Bikewale.DAL.BikeBooking
 {
@@ -828,21 +829,21 @@ namespace Bikewale.DAL.BikeBooking
         public List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId)
         {
             List<Bikewale.Entities.Location.AreaEntityBase> objArea = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getpricequotearea"))
                 {
-                    cmd.CommandText = "GetPriceQuoteArea";
+                    
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    //cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
 
-                    if (modelId > 0)
-                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    //if (modelId > 0)
+                    //    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], (modelId > 0)? modelId:(uint?)null));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -867,11 +868,6 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, "GetAreaList ex : " + ex.Message);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objArea;
         }   //End of GetAreaList
         #endregion
