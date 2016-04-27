@@ -5,6 +5,8 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -242,25 +244,17 @@ namespace Bikewale.DAL.Compare
         /// <returns></returns>
         public IEnumerable<TopBikeCompareBase> CompareList(uint topCount)
         {
-            Database db = null;
-            SqlCommand command = null;
             List<TopBikeCompareBase> topBikeList = null;
             try
             {
-                db = new Database();
-                using (SqlConnection connection = new SqlConnection(db.GetConString()))
-                {
-                    using (command = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikecomparisonmin_29012016"))
                     {
-                        command.CommandText = "GetBikeComparisonMin_29012016";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Connection = connection;
-                        command.Parameters.Add("@TopCount", System.Data.SqlDbType.SmallInt).Value = topCount;
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], topCount));
 
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))    
                         {
-                            if (reader != null && reader.HasRows)
+                            if (reader != null)
                             {
                                 topBikeList = new List<TopBikeCompareBase>();
                                 while (reader.Read())
@@ -294,7 +288,6 @@ namespace Bikewale.DAL.Compare
                                 }
                             }
                         }
-                    }
                 }
             }
             catch (SqlException sqEx)

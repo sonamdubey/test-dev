@@ -639,32 +639,42 @@ namespace Bikewale.DAL.BikeData
             Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getupcomingbikeslist_new"))
                 {
-                    cmd.CommandText = "GetUpcomingBikesList_New";
+                    //cmd.CommandText = "getupcomingbikeslist_new";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = inputParams.StartIndex;
-                    cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = inputParams.EndIndex;
+                    //cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = inputParams.StartIndex;
+                    //cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = inputParams.EndIndex;
 
-                    if (inputParams.MakeId > 0) cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = inputParams.MakeId;
-                    if (inputParams.ModelId > 0) cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = inputParams.ModelId;
+                    //if (inputParams.MakeId > 0) cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = inputParams.MakeId;
+                    //if (inputParams.ModelId > 0) cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = inputParams.ModelId;
 
-                    if (sortBy != EnumUpcomingBikesFilter.Default)
-                    {
-                        if (sortBy == EnumUpcomingBikesFilter.PriceLowToHigh)
-                            cmd.Parameters.Add("@EstimatedPrice", SqlDbType.Bit).Value = 0;
-                        else if (sortBy == EnumUpcomingBikesFilter.PriceHighToLow)
-                            cmd.Parameters.Add("@EstimatedPrice", SqlDbType.Bit).Value = 1;
-                        else if (sortBy == EnumUpcomingBikesFilter.LaunchDateSooner)
-                            cmd.Parameters.Add("@LaunchDate", SqlDbType.Bit).Value = 0;
-                        else if (sortBy == EnumUpcomingBikesFilter.LaunchDateLater)
-                            cmd.Parameters.Add("@LaunchDate", SqlDbType.Bit).Value = 1;
-                    }
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], inputParams.StartIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], inputParams.EndIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], inputParams.MakeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], inputParams.ModelId));
 
-                    db = new Database();
+                    
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    //if (sortBy != EnumUpcomingBikesFilter.Default)
+                    //{
+                    //    if (sortBy == EnumUpcomingBikesFilter.PriceLowToHigh)
+                    //        //cmd.Parameters.Add("@EstimatedPrice", SqlDbType.Bit).Value = 0;
+
+                    //    else if (sortBy == EnumUpcomingBikesFilter.PriceHighToLow)
+                    //        //cmd.Parameters.Add("@EstimatedPrice", SqlDbType.Bit).Value = 1;
+                    //    else if (sortBy == EnumUpcomingBikesFilter.LaunchDateSooner)
+                    //        //cmd.Parameters.Add("@LaunchDate", SqlDbType.Bit).Value = 0;
+                    //    else if (sortBy == EnumUpcomingBikesFilter.LaunchDateLater)
+                    //       // cmd.Parameters.Add("@LaunchDate", SqlDbType.Bit).Value = 1;
+                    //}
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedprice", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Convert.ToBoolean(sortBy)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_launchdate", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Convert.ToBoolean(sortBy)));
+
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -696,21 +706,11 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetUpcomingBikesList sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetUpcomingBikesList ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objModelList;
