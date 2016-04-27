@@ -524,11 +524,7 @@ $(document).ready(function () {
     }
     
     var breadcrumbFlag,
-        breadcrumbOffsetTop = $('.breadcrumb').offset().top;
-    if(breadcrumbOffsetTop < 100)
-        breadcrumbFlag = true;
-    else
-        breadcrumbFlag = false;
+        breadcrumbDiv = $('.breadcrumb');
 
     var $window = $(window),
         disclaimerText = $('#disclaimerText'),
@@ -539,7 +535,14 @@ $(document).ready(function () {
         PQDealerSidebarHeight = PQDealerSidebarContainer.height();
         var windowScrollTop = $window.scrollTop(),
             disclaimerTextOffset = disclaimerText.offset(),
-            dealerPriceQuoteContainerOffset = dealerPriceQuoteContainer.offset();
+            dealerPriceQuoteContainerOffset = dealerPriceQuoteContainer.offset(),
+            breadcrumbOffsetTop = breadcrumbDiv.offset().top;
+            
+        if (breadcrumbOffsetTop < 100)
+            breadcrumbFlag = true;
+        else
+            breadcrumbFlag = false;
+
         if ($('#dealerPriceQuoteContainer').height() > 500) {
             if (windowScrollTop < dealerPriceQuoteContainerOffset.top - 50) {
                 PQDealerSidebarContainer.css({ 'position': 'relative', 'top': '0', 'right' : '0' })
