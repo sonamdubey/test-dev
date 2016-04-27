@@ -10,6 +10,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.CoreDAL;
 using Bikewale.Notifications;
+using System.Data.Common;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -38,19 +39,15 @@ namespace Bikewale.DAL.BikeData
         public List<BikeMakeEntityBase> GetMakesByType(EnumBikeType makeType)
         {
             List<BikeMakeEntityBase> objMakesList = null;
-
-            Database db = null;
             
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetBikeMakes_New_29032016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes_new_29032016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = makeType.ToString();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, makeType.ToString()));
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -72,23 +69,12 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objMakesList;
         }
 

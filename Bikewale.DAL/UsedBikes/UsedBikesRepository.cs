@@ -5,6 +5,7 @@ using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -25,25 +26,25 @@ namespace Bikewale.DAL.UsedBikes
         /// <returns></returns>
         public IEnumerable<PopularUsedBikesEntity> GetPopularUsedBikes(uint totalCount, int? cityId = null)
         {
-            Database db = null;
             List<PopularUsedBikesEntity> objUsedBikesList = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("PopularUsedBikes"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("PopularUsedBikes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalCount;
+                    //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalCount;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], totalCount));
 
                     if (cityId.HasValue)
                     {
-                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId.Value;
+                        //cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId.Value;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId.Value));
                     }
 
-                    db = new Database();
                     objUsedBikesList = new List<PopularUsedBikesEntity>();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         while (dr.Read())
                         {
@@ -72,10 +73,6 @@ namespace Bikewale.DAL.UsedBikes
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return objUsedBikesList;
         }   // End of GetPopularUsedBikes method
