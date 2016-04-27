@@ -354,10 +354,7 @@
                         if (self.SelectedArea() != undefined) {
                             selArea = '_' + self.SelectedArea().name;
                         }
-                        bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + selArea;
-                        if (bikeVersionLocation != null) {
-                            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_On_Road_Price_Selected', 'lab': bikeVersionLocation });
-                        }
+                        bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + selArea;                        
                     }
                     catch (err) { }
                     window.location.reload();

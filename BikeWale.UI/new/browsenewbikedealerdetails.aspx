@@ -388,7 +388,8 @@
             var leadSourceId;
             var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
             var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
-            var makeName = "<%= makeName%>";            
+            var makeName = "<%= makeName%>"; 
+            var bikeCityName = $("#ddlCities option:selected").text();
 
             lscache.flushExpired();
             $("#applyFiltersBtn").click(function () {

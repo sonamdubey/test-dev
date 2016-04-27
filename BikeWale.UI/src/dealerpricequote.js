@@ -208,6 +208,18 @@ function CustomerModel() {
                     $("#otpPopup").hide();
                     $("#dealer-lead-msg").fadeIn();
                 }
+
+                if (getOfferClick) {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
+                    getOfferClick = false;
+                }
+                else if (btnId == 'buyingAssistBtn') {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
+                }
+                else if (getEMIClick) {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_EMI_" + bikeName + "_" + versionName + "_" + getCityArea });
+                    getEMIClick = false;
+                }
             }
             else {
                 $("#leadCapturePopup").show();
@@ -222,20 +234,7 @@ function CustomerModel() {
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
-            setPQUserCookie();
-            if (getOfferClick) {
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
-                getOfferClick = false;
-            }
-            else if (btnId == 'buyingAssistBtn')
-            {
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
-            }
-            else if(getEMIClick)
-            {
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_EMI_" + bikeName + "_" + versionName + "_" + getCityArea });
-                getEMIClick = false;
-            }
+            setPQUserCookie();           
         }
     };
 

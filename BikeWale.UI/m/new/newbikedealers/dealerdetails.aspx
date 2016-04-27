@@ -375,6 +375,7 @@
              var bodHt, footerHt, scrollPosition, leadSourceId;                         
              var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
              var makeName = "<%= makeName%>";
+             var cityArea = "<%= dealerCity + "_" + dealerArea%>";
 
             $(window).scroll(function () {
                 bodHt = $('body').height();
@@ -394,7 +395,7 @@
                 appendHash("assistancePopup");
                 $("div#contactDetailsPopup").show();
                 $("#otpPopup").hide();
-                triggerGA("Dealer_Locator_Detail", "Get_Offers_Clicked", makeName + "_" + getCityArea);
+                triggerGA("Dealer_Locator_Detail", "Get_Offers_Clicked", makeName + "_" + cityArea);
             });
 
             /*need needmodification*/   

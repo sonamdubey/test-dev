@@ -20,7 +20,7 @@ $('.filterBackArrow').on('click', function () {
 });
 
 $(".maskingNumber").on("click", function () {
-    triggerGA("Dealer_Locator", "Dealer_Number_Clicked", makeCityViewModel.makeName() + "_" + getCityArea);
+    triggerGA("Dealer_Locator", "Dealer_Number_Clicked", makeCityViewModel.makeName() + "_" + makeCityViewModel.cityName());
 });
 
 var selectBrand = $('#selectBrand'),
@@ -187,7 +187,7 @@ $(".get-assistance-btn").on('click', function () {
     $("#otpPopup").hide();
 
     getDealerBikes($(this).attr("data-item-id"), $(this).attr("campId"));
-    triggerGA("Dealer_Locator", "Get_Offers_Clicked", makeCityViewModel.makeName() + "_" + getCityArea);
+    triggerGA("Dealer_Locator", "Get_Offers_Clicked", makeCityViewModel.makeName() + "_" + makeCityViewModel.cityName());
 
 });
 
@@ -438,7 +438,11 @@ function CustomerModel(obj) {
 
                 $(".lead-mobile").text(self.mobileNo());
                 $(".notify-dealerName").text(self.dealerName());
-                $("#notify-response").show();               
+                $("#notify-response").show();
+
+                if (btnId == "user-details-submit-btn") {
+                    triggerGA("Dealer_Locator", "Lead_Submitted", "Main_Form_" + customerViewModel.selectedBikeName() + "_" + makeCityViewModel.cityName());
+                }
             }
             else {
                 $("#leadCapturePopup").show();
@@ -452,11 +456,7 @@ function CustomerModel(obj) {
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
-            setPQUserCookie();
-            if (btnId == "user-details-submit-btn")
-            {                
-                triggerGA("Dealer_Locator", "Lead_Submitted", "Main_Form_" + customerViewModel.selectedBikeName() + "_" + getCityArea);
-            }
+            setPQUserCookie();            
         }
     };
 
@@ -480,7 +480,7 @@ function CustomerModel(obj) {
                 $(".booking-dealer-details").removeClass("hide").addClass("show");
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
-                $("#personalInfo").hide()
+                $("#personalInfo").hide();
                 $("#otpPopup").hide();
             
                 $("#dealer-lead-msg").fadeIn();

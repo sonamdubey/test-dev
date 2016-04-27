@@ -727,6 +727,16 @@
                             $("#contactDetailsPopup").hide();
                             $("#otpPopup").hide();
                             $("#dealer-assist-msg").show();
+
+                            if (getOffersClicked) {
+                                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
+                                getOffersClicked = false;
+                            }
+
+                            else if (getEMIClicked) {
+                                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_EMI_Quote_" + bikeName + "_" + versionName + "_" + getCityArea });
+                                getEMIClicked = false;
+                            }
                         }
                         else {
                             $("#contactDetailsPopup").hide();
@@ -740,16 +750,7 @@
                         }
                         setPQUserCookie();
 
-                        if (getOffersClicked) {
-                            dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
-                            getOffersClicked = false;
-                        }
-
-                        else if (getEMIClicked)
-                        {
-                            dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_EMI_Quote_" + bikeName + "_" + versionName + "_" + getCityArea });
-                            getEMIClicked = false;
-                        }
+                       
                     }
 
                 };
@@ -780,7 +781,6 @@
                         }
                     }
                 });
-
             }
 
             function ValidateUserDetail() {
