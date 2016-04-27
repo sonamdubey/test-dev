@@ -652,8 +652,8 @@ namespace Bikewale.DAL.BikeData
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], inputParams.StartIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], inputParams.EndIndex));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], inputParams.MakeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], inputParams.ModelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (inputParams.MakeId > 0) ? inputParams.MakeId : (int?)null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (inputParams.ModelId > 0) ? inputParams.ModelId : (int?)null));
 
                     
 
@@ -670,8 +670,8 @@ namespace Bikewale.DAL.BikeData
                     //       // cmd.Parameters.Add("@LaunchDate", SqlDbType.Bit).Value = 1;
                     //}
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedprice", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Convert.ToBoolean(sortBy)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_launchdate", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Convert.ToBoolean(sortBy)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedprice", DbParamTypeMapper.GetInstance[SqlDbType.Bit],(sortBy != EnumUpcomingBikesFilter.Default)?((sortBy == EnumUpcomingBikesFilter.PriceHighToLow)?true:false):(bool?)null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_launchdate", DbParamTypeMapper.GetInstance[SqlDbType.Bit], (sortBy != EnumUpcomingBikesFilter.Default) ? ((sortBy == EnumUpcomingBikesFilter.LaunchDateLater) ? true : false) : (bool?)null));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))

@@ -242,19 +242,17 @@ namespace Bikewale.DAL.BikeData
         public BikeDescriptionEntity GetMakeDescription(U makeId)
         {
             BikeDescriptionEntity objMake = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmakesynopsis"))
                 {
-                    cmd.CommandText = "GetMakeSynopsis";
+                    //cmd.CommandText = "getmakesynopsis";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    //cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -268,21 +266,11 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetMakeDescription sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetMakeDescription ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objMake;
