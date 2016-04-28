@@ -108,7 +108,7 @@ namespace PriceQuoteLeadSMS
                     {
                         Logs.WriteInfoLog(string.Format("process Lead for pqId {0}, Dealer Id : {1}", item.PQId, item.DealerId));
                         // Stop sending SMS and Email to LeadSourceId equals 2 and 5
-                        if (item.LeadSourceId != 2 && item.LeadSourceId != 5)
+                        if (item.LeadSourceId != 16 && item.LeadSourceId != 22)
                         {
                             if (!String.IsNullOrEmpty(item.SMSToCustomerMessage))
                             {

@@ -250,8 +250,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             {
                                 platformId = Request.Headers.GetValues("platformId").First().ToString();
                             }
-                            // Stop sending SMS and Email to LeadSourceId equals 2 and 5
-                            if (platformId != "3" && platformId != "4" && input.LeadSourceId != 2 && input.LeadSourceId != 5)
+                            // Stop sending SMS and Email to LeadSourceId equals 16 and 22
+                            if (platformId != "3" && platformId != "4" && input.LeadSourceId != 16 && input.LeadSourceId != 22)
                             {
                                 SendEmailSMSToDealerCustomer.SaveEmailToCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail, dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, insuranceAmount);
                             }
@@ -262,7 +262,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             //{
                             //    //SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, dealerDetailEntity, objCust.CustomerMobile, objCust.CustomerName, bikeName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Address, bookingAmount, insuranceAmount, hasBumperDealerOffer);
                             //}
-                            if (input.LeadSourceId != 2 && input.LeadSourceId != 5)
+                            if (input.LeadSourceId != 16 && input.LeadSourceId != 22)
                                 SaveCustomerSMS(input, objCust, dealerDetailEntity, bookingAmount);
 
                             //bool isDealerNotified = _objDealerPriceQuote.IsDealerNotified(input.DealerId, objCust.CustomerMobile, objCust.CustomerId);
