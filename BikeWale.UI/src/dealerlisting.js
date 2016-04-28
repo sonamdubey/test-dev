@@ -339,7 +339,8 @@ $(document).on('click', 'a.dealer-sidebar-link', function () {
 });
 
 $(document).on('click', '#dealersList a.get-assistance-btn', function (e) {
-    leadSourceId = id = $(this).attr("leadSourceId");
+    leadSourceId = $(this).attr("leadSourceId");
+    pqSourceId = $(this).attr("pqSourceId");
     id = $(this).attr("data-item-id");
     type = $(this).attr("data-item-type");
     parentLi = $(this).parents("li");
@@ -660,6 +661,7 @@ function CustomerModel(obj) {
         isValidDetails = false;
         if (event.target.id == 'submitAssistanceFormBtn') {
             leadSourceId = $(event.target).attr("leadSourceId");
+            pqSourceId = $(event.target).attr("pqSourceId");
             isValidDetails &= validateBike(assistGetModel);
             isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
             startLoading($("#buyingAssistanceForm"));
@@ -693,7 +695,7 @@ function CustomerModel(obj) {
                 "cityId": bikeCityId,
                 "areaId": 0,
                 "sourceType": pageSrcId,
-                "pQLeadId": leadSrcId,
+                "pQLeadId": pqSourceId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
