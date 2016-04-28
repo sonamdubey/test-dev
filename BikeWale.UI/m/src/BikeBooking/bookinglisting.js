@@ -1148,7 +1148,7 @@ function registerPQ(myData) {
         'ClientIP': clientIP,
         'SourceType': '1',
         'VersionId': myData.versionEntity.versionId(),
-        'pQLeadId': pqSourceId,
+        'pQLeadId': pqLeadId,
         'deviceId': getCookie('BWC'),
         'dealerId': myData.dealerId()
     };

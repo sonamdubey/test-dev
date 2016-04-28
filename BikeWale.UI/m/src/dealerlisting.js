@@ -391,7 +391,7 @@ function CustomerModel(obj) {
                 "cityId": makeCityViewModel.selectedCityId(),
                 "areaId": 0,
                 "sourceType": 2,
-                "pQLeadId": leadSrcId,
+                "pQLeadId": pqSrcId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
