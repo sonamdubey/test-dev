@@ -281,11 +281,12 @@
                 <%if (!string.IsNullOrEmpty(maskingNum))
                   { %>
                 <div class="grid-6 alpha omega padding-right5">
-                    <a id="calldealer" class="btn btn-grey-state btn-full-width btn-sm rightfloat" href="tel:<%= maskingNum %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
+                    <input type="button" data-role="none" id="leadBtnBookNow" leadSourceId="17" name="leadBtnBookNow" class="btn btn-sm btn-full-width btn-white" value="Get offers" />
                 </div>
                 <%} %>
                 <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega padding-left5" : "" %>">
-                    <input type="button" data-role="none" id="leadBtnBookNow" leadSourceId="17" name="leadBtnBookNow" class="btn btn-sm btn-full-width btn-orange" value="Get offers" />
+                    <a id="calldealer" class="btn btn-full-width btn-orange rightfloat" href="tel:<%= maskingNum %>">
+                        <span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                 </div>
             </div>
             <div class="clear"></div>
