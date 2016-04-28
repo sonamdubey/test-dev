@@ -8,7 +8,7 @@
         <meta name="keywords" content="<%= keywords %>" />
     <%} %>
     <meta name="description" content="<%= description %>" />
-    <meta name="canonical" content="<%= canonical %>" />
+    <% if(!string.IsNullOrEmpty(canonical)){ %><link rel="canonical" href="<%= canonical %>" /> <% } %>
     <% if(!String.IsNullOrEmpty(fbTitle) && !String.IsNullOrEmpty(fbImage)) { %>
         <meta property="og:type" content="website" />
         <meta property="og:title" content="<%=fbTitle%>"/> 
