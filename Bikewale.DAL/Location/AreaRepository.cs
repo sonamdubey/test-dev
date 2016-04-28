@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using Bikewale.CoreDAL;
 using System.Web;
 using Bikewale.Notifications;
+using System.Data.Common;
 
 namespace Bikewale.DAL.Location
 {
@@ -77,20 +78,19 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public IEnumerable<AreaEntityBase> GetAreasByCity(UInt16 cityId)
         {
-            Database db = null;
             List<AreaEntityBase> lstArea = null;
             AreaEntityBase area = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetAreas"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getareas"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    //cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
 
-                    db = new Database();
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null)
                         {
                             lstArea = new List<AreaEntityBase>();
                             while (reader.Read())
@@ -116,10 +116,7 @@ namespace Bikewale.DAL.Location
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return lstArea;
         }
     }

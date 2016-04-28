@@ -6,6 +6,8 @@ using Bikewale.Common;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI.HtmlControls;
+using System.Data.Common;
+using Bikewale.CoreDAL;
 
 namespace Bikewale.Controls
 {
@@ -64,40 +66,43 @@ namespace Bikewale.Controls
 
         protected void FetchUpcomingBikes()
         {
-            Database db = null;
-            DataSet ds = null;
-
-            try 
-	        {
-                db = new Database();
-
-		        using(SqlCommand cmd = new SqlCommand())
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getupcomingbikemin"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetUpcomingBikeMin";
 
-                    cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
-                    cmd.Parameters.Add("@ControlWidth", SqlDbType.VarChar, 10).Value = ControlWidth;
-                    cmd.Parameters.Add("@FetchAllRecords", SqlDbType.Bit).Value = Corousal;
-                    if (!String.IsNullOrEmpty(ModelId)) { cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = ModelId; }
-                    if(!String.IsNullOrEmpty(MakeId)) { cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = MakeId; }
-                    if(!String.IsNullOrEmpty(SeriesId)) { cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = SeriesId; }
+                    //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
+                    //cmd.Parameters.Add("@ControlWidth", SqlDbType.VarChar, 10).Value = ControlWidth;
+                    //cmd.Parameters.Add("@FetchAllRecords", SqlDbType.Bit).Value = Corousal;
+                    //if (!String.IsNullOrEmpty(ModelId)) { cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = ModelId; }
+                    //if(!String.IsNullOrEmpty(MakeId)) { cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = MakeId; }
+                    //if(!String.IsNullOrEmpty(SeriesId)) { cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = SeriesId; }
 
-                    ds = db.SelectAdaptQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], TopRecords));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_controlwidth", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, ControlWidth));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fetchallrecords", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Corousal));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!String.IsNullOrEmpty(ModelId)) ? ModelId : null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!String.IsNullOrEmpty(MakeId)) ? MakeId : null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!String.IsNullOrEmpty(SeriesId)) ? SeriesId : null));
 
-                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
-                        divControl.Attributes.Remove("class");
-                        DataTable dt = ds.Tables[0];
+                        if (ds != null && ds.Tables != null && ds.Tables[0].Rows.Count > 0)
+                        {
+                            divControl.Attributes.Remove("class");
+                            DataTable dt = ds.Tables[0];
 
-                        rptUpcomingBikes.DataSource = dt;
-                        rptUpcomingBikes.DataBind();
+                            rptUpcomingBikes.DataSource = dt;
+                            rptUpcomingBikes.DataBind();
+                        }
+                        else
+                            divControl.Attributes.Add("class", "hide");
                     }
-                    else
-                        divControl.Attributes.Add("class", "hide");
+
                 }
-	        }
-	        catch (SqlException exSql)
+            }
+            catch (SqlException exSql)
             {
                 Trace.Warn("upcoming bikes FetchUpcomingBikes sqlex: ", exSql.Message);
                 ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
@@ -108,7 +113,7 @@ namespace Bikewale.Controls
                 Trace.Warn("upcoming bikes FetchUpcomingBikes Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }            
+            }
         }   // end of FetchUpcomingBikes method
 
         /// <summary>
