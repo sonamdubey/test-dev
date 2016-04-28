@@ -535,6 +535,7 @@
             var pageUrl = '<%= pageUrl%>';
             var areaId = '<%= areaId%>';
             var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+            var ga_pg_id= '14';
         </script>
         <script type="text/javascript">
             //Need to uncomment the below script
@@ -595,7 +596,6 @@
                 $(id).closest('li').nextAll('li').toggleClass('hide');
                 $(id).text($(id).text() == '(view more)' ? '(view less)' : '(view more)');
             };
-
         </script>
 
     </form>
