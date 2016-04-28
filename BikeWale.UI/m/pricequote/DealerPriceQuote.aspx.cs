@@ -111,13 +111,13 @@ namespace Bikewale.Mobile.BikeBooking
 
                     if (objPriceQuote != null)
                     {
-                        BikeName = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " + objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "";
+                        BikeName = (objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "") + " " + (objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "");
                         //Added By : Ashwini Todkar on 1 Dec 2014
                         if (objPriceQuote.PrimaryDealer != null && objPriceQuote.PrimaryDealer.PriceList != null && objPriceQuote.PrimaryDealer.PriceList.Count() > 0)
                         {
                             isPrimaryDealer = true;
-                            MakeModel = objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "" + " " +
-                                        objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "";
+                            MakeModel = (objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "") + " " +
+                                        (objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "");
 
                             rptPriceList.DataSource = objPriceQuote.PrimaryDealer.PriceList;
                             rptPriceList.DataBind();
@@ -377,7 +377,7 @@ namespace Bikewale.Mobile.BikeBooking
                 }
             }
         }
-        
+
         private string GetLocationCookie()
         {
             string location = String.Empty;

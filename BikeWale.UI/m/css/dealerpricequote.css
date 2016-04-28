@@ -52,7 +52,7 @@
 .offerIcon_5, .benifitIcon_5, .offerIcon_7 { height:30px; background-position:0 -217px; }
 .offerIcon_6 { height:21px; background-position:0 -110px; }
 .cal-emi-icon {width:37px; height: 48px; background-position:0 -356px}
-.tel-sm-icon { width: 15px; height: 15px;background-position: -84px -323px; position: relative; top: 2px;}
+.tel-sm-icon { width: 17px; height: 15px;background-position: -86px -323px; position: relative; top: 2px;}
 .thankyou-icon {width:48px; height:58px; background-position: -137px -404px; }
 #calldealer.btn-sm { padding:8px 12px; }
 #calldealer .tel-grey-icon{position: relative;top: 2px}
@@ -111,3 +111,10 @@ a.text-darker-black:hover { text-decoration:none; }
 #otpPopup .update-mobile-box{display:none}
 #otpPopup .edit-mobile-btn{cursor:pointer}
 .thankyou-icon {width:48px; height:58px; background-position: -137px -404px; }
+.text-default {color:#4d5057}
+.dealership-loc-icon { width:8px; height:12px; background-position:-41px -437px; position:relative;top:4px; }
+.dealership-address { width:92%; }
+.vertical-top { display:inline-block;vertical-align:top; }
+.btn-grey-state {background:#fff;color:#82888b;border:1px solid #82888b;}
+.button-clicked-state {background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b;}
+#calldealer:hover { text-decoration:none; }

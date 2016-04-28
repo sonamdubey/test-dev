@@ -200,7 +200,7 @@
                                     <% }
 									   else
 									   { %>
-                                    <p id='versText' class="variantText text-light-grey margin-right20 text-bold"><%= variantText %></p>
+                                    <p id='versText' class="variantText margin-right20"><%= variantText %></p>
                                     <% } %>
                                     <div class="clear"></div>
                                 </div>
