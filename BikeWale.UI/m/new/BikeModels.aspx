@@ -35,6 +35,7 @@
         var isDealerPriceAvailable = "<%= pqOnRoad != null ? pqOnRoad.IsDealerPriceAvailable : false%>";
         var campaignId = "<%= campaignId%>";
         var manufacturerId = "<%= manufacturerId%>";
+        var isDealerPQ = "<%= isDealerPQ %>";
     </script>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
@@ -322,12 +323,12 @@
                                { 
                             %>
                                     <div class="grid-6 alpha omega">
-                                        <a id="calldealer" class="btn btn-white btn-full-width btn-sm rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
+                                        <a id="getAssistance" leadSourceId="19" class="btn btn-white btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get offers</a>
                                     </div>
                                     <div class="grid-6 alpha omega padding-left10">
-                                        <a id="getAssistance" leadSourceId="19" class="btn btn-orange btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get offers</a>
+                                        <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                                     </div>
-                            <% }                              
+                            <% }                             
                            }  
                         %>
                     </div>

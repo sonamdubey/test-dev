@@ -58,7 +58,7 @@ namespace Bikewale.Mobile.New
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
         // New Model Revamp
-        protected bool isBookingAvailable, isOfferAvailable, isBikeWalePQ, isDiscontinued, isAreaAvailable;
+        protected bool isBookingAvailable, isOfferAvailable, isBikeWalePQ, isDiscontinued, isAreaAvailable, isDealerPQ;
         protected Repeater rptOffers, rptMoreOffers, rptVariants;
         static readonly string _bwHostUrl, _PageNotFoundPath;
         protected VersionSpecifications bikeSpecs;
@@ -620,31 +620,22 @@ namespace Bikewale.Mobile.New
                             var selectedVariant = pqOnRoad.DPQOutput.Varients.Where(p => p.objVersion.VersionId == variantId).FirstOrDefault();
                             if (selectedVariant != null)
                             {
+                                isDealerPQ = true;
                                 onRoadPrice = selectedVariant.OnRoadPrice;
                                 price = onRoadPrice.ToString();
                                 if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
                                 {
-                                    //IEnumerable<OfferEntity> moreOffers = null;
                                     rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers;
-                                    //ONROAD.DPQOutput.objOffers.Take<DPQOfferBase>(2);
                                     rptOffers.DataBind();
-                                    //if (pqOnRoad.DPQOutput.objOffers.Count > 2)
-                                    //{
-                                    //    moreOffers = pqOnRoad.DPQOutput.objOffers.Skip(2).Take<OfferEntity>(pqOnRoad.DPQOutput.objOffers.Count - 2);
-                                    //    rptMoreOffers.DataSource = moreOffers;
-                                    //    rptMoreOffers.DataBind();
-                                    //}
                                     isOfferAvailable = true;
                                 }
                                 if (selectedVariant.PriceList != null)
                                 {
                                     totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
                                 }
-
                                 bookingAmt = selectedVariant.BookingAmount;
                                 if (bookingAmt > 0)
                                     isBookingAvailable = true;
-
                                 if (pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
                                 {
                                     price = Convert.ToString(onRoadPrice - totalDiscountedPrice);
