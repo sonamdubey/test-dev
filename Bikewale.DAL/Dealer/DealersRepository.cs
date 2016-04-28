@@ -482,25 +482,24 @@ namespace Bikewale.DAL.Dealer
         {
             DealersEntity dealers = null;
             IList<DealersList> dealerList = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerbymakecity"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealerByMakeCity";
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    //cmd.CommandText = "getdealerbymakecity";
+                    //cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    //cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
-                            if (dr.HasRows)
-                            {
                                 DealersList dealerdetail;
                                 dealerList = new List<DealersList>();
                                 dealers = new DealersEntity();
@@ -530,8 +529,6 @@ namespace Bikewale.DAL.Dealer
 
                                 dealers.Dealers = dealerList;
 
-                            }
-
                         }
                     }
                 }
@@ -542,11 +539,7 @@ namespace Bikewale.DAL.Dealer
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
+           
             return dealers;
         }
 
