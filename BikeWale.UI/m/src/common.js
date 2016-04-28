@@ -77,6 +77,13 @@ function GetCatForNav() {
             case "13":
                 ret_category = "Expert_Reviews_Detail";
                 break;
+            case "14":
+                ret_category = "BookingSummary_New";
+                break;
+            case "39":
+                ret_category = "BookingListing";
+                break;
+            
         }
     }
     return ret_category;
@@ -923,7 +930,7 @@ function slideChangeStart() {
                 if (options.source == '1') {
                     if (item.payload.modelId > 0) {
                         if (item.payload.futuristic == 'False') {
-                            ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On Road Price</a>');
+                            ulItem.append('<a pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
                         } else {
                             ulItem.append('<span class="upcoming-link">coming soon</span>')
                         }
@@ -1005,7 +1012,7 @@ function GetGlobalCityArea() {
     var cookieName = "location";
     var cityArea = '';
     if (isCookieExists(cookieName)) {
-        var arrays = getCookie(cookieName).split("_");
+        var arrays = getCookie(cookieName).split(",")[0].split("_");
         if (arrays.length > 3) {
             cityArea = arrays[1] + '_' + arrays[3];
         }
@@ -1131,6 +1138,17 @@ $.fn.shake = function (options) {
 $(function () {
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
     var appbanner = getCookie("AppBanner");
+    // Add the page ids of all the pages which need not show app banner ads
+    var hideBannerPages = ['7','14'];
+    debugger;
+    if (ga_pg_id == 2 ) {
+        if (typeof isDealerPQ !== 'undefined') {
+            if (isDealerPQ === 'False') {
+                appbanner = "true";
+            } else { appbanner = "false"; }
+        }
+    } else if (hideBannerPages.indexOf(ga_pg_id) > -1) { appbanner = "false"; }
+
     if ((appbanner == null || appbanner == "true") && !isSafari) {
         $("#appBanner").slideDown();
         SetCookie("AppBanner", true);

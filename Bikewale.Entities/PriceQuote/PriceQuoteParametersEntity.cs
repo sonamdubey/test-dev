@@ -9,6 +9,8 @@ namespace Bikewale.Entities.PriceQuote
 {
     /// Modified By : Sushil Kumar On 11th Nov 2015
     /// Summary : Added colorId to Update colorId in PQ_NewBikeDealerPriceQuotes
+    /// Modified by :   Lucky Rathore on 20 April 2016
+    /// Description :   Added RefPQId as new property
     public class PriceQuoteParametersEntity
     {
         public uint VersionId { get; set; }
@@ -29,5 +31,6 @@ namespace Bikewale.Entities.PriceQuote
         public string UTMA { get; set; }
         public string UTMZ { get; set; }
         public ushort? PQLeadId { get; set; }
+        public UInt64? RefPQId { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace Bikewale.New
         public int StateCount = 0, DealerCount = 0;
         private uint cityId;
         private string makeMaskingName = string.Empty;
-
+        protected bool cityDetected = false;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -63,18 +63,15 @@ namespace Bikewale.New
 
                 if (cityId > 0)
                 {
-                    checkDealersForMakeCity(_makeId);
+                    cityDetected = checkDealersForMakeCity(_makeId);
                 }
-                else
+                if (_makeId > 0 && (!cityDetected))
                 {
-                    if (!IsPostBack)
-                    {
-                        objMMV = new MakeModelVersion();
-                        objMMV.GetMakeDetails(makeId);
+                    objMMV = new MakeModelVersion();
+                    objMMV.GetMakeDetails(makeId);
 
-                        BindControl();
-                        BindStates();
-                    }
+                    BindControl();
+                    BindStates();
                 }
             }
         }
@@ -84,7 +81,7 @@ namespace Bikewale.New
         /// Description : To redirect user to dealer listing page if make and city already provided by user
         /// </summary>
         /// <param name="_makeId"></param>
-        private void checkDealersForMakeCity(ushort _makeId)
+        private bool checkDealersForMakeCity(ushort _makeId)
         {
             IEnumerable<CityEntityBase> _cities = null;
             try
@@ -104,19 +101,8 @@ namespace Bikewale.New
                             Response.Redirect(_redirectUrl, false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
+                            return true;
                         }
-                        else
-                        {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
-                        }
-                    }
-                    else
-                    {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
                     }
                 }
             }
@@ -126,6 +112,7 @@ namespace Bikewale.New
                 ErrorClass objErr = new ErrorClass(ex, "checkDealersForMakeCity");
                 objErr.SendMail();
             }
+            return false;
         }
 
         private void BindControl()

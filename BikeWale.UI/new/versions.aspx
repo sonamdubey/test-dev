@@ -200,7 +200,7 @@
                                     <% }
 									   else
 									   { %>
-                                    <p id='versText' class="variantText text-light-grey margin-right20 text-bold"><%= variantText %></p>
+                                    <p id='versText' class="variantText margin-right20"><%= variantText %></p>
                                     <% } %>
                                     <div class="clear"></div>
                                 </div>
@@ -292,7 +292,7 @@
 								   else
 									   if (toShowOnRoadPriceButton)
 									   { %>
-                                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Check On Road Price</a>
+                                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Check On-Road Price</a>
                                 <div class="clear"></div>
                                 
                                 <% } %>
@@ -300,7 +300,7 @@
 
                             <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
                                { %>
-                            <a href="javascript:void(0)" id="getassistance" class="btn btn-orange margin-top10 margin-right10 leftfloat">Get offers from dealer</a>
+                            <a href="javascript:void(0)" id="getassistance" leadSourceId="12" class="btn btn-orange margin-top10 margin-right10 leftfloat">Get offers from dealer</a>
                             <div class="leftfloat margin-top10">
                                 <span class="font12 text-light-grey">Powered by</span><br />
                                 <span class="font14"><%= viewModel.Organization %></span>
@@ -380,7 +380,7 @@
                             <% } %>
                             <div id="dealerAssistance">
                             <div id="buyingAssistance" class="bg-light-grey font14 content-inner-block-20">
-                                <p class="text-bold margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
+                                <p class="text-bold margin-bottom20">Get assistance on buying this bike:</p>
                                 <div>
                                     <div class="form-control-box form-control-username leftfloat margin-right20">
                                         <input type="text" class="form-control" placeholder="Name" id="assistGetName" data-bind="textInput: fullName" />
@@ -398,7 +398,7 @@
                                         <span class="bwsprite error-icon errorIcon"></span>
                                         <div class="bw-blackbg-tooltip errorText"></div>
                                     </div>
-                                    <a class="btn btn-inv-grey leftfloat" id="assistFormSubmit" data-bind="event: { click: submitLead }">Submit</a>
+                                    <a class="btn btn-inv-grey leftfloat" leadSourceId="13" id="assistFormSubmit" data-bind="event: { click: submitLead }">Submit</a>
                                     <div class="clear"></div>
                                 </div>
                             </div>
@@ -1293,7 +1293,7 @@
             </div>
         </section>
 
-        <!-- check on road price popup -->
+        <!-- Check On-Road Price popup -->
         <div id="onRoadPricePopup" class="rounded-corner2 content-inner-block-20 text-center hide">
             <div class="onroadPriceCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="form-control-box padding-top30">
@@ -1316,7 +1316,7 @@
         <script type="text/javascript">
            
             // Cache selectors outside callback for performance.
-
+            var leadSourceId;
 			<% if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
 			   { %>
             var $window = $(window),

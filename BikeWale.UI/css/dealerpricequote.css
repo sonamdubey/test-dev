@@ -105,3 +105,7 @@ a.text-darker-black:hover { text-decoration:none; }
 #otpPopup .errorIcon,#otpPopup .errorText{display:none}
 .input-border-bottom{border-bottom:1px solid #ccc}
 .assistance-response-close.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
+.phone-black-icon { width:11px; height:15px; position:relative; top:2px; margin-right:3px; background-position:-73px -444px; }
+.dealership-loc-icon { width:8px; height:12px; background-position:-53px -469px; position:relative;top:4px; }
+.dealership-address { width:92%; }
+.vertical-top { display:inline-block;vertical-align:top; }

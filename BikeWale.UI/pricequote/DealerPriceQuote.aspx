@@ -25,6 +25,7 @@
         var cityId = '<%= cityId%>';
         var areaId = '<%= areaId%>';   
         var clientIP = "<%= clientIP%>";
+        var versionName = "<%= versionName%>";
         var pageUrl = "www.bikewale.com/pricequote/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;       
     </script>
 </head>
@@ -68,7 +69,7 @@
         <section class="container">
             <div class="grid-12 margin-bottom20" id="dealerPriceQuoteContainer">
                 <div class="content-box-shadow rounded-corner2">
-                    <div id="pqBikeDetails" class="grid-8 alpha omega">
+                    <div id="pqBikeDetails" class="grid-8 alpha omega bg-white">
                         <div class="grid-6 padding-bottom20" id="PQImageVariantContainer">
                             <% if (detailedDealer != null)
                                { %>
@@ -104,7 +105,7 @@
                                 <% }
                                    else
                                    { %>
-                                <span id="versText" class="margin-left10 font16 text-light-grey leftfloat margin-top7 text-light-grey margin-right20 text-bold"><%= versionName %></span>
+                                <span id="versText" class="margin-left10 font16 leftfloat margin-top7 margin-right20"><%= versionName %></span>
                                 <% } %>
                             </div>
 
@@ -146,7 +147,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td colspan="2" class="text-right padding-top5"><a class="font14 text-link " id="leadLink" name="leadLink" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a></td>
+                                            <td colspan="2" class="text-right padding-top5"><a class="font14 text-link " leadSourceId="8" id="leadLink" name="leadLink" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a></td>
                                         </tr>
                                         <tr class="hide">
                                             <td colspan="3">
@@ -218,7 +219,7 @@
                                             <span class="bwsprite error-icon errorIcon"></span>
                                             <div class="bw-blackbg-tooltip errorText"></div>
                                         </div>
-                                        <a class="btn btn-orange leftfloat" id="buyingAssistBtn" data-bind="event: { click: submitLead } ">Submit</a>
+                                        <a class="btn btn-orange leftfloat" leadSourceId="10" id="buyingAssistBtn" data-bind="event: { click: submitLead } ">Submit</a>
                                         <div class="clear"></div>
                                     </div>
                                 </div>
@@ -497,7 +498,7 @@
                                         <div class="clear"></div>
                                     </div>
                                     <div class="grid-4 omega text-right">
-                                        <a id="btnEmiQuote" class="btn btn-grey btn-md font14">Get EMI quote</a>
+                                        <a id="btnEmiQuote" leadSourceId="11" class="btn btn-grey btn-md font14">Get EMI quote</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -523,13 +524,14 @@
                                     <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard || !String.IsNullOrEmpty(maskingNum))
                                        { %>
                                     <div class="border-solid-top padding-top15">
+                                        <p class="font14 text-light-grey margin-bottom10">Dealership contact details:</p>
                                         <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
                                           { %>
-                                        <p class="font14 text-light-grey margin-bottom10"><%= dealerAddress %></p>
+                                        <p class="font14 margin-bottom10"><span class="bwsprite dealership-loc-icon vertical-top margin-right10"></span><span class="vertical-top dealership-address"><%= dealerAddress %></span></p>
                                         <%} %>
                                         <% if (!string.IsNullOrEmpty(maskingNum))
                                            { %>
-                                        <p class="font16 text-bold"><span class="fa fa-phone"></span>&nbsp;<%= maskingNum %></p>
+                                        <p class="font16 text-bold"><span class="bwsprite phone-black-icon"></span>&nbsp;<%= maskingNum %></p>
                                         <%} %>
                                         <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                                           { %>
@@ -571,7 +573,7 @@
                                         <% } %>
                                         <%if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard)
                                           { %>
-                                        <a id="leadBtn" class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
+                                        <a id="leadBtn" leadSourceId="9" class="btn btn-inv-grey btn-full-width font14 margin-top15">Get offers from this dealer</a>
                                         <% } %>
                                     </div>
                                     <% } %>
@@ -632,7 +634,7 @@
 
             var bikeName = "<%= BikeName %>";
             var bikeVersionPrice = "<%= totalPrice %>";
-
+            var leadSourceId;
             <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                { %>  
 
@@ -777,7 +779,7 @@
                     return false;
                 }
                 $('#hdnVariant').val($(this).attr('title'));
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeVersionLocation });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeName + "_" + versionName + "_" + getCityArea });
             });
 
             $("input[name*='switchDealer']").on("click", function () {
@@ -785,7 +787,7 @@
                     return false;
                 }
                 $('#hdnDealerId').val($(this).attr('title'));
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeVersionLocation });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeName + "_" + versionName + "_" + getCityArea });
             });
             $("#dealerList li").on("click", function(){
                 registerPQ($(this).attr('dealerId'));
@@ -796,11 +798,12 @@
                     'cityId': cityId,
                     'areaId': areaId,
                     'clientIP': clientIP,
-                    'sourceType': <%=Bikewale.Utility.BWConfiguration.Instance.SourceId%>,
+                    'sourceType': <%=Bikewale.Utility.BWConfiguration.Instance.SourceId %>,
                     'versionId': versionId,
-                    'pQLeadId': eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
+                    'pQLeadId': leadSourceId,
                     'deviceId': getCookie('BWC'),
-                    'dealerId': secondaryDealerId
+                    'dealerId': secondaryDealerId,
+                    'refPQId' : pqId
                 };
                 $.ajax({
                     type: 'POST',

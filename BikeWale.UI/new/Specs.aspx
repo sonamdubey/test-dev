@@ -32,7 +32,7 @@
         <div class="grid_5 omega margin-top15" runat="server">
             <BikeWale:BikeRatings runat="server" ID="ctrl_BikeRatings" />
             <div class="padding5 text-highlight">Starts At Rs. <%=estimatedPrice %></div>
-            <div class="action-btn padding5 <%= String.IsNullOrEmpty(mmv.MinPrice) ? "hide" : "" %>">Avg Ex-Showroom Price&nbsp;&nbsp;<a href="/pricequote/default.aspx?version=<%=versionId %>" class="fillPopupData">Check On Road Price</a></div>
+            <div class="action-btn padding5 <%= String.IsNullOrEmpty(mmv.MinPrice) ? "hide" : "" %>">Avg Ex-Showroom Price&nbsp;&nbsp;<a href="/pricequote/default.aspx?version=<%=versionId %>" class="fillPopupData">Check On-Road Price</a></div>
         </div><div class="clear"></div> 
 
         <h2 class="margin-top20">Features</h2>

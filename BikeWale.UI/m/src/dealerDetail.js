@@ -8,6 +8,14 @@
 
 });
 
+$("#calldealer").on("click", function () {
+    triggerGA("Dealer_Locator_Detail", "Call_Dealer_Clicked", makeName + "_" + cityArea);
+});
+
+$(".maskingNumber").on("click", function () {
+    triggerGA("Dealer_Locator_Detail", "Dealer_Number_Clicked", makeName + "_" + cityArea);
+});
+
 var customerViewModel;
 var leadBtnBookNow = $("a.get-assistance-btn"), leadCapturePopup = $("#leadCapturePopup"), fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile"), otpContainer = $(".mobile-verification-container"), getModelName = $("#getModelName");
 var getCityArea = GetGlobalCityArea();
@@ -48,7 +56,7 @@ function CustomerModel() {
     self.otpCode = ko.observable();
     self.pqId = ko.observable();
     self.modelId = ko.observable(0);
-
+    self.selectedBikeName = ko.observable("");
 
     self.verifyCustomer = function () {
         if (!self.IsVerified()) {
@@ -62,7 +70,7 @@ function CustomerModel() {
                 "pageUrl": "/m/dealerlocator/dealerdetails.aspx",
                 "versionId": self.versionId(),
                 "cityId": self.cityId(),
-                "leadSourceId": leadSrcId,
+                "leadSourceId": leadSourceId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -192,6 +200,7 @@ function CustomerModel() {
 
     self.submitLead = function (data, event) {
         var isValidDetails = self.generatePQ(data, event);
+        var btnId = event.target.id;
         $("#dealer-lead-msg").hide();
         if (isValidDetails) {
             self.verifyCustomer();
@@ -203,6 +212,10 @@ function CustomerModel() {
                 $(".lead-mobile").text(self.mobileNo());
                 $(".notify-leadUser").text(self.fullName());
                 $("#notify-response").show();
+
+                if (btnId == "user-details-submit-btn") {
+                    triggerGA("Dealer_Locator_Detail", "Lead_Submitted", self.selectedBikeName() + "_" + cityArea);
+                }
             }
             else {
                 $("#leadCapturePopup").show();
@@ -242,13 +255,11 @@ function CustomerModel() {
                 $("#dealer-lead-msg").fadeIn();
                 $(".notify-leadUser").text(self.fullName());
                 $("#notify-response").show();
-
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
+                
             }
             else {
                 $('#processing').hide();
-                otpVal("Please enter a valid OTP.");
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
+                otpVal("Please enter a valid OTP.");               
             }
         }
     });
@@ -450,6 +461,7 @@ $("#sliderBrandList").on("click", "li", function () {
     hideError(dealerSearchBrandForm);
     customerViewModel.versionId($(this).attr("versionId"));
     customerViewModel.modelId($(this).attr("modelId"));
+    customerViewModel.selectedBikeName($(this).attr("bikeName"));
 });
 function setSelectedElement(_self, selectedElement) {
     _self.parent().prev("input[type='text']").val(selectedElement);

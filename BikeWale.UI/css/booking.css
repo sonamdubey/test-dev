@@ -17,6 +17,7 @@
 .booking-tick-blue { background-position: -52px 0; }
 .payment-icon-grey { background-position: -52px -73px; }
 .otp-icon { width:102px; height:102px; background-position: 0 -111px; }
+.booking-otp-icon { width:30px; height:40px; background-position: -46px -391px; }
 
 .horizontal-line { width:730px; height:1px; background:#ccc; top:59px; }
 .border-light-grey { border:1px solid #e2e2e2; }

@@ -51,7 +51,7 @@ $(document).ready(function (e) {
     }
     if ($('#getassistance').length > 0)
     {
-        dataLayer.push({ "event": "Bikewale_all", "cat": "Model", "act": "Get_Offers_Shown", "lab": bikeVersionLocation });
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": bikeVersionLocation });
     }
 });
 
@@ -131,7 +131,7 @@ function CustomerModel() {
                 "pageUrl": pageUrl,
                 "versionId": versionId,
                 "cityId": cityId,
-                "leadSourceId": 3,
+                "leadSourceId": leadSourceId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -214,7 +214,11 @@ function CustomerModel() {
         }
     };
 
-    self.submitLead = function () {
+    self.submitLead = function (data, event) {
+        if (event.target.id == "assistFormSubmit")
+        {
+            leadSourceId = $(event.target).attr("leadSourceId");
+        }
         self.IsVerified(false)
         var isValidCustomer = ValidateUserDetail(fullName, emailid, mobile);
         if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {
@@ -227,6 +231,17 @@ function CustomerModel() {
                 $("#contactDetailsPopup,#otpPopup").hide();
                 $('#notify-response .notify-leadUser').text(self.fullName());
                 $('#notify-response').show();
+
+                if (getOffersClick) {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeVersionLocation });
+                    getOffersClick = false;
+                }
+                else if (event.target.id == "assistFormSubmit") {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeVersionLocation });
+                }
+                else {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": bikeVersionLocation });
+                }
             }
             else {
                 $("#leadCapturePopup").show();
@@ -240,10 +255,7 @@ function CustomerModel() {
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
-            setPQUserCookie();
-
-
-            dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": bikeVersionLocation });            
+            setPQUserCookie();                   
         }
 
         else if (isValidCustomer && isDealerPriceAvailable == "False" && campaignId > 0)
@@ -251,12 +263,17 @@ function CustomerModel() {
             self.submitCampaignLead();
 
             setPQUserCookie();
-            dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": bikeVersionLocation });
-        }
-        
-        if (getOffersClick) {
-            dataLayer.push({ "event": "Bikewale_all", "cat": "Model", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeVersionLocation });
-            getOffersClick = false;
+
+            if (getOffersClick) {
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeVersionLocation });
+                getOffersClick = false;
+            }
+            else if (event.target.id == "assistFormSubmit") {
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeVersionLocation });
+            }
+            else {
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": bikeVersionLocation });
+            }
         }
     };
 
@@ -273,7 +290,7 @@ function CustomerModel() {
             //"pageUrl": pageUrl,
             "versionId": versionId,
             "cityId": cityId,
-            "leadSourceId": 3,
+            "leadSourceId": leadSourceId,
             "deviceId": getCookie('BWC')
         }
         $.ajax({
@@ -887,11 +904,20 @@ $("input[name*='btnVariant']").on("click", function () {
     dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeVersionLocation });
 });
 
+var getOffersClick = false;
+
 $("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign, #getassistance").on("click", function () {
+    leadSourceId = $(this).attr("leadSourceId");
     $("#leadCapturePopup").show();
     $('body').addClass('lock-browser-scroll');
     $(".blackOut-window-model").show();
-    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_More_Details_Clicked", "lab": bikeVersionLocation });
+    if ($(this).attr("id") == "getassistance") {
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_Offers_Clicked", "lab": bikeVersionLocation });
+        getOffersClick = true;
+    }
+    else {
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_More_Details_Clicked", "lab": bikeVersionLocation });
+    }  
 });
 
 $(".leadCapture-close-btn, .blackOut-window-model, #notifyOkayBtn").on("click", function () {
@@ -903,8 +929,7 @@ $(".leadCapture-close-btn, .blackOut-window-model, #notifyOkayBtn").on("click", 
 });
 
 $("#viewBreakupText").on('click', function (e) {
-    triggerGA('Model_Page', 'View_Breakup_Clicked', bikeVersionLocation);
-    dataLayer.push({ "event": "Bikewale_all", "cat": "Model", "act": "View_Detailed_Price_Clicked", "lab": bikeVersionLocation });
+    triggerGA('Model_Page', 'View_Detailed_Price_Clicked', bikeVersionLocation);    
     secondarydealer_Click(dealerId);
 });
 
@@ -958,11 +983,11 @@ else
 
 /* GA Tags */
 $('#btnGetOnRoadPrice').on('click', function (e) {
-    dataLayer.push({ "event": "Bikewale_all", "cat": "Model", "act": "Check_On_Road_Price_Clicked", "lab": myBikeName + "_" + getBikeVersion() });
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Check_On_Road_Price_Clicked", "lab": myBikeName + "_" + getBikeVersion() + "_" + getCityArea });
 });
 
 $('#btnDealerPricePopup').on('click', function () {
-    dataLayer.push({ "event": "Bikewale_all", "cat": "Model", "act": "Show_On_Road_Price_Clicked", "lab": getBikeVersionLocation() });
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Show_On_Road_Price_Clicked", "lab": myBikeName + "_" + getBikeVersion() + "_" + getCityArea });
 });
 
 function getBikeVersionLocation() {
@@ -1044,18 +1069,12 @@ $('.less-dealers-link').on('click', function () {
     $(this).hide().prev('.more-dealers-link').show();
 });
 
-var getOffersClick = false;
-$('#getassistance').on('click', function () {
-    getOffersClick = true;
-    dataLayer.push({ "event": "Bikewale_all", "cat": "Model", "act": "Get_Offers_Clicked", "lab": bikeVersionLocation });
-});
-
 var assistFormSubmit = $('#assistFormSubmit'),
     assistGetName = $('#assistGetName'),
     assistGetEmail = $('#assistGetEmail'),
     assistGetMobile = $('#assistGetMobile');
 
 assistFormSubmit.on('click', function () {
-    ValidateUserDetail(assistGetName, assistGetEmail, assistGetMobile);
-    dataLayer.push({ "event": "Bikewale_all", "cat": "Model", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeVersionLocation });
+    leadSourceId = $(this).attr("leadSourceId");
+    ValidateUserDetail(assistGetName, assistGetEmail, assistGetMobile);    
 });

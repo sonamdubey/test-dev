@@ -24,6 +24,7 @@ var getEMIClick = false;
 
 $(function () {
     leadBtnBookNow.on('click', function () {
+        leadSourceId = $(this).attr('leadSourceId');
         leadCapturePopup.show();
         $("#dealer-lead-msg").hide();
         $("div#contactDetailsPopup").show();
@@ -56,8 +57,9 @@ $(function () {
         getOfferClick = false;
     });
 
-    $("#ulVersions li input").on('click', function () {        
-        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + getCityArea });
+    $("#ulVersions li input").on('click', function () {
+        versionName = $(this).attr("value");        
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + versionName + "_" + getCityArea });
     });
 });
 
@@ -95,7 +97,7 @@ function CustomerModel() {
                 "pageUrl": pageUrl,
                 "versionId": versionId,
                 "cityId": cityId,
-                "leadSourceId": 1,
+                "leadSourceId": leadSourceId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -185,6 +187,7 @@ function CustomerModel() {
         isValidDetails = false;
         var btnId = event.target.id;
         if (btnId == 'buyingAssistBtn') {
+            leadSourceId = $("#" + event.target.id).attr("leadSourceId");
             self.isAssist(true);
             isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
         }
@@ -205,6 +208,18 @@ function CustomerModel() {
                     $("#otpPopup").hide();
                     $("#dealer-lead-msg").fadeIn();
                 }
+
+                if (getOfferClick) {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
+                    getOfferClick = false;
+                }
+                else if (btnId == 'buyingAssistBtn') {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
+                }
+                else if (getEMIClick) {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_EMI_" + bikeName + "_" + versionName + "_" + getCityArea });
+                    getEMIClick = false;
+                }
             }
             else {
                 $("#leadCapturePopup").show();
@@ -219,20 +234,7 @@ function CustomerModel() {
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
-            setPQUserCookie();
-            if (getOfferClick) {
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
-                getOfferClick = false;
-            }
-            else if (btnId == 'buyingAssistBtn')
-            {
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
-            }
-            else if(getEMIClick)
-            {
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_EMI_" + bikeName + "_" + versionName + "_" + getCityArea });
-                getEMIClick = false;
-            }
+            setPQUserCookie();           
         }
     };
 
@@ -522,11 +524,7 @@ $(document).ready(function () {
     }
     
     var breadcrumbFlag,
-        breadcrumbOffsetTop = $('.breadcrumb').offset().top;
-    if(breadcrumbOffsetTop < 100)
-        breadcrumbFlag = true;
-    else
-        breadcrumbFlag = false;
+        breadcrumbDiv = $('.breadcrumb');
 
     var $window = $(window),
         disclaimerText = $('#disclaimerText'),
@@ -537,7 +535,14 @@ $(document).ready(function () {
         PQDealerSidebarHeight = PQDealerSidebarContainer.height();
         var windowScrollTop = $window.scrollTop(),
             disclaimerTextOffset = disclaimerText.offset(),
-            dealerPriceQuoteContainerOffset = dealerPriceQuoteContainer.offset();
+            dealerPriceQuoteContainerOffset = dealerPriceQuoteContainer.offset(),
+            breadcrumbOffsetTop = breadcrumbDiv.offset().top;
+            
+        if (breadcrumbOffsetTop < 100)
+            breadcrumbFlag = true;
+        else
+            breadcrumbFlag = false;
+
         if ($('#dealerPriceQuoteContainer').height() > 500) {
             if (windowScrollTop < dealerPriceQuoteContainerOffset.top - 50) {
                 PQDealerSidebarContainer.css({ 'position': 'relative', 'top': '0', 'right' : '0' })

@@ -363,7 +363,7 @@
                         </div>
 
                         <div class="clear"></div>
-                        <input type="button" value="Next" class="btn btn-orange btn-full-width" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
+                        <input type="button" value="Next" leadSourceId="22" class="btn btn-orange btn-full-width" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
                     </div>
 
                     <div id="payDetails" data-bind="visible: CurrentStep() > 2" style="display: none">
@@ -535,6 +535,7 @@
             var pageUrl = '<%= pageUrl%>';
             var areaId = '<%= areaId%>';
             var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+            var ga_pg_id= '14';
         </script>
         <script type="text/javascript">
             //Need to uncomment the below script
@@ -574,6 +575,7 @@
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingflow.js?<%= staticFileVersion %>" type="text/javascript"></script>
 
         <script type="text/javascript">
+            var leadSourceId;
             <% if (objCustomer != null && objCustomer.objCustomerBase != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))
                { %>
             viewModel.Customer().Name('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))?objCustomer.objCustomerBase.CustomerName:String.Empty %>');
@@ -594,7 +596,6 @@
                 $(id).closest('li').nextAll('li').toggleClass('hide');
                 $(id).text($(id).text() == '(view more)' ? '(view less)' : '(view more)');
             };
-
         </script>
 
     </form>
