@@ -553,26 +553,25 @@ namespace Bikewale.DAL.Dealer
         public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId)
         {
             DealerBikesEntity dealers = new DealerBikesEntity();
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerbikedetails"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealerBikeDetails";
-                    cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
-                    cmd.Parameters.Add("@CampaignId", SqlDbType.Int).Value = campaignId;
+                   // cmd.CommandText = "getdealerbikedetails";
+                    //cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
+                    //cmd.Parameters.Add("@CampaignId", SqlDbType.Int).Value = campaignId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
-                            if (dr.Read() && dr.HasRows)
+                            if (dr.Read())
                             {
-                                DealerPackageTypes dpType;
                                 dealers.DealerDetails = new DealerDetailEntity();
                                 dealers.DealerDetails.Name = Convert.ToString(dr["DealerName"]);
                                 dealers.DealerDetails.Address = Convert.ToString(dr["Address"]);
@@ -645,10 +644,6 @@ namespace Bikewale.DAL.Dealer
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetDealerDetailsAndBikes");
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return dealers;
         }

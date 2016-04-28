@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using Bikewale.Common;
+using System.Data.Common;
+using Bikewale.CoreDAL;
 namespace Bikewale.Controls
 {
     public class UpcomingBikeSearch : System.Web.UI.UserControl
@@ -30,52 +32,47 @@ namespace Bikewale.Controls
 
         void LoadMakes()
         {
-            DataSet dsMakeContents = new DataSet();
             string sql = string.Empty;
-            SqlCommand cmd = new SqlCommand();
-            Database db = new Database();
 
-            sql = " Select Distinct cast(Ma.ID as varchar) + '_' + Ma.MaskingName As Id, Name As Name From ExpectedBikeLaunches ECL With(NoLock) "
-                + " Inner Join BikeMakes Ma With(NoLock) On Ma.ID = ECL.BikeMakeId "
-                + " Where ECL.IsLaunched = 0 AND Ma.IsDeleted = 0 AND ( Ma.Futuristic = 1 OR Ma.New = 1)";
-
-            cmd.CommandText = sql;
-            cmd.CommandType = CommandType.Text;
+            sql = @" select distinct concat(ma.id,'_',ma.maskingname) as id, name as name from expectedbikelaunches ecl 
+                inner join bikemakes ma   on ma.id = ecl.bikemakeid
+                where ecl.islaunched = 0 and ma.isdeleted = 0 and ( ma.futuristic = 1 or ma.new = 1)";              
 
             try
             {
-                dsMakeContents = db.SelectAdaptQry(cmd);
-                if (dsMakeContents != null && dsMakeContents.Tables[0].Rows.Count > 0)
+
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    drpMake.DataSource = dsMakeContents;
-                    drpMake.DataTextField = "Name";
-                    drpMake.DataValueField = "Id";
-                    drpMake.DataBind();
-                    drpMake.Items.Insert(0, new ListItem("--Select Makes--", "0"));
+                    cmd.CommandText = sql;
+                    cmd.CommandType = CommandType.Text;
+
+                    using (DataSet dsMakeContents = MySqlDatabase.SelectAdapterQuery(cmd))
+                    {
+                        if (dsMakeContents != null && dsMakeContents.Tables[0].Rows.Count > 0)
+                        {
+                            drpMake.DataSource = dsMakeContents;
+                            drpMake.DataTextField = "Name";
+                            drpMake.DataValueField = "Id";
+                            drpMake.DataBind();
+                            drpMake.Items.Insert(0, new ListItem("--Select Makes--", "0"));
+                        }
+                        if (MakeId != "" && MakeId != "-1")
+                        {
+                            drpMake.SelectedIndex = drpMake.Items.IndexOf(drpMake.Items.FindByValue(MakeId + '_' + Request.QueryString["make"]));
+                        }
+                        if (Sort != string.Empty)
+                        {
+                            drpUCSortList.SelectedIndex = drpUCSortList.Items.IndexOf(drpUCSortList.Items.FindByValue(Sort));
+                        }
+                    }
                 }
-                if (MakeId != "" && MakeId != "-1")
-                {
-                    drpMake.SelectedIndex = drpMake.Items.IndexOf(drpMake.Items.FindByValue(MakeId + '_' + Request.QueryString["make"]));
-                }
-                if (Sort != string.Empty)
-                {
-                    drpUCSortList.SelectedIndex = drpUCSortList.Items.IndexOf(drpUCSortList.Items.FindByValue(Sort));
-                }
-            }
-            catch (SqlException ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
+                
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-                cmd.Dispose();
             }
         }
 
