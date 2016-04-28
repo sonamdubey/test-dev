@@ -10,6 +10,9 @@ namespace Bikewale.Entities.PriceQuote
     /// Modified By : Lucky Rathore
     /// Modified On : 29 March 2016
     /// Description : Mobile_DealerLocator_Detail = 41 and Mobile_DealerLocator_Listing = 42 added.
+    /// Modified By : Lucky Rathore
+    /// Modified On : 28 March 2016
+    /// Description : Desktop_DealerLocator_SubmitButton and  Desktop_DealerLocator_GetOfferButton added.
     /// </summary>
     public enum PQSourceEnum
     {
@@ -54,6 +57,8 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_BookingListing = 39,
         Mobile_BookingListing = 40,
         Mobile_DealerLocator_Detail = 41,
-        Mobile_DealerLocator_Listing = 42
+        Mobile_DealerLocator_Listing = 42,
+        Desktop_DealerLocator_SubmitButton = 43,
+        Desktop_DealerLocator_GetOfferButton = 44
     }
 }

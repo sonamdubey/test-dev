@@ -124,7 +124,8 @@
                                         </div>
 
                                         <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
-                                            <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" leadSourceId="14" class="btn btn-white-orange margin-top15 get-assistance-btn">Get offers</a>
+                                            <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" leadSourceId="14" 
+                                                pqSourceId="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" class="btn btn-white-orange margin-top15 get-assistance-btn">Get offers</a>
                                         </div>
                                     </div>
                                 </li>
@@ -204,7 +205,8 @@
                                         <span class="bwsprite error-icon errorIcon"></span>
                                         <div class="bw-blackbg-tooltip errorText"></div>
                                     </div>
-                                    <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" leadSourceId="15" value="Submit" data-bind="event: { click: submitLead }" />
+                                    <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" leadSourceId="15" 
+                                        pqSourceId="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_SubmitButton %>" value="Submit" data-bind="event: { click: submitLead }" />
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -384,8 +386,7 @@
             var pageUrl = "<%= pageUrl%>";
             var key = "dealerCities_";
             lscache.setBucket('DLPage');
-            var leadSrcId = eval("<%= (int)(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_Desktop) %>");
-            var leadSourceId;
+            var leadSourceId, pqSourceId;
             var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
             var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
             var makeName = "<%= makeName%>"; 
