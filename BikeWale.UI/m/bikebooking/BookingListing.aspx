@@ -438,7 +438,7 @@
     </script>
 
     <script type="text/javascript">
-        var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_BookingListing%>';
+        var pqLeadId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_BookingListing%>';
         var clientIP = '<%= clientIP %>';
         ga_pg_id = '39';
     </script>
