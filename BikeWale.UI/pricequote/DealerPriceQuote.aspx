@@ -218,7 +218,7 @@
                           { %>
                         <div class="grid-12 padding-right20 padding-bottom10 padding-left20 font14">
                             <p class="text-bold padding-top20 margin-bottom5 border-light-top">Exclusive offers from this dealer:</p>
-                            <ul class="pricequote-benefits-list text-light-grey">
+                            <ul class="pricequote-offers-list text-light-grey">
                                 <asp:Repeater ID="rptOffers" runat="server">
                                     <ItemTemplate>
                                         <li>
@@ -877,8 +877,11 @@
                 var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
                 return price;
             }
-
-            
+            $(function(){
+                if ($('.pricequote-benefits-list li').length % 2 == 0) {
+                    $('.pricequote-benefits-list').addClass("pricequote-two-benefits");
+                }
+            });
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
     </form>
