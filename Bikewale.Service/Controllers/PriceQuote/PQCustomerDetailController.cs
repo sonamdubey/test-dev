@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.Customer;
-using Bikewale.DTO.PriceQuote;
+﻿using Bikewale.DTO.PriceQuote;
 using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.DTO.PriceQuote.CustomerDetails;
 using Bikewale.Entities.BikeBooking;
@@ -14,14 +13,11 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Bikebooking;
 using Bikewale.Service.AutoMappers.PriceQuote;
-using Bikewale.Service.TCAPI;
 using Bikewale.Utility;
 using System;
-using System.Configuration;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Collections.Generic;
-using System.Linq;
 namespace Bikewale.Service.Controllers.PriceQuote
 {
     /// <summary>
@@ -254,20 +250,20 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             {
                                 platformId = Request.Headers.GetValues("platformId").First().ToString();
                             }
-
-                            if (platformId != "3" && platformId != "4")
+                            // Stop sending SMS and Email to LeadSourceId equals 16 and 22
+                            if (platformId != "3" && platformId != "4" && input.LeadSourceId != 16 && input.LeadSourceId != 22)
                             {
                                 SendEmailSMSToDealerCustomer.SaveEmailToCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail, dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, insuranceAmount);
                             }
-                            
+
 
                             hasBumperDealerOffer = OfferHelper.HasBumperDealerOffer(dealerDetailEntity.objDealer.DealerId.ToString(), "");
                             //if (bookingAmount > 0)
                             //{
                             //    //SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, dealerDetailEntity, objCust.CustomerMobile, objCust.CustomerName, bikeName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Address, bookingAmount, insuranceAmount, hasBumperDealerOffer);
                             //}
-
-                            SaveCustomerSMS(input, objCust, dealerDetailEntity, bookingAmount);
+                            if (input.LeadSourceId != 16 && input.LeadSourceId != 22)
+                                SaveCustomerSMS(input, objCust, dealerDetailEntity, bookingAmount);
 
                             //bool isDealerNotified = _objDealerPriceQuote.IsDealerNotified(input.DealerId, objCust.CustomerMobile, objCust.CustomerId);
                             //if (!isDealerNotified)
@@ -324,7 +320,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             UrlShortner objUrlShortner = new UrlShortner();
             try
             {
-                DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();                
+                DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
                 objDPQSmsEntity.CustomerMobile = objCust.CustomerMobile;
                 objDPQSmsEntity.CustomerName = objCust.CustomerName;
                 objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.MobileNo;
@@ -337,7 +333,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
                 objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
                 PriceQuoteParametersEntity pqEntity = _objPriceQuote.FetchPriceQuoteDetailsById(input.PQId);
-                
+
                 var platformId = "";
                 if (Request.Headers.Contains("platformId"))
                 {
@@ -350,7 +346,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 }
                 else
                 {
-                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.SubscriptionModel);                    
+                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.SubscriptionModel);
                 }
             }
             catch (Exception ex)

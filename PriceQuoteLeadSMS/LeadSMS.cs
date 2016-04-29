@@ -15,8 +15,10 @@ namespace PriceQuoteLeadSMS
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Nov 2015
         /// Summary : To get Lead information
-        /// Modified By :   Sumit Kate on 14 Jan 206
+        /// Modified By :   Sumit Kate on 14 Jan 2016
         /// Description :   Fetch Customer Id
+        /// Modified By :   Sangram Nandkhile on 25 Apr 2016
+        /// Description :   Set LeadSourceId
         /// </summary>
         /// <returns></returns>
         private IEnumerable<LeadNotificationEntity> GetLeadInformation()
@@ -28,7 +30,7 @@ namespace PriceQuoteLeadSMS
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "GetPQLeadNotificationsInfo_29032016";
+                        cmd.CommandText = "GetPQLeadNotificationsInfo_03052016";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
 
@@ -65,7 +67,8 @@ namespace PriceQuoteLeadSMS
                                         EmailToDealerReplyTo = Convert.ToString(dr["EmailToDealerReplyTo"]),
                                         EmailToDealerSubject = Convert.ToString(dr["EmailToDealerSubject"]),
                                         CustomerId = Convert.ToUInt64(dr["CustomerId"]),
-                                        CampaignId = Convert.ToString(dr["CampaignId"])
+                                        CampaignId = Convert.ToString(dr["CampaignId"]),
+                                        LeadSourceId = Convert.ToUInt16(dr["LeadSourceId"])
                                     });
                                 }
                             }
@@ -104,14 +107,17 @@ namespace PriceQuoteLeadSMS
                     foreach (LeadNotificationEntity item in objLeads)
                     {
                         Logs.WriteInfoLog(string.Format("process Lead for pqId {0}, Dealer Id : {1}", item.PQId, item.DealerId));
-                        if (!String.IsNullOrEmpty(item.SMSToCustomerMessage))
+                        // Stop sending SMS and Email to LeadSourceId equals 2 and 5
+                        if (item.LeadSourceId != 16 && item.LeadSourceId != 22)
                         {
-                            uint smsId = objSmsDal.InsertSMS(item.SMSToCustomerNumbers, item.SMSToCustomerMessage, item.SMSToCustomerServiceType, string.Empty, true);
-                            objLead.PushSMSInQueue(smsId, item.SMSToCustomerMessage, item.SMSToCustomerNumbers);
+                            if (!String.IsNullOrEmpty(item.SMSToCustomerMessage))
+                            {
+                                uint smsId = objSmsDal.InsertSMS(item.SMSToCustomerNumbers, item.SMSToCustomerMessage, item.SMSToCustomerServiceType, string.Empty, true);
+                                objLead.PushSMSInQueue(smsId, item.SMSToCustomerMessage, item.SMSToCustomerNumbers);
 
-                            sendEmail.SendMail(item.CustomerEmail, item.EmailToCustomerSubject, item.EmailToCustomerMessageBody, item.EmailToCustomerReplyTo.Split(',')[0]);
+                                sendEmail.SendMail(item.CustomerEmail, item.EmailToCustomerSubject, item.EmailToCustomerMessageBody, item.EmailToCustomerReplyTo.Split(',')[0]);
+                            }
                         }
-
                         if (!String.IsNullOrEmpty(item.SMSToDealerMessage))
                         {
                             string[] dealerMobiles = item.SMSToDealerNumbers.Split(',');
@@ -132,9 +138,8 @@ namespace PriceQuoteLeadSMS
                                 }
                             }
                         }
-
                         //SendMail(string email, string subject, string body, string replyTo)
-                        AutoBizAdaptor.PushInquiryInAB(item.DealerId.ToString(), item.PQId, item.CustomerName, item.CustomerMobile, item.CustomerEmail, item.BikeVersionId.ToString(), item.CityId.ToString(),item.CampaignId);
+                        AutoBizAdaptor.PushInquiryInAB(item.DealerId.ToString(), item.PQId, item.CustomerName, item.CustomerMobile, item.CustomerEmail, item.BikeVersionId.ToString(), item.CityId.ToString(), item.CampaignId);
                         objSmsDal.UpdatePQLeadNotifiedFlag(item.PQId);
                     }
                 }
