@@ -12,6 +12,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System.Diagnostics;
 using Bikewale.Utility;
+using System.Data.Common;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -20,7 +21,7 @@ namespace Bikewale.DAL.BikeData
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
-    public class BikeVersionsRepository<T,U> : IBikeVersions<T,U> where T : BikeVersionEntity, new()
+    public class BikeVersionsRepository<T, U> : IBikeVersions<T, U> where T : BikeVersionEntity, new()
     {
         /// <summary>
         /// Summary : Function to get all versions basic data in list.
@@ -37,7 +38,7 @@ namespace Bikewale.DAL.BikeData
             Database db = null;
 
             try
-            {                
+            {
                 using (SqlCommand cmd = new SqlCommand("GetBikeVersions_New"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -66,7 +67,7 @@ namespace Bikewale.DAL.BikeData
                                     Price = Convert.ToUInt64(dr["Price"])
                                 });
                             }
-                          dr.Close();
+                            dr.Close();
                         }
                     }
                 }
@@ -111,10 +112,10 @@ namespace Bikewale.DAL.BikeData
             throw new NotImplementedException();
         }
 
-        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId,bool isNew)
+        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
-           Database db = null;
-           List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
+            Database db = null;
+            List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
             try
             {
                 db = new Database();
@@ -123,28 +124,29 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "GetVersions";
 
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;                    
+                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
 
-                    using(SqlDataReader dr = db.SelectQry(cmd))
-                    {                                                                   
-                        while(dr.Read())
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        while (dr.Read())
                         {
-                            objMinSpecs.Add( new BikeVersionMinSpecs(){
-                                VersionId  = Convert.ToInt32(dr["ID"]),
-                                   VersionName = dr["Version"].ToString(),
-                                   ModelName =dr["Model"].ToString(),
+                            objMinSpecs.Add(new BikeVersionMinSpecs()
+                            {
+                                VersionId = Convert.ToInt32(dr["ID"]),
+                                VersionName = dr["Version"].ToString(),
+                                ModelName = dr["Model"].ToString(),
                                 Price = Convert.ToUInt64(dr["VersionPrice"]),
-                                   BrakeType  = dr["BrakeType"].ToString(),
-                                AlloyWheels  = Convert.ToBoolean(dr["AlloyWheels"]),
-                                ElectricStart  = Convert.ToBoolean(dr["ElectricStart"]),
-                                AntilockBrakingSystem  = Convert.ToBoolean(dr["AntilockBrakingSystem"])
-                            }) ;
+                                BrakeType = dr["BrakeType"].ToString(),
+                                AlloyWheels = Convert.ToBoolean(dr["AlloyWheels"]),
+                                ElectricStart = Convert.ToBoolean(dr["ElectricStart"]),
+                                AntilockBrakingSystem = Convert.ToBoolean(dr["AntilockBrakingSystem"])
+                            });
                         }
                         dr.Close();
                     }
-                }                 
-            
+                }
+
             }
             catch (Exception ex)
             {
@@ -206,7 +208,7 @@ namespace Bikewale.DAL.BikeData
                         cmd.ExecuteNonQuery();
                         conn.Close();
                         HttpContext.Current.Trace.Warn("qry success");
-                        
+
                         if (!string.IsNullOrEmpty(paramColl["@MakeId"].Value.ToString()))
                         {
                             t.VersionId = Convert.ToInt32(paramColl["@VersionId"].Value);
@@ -241,7 +243,7 @@ namespace Bikewale.DAL.BikeData
                 HttpContext.Current.Trace.Warn("GetModelDetails ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }          
+            }
 
             return t;
         }
@@ -255,211 +257,196 @@ namespace Bikewale.DAL.BikeData
         public BikeSpecificationEntity GetSpecifications(U versionId)
         {
             BikeSpecificationEntity objSpecs = null;
-            Database db = null;
             try
             {
-                db = new Database();
-
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnewbikesspecification_sp_new"))
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    // cmd.CommandText = "getnewbikesspecification_sp_new";
+
+                    DbParameterCollection paramColl = cmd.Parameters;
+                    paramColl.Add(DbFactory.GetDbParam("par_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], versionId));
+                    paramColl.Add(DbFactory.GetDbParam("par_displacement", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_cylinders", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_maxpower", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_maximumtorque", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_bore", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_stroke", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_valvespercylinder", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fueldeliverysystem", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fueltype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_ignition", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_sparkplugspercylinder", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_coolingsystem", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_gearboxtype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_noofgears", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_transmissiontype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_clutch", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_performance_0_60_kmph", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_performance_0_80_kmph", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_performance_0_40_m", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    //changed topspeed data type from small int to Float
+                    //Modified By : Sushil Kumar on 15-07-2015
+                    paramColl.Add(DbFactory.GetDbParam("par_topspeed", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_performance_60_0_kmph", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_performance_80_0_kmph", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_kerbweight", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_overalllength", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_overallwidth", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_overallheight", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_wheelbase", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_groundclearance", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_seatheight", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fueltankcapacity", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_reservefuelcapacity", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fuelefficiencyoverall", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fuelefficiencyrange", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_chassistype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_frontsuspension", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_rearsuspension", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_braketype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_frontdisc", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_frontdisc_drumsize", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_reardisc", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_reardisc_drumsize", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_callipertype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_wheelsize", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fronttyre", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_reartyre", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_tubelesstyres", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_radialtyres", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_alloywheels", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_electricsystem", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_battery", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_headlighttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_headlightbulbtype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_brake_tail_light", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_turnsignal", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_passlight", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_speedometer", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_tachometer", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_tachometertype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_shiftlight", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_electricstart", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_tripmeter", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_nooftripmeters", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_tripmetertype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_lowfuelindicator", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_lowoilindicator", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_lowbatteryindicator", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fuelgauge", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_digitalfuelgauge", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_pillionseat", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_pillionfootrest", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_pillionbackrest", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_pilliongrabrail", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_standalarm", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_steppedseat", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_antilockbrakingsystem", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_killswitch", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_clock", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_colors", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_maxpowerrpm", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_maximumtorquerpm", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+
+                    paramColl.Add(DbFactory.GetDbParam("par_rowcount", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], ParameterDirection.Output));
+
+                    int rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd);
+
+                    int rowCount = Convert.ToInt16(paramColl["par_rowcount"].Value);
+
+                    if (rowCount > 0)
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetNewBikesSpecification_SP_New";
-                        cmd.Connection = conn;
-
-                        SqlParameterCollection paramColl = cmd.Parameters;
-                      
-                        paramColl.Add("@BikeVersionId", SqlDbType.SmallInt).Value = versionId;
-                        paramColl.Add("@Displacement", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Cylinders", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@MaxPower", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@MaximumTorque", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Bore", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Stroke", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@ValvesPerCylinder", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@FuelDeliverySystem", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@FuelType", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Ignition", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@SparkPlugsPerCylinder", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@CoolingSystem", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@GearboxType", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@NoOfGears", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@TransmissionType", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Clutch", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Performance_0_60_kmph", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Performance_0_80_kmph", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Performance_0_40_m", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        //changed topspeed data type from small int to Float
-                        //Modified By : Sushil Kumar on 15-07-2015
-                        paramColl.Add("@TopSpeed", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Performance_60_0_kmph", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Performance_80_0_kmph", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@KerbWeight", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@OverallLength", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@OverallWidth", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@OverallHeight", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Wheelbase", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@GroundClearance", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@SeatHeight", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@FuelTankCapacity", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@ReserveFuelCapacity", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@FuelEfficiencyOverall", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@FuelEfficiencyRange", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@ChassisType", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@FrontSuspension", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@RearSuspension", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@BrakeType", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@FrontDisc", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@FrontDisc_DrumSize", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@RearDisc", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@RearDisc_DrumSize", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-                        paramColl.Add("@CalliperType", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@WheelSize", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@FrontTyre", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@RearTyre", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@TubelessTyres", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@RadialTyres", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@AlloyWheels", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@ElectricSystem", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Battery", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@HeadlightType", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@HeadlightBulbType", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Brake_Tail_Light", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@TurnSignal", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@PassLight", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Speedometer", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Tachometer", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@TachometerType", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@ShiftLight", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@ElectricStart", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Tripmeter", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@NoOfTripmeters", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@TripmeterType", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@LowFuelIndicator", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@LowOilIndicator", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@LowBatteryIndicator", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@FuelGauge", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@DigitalFuelGauge", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@PillionSeat", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@PillionFootrest", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@PillionBackrest", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@PillionGrabrail", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@StandAlarm", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@SteppedSeat", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@AntilockBrakingSystem", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Killswitch", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Clock", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Colors", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
-                        paramColl.Add("@MaxPowerRPM",SqlDbType.Float).Direction = ParameterDirection.Output;
-                        paramColl.Add("@MaximumTorqueRPM", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        
-                        paramColl.Add("@RowCount", SqlDbType.TinyInt).Direction = ParameterDirection.Output;
-
-                        conn.Open();
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        conn.Close();
-                        
-                        int rowCount = Convert.ToInt16(paramColl["@RowCount"].Value);
-
-                        if (rowCount > 0)
-                        {
-                            objSpecs = new BikeSpecificationEntity();
-                            objSpecs.BikeVersionId = Convert.ToUInt32(versionId);
-                            objSpecs.Displacement = Convert.ToSingle(paramColl["@Displacement"].Value);
-                            objSpecs.Cylinders = Convert.ToUInt16(paramColl["@Cylinders"].Value);
-                            objSpecs.MaxPower = Convert.ToSingle(paramColl["@MaxPower"].Value);
-                            objSpecs.MaximumTorque = Convert.ToSingle(paramColl["@MaximumTorque"].Value);
-                            objSpecs.Bore = Convert.ToSingle(paramColl["@Bore"].Value);
-                            objSpecs.Stroke = Convert.ToSingle(paramColl["@Stroke"].Value);
-                            objSpecs.ValvesPerCylinder = Convert.ToUInt16(paramColl["@ValvesPerCylinder"].Value);
-                            objSpecs.FuelDeliverySystem = paramColl["@FuelDeliverySystem"].Value.ToString();
-                            objSpecs.FuelType = paramColl["@FuelType"].Value.ToString();
-                            objSpecs.Ignition = paramColl["@Ignition"].Value.ToString();
-                            objSpecs.SparkPlugsPerCylinder = paramColl["@SparkPlugsPerCylinder"].Value.ToString();
-                            objSpecs.CoolingSystem = paramColl["@CoolingSystem"].Value.ToString();
-                            objSpecs.GearboxType = paramColl["@GearboxType"].Value.ToString();
-                            objSpecs.NoOfGears = Convert.ToUInt16(paramColl["@NoOfGears"].Value.ToString());
-                            objSpecs.TransmissionType = paramColl["@TransmissionType"].Value.ToString();
-                            objSpecs.Clutch = paramColl["@Clutch"].Value.ToString();
-                            objSpecs.Performance_0_60_kmph = Convert.ToSingle(paramColl["@Performance_0_60_kmph"].Value);
-                            objSpecs.Performance_0_80_kmph = Convert.ToSingle(paramColl["@Performance_0_80_kmph"].Value);
-                            objSpecs.Performance_0_40_m = Convert.ToSingle(paramColl["@Performance_0_40_m"].Value);
-                            objSpecs.TopSpeed = Convert.ToUInt16(paramColl["@TopSpeed"].Value);
-                            objSpecs.Performance_60_0_kmph = paramColl["@Performance_60_0_kmph"].Value.ToString();
-                            objSpecs.Performance_80_0_kmph = paramColl["@Performance_80_0_kmph"].Value.ToString();
-                            objSpecs.KerbWeight = Convert.ToUInt16(paramColl["@KerbWeight"].Value);
-                            objSpecs.OverallLength = Convert.ToUInt16(paramColl["@OverallLength"].Value);
-                            objSpecs.OverallWidth = Convert.ToUInt16(paramColl["@OverallWidth"].Value);
-                            objSpecs.OverallHeight = Convert.ToUInt16(paramColl["@OverallHeight"].Value);
-                            objSpecs.Wheelbase = Convert.ToUInt16(paramColl["@Wheelbase"].Value);
-                            objSpecs.GroundClearance = Convert.ToUInt16(paramColl["@GroundClearance"].Value);
-                            objSpecs.SeatHeight = Convert.ToUInt16(paramColl["@SeatHeight"].Value);
-                            objSpecs.FuelTankCapacity = Convert.ToUInt16(paramColl["@FuelTankCapacity"].Value);
-                            objSpecs.ReserveFuelCapacity = Convert.ToSingle(paramColl["@ReserveFuelCapacity"].Value);
-                            objSpecs.FuelEfficiencyOverall = Convert.ToUInt16(paramColl["@FuelEfficiencyOverall"].Value);
-                            objSpecs.FuelEfficiencyRange = Convert.ToUInt16(paramColl["@FuelEfficiencyRange"].Value);
-                            objSpecs.ChassisType = paramColl["@ChassisType"].Value.ToString();
-                            objSpecs.FrontSuspension = paramColl["@FrontSuspension"].Value.ToString();
-                            objSpecs.RearSuspension = paramColl["@RearSuspension"].Value.ToString();
-                            objSpecs.BrakeType = paramColl["@BrakeType"].Value.ToString();
-                            objSpecs.FrontDisc = Convert.ToBoolean(paramColl["@FrontDisc"].Value);
-                            objSpecs.FrontDisc_DrumSize = Convert.ToUInt16(paramColl["@FrontDisc_DrumSize"].Value);
-                            objSpecs.RearDisc = Convert.ToBoolean(paramColl["@RearDisc"].Value);
-                            objSpecs.RearDisc_DrumSize = Convert.ToUInt16(paramColl["@RearDisc_DrumSize"].Value);
-                            objSpecs.CalliperType = paramColl["@CalliperType"].Value.ToString();
-                            objSpecs.WheelSize = Convert.ToSingle(paramColl["@WheelSize"].Value);
-                            objSpecs.FrontTyre = paramColl["@FrontTyre"].Value.ToString();
-                            objSpecs.RearTyre = paramColl["@RearTyre"].Value.ToString();
-                            objSpecs.TubelessTyres = Convert.ToBoolean(paramColl["@TubelessTyres"].Value);
-                            objSpecs.RadialTyres = Convert.ToBoolean(paramColl["@RadialTyres"].Value);
-                            objSpecs.AlloyWheels = Convert.ToBoolean(paramColl["@AlloyWheels"].Value);
-                            objSpecs.ElectricSystem = paramColl["@ElectricSystem"].Value.ToString();
-                            objSpecs.Battery = paramColl["@Battery"].Value.ToString();
-                            objSpecs.HeadlightType = paramColl["@HeadlightType"].Value.ToString();
-                            objSpecs.HeadlightBulbType = paramColl["@HeadlightBulbType"].Value.ToString();
-                            objSpecs.Brake_Tail_Light = paramColl["@Brake_Tail_Light"].Value.ToString();
-                            objSpecs.TurnSignal = paramColl["@TurnSignal"].Value.ToString();
-                            objSpecs.PassLight = Convert.ToBoolean(paramColl["@PassLight"].Value);
-                            objSpecs.Speedometer = paramColl["@Speedometer"].Value.ToString();
-                            objSpecs.Tachometer = Convert.ToBoolean(paramColl["@Tachometer"].Value);
-                            objSpecs.TachometerType = paramColl["@TachometerType"].Value.ToString();
-                            objSpecs.ShiftLight = Convert.ToBoolean(paramColl["@ShiftLight"].Value);
-                            objSpecs.ElectricStart = Convert.ToBoolean(paramColl["@ElectricStart"].Value);
-                            objSpecs.Tripmeter = Convert.ToBoolean(paramColl["@Tripmeter"].Value);
-                            objSpecs.NoOfTripmeters = paramColl["@NoOfTripmeters"].Value.ToString();
-                            objSpecs.TripmeterType = paramColl["@TripmeterType"].Value.ToString();
-                            objSpecs.LowFuelIndicator = Convert.ToBoolean(paramColl["@LowFuelIndicator"].Value);
-                            objSpecs.LowOilIndicator = Convert.ToBoolean(paramColl["@LowOilIndicator"].Value);
-                            objSpecs.LowBatteryIndicator = Convert.ToBoolean(paramColl["@LowBatteryIndicator"].Value);
-                            objSpecs.FuelGauge = Convert.ToBoolean(paramColl["@FuelGauge"].Value);
-                            objSpecs.DigitalFuelGauge = Convert.ToBoolean(paramColl["@DigitalFuelGauge"].Value);
-                            objSpecs.PillionSeat = Convert.ToBoolean(paramColl["@PillionSeat"].Value);
-                            objSpecs.PillionFootrest = Convert.ToBoolean(paramColl["@PillionFootrest"].Value);
-                            objSpecs.PillionBackrest = Convert.ToBoolean(paramColl["@PillionBackrest"].Value);
-                            objSpecs.PillionGrabrail = Convert.ToBoolean(paramColl["@PillionGrabrail"].Value);
-                            objSpecs.StandAlarm = Convert.ToBoolean(paramColl["@StandAlarm"].Value);
-                            objSpecs.SteppedSeat = Convert.ToBoolean(paramColl["@SteppedSeat"].Value);
-                            objSpecs.AntilockBrakingSystem = Convert.ToBoolean(paramColl["@AntilockBrakingSystem"].Value);
-                            objSpecs.Killswitch = Convert.ToBoolean(paramColl["@Killswitch"].Value);
-                            objSpecs.Clock = Convert.ToBoolean(paramColl["@Clock"].Value);
-                            objSpecs.MaxPowerRPM = Convert.ToSingle(paramColl["@MaxPowerRPM"].Value);
-                            objSpecs.MaximumTorqueRPM = Convert.ToSingle(paramColl["@MaximumTorqueRPM"].Value);
-                            objSpecs.Colors = paramColl["@Colors"].Value.ToString();
-                        }
+                        objSpecs = new BikeSpecificationEntity();
+                        objSpecs.BikeVersionId = Convert.ToUInt32(versionId);
+                        objSpecs.Displacement = Convert.ToSingle(paramColl["par_displacement"].Value);
+                        objSpecs.Cylinders = Convert.ToUInt16(paramColl["par_cylinders"].Value);
+                        objSpecs.MaxPower = Convert.ToSingle(paramColl["par_maxpower"].Value);
+                        objSpecs.MaximumTorque = Convert.ToSingle(paramColl["par_maximumtorque"].Value);
+                        objSpecs.Bore = Convert.ToSingle(paramColl["par_bore"].Value);
+                        objSpecs.Stroke = Convert.ToSingle(paramColl["par_stroke"].Value);
+                        objSpecs.ValvesPerCylinder = Convert.ToUInt16(paramColl["par_valvespercylinder"].Value);
+                        objSpecs.FuelDeliverySystem = paramColl["par_fueldeliverysystem"].Value.ToString();
+                        objSpecs.FuelType = paramColl["par_fueltype"].Value.ToString();
+                        objSpecs.Ignition = paramColl["par_ignition"].Value.ToString();
+                        objSpecs.SparkPlugsPerCylinder = paramColl["par_sparkplugspercylinder"].Value.ToString();
+                        objSpecs.CoolingSystem = paramColl["par_coolingsystem"].Value.ToString();
+                        objSpecs.GearboxType = paramColl["par_gearboxtype"].Value.ToString();
+                        objSpecs.NoOfGears = Convert.ToUInt16(paramColl["par_noofgears"].Value.ToString());
+                        objSpecs.TransmissionType = paramColl["par_transmissiontype"].Value.ToString();
+                        objSpecs.Clutch = paramColl["par_clutch"].Value.ToString();
+                        objSpecs.Performance_0_60_kmph = Convert.ToSingle(paramColl["par_performance_0_60_kmph"].Value);
+                        objSpecs.Performance_0_80_kmph = Convert.ToSingle(paramColl["par_performance_0_80_kmph"].Value);
+                        objSpecs.Performance_0_40_m = Convert.ToSingle(paramColl["par_performance_0_40_m"].Value);
+                        objSpecs.TopSpeed = Convert.ToUInt16(paramColl["par_topspeed"].Value);
+                        objSpecs.Performance_60_0_kmph = paramColl["par_performance_60_0_kmph"].Value.ToString();
+                        objSpecs.Performance_80_0_kmph = paramColl["par_performance_80_0_kmph"].Value.ToString();
+                        objSpecs.KerbWeight = Convert.ToUInt16(paramColl["par_kerbweight"].Value);
+                        objSpecs.OverallLength = Convert.ToUInt16(paramColl["par_overalllength"].Value);
+                        objSpecs.OverallWidth = Convert.ToUInt16(paramColl["par_overallwidth"].Value);
+                        objSpecs.OverallHeight = Convert.ToUInt16(paramColl["par_overallheight"].Value);
+                        objSpecs.Wheelbase = Convert.ToUInt16(paramColl["par_wheelbase"].Value);
+                        objSpecs.GroundClearance = Convert.ToUInt16(paramColl["par_groundclearance"].Value);
+                        objSpecs.SeatHeight = Convert.ToUInt16(paramColl["par_seatheight"].Value);
+                        objSpecs.FuelTankCapacity = Convert.ToUInt16(paramColl["par_fueltankcapacity"].Value);
+                        objSpecs.ReserveFuelCapacity = Convert.ToSingle(paramColl["par_reservefuelcapacity"].Value);
+                        objSpecs.FuelEfficiencyOverall = Convert.ToUInt16(paramColl["par_fuelefficiencyoverall"].Value);
+                        objSpecs.FuelEfficiencyRange = Convert.ToUInt16(paramColl["par_fuelefficiencyrange"].Value);
+                        objSpecs.ChassisType = paramColl["par_chassistype"].Value.ToString();
+                        objSpecs.FrontSuspension = paramColl["par_frontsuspension"].Value.ToString();
+                        objSpecs.RearSuspension = paramColl["par_rearsuspension"].Value.ToString();
+                        objSpecs.BrakeType = paramColl["par_braketype"].Value.ToString();
+                        objSpecs.FrontDisc = Convert.ToBoolean(paramColl["par_frontdisc"].Value);
+                        objSpecs.FrontDisc_DrumSize = Convert.ToUInt16(paramColl["par_frontdisc_drumsize"].Value);
+                        objSpecs.RearDisc = Convert.ToBoolean(paramColl["par_reardisc"].Value);
+                        objSpecs.RearDisc_DrumSize = Convert.ToUInt16(paramColl["par_reardisc_drumsize"].Value);
+                        objSpecs.CalliperType = paramColl["par_callipertype"].Value.ToString();
+                        objSpecs.WheelSize = Convert.ToSingle(paramColl["par_wheelsize"].Value);
+                        objSpecs.FrontTyre = paramColl["par_fronttyre"].Value.ToString();
+                        objSpecs.RearTyre = paramColl["par_reartyre"].Value.ToString();
+                        objSpecs.TubelessTyres = Convert.ToBoolean(paramColl["par_tubelesstyres"].Value);
+                        objSpecs.RadialTyres = Convert.ToBoolean(paramColl["par_radialtyres"].Value);
+                        objSpecs.AlloyWheels = Convert.ToBoolean(paramColl["par_alloywheels"].Value);
+                        objSpecs.ElectricSystem = paramColl["par_electricsystem"].Value.ToString();
+                        objSpecs.Battery = paramColl["par_battery"].Value.ToString();
+                        objSpecs.HeadlightType = paramColl["par_headlighttype"].Value.ToString();
+                        objSpecs.HeadlightBulbType = paramColl["par_headlightbulbtype"].Value.ToString();
+                        objSpecs.Brake_Tail_Light = paramColl["par_brake_tail_light"].Value.ToString();
+                        objSpecs.TurnSignal = paramColl["par_turnsignal"].Value.ToString();
+                        objSpecs.PassLight = Convert.ToBoolean(paramColl["par_passlight"].Value);
+                        objSpecs.Speedometer = paramColl["par_speedometer"].Value.ToString();
+                        objSpecs.Tachometer = Convert.ToBoolean(paramColl["par_tachometer"].Value);
+                        objSpecs.TachometerType = paramColl["par_tachometertype"].Value.ToString();
+                        objSpecs.ShiftLight = Convert.ToBoolean(paramColl["par_shiftlight"].Value);
+                        objSpecs.ElectricStart = Convert.ToBoolean(paramColl["par_electricstart"].Value);
+                        objSpecs.Tripmeter = Convert.ToBoolean(paramColl["par_tripmeter"].Value);
+                        objSpecs.NoOfTripmeters = paramColl["par_nooftripmeters"].Value.ToString();
+                        objSpecs.TripmeterType = paramColl["par_tripmetertype"].Value.ToString();
+                        objSpecs.LowFuelIndicator = Convert.ToBoolean(paramColl["par_lowfuelindicator"].Value);
+                        objSpecs.LowOilIndicator = Convert.ToBoolean(paramColl["par_lowoilindicator"].Value);
+                        objSpecs.LowBatteryIndicator = Convert.ToBoolean(paramColl["par_lowbatteryindicator"].Value);
+                        objSpecs.FuelGauge = Convert.ToBoolean(paramColl["par_fuelgauge"].Value);
+                        objSpecs.DigitalFuelGauge = Convert.ToBoolean(paramColl["par_digitalfuelgauge"].Value);
+                        objSpecs.PillionSeat = Convert.ToBoolean(paramColl["par_pillionseat"].Value);
+                        objSpecs.PillionFootrest = Convert.ToBoolean(paramColl["par_pillionfootrest"].Value);
+                        objSpecs.PillionBackrest = Convert.ToBoolean(paramColl["par_pillionbackrest"].Value);
+                        objSpecs.PillionGrabrail = Convert.ToBoolean(paramColl["par_PillionGrabrail"].Value);
+                        objSpecs.StandAlarm = Convert.ToBoolean(paramColl["par_standalarm"].Value);
+                        objSpecs.SteppedSeat = Convert.ToBoolean(paramColl["par_SteppedSeat"].Value);
+                        objSpecs.AntilockBrakingSystem = Convert.ToBoolean(paramColl["par_antilockbrakingsystem"].Value);
+                        objSpecs.Killswitch = Convert.ToBoolean(paramColl["par_killswitch"].Value);
+                        objSpecs.Clock = Convert.ToBoolean(paramColl["par_clock"].Value);
+                        objSpecs.MaxPowerRPM = Convert.ToSingle(paramColl["par_maxpowerrpm"].Value);
+                        objSpecs.MaximumTorqueRPM = Convert.ToSingle(paramColl["par_maximumtorquerpm"].Value);
+                        objSpecs.Colors = paramColl["par_colors"].Value.ToString();
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }            
+            }
             return objSpecs;
         }
 
@@ -491,7 +478,7 @@ namespace Bikewale.DAL.BikeData
                     using (SqlDataReader dr = db.SelectQry(cmd))
                     {
                         objSimilarBikes = new List<SimilarBikeEntity>();
-                
+
                         while (dr.Read())
                         {
                             SimilarBikeEntity objBike = new SimilarBikeEntity();
