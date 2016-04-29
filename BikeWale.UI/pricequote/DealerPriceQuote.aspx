@@ -203,7 +203,7 @@
                                        else
                                        { %>
                                     <div class="grey-bg border-light padding5 margin-top10 margin-bottom20">
-                                        <h3>Dealer Prices for this Version is not available.</h3>
+                                        <h3>Price for this bike is not available in this city.</h3>
                                     </div>
                                     <% } %>
                                 </div>
