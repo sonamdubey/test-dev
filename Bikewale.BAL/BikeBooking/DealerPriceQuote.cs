@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.DAL.BikeBooking;
-using Bikewale.Interfaces.BikeBooking;
-using Microsoft.Practices.Unity;
-using Bikewale.Entities.Customer;
+﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.Location;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
-using System.Configuration;
-using Bikewale.Utility;
-using Bikewale.Notifications;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Notifications;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
 
 namespace Bikewale.BAL.BikeBooking
 {
@@ -310,14 +304,17 @@ namespace Bikewale.BAL.BikeBooking
         /// Summary : To process price Quote
         /// Modified By :   Sumit Kate on 21 Mar 2016
         /// Description :   Consume the newer Subscription Model AB API version
+        /// Modified By : Vivek Gupta on 29-04-2016
+        /// Desc : In case of dealerId=0 and isDealerAvailable = true , while redirecting to pricequotes ,don't redirect to BW PQ redirect to dpq
         /// </summary>
         /// <param name="PQParams"></param>
         /// <returns></returns>
         public PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams)
         {
             PQOutputEntity objPQOutput = null;
-            uint dealerId = 0;
+            //uint dealerId = 0;
             ulong quoteId = 0;
+            DealerInfo objDealerDetail = null;
 
             try
             {
@@ -328,18 +325,19 @@ namespace Bikewale.BAL.BikeBooking
 
                 if (PQParams.VersionId > 0 && PQParams.AreaId > 0)
                 {
-                    string api = "/api/v2/DealerPriceQuote/IsDealerExists/?areaid=" + PQParams.AreaId + "&versionid=" + PQParams.VersionId;
+                    string api = "/api/v3/DealerPriceQuote/IsDealerExists/?areaid=" + PQParams.AreaId + "&versionid=" + PQParams.VersionId;
 
                     using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                     {
                         //dealerId = objClient.GetApiResponseSync<uint>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, dealerId);
-                        dealerId = objClient.GetApiResponseSync<uint>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, dealerId);
+                        objDealerDetail = objClient.GetApiResponseSync<DealerInfo>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objDealerDetail);
                     }
                 }
             }
             catch (Exception ex)
             {
-                dealerId = 0;
+                objDealerDetail.DealerId = 0;
+                objDealerDetail.IsDealerAvailable = false;
                 ErrorClass objErr = new ErrorClass(ex, "ProcessPQ ex : " + ex.Message);
                 objErr.SendMail();
             }
@@ -347,7 +345,7 @@ namespace Bikewale.BAL.BikeBooking
             {
                 if (PQParams.VersionId > 0)
                 {
-                    PQParams.DealerId = dealerId;
+                    PQParams.DealerId = objDealerDetail.DealerId;
 
                     using (IUnityContainer container = new UnityContainer())
                     {
@@ -358,7 +356,7 @@ namespace Bikewale.BAL.BikeBooking
                     }
                 }
 
-                objPQOutput = new PQOutputEntity() { DealerId = PQParams.DealerId, PQId = quoteId, VersionId = PQParams.VersionId };
+                objPQOutput = new PQOutputEntity() { DealerId = PQParams.DealerId, PQId = quoteId, VersionId = PQParams.VersionId, IsDealerAvailable = objDealerDetail.IsDealerAvailable };
             }
             return objPQOutput;
         }   //End of ProcessPQ
@@ -378,6 +376,6 @@ namespace Bikewale.BAL.BikeBooking
             }
             return pageDetail;
         }
-        
+
     }   //End of Class
 }   //End of namespace
