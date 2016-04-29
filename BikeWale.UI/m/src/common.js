@@ -281,11 +281,11 @@ $(document).ready(function () {
             var city = new Object();
             city.cityId = ui.item.payload.cityId;
             city.maskingName = ui.item.payload.cityMaskingName;
-            var CookieValue = city.cityId + "_" + ui.item.label, oneYear = 365;
+            var cityName = ui.item.label.split(',')[0];
+            var CookieValue = city.cityId + "_" + cityName, oneYear = 365;
             SetCookieInDays("location", CookieValue, oneYear);
             CloseCityPopUp();
-            showGlobalCity(ui.item.label);
-            var cityName = $(".cityName").html();
+            showGlobalCity(ui.item.label);            
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
         },
         open: function (result) {
