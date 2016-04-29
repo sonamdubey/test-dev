@@ -285,7 +285,7 @@
                 </div>
                 <%} %>
                 <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega padding-left5" : "" %>">
-                    <a id="calldealer" class="btn btn-full-width btn-orange rightfloat" href="tel:<%= maskingNum %>">
+                    <a id="calldealer" class="btn btn-sm btn-full-width btn-orange rightfloat" href="tel:<%= maskingNum %>">
                         <span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                 </div>
             </div>
