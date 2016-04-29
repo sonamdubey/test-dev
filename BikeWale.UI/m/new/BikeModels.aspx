@@ -248,10 +248,12 @@
                             </ItemTemplate>
                             </asp:Repeater>
                         </ul>
+                        <% if(isBookingAvailable){ %>
                         <div class="font14 padding-top5 padding-bottom15">
-                            <p class="text-light-grey">Book this bike by paying <span class="bwmsprite inr-grey-xxsm-icon"></span>XX,XXX online.</p>
-                            <a href="">Book Now</a>
+                            <p class="text-light-grey">Book this bike by paying <span class="bwmsprite inr-grey-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bookingAmt.ToString()) %> online.</p>
+                            <a href="/m/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>">Book Now</a>
                         </div>
+                        <%} %>
                         <%
                             }
                          %>
@@ -1069,7 +1071,7 @@
                         <%} %>
                         <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
                 </div>
-				<!-- thank you message ends here -->
+                <!-- thank you message ends here -->
                 <div id="otpPopup">
                     <p class="font18 margin-bottom5">Verify your mobile number</p>
                     <p class="text-light-grey margin-bottom5">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
