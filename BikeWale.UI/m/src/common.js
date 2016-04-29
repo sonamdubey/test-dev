@@ -1140,7 +1140,6 @@ $(function () {
     var appbanner = getCookie("AppBanner");
     // Add the page ids of all the pages which need not show app banner ads
     var hideBannerPages = ['7','14'];
-    debugger;
     if (ga_pg_id == 2 ) {
         if (typeof isDealerPQ !== 'undefined') {
             if (isDealerPQ === 'False') {
