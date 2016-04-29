@@ -54,8 +54,8 @@
 .cal-emi-icon {width:37px; height: 48px; background-position:0 -356px}
 .tel-sm-icon { width: 17px; height: 15px;background-position: -86px -323px; position: relative; top: 2px;}
 .thankyou-icon {width:48px; height:58px; background-position: -137px -404px; }
-#calldealer.btn-sm { padding:8px 12px; }
-#calldealer .tel-grey-icon{position: relative;top: 2px}
+#calldealer.btn-sm { padding:8px 10px; }
+#calldealer .tel-white-icon{position: relative;top: 2px}
 
 .emi-slider-box { border-top:1px solid #e2e2e2; padding-bottom:20px; padding-top:20px; margin-top: 5px; margin-right:20px; }
 .emi-slider-box:first-child { border-top:none; padding-top:10px; }
