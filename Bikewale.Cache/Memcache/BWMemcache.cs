@@ -273,7 +273,7 @@ namespace Bikewale.Cache.Memcache
                 {
                     case "BW_BasicIdMapping":
 
-                        ds = FetchDataFromDatabase("GetCWMappedBasicIds");
+                        ds = FetchDataFromDatabase("getcwmappedbasicids");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -286,7 +286,7 @@ namespace Bikewale.Cache.Memcache
 
                     case "BW_ModelMapping":
 
-                        ds = FetchDataFromDatabase("SP_GetModelMappingNames");
+                        ds = FetchDataFromDatabase("sp_getmodelmappingnames");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -299,7 +299,7 @@ namespace Bikewale.Cache.Memcache
 
                     case "BW_MakeMapping":
 
-                        ds = FetchDataFromDatabase("GetMakeMappingNames");
+                        ds = FetchDataFromDatabase("getmakemappingnames");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -311,7 +311,7 @@ namespace Bikewale.Cache.Memcache
                         break;
                     case "BW_CityMapping":
 
-                        ds = FetchDataFromDatabase("GetCityMappingNames");
+                        ds = FetchDataFromDatabase("getcitymappingnames");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -326,7 +326,7 @@ namespace Bikewale.Cache.Memcache
 
                     case "BW_SeriesMapping":
 
-                        ds = FetchDataFromDatabase("GetSeriesMappingNames");
+                        ds = FetchDataFromDatabase("getseriesmappingnames");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -338,7 +338,7 @@ namespace Bikewale.Cache.Memcache
 
                     case "BW_ModelWiseUsedBikesCount":
 
-                        ds = FetchDataFromDatabase("GetModelwiseUsedBikeCounts");
+                        ds = FetchDataFromDatabase("getmodelwiseusedbikecounts");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -350,7 +350,7 @@ namespace Bikewale.Cache.Memcache
                         }
                         break;
                     case "BW_MakeWiseUsedBikesCount":
-                        ds = FetchDataFromDatabase("GetMakewiseUsedBikeCounts");
+                        ds = FetchDataFromDatabase("getmakewiseusedbikecounts");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
@@ -362,7 +362,7 @@ namespace Bikewale.Cache.Memcache
                         }
                         break;
                     case "BW_TopVersionId":
-                        ds = FetchDataFromDatabase("GetModelTopVersionIds");
+                        ds = FetchDataFromDatabase("getmodeltopversionids");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)

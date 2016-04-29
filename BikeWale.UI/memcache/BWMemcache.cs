@@ -319,7 +319,7 @@ namespace Bikewale.Memcache
 
                     case "BW_MakeMapping" :
 
-                        ds = FetchDataFromDatabase("GetMakeMappingNames");
+                        ds = FetchDataFromDatabase("getmakemappingnames");
                         dt = ds.Tables[0];
 
                         foreach (DataRow dr in dt.Rows)
