@@ -1,8 +1,10 @@
-﻿using Consumer;
+﻿using Bikewale.CoreDAL;
+using Consumer;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Reflection;
 
@@ -17,53 +19,46 @@ namespace BikewaleAutoSuggest
 
             try
             {
-                using (SqlConnection conn = new SqlConnection(_con))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getautosuggestmakemodellist"))
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    IDataReader dr = MySqlDatabase.SelectQuery(cmd);
+
+                    if (dr != null)
                     {
-                        cmd.CommandText = "GetAutoSuggestMakeModelList";                                        //  Call SP
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        objList = new List<TempList>();
 
-                        conn.Open();
-
-                        SqlDataReader dr = cmd.ExecuteReader();
-
-                        if (dr != null)
+                        while (dr.Read())
                         {
-                            objList = new List<TempList>();
-
-                            while (dr.Read())
+                            objList.Add(new TempList()
                             {
-                                objList.Add(new TempList()
-                                {
-                                    MakeId = Convert.ToInt32(dr["MakeId"]),                                     //  Add MakeId
-                                    ModelId = Convert.ToInt32(dr["ModelId"]),                                   //  Add ModelId
-                                    Make = dr["Make"].ToString() + " Bikes",                                    //  Add MakeName
-                                    Model = dr["Model"].ToString(),                                             //  Add ModelName
-                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),                         //  Add MakeMaskingName
-                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),                       //  Add ModelMaskingName
-                                    New = Convert.ToBoolean(dr["New"]),                                         //  Add New Flag
-                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])                            //  Add Futuristic
-                                });
-                            }
+                                MakeId = Convert.ToInt32(dr["MakeId"]),                                     //  Add MakeId
+                                ModelId = Convert.ToInt32(dr["ModelId"]),                                   //  Add ModelId
+                                Make = dr["Make"].ToString() + " Bikes",                                    //  Add MakeName
+                                Model = dr["Model"].ToString(),                                             //  Add ModelName
+                                MakeMaskingName = dr["MakeMaskingName"].ToString(),                         //  Add MakeMaskingName
+                                ModelMaskingName = dr["ModelMaskingName"].ToString(),                       //  Add ModelMaskingName
+                                New = Convert.ToBoolean(dr["New"]),                                         //  Add New Flag
+                                Futuristic = Convert.ToBoolean(dr["Futuristic"])                            //  Add Futuristic
+                            });
+                        }
 
-                            dr.NextResult();
+                        dr.NextResult();
 
-                            while (dr.Read())
+                        while (dr.Read())
+                        {
+                            objList.Add(new TempList()
                             {
-                                objList.Add(new TempList()
-                                {
-                                    MakeId = Convert.ToInt32(dr["MakeId"]),                                     //  Add MakeId
-                                    ModelId = Convert.ToInt32(dr["ModelId"]),                                   //  Add ModelId
-                                    Make = dr["Make"].ToString(),                                               //  Add MakeName
-                                    Model = dr["Model"].ToString(),                                             //  Add ModelName
-                                    MakeMaskingName = dr["MakeMaskingName"].ToString(),                         //  Add MakeMaskingName
-                                    ModelMaskingName = dr["ModelMaskingName"].ToString(),                       //  Add ModelMaskingName
-                                    New = Convert.ToBoolean(dr["New"]),                                         //  Add New Flag
-                                    Futuristic = Convert.ToBoolean(dr["Futuristic"])                            //  Add Futuristic
-                                });
-                            }
+                                MakeId = Convert.ToInt32(dr["MakeId"]),                                     //  Add MakeId
+                                ModelId = Convert.ToInt32(dr["ModelId"]),                                   //  Add ModelId
+                                Make = dr["Make"].ToString(),                                               //  Add MakeName
+                                Model = dr["Model"].ToString(),                                             //  Add ModelName
+                                MakeMaskingName = dr["MakeMaskingName"].ToString(),                         //  Add MakeMaskingName
+                                ModelMaskingName = dr["ModelMaskingName"].ToString(),                       //  Add ModelMaskingName
+                                New = Convert.ToBoolean(dr["New"]),                                         //  Add New Flag
+                                Futuristic = Convert.ToBoolean(dr["Futuristic"])                            //  Add Futuristic
+                            });
                         }
                     }
                 }

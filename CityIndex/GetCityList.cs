@@ -4,44 +4,38 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Reflection;
+using Bikewale.CoreDAL;
 
 namespace CityAutoSuggest
 {
     public class GetCityList
     {
-        private static string _con = ConfigurationManager.AppSettings["connectionString"];
         public static List<CityTempList> CityList()
         {
             List<CityTempList> objCity = null;
             try
             {
-                using (SqlConnection con = new SqlConnection(_con))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("v_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, 7));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        cmd.CommandText = "GetCities";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = con;
-
-                        cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = 7;
-
-                        con.Open();
-
-                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        if (dr != null)
                         {
-                            if (dr != null)
-                            {
-                                objCity = new List<CityTempList>();
-                                while (dr.Read())
-                                    objCity.Add(new CityTempList()
-                                    {
-                                        CityId = Convert.ToInt32(dr["Value"]),                          //  Add CityId into Payload
-                                        CityName = dr["Text"].ToString(),                               //  Add CityName into Payload
-                                        MaskingName = dr["MaskingName"].ToString()                      //  Add Masking Name into Payload
-                                    });
-                            }
+                            objCity = new List<CityTempList>();
+                            while (dr.Read())
+                                objCity.Add(new CityTempList()
+                                {
+                                    CityId = Convert.ToInt32(dr["Value"]),                          //  Add CityId into Payload
+                                    CityName = dr["Text"].ToString(),                               //  Add CityName into Payload
+                                    MaskingName = dr["MaskingName"].ToString()                      //  Add Masking Name into Payload
+                                });
                         }
                     }
                 }

@@ -1527,6 +1527,8 @@
             Mobile Verification method
             Modified By :   Sumit Kate on 18 Nov 2015
             Description :   Save the State of the Booking Journey as Described in Task# 107795062 
+            Modified By :   Lucky Rathore on 20/04/2016
+            Description :   Changed making no. (mobile no.) of dealer to his phone no. for sms to customer.
             </summary>
             <param name="input">Mobile Verification Input</param>
             <returns></returns>
@@ -1535,6 +1537,8 @@
             <summary>
             Modified By : Lucky Rathore
             Description : change sms type to subscription model for Desktop and mobile site customer. 
+            Modified By : Lucky Rathore on 20 April 2016
+            Description : Declare DPQSmsEntity's city and address.
             </summary>
             <param name="input"></param>
             <param name="objCust"></param>
@@ -1633,6 +1637,8 @@
             Description :   Update the Bike Version. Fixed the APP functionality.
             Modified By : Sadhana Upadhyay on 29 Dec 2015
             Summary : To capture device id, utma, utmz, Pq lead id etc.
+            Modified By : Lucky Rathore on 20/04/2016
+            Summary : Masking No. (mobile no.) of dealer is changed to dealer phone no. for sms to customer.
             </summary>
             <param name="input">Customer details with price quote details</param>
             <returns></returns>
@@ -1692,6 +1698,8 @@
         <member name="M:Bikewale.Service.Controllers.PriceQuote.RegisterPQController.Post(Bikewale.DTO.PriceQuote.PQInput)">
             <summary>
             Registers a new price quote
+            Modified By : Lucky Rathore On 20 Apr 2016.
+            Description : RefPQId Added.
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -1706,9 +1714,20 @@
             Updates the Price Quote data for given Price Quote Id
             Modified By : Sadhana Upadhyay on 22 Dec 2015
             Summary : To update Notification template in PQ_LeadNotification Table
+            Modified By : Lucky Rathore on 20/04/2016
+            Description : Changed making no. (mobile no.) of dealer to his phone no. for sms to customer.
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQController.SaveCustomerSMS(Bikewale.DTO.PriceQuote.PQUpdateInput,Bikewale.Entities.BikeBooking.PQCustomerDetail,Bikewale.Entities.BikeBooking.PQ_DealerDetailEntity)">
+            <summary>
+            Modified By : Lucky Rathore on 20 April 2016
+            Description : Declare DPQSmsEntity's city and address.
+            </summary>
+            <param name="input"></param>
+            <param name="objCustomer"></param>
+            <param name="dealerDetailEntity"></param>
         </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQController.Post(Bikewale.DTO.PriceQuote.PQUpdateInput,System.UInt32)">
             <summary>
@@ -1744,9 +1763,21 @@
             Similar to PQCustomer Controller but updates color and version
             Saves the Customer details if it is a new customer else updates version/color  for the same.
             Generates  the OTP for the non verified customer
+            Modified By : Lucky Rathore on 20/04/2016
+            Description : Changed making no. (mobile no.) of dealer to his phone no. for sms to customer.
             </summary>
             <param name="input">Customer details with price quote details</param>
             <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQCustomerDetailsController.SaveCustomerSMS(Bikewale.DTO.PriceQuote.UpdatePQCustomerInput,Bikewale.Entities.Customer.CustomerEntity,System.UInt32,Bikewale.Entities.BikeBooking.PQ_DealerDetailEntity)">
+            <summary>
+            Modified By : Lucky Rathore on 20 April 2016
+            Description : Declare DPQSmsEntity's city and address and change requestURL in SaveSMSToCustomer function.
+            </summary>
+            <param name="input"></param>
+            <param name="objCust"></param>
+            <param name="bookingAmount"></param>
+            <param name="dealerDetailEntity"></param>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController">
             <summary>
@@ -1754,13 +1785,14 @@
             Summary: API to return PriceQuote for model by city and area
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.#ctor(Bikewale.Interfaces.BikeData.IBikeVersions{Bikewale.Entities.BikeData.BikeVersionEntity,System.UInt32})">
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.#ctor(Bikewale.Interfaces.BikeData.IBikeVersions{Bikewale.Entities.BikeData.BikeVersionEntity,System.UInt32},Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
             <summary>
             To Fetch PQ versionList, PQID and dealerId
             </summary>
             <param name="objVersion"></param>
+            <param name="objModel"></param>
         </member>
-        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.Get(System.UInt32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.Get(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Gets the Version list for given model and city
             </summary>
