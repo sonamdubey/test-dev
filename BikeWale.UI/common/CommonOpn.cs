@@ -146,25 +146,17 @@ namespace Bikewale.Common
 
         //this function binds the repeater with the datareader
         //takes as input the sql string and the datagridname
-        public void BindRepeaterReader(string sql, Repeater rpt, SqlParameter[] param)
+        public void BindRepeaterReader(string sql, Repeater rpt, DbParameter[] param)
         {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
             try
             {
-                dataReader = objSelect.SelectQry(sql, param);
-                rpt.DataSource = dataReader;
+                IDataReader datareader = MySqlDatabase.SelectQuery(sql, param);
+                rpt.DataSource = datareader;
                 rpt.DataBind();
             }
             catch (Exception)
             {
                 throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
-                objSelect.CloseConnection();
             }
         }
 

@@ -11,6 +11,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.CoreDAL;
 using Bikewale.Entities.BikeData;
+using System.Data.Common;
 
 namespace Bikewale.DAL.UserReviews
 {
@@ -30,22 +31,21 @@ namespace Bikewale.DAL.UserReviews
         public List<ReviewTaggedBikeEntity> GetMostReviewedBikesList(ushort totalRecords)
         {
             List<ReviewTaggedBikeEntity> objBikeList = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostreviewedbikes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetMostReviewedBikes";
-                    cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
+                    //cmd.CommandText = "getmostreviewedbikes";
+                    //cmd.Parameters.Add("@topcount", SqlDbType.Int).Value = totalRecords;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], totalRecords)); 
 
                     BikeMakeEntityBase objMakeBase = null;
                     BikeModelEntityBase objModelBase = null;
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -85,11 +85,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objBikeList;
         }
 
@@ -101,21 +96,19 @@ namespace Bikewale.DAL.UserReviews
         public List<ReviewTaggedBikeEntity> GetReviewedBikesList()
         {
             List<ReviewTaggedBikeEntity> objBikeList = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("getreviewedbikes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetReviewedBikes";
                   
                     BikeMakeEntityBase objMakeBase = null;
                     BikeModelEntityBase objModelBase = null;
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
 
                         objBikeList = new List<ReviewTaggedBikeEntity>();
@@ -155,11 +148,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objBikeList;          
         }
 
@@ -172,23 +160,23 @@ namespace Bikewale.DAL.UserReviews
         public List<ReviewsListEntity> GetMostReadReviews(ushort totalRecords)
         {
             List<ReviewsListEntity> objReviewList = null;
-            Database db = null;
+            
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostreadreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetMostReadReviews";
-                    cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
+                    //cmd.CommandText = "getmostreadreviews";
+                    //cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], totalRecords));
 
                     ReviewEntityBase  objReviewEntity =null;
                     ReviewRatingEntityBase objReviewRating = null;
                     ReviewTaggedBikeEntity objTaggedBike = null;
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -235,10 +223,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return objReviewList;
         }
@@ -251,24 +235,22 @@ namespace Bikewale.DAL.UserReviews
         /// <returns></returns>
         public List<ReviewsListEntity> GetMostHelpfulReviews(ushort totalRecords)
         {
-            List<ReviewsListEntity> objReviewList = null;
-            Database db = null;
+            List<ReviewsListEntity> objReviewList = null;           
 
             try
-            {
-                db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand())
+            {  
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmosthelpfulreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetMostHelpfulReviews";
-                    cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
+                    //cmd.CommandText = "getmosthelpfulreviews";
+                    //cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], totalRecords));
 
                     ReviewEntityBase objReviewEntity = null;
                     ReviewRatingEntityBase objReviewRating = null;
                     ReviewTaggedBikeEntity objTaggedBike = null;
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -315,10 +297,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return objReviewList;
         }
@@ -332,23 +310,23 @@ namespace Bikewale.DAL.UserReviews
         public List<ReviewsListEntity> GetMostRecentReviews(ushort totalRecords)
         {
             List<ReviewsListEntity> objReviewList = null;
-            Database db = null;
+            
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostrecentreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetMostRecentReviews";
-                    cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
+                    //cmd.CommandText = "getmostrecentreviews";
+                    //cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], totalRecords));
 
                     ReviewEntityBase objReviewEntity = null;
                     ReviewRatingEntityBase objReviewRating = null;
                     ReviewTaggedBikeEntity objTaggedBike = null;
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -395,11 +373,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objReviewList;
         }
 
@@ -412,23 +385,23 @@ namespace Bikewale.DAL.UserReviews
         public List<ReviewsListEntity> GetMostRatedReviews(ushort totalRecords)
         {
             List<ReviewsListEntity> objReviewList = null;
-            Database db = null;
+            
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostratedreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetMostRatedReviews";
-                    cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
+                    //cmd.CommandText = "getmostratedreviews";
+                    //cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], totalRecords));
 
                     ReviewEntityBase objReviewEntity = null;
                     ReviewRatingEntityBase objReviewRating = null;
                     ReviewTaggedBikeEntity objTaggedBike = null;
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -476,11 +449,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objReviewList;
         }
 
@@ -493,18 +461,18 @@ namespace Bikewale.DAL.UserReviews
         public ReviewRatingEntity GetBikeRatings(uint modelId)
         {
             ReviewRatingEntity objRate = null;
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelrating"))
                 {
-                    cmd.CommandText = "GetModelRating";
+                    //cmd.CommandText = "getmodelrating";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    //cmd.Parameters.Add("@modelid", SqlDbType.Int).Value = modelId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -532,10 +500,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
             return objRate;
         }
 
@@ -554,28 +518,31 @@ namespace Bikewale.DAL.UserReviews
         public List<ReviewEntity> GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter, out uint totalReviews)
         {
             List<ReviewEntity> objRatingList = null;
-            Database db = null;
+            
             totalReviews = 0;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviewslist"))
                 {
-                    cmd.CommandText = "GetBikeReviewsList";
+                    //cmd.CommandText = "getbikereviewslist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = startIndex;
-                    cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = endIndex;
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    //cmd.Parameters.Add("@startindex", SqlDbType.Int).Value = startIndex;
+                    //cmd.Parameters.Add("@endindex", SqlDbType.Int).Value = endIndex;
+                    //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], startIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], endIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (versionId > 0) ? versionId : (uint?)null ));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_filter", DbParamTypeMapper.GetInstance[SqlDbType.Int], filter));
 
-                    if (versionId > 0)
-                        cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
+                    //if (versionId > 0)
+                    //    cmd.Parameters.Add("@versionid", SqlDbType.Int).Value = versionId;
 
-                    cmd.Parameters.Add("@Filter", SqlDbType.Int).Value = filter;
+                    //cmd.Parameters.Add("@filter", SqlDbType.Int).Value = filter;
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -616,10 +583,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return objRatingList;
         }
@@ -635,20 +598,19 @@ namespace Bikewale.DAL.UserReviews
         public ReviewDetailsEntity GetReviewDetails(uint reviewId)
         {
             ReviewDetailsEntity objRating = null; //
-            Database db = null;
+            
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcustomerreviewdetails_new"))
                 {
-                    cmd.CommandText = "GetCustomerReviewDetails_New";
+                    //cmd.CommandText = "getcustomerreviewdetails_new";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
+                    //cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbParamTypeMapper.GetInstance[SqlDbType.Int], reviewId));
 
-                    db = new Database();
-                
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -717,10 +679,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return objRating;
         }
@@ -735,21 +693,24 @@ namespace Bikewale.DAL.UserReviews
         /// <returns></returns>
         public bool AbuseReview(uint reviewId, string comment, string userId)
         {
-            Database db = null;
+            
             bool success = false;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand("UpdateCustomerReviewsAbuse"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatecustomerreviewsabuse"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
-                    cmd.Parameters.Add("@Comments", SqlDbType.VarChar, 500).Value = comment;
-                    cmd.Parameters.Add("@ReportedBy", SqlDbType.Int).Value = userId;
+                    //cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
+                    //cmd.Parameters.Add("@comments", SqlDbType.VarChar, 500).Value = comment;
+                    //cmd.Parameters.Add("@reportedby", SqlDbType.Int).Value = userId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbParamTypeMapper.GetInstance[SqlDbType.Int], reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],500, userId));
 
-                    success = db.UpdateQry(cmd);
+
+                    success = MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException sqlEx)
@@ -764,10 +725,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 errObj.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return success;
         }
@@ -779,20 +736,17 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="reviewId"></param>
         /// <returns></returns>
         public bool UpdateViews(uint reviewId)
-        {
-            Database db = null;
-            bool success = false;
-
+        {              
+            bool success = false; 
             try
             {
-                db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand("UpdateReviewViews"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatereviewviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
+                    //cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbParamTypeMapper.GetInstance[SqlDbType.Int], reviewId));
 
-                    success = db.UpdateQry(cmd);
+                    success = MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException sqlEx)
@@ -807,10 +761,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 errObj.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return success;
         }
@@ -824,22 +774,20 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="isHelpful"></param>
         /// <returns></returns>
         public bool UpdateReviewUseful(uint reviewId, bool isHelpful)
-        {
-
-            Database db = null;
+        {             
             bool success = false;
 
             try
             {
-                db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand("UpdateCustomerReviewsHelpful"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatecustomerreviewshelpful"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
-                    cmd.Parameters.Add("@Helpful", SqlDbType.Bit).Value = isHelpful;
+                    //cmd.Parameters.Add("@reviewid", SqlDbType.Int).Value = reviewId;
+                    //cmd.Parameters.Add("@helpful", SqlDbType.Bit).Value = isHelpful;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbParamTypeMapper.GetInstance[SqlDbType.Int], reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_helpful", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isHelpful));
 
-                    success = db.UpdateQry(cmd);
+                    success = MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException sqlEx)
@@ -854,11 +802,6 @@ namespace Bikewale.DAL.UserReviews
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 errObj.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return success;
         }
     }

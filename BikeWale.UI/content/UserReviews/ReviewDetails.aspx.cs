@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Forums.Common;
+using System.Data.Common;
 
 namespace Bikewale.Content
 {
@@ -317,32 +318,33 @@ namespace Bikewale.Content
         private string GetThreadIdForReview(string review_Id)
         {
             string returnVal = "-1";
-            string sql = "SELECT ThreadId FROM Forum_ArticleAssociation With(NoLock) WHERE ArticleType = 3 AND ArticleId = @ArticleId";
-
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@ArticleId", SqlDbType.BigInt).Value = (review_Id != "" ? review_Id : "-1");
-
-            SqlDataReader dr = null;
-            Database db = new Database();
+            string sql = "select threadid from forum_articleassociation  where articletype = 3 and articleid = @v_articleid";
+            uint _reviewId = 0 ;
+            
             try
             {
-                dr = db.SelectQry(cmd);
-
-                if (dr.Read())
+                if (!string.IsNullOrEmpty(review_Id))
                 {
-                    returnVal = dr[0].ToString();
+                    uint.TryParse(review_Id, out _reviewId); 
                 }
+                //cmd.Parameters.Add("@v_articleid", SqlDbType.BigInt).Value = (review_Id != "" ? review_Id : "-1");  
+                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_articleid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.BigInt], _reviewId));
+                    using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr.Read())
+                        {
+                            returnVal = dr[0].ToString();
+                        }
+                    }
+                }                
             }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
                 returnVal = "-1";
-            }
-            finally
-            {
-                dr.Close();
-                db.CloseConnection();
             }
 
             return returnVal;
@@ -556,58 +558,64 @@ namespace Bikewale.Content
         protected void GoogleKeywords()
         {
             string sql = "";
-            SqlDataReader dr = null;
-
+            uint _modelId = 0, _versionId =0 ;
             if (VersionId != "-1")
             {
-                sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
-                    + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
-                    + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
-                    + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
-                    + " AND Ve.Id = @Id";
+                sql = @" select distinct cm.name as make, se.name as subsegment, bo.name bikebodystyle
+                   from bikemodels as cmo, bikemakes as cm, bikebodystyles bo,
+                    (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid )
+                    where cm.id=cmo.bikemakeid and cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid
+                    and ve.id = @v_versionid";
             }
             else
             {
-                sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
-                    + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
-                    + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
-                    + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
-                    + " AND Ve.BikeModelId = @BikeModelId";
+                sql = @" select distinct cm.name as make, se.name as subsegment, bo.name bikebodystyle 
+                     from bikemodels as cmo, bikemakes as cm, bikebodystyles bo, 
+                     (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid ) 
+                     where cm.id=cmo.bikemakeid and cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid 
+                     and ve.bikemodelid = @v_modelid";
             }
 
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@BikeModelId", SqlDbType.BigInt).Value = (ModelId != "" ? ModelId : "-1");
-            cmd.Parameters.Add("@Id", SqlDbType.BigInt).Value = (VersionId != "" ? VersionId : "-1");
-
-            Database db = new Database();
+            //cmd.Parameters.Add("@BikeModelId", SqlDbType.BigInt).Value = (ModelId != "" ? ModelId : "-1");
+            //cmd.Parameters.Add("@Id", SqlDbType.BigInt).Value = (VersionId != "" ? VersionId : "-1");
+            
             try
             {
-                dr = db.SelectQry(cmd);
-                if (dr.Read())
+                if (!string.IsNullOrEmpty(ModelId) && !string.IsNullOrEmpty(VersionId))
                 {
-
-                    oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
-                    bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
-                    subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                    uint.TryParse(VersionId, out _versionId);
+                    uint.TryParse(ModelId, out _modelId);
                 }
 
-                Trace.Warn(sql);
-                Trace.Warn("oem : " + oem);
-                Trace.Warn(" bodyType : " + bodyType);
-                Trace.Warn(" subSegment : " + subSegment);                
+
+                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], _modelId));
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_versionid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], _versionId)); 
+
+                    using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr!=null && dr.Read())
+                        {
+
+                            oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                            bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                            subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                        }
+                        
+                    }
+
+                    //Trace.Warn(sql);
+                    //Trace.Warn("oem : " + oem);
+                    //Trace.Warn(" bodyType : " + bodyType);
+                    //Trace.Warn(" subSegment : " + subSegment);  
+                }               
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
-
-                db.CloseConnection();
             }
         }
 
@@ -654,20 +662,17 @@ namespace Bikewale.Content
 
             try
             {
-                sql = " Select Top 5 CR.ID AS ReviewId, ISNULL(UP.HandleName, CU.Name) AS CustomerName, CU.ID AS CustomerId, "
-                    + " CR.Title, CR.EntryDateTime, Liked, OverallR "
+                sql = @" select cr.id as reviewid, ifnull(up.handlename, cu.name) as customername, cu.id as customerid,
+                        cr.title, cr.entrydatetime, liked, overallr 
+                        from  customers as cu  left join userprofile up   on up.userid = cu.id, customerreviews as cr  
+                        where cu.id = cr.customerid and cr.isactive=1 and 
+                        cr.isverified=1 and cr.modelid = @v_modelid and cr.id <> @v_reviewid
+                        order by liked desc 
+                        limit 5";
 
-                    + " From  Customers AS CU With(NoLock) left Join UserProfile UP With(NoLock) ON UP.UserId = CU.Id, CustomerReviews AS CR With(NoLock) "
+                DbParameter[] param = new[] { Bikewale.CoreDAL.DbFactory.GetDbParam("par_modelid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int],ModelId ),
+                    Bikewale.CoreDAL.DbFactory.GetDbParam("par_reviewid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int],reviewId )};
 
-                    + " Where CU.ID = CR.CustomerId AND CR.IsActive=1 AND "
-                    + " CR.IsVerified=1 AND CR.ModelId = @ModelId AND CR.Id <> @ReviewId"
-                    + " Order BY Liked DESC ";
-
-                SqlParameter[] param = 
-				{					
-					new SqlParameter("@ModelId", ModelId),
-					new SqlParameter("@ReviewId", reviewId)
-				};
 
                 op.BindRepeaterReader(sql, rptMoreUserReviews, param);
             }

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
 using System.Data.SqlClient;
+using System.Data.Common;
 
 namespace Bikewale.Content
 {
@@ -107,27 +108,27 @@ namespace Bikewale.Content
         {
             try
             {
-                DataSet ds = null;
 
-                using (SqlCommand cmd = new SqlCommand("GetUserReviews"))
+                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand("getuserreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     Database db = new Database();
-                    ds = new DataSet();
+                     using (DataSet ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(cmd))
+                     {
 
-                    ds = db.SelectAdaptQry(cmd);             
+                         dsMain = new DataSet();
+                         dsMain = ds;
+
+                         rptMakes.DataSource = ds.Tables[0];
+                         rptMakes.DataBind();
+
+                         rptMostReviewed.DataSource = ds.Tables[2];
+                         rptMostReviewed.DataBind();
+                         Trace.Warn("++dsmain rows count ", dsMain.Tables.Count.ToString());
+                     }
                 }
 
-                dsMain = new DataSet();
-                dsMain = ds;
-
-                rptMakes.DataSource = ds.Tables[0];
-                rptMakes.DataBind();
-
-                rptMostReviewed.DataSource = ds.Tables[2];
-                rptMostReviewed.DataBind();
-                Trace.Warn("++dsmain rows count ", dsMain.Tables.Count.ToString());
             }
             catch (SqlException sqlEx)
             {
