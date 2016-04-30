@@ -22,18 +22,18 @@ namespace Bikewale.Common
         public static void FillReviewedVersions(DropDownList drpVersions, string modelId)
         {
             CommonOpn op = new CommonOpn();
-
+            uint _modelid;
+            uint.TryParse(modelId, out _modelid);
             try
             {
                 string sql = @" select distinct vs.id versionid, vs.name versionname 
-                     from bikeversions vs, customerreviews cr with(nolock) 
-                     where vs.bikemodelid = par_modelid and vs.id = cr.versionid and cr.isverified = 1 and cr.isactive = 1 
+                     from bikeversions vs, customerreviews cr   
+                     where vs.bikemodelid = @par_modelid and vs.id = cr.versionid and cr.isverified = 1 and cr.isactive = 1 
                      order by versionname ";
 
                 HttpContext.Current.Trace.Warn(sql);
 
-                DbParameter[] param = null;
-                param[0] = DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId);
+                DbParameter[] param = new[] { DbFactory.GetDbParam("@par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], _modelid) };
 
                 op.FillDropDown(sql, drpVersions, "VersionName", "VersionId", param);
 

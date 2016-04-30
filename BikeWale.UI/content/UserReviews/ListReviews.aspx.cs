@@ -16,6 +16,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
 using Bikewale.Cache.BikeData;
+using System.Data.Common;
 
 namespace Bikewale.Content
 {
@@ -270,8 +271,6 @@ namespace Bikewale.Content
         {
             CommonOpn op = new CommonOpn();
 
-            Database db = new Database();
-
             string selectClause = "", fromClause = "", whereClause = "", orderByClause = "", recordCntQry = "";
             versionId = versionId != "" ? versionId : drpVersions.SelectedItem.Value;
             Trace.Warn("versionId :: " + versionId);
@@ -279,19 +278,21 @@ namespace Bikewale.Content
             {
                 if (versionId == "0" || versionId == "")
                 {
-                    selectClause = " CR.ID AS ReviewId, CU.Name AS CustomerName, CU.ID AS CustomerId, ISNULL(UP.HandleName, '') As HandleName, CR.StyleR, "
-                                + " CR.ComfortR, CR.PerformanceR, CR.ValueR, CR.FuelEconomyR, CR.OverallR, CR.Pros, "
-                                + " CR.Cons, Substring(CR.Comments,0,Cast(Floor(LEN(CR.Comments)*0.15) AS INT)) AS SubComments, "
-                                + " CR.Title, CR.EntryDateTime, CR.Liked, CR.Disliked, CR.Viewed, ISNULL(Fm.Posts, 0) Comments, Fso.ThreadId ";
+                    selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, ifnull(up.handlename,'') as handlename, cr.styler, 
+                                 cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
+                                 cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
+                                 cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, ifnull(fm.posts, 0) comments, fso.threadid ";
 
-                    fromClause = " Customers AS CU With(NoLock) LEFT JOIN UserProfile UP With(NoLock) ON UP.UserId = CU.ID, CustomerReviews AS CR With(NoLock) LEFT JOIN Forum_ArticleAssociation Fso With(NoLock) ON CR.ID = Fso.ArticleId "
-                                + " LEFT JOIN Forums Fm With(NoLock) ON Fso.ThreadId = Fm.ID ";
+                    fromClause = @" customers as cu left join userprofile up  on up.userid = cu.id, customerreviews as cr  
+                                    left join forum_articleassociation fso  on cr.id = fso.articleid 
+                                    left join forums fm   on fso.threadid = fm.id ";
 
-                    whereClause = " CU.ID = CR.CustomerId AND CR.IsActive=1 AND CR.IsVerified=1 AND CR.ModelId = @ModelId ";
+                    whereClause = " cu.id = cr.customerid and cr.isactive=1 and cr.isverified=1 and cr.modelid = @v_modelid ";
 
-                    orderByClause = SortingCriteria + " DESC";
+                    orderByClause = SortingCriteria + " desc";
 
-                    recordCntQry = " Select Count(*) From " + fromClause + " Where " + whereClause;
+                    recordCntQry = string.Format(" select count(*) from {0} where {1}", fromClause, whereClause);
+                    
                 }
                 else
                 {
@@ -300,28 +301,29 @@ namespace Bikewale.Content
                         drpVersions.SelectedIndex = drpVersions.Items.IndexOf(drpVersions.Items.FindByValue(versionId));
                     }
 
-                    selectClause = " CR.ID AS ReviewId, CU.Name AS CustomerName, CU.ID AS CustomerId, ISNULL(UP.HandleName, '') As HandleName, CR.StyleR, "
-                                 + " CR.ComfortR, CR.PerformanceR, CR.ValueR, CR.FuelEconomyR, CR.OverallR, CR.Pros, "
-                                 + " CR.Cons, Substring(CR.Comments,0,Cast(Floor(LEN(CR.Comments)*0.15) AS INT)) AS SubComments, "
-                                 + " CR.Title, CR.EntryDateTime, CR.Liked, CR.Disliked, CR.Viewed, ISNULL(Fm.Posts, 0) Comments, Fso.ThreadId ";
+                    selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, ifnull(up.handlename, '') as handlename, cr.styler, 
+                                  cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
+                                  cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
+                                  cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, ifnull(fm.posts, 0) comments, fso.threadid ";
 
-                    fromClause = " Customers AS CU With(NoLock) LEFT JOIN UserProfile UP With(NoLock) ON UP.UserId = CU.ID, CustomerReviews AS CR With(NoLock) LEFT JOIN Forum_ArticleAssociation Fso With(NoLock) ON CR.ID = Fso.ArticleId "
-                                + " LEFT JOIN Forums Fm With(NoLock) ON Fso.ThreadId = Fm.ID ";
+                    fromClause = @" customers as cu   
+                                    left join userprofile up   on up.userid = cu.id, customerreviews as cr   
+                                    left join forum_articleassociation fso   on cr.id = fso.articleid
+                                    left join forums fm   on fso.threadid = fm.id ";
 
-                    whereClause = " CU.ID = CR.CustomerId AND CR.IsActive=1 AND CR.IsVerified=1 AND CR.VersionId = @VersionId ";
+                    whereClause = " cu.id = cr.customerid and cr.isactive=1 and cr.isverified=1 and cr.versionid = @v_versionid ";
 
-                    orderByClause = SortingCriteria + " DESC";
+                    orderByClause = SortingCriteria + " desc";
 
-                    recordCntQry = " Select Count(*) From " + fromClause + " Where " + whereClause;
+                    recordCntQry = string.Format(" select count(*) from {0} where {1}", fromClause, whereClause);
                 }
 
 
 
-                SqlParameter[] param = 
-				{
-					new SqlParameter("@ModelId", modelId),
-					new SqlParameter("@VersionId", versionId)
-				};
+                DbParameter[] param = new[] {   Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int],modelId ),
+                                                Bikewale.CoreDAL.DbFactory.GetDbParam("@v_versionid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int],versionId)
+                                            }; 
+				
 
                 Trace.Warn("pageNumber :  : : " + pageNumber);
                 if (pageNumber != "")
