@@ -19,6 +19,8 @@ using System.Net;
 using Bikewale.Entities.CMS;
 using System.Collections.Generic;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.Common 
 {
@@ -314,54 +316,40 @@ namespace Bikewale.Common
 		//takes as input the sql string, dropdownlist name, the text Budget and the value Budget
 		public void FillDropDown(string sql, DropDownList drp, string text, string value)
 		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
+			
 			try
 			{
-				dataReader = objSelect.SelectQry(sql);
-				drp.DataSource = dataReader;
-				drp.DataTextField = text;
-				drp.DataValueField = value;
-				drp.DataBind();
+                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql))
+                {
+                    drp.DataSource = dataReader;
+                    drp.DataTextField = text;
+                    drp.DataValueField = value;
+                    drp.DataBind(); 
+                }
 			}
 			catch(Exception)
 			{
 				throw;
-			}
-			finally
-			{
-                if (dataReader != null)
-                {
-                    dataReader.Close();
-                }
-				objSelect.CloseConnection();
 			}
 		}
 		
 		//this function binds the dropdownlist with the datareader
 		//takes as input the sql string, dropdownlist name, the text Budget and the value Budget
-		public void FillDropDown(string sql, DropDownList drp, string text, string value, SqlParameter [] param)
+		public void FillDropDown(string sql, DropDownList drp, string text, string value, DbParameter[] param)
 		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
 			try
 			{
-				dataReader = objSelect.SelectQry(sql, param);
-				drp.DataSource = dataReader;
-				drp.DataTextField = text;
-				drp.DataValueField = value;
-				drp.DataBind();				
+                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql,param))
+                {
+                    drp.DataSource = dataReader;
+                    drp.DataTextField = text;
+                    drp.DataValueField = value;
+                    drp.DataBind(); 
+                }				
 			}
 			catch(Exception)
 			{
 				throw;
-			}
-			finally
-			{
-				if(dataReader != null)
-                    dataReader.Close();
-
-				objSelect.CloseConnection();				
 			}
 		}
 		

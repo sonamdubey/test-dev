@@ -37,7 +37,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType.ToString();
                     //cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],20, requestType.ToString()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType.ToString()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -258,7 +258,7 @@ namespace Bikewale.DAL.BikeData
         /// <returns></returns>
         public List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew)
         {
-             
+
             List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
             try
             {
@@ -292,7 +292,7 @@ namespace Bikewale.DAL.BikeData
                                     AntilockBrakingSystem = !Convert.IsDBNull(dr["AntilockBrakingSystem"]) ? Convert.ToBoolean(dr["AntilockBrakingSystem"]) : false,
                                 });
                             }
-                           
+
                         }
                     }
                 }
@@ -303,7 +303,7 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-           
+
 
             return objMinSpecs;
         }
@@ -326,90 +326,61 @@ namespace Bikewale.DAL.BikeData
             T t = default(T);
             try
             {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetails_new"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isfuturistic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesmaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewrate", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ParameterDirection.InputOutput));
+
+                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd)))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        //cmd.CommandText = "getmodeldetails_new";
+                        HttpContext.Current.Trace.Warn("qry success");
 
-                        HttpContext.Current.Trace.Warn("modelId : " + id);
-
-                        //cmd.Parameters.Add("par_modelid", SqlDbType.Int).Value = id;
-                        //cmd.Parameters.Add("par_make", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_makeid", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_model", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_isfuturistic", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_isnew", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_isused", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_smallpic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_largepic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_hosturl", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_minprice", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_maxprice", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_maskingname", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_makemaskingname", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_seriesid", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_seriesname", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_seriesmaskingname", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_reviewcount", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_reviewrate", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("par_originalimagepath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
-
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int],id )); 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],30, ParameterDirection.InputOutput)); 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],30, ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isfuturistic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],50, ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],50, ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],50, ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],30, ParameterDirection.InputOutput)); 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesmaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],50, ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],150, ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewrate", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.InputOutput));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ParameterDirection.InputOutput));
-                       
-
-                        //cmd.ExecuteNonQuery();
-
-                       
-
-                        if(Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd)))
+                        if (!string.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
                         {
-                            HttpContext.Current.Trace.Warn("qry success");
-
-                            if (!string.IsNullOrEmpty(cmd.Parameters["par_MakeId"].Value.ToString()))
-                            {
-                                t = new T();
-                                t.ModelId = Convert.ToInt32(cmd.Parameters["par_ModelId"].Value);
-                                t.ModelName = cmd.Parameters["par_Model"].Value.ToString();
-                                t.MakeBase.MakeId = Convert.ToInt32(cmd.Parameters["par_MakeId"].Value);
-                                t.MakeBase.MakeName = cmd.Parameters["par_Make"].Value.ToString();
-                                t.Futuristic = Convert.ToBoolean(cmd.Parameters["par_IsFuturistic"].Value);
-                                t.New = Convert.ToBoolean(cmd.Parameters["par_IsNew"].Value);
-                                t.Used = Convert.ToBoolean(cmd.Parameters["par_IsUsed"].Value);
-                                t.SmallPicUrl = cmd.Parameters["par_SmallPic"].Value.ToString();
-                                t.LargePicUrl = cmd.Parameters["par_LargePic"].Value.ToString();
-                                t.HostUrl = cmd.Parameters["par_HostURL"].Value.ToString();
-                                t.MinPrice = Convert.ToInt64(cmd.Parameters["par_MinPrice"].Value);
-                                t.MaxPrice = Convert.ToInt64(cmd.Parameters["par_MaxPrice"].Value);
-                                t.MaskingName = cmd.Parameters["par_MaskingName"].Value.ToString();
-                                t.MakeBase.MaskingName = cmd.Parameters["par_MakeMaskingName"].Value.ToString();
-                                t.ModelSeries.SeriesId = Convert.ToInt32(cmd.Parameters["par_SeriesId"].Value);
-                                t.ModelSeries.SeriesName = Convert.ToString(cmd.Parameters["par_SeriesName"].Value);
-                                t.ModelSeries.MaskingName = Convert.ToString(cmd.Parameters["par_SeriesMaskingName"].Value);
-                                t.ReviewCount = Convert.ToInt32(cmd.Parameters["par_ReviewCount"].Value);
-                                t.ReviewRate = Convert.ToDouble(cmd.Parameters["par_ReviewRate"].Value);
-                                t.OriginalImagePath = Convert.ToString(cmd.Parameters["par_OriginalImagePath"].Value);
-                            } 
+                            t = new T();
+                            t.ModelId = Convert.ToInt32(cmd.Parameters["par_modelid"].Value);
+                            t.ModelName = cmd.Parameters["par_model"].Value.ToString();
+                            t.MakeBase.MakeId = Convert.ToInt32(cmd.Parameters["par_makeid"].Value);
+                            t.MakeBase.MakeName = cmd.Parameters["par_make"].Value.ToString();
+                            t.Futuristic = Convert.ToBoolean(cmd.Parameters["par_isfuturistic"].Value);
+                            t.New = Convert.ToBoolean(cmd.Parameters["par_isnew"].Value);
+                            t.Used = Convert.ToBoolean(cmd.Parameters["par_isused"].Value);
+                            t.SmallPicUrl = cmd.Parameters["par_smallpic"].Value.ToString();
+                            t.LargePicUrl = cmd.Parameters["par_largepic"].Value.ToString();
+                            t.HostUrl = cmd.Parameters["par_hosturl"].Value.ToString();
+                            t.MinPrice = Convert.ToInt64(cmd.Parameters["par_minprice"].Value);
+                            t.MaxPrice = Convert.ToInt64(cmd.Parameters["par_maxprice"].Value);
+                            t.MaskingName = cmd.Parameters["par_maskingname"].Value.ToString();
+                            t.MakeBase.MaskingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
+                            t.ModelSeries.SeriesId = Convert.ToInt32(cmd.Parameters["par_seriesid"].Value);
+                            t.ModelSeries.SeriesName = Convert.ToString(cmd.Parameters["par_seriesname"].Value);
+                            t.ModelSeries.MaskingName = Convert.ToString(cmd.Parameters["par_seriesmaskingname"].Value);
+                            t.ReviewCount = Convert.ToInt32(cmd.Parameters["par_reviewcount"].Value);
+                            t.ReviewRate = Convert.ToDouble(cmd.Parameters["par_reviewrate"].Value);
+                            t.OriginalImagePath = Convert.ToString(cmd.Parameters["par_originalimagepath"].Value);
                         }
                     }
+                }
             }
             catch (Exception ex)
             {
@@ -497,10 +468,10 @@ namespace Bikewale.DAL.BikeData
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmodelsynopsis"))
                 {
-                   // cmd.CommandText = "GetModelSynopsis";
+                    // cmd.CommandText = "GetModelSynopsis";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                   // cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    // cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -608,7 +579,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (inputParams.MakeId > 0) ? inputParams.MakeId : (int?)null));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (inputParams.ModelId > 0) ? inputParams.ModelId : (int?)null));
 
-                    
+
 
                     //if (sortBy != EnumUpcomingBikesFilter.Default)
                     //{
@@ -623,7 +594,7 @@ namespace Bikewale.DAL.BikeData
                     //       // cmd.Parameters.Add("@LaunchDate", SqlDbType.Bit).Value = 1;
                     //}
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedprice", DbParamTypeMapper.GetInstance[SqlDbType.Bit],(sortBy != EnumUpcomingBikesFilter.Default)?((sortBy == EnumUpcomingBikesFilter.PriceHighToLow)?true:false):(bool?)null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedprice", DbParamTypeMapper.GetInstance[SqlDbType.Bit], (sortBy != EnumUpcomingBikesFilter.Default) ? ((sortBy == EnumUpcomingBikesFilter.PriceHighToLow) ? true : false) : (bool?)null));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_launchdate", DbParamTypeMapper.GetInstance[SqlDbType.Bit], (sortBy != EnumUpcomingBikesFilter.Default) ? ((sortBy == EnumUpcomingBikesFilter.LaunchDateLater) ? true : false) : (bool?)null));
 
 
@@ -757,8 +728,8 @@ namespace Bikewale.DAL.BikeData
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                        //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = topCount;
-                        //cmd.Parameters.AddWithValue("@MakeId", makeId);
+                    //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = topCount;
+                    //cmd.Parameters.AddWithValue("@MakeId", makeId);
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
@@ -883,19 +854,15 @@ namespace Bikewale.DAL.BikeData
         /// <returns></returns>
         public Hashtable GetMaskingNames()
         {
-            Database db = null;
             Hashtable ht = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("sp_getmodelmappingnames"))
                 {
-                    cmd.CommandText = "SP_GetModelMappingNames";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -910,7 +877,6 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-
             catch (SqlException ex)
             {
                 HttpContext.Current.Trace.Warn("SP_GetModelMappingNames sql ex : " + ex.Message + ex.Source);
@@ -922,10 +888,6 @@ namespace Bikewale.DAL.BikeData
                 HttpContext.Current.Trace.Warn("SP_GetModelMappingNames ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return ht;
         }

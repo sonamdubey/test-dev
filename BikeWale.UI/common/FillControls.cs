@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Bikewale.CoreDAL;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -19,21 +22,18 @@ namespace Bikewale.Common
         public static void FillReviewedVersions(DropDownList drpVersions, string modelId)
         {
             CommonOpn op = new CommonOpn();
-            string sql;
 
             try
             {
-                sql = " SELECT Distinct Vs.ID VersionId, Vs.Name VersionName "
-                    + " FROM BikeVersions Vs, CustomerReviews Cr With(NoLock) "
-                    + " WHERE Vs.BikeModelId = @ModelId AND Vs.ID = Cr.VersionId AND Cr.IsVerified = 1 AND Cr.IsActive = 1 "
-                    + " ORDER BY VersionName ";
+                string sql = @" select distinct vs.id versionid, vs.name versionname 
+                     from bikeversions vs, customerreviews cr with(nolock) 
+                     where vs.bikemodelid = par_modelid and vs.id = cr.versionid and cr.isverified = 1 and cr.isactive = 1 
+                     order by versionname ";
 
                 HttpContext.Current.Trace.Warn(sql);
 
-                SqlParameter[] param = 
-				{
-					new SqlParameter("@ModelId", modelId)
-				};
+                DbParameter[] param = null;
+                param[0] = DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId);
 
                 op.FillDropDown(sql, drpVersions, "VersionName", "VersionId", param);
 

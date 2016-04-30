@@ -17,6 +17,7 @@ using System.Net.Http.Headers;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Configuration;
+using System.Data.Common;
 //using BikeWale.Controls;
 
 namespace Bikewale.New
@@ -222,17 +223,12 @@ namespace Bikewale.New
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (System.Data.Common.DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand("getbikecomparisonmin"))
                 {
-                    Database db = null;
-                    cmd.CommandText = "GetBikeComparisonMin";
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_topcount", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], topCount));
 
-                    cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = topCount;
-
-                    db = new Database();
-
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException exSql)
@@ -266,14 +262,13 @@ namespace Bikewale.New
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand("getcomparisondetails_26022016"))   
                 {
-                    Database db = null;
-                    cmd.CommandText = "GetComparisonDetails_26022016";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 50).Value = versionList;
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    //cmd.Parameters.Add("@bikeversions", SqlDbType.VarChar, 50).Value = versionList;
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_bikeversions", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, versionList));
+
+                    ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException exSql)

@@ -14,6 +14,8 @@ using Bikewale.Common;
 //using BikeWale.Controls;
 using Ajax;
 using Bikewale.controls;
+using System.Data.Common;
+using Bikewale.CoreDAL;
 
 namespace Bikewale.New
 {
@@ -79,7 +81,7 @@ namespace Bikewale.New
 				
 			// if Bike ids are passed in query-string, fill the appropriate dropdowns.
 			for ( int i=1; i<=4; i++ )
-                if (Request["bike" + i] != null && CommonOpn.CheckId(Request["bike" + i]))
+                if (Request["bike" + i] != null && Bikewale.Common.CommonOpn.CheckId(Request["bike" + i]))
                     FillExisting(Request["bike" + i], i);
 						
 			/*string sql, sql1;
@@ -152,20 +154,16 @@ namespace Bikewale.New
         /// <param name="onlyNew"></param>
 		void FillMakes( bool onlyNew )
 		{
-            CommonOpn op = new CommonOpn();
+            Bikewale.Common.CommonOpn op = new Bikewale.Common.CommonOpn();
 			string sql;
 			
             // Modified By : Ashish G. Kamble
             // Query is modified. Futuristic = 0 is added to ensure that only launched Bikes come in the list
 
-            sql = " SELECT DISTINCT Ma.ID, Ma.Name,CAST(Ma.ID  AS varchar(10)) + '_'+  Ma.MaskingName AS Value  FROM BikeMakes Ma, BikeModels Mo, BikeVersions Ve, NewBikeSpecifications Bs With(NoLock) "
-                + " WHERE Ma.IsDeleted = 0 AND Ma.Id=Mo.BikeMakeId AND Ma.Futuristic = 0 AND "
-                + " Mo.ID=Ve.BikeModelId AND Ve.ID = Bs.BikeVersionId ";
-				
-			if ( onlyNew )
-				sql += " AND Ve.New=1 AND Ma.New = 1 ";
-				
-			sql += " ORDER BY Ma.NAME ";
+            sql = string.Format(@" select distinct ma.id, ma.name,concat(ma.id,'_',ma.maskingname) as value  from bikemakes ma, bikemodels mo, bikeversions ve, newbikespecifications bs  
+                where ma.isdeleted = 0 and ma.id=mo.bikemakeid and ma.futuristic = 0 and
+                mo.id=ve.bikemodelid and ve.id = bs.bikeversionid {0}   order by ma.name ", onlyNew ? " and ve.new=1 and ma.new = 1 " : string.Empty);
+
 			
 			Trace.Warn( sql );
 			
@@ -176,12 +174,6 @@ namespace Bikewale.New
 				op.FillDropDown( sql, cmbMake2, "Name", "Value" );
 				op.FillDropDown( sql, cmbMake3, "Name", "Value" );
 			}
-			catch( SqlException err )
-			{
-				Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			} // catch Exception
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
@@ -204,74 +196,65 @@ namespace Bikewale.New
         void FillExisting(string bike, int bikeNo)
 		{
             Trace.Warn("inside fikll existing");
-            SqlDataReader dr = null;
-			Database db = new Database();
-			string sql;
 
-            sql = "SELECT VE.ID Version, MO.ID Model, MA.ID Make, MA.MaskingName AS MakeMaskingName,MO.MaskingName AS ModelMaskingName"
-                + " FROM BikeMakes MA, BikeModels MO, BikeVersions VE With(NoLock) "
-				+ " WHERE VE.BikeModelId=MO.Id AND MO.BikeMakeId=MA.ID "
-				+ " AND VE.ID=@ID";
+            string sql = @"select ve.id version, mo.id model, ma.id make, ma.maskingname as makemaskingname,mo.maskingname as modelmaskingname 
+                 from bikemakes ma, bikemodels mo, bikeversions ve
+				 where ve.bikemodelid=mo.id and mo.bikemakeid=ma.id
+				 and ve.id=par_id";           
 			
-			SqlCommand cmd =  new SqlCommand(sql);
-			cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = bike;
 
             Trace.Warn("sql ::: ", sql);
 
 			try
 			{
-				dr = db.SelectQry(cmd);
-				
-				if ( dr.Read() )
-				{
-				
-					switch ( bikeNo )
-					{
-						case 1:
-							make1 = Convert.ToInt16( dr["Make"].ToString() );
-							model1 = Convert.ToInt16( dr["Model"].ToString() );
-							version1 = Convert.ToInt16( dr["Version"].ToString() );
-                          
-							break;
-						case 2:
-							make2 = Convert.ToInt16( dr["Make"].ToString() );
-							model2 = Convert.ToInt16( dr["Model"].ToString() );
-							version2 = Convert.ToInt16( dr["Version"].ToString() );
-                           
-							break;
-						case 3:
-							make3 = Convert.ToInt16( dr["Make"].ToString() );
-							model3 = Convert.ToInt16( dr["Model"].ToString() );
-							version3 = Convert.ToInt16( dr["Version"].ToString() );
-                         
-							break;
-						case 4:
-							make4 = Convert.ToInt16( dr["Make"].ToString() );
-							model4 = Convert.ToInt16( dr["Model"].ToString() );
-							version4 = Convert.ToInt16( dr["Version"].ToString() );
-                           
-							break;
-					}
-				}
+                using ( DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+                    //cmd.Parameters.Add("par_id", SqlDbType.BigInt).Value = bike;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], bike)); 
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr!=null && dr.Read())
+                        {
+
+                            switch (bikeNo)
+                            {
+                                case 1:
+                                    make1 = Convert.ToInt16(dr["Make"].ToString());
+                                    model1 = Convert.ToInt16(dr["Model"].ToString());
+                                    version1 = Convert.ToInt16(dr["Version"].ToString());
+
+                                    break;
+                                case 2:
+                                    make2 = Convert.ToInt16(dr["Make"].ToString());
+                                    model2 = Convert.ToInt16(dr["Model"].ToString());
+                                    version2 = Convert.ToInt16(dr["Version"].ToString());
+
+                                    break;
+                                case 3:
+                                    make3 = Convert.ToInt16(dr["Make"].ToString());
+                                    model3 = Convert.ToInt16(dr["Model"].ToString());
+                                    version3 = Convert.ToInt16(dr["Version"].ToString());
+
+                                    break;
+                                case 4:
+                                    make4 = Convert.ToInt16(dr["Make"].ToString());
+                                    model4 = Convert.ToInt16(dr["Model"].ToString());
+                                    version4 = Convert.ToInt16(dr["Version"].ToString());
+
+                                    break;
+                            }
+                        } 
+                    } 
+                }
 			}
-			catch( SqlException err )
-			{
-				Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			} // catch Exception
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-			finally
-			{
-                if(dr != null)
-                    dr.Close();
-				db.CloseConnection();
-			}
+
 		}
 		
 		void btnCompare_Click( object sender, EventArgs e )
@@ -306,13 +289,13 @@ namespace Bikewale.New
                 modelMaskingName4 = Request.Form["cmbModel3"].Split('_')[1];
 
 			
-			if ( Request.Form["cmbVersion"] != null && Request.Form["cmbVersion"] != "0" && CommonOpn.CheckId( Request.Form["cmbVersion"] ) )
+			if ( Request.Form["cmbVersion"] != null && Request.Form["cmbVersion"] != "0" && Bikewale.Common.CommonOpn.CheckId( Request.Form["cmbVersion"] ) )
 				bike1 = Request.Form["cmbVersion"];
-			if ( Request.Form["cmbVersion1"] != null && Request.Form["cmbVersion1"] != "0" && CommonOpn.CheckId( Request.Form["cmbVersion1"] ) )
+			if ( Request.Form["cmbVersion1"] != null && Request.Form["cmbVersion1"] != "0" && Bikewale.Common.CommonOpn.CheckId( Request.Form["cmbVersion1"] ) )
 				bike2 = Request.Form["cmbVersion1"];
-			if ( Request.Form["cmbVersion2"] != null && Request.Form["cmbVersion2"] != "0" && CommonOpn.CheckId( Request.Form["cmbVersion2"] ) )
+			if ( Request.Form["cmbVersion2"] != null && Request.Form["cmbVersion2"] != "0" && Bikewale.Common.CommonOpn.CheckId( Request.Form["cmbVersion2"] ) )
 				bike3 = Request.Form["cmbVersion2"];
-			if ( Request.Form["cmbVersion3"] != null && Request.Form["cmbVersion3"] != "0" && CommonOpn.CheckId( Request.Form["cmbVersion3"] ) )
+			if ( Request.Form["cmbVersion3"] != null && Request.Form["cmbVersion3"] != "0" && Bikewale.Common.CommonOpn.CheckId( Request.Form["cmbVersion3"] ) )
 				bike4 = Request.Form["cmbVersion3"];
 			
 			int bikeCount = 0;
