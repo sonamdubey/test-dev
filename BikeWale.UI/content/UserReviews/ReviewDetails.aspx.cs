@@ -24,7 +24,7 @@ namespace Bikewale.Content
         public string lastUpdatedOn = "";
         public string _title = "", entryDate = "", pros = "", cons = "", comments = "", Prev = "Previous Review", Next = "Next Review",
                     customerId = "-1", totalComments = "0", logoURL = "",
-                    reviewerEmail = "", reviewerId = "-1", reviewerName = "", handleName = "",HostUrl="";
+                    reviewerEmail = "", reviewerId = "-1", reviewerName = "", handleName = "", HostUrl = "";
         public string isOwned = "", isNewlyPurchased = "", familiarity = "", mileage = "";
 
         public HtmlTableRow trVerReviewed;
@@ -289,13 +289,13 @@ namespace Bikewale.Content
                 Trace.Warn("moderate");
                 GetDetails();
                 //GetNextPreviousReview();
-               
+
                 //MakeModelVersion objBike = new MakeModelVersion();
                 ModelVersionDescription objBike = new ModelVersionDescription();
                 objBike.GetDetailsByModel(ModelId);
                 ModelStartPrice = objBike.ModelBasePrice;
                 Trace.Warn("ModelStartPrice " + ModelStartPrice + " ," + ModelId);
-                
+
                 ucDiscuss.ThreadId = GetThreadIdForReview(reviewId);
                 ucDiscuss.Type = "review";
 
@@ -312,20 +312,20 @@ namespace Bikewale.Content
                 this.Page.Visible = false;
             }
 
-            logoURL = VersionId + "b.jpg";											
+            logoURL = VersionId + "b.jpg";
         }//pageload
 
         private string GetThreadIdForReview(string review_Id)
         {
             string returnVal = "-1";
             string sql = "select threadid from forum_articleassociation  where articletype = 3 and articleid = @v_articleid";
-            uint _reviewId = 0 ;
-            
+            uint _reviewId = 0;
+
             try
             {
                 if (!string.IsNullOrEmpty(review_Id))
                 {
-                    uint.TryParse(review_Id, out _reviewId); 
+                    uint.TryParse(review_Id, out _reviewId);
                 }
                 //cmd.Parameters.Add("@v_articleid", SqlDbType.BigInt).Value = (review_Id != "" ? review_Id : "-1");  
                 using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
@@ -338,7 +338,7 @@ namespace Bikewale.Content
                             returnVal = dr[0].ToString();
                         }
                     }
-                }                
+                }
             }
             catch (Exception err)
             {
@@ -353,99 +353,102 @@ namespace Bikewale.Content
         void GetDetails()
         {
             string sql = "";
-
-            SqlDataReader dr = null;
-            Database db = new Database();
-
+            uint _reviewId = 0;
             try
             {
-                if (AlreadyViewed(reviewId) == false)
+                if (!string.IsNullOrEmpty(reviewId) && uint.TryParse(reviewId, out _reviewId))
                 {
-                    //update the viewd count by 1
-                    sql = " UPDATE CustomerReviews SET Viewed = IsNull(Viewed, 0) + 1 WHERE ID = @ID";
+                    using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand())
+                    {
+                        DbCommand cmd1 = cmd;
+                        if (AlreadyViewed(reviewId) == false)
+                        {
+                            //update the viewd count by 1
+                            sql = " update customerreviews set viewed = ifnull(viewed, 0) + 1 where id = @v_reviewid";
+                            cmd.CommandText = sql;
 
-                    SqlCommand cmd = new SqlCommand(sql);
-                    cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = (reviewId != "" ? reviewId : "-1");
+                            //cmd.Parameters.Add("@v_reviewid", SqlDbType.BigInt).Value = (reviewId != "" ? reviewId : "-1");
+                            cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_reviewid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.BigInt], _reviewId));
 
-                    db.UpdateQry(cmd);
+                            Bikewale.CoreDAL.MySqlDatabase.UpdateQuery(cmd);
 
-                    //add this to the cookie
-                    URV += reviewId + ",";
+                            //add this to the cookie
+                            URV += reviewId + ",";
 
-                    Trace.Warn(URV);
+                            Trace.Warn(URV);
+                        }
+
+                        cmd1.CommandType = CommandType.StoredProcedure;
+                        cmd1.CommandText = "getcustomerreviewinfo";
+                        cmd1.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_reviewid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.BigInt], _reviewId));
+
+
+                        using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd1))
+                        {
+                            if (dr != null && dr.Read())
+                            {
+                                BikeMake = dr["Make"].ToString();
+                                BikeModel = dr["Model"].ToString();
+                                ModelMaskingName = dr["ModelMaskingName"].ToString();
+                                //ModelMaskingName = dr["ModelMaskingName"].ToString();
+                                BikeVersion = dr["Version"].ToString();
+                                BikeName = (BikeMake + " " + BikeModel + " " + BikeVersion).Trim();
+                                MakeMaskingName = dr["MakeMaskingName"].ToString();
+                                ModelId = dr["ModelId"].ToString();
+                                VersionId = dr["VersionId"].ToString();
+                                LargePic = dr["LargePic"].ToString();
+
+                                _title = dr["Title"].ToString();
+                                reviewerId = dr["CustomerId"].ToString();
+
+                                reviewerName = dr["CustomerName"].ToString();
+                                handleName = "";
+                                handleName = dr["HandleName"].ToString();
+                                reviewerEmail = dr["CustomerEmail"].ToString();
+                                entryDate = Convert.ToDateTime(dr["EntryDateTime"]).ToString("dd MMMM, yyyy");
+                                pros = dr["Pros"].ToString();
+                                cons = dr["Cons"].ToString();
+                                comments = dr["Comments"].ToString();
+                                overallR = Convert.ToDouble(dr["OverallR"]);
+                                liked = Convert.ToDouble(dr["Liked"]);
+                                disliked = Convert.ToDouble(dr["Disliked"]);
+                                viewed = Convert.ToDouble(dr["Viewed"]);
+                                styleR = Convert.ToDouble(dr["StyleR"]);
+                                comfortR = Convert.ToDouble(dr["ComfortR"]);
+                                performanceR = Convert.ToDouble(dr["PerformanceR"]);
+                                valueR = Convert.ToDouble(dr["ValueR"]);
+                                fuelEconomyR = Convert.ToDouble(dr["FuelEconomyR"]);
+
+                                totalComments = dr["TotalComments"].ToString();
+                                logoURL = dr["LogoUrl"].ToString();
+                                lastUpdatedOn = dr["LastUpdatedOn"].ToString();
+                                bikewaleRecommends = Convert.ToBoolean(dr["BikewaleRecommended"]);
+
+                                isOwned = dr["IsOwned"].ToString();
+                                isNewlyPurchased = dr["IsNewlyPurchased"].ToString();
+                                familiarity = dr["Familiarity"].ToString();
+                                mileage = dr["Mileage"].ToString();
+                                HostUrl = dr["HostURL"].ToString();
+                                IsNew = Convert.ToBoolean(dr["New"]);
+                                IsUsed = Convert.ToBoolean(dr["Used"]);
+                                OriginalImagePath = dr["OriginalImagePath"].ToString();
+                                Trace.Warn("IsNew : " + IsNew + " " + "IsUsed : " + IsUsed);
+                                if (reviewerId == CurrentUser.Id)
+                                    userLoggedIn = true;
+                            }
+                        }
+
+
+                    }
                 }
 
-                SqlCommand cmd1 = new SqlCommand("GetCustomerReviewInfo");
-                cmd1.CommandType = CommandType.StoredProcedure;
-                cmd1.Parameters.Add("@ReviewId", SqlDbType.BigInt).Value = (reviewId != "" ? reviewId : "-1");
-
-                Trace.Warn("reviewId " + reviewId);
-
-                dr = db.SelectQry(cmd1);
-
-                if (dr.Read())
-                {
-                    BikeMake = dr["Make"].ToString();
-                    BikeModel = dr["Model"].ToString();
-                    ModelMaskingName = dr["ModelMaskingName"].ToString();
-                    //ModelMaskingName = dr["ModelMaskingName"].ToString();
-                    BikeVersion = dr["Version"].ToString();
-                    BikeName = (BikeMake + " " + BikeModel + " " + BikeVersion).Trim();
-                    MakeMaskingName = dr["MakeMaskingName"].ToString();
-                    ModelId = dr["ModelId"].ToString();
-                    VersionId = dr["VersionId"].ToString();
-                    LargePic = dr["LargePic"].ToString();
-
-                    _title = dr["Title"].ToString();
-                    reviewerId = dr["CustomerId"].ToString();
-
-                    reviewerName = dr["CustomerName"].ToString();
-                    handleName = "";
-                    handleName = dr["HandleName"].ToString();
-                    reviewerEmail = dr["CustomerEmail"].ToString();
-                    entryDate = Convert.ToDateTime(dr["EntryDateTime"]).ToString("dd MMMM, yyyy");
-                    pros = dr["Pros"].ToString();
-                    cons = dr["Cons"].ToString();
-                    comments = dr["Comments"].ToString();
-                    overallR = Convert.ToDouble(dr["OverallR"]);
-                    liked = Convert.ToDouble(dr["Liked"]);
-                    disliked = Convert.ToDouble(dr["Disliked"]);
-                    viewed = Convert.ToDouble(dr["Viewed"]);
-                    styleR = Convert.ToDouble(dr["StyleR"]);
-                    comfortR = Convert.ToDouble(dr["ComfortR"]);
-                    performanceR = Convert.ToDouble(dr["PerformanceR"]);
-                    valueR = Convert.ToDouble(dr["ValueR"]);
-                    fuelEconomyR = Convert.ToDouble(dr["FuelEconomyR"]);
-
-                    totalComments = dr["TotalComments"].ToString();
-                    logoURL = dr["LogoUrl"].ToString();
-                    lastUpdatedOn = dr["LastUpdatedOn"].ToString();
-                    bikewaleRecommends = Convert.ToBoolean(dr["BikewaleRecommended"]);
-
-                    isOwned = dr["IsOwned"].ToString();
-                    isNewlyPurchased = dr["IsNewlyPurchased"].ToString();
-                    familiarity = dr["Familiarity"].ToString();
-                    mileage = dr["Mileage"].ToString();
-                    HostUrl = dr["HostURL"].ToString();
-                    IsNew = Convert.ToBoolean(dr["New"]);
-                    IsUsed = Convert.ToBoolean(dr["Used"]);
-                    OriginalImagePath = dr["OriginalImagePath"].ToString();
-                    Trace.Warn("IsNew : "+IsNew+" "+"IsUsed : "+IsUsed);
-                    if (reviewerId == CurrentUser.Id)
-                        userLoggedIn = true;
-                }
             }
             catch (Exception err)
             {
-                Trace.Warn("object not defined : "+err.Message);
+                Trace.Warn("object not defined : " + err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                dr.Close();
-                db.CloseConnection();
-            }
         }
 
 
@@ -491,7 +494,7 @@ namespace Bikewale.Content
                 //Next = nextId == "" ? "Next Review" : "<a href=\"/research/" + UrlRewrite.FormatSpecial(BikeMake) + "-bikes/" + UrlRewrite.FormatSpecial(BikeModel) + "/userreviews/" + nextId + ".html\">Next Review</a>";
 
                 Prev = prevId == "" ? "Previous Review" : "<a href=\"/research/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/userreviews/" + prevId + ".html\">Previous Review</a>";
-                Next = nextId == "" ? "Next Review" : "<a href=\"/research/" +MakeMaskingName + "-bikes/" + ModelMaskingName + "/userreviews/" + nextId + ".html\">Next Review</a>";
+                Next = nextId == "" ? "Next Review" : "<a href=\"/research/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/userreviews/" + nextId + ".html\">Next Review</a>";
 
                 Trace.Warn("Prev : " + Prev + " : Next : " + Next);
             }
@@ -558,7 +561,7 @@ namespace Bikewale.Content
         protected void GoogleKeywords()
         {
             string sql = "";
-            uint _modelId = 0, _versionId =0 ;
+            uint _modelId = 0, _versionId = 0;
             if (VersionId != "-1")
             {
                 sql = @" select distinct cm.name as make, se.name as subsegment, bo.name bikebodystyle
@@ -578,7 +581,7 @@ namespace Bikewale.Content
 
             //cmd.Parameters.Add("@BikeModelId", SqlDbType.BigInt).Value = (ModelId != "" ? ModelId : "-1");
             //cmd.Parameters.Add("@Id", SqlDbType.BigInt).Value = (VersionId != "" ? VersionId : "-1");
-            
+
             try
             {
                 if (!string.IsNullOrEmpty(ModelId) && !string.IsNullOrEmpty(VersionId))
@@ -591,25 +594,25 @@ namespace Bikewale.Content
                 using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
                 {
                     cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], _modelId));
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_versionid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], _versionId)); 
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_versionid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], _versionId));
 
                     using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
 
                             oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
                             bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
                             subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
                         }
-                        
+
                     }
 
                     //Trace.Warn(sql);
                     //Trace.Warn("oem : " + oem);
                     //Trace.Warn(" bodyType : " + bodyType);
                     //Trace.Warn(" subSegment : " + subSegment);  
-                }               
+                }
             }
             catch (Exception err)
             {
