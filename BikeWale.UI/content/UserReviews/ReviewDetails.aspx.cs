@@ -601,11 +601,6 @@ namespace Bikewale.Content
                         }
 
                     }
-
-                    //Trace.Warn(sql);
-                    //Trace.Warn("oem : " + oem);
-                    //Trace.Warn(" bodyType : " + bodyType);
-                    //Trace.Warn(" subSegment : " + subSegment);  
                 }
             }
             catch (Exception err)
