@@ -314,7 +314,7 @@ namespace Bikewale.BAL.BikeBooking
             PQOutputEntity objPQOutput = null;
             //uint dealerId = 0;
             ulong quoteId = 0;
-            DealerInfo objDealerDetail = null;
+            DealerInfo objDealerDetail = new DealerInfo();
 
             try
             {

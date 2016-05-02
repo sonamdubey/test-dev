@@ -252,6 +252,15 @@ namespace Bikewale.Mobile.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+            finally
+            {
+                if (dealerId == 0 && !isSecondaryDealer && Convert.ToUInt32(pqId) > 0)
+                {
+                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId, areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+            }
         }
 
         /// <summary>

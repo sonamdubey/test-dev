@@ -51,6 +51,7 @@ namespace Bikewale.BikeBooking
         IPriceQuote objPriceQuote = null;
         protected BikeQuotationEntity objQuotation = null;
         protected IEnumerable<PQ_Price> primaryPriceList = null;
+        protected bool isSecondaryDealerAvailable = false;
 
 
 
@@ -210,6 +211,7 @@ namespace Bikewale.BikeBooking
                             //bind secondary Dealer
                             if (detailedDealer.SecondaryDealerCount > 0)
                             {
+                                isSecondaryDealerAvailable = true;
                                 rptDealers.DataSource = detailedDealer.SecondaryDealers;
                                 rptDealers.DataBind();
                             }
@@ -262,6 +264,16 @@ namespace Bikewale.BikeBooking
                 Trace.Warn("SetDealerPriceQuoteDetail Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
+            }
+
+            finally
+            {
+                if (dealerId == 0 && !isSecondaryDealerAvailable && pqId > 0)
+                {
+                    Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
         #endregion
