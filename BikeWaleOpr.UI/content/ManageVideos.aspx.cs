@@ -8,6 +8,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using System.IO;
+using System.Data.Common;
+using Bikewale.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -205,24 +207,25 @@ namespace BikeWaleOpr.Content
         private DataSet GetVideosData( string makeId, string modelId, bool isActive )
         {
             DataSet ds = null;
-            Database db = null;
                         
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getvideos"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetVideos";
+                    //cmd.CommandText = "getvideos";
 
                     Trace.Warn("GetVideosData : makeId : " + makeId + " : modelId : " + modelId + " : isActive : " + isActive.ToString());
 
-                    cmd.Parameters.Add("@makeId", SqlDbType.Int).Value = String.IsNullOrEmpty(makeId) ? Convert.DBNull : makeId;
-                    cmd.Parameters.Add("@modelId", SqlDbType.Int).Value = String.IsNullOrEmpty(modelId) ? Convert.DBNull : modelId;
-                    cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = isActive;
+                    //cmd.Parameters.Add("@makeId", SqlDbType.Int).Value = String.IsNullOrEmpty(makeId) ? Convert.DBNull : makeId;
+                    //cmd.Parameters.Add("@modelId", SqlDbType.Int).Value = String.IsNullOrEmpty(modelId) ? Convert.DBNull : modelId;
+                    //cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = isActive;
+                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
 
-                    ds = db.SelectAdaptQry(cmd);    
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);    
                 }
             }
             catch (SqlException ex)
@@ -252,30 +255,31 @@ namespace BikeWaleOpr.Content
         /// <param name="videoTitle"></param>
         /// <param name="IsActive"></param>
         private void ManageVideosData(string videoId, string makeId, string modelId, string videoSrc, string videoTitle, bool IsActive)
-        {
-            SqlConnection con = null;            
-            Database db = null;
-            
+        {   
             try
             {
-                db = new Database();                
-                con = new SqlConnection(db.GetConString());
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("managevideos"))
                 {                    
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "ManageVideos";
-                    cmd.Connection = con;
+                    //cmd.CommandText = "managevideos";
 
-                    cmd.Parameters.Add("@VideoId", SqlDbType.Int).Value = String.IsNullOrEmpty(videoId) ? "-1" : videoId;
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    cmd.Parameters.Add("@VideoSrc", SqlDbType.VarChar, 500).Value = videoSrc.Trim();
-                    cmd.Parameters.Add("@VideoTitle", SqlDbType.VarChar, 300).Value = videoTitle.Trim();
-                    cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
+                    //cmd.Parameters.Add("@VideoId", SqlDbType.Int).Value = String.IsNullOrEmpty(videoId) ? "-1" : videoId;
+                    //cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    //cmd.Parameters.Add("@VideoSrc", SqlDbType.VarChar, 500).Value = videoSrc.Trim();
+                    //cmd.Parameters.Add("@VideoTitle", SqlDbType.VarChar, 300).Value = videoTitle.Trim();
+                    //cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_videoid", DbParamTypeMapper.GetInstance[SqlDbType.Int], String.IsNullOrEmpty(videoId) ? "-1" : videoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_videosrc", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, videoSrc.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_videotitle", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 300, videoTitle.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], IsActive));
+
                     
-                    con.Open();
-                    cmd.ExecuteNonQuery();                                        
+                    MySqlDatabase.ExecuteNonQuery(cmd);                                        
                 }
             }
             catch (SqlException ex)
@@ -289,10 +293,6 @@ namespace BikeWaleOpr.Content
                 Trace.Warn("ex : ", ex.Message);
                 ErrorClass err = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 err.SendMail();
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open) { con.Close(); }
             }
         }   // End of ManageVideosData method
 
@@ -307,32 +307,34 @@ namespace BikeWaleOpr.Content
         {
             bool IsExists = false;
 
-            Database db = null;
-            SqlDataReader dr = null;
-
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("isvideoexist"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "IsVideoExist";
 
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    cmd.Parameters.Add("@VideoSrc", SqlDbType.VarChar).Value = videoSrc.Trim();
+                    //cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    //cmd.Parameters.Add("@VideoSrc", SqlDbType.VarChar).Value = videoSrc.Trim();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_videosrc", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, videoSrc.Trim()));
 
-                    dr = db.SelectQry(cmd);
 
-                    if (dr != null && dr.Read())
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        string count = dr["VideoCount"].ToString();
+                        if (dr != null && dr.Read())
+                        {
+                            string count = dr["VideoCount"].ToString();
 
-                        // If count is greater than video exists.
-                        if (Convert.ToInt32(count) > 0)
-                            IsExists = true;
+                            // If count is greater than video exists.
+                            if (Convert.ToInt32(count) > 0)
+                                IsExists = true;
+                        }
                     }
+
+                   
                 }
             }
             catch (SqlException ex)
@@ -346,11 +348,6 @@ namespace BikeWaleOpr.Content
                 Trace.Warn("ex : ", ex.Message);
                 ErrorClass err = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 err.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
             }
             return IsExists;
         }   // End of IsVideoExist method

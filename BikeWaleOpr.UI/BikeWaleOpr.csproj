@@ -2033,6 +2033,12 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bikewale.DAL.CoreDAL\Bikewale.DAL.CoreDAL.csproj">
+      <Project>{d5229109-3b85-48e7-9ff8-5385bdb54c87}</Project>
+      <Name>Bikewale.DAL.CoreDAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
