@@ -465,29 +465,28 @@ namespace Bikewale.Content
             string sql = "";
             string prevId = "", nextId = "";
 
-            sql = " SELECT Top 1 Cr1.Id NextReview, Cr2.ID PreviousReview "
-                + " FROM CustomerReviews Cr With(NoLock) "
-                + " LEFT JOIN CustomerReviews Cr1 With(NoLock) ON Cr.ModelId = Cr1.ModelId AND Cr1.ID > @ReviewId AND Cr1.IsVerified = 1 AND Cr1.IsActive = 1 "
-                + " LEFT JOIN CustomerReviews Cr2 With(NoLock) ON Cr.ModelId = Cr2.ModelId AND Cr2.ID < @ReviewId AND Cr2.IsVerified = 1 AND Cr2.IsActive = 1 "
-                + " WHERE Cr.ModelId = @ModelId ORDER BY Cr2.ID Desc ";
-
-            Trace.Warn(sql);
-
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@ModelId", SqlDbType.BigInt).Value = (ModelId != "" ? ModelId : "-1");
-            cmd.Parameters.Add("@ReviewId", SqlDbType.BigInt).Value = (reviewId != "" ? reviewId : "-1");
-
-            SqlDataReader dr = null;
-            Database db = new Database();
+            sql = @" select top 1 cr1.id nextreview, cr2.id previousreview
+                from customerreviews cr  
+                left join customerreviews cr1   on cr.modelid = cr1.modelid and cr1.id > @v_reviewid and cr1.isverified = 1 and cr1.isactive = 1
+                left join customerreviews cr2  on cr.modelid = cr2.modelid and cr2.id < @v_reviewid and cr2.isverified = 1 and cr2.isactive = 1
+                where cr.modelid = @v_modelid order by cr2.id desc ";
 
             try
             {
-                dr = db.SelectQry(cmd);
 
-                while (dr.Read())
+                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
                 {
-                    nextId = dr["NextReview"].ToString();
-                    prevId = dr["PreviousReview"].ToString();
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], ModelId));
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_reviewid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], reviewId));
+
+                    using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
+                    {
+                        while (dr != null && dr.Read())
+                        {
+                            nextId = dr["NextReview"].ToString();
+                            prevId = dr["PreviousReview"].ToString();
+                        }
+                    }
                 }
 
                 //Prev = prevId == "" ? "Previous Review" : "<a href=\"/research/" + UrlRewrite.FormatSpecial(BikeMake) + "-bikes/" + UrlRewrite.FormatSpecial(BikeModel) + "/userreviews/" + prevId + ".html\">Previous Review</a>";
@@ -504,11 +503,6 @@ namespace Bikewale.Content
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                dr.Close();
-                db.CloseConnection();
-            }
         }
 
         // send mail to the reviewer
