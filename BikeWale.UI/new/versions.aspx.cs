@@ -65,17 +65,16 @@ namespace Bikewale.New
         protected static bool isManufacturer = false;
         protected DropDownList ddlVariant;
         protected string variantText = string.Empty;
-        protected uint bookingAmt = 0;
+        protected uint bookingAmt = 0, price = 0;
         protected int urlVersionId = 0, grid1_size = 9, grid2_size = 3;
         protected string cssOffers = "noOffers", offerDivHide = "hide";
-        protected uint price = 0;
+       
         //protected string viewbreakUpText = string.Empty;
         protected UInt32 onRoadPrice = 0;
         protected UInt32 totalDiscountedPrice = 0;
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected OtherVersionInfoEntity objSelectedVariant = null;
-        protected ListView ListBox1;
         protected Label defaultVariant;
         protected HiddenField hdnVariant;
         protected IList<PQ_Price> priceList { get; set; }

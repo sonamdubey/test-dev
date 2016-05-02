@@ -29,7 +29,7 @@
     <script type="text/javascript">
         var dealerId = '<%= dealerId%>';
         var pqId = '<%= pqId%>';
-        var versionId = '<%= variantId%>';
+        var versionId = '<%= variantId %>';
         var cityId = '<%= cityId%>';
         var clientIP = "<%= clientIP%>";
         var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
