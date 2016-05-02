@@ -333,6 +333,10 @@ namespace Bikewale.BAL.BikeBooking
                         objDealerDetail = objClient.GetApiResponseSync<DealerInfo>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objDealerDetail);
                     }
                 }
+                else
+                {
+                    objDealerDetail = new DealerInfo();
+                }
             }
             catch (Exception ex)
             {

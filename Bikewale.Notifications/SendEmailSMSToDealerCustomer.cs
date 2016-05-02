@@ -13,7 +13,7 @@ namespace Bikewale.Notifications
     /// </summary>
     public class SendEmailSMSToDealerCustomer
     {
-        public static void SendEmailToDealer(string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList,string imagePath, uint insuranceAmount = 0)
+        public static void SendEmailToDealer(string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, uint insuranceAmount = 0)
         {
             if (!String.IsNullOrEmpty(dealerEmail))
             {
@@ -102,7 +102,7 @@ namespace Bikewale.Notifications
                 string[] arrDealerEmail = dealerEmail.Split(',');
                 foreach (string email in arrDealerEmail)
                 {
-                    ComposeEmailBase objEmail = new PreBookingConfirmationMailToDealer(customerName, customerMobile, customerArea, customerEmail, totalPrice, bookingAmount, balanceAmount, priceList, bookingReferenceNo, bikeName, bikeColor, dealerName,  offerList, imagePath);
+                    ComposeEmailBase objEmail = new PreBookingConfirmationMailToDealer(customerName, customerMobile, customerArea, customerEmail, totalPrice, bookingAmount, balanceAmount, priceList, bookingReferenceNo, bikeName, bikeColor, dealerName, offerList, imagePath);
                     objEmail.Send(email, "BW Pre-Booking: " + customerName + " paid Rs. " + bookingAmount + " for " + bikeName + " - " + bikeColor, "");
                 }
             }
@@ -147,7 +147,7 @@ namespace Bikewale.Notifications
 
         #region Save sms and email information of the customer and dealer after generating the leads
 
-        public static void SaveEmailToDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList,  string imagePath, uint insuranceAmount = 0)
+        public static void SaveEmailToDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, uint insuranceAmount = 0)
         {
             if (!String.IsNullOrEmpty(dealerEmail))
             {
@@ -205,6 +205,8 @@ namespace Bikewale.Notifications
         /// Description : Add Message Template for Subscription Model.
         /// Modified By : Lucky Rathore on 20 April 2016
         /// Description : Change Message Template for Subscription Model.
+        /// Modified by :   Sumit Kate on 02 May 2016
+        /// Description :   Send SMS
         /// </summary>
         /// <param name="pqId">Price Quote Id</param>
         /// <param name="objDPQSmsEntity">DPQ SMS Entity</param>
@@ -242,7 +244,8 @@ namespace Bikewale.Notifications
                 }
                 if (objDPQSmsEntity != null && !String.IsNullOrEmpty(objDPQSmsEntity.CustomerMobile) && !String.IsNullOrEmpty(message) && pqId > 0)
                 {
-                    obj.SaveNewBikePriceQuoteSMSToCustomer(pqId, message, objDPQSmsEntity.CustomerMobile, requestUrl);
+                    SMSCommon sc = new SMSCommon();
+                    sc.ProcessSMS(objDPQSmsEntity.CustomerMobile, message, EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer, requestUrl);
                 }
             }
             catch (Exception ex)
