@@ -6,13 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
-using MySql.Data.MySqlClient;
 using System.Data.Common;
-using System.Collections.Generic;
-using System.Text;
-using Bikewale.Notifications;
 
-namespace Bikewale.CoreDAL
+namespace Bikewale.Notifications.CoreDAL
 {
 	public static class MySqlDatabase
     {
@@ -362,7 +358,6 @@ namespace Bikewale.CoreDAL
         }
 
         #endregion
-      
 
         private static void SendErrorMessageOnException(Exception err)
         {
