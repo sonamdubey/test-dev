@@ -35,24 +35,25 @@ namespace Bikewale.DAL.BikeData
         {
             List<BikeVersionsListEntity> objVersionsList = null;
 
-            Database db = null;
-
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetBikeVersions_New"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeversions_new"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@RequestType", SqlDbType.TinyInt).Value = (int)requestType;
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    //cmd.Parameters.Add("@RequestType", SqlDbType.TinyInt).Value = (int)requestType;
+                    //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.Int], (int)requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
 
-                    if (cityId.HasValue && cityId.Value > 0)
-                    {
-                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-                    }
+                    //if (cityId.HasValue && cityId.Value > 0)
+                    //{
+                    //    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    //}
 
-                    db = new Database();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (cityId.Value > 0) ? cityId : (int?)null));
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -67,7 +68,6 @@ namespace Bikewale.DAL.BikeData
                                     Price = Convert.ToUInt64(dr["Price"])
                                 });
                             }
-                            dr.Close();
                         }
                     }
                 }
@@ -84,11 +84,6 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objVersionsList;
         }
 
@@ -114,22 +109,23 @@ namespace Bikewale.DAL.BikeData
 
         public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
-            Database db = null;
             List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
             try
             {
-                db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetVersions";
+                    cmd.CommandText = "getversions";
 
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
+                    //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    //cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isNew));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr.Read())
+                        while (dr != null && dr.Read())
                         {
                             objMinSpecs.Add(new BikeVersionMinSpecs()
                             {
@@ -143,7 +139,6 @@ namespace Bikewale.DAL.BikeData
                                 AntilockBrakingSystem = Convert.ToBoolean(dr["AntilockBrakingSystem"])
                             });
                         }
-                        dr.Close();
                     }
                 }
 
@@ -153,11 +148,6 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objMinSpecs;
         }   // End of GetVersionsMinSpecs method
 
@@ -172,63 +162,56 @@ namespace Bikewale.DAL.BikeData
         public T GetById(U id)
         {
             T t = default(T);
-            Database db = null;
             try
             {
-                db = new Database();
                 t = new T();
-
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getversiondetails_new_12042016";
+
+                    var paramColl = cmd.Parameters;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_version", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_price", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bike", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+
+
+                    HttpContext.Current.Trace.Warn("qry success");
+
+                    if (!string.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetVersionDetails_New_12042016";
-                        cmd.Connection = conn;
-                        SqlParameterCollection paramColl = cmd.Parameters;
-
-                        paramColl.Add("@VersionId", SqlDbType.Int).Value = id;
-                        paramColl.Add("@MakeId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Make", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        paramColl.Add("@ModelId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Model", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Version", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        paramColl.Add("@HostUrl", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
-                        paramColl.Add("@LargePic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@SmallPic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Price", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Bike", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
-                        paramColl.Add("@MaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        paramColl.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
-                        paramColl.Add("@New", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Used", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        paramColl.Add("@Futuristic", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                        HttpContext.Current.Trace.Warn("qry success");
-
-                        if (!string.IsNullOrEmpty(paramColl["@MakeId"].Value.ToString()))
-                        {
-                            t.VersionId = Convert.ToInt32(paramColl["@VersionId"].Value);
-                            t.VersionName = paramColl["@Version"].Value.ToString();
-                            t.ModelBase.ModelId = Convert.ToInt32(paramColl["@ModelId"].Value);
-                            t.ModelBase.ModelName = paramColl["@Model"].Value.ToString();
-                            t.MakeBase.MakeId = Convert.ToInt32(paramColl["@MakeId"].Value);
-                            t.MakeBase.MakeName = paramColl["@Make"].Value.ToString();
-                            t.BikeName = paramColl["@Bike"].Value.ToString();
-                            t.HostUrl = paramColl["@HostUrl"].Value.ToString();
-                            t.LargePicUrl = paramColl["@LargePic"].Value.ToString();
-                            t.SmallPicUrl = paramColl["@SmallPic"].Value.ToString();
-                            t.Price = Convert.ToInt64(paramColl["@Price"].Value);
-                            t.ModelBase.MaskingName = paramColl["@MaskingName"].Value.ToString();
-                            t.MakeBase.MaskingName = paramColl["@MakeMaskingName"].Value.ToString();
-                            t.OriginalImagePath = paramColl["@OriginalImagePath"].Value.ToString();
-                            t.New = !Convert.IsDBNull(paramColl["@New"].Value) ? Convert.ToBoolean(paramColl["@New"].Value) : default(bool);
-                            t.Used = !Convert.IsDBNull(paramColl["@Used"].Value) ? Convert.ToBoolean(paramColl["@Used"].Value) : default(bool);
-                            t.Futuristic = !Convert.IsDBNull(paramColl["@Futuristic"].Value) ? Convert.ToBoolean(paramColl["@Futuristic"].Value) : default(bool);
-                        }
+                        t.VersionId = Convert.ToInt32(cmd.Parameters["par_versionid"].Value);
+                        t.VersionName = cmd.Parameters["par_version"].Value.ToString();
+                        t.ModelBase.ModelId = Convert.ToInt32(cmd.Parameters["par_modelid"].Value);
+                        t.ModelBase.ModelName = cmd.Parameters["par_model"].Value.ToString();
+                        t.MakeBase.MakeId = Convert.ToInt32(cmd.Parameters["par_makeid"].Value);
+                        t.MakeBase.MakeName = cmd.Parameters["par_make"].Value.ToString();
+                        t.BikeName = cmd.Parameters["par_bike"].Value.ToString();
+                        t.HostUrl = cmd.Parameters["par_hosturl"].Value.ToString();
+                        t.LargePicUrl = cmd.Parameters["par_largepic"].Value.ToString();
+                        t.SmallPicUrl = cmd.Parameters["par_smallpic"].Value.ToString();
+                        t.Price = Convert.ToInt64(cmd.Parameters["par_price"].Value);
+                        t.ModelBase.MaskingName = cmd.Parameters["par_maskingname"].Value.ToString();
+                        t.MakeBase.MaskingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
+                        t.OriginalImagePath = cmd.Parameters["par_originalimagepath"].Value.ToString();
+                        t.New = !Convert.IsDBNull(cmd.Parameters["par_new"].Value) ? Convert.ToBoolean(cmd.Parameters["par_new"].Value) : default(bool);
+                        t.Used = !Convert.IsDBNull(cmd.Parameters["par_used"].Value) ? Convert.ToBoolean(cmd.Parameters["par_used"].Value) : default(bool);
+                        t.Futuristic = !Convert.IsDBNull(cmd.Parameters["par_futuristic"].Value) ? Convert.ToBoolean(cmd.Parameters["par_futuristic"].Value) : default(bool);
                     }
                 }
             }

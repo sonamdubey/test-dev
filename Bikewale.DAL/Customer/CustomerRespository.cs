@@ -10,6 +10,7 @@ using Bikewale.Interfaces.Customer;
 using Bikewale.Entities.Customer;
 using Bikewale.Notifications;
 using Bikewale.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.DAL.Customer
 {
@@ -29,35 +30,25 @@ namespace Bikewale.DAL.Customer
         public U Add(T t)
         {
             U customerId = default(U);
-            Database db = null;
             try
             {
-                db = new Database();
-
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "RegisterCustomer_New";
-                        cmd.Connection = con;
+                        cmd.CommandText = "registercustomer_new";
 
-                        cmd.Parameters.Add("@CustomerName", SqlDbType.VarChar, 50).Value = t.CustomerName;
-                        cmd.Parameters.Add("@CustomerEmail", SqlDbType.VarChar, 50).Value = t.CustomerEmail.Trim().ToLower();
-                        cmd.Parameters.Add("@CustomerMobile", SqlDbType.VarChar, 20).Value = t.CustomerMobile;
-                        cmd.Parameters.Add("@CustomerCityId", SqlDbType.Int).Value = String.IsNullOrEmpty(t.cityDetails.CityId.ToString()) ? Convert.DBNull : t.cityDetails.CityId;
-                        cmd.Parameters.Add("@PasswordSalt", SqlDbType.VarChar, 10).Value = t.PasswordSalt;
-                        cmd.Parameters.Add("@PasswordHash", SqlDbType.VarChar, 64).Value = t.PasswordHash;
-                        cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = string.IsNullOrEmpty(t.ClientIP) ? Convert.DBNull : t.ClientIP;
-                        cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , t.CustomerName));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , t.CustomerEmail.Trim().ToLower()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20 , t.CustomerMobile));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customercityid", DbParamTypeMapper.GetInstance[SqlDbType.Int] , String.IsNullOrEmpty(t.cityDetails.CityId.ToString()) ? Convert.DBNull : t.cityDetails.CityId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_passwordsalt", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10 , t.PasswordSalt));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_passwordhash", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 64 , t.PasswordHash));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 40 , string.IsNullOrEmpty(t.ClientIP) ? Convert.DBNull : t.ClientIP));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt] , ParameterDirection.Output));
 
-                        con.Open();
-
-                        cmd.ExecuteNonQuery();
-
-                        customerId = (U)Convert.ChangeType(cmd.Parameters["@CustomerId"].Value, typeof(U));
+                        MySqlDatabase.ExecuteNonQuery(cmd);
+                        customerId = (U)Convert.ChangeType(cmd.Parameters["par_customerid"].Value, typeof(U)); 
                     }
-                }
             }
             catch (SqlException err)
             {
@@ -71,10 +62,7 @@ namespace Bikewale.DAL.Customer
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return customerId;
         }
         #endregion
@@ -242,56 +230,49 @@ namespace Bikewale.DAL.Customer
         public T GetByEmail(string emailId)
         {
             T t = default(T);
-            Database db = null;
             try
             {
-                db = new Database();
 
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
-                        cmd.CommandText = "FetchCustomerDetailsByEmail";
+                        cmd.CommandText = "fetchcustomerdetailsbyemail";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
 
-                        cmd.Parameters.Add("@CustomerEmail", SqlDbType.VarChar, 100).Value = emailId;
-                        cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@CustomerName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@CustomerMobile", SqlDbType.VarChar, 20).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@StateId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@StateName", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@CityName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Password", SqlDbType.VarChar, 20).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@PasswordSalt", SqlDbType.VarChar, 10).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@PasswordHash", SqlDbType.VarChar, 64).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@IsVerified", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@IsExist", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, emailId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt] , ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20 , ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int] , ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_statename", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30 , ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int] , ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_password", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20 , ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_passwordsalt", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10 , ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_passwordhash", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 64 , ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbParamTypeMapper.GetInstance[SqlDbType.Bit] , ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isexist", DbParamTypeMapper.GetInstance[SqlDbType.Bit] , ParameterDirection.Output));
 
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
+                       MySqlDatabase.ExecuteNonQuery(cmd);
 
-                        t = new T();
+                            t = new T();
 
-                        if (Convert.ToBoolean(cmd.Parameters["@IsExist"].Value))
-                        {
-                            t.CustomerEmail = emailId;
-                            t.CustomerId = Convert.ToUInt64(cmd.Parameters["@CustomerId"].Value);
-                            t.CustomerName = Convert.ToString(cmd.Parameters["@CustomerName"].Value);
-                            t.CustomerMobile = Convert.ToString(cmd.Parameters["@CustomerMobile"].Value);
-                            t.cityDetails.CityId = Convert.ToUInt32(cmd.Parameters["@CityId"].Value);
-                            t.cityDetails.CityName = Convert.ToString(cmd.Parameters["@CityName"].Value);
-                            t.stateDetails.StateId = Convert.ToUInt32(cmd.Parameters["@StateId"].Value);
-                            t.stateDetails.StateName = Convert.ToString(cmd.Parameters["@StateName"].Value);
-                            t.Password = Convert.ToString(cmd.Parameters["@Password"].Value);
-                            t.PasswordSalt = Convert.ToString(cmd.Parameters["@PasswordSalt"].Value);
-                            t.PasswordHash = Convert.ToString(cmd.Parameters["@PasswordHash"].Value);
-                            t.IsVerified = Convert.ToBoolean(cmd.Parameters["@IsVerified"].Value);
-                        }
-                        t.IsExist = Convert.ToBoolean(cmd.Parameters["@IsExist"].Value);
+                            if (Convert.ToBoolean(cmd.Parameters["par_isexist"].Value))
+                            {
+                                t.CustomerEmail = emailId;
+                                t.CustomerId = Convert.ToUInt64(cmd.Parameters["par_customerid"].Value);
+                                t.CustomerName = Convert.ToString(cmd.Parameters["par_customername"].Value);
+                                t.CustomerMobile = Convert.ToString(cmd.Parameters["par_customermobile"].Value);
+                                t.cityDetails.CityId = Convert.ToUInt32(cmd.Parameters["par_cityid"].Value);
+                                t.cityDetails.CityName = Convert.ToString(cmd.Parameters["par_cityname"].Value);
+                                t.stateDetails.StateId = Convert.ToUInt32(cmd.Parameters["par_stateid"].Value);
+                                t.stateDetails.StateName = Convert.ToString(cmd.Parameters["par_statename"].Value);
+                                t.Password = Convert.ToString(cmd.Parameters["par_password"].Value);
+                                t.PasswordSalt = Convert.ToString(cmd.Parameters["par_passwordsalt"].Value);
+                                t.PasswordHash = Convert.ToString(cmd.Parameters["par_passwordhash"].Value);
+                                t.IsVerified = Convert.ToBoolean(cmd.Parameters["par_isverified"].Value);
+                            }
+                            t.IsExist = Convert.ToBoolean(cmd.Parameters["par_isexist"].Value); 
                     }
-                }
             }
             catch (SqlException ex)
             {
@@ -304,10 +285,6 @@ namespace Bikewale.DAL.Customer
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return t;

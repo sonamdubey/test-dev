@@ -1,4 +1,4 @@
-﻿using Bikewale.CoreDAL;
+﻿using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -33,7 +33,7 @@ namespace Bikewale.Common
 
                 HttpContext.Current.Trace.Warn(sql);
 
-                DbParameter[] param = new[] { DbFactory.GetDbParam("@par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], _modelid) };
+                DbParameter[] param = new[] { Bikewale.CoreDAL.DbFactory.GetDbParam("@par_modelid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], _modelid) };
 
                 op.FillDropDown(sql, drpVersions, "VersionName", "VersionId", param);
 

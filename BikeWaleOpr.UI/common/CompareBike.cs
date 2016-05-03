@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Bikewale.CoreDAL;
+using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 
@@ -20,14 +22,14 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                Database db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand("deletecomparebikedate"))
                 {
-                    cmd.CommandText = "DeleteCompareBikeDate";
+                    //cmd.CommandText = "DeleteCompareBikeDate";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = deleteId;
-                    db.UpdateQry(cmd);
+                    //cmd.Parameters.Add("@Id", SqlDbType.Int).Value = deleteId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], deleteId)); 
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (Exception err)
@@ -46,15 +48,15 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    Database db = new Database();
-                    cmd.CommandText = "SetBikeComparisonPriority";
+                    cmd.CommandText = "setbikecomparisonpriority";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@PrioritiesList", SqlDbType.VarChar, 1000).Value = prioritiesList;
+                    //cmd.Parameters.Add("@PrioritiesList", SqlDbType.VarChar, 1000).Value = prioritiesList;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],1000, prioritiesList));
 
-                    db.UpdateQry(cmd);
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (Exception err)
