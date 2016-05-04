@@ -7,6 +7,9 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
+using System.Data;
 
 namespace Bikewale.Controls
 {
@@ -22,7 +25,7 @@ namespace Bikewale.Controls
             get
             {
                 if (ViewState["ReviewCount"] != null && ViewState["ReviewCount"].ToString() != "")
-                    return ("TOP " + ViewState["ReviewCount"].ToString());
+                    return (ViewState["ReviewCount"].ToString());
                 else
                     return "";
             }
@@ -88,52 +91,57 @@ namespace Bikewale.Controls
             string sql = "";
 
             CommonOpn objCom = new CommonOpn();
-
-            if (ReviewCount != "0")
-            {
-                sql = " SELECT " + ReviewCount + " CR.Id AS ReviewId, Title, OverallR, "
-                    + " CM.Name +'-'+ CMO.Name AS ModelName, C.Name AS CustomerName, C.Id AS CustomerId, CM.MaskingName + CMO.MaskingName AS ModelMaskingName, "
-                    + " Substring(CR.Comments,0,Cast(Floor(LEN(CR.Comments)*0.4) AS INT)) AS  ShortComment, CM.Name AS MakeName, CM.MaskingName AS MakeMaskingName, CMO.Name CarModel "
-                    + " FROM CustomerReviews AS CR, Customers AS C, "
-                    + " BikeMakes AS CM, BikeModels AS CMO With(NoLock) "
-                    + " WHERE CR.ModelId = CMO.Id AND CMO.BikeMakeId = CM.ID "
-                    + " AND CR.CustomerId = C.Id AND CR.IsActive = 1 AND CR.IsVerified = 1 AND CustomerId <> -1 AND C.IsFake <> 1";
-
-                if (this.ReviewerId != "-1")
-                {
-                    sql = sql + " AND C.Id = @ReviewerId ";
-                }
-
-                switch (ApplyRetriveBy())
-                {
-                    case "MostHelpful":
-                        sql = sql + " ORDER BY (CR.Liked - CR.Disliked) DESC ";
-                        break;
-
-                    case "MostRead":
-                        sql = sql + " ORDER BY CR.Viewed DESC ";
-                        break;
-
-                    case "MostRecent":
-                        sql = sql + " ORDER BY CR.Id DESC ";
-                        break;
-
-                    case "MostRated":
-                        sql = sql + " ORDER BY OverallR DESC ";
-                        break;
-                }
-            }
-
-            Trace.Warn(sql);
-
-            SqlParameter[] param = 
-				{
-					new SqlParameter("@ReviewerId", this.ReviewerId)
-				};
+            uint _reviewCount = 0;    
 
             try
             {
-                objCom.BindRepeaterReader(sql, rptUserReviews, param);
+                if (!string.IsNullOrEmpty(ReviewCount) && uint.TryParse(ReviewCount, out _reviewCount))
+                {
+                    sql = @" select  cr.id as reviewid, title, overallr, 
+                        concat(cm.name,'-',cmo.name) as modelname,
+                        c.name as customername, c.id as customerid, 
+                        concat(cm.maskingname,cmo.maskingname) as modelmaskingname,
+                        substring(cr.comments,0,cast(floor(length(cr.comments)*0.4) as unsigned int)) as  shortcomment, 
+                        cm.name as makename, cm.maskingname as makemaskingname, cmo.name carmodel 
+                     from customerreviews as cr, customers as c,
+                     bikemakes as cm, bikemodels as cmo  
+                     where cr.modelid = cmo.id and cmo.bikemakeid = cm.id 
+                     and cr.customerid = c.id and cr.isactive = 1 and cr.isverified = 1 and customerid <> -1 and c.isfake <> 1";
+
+                    if (this.ReviewerId != "-1")
+                    {
+                        sql = sql + " and c.id = @v_reviewerid ";
+                    }
+
+                    switch (ApplyRetriveBy())
+                    {
+                        case "MostHelpful":
+                            sql = sql + " order by (cr.liked - cr.disliked) desc ";
+                            break;
+
+                        case "MostRead":
+                            sql = sql + " order by cr.viewed desc ";
+                            break;
+
+                        case "MostRecent":
+                            sql = sql + " order by cr.id desc ";
+                            break;
+
+                        case "MostRated":
+                            sql = sql + " order by overallr desc ";
+                            break;
+                    }
+
+                    sql = sql + "  limit @v_reviewcount";
+
+                    Trace.Warn(sql);
+
+                    DbParameter[] param = new[] { DbFactory.GetDbParam("@v_reviewerid", DbParamTypeMapper.GetInstance[SqlDbType.Int],this.ReviewerId ),
+                                          DbFactory.GetDbParam("@v_reviewcount", DbParamTypeMapper.GetInstance[SqlDbType.Int],_reviewCount )  };
+
+                    objCom.BindRepeaterReader(sql, rptUserReviews, param);
+                }
+                
             }
             catch (Exception err)
             {
