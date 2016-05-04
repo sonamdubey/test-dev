@@ -212,7 +212,7 @@ namespace Bikewale.Notifications
         /// <param name="objDPQSmsEntity">DPQ SMS Entity</param>
         /// <param name="DPQType"></param>
         /// <param name="requestUrl"></param>
-        public static void SaveSMSToCustomer(uint pqId, string requestUrl, DPQSmsEntity objDPQSmsEntity, DPQTypes DPQType)
+        public static void SendSMSToCustomer(uint pqId, string requestUrl, DPQSmsEntity objDPQSmsEntity, DPQTypes DPQType)
         {
             string message = String.Empty;
 

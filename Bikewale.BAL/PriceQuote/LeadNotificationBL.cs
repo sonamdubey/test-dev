@@ -38,20 +38,22 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="objDPQSmsEntity"></param>
         /// <param name="requestUrl"></param>
         /// <param name="leadSourceId"></param>
-        /// <param name="platformId"></param>
+        /// <param name="platformId">For Android : 3 and iOS : 4</param>
         /// <param name="isInsuranceFree"></param>
         public void NotifyCustomer(uint pqId, string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, DPQSmsEntity objDPQSmsEntity, string requestUrl, uint? leadSourceId, string platformId = "", uint isInsuranceFree = 0)
         {
             try
             {
+                //Different SMS is sent if lead is submitted from BikeWale APP
                 if (platformId == "3" || platformId == "4")
                 {
-                    SendEmailSMSToDealerCustomer.SaveSMSToCustomer(pqId, requestUrl, objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
+                    SendEmailSMSToDealerCustomer.SendSMSToCustomer(pqId, requestUrl, objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
                 }
                 else
                 {
+                    //If lead is submitted while Booking a bike online don't sent SMS to customer
                     if (leadSourceId != 16 && leadSourceId != 22)
-                        SendEmailSMSToDealerCustomer.SaveSMSToCustomer(pqId, requestUrl, objDPQSmsEntity, DPQTypes.SubscriptionModel);
+                        SendEmailSMSToDealerCustomer.SendSMSToCustomer(pqId, requestUrl, objDPQSmsEntity, DPQTypes.SubscriptionModel);
                 }
 
                 SendEmailSMSToDealerCustomer.SendEmailToCustomer(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, address, customerName, customerEmail, priceList, offerList, pinCode, stateName, cityName, totalPrice, isInsuranceFree);
