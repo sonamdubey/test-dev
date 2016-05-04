@@ -56,7 +56,7 @@ namespace Bikewale.DAL.PriceQuote
                         //}
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], pqParams.CityId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (pqParams.AreaId > 0) ? pqParams.AreaId : (uint?)null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (pqParams.AreaId > 0) ? pqParams.AreaId : Convert.DBNull));
 
                         //cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = pqParams.VersionId;
                         //cmd.Parameters.Add("@SourceId", SqlDbType.TinyInt).Value = pqParams.SourceId;
@@ -91,11 +91,11 @@ namespace Bikewale.DAL.PriceQuote
                         //    cmd.Parameters.Add("@refPQId", SqlDbType.Int).Value = pqParams.RefPQId.Value;
                         //}
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqsourceid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], (pqParams.PQLeadId.HasValue) ? pqParams.PQLeadId : (uint?)null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqsourceid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], (pqParams.PQLeadId.HasValue) ? pqParams.PQLeadId : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, (!String.IsNullOrEmpty(pqParams.UTMA)) ? pqParams.UTMA : null));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, (!String.IsNullOrEmpty(pqParams.UTMZ)) ? pqParams.UTMZ : null));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 25, (!String.IsNullOrEmpty(pqParams.DeviceId)) ? pqParams.DeviceId : null));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_refpqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], (pqParams.RefPQId.HasValue) ? pqParams.RefPQId : (uint?)null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_refpqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], (pqParams.RefPQId.HasValue) ? pqParams.RefPQId : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
 
                         MySqlDatabase.ExecuteNonQuery(cmd);
@@ -287,7 +287,7 @@ namespace Bikewale.DAL.PriceQuote
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], pqParams.VersionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (pqParams.ColorId > 0) ? pqParams.ColorId : (uint?)null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (pqParams.ColorId > 0) ? pqParams.ColorId : Convert.DBNull));
 
                     if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd)))
                         isUpdated = true;

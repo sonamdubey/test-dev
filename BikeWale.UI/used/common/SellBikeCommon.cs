@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using Bikewale.Common;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.Used
 {
@@ -233,20 +235,19 @@ namespace Bikewale.Used
         /// </summary>
         public void UpdateIsVerifiedCustomer(string sellInquiryId)
         {
-            Database db = null;
             HttpContext.Current.Trace.Warn("UpdateIsVerifiedCustomer sellinquiryid: ", sellInquiryId);
 
             try
             {
-                db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "Classified_UpadateVerifiedListing";
+                    cmd.CommandText = "classified_upadateverifiedlisting";
 
-                    cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = sellInquiryId;
+                    //cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = sellInquiryId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], sellInquiryId));
 
-                    db.UpdateQry(cmd);
+                    MySqlDatabase.UpdateQuery(cmd);
                     HttpContext.Current.Trace.Warn("update success verified...");
                 }
             }
@@ -262,10 +263,7 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
         }   
 
     }   // End of class

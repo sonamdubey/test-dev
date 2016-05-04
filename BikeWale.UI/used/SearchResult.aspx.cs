@@ -74,7 +74,7 @@ namespace Bikewale.Used
             rpgListings.OrderByClause = objPC.GetOrderByClause();
             rpgListings.RecordCountQuery = objPC.GetRecordCountQry();
             rpgListings.CmdParamQry = objPC.sqlCmdParams;
-            rpgListings.CmdParamCountQry = objPC.sqlCmdParams.Clone();
+            rpgListings.CmdParamCountQry = objPC.sqlCmdParams;
 
             Trace.Warn("CurrentPageIndexx : ", objPC.GetCurrentPageIndex.ToString());
             if (objPC.GetCurrentPageIndex > 1)

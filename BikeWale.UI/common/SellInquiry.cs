@@ -15,6 +15,8 @@ using System.Text.RegularExpressions;
 using System.Web.Security;
 using System.Security.Principal;
 using System.Web.Mail;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.Common
 {
@@ -672,30 +674,28 @@ namespace Bikewale.Common
         public DataTable GetInquiryDetailsByProfileId(string profileId)
         {
             DataTable dt = null;
-            Database db = null;
-            SqlCommand cmd = null;
-            DataSet ds = null;
            
             try
             {
                 if (Validations.IsValidProfileId(profileId))
                 {
-                    db = new Database();
 
-                    using (cmd = new SqlCommand())
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetInquiryDetailsByProfileId";
+                        cmd.CommandText = "getinquirydetailsbyprofileid";
 
-                        cmd.Parameters.Add("@profileId", SqlDbType.VarChar, 50).Value = profileId;
+                        //cmd.Parameters.Add("@profileId", SqlDbType.VarChar, 50).Value = profileId;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_profileid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],50, profileId)); 
 
-                        ds = db.SelectAdaptQry(cmd);
-
-                      
-                        if (ds != null && ds.Tables[0].Rows.Count > 0)
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                         {
-                            dt = ds.Tables[0];
+                            if (ds != null && ds.Tables[0].Rows.Count > 0)
+                            {
+                                dt = ds.Tables[0];
+                            }
                         }
+                        
                     }
                 }
             }

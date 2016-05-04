@@ -55,11 +55,11 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , entity.CustomerEmail));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , entity.CustomerMobile));
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbParamTypeMapper.GetInstance[SqlDbType.Int] , (entity.ColorId.HasValue)?entity.ColorId.Value:(uint?)null));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt] , (entity.LeadSourceId.HasValue)?entity.LeadSourceId.Value:(uint?)null));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100 , (!String.IsNullOrEmpty(entity.UTMA))?entity.UTMA:null));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100 ,(!String.IsNullOrEmpty(entity.UTMZ))?entity.UTMZ:null));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 25 , (!String.IsNullOrEmpty(entity.DeviceId))?entity.DeviceId:null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (entity.ColorId.HasValue) ? entity.ColorId.Value : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], (entity.LeadSourceId.HasValue) ? entity.LeadSourceId.Value : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
 
                         if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd)))
                             isSuccess = true;
@@ -811,7 +811,7 @@ namespace Bikewale.DAL.BikeBooking
                     //if (modelId > 0)
                     //    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], (modelId > 0)? modelId:(uint?)null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], (modelId > 0) ? modelId : Convert.DBNull));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

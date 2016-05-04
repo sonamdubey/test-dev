@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 using Bikewale.Common;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.Used
 {
@@ -48,33 +50,31 @@ namespace Bikewale.Used
 		public bool UpdateViewCount( string inquiryId, bool isDealer )
 		{
 			bool retVal = false;
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-						
-			string conStr = db.GetConString();
-			con = new SqlConnection( conStr );
 			
 			try
 			{
-				cmd = new SqlCommand("SP_Classified_UpdateViewCount", con);
-				cmd.CommandType = CommandType.StoredProcedure;
-				
-				prm = cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt);
-				prm.Value = inquiryId;
-				
-				prm = cmd.Parameters.Add("@IsDealer", SqlDbType.Bit);
-				prm.Value = isDealer;
-				
-				con.Open();
-				
-    			int rowsUpdated = (int)cmd.ExecuteNonQuery();
-				
-				if( rowsUpdated > 0 )
-					retVal = true;
-				else
-					retVal = false;
+                using (DbCommand cmd = DbFactory.GetDBCommand("sp_classified_updateviewcountw"))
+                {
+                    //cmd = new SqlCommand("sp_classified_updateviewcount", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    //prm = cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt);
+                    //prm.Value = inquiryId;
+
+                    //prm = cmd.Parameters.Add("@IsDealer", SqlDbType.Bit);
+                    //prm.Value = isDealer;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isDealer)); 
+
+
+                    int rowsUpdated = (int)MySqlDatabase.ExecuteNonQuery(cmd);
+
+                    if (rowsUpdated > 0)
+                        retVal = true;
+                    else
+                        retVal = false; 
+                }
 			}		
 			catch(SqlException err)
 			{
@@ -90,13 +90,6 @@ namespace Bikewale.Used
 				ErrorClass objErr = new ErrorClass(err, objTrace.Request.ServerVariables["URL"]);
 				objErr.SendMail();
 			}
-			finally
-			{
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}				
-			}
 			
 			return retVal;
 		}
@@ -109,17 +102,15 @@ namespace Bikewale.Used
         /// <returns>city name,city masking name,city id and bike count</returns>
         public DataSet GetUsedBikeByCityWithCount()
         {
-            Database db = null;
             DataSet ds = null;
             try
             {
-                using(SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {                   
                      cmd.CommandType = CommandType.StoredProcedure;
-                     cmd.CommandText = "GetUsedBikeByCityWithCount";
+                     cmd.CommandText = "getusedbikebycitywithcount";
 
-                     db = new Database();
-                     ds = db.SelectAdaptQry(cmd);
+                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException err)
@@ -134,10 +125,7 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return ds;
         }//End of GetUsedBikeByCityWithCount
 
@@ -149,17 +137,15 @@ namespace Bikewale.Used
         /// <returns>model name,make name,make masking name,model masking name,model id and model count</returns>
         public DataSet GetUsedBikeModelsWithCount()
         {
-            Database db = null;
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetUsedBikeModelsWithCount";
+                    cmd.CommandText = "getusedbikemodelswithcount";
 
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException err)
@@ -174,10 +160,7 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return ds;
         }//End of GetUsedBikeModelsWithCount
 
@@ -189,17 +172,15 @@ namespace Bikewale.Used
         /// <returns>make name,make masking name,make id and bike count</returns>
         public DataSet GetUsedBikeMakesWithCount()
         {
-            Database db = null;
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetUsedBikeMakesWithCount";
+                    cmd.CommandText = "getusedbikemakeswithcount";
 
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException err)
@@ -213,10 +194,6 @@ namespace Bikewale.Used
                 HttpContext.Current.Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return ds;
         }//End of GetUsedBikeMakesWithCount

@@ -11,6 +11,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Text.RegularExpressions;
 using Bikewale.Common;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.Controls
 {	
@@ -133,16 +135,16 @@ namespace Bikewale.Controls
 			get { return _recordCount; }
 			set { _recordCount = value; }
 		} // RecordCount
-		
-		SqlCommand _CmdParamQry;
-		public SqlCommand CmdParamQry //command variable to store the parameters for query
+
+        DbCommand _CmdParamQry;
+		public DbCommand CmdParamQry //command variable to store the parameters for query
 		{
 			get { return _CmdParamQry; }
 			set { _CmdParamQry = value; }
 		} // CmdParam
-		
-		SqlCommand _CmdParamCountQry;
-		public SqlCommand CmdParamCountQry //command variable to store the parameters for query
+
+        DbCommand _CmdParamCountQry;
+        public DbCommand CmdParamCountQry //command variable to store the parameters for query
 		{
 			get { return _CmdParamCountQry; }
 			set { _CmdParamCountQry = value; }
@@ -281,32 +283,38 @@ namespace Bikewale.Controls
 			
 			string sql = string.Empty;
 			
-			CommonOpn objCom = new CommonOpn();								
-			Database db = new Database();								
+			CommonOpn objCom = new CommonOpn();															
 			
 			int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
 			int endIndex = this.CurrentPageIndex * this.PageSize;						
 									
-			sql = " Select * From (Select Row_Number() Over (Order By " + OrderByClause + ") AS RowN, "
-				+ " " + SelectClause + " From " + FromClause + " "
-				+ (WhereClause != "" ? " Where " + WhereClause + " " : "")
-				+ " ) AS TopRecords Where " 
-				+ " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
-			
-			Trace.Warn("Fetch the desired rows : " + sql);
-            Trace.Warn("statrt index + :", startIndex.ToString());
-            Trace.Warn("End index : ", endIndex.ToString());
+            //sql = " Select * From (Select Row_Number() Over (Order By " + OrderByClause + ") AS RowN, "
+            //    + " " + SelectClause + " From " + FromClause + " "
+            //    + (WhereClause != "" ? " Where " + WhereClause + " " : "")
+            //    + " ) AS TopRecords Where " 
+            //    + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
 
+            sql = string.Format(@"set @row_number:=0;
+                                select * from 
+                                (
+                                    select {0},@row_number:= @row_number+1 as rown
+                                     from {1}
+                                     {2}  
+                                    order by  {3}
+                                ) as t
+                                where rown between {4} and {5};
+                                ", SelectClause, FromClause, (!string.IsNullOrEmpty(WhereClause)) ? string.Format(" Where {0} ", WhereClause) : string.Empty, OrderByClause, startIndex, endIndex);
+ 
 			try
 			{
 				if ( sql != "" )
 				{
 					// Assign CommandText to the SqlCommand
 					CmdParamQry.CommandText = sql;
-                    Trace.Warn("used bike search sql sql " + sql)  ;
+
 					
 					// Execute Sql command and bind data with the repeater.
-					rpt.DataSource = db.SelectAdaptQry( CmdParamQry );
+                    rpt.DataSource = MySqlDatabase.SelectAdapterQuery(CmdParamQry);
 					rpt.DataBind();					
 				}				
 			}
@@ -322,33 +330,21 @@ namespace Bikewale.Controls
 		int GetRecordCount()
 		{
 			int count = 0;
-			
-			SqlDataReader dr = null;
 			Database db = new Database();
 			
 			try
 			{				
 				if(RecordCountQuery != "")
 				{
-					Trace.Warn("RecordCountQuery : " + RecordCountQuery);
 					CmdParamCountQry.CommandText = RecordCountQuery;
-					dr = db.SelectQry(CmdParamCountQry);
-					
-					if(dr.Read())
-					{
-						count = Convert.ToInt32(dr[0]);
-						
-						// If matching record count is between 1 to 10. Start showing user a message
-						// "Not enough bikes? If you increase the Kms Around in the left, you may get more bikes."
-						/*if(count < 20 && count >  0){
-							//GetEntireStateCount();
-							div_nec.Visible = true;
-							//States st = new States(CityId);
-							
-							if( st.StateName != "" )
-								stateName = st.StateName;
-						}*/
-					}					
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(CmdParamCountQry))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            count = Convert.ToInt32(dr[0]);
+                        } 
+                    }					
 				}				
 			}
 			catch(Exception err)
@@ -357,12 +353,7 @@ namespace Bikewale.Controls
 				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
 				objErr.SendMail();
 			}
-			finally
-			{
-				dr.Close();
-				db.CloseConnection();
-			}
-			
+
 			return count;
 		}
 		

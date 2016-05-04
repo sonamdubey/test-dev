@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 //SQL Syntex For Parameterised Query
 //UPDATE TableName SET value1=@value1, value2=@value2 WHERE Id=@Id
@@ -691,6 +693,28 @@ namespace Bikewale.Common
         objErr.SendMail();
       }
       return string.Join(",", parameters);
+    }
+
+    public string GetInClauseValue(string input, string fieldName, DbCommand cmd)
+    {
+        string[] inputArr = input.Split(',');
+        string[] parameters = new string[inputArr.Length];
+        try
+        {
+            for (int i = 0; i < inputArr.Length; i++)
+            {
+                cmd.Parameters.Add(DbFactory.GetDbParam("@" + fieldName + i,DbParamTypeMapper.GetInstance[ SqlDbType.VarChar], inputArr[i].Length, inputArr[i].ToString()));
+                parameters[i] = "@" + fieldName + i;
+            }
+        }
+        catch (Exception err)
+        {
+
+            HttpContext.Current.Trace.Warn("GetCommandValue: " + err.Message + err.Source + ":GetCommandValue");
+            ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            objErr.SendMail();
+        }
+        return string.Join(",", parameters);
     }
 
     public string GetInClauseValue(string input, string fieldName, out SqlParameter[] commandParameters)

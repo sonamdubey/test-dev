@@ -12,6 +12,8 @@ using System.Web.Security;
 using System.Security.Cryptography;
 using System.Xml;
 using Bikewale.Common;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.CV
 {
@@ -37,71 +39,76 @@ namespace Bikewale.CV
 			string cuiCode = GetRandomCode(rnd1, 5);
 			
 			CUICode = cuiCode;
-			
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
+
 			CommonOpn op = new CommonOpn();
-						
-			string conStr = db.GetConString();
-			
-			con = new SqlConnection( conStr );
+
             HttpContext.Current.Trace.Warn("IsMobileVerified method" + "," + cvId);
 			try
 			{
-                
-				cmd = new SqlCommand("CV_VerifyMobile", con);
-				cmd.CommandType = CommandType.StoredProcedure;
-				
-				prm = cmd.Parameters.Add("@EmailId", SqlDbType.VarChar, 100);
-				prm.Value = eMail.ToLower();
-				
-				prm = cmd.Parameters.Add("@MobileNo", SqlDbType.VarChar, 50);
-				prm.Value = mobile;
-				
-				prm = cmd.Parameters.Add("@CVID", SqlDbType.BigInt);
-				prm.Value = cvId;
-				
-				prm = cmd.Parameters.Add("@CWICode", SqlDbType.VarChar, 50);
-				prm.Value = cwiCode;
-				
-				prm = cmd.Parameters.Add("@CUICode", SqlDbType.VarChar, 50);
-				prm.Value = cuiCode;
-							
-				prm = cmd.Parameters.Add("@EntryDateTime", SqlDbType.DateTime);
-				prm.Value = DateTime.Now;
-				
-				prm = cmd.Parameters.Add("@IsMobileVer", SqlDbType.Bit);
-				prm.Direction = ParameterDirection.Output;
-								
-				prm = cmd.Parameters.Add("@NewCVID", SqlDbType.BigInt);
-				prm.Direction = ParameterDirection.Output;
-												
-				con.Open();
-				//run the command
-    			cmd.ExecuteNonQuery();
-			
-				isMobVer = Convert.ToBoolean(cmd.Parameters["@IsMobileVer"].Value);
-				HttpContext.Current.Trace.Warn("customerverification isMobVer : " + isMobVer);
-                HttpContext.Current.Trace.Warn("customerverification NewCVID : " + cmd.Parameters["@NewCVID"].Value.ToString());
-				if(isMobVer == false)
-				{
-                    HttpContext.Current.Trace.Warn("isMobVer : ", isMobVer.ToString());
-					//check whether a pending verification is already there for this customer
-					if(cvId == "-1") //for the first time, hence add it into the database and also a fresh xml file
-					{
-						cvId = cmd.Parameters["@NewCVID"].Value.ToString();
-						CustomerVerification.CVId = cvId;
 
-                        HttpContext.Current.Trace.Warn("customerverification cvId" + cvId);
-                        HttpContext.Current.Trace.Warn("customerverification isMobVer" + isMobVer);
-						
-						//send sms to the customer
-						SMSTypes st = new SMSTypes();
-						st.SMSMobileVerification(mobile, name, cwiCode, HttpContext.Current.Request.ServerVariables["URL"]);
-					}
-				}
+                using (DbCommand cmd = DbFactory.GetDBCommand("cv_verifymobile"))
+                {
+                    
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    //prm = cmd.Parameters.Add("@EmailId", SqlDbType.VarChar, 100);
+                    //prm.Value = eMail.ToLower();
+
+                    //prm = cmd.Parameters.Add("@MobileNo", SqlDbType.VarChar, 50);
+                    //prm.Value = mobile;
+
+                    //prm = cmd.Parameters.Add("@CVID", SqlDbType.BigInt);
+                    //prm.Value = cvId;
+
+                    //prm = cmd.Parameters.Add("@CWICode", SqlDbType.VarChar, 50);
+                    //prm.Value = cwiCode;
+
+                    //prm = cmd.Parameters.Add("@CUICode", SqlDbType.VarChar, 50);
+                    //prm.Value = cuiCode;
+
+                    //prm = cmd.Parameters.Add("@EntryDateTime", SqlDbType.DateTime);
+                    //prm.Value = DateTime.Now;
+
+                    //prm = cmd.Parameters.Add("@IsMobileVer", SqlDbType.Bit);
+                    //prm.Direction = ParameterDirection.Output;
+
+                    //prm = cmd.Parameters.Add("@NewCVID", SqlDbType.BigInt);
+                    //prm.Direction = ParameterDirection.Output;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, eMail.ToLower()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, mobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cwicode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, cwiCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cuicode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, cuiCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cvid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], cvId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_newcvid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismobilever", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now)); 
+
+
+                    //run the command
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+
+                    isMobVer = Convert.ToBoolean(cmd.Parameters["par_ismobilever"].Value);
+                    HttpContext.Current.Trace.Warn("customerverification isMobVer : " + isMobVer);
+                    HttpContext.Current.Trace.Warn("customerverification NewCVID : " + cmd.Parameters["par_newcvid"].Value.ToString());
+                    if (isMobVer == false)
+                    {
+                        HttpContext.Current.Trace.Warn("isMobVer : ", isMobVer.ToString());
+                        //check whether a pending verification is already there for this customer
+                        if (cvId == "-1") //for the first time, hence add it into the database and also a fresh xml file
+                        {
+                            cvId = cmd.Parameters["par_newcvid"].Value.ToString();
+                            CustomerVerification.CVId = cvId;
+
+                            HttpContext.Current.Trace.Warn("customerverification cvId" + cvId);
+                            HttpContext.Current.Trace.Warn("customerverification isMobVer" + isMobVer);
+
+                            //send sms to the customer
+                            SMSTypes st = new SMSTypes();
+                            st.SMSMobileVerification(mobile, name, cwiCode, HttpContext.Current.Request.ServerVariables["URL"]);
+                        }
+                    } 
+                }
 			}
             catch (SqlException err)
             {
@@ -115,14 +122,7 @@ namespace Bikewale.CV
 				ErrorClass objErr = new ErrorClass(err,"CustomerVerification.IsMobileVerified");
 				objErr.SendMail();
 			} // catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
+
             return isMobVer;
 		}
 		

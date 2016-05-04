@@ -7,6 +7,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using Bikewale.Common;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.Controls
 {
@@ -43,24 +45,27 @@ namespace Bikewale.Controls
 
         private void BindListedBike()
         {
-            SqlCommand cmd = new SqlCommand("GeUsedBikeListings");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
-
-            Database db = new Database();
-            SqlDataReader dr = null;
             try
             {
-                dr = db.SelectQry(cmd);
-                if (dr.HasRows)
+                using (DbCommand cmd = DbFactory.GetDBCommand("geusedbikelistings"))
                 {
-                    rptListings.DataSource = dr;
-                    rptListings.DataBind();
-                }
-                else
-                {
-                    topUsedCarItems.Visible = false;
-                    noCarsMessage.Visible = true;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], TopRecords));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr!=null)
+                        {
+                            rptListings.DataSource = dr;
+                            rptListings.DataBind();
+                        }
+                        else
+                        {
+                            topUsedCarItems.Visible = false;
+                            noCarsMessage.Visible = true;
+                        } 
+                    } 
                 }
             }
             catch (SqlException exSql)
@@ -73,12 +78,6 @@ namespace Bikewale.Controls
                 //Response.Write(ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
-                db.CloseConnection();
             }
         }      
     }//class

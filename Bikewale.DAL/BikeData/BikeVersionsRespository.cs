@@ -50,7 +50,7 @@ namespace Bikewale.DAL.BikeData
                     //    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                     //}
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (cityId.Value > 0) ? cityId : (int?)null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (cityId.Value > 0) ? cityId : Convert.DBNull));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -447,22 +447,25 @@ namespace Bikewale.DAL.BikeData
             Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetSimilarBikesList";
+                    cmd.CommandText = "getsimilarbikeslist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = topCount;
-                    cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = versionId;
-                    if (percentDeviation > 0)
-                        cmd.Parameters.Add("@PercentDeviation", SqlDbType.Int).Value = percentDeviation;
+                    //cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = topCount;
+                    //cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = versionId;
+                    //if (percentDeviation > 0)
+                    //    cmd.Parameters.Add("@PercentDeviation", SqlDbType.Int).Value = percentDeviation;
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    cmd.Parameters.Add(DbFactory.GetDbParam("v_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("v_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("v_percentdeviation", DbParamTypeMapper.GetInstance[SqlDbType.Int], (percentDeviation > 0) ? percentDeviation : Convert.DBNull)); 
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         objSimilarBikes = new List<SimilarBikeEntity>();
 
-                        while (dr.Read())
+                        while (dr!=null && dr.Read())
                         {
                             SimilarBikeEntity objBike = new SimilarBikeEntity();
 
@@ -488,7 +491,6 @@ namespace Bikewale.DAL.BikeData
                             objBike.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
                             objSimilarBikes.Add(objBike);
                         }
-                        dr.Close();
                     }
                 }
             }
@@ -496,10 +498,6 @@ namespace Bikewale.DAL.BikeData
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objSimilarBikes;

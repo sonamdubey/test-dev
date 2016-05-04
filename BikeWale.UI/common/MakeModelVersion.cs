@@ -55,7 +55,8 @@ namespace Bikewale.Common
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
-                        dt = ds.Tables[0];
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
                     }
                 }
 
@@ -96,7 +97,8 @@ namespace Bikewale.Common
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
-                        dt = ds.Tables[0];
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
                     }
                 }
 
@@ -136,7 +138,8 @@ namespace Bikewale.Common
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
-                        dt = ds.Tables[0];
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
                     }
                 }
 
@@ -176,7 +179,8 @@ namespace Bikewale.Common
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
-                        dt = ds.Tables[0];
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
                     }
                 }
 
@@ -244,8 +248,8 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ParameterDirection.InputOutput));
 
-                    if ( MySqlDatabase.ExecuteNonQuery(cmd) > 0)
-                    {   
+                    if (MySqlDatabase.ExecuteNonQuery(cmd) > 0)
+                    {
                         HttpContext.Current.Trace.Warn("qry success");
 
                         if (!string.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
@@ -266,8 +270,8 @@ namespace Bikewale.Common
                             MakeMappingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
                             SeriesId = Convert.ToString(cmd.Parameters["par_seriesid"].Value);
                             OriginalImagePath = Convert.ToString(cmd.Parameters["par_originalimagepath"].Value);
-                        } 
-                    } 
+                        }
+                    }
                 }
             }
             catch (SqlException ex)
