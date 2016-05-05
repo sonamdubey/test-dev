@@ -6,6 +6,8 @@ using System.Web.UI.HtmlControls;
 using Bikewale.Common;
 using System.Data;
 using System.Data.SqlClient;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.MyBikeWale
 {
@@ -51,29 +53,26 @@ namespace Bikewale.MyBikeWale
 
         protected void GetListings()
         {
-            Database db = null;
-            DataSet ds = null;
-
             try
             {
-                db = new Database();
-
-                using(SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetClassifiedIndividualListings_SP";
+                    cmd.CommandText = "getclassifiedindividuallistings_sp";
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
+                    //cmd.Parameters.Add("@customerid", SqlDbType.BigInt).Value = customerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId)); 
 
-                    ds = db.SelectAdaptQry(cmd);
-
-                    if (ds.Tables[0].Rows.Count > 0)
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
-                        rptListings.DataSource = ds.Tables[0];
-                        rptListings.DataBind();
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            rptListings.DataSource = ds.Tables[0];
+                            rptListings.DataBind();
 
-                        div_SellYourBike.Visible = false;
-                    }                    
+                            div_SellYourBike.Visible = false;
+                        }  
+                    }                   
                 }
             }
             catch (SqlException ex)

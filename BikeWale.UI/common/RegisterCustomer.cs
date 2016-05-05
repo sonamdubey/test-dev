@@ -124,22 +124,22 @@ namespace Bikewale.Common
         public string IsRegisterdCustomer(string Email)
         {            
             string cust_id = string.Empty;
-            Database db = null;
-            SqlDataReader dr = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand("GetCustomerId"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcustomerid"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Email", SqlDbType.VarChar, 50).Value = Email;
+                    //cmd.Parameters.Add("@email", SqlDbType.VarChar, 50).Value = Email;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, Email)); 
 
-                    dr = db.SelectQry(cmd);
-                    if (dr.Read())
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        cust_id = dr["ID"].ToString();
+                        if (dr!=null && dr.Read())
+                        {
+                            cust_id = dr["ID"].ToString();
+                        } 
                     }
                 }
             }
@@ -154,12 +154,7 @@ namespace Bikewale.Common
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
+
             return cust_id;
         } 
         #endregion
@@ -291,39 +286,33 @@ namespace Bikewale.Common
         /// <param name="email">Provide email id of a customer whose salt and hash is required</param>
         public string GetSaltHash(ref string salt, ref string hash, ref string customerId, ref string name, string email)
         {            
-            Database db = null;
-            SqlConnection conn = null;
-
             try
             {
-                db = new Database();
 
-                conn = new SqlConnection(db.GetConString());
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetCustomerPassword";
-                    cmd.Connection = conn;
-                    HttpContext.Current.Trace.Warn("GetSaltHash email : " + email);
+                    cmd.CommandText = "getcustomerpassword";
 
-                    cmd.Parameters.Add("@Email", SqlDbType.VarChar, 100).Value = email;
-                    cmd.Parameters.Add("@Salt", SqlDbType.VarChar, 10).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Hash", SqlDbType.VarChar, 64).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
+                    //cmd.Parameters.Add("@Email", SqlDbType.VarChar, 100).Value = email;
+                    //cmd.Parameters.Add("@salt", SqlDbType.VarChar, 10).Direction = ParameterDirection.Output;
+                    //cmd.Parameters.Add("@Hash", SqlDbType.VarChar, 64).Direction = ParameterDirection.Output;
+                    //cmd.Parameters.Add("@customerid", SqlDbType.BigInt).Direction = ParameterDirection.Output;
+                    //cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
 
-                    conn.Open();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, email));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, ParameterDirection.Output));
 
-                    cmd.ExecuteNonQuery();
 
-                    salt = cmd.Parameters["@Salt"].Value.ToString();
-                    hash = cmd.Parameters["@Hash"].Value.ToString();
-                    customerId = cmd.Parameters["@CustomerId"].Value.ToString();
-                    name = cmd.Parameters["@Name"].Value.ToString();
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-                    HttpContext.Current.Trace.Warn("GetSaltHash salt : " + salt);
-                    HttpContext.Current.Trace.Warn("GetSaltHash hash : " + hash);
+                    salt = cmd.Parameters["par_salt"].Value.ToString();
+                    hash = cmd.Parameters["par_hash"].Value.ToString();
+                    customerId = cmd.Parameters["par_customerid"].Value.ToString();
+                    name = cmd.Parameters["par_name"].Value.ToString();
                 }
             }
             catch (SqlException ex)
@@ -336,14 +325,7 @@ namespace Bikewale.Common
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-                db.CloseConnection();
-            }
+
             return customerId;
         }   // End of GetSaltHash method 
         #endregion
@@ -358,22 +340,22 @@ namespace Bikewale.Common
         /// <param name="customerId">Id of the customer whose salt and hash need to be updated</param>
         public void UpdatePassword(string salt, string hash, string customerId)
         {
-            Database db = null;
-
             try
             {
-                db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "UpdateCustomerPassword";
+                    cmd.CommandText = "updatecustomerpassword";
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
-                    cmd.Parameters.Add("@Salt", SqlDbType.VarChar, 10).Value = salt;
-                    cmd.Parameters.Add("@Hash", SqlDbType.VarChar, 64).Value = hash;
+                    //cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
+                    //cmd.Parameters.Add("@Salt", SqlDbType.VarChar, 10).Value = salt;
+                    //cmd.Parameters.Add("@Hash", SqlDbType.VarChar, 64).Value = hash;
 
-                    db.UpdateQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, salt));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 64, hash)); 
+
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -386,10 +368,7 @@ namespace Bikewale.Common
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
         }   // End of UpdatePassword method 
         #endregion
 
@@ -437,22 +416,22 @@ namespace Bikewale.Common
         public string SaveToken(string customerId, string email)
         {
             string token = string.Empty;
-            Database db = null;
-
             try
             {
                 token = EncryptPasswordToken(email);
 
-                db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "SavePasswordRecoveryToken";
+                    cmd.CommandText = "savepasswordrecoverytoken";
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
-                    cmd.Parameters.Add("@Token", SqlDbType.VarChar, 200).Value = token;
+                    //cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
+                    //cmd.Parameters.Add("@Token", SqlDbType.VarChar, 200).Value = token;
 
-                    db.InsertQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, token));
+
+                    MySqlDatabase.InsertQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -464,10 +443,6 @@ namespace Bikewale.Common
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return token;
@@ -486,29 +461,24 @@ namespace Bikewale.Common
         public bool IsValidPasswordRecoveryToken(string customerId, string token)
         {
             bool isValidtoken = false;
-            Database db = null;
-            SqlConnection conn = null;
-
             try
             {
-                db = new Database();
-                conn = new SqlConnection(db.GetConString());
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "CheckValidPasswordToken";
-                    cmd.Connection = conn;
+                    cmd.CommandText = "checkvalidpasswordtoken";
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
-                    cmd.Parameters.Add("@Token", SqlDbType.VarChar, 200).Value = token;
-                    cmd.Parameters.Add("@IsValidToken", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                    //cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
+                    //cmd.Parameters.Add("@Token", SqlDbType.VarChar, 200).Value = token;
+                    //cmd.Parameters.Add("@isvalidtoken", SqlDbType.Bit).Direction = ParameterDirection.Output;
 
-                    conn.Open();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, token));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isvalidtoken", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
 
-                    cmd.ExecuteNonQuery();
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-                    isValidtoken = Convert.ToBoolean(cmd.Parameters["@IsValidtoken"].Value);
+                    isValidtoken = Convert.ToBoolean(cmd.Parameters["par_isvalidtoken"].Value);
                     HttpContext.Current.Trace.Warn("isValidtoken : " + isValidtoken.ToString());
                 }
             }
@@ -522,15 +492,7 @@ namespace Bikewale.Common
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
+            
 
             return isValidtoken;
         }   // End of IsValidPasswordRecoveryToken method 
@@ -544,22 +506,19 @@ namespace Bikewale.Common
         /// <param name="customerId">Customer id of the customer whose password recovery token is to make inactive</param>
         public void UpdatePasswordRecoveryTokenStatus(string customerId)
         {
-            Database db = null;
-            HttpContext.Current.Trace.Warn("UpdatePasswordRecoveryTokenStatus started... " + customerId);
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "UpdatePasswordRecoveryTokenStatus";
+                    cmd.CommandText = "updatepasswordrecoverytokenstatus";
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
+                    //cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
 
-                    db.UpdateQry(cmd);
+                    MySqlDatabase.UpdateQuery(cmd);
 
-                    HttpContext.Current.Trace.Warn("UpdatePasswordRecoveryTokenStatus done...");
                 }
             }
             catch (SqlException ex)
@@ -571,10 +530,6 @@ namespace Bikewale.Common
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
         }   // End of UpdatePasswordRecoveryTokenStatus method 
         #endregion

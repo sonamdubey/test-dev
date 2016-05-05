@@ -9,6 +9,8 @@ using System.Data;
 using System.Data.SqlClient;
 using Enyim.Caching;
 using System.Configuration;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.MyBikeWale
 {
@@ -105,22 +107,19 @@ namespace Bikewale.MyBikeWale
 
         protected void UpdateClassifiedInquirySoldStatus()
         {
-            Database db = new Database();
             string sql = "";
 
-            sql = " INSERT INTO ClassifiedInquirySoldStatus (Reason, Comments, InquiryId) VALUES (@Reason, @Comments, @InquiryId) ";
+            sql = " insert into classifiedinquirysoldstatus (reason, comments, inquiryid) values (@reason, @comments, @inquiryid) ";
 
             try
             {
-                db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand(sql))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add("@Reason", SqlDbType.VarChar, 200).Value = drpStatus.SelectedItem.Text;
-                    cmd.Parameters.Add("@Comments", SqlDbType.VarChar, 250).Value = txtComments.Text.Trim();
-                    cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@reason", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, drpStatus.SelectedItem.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtComments.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId)); 
 
-                    db.InsertQry(cmd);
+                    MySqlDatabase.InsertQuery(cmd);
                 }
             }
             catch (SqlException err)
@@ -135,10 +134,7 @@ namespace Bikewale.MyBikeWale
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                db.CloseConnection();
-            }
+
         }   // End of UpdateClassifiedInquirySoldStatus method
 
         /// <summary>
@@ -149,17 +145,15 @@ namespace Bikewale.MyBikeWale
         {
             Database db = new Database();
 
-            string sql = " UPDATE dbo.ClassifiedIndividualSellInquiries SET StatusId=3, IsApproved = 1 WHERE Id = @InquiryId ";
+            string sql = " update dbo.classifiedindividualsellinquiries set statusid=3, isapproved = 1 where id = @inquiryid ";
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand(sql))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
-
-                    db.UpdateQry(cmd);
-
-                    
+                    //cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
+                    MySqlDatabase.UpdateQuery(cmd);                                                                                                        
                 }
             }
             catch (SqlException err)
@@ -174,10 +168,7 @@ namespace Bikewale.MyBikeWale
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                db.CloseConnection();
-            }
+
         }   // End of UpdateSoldStatus method
 
     }   // End of class

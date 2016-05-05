@@ -16,49 +16,7 @@ namespace Bikewale.Used
 	{			
 		//used for writing the debug messages
 		private HttpContext objTrace = HttpContext.Current;
-		
-        //public DataSet GetSellerDetailsDataSet(string inquiryId, bool isDealer)
-        //{  
-        //    string sql = "";
-        //    DataSet ds = null;
 
-        //    if (isDealer)
-        //    {
-        //        //sql = " Select D.Organization AS SellerName, D.EmailId AS SellerEmail, "
-        //        //    + " (D.MobileNo + CASE WHEN D.PhoneNo IS NOT NULL AND D.PhoneNo <> '' THEN ', ' + D.PhoneNo ELSE NULL END) AS Contact, "
-        //        //    + " (D.Address1 +', '+ D.Address2) AS SellerAddress, ContactPerson "
-
-        //        //    + " From SellInquiries AS SI, Dealers AS D, Cities AS Ct, States AS St "
-        //        //    + " WHERE SI.DealerId = D.ID AND D.CityId = Ct.ID AND Ct.StateId = St.ID AND SI.ID = @InquiryId ";
-        //    }
-        //    else
-        //    {
-        //        sql = " SELECT CU.Name AS SellerName, CU.Email AS SellerEmail, "
-        //            + " CU.Mobile AS Contact, ( C.City +', '+ C.State )  AS SellerAddress, '' ContactPerson "
-        //            + " FROM ClassifiedIndividualSellInquiries AS SI "
-        //            + " INNER JOIN Customers AS CU ON CU.Id = SI.CustomerId "
-        //            + " INNER JOIN vwCity AS C ON C.CityId = SI.CityId "
-        //            + " WHERE SI.ID = @InquiryId ";
-        //    }
-
-        //    SqlCommand cmd = new SqlCommand(sql);
-        //    cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
-
-        //    try
-        //    {
-        //        Database db = new Database();
-        //        ds = db.SelectAdaptQry(cmd);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        objTrace.Trace.Warn(ex.Message);
-        //        ErrorClass objErr = new ErrorClass(ex, objTrace.Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-            
-        //    return ds;
-        //}
-		
 		public bool IsClassifiedIntruder(string inquiryId, bool isDealer)
 		{
 			bool isIntruder = false;
@@ -74,16 +32,7 @@ namespace Bikewale.Used
 		{
 			string sql = "";			
 			
-			if( isDealer )
-			{
-                //sql = " Select DealerId SellerId, D.Organization AS SellerName, D.EmailId AS SellerEmail, "
-                //    + " (D.MobileNo + CASE WHEN D.PhoneNo IS NOT NULL AND D.PhoneNo <> '' THEN ', ' + D.PhoneNo ELSE NULL END) AS Contact, "
-                //    + " (D.Address1 +', '+ D.Address2) AS SellerAddress, ContactPerson "
-					 
-                //    + " From SellInquiries AS SI, Dealers AS D, Cities AS Ct, States AS St "
-                //    + " WHERE SI.DealerId = D.ID AND D.CityId = Ct.ID AND Ct.StateId = St.ID AND SI.ID = @InquiryId ";
-			}
-			else
+			if( !isDealer )
 			{
                 //Modified By : Ashwini Todkar on 3 sep 2014
                 //Retrieved Customer name, mobile and emailid from ClassifiedIndividualSellInquiries,so buyer get contact details of available with that inquiry

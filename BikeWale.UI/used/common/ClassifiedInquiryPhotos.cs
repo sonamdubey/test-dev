@@ -34,12 +34,6 @@ namespace Bikewale.Used
         /// <param name="rptPhotos"></param>
         public void BindWithRepeater(string inquiryId, bool isDealer, Repeater rptPhotos, bool isAprooved)
         {
-            string sql = "";
-
-            HttpContext.Current.Trace.Warn("is dealer : ", isDealer.ToString());
-
-            objTrace.Trace.Warn("sql : " + sql);
-
             try
             {
                 //SqlParameter [] param ={new SqlParameter("@InquiryId", inquiryId), new SqlParameter("@IsDealer", isDealer)};
@@ -119,14 +113,8 @@ namespace Bikewale.Used
             string consumerType = isDealer ? "1" : "2";
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    //SqlParameter [] param ={new SqlParameter("@InquiryId", inquiryId), new SqlParameter("@IsDealer", isDealer)};
-                    //SqlCommand cmd = new SqlCommand(sql);
-                    //cmd.Parameters.Add("@SellInquiryId", SqlDbType.BigInt).Value = sellInquiryId;
-                    //cmd.Parameters.Add("@BuyerId", SqlDbType.BigInt).Value = buyerId;
-                    //cmd.Parameters.Add("@ConsumerType", SqlDbType.TinyInt).Value = consumerType;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("@par_sellinquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], sellInquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("@par_buyerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], buyerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("@par_consumertype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], consumerType));
@@ -159,22 +147,6 @@ namespace Bikewale.Used
                 using (DbCommand cmd = DbFactory.GetDBCommand("classified_uploadphotosrequest_sp"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    //prm = cmd.Parameters.Add("@sellinquiryid", SqlDbType.BigInt);
-                    //prm.Value = sellInquiryId;
-
-                    //prm = cmd.Parameters.Add("@buyerid", SqlDbType.BigInt);
-                    //prm.Value = buyerId;
-
-                    //prm = cmd.Parameters.Add("@consumertype", SqlDbType.TinyInt);
-                    //prm.Value = consumerType;
-
-                    //prm = cmd.Parameters.Add("@buyermessage", SqlDbType.VarChar, 200);
-                    //prm.Value = buyerMessage;
-
-                    //prm = cmd.Parameters.Add("@clientip", SqlDbType.VarChar, 40);
-                    //prm.Value = CommonOpn.GetClientIP();
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sellinquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], sellInquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_buyerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], buyerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_consumertype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], consumerType));

@@ -29,46 +29,25 @@ namespace Bikewale.Used
         public string SaveBikePhotos(string inquiryId, string originalImageName, string description, bool isDealer, bool isMain)
         {
             string photoId = "";
-
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-
-            string conStr = db.GetConString();
-            con = new SqlConnection(conStr);
-
             try
             {
-                cmd = new SqlCommand("Classified_BikePhotos_Insert", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_insert"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, description));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_directorypath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbParamTypeMapper.GetInstance[SqlDbType.Bit],Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 300, originalImageName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isDealer));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismain", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isMain));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ConfigurationManager.AppSettings["imgHostURL"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
 
-                prm = cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt);
-                prm.Value = inquiryId;
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-                prm = cmd.Parameters.Add("@Description", SqlDbType.VarChar, 200);
-                prm.Value = description;
-
-                prm = cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 300);
-                prm.Value = originalImageName;
-
-                prm = cmd.Parameters.Add("@IsDealer", SqlDbType.Bit);
-                prm.Value = isDealer;
-
-                prm = cmd.Parameters.Add("@IsMain", SqlDbType.Bit);
-                prm.Value = isMain;
-
-                prm = cmd.Parameters.Add("@HostURL", SqlDbType.VarChar, 100);
-                prm.Value = ConfigurationManager.AppSettings["imgHostURL"];
-
-                // Out put parameter
-                prm = cmd.Parameters.Add("@PhotoId", SqlDbType.BigInt);
-                prm.Direction = ParameterDirection.Output;
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-
-                photoId = cmd.Parameters["@PhotoId"].Value.ToString();
+                    photoId = cmd.Parameters["par_photoid"].Value.ToString(); 
+                }
             }
             catch (Exception err)
             {
@@ -76,45 +55,25 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
-
             return photoId;
         }   // End of savebikephotos method
 
         public bool RemoveBikePhotos(string inquiryId, string photoId)
         {
             bool isRemoved = false;
-
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-
-            string conStr = db.GetConString();
-            con = new SqlConnection(conStr);
-
             try
             {
-                cmd = new SqlCommand("Classified_BikePhotos_Remove", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_remove"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                prm = cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt);
-                prm.Value = inquiryId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], photoId));
 
-                prm = cmd.Parameters.Add("@PhotoId", SqlDbType.BigInt);
-                prm.Value = photoId;
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-                con.Open();
-                cmd.ExecuteNonQuery();
-
-                isRemoved = true;
+                    isRemoved = true; 
+                }
             }
             catch (Exception err)
             {
@@ -122,14 +81,6 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
 
             return isRemoved;
         }   // End of RemoveBikePhotos
@@ -137,33 +88,19 @@ namespace Bikewale.Used
         public bool MakeMainImage(string inquiryId, string photoId, bool isDealer)
         {
             bool isMain = false;
-
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-
-            string conStr = db.GetConString();
-            con = new SqlConnection(conStr);
-
             try
             {
-                cmd = new SqlCommand("Classified_BikePhotos_MainImage", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_mainimage"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isDealer));
 
-                prm = cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt);
-                prm.Value = inquiryId;
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-                prm = cmd.Parameters.Add("@PhotoId", SqlDbType.BigInt);
-                prm.Value = photoId;
-
-                prm = cmd.Parameters.Add("@IsDealer", SqlDbType.Bit);
-                prm.Value = isDealer;
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-
-                isMain = true;
+                    isMain = true; 
+                }
             }
             catch (Exception err)
             {
@@ -171,14 +108,6 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
 
             return isMain;
         }   // End of MakeMainImage method
@@ -187,30 +116,18 @@ namespace Bikewale.Used
         public bool AddImageDescription(string photoId, string imgDesc)
         {
             bool isAdded = false;
-
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-
-            string conStr = db.GetConString();
-            con = new SqlConnection(conStr);
-
             try
             {
-                cmd = new SqlCommand("Classified_BikePhotos_Desc", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_desc"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imgdesc", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, imgDesc));
 
-                prm = cmd.Parameters.Add("@PhotoId", SqlDbType.BigInt);
-                prm.Value = photoId;
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-                prm = cmd.Parameters.Add("@ImgDesc", SqlDbType.VarChar, 200);
-                prm.Value = imgDesc;
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-
-                isAdded = true;
+                    isAdded = true; 
+                }
             }
             catch (Exception err)
             {
@@ -218,14 +135,6 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
 
             return isAdded;
         }
@@ -235,7 +144,6 @@ namespace Bikewale.Used
         /// </summary>
         public void UpdateIsVerifiedCustomer(string sellInquiryId)
         {
-            HttpContext.Current.Trace.Warn("UpdateIsVerifiedCustomer sellinquiryid: ", sellInquiryId);
 
             try
             {
@@ -243,8 +151,6 @@ namespace Bikewale.Used
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "classified_upadateverifiedlisting";
-
-                    //cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = sellInquiryId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], sellInquiryId));
 
                     MySqlDatabase.UpdateQuery(cmd);

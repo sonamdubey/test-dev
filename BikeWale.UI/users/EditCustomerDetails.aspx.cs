@@ -2,19 +2,15 @@
 IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 using System;
-using System.Text;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using Bikewale.Common;
-using Bikewale.Controls;
-using System.Configuration;
-using System.Data.SqlTypes;
-using Bikewale.BAL;
 using Bikewale.BAL.MobileVerification;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 //using Ajax;
 
 namespace Bikewale.MyBikeWale
@@ -140,35 +136,17 @@ namespace Bikewale.MyBikeWale
 			if(cd.Exists == true)
 			{
 				txtName.Text 			= cd.Name; 
-				//txtPhone1.Text 			= cd.Phone1;
-                //if( str_PhoneCode.Length > 1 )
-                //{
-                //    //txtStdCode1.Text 		= str_PhoneCode[0];  
-                //    txtPhone1.Text 			= str_PhoneCode[1];  
-                //}	
-                //else
-                //{
-                //    txtPhone1.Text 			= str_PhoneCode[0];
-                //}
-				
-				txtMobile.Text 			= cd.Mobile;  
-				
-				//txtAddress.Text 		= cd.Address;  
-						
-				lblEmail.Text 			= cd.Email; 
-				
-				//cmbAboutCarwale.SelectedIndex 		= cmbAboutCarwale.Items.IndexOf(cmbAboutCarwale.Items.FindByValue(cd.CarwaleContact));
+				txtMobile.Text 			= cd.Mobile; 				
+				lblEmail.Text 			= cd.Email; 			
 								
 				string stateId = cd.StateId;
 				cityId 	= cd.CityId;
 				areaId 	= cd.AreaId;
 
-                Trace.Warn("stateid : " + stateId);
 
-				if(stateId != "" && stateId != "-1")
+                if (stateId != "" && stateId != "-1" && stateId != "0")
 				{
 					drpState.SelectedIndex 	= drpState.Items.IndexOf(drpState.Items.FindByValue(stateId));
-                    Trace.Warn("drp state value : " + drpState.SelectedValue);
 
                     StateCity objCity = new StateCity();
                     DataTable dtCities = objCity.GetCities(stateId, "ALL");
@@ -182,35 +160,8 @@ namespace Bikewale.MyBikeWale
                         drpCity.Items.Insert(0, new ListItem("Select City", "0"));
                         drpCity.SelectedValue = cityId;
                     }
-                    
-                    //AjaxFunctions aj = new AjaxFunctions();
-                    ////bind the city drop down 
-                    //drpCity.DataSource = aj.GetCities(cd.StateId);
-                    //drpCity.DataTextField = "Text";
-                    //drpCity.DataValueField = "Value";
-                    //drpCity.DataBind();
-                    //drpCity.Items.Insert(0, new ListItem("Any","0"));
-					
-					
-					Trace.Warn("cityId : " + cityId);
-					//if cityid is already there, then make that one selected
-					//drpCity.SelectedIndex = drpCity.Items.IndexOf(drpCity.Items.FindByValue(cityId));
-					
-					/*if(drpCity.SelectedIndex > 0)
-					{
-						drpArea.Enabled = true;
-						//fill the area drop down
-						drpArea.DataSource = aj.GetAreas(cityId);
-						drpArea.DataTextField = "Text";
-						drpArea.DataValueField = "Value";
-						drpArea.DataBind();
-						drpArea.Items.Insert(0, new ListItem("Any","0"));
-					}
-					//if areaid is already there, then make that one selected
-					drpArea.SelectedIndex = drpArea.Items.IndexOf(drpArea.Items.FindByValue(areaId));*/
 				}
 								
-				//Trace.Warn("areaId : " + areaId);
 				pinId	= cd.PinCodeId;
 				
 				chkNewsLetter.Checked 	= cd.ReceiveNewsletters;
@@ -228,7 +179,7 @@ namespace Bikewale.MyBikeWale
 			string sql = "";
 			CommonOpn op = new CommonOpn();
 
-            sql = " SELECT ID, Name FROM States With(NoLock) WHERE IsDeleted = 0 ORDER BY Name ";
+            sql = " select Id, Name from states  where isdeleted = 0 order by name ";
 			try
 			{
 				op.FillDropDown(sql, drpState, "Name", "ID");
@@ -272,78 +223,68 @@ namespace Bikewale.MyBikeWale
 		bool SaveCustomerDetails()
 		{
 			bool returnVal = false;
-			
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
 			CommonOpn op = new CommonOpn();
-						
-			string conStr = db.GetConString();
-			
-			con = new SqlConnection( conStr );
-			
-            //string address = txtAddress.Text.Trim();
-            //if(address.Length > 250)
-            //    address = address.Substring(0, 249);
 				
 			string stateId = "0";
 			
 			if(drpState.SelectedIndex > -1)	
 				stateId = drpState.SelectedItem.Value;
-			
-            //string phoneNo = "";
-
-            //if(txtStdCode1.Text != "")
-            //    phoneNo = txtStdCode1.Text.Trim() + "-" + txtPhone1.Text.Trim();
-            //else
-            //    phoneNo = txtPhone1.Text.Trim();
 				
 			try
 			{
-				cmd = new SqlCommand("UpdateCustomerDetails", con);
-				cmd.CommandType = CommandType.StoredProcedure;
-			
-				prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-				prm.Value = customerId;
-								
-				prm = cmd.Parameters.Add("@Name", SqlDbType.VarChar, 100);
-				prm.Value = txtName.Text.Trim();
-				
-				prm = cmd.Parameters.Add("@Email", SqlDbType.VarChar, 100);
-				prm.Value = lblEmail.Text.Trim();
-				
-                //prm = cmd.Parameters.Add("@Address", SqlDbType.VarChar, 250);
-                //prm.Value = address;
-				
-				prm = cmd.Parameters.Add("@CityId", SqlDbType.BigInt);
-				prm.Value = SelectedCity;
-								
-				prm = cmd.Parameters.Add("@AreaId", SqlDbType.BigInt);
-				prm.Value = 0;
-								
-                //prm = cmd.Parameters.Add("@Phone1", SqlDbType.VarChar, 50);
-                //prm.Value = phoneNo;
-				
-				prm = cmd.Parameters.Add("@Mobile", SqlDbType.VarChar, 50);
-				prm.Value = txtMobile.Text.Trim();
-								
-				prm = cmd.Parameters.Add("@ReceiveNewsletters", SqlDbType.Bit);
-				prm.Value = chkNewsLetter.Checked;
+                
 
-                //Modified By : Ashwini Todkar on 3 Sep 2014
-                //Added isverfied condition while updating mobile no.
-                MobileVerification objMV = new MobileVerification();
-               
-				prm = cmd.Parameters.Add("@IsVerified", SqlDbType.Bit);
-				//prm.Value = true;
-                prm.Value = objMV.IsMobileVerified(txtMobile.Text.Trim(), lblEmail.Text.Trim());
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatecustomerdetails"))
+                {
+                    MobileVerification objMV = new MobileVerification();
+                    bool _isverified = objMV.IsMobileVerified(txtMobile.Text.Trim(), lblEmail.Text.Trim());
 
-				con.Open();
-				//run the command
-    			cmd.ExecuteNonQuery();
-				
-				returnVal = true;			
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    //prm = cmd.Parameters.Add("@customerid", SqlDbType.BigInt);
+                    //prm.Value = customerId;
+
+                    //prm = cmd.Parameters.Add("@name", SqlDbType.VarChar, 100);
+                    //prm.Value = txtName.Text.Trim();
+
+                    //prm = cmd.Parameters.Add("@email", SqlDbType.VarChar, 100);
+                    //prm.Value = lblEmail.Text.Trim();
+
+                    ////prm = cmd.Parameters.Add("@Address", SqlDbType.VarChar, 250);
+                    ////prm.Value = address;
+
+                    //prm = cmd.Parameters.Add("@cityid", SqlDbType.BigInt);
+                    //prm.Value = SelectedCity;
+
+                    //prm = cmd.Parameters.Add("@areaid", SqlDbType.BigInt);
+                    //prm.Value = 0;
+                    //prm = cmd.Parameters.Add("@mobile", SqlDbType.VarChar, 50);
+                    //prm.Value = txtMobile.Text.Trim();
+
+                    //prm = cmd.Parameters.Add("@ReceiveNewsletters", SqlDbType.Bit);
+                    //prm.Value = chkNewsLetter.Checked;
+                    //
+
+                    //prm = cmd.Parameters.Add("@isverified", SqlDbType.Bit);
+                    ////prm.Value = true;
+                    //prm.Value = ;
+
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtName.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, lblEmail.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtMobile.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], SelectedCity));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_receivenewsletters", DbParamTypeMapper.GetInstance[SqlDbType.Int], chkNewsLetter.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], _isverified));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phone1", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, Convert.DBNull));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+
+                    returnVal = true; 
+                }			
 			}
 			catch(SqlException err)
 			{
@@ -357,15 +298,7 @@ namespace Bikewale.MyBikeWale
 				objErr.SendMail();
 				returnVal = false;
 			} // catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
-			
+
 			return returnVal;
 		}
 		

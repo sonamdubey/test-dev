@@ -15,6 +15,8 @@ using Bikewale.RabbitMQ;
 using System.Collections.Specialized;
 using RabbitMqPublishing;
 using System.Configuration;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.Used
 {
@@ -109,33 +111,25 @@ namespace Bikewale.Used
         {
             bool canEdit = false;
 
-            Database db = null;
-            DataSet ds = null;
-
             try
             {
-                db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "SELECT SI.ID FROM ClassifiedIndividualSellInquiries AS SI With(NoLock) "
-                                    + " INNER JOIN Customers C WITH(NOLOCK) ON C.Id = SI.CustomerId "
-                                    + " WHERE SI.CustomerId = @CustomerId AND SI.ID = @InquiryId AND C.IsFake = 0 ";
+                    cmd.CommandText = @"select si.id from classifiedindividualsellinquiries as si  
+                                    inner join customers c on c.id = si.customerid
+                                    where si.customerid = @customerid and si.id = @inquiryid and c.isfake = 0 ";
 
-                    Trace.Warn("CookiesCustomers.CustomerId : ", CookiesCustomers.CustomerId);
-                    Trace.Warn("CurrentUser.Id : ", CurrentUser.Id);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id == "-1" ? CookiesCustomers.CustomerId : CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], inquiryId)); 
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = CurrentUser.Id == "-1" ? CookiesCustomers.CustomerId : CurrentUser.Id;
-                    cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
-
-                    ds = db.SelectAdaptQry(cmd);
-
-                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
-                        canEdit = true;
+                        if (ds != null && ds.Tables[0].Rows.Count > 0)
+                        {
+                            canEdit = true;
+                        } 
                     }
                 }
-                Trace.Warn("canEdit : ", canEdit.ToString());
             }
             catch (SqlException err)
             {                
@@ -149,10 +143,7 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();    
-            }
+
             return canEdit;
         }
 		
@@ -241,22 +232,23 @@ namespace Bikewale.Used
 
                 string imageUrl = BikeCommonRQ.UploadImageToCommonDatabase(photoId, FileNameTime + FileExtension, ImageCategories.BIKEWALESELLER, dirPath);
 
-                Trace.Warn("before rabbitmq");
-
-                //RabbitMq Publish code here
-                RabbitMqPublish rabbitmqPublish = new RabbitMqPublish();
-                NameValueCollection nvc = new NameValueCollection();
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ID).ToLower(), photoId);
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CATEGORY).ToLower(), "BikeWaleSeller");
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.LOCATION).ToLower(), imageUrl);
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CUSTOMSIZEWIDTH).ToLower(), "-1");
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CUSTOMSIZEHEIGHT).ToLower(), "-1");
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISWATERMARK).ToLower(), Convert.ToString(false));
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISCROP).ToLower(), Convert.ToString(false));
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMAIN).ToLower(), Convert.ToString(false));
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(true));
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMASTER).ToLower(), "1");
-                rabbitmqPublish.PublishToQueue(ConfigurationManager.AppSettings["ImageQueueName"], nvc);
+                if (Uri.IsWellFormedUriString(imageUrl, UriKind.RelativeOrAbsolute))
+                {
+                    //RabbitMq Publish code here
+                    RabbitMqPublish rabbitmqPublish = new RabbitMqPublish();
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ID).ToLower(), photoId);
+                    nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CATEGORY).ToLower(), "BikeWaleSeller");
+                    nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.LOCATION).ToLower(), imageUrl);
+                    nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CUSTOMSIZEWIDTH).ToLower(), "-1");
+                    nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CUSTOMSIZEHEIGHT).ToLower(), "-1");
+                    nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISWATERMARK).ToLower(), Convert.ToString(false));
+                    nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISCROP).ToLower(), Convert.ToString(false));
+                    nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMAIN).ToLower(), Convert.ToString(false));
+                    nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(true));
+                    nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMASTER).ToLower(), "1");
+                    rabbitmqPublish.PublishToQueue(ConfigurationManager.AppSettings["ImageQueueName"], nvc); 
+                }
 
 				BindPhotos();
 				

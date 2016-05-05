@@ -11,6 +11,9 @@ using System.Data.OleDb;
 using System.IO;
 using System.Web.Security;
 using System.Security.Cryptography;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
+using System.Data;
 
 namespace Bikewale.Common 
 {
@@ -222,22 +225,25 @@ namespace Bikewale.Common
         //if it exists then return true else return false
         public static bool CheckEmailWithBikeWale(string emailId)
         {
-            Database db = new Database();
             string sql = "";
-            SqlDataReader dr = null;
             bool exist = false;
 
-            sql = " SELECT email FROM Customers With(NoLock) WHERE email = @emailId";
-
-            SqlParameter[] param = { new SqlParameter("@emailId", emailId.Trim()) };
+            sql = " select email from customers  where email = @v_emailid limit 1";
 
             try
             {
-                dr = db.SelectQry(sql, param);
-                if (dr.Read())
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    exist = true;
-                }
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_emailid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],100, emailId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            exist = true;
+                        }
+                    }
+                } 
                 
             }
             catch (Exception err)
@@ -246,13 +252,7 @@ namespace Bikewale.Common
                 ErrorClass objErr = new ErrorClass(err, "CurrentUser.CheckEmailWithCarwale");
                 objErr.SendMail();
             }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
-
-                db.CloseConnection();
-            }
+ 
             return exist;
         }
 
@@ -283,9 +283,15 @@ namespace Bikewale.Common
                     StartSession(cd.Name, userIdTemp, cd.Email);
 
                     //update the isemailverified Budget of the customer
-                    sql = " Update Customers Set IsVerified = 1 Where Id = @userIdTemp";
-                    SqlParameter[] param = { new SqlParameter("@userIdTemp", userIdTemp) };
-                    db.UpdateQry(sql, param);
+                    sql = " update customers set isverified = 1 where id = @v_useridtemp";
+
+                    using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                    {
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@v_useridtemp", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],50, userIdTemp));
+
+                        MySqlDatabase.UpdateQuery(cmd);
+                    }
+
                 }
             }
             catch (Exception err)
@@ -302,20 +308,21 @@ namespace Bikewale.Common
             string sql = "";
             string mappedCustomerId = "";
 
-            sql = " SELECT CustomerId FROM MapDealers With(NoLock) WHERE DealerId = @dealerId";
-
-            SqlParameter[] param = { new SqlParameter("@dealerId", dealerId) };
-
-            Database db = new Database();
-            SqlDataReader dr = null;
+            sql = " select customerid from mapdealers where dealerid = @v_dealerid";
 
             try
             {
-                dr = db.SelectQry(sql, param);
-
-                if (dr.Read())
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    mappedCustomerId = dr[0].ToString();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId)); 
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr!=null && dr.Read())
+                        {
+                            mappedCustomerId = dr[0].ToString();
+                        }
+                    } 
                 }                
             }
             catch (Exception err)
@@ -323,13 +330,7 @@ namespace Bikewale.Common
                 ErrorClass objErr = new ErrorClass(err, "CurrentUser.AutomaticLogin");
                 objErr.SendMail();
             }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
 
-                db.CloseConnection();
-            }
             return mappedCustomerId;
         }
 

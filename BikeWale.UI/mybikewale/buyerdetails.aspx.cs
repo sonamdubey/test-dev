@@ -5,6 +5,8 @@ using System.Web.UI.WebControls;
 using Bikewale.Common;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.MyBikeWale
 {
@@ -54,19 +56,21 @@ namespace Bikewale.MyBikeWale
             {
                 db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetClassifiedIndividualBuyerDetails";
+                    cmd.CommandText = "getclassifiedindividualbuyerdetails";  
+                    //cmd.Parameters.Add("@inquiryid", SqlDbType.BigInt).Value = inquiryId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], inquiryId)); 
 
-                    cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
-
-                    ds = db.SelectAdaptQry(cmd);
-
-                    if (ds != null && ds.Tables[0].Rows.Count > 0)
+                    using (DataSet dr = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
-                        rptBuyersList.DataSource = ds.Tables[0];
-                        rptBuyersList.DataBind();
+
+                        if (ds != null && ds.Tables[0].Rows.Count > 0)
+                        {
+                            rptBuyersList.DataSource = ds.Tables[0];
+                            rptBuyersList.DataBind();
+                        } 
                     }
                 }
             }
