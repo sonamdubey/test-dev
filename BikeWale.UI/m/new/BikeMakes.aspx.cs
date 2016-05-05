@@ -6,6 +6,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Memcache;
 using Bikewale.Mobile.controls;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile
 {
-    public class BikeMakes : System.Web.UI.Page
+    public class BikeMakes : PageBase
     {
         protected MUpcomingBikes ctrlUpcomingBikes;
         protected NewsWidget ctrlNews;
@@ -51,32 +52,26 @@ namespace Bikewale.Mobile
         { 
             //Function to process and validate Query String  
             if (ProcessQueryString())
-            {              
-                if (!Page.IsPostBack)
-                {
-                    //to get complete make page
-                    GetMakePage();
+            {       
+                //to get complete make page
+                GetMakePage();
 
-                    //To get Upcoming Bike List Details 
-                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                    ctrlUpcomingBikes.pageSize = 6;
-                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                //To get Upcoming Bike List Details 
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 6;
+                ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
 
-                    ////news,videos,revews
-                    ctrlNews.TotalRecords = 3;
-                    ctrlNews.MakeId = Convert.ToInt32(makeId);
+                ////news,videos,revews
+                ctrlNews.TotalRecords = 3;
+                ctrlNews.MakeId = Convert.ToInt32(makeId);
 
-                    ctrlExpertReviews.TotalRecords = 3;
-                    ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
-                    ctrlExpertReviews.MakeMaskingName = makeMaskingName;
+                ctrlExpertReviews.TotalRecords = 3;
+                ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
+                ctrlExpertReviews.MakeMaskingName = makeMaskingName;
 
-                    ctrlVideos.TotalRecords = 3;
-                    ctrlVideos.MakeMaskingName = makeMaskingName;
-                    ctrlVideos.MakeId = Convert.ToInt32(makeId);
-
-                    
-
-                }
+                ctrlVideos.TotalRecords = 3;
+                ctrlVideos.MakeMaskingName = makeMaskingName;
+                ctrlVideos.MakeId = Convert.ToInt32(makeId);
             }
         }
 
