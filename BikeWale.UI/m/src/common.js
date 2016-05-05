@@ -483,12 +483,15 @@ $(document).ready(function () {
                 $(this).parent().find('.swiper-lazy-preloader').remove();
         });
 
-        var bikeModelSwiper = $('#bikeBannerImageCarousel')[0].swiper;
-        var currentMainStageActiveImage;        
-        bikeModelSwiper.on('slideChangeStart', function () {
-            currentMainStageActiveImage = $('#bikeBannerImageCarousel .stage').find(".swiper-slide.swiper-slide-active img");
-            $('#bikeBannerImageCarousel').css({ 'height': currentMainStageActiveImage.height() });
-        });
+        if ($('#bikeBannerImageCarousel')[0] != undefined) {
+            var bikeModelSwiper = $('#bikeBannerImageCarousel')[0].swiper;
+
+            var currentMainStageActiveImage;        
+            bikeModelSwiper.on('slideChangeStart', function () {
+                currentMainStageActiveImage = $('#bikeBannerImageCarousel .stage').find(".swiper-slide.swiper-slide-active img");
+                $('#bikeBannerImageCarousel').css({ 'height': currentMainStageActiveImage.height() });
+            });
+        }
         
     });
     // common autocomplete data call function
