@@ -74,7 +74,7 @@
             </a>
         </li>
         <li>
-            <a href="/finance/emicalculator.aspx">
+            <a href="/bike-loan-emi-calculator/">
                 <span class="bwsprite forum-icon"></span>
                 <span class="navbarTitle">Tools</span>
             </a>
