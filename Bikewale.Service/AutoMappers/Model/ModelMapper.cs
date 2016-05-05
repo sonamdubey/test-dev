@@ -238,8 +238,8 @@ namespace Bikewale.Service.AutoMappers.Model
                 if (objModelPage.ModelDetails.Futuristic && objModelPage.UpcomingBike != null && objModelPage.ModelDetails != null)
                 {
                     objDTOModelPage.ExpectedLaunchDate = objModelPage.UpcomingBike.ExpectedLaunchDate;
-                    objDTOModelPage.ExpectedPrice = Format.FormatPrice(objModelPage.UpcomingBike.EstimatedPriceMin.ToString(), objModelPage.UpcomingBike.EstimatedPriceMax.ToString());
-
+                    objDTOModelPage.ExpectedMinPrice = objModelPage.UpcomingBike.EstimatedPriceMin;
+                    objDTOModelPage.ExpectedMaxPrice = objModelPage.UpcomingBike.EstimatedPriceMax;
                 }
             }
             catch (System.Exception)
