@@ -20,6 +20,7 @@
                 <li><a href="/m/new/locate-dealers/">Locate Dealer</a></li>
                 <li><a href="/m/upcoming-bikes/">Upcoming Bikes</a></li>
                 <li><a href="/m/new-bikes-launches/">New Launches</a></li>
+                <li><a href="/m/bikebooking/">Book Your Bike</a></li>
             </ul>
         </li>
         <li>
@@ -36,7 +37,7 @@
                 <li><a href="/m/bike-videos/">Videos</a></li>
             </ul>
         </li>
-        <li>
+        <%--<li>
             <a href="javascript:void(0)">
                 <span class="bwmsprite newBikes-icon"></span>
                 <span class="navbarTitle">Bike Booking</span>
@@ -47,7 +48,7 @@
                 <li><a href="/m/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
                 <li><a href="/m/bikebooking/cancellation.aspx">Cancel Your Booking</a></li>
             </ul>
-        </li>
+        </li>--%>
         <li>
             <a href="/m/insurance/">
                 <span class="bwmsprite insurance-icon"></span>

@@ -166,6 +166,7 @@
     <Compile Include="PriceQuote\PQUpdateOutput.cs" />
     <Compile Include="PriceQuote\UpdatePQCustomerInput.cs" />
     <Compile Include="PriceQuote\UpdatePQCustomerOutput.cs" />
+    <Compile Include="PriceQuote\Version\PQByCityArea.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
     <Compile Include="Version\ModelVersionList.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteInput.cs" />

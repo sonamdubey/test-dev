@@ -363,7 +363,7 @@
                         </div>
 
                         <div class="clear"></div>
-                        <input type="button" value="Next" class="btn btn-orange btn-full-width" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
+                        <input type="button" value="Next" leadSourceId="22" class="btn btn-orange btn-full-width" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
                     </div>
 
                     <div id="payDetails" data-bind="visible: CurrentStep() > 2" style="display: none">
@@ -379,31 +379,16 @@
         </section>
         <div class="clear"></div>
 
-        <div class="content-box-shadow content-inner-block-15 margin-top15 margin-bottom15 text-medium-grey text-center">
+        <%--<div class="content-box-shadow content-inner-block-15 margin-top15 margin-bottom15 text-medium-grey text-center">
             <p class="text-medium-grey font14 margin-bottom10">In case of queries call us toll-free on:</p>
             <a href="tel:1800 120 8300" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="bwmsprite tel-green-icon margin-right5"></span>1800 120 8300</a>
-        </div>
+        </div>--%>
 
         <section class="container margin-bottom30 content-box-shadow">
             <div class="lazy booking-how-it-works" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/howitworks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
-        <% if (ctrlUsersTestimonials.FetchedCount > 0)
-           { %>
-        <section class="bg-white">
-            <div id="testimonialWrapper" class="content-box-shadow padding-top15 padding-bottom20 margin-bottom30">
-                <h2 class="text-bold text-center margin-bottom15 font24">What do our customers say</h2>
-                <div class="swiper-container text-center">
-                    <div class="swiper-wrapper padding-bottom20">
-                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </section>
-        <%
-           }          
-        %>
+       
 
 
         <!-- Terms and condition Popup start -->
@@ -497,39 +482,42 @@
                 <div class="cancellation-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
                 <h1>Cancellation & Refund Policy</h1>
                 <div class="lower-alpha-list">
-                    <ol>
-                        <li><strong>a. </strong>Cancellation must be requested <strong>within 15 calendar days of booking the vehicle.</strong></li>
-                        <li><strong>b. </strong>Cancellation & Refund PolicyYou can conveniently place your cancellation request at BikeWale <a href="/m/bikebooking/cancellation.aspx" target="_blank" >Cancellation Section</a> in 2 simple steps. You can also reach the cancellation section from the navigation menu on the top left corner.</li>
-                        <li><strong>c. Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
-                        <li><strong>d. </strong>If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
-                        <li><strong>e. </strong>For all valid requests, we will process the refund of full booking amount to customer’s account within 7 working days.</li>
-                    </ol>
+                    <ul>
+                            <li><strong>a.</strong> Cancellation must be requested <strong>within 15 days of booking the vehicle.</strong></li>
+                            <li><strong>b.</strong> To cancel the booking, you will have to reach out to the dealership and inform about the cancellation request mentioning booking reference number and your mobile number (that you used while booking).</li>
+                            <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
+                                    of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
+                                    submitting any documents, procurement of the vehicle by the dealership etc.
+                            </li>
+                            <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
+
+                            <li><strong>e.</strong> For all valid cancellation requests, full booking amount will be refunded back to you by the dealership within 15 working days.</li>
+                            <li><strong>f.</strong> Should you have any concerns regarding cancelling your booking, please feel free to write to us at <a href="mailto:contact@bikewale.com">contact@bikewale.com</a>.</li>
+                        </ul>
                 </div>
             </div>
         </div>
         <!--Cancellation & refund policy popup ends here-->
-        <section>
-            <div class="container margin-bottom30">
-                <div id="faqSlug">
-                    <div class="faq-slug-container content-box-shadow content-inner-block-20">
-                        <div class="question-icon-container text-center leftfloat">
-                            <div class="icon-outer-container rounded-corner50percent">
-                                <div class="icon-inner-container rounded-corner50percent">
-                                    <span class="bwmsprite question-mark-icon margin-top20"></span>
-                                </div>
-                            </div>
+       <section>
+            <div id="faqsWraper" class="container margin-bottom30">
+                <h2 class="padding-top25 text-center padding-bottom20">FAQs</h2>
+                <div class="swiper-container padding-left10 margin-bottom15">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <p class="font16">How can I book a bike on BikeWale?</p>
+                            <p class="font14 text-light-grey">To book a bike, you have to pay a fixedbooking amount online mentioned against the...<a href="/m/faq.aspx#2" target="_blank">read more</a></p>
                         </div>
-                        <div class="question-text-container leftfloat padding-left15">
-                            <p class="question-title font16 text-bold text-black">Questions?</p>
-                            <p class="question-subtitle text-light-grey font14">
-                                We’re here to help.<br />
-                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a>
-                            </p>
+                        <div class="swiper-slide">
+                            <p class="font16">Where do I have to pay the balance amount? How much will it be?</p>
+                            <p class="font14 text-light-grey">You will pay the balance amount directly to the assigned...<a href="/m/faq.aspx#14" target="_blank">read more</a></p>
                         </div>
-                        <div class="clear"></div>
+                        <div class="swiper-slide">
+                            <p class="font16">How will I get the benefits of the offers?</p>
+                            <p class="font14 text-light-grey">Depending upon the offer, you will get the benefit of some offers directly at the...<a href="/m/faq.aspx#16" target="_blank">read more</a></p>
+                        </div>
                     </div>
                 </div>
-                <div class="clear"></div>
+                <p class="padding-left10 padding-right10 font14 text-center">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a> or <a href="mailto:contact@bikewale.com" target="_blank">email</a> us</p>
             </div>
         </section>
 
@@ -547,6 +535,7 @@
             var pageUrl = '<%= pageUrl%>';
             var areaId = '<%= areaId%>';
             var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+            var ga_pg_id= '14';
         </script>
         <script type="text/javascript">
             //Need to uncomment the below script
@@ -586,6 +575,7 @@
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingflow.js?<%= staticFileVersion %>" type="text/javascript"></script>
 
         <script type="text/javascript">
+            var leadSourceId;
             <% if (objCustomer != null && objCustomer.objCustomerBase != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))
                { %>
             viewModel.Customer().Name('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))?objCustomer.objCustomerBase.CustomerName:String.Empty %>');
@@ -606,7 +596,6 @@
                 $(id).closest('li').nextAll('li').toggleClass('hide');
                 $(id).text($(id).text() == '(view more)' ? '(view less)' : '(view more)');
             };
-
         </script>
 
     </form>

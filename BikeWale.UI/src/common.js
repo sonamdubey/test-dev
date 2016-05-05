@@ -347,7 +347,7 @@ function GetGlobalCityArea() {
     var cookieName = "location";
     var cityArea = '';
     if (isCookieExists(cookieName)) {
-        var arrays = getCookie(cookieName).split("_");
+        var arrays = getCookie(cookieName).split(",")[0].split("_");
         if (arrays.length > 2) {
             cityArea = arrays[1] + '_' + arrays[3];
         }
@@ -633,9 +633,9 @@ function pushNavMenuAnalytics(menuItem) {
                 if (options.source == '1') {
                     if (item.payload.modelId > 0) {
                         if (item.payload.futuristic == 'False') {
-                            ulItem.append('<a href="#" pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Get on road price</a>');
+                            ulItem.append('<a href="#" pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
                         } else {
-                            ulItem.append('<span class="upcoming-link">coming soon</span>')
+                            ulItem.append('<span class="upcoming-link">coming soon</span>');
                         }
 
                         ulItem.append('<div class="clear"></div>');

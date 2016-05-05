@@ -190,7 +190,7 @@ namespace Bikewale.BAL.PriceQuote
             PQByCityAreaEntity pqEntity = new PQByCityAreaEntity();
             try
             {
-                PQOnRoadPrice pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId);
+                PQOnRoadPrice pqOnRoad = null;
                 if (cityId > 0)
                 {
                     IEnumerable<CityEntityBase> cityList = FetchCityByModelId(modelID);

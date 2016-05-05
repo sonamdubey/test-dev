@@ -116,7 +116,11 @@
 
                             <div id="otpPopup" class="rounded-corner2 text-center" style="display: none;" data-bind="with : Customer">
                                 <div class="otpPopup-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                                <div class="margin-top10 margin-bottom20"><span class="booking-flow-sprite otp-icon"></span></div>
+                                <div class="icon-outer-container rounded-corner50 margin-bottom20">
+                                    <div class="icon-inner-container rounded-corner50">
+                                        <span class="bwsprite booking-otp-icon margin-top25"></span>
+                                    </div>
+                                </div>
                                 <p class="font18 margin-bottom20">Verify your mobile number</p>
                                 <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
                                 <div>
@@ -152,9 +156,9 @@
 
                         </div>
                         <div class="grid-12 alpha margin-top15 query-number-container">
-                            <p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
+                            <%--<p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>--%>
                             <%-- <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps">--%>
-                            <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
+                            <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" leadSourceId="16" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
                         </div>
                         <div class="clear"></div>
 
@@ -366,7 +370,7 @@
                                 <div class="clear"></div>
                             </div>
                             <div class="grid-12 alpha margin-top15 query-number-container">
-                                <p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
+                                <%--<p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>--%>
                                 <%--<input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps">--%>
                                 <input type="submit" runat="server" value="Make payment" class="btn btn-orange rightfloat" id="deliveryDetailsNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);}">
                             </div>
@@ -469,25 +473,26 @@
         </div>
         <!-- Terms and condition Popup Ends -->
         <!--cancellation popup starts here-->
-        <div class="bw-popup bw-popup-lg cancellation-popup hide">
-            <div class="popup-inner-container">
-                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                <h2>Cancellation & Refund Policy</h2>
-                <div class="popup-inner-content cancellation-list">
-                    <ul>
-                        <li><strong>a.</strong> Cancellation must be requested <strong>within 15 calendar days of booking the vehicle.</strong> </li>
-                        <li><strong>b.</strong>  You can conveniently place your cancellation request at BikeWale <a href="/bikebooking/cancellation.aspx" target="_blank">cancellation section</a> in 2 simple steps. You can also reach the cancellation section from the navigation menu on the top left corner.</li>
-                        <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
-                                of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
-                                submitting any documents, procurement of the vehicle by the dealership etc.
-                        </li>
-                        <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
+            <div class="bw-popup bw-popup-lg cancellation-popup hide">
+                <div class="popup-inner-container">
+                    <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                    <h2>Cancellation & Refund Policy</h2>
+                    <div class="popup-inner-content cancellation-list">
+                        <ul>
+                            <li><strong>a.</strong> Cancellation must be requested <strong>within 15 days of booking the vehicle.</strong></li>
+                            <li><strong>b.</strong> To cancel the booking, you will have to reach out to the dealership and inform about the cancellation request mentioning booking reference number and your mobile number (that you used while booking).</li>
+                            <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
+                                    of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
+                                    submitting any documents, procurement of the vehicle by the dealership etc.
+                            </li>
+                            <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
 
-                        <li><strong>e.</strong> For all valid requests, we will process the refund of full booking amount to customer's account within 7 working days.</li>
-                    </ul>
+                            <li><strong>e.</strong> For all valid cancellation requests, full booking amount will be refunded back to you by the dealership within 15 working days.</li>
+                            <li><strong>f.</strong> Should you have any concerns regarding cancelling your booking, please feel free to write to us at <a href="mailto:contact@bikewale.com">contact@bikewale.com</a>.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
         <!--cancellation popup ends here-->
 
         <section class="container margin-top10 lazy content-box-shadow booking-how-it-works" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/howItWorks.png?<%= staticFileVersion %>">
@@ -495,54 +500,27 @@
             <div class="clear"></div>
         </section>
 
-        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
-
-        <% if (ctrlUsersTestimonials.FetchedCount > 0)
-           { %>
-        <section>
-            <div class="container margin-bottom30">
-                <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">What do our customers say</h2>
-                    <diV class="content-box-shadow padding-top20">
-                        <div id="testimonialWrapper">
-                            <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
-                        </div>
-                    </diV>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-        <%
-           }
-           else
-           {
-        %>
-        <section>
-            <div class="container margin-bottom30">
-                <div class="grid-12">
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-        <%           
-           }
-        %>
+        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />          
 
         <section>
-            <div class="container margin-bottom30">
+            <div id="faqsWraper" class="container margin-bottom30">
                 <div class="grid-12">
-                    <div class="content-box-shadow content-inner-block-20">
-                        <div class="inline-block text-center margin-right30">
-                            <div class="icon-outer-container rounded-corner50">
-                                <div class="icon-inner-container rounded-corner50">
-                                    <span class="bwsprite question-mark-icon margin-top25"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="inline-block">
-                            <h3 class="margin-bottom10">Questions?</h3>
-                            <p class="text-light-grey font14">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <span class="text-dark-grey">1800 120 8300</span></p>
-                        </div>
+                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">FAQs</h2>
+                    <div class="grid-4 content-box-shadow content-inner-block-20">
+                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
+                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted...<a href="/faq.aspx#2" target="_blank">read more</a></p>
+                    </div>
+                    <div class="grid-4 content-box-shadow content-inner-block-20 margin-left20 margin-right20">
+                        <p class="font16 margin-bottom20">Where do I have to pay the balance amount? How much will it be?</p>
+                        <p class="font14 text-light-grey">You will pay the balance amount directly to the assigned dealership during your visit to the showroom. The...<a href="/faq.aspx#14" target="_blank">read more</a></p>
+                    </div>
+                    <div class="grid-4 content-box-shadow content-inner-block-20">
+                        <p class="font16 margin-bottom20">How will I get the benefits of the offers?</p>
+                        <p class="font14 text-light-grey">Depending upon the offer, you will get the benefit of some offers directly at the dealership, while taking...<a href="/faq.aspx#16" target="_blank">read more</a></p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="margin-top20 font14 text-center">
+                        <p>We’re here to help. Read our <a href="/faq.aspx" target="_blank" class="text-blue">FAQs</a> or <a href="mailto:contact@bikewale.com" target="_blank" >email</a> us</p>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -555,6 +533,7 @@
         <!-- #include file="/includes/footerBW.aspx" -->
 
         <script type="text/javascript">
+            var leadSourceId;
             $(document).ready(function() {
                 applyLazyLoad();
             });
@@ -587,7 +566,7 @@
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
             }
-
+            var ga_pg_id= '14';
         </script>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/booking.js?<%= staticFileVersion %>"></script>

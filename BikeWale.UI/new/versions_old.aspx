@@ -140,7 +140,7 @@
                     &nbsp;&nbsp;<a id="emiLoan" class="reviewLink <%=String.IsNullOrEmpty(mmv.MinPrice)?"hide":"" %>">Get EMI Assistance </a></div>
                 <% } %>
                 <div class="action-btn padding5 <%= String.IsNullOrEmpty(mmv.MinPrice) || (mmv.IsNew==false && mmv.IsUsed==true) ? "hide" : "" %>">
-                    <a href="/pricequote/default.aspx?model=<%=modelId %>" pageCatId="3" class="fillPopupData" modelId="<%=modelId%>">Check On Road Price</a>
+                    <a href="/pricequote/default.aspx?model=<%=modelId %>" pageCatId="3" class="fillPopupData" modelId="<%=modelId%>">Check On-Road Price</a>
                 </div>
                 <BikeWale:BikeRatings runat="server" ID="ctrl_BikeRatings" />
 
@@ -187,7 +187,7 @@
                     &nbsp;&nbsp;<a id="emiLoanNotRated" class="reviewLink <%=String.IsNullOrEmpty(mmv.MinPrice)?"hide":"" %>">Get EMI Assistance </a></div>
                 <% } %>
                 <div class="action-btn padding5 <%= String.IsNullOrEmpty(mmv.MinPrice) || (mmv.IsNew==false && mmv.IsUsed==true) ? "hide" : "" %>">
-                    <a href="/pricequote/default.aspx?model=<%=modelId %>" class="fillPopupData" pageCatId="3" modelId="<%=modelId %>">Check On Road Price</a>
+                    <a href="/pricequote/default.aspx?model=<%=modelId %>" class="fillPopupData" pageCatId="3" modelId="<%=modelId %>">Check On-Road Price</a>
                 </div>
                 <div>
                     <span class='reviewText'>No review available for this model.</span><br><a rel='nofollow' class='reviewLink' href='<%= reviewLink %>'>Be the first one to write  a review</a>

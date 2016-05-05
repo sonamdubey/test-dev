@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div style="margin-left: 180px;" class="mid-box margin-top15">
-                            <asp:button id="btnSavePriceQuote" class="action-btn text_white" text="Get On-road Price" runat="server" />
+                            <asp:button id="btnSavePriceQuote" class="action-btn text_white" text="Check On-Road Price" runat="server" />
                         </div>
                     </div>
                 </div>

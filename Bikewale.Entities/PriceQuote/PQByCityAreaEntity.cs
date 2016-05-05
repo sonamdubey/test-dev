@@ -13,8 +13,9 @@ namespace Bikewale.Entities.PriceQuote
         public bool IsAreaExists { get; set; }
         public bool IsAreaSelected { get; set; }
         public bool IsExShowroomPrice { get; set; }
-        public IEnumerable<BikeVersionMinSpecs> VersionList { get; set; }
         public uint DealerId { get; set; }
         public ulong PqId { get; set; }
+        public IEnumerable<BikeVersionMinSpecs> VersionList { get; set; }
+
     }
 }

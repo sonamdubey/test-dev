@@ -79,7 +79,7 @@
             
                     <div class="faq-content content-box-shadow content-inner-block-10 margin-bottom10" id="faq8">
                         <h3>I have booked a model. Now I want to change it to another model?</h3>
-                        <p>We recommend you to thoroughly make up your mind for the vehicle of your choice before booking and should avoid changing it later. However, if you make a mistake and want to change the bike model, you can email us on <a href="mailto:contact@bikewale.com">contact@bikewale.com</a> with the subject as <strong>‘Booking Change Request’</strong> stating the reason for the same, clearly stating the booking reference number, your mobile number (that you used while booking), along with the new model you now want to book. We will reply within 2 working days to confirm the change of booking to the new bike model.</p>
+                        <p>We recommend you to thoroughly make up your mind for the vehicle you wish to purchase before you proceed for booking. You should avoid changing it later. However, if you still wish to change the model that you have booked on BikeWale, you can reach out to the dealership mentioning the BikeWale booking reference number, your mobile number (that you used while booking), along with the new model you now wish to book. If the vehicle is available with the dealership then he may allow you to change the model. However, it is at the dealer's discretion whether this change is permitted. Should you have any concerns regarding changing the bike model with the dealership, please feel free to write to us at <a class="blue" href="mailto:contact@bikewale.com">contact@bikewale.com</a>.</p>
                     </div>
             
                     <div class="faq-content content-box-shadow content-inner-block-10 margin-bottom10" id="faq9">
@@ -89,25 +89,23 @@
             
                     <div class="faq-content content-box-shadow content-inner-block-10 margin-bottom10" id="faq10">
                         <h3>I want to cancel the booking. How can I do that? What happens to the refund?</h3>
-                        <p>BikeWale strongly recommends you to carefully select your bike before booking. However, you still have the option to cancel a booking in case you change your mind. For all valid cancellation requests, full booking amount will be refunded back to you. 
-                            You can conveniently place your cancellation request at BikeWale <a href="/m/bikebooking/cancellation.aspx">cancellation section</a> in 2 simple steps. You can also reach the <a href="/m/bikebooking/cancellation.aspx">cancellation section</a> from the navigation menu on the top left corner.
-                            Please note the following conditions to request cancellation and avail refund.<br><br>
+                        <p>BikeWale strongly recommends you to carefully select your bike before booking. However, you still have the option to cancel a booking in case you change your mind. To cancel the booking, you will have to reach out to the dealership and inform about the cancellation request mentioning booking reference number and your mobile number (that you used while booking). For all valid cancellation requests, full booking amount will be refunded back to you by the dealership. Should you have any concerns regarding cancelling your booking, please feel free to write to us at contact@bikewale.com.<br>
                         <strong>The important conditions for cancellation</strong> are following:</p>
                         <ol>
-                            <li>Cancellation must be requested within <strong>15 calendar days of booking the vehicle.</strong></li>
+                    	    <li>Cancellation must be requested <strong>within 15 days</strong> of booking the vehicle.</li>
                             <li><strong>Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
-                            <li>If the dealer has initiated the procurement of the bike upon your booking, cancellation will not be possible.</li>
+                            <li>If the dealer has initiated the procurement of the bike based upon your booking, cancellation will not be possible.</li>
                         </ol>
                     </div>
             
                     <div class="faq-content content-box-shadow content-inner-block-10 margin-bottom10" id="faq11">
                         <h3>When will I get my money refunded, once I request cancellation?</h3>
-                        <p>Upon requesting a cancellation, our team will verify with the dealership. Post successful verification, we will confirm your cancellation request and initiate the refund. The booking amount should be credited back to your account within 15 working days.</p>
+                        <p>Upon requesting a cancellation with the dealership, the dealership will initiate the refund process. The booking amount will be refunded to you within 15 working days.</p>
                     </div>
             
                     <div class="faq-content content-box-shadow content-inner-block-10 margin-bottom10" id="faq12">
                         <h3>Will I be charged any fee for cancellation?</h3>
-                        <p>No, there is no fee for cancellation. Full booking amount will be refunded to your account within 15 working days.</p>
+                        <p>No, there is no fee for cancellation. Full booking amount will be refunded to you within 15 working days.</p>
                     </div>
             
                     <div class="faq-content content-box-shadow content-inner-block-10 margin-bottom10" id="faq13">

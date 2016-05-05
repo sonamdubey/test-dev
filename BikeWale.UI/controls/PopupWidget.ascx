@@ -55,7 +55,7 @@
                 <span class="position-abt progress-bar"></span>
             </div>           
                         
-            <input id="btnDealerPricePopup" class="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Get on road price" data-bind="click: getPriceQuotePopup, enable: (!hasAreas() && bookingCities().length > 0) || (hasAreas && bookingAreas().length > 0)">
+            <input id="btnDealerPricePopup" class="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Show On-Road Price" data-bind="click: getPriceQuotePopup, enable: (!hasAreas() && bookingCities().length > 0) || (hasAreas && bookingAreas().length > 0)">
         </div>
     </div>
 </div>
@@ -332,10 +332,7 @@
                     if ($('#ddlAreaPopup option:selected').index() > 0) {
                         selArea = '_' + $('#ddlAreaPopup option:selected').html();
                     }
-                    bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea;
-                    if (bikeVersionLocation != null) {
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_On_Road_Price_Selected', 'lab': bikeVersionLocation });
-                    }
+                    bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea;                  
                 }
                 catch (err) { }
                 window.location.reload();
@@ -349,9 +346,9 @@
                     'SourceType': '1',
                     'VersionId': 0,
                     'pQLeadId': PQSourceId,
-                    'deviceId': getCookie('BWC')
+                    'deviceId': getCookie('BWC'),
+                    'refPQId': typeof pqId != 'undefined' ? pqId : ''
                 };
-
                 $.ajax({
                     type: 'POST',
                     url: "/api/PriceQuote/",

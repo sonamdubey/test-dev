@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.BikeData;
 using System.Collections;
-using Bikewale.Entities.BikeData;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
 {
@@ -33,7 +29,7 @@ namespace Bikewale.Interfaces.BikeData
         /// <param name="topCount"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        List<MostPopularBikesBase> GetMostPopularBikes(int? topCount=null, int? makeId = null);
+        List<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null);
         /// <summary>
         /// To get Most popular Bikes based on MakeId
         /// </summary>
@@ -46,5 +42,6 @@ namespace Bikewale.Interfaces.BikeData
 
         List<FeaturedBikeEntity> GetFeaturedBikes(uint topRecords);
         IEnumerable<BikeMakeModelEntity> GetAllModels(EnumBikeType requestType);
+        List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew);
     }
 }

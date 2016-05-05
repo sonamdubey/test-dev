@@ -13,6 +13,8 @@ namespace Bikewale.DTO.PriceQuote
     /// Date    :   21 Aug 2015
     /// Modified by :   Sumit Kate on 08 Feb 2016
     /// Description :   Added Dealer Id as new property
+    /// Modified by :   Lucky Rathore on 20 April 2016
+    /// Description :   Added RefPQId as new property
     /// </summary>
     public class PQInput
     {
@@ -64,5 +66,8 @@ namespace Bikewale.DTO.PriceQuote
         /// </summary>
         [JsonProperty("dealerId")]
         public uint? DealerId { get; set; }
+
+        [JsonProperty("refPQId")]
+        public UInt64? RefPQId { get; set; }
     }
 }

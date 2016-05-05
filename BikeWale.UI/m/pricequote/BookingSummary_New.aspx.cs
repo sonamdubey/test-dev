@@ -27,6 +27,8 @@ namespace Bikewale.Mobile.PriceQuote
     /// <summary>
     /// Modified by :   Sumit Kate on 19 Jan 2016
     /// Description :   Added Users Testimonial Control
+    /// Modified By : Sushil Kumar on 20th April 2016
+    /// Description : Remove ctrlUsersTestimonials section as testimonials are removed
     /// </summary>
     public class BookingSummary_New : System.Web.UI.Page
     {
@@ -41,7 +43,6 @@ namespace Bikewale.Mobile.PriceQuote
         protected BookingPageDetailsEntity objBooking = null;
         protected PQCustomerDetail objCustomer = null;
         protected PQ_DealerDetailEntity dealerDetailEntity = null;
-        protected UsersTestimonials ctrlUsersTestimonials;
 
         protected override void OnInit(EventArgs e)
         {
@@ -53,8 +54,6 @@ namespace Bikewale.Mobile.PriceQuote
         {
             ProcessCookie();
             BindBookingDetails();
-            ctrlUsersTestimonials.TopCount = 6;
-
         }
 
         void btnMakePayment_click(object Sender, EventArgs e)

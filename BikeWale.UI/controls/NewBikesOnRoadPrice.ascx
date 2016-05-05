@@ -43,7 +43,7 @@
         <div class="clear"></div>
     </div>
     <div class="get-final-price-btn">
-        <button id="btnDealerPriceOnRoad" tabindex="4" class="font16 btn btn-orange btn-lg rounded-corner-no-left" type="button" value="Get On-road Price" data-bind="event: { click: getPriceQuoteOnRoad }">Get on-road price</button>
+        <button id="btnDealerPriceOnRoad" tabindex="4" class="font16 btn btn-orange btn-lg rounded-corner-no-left" type="button" value="Check On-Road Price" data-bind="event: { click: getPriceQuoteOnRoad }">Check On-Road Price</button>
     </div>
     <div class="clear"></div>
 </div>

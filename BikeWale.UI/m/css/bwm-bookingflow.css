@@ -195,3 +195,6 @@ zoom: 1; vertical-align:middle; margin-right:7px; }
 .select-color-box.color-count-two span:first-child { width:100%; height:60%; background:#545454; }
 .select-color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
 #customizeBike ul.select-colorUL li.selected-color span.select-color-box.color-count-two + span.color-title-box { top:-37px; }
+
+#faqsWraper .swiper-container { width:100%; height:auto; }
+#faqsWraper .swiper-slide { width:270px; height:165px; line-height:1.7; padding:18px; background:#fff; border:1px solid #ccc; }

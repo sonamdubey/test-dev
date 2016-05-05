@@ -14,6 +14,8 @@ namespace Bikewale.Notifications.MailTemplates
     /// Summary : To send Email to customer on payment success
     /// Modified By  : Sushil Kumar on 26th Feb 2016
     /// Description : Added check for offerslist and made provision not to show offer text if no offers are available
+    /// Modified By : Sushil Kumar on 20th April 2016
+    /// Description : Removed contact us number and text 
     /// </summary>
     public class PreBookingConfirmationToCustomer : ComposeEmailBase
     {
@@ -105,7 +107,7 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.Append("</div><div style=\"background:url(http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/red-border.png) no-repeat center center; height:2px; width:100%\"></div><div style=\"padding:10px 0;\">");
                 sb.Append("<p style=\" margin:7px 0;\">You would get a call from the dealership for next steps. Dealership will schedule your visit to the showroom to proceed with further buying process. The offer benefits will be shipped to you once you take delivery of the vehicle.</p>");
                 sb.Append("<p style=\" margin:7px 0;\">Should you choose to cancel or change your pre-booking, please write us at <a style=\"text-decoration:none; color:#034fb6;\" href=\"mailto:contact@bikewale.com\">contact@bikewale.com</a>. Please mention the Pre-booking Reference Number and your mobile number in all correspondence. You can go through our <a target=\"_blank\" href=\"http://www.bikewale.com/pricequote/CancellationPolicy.aspx\" style=\"text-decoration:none; color:#034fb6;\">Cancellation Policy</a> and <a target=\"_blank\" href=\"http://www.bikewale.com/pricequote/faq.aspx\" style=\"text-decoration:none; color:#034fb6;\">FAQs</a> here.</p>");
-                sb.Append("<p style=\" margin:7px 0;\">Wishing you a great buying experience!</p><p style=\" margin:7px 0;\">Please feel free to call us at 1800 120 8300 for any help required in the process.</p>");
+                sb.Append("<p style=\" margin:7px 0;\">Wishing you a great buying experience!</p>");
                 sb.Append("</div><div style=\"padding:10px 0 0;\"><p style=\" margin:5px 0;\">Best Regards,</p><p style=\" margin:5px 0;font-weight:bold; margin:0;\">Team BikeWale</p>");
                 sb.Append("</div><div style=\"margin-top:20px; margin-bottom:10px; max-width:670px;\"><a href=\"https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=BookingMailer&utm_medium=email&utm_campaign=UserBookingMail\" target=\"_blank\"><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-footer-banner.jpg\" style=\"border:0; width:100%\"></a>");
                 sb.Append("</div></div></div></div><div style=\"background:url(http://imgd4.aeplcdn.com/0x0/bw/static/design15/mailer-images/bottom-shadow.png) center center #eeeeee no-repeat; height:9px; width:100%\"></div>");

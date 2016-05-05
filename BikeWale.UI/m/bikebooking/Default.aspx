@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.bikebooking.Default" %>
-<%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html>
 
 <html>
@@ -175,26 +174,6 @@
                 </ul>
             </div>
         </section>
-
-        
-         <% if (ctrlUsersTestimonials.FetchedCount > 0 )
-           { %>
-        <section class="bg-white">
-            <div id="testimonialWrapper" class="container padding-bottom20">
-                <h2 class="text-bold text-center padding-top30 margin-bottom15 font24">What do our customers say</h2>
-                <div class="swiper-container text-center">
-                    <div class="swiper-wrapper padding-bottom20">
-                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </section>
-        <%
-           }        
-        %>
-
-
         <section>
             <div id="faqsWraper" class="container margin-bottom30">
                 <h2 class="padding-top25 text-center padding-bottom20">FAQs</h2>
@@ -214,7 +193,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="padding-left10 padding-right10 font14 text-center">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com" target="_blank">email</a> or call us on <a href="tel:18001208300" class="text-grey text-bold">1800 120 8300</a></p>
+                <p class="padding-left10 padding-right10 font14 text-center">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a> or <a href="mailto:contact@bikewale.com" target="_blank">Email Us</a> <%--or call us on <a href="tel:18001208300" class="text-grey text-bold">1800 120 8300</a>--%></p>
             </div>
         </section>
         

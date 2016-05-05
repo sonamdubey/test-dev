@@ -213,13 +213,13 @@
             <div class="clear"></div>
         </section>
 
-        <section class="container contact-fixed">
+        <%--<section class="container contact-fixed">
             <div class="grid-12 text-white text-center">
                 <p class="margin-bottom25 font14 text-medium-grey text-center">In case of queries call us toll-free on:</p>
                 <p class="phone-box"><a href="tel:1800 120 8300" class="rounded-corner2" style="text-decoration: none;"><span class="bwmsprite tel-green-icon margin-right5"></span>1800 120 8300</a></p>
             </div>
             <div class="clear"></div>
-        </section>
+        </section>--%>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->

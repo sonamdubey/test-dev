@@ -189,7 +189,7 @@
                     <% } if (!string.IsNullOrEmpty(dealerDetails.MaskingNumber))
                        { %>
                     <div class="margin-bottom5">
-                        <a href="tel:<%= dealerDetails.MaskingNumber %>" class="text-default font16 text-bold"><span class="bwmsprite tel-sm-grey-icon"></span><%= dealerDetails.MaskingNumber %></a>
+                        <a href="tel:<%= dealerDetails.MaskingNumber %>" class="text-default font16 text-bold maskingNumber"><span class="bwmsprite tel-sm-grey-icon"></span><%= dealerDetails.MaskingNumber %></a>
                     </div>
                     <% } if (!string.IsNullOrEmpty(dealerDetails.WorkingHours))
                        { %>
@@ -221,7 +221,7 @@
                         <a id="calldealer" class="btn btn-white btn-full-width btn-sm rightfloat text-bold text-default font14" href="tel:<%= dealerDetails.MaskingNumber %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
                     </div>
                     <div class="grid-6 alpha omega padding-left10">
-                        <a id="getAssistance" class="btn btn-orange btn-full-width btn-sm rightfloat font14" href="javascript:void(0);">Get assistance</a>
+                        <a id="getAssistance" leadSourceId="21" class="btn btn-orange btn-full-width btn-sm rightfloat font14" href="javascript:void(0);">Get offers</a>
                     </div>
                 </div>
             </div>
@@ -232,8 +232,8 @@
             <div class="popup-inner-container text-center">
                 <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
                 <div id="contactDetailsPopup">
-                    <h2 class="margin-top10 margin-bottom10">Get more details on this bike</h2>
-                    <p class="text-light-grey margin-bottom10">Please provide contact info to see more details</p>
+                    <h2 class="margin-top10 margin-bottom10">Provide contact details</h2>
+                    <p class="text-light-grey margin-bottom10">Dealership will get back to you with offers</p>
 
                     <div class="personal-info-form-container">
                         <div class="dealer-search-brand form-control-box">
@@ -271,7 +271,7 @@
                             <ul id="sliderBrandList" class="slider-brand-list margin-top40">
                                 <asp:Repeater ID="rptModelList" runat="server">
                                     <ItemTemplate>
-                                        <li modelId="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId") %>" versionId="<%# DataBinder.Eval(Container.DataItem, "objVersion.VersionId") %>"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></li>
+                                        <li modelId="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId") %>" versionId="<%# DataBinder.Eval(Container.DataItem, "objVersion.VersionId") %>" bikeName="<%# DataBinder.Eval(Container.DataItem, "BikeName") + "_" + DataBinder.Eval(Container.DataItem, "objVersion.VersionName") %>"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></li>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </ul>
@@ -372,9 +372,10 @@
              var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>";                                              
              var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
              var pqSource = "<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail) %>";
-             var leadSrcId = "<%= Convert.ToUInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_MobileListing) %>";
-             var bodHt, footerHt, scrollPosition;                         
+             var bodHt, footerHt, scrollPosition, leadSourceId;                         
              var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
+             var makeName = "<%= makeName%>";
+             var cityArea = "<%= dealerCity + "_" + dealerArea%>";
 
             $(window).scroll(function () {
                 bodHt = $('body').height();
@@ -389,10 +390,12 @@
             });
            
             $("#getAssistance").on('click', function () {
+                leadSourceId = $(this).attr("leadSourceId");
                 $("#leadCapturePopup").show();
                 appendHash("assistancePopup");
                 $("div#contactDetailsPopup").show();
                 $("#otpPopup").hide();
+                triggerGA("Dealer_Locator_Detail", "Get_Offers_Clicked", makeName + "_" + cityArea);
             });
 
             /*need needmodification*/   

@@ -1,6 +1,5 @@
 ﻿using Bikewale.BAL.Dealer;
 using Bikewale.Common;
-using Bikewale.Controls;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Dealer;
@@ -13,19 +12,28 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.BikeBooking
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 22 Apr 2016
+    /// Description :   Removed User testimonial
+    /// </summary>
     public class Default : System.Web.UI.Page
     {
         protected DropDownList bookingCitiesList, bookingAreasList;
         List<CityEntityBase> bookingCities = null;
         IEnumerable<AreaEntityBase> bookingAreas = null;
         protected uint cityId = 0, areaId = 0;
-        protected UsersTestimonials ctrlUsersTestimonials;
 
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 22 Apr 2016
+        /// Description :   Removed User testimonial
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Ashish Kamble on 5 Feb 2016
@@ -37,9 +45,8 @@ namespace Bikewale.BikeBooking
             dd.DetectDevice();
             CheckLocationCookie();
             GetDealerCities();
-            ctrlUsersTestimonials.TopCount = 6;
         }
-        
+
 
         /// <summary>
         /// Created By : Sushil Kumar 
@@ -58,7 +65,7 @@ namespace Bikewale.BikeBooking
 
                     bookingCities = _objDealerPricequote.GetDealersBookingCitiesList();
 
-                    if (bookingCities!=null && bookingCities.Count > 0)
+                    if (bookingCities != null && bookingCities.Count > 0)
                     {
                         bookingCitiesList.DataSource = bookingCities;
                         bookingCitiesList.DataTextField = "CityName";
@@ -93,7 +100,7 @@ namespace Bikewale.BikeBooking
             try
             {
                 bookingAreas = new List<AreaEntityBase>();
-                using (IUnityContainer container = new UnityContainer())                        
+                using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IArea, AreaRepository>();
                     IArea _areaRepo = container.Resolve<IArea>();

@@ -50,7 +50,7 @@
                 <div id="errMsgPopup" class="text-red margin-bottom10 hide"></div>
                 <!-- ko if:SelectedCityId() > 0 &&  (SelectedAreaId() > 0 || !hasAreas()) -->
                 <span class="position-abt progress-bar btn-loader"></span>
-                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Get on road price</a>
+                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Show On-Road Price</a>
                 <!-- /ko -->
             </div>
         </div>
@@ -354,10 +354,7 @@
                         if (self.SelectedArea() != undefined) {
                             selArea = '_' + self.SelectedArea().name;
                         }
-                        bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + selArea;
-                        if (bikeVersionLocation != null) {
-                            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_On_Road_Price_Selected', 'lab': bikeVersionLocation });
-                        }
+                        bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + selArea;                        
                     }
                     catch (err) { }
                     window.location.reload();
@@ -376,7 +373,8 @@
                         'SourceType': '2',
                         'VersionId': 0,
                         'pQLeadId': PQSourceId,
-                        'deviceId': getCookie('BWC')
+                        'deviceId': getCookie('BWC'),
+                        'refPQId': typeof pqId != 'undefined' ? pqId : ''
                     };
                     $.ajax({
                         type: 'POST',

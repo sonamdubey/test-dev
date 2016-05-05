@@ -17,6 +17,7 @@
 .booking-tick-blue { background-position: -52px 0; }
 .payment-icon-grey { background-position: -52px -73px; }
 .otp-icon { width:102px; height:102px; background-position: 0 -111px; }
+.booking-otp-icon { width:30px; height:40px; background-position: -46px -391px; }
 
 .horizontal-line { width:730px; height:1px; background:#ccc; top:59px; }
 .border-light-grey { border:1px solid #e2e2e2; }
@@ -126,3 +127,5 @@ li.offertxt:hover span {display:inline}
 .select-color-box.color-count-three span:nth-child(3) { background:#eee; }
 
 #customizeBike ul.select-colorUL li.selected-color span.select-color-box.color-count-two + span.color-title-box { top:-37px; }
+#faqsWraper .grid-4 { width:312px; }
+#faqsWraper p.font14 { line-height:1.7; }

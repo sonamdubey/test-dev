@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.Default" %>  
-<%@ Register Src="~/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html>
 <html>
 <head>    
@@ -173,34 +172,6 @@
             </div>
         </section>
 
-        <% if (ctrlUsersTestimonials.FetchedCount > 0)
-           { %>
-        <section class="bg-white">
-            <div id="testimonialWrapper" class="container margin-bottom30">
-                <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
-                    <h2 class="text-bold text-center margin-top40 font28">What do our customers say</h2>
-                    <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-        <%
-           }
-           else
-           {
-        %>
-        <section>
-            <div class="container">
-                <div class="grid-12">
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-        <%           
-           }
-        %>
-
-
         <section>
             <div id="faqsWraper" class="container margin-bottom30">
                 <div class="grid-12">
@@ -219,7 +190,7 @@
                     </div>
                     <div class="clear"></div>
                     <div class="margin-top20 font14 text-center">
-                        <p>We’re here to help. Read our <a href="/faq.aspx" target="_blank" class="text-blue">FAQs</a>, <a href="mailto:contact@bikewale.com" target="_blank" >email</a> or call us on <span class="text-bold text-default">1800 120 8300</span></p>
+                        <p>We’re here to help. Read our <a href="/faq.aspx" target="_blank" class="text-blue">FAQs</a> or <a href="mailto:contact@bikewale.com" target="_blank" >Email Us</a> <%--or call us on <span class="text-bold text-default">(022) 6739 8888</span>--%></p>
                     </div>
                 </div>
                 <div class="clear"></div>
