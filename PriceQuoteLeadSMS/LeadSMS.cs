@@ -68,7 +68,7 @@ namespace PriceQuoteLeadSMS
                                         EmailToDealerSubject = Convert.ToString(dr["EmailToDealerSubject"]),
                                         CustomerId = Convert.ToUInt64(dr["CustomerId"]),
                                         CampaignId = Convert.ToString(dr["CampaignId"]),
-                                        LeadSourceId = Convert.ToUInt16(dr["LeadSourceId"])
+                                        LeadSourceId = !Convert.IsDBNull(dr["LeadSourceId"]) ? Convert.ToUInt16(dr["LeadSourceId"]) : default(UInt16)
                                     });
                                 }
                             }
