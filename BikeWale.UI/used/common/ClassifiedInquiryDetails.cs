@@ -7,6 +7,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 using Bikewale.Common;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.Used
 {
@@ -33,170 +35,137 @@ namespace Bikewale.Used
 			
 			Seller = "Individual";
 
-            sql = " SELECT CM.ID AS MakeId, CMO.ID AS ModelId, CV.ID AS VersionId, "
-                + " CM.Name AS Make,CM.MaskingName AS MakeMaskingName, CM.LogoUrl AS LogoUrl, CMO.Name AS Model,CMO.MaskingName AS ModelMaskingName, "
-                + " CV.Name AS Version, CV.LargePic AS BikeLargePicUrl, CV.BikeFuelType, CSI.Price AS Price, "
-                + " CSI.Kilometers AS Kilometers, CSI.MakeYear AS MakeYear, CSI.Color, "
-                + " CSI.Comments AS Comments, C.Name AS City,C.MaskingName AS CityMaskingName, St.Name State, St.StateCode, "
-                + " CSI.Owner AS Owners, CSI.InsuranceType AS Insurance, CSI.InsuranceExpiryDate AS InsuranceExpiry, "
-                + " CSI.LifetimeTax AS Tax, CSI.RegistrationPlace, CSI.Kilometers AS BikeDriven, CSI.Warranties, CSI.Modifications, "
-                + " Spc.Cylinders AS NoOfCylinders, Spc.TransmissionType, Spc.FuelType, "
-                + " CU.ID AS SellerId, CSI.CityId AS BikeCityId, "
-                + " CU.IsFake, Csi.StatusId, 0 AS IsDealer, "
-                + " Spc.FrontDisc, Spc.RearDisc, Spc.TubelessTyres, Spc.RadialTyres, Spc.AlloyWheels, "
-                + " Spc.PassLight, Spc.Tachometer, Spc.ShiftLight, Spc.ElectricStart, Spc.Tripmeter, Spc.LowFuelIndicator, Spc.LowOilIndicator, "
-                + " Spc.LowBatteryIndicator, Spc.FuelGauge, Spc.DigitalFuelGauge, Spc.PillionSeat, Spc.PillionFootrest, Spc.PillionBackrest, "
-                + " Spc.PillionGrabrail, Spc.StandAlarm, Spc.SteppedSeat, Spc.AntilockBrakingSystem, Spc.Killswitch, Spc.Clock "
-
-                + " FROM ClassifiedIndividualSellInquiries AS CSI "
-                + "	LEFT JOIN NewBikeSpecifications Spc ON CSI.BikeVersionId = Spc.BikeVersionId "
-                + "	LEFT JOIN BikeVersions AS CV ON CSI.BikeVersionId = CV.ID "
-                + "	LEFT JOIN BikeModels AS CMO ON CV.BikeModelId = CMO.ID "
-                + "	LEFT JOIN BikeMakes AS CM ON CMO.BikeMakeId = CM.ID "
-                + "	LEFT JOIN Customers AS CU ON CSI.CustomerId = CU.Id "
-                + "	LEFT JOIN BWCities AS C ON C.ID = CSI.CityId "
-                + "	LEFT JOIN States AS St ON C.StateId = St.Id "
-
-                + " WHERE CSI.ID = @InquiryId "
-                + " AND (CSI.CustomerId = " + CurrentUser.Id + " or CSI.IsApproved = 1 ) ";
-
-            //sql = " SELECT CM.ID AS MakeId, CMO.ID AS ModelId, CV.ID AS VersionId, "
-            //    + " CM.Name AS Make, CM.LogoUrl AS LogoUrl, CMO.Name AS Model, "
-            //    + " CV.Name AS Version, CV.LargePic AS BikeLargePicUrl, CV.BikeFuelType, CSI.Price AS Price, "
-            //    + " CSI.Kilometers AS Kilometers, CSI.MakeYear AS MakeYear, CSI.Color, CSI.ColorCode, "
-            //    + " CSI.Comments AS Comments, C.Name AS City, St.Name State, St.StateCode, A.Name As AreaName, "
-            //    + " DateAdd(D, -30, CSI.ClassifiedExpiryDate) AS LastUpdated, "
-            //    + " CSD.Accessories, CSD.Owners, CSD.Insurance, CSD.InsuranceExpiry, "
-            //    + " CSD.Tax AS Tax, CSD.RegistrationPlace, "
-            //    + " CSD.InteriorColor, CSD.InteriorColorCode, CSD.CityMileage, CSD.AdditionalFuel, CSD.BikeDriven, "
-            //    + " CSD.Accidental, CSD.FloodAffected, CSD.Accessories, CSD.Warranties, CSD.Modifications, "
-					
-            //    + " Spc.NoOfCylinders, Spc.ValueMechanism, Spc.TransmissionType, Spc.FuelType, "
-            //    + " CSD.Features_SafetySecurity, CSD.Features_Comfort, CSD.Features_Others, "
-					
-            //    + " CSD.ACCondition, CSD.BatteryCondition, CSD.BrakesCondition, CSD.ElectricalsCondition, CSD.EngineCondition, CSD.ExteriorCondition, "
-            //    + " CSD.InteriorCondition, CSD.SeatsCondition, CSD.SuspensionsCondition, CSD.TyresCondition, CSD.OverallCondition, "
-            //    + " CU.ID AS SellerId, CSI.ClassifiedExpiryDate AS ExpiryDate, CSI.CityId AS BikeCityId, "
-            //    + " CU.IsFake, CSI.IsFake AS IsBikeFake, CSI.PackageExpiryDate, Csi.StatusId, 0 AS IsDealer, CSI.PackageType, '' CertificationId "
-					
-            //    + " FROM (CustomerSellInquiries AS CSI LEFT JOIN NewBikeSpecifications Spc ON CSI.BikeVersionId = Spc.BikeVersionId Left Join Areas A On A.PinCode = CONVERT(VarChar, CSI.PinCode) ), CustomerSellInquiryDetails CSD, BikeVersions AS CV, "
-            //    + " BikeModels AS CMO, BikeMakes AS CM, Customers AS CU, Cities AS C, States St "
-					
-            //    + " WHERE CSI.ID = CSD.InquiryId AND CSI.BikeVersionId = CV.ID AND CV.BikeModelId = CMO.ID AND CMO.BikeMakeId = CM.ID AND "
-            //    + " CSI.CustomerId = CU.Id AND C.ID = CSI.CityId AND C.StateId = St.Id AND CSI.ID = @InquiryId";
-
-            objTrace.Trace.Warn(Seller + " sql : " + sql);
-			SqlDataReader dr = null;
-			Database db = new Database();
+            sql = @" select cm.id as makeid, cmo.id as modelid, cv.id as versionid,
+                 cm.name as make,cm.maskingname as makemaskingname, cm.logourl as logourl, cmo.name as model,cmo.maskingname as modelmaskingname,
+                cv.name as version, cv.largepic as bikelargepicurl, cv.bikefueltype, csi.price as price,
+                csi.kilometers as kilometers, csi.makeyear as makeyear, csi.color,
+                csi.comments as comments, c.name as city,c.maskingname as citymaskingname, st.name state, st.statecode,
+                csi.owner as owners, csi.insurancetype as insurance, csi.insuranceexpirydate as insuranceexpiry,
+                csi.lifetimetax as tax, csi.registrationplace, csi.kilometers as bikedriven, csi.warranties, csi.modifications,
+                spc.cylinders as noofcylinders, spc.transmissiontype, spc.fueltype,
+                cu.id as sellerid, csi.cityid as bikecityid,
+                cu.isfake, csi.statusid, 0 as isdealer,
+                spc.frontdisc, spc.reardisc, spc.tubelesstyres, spc.radialtyres, spc.alloywheels,
+                spc.passlight, spc.tachometer, spc.shiftlight, spc.electricstart, spc.tripmeter, spc.lowfuelindicator, spc.lowoilindicator,
+                spc.lowbatteryindicator, spc.fuelgauge, spc.digitalfuelgauge, spc.pillionseat, spc.pillionfootrest, spc.pillionbackrest,
+                spc.pilliongrabrail, spc.standalarm, spc.steppedseat, spc.antilockbrakingsystem, spc.killswitch, spc.clock
+                from classifiedindividualsellinquiries as csi
+                left join newbikespecifications spc on csi.bikeversionid = spc.bikeversionid
+                left join bikeversions as cv on csi.bikeversionid = cv.id 
+                left join bikemodels as cmo on cv.bikemodelid = cmo.id 
+                left join bikemakes as cm on cmo.bikemakeid = cm.id 
+                left join customers as cu on csi.customerid = cu.id 
+                left join bwcities as c on c.id = csi.cityid 
+                left join states as st on c.stateid = st.id 
+                where csi.id = @v_inquiryid 
+                and (csi.customerid = @v_currentuserid or csi.isapproved = 1 ) ";
 			
 			try
-			{				
-				SqlCommand cmd =  new SqlCommand(sql);
-				cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = InquiryId;
-				string engine = "";
-				
-				dr = db.SelectQry(cmd);
-				
-				if(dr.Read())
-				{
-					// If Bike removed from the portal for any of the following reason
-						// 1. Bike marked as Fake
-						// 2. Bikes status got changed(not 1)
-						// 3. Bikes page got expired
-					// In any of these cases send used to "BikeSoldOut" page	
-                    SoldOutStatus = dr["StatusId"].ToString();// != "1" ? true : false;
-                    //IsSoldOut = GetSoldOutStatus(dr["StatusId"].ToString(), dr["ExpiryDate"].ToString(), Convert.ToBoolean(dr["IsBikeFake"]),
-                    //                                    dr["PackageExpiryDate"].ToString(), dr["isDealer"].ToString(), Convert.ToBoolean(dr["IsFake"]));						
-					
-					MakeName			= dr["Make"].ToString();
-					ModelName			= dr["Model"].ToString();
-					VersionName			= dr["Version"].ToString();
-                    MakeMaskingName     = dr["MakeMaskingName"].ToString();
-                    ModelMaskingName    = dr["ModelMaskingName"].ToString();
-					
-					MakeId				= dr["MakeId"].ToString();
-					ModelId				= dr["ModelId"].ToString();
-					VersionId			= dr["VersionId"].ToString();
-					
-					StateName			= dr["State"].ToString();
-					StateCode			= dr["StateCode"].ToString();
-					CityName			= dr["City"].ToString();
-                    CityMaskingName     = dr["CityMaskingName"].ToString();
-                    
-					CityId				= dr["BikeCityId"].ToString();
-                    SellerId 			= dr["SellerId"].ToString(); 
-					
-					// Bike Basic Information
-					AskingPrice 		= dr["Price"].ToString() != "" ? CommonOpn.FormatNumeric(dr["Price"].ToString()) : "--";
-					Kms 				= dr["Kilometers"].ToString() != "" ? CommonOpn.FormatNumeric(dr["Kilometers"].ToString()) : "--";
-					ModelMonthOnly 		= Convert.ToDateTime(dr["MakeYear"]).ToString("MM");
-                    ModelYear 			= Convert.ToDateTime(dr["MakeYear"]).ToString("MMM-yyyy");
-                    ModelYearOnly 		= Convert.ToDateTime(dr["MakeYear"]).ToString("yyyy");					
-					ExtiriorColor 		= dr["Color"].ToString() != "" ? dr["Color"].ToString() : "--";
-					Registration 		= dr["RegistrationPlace"].ToString();
+			{
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+                    //cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = InquiryId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_currentuserid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], InquiryId)); 
 
-					// format engine string										
-					if(dr["NoOfCylinders"].ToString() != "") engine = dr["NoOfCylinders"].ToString() + "Cyl, ";
-					if(dr["TransmissionType"].ToString() != "") engine += dr["TransmissionType"].ToString() + " Transmission, ";
-					if(dr["FuelType"].ToString() != "") engine += dr["FuelType"].ToString();
-					
-					Engine 				= engine.Trim() != "" ? engine : "--";														
-					
-					Owner 				= CommonOpn.CheckIsDealerFromProfileNo(profileId) == true ? dr["Owners"].ToString() : GetOwner( dr["Owners"].ToString() );					
-					Insurance 			= dr["Insurance"].ToString();
-					
-					if(Insurance != "N/A")
-						InsuranceExpiry 	= dr["InsuranceExpiry"].ToString() != "" ? "(till " + Convert.ToDateTime( dr["InsuranceExpiry"] ).ToString("dd MMM, yyyy") + ")" : "";										
-								
-					LifetimeTax			= dr["Tax"].ToString();
-					CustomersNote 		= dr["Comments"].ToString();
-					objTrace.Trace.Warn("cityid0:: " + CityId);
-                    
-					Warranties 			= dr["Warranties"].ToString() != "" ? dr["Warranties"].ToString() : "--";
-					Modifications 		= dr["Modifications"].ToString() != "" ? dr["Modifications"].ToString() : "--";	
+                    string engine = "";
 
-                    // Process Features
-                    FrontDisc = dr["FrontDisc"].ToString();
-                    RearDisc = dr["RearDisc"].ToString();
-                    TubelessTyres = dr["TubelessTyres"].ToString();
-                    RadialTyres = dr["RadialTyres"].ToString(); 
-                    AlloyWheels = dr["AlloyWheels"].ToString(); 
-                    PassLight = dr["PassLight"].ToString(); 
-                    Tachometer = dr["Tachometer"].ToString(); 
-                    ShiftLight  = dr["ShiftLight"].ToString(); 
-                    ElectricStart  = dr["ElectricStart"].ToString(); 
-                    Tripmeter = dr["Tripmeter"].ToString(); 
-                    LowFuelIndicator = dr["LowFuelIndicator"].ToString();
-                    LowOilIndicator = dr["LowOilIndicator"].ToString();
-                    LowBatteryIndicator = dr["LowBatteryIndicator"].ToString();
-                    FuelGauge = dr["FuelGauge"].ToString();
-                    DigitalFuelGauge = dr["DigitalFuelGauge"].ToString();
-                    PillionSeat = dr["PillionSeat"].ToString();
-                    PillionFootrest = dr["PillionFootrest"].ToString();
-                    PillionBackrest = dr["PillionBackrest"].ToString();
-                    PillionGrabrail = dr["PillionGrabrail"].ToString();
-                    StandAlarm = dr["StandAlarm"].ToString();
-                    SteppedSeat = dr["SteppedSeat"].ToString();
-                    AntilockBrakingSystem = dr["AntilockBrakingSystem"].ToString(); 
-                    Killswitch = dr["Killswitch"].ToString();
-                    Clock = dr["Clock"].ToString();
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr.Read())
+                        {
+                            // If Bike removed from the portal for any of the following reason
+                            // 1. Bike marked as Fake
+                            // 2. Bikes status got changed(not 1)
+                            // 3. Bikes page got expired
+                            // In any of these cases send used to "BikeSoldOut" page	
+                            SoldOutStatus = dr["StatusId"].ToString();// != "1" ? true : false;
+                            //IsSoldOut = GetSoldOutStatus(dr["StatusId"].ToString(), dr["ExpiryDate"].ToString(), Convert.ToBoolean(dr["IsBikeFake"]),
+                            //                                    dr["PackageExpiryDate"].ToString(), dr["isDealer"].ToString(), Convert.ToBoolean(dr["IsFake"]));						
 
-                    HttpContext.Current.Trace.Warn("ShiftLight : ", ShiftLight);
-				}
+                            MakeName = dr["Make"].ToString();
+                            ModelName = dr["Model"].ToString();
+                            VersionName = dr["Version"].ToString();
+                            MakeMaskingName = dr["MakeMaskingName"].ToString();
+                            ModelMaskingName = dr["ModelMaskingName"].ToString();
+
+                            MakeId = dr["MakeId"].ToString();
+                            ModelId = dr["ModelId"].ToString();
+                            VersionId = dr["VersionId"].ToString();
+
+                            StateName = dr["State"].ToString();
+                            StateCode = dr["StateCode"].ToString();
+                            CityName = dr["City"].ToString();
+                            CityMaskingName = dr["CityMaskingName"].ToString();
+
+                            CityId = dr["BikeCityId"].ToString();
+                            SellerId = dr["SellerId"].ToString();
+
+                            // Bike Basic Information
+                            AskingPrice = dr["Price"].ToString() != "" ? CommonOpn.FormatNumeric(dr["Price"].ToString()) : "--";
+                            Kms = dr["Kilometers"].ToString() != "" ? CommonOpn.FormatNumeric(dr["Kilometers"].ToString()) : "--";
+                            ModelMonthOnly = Convert.ToDateTime(dr["MakeYear"]).ToString("MM");
+                            ModelYear = Convert.ToDateTime(dr["MakeYear"]).ToString("MMM-yyyy");
+                            ModelYearOnly = Convert.ToDateTime(dr["MakeYear"]).ToString("yyyy");
+                            ExtiriorColor = dr["Color"].ToString() != "" ? dr["Color"].ToString() : "--";
+                            Registration = dr["RegistrationPlace"].ToString();
+
+                            // format engine string										
+                            if (dr["NoOfCylinders"].ToString() != "") engine = dr["NoOfCylinders"].ToString() + "Cyl, ";
+                            if (dr["TransmissionType"].ToString() != "") engine += dr["TransmissionType"].ToString() + " Transmission, ";
+                            if (dr["FuelType"].ToString() != "") engine += dr["FuelType"].ToString();
+
+                            Engine = engine.Trim() != "" ? engine : "--";
+
+                            Owner = CommonOpn.CheckIsDealerFromProfileNo(profileId) == true ? dr["Owners"].ToString() : GetOwner(dr["Owners"].ToString());
+                            Insurance = dr["Insurance"].ToString();
+
+                            if (Insurance != "N/A")
+                                InsuranceExpiry = dr["InsuranceExpiry"].ToString() != "" ? "(till " + Convert.ToDateTime(dr["InsuranceExpiry"]).ToString("dd MMM, yyyy") + ")" : "";
+
+                            LifetimeTax = dr["Tax"].ToString();
+                            CustomersNote = dr["Comments"].ToString();
+                            objTrace.Trace.Warn("cityid0:: " + CityId);
+
+                            Warranties = dr["Warranties"].ToString() != "" ? dr["Warranties"].ToString() : "--";
+                            Modifications = dr["Modifications"].ToString() != "" ? dr["Modifications"].ToString() : "--";
+
+                            // Process Features
+                            FrontDisc = dr["FrontDisc"].ToString();
+                            RearDisc = dr["RearDisc"].ToString();
+                            TubelessTyres = dr["TubelessTyres"].ToString();
+                            RadialTyres = dr["RadialTyres"].ToString();
+                            AlloyWheels = dr["AlloyWheels"].ToString();
+                            PassLight = dr["PassLight"].ToString();
+                            Tachometer = dr["Tachometer"].ToString();
+                            ShiftLight = dr["ShiftLight"].ToString();
+                            ElectricStart = dr["ElectricStart"].ToString();
+                            Tripmeter = dr["Tripmeter"].ToString();
+                            LowFuelIndicator = dr["LowFuelIndicator"].ToString();
+                            LowOilIndicator = dr["LowOilIndicator"].ToString();
+                            LowBatteryIndicator = dr["LowBatteryIndicator"].ToString();
+                            FuelGauge = dr["FuelGauge"].ToString();
+                            DigitalFuelGauge = dr["DigitalFuelGauge"].ToString();
+                            PillionSeat = dr["PillionSeat"].ToString();
+                            PillionFootrest = dr["PillionFootrest"].ToString();
+                            PillionBackrest = dr["PillionBackrest"].ToString();
+                            PillionGrabrail = dr["PillionGrabrail"].ToString();
+                            StandAlarm = dr["StandAlarm"].ToString();
+                            SteppedSeat = dr["SteppedSeat"].ToString();
+                            AntilockBrakingSystem = dr["AntilockBrakingSystem"].ToString();
+                            Killswitch = dr["Killswitch"].ToString();
+                            Clock = dr["Clock"].ToString();
+
+                            HttpContext.Current.Trace.Warn("ShiftLight : ", ShiftLight);
+                        }  
+                    }
+                }
 			}
 			catch(Exception ex)
 			{
 				objTrace.Trace.Warn(ex.Message);				
 				ErrorClass objErr = new ErrorClass(ex, objTrace.Request.ServerVariables["URL"]);
 				objErr.SendMail();				
-			}
-			finally
-			{
-                if (dr != null)
-                {
-                    dr.Close();
-                }				
-				db.CloseConnection();
 			}
 		}
 
@@ -246,7 +215,7 @@ namespace Bikewale.Used
 
             if (!String.IsNullOrEmpty(feature))
             {
-                isChecked = Convert.ToBoolean(feature);
+                isChecked = (feature == "1")?true:false;
             }
             //HttpContext.Current.Trace.Warn("isChecked : ", isChecked.ToString() + " feature : " + feature);
             return isChecked;

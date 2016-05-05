@@ -7,6 +7,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 using Bikewale.Common;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.Used
 {
@@ -85,47 +87,43 @@ namespace Bikewale.Used
 			{
                 //Modified By : Ashwini Todkar on 3 sep 2014
                 //Retrieved Customer name, mobile and emailid from ClassifiedIndividualSellInquiries,so buyer get contact details of available with that inquiry
-                sql = " SELECT SI.CustomerId SellerId, SI.CustomerName AS SellerName, SI.CustomerEmail AS SellerEmail, "
-                    + " SI.CustomerMobile AS Contact, ( C.City +', '+ C.State )  AS SellerAddress, '' ContactPerson "
-                    + " FROM ClassifiedIndividualSellInquiries AS SI "
-                    + " INNER JOIN Customers AS CU ON CU.Id = SI.CustomerId "
-                    + " INNER JOIN vwCity AS C ON C.CityId = SI.CityId "
-                    + " WHERE SI.ID = @InquiryId ";
+                sql = @" select si.customerid sellerid, si.customername as sellername, si.customeremail as selleremail,  
+                     si.customermobile as contact, concat( c.city,', ',c.state )  as selleraddress, '' contactperson  
+                     from classifiedindividualsellinquiries as si  
+                     inner join customers as cu on cu.id = si.customerid 
+                     inner join vwcity as c on c.cityid = si.cityid  
+                    where si.id = @v_inquiryid ";
 			}
 			
-			SqlCommand cmd =  new SqlCommand(sql);
-			cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
-			
-			SqlDataReader dr = null;
-			Database db = new Database();
+			//cmd.Parameters.Add("@inquiryid", SqlDbType.BigInt).Value = inquiryId;
+            
+
 					
 			try
 			{
-				dr = db.SelectQry(cmd);
-				
-				if( dr.Read() )
-				{
-					SellerId		= dr["SellerId"].ToString();
-					SellerName		= dr["SellerName"].ToString();
-					SellerEmail		= dr["SellerEmail"].ToString();
-					SellerContact	= dr["Contact"].ToString();
-					SellerAddress	= dr["SellerAddress"].ToString();
-                    SellerContactPerson = dr["ContactPerson"].ToString();
-				}
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], inquiryId)); 
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr.Read())
+                        {
+                            SellerId = dr["SellerId"].ToString();
+                            SellerName = dr["SellerName"].ToString();
+                            SellerEmail = dr["SellerEmail"].ToString();
+                            SellerContact = dr["Contact"].ToString();
+                            SellerAddress = dr["SellerAddress"].ToString();
+                            SellerContactPerson = dr["ContactPerson"].ToString();
+                        } 
+                    } 
+                }
 			}
 			catch(Exception ex)
 			{
 				objTrace.Trace.Warn(ex.Message);				
 				ErrorClass objErr = new ErrorClass(ex, objTrace.Request.ServerVariables["URL"]);
 				objErr.SendMail();				
-			}
-			finally
-			{
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-				db.CloseConnection();
 			}			
 		}
 

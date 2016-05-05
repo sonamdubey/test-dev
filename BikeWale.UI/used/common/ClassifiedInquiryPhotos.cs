@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.Used
 {
@@ -35,14 +37,6 @@ namespace Bikewale.Used
             string sql = "";
 
             HttpContext.Current.Trace.Warn("is dealer : ", isDealer.ToString());
-            //sql = "SELECT Id, ImageUrlFull, ImageUrlThumb, ImageUrlThumbSmall, Description, IsMain, DirectoryPath, HostUrl FROM BikePhotos "
-            //    + "WHERE IsActive = 1 AND InquiryId = @InquiryId AND IsDealer = @IsDealer ORDER BY IsMain DESC, Id ";
-
-            //sql = " SELECT P.Id, P.ImageUrlFull, P.ImageUrlThumb, P.ImageUrlThumbSmall, P.Description, P.IsMain, P.DirectoryPath, P.HostUrl, P.StatusId "
-            //    + " FROM BikePhotos AS P With(NoLock) "
-            //    + " INNER JOIN ClassifiedIndividualSellInquiries AS SI With(NoLock) ON SI.ID = P.InquiryId "
-            //    + " WHERE IsActive = 1 AND P.IsFake=0 AND InquiryId = @InquiryId AND IsDealer = @IsDealer"
-            //    + " ORDER BY IsMain DESC, Id ";
 
             objTrace.Trace.Warn("sql : " + sql);
 
@@ -51,51 +45,60 @@ namespace Bikewale.Used
                 //SqlParameter [] param ={new SqlParameter("@InquiryId", inquiryId), new SqlParameter("@IsDealer", isDealer)};
                 if (!String.IsNullOrEmpty(inquiryId) && CommonOpn.CheckLongId(inquiryId))
                 {
-                    SqlCommand cmd = new SqlCommand("GetListingPhotos");
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
-                    cmd.Parameters.Add("@IsDealer", SqlDbType.Bit).Value = isDealer;
-                    //cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = CurrentUser.Id;
-                    if (isAprooved)
-                        cmd.Parameters.Add("@IsAprooved", SqlDbType.Bit).Value = isAprooved;
-
-                    Database db = new Database();
-                    DataSet ds = db.SelectAdaptQry(cmd);
-                    if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getlistingphotos"))
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        //cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
+                        //cmd.Parameters.Add("@IsDealer", SqlDbType.Bit).Value = isDealer;
+                        ////cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = CurrentUser.Id;
+                        //if (isAprooved)
+                        //    cmd.Parameters.Add("@isaprooved", SqlDbType.Bit).Value = isAprooved;
 
-                        // Retrive front image from DataSet and assign then to respective properties
-                        DataRow[] row = ds.Tables[0].Select("IsMain = 1");
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isDealer));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isaprooved", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isAprooved));
 
-                        if (row.Length > 0)
+
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                         {
-                            FrontImageMidThumb = row[0]["ImageUrlThumb"].ToString();
-                            FrontImageLarge = row[0]["ImageUrlFull"].ToString();
-                            FrontImageDescription = row[0]["Description"].ToString();
-                            DirectoryPath = row[0]["DirectoryPath"].ToString();
-                            HostUrl = row[0]["HostUrl"].ToString();
-                            OriginalImagePath = row[0]["OriginalImagePath"].ToString();
-                        }
-                        else
-                        {
-                            if (ds.Tables[0].Rows.Count > 0)
+                            if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             {
-                                FrontImageMidThumb = ds.Tables[0].Rows[0]["ImageUrlThumb"].ToString();
-                                FrontImageLarge = ds.Tables[0].Rows[0]["ImageUrlFull"].ToString();
-                                FrontImageDescription = ds.Tables[0].Rows[0]["Description"].ToString();
-                                DirectoryPath = ds.Tables[0].Rows[0]["DirectoryPath"].ToString();
-                                HostUrl = ds.Tables[0].Rows[0]["HostUrl"].ToString();
-                                OriginalImagePath = ds.Tables[0].Rows[0]["OriginalImagePath"].ToString();
-                            }
-                        }
-                        if (ds.Tables[0].Rows.Count > 0)
-                        {
-                            rptPhotos.DataSource = ds;
-                            rptPhotos.DataBind();
-                        }
 
-                        ClassifiedImageCount = ds.Tables[0].Rows.Count;
-                    } 
+                                // Retrive front image from DataSet and assign then to respective properties
+                                DataRow[] row = ds.Tables[0].Select("IsMain = 1");
+
+                                if (row.Length > 0)
+                                {
+                                    FrontImageMidThumb = row[0]["ImageUrlThumb"].ToString();
+                                    FrontImageLarge = row[0]["ImageUrlFull"].ToString();
+                                    FrontImageDescription = row[0]["Description"].ToString();
+                                    DirectoryPath = row[0]["DirectoryPath"].ToString();
+                                    HostUrl = row[0]["HostUrl"].ToString();
+                                    OriginalImagePath = row[0]["OriginalImagePath"].ToString();
+                                }
+                                else
+                                {
+                                    if (ds.Tables[0].Rows.Count > 0)
+                                    {
+                                        FrontImageMidThumb = ds.Tables[0].Rows[0]["ImageUrlThumb"].ToString();
+                                        FrontImageLarge = ds.Tables[0].Rows[0]["ImageUrlFull"].ToString();
+                                        FrontImageDescription = ds.Tables[0].Rows[0]["Description"].ToString();
+                                        DirectoryPath = ds.Tables[0].Rows[0]["DirectoryPath"].ToString();
+                                        HostUrl = ds.Tables[0].Rows[0]["HostUrl"].ToString();
+                                        OriginalImagePath = ds.Tables[0].Rows[0]["OriginalImagePath"].ToString();
+                                    }
+                                }
+                                if (ds.Tables[0].Rows.Count > 0)
+                                {
+                                    rptPhotos.DataSource = ds;
+                                    rptPhotos.DataBind();
+                                }
+
+                                ClassifiedImageCount = ds.Tables[0].Rows.Count;
+                            } 
+                        }  
+                    }
                 }
             }
             catch (Exception ex)
@@ -111,25 +114,30 @@ namespace Bikewale.Used
             bool isDone = false;
 
             string sql = "";
-            sql = "SELECT SellInquiryId FROM Classified_UploadPhotosRequest WHERE SellInquiryId = @SellInquiryId AND BuyerId = @BuyerId AND ConsumerType = @ConsumerType ";
+            sql = "select sellinquiryid from classified_uploadphotosrequest where sellinquiryid = @par_sellinquiryid and buyerid = @par_buyerid and consumertype = @par_consumertype ";
 
             string consumerType = isDealer ? "1" : "2";
-
-            SqlDataReader dr = null;
-            Database db = new Database();
             try
             {
-                //SqlParameter [] param ={new SqlParameter("@InquiryId", inquiryId), new SqlParameter("@IsDealer", isDealer)};
-                SqlCommand cmd = new SqlCommand(sql);
-                cmd.Parameters.Add("@SellInquiryId", SqlDbType.BigInt).Value = sellInquiryId;
-                cmd.Parameters.Add("@BuyerId", SqlDbType.BigInt).Value = buyerId;
-                cmd.Parameters.Add("@ConsumerType", SqlDbType.TinyInt).Value = consumerType;
-
-                dr = db.SelectQry(cmd);
-
-                if (dr.Read())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    isDone = true;
+                    //SqlParameter [] param ={new SqlParameter("@InquiryId", inquiryId), new SqlParameter("@IsDealer", isDealer)};
+                    //SqlCommand cmd = new SqlCommand(sql);
+                    //cmd.Parameters.Add("@SellInquiryId", SqlDbType.BigInt).Value = sellInquiryId;
+                    //cmd.Parameters.Add("@BuyerId", SqlDbType.BigInt).Value = buyerId;
+                    //cmd.Parameters.Add("@ConsumerType", SqlDbType.TinyInt).Value = consumerType;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_sellinquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], sellInquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_buyerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], buyerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_consumertype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], consumerType));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr.Read())
+                        {
+                            isDone = true;
+                        } 
+                    } 
                 }
             }
             catch (Exception ex)
@@ -137,11 +145,6 @@ namespace Bikewale.Used
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                dr.Close();
-                db.CloseConnection();
             }
 
             return isDone;
@@ -151,38 +154,37 @@ namespace Bikewale.Used
         {
             bool isDone = false;
 
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-
-            string conStr = db.GetConString();
-            con = new SqlConnection(conStr);
-
             try
             {
-                cmd = new SqlCommand("Classified_UploadPhotosRequest_SP", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_uploadphotosrequest_sp"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                prm = cmd.Parameters.Add("@SellInquiryId", SqlDbType.BigInt);
-                prm.Value = sellInquiryId;
+                    //prm = cmd.Parameters.Add("@sellinquiryid", SqlDbType.BigInt);
+                    //prm.Value = sellInquiryId;
 
-                prm = cmd.Parameters.Add("@BuyerId", SqlDbType.BigInt);
-                prm.Value = buyerId;
+                    //prm = cmd.Parameters.Add("@buyerid", SqlDbType.BigInt);
+                    //prm.Value = buyerId;
 
-                prm = cmd.Parameters.Add("@ConsumerType", SqlDbType.TinyInt);
-                prm.Value = consumerType;
+                    //prm = cmd.Parameters.Add("@consumertype", SqlDbType.TinyInt);
+                    //prm.Value = consumerType;
 
-                prm = cmd.Parameters.Add("@BuyerMessage", SqlDbType.VarChar, 200);
-                prm.Value = buyerMessage;
+                    //prm = cmd.Parameters.Add("@buyermessage", SqlDbType.VarChar, 200);
+                    //prm.Value = buyerMessage;
 
-                prm = cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40);
-                prm.Value = CommonOpn.GetClientIP();
+                    //prm = cmd.Parameters.Add("@clientip", SqlDbType.VarChar, 40);
+                    //prm.Value = CommonOpn.GetClientIP();
 
-                con.Open();
-                cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellinquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], sellInquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_buyerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], buyerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_consumertype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], consumerType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_buyermessage", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],200, buyerMessage));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],40, CommonOpn.GetClientIP()));  
 
-                isDone = true;
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+
+                    isDone = true; 
+                }
             }
             catch (Exception err)
             {
@@ -190,14 +192,6 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(err, objTrace.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
 
             return isDone;
         }
