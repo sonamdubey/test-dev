@@ -8,6 +8,8 @@ namespace Bikewale.DTO.Model.v3
     /// Description :   This new DTO for Model Page API v3
     /// Modified By :   Lucky Rathore on 05 May 2016.
     /// Descritption :  IsUpcoming, ExpectedLaunchDate and ExpectedPrice added.
+    /// Modified By:    Sangram Nandkhile on 05 May 2016
+    /// Description:    Added ExpectedMinPrice, ExpectedMaxPrice
     /// </summary>
     public class ModelPage
     {
