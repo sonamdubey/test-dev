@@ -6,6 +6,8 @@ namespace Bikewale.DTO.Model.v3
     /// <summary>
     /// Created by  :   Sangram Nandkhile on 12 Apr Jan 2016
     /// Description :   This new DTO for Model Page API v3
+    /// Modified By :   Lucky Rathore on 05 May 2016.
+    /// Descritption :  IsUpcoming, ExpectedLaunchDate and ExpectedPrice added.
     /// </summary>
     public class ModelPage
     {
@@ -67,6 +69,15 @@ namespace Bikewale.DTO.Model.v3
 
         [JsonProperty("pqId")]
         public ulong PQId { get; set; }
+
+        [JsonProperty("isUpcoming")]
+        public bool IsUpcoming { get; set; }
+
+        [JsonProperty("expectedLaunchDate")]
+        public string ExpectedLaunchDate { get; set; }
+
+        [JsonProperty("expectedPrice")]
+        public string ExpectedPrice { get; set; }
 
     }
 }

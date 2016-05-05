@@ -185,7 +185,11 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
                 objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
                 objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
-
+                objDTOModelPage.IsUpcoming = objModelPage.ModelDetails.Futuristic;
+                objDTOModelPage.ExpectedLaunchDate = objModelPage.UpcomingBike.ExpectedLaunchDate;
+                objDTOModelPage.ExpectedPrice = Utility.Format.FormatPrice(objModelPage.UpcomingBike.EstimatedPriceMin.ToString(), objModelPage.UpcomingBike.EstimatedPriceMax.ToString());
+                //handle Null
+                
                 if (objModelPage.objOverview != null)
                 {
                     foreach (var spec in objModelPage.objOverview.OverviewList)
