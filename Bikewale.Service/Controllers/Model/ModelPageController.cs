@@ -322,7 +322,6 @@ namespace Bikewale.Service.Controllers.Model
                                 pqOnRoad = new PQOnRoadPrice();
                                 getPQ = new PQByCityArea();
                                 pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId);
-
                             }
                             objDTOModelPage = ModelMapper.ConvertV3(objModelPage, pqEntity);
                             #endregion

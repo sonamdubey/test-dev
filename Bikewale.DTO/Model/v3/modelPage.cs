@@ -49,7 +49,6 @@ namespace Bikewale.DTO.Model.v3
         [JsonProperty("smallDescription")]
         public string SmallDescription { get; set; }
 
-
         [JsonProperty("photos")]
         public List<CMSModelImageBase> Photos { get; set; }
 
@@ -77,8 +76,11 @@ namespace Bikewale.DTO.Model.v3
         [JsonProperty("expectedLaunchDate")]
         public string ExpectedLaunchDate { get; set; }
 
-        [JsonProperty("expectedPrice")]
-        public string ExpectedPrice { get; set; }
+        [JsonProperty("expectedMinPrice")]
+        public ulong ExpectedMinPrice { get; set; }
+
+        [JsonProperty("expectedMaxPrice")]
+        public ulong ExpectedMaxPrice { get; set; }
 
     }
 }
