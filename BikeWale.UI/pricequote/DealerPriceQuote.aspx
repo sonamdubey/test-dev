@@ -547,7 +547,7 @@
                         <div class="clear"></div>
                         <%} %>
                         <div class="clear"></div>
-                        <p id="disclaimerText" class="<%= primarydealer.DealerDetails != null ? "" : "hide" %>" padding-left20 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span>On-road price <%= (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)?"": "and EMI calculator" %> is provided for information. BikeWale does not own any responsibility for the same.</p>
+                        <p id="disclaimerText" class="<%= primarydealer.DealerDetails != null ? "" : "hide" %> padding-left20 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span>On-road price <%= (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)?"": "and EMI calculator" %> is provided for information. BikeWale does not own any responsibility for the same.</p>
                     </div>
 
                     <!--Primary Dealer Section-->
@@ -630,7 +630,7 @@
                                     <asp:Repeater ID="rptDealers" runat="server">
                                         <ItemTemplate>
                                             <li dealerid="<%# DataBinder.Eval(Container.DataItem,"dealerId") %>">
-                                                <h3><a href="#" class="font18 text-bold text-darker-black margin-right20"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
+                                                <h3><a href="javascript:void(0)" class="font18 text-bold text-darker-black margin-right20"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
                                                 <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
                                             </li>
                                         </ItemTemplate>
