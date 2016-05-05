@@ -8,14 +8,23 @@
 </script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title><%=title %></title>
-<meta name="description" content="<% =description%>" />
+<meta name="description" content="<%=description%>" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
 <% if(!String.IsNullOrEmpty(keywords)) { %><meta name="keywords" content="<%= keywords %>" /><% } %>
-<%if(!String.IsNullOrEmpty(canonical)) { %><link rel="canonical" href="<%=canonical %>" /><% } %>
+<%if(!String.IsNullOrEmpty(canonical)) { %>
+    <link rel="canonical" href="<%=canonical %>" />
+    <meta property="og:url" content="<%=canonical %>" />
+<% } %>
 <link rel="SHORTCUT ICON" href="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 <link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+
+<meta property="og:title" content="<%=title %>" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="<%=description%>" />
+<meta property="og:image" content="http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png" />
+
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
    var ga_pg_id = '0';    
