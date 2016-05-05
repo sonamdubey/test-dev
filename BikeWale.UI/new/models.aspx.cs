@@ -5,6 +5,7 @@ using Bikewale.Controls;
 using Bikewale.DTO.Make;
 using Bikewale.Entities.BikeData;
 using Bikewale.Memcache;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,7 +17,11 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
-	public class Model : System.Web.UI.Page
+    /// <summary>
+    /// Modified By : Lucky Rathore on 05 May 2016
+    /// Description : Removed postback and inherit PageBase.
+    /// </summary>
+    public class Model : PageBase
 	{
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected News_new ctrlNews;
@@ -49,6 +54,9 @@ namespace Bikewale.New
         /// <summary>
         /// Modified By : Lucky Rathore on 01 March 2016.
         /// Description : set make masking name for video controller
+        /// Modified By : Lucky Rathore on 05 May 2016
+        /// Description : Removed postback.
+        /// </summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -59,33 +67,25 @@ namespace Bikewale.New
             {
                 //to get complete make page
                 GetMakePage(); 
-                if (!Page.IsPostBack)
-                {
-                    // Modified By :Ashish Kamble on 5 Feb 2016
-                    string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-                    if (String.IsNullOrEmpty(originalUrl))
-                        originalUrl = Request.ServerVariables["URL"];
-
-                    DeviceDetection dd = new DeviceDetection(originalUrl);
-                    dd.DetectDevice();
-
-                    //To get Upcoming Bike List Details 
-                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                    ctrlUpcomingBikes.pageSize = 6;
-                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
-
-                    ////news,videos,revews
-                    ctrlNews.TotalRecords = 3;
-                    ctrlNews.MakeId = Convert.ToInt32(makeId);
-                    ctrlExpertReviews.TotalRecords = 3;
-                    ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
-                    ctrlVideos.TotalRecords = 3;
-                    ctrlVideos.MakeId = Convert.ToInt32(makeId);
-                    ctrlVideos.MakeMaskingName = makeMaskingName;
-
-                    ctrlExpertReviews.MakeMaskingName = makeMaskingName;
-
-                }
+                // Modified By :Ashish Kamble on 5 Feb 2016
+                string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+                if (String.IsNullOrEmpty(originalUrl))
+                    originalUrl = Request.ServerVariables["URL"];
+                DeviceDetection dd = new DeviceDetection(originalUrl);
+                dd.DetectDevice();
+                //To get Upcoming Bike List Details 
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 6;
+                ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                ////news,videos,revews
+                ctrlNews.TotalRecords = 3;
+                ctrlNews.MakeId = Convert.ToInt32(makeId);
+                ctrlExpertReviews.TotalRecords = 3;
+                ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
+                ctrlVideos.TotalRecords = 3;
+                ctrlVideos.MakeId = Convert.ToInt32(makeId);
+                ctrlVideos.MakeMaskingName = makeMaskingName;
+                ctrlExpertReviews.MakeMaskingName = makeMaskingName;
             } 
             
 		}

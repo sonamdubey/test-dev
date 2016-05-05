@@ -23,7 +23,11 @@
 <% if(!String.IsNullOrEmpty(keywords)) { %><meta name="keywords" content="<%= keywords %>" /><% } %>
 <%if(!String.IsNullOrEmpty(alternate)) { %><meta name="alternate" content="<%= alternate %>" /><% } %>
 <%if(!String.IsNullOrEmpty(canonical)) { %><link rel="canonical" href="<%=canonical %>" /> <% } %>
-
+<meta property="og:title" content="<%= title %>" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="<%=canonical %>" />
+<meta property="og:description" content="<%= description %>" />
+<meta property="og:image" content="http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png" />
 <link rel="SHORTCUT ICON" href="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
 <script type="text/javascript">
     bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';

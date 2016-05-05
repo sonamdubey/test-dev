@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Model" Trace="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Model" Trace="false"  EnableViewState="false"%>
 
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
@@ -18,6 +18,7 @@
         AdPath = "/1017752/Bikewale_NewBike_";
         AdId = "1442913773076";
         isAd970x90Shown = true;
+        keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, new {0} Bikes", _make.MakeName);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
@@ -129,11 +130,14 @@
                 <div class="clear"></div>
             </div>
         </section>
+
+
+
         <section class="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
             <!-- Upcoming bikes from brands -->
             <div class="container">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30">Upcoming bikes from <%= _make.MakeName %></h2>
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30">Upcoming <%= _make.MakeName %> Bikes</h2>
                     <div class="content-box-shadow rounded-corner2">
                         <div class="jcarousel-wrapper upcoming-brand-bikes-container margin-top20">
                             <div class="jcarousel">
@@ -180,14 +184,14 @@
             <!--  News Bikes code starts here -->
             <div class="container newBikes-latest-updates-container <%= reviewTabsCnt == 0 ? "hide" : string.Empty %>">
                 <div class="grid-12 margin-bottom20">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates from the industry</h2>
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest <%=_make.MakeName%> News & Reviews from the industry</h2>
                     <div class="bw-tabs-panel content-box-shadow margin-bottom30">
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>">
                                 <ul>
-                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
-                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews"><h3>News</h3></li>
+                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews"><h3>Expert Reviews</h3></li>
+                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos"><h3>Videos</h3></li>
                                 </ul>
                             </div>
                         </div>
