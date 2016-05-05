@@ -12,9 +12,6 @@ namespace Bikewale.DTO.Model.v3
     public class ModelPage
     {
 
-        [JsonProperty("smallDescription")]
-        public string SmallDescription { get; set; }
-
         [JsonProperty("makeId")]
         public int MakeId { get; set; }
 
@@ -36,6 +33,9 @@ namespace Bikewale.DTO.Model.v3
         [JsonProperty("isDiscontinued")]
         public bool IsDiscontinued { get; set; }
 
+        [JsonProperty("isUpcoming")]
+        public bool IsUpcoming { get; set; }
+
         [JsonProperty("isExShowroomPrice")]
         public bool IsExShowroomPrice { get; set; }
 
@@ -45,6 +45,10 @@ namespace Bikewale.DTO.Model.v3
 
         [JsonProperty("isAreaExists")]
         public bool IsAreaExists { get; set; }
+
+        [JsonProperty("smallDescription")]
+        public string SmallDescription { get; set; }
+
 
         [JsonProperty("photos")]
         public List<CMSModelImageBase> Photos { get; set; }
@@ -69,9 +73,6 @@ namespace Bikewale.DTO.Model.v3
 
         [JsonProperty("pqId")]
         public ulong PQId { get; set; }
-
-        [JsonProperty("isUpcoming")]
-        public bool IsUpcoming { get; set; }
 
         [JsonProperty("expectedLaunchDate")]
         public string ExpectedLaunchDate { get; set; }
