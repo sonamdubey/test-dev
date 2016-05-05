@@ -300,7 +300,7 @@
                     <asp:Repeater ID="rptSecondaryDealers" runat="server">
                         <ItemTemplate>
                             <li>
-                                <a href="#" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="secondary-dealer font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a><br />
+                                <a href="javascript:void(0)" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="secondary-dealer font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a><br />
                                 <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
                             </li>
                         </ItemTemplate>
