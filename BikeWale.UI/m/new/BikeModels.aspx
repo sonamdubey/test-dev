@@ -248,16 +248,16 @@
                                 </li>
                             </ItemTemplate>
                             </asp:Repeater>
-                        </ul>
+                        </ul>                        
+                        <%
+                            }
+                         %>
                         <% if(isBookingAvailable){ %>
                         <div class="font14 padding-top5 padding-bottom15">
                             <p class="text-light-grey">Book this bike by paying <span class="bwmsprite inr-grey-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bookingAmt.ToString()) %> online.</p>
                             <a href="/m/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>">Book Now</a>
                         </div>
                         <%} %>
-                        <%
-                            }
-                         %>
                         <p class="font14 padding-top15 margin-bottom5 text-light-grey border-light-top">This dealer is featured by BikeWale.</p>
                         <div class="clear"></div>
                     </div>
