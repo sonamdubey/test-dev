@@ -10,6 +10,7 @@ using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 
@@ -168,6 +169,8 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <summary>
         /// Created by: Sangram Nandkhile on 15 Apr 2016
         /// Summary:To map Object for V3 model entity and PQ entity
+        /// updated by: Sangram Nandkhile on 05 May 2016 
+        /// Summary: Added upcoming section
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
@@ -185,6 +188,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
                 objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
                 objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
+                objDTOModelPage.IsUpcoming = objModelPage.ModelDetails.Futuristic;
 
                 if (objModelPage.objOverview != null)
                 {
@@ -229,6 +233,13 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.ModelVersions = Convert(pqEntity.VersionList);
                     objDTOModelPage.DealerId = pqEntity.DealerId;
                     objDTOModelPage.PQId = pqEntity.PqId;
+                }
+                // Upcoming section
+                if (objModelPage.ModelDetails.Futuristic && objModelPage.UpcomingBike != null && objModelPage.ModelDetails != null)
+                {
+                    objDTOModelPage.ExpectedLaunchDate = objModelPage.UpcomingBike.ExpectedLaunchDate;
+                    objDTOModelPage.ExpectedPrice = Format.FormatPrice(objModelPage.UpcomingBike.EstimatedPriceMin.ToString(), objModelPage.UpcomingBike.EstimatedPriceMax.ToString());
+
                 }
             }
             catch (System.Exception)

@@ -6,12 +6,11 @@ namespace Bikewale.DTO.Model.v3
     /// <summary>
     /// Created by  :   Sangram Nandkhile on 12 Apr Jan 2016
     /// Description :   This new DTO for Model Page API v3
+    /// Modified By :   Lucky Rathore on 05 May 2016.
+    /// Descritption :  IsUpcoming, ExpectedLaunchDate and ExpectedPrice added.
     /// </summary>
     public class ModelPage
     {
-
-        [JsonProperty("smallDescription")]
-        public string SmallDescription { get; set; }
 
         [JsonProperty("makeId")]
         public int MakeId { get; set; }
@@ -34,6 +33,9 @@ namespace Bikewale.DTO.Model.v3
         [JsonProperty("isDiscontinued")]
         public bool IsDiscontinued { get; set; }
 
+        [JsonProperty("isUpcoming")]
+        public bool IsUpcoming { get; set; }
+
         [JsonProperty("isExShowroomPrice")]
         public bool IsExShowroomPrice { get; set; }
 
@@ -43,6 +45,10 @@ namespace Bikewale.DTO.Model.v3
 
         [JsonProperty("isAreaExists")]
         public bool IsAreaExists { get; set; }
+
+        [JsonProperty("smallDescription")]
+        public string SmallDescription { get; set; }
+
 
         [JsonProperty("photos")]
         public List<CMSModelImageBase> Photos { get; set; }
@@ -67,6 +73,12 @@ namespace Bikewale.DTO.Model.v3
 
         [JsonProperty("pqId")]
         public ulong PQId { get; set; }
+
+        [JsonProperty("expectedLaunchDate")]
+        public string ExpectedLaunchDate { get; set; }
+
+        [JsonProperty("expectedPrice")]
+        public string ExpectedPrice { get; set; }
 
     }
 }
