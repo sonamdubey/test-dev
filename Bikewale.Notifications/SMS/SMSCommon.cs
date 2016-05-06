@@ -156,17 +156,21 @@ namespace Bikewale.Notifications
 
         /// <summary>
         /// Method to update the database with the details of the SMS data sent.
+        /// Modified By : Ashish G. Kamble on 6 May 2016
+        /// Modified : Added exception handling. BW connection string retrived using configuration class
         /// </summary>
         /// <param name="currentId">Id for which the sms was just sent</param>
         /// <param name="retMsg">The return message from the provider that is received after the SMS is sent</param>
         private void UpdateSMSSentData(string currentId, string retMsg)
         {
+            SqlConnection con = null;
+
             if (!String.IsNullOrEmpty(currentId))
             {
                 string sql = "UPDATE SMSSent SET ReturnedMsg = @RetMsg WHERE ID = @CurrentId";
                 try
                 {
-                    using (SqlConnection con = new SqlConnection())
+                    using (con = new SqlConnection())
                     {
                         using (SqlCommand cmd = new SqlCommand())
                         {
@@ -174,19 +178,23 @@ namespace Bikewale.Notifications
                             cmd.CommandType = CommandType.Text;
                             cmd.Parameters.Add("@CurrentId", SqlDbType.Int).Value = Convert.ToInt32(currentId);
                             cmd.Parameters.Add("@RetMsg", SqlDbType.VarChar).Value = retMsg;
-                            con.ConnectionString = ConfigurationManager.AppSettings["bwconnectionstring"];
+                            con.ConnectionString = Bikewale.Utility.BWConfiguration.Instance.BWConnectionString;
                             con.Open();
                             cmd.ExecuteNonQuery();
                         }
                     }
                 }
-                catch (SqlException)
+                catch (Exception err)
                 {
-
+                    ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
+                    objErr.SendMail();
                 }
-                catch (Exception)
+                finally
                 {
-
+                    if (con != null && con.State == ConnectionState.Open)
+                    {
+                        con.Close();
+                    }
                 }
             }
         }

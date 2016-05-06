@@ -255,12 +255,14 @@ namespace Bikewale.DAL.BikeData
         public BikeSpecificationEntity GetSpecifications(U versionId)
         {
             BikeSpecificationEntity objSpecs = null;
-            Database db = null;
+            Database db = null; 
+            SqlConnection conn = null;
+
             try
             {
                 db = new Database();
 
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                using (conn = new SqlConnection(db.GetConString()))
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
@@ -269,7 +271,7 @@ namespace Bikewale.DAL.BikeData
                         cmd.Connection = conn;
 
                         SqlParameterCollection paramColl = cmd.Parameters;
-                      
+
                         paramColl.Add("@BikeVersionId", SqlDbType.SmallInt).Value = versionId;
                         paramColl.Add("@Displacement", SqlDbType.Float).Direction = ParameterDirection.Output;
                         paramColl.Add("@Cylinders", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
@@ -351,15 +353,15 @@ namespace Bikewale.DAL.BikeData
                         paramColl.Add("@Killswitch", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         paramColl.Add("@Clock", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         paramColl.Add("@Colors", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
-                        paramColl.Add("@MaxPowerRPM",SqlDbType.Float).Direction = ParameterDirection.Output;
+                        paramColl.Add("@MaxPowerRPM", SqlDbType.Float).Direction = ParameterDirection.Output;
                         paramColl.Add("@MaximumTorqueRPM", SqlDbType.Float).Direction = ParameterDirection.Output;
-                        
+
                         paramColl.Add("@RowCount", SqlDbType.TinyInt).Direction = ParameterDirection.Output;
 
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();
                         conn.Close();
-                        
+
                         int rowCount = Convert.ToInt16(paramColl["@RowCount"].Value);
 
                         if (rowCount > 0)
@@ -459,7 +461,14 @@ namespace Bikewale.DAL.BikeData
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }            
+            }
+            finally
+            {
+                if (conn != null && conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
             return objSpecs;
         }
 

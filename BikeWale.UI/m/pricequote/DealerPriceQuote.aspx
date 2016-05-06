@@ -66,6 +66,8 @@
 
             <!--Price Breakup starts here-->
             <div class="margin-top15 padding-left10 padding-right10">
+                <%if (isPriceAvailable)
+                  { %>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
                     <asp:Repeater ID="rptPriceList" runat="server">
                         <ItemTemplate>
@@ -120,6 +122,38 @@
                         }
                     %>
                 </table>
+                 <%} else if (objExQuotation != null && objExQuotation.ExShowroomPrice > 0)
+                   {%>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
+                    <tr>
+                        <td class="text-light-grey padding-bottom15" width="75%" align="left">Ex-Showroom Price</td>
+                        <td class="padding-bottom15" width="25%" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.ExShowroomPrice.ToString()) %></td>
+                    </tr>
+                    <tr>
+                        <td class="text-light-grey padding-bottom15" align="left">RTO</td>
+                        <td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.RTO.ToString()) %></td>
+                    </tr>
+                    <tr>
+                        <td class="text-light-grey padding-bottom15" align="left">Insurance (<a target="_blank" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objExQuotation!=null)?(objExQuotation.MakeName + "_" + objExQuotation.ModelName + "_" + objExQuotation.VersionName + "_" + objExQuotation.City):string.Empty %>' });" href="/m/insurance/" style="display: inline-block; position: relative; font-size: 11px; margin-top: 1px;">
+                                Up to 60% off - PolicyBoss                                
+                        </a>)<span style="margin-left: 5px; vertical-align: super; font-size: 9px;">Ad</span>
+                        </td>
+                        <td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objExQuotation.Insurance.ToString()) %></td>
+                    </tr>
+                    
+                    <tr align="left">
+                        <td height="1" colspan="2" class="break-line padding-bottom10"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-dark-black padding-bottom15" align="left">On-road price</td>
+                        <td class="text-dark-black padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objExQuotation.OnRoadPrice.ToString()) %></td>
+                    </tr>
+                </table>
+                <%}
+                 else
+                   {%>
+                <div class="margin-top-10 padding5" style="background: #fef5e6;">Price for this bike is not available in this city.</div>
+                <%} %>
             </div>
             <!--Price Breakup ends here-->
 
@@ -266,7 +300,7 @@
                     <asp:Repeater ID="rptSecondaryDealers" runat="server">
                         <ItemTemplate>
                             <li>
-                                <a href="#" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="secondary-dealer font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a><br />
+                                <a href="javascript:void(0)" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="secondary-dealer font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a><br />
                                 <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
                             </li>
                         </ItemTemplate>
@@ -283,11 +317,15 @@
                 <div class="grid-6 alpha omega padding-right5">
                     <input type="button" data-role="none" id="leadBtnBookNow" leadSourceId="17" name="leadBtnBookNow" class="btn btn-sm btn-full-width btn-white" value="Get offers" />
                 </div>
-                <%} %>
+                <%}
+
+                    if (isPrimaryDealer){ %>
+
                 <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega padding-left5" : "" %>">
-                    <a id="calldealer" class="btn btn-full-width btn-orange rightfloat" href="tel:<%= maskingNum %>">
+                    <a id="calldealer" class="btn btn-sm btn-full-width btn-orange rightfloat" href="tel:<%= maskingNum %>">
                         <span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                 </div>
+                <%} %>
             </div>
             <div class="clear"></div>
             <!--Exciting Offers section ends here-->

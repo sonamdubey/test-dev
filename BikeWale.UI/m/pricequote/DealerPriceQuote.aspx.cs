@@ -32,7 +32,7 @@ namespace Bikewale.Mobile.BikeBooking
         protected UInt64 totalPrice = 0;
         protected string pqId = string.Empty, areaId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty, mpqQueryString = string.Empty;
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0;
-        private bool isPriceAvailable = false;
+        protected bool isPriceAvailable = false;
         protected List<VersionColor> objColors = null;
         protected UInt32 insuranceAmount = 0;
         protected CustomerEntity objCustomer = new CustomerEntity();
@@ -52,6 +52,8 @@ namespace Bikewale.Mobile.BikeBooking
         protected bool isEMIAvailable = false, isUSPAvailable = false, isOfferAvailable = false, isPrimaryDealer = false, isSecondaryDealer = false, isBookingAvailable = false;
         protected DealerPackageTypes dealerType = 0;
         protected DealerQuotationEntity primarydealer = null;
+        IPriceQuote objIQuotation = null;
+        protected BikeQuotationEntity objExQuotation = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -66,7 +68,7 @@ namespace Bikewale.Mobile.BikeBooking
                     dealerId = Convert.ToUInt32(PriceQuoteQueryString.DealerId);
                 else
                 {
-                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                    Response.Redirect("~/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -93,7 +95,7 @@ namespace Bikewale.Mobile.BikeBooking
             }
             else
             {
-                Response.Redirect("/m/pricequote/default.aspx", false);
+                Response.Redirect("~/m/pricequote/default.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
@@ -140,6 +142,13 @@ namespace Bikewale.Mobile.BikeBooking
                             isPriceAvailable = true;
                         }
 
+                        else
+                        {
+                            container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+                            objIQuotation = container.Resolve<IPriceQuote>();
+                            objExQuotation = objIQuotation.GetPriceQuoteById(Convert.ToUInt64(pqId));
+                        }
+
                         if (objPriceQuote.PrimaryDealer != null)
                         {
                             primarydealer = objPriceQuote.PrimaryDealer;
@@ -181,7 +190,7 @@ namespace Bikewale.Mobile.BikeBooking
                             }
 
                             //bind secondary Dealer
-                            if (objPriceQuote.SecondaryDealerCount != null)
+                            if (objPriceQuote.SecondaryDealerCount > 0)
                             {
                                 secondaryDealersCount = Convert.ToUInt32(objPriceQuote.SecondaryDealerCount);
                                 if (secondaryDealersCount > 0)
@@ -231,7 +240,7 @@ namespace Bikewale.Mobile.BikeBooking
                     }
                     else
                     {
-                        Response.Redirect("/m/pricequote/quotation.aspx", false);
+                        Response.Redirect("~/m/pricequote/quotation.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
@@ -245,9 +254,9 @@ namespace Bikewale.Mobile.BikeBooking
             }
             finally
             {
-                if (!isPriceAvailable)
+                if (dealerId == 0 && !isSecondaryDealer && Convert.ToUInt32(pqId) > 0)
                 {
-                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId, areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -284,6 +293,8 @@ namespace Bikewale.Mobile.BikeBooking
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 2 Dec 2014
+        /// Modified By Vivek Gupta on 02-05-2016
+        /// Desc : redirection condition isDealerAvailbale added
         /// Summary : To Fill version dropdownlist
         /// </summary>
         protected void BindVersion()
@@ -353,23 +364,27 @@ namespace Bikewale.Mobile.BikeBooking
             }
             finally
             {
-
-                if (objPQOutput.PQId > 0 && objPQOutput.DealerId > 0)
+                if (objPQOutput != null && objPQOutput.PQId > 0)
                 {
-                    //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());
+                    if (objPQOutput.DealerId > 0)
+                    {
+                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(objPQOutput.DealerId))), false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
 
-                    Response.Redirect("/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString())), false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-                else if (objPQOutput.PQId > 0)
-                {
-                    // Save pq cookie
-                    //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "");
-
-                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "")), false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    else if (objPQOutput.DealerId == 0 && objPQOutput.IsDealerAvailable)
+                    {
+                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(objPQOutput.DealerId))), false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                    else if (objPQOutput.DealerId == 0 && !objPQOutput.IsDealerAvailable)
+                    {
+                        Response.Redirect("~/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(objPQOutput.DealerId))), false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                 }
                 else
                 {

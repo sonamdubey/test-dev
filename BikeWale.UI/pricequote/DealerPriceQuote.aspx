@@ -112,13 +112,13 @@
                         </div>
                         <!--Price List Section-->
                         <div class="grid-6 padding-top15 padding-bottom20 padding-right20" id="PQDetailsContainer">
-
-                            <p class="font14 text-default text-bold margin-bottom15">On-road price - <%= dealerName %></p>
+                           
 
                             <div runat="server">
                                 <div>
-                                    <% if (detailedDealer != null)
+                                    <% if (primaryPriceList != null && primaryPriceList.Count() > 0)
                                        { %>
+                                     <p class="font14 text-default text-bold margin-bottom15">On-road price - <%= dealerName %></p>
                                     <table class="font14" cellspacing="0" cellpadding="0" width="100%" border="0">
                                         <asp:Repeater ID="rptPriceList" runat="server">
                                             <ItemTemplate>
@@ -135,7 +135,7 @@
                                         <tr>
                                             <td colspan="2">
                                                 <div class="border-solid-top padding-bottom10"></div>
-                                                <td>
+                                            <td>
                                         </tr>
 
                                         <tr>
@@ -162,10 +162,48 @@
                                         </tr>
                                     </table>
                                     <% }
+
+                                       else if (objQuotation != null && objQuotation.ExShowroomPrice > 0)
+                                       {%>                                           
+                                            <table class="font14 margin-top10" cellspacing="0" cellpadding="0" width="100%" border="0">
+                                                <tr>
+                                                    <td width="200" class="PQDetailsTableTitle padding-bottom15">
+                                                        Ex-Showroom (<%= objQuotation.City %>)
+                                                    </td>
+                                                    <td align="right" class="PQDetailsTableAmount padding-bottom15">
+                                                        <span class="fa fa-rupee margin-right5"></span><span id="exShowroomPrice"><%= CommonOpn.FormatNumeric( objQuotation.ExShowroomPrice.ToString() ) %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="PQDetailsTableTitle padding-bottom15">RTO</td>
+                                                    <td align="right" class="PQDetailsTableAmount padding-bottom15">
+                                                        <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric( objQuotation.RTO.ToString() ) %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="PQDetailsTableTitle padding-bottom15">Insurance (Comprehensive)<br />
+                                                        <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">Save up to 60% on insurance - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
+                                                            <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>  
+                                                        </div>
+                                                    </td>
+                                                    <td align="right" class="PQDetailsTableAmount padding-bottom15">
+                                                        <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr><td colspan="2" class="border-solid-top padding-bottom15" align="right"></tr>
+                                                <tr>
+                                                    <td class="PQDetailsTableTitle PQOnRoadPrice padding-bottom15 text-dark-black">On-road price</td>
+                                                    <td align="right" class="PQDetailsTableAmount font18 padding-bottom15 text-dark-black">
+                                                        <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
+                                                    </td>
+                                                </tr>	
+                                            </table>
+                      
+                                       <%}
                                        else
                                        { %>
                                     <div class="grey-bg border-light padding5 margin-top10 margin-bottom20">
-                                        <h3>Dealer Prices for this Version is not available.</h3>
+                                        <h3>Price for this bike is not available in this city.</h3>
                                     </div>
                                     <% } %>
                                 </div>
@@ -509,7 +547,7 @@
                         <div class="clear"></div>
                         <%} %>
                         <div class="clear"></div>
-                        <p id="disclaimerText" class="padding-left20 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span>On-road price <%= (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)?"": "and EMI calculator" %> is provided for information. BikeWale does not own any responsibility for the same.</p>
+                        <p id="disclaimerText" class="<%= primarydealer.DealerDetails != null ? "" : "hide" %> padding-left20 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span>On-road price <%= (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)?"": "and EMI calculator" %> is provided for information. BikeWale does not own any responsibility for the same.</p>
                     </div>
 
                     <!--Primary Dealer Section-->
@@ -592,7 +630,7 @@
                                     <asp:Repeater ID="rptDealers" runat="server">
                                         <ItemTemplate>
                                             <li dealerid="<%# DataBinder.Eval(Container.DataItem,"dealerId") %>">
-                                                <h3><a href="#" class="font18 text-bold text-darker-black margin-right20"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
+                                                <h3><a href="javascript:void(0)" class="font18 text-bold text-darker-black margin-right20"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
                                                 <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
                                             </li>
                                         </ItemTemplate>
