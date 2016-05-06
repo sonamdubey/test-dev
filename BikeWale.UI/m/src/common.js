@@ -14,6 +14,25 @@ function triggerGA(cat, act, lab) {
     catch (e) {// log error   
     }
 }
+
+$('.bw-ga').click(function () {
+    try {
+        var obj = $(this);
+        if (obj.attr('l') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+        }
+        else if (obj.attr('v') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+        }
+        else if (obj.attr('f') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f")+'()'));
+        }
+    }
+    catch (e) {
+    }
+});
+
+
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
         var len = this.length >>> 0;
