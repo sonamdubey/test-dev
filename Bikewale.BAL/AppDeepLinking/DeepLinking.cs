@@ -26,6 +26,8 @@ namespace Bikewale.BAL.AppDeepLinking
         /// Created By : Lucky Rathore
         /// Created On : 10 March 2016
         /// Description : Class to implement funtionality used for deeplinking.
+        /// Modified By : Lucky Rathore on 06 May 2016
+        /// Description : New rules for upcoming bike detail and landing page added. Regular Expression added to consider url with '/m/' msite url.
         /// </summary>
         /// <param name="url">Bikewale.com's URL</param>
         /// <returns>DeepLinkingEntity</returns>
@@ -36,7 +38,24 @@ namespace Bikewale.BAL.AppDeepLinking
             Match match = null;
             try
             {
-                if (((match = Regex.Match(url, @"[^https?:\/\/.*]\/(.*)-bikes\/(.*)\/$")) != null) && match.Success) //for ModelScreenId
+                if (((match = Regex.Match(url, @"\/([A-Za-z0-9\-]+)-bikes\/upcoming\/$")) != null) && match.Success) //for Upcoming Bikes Detail
+                {
+                    string makeId = string.Empty;
+                    makeId = MakeMapping.GetMakeId(match.Groups[1].Value);
+                    if (!string.IsNullOrEmpty(makeId))
+                    {
+                        deepLinking = new DeepLinkingEntity();
+                        deepLinking.ScreenID = Bikewale.Entities.AppDeepLinking.ScreenIdEnum.UpcomingBikesDetail;
+                        deepLinking.Params = new Dictionary<string, string>();
+                        deepLinking.Params.Add("makeId", makeId);
+                    }
+                }                    
+                else if (((match = Regex.Match(url, @"\/upcoming-bikes\/$")) != null) && match.Success) //for Upcoming Bikes Landing
+                {
+                    deepLinking = new DeepLinkingEntity();
+                    deepLinking.ScreenID = Bikewale.Entities.AppDeepLinking.ScreenIdEnum.UpcomingBikesLanding;
+                }
+                else if (((match = Regex.Match(url, @"([A-Za-z0-9\-]+)-bikes\/([A-Za-z0-9\-]+)\/$")) != null) && match.Success) //for ModelScreenId
                 {
                     string makeId = string.Empty, modelId = string.Empty;
                     makeId = MakeMapping.GetMakeId(match.Groups[1].Value);
@@ -50,7 +69,7 @@ namespace Bikewale.BAL.AppDeepLinking
                         deepLinking.Params.Add("modelId", modelId);
                     }
                 }
-                else if ((match = Regex.Match(url,@"[^https?:\/\/.*]\/(.*)-bikes\/$")) != null && match.Success) //for MakeScreenId
+                else if ((match = Regex.Match(url, @"([A-Za-z0-9\-]+)-bikes\/$")) != null && match.Success) //for MakeScreenId
                 {
                     string makeId = string.Empty;
                     makeId = MakeMapping.GetMakeId(match.Groups[1].Value);
