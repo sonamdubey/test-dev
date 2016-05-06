@@ -1,34 +1,20 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.DAL.Location;
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.Location;
+using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.Practices.Unity;
-using Bikewale.BAL.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Memcache;
-using Bikewale.Common;
-using System.Text.RegularExpressions;
-using System.Data;
-using Bikewale.Entities.Customer;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.Customer;
-using Bikewale.Interfaces.PriceQuote;
-using Bikewale.BAL.Customer;
-using Bikewale.BAL.PriceQuote;
-using System.Data.SqlClient;
 using System.Web.UI.HtmlControls;
-using System.Configuration;
-using System.Net.Http;
-using Bikewale.Interfaces.Location;
-using Bikewale.DAL.Location;
-using Bikewale.Entities.Location;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Mobile.BikeBooking;
-using Bikewale.Interfaces.BikeBooking;
-using Bikewale.BAL.BikeBooking;
-using Bikewale.Utility;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.PriceQuote
 {
@@ -129,6 +115,8 @@ namespace Bikewale.Mobile.PriceQuote
 
         /// <summary>
         /// method to save PQ details and also register customer if new
+        /// Modified By : Vivek Gupta on 02-05-2016
+        /// Desc : redirection condition isDealerAvailbale added
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -138,89 +126,6 @@ namespace Bikewale.Mobile.PriceQuote
             uint cityId = 0, areaId = 0;
             if (IsPQDetailsValid())
             {
-                #region Old
-                //try
-                //{
-                //    GetPQDetails(ref cityId, ref areaId);
-
-                //    #region Commented
-                //    //using (IUnityContainer container = new UnityContainer())
-                //    //{
-                //    //    // save price quote
-                //    //    container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-                //    //    IPriceQuote objIPQ = container.Resolve<IPriceQuote>();
-
-                //    //    PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
-                //    //    objPQEntity.CityId = cityId;
-                //    //    objPQEntity.AreaId = areaId > 0 ? areaId : 0;
-                //    //    objPQEntity.ClientIP = CommonOpn.GetClientIP();
-                //    //    objPQEntity.SourceId = Convert.ToUInt16(Bikewale.Common.Configuration.MobileSourceId);
-                //    //    objPQEntity.VersionId = Convert.ToUInt32(versionId);
-
-                //    //    quoteId = objIPQ.RegisterPriceQuote(objPQEntity);
-
-                //    //} 
-                //    #endregion
-
-                //    // Get Default versionid for the given modelId
-                //    MakeModelVersion mmv = new MakeModelVersion();
-                //    DataTable dt = mmv.GetVersions(txtModel.Text, "New");
-                //    if (dt != null && dt.Rows.Count > 0)
-                //    {
-                //        versionId = Convert.ToString(dt.Rows[0]["Value"]);
-                //        using (IUnityContainer container = new UnityContainer())
-                //        {
-                //            // save price quote
-                //            container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-                //            IPriceQuote objIPQ = container.Resolve<IPriceQuote>();
-
-                //            PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
-                //            objPQEntity.CityId = cityId;
-                //            objPQEntity.AreaId = areaId > 0 ? areaId : 0;
-                //            objPQEntity.ClientIP = CommonOpn.GetClientIP();
-                //            objPQEntity.SourceId = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["sourceId"]);
-                //            objPQEntity.VersionId = Convert.ToUInt32(versionId);
-                //            // If pqId exists then, set pqId
-                //            quoteId = objIPQ.RegisterPriceQuote(objPQEntity);
-
-                //        }
-                //    }
-
-                //}
-                //catch (Exception ex)
-                //{
-                //    string selectedParams = "name : " + name + " : email : " + email + " : mobile : " + mobile
-                //                     + " : buyTime : " + buyTime + " : versionId : " + versionId + " : cityid : " + cityId;
-                //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " " + selectedParams);
-                //    objErr.SendMail();
-                //}
-                //finally
-                //{
-
-                //    if (quoteId > 0)
-                //    {
-                //        // Save pq cookie
-                //        PriceQuoteCookie.SavePQCookie(cityId.ToString(), quoteId.ToString(), areaId.ToString(), versionId, "");
-
-                //        //redirect to the quotation page
-                //        if (hdnIsAreaShown.Value == "true")
-                //        {
-                //            if (areaId > 0)
-                //            {
-                //                isDealerExists(Convert.ToUInt32(versionId), Convert.ToUInt32(areaId));
-                //            }
-                //            else
-                //                Response.Redirect("/m/pricequote/quotation.aspx", true);
-                //        }
-                //        else
-                //            Response.Redirect("/m/pricequote/quotation.aspx", true);
-                //    }
-                //    else
-                //    {
-                //        Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Sorry, Price for this Version is not available.');", true);
-                //    }
-                //} 
-                #endregion
                 GetPQDetails(ref cityId, ref areaId);
                 PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
                 PQOutputEntity objPQOutput = null;
@@ -250,25 +155,28 @@ namespace Bikewale.Mobile.PriceQuote
                 }
                 catch (Exception ex)
                 {
-                    string selectedParams = string.Format("modelId : {0}, CityId : {1}", modelId, cityId); 
+                    string selectedParams = string.Format("modelId : {0}, CityId : {1}", modelId, cityId);
                     ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " " + selectedParams);
                     objErr.SendMail();
                 }
                 finally
                 {
-
                     if (objPQOutput.DealerId > 0 && objPQOutput.PQId > 0)
                     {
-                        // Save pq cookie
-                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());                        
                         Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString())), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-                    else if (objPQOutput.PQId > 0)
+
+                    else if (objPQOutput.DealerId == 0 && objPQOutput.IsDealerAvailable && objPQOutput.PQId > 0)
                     {
-                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());                        
-                        Response.Redirect("~/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString())), false);
+                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString())), false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                    else if (objPQOutput.DealerId == 0 && objPQOutput.PQId > 0 && !objPQOutput.IsDealerAvailable)
+                    {
+                        Response.Redirect("~/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), "")), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
@@ -276,6 +184,7 @@ namespace Bikewale.Mobile.PriceQuote
                     {
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Sorry, Price for this Version is not available.');", true);
                     }
+
                 }
             }
         }

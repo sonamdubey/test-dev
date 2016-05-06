@@ -588,6 +588,8 @@ namespace Bikewale.Mobile.New
         /// Description     :   Fetch On road price depending on City, Area and DealerPQ and BWPQ
         /// Modified By     :   Sushil Kumar on 19th April 2016
         /// Description     :   Removed repeater binding for rptCategory and rptDiscount as view breakup popup removed 
+        /// Modified by     :   Sumit Kate on 29 Apr 2016
+        /// Description     :   Removed the Dealer Assistance code as it is not used.
         /// </summary>
         private void FetchOnRoadPrice()
         {
@@ -603,11 +605,6 @@ namespace Bikewale.Mobile.New
                         if (pqOnRoad.PriceQuote != null)
                         {
                             dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
-                            if (!String.IsNullOrEmpty(dealerId))
-                            {
-                                DealerAssistance dealerAssisteance = new DealerAssistance();
-                                isDealerAssitance = dealerAssisteance.IsDealerAssistance(dealerId);
-                            }
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
                         }
                         //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);

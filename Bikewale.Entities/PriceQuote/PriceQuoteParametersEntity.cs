@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.Customer;
 
 namespace Bikewale.Entities.PriceQuote
 {
@@ -11,6 +6,8 @@ namespace Bikewale.Entities.PriceQuote
     /// Summary : Added colorId to Update colorId in PQ_NewBikeDealerPriceQuotes
     /// Modified by :   Lucky Rathore on 20 April 2016
     /// Description :   Added RefPQId as new property
+    /// Modified by :   Sumit Kate on 02 May 2016
+    /// Description :   Added CampaignId
     public class PriceQuoteParametersEntity
     {
         public uint VersionId { get; set; }
@@ -24,7 +21,7 @@ namespace Bikewale.Entities.PriceQuote
         public string ClientIP { get; set; }
         public UInt16 SourceId { get; set; }
         //Added By : Sadhana Upadhyay on 20 July 2015
-        public uint DealerId { get; set; }  
+        public uint DealerId { get; set; }
         public uint ModelId { get; set; }
         public uint ColorId { get; set; }
         public string DeviceId { get; set; }
@@ -32,5 +29,6 @@ namespace Bikewale.Entities.PriceQuote
         public string UTMZ { get; set; }
         public ushort? PQLeadId { get; set; }
         public UInt64? RefPQId { get; set; }
+        public uint? CampaignId { get; set; }
     }
 }

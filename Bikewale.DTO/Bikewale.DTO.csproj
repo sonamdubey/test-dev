@@ -50,6 +50,7 @@
     <Compile Include="App\AppVersion.cs" />
     <Compile Include="App\AppVersionMessageCode.cs" />
     <Compile Include="AutoComplete\BikeList.cs" />
+    <Compile Include="AutoComplete\CityPayload.cs" />
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionList.cs" />
     <Compile Include="BikeBooking\BikeBookingListingDTO.cs" />

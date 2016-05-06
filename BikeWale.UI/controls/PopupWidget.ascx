@@ -375,15 +375,21 @@
 
                         cookieValue = "CityId=" + viewModelPopup.selectedCity() + "&AreaId=" + (!isNaN(viewModelPopup.selectedArea()) ? viewModelPopup.selectedArea() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
                         //SetCookie("_MPQ", cookieValue);
-
+                        
                         if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                             gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                             window.location = "/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
                         }
-                        else if (jsonObj != undefined && jsonObj.quoteId > 0) {
-                            gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
-                            window.location = "/pricequote/quotation.aspx" + "?MPQ=" + Base64.encode(cookieValue);
-                        } else {
+
+                        else if (jsonObj != undefined && jsonObj.dealerId == 0 && jsonObj.isDealerAvailable && jsonObj.quoteId > 0) {
+                            gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                            window.location = "/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
+                        }
+                        else if (jsonObj != undefined && jsonObj.dealerId == 0 && jsonObj.quoteId > 0 && !jsonObj.isDealerAvailable) {
+                                gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
+                                window.location = "/pricequote/quotation.aspx" + "?MPQ=" + Base64.encode(cookieValue);
+                        }
+                        else {
                             gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                             $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
                         }

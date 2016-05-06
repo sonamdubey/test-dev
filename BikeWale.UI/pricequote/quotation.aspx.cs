@@ -29,7 +29,6 @@ namespace Bikewale.PriceQuote
     {
         //protected Repeater rptAllVersions;
         protected UserReviewsMin ucUserReviewsMin;
-        protected LocateDealer ucLocateDealer;
         protected NewsMin newsMin;
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected AlternativeBikes ctrlAlternativeBikes;
@@ -111,7 +110,6 @@ namespace Bikewale.PriceQuote
                     //imgPath = ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + mmv.LargePic, mmv.HostUrl);
                     imgPath = Bikewale.Utility.Image.GetPathToShowImages(mmv.OriginalImagePath, mmv.HostUrl, Bikewale.Utility.ImageSize._310x174);
 
-                    ucLocateDealer.Make = mmv.MakeId + '_' + mmv.MakeMappingName;
 
                     BindVersion(mmv.ModelId);
 
@@ -241,7 +239,7 @@ namespace Bikewale.PriceQuote
                 container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                 objPriceQuote = container.Resolve<IPriceQuote>();
             }
-            
+
 
             // Validate price quote cookie and process pricequote.
             //if (PriceQuoteCookie.IsPQCoockieExist())

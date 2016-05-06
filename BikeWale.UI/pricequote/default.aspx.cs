@@ -1,34 +1,21 @@
-﻿using System;
+﻿using Bikewale.BAL.BikeBooking;
+using Bikewale.Common;
+using Bikewale.DAL.Location;
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.Location;
+using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.Practices.Unity;
-using Bikewale.BAL.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Memcache;
-using Bikewale.Common;
-using System.Text.RegularExpressions;
-using System.Data;
-using Bikewale.Entities.Customer;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.Customer;
-using Bikewale.Interfaces.PriceQuote;
-using Bikewale.BAL.Customer;
-using Bikewale.BAL.PriceQuote;
-using System.Data.SqlClient;
 using System.Web.UI.HtmlControls;
-using System.Configuration;
-using System.Net.Http;
-using Bikewale.Mobile.PriceQuote;
-using Bikewale.Interfaces.Location;
-using Bikewale.DAL.Location;
-using Bikewale.Entities.Location;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Interfaces.BikeBooking;
-using Bikewale.BAL.BikeBooking;
-using Bikewale.Utility;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.PriceQuote
 {
@@ -126,6 +113,8 @@ namespace Bikewale.PriceQuote
 
         /// <summary>
         /// method to save PQ details and also register customer if new
+        /// Modified By : Vivek Gupta on 29-04-2016
+        /// Desc : In case of dealerId=0 and isDealerAvailable = true , while redirecting to pricequotes ,don't redirect to BW PQ redirect to dpq
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -163,7 +152,7 @@ namespace Bikewale.PriceQuote
                     }
                 }
                 catch (Exception ex)
-                {                    
+                {
                     string selectedParams = string.Format("modelId : {0}, CityId : {1}", modelId, cityId);
                     ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " " + selectedParams);
                     objErr.SendMail();
@@ -171,7 +160,7 @@ namespace Bikewale.PriceQuote
                 finally
                 {
 
-                    if (objPQOutput.DealerId > 0 && objPQOutput.PQId>0)
+                    if (objPQOutput.DealerId > 0 && objPQOutput.PQId > 0)
                     {
                         // Save pq cookie
                         //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());                        
@@ -179,7 +168,16 @@ namespace Bikewale.PriceQuote
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-                    else if(objPQOutput.PQId>0)
+
+                    else if (objPQOutput.DealerId == 0 && objPQOutput.IsDealerAvailable && objPQOutput.PQId > 0)
+                    {
+                        // Save pq cookie
+                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());                        
+                        Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString())), false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+                    else if (objPQOutput.DealerId == 0 && objPQOutput.PQId > 0 && !objPQOutput.IsDealerAvailable)
                     {
                         //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), "");                        
                         Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), "")), false);
@@ -298,14 +296,14 @@ namespace Bikewale.PriceQuote
             List<CityEntityBase> objCities = null;
             try
             {
-                using(IUnityContainer container =new UnityContainer())
+                using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<ICity, CityRepository>();
                     ICity cityRepository = container.Resolve<ICity>();
 
                     objCities = cityRepository.GetPriceQuoteCities(Convert.ToUInt32(modelId));
 
-                    if(objCities!=null)
+                    if (objCities != null)
                     {
                         ddlCity.DataSource = objCities;
                         ddlCity.DataTextField = "CityName";

@@ -258,7 +258,7 @@ namespace Bikewale.DAL.Compare
                         command.Parameters.Add("@TopCount", System.Data.SqlDbType.SmallInt).Value = topCount;
 
                         connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlDataReader reader = command.ExecuteReader(System.Data.CommandBehavior.CloseConnection))
                         {
                             if (reader != null && reader.HasRows)
                             {
@@ -292,6 +292,8 @@ namespace Bikewale.DAL.Compare
                                         HostUrl2 = GetString(reader["HostUrl2"])
                                     });
                                 }
+
+                                reader.Close();
                             }
                         }
                     }
