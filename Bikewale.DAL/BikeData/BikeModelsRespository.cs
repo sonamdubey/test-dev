@@ -691,6 +691,8 @@ namespace Bikewale.DAL.BikeData
 
                                 recordCount = Convert.ToInt32(dr["RecordCount"]);
                             }
+
+                            dr.Close();
                         }
                     }
                 }
