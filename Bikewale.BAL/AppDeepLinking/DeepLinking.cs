@@ -40,7 +40,7 @@ namespace Bikewale.BAL.AppDeepLinking
             {
                 if (((match = Regex.Match(url, @"\/([A-Za-z0-9\-]+)-bikes\/upcoming\/?$")) != null) && match.Success) //for Upcoming Bikes Detail
                 {
-                    string makeId = makeId = MakeMapping.GetMakeId(match.Groups[1].Value);
+                    string makeId = MakeMapping.GetMakeId(match.Groups[1].Value);
                     if (!string.IsNullOrEmpty(makeId))
                     {
                         deepLinking = new DeepLinkingEntity();
@@ -56,8 +56,8 @@ namespace Bikewale.BAL.AppDeepLinking
                 }
                 else if (((match = Regex.Match(url, @"([A-Za-z0-9\-]+)-bikes\/([A-Za-z0-9\-]+)\/?$")) != null) && match.Success) //for ModelScreenId
                 {
-                    string makeId = makeId = MakeMapping.GetMakeId(match.Groups[1].Value), 
-                        modelId = modelId = GetModelId(match.Groups[2].Value);
+                    string makeId = MakeMapping.GetMakeId(match.Groups[1].Value), 
+                        modelId = GetModelId(match.Groups[2].Value);
                     if (!(string.IsNullOrEmpty(makeId) || string.IsNullOrEmpty(modelId)))
                     {
                         deepLinking = new DeepLinkingEntity();
