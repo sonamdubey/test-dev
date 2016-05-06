@@ -129,3 +129,7 @@ $('.btn-grey-state').on('click', function () {
     $(this).addClass('button-clicked-state');
     setTimeout(function () { $('.btn-grey-state').removeClass('button-clicked-state'); }, 100);
 });
+$('#getMoreDetails').on('click', function () {
+    getMoreDetailsClicked = true;
+});
+

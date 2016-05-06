@@ -118,6 +118,11 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="2" align="right" class="text-light-grey padding-bottom15">
+                            <strong><a id='getMoreDetails' leadSourceId="23" class="get-offer-link bw-ga" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" >Get more details</a></strong>
+                        </td>
+                    </tr>
                     <%
                         }
                     %>
@@ -598,7 +603,7 @@
             });
 
 
-            var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#btnEmiQuote"), leadCapturePopup = $("#leadCapturePopup");
+            var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#btnEmiQuote,#getMoreDetails"), leadCapturePopup = $("#leadCapturePopup");
             var fullname = $("#getFullName");
             var emailid = $("#getEmailID");
             var mobile = $("#getMobile");
@@ -613,6 +618,7 @@
 
             var getOffersClicked = false;
             var getEMIClicked = false;
+            var getMoreDetailsClicked = false;
 
             var getCityArea = GetGlobalCityArea();
             var customerViewModel = new CustomerModel();
@@ -775,6 +781,11 @@
                             else if (getEMIClicked) {
                                 dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_EMI_Quote_" + bikeName + "_" + versionName + "_" + getCityArea });
                                 getEMIClicked = false;
+                            }
+                            else if (getMoreDetailsClicked) {
+                                alert(GetBikeVerLoc());
+                                triggerGA('Dealer_PQ', 'Lead_Submitted', 'Get_more_details_' + GetBikeVerLoc());
+                                getMoreDetailsClicked = false;
                             }
                         }
                         else {
@@ -1033,9 +1044,7 @@
                     hideError(mobileNo)
                 return isValid;
             };
-            $('#bookNowBtn').on('click', function (e) {
-                window.location.href = "/m/pricequote/bookingSummary_new.aspx";
-            });
+
             ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
             // GA Tags
             $("#leadBtnBookNow").on("click", function () {
@@ -1233,7 +1242,9 @@
             ko.applyBindings(EMIviewModel, $("#emiPopup")[0]);
 
             <% } %>
-
+            function GetBikeVerLoc() {
+                return bikeName + "_" + versionName + "_" + getCityArea;
+            }
         </script>
 
     </form>
