@@ -1,22 +1,13 @@
-﻿using AutoMapper;
-using Bikewale.DAL.UserReviews;
-using Bikewale.DTO.Make;
-using Bikewale.DTO.Model;
-using Bikewale.DTO.Version;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.DTO;
+﻿using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UserReviews;
-using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.Notifications;
 
 namespace Bikewale.Service.Controllers.UserReviews
 {
@@ -28,13 +19,18 @@ namespace Bikewale.Service.Controllers.UserReviews
     /// </summary>
     public class UserReviewsController : ApiController
     {
-        
+
         private readonly IUserReviews _userReviewsRepo = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userReviewsRepo"></param>
         public UserReviewsController(IUserReviews userReviewsRepo)
         {
             _userReviewsRepo = userReviewsRepo;
         }
-        
+
         #region User Reviews Details
         /// <summary>
         /// To get review Details 
@@ -46,9 +42,9 @@ namespace Bikewale.Service.Controllers.UserReviews
         {
             ReviewDetailsEntity objUserReview = null;
             ReviewDetails objDTOUserReview = null;
-            try 
-	        {	        
-		        objUserReview = _userReviewsRepo.GetReviewDetails(reviewId);
+            try
+            {
+                objUserReview = _userReviewsRepo.GetReviewDetails(reviewId);
 
                 if (objUserReview != null)
                 {
@@ -58,7 +54,7 @@ namespace Bikewale.Service.Controllers.UserReviews
 
                     return Ok(objUserReview);
                 }
-	        }
+            }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
@@ -77,29 +73,29 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="review">Optional</param>
         /// <returns>User Review rating</returns>
         [ResponseType(typeof(ReviewRating))]
-        public IHttpActionResult Get(uint modelId,bool?review)
+        public IHttpActionResult Get(uint modelId, bool? review)
         {
             ReviewRatingEntity objURRating = null;
             ReviewRating objDTOURRating = null;
-          try 
-	      {	        
-		    objURRating = _userReviewsRepo.GetBikeRatings(modelId);
-
-            if (objURRating != null)
+            try
             {
-                // Auto map the properties
-                objDTOURRating = new ReviewRating();
-                objDTOURRating = UserReviewsMapper.Convert(objURRating);
+                objURRating = _userReviewsRepo.GetBikeRatings(modelId);
 
-                return Ok(objURRating);
+                if (objURRating != null)
+                {
+                    // Auto map the properties
+                    objDTOURRating = new ReviewRating();
+                    objDTOURRating = UserReviewsMapper.Convert(objURRating);
+
+                    return Ok(objURRating);
+                }
             }
-	      }
-	      catch (Exception ex)
-          {
-              ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
-              objErr.SendMail();
-              return InternalServerError();
-          }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
             return NotFound();
         }   // Get user review ratings
         #endregion
@@ -134,7 +130,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         }   // Update user review views count
         #endregion
 
-        #region Is Helpful  User Review 
+        #region Is Helpful  User Review
         /// <summary>
         ///  To Change review status to helpful
         /// </summary>
@@ -142,11 +138,11 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="isHelpful">Optional (use as '&isHelpful')</param>
         /// <returns>Boolean</returns>
         [ResponseType(typeof(Boolean))]
-        public IHttpActionResult Put(uint reviewId,bool isHelpful)
+        public IHttpActionResult Put(uint reviewId, bool isHelpful)
         {
             bool objURHelpful = false;
             try
-            {       
+            {
                 objURHelpful = _userReviewsRepo.UpdateReviewUseful(reviewId, isHelpful);
 
                 if (objURHelpful)
@@ -173,7 +169,7 @@ namespace Bikewale.Service.Controllers.UserReviews
         /// <param name="userId"></param>
         /// <returns>Boolean</returns>
         [ResponseType(typeof(Boolean))]
-        public IHttpActionResult Put(uint reviewId, string comment,string userId)
+        public IHttpActionResult Put(uint reviewId, string comment, string userId)
         {
             bool objURAbuse = false;
             try

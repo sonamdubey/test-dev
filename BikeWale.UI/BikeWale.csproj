@@ -1053,11 +1053,6 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="News\GrpcFiles\Article.cs" />
-    <Compile Include="News\GrpcFiles\ArticleGrpc.cs" />
-    <Compile Include="News\GrpcFiles\CustomGRPCLoadBalancer.cs" />
-    <Compile Include="News\GrpcFiles\GrpcMethods.cs" />
-    <Compile Include="News\GrpcFiles\GrpcToBikeWaleConvert.cs" />
     <Compile Include="News\news.aspx.cs">
       <DependentUpon>news.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -1,28 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Common;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Configuration;
-using Bikewale.Entities.CMS.Articles;
-using System.Net.Http.Formatting;
-using Newtonsoft.Json;
-using System.Threading.Tasks;
-using Bikewale.Controls;
-using Bikewale.Entities.Pager;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.Pager;
+﻿using Bikewale.BAL.GrpcFiles;
 using Bikewale.BAL.Pager;
+using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Pager;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Utility;
 using Grpc.CMS;
-using Grpc.Core;
-using Bikewale.News.GrpcFiles;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.News
 {
@@ -34,7 +26,7 @@ namespace Bikewale.News
         protected Repeater rptNews;
         protected LinkPagerControl linkPager;
 
-        protected string prevUrl = string.Empty,nextUrl = string.Empty;
+        protected string prevUrl = string.Empty, nextUrl = string.Empty;
 
         static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
 
@@ -47,8 +39,8 @@ namespace Bikewale.News
         private const int _pagerSlotSize = 10;
 
         protected override void OnInit(EventArgs e)
-        { 
-            base.Load += new EventHandler(Page_Load);                  
+        {
+            base.Load += new EventHandler(Page_Load);
         }
 
         private void Page_Load(object sender, EventArgs e)
@@ -68,14 +60,14 @@ namespace Bikewale.News
             {
                 if (CommonOpn.CheckId(Request.QueryString["pn"]) == true)
                     _pageNumber = Convert.ToInt32(Request.QueryString["pn"]);
-            }           
-            
+            }
+
             GetNews();
         }
 
         private void BindNews(CMSContent data)
         {
-         
+
             rptNews.DataSource = data.Articles;
             rptNews.DataBind();
         }
@@ -88,7 +80,7 @@ namespace Bikewale.News
         private void GetNews()
         {
             try
-            {                
+            {
                 if (_useGrpc)
                 {
                     // get pager instance

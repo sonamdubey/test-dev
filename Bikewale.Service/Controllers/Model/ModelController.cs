@@ -1,28 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.DTO.Model;
+using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.DAL.BikeData;
-using AutoMapper;
-using System.Web.Http.Description;
-using Bikewale.DTO.Model;
-using Bikewale.DTO.Series;
-using Bikewale.DTO.Make;
-using Bikewale.DTO.Version;
-using Bikewale.Service.Controllers.Version;
-using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Notifications;
-using Bikewale.Entities.CMS.Photos;
-using Bikewale.Entities.CMS;
-using Bikewale.Utility;
+using Bikewale.Service.AutoMappers.Model;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
-using Bikewale.DTO.CMS.Photos;
-using Bikewale.Service.AutoMappers.CMS;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Model
 {
@@ -35,16 +21,19 @@ namespace Bikewale.Service.Controllers.Model
     {
         private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-        private string _requestType = "application/json";
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
-        
+        private readonly IBikeModels<BikeModelEntity, int> _modelsContent = null;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="modelRepository"></param>
-        public ModelController(IBikeModelsRepository<BikeModelEntity, int> modelRepository)
+        /// <param name="modelContent"></param>
+        public ModelController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModels<BikeModelEntity, int> modelContent)
         {
             _modelRepository = modelRepository;
+            _modelsContent = modelContent;
+
         }
 
         #region Model Details
@@ -81,7 +70,7 @@ namespace Bikewale.Service.Controllers.Model
         }   // Get 
         #endregion
 
-        #region Model Versions List        
+        #region Model Versions List
         /// <summary>
         /// To get all new versions based on Models 
         /// </summary>
@@ -119,7 +108,49 @@ namespace Bikewale.Service.Controllers.Model
                 return InternalServerError();
             }
         }   // Get 
-        #endregion               
+        #endregion
+
+        #region Model Content Data
+        /// <summary>
+        /// Author : Vivek Gupta
+        /// Date : 5-5-2016
+        /// Desc : wrapping data in a single api for - User Reviews - News- Expert Reviews- Videos
+        /// </summary>
+        /// <param name="modelId"></param>        
+        /// <returns>List of User Reviews - News- Expert Reviews- Videos of the model</returns>
+        [ResponseType(typeof(List<BikeModelContentDTO>)), Route("api/model/articles/")]
+        public IHttpActionResult GetModelContent(int modelId)
+        {
+            BikeModelContent bkModelContent = null;
+            BikeModelContentDTO bkContent = null;
+
+            try
+            {
+                bkModelContent = _modelsContent.GetRecentModelArticles(modelId);
+
+                if (bkModelContent != null)
+                {
+                    bkContent = new BikeModelContentDTO();
+                    bkContent = ModelMapper.Convert(bkModelContent);
+
+                    bkModelContent = null;
+
+                    return Ok(bkContent);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+        #endregion  Model Content Data
+
     }
 
 }

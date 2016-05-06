@@ -1195,5 +1195,10 @@ namespace Bikewale.DAL.BikeData
             return objList;
         }   //End of GetAllModels Method
         #endregion
+
+        public BikeModelContent GetRecentModelArticles(U modelId)
+        {
+            throw new NotImplementedException();
+        }
     }   // class
 }   // namespace

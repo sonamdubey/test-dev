@@ -1,10 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Interfaces.BikeData
 {
@@ -17,7 +12,7 @@ namespace Bikewale.Interfaces.BikeData
     public interface IBikeModels<T, U> : IRepository<T, U>
     {
         List<BikeModelEntityBase> GetModelsByType(EnumBikeType requestType, int makeId);
-        List<BikeVersionsListEntity> GetVersionsList(U modelId , bool isNew);
+        List<BikeVersionsListEntity> GetVersionsList(U modelId, bool isNew);
         BikeDescriptionEntity GetModelSynopsis(U modelId);
 
         UpcomingBikeEntity GetUpcomingBikeDetails(U modelId);
@@ -25,7 +20,8 @@ namespace Bikewale.Interfaces.BikeData
         List<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null);
         List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int startIndex, int endIndex, out int recordCount);
         List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int pageSize, out int recordCount, int? currentPageNo = null);
-        BikeModelPageEntity GetModelPageDetails(U modelId);        
+        BikeModelPageEntity GetModelPageDetails(U modelId);
         List<Entities.CMS.Photos.ModelImage> GetBikeModelPhotoGallery(U modelId);
+        BikeModelContent GetRecentModelArticles(U modelId);
     }
 }
