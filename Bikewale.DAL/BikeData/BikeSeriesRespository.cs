@@ -10,6 +10,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.CoreDAL;
 using Bikewale.Notifications;
+using System.Data.Common;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -111,19 +112,16 @@ namespace Bikewale.DAL.BikeData
         public T GetById(U id)
         {
             T t = default(T);
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetSeriesDetails";
+                    cmd.CommandText = "getseriesdetails";
 
-                    cmd.Parameters.Add("@BikeSeriesId", SqlDbType.Int).Value = id;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeseriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], id));
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd)) 
                     {
                         if (dr != null)
                         {
@@ -155,10 +153,6 @@ namespace Bikewale.DAL.BikeData
                 HttpContext.Current.Trace.Warn("GetById ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return t;

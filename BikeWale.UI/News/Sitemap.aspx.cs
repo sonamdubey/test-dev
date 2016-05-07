@@ -12,6 +12,8 @@ using System.Data.Sql;
 using System.Data.SqlTypes;
 using Bikewale.Utility;
 using System.IO;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.News
 {
@@ -24,33 +26,28 @@ namespace Bikewale.News
         }
         private void GenerateNewsSiteMap()
         {
-            string mydomain = "http://www.bikewale.com/news/";
-            
+            string mydomain = "http://www.bikewale.com/news/";             
 
             XmlTextWriter writer = null;
             DataTable dataTable = null;
-            Database db = null;
-            SqlConnection con = null;
             SqlDataAdapter da = null;
-            DataRow dtr = null;
+            DataRow dtr = null; 
+
             try
             {                
                 writer = new XmlTextWriter(Response.OutputStream, Encoding.UTF8);
-                db = new Database();
-                using (con = new SqlConnection(BWConfiguration.Instance.CWConnectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("cw.GoogleSiteMapDetails", con))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("googlesitemapdetails"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@ApplicationId", SqlDbType.Int).Value = Convert.ToInt32(BWConfiguration.Instance.ApplicationId);
-                        con.Open();
-                        da = new SqlDataAdapter(cmd);
-                        if (da != null)
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_applicationid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Convert.ToInt32(BWConfiguration.Instance.ApplicationId)));
+
+                        using (DataSet ds  = MySqlDatabase.SelectAdapterQuery(cmd))
                         {
-                            dataTable = new DataTable();
-                            da.Fill(dataTable);
+                            if (da != null)
+                            {
+                                dataTable = ds.Tables[0];
+                            } 
                         }
-                    }
                 }
                 // Creating the SiteMap XML using XMLTextWriter
                 writer.Formatting = System.Xml.Formatting.Indented;
@@ -104,13 +101,6 @@ namespace Bikewale.News
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {                
-                if (con != null)
-                {
-                    con.Close();
-                }
             }
         }
     }//class

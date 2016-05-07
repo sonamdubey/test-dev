@@ -277,14 +277,6 @@ namespace Bikewale.DAL.PriceQuote
                     cmd.CommandText = "updatepricequotebikeversion";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    //cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
-                    //cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = pqParams.VersionId;
-
-                    //if (pqParams.ColorId > 0)
-                    //{
-                    //    cmd.Parameters.Add("@BikeColorId", SqlDbType.Int).Value = pqParams.ColorId;
-                    //}
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], pqParams.VersionId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (pqParams.ColorId > 0) ? pqParams.ColorId : Convert.DBNull));
