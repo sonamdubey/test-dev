@@ -7,6 +7,8 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.Controls
 {
@@ -20,7 +22,7 @@ namespace Bikewale.Controls
         {
             get { return _topRecords; }
             set { _topRecords = value; }
-        }        
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -33,7 +35,7 @@ namespace Bikewale.Controls
                 FetchRoadTests();
         }
 
-       
+
         private void FetchRoadTests()
         {
             // Bind DataSet to Repeater
@@ -44,7 +46,7 @@ namespace Bikewale.Controls
                     divControl.Attributes.Remove("class");
                     rptTipsAdvices.DataSource = dtR;
                     rptTipsAdvices.DataBind();
-                }      
+                }
                 else
                     divControl.Attributes.Add("class", "hide");
             }
@@ -52,29 +54,35 @@ namespace Bikewale.Controls
 
         private DataTable GetLatestRoadTests()
         {
-            DataTable dt = new DataTable();
-            using (SqlCommand cmd = new SqlCommand("GetTipsAndAdvices"))
+            DataTable dt = default(DataTable);
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
-                cmd.Parameters.Add("@Category", SqlDbType.SmallInt).Value = "5"; // 5 category id for tips and advices.
-                try
+                using (DbCommand cmd = DbFactory.GetDBCommand("gettipsandadvices"))
                 {
-                    Database db = new Database();
-                    dt = db.SelectAdaptQry(cmd).Tables[0];
-                }
-                catch (SqlException exSql)
-                {
-                    ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], TopRecords));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_category", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], "5")); // 5 category id for tips and advices.
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    {
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                        {
+                            dt = ds.Tables[0];
+                        }
+                    }
+
                 }
             }
-
+            catch (SqlException exSql)
+            {
+                ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
             return dt;
         }
     }//class

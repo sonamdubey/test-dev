@@ -389,55 +389,54 @@ namespace Bikewale.Content
         protected void GoogleKeywords()
         {
             string sql = "";
-            SqlDataReader dr = null;
-
-            if (versionId != "")
+            uint _modelId = 0, _versionId = 0;
+            if (versionId != "-1")
             {
-                sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
-                    + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
-                    + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
-                    + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
-                    + " AND Ve.Id = @Id";
+                sql = @" select distinct cm.name as make, se.name as subsegment, bo.name bikebodystyle
+                   from bikemodels as cmo, bikemakes as cm, bikebodystyles bo,
+                    (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid )
+                    where cm.id=cmo.bikemakeid and cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid
+                    and ve.id = @v_versionid";
             }
             else
             {
-                sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
-                    + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
-                    + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
-                    + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
-                    + " AND Ve.BikeModelId = @BikeModelId";
+                sql = @" select distinct cm.name as make, se.name as subsegment, bo.name bikebodystyle 
+                     from bikemodels as cmo, bikemakes as cm, bikebodystyles bo, 
+                     (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid ) 
+                     where cm.id=cmo.bikemakeid and cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid 
+                     and ve.bikemodelid = @v_modelid";
             }
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@Id", SqlDbType.BigInt).Value = versionId != "" ? versionId : "-1";
-            cmd.Parameters.Add("@BikeModelId", SqlDbType.BigInt).Value = modelId != "" ? modelId : "-1";
-
-            Database db = new Database();
             try
             {
-                dr = db.SelectQry(cmd);
-                if (dr.Read())
+                if (!string.IsNullOrEmpty(modelId) && !string.IsNullOrEmpty(versionId))
                 {
-                    oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
-                    bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
-                    subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                    uint.TryParse(versionId, out _versionId);
+                    uint.TryParse(modelId, out _modelId);
                 }
 
-                Trace.Warn("oem : " + oem);
-                Trace.Warn(" bodyType : " + bodyType);
-                Trace.Warn(" subSegment : " + subSegment);                
+                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], _modelId));
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_versionid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], _versionId));
+
+                    using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+
+                            oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                            bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                            subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                        }
+
+                    }
+                }
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
-
-                db.CloseConnection();
             }
         }
 

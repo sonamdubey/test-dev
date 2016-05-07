@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using RabbitMqPublishing;
 using Bikewale.Utility;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.Common
 {
@@ -209,71 +211,105 @@ namespace Bikewale.Common
         }
 
 
+        //string SaveSMSSentData(string number, string message, EnumSMSServiceType esms, bool status, string retMsg, string pageUrl)
+        //{
+        //    SqlConnection con;
+        //    SqlCommand cmd;
+        //    SqlParameter prm;
+        //    Database db = new Database();
+        //    CommonOpn op = new CommonOpn();
+
+        //    string conStr = db.GetConString();
+        //    string currentId = string.Empty;
+
+        //    con = new SqlConnection(conStr);
+
+        //    try
+        //    {
+        //        cmd = new SqlCommand("InsertSMSSent", con);
+        //        cmd.CommandType = CommandType.StoredProcedure;
+
+        //        prm = cmd.Parameters.Add("@Number", SqlDbType.VarChar, 50);
+        //        prm.Value = number;
+
+        //        prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 500);
+        //        prm.Value = message;
+
+        //        prm = cmd.Parameters.Add("@ServiceType", SqlDbType.Int);
+        //        prm.Value = esms;
+
+        //        prm = cmd.Parameters.Add("@SMSSentDateTime", SqlDbType.DateTime);
+        //        prm.Value = DateTime.Now;
+
+        //        prm = cmd.Parameters.Add("@Successfull", SqlDbType.Bit);
+        //        prm.Value = status;
+
+        //        prm = cmd.Parameters.Add("@ReturnedMsg", SqlDbType.VarChar, 500);
+        //        prm.Value = retMsg;
+
+        //        prm = cmd.Parameters.Add("@SMSPageUrl", SqlDbType.VarChar, 500);
+        //        prm.Value = pageUrl;
+
+        //        con.Open();
+        //        //run the command
+        //        //cmd.ExecuteNonQuery();
+        //        currentId = Convert.ToString(cmd.ExecuteScalar());
+        //    }
+        //    catch (SqlException err)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
+        //        ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
+        //        objErr.SendMail();
+        //    } // catch SqlException
+        //    catch (Exception err)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
+        //        ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
+        //        objErr.SendMail();
+        //    } // catch Exception
+        //    finally
+        //    {
+        //        //close the connection	
+        //        if (con.State == ConnectionState.Open)
+        //        {
+        //            con.Close();
+        //        }
+        //    }
+
+        //    return currentId;
+        //}
+
         string SaveSMSSentData(string number, string message, EnumSMSServiceType esms, bool status, string retMsg, string pageUrl)
         {
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-            CommonOpn op = new CommonOpn();
-
-            string conStr = db.GetConString();
             string currentId = string.Empty;
-
-            con = new SqlConnection(conStr);
-
             try
             {
-                cmd = new SqlCommand("InsertSMSSent", con);
-                cmd.CommandType = CommandType.StoredProcedure;
 
-                prm = cmd.Parameters.Add("@Number", SqlDbType.VarChar, 50);
-                prm.Value = number;
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertsmssent"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 500);
-                prm.Value = message;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_number", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, number));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_message", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, message));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_servicetype", DbParamTypeMapper.GetInstance[SqlDbType.Int], esms));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smssentdatetime", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_successfull", DbParamTypeMapper.GetInstance[SqlDbType.Bit], status));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_returnedmsg", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, retMsg));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smspageurl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, pageUrl));
 
-                prm = cmd.Parameters.Add("@ServiceType", SqlDbType.Int);
-                prm.Value = esms;
-
-                prm = cmd.Parameters.Add("@SMSSentDateTime", SqlDbType.DateTime);
-                prm.Value = DateTime.Now;
-
-                prm = cmd.Parameters.Add("@Successfull", SqlDbType.Bit);
-                prm.Value = status;
-
-                prm = cmd.Parameters.Add("@ReturnedMsg", SqlDbType.VarChar, 500);
-                prm.Value = retMsg;
-
-                prm = cmd.Parameters.Add("@SMSPageUrl", SqlDbType.VarChar, 500);
-                prm.Value = pageUrl;
-
-                con.Open();
-                //run the command
-                //cmd.ExecuteNonQuery();
-                currentId = Convert.ToString(cmd.ExecuteScalar());
+                    currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd));
+                }
             }
             catch (SqlException err)
             {
-                HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
                 objErr.SendMail();
             } // catch SqlException
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
-
             return currentId;
         }
 

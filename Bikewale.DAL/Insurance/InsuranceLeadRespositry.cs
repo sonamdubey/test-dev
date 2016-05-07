@@ -14,9 +14,10 @@ using Bikewale.Utility;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Entities.Customer;
 using Bikewale.DAL.Customer;
+using System.Data.Common;
 
 namespace Bikewale.DAL.Insurance
-{   
+{
     /// <summary>
     /// Created By : Lucky Rathore
     /// Date : 20 November 2015
@@ -31,57 +32,49 @@ namespace Bikewale.DAL.Insurance
         /// </summary>
         /// <param name="lead">InsuraceLead Entity</param>
         /// <returns></returns>
-        public bool SaveLeadDetail(InsuranceLead lead) 
+        public bool SaveLeadDetail(InsuranceLead lead)
         {
             bool isSuccess;
-            Database db = null;
-            int affectedRow = 0;
             if (!isvalidLead(lead)) return false;
-            
+
             try
             {
-                db = new Database();
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "SaveInsuranceLead";
-                        cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "saveinsurancelead";
 
-                        cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = lead.CustomerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], lead.CustomerId));
 
-                        cmd.Parameters.Add("@CustomerName", SqlDbType.VarChar, 50).Value = String.IsNullOrEmpty(lead.CustomerName) ? Convert.DBNull : lead.CustomerName;
-                        cmd.Parameters.Add("@CityName", SqlDbType.VarChar, 50).Value = String.IsNullOrEmpty(lead.CityName) ? Convert.DBNull : lead.CityName;
-                        cmd.Parameters.Add("@StateName", SqlDbType.VarChar, 50).Value = String.IsNullOrEmpty(lead.StateName) ? Convert.DBNull : lead.StateName;
-                       
-                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = lead.CityId;
-                        cmd.Parameters.Add("@Email", SqlDbType.VarChar, 100).Value = String.IsNullOrEmpty(lead.Email) ? Convert.DBNull : lead.Email;
-                        cmd.Parameters.Add("@Mobile", SqlDbType.VarChar, 10).Value = String.IsNullOrEmpty(lead.Mobile) ? Convert.DBNull : lead.Mobile;
-                        cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 30).Value = String.IsNullOrEmpty(CommonOpn.GetClientIP()) ? "" : CommonOpn.GetClientIP();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, String.IsNullOrEmpty(lead.CustomerName) ? Convert.DBNull : lead.CustomerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, String.IsNullOrEmpty(lead.CityName) ? Convert.DBNull : lead.CityName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_statename", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, String.IsNullOrEmpty(lead.StateName) ? Convert.DBNull : lead.StateName));
 
-                        cmd.Parameters.Add("@InsurancePolicyType", SqlDbType.TinyInt).Value = lead.InsurancePolicyType;
-                        cmd.Parameters.Add("@BikeRegistrationDate", SqlDbType.DateTime).Value = lead.BikeRegistrationDate;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], lead.CityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, String.IsNullOrEmpty(lead.Email) ? Convert.DBNull : lead.Email));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, String.IsNullOrEmpty(lead.Mobile) ? Convert.DBNull : lead.Mobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, String.IsNullOrEmpty(CommonOpn.GetClientIP()) ? "" : CommonOpn.GetClientIP()));
 
-                        cmd.Parameters.Add("@MakeName", SqlDbType.VarChar, 30).Value = String.IsNullOrEmpty(lead.MakeName) ? Convert.DBNull : lead.MakeName;
-                        cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = lead.MakeId;
-                        cmd.Parameters.Add("@ModelName", SqlDbType.VarChar, 30).Value = String.IsNullOrEmpty(lead.ModelName) ? Convert.DBNull : lead.ModelName;
-                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = lead.ModelId;
-                        cmd.Parameters.Add("@VersionName", SqlDbType.VarChar, 50).Value = String.IsNullOrEmpty(lead.VersionName) ? Convert.DBNull : lead.VersionName;
-                        cmd.Parameters.Add("@VersionID", SqlDbType.Int).Value = lead.VersionId;
-                        
-                        cmd.Parameters.Add("@ClientPrice", SqlDbType.Int).Value = lead.ClientPrice;
-                                                
-                        cmd.Parameters.Add("@SubmitStatus", SqlDbType.VarChar, 50).Value = String.IsNullOrEmpty(lead.SubmitStatus) ? Convert.DBNull : lead.SubmitStatus;
-                        cmd.Parameters.Add("@SubmitId", SqlDbType.Int).Value = lead.SubmitStatusId;
-                        cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["InsuranceClientId"]);
-                        cmd.Parameters.Add("@LeadSourceId", SqlDbType.Int).Value = lead.LeadSourceId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_insurancepolicytype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], lead.InsurancePolicyType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeregistrationdate", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], lead.BikeRegistrationDate));
 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makename", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, String.IsNullOrEmpty(lead.MakeName) ? Convert.DBNull : lead.MakeName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], lead.MakeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, String.IsNullOrEmpty(lead.ModelName) ? Convert.DBNull : lead.ModelName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], lead.ModelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, String.IsNullOrEmpty(lead.VersionName) ? Convert.DBNull : lead.VersionName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], lead.VersionId));
 
-                        con.Open();
-                        affectedRow = cmd.ExecuteNonQuery();
-                        isSuccess = true;
-                    }
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientprice", DbParamTypeMapper.GetInstance[SqlDbType.Int], lead.ClientPrice));
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_submitstatus", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, String.IsNullOrEmpty(lead.SubmitStatus) ? Convert.DBNull : lead.SubmitStatus));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_submitid", DbParamTypeMapper.GetInstance[SqlDbType.Int], lead.SubmitStatusId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["insuranceclientid"])));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbParamTypeMapper.GetInstance[SqlDbType.Int], lead.LeadSourceId));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+
+                    isSuccess = true;
                 }
             }
             catch (SqlException err)
@@ -98,10 +91,6 @@ namespace Bikewale.DAL.Insurance
                 objErr.SendMail();
                 isSuccess = false;
             }
-            finally
-            {
-                db.CloseConnection();
-            }
             return isSuccess;
         }
 
@@ -114,7 +103,7 @@ namespace Bikewale.DAL.Insurance
         /// <param name="lead"></param>
         /// <returns></returns>
         private bool isvalidLead(InsuranceLead lead)
-        {         
+        {
             bool isNULLDetail = String.IsNullOrEmpty(lead.CustomerName) || String.IsNullOrEmpty(lead.Email) ||
                 String.IsNullOrEmpty(lead.Mobile) || String.IsNullOrEmpty(lead.CityName) || String.IsNullOrEmpty(lead.MakeName) || String.IsNullOrEmpty(lead.ModelName) || String.IsNullOrEmpty(lead.VersionName);
 
@@ -122,6 +111,6 @@ namespace Bikewale.DAL.Insurance
             return true;
         }
 
-        
+
     }
 }

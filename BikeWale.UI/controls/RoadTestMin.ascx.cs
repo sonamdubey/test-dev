@@ -7,15 +7,18 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.Controls
 {
-    public partial class RoadTestMin : System.Web.UI.UserControl    {
-       
+    public partial class RoadTestMin : System.Web.UI.UserControl
+    {
+
         private bool _verticalDisplay = true;
         protected Repeater rptData;
         protected HtmlGenericControl divRoadTest;
-        protected string detailsRTURL = String.Empty;       
+        protected string detailsRTURL = String.Empty;
 
         public bool VerticalDisplay
         {
@@ -71,33 +74,40 @@ namespace Bikewale.Controls
                 {
                     rptData.DataSource = dtR;
                     rptData.DataBind();
-                }               
+                }
             }
         }
 
         public DataTable GetLatestRoadTests()
         {
-            DataTable dt = new DataTable();
-            using (SqlCommand cmd = new SqlCommand("GetRoadTestDetails"))
+            DataTable dt = default(DataTable);
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@Top", SqlDbType.SmallInt).Value = "3";
-                cmd.Parameters.Add("@Category", SqlDbType.SmallInt).Value = "8"; // 8 category id for road test.
-                try
+                using (DbCommand cmd = DbFactory.GetDBCommand("getroadtestdetails"))
                 {
-                    Database db = new Database();
-                    dt = db.SelectAdaptQry(cmd).Tables[0];
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_top", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], "3"));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_category", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], "8")); // 8 category id for road test.
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    {
+                        if (ds!=null && ds.Tables!=null && ds.Tables.Count > 0)
+                        {
+                            dt = ds.Tables[0];  
+                        }
+                    }
+
                 }
-                catch (SqlException exSql)
-                {
-                    ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException exSql)
+            {
+                ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
 
             return dt;

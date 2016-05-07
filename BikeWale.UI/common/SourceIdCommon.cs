@@ -20,6 +20,8 @@ using System.Collections.Specialized;
 using System.Xml;
 using System.Net;
 using System.IO;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.Common 
 {
@@ -48,23 +50,23 @@ namespace Bikewale.Common
 				switch(tbl)
 				{
 					case EnumTableType.Customers :
-						sql = " Update Customers Set SourceId = @sourceId Where id = @id";
+						sql = " update customers set sourceid = @sourceid where id = @id";
 						break;
 						
 					case EnumTableType.CustomerSellInquiries :
-						sql = " Update CustomerSellInquiries Set SourceId = @sourceId Where id = @id";
+						sql = " update customersellinquiries set sourceid = @sourceid where id = @id";
 						break;
 						
 					case EnumTableType.PriceQuote :
-						sql = " Update NewCarPurchaseInquiries Set SourceId = @sourceId Where id = @id";
+						sql = " update newcarpurchaseinquiries set sourceid = @sourceid where id = @id";
 						break;
 						
 					case EnumTableType.CustomerReviews :
-						sql = " Update CustomerReviews Set SourceId = @sourceId Where id = @id";
+						sql = " update customerreviews set sourceid = @sourceid where id = @id";
 						break;
 						
 					case EnumTableType.CustomerReviewsComments :
-						sql = " Update CustomerReviewComments Set SourceId = @sourceId Where id = @id";
+						sql = " update customerreviewcomments set sourceid = @sourceid where id = @id";
 						break;
 						
 					default:
@@ -73,11 +75,15 @@ namespace Bikewale.Common
 				
 				if(sql != "")
 				{
-					Database db = new Database();
 					try
 					{
-						SqlParameter [] param ={new SqlParameter("@sourceId", sourceId), new SqlParameter("@id", id)};
-						db.UpdateQry(sql, param);
+                        using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                        {
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@sourceid", DbParamTypeMapper.GetInstance[SqlDbType.Int], sourceId));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@id", DbParamTypeMapper.GetInstance[SqlDbType.Int], id)); 
+
+                            MySqlDatabase.UpdateQuery(cmd);
+                        }
 					}
 					catch(Exception err)
 					{

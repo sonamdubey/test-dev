@@ -2,6 +2,8 @@
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.Common
 {
@@ -15,49 +17,36 @@ namespace Bikewale.Common
         public static bool HasShownInterestInUsedBike(bool isDealer, string bikeId, string customerId)
         {
             bool shownInterest = false;
-
-            Database db = new Database();
             string sql = "";
-            SqlDataReader dr = null;
 
-            if (isDealer) // if it's a dealer bike
+            if (!isDealer) // if it's an individual's Bike
             {
-                //sql = " SELECT ID AS RequestId "
-                //    + " FROM UsedBikePurchaseInquiries "
-                //    + " WHERE SellInquiryId=@InquiryId AND CustomerId=@CustomerId";
-            }
-            else // if it's an individual's Bike
-            {
-                sql = " SELECT ID AS RequestId "
-                    + " FROM ClassifiedRequests With(NoLock) "
-                    + " WHERE SellInquiryId=@InquiryId AND CustomerId=@CustomerId";
+                sql = " select id as requestid  from classifiedrequests where sellinquiryid=@inquiryid and customerid=@customerid";
             }
 
             try
             {
-                SqlCommand cmd = new SqlCommand(sql);
-                cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = bikeId;
-                cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
-
-                dr = db.SelectQry(cmd);
-
-                if (dr.Read())
+                if (!String.IsNullOrEmpty(sql))
                 {
-                    shownInterest = true;
+                    using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                    {
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], bikeId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                        {
+                            if (dr.Read())
+                            {
+                                shownInterest = true;
+                            } 
+                        }
+                    } 
                 }
             }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
             }
 
             return shownInterest;

@@ -16,6 +16,7 @@ using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
@@ -43,6 +44,8 @@ namespace Bikewale.Mobile.PriceQuote
         protected BookingPageDetailsEntity objBooking = null;
         protected PQCustomerDetail objCustomer = null;
         protected PQ_DealerDetailEntity dealerDetailEntity = null;
+        protected string bikesData = string.Empty,discountedPriceList = string.Empty;
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -251,6 +254,8 @@ namespace Bikewale.Mobile.PriceQuote
 
                     if (dealerDetailEntity.objQuotation != null)
                     {
+                        discountedPriceList =  JsonConvert.SerializeObject(dealerDetailEntity.objQuotation.discountedPriceList);
+
                         foreach (var price in dealerDetailEntity.objQuotation.PriceList)
                         {
                             isInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
@@ -285,6 +290,7 @@ namespace Bikewale.Mobile.PriceQuote
                 rptVarients.DataSource = data;
                 rptVarients.DataBind();
                 jsonBikeVarients = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(objBooking.Varients));
+                bikesData = JsonConvert.SerializeObject(objBooking.Varients);
 
                 if (objBooking.Varients.FirstOrDefault().Make != null && objBooking.Varients.FirstOrDefault().Model != null)
                 {

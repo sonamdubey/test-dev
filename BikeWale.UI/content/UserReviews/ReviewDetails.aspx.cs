@@ -284,9 +284,9 @@ namespace Bikewale.Content
             if (!IsPostBack)
             {
                 customerId = CurrentUser.Id;
-                ForumsCommon fc = new ForumsCommon();
-                isModerator = fc.GetModeratorLoginStatus(CurrentUser.Id);
-                Trace.Warn("moderate");
+                //ForumsCommon fc = new ForumsCommon();
+                //isModerator = fc.GetModeratorLoginStatus(CurrentUser.Id);
+                //Trace.Warn("moderate");
                 GetDetails();
                 //GetNextPreviousReview();
 
@@ -572,10 +572,6 @@ namespace Bikewale.Content
                      where cm.id=cmo.bikemakeid and cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid 
                      and ve.bikemodelid = @v_modelid";
             }
-
-            //cmd.Parameters.Add("@BikeModelId", SqlDbType.BigInt).Value = (ModelId != "" ? ModelId : "-1");
-            //cmd.Parameters.Add("@Id", SqlDbType.BigInt).Value = (VersionId != "" ? VersionId : "-1");
-
             try
             {
                 if (!string.IsNullOrEmpty(ModelId) && !string.IsNullOrEmpty(VersionId))
@@ -583,7 +579,6 @@ namespace Bikewale.Content
                     uint.TryParse(VersionId, out _versionId);
                     uint.TryParse(ModelId, out _modelId);
                 }
-
 
                 using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
                 {

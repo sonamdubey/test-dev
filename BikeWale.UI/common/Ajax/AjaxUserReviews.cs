@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using System.Web;
 using Bikewale.Common;
 using Bikewale.Forums.Common;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 
 /// <summary>
 /// Summary description for AjaxUserReviews
@@ -434,36 +436,18 @@ namespace Bikewale.Ajax
         public bool UpdateReviewAbuse(string reviewId, string comments)
         {
             bool returnVal = false;
-
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-            CommonOpn op = new CommonOpn();
-
-            string conStr = db.GetConString();
-
-            con = new SqlConnection(conStr);
-
             try
             {
-                cmd = new SqlCommand("UpdateCustomerReviewsAbuse", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatecustomerreviewsabuse"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure; 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, comments));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id)); 
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-                prm = cmd.Parameters.Add("@ReviewId", SqlDbType.BigInt);
-                prm.Value = reviewId;
-
-                prm = cmd.Parameters.Add("@Comments", SqlDbType.VarChar, 500);
-                prm.Value = comments;
-
-                prm = cmd.Parameters.Add("@ReportedBy", SqlDbType.BigInt);
-                prm.Value = CurrentUser.Id;
-
-                con.Open();
-                //run the command
-                cmd.ExecuteNonQuery();
-
-                returnVal = true;
+                    returnVal = true; 
+                }
 
             }
             catch (Exception err)
@@ -473,15 +457,6 @@ namespace Bikewale.Ajax
                 objErr.SendMail();
                 returnVal = false;
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
-
             return returnVal;
         }
 

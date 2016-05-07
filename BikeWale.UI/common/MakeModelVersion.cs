@@ -296,60 +296,49 @@ namespace Bikewale.Common
         /// <returns></returns>
         public void GetVersionDetails(string versionId)
         {
-            Database db = null;
-            SqlConnection conn = null;
-
             try
-            {
-                db = new Database();
-                conn = new SqlConnection(db.GetConString());
-
-                using (SqlCommand cmd = new SqlCommand())
+            { 
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.Connection = conn;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetVersionDetails";
+                    cmd.CommandText = "getversiondetails";
 
-                    HttpContext.Current.Trace.Warn("VersionId : " + versionId);
-                    cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
-                    HttpContext.Current.Trace.Warn("VersionId1 : " + versionId);
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = Configuration.GetDefaultCityId;    // Prices for default city in webconfig
-                    HttpContext.Current.Trace.Warn("VersionId2 : " + versionId);
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    HttpContext.Current.Trace.Warn("VersionId3 : " + versionId);
-                    cmd.Parameters.Add("@Make", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Model", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Version", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@LargePic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@SmallPic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@MinPrice", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@MaxPrice", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Bike", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Configuration.GetDefaultCityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_version", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bike", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
 
-                    if (!String.IsNullOrEmpty(cmd.Parameters["@MakeId"].Value.ToString()))
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+
+                    if (!String.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
                     {
-                        VersionId = cmd.Parameters["@VersionId"].Value.ToString();
-                        Version = cmd.Parameters["@Version"].Value.ToString();
-                        ModelId = cmd.Parameters["@ModelId"].Value.ToString();
-                        Model = cmd.Parameters["@Model"].Value.ToString();
-                        MakeId = cmd.Parameters["@MakeId"].Value.ToString();
-                        Make = cmd.Parameters["@Make"].Value.ToString();
-                        BikeName = cmd.Parameters["@Bike"].Value.ToString();
-                        HostUrl = cmd.Parameters["@HostUrl"].Value.ToString();
-                        LargePic = cmd.Parameters["@LargePic"].Value.ToString();
-                        SmallPic = cmd.Parameters["@SmallPic"].Value.ToString();
-                        MinPrice = cmd.Parameters["@MinPrice"].Value.ToString();
-                        MaxPrice = cmd.Parameters["@MaxPrice"].Value.ToString();
-                        ModelMappingName = cmd.Parameters["@MaskingName"].Value.ToString();
-                        MakeMappingName = cmd.Parameters["@MakeMaskingName"].Value.ToString();
-                        OriginalImagePath = cmd.Parameters["@OriginalImagePath"].Value.ToString();
+                        VersionId = cmd.Parameters["par_VersionId"].Value.ToString();
+                        Version = cmd.Parameters["par_version"].Value.ToString();
+                        ModelId = cmd.Parameters["par_modelid"].Value.ToString();
+                        Model = cmd.Parameters["par_model"].Value.ToString();
+                        MakeId = cmd.Parameters["par_makeid"].Value.ToString();
+                        Make = cmd.Parameters["par_make"].Value.ToString();
+                        BikeName = cmd.Parameters["par_bike"].Value.ToString();
+                        HostUrl = cmd.Parameters["par_hosturl"].Value.ToString();
+                        LargePic = cmd.Parameters["par_largepic"].Value.ToString();
+                        SmallPic = cmd.Parameters["par_smallpic"].Value.ToString();
+                        MinPrice = cmd.Parameters["par_minprice"].Value.ToString();
+                        MaxPrice = cmd.Parameters["par_maxprice"].Value.ToString();
+                        ModelMappingName = cmd.Parameters["par_maskingname"].Value.ToString();
+                        MakeMappingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
+                        OriginalImagePath = cmd.Parameters["par_originalimagepath"].Value.ToString();
                     }
                 }
             }
@@ -364,13 +353,6 @@ namespace Bikewale.Common
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
             }
         }   // End of GetVersionDetails method
 

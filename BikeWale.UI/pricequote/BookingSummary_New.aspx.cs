@@ -43,6 +43,8 @@ namespace Bikewale.BikeBooking
         protected BookingPageDetailsEntity objBooking = null;
         protected PQCustomerDetail objCustomer = null;
         protected PQ_DealerDetailEntity dealerDetailEntity = null;
+        protected string bikesData = string.Empty, discountedPriceList = string.Empty;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -251,6 +253,8 @@ namespace Bikewale.BikeBooking
 
                     if (dealerDetailEntity.objQuotation != null)
                     {
+                        discountedPriceList = JsonConvert.SerializeObject(dealerDetailEntity.objQuotation.discountedPriceList);
+
                         foreach (var price in dealerDetailEntity.objQuotation.PriceList)
                         {
                             isInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
@@ -289,6 +293,7 @@ namespace Bikewale.BikeBooking
                 rptVarients.DataBind();
 
                 jsonBikeVarients = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(objBooking.Varients));
+                bikesData = JsonConvert.SerializeObject(objBooking.Varients);
 
                 if (objBooking.Varients.FirstOrDefault().Make != null && objBooking.Varients.FirstOrDefault().Model != null)
                 {

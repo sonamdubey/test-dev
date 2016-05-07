@@ -191,7 +191,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
 
 
-                    HttpContext.Current.Trace.Warn("qry success");
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
                     if (!string.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
                     {
