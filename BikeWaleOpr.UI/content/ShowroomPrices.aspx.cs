@@ -12,6 +12,9 @@ using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
 using Ajax;
+using BikeWaleOPR.DAL.CoreDAL;
+using System.Data.Common;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Content
 {
@@ -50,20 +53,6 @@ namespace BikeWaleOpr.Content
 		{
 			CommonOpn op = new CommonOpn();
 			string sql;
-
-            //drpCity_Id = drpCity.ClientID.ToString();
-            //hdn_SelectedState_Id = hdn_SelectedState.ClientID.ToString();
-
-            //if( HttpContext.Current.User.Identity.IsAuthenticated != true) 
-            //        Response.Redirect("../users/Login.aspx?ReturnUrl=../Contents/ShowroomPrices.aspx");
-				
-            //if ( Request.Cookies["Customer"] == null )
-            //    Response.Redirect("../Users/Login.aspx?ReturnUrl=../Contents/ShowroomPrices.aspx");
-				
-            //int pageId = 38;
-            //int pageId1 = 41;
-            //if ( op.verifyPrivilege( pageId ) == false && op.verifyPrivilege( pageId1 ) == false )
-            //    Response.Redirect("../NotAuthorized.aspx");
 				
 			if( Request.QueryString["make"] != null && Request.QueryString["make"].ToString() != "")
 			{
@@ -102,7 +91,7 @@ namespace BikeWaleOpr.Content
             { 
                 getStates();
 
-				sql = "SELECT ID, Name FROM bikemakes WHERE IsDeleted <> 1 ORDER BY NAME";
+				sql = "SELECT ID, Name FROM bikemakes where isdeleted <> 1 order by name";
 				op.FillDropDown( sql, cmbMake, "Name", "ID" );
 				ListItem item = new ListItem( "--Select--", "0" );
 				cmbMake.Items.Insert( 0, item );
@@ -171,13 +160,6 @@ namespace BikeWaleOpr.Content
 							txtMumbaiMetRTO.Text.Trim(),
 							txtMumbaiMetCorporateRTO.Text.Trim()
 						);	
-						
-						//Update Changes Log
-                        //if(ltId.Text.Trim() != "")
-                        //{
-                        //    ContentCommon cc = new ContentCommon();
-                        //    cc.LogUpdates("Showroom Prices Add/Update", "VersionId", ltId.Text.Trim());
-                        //}
 				}			
 			}
 			
@@ -190,7 +172,6 @@ namespace BikeWaleOpr.Content
 		{
             BindCityDropDown();
 			string sql = "";
-			Database db = new Database();
 			string verIds = PrepareList();
 			
 			if(verIds != "")
@@ -198,15 +179,10 @@ namespace BikeWaleOpr.Content
 				//remove all the prices for this city and this model
 				try
 				{
-                    sql = " DELETE From NewBikeShowroomPrices WHERE CityId= " + hdnSelectedCityId.Value + " AND "
-						+ " BikeVersionId IN(" + verIds + ")";
+                    sql = " delete from newbikeshowroomprices where cityid= " + hdnSelectedCityId.Value + " and  bikeversionid in(" + verIds + ")";
+
+					MySqlDatabase.UpdateQuery(sql);
 					
-					Trace.Warn(sql);
-					db.DeleteQry(sql);
-					
-					//Update Changes Log
-                    //ContentCommon cc = new ContentCommon();
-                    //cc.LogUpdates("Showroom Prices Deleted", "VersionId", verIds);	
 				}
 				catch(Exception err)
 				{
@@ -263,7 +239,6 @@ namespace BikeWaleOpr.Content
 						strRet += "," + id ;	
 				}
 			}	
-			Trace.Warn("DELETE Ids ....................." + strRet);
 			return strRet;
 		}
 		
@@ -281,62 +256,26 @@ namespace BikeWaleOpr.Content
 			string mumMetCorpRTO
 		)
 		{
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-			CommonOpn op = new CommonOpn();
-			
-			string conStr = db.GetConString();
-			
-			con = new SqlConnection( conStr );
 			
 			try
 			{
-                Trace.Warn("pricing city id", drpCity.SelectedItem.Value);
-				Trace.Warn( "Submitting Data" );
-				cmd = new SqlCommand("InsertShowroomPrices", con);
-				cmd.CommandType = CommandType.StoredProcedure;
-				
-				prm = cmd.Parameters.Add("@BikeVersionId", SqlDbType.BigInt);
-				prm.Value = versionId;
-				
-				//Non-Metalic price
-				prm = cmd.Parameters.Add("@MumbaiPrice", SqlDbType.BigInt);
-				prm.Value = mumPrice.Length == 0 ? Convert.DBNull : mumPrice;
-				
-				prm = cmd.Parameters.Add("@MumbaiInsurance", SqlDbType.BigInt);
-				prm.Value = mumIns.Length == 0 ? Convert.DBNull : mumIns;
-				
-				prm = cmd.Parameters.Add("@MumbaiRTO", SqlDbType.BigInt);
-				prm.Value = mumRTO.Length == 0 ? Convert.DBNull : mumRTO;
-				
-				prm = cmd.Parameters.Add("@MumbaiCorporateRTO", SqlDbType.BigInt);
-				prm.Value = mumCorpRTO.Length == 0 ? Convert.DBNull : mumCorpRTO;
-				
-				//Metalic price
-				prm = cmd.Parameters.Add("@MumbaiMetPrice", SqlDbType.BigInt);
-				prm.Value = mumMetPrice.Length == 0 ? Convert.DBNull : mumMetPrice;
-				
-				prm = cmd.Parameters.Add("@MumbaiMetInsurance", SqlDbType.BigInt);
-				prm.Value = mumMetIns.Length == 0 ? Convert.DBNull : mumMetIns;
-				
-				prm = cmd.Parameters.Add("@MumbaiMetRTO", SqlDbType.BigInt);
-				prm.Value = mumMetRTO.Length == 0 ? Convert.DBNull : mumMetRTO;
-				
-				prm = cmd.Parameters.Add("@MumbaiMetCorporateRTO", SqlDbType.BigInt);
-				prm.Value = mumMetCorpRTO.Length == 0 ? Convert.DBNull : mumMetCorpRTO;
-				
-				prm = cmd.Parameters.Add("@CityId", SqlDbType.BigInt);
-                prm.Value = hdnSelectedCityId.Value;
-                //prm.Value = drpCity.SelectedItem.Value;
-				
-				prm = cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime);
-				prm.Value = DateTime.Now;
-				
-				con.Open();
-				//run the command
-    			cmd.ExecuteNonQuery();				
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiprice", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumPrice.Length == 0 ? Convert.DBNull : mumPrice));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiinsurance", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumIns.Length == 0 ? Convert.DBNull : mumIns));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbairto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumRTO.Length == 0 ? Convert.DBNull : mumRTO));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaicorporaterto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumCorpRTO.Length == 0 ? Convert.DBNull : mumCorpRTO));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetprice", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumMetPrice.Length == 0 ? Convert.DBNull : mumMetPrice));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetinsurance", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumMetIns.Length == 0 ? Convert.DBNull : mumMetIns));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetrto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumMetRTO.Length == 0 ? Convert.DBNull : mumMetRTO));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetcorporaterto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumMetCorpRTO.Length == 0 ? Convert.DBNull : mumMetCorpRTO));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], hdnSelectedCityId.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
+                    //run the command
+                    MySqlDatabase.ExecuteNonQuery(cmd); 
+                }				
 			}
 			catch(SqlException err)
 			{
@@ -353,14 +292,6 @@ namespace BikeWaleOpr.Content
 				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
 				objErr.SendMail();
 			} // catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
 		} // SavePricing
 		
 		///<summary>
@@ -395,17 +326,15 @@ namespace BikeWaleOpr.Content
 			
 			if(modelId != null && modelId.Trim() != string.Empty && modelId.Length != 0 && modelId.Trim() != "")
 			{			
-				sql = " SELECT VE.ID, VE.Name,"
-					+ " NCS.Price AS MumPrice, NCS.Insurance AS MumInsurance, NCS.RTO AS MumRTO, NCS.CorporateRTO AS MumCorporateRTO, "
-					+ " NCS.MetPrice AS MumMetPrice, NCS.MetInsurance AS MumMetInsurance, NCS.MetRTO AS MumMetRTO, NCS.MetCorporateRTO AS MumMetCorporateRTO"
-	
-					+ " FROM (BikeVersions Ve LEFT JOIN NewBikeShowroomPrices NCS ON VE.ID = NCS.BikeVersionId AND NCS.CityId= " + cityId + ")"
-					+ " WHERE VE.IsDeleted=0 AND Ve.BikeModelId=" + modelId;
+				sql = @" select ve.ID, ve.Name,
+					ncs.price AS MumPrice, ncs.insurance AS MumInsurance, ncs.rto AS MumRTO, ncs.corporaterto AS MumCorporateRTO, 
+					ncs.metprice AS MumMetPrice, ncs.metinsurance AS MumMetInsurance, ncs.metrto AS MumMetRTO, ncs.metcorporaterto as MumMetCorporateRTO	
+					from (bikeversions ve left join newbikeshowroomprices ncs on ve.id = ncs.bikeversionid and ncs.cityid= " + cityId + ") where ve.isdeleted=0 and ve.bikemodelid=" + modelId;
 				
-				if (optNew.Checked) sql += " AND Ve.New=1";
-				else  sql += " AND Ve.New=0";
+				if (optNew.Checked) sql += " and ve.new=1";
+				else  sql += " and ve.new=0";
 				
-				sql	+= " ORDER BY VE.Name";
+				sql	+= " order by ve.name";
 				
 				Trace.Warn(sql);
 				
@@ -438,7 +367,6 @@ namespace BikeWaleOpr.Content
                     ddlStates.DataBind();
 
                     ddlStates.Items.Insert(0, new ListItem("--Select State--", "0"));
-                    //ddlStates.Items[0].Attributes.Add("disabled", "disabled");
                 }
             }
             catch (Exception ex)

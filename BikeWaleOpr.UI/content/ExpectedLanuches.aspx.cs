@@ -12,6 +12,7 @@ using System.Drawing.Imaging;
 using Ajax;
 using System.IO;
 using System.Configuration;
+using BikeWaleOPR.DAL.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -130,19 +131,19 @@ namespace BikeWaleOpr.Content
                 + " FROM BikeMakes Ma, ExpectedBikeLaunches EC "
                 + " WHERE IsLaunched=0 AND EC.BikeMakeId=Ma.Id ORDER BY Ec.Sort,ModelName ";*/
 
-            sql = " SELECT EC.Id, EC.LaunchDate, EC.ExpectedLaunch, EC.BikeModelId, CMA.Name +'-'+ CMO.Name AS BikeName "
-                + " , EC.EstimatedPriceMin, EC.EstimatedPriceMax, EC.HostURL, EC.SmallPicImagePath ,EC.LargePicImagePath"
-                + " FROM ExpectedBikeLaunches EC "
-                + " LEFT JOIN BikeModels CMO ON EC.BikeModelId = CMO.ID "
-                + " LEFT JOIN BikeMakes CMA ON CMO.BikeMakeId = CMA.ID "
-                + " WHERE IsLaunched=0 AND EC.IsDeleted = 0 "
-                + " ORDER BY EC.LaunchDate DESC ";
+            sql = @" SELECT ec.Id, ec.LaunchDate, ec.ExpectedLaunch, ec.BikeModelId, concat(cma.Name ,'-', cmo.Name) AS BikeName 
+                , ec.EstimatedPriceMin, ec.EstimatedPriceMax, ec.HostURL, ec.SmallPicImagePath ,ec.LargePicImagePath
+                from expectedbikelaunches ec 
+                left join bikemodels cmo on ec.bikemodelid = cmo.id 
+                left join bikemakes cma on cmo.bikemakeid = cma.id 
+                where islaunched=0 and ec.isdeleted = 0 
+                order by ec.launchdate desc ";
 
             Trace.Warn("BindGrid : " + sql);
 
             try
             {
-                ds = db.SelectAdaptQry(sql);
+                ds = MySqlDatabase.SelectAdapterQuery(sql);
                 //objCom.BindGridSet(sql, dtgrdLaunches);
 
                 if (ds.Tables[0].Rows.Count > 0)

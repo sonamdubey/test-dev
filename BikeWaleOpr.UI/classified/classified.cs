@@ -1,7 +1,10 @@
 ﻿using BikeWaleOpr.Common;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 
@@ -19,23 +22,19 @@ namespace BikeWaleOpr.Classified
         /// </summary>
         public DataSet CustomerListingDetail(int startIndex,int endIndex,string inquiryId = "")
         {
-            Database db = null;
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetCustomerListingDetails";
+                    cmd.CommandText = "getcustomerlistingdetails";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = startIndex;
-                    cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = endIndex;
-                    if (!String.IsNullOrEmpty(inquiryId))
-                    {
-                        cmd.Parameters.Add("@InquiryId", SqlDbType.Int).Value = Convert.ToUInt32(inquiryId.Substring(1, inquiryId.Length - 1));
-                    }
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], startIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], endIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!String.IsNullOrEmpty(inquiryId)) ? Convert.ToUInt32(inquiryId.Substring(1, inquiryId.Length - 1)): Convert.DBNull ));
+                    
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)

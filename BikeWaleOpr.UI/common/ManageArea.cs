@@ -1,10 +1,8 @@
-﻿using BikeWaleOpr.Common;
+﻿using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
+using System.Data.Common;
 
 namespace BikeWaleOpr.Common
 {
@@ -22,18 +20,15 @@ namespace BikeWaleOpr.Common
         public DataSet GetArea(uint cityId)
         {
             DataSet ds = null;
-            Database db = null;
             try
             {
-                using(SqlCommand cmd=new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetAreas";
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getareas";
+                    cmd.CommandType = CommandType.StoredProcedure; 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
 
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-                    db = new Database();
-
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch(Exception ex)

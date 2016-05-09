@@ -1,8 +1,11 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -23,18 +26,16 @@ namespace BikewaleOpr.Common
         public IEnumerable<AppVersionEntity> GetAppVersions(AppEnum appType)
         {
             IList<AppVersionEntity> AppVersions = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetAppVersions"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getappversions"))
                 {
-                    db = new Database();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@AppType", Convert.ToInt16(appType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_apptype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(appType)));
 
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null)
                         {
                             AppVersions = new List<AppVersionEntity>();
                             while (reader.Read())
@@ -57,12 +58,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageAppVersion.GetAppVersions");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return AppVersions;
         }
 
@@ -75,20 +71,19 @@ namespace BikewaleOpr.Common
         public bool SaveAppVersion(AppVersionEntity entity, String userId)
         {
             bool isSaved = false;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("AddOrUpdateAppVersion"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("addorupdateappversion"))
                 {
-                    db = new Database();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@AppType", Convert.ToInt16(entity.AppType));
-                    cmd.Parameters.AddWithValue("@AppVersionId", entity.Id);
-                    cmd.Parameters.AddWithValue("@IsSupported", entity.IsSupported);
-                    cmd.Parameters.AddWithValue("@IsLatest", entity.IsLatest);
-                    cmd.Parameters.AddWithValue("@Description", entity.Description);
-                    cmd.Parameters.AddWithValue("@UserId", userId);
-                    isSaved = db.InsertQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_apptype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(entity.AppType)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_appversionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], entity.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_issupported", DbParamTypeMapper.GetInstance[SqlDbType.Bit], entity.IsSupported));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_islatest", DbParamTypeMapper.GetInstance[SqlDbType.Bit], entity.IsLatest));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, entity.Description));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
+
+                    isSaved = MySqlDatabase.InsertQuery(cmd);
                 }
             }
             catch (Exception ex)
@@ -96,12 +91,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageAppVersion.SaveAppVersion");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return isSaved;
         }
     }

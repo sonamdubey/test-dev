@@ -81,25 +81,18 @@ namespace BikeWaleOpr.Common
         //takes as input the sql string and the datagridname
         public void BindRepeaterReader(string sql, Repeater rpt)
         {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
             try
             {
-                HttpContext.Current.Trace.Warn(rpt.ID);
-                dataReader = objSelect.SelectQry(sql);
-                rpt.DataSource = dataReader;
-                rpt.DataBind();
-                dataReader.Close();
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                {
+                    rpt.DataSource = dr;
+                    rpt.DataBind();
+                }
+                
             }
             catch (Exception)
             {
                 throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
-                objSelect.CloseConnection();
             }
         }
 
@@ -107,24 +100,17 @@ namespace BikeWaleOpr.Common
         //takes as input the sql string and the datagridname
         public void BindRepeaterReader(string sql, Repeater rpt, SqlParameter[] param)
         {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
             try
             {
-                dataReader = objSelect.SelectQry(sql, param);
-                rpt.DataSource = dataReader;
-                rpt.DataBind();
-                dataReader.Close();
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,param))
+                {
+                    rpt.DataSource = dr;
+                    rpt.DataBind();
+                }
             }
             catch (Exception)
             {
                 throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
-                objSelect.CloseConnection();
             }
         }
 
@@ -1393,28 +1379,27 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public static double GetInsurancePremium(string bikeVersionId, string cityId, double price)
         {
-            Database db = new Database();
-            SqlDataReader dr = null;
             string sql = "", city = "", fuelType = string.Empty;
             double cc = 0, premium = 0;
             int topSpeed = 0;
 
-            sql = " SELECT Displacement, ISNULL(topspeed, 0) topspeed, fueltype, "
-                + " (SELECT IsNull(Name,'') FROM Cities WHERE Id=" + cityId + " ) City "
-                + " FROM NewBikeSpecifications WHERE bikeVersionId=" + bikeVersionId;
+            sql = @" SELECT Displacement, ifnull(topspeed, 0) topspeed, fueltype, 
+                    (SELECT ifnull(Name,'') from cities where id=" + cityId + @" ) city 
+                    from newbikespecifications where bikeversionid=" + bikeVersionId;
 
             //HttpContext.Current.Trace.Warn( sql );
 
             try
             {
-                dr = db.SelectQry(sql);
-
-                if (dr.Read())
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                 {
-                    cc = Convert.ToDouble(dr["Displacement"].ToString() == "" ? "0" : dr["Displacement"].ToString());
-                    city = dr["city"].ToString();
-                    topSpeed = Convert.ToInt32(dr["topspeed"]);
-                    fuelType = dr["fueltype"].ToString();
+                    if (dr.Read())
+                    {
+                        cc = Convert.ToDouble(dr["Displacement"].ToString() == "" ? "0" : dr["Displacement"].ToString());
+                        city = dr["city"].ToString();
+                        topSpeed = Convert.ToInt32(dr["topspeed"]);
+                        fuelType = dr["fueltype"].ToString();
+                    } 
                 }
             }
             catch (Exception err)
@@ -1423,14 +1408,6 @@ namespace BikeWaleOpr.Common
                 ErrorClass objErr = new ErrorClass(err, "CommonOpn.GetInsurancePremium");
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
-            }
 
             if (price > 0 && cc > 0)
             {
@@ -1464,38 +1441,8 @@ namespace BikeWaleOpr.Common
                     rateKey = zone + ":" + cc;
                     dataRateKey = zone + "" + cc;
 
-                    //Fetch Insurance discount if exists
-                    //sql = " SELECT IsNull(Discount, 0) AS Discount "
-                    //    + " FROM Con_InsuranceDiscount AS CD, BikeVersions AS CV"
-                    //    + " WHERE CV.Id = " + bikeVersionId + " AND CD.ModelID = CV.BikeModelId AND CD.CityId = " + cityId;
-
-                    //HttpContext.Current.Trace.Warn(sql);
-
                     double discount = 0;
-                    //try
-                    //{
-                    //    dr = db.SelectQry(sql);
-
-                    //    if (dr.Read())
-                    //    {
-                    //        discount = Convert.ToDouble(dr[0]);
-                    //    }
-                    //}
-                    //catch (Exception err)
-                    //{
-                    //    HttpContext.Current.Trace.Warn(err.Message);
-                    //    ErrorClass objErr = new ErrorClass(err, "CommonOpn.SaveClassifiedRequests");
-                    //    objErr.SendMail();
-                    //} // catch Exception
-                    //finally
-                    //{
-                    //    if (dr != null)
-                    //    {
-                    //        dr.Close();
-                    //    }
-                    //    db.CloseConnection();
-                    //}
-                    //Ends here
+                
 
                     //rate = double.Parse(ConfigurationSettings.AppSettings[rateKey]);
                     rate = double.Parse(ConfigurationManager.AppSettings[rateKey]);
@@ -1523,18 +1470,6 @@ namespace BikeWaleOpr.Common
                     liaPremium = double.Parse(ConfigurationManager.AppSettings["L:" + cc]);
                     HttpContext.Current.Trace.Warn("liaPremium : " + liaPremium);
 
-                    //liaPADriverOwner = double.Parse(ConfigurationSettings.AppSettings["PADriverOwnerLiability"]); // Owner-Driver mandatory liability.
-                    //HttpContext.Current.Trace.Warn("liaPADriverOwner : " + liaPADriverOwner);
-
-                    // Paid-Driver liability is optional however, 
-                    // we r making it mandatory for compulsary
-                    // considering its amount 25/-
-                    // Removed. Only liaPADriverOwner is being considered.
-                    //liaPaidDriver = double.Parse(ConfigurationSettings.AppSettings["PaidDriverLiability"]);
-                    //HttpContext.Current.Trace.Warn("liaPaidDriver : " + liaPaidDriver);
-
-                    // compute all the liabilities.				
-                    //liabilities = liaPremium + liaPADriverOwner + liaPaidDriver;
                     liabilities = liaPremium;
                     HttpContext.Current.Trace.Warn("liabilities : " + liabilities);
 
@@ -1583,8 +1518,6 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public static double GetRegistrationCharges(string bikeVersionId, string cityId, double price)
         {
-            Database db = new Database();
-            SqlDataReader dr = null;
             string sql = "";
             string fuelType = "", bodyStyleId = string.Empty;
             int stateId = 0, weight = 0, cc = 0, sc = 0, topSpeed = 0;
@@ -1592,49 +1525,47 @@ namespace BikeWaleOpr.Common
             bool isImported = false;
 
 
-            sql = " SELECT "
-                + " CT.STATEID AS stateid, "
-                + " Isnull(nbs.KerbWeight, 0) AS Weight , "
-                + " Isnull(nbs.fueltype, '') AS FuelType, "
-                + " Isnull(nbs.displacement, 0) AS  Displacement, "
-                + " Isnull(bv.imported, 0) AS IsImported, "
-                + " Isnull(cr.amount, 0) AS RegCharges, "
-                + " ISNULL(topspeed, 0) topspeed, "
-                + " bs.ID AS BodyStyleId "
-                + " FROM  "
-                + " bikeversions BV "
-                + " INNER JOIN bikeModels BM ON BM.ID = BV.BikeModelId "
-                + " INNER JOIN newbikespecifications nbs ON NBS.BikeVersionId=BV.ID AND BV.ID=" + bikeVersionId
-                + " LEFT JOIN BikeBodyStyles bs ON bs.ID = BV.BodyStyleId "
-                + " LEFT JOIN con_regcharges cr ON CR.ModelId=BM.ID "
-                + " LEFT JOIN  Cities  AS CT ON CT.ID=" + cityId;
+            sql = @" select 
+                ct.stateid as stateid, 
+                ifnull(nbs.kerbweight, 0) as weight , 
+                ifnull(nbs.fueltype, '') as fueltype, 
+                ifnull(nbs.displacement, 0) as  displacement, 
+                if(bv.imported,true,false) as isimported, 
+                ifnull(cr.amount, 1, 0) as regcharges, 
+                ifnull(topspeed, 0) topspeed, 
+                bs.id as bodystyleid 
+                from  
+                bikeversions bv 
+                inner join bikemodels bm on bm.id = bv.bikemodelid 
+                inner join newbikespecifications nbs on nbs.bikeversionid=bv.id and bv.id=" + bikeVersionId +
+                @"   left join bikebodystyles bs on bs.id = bv.bodystyleid 
+                left join con_regcharges cr on cr.modelid=bm.id 
+                left join  cities  as ct on ct.id=" + cityId;
 
             try
             {
-                dr = db.SelectQry(sql);
-
-                if (dr.Read())
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                 {
-                    stateId = Convert.ToInt32(dr["StateId"].ToString());
-                    weight = Convert.ToInt32(dr["Weight"].ToString());
-                    regCharges = Convert.ToDouble(dr["RegCharges"]);
-                    fuelType = dr["FuelType"].ToString();
-                    bodyStyleId = dr["BodyStyleId"].ToString();
-                    topSpeed = Convert.ToInt32(dr["topspeed"]);
+                    if (dr.Read())
+                    {
+                        stateId = Convert.ToInt32(dr["StateId"].ToString());
+                        weight = Convert.ToInt32(dr["Weight"].ToString());
+                        regCharges = Convert.ToDouble(dr["RegCharges"]);
+                        fuelType = dr["FuelType"].ToString();
+                        bodyStyleId = dr["BodyStyleId"].ToString();
+                        topSpeed = Convert.ToInt32(dr["topspeed"]);
 
-                    HttpContext.Current.Trace.Warn("stateId : ", stateId.ToString());
-                    HttpContext.Current.Trace.Warn("weight : ", weight.ToString());
-                    HttpContext.Current.Trace.Warn("regCharges : ", regCharges.ToString());
-                    HttpContext.Current.Trace.Warn("FuelType : ", fuelType);
+                        HttpContext.Current.Trace.Warn("stateId : ", stateId.ToString());
+                        HttpContext.Current.Trace.Warn("weight : ", weight.ToString());
+                        HttpContext.Current.Trace.Warn("regCharges : ", regCharges.ToString());
+                        HttpContext.Current.Trace.Warn("FuelType : ", fuelType);
 
-                    isImported = Convert.ToBoolean(dr["IsImported"].ToString());
+                        isImported = Convert.ToBoolean(dr["IsImported"].ToString());
 
-                    //if ( dr["IsImported"].ToString().ToLower() == "diesel" )
-                    //isDiesel = false;
-
-                    //sc = Convert.ToInt32(dr["SeatingCapacity"]);
-                    cc = Convert.ToInt32(dr["Displacement"]);
-                    //hasAC = dr["ACStatus"].ToString() == "A" ? true : false;
+                        //sc = Convert.ToInt32(dr["SeatingCapacity"]);
+                        cc = Convert.ToInt32(dr["Displacement"]);
+                        //hasAC = dr["ACStatus"].ToString() == "A" ? true : false;
+                    } 
                 }
             }
             catch (Exception err)
@@ -1642,14 +1573,6 @@ namespace BikeWaleOpr.Common
                 ErrorClass objErr = new ErrorClass(err, "CommonOpn.GetRegistrationCharges");
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
-            }
 
             switch (stateId)
             {

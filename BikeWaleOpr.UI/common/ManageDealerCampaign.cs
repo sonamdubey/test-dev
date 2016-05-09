@@ -1,7 +1,10 @@
 ﻿using BikeWaleOpr.Common;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -24,20 +27,21 @@ namespace BikewaleOpr.Common
         public DataTable FetchBWDealerCampaign(int campaignId)
         {
             DataTable dtDealerCampaign = null;
-            Database db = null;
+            
             try
             {
                 if (campaignId > 0)
                 {
-                    using (SqlCommand cmd = new SqlCommand("BW_FetchBWDealerCampaign"))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_fetchbwdealercampaign"))
                     {
-                        db = new Database();
+                        
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@CampaignId", campaignId);
-                        DataSet ds = db.SelectAdaptQry(cmd);
-                        if (ds != null && ds.Tables.Count > 0)
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
+
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                         {
-                            dtDealerCampaign = ds.Tables[0];
+                            if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                                dtDealerCampaign = ds.Tables[0];
                         }
                     }
                 }                
@@ -47,12 +51,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.FetchBWDealerCampaign");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return dtDealerCampaign;
         }
 
@@ -78,41 +77,32 @@ namespace BikewaleOpr.Common
         public int InsertBWDealerCampaign(bool isActive,  int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, bool isBookingAvailable = false)
         {
             int newCampaignId = 0;
-            Database db = new Database();
             try
             {
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand("BW_InsertBWDealerCampaign"))
+                 using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertbwdealercampaign"))
                     {
-                        cmd.Connection = conn;
-                        conn.Open();
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@DealerId", dealerId);
-                        cmd.Parameters.AddWithValue("@DealerName", dealerName);
-                        cmd.Parameters.AddWithValue("@Phone", maskingNumber);
-                        cmd.Parameters.AddWithValue("@DealerEmail", dealerEmailId);
-                        cmd.Parameters.AddWithValue("@IsActive", isActive);
-                        cmd.Parameters.AddWithValue("@ContractId", contractId);
-                        cmd.Parameters.AddWithValue("@DealerLeadServingRadius", dealerLeadServingRadius);
-                        cmd.Parameters.AddWithValue("@UpdatedBy", userId);
-                        cmd.Parameters.AddWithValue("@IsBookingAvailable", isBookingAvailable);
-                        cmd.Parameters.Add("@NewCampaignId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.ExecuteNonQuery();
-                        newCampaignId = Convert.ToInt32(cmd.Parameters["@NewCampaignId"].Value);
-                        conn.Close();
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int],  dealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],200,  dealerName));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],50,  maskingNumber));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeremail", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],200 , dealerEmailId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerLeadServingRadius));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isBookingAvailable));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_newcampaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                        MySqlDatabase.ExecuteNonQuery(cmd);
+                        newCampaignId = Convert.ToInt32(cmd.Parameters["par_newcampaignid"].Value);
+
                     }
-                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.InsertBWDealerCampaign");
                 objErr.SendMail();
             }
-            finally
-            {
-                db = null;
-            }
+
             return newCampaignId;
         }
 
@@ -137,26 +127,26 @@ namespace BikewaleOpr.Common
         public bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, bool isBookingAvailable = false)
         {
             bool isSuccess = false;
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand("BW_UpdateBWDealerCampaign"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebwdealercampaign"))
                 {
-                    db = new Database();
+
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@CampaignId", campaignId);                    
-                    cmd.Parameters.AddWithValue("@DealerId", dealerId);
-                    cmd.Parameters.AddWithValue("@DealerName", dealerName);
-                    cmd.Parameters.AddWithValue("@Phone", maskingNumber);
-                    cmd.Parameters.AddWithValue("@DealerEmail", dealerEmailId);
-                    cmd.Parameters.AddWithValue("@IsActive", isActive);
-                    cmd.Parameters.AddWithValue("@ContractId", contractId);
-                    cmd.Parameters.AddWithValue("@DealerLeadServingRadius", dealerLeadServingRadius);
-                    cmd.Parameters.AddWithValue("@UpdatedBy", userId);
-                    //Optional Parameters
-                    cmd.Parameters.AddWithValue("@IsBookingAvailable", isBookingAvailable);
-                    isSuccess = db.UpdateQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, dealerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, maskingNumber));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeremail", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, dealerEmailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerLeadServingRadius));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isBookingAvailable));
+
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (Exception ex)
@@ -164,12 +154,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.InsertBWDealerCampaign");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return isSuccess;
         }
 
@@ -183,20 +168,21 @@ namespace BikewaleOpr.Common
         public DataTable FetchBWCampaigns(int contractId)
         {
             DataTable dtDealerCampaign = null;
-            Database db = null;
+            
             try
             {
                 if (contractId > 0)
                 {
-                    using (SqlCommand cmd = new SqlCommand("BW_FetchBWCampaigns"))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_fetchbwcampaigns"))
                     {
-                        db = new Database();
+                        
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@ContractId", contractId);
-                        DataSet ds = db.SelectAdaptQry(cmd);
-                        if (ds != null && ds.Tables.Count > 0)
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
+
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                         {
-                            dtDealerCampaign = ds.Tables[0];
+                            if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                                dtDealerCampaign = ds.Tables[0];
                         }
                     }
                 }
@@ -206,12 +192,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.FetchBWCampaigns");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+
             return dtDealerCampaign;
         }
 
@@ -225,19 +206,20 @@ namespace BikewaleOpr.Common
         /// <returns></returns>
         public DataTable BindMaskingNumbers(int dealerId)
         {
-            Database db = null;
+            
             DataTable dtb = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("BW_GetMaskingNumbers"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getmaskingnumbers"))
                 {
-                    db = new Database();
+                    
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
-                    DataSet ds = db.SelectAdaptQry(cmd);
-                    if (ds != null && ds.Tables.Count > 0)
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
-                        dtb = ds.Tables[0];
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dtb = ds.Tables[0];
                     }
                 }
             }
@@ -246,10 +228,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindMaskingNumbers");
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return dtb;
         }
 
@@ -257,21 +236,16 @@ namespace BikewaleOpr.Common
         {
             try
             {
-                //isActiveFlag.Value = "False";
-                //int.TryParse(hdnCampaignId.Value, out CampaignId);
-                SqlConnection con;
-                Database db = new Database();
-                con = new SqlConnection(db.GetConString());
                 bool activateCampaign = false;
-                using (SqlCommand cmd = new SqlCommand("UpdateCampaignStatus", con))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatecampaignstatus"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@Ids", SqlDbType.VarChar, 500).Value = CampaignId;
-                    cmd.Parameters.Add("@DeletedBy", SqlDbType.Int).Value = CurrentUser.Id;
-                    cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = activateCampaign;
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, CampaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_deletedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], activateCampaign));
+                        
+                    MySqlDatabase.ExecuteNonQuery(cmd);
                 }
             }
             catch (Exception ex)
@@ -291,20 +265,21 @@ namespace BikewaleOpr.Common
         public DataTable GetDealerCampaigns(uint dealerId)
         {
             DataTable dtDealerCampaigns = null;
-            Database db = null;
+            
             try
             {
                 if (dealerId > 0)
                 {
-                    using (SqlCommand cmd = new SqlCommand("GetDealerCampaigns"))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getdealercampaigns"))
                     {
-                        db = new Database();
+                        
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@DealerId", Convert.ToInt32(dealerId));
-                        DataSet ds = db.SelectAdaptQry(cmd);
-                        if (ds != null && ds.Tables.Count > 0)
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                         {
-                            dtDealerCampaigns = ds.Tables[0];
+                            if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                                dtDealerCampaigns = ds.Tables[0];
                         }
                     }
                 }
@@ -313,12 +288,6 @@ namespace BikewaleOpr.Common
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaign.GetDealerCampaigns");
                 objErr.SendMail();
-            }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
             }
             return dtDealerCampaigns;
         }

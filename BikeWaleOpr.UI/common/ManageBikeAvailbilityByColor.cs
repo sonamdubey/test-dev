@@ -1,8 +1,11 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -23,19 +26,17 @@ namespace BikewaleOpr.Common
         /// <returns>ModelId</returns>
         public int GetModelIdForVersion(int versionId)
         {
-            Database db = null;
             int modelId = 0;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT BikeModelId AS ModelId  FROM BikeVersions WHERE ID = @versionId AND IsDeleted = 0"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("select BikeModelId AS ModelId  from bikeversions where id = @versionid and isdeleted = 0"))
                 {
-                    db = new Database();
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@versionId", versionId);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
 
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null)
                         {
                             while (reader.Read())
                             {
@@ -51,12 +52,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageBikeAvailbilityByColor.GetModelIdForVersion");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null; db = null;
-            }
+
             return modelId;
         }
 
@@ -69,19 +65,17 @@ namespace BikewaleOpr.Common
         public IEnumerable<VersionColorWithAvailability> FetchVersionColorsWithAvailability(int versionId,int dealerId)
         {
             IList<VersionColorWithAvailability> versionColors = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetBikeAvailabilityByColor"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeavailabilitybycolor"))
                 {
-                    db = new Database();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@VersionId", versionId);
-                    cmd.Parameters.AddWithValue("@DealerId", dealerId);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
 
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (reader != null && reader.HasRows)
+                        if (reader != null)
                         {
                             versionColors = new List<VersionColorWithAvailability>();
                             while (reader.Read())
@@ -103,12 +97,6 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, "ManageBikeAvailbilityByColor.FetchVersionColorsWithAvailability");
                 objErr.SendMail();
             }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null; db = null;
-            }
             return versionColors;
         }
 
@@ -124,17 +112,17 @@ namespace BikewaleOpr.Common
             Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("UpdateBikeAvailabilityByColor"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatebikeavailabilitybycolor"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@NoOfDays", versionColor.NoOfDays);
-                    cmd.Parameters.AddWithValue("@VersionId", versionId);
-                    cmd.Parameters.AddWithValue("@ColorId", Convert.ToInt32(versionColor.ModelColorID));
-                    cmd.Parameters.AddWithValue("@UserId", userId);
-                    cmd.Parameters.AddWithValue("@DealerId", dealerId);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Convert.ToInt32(versionColor.ModelColorID)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_noofdays", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 5, versionColor.NoOfDays));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],100, userId));
 
                     db = new Database();
-                    isSaved = db.UpdateQry(cmd);
+                    isSaved = MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (Exception ex)
