@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Utility
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore on 09 May 2016
+    /// Description : Add BikewaleLogo
+    /// </summary>
     public class Image
     {
+        public static string BikewaleLogo = "http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
         public static string GetPathToShowImages(string originalImagePath, string hostUrl, string size)
         {
             string imgUrl = String.Empty;

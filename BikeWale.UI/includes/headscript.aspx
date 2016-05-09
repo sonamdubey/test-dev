@@ -1,8 +1,9 @@
 ﻿<script language="c#" runat="server">	
     private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "", TargetedCity = "";
-    private string fbTitle = "", fbImage;
+    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "", TargetedCity = ""
+        , fbTitle = "", fbImage,
+        ogImage;
     private ushort feedbackTypeId = 0;
     private bool isHeaderFix = true,
         isAd970x90Shown = true,
@@ -10,8 +11,9 @@
         isAd970x90BottomShown = true,
         isAd976x400FirstShown = false,
         isAd976x400SecondShown = false,
-        isAd976x204 = false;
-    private bool isTransparentHeader = false;  
+        isAd976x204 = false,
+        isTransparentHeader = false,
+        enableOG = false;  
 </script>
 
 <title><%= title %></title>
@@ -24,14 +26,17 @@
 <%if(!String.IsNullOrEmpty(alternate)) { %><meta name="alternate" content="<%= alternate %>" /><% } %>
 <%if(!String.IsNullOrEmpty(canonical)) { %>
     <link rel="canonical" href="<%=canonical %>" /> 
-    <meta property="og:url" content="<%=canonical %>" />
 <% } %>
-<!--Open Graph Tag-->
-<meta property="og:title" content="<%= title %>" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content="<%= description %>" />
-<meta property="og:image" content="http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png" />
-<link rel="SHORTCUT ICON" href="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
+
+<%if(enableOG) { %>
+    <meta property="og:title" content="<%= title %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="<%= description %>" />
+    <%if(!String.IsNullOrEmpty(canonical)) { %><meta property="og:url" content="<%=canonical %>" /> <% } %>
+    <meta property="og:image" content = "<%= string.IsNullOrEmpty(ogImage) ? Bikewale.Utility.Image.BikewaleLogo : ogImage %>" />
+<% } %>
+
+
 
 <script type="text/javascript">
     bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';

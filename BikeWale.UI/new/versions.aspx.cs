@@ -30,6 +30,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore on 09 May 2016.
+    /// Description : modelImage declare.
+    /// </summary>
     public class bikeModel : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
         #region Global Variables
@@ -85,7 +89,7 @@ namespace Bikewale.New
         protected string mpqQueryString = String.Empty;
         protected bool isDealerAssitance = false;
         protected uint campaignId, manufacturerId;
-        protected string bikeModelName = string.Empty, bikeMakeName = string.Empty;
+        protected string bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty;
 
         #region Subscription model variables
 
@@ -422,7 +426,10 @@ namespace Bikewale.New
         }
 
 
-
+        /// <summary>
+        /// Modified By : Lucky Rathore on 09 May 2016.
+        /// Description : modelImage intialize.
+        /// </summary>
         private void BindPhotoRepeater()
         {
             if (modelPage != null)
@@ -432,7 +439,7 @@ namespace Bikewale.New
                 {
                     rptModelPhotos.DataSource = photos;
                     rptModelPhotos.DataBind();
-
+                    modelImage = Bikewale.Utility.Image.GetPathToShowImages(photos.FirstOrDefault().OriginalImgPath, photos.FirstOrDefault().HostUrl, Bikewale.Utility.ImageSize._476x268);
                     rptNavigationPhoto.DataSource = photos;
                     rptNavigationPhoto.DataBind();
 

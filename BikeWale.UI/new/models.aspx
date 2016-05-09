@@ -19,6 +19,7 @@
         AdId = "1442913773076";
         isAd970x90Shown = true;
         keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, new {0} Bikes", _make.MakeName);
+        enableOG = true;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>

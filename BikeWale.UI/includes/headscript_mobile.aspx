@@ -1,10 +1,12 @@
 ﻿<meta charset="utf-8">
 <script language="c#" runat="server">
-    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", canonical = "", TargetedModel = "", TargetedMakes = "", TargetedModels = "", TargetedCity = "";
+    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", canonical = "", TargetedModel = "", TargetedMakes = "", TargetedModels = "", TargetedCity = ""
+        , OGImage;
     private ushort feedbackTypeId = 0;
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-    private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false, Ad320x150_I = false, Ad320x150_II = false;    
+    private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false, Ad320x150_I = false, Ad320x150_II = false,
+        EnableOG = false;    
 </script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title><%=title %></title>
@@ -14,16 +16,20 @@
 <% if(!String.IsNullOrEmpty(keywords)) { %><meta name="keywords" content="<%= keywords %>" /><% } %>
 <%if(!String.IsNullOrEmpty(canonical)) { %>
     <link rel="canonical" href="<%=canonical %>" />
-    <meta property="og:url" content="<%=canonical %>" />
 <% } %>
 <link rel="SHORTCUT ICON" href="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 <link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
-<meta property="og:title" content="<%=title %>" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content="<%=description%>" />
-<meta property="og:image" content="http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png" />
+<%if (EnableOG)
+  { %>
+    <meta property="og:title" content="<%=title %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="<%=description%>" />
+    <%if(!String.IsNullOrEmpty(canonical)) { %><meta property="og:url" content="<%=canonical %>" /> <% } %>
+    <meta property="og:image" content="<%= string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.Image.BikewaleLogo : OGImage %>" />
+<% } %>
+
 
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
