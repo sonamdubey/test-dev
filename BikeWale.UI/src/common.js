@@ -17,6 +17,22 @@ function triggerGA(cat, act, lab) {
     catch (e) {// log error   
     }
 }
+$('.bw-ga').click(function () {
+    try {
+        var obj = $(this);
+        if (obj.attr('l') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+        }
+        else if (obj.attr('v') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+        }
+        else if (obj.attr('f') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+        }
+    }
+    catch (e) {
+    }
+});
 
 //fallback for indexOf for IE7
 if (!Array.prototype.indexOf) {

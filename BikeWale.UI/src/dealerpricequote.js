@@ -220,6 +220,10 @@ function CustomerModel() {
                     dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_EMI_" + bikeName + "_" + versionName + "_" + getCityArea });
                     getEMIClick = false;
                 }
+                else if (getMoreDetailsClick) {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_more_details_" + GetBikeVerLoc() });
+                    getMoreDetailsClick = false;
+                }
             }
             else {
                 $("#leadCapturePopup").show();
