@@ -1017,9 +1017,9 @@ namespace Bikewale.BAL.BikeData
             try
             {
                 //creating tasks to call them asynchronously
-                var reviewTask = Task.Factory.StartNew(() => objReview = _userReviewsRepo.GetBikeReviewsList(1, 10, Convert.ToUInt32(modelId), 0, FilterBy.MostRecent, out recCount));
-                var newsTask = Task.Factory.StartNew(() => objRecentNews = _articles.GetRecentNews(0, Convert.ToInt32(modelId), 3));
-                var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _articles.GetRecentExpertReviews(0, Convert.ToInt32(modelId), 3));
+                var reviewTask = Task.Factory.StartNew(() => objReview = _userReviewsRepo.GetBikeReviewsList(1, 2, Convert.ToUInt32(modelId), 0, FilterBy.MostRecent, out recCount));
+                var newsTask = Task.Factory.StartNew(() => objRecentNews = _articles.GetRecentNews(0, Convert.ToInt32(modelId), 2));
+                var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _articles.GetRecentExpertReviews(0, Convert.ToInt32(modelId), 2));
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
