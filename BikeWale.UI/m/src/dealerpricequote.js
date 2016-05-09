@@ -133,3 +133,10 @@ $('#getMoreDetails').on('click', function () {
     getMoreDetailsClicked = true;
 });
 
+function loadDisclaimer(dealerType) {
+    if (dealerType == 'Premium') {
+        $("#disclaimer").load("/statichtml/premium.html");
+    } else {
+        $("#disclaimer").load("/statichtml/standard.html");
+    }
+}
