@@ -1,7 +1,7 @@
 ﻿<meta charset="utf-8">
 <script language="c#" runat="server">
     private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", canonical = "", TargetedModel = "", TargetedMakes = "", TargetedModels = "", TargetedCity = ""
-        , OGImage;
+        , OGImage = "";
     private ushort feedbackTypeId = 0;
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
@@ -27,7 +27,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:description" content="<%=description%>" />
     <%if(!String.IsNullOrEmpty(canonical)) { %><meta property="og:url" content="<%=canonical %>" /> <% } %>
-    <meta property="og:image" content="<%= string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.Image.BikewaleLogo : OGImage %>" />
+    <meta property="og:image" content="<%= string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : OGImage %>" />
 <% } %>
 
 

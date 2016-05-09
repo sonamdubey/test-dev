@@ -3,7 +3,7 @@
     private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "", TargetedCity = ""
         , fbTitle = "", fbImage,
-        ogImage;
+        ogImage = "";
     private ushort feedbackTypeId = 0;
     private bool isHeaderFix = true,
         isAd970x90Shown = true,
@@ -33,7 +33,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:description" content="<%= description %>" />
     <%if(!String.IsNullOrEmpty(canonical)) { %><meta property="og:url" content="<%=canonical %>" /> <% } %>
-    <meta property="og:image" content = "<%= string.IsNullOrEmpty(ogImage) ? Bikewale.Utility.Image.BikewaleLogo : ogImage %>" />
+    <meta property="og:image" content = "<%= string.IsNullOrEmpty(ogImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : ogImage %>" />
 <% } %>
 
 

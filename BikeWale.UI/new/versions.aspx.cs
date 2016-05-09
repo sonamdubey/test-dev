@@ -32,7 +32,7 @@ namespace Bikewale.New
 {
     /// <summary>
     /// Modified By : Lucky Rathore on 09 May 2016.
-    /// Description : modelImage declare.
+    /// Description : modelImage declare used for bike model default image url.
     /// </summary>
     public class bikeModel : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
@@ -426,10 +426,6 @@ namespace Bikewale.New
         }
 
 
-        /// <summary>
-        /// Modified By : Lucky Rathore on 09 May 2016.
-        /// Description : modelImage intialize.
-        /// </summary>
         private void BindPhotoRepeater()
         {
             if (modelPage != null)
@@ -439,7 +435,6 @@ namespace Bikewale.New
                 {
                     rptModelPhotos.DataSource = photos;
                     rptModelPhotos.DataBind();
-                    modelImage = Bikewale.Utility.Image.GetPathToShowImages(photos.FirstOrDefault().OriginalImgPath, photos.FirstOrDefault().HostUrl, Bikewale.Utility.ImageSize._476x268);
                     rptNavigationPhoto.DataSource = photos;
                     rptNavigationPhoto.DataBind();
 
@@ -786,6 +781,8 @@ namespace Bikewale.New
         /// <summary>
         /// Author: Sangram Nandkhile
         /// Desc: Removed API Call for on road Price Quote
+        /// Modified By : Lucky Rathore on 09 May 2016.
+        /// Description : modelImage intialize.
         /// </summary>
         /// <returns></returns>
         private PQOnRoadPrice GetOnRoadPrice()
@@ -825,7 +822,11 @@ namespace Bikewale.New
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.PriceQuote = objPQOutput;
                         BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
-                        pqOnRoad.BikeDetails = bikemodelEnt;
+                        if (bikemodelEnt != null)
+                        {
+                            modelImage = Utility.Image.GetPathToShowImages(bikemodelEnt.OriginalImagePath, bikemodelEnt.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                            pqOnRoad.BikeDetails = bikemodelEnt;
+                        }
                         string api = string.Empty;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {

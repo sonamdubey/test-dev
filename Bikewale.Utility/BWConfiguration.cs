@@ -11,6 +11,8 @@ namespace Bikewale.Utility
     /// Summary : Class to read the web configuration data. Singleton class.
     /// Modified by :   Sumit Kate on 31 Mar 2016
     /// Summary :   Added new key in Web Config for Google Map API Key GoogleMapApiKey
+    /// Modified By : Lucky Rathore on 09 May 2016.
+    /// Description : Added bikeWaleLogo for bikewale logo image URL.
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -64,7 +66,8 @@ namespace Bikewale.Utility
             _BWSmsQueue = String.Empty,
             _GoogleApiKey = string.Empty,
             _GoogleMapApiKey = String.Empty,
-            _apiMaxWaitTime = string.Empty;
+            _apiMaxWaitTime = string.Empty,
+            _bikeWaleLogo = string.Empty;
        
 
         // Private constructor, so no outsiders have access.
@@ -117,6 +120,7 @@ namespace Bikewale.Utility
             _GoogleApiKey = ConfigurationManager.AppSettings["APIKey"];
             _GoogleMapApiKey = ConfigurationManager.AppSettings["GoogleMapApiKey"];
             _apiMaxWaitTime = ConfigurationManager.AppSettings["ApiMaxWaitTime"];
+            _bikeWaleLogo = "http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
         }
 
         // Static method to provide access to instance
@@ -137,6 +141,8 @@ namespace Bikewale.Utility
                 return _instance;  
             }		
         }
+
+        public string BikeWaleLogo { get { return _bikeWaleLogo; } }
 
         public int NonReadOnlyStatic { get { return nonReadOnlyStatic++; } }
 

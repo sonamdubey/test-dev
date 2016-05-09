@@ -33,7 +33,7 @@ namespace Bikewale.Mobile.New
     /// <summary>
     /// Created By : Ashish G. Kamble on 9 Sept 2015    
     /// Modified By : Lucky Rathore on 09 May 2016
-    /// Description : modelImage declare.
+    /// Description : modelImage declare used for bike model default image url.
     /// </summary>
     public class NewBikeModels : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
@@ -90,7 +90,7 @@ namespace Bikewale.Mobile.New
         protected HiddenField hdnVariant;
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
-        protected string mpqQueryString = String.Empty, modelImage;
+        protected string mpqQueryString = String.Empty, modelImage = string.Empty;
         protected UsersTestimonials ctrlUsersTestimonials;
         protected bool isDealerAssitance = false;
         protected uint campaignId, manufacturerId;
@@ -307,8 +307,6 @@ namespace Bikewale.Mobile.New
 
         /// <summary>
         /// Function to bind the photos album
-        /// Modified By : Lucky Rathore on 09 May 2016
-        /// Description : modelImage Intialize.
         /// </summary>
         private void BindRepeaters()
         {
@@ -325,7 +323,6 @@ namespace Bikewale.Mobile.New
                     //{
                     //    rptModelPhotos.DataSource = modelPage.Photos;
                     //}
-                    modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPage.Photos.FirstOrDefault().OriginalImgPath, modelPage.Photos.FirstOrDefault().HostUrl, Bikewale.Utility.ImageSize._476x268);
                     rptModelPhotos.DataSource = modelPage.Photos;
                     rptModelPhotos.DataBind();
 
@@ -823,6 +820,8 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Author: Sangram Nandkhile
         /// Desc: Removed API Call for on road Price Quote
+        /// Modified By : Lucky Rathore on 09 May 2016.
+        /// Description : modelImage intialize.
         /// </summary>
         /// <returns></returns>
         private PQOnRoadPrice GetOnRoadPrice()
@@ -863,8 +862,11 @@ namespace Bikewale.Mobile.New
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.PriceQuote = objPQOutput;
                         BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
-                        pqOnRoad.BikeDetails = bikemodelEnt;
-
+                        if (bikemodelEnt != null)
+                        {
+                            modelImage = Utility.Image.GetPathToShowImages(bikemodelEnt.OriginalImagePath, bikemodelEnt.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                            pqOnRoad.BikeDetails = bikemodelEnt;
+                        }
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {
                             bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);
