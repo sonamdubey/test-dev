@@ -1,14 +1,20 @@
 ﻿using AutoMapper;
 using Bikewale.DTO.BikeData;
+using Bikewale.DTO.CMS.Articles;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Model.v3;
 using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.DTO.Series;
 using Bikewale.DTO.Version;
+using Bikewale.DTO.Videos;
 using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.DTO;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
@@ -275,6 +281,27 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
             Mapper.CreateMap<PQByCityAreaEntity, PQByCityAreaDTO>();
             return Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTO>(pqEntity);
+        }
+
+        /// <summary>
+        /// Created by: Vivek Gupta on 5-5-2016
+        /// Summary: Map  BikeModelContent and BikeModelContentDTO
+        /// </summary>
+        /// <param name="objContent"></param>
+        /// <returns></returns>
+
+        internal static BikeModelContentDTO Convert(BikeModelContent objContent)
+        {
+            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<ReviewRatingEntityBase, ReviewRatingBase>();
+            Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
+            Mapper.CreateMap<ReviewEntity, Review>();
+            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
+            Mapper.CreateMap<BikeVideoEntity, VideoBase>();
+            Mapper.CreateMap<BikeModelContent, BikeModelContentDTO>();
+            return Mapper.Map<BikeModelContent, BikeModelContentDTO>(objContent);
         }
     }
 }

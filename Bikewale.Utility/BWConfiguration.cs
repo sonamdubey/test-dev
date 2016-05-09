@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Utility
 {
@@ -11,6 +8,8 @@ namespace Bikewale.Utility
     /// Summary : Class to read the web configuration data. Singleton class.
     /// Modified by :   Sumit Kate on 31 Mar 2016
     /// Summary :   Added new key in Web Config for Google Map API Key GoogleMapApiKey
+    /// Modified by :   Vivek Gupta on 9-5-2016
+    /// Summary :   Added new key in Web Config for using grpc UseGrpc
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -64,8 +63,9 @@ namespace Bikewale.Utility
             _BWSmsQueue = String.Empty,
             _GoogleApiKey = string.Empty,
             _GoogleMapApiKey = String.Empty,
-            _apiMaxWaitTime = string.Empty;
-       
+            _apiMaxWaitTime = string.Empty,
+            _useGrpc = string.Empty;
+
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -100,7 +100,7 @@ namespace Bikewale.Utility
             _CwApiHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
             _ABApiHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
             _BwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-            _BwHostUrlForJs = ConfigurationManager.AppSettings["bwHostUrlForJs"]; 
+            _BwHostUrlForJs = ConfigurationManager.AppSettings["bwHostUrlForJs"];
             _ApplicationId = ConfigurationManager.AppSettings["applicationId"];
             _FeedbackEmailTo = ConfigurationManager.AppSettings["feedbackEmailTo"];
             _OfferClaimAlertEmail = ConfigurationManager.AppSettings["OfferClaimAlertEmail"];
@@ -117,12 +117,14 @@ namespace Bikewale.Utility
             _GoogleApiKey = ConfigurationManager.AppSettings["APIKey"];
             _GoogleMapApiKey = ConfigurationManager.AppSettings["GoogleMapApiKey"];
             _apiMaxWaitTime = ConfigurationManager.AppSettings["ApiMaxWaitTime"];
+            _useGrpc = ConfigurationManager.AppSettings["UseGrpc"];
         }
 
         // Static method to provide access to instance
         public static BWConfiguration Instance
         {
-            get{
+            get
+            {
                 if (_instance == null)
                 {
                     // Take lock while creating the object
@@ -133,9 +135,9 @@ namespace Bikewale.Utility
                             _instance = new BWConfiguration();
                         }
                     }
-                }                  
-                return _instance;  
-            }		
+                }
+                return _instance;
+            }
         }
 
         public int NonReadOnlyStatic { get { return nonReadOnlyStatic++; } }
@@ -215,5 +217,6 @@ namespace Bikewale.Utility
         public string GoogleApiKey { get { return _GoogleApiKey; } }
         public string GoogleMapApiKey { get { return _GoogleMapApiKey; } }
         public int ApiMaxWaitTime { get { return string.IsNullOrEmpty(_apiMaxWaitTime) ? 0 : Convert.ToInt32(_apiMaxWaitTime); } }
+        public string UseGrpc { get { return _useGrpc; } }
     }   // class
 }   // namespace
