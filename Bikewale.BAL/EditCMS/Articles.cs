@@ -10,7 +10,6 @@ using Grpc.CMS;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Web;
 
 namespace Bikewale.BAL.EditCMS
@@ -29,7 +28,7 @@ namespace Bikewale.BAL.EditCMS
         public int FetchedRecordsCount { get; set; }
 
         string cacheKey = "BW_CMS_";
-        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
 
 
         /// <summary>
@@ -134,18 +133,17 @@ namespace Bikewale.BAL.EditCMS
 
             try
             {
-
-                string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + contentTypeList + "&totalrecords=" + TotalRecords;
+                string _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}", contentTypeList, TotalRecords);
 
                 if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
                 {
                     if (ModelId.HasValue && ModelId.Value > 0)
                     {
-                        _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + contentTypeList + "&totalrecords=" + TotalRecords + "&makeid=" + MakeId + "&modelid=" + ModelId;
+                        _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}&makeid={2}&modelid={3}", contentTypeList, TotalRecords, MakeId, ModelId);
                     }
                     else
                     {
-                        _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + contentTypeList + "&totalrecords=" + TotalRecords + "&makeid=" + MakeId;
+                        _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}&makeid={2}", contentTypeList, TotalRecords, MakeId);
                     }
                 }
 
@@ -182,7 +180,10 @@ namespace Bikewale.BAL.EditCMS
             try
             {
 
-                string _contentType = (int)EnumCMSContentType.RoadTest + "," + (int)EnumCMSContentType.ComparisonTests;
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.RoadTest);
+                categorList.Add(EnumCMSContentType.ComparisonTests);
+                string _contentType = CommonApiOpn.GetContentTypesString(categorList);
 
                 cacheKey += _contentType.Replace(",", "_") + "_Cnt_" + TotalRecords;
 

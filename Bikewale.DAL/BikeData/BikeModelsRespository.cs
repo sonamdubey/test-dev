@@ -1196,6 +1196,13 @@ namespace Bikewale.DAL.BikeData
         }   //End of GetAllModels Method
         #endregion
 
+
+        /// <summary>
+        /// Author : Vivek Gupta on 9-5-2016
+        /// Desc : this method has not been implemented in dal
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public BikeModelContent GetRecentModelArticles(U modelId)
         {
             throw new NotImplementedException();

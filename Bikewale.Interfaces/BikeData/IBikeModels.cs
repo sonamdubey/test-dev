@@ -6,6 +6,8 @@ namespace Bikewale.Interfaces.BikeData
     /// <summary>
     /// Created By : Ashish G. Kamble
     /// Summary : Interface for bike models data
+    /// Modified By Vivek Gupta on 9-5-2016
+    /// Added defimition of BikeModelContent GetRecentModelArticles(U modelId);
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>

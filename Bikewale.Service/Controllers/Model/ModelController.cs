@@ -118,7 +118,7 @@ namespace Bikewale.Service.Controllers.Model
         /// </summary>
         /// <param name="modelId"></param>        
         /// <returns>List of User Reviews - News- Expert Reviews- Videos of the model</returns>
-        [ResponseType(typeof(List<BikeModelContentDTO>)), Route("api/model/articles/")]
+        [ResponseType(typeof(BikeModelContentDTO)), Route("api/model/articles/")]
         public IHttpActionResult GetModelContent(int modelId)
         {
             BikeModelContent bkModelContent = null;
@@ -126,7 +126,15 @@ namespace Bikewale.Service.Controllers.Model
 
             try
             {
-                bkModelContent = _modelsContent.GetRecentModelArticles(modelId);
+                if (modelId > 0)
+                {
+                    bkModelContent = _modelsContent.GetRecentModelArticles(modelId);
+                }
+
+                else
+                {
+                    return BadRequest();
+                }
 
                 if (bkModelContent != null)
                 {
@@ -144,7 +152,7 @@ namespace Bikewale.Service.Controllers.Model
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.GetModelContent");
                 objErr.SendMail();
                 return InternalServerError();
             }
