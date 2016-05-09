@@ -9,7 +9,8 @@ using AjaxPro;
 using System.Net;
 using System.IO;
 using System.Data.Common;
-using Bikewale.CoreDAL;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Common
 {

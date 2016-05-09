@@ -9,7 +9,8 @@ using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using System.IO;
 using System.Data.Common;
-using Bikewale.CoreDAL;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Content
 {
@@ -217,11 +218,6 @@ namespace BikeWaleOpr.Content
                     //cmd.CommandText = "getvideos";
 
                     Trace.Warn("GetVideosData : makeId : " + makeId + " : modelId : " + modelId + " : isActive : " + isActive.ToString());
-
-                    //cmd.Parameters.Add("@makeId", SqlDbType.Int).Value = String.IsNullOrEmpty(makeId) ? Convert.DBNull : makeId;
-                    //cmd.Parameters.Add("@modelId", SqlDbType.Int).Value = String.IsNullOrEmpty(modelId) ? Convert.DBNull : modelId;
-                    //cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = isActive;
-                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
 

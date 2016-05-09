@@ -1,4 +1,6 @@
 ﻿using BikeWaleOpr.Common;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -138,13 +140,13 @@ namespace BikeWaleOpr.RabbitMQ
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    Database db = new Database();
-                    cmd.CommandText = "IMG_CheckPhotosStatus";
+                    cmd.CommandText = "img_checkphotosstatus";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@PhotoId", SqlDbType.VarChar).Value = imageId;
-                    cmd.Parameters.Add("@CategoryId", SqlDbType.Int).Value = (int)imgC;
 
-                    ds = db.SelectAdaptQry(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], imageId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (int)imgC));
+
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (Exception ex)

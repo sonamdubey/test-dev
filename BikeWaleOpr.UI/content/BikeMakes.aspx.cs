@@ -12,6 +12,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
+using BikeWaleOPR.DAL.CoreDAL;
+using System.Data.Common;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Content
 {
@@ -54,17 +57,6 @@ namespace BikeWaleOpr.Content
 		
 		void Page_Load( object Sender, EventArgs e )
 		{
-            //CommonOpn op = new CommonOpn();
-			
-            //if( HttpContext.Current.User.Identity.IsAuthenticated != true) 
-            //        Response.Redirect("../users/Login.aspx?ReturnUrl=../Contents/CarMakes.aspx");
-				
-            //if ( Request.Cookies["Customer"] == null )
-            //    Response.Redirect("../Users/Login.aspx?ReturnUrl=../Contents/CarMakes.aspx");
-				
-            //int pageId = 38;
-            //if ( !op.verifyPrivilege( pageId ) )
-            //    Response.Redirect("../NotAuthorized.aspx");
             lblStatus.Text = "";
 			if ( !IsPostBack )
 			{
@@ -82,13 +74,20 @@ namespace BikeWaleOpr.Content
 			
 			string sql;
 			
-			sql = "INSERT INTO BikeMakes( Name,MaskingName,IsDeleted,MaCreatedOn,MaUpdatedBy) "
-                + " VALUES( '" + txtMake.Text.Trim().Replace("'", "''") + "','" + txtMaskingName.Text.Trim() + "', 0 , getdate(),'" + BikeWaleAuthentication.GetOprUserId() + "')";
-			Database db = new Database();
-			Trace.Warn("save sql : ",sql);
+			sql = @"insert into bikemakes( name,maskingname,isdeleted,macreatedon,maupdatedby)
+                                   values( @make, @makemaskingname, 0 , now(),@userid)";
+
 			try
 			{
-				db.InsertQry( sql );
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtMake.Text.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtMaskingName.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
+
+                    MySqlDatabase.InsertQuery(cmd); 
+                }
 			}
 			catch( SqlException ex )	
 			{
@@ -123,10 +122,15 @@ namespace BikeWaleOpr.Content
 			
 			int pageSize = dtgrdMembers.PageSize;
 
-            sql = " SELECT BM.ID, BM.Name,BM.MaskingName,BM.Used,BM.New, BM.Futuristic,BM.MaCreatedOn AS CreatedOn, BM.MaUpdatedOn As UpdatedOn,OU.UserName AS UpdatedBy FROM BikeMakes BM LEFT JOIN OprUsers OU ON BM.MaUpdatedBy = OU.id WHERE IsDeleted=0";
+            sql = @" select bm.id, bm.name,bm.maskingname,
+                        if(bm.used,true,false) as used ,if(bm.new,true,false) as new, if(bm.futuristic,true,false) as futuristic ,
+                        bm.macreatedon as createdon,
+                        bm.maupdatedon as updatedon,
+                        ou.username as updatedby 
+                    from bikemakes bm left join oprusers ou on bm.maupdatedby = ou.id where isdeleted=0 ";
 			
 			if(SortCriteria != "")
-                sql += " ORDER BY BM.Futuristic DESC,BM.New DESC,BM.Used DESC," + SortCriteria + " " + SortDirection; 
+                sql += " order by bm.futuristic desc,bm.new desc,bm.used desc," + SortCriteria + " " + SortDirection; 
 			
 			Trace.Warn(sql);
 			CommonOpn objCom = new CommonOpn();			
@@ -162,20 +166,29 @@ namespace BikeWaleOpr.Content
             CheckBox chkNew = (CheckBox)e.Item.FindControl("chkNew");
 
 			TextBox txt = (TextBox) e.Item.FindControl( "txtMake" );
-			sql = "UPDATE BikeMakes SET "
-				+ " Name='" + txt.Text.Trim().Replace("'","''") + "',"
-                + " Futuristic=" + Convert.ToInt16(chkFuturistic.Checked) + ","
-                + " Used = " + Convert.ToInt16(chkUsed.Checked) + ","
-                + " New = " + Convert.ToInt16(chkNew.Checked) + ","
-                + " MaUpdatedOn=getdate(),"
-                + " MaUpdatedBy='" + BikeWaleAuthentication.GetOprUserId() + "'"
-				+ " WHERE Id=" + dtgrdMembers.DataKeys[ e.Item.ItemIndex ];
-			
-			Database db = new Database();
+			sql = @"update bikemakes set
+				name= @make,
+                Futuristic=@isfuturistic,
+                Used = @isused,
+                New = @isnew,
+                MaUpdatedOn=now(),
+                MaUpdatedBy=@userid
+				WHERE Id=@makeid";
 
             try
             {
-                db.InsertQry(sql);
+
+                DbParameter[] sqlParams = new[]
+                    {
+                        DbFactory.GetDbParam("@make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],100, txt.Text.Trim().Replace("'","''")),
+                        DbFactory.GetDbParam("@isfuturistic", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkFuturistic.Checked)),
+                         DbFactory.GetDbParam("@isnew", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt],  Convert.ToInt16(chkNew.Checked)),
+                          DbFactory.GetDbParam("@isused", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkUsed.Checked)),
+                        DbFactory.GetDbParam("@userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()),
+                        DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[ e.Item.ItemIndex ])
+                    };
+
+                MySqlDatabase.InsertQuery(sql,sqlParams);
             }
             catch (SqlException ex)
             {
@@ -196,10 +209,7 @@ namespace BikeWaleOpr.Content
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally 
-            { 
-                db.CloseConnection();
-            }
+
 			dtgrdMembers.EditItemIndex = -1;
 			//req1.Enabled = true;
 			btnSave.Enabled = true;
@@ -238,11 +248,11 @@ namespace BikeWaleOpr.Content
 		{
 			if ( SortCriteria == e.SortExpression )
 			{
-				SortDirection = SortDirection == "DESC" ? "ASC" : "DESC"; 
+				SortDirection = SortDirection == "desc" ? "asc" : "desc"; 
 			}
 			else
 			{
-				SortDirection = "ASC";
+				SortDirection = "asc";
 			}
 			SortCriteria = e.SortExpression;			
 			BindGrid();		

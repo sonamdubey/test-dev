@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
+using BikeWaleOPR.DAL.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -43,17 +44,6 @@ namespace BikeWaleOpr.Content
 		
 		void Page_Load( object Sender, EventArgs e )
 		{
-			//CommonOpn op = new CommonOpn();
-			
-            //if( HttpContext.Current.User.Identity.IsAuthenticated != true) 
-            //        Response.Redirect("../users/Login.aspx?ReturnUrl=../Contents/NewCarVersionColorsStep1.aspx");
-				
-            //if ( Request.Cookies["Customer"] == null )
-            //    Response.Redirect("../Users/Login.aspx?ReturnUrl=../Contents/NewCarVersionColorsStep1.aspx");
-				
-            //int pageId = 38;
-            //if ( !op.verifyPrivilege( pageId ) )
-            //    Response.Redirect("../NotAuthorized.aspx");
 		
 			if( Request.QueryString["Model"] != null && Request.QueryString["Model"].ToString() != "")
 			{
@@ -126,17 +116,13 @@ namespace BikeWaleOpr.Content
 		void SaveColor( string color, string code, string HexCode )
 		{
 			string sql = "";
-			Database db = new Database();
-					
-			sql = " INSERT INTO VersionColors ( Color, Code, HexCode, BikeVersionId ) "
-				+ " VALUES('" 
-				+ color.Trim().Replace("'","''") + "','" 
-				+ code.Trim().Replace("'","''") + "','" 
-				+ HexCode.Trim().Replace("'","''") + "'," + qryStrVersion + " )";
+
+
+            sql = string.Format(" insert into versioncolors ( color, code, hexcode, bikeversionid ,isactive)	values('{0}','{1}','{2}','{3}',1)", color.Trim().Replace("'", "''"), code.Trim().Replace("'", "''"), HexCode.Trim().Replace("'", "''"), qryStrVersion); 
 				
 			try
 			{
-				db.InsertQry( sql );
+				MySqlDatabase.InsertQuery( sql );
 			}
 			catch(SqlException err)
 			{
@@ -150,25 +136,18 @@ namespace BikeWaleOpr.Content
 		{
 			string sql = "";
 						
-			sql = " SELECT ID, Color, Code, HexCode "
-				+ " FROM VersionColors WHERE IsActive=1 AND BikeVersionId=" + qryStrVersion;
-			
-			Trace.Warn(sql);
-			
-			Database db = new Database();
-			
-			DataSet ds = new DataSet();
-			SqlConnection cn = new SqlConnection( db.GetConString() );
-						
+			sql = " SELECT ID, Color, Code, HexCode   from versioncolors where isactive=1 and bikeversionid=" + qryStrVersion;
+					
 			try
 			{
-				cn.Open();
-				
-				SqlDataAdapter adp = new SqlDataAdapter( sql, cn );
-				adp.Fill( ds, "Categories" );				
-					
-				dtgrdColors.DataSource = ds.Tables["Categories"];	
-				dtgrdColors.DataBind();
+                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql))
+                {
+                    if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                    {
+                        dtgrdColors.DataSource = ds.Tables[0];
+                        dtgrdColors.DataBind();
+                    }
+                }
 				
 			}
 			catch(Exception err)
@@ -176,41 +155,30 @@ namespace BikeWaleOpr.Content
 				Trace.Warn(err.Message + err.Source);
 				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
 				objErr.SendMail();
-			}
-			finally
-			{
-				if ( cn.State == ConnectionState.Open ) cn.Close();
 			}
 		}
 		
 		void BindCheckList()
 		{
 			string sql = "";
-						
-			sql = " SELECT DISTINCT Id, Color + ':' + Code + ':' + HexCode AS ColorValue "
-				+ " FROM ModelColors WHERE IsActive=1 "
-				+ " AND Color NOT IN ( SELECT Color FROM VersionColors "
-				+ " WHERE IsActive=1 AND BikeVersionId=" + qryStrVersion + " ) "
-				+ " AND BikeModelId=" + qryStrModel;
-			
-			Trace.Warn(sql);
-			
-			Database db = new Database();
-			
-			DataSet ds = new DataSet();
-			SqlConnection cn = new SqlConnection( db.GetConString() );
+
+            sql = string.Format(@" select distinct Id, concat(color,':' ,code ,':' , hexcode) as ColorValue 
+				from modelcolors where isactive=1 
+				and color not in ( select color from versioncolors
+				where isactive=1 and bikeversionid={0} ) and bikemodelid={1}",qryStrVersion,qryStrModel);
 						
 			try
 			{
-				cn.Open();
-				
-				SqlDataAdapter adp = new SqlDataAdapter( sql, cn );
-				adp.Fill( ds, "Categories" );				
-					
-				chkModelColors.DataSource = ds.Tables["Categories"];	
-				chkModelColors.DataTextField = "ColorValue";
-				chkModelColors.DataValueField = "ID";
-				chkModelColors.DataBind();
+                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql))
+                {
+                    if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                    {
+                        chkModelColors.DataSource = ds.Tables[0];
+                        chkModelColors.DataTextField = "ColorValue";
+                        chkModelColors.DataValueField = "ID";
+                        chkModelColors.DataBind();
+                    }
+                }
 				
 			}
 			catch(Exception err)
@@ -218,10 +186,6 @@ namespace BikeWaleOpr.Content
 				Trace.Warn(err.Message + err.Source);
 				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
 				objErr.SendMail();
-			}
-			finally
-			{
-				if ( cn.State == ConnectionState.Open ) cn.Close();
 			}
 		}
 		
@@ -242,18 +206,12 @@ namespace BikeWaleOpr.Content
 			TextBox txtCol = (TextBox) e.Item.FindControl( "txtColor" );
 			TextBox txtCod = (TextBox) e.Item.FindControl( "txtCode" );
 			TextBox txtHCod = (TextBox) e.Item.FindControl( "txtHexCode" );
-			
-			sql = "UPDATE VersionColors SET "
-				+ " Color='" + txtCol.Text.Trim().Replace("'","''") + "',"
-				+ " Code='" + txtCod.Text.Trim().Replace("'","''") + "',"
-				+ " HexCode='" + txtHCod.Text.Trim().Replace("'","''") + "'"
-				+ " WHERE Id=" + dtgrdColors.DataKeys[ e.Item.ItemIndex ];
-			Trace.Warn( sql );
-			Database db = new Database();
+
+            sql = string.Format("update versioncolors set color='{0}',code='{1}',hexcode='{2}' where id={3} ", txtCol.Text.Trim().Replace("'", "''"), txtCod.Text.Trim().Replace("'", "''"), txtHCod.Text.Trim().Replace("'", "''"), dtgrdColors.DataKeys[e.Item.ItemIndex]);		
 			
 			try
 			{
-				db.InsertQry( sql );
+				MySqlDatabase.InsertQuery(sql);
 			}
 			catch( SqlException ex )	
 			{
@@ -278,13 +236,11 @@ namespace BikeWaleOpr.Content
 		{
 			string sql;
 			
-			sql = "UPDATE VersionColors SET IsActive=0 WHERE Id=" + dtgrdColors.DataKeys[ e.Item.ItemIndex ];
-			
-			Database db = new Database();
+			sql = "update versioncolors set isactive=0 where id=" + dtgrdColors.DataKeys[ e.Item.ItemIndex ];
 			
 			try
 			{
-				db.InsertQry( sql );
+                MySqlDatabase.InsertQuery(sql);
 			}
 			catch( SqlException ex )	
 			{
@@ -300,30 +256,32 @@ namespace BikeWaleOpr.Content
 		{
 			string bikeName = "";
 			string sql = "";
-			Database db = new Database();
 			
-			sql = "SELECT ( Ma.Name + ' ' + Mo.Name + ' ' + Ve.Name ) BikeMake"
-				+ " FROM BikeMakes Ma, BikeModels Mo, BikeVersions Ve "
-				+ " WHERE Ma.ID=Mo.BikeMakeId AND Mo.ID=Ve.BikeModelId "
-				+ " AND Ve.Id = " + VersionId;
+			
+			sql = @"select concat( ma.name,' ' ,mo.name , ' ' , ve.name ) bikemake
+				from bikemakes ma, bikemodels mo, bikeversions ve 
+				where ma.id=mo.bikemakeid and mo.id=ve.bikemodelid 
+				and ve.id = " + VersionId;
 			
 			try
-			{
-				SqlDataReader dr = db.SelectQry( sql );
-				while ( dr.Read() )
-				{
-					bikeName = dr[ 0 ].ToString();
-				}
-				dr.Close();
+			{ 
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                {
+                    if (dr!=null)
+                    {
+                        while (dr.Read())
+                        {
+                            bikeName = dr[0].ToString();
+                        } 
+                    } 
+                }
+				
 			}
 			catch ( SqlException ex )
 			{
 				Trace.Warn( ex.Message );
 			}
-			finally
-			{
-				db.CloseConnection();
-			}
+			
 			return bikeName;
 		} // GetBikeName
 	} // class

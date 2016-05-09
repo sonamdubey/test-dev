@@ -14,6 +14,9 @@ using System.Drawing.Imaging;
 using BikeWaleOpr.Common;
 using FreeTextBoxControls;
 using Ajax;
+using BikeWaleOPR.DAL.CoreDAL;
+using System.Data.Common;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Content
 {
@@ -42,17 +45,6 @@ namespace BikeWaleOpr.Content
 		
 		void Page_Load( object Sender, EventArgs e )
 		{
-			//CommonOpn op = new CommonOpn();
-			
-            //if( HttpContext.Current.User.Identity.IsAuthenticated != true) 
-            //        Response.Redirect("../users/Login.aspx?ReturnUrl=../Contents/CarSynopsisStep1.aspx");
-				
-            //if ( Request.Cookies["Customer"] == null )
-            //    Response.Redirect("../Users/Login.aspx?ReturnUrl=../Contents/CarSynopsisStep1.aspx");
-				
-            //int pageId = 38;
-            //if ( !op.verifyPrivilege( pageId ) )
-            //    Response.Redirect("../NotAuthorized.aspx");	
 			
 			if( Request.QueryString["model"] != null && Request.QueryString["model"].ToString() != "")
 			{
@@ -103,10 +95,7 @@ namespace BikeWaleOpr.Content
 			
 			if(saveId != "" &&  saveId != "0")
 			{
-				//if(SaveDescription(saveId))
-				//{					
-				//}
-                //Response.Redirect("CarSynopsisStep1.aspx?msg=Data Saved Successfully");
+
                 lbl_success_msg.Text = "Data Saved Successfully";
                 lbl_success_msg.Visible = true;
 			}
@@ -127,63 +116,39 @@ namespace BikeWaleOpr.Content
 		void FillExistingData(string modelId)
 		{
 			string sql = "";
-            //string mainDir = "";Commented by Dilip V.
-            //string fullPath = "";Commented by Dilip V.
-			
-			sql = " SELECT * FROM BikeSynopsis WHERE ModelId = "+ modelId +" AND IsActive = 1";
-			
-			Database db = new Database();
-			SqlDataReader dr = null;
-			
-			Trace.Warn("sql=" + sql);
+
+            int _modelid = default(int);
+            if (!string.IsNullOrEmpty(modelId) && int.TryParse(modelId, out _modelid))
+            {
+                sql = " select * from bikesynopsis where modelid = " + _modelid + " and isactive = 1";
+
+            }
 
             try
             {
-                dr = db.SelectQry(sql);
-
-                if (dr.Read())
+                if (!string.IsNullOrEmpty(sql))
                 {
-                    ftbDescription.Text = dr["FullDescription"].ToString();
-                    txtSmallDesc.Text = dr["SmallDescription"].ToString();
-                    txtPros.Text = dr["Pros"].ToString();
-                    txtCons.Text = dr["Cons"].ToString();
-                    drpLooks.SelectedValue = dr["Looks"].ToString();
-                    drpPerformance.SelectedValue = dr["Performance"].ToString();
-                    drpFuel.SelectedValue = dr["FuelEfficiency"].ToString();
-                    drpComfort.SelectedValue = dr["Comfort"].ToString();
-                    drpSafety.SelectedValue = dr["Safety"].ToString();
-                    drpInteriors.SelectedValue = dr["Interiors"].ToString();
-                    drpRide.SelectedValue = dr["RideQuality"].ToString();
-                    drpHandling.SelectedValue = dr["Handling"].ToString();
-                    drpBraking.SelectedValue = dr["Braking"].ToString();
-                    drpOverall.SelectedValue = dr["Overall"].ToString();
-                    lblMessage.Text = dr["Id"].ToString();
-
-                    //string mainDir = CommonOpn.ResolvePhysicalPath("/Contents/Modeldescriptions/");
-
-                    /*Commented by Dilip V.
-                    if(HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToLower().IndexOf( "carwale.com" ) >= 0)
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                     {
-                        mainDir = CommonOpn.ResolvePhysicalPath("/CarSynopsis/ModelDescriptions/");
-                    }
-                    else
-                    {
-                        mainDir = CommonOpn.ResolvePhysicalPath("/Contents/ModelDescription/").Replace("carwale", "carwaleopr");
-                    }
-				
-                    //check whether the directory for the make exists or not, if not then create the directory
-                    if(Directory.Exists(mainDir) != false)
-                    {
-		
-                        fullPath = mainDir + "\\" + lblMessage.Text  + ".txt";
-                        Trace.Warn("fullPath=" + fullPath);
-						
-                        if(File.Exists(fullPath) != false)						
+                        if (dr != null && dr.Read())
                         {
-                            ftbDescription.Text	= ReadOtherDetails(fullPath);
+                            ftbDescription.Text = dr["FullDescription"].ToString();
+                            txtSmallDesc.Text = dr["SmallDescription"].ToString();
+                            txtPros.Text = dr["Pros"].ToString();
+                            txtCons.Text = dr["Cons"].ToString();
+                            drpLooks.SelectedValue = dr["Looks"].ToString();
+                            drpPerformance.SelectedValue = dr["Performance"].ToString();
+                            drpFuel.SelectedValue = dr["FuelEfficiency"].ToString();
+                            drpComfort.SelectedValue = dr["Comfort"].ToString();
+                            drpSafety.SelectedValue = dr["Safety"].ToString();
+                            drpInteriors.SelectedValue = dr["Interiors"].ToString();
+                            drpRide.SelectedValue = dr["RideQuality"].ToString();
+                            drpHandling.SelectedValue = dr["Handling"].ToString();
+                            drpBraking.SelectedValue = dr["Braking"].ToString();
+                            drpOverall.SelectedValue = dr["Overall"].ToString();
+                            lblMessage.Text = dr["Id"].ToString();
                         }
-                    }
-                    Commented by Dilip V.*/
+                    } 
                 }
             }
             catch (SqlException err)
@@ -197,12 +162,6 @@ namespace BikeWaleOpr.Content
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
-                db.CloseConnection();
             }
 		}
 		
@@ -210,23 +169,25 @@ namespace BikeWaleOpr.Content
 		void GetBikeName(string modelId)
 		{
 			string sql = "";
-			
-			sql = " SELECT (CMA.Name + ' ' + CMO.Name) AS BikeName"
-				+ " FROM BikeMakes AS CMA, BikeModels AS CMO"
-				+ " WHERE CMA.Id = CMO.BikeMakeId AND CMO.Id = "+ modelId +" AND CMA.IsDeleted = 0";
-			
-			Database db = new Database();
-			SqlDataReader dr = null;
-			
-			Trace.Warn("sql=" + sql);
-
+            int _modelid = default(int);
+            if (!string.IsNullOrEmpty(modelId) && int.TryParse(modelId, out _modelid))
+            {
+                sql = @" select concat(cma.name,' ',cmo.name) as bikename
+				 from bikemakes as cma, bikemodels as cmo
+				 where cma.id = cmo.bikemakeid and cmo.id = " + _modelid + " and cma.isdeleted = 0";
+                
+            }
             try
             {
-                dr = db.SelectQry(sql);
-
-                if (dr.Read())
+                if (!string.IsNullOrEmpty(sql))
                 {
-                    bikeName = dr["BikeName"].ToString();
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            bikeName = dr["BikeName"].ToString();
+                        }
+                    } 
                 }
             }
             catch (SqlException err)
@@ -240,12 +201,6 @@ namespace BikeWaleOpr.Content
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            { 
-                if(dr != null)
-                    dr.Close();
-                db.CloseConnection();
             }
 		}
 		
@@ -263,92 +218,42 @@ namespace BikeWaleOpr.Content
 		
 		string SaveData( string updateId )
 		{
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-			string conStr = db.GetConString();
 			string lastSavedId = "";
-			
-			con = new SqlConnection( conStr );
 
 			try
 			{
-				Trace.Warn( "Submitting Data" );
-				
-				cmd = new SqlCommand("CON_AddBikeSynopsis", con);
-				cmd.CommandType = CommandType.StoredProcedure;
-				
-				prm = cmd.Parameters.Add("@Id", SqlDbType.BigInt);
-				prm.Value = updateId;
-				
-				prm = cmd.Parameters.Add("@ModelId", SqlDbType.BigInt);
-				prm.Value = qryStrModel;
+                using (DbCommand cmd = DbFactory.GetDBCommand("con_addbikesynopsis"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                prm = cmd.Parameters.Add("@FullDescription", SqlDbType.VarChar);
-                prm.Value = ftbDescription.Text.Trim();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], updateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], qryStrModel));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fulldescription", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ftbDescription.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smalldescription", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 8000, txtSmallDesc.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pros", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, txtPros.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cons", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, txtCons.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_looks", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpLooks.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpPerformance.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fuel", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpFuel.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comfort", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpComfort.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_safety", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpSafety.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_interiors", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpInteriors.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ride", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpRide.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_handling", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpHandling.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_braking", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpBraking.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overall", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpOverall.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], 1));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastsavedid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id));
 
-				prm = cmd.Parameters.Add("@SmallDescription", SqlDbType.VarChar,8000);
-                prm.Value = txtSmallDesc.Text.Trim();
-				
-				prm = cmd.Parameters.Add("@Pros", SqlDbType.VarChar,500);
-                prm.Value = txtPros.Text.Trim();
-				
-				prm = cmd.Parameters.Add("@Cons", SqlDbType.VarChar,500);
-                prm.Value = txtCons.Text.Trim();
-				
-				prm = cmd.Parameters.Add("@Looks", SqlDbType.SmallInt);
-				prm.Value = drpLooks.SelectedItem.Value;
-				
-				prm = cmd.Parameters.Add("@Performance", SqlDbType.SmallInt);
-				prm.Value = drpPerformance.SelectedItem.Value;
-				
-				prm = cmd.Parameters.Add("@Fuel", SqlDbType.SmallInt);
-				prm.Value = drpFuel.SelectedItem.Value;
-				
-				prm = cmd.Parameters.Add("@Comfort", SqlDbType.SmallInt);
-				prm.Value = drpComfort.SelectedItem.Value;
-				
-				prm = cmd.Parameters.Add("@Safety", SqlDbType.SmallInt);
-				prm.Value = drpSafety.SelectedItem.Value;
-				
-				prm = cmd.Parameters.Add("@Interiors", SqlDbType.SmallInt);
-				prm.Value = drpInteriors.SelectedItem.Value;
-				
-				prm = cmd.Parameters.Add("@Ride", SqlDbType.SmallInt);
-				prm.Value = drpRide.SelectedItem.Value;
-				
-				prm = cmd.Parameters.Add("@Handling", SqlDbType.SmallInt);
-				prm.Value = drpHandling.SelectedItem.Value;
-				
-				prm = cmd.Parameters.Add("@Braking", SqlDbType.SmallInt);
-				prm.Value = drpBraking.SelectedItem.Value;
-				
-				prm = cmd.Parameters.Add("@Overall", SqlDbType.SmallInt);
-				prm.Value = drpOverall.SelectedItem.Value;
-				
-				prm = cmd.Parameters.Add("@IsActive", SqlDbType.Bit);
-				prm.Value = 1;
-				
-				prm = cmd.Parameters.Add("@EntryDateTime", SqlDbType.DateTime);
-				prm.Value = DateTime.Now;
-				
-				prm = cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime);
-				prm.Value = DateTime.Now;
-				
-				prm = cmd.Parameters.Add("@LastSavedId", SqlDbType.BigInt);
-				prm.Direction = ParameterDirection.Output;
 
-                prm = cmd.Parameters.Add("@UserId", SqlDbType.Int);
-                prm.Value = CurrentUser.Id;
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-				con.Open();
-    			cmd.ExecuteNonQuery();
-
-                Trace.Warn(cmd.Parameters["@LastSavedId"].Value.ToString());
-                Trace.Warn("Current User Id :" + cmd.Parameters["@UserId"].Value.ToString());
-				if ( cmd.Parameters["@LastSavedId"].Value.ToString() != "" ) 
-					lastSavedId = cmd.Parameters["@LastSavedId"].Value.ToString();
+                    if (cmd.Parameters["par_lastsavedid"].Value.ToString() != "")
+                        lastSavedId = cmd.Parameters["par_lastsavedid"].Value.ToString(); 
+                }
 								
 			}
 			catch(SqlException err)
@@ -363,15 +268,7 @@ namespace BikeWaleOpr.Content
 				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
 				objErr.SendMail();
 			} 
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-                db.CloseConnection();
-			}
+
 			return lastSavedId;
 		}
 		

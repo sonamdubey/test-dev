@@ -217,58 +217,58 @@
             </asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Used">
 				<itemtemplate>
-					<asp:CheckBox ID="chkUsed" Checked='<%# DataBinder.Eval( Container.DataItem, "Used" ) %>' Enabled="false" runat="server" />
+					<asp:CheckBox ID="chkUsed" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Used" )) %>' Enabled="false" runat="server" />
 				</itemtemplate>
 				<edititemtemplate>
-					<asp:CheckBox ID="chkUsed" Checked='<%# DataBinder.Eval( Container.DataItem, "Used" ) %>' runat="server" />
+					<asp:CheckBox ID="chkUsed" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Used" )) %>' runat="server" />
 				</edititemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="New">
 				<itemtemplate>
-					<asp:CheckBox ID="chkNew" Checked='<%# DataBinder.Eval( Container.DataItem, "New" ) %>' Enabled="false" runat="server" />
+					<asp:CheckBox ID="chkNew" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "New" )) %>' Enabled="false" runat="server" />
 				</itemtemplate>
 				<edititemtemplate>
-					<asp:CheckBox ID="chkNew" Checked='<%# DataBinder.Eval( Container.DataItem, "New" ) %>' runat="server" />
+					<asp:CheckBox ID="chkNew" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "New" )) %>' runat="server" />
 				</edititemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Ind.">
 				<itemtemplate>
-					<asp:CheckBox ID="chkIndian" Checked='<%# DataBinder.Eval( Container.DataItem, "Indian" ) %>' Enabled="false" runat="server" />
+					<asp:CheckBox ID="chkIndian" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Indian" )) %>' Enabled="false" runat="server" />
 				</itemtemplate>
 				<edititemtemplate>
-					<asp:CheckBox ID="chkIndian" Checked='<%# DataBinder.Eval( Container.DataItem, "Indian" ) %>' runat="server" />
+					<asp:CheckBox ID="chkIndian" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Indian" )) %>' runat="server" />
 				</edititemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Imp.">
 				<itemtemplate>
-					<asp:CheckBox ID="chkImported" Checked='<%# DataBinder.Eval( Container.DataItem, "Imported" ) %>' Enabled="false" runat="server" />
+					<asp:CheckBox ID="chkImported" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Imported" )) %>' Enabled="false" runat="server" />
 				</itemtemplate>
 				<edititemtemplate>
-					<asp:CheckBox ID="chkImported" Checked='<%# DataBinder.Eval( Container.DataItem, "Imported" ) %>' runat="server" />
+					<asp:CheckBox ID="chkImported" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Imported" )) %>' runat="server" />
 				</edititemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Clas.">
 				<itemtemplate>
-					<asp:CheckBox ID="chkClassic" Checked='<%# DataBinder.Eval( Container.DataItem, "Classic" ) %>' Enabled="false" runat="server" />
+					<asp:CheckBox ID="chkClassic" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Classic" )) %>' Enabled="false" runat="server" />
 				</itemtemplate>
 				<edititemtemplate>
-					<asp:CheckBox ID="chkClassic" Checked='<%# DataBinder.Eval( Container.DataItem, "Classic" ) %>' runat="server" />
+					<asp:CheckBox ID="chkClassic" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Classic" )) %>' runat="server" />
 				</edititemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Mod.">
 				<itemtemplate>
-					<asp:CheckBox ID="chkModified" Checked='<%# DataBinder.Eval( Container.DataItem, "Modified" ) %>' Enabled="false" runat="server" />
+					<asp:CheckBox ID="chkModified" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Modified" )) %>' Enabled="false" runat="server" />
 				</itemtemplate>
 				<edititemtemplate>
-					<asp:CheckBox ID="chkModified" Checked='<%# DataBinder.Eval( Container.DataItem, "Modified" ) %>' runat="server" />
+					<asp:CheckBox ID="chkModified" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Modified" )) %>' runat="server" />
 				</edititemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="Futur.">
 				<itemtemplate>
-					<asp:CheckBox ID="chkFuturistic" Checked='<%# DataBinder.Eval( Container.DataItem, "Futuristic" ) %>' Enabled="false" runat="server" />
+					<asp:CheckBox ID="chkFuturistic" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Futuristic" )) %>' Enabled="false" runat="server" />
 				</itemtemplate>
 				<edititemtemplate>
-					<asp:CheckBox ID="chkFuturistic" Checked='<%# DataBinder.Eval( Container.DataItem, "Futuristic" ) %>' runat="server" />
+					<asp:CheckBox ID="chkFuturistic" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Futuristic" )) %>' runat="server" />
 				</edititemtemplate>
 			</asp:TemplateColumn>
 			<asp:EditCommandColumn EditText="<img border=0 src=http://opr.carwale.com/images/edit.jpg />" CancelText="Cancel" UpdateText="Update" />

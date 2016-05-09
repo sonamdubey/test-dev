@@ -78,26 +78,26 @@
 		    </asp:TemplateColumn>
             <asp:TemplateColumn HeaderText="Futuristic" >
 			<itemtemplate>
-				<asp:CheckBox ID="chkFut"  Checked='<%# DataBinder.Eval( Container.DataItem, "Futuristic" ) %>' Enabled="false" runat="server" />
+				<asp:CheckBox ID="chkFut"  Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Futuristic" )) %>' Enabled="false" runat="server" />
 			</itemtemplate>
 			<edititemtemplate>
-				<asp:CheckBox ID="chkFut" Checked='<%# DataBinder.Eval( Container.DataItem, "Futuristic" ) %>' runat="server" />
+				<asp:CheckBox ID="chkFut" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Futuristic" )) %>' runat="server" />
 			</edititemtemplate>
 			</asp:TemplateColumn>	
             <asp:TemplateColumn HeaderText="Used">
 				<itemtemplate>
-					<asp:CheckBox ID="chkUsed" Checked='<%# DataBinder.Eval( Container.DataItem, "Used" ) %>' Enabled="false" runat="server" />
+					<asp:CheckBox ID="chkUsed" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Used" )) %>' Enabled="false" runat="server" />
 				</itemtemplate>
 				<edititemtemplate>
-					<asp:CheckBox ID="chkUsed" Checked='<%# DataBinder.Eval( Container.DataItem, "Used" ) %>' runat="server" />
+					<asp:CheckBox ID="chkUsed" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Used" )) %>' runat="server" />
 				</edititemtemplate>
 			</asp:TemplateColumn>
 			<asp:TemplateColumn HeaderText="New">
 				<itemtemplate>
-					<asp:CheckBox ID="chkNew" Checked='<%# DataBinder.Eval( Container.DataItem, "New" ) %>' Enabled="false" runat="server" />
+					<asp:CheckBox ID="chkNew" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "New" )) %>' Enabled="false" runat="server" />
 				</itemtemplate>
 				<edititemtemplate>
-					<asp:CheckBox ID="chkNew" Checked='<%# DataBinder.Eval( Container.DataItem, "New" ) %>' runat="server" />
+					<asp:CheckBox ID="chkNew" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "New" )) %>' runat="server" />
 				</edititemtemplate>
 			</asp:TemplateColumn>	
             <asp:TemplateColumn HeaderText="Synopsis" ItemStyle-Width="100">

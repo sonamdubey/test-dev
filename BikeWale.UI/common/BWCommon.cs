@@ -13,6 +13,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
 using System.Xml;
+using System.Data.Common;
+using Bikewale.Notifications.CoreDAL;
 
 namespace Bikewale.Common
 {	
@@ -150,17 +152,19 @@ namespace Bikewale.Common
 			
 			if(makeId == "" || CommonOpn.CheckId(makeId) == false)
 				return ds;
-			
-			Database db = new Database();
+
 			string sql = "";
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeModels With(NoLock) WHERE IsDeleted = 0 AND "
-				+ " BikeMakeId = @BikeMakeId AND New = 1 ORDER BY Text ";
-			
-			SqlParameter [] param ={new SqlParameter("@BikeMakeId", makeId)};
+            sql = " select ID AS Value, Name AS Text from bikemodels  where isdeleted = 0 and bikemakeid = @bikemakeid and new = 1 order by text ";
+
+            DbParameter[] param = new[]
+            {
+                DbFactory.GetDbParam("@bikemakeid", DbParamTypeMapper.GetInstance[SqlDbType.Int],makeId )
+            };
+
 			try
 			{
-				ds = db.SelectAdaptQry(sql, param);
+				ds = MySqlDatabase.SelectAdapterQuery(sql, param);
 			}
 			catch(Exception err)
 			{

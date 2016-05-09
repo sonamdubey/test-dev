@@ -102,27 +102,14 @@ namespace BikeWaleOpr.Content
             { 
                 getStates();
 
-				sql = "SELECT ID, Name FROM BikeMakes WHERE IsDeleted <> 1 ORDER BY NAME";
+				sql = "SELECT ID, Name FROM bikemakes WHERE IsDeleted <> 1 ORDER BY NAME";
 				op.FillDropDown( sql, cmbMake, "Name", "ID" );
 				ListItem item = new ListItem( "--Select--", "0" );
 				cmbMake.Items.Insert( 0, item );
 				
-				//string cityIds = "1, 2, 3, 4, 5, 7, 9, 10, 12, 14, 15, 17, 22, 28, 30, 31, 35, 37, 40, 52, 57, 67, 73, 85, 88, 100, 105, 112, 117, 119, 125, 128, 133, 141, 143, 145, 147, 148, 152, 153, 160, 165, 166, 174, 176, 177, 184, 191, 194, 198, 201, 204, 206, 207, 208, 209, 210, 211, 212, 214, 215, 219, 220, 221, 222, 224, 225, 226, 227, 231, 232, 233, 234, 236, 237, 240, 243, 244, 246, 250, 253, 255, 256, 258, 259, 260, 261, 262, 264, 266, 267, 271, 273, 274, 275, 277, 280, 281, 282, 285, 287, 290, 295, 296, 302, 309, 330, 342, 348, 349, 363, 394, 481, 586";
-				//" + cityIds + "
-                //sql = "SELECT ID, Name FROM Cities ORDER BY NAME";
-                //op.FillDropDown( sql, drpCity, "Name", "ID" );
-                //drpCity.Items.Insert( 0, new ListItem( "--Select City--", "0" ));
-				//drpCity.Items.Insert( 1, new ListItem( "Mumbai", "1" ));
-
-                //sql = "SELECT ID, Name, BikeMakeId FROM BikeModels WHERE IsDeleted <> 1 ORDER BY Name";
-                //op.FillDropDown(sql, cmbModel, "Name", "ID");
-                //item = new ListItem("--Select--", "0");
-                //cmbModel.Items.Insert(0, item);
-
-                
 		    }
 
-            sql = "SELECT ID, Name, BikeMakeId FROM BikeModels WHERE IsDeleted <> 1 ORDER BY Name";
+            sql = "SELECT ID, Name, BikeMakeId FROM bikemodels WHERE IsDeleted <> 1 ORDER BY Name";
             string Script = op.GenerateChainScript("cmbMake", "cmbModel", sql, Request["cmbModel"]);
             //RegisterStartupScript( "ChainScript", Script );
             ClientScript.RegisterStartupScript(this.GetType(), "ChainScript", Script);

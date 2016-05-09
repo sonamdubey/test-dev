@@ -5,6 +5,9 @@ using BikeWaleOpr.Common;
 using BikeWaleOpr.VO;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.Common;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Common
 {
@@ -251,20 +254,16 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                Database db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand("GetCities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    if (stateId > 0 )
-                        cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = stateId;
-                    else
-                        cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = null;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (stateId > 0) ? stateId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType));
 
-                    cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType;
-
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+ 
                 }
             }
             catch (SqlException err)
@@ -297,20 +296,15 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                Database db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand("GetCWCities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcwcities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    if (stateId > 0)
-                        cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = stateId;
-                    else
-                        cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = null;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (stateId > 0) ? stateId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType));
 
-                    cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType;
-
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException err)
@@ -336,19 +330,16 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public DataSet GetPriceQuoteCities(uint modelId)
         {
-            Database db = null;
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetPriceQuoteCities";
+                    cmd.CommandText = "getpricequotecities";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@modelId", SqlDbType.Int).Value = modelId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
 
-                    db = new Database();
-
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)

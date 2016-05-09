@@ -12,6 +12,9 @@ using System.IO;
 using System.Configuration;
 using Enyim.Caching;
 using Enyim.Caching.Memcached;
+using BikeWaleOPR.DAL.CoreDAL;
+using System.Data.Common;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Content
 {
@@ -19,13 +22,13 @@ namespace BikeWaleOpr.Content
     {
         protected HtmlGenericControl spnError;
         protected DropDownList cmbMakes, ddlUpdateSeries, ddlSeries, ddlSegment, ddlUpdateSegment;
-        protected TextBox txtModel,txtMaskingName;
+        protected TextBox txtModel, txtMaskingName;
         protected Button btnSave;
         protected HtmlInputButton btnUpdateSeries, btnUpdateSegment;
         protected DataGrid dtgrdMembers;
         protected Label lblStatus;
         protected HiddenField hdnModelIdList, hdnModelIdsList;
- 
+
         private string SortCriteria
         {
             get { return ViewState["SortCriteria"].ToString(); }
@@ -40,7 +43,7 @@ namespace BikeWaleOpr.Content
 
         protected override void OnInit(EventArgs e)
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         void InitializeComponent()
@@ -80,15 +83,6 @@ namespace BikeWaleOpr.Content
         void Page_Load(object Sender, EventArgs e)
         {
             CommonOpn op = new CommonOpn();
-            //if (HttpContext.Current.User.Identity.IsAuthenticated != true)
-            //    Response.Redirect("../users/Login.aspx?ReturnUrl=../Contents/CarModels.aspx");
-
-            //if (Request.Cookies["Customer"] == null)
-            //    Response.Redirect("../Users/Login.aspx?ReturnUrl=../Contents/CarModels.aspx");
-
-            //int pageId = 38;
-            //if (!op.verifyPrivilege(pageId))
-            //    Response.Redirect("../NotAuthorized.aspx");
 
             if (!IsPostBack)
             {
@@ -115,10 +109,10 @@ namespace BikeWaleOpr.Content
                 SortDirection = "";
                 SortCriteria = "";
             }
-           /* if (SortCriteria == "New")
-            {
-                SortDirection = "DESC";
-            }*/
+            /* if (SortCriteria == "New")
+             {
+                 SortDirection = "DESC";
+             }*/
         } // Page_Load
 
         void btnSave_Click(object Sender, EventArgs e)
@@ -128,43 +122,50 @@ namespace BikeWaleOpr.Content
 
             string sql = "", sqlId = "";
             string currentId = "-1";
-            SqlDataReader dr = null;
-            Trace.Warn("masking name ", txtMaskingName.Text.Trim());
-            sql = "INSERT INTO BikeModels( Name,MaskingName,BikeMakeId,BikeSeriesId,BikeClassSegmentsId, IsDeleted,MoCreatedOn,MoUpdatedBy ) "
-                + " VALUES( '" + txtModel.Text.Trim().Replace("'", "''") + "', '" + txtMaskingName.Text.Trim() + "'," + cmbMakes.SelectedValue + " ," + ddlSeries.SelectedValue + ","+ ddlSegment.SelectedValue +",0,getdate(),'" + BikeWaleAuthentication.GetOprUserId() + "' )";
 
-            sqlId = "SELECT Id FROM BikeModels"
-                + " WHERE Name = '" + txtModel.Text.Trim().Replace("'", "''") + "'"
-                + " AND BikeMakeId = " + cmbMakes.SelectedValue + " AND IsDeleted = 0";
+            sql = @"insert into bikemodels( name,maskingname,bikemakeid,bikeseriesid,bikeclasssegmentsid, isdeleted,mocreatedon,moupdatedby )
+                    values( @modelname, @modelmaskingname,@makeid ,@seriesid,@segmentid,0,now(), @userid)";
 
-            Database db = new Database();
+            sqlId = "select id from bikemodels where name = @modelname  and bikemakeid = @makeid and isdeleted = 0";
+
+            DbParameter[] param = new[]
+                {
+                    DbFactory.GetDbParam("@modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, txtModel.Text.Trim().Replace("'", "''")),
+                    DbFactory.GetDbParam("@modelmaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50,  txtMaskingName.Text.Trim()),
+                    DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cmbMakes.SelectedValue),
+                    DbFactory.GetDbParam("@seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ddlSeries.SelectedValue),
+                    DbFactory.GetDbParam("@segmentid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ddlSegment.SelectedValue),
+                    DbFactory.GetDbParam("@userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId())
+                };
 
             try
             {
-                db.InsertQry(sql);
-                dr = db.SelectQry(sqlId);
-                if (dr.Read())
+                MySqlDatabase.InsertQuery(sql, param);
+
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sqlId, param))
                 {
-                    currentId = dr["Id"].ToString();
+                    if (dr != null && dr.Read())
+                    {
+                        currentId = dr["Id"].ToString();
+                    }
+                    if (currentId != "-1")
+                    {
+                        WriteFileModel(currentId, txtModel.Text.Trim().Replace("'", "''"));
+                    }
+
+                    if (_mc.Get("BW_ModelMapping") != null)
+                        _mc.Remove("BW_ModelMapping");
+
+                    if (_mc.Get("BW_NewModelMaskingNames") != null)
+                        _mc.Remove("BW_NewModelMaskingNames");
+
+                    if (_mc.Get("BW_OldModelMaskingNames") != null)
+                        _mc.Remove("BW_OldModelMaskingNames");
                 }
-                if (currentId != "-1")
-                {
-                    Trace.Warn("Writing File" + currentId);
-                    WriteFileModel(currentId, txtModel.Text.Trim().Replace("'", "''"));
-                }
-
-                if (_mc.Get("BW_ModelMapping") != null)
-                    _mc.Remove("BW_ModelMapping");
-
-                if (_mc.Get("BW_NewModelMaskingNames") != null)
-                    _mc.Remove("BW_NewModelMaskingNames");
-
-                if(_mc.Get("BW_OldModelMaskingNames") != null)
-                    _mc.Remove("BW_OldModelMaskingNames");
 
             }
             catch (SqlException ex)
-            {         
+            {
                 Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
@@ -176,18 +177,12 @@ namespace BikeWaleOpr.Content
                 }
                 else
                 {  // Error code Unique key constraint in the database.
-                    if(ex.Number == 2627)
+                    if (ex.Number == 2627)
                         lblStatus.Text = "Model Masking Name already exists. Can not insert duplicate name.";
                     else
-                     lblStatus.Text = "";
+                        lblStatus.Text = "";
                 }
-                   
-            }
-            finally 
-            {
-                if(dr != null)
-                    dr.Close();
-                db.CloseConnection();
+
             }
             BindGrid();
         }
@@ -197,40 +192,44 @@ namespace BikeWaleOpr.Content
             FillSeries();
             FillSegments();
             BindGrid();
-            //ddlUpdateSeries.Items.Remove("0");
-            //ddlSeries.Items.Remove("0");
-        
+
         }
         ///<summary>
         ///This function gets the list of the sell inquiries made according to the 
         ///model
         ///</summary>
         void BindGrid()
-        {            
+        {
             string sql = "";
 
             int pageSize = dtgrdMembers.PageSize;
+            int _makeid = default(int);
 
-            sql = " SELECT Mo.ID, Mo.Name, MO.Used, MO.New, MO.Indian,MO.MaskingName,BS.Name AS SeriesName , BS.MaskingName AS SeriesMaskingName, "
-                + " MO.Imported, MO.Classic, MO.Modified, MO.Futuristic, MO.BikeMakeId,CONVERT(VARCHAR(24), Mo.MoCreatedOn, 113) AS CreatedOn,CONVERT(VARCHAR(24), Mo.MoUpdatedOn, 113) AS UpdatedOn,OU.UserName AS UpdatedBy "
-                + " ,BCS.ClassSegmentName " 
-                + " FROM BikeModels Mo LEFT JOIN OprUsers OU "
-                + " ON Mo.MoUpdatedBy = OU.id "
-                + " LEFT JOIN BikeSeries BS ON Mo.BikeSeriesId = BS.ID "
-                + " LEFT JOIN BikeClassSegments BCS ON Mo.BikeClassSegmentsId = BCS.BikeClassSegmentsId "
-                + " WHERE MO.IsDeleted=0 "
-                + " AND Mo.BikeMakeId=" + cmbMakes.SelectedItem.Value;
+            if (!string.IsNullOrEmpty(cmbMakes.SelectedItem.Value.Trim()) && int.TryParse(cmbMakes.SelectedItem.Value,out _makeid))
+            {
+                sql = @" select mo.id, mo.name, if(mo.used,1,0) as used, if(mo.new,1,0) as new, if(mo.indian,1,0) as indian,mo.maskingname,bs.name as seriesname , bs.maskingname as seriesmaskingname, 
+                if(mo.imported,1,0) as imported, if(mo.classic,1,0) as  classic, if(mo.modified,1,0) as  modified, if(mo.futuristic,1,0) as futuristic, mo.bikemakeid,cast( mo.mocreatedon as char(24)) as createdon,cast( mo.moupdatedon  as char(24)) as updatedon,ou.username as updatedby 
+                ,bcs.classsegmentname  
+                from bikemodels mo left join oprusers ou 
+                on mo.moupdatedby = ou.id 
+                left join bikeseries bs on mo.bikeseriesid = bs.id 
+                left join bikeclasssegments bcs on mo.bikeclasssegmentsid = bcs.bikeclasssegmentsid 
+                where mo.isdeleted=0 
+                and mo.bikemakeid=" + _makeid;
 
-            if (SortCriteria != "")
-                sql += " ORDER BY MO.Futuristic DESC ,MO.New  DESC , MO.Used DESC, " + SortCriteria + " " + SortDirection;
-            else
-                sql += " ORDER BY MO.Futuristic DESC ,MO.New  DESC , MO.Used DESC, Name ASC " ;
+                if (SortCriteria != "")
+                    sql += " order by mo.futuristic desc ,mo.new  desc , mo.used desc, " + SortCriteria + " " + SortDirection;
+                else
+                    sql += " order by mo.futuristic desc ,mo.new  desc , mo.used desc, name asc ";
+            }            
 
-            Trace.Warn(sql);
             CommonOpn objCom = new CommonOpn();
             try
-            {                                
-                objCom.BindGridSet(sql, dtgrdMembers);
+            {
+                if (!string.IsNullOrEmpty(sql))
+                {
+                    objCom.BindGridSet(sql, dtgrdMembers); 
+                }
             }
             catch (Exception err)
             {
@@ -249,11 +248,10 @@ namespace BikeWaleOpr.Content
 
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
         {
-            Database db = null;
 
             Page.Validate();
             if (!Page.IsValid) return;
-            
+
             try
             {
                 string sql = string.Empty;
@@ -264,25 +262,38 @@ namespace BikeWaleOpr.Content
                 CheckBox chkImported1 = (CheckBox)e.Item.FindControl("chkImported");
                 CheckBox chkClassic1 = (CheckBox)e.Item.FindControl("chkClassic");
                 CheckBox chkModified1 = (CheckBox)e.Item.FindControl("chkModified");
-                CheckBox chkFuturistic1 = (CheckBox)e.Item.FindControl("chkFuturistic");                
+                CheckBox chkFuturistic1 = (CheckBox)e.Item.FindControl("chkFuturistic");
                 Label lblMakeId = (Label)e.Item.FindControl("lblMakeId");
-                Trace.Warn("txt : ", txt.Text);
-                sql = "UPDATE BikeModels SET "
-                    + " Name='" + txt.Text.Trim().Replace("'", "''") + "',"
-                    + " Used=" + Convert.ToInt16(chkUsed1.Checked) + ","
-                    + " New=" + Convert.ToInt16(chkNew1.Checked) + ","
-                    + " Indian=" + Convert.ToInt16(chkIndian1.Checked) + ","
-                    + " Imported=" + Convert.ToInt16(chkImported1.Checked) + ","
-                    + " Classic=" + Convert.ToInt16(chkClassic1.Checked) + ","
-                    + " Modified=" + Convert.ToInt16(chkModified1.Checked) + ","
-                    + " Futuristic=" + Convert.ToInt16(chkFuturistic1.Checked) + ","
-                    + " MoUpdatedOn=getdate(),"
-                    + " MoUpdatedBy='" + BikeWaleAuthentication.GetOprUserId() + "'"
-                    + " WHERE Id=" + dtgrdMembers.DataKeys[e.Item.ItemIndex];
 
-                db = new Database();
-            
-                db.InsertQry(sql);
+                sql = @"update bikemodels set 
+                     name = @modelname,
+                     used= @used,
+                     new= @new,
+                     indian=@indian,
+                     imported=@imported,
+                     classic=@classic,
+                     modified=@modified,
+                     futuristic=@futuristic,
+                     moupdatedon=now(),
+                     moupdatedby=@moupdatedby
+                     where id=@key";  
+
+                DbParameter[] param = new[]
+                {
+                    DbFactory.GetDbParam("@modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, txt.Text.Trim().Replace("'", "''")),
+                    DbFactory.GetDbParam("@used", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkUsed1.Checked),
+                    DbFactory.GetDbParam("@new", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkNew1.Checked),
+                    DbFactory.GetDbParam("@indian", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIndian1.Checked),
+                    DbFactory.GetDbParam("@Imported", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkImported1.Checked),
+                    DbFactory.GetDbParam("@classic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkClassic1.Checked),
+                    DbFactory.GetDbParam("@modified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkModified1.Checked),
+                    DbFactory.GetDbParam("@futuristic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkFuturistic1.Checked),
+                    DbFactory.GetDbParam("@moupdatedby", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], BikeWaleAuthentication.GetOprUserId()),
+                    DbFactory.GetDbParam("@key", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[e.Item.ItemIndex])
+
+                };
+
+                MySqlDatabase.InsertQuery(sql,param);
 
                 //Update Upcoming Bike
                 if (chkFuturistic1.Checked == true)
@@ -310,7 +321,7 @@ namespace BikeWaleOpr.Content
                         errObj.SendMail();
                     }
                 }
-                    
+
             }
             catch (SqlException ex)
             {
@@ -319,18 +330,14 @@ namespace BikeWaleOpr.Content
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Trace.Warn(ex.StackTrace);
                 Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                if(db != null)
-                    db.CloseConnection();
-            }
+
             dtgrdMembers.EditItemIndex = -1;
             btnSave.Enabled = true;
             BindGrid();
@@ -345,23 +352,6 @@ namespace BikeWaleOpr.Content
 
         void dtgrdMembers_Delete(object sender, DataGridCommandEventArgs e)
         {
-            //string sql;
-
-            //sql = "UPDATE BikeModels SET IsDeleted=1,MoUpdatedOn=getdate(),MoUpdatedBy='" + BikeWaleAuthentication.GetOprUserId() + "' WHERE Id=" + dtgrdMembers.DataKeys[e.Item.ItemIndex];
-
-            //Database db = new Database();
-
-            //try
-            //{
-            //    db.InsertQry(sql);
-            //}
-            //catch (SqlException ex)
-            //{
-            //    Trace.Warn(ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-
             MakeModelVersion mmv = new MakeModelVersion();
             mmv.DeleteModelVersions(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), BikeWaleAuthentication.GetOprUserId());
             BindGrid();
@@ -378,11 +368,11 @@ namespace BikeWaleOpr.Content
         {
             if (SortCriteria == e.SortExpression)
             {
-                SortDirection = SortDirection == "DESC" ? "ASC" : "DESC";
+                SortDirection = SortDirection == "desc" ? "asc" : "desc";
             }
             else
             {
-                SortDirection = "ASC";
+                SortDirection = "asc";
             }
             SortCriteria = e.SortExpression;
 
@@ -392,24 +382,20 @@ namespace BikeWaleOpr.Content
 
         void MakeUpcomingBike(string modelId, string makeId)
         {
-            SqlDataReader dr = null;
-            Database db = new Database();
             string sql = "", sqlSave = "";
 
-            sql = "SELECT Id FROM ExpectedBikeLaunches WHERE BikeModelId = " + modelId + "";
+            sql = "select id from expectedbikelaunches where bikemodelid = " + modelId + "";
 
-            sqlSave = "INSERT INTO ExpectedBikeLaunches(BikeMakeId, BikeModelId, IsLaunched) VALUES(" + makeId + ", " + modelId + ", 0)";
+            sqlSave = "insert into expectedbikelaunches(bikemakeid, bikemodelid, islaunched) values(" + makeId + ", " + modelId + ", 0)";
 
             try
             {
-                dr = db.SelectQry(sql);
-                if (dr.Read())
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                 {
-                    Trace.Warn("Exist");
-                }
-                else
-                {
-                    db.InsertQry(sqlSave);
+                    if (!(dr!=null && dr.Read()))
+                    {
+                        MySqlDatabase.InsertQuery(sqlSave);
+                    } 
                 }
 
             }
@@ -427,12 +413,6 @@ namespace BikeWaleOpr.Content
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
         }   // End of make upcoming bike method
 
         //Function to save data in the URL redirecting mapping file.
@@ -494,27 +474,6 @@ namespace BikeWaleOpr.Content
 
             return isSaved;
         }
-
-        //void SaveModelURL(string urlModelId, string modelURL)
-        //{
-        //    string sql = "";
-        //    Database db = new Database();
-
-        //    sql = "INSERT INTO URLRedirect(ContentType, ContentId, ContentURL, CreatedOn)"
-        //        + " VALUES(1, " + urlModelId + ", '" + modelURL + "', '" + DateTime.Now + "')";
-
-        //    try
-        //    {
-        //        Trace.Warn("sql=" + sql);
-        //        db.InsertQry(sql);
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        Trace.Warn(ex.Message + ex.Source);
-        //        ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-        //}
 
         /// <summary>
         /// Created by : Sadhana Upadhyay on 26th Feb 2014
@@ -588,17 +547,19 @@ namespace BikeWaleOpr.Content
         /// <returns></returns>
         private DataTable GetModelCCSegments()
         {
-            Database db = null;
             DataTable dt = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetModelCCSegments"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelccsegments"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    db = new Database();
-                    dt = db.SelectAdaptQry(cmd).Tables[0];
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    {
+                        if(ds!=null && ds.Tables!=null && ds.Tables.Count > 0)
+                             dt = ds.Tables[0]; 
+                    }
                 }
             }
             catch (SqlException ex)
@@ -613,7 +574,7 @@ namespace BikeWaleOpr.Content
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-          
+
             return dt;
         }//End of GetModelCCSegments
 
@@ -657,13 +618,13 @@ namespace BikeWaleOpr.Content
             string ModelIdsList = hdnModelIdsList.Value;
 
             if (ModelIdsList.Length > 0)
-                ModelIdsList = ModelIdsList.Substring(0 , ModelIdsList.Length - 1);
+                ModelIdsList = ModelIdsList.Substring(0, ModelIdsList.Length - 1);
 
-            Trace.Warn("++ model ids ",ModelIdsList);
+            Trace.Warn("++ model ids ", ModelIdsList);
 
             try
             {
-                UpdateModelSegments(ddlUpdateSegment.SelectedValue,ModelIdsList);
+                UpdateModelSegments(ddlUpdateSegment.SelectedValue, ModelIdsList);
             }
             catch (Exception ex)
             {
@@ -686,16 +647,16 @@ namespace BikeWaleOpr.Content
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     Database db = new Database();
-                    cmd.CommandText = "UpdateModelSegments";
+                    cmd.CommandText = "updatemodelsegments";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@SegmentId", SqlDbType.Int).Value = segmentId;
-                    cmd.Parameters.Add("@ModelIdsList", SqlDbType.VarChar, 500).Value = modelIdsList;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbParamTypeMapper.GetInstance[SqlDbType.Int], segmentId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidslist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, modelIdsList));
 
-                    db.UpdateQry(cmd);
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException ex)

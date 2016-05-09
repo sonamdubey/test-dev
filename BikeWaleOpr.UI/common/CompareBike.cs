@@ -1,4 +1,5 @@
-﻿using Bikewale.CoreDAL;
+﻿using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
 using System;
 using System.Data;
 using System.Data.Common;
