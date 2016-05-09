@@ -783,7 +783,6 @@
                                 getEMIClicked = false;
                             }
                             else if (getMoreDetailsClicked) {
-                                alert(GetBikeVerLoc());
                                 triggerGA('Dealer_PQ', 'Lead_Submitted', 'Get_more_details_' + GetBikeVerLoc());
                                 getMoreDetailsClicked = false;
                             }
