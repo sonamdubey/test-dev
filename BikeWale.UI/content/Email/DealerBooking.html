@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Emailer</title>
+</head>
+<body>
+
+<div style="max-width:692px; margin:0 auto; border:1px solid #f5f5f5; font-family: Arial, Helvetica, sans-serif; font-size:14px; color:#4d5057; background:#ffffff; word-wrap:break-word;">
+	<div style="color:#fff; max-width:100%; min-height:195px; background:url('images/bw-banner-img.jpg') no-repeat; padding:0 20px; "> 
+    <!-- banner starts here -->
+		<div style="font-size:10px; float:right; margin:10px 0;"><a href="#" target="_blank" style="color:#fff;">Click here</a> to view in your browser</div>
+        <div style="clear:both;"></div>
+        <div style="max-width:100%; min-height:40px; background:#2a2a2a;">
+        	<div style="float:left; max-width:82px; margin-top:5px; margin-left:20px;">
+            	<a href="#" target="_blank"><img src="images/bw-logo.png" alt="BikeWale" title="BikeWale" width="100%" border="0" /></a>
+            </div>
+            <div style="float:right; margin-right:20px; font-size:14px; line-height:40px;">
+            	{TodayDate}
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <div style="text-align:center">
+            <div style="width:100%; height:115px; font-size:28px; text-align:center; display:table;">
+                <div style="display:table-cell; vertical-align: middle;">Congratulations!</div>
+            </div>
+        </div>
+    </div> 
+    <!-- banner ends here -->
+    
+    <div> 
+    	<!-- main content starts here -->
+        <!-- paid and balance amount details starts here -->
+        <div style="margin:0 10px;">
+            <div style="display:inline-block; vertical-align:top; margin:15px 10px 0; max-width:430px;">
+                <div style="font-weight:bold; margin-bottom:20px;">Dear {DealerName},</div>
+                <div style="margin-bottom:10px; color:#82888b; line-height:1.5;">
+                    Our customer Mrs./Mr. {CustomerName} has booked <span style="color:#4d5057;">{CarName}</span> 
+                    on BikeWale. The booking amount of <span style="font-weight:bold; color:#4d5057;"><img border="0" title="Rupee" alt="Rupee" src="images/inr-rupee-icon.png">{BookingAmount}</span> has been received. 
+                    BikeWale Booking Reference Number is <span style="font-weight:bold; color:#4d5057;">{ReferenceNumber}</span>.
+                    <br />Find the booking details below:
+                </div>
+            </div>
+            <div style="display:inline-block; vertical-align:top; margin:15px 10px 0; color:#82888b; width:180px;">
+                <div style="padding-bottom:15px; border-bottom:1px solid #f5f5f5;">
+                    <div style="margin-bottom:10px;">Advance payment</div>
+                    <div style="font-weight:bold; font-size:16px; color:#4d5057;"><img border="0" title="Rupee" alt="Rupee" src="images/rupee-med.jpg"> {BookingAmount}</div>
+                </div>
+                <div style="padding-top:15px; padding-bottom:15px;">
+                    <div style="margin-bottom:10px;">Balance payable amount</div>
+                    <div style="font-weight:bold; font-size:16px; color:#4d5057;"><img border="0" title="Rupee" alt="Rupee" src="images/rupee-med.jpg"> {BalanceAmount}</div>
+                </div>
+        	</div>
+        </div>
+        <!-- customer details starts here -->
+        <div style="margin:0 20px 15px; border-bottom:1px solid #f5f5f5; border-top:1px solid #f5f5f5; padding-top:15px; word-break:break-all;">
+        	<div style="font-weight:bold; margin-bottom:15px;">Our customer details:</div>
+            <div style="float:left; margin:0 20px 15px 0;"><span style="color:#82888b;">Name: </span><span style="font-weight:bold;">{CustomerName}</span></div>
+            <div style="float:left; margin:0 20px 15px 0;"><span style="color:#82888b;">Email Id: </span><span style="font-weight:bold;">{CustomerEmail}</span></div>
+            <div style="float:left; margin:0 20px 15px 0;"><span style="color:#82888b;">Mobile no: </span><span style="font-weight:bold;">{CustomerEmail}</span></div>
+            <div style="float:left; margin:0 20px 15px 0;"><span style="color:#82888b;">Location: </span><span style="font-weight:bold;">{CustomerLocation}</span></div>
+        	<div style="clear:both;"></div>
+        </div>
+        <div style="margin:0 20px 15px 20px;padding-bottom:15px; border-bottom:1px solid #f5f5f5;"> 
+        <!-- bike details starts here -->
+        	<div style="width:184px; min-height:150px; display:inline-block; vertical-align:top; margin:0 12px 10px 0; text-align:left;">
+            	<div style="font-weight:bold;">Bajaj Pulsar RS200 ABS</div>
+            	<img src="images/bike-model-img.jpg" alt="Bajaj Pulsar RS200 ABS" title="Bajaj Pulsar RS200 ABS" border="0" style="margin:20px 0 0 5px"/>
+            </div>
+            <div style="display:inline-block; vertical-align:top; max-width:455px; text-align:left;">
+                <div style="float:left; width:226px; margin-right:5px; padding-bottom:15px;"><div style="color:#82888b; width:55px; float:left;">Version: </div><div style="float:left; width:170px; font-weight:bold; ">Alloy, Double Disc, Self</div><div style="clear:both;"></div></div>
+                <div style="float:left; width:220px; padding-bottom:15px; "><div style="color:#82888b; width:50px; float:left;">Colour: </div><div style="float:left; width:163px; font-weight:bold;">Candy Spotlight Green</div><div style="clear:both;"></div></div>
+                <div style="clear:both;"></div>
+                <div style=" padding-top:20px; padding-bottom:15px; border-top:1px solid #f5f5f5;">
+                	<div style="width:60%; float:left; color:#82888b;">On-road price</div>
+                    <div style="width:40%; float:left; text-align:right; font-weight:bold;"><span><img src="images/inr-rupee-icon.png" alt="Rupee" title="Rupee" border="0" /></span>1,13,000</div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div style="padding-bottom:15px;">
+                	<div style="width:60%; float:left; color:#82888b;">Booking amount</div>
+                    <div style="width:40%; float:left; text-align:right; font-weight:bold;"><span><img src="images/inr-rupee-icon.png" alt="Rupee" title="Rupee" border="0" /></span>1,500</div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div style="padding-bottom:15px;">
+                	<div style="width:60%; float:left; color:#82888b;">Balance payable amount</div>
+                    <div style="width:40%; float:left; text-align:right; font-weight:bold;"><span><img src="images/inr-rupee-icon.png" alt="Rupee" title="Rupee" border="0" /></span>1,11,500</div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+        </div> <!-- bike details ends here -->
+        <div style="text-align:center;"> 
+        <!-- -->
+        	<div style=" padding-bottom:10px; margin:15px 20px 0 20px; text-align:left; font-size:14px; font-weight:bold; color:#4d5057;">Offers availed by our customer:</div>
+            <div style=" line-height:1.4;">
+            	<div style="max-width:210px; margin:10px 5px 10px; display:inline-block; vertical-align:top;">
+                	<div style="width:45px; float:left;"><img src="images/offer-icon1.jpg" alt="Free bike insurance" title="Free bike insurance" border="0" style="border:none; margin-right:5px;" /></div>
+                    <div style="width:160px; float:left; text-align:left; font-size:14px; color:#82888b; margin:5px  0 0 0;">Free bike insurance</div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div style="max-width:210px; margin:10px 5px 10px; display:inline-block; vertical-align:top;">
+                	<div style="width:45px; float:left; margin:10px 0 0 0;"><img src="images/offer-icon2.jpg" alt="Flipkart voucher worth Rs.1,000" title="Flipkart voucher worth Rs.1,000" border="0" style="border:none; margin-right:5px;" /></div>
+                    <div style="width:160px; float:left; text-align:left; font-size:14px; color:#82888b; ">Flipkart voucher<br /> worth <img src="images/rupee-grey.jpg" alt="Rupee" title="Rupee" border="0" /> 1,000</div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div style="max-width:210px; margin:10px 5px 10px; display:inline-block; vertical-align:top;">
+                	<div style="width:45px; float:left;margin:5px 0 0 0;"><img src="images/offer-icon3.jpg" alt="Document pickup and bike delivery" title="Document pickup and bike delivery" border="0" style="border:none; margin-right:5px;" /></div>
+                    <div style="width:160px; float:left; text-align:left; font-size:14px; color:#82888b; ">Document pickup and <br />bike delivery</div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+        </div> <!-- steps -->
+        
+        <div style="border-top:1px solid #f5f5f5;margin:10px 20px 0 20px; line-height:1.5;">
+        	<div style="font-size:14px; color:#82888b; margin:15px 0 10px 0;">Please let us know when customer makes further payment / takes delivery, and we will transfer booking amount to your bank account.</div>
+            <div style="font-size:14px; color:#82888b; margin-bottom:10px;">Please feel free to call Rohit at 99203 13466 for any queries or help required in the process.</div>
+            <div style="margin-bottom:25px; color:#82888b;">Regards,<br />Team BikeWale</div>
+            
+        </div>
+        
+        <div style="max-width:100%; background:url('images/query-banner-img.jpg') no-repeat center bottom / cover #2e2e2e; color:#fff;">
+        	<div style="padding:7px 15px 7px 20px;display:inline-block;vertical-align:middle;">
+            	<div style="float:left; width:46px; font-weight:bold;"><img src="images/bw-icon.png" border="0"/></div>
+                <div style="font-size:16px;height:46px;text-align:left;display:table;margin-left:60px;">
+                	<div style="display:table-cell; vertical-align:middle;">India’s #1 Bike Research Destination</div>
+                </div>
+            </div>
+            <div style="margin:15px 20px 15px 0;display:inline-block;float:right">
+            	<div>
+            		<a href="#" target="_blank" style="text-decoration:none; color:#fff; font-weight:bold; font-size:12px; width:70px; background-color:#ef3f30; padding:8px 10px; border-radius:2px; display:block;">Get the App</a>
+                </div>
+            </div>
+             <div style="clear:both;"></div>
+        </div>
+        
+        <div style="margin:10px 0 4px 0; border-bottom:2px solid #c20000;"></div>
+        
+    </div> <!-- main content ends here -->
+</div>
+
+</body>
+</html>
