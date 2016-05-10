@@ -307,7 +307,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons a:hover span.fa-google-plus { background: #db4c3f; }
 
 /* sprite classes */
-.bwsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?v1=26Apr2016v1) no-repeat; display: inline-block; }
+.bwsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?v1=10May2016v1) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
@@ -546,7 +546,7 @@ a.action-btn:hover{text-decoration:none;}
 .content-inner-block-10 { padding: 10px; }
 .content-inner-block-15 { padding: 15px; }
 .content-inner-block-20 { padding: 20px; }
-.content-box-shadow { background: #fff; border: 1px solid #e2e2e2; -moz-box-shadow: 0 1px 2px #e5e5e5; -webkit-box-shadow: 0 1px 2px #e5e5e5; -o-box-shadow: 0 1px 2px #e5e5e5; -ms-box-shadow: 0 1px 2px #e5e5e5; box-shadow: 0 1px 2px #e5e5e5; }
+.content-box-shadow { background: #fff; -moz-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow:0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; }
 .inline-block { display:inline-block; vertical-align: middle; }
 .block { display: block; }
 .ul-arrow li { margin-top: 10px;}

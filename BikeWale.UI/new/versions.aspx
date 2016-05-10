@@ -45,11 +45,6 @@
         var pageUrl = "<%= canonical %>";
     </script>
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>12345" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        .chosen-results::-webkit-scrollbar {width: 10px;border-radius: 5px;}
-        .chosen-results::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-moz-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);-o-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);box-shadow: inset 0 0 2px rgba(0,0,0,0.2);}
-        .chosen-results::-webkit-scrollbar-thumb {background-color: rgba(204, 204, 204,0.7);}
-    </style>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -85,10 +80,11 @@
                     <div class="content-inner-block-20 content-box-shadow">
                         <div class="grid-5 alpha">
                             <div class="position-rel <%= modelPage.ModelDetails.Futuristic ? string.Empty : "hide" %>">
-                                <span class="model-sprite bw-upcoming-bike-ico bike-upcoming-tag position-abt"></span>
+                                <%--<span class="model-sprite bw-upcoming-bike-ico bike-upcoming-tag position-abt"></span>--%>
+                                <span class="upcoming-text-label font16 position-abt text-white text-center">Upcoming</span>
                             </div>
                             <div class="position-rel <%= !modelPage.ModelDetails.Futuristic && !modelPage.ModelDetails.New ? string.Empty : "hide" %>">
-                                <span class="model-sprite bw-discontinued-bike-ico bike-discontinued-tag position-abt"></span>
+                                <span class="discontinued-text-label font16 position-abt text-center">Discontinued</span>
                             </div>
                             <div class="connected-carousels" id="bikeBannerImageCarousel">
                                 <div class="stage">
@@ -576,6 +572,650 @@
             </div>
             <div class="clear"></div>
         </section>
+
+        <section id="modelDetailsFloatingCardContent" class="container">
+            <div class="grid-12">
+                <div class="model-details-floating-card">
+                    <div class="content-box-shadow content-inner-block-1020">
+                        <div class="grid-5 alpha omega">
+                            <div class="model-card-image-content inline-block-top margin-right20">
+                                <img src="http://imgd1.aeplcdn.com//110x61//bw/models/tvs-wego-drum-165.jpg?20151209224944" />
+                            </div>
+                            <div class="model-card-title-content inline-block-top">
+                                <h2 class="font18 text-bold margin-bottom10"><%= bikeName %></h2>
+                                <p class="font14 text-light-grey">Self Start Disc Brake Alloy Wheel</p>
+                            </div>
+                        </div>
+                        <div class="grid-4 padding-left30">
+                            <p class="font14 text-light-grey margin-bottom5 text-truncate">On-road price in Andheri, Mumbai</p>
+                            <div class="font16">
+                                <span class="fa fa-rupee"></span> <span class="font18 text-bold">1,22,000</span>
+                            </div>
+                        </div>
+                        <div class="grid-3 model-orp-btn alpha omega">
+                            <a href="javascript:void(0)" class="btn btn-orange font14 margin-top5">Get offers from this dealer</a>
+                            <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
+                            <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span>BikeWale Motor</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="overall-specs-tabs-wrapper content-box-shadow">
+                        <a class="active" href="#modelSummaryContent">Summary</a>
+                        <a href="#modelPricesContent">Prices</a>
+                        <a href="#modelSpecsFeaturesContent">Specs & Features</a>
+                        <a href="#modelReviewsContent">Reviews</a>
+                        <a href="#modelNewsContent">News</a>
+                        <a href="#modelAlternateBikeContent">Alternatives</a>
+                        <a href="#modelForSaleContent">Used</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div id="modelSpecsTabsContentWrapper" class="grid-12 margin-bottom20">
+                <div class="content-box-shadow">
+                    <div class="overall-specs-tabs-wrapper">
+                        <a class="active" href="#modelSummaryContent">Summary</a>
+                        <a href="#modelPricesContent">Prices</a>
+                        <a href="#modelSpecsFeaturesContent">Specs & Features</a>
+                        <a href="#modelReviewsContent">Reviews</a>
+                        <a href="#modelNewsContent">News</a>
+                        <a href="#modelAlternateBikeContent">Alternatives</a>
+                        <a href="#modelForSaleContent">Used</a>
+                    </div>
+                    <div class="border-divider"></div>
+
+                    <div id="modelSummaryContent" class="bw-model-tabs-data content-inner-block-20">
+                        <div class="grid-8 alpha margin-bottom20">
+                            <h2>Bajaj Pulsar RS200 Summary</h2>
+                            <h3>Preview</h3>
+                            <p class="font14 text-light-grey line-height17">After number of spy pictures doing the round of the internet, Bajaj Motorcycles has finally                                 launched its first fully-faired motorcycle, the Pulsar RS 200 for the Indian market. Previously                                 touted to be called as the Pulsar SS200, this bike has been the most anticipated launch from                                 the company.<br /><br />                                Marketed as the fastest Pulsar yet, the Pulsar RS200 designed to be a compact sportsbike                                and features clip-on handlebars. Unlike other fully-faired motorcycle like the Yamaha YZF-R15,
+                                the RS200 doesn’t have as aggressive riding stance as of a super sport motorcycle...
+                                <a href="javascript:void(0)">Read more</a>
+                            </p>
+                        </div>
+                        <div class="grid-4 text-center alpha omega margin-bottom20">
+                            <!-- #include file="/ads/Ad300x250.aspx" -->
+                        </div>
+                        <div class="clear"></div>
+
+                        <h3>Specification summary</h3>
+                        <div class="grid-3 border-light-right omega">
+                            <span class="inline-block model-sprite specs-capacity-icon margin-right30"></span>
+                            <div class="inline-block">
+                                <p class="font22 text-bold margin-bottom5">209.85<span> cc</span></p>
+                                <p class="font16 text-light-grey">Capacity</p>
+                            </div>
+                        </div>
+                        <div class="grid-3 padding-left40 border-light-right omega">
+                            <span class="inline-block model-sprite specs-mileage-icon margin-right30"></span>
+                            <div class="inline-block">
+                                <p class="font22 text-bold margin-bottom5">44<span> kmpl</span></p>
+                                <p class="font16 text-light-grey">Mileage</p>
+                            </div>
+                        </div>
+                        <div class="grid-3 padding-left60 border-light-right omega">
+                            <span class="inline-block model-sprite specs-maxpower-icon margin-right30"></span>
+                            <div class="inline-block">
+                                <p class="font22 text-bold margin-bottom5">14.2<span class="text-uppercase"> ps</span></p>
+                                <p class="font16 text-light-grey">Max power</p>
+                            </div>
+                        </div>
+                        <div class="grid-3 padding-left50 omega">
+                            <span class="inline-block model-sprite specs-weight-icon margin-right30"></span>
+                            <div class="inline-block">
+                                <p class="font22 text-bold margin-bottom5">148<span> kgs</span></p>
+                                <p class="font16 text-light-grey">Weight</p>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="margin-right10 margin-left10 border-solid-top"></div> <!-- divider -->
+
+                    <div id="modelPricesContent" class="bw-model-tabs-data content-inner-block-20">
+                        <h2>Bajaj Pulsar RS200 Prices</h2>
+                        <div class="grid-8 alpha">
+                            <h3 class="margin-bottom20">Prices by versions</h3>
+                            <div class="jcarousel-wrapper">
+                                <div class="jcarousel">
+                                    <ul>
+                                        <li class="rounded-corner2">
+                                            <p class="text-bold text-truncate margin-bottom15">Self Start Double Disc Brake Alloy Wheels</p>
+                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Alloy wheel, Disc brake, Electric Start, ABS</p>
+                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
+                                            <p class="font18 text-bold text-black">
+                                                <span class="fa fa-rupee"></span>
+                                                <span>50,551</span>
+                                            </p>
+                                        </li>
+                                        <li class="rounded-corner2">
+                                            <p class="text-bold text-truncate margin-bottom15">Self Start Double Disc Brake</p>
+                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Alloy wheel, Electric Start, ABS</p>
+                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
+                                            <p class="font18 text-bold text-black">
+                                                <span class="fa fa-rupee"></span>
+                                                <span>62,453</span>
+                                            </p>
+                                        </li>
+                                        <li class="rounded-corner2">
+                                            <p class="text-bold text-truncate margin-bottom15">Self Start Double Alloy Wheels</p>
+                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Disc brake, Electric Start, ABS</p>
+                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
+                                            <p class="font18 text-bold text-black">
+                                                <span class="fa fa-rupee"></span>
+                                                <span>55,311</span>
+                                            </p>
+                                        </li>
+                                        <li class="rounded-corner2">
+                                            <p class="text-bold text-truncate margin-bottom15">Brake Alloy Wheels</p>
+                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Alloy wheel, Electric Start, ABS</p>
+                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
+                                            <p class="font18 text-bold text-black">
+                                                <span class="fa fa-rupee"></span>
+                                                <span>70,121</span>
+                                            </p>
+                                        </li>
+                                        <li class="rounded-corner2">
+                                            <p class="text-bold text-truncate margin-bottom15">Self Start Alloy Wheels</p>
+                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Electric Start, ABS</p>
+                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
+                                            <p class="font18 text-bold text-black">
+                                                <span class="fa fa-rupee"></span>
+                                                <span>53,831</span>
+                                            </p>
+                                        </li>
+                                        <li class="rounded-corner2">
+                                            <p class="text-bold text-truncate margin-bottom15">Self Start Brake Alloy Wheels</p>
+                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Alloy wheel, Disc brake</p>
+                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
+                                            <p class="font18 text-bold text-black">
+                                                <span class="fa fa-rupee"></span>
+                                                <span>57,177</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                                <p class="jcarousel-pagination text-center"></p>
+                            </div>
+                        </div>
+                        <div class="grid-4 padding-left20">
+                            <h3 class="margin-bottom20">Prices by cities<span class="text-light-grey text-unbold"> (Ex-showroom)</span></h3>
+                            <ul class="prices-by-cities-list font14">
+                                <li>
+                                    <div class="grid-8 alpha">
+                                        <a href="javascript:void(0)">Pune</a>
+                                    </div>
+                                    <div class="grid-4 alpha omega">
+                                        <span class="fa fa-rupee"></span>
+                                        <span>1,67,673</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="grid-8 alpha">
+                                        <a href="javascript:void(0)">Bengaluru</a>
+                                    </div>
+                                    <div class="grid-4 alpha omega">
+                                        <span class="fa fa-rupee"></span>
+                                        <span>89,387</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="grid-8 alpha">
+                                        <a href="javascript:void(0)">Chennai</a>
+                                    </div>
+                                    <div class="grid-4 alpha omega">
+                                        <span class="fa fa-rupee"></span>
+                                        <span>1,45,233</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="grid-8 alpha">
+                                        <a href="javascript:void(0)">Hyderabad</a>
+                                    </div>
+                                    <div class="grid-4 alpha omega">
+                                        <span class="fa fa-rupee"></span>
+                                        <span>67,673</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="margin-right10 margin-left10 border-solid-top"></div> <!-- divider -->
+
+                    <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data padding-top20 font14">
+                        <h2 class="padding-left20 padding-right20">Bajaj Pulsar RS200 Specifications & Features</h2>
+                        <h3 class="padding-left20">Specifications</h3>
+                        <div class="grid-12 alpha omega">
+                            <div class="grid-4 alpha">
+                                <div class="grid-6 padding-left20 text-light-grey">
+                                    <p>Displacement</p>
+                                    <p>Max Power</p>
+                                    <p>Maximum Torque</p>
+                                    <p>No. of gears</p>
+                                </div>
+                                <div class="grid-6 omega text-bold">
+                                    <p>150 cc</p>
+                                    <p>14.30 bhp@2500 rpm</p>
+                                    <p>12.50 Nm@2500 rpm</p>
+                                    <p>5</p>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="grid-4">
+                                <div class="grid-6 padding-left20 text-light-grey">
+                                    <p>Mileage</p>
+                                    <p>Brake Type</p>
+                                    <p>Front Disc</p>
+                                    <p>Rear Disc</p>
+                                </div>
+                                <div class="grid-6 omega text-bold">
+                                    <p>65 kmpl</p>
+                                    <p>Disc</p>
+                                    <p>Yes</p>
+                                    <p>No</p>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="grid-4 omega">
+                                <div class="grid-6 padding-left20 text-light-grey">
+                                    <p>Alloy Wheels</p>
+                                    <p>Kerb Weight</p>
+                                    <p>Top Speed</p>
+                                    <p>Fuel Tank Capacity</p>
+                                </div>
+                                <div class="grid-6 omega text-bold">
+                                    <p>Yes</p>
+                                    <p>148 kg</p>
+                                    <p>110 kmph</p>
+                                    <p>14 litres</p>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="margin-top25 padding-left20">
+                                <a href="javascript:void(0)">View full specifications<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        
+                        <div class="grid-8 alpha margin-top25">
+                            <h3 class="padding-left20">Features</h3>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div class="grid-12 alpha omega">
+                            <div class="grid-4 alpha">
+                                <div class="grid-6 padding-left20 text-light-grey">
+                                    <p>Speedometer</p>
+                                    <p>Fuel Guage</p>
+                                    <p>Tachometer Type</p>
+                                </div>
+                                <div class="grid-6 omega text-bold">
+                                    <p>Analogue</p>
+                                    <p>Yes</p>
+                                    <p>-</p>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="margin-top25 padding-left20">
+                                    <a href="javascript:void(0)">View all features<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                </div>
+                            </div>
+                            <div class="grid-4">
+                                <div class="grid-6 padding-left20 text-light-grey">
+                                    <p>Digital Fuel Guage</p>
+                                    <p>Tripmeter</p>
+                                    <p>Electric Start</p>
+                                </div>
+                                <div class="grid-6 omega text-bold">
+                                    <p>No</p>
+                                    <p>Yes</p>
+                                    <p>Yes</p>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="grid-4 omega text-center">
+                                <!-- #include file="/ads/Ad300x250.aspx" -->
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                        
+                        <h3 class="margin-top25 padding-left20">Colours</h3>
+
+                        <ul id="modelColorsList">
+                            <li>
+                                <div class="color-box color-count-one inline-block">
+                                    <span style="background-color:#c83333"></span>
+                                </div>
+                                <p class="inline-block">Red</p>
+                            </li>
+                            <li>
+                                <div class="color-box color-count-one inline-block">
+                                    <span style="background-color:#3a5cee"></span>
+                                </div>
+                                <p class="inline-block">Blue</p>
+                            </li>
+                            <li>
+                                <div class="color-box color-count-one inline-block">
+                                    <span style="background-color:#1dc97e"></span>
+                                </div>
+                                <p class="inline-block">Green</p>
+                            </li>
+                            <li>
+                                <div class="color-box color-count-two inline-block">
+                                    <span style="background-color:#c83333"></span>
+                                    <span style="background-color:#040004"></span>
+                                </div>
+                                <p class="inline-block">Dual Tone Red</p>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    
+                    <div class="margin-right10 margin-left10 border-solid-top"></div>
+
+                    <div id="modelReviewsContent" class="bw-model-tabs-data padding-top20 font14">
+                        <h2 class="padding-left20 padding-right20">Bajaj Pulsar RS200 Reviews</h2>
+                        <h3 class="padding-left20 model-section-subtitle">Expert reviews</h3>
+                        <div class="model-expert-review-container">
+                            <div class="margin-bottom20">
+                                <div class="grid-4 alpha">
+                                    <div class="model-preview-image-container">
+                                        <a href="javascript:void(0)">
+                                            <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/ec/21352/TVS-Wego-Front-threequarter-63408.jpg?wm=0&t=193955533&t=193955533" title="" alt="" />
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <div class="grid-8 alpha omega">
+                                    <h3 class="margin-top5"><a href="" class="font16 text-black">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a></h3>
+                                    <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
+                                    <p class="line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
+                                        <a href="">Read full story</a>
+                                    </p>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="margin-bottom20">
+                                <div class="grid-4 alpha">
+                                    <div class="model-preview-image-container">
+                                        <a href="javascript:void(0)">
+                                            <img class="lazy" data-original="http://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/1409/img/m/tvs-wego-side-8233_l.jpg?20142905165602&t=165602597&t=165602597" title="" alt="" />
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <div class="grid-8 alpha omega">
+                                    <h3 class="margin-top5"><a href="" class="font16 text-black">TVS launches improved 2014 Wego in India</a></h3>
+                                    <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
+                                    <p class="line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
+                                        <a href="">Read full story</a>
+                                    </p>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="padding-left20">
+                                <a href="javascript:void(0)">Read all expert reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
+                        </div>
+
+                        <h3 class="margin-top25 padding-left20 model-section-subtitle">User reviews</h3>
+                        <div class="model-user-review-container grid-12">
+                            <div class="grid-6 margin-bottom15">
+                                <div class="model-user-review-rating-container leftfloat">
+                                    <p>4</p>
+                                    <p class="inline-block margin-bottom5 margin-top5">
+                                        <span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-zero-icon"></span>
+                                    </p>
+                                </div>
+                                <div class="model-user-review-title-container padding-left20 leftfloat">
+                                    <h3>not upto the mark compared to its price</h3>
+                                    <p class="text-light-grey">April 15, 2016, by Parth Shukla</p>
+                                </div>
+                                <div class="clear"></div>
+                                <p class="margin-top20 line-height17">Style Good. Engine Performance, Fuel Economy and Gearbox Good. Ride Quality & Handling Good. Areas of improve...
+                                    <a href="">Read full story</a>
+                                </p>
+                            </div>
+                            <div class="grid-6 margin-bottom15">
+                                <div class="model-user-review-rating-container leftfloat">
+                                    <p>4</p>
+                                    <p class="inline-block margin-bottom5 margin-top5">
+                                        <span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-zero-icon"></span>
+                                    </p>
+                                </div>
+                                <div class="model-user-review-title-container padding-left20 leftfloat">
+                                    <h3>not upto the mark compared to its price</h3>
+                                    <p class="text-light-grey">April 15, 2016, by Parth Shukla</p>
+                                </div>
+                                <div class="clear"></div>
+                                <p class="margin-top20 line-height17">Style Good. Engine Performance, Fuel Economy and Gearbox Good. Ride Quality & Handling Good. Areas of improve...
+                                    <a href="">Read full story</a>
+                                </p>
+                            </div>
+                            <div class="clear"></div>
+                            
+                            <div class="grid-12 margin-bottom15 hide"><!-- when one review -->
+                                <div class="model-user-review-rating-container leftfloat">
+                                    <p>4</p>
+                                    <p class="inline-block margin-bottom5 margin-top5">
+                                        <span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-zero-icon"></span>
+                                    </p>
+                                </div>
+                                <div class="model-single-user-review padding-left20 leftfloat">
+                                    <h3>not upto the mark compared to its price</h3>
+                                    <p class="text-light-grey">April 15, 2016, by Parth Shukla</p>
+                                    <p class="margin-top10 line-height17">Style Good. Engine Performance, Fuel Economy and Gearbox Good. Ride Quality & Handling Good. Areas of improve...
+                                        <a href="">Read full story</a>
+                                    </p>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="padding-left20">
+                            <a href="javascript:void(0)">Read all user reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
+                        </div>
+
+                        <h3 class="margin-top25 padding-left20 model-section-subtitle">Videos</h3>
+                        <div class="model-updates-videos-container">
+                            <div class="margin-bottom20">
+                                <div class="grid-4 alpha">
+                                    <div class="model-preview-image-container">
+                                        <a href="javascript:void(0)">
+                                            <img class="lazy" data-original="http://img.youtube.com/vi/d4k5IB23N-4/mqdefault.jpg" title="" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="grid-8 alpha omega">
+                                    <h3 class="margin-top5"><a href="" class="font16 text-black">Launch Alert : Yamaha Saluto RX : PowerDrift</a></h3>
+                                    <p class="text-light-grey margin-bottom15">Uploaded on November 23, 2015</p>
+                                    <div class="grid-3 alpha omega border-solid-right font14">
+                                        <span class="bwsprite video-views-icon margin-right5"></span>
+                                        <span class="text-light-grey margin-right5">Views:</span>
+                                        <span>34,609</span>
+                                    </div>
+                                    <div class="grid-3 omega padding-left20 font14">
+                                        <span class="bwsprite video-likes-icon margin-right5"></span>
+                                        <span class="text-light-grey margin-right5">Likes:</span>
+                                        <span>1,767</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="padding-left20">
+                            <a href="javascript:void(0)">View all videos<span class="bwsprite blue-right-arrow-icon"></span></a>
+                        </div>
+                    </div>
+
+                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+
+                    <div id="modelNewsContent" class="bw-model-tabs-data padding-top20 font14">
+                        <h2 class="padding-left20 padding-right20">Bajaj Pulsar RS200 News</h2>
+                        <div class="margin-bottom10">
+                            <div class="grid-8 padding-left20 border-light-right">
+                                <div class="padding-bottom5">
+                                    <div class="model-preview-image-container leftfloat">
+                                        <a href="javascript:void(0)">
+                                            <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/ec/21352/TVS-Wego-Front-threequarter-63408.jpg?wm=0&t=193955533&t=193955533" title="" alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="model-news-title-container leftfloat">
+                                        <h3 class="margin-top5"><a href="" class="font16 text-black line-height">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a></h3>
+                                        <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <p class="margin-top20 line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
+                                        <a href="">Read full story</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="grid-4">
+                                <ul>
+                                    <li>
+                                        <h3 class="red-bullet-point"><a href="" class="text-black line-height17">Bajaj Avenger Cruise 220 proves popular with families</a></h3>
+                                        <p class="text-light-grey margin-left15">April 15, 2016, by Sagar Bhanushali</p>
+                                    </li>
+                                    <li>
+                                        <h3 class="red-bullet-point"><a href="" class="text-black line-height17">Triumph Street Twin : Auto Expo 2016 : PowerDrift</a></h3>
+                                        <p class="text-light-grey margin-left15">March 15, 2016, by BikeWale Team</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        
+                        <div class="grid-12 model-single-news margin-bottom20 omega padding-left20 hide"><!-- when one news -->
+                            <div class="model-preview-image-container leftfloat">
+                                <a href="javascript:void(0)">
+                                    <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/ec/21352/TVS-Wego-Front-threequarter-63408.jpg?wm=0&t=193955533&t=193955533" title="" alt="" />
+                                </a>
+                            </div>
+                            <div class="model-news-title-container leftfloat">
+                                <h3 class="margin-top5"><a href="" class="font16 text-black line-height">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a></h3>
+                                <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
+                                <p class="margin-top20 line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
+                                    <a href="">Read full story</a>
+                                </p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="padding-left20">
+                            <a href="javascript:void(0)">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
+                        </div>
+                    </div>
+
+                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+
+                    <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 font14">
+                        <h2 class="padding-left20 padding-right20">Bajaj Pulsar RS200 Alternate bikes</h2>
+                        <div class="jcarousel-wrapper">
+                            <div class="jcarousel">
+                                <ul>
+                                    <li>
+                                        <div class="model-jcarousel-image-preview margin-bottom15">
+                                            <a href="">
+                                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/upcoming/honda-cb500f-420.jpg?20151209054312" title="" alt="" />
+                                            </a>
+                                        </div>
+                                        <h3><a href="" class="text-black">Harley Davidson Heritage Softail Classic</a></h3>
+                                        <p class="text-xt-light-grey margin-bottom12">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
+                                        <p class="text-light-grey margin-bottom10">Ex-showroom, Mumbai</p>
+                                        <div class="font20 margin-bottom15">
+                                            <span class="fa fa-rupee"></span> <span class="font22 text-bold">50,398</span>
+                                        </div>
+                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14">Check on-road price</a>
+                                    </li>
+                                    <li>
+                                        <div class="model-jcarousel-image-preview margin-bottom15">
+                                            <a href="">
+                                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-vfr1200f-dct-126.jpg?20151209184918" title="" alt="" />
+                                            </a>
+                                        </div>
+                                        <h3><a href="" class="text-black">Honda VFR1200F</a></h3>
+                                        <p class="text-xt-light-grey margin-bottom12">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
+                                        <p class="text-light-grey margin-bottom10">Ex-showroom, Mumbai</p>
+                                        <div class="font20 margin-bottom15">
+                                            <span class="fa fa-rupee"></span> <span class="font22 text-bold">49,712</span>
+                                        </div>
+                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14">Check on-road price</a>
+                                    </li>
+                                    <li>
+                                        <div class="model-jcarousel-image-preview margin-bottom15">
+                                            <a href="">
+                                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cbr1000rr-fireblade-c-abs-125.jpg?20151209184557" title="" alt="" />
+                                            </a>
+                                        </div>
+                                        <h3><a href="" class="text-black">Harley Davidson Heritage Softail Classic</a></h3>
+                                        <p class="text-xt-light-grey margin-bottom12">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
+                                        <p class="text-light-grey margin-bottom10">Ex-showroom, Mumbai</p>
+                                        <div class="font20 margin-bottom15">
+                                            <span class="fa fa-rupee"></span> <span class="font22 text-bold">49,860</span>
+                                        </div>
+                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14">Check on-road price</a>
+                                    </li>
+                                    <li>
+                                        <div class="model-jcarousel-image-preview margin-bottom15">
+                                            <a href="">
+                                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cbr250r-sports/red/black-color-std-121.jpg?20151209184646" title="" alt="" />
+                                            </a>
+                                        </div>
+                                        <h3><a href="" class="text-black">Harley Davidson Heritage Softail Classic</a></h3>
+                                        <p class="text-xt-light-grey margin-bottom12">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
+                                        <p class="text-light-grey margin-bottom10">Ex-showroom, Mumbai</p>
+                                        <div class="font20 margin-bottom15">
+                                            <span class="fa fa-rupee"></span> <span class="font22 text-bold">59,796</span>
+                                        </div>
+                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14">Check on-road price</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                        </div>
+                    </div>
+
+                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+
+                    <div id="modelForSaleContent" class="bw-model-tabs-data padding-top20 font14">
+                        <h2 class="padding-left20 padding-right20">Used Bajaj Pulsar RS200 for sale</h2>
+                        <div class="grid-12">
+                            <div class="grid-4 margin-bottom20">
+                                <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
+                                <p class="margin-top10"><span class="fa fa-rupee"></span> <span>1,67,673</span> in Mumbai</p>
+                            </div>
+                            <div class="grid-4 margin-bottom20">
+                                <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
+                                <p class="margin-top10"><span class="fa fa-rupee"></span> <span>1,67,673</span> in Mumbai</p>
+                            </div>
+                            <div class="grid-4 margin-bottom20">
+                                <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
+                                <p class="margin-top10"><span class="fa fa-rupee"></span> <span>1,67,673</span> in Mumbai</p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div id="overallSpecsDetailsFooter"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+
+
         <% if (modelPage.ModelVersionSpecs != null)
 		   { %>
         <section class="container">
@@ -1319,7 +1959,8 @@
         <%--<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">--%>
 
         <script type="text/javascript">
-           
+
+            var modelPriceByVersionSlider = 2;
             // Cache selectors outside callback for performance.
             var leadSourceId;
 			<% if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
@@ -1353,31 +1994,7 @@
                 else if ($(".more-features").css("display") == "block")
                     section_height.trigger('heightChangeNone');
             });
-
-            var discoverBikeTabsWrapper = $('#discoverBikeTabsWrapper'),
-                discoverTabsFooter = $('#discoverTabsFooter');
-            $(window).scroll(function () {
-                if ($(window).scrollTop() > discoverBikeTabsWrapper.offset().top) {
-                    nav.addClass('affix');
-                    if ((discoverTabsFooter.offset().top - 50) < $(window).scrollTop())
-                        nav.removeClass('affix');
-                }
-                else if ($(window).scrollTop() < discoverBikeTabsWrapper.offset().top) {
-                    nav.removeClass('affix');
-                }
-                var cur_pos = $(this).scrollTop();
-                $('.discover-bike-tabs-container .bw-tabs-data.margin-bottom20').each(function () {
-                    var top = $(this).offset().top - 10 - nav_height,
-                    bottom = top + $(this).outerHeight();
-                    if (cur_pos >= top && cur_pos <= bottom) {
-                        nav.find('a').removeClass('active');
-                        $('.discover-bike-tabs-container .bw-tabs-data.margin-bottom20').removeClass('active');
-
-                        $(this).addClass('active');
-                        nav.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
-                    }
-                });
-            });
+                        
 			<% } %>
             ga_pg_id = '2';
             if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
