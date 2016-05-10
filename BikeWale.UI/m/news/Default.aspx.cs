@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.Practices.Unity;
-using Bikewale.Entities.CMS;
-using Bikewale.Interfaces.CMS;
-using Bikewale.BAL.CMS;
-using Bikewale.Interfaces.Pager;
+﻿using Bikewale.BAL.GrpcFiles;
 using Bikewale.BAL.Pager;
-using Bikewale.Entities.Pager;
-using Bikewale.Mobile.Controls;
 using Bikewale.Common;
-using System.Net.Http;
-using System.Configuration;
-using System.Net.Http.Headers;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Pager;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Grpc.CMS;
-using Bikewale.News.GrpcFiles;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.News
 {
@@ -111,7 +106,7 @@ namespace Bikewale.Mobile.News
         //            this.Page.Visible = false;
         //        }
         //    }
-       // }
+        // }
 
         private void BindNews(CMSContent data)
         {
