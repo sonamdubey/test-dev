@@ -869,7 +869,7 @@
                                                 </p>
                                                 <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
                                                     <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>,
-                                                     <% if (cityId != 0)
+                                                     <% if (cityId != 0 && cityName != string.Empty)
                                                         { %>
                                                     <%= cityName %>
                                                     <% }

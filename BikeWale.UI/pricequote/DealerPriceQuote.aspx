@@ -147,7 +147,8 @@
                                         </tr>
 
                                         <tr>
-                                            <td colspan="2" class="text-right padding-top5"><a class="font14 text-link " leadSourceId="8" id="leadLink" name="leadLink" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a></td>
+                                            <td colspan="2" class="text-right padding-top5">
+                                                <a class="font14 text-link bw-ga" leadSourceId="8" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a></td>
                                         </tr>
                                         <tr class="hide">
                                             <td colspan="3">
@@ -805,11 +806,12 @@
             });
 
             $("#leadBtnBookNow").on("click", function () {
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Button", "lab": bikeName + "_" + getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Button", "lab": GetBikeVerLoc() });
             });
 
             $("#leadLink").on("click", function () {
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Link", "lab": bikeName + "_" + getCityArea });
+                alert(getMoreDetailsClick)
+                getMoreDetailsClick = true;
             });
 
             $("input[name*='btnVariant']").on("click", function () {
@@ -817,7 +819,7 @@
                     return false;
                 }
                 $('#hdnVariant').val($(this).attr('title'));
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeName + "_" + versionName + "_" + getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": GetBikeVerLoc() });
             });
 
             $("input[name*='switchDealer']").on("click", function () {
@@ -825,7 +827,7 @@
                     return false;
                 }
                 $('#hdnDealerId').val($(this).attr('title'));
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeName + "_" + versionName + "_" + getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": GetBikeVerLoc() });
             });
             $("#dealerList li").on("click", function(){
                 registerPQ($(this).attr('dealerId'));
@@ -866,6 +868,10 @@
                         window.location = "/pricequote/";
                     }
                 });
+            }
+
+            function GetBikeVerLoc() {
+                return bikeName + "_" + versionName + "_" + getCityArea;
             }
 
             function formatPrice(price) {
