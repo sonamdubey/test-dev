@@ -556,3 +556,12 @@ $(document).ready(function () {
     });
 });
 
+function loadDisclaimer(dealerType) {
+    $("#read-less").hide();
+    if (dealerType == 'Premium') {
+        $("#read-more").load("/statichtml/premium.html");
+    } else {
+        $("#read-more").load("/statichtml/standard.html");
+    }
+    $("#read-more").show();
+}

@@ -548,9 +548,21 @@
                         <div class="clear"></div>
                         <%} %>
                         <div class="clear"></div>
-                        <p id="disclaimerText" class="<%= primarydealer.DealerDetails != null ? "" : "hide" %> padding-left20 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span>On-road price <%= (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)?"": "and EMI calculator" %> is provided for information. BikeWale does not own any responsibility for the same.</p>
+                        <p id="disclaimerText" class="<%= primarydealer.DealerDetails != null ? "" : "hide" %> padding-left20 font11 text-light-grey padding-top20 padding-bottom20">
+                            <span id="read-less">
+                                <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+                                          { %>
+                                The bike prices and EMI quote mentioned here are indicative and are provided by their authorized dealerships.
+                                <% }
+                                   else{ %>
+                                The bike prices mentioned here are indicative and are provided by their authorized dealerships.
+                                <% } %>
+                                  <a id="readmore">read more</a>
+                            </span>
+                            <span id="read-more">
+                            </span>
+                        </p>
                     </div>
-
                     <!--Primary Dealer Section-->
                     <div class="grid-4 alpha padding-top20 <%= primarydealer.DealerDetails != null ? "dealer-pointer" : "" %> " id="PQDealerSidebarContainer">
                         <div class="pqdealer-and-listing-container">
@@ -886,6 +898,10 @@
                 if ($('.pricequote-benefits-list li').length % 2 == 0) {
                     $('.pricequote-benefits-list').addClass("pricequote-two-benefits");
                 }
+            });
+            $("#readmore").on("click", function () {
+                var dealerType = '<%=dealerType %>';
+                loadDisclaimer(dealerType);
             });
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
