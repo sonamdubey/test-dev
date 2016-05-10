@@ -171,7 +171,7 @@ namespace BikeWaleOpr.Content
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "CON_UpdateExpectedBikeLaunches";
+                        cmd.CommandText = "con_updateexpectedbikelaunches";
                         cmd.Connection = con;
 
                         prm = cmd.Parameters.Add("@Id", SqlDbType.BigInt);

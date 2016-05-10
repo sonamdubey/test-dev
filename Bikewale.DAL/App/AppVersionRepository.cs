@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Bikewale.Interfaces.App;
 using Bikewale.Entities.App;
+using System.Data.Common;
 
 namespace Bikewale.DAL.App
 {
@@ -32,22 +33,23 @@ namespace Bikewale.DAL.App
         {
             bool isSupported = false, isLatest = false;
             AppVersion objAppVersion = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("CheckVersionStatusForApp"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("checkversionstatusforapp"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@AppVersionId", SqlDbType.Int).Value = appVersion;
-                    cmd.Parameters.Add("@SourceId", SqlDbType.TinyInt).Value = sourceId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_appversionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], appVersion));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], sourceId));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr.Read())
+                        if (dr!=null)
                         {
-                            isSupported = Convert.ToBoolean(dr["IsSupported"].ToString());
-                            isLatest = Convert.ToBoolean(dr["IsLatest"].ToString());
+                            while (dr.Read())
+                            {
+                                isSupported = Convert.ToBoolean(dr["IsSupported"].ToString());
+                                isLatest = Convert.ToBoolean(dr["IsLatest"].ToString());
+                            } 
                         }
                     }
                 }
@@ -59,8 +61,6 @@ namespace Bikewale.DAL.App
             }
             finally
             {
-                if (db != null)
-                    db.CloseConnection();
                 objAppVersion = new AppVersion();
                 objAppVersion.Id = appVersion;
                 objAppVersion.IsLatest = isLatest;

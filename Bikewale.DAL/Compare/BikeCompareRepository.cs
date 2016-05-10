@@ -25,26 +25,19 @@ namespace Bikewale.DAL.Compare
             ICollection<BikeFeature> features = null;
             List<BikeColor> color = null;
             ICollection<BikeModelColor> hexCodes = null;            
-            Database db = null;
-            SqlCommand command = null;
-            SqlConnection connection = null;
+
 
             try
             {
-                db = new Database();
-                using (connection = new SqlConnection(db.GetConString()))
-                {
-                    using (command = new SqlCommand())
+                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
-                        command.CommandText = "GetComparisonDetails_20012016";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Connection = connection;
-                        command.Parameters.Add("@BikeVersions", System.Data.SqlDbType.VarChar).Value = versions;
+                        cmd.CommandText = "getcomparisondetails_20012016";
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], versions));
 
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                         using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                         {
-                            if (reader != null && reader.HasRows)
+                            if (reader != null  )
                             {
                                 #region Basic Info
                                 basicInfos = new List<BikeEntityBase>();
@@ -216,7 +209,6 @@ namespace Bikewale.DAL.Compare
                                 select hexCode.HexCode)
                             );
                     }
-                }
             }
             catch (SqlException sqEx)
             {
@@ -228,11 +220,7 @@ namespace Bikewale.DAL.Compare
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                if (connection != null && connection.State == System.Data.ConnectionState.Open)
-                    connection.Close();
-            }
+
             return compare;
         }
 

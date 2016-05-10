@@ -215,42 +215,41 @@ namespace Bikewale.DAL.Dealer
         public IEnumerable<NewBikeDealerEntityBase> GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null)
         {
             IList<NewBikeDealerEntityBase> objDealerList = null;
-            Database db = null;
 
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetNewBikeDealers";
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    cmd.CommandText = "getnewbikedealers";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (clientId.HasValue && clientId.Value > 0) ? clientId.Value : Convert.DBNull));
 
-                    if (clientId.HasValue)
-                        cmd.Parameters.AddWithValue("@ClientId", clientId.Value);
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        objDealerList = new List<NewBikeDealerEntityBase>();
-                        while (dr.Read())
+                        if (dr!=null)
                         {
-                            NewBikeDealerEntityBase objDealer = new NewBikeDealerEntityBase();
-                            objDealer.Id = Convert.ToInt32(dr["DealerId"]);
-                            objDealer.Name = Convert.ToString(dr["DealerName"]);
-                            objDealer.Address = Convert.ToString(dr["Address"]);
-                            objDealer.ContactNo = Convert.ToString(dr["ContactNo"]);
-                            objDealer.Email = Convert.ToString(dr["EMailId"]);
-                            objDealer.PinCode = Convert.ToString(dr["PinCode"]);
-                            objDealer.Website = Convert.ToString(dr["WebSite"]);
-                            objDealer.Fax = Convert.ToString(dr["FaxNo"]);
-                            objDealer.WorkingHours = Convert.ToString(dr["WorkingHours"]);
-                            objDealer.BikeMake = Convert.ToString(dr["BikeMake"]);
-                            objDealer.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
-                            objDealer.City = Convert.ToString(dr["City"]);
-                            objDealer.State = Convert.ToString(dr["State"]);
-                            objDealerList.Add(objDealer);
+                            objDealerList = new List<NewBikeDealerEntityBase>();
+                            while (dr.Read())
+                            {
+                                NewBikeDealerEntityBase objDealer = new NewBikeDealerEntityBase();
+                                objDealer.Id = Convert.ToInt32(dr["DealerId"]);
+                                objDealer.Name = Convert.ToString(dr["DealerName"]);
+                                objDealer.Address = Convert.ToString(dr["Address"]);
+                                objDealer.ContactNo = Convert.ToString(dr["ContactNo"]);
+                                objDealer.Email = Convert.ToString(dr["EMailId"]);
+                                objDealer.PinCode = Convert.ToString(dr["PinCode"]);
+                                objDealer.Website = Convert.ToString(dr["WebSite"]);
+                                objDealer.Fax = Convert.ToString(dr["FaxNo"]);
+                                objDealer.WorkingHours = Convert.ToString(dr["WorkingHours"]);
+                                objDealer.BikeMake = Convert.ToString(dr["BikeMake"]);
+                                objDealer.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objDealer.City = Convert.ToString(dr["City"]);
+                                objDealer.State = Convert.ToString(dr["State"]);
+                                objDealerList.Add(objDealer);
+                            } 
                         }
                     }
                 }
@@ -266,10 +265,6 @@ namespace Bikewale.DAL.Dealer
                 HttpContext.Current.Trace.Warn("GetBikeShowrooms ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objDealerList;
