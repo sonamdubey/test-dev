@@ -184,10 +184,6 @@ namespace Bikewale.Mobile.New
                         rptVarients.DataBind();
                     }
                     ToggleOfferDiv();
-                    if (versionId != 0)
-                    {
-                        FetchVariantDetails(versionId);
-                    }
                     Trace.Warn("Trace 21 : Fetch variant details");
                     // Clear trailing query string -- added on 09-feb-2016 by Sangram
                     PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);

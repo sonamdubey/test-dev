@@ -222,10 +222,6 @@ namespace Bikewale.New
                     LoadNewsVidsReviews(modelId, modelPageEntity);
                     Trace.Warn("Trace 21 : LoadNewsVidsReviews ends");
                     ToggleOfferDiv();
-                    if (variantId > 0)
-                    {
-                        modelPageEntity.ModelVersionSpecs = FetchVariantDetails(variantId);
-                    }
                     Trace.Warn("Trace 22 : Page Load ends");
                     ClearTrailingQuerystring(this);
                 }
