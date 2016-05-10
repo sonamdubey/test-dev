@@ -810,7 +810,6 @@
             });
 
             $("#leadLink").on("click", function () {
-                alert(getMoreDetailsClick)
                 getMoreDetailsClick = true;
             });
 
