@@ -33,7 +33,7 @@
         }
         var clientIP = "<%= clientIP%>";
         var pageUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.BwHostUrl %>" + "/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;       
-
+        ga_pg_id = "7";
     </script>
     <style type="text/css">
         
@@ -772,7 +772,6 @@
                             $("#contactDetailsPopup").hide();
                             $("#otpPopup").hide();
                             $("#dealer-assist-msg").show();
-
                             if (getOffersClicked) {
                                 dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
                                 getOffersClicked = false;
@@ -798,27 +797,25 @@
                             otpText.val('').removeClass("border-red").siblings("span, div").hide();
                         }
                         setPQUserCookie();
-
-                       
                     }
-
                 };
 
                 otpBtn.click(function () {
                     $('#processing').show();
                     if (!validateOTP())
                         $('#processing').hide();
-
                     if (validateOTP() && ValidateUserDetail()) {
                         customerViewModel.generateOTP();
                         if (customerViewModel.IsVerified()) {
                             $(".booking-dealer-details").removeClass("hide").addClass("show");
                             $('#processing').hide();
-
                             detailsSubmitBtn.show();
                             otpText.val('');
                             otpContainer.removeClass("show").addClass("hide");
-                            dataLayer.push({ "event": "Bikewale_all", "cat": "DealerQuotation_Page", "act": "Step_1_OTP_Successful_Submit", "lab": getCityArea });
+                            if (getMoreDetailsClicked) {
+                                triggerGA('Dealer_PQ', 'Lead_Submitted', 'Get_more_details_' + GetBikeVerLoc());
+                                getMoreDetailsClicked = false;
+                            }
                             $("#contactDetailsPopup").hide();
                             $("#otpPopup").hide();
                             $("#dealer-assist-msg").show();
@@ -826,7 +823,6 @@
                         else {
                             $('#processing').hide();
                             otpVal("Please enter a valid OTP.");
-                            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
                         }
                     }
                 });
@@ -839,8 +835,6 @@
                 isValid &= validateName();
                 return isValid;
             };
-
-
             function validateName() {
                 var isValid = true;
                 var a = fullname.val().length;
@@ -916,8 +910,6 @@
                 mobile.removeClass("border-red");
                 mobile.siblings("span, div").hide();
             };
-
-
             otpText.on("focus", function () {
                 otpText.val('');
                 otpText.siblings("span, div").hide();
@@ -974,7 +966,6 @@
                 otpText.siblings("div").text(msg);
             };
 
-
             function validateOTP() {
                 var retVal = true;
                 var isNumber = /^[0-9]{5}$/;
@@ -1004,7 +995,6 @@
                     return arr;
                 }
             }
-
             function setPQUserCookie() {
                 var val = fullname.val() + '&' + emailid.val() + '&' + mobile.val();
                 SetCookie("_PQUser", val);
@@ -1053,8 +1043,6 @@
             $("#leadLink").on("click", function () {
                 dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Link", "lab": bikeName + "_" + getCityArea });
             });
-            ga_pg_id = "7";
-
             $('.tnc').on('click', function (e) {
                 LoadTerms($(this).attr("id"));
             });
