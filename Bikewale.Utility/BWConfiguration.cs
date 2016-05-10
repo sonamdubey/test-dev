@@ -10,6 +10,8 @@ namespace Bikewale.Utility
     /// Summary :   Added new key in Web Config for Google Map API Key GoogleMapApiKey
     /// Modified by :   Vivek Gupta on 9-5-2016
     /// Summary :   Added new key in Web Config for using grpc UseGrpc
+    /// Modified By : Lucky Rathore on 09 May 2016.
+    /// Description : Added bikeWaleLogo for bikewale logo image URL.
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -64,7 +66,8 @@ namespace Bikewale.Utility
             _GoogleApiKey = string.Empty,
             _GoogleMapApiKey = String.Empty,
             _apiMaxWaitTime = string.Empty,
-            _useGrpc = string.Empty;
+            _useGrpc = string.Empty,
+            _bikeWaleLogo = string.Empty;
 
 
         // Private constructor, so no outsiders have access.
@@ -118,6 +121,7 @@ namespace Bikewale.Utility
             _GoogleMapApiKey = ConfigurationManager.AppSettings["GoogleMapApiKey"];
             _apiMaxWaitTime = ConfigurationManager.AppSettings["ApiMaxWaitTime"];
             _useGrpc = ConfigurationManager.AppSettings["UseGrpc"];
+            _bikeWaleLogo = "http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
         }
 
         // Static method to provide access to instance
@@ -139,6 +143,8 @@ namespace Bikewale.Utility
                 return _instance;
             }
         }
+
+        public string BikeWaleLogo { get { return _bikeWaleLogo; } }
 
         public int NonReadOnlyStatic { get { return nonReadOnlyStatic++; } }
 

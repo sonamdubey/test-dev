@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" EnableViewState="false" Trace="false" %>
-
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
@@ -22,9 +21,9 @@
 		isAd970x90Shown = true;
 		TargetedCity = cityName;
         keywords = string.Format("{0}, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
-    %>
-
-    <% isAd970x90BTFShown = true; %>
+        enableOG = true;
+        ogImage = modelImage; 
+        isAd970x90BTFShown = true; %>
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
     <script type="text/javascript">
