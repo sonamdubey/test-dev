@@ -25,6 +25,9 @@ using System.Collections;
 using System.IO;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
+using System.Data.Common;
 
 namespace BikeWaleOpr.Content
 {
@@ -33,7 +36,7 @@ namespace BikeWaleOpr.Content
         protected DateControl selDate;
         protected Label lblMessage;
         protected Repeater rptDays, rptMakes, rptSum, rptUnique;
-        protected DropDownList drpCities,drpState;
+        protected DropDownList drpCities, drpState;
         protected TextBox txt_City, txt_Month, txt_Year, txt_State;
         protected RadioButtonList rbtnlOption;
         protected HtmlInputHidden hdn_rbtn;
@@ -49,8 +52,8 @@ namespace BikeWaleOpr.Content
         public int newCarPrice = 300;
         public int financePrice = 200;
 
-        public string month = ""; 
-        public string year = ""; 
+        public string month = "";
+        public string year = "";
         public string city = "";
 
         override protected void OnInit(EventArgs e)
@@ -89,7 +92,7 @@ namespace BikeWaleOpr.Content
         void FillStates()
         {
             CommonOpn op = new CommonOpn();
-            string sql = "SELECT ID, Name FROM States WHERE IsDeleted <> 1 ORDER BY Name ";
+            string sql = "select ID, Name from states where isdeleted <> 1 order by name ";
             try
             {
                 op.FillDropDown(sql, drpState, "Name", "ID");
@@ -104,12 +107,12 @@ namespace BikeWaleOpr.Content
         }
 
         //dropdown to fill the cities
-		//Modified By : Sadhana Upadhyay on 30 Jan 2015
+        //Modified By : Sadhana Upadhyay on 30 Jan 2015
         void FillCities()
         {
             string sql = "";
             CommonOpn op = new CommonOpn();
-            sql = "SELECT ID, Name FROM Cities WITH (NOLOCK) WHERE IsDeleted = 0 ORDER BY Name";
+            sql = "select ID, Name from cities   where isdeleted = 0 order by name";
 
             Trace.Warn(sql);
 
@@ -150,21 +153,14 @@ namespace BikeWaleOpr.Content
             DateTime dtMonthYear = selDate.Value;
             DataSet ds = new DataSet();
             Database db = new Database();
-            SqlCommand cmd = new SqlCommand();
+            DbCommand cmd = DbFactory.GetDBCommand();
 
-            //sql =  " SELECT VW.Make AS Make,PM.MakeId AS MakeId,VW.Model AS Model,PM.ModelId AS ModelId, "
-            //    +  " SUM(PM.PQCNT) AS CNT,PM.Month AS Month,PM.ForwardedLead AS ForwardedLead,Day AS Day "
-            //    +  " FROM PQMatrix PM WITH (NOLOCK) "
-            //    + " JOIN vwMMV VW WITH (NOLOCK) ON PM.versionId=VW.VersionId"
-            //    + " WHERE Month=@Month AND Year=@Year";
+            sql = @" select count( distinct nbp.id) as CNT,vw.Make AS Make, 
+                vw.Model,vw.modelid AS ModelId,vw.Version,vw.makeid AS MakeId,vw.VersionId, 
+                monthname(nbp.requestdatetime)as Month , dayname(nbp.requestdatetime)as Day 
+                from newbikepricequotes nbp inner join vwmmv vw on nbp.bikeversionid = vw.versionid 
+                where  month(nbp.requestdatetime) = @month and year(nbp.requestdatetime) = @year ";
 
-            sql = " SELECT COUNT( DISTINCT NBP.Id)AS CNT,VW.Make AS Make, "
-                + " VW.Model,VW.ModelId AS ModelId,VW.Version,VW.MakeId AS MakeId,VW.VersionId, "
-                + " MONTH(NBP.RequestDateTime)AS Month , DAY(NBP.RequestDateTime)AS Day "
-                + " FROM NewBikePriceQuotes NBP INNER JOIN vwMMV VW ON NBP.BikeVersionId = VW.VersionId "
-                //+ " LEFT JOIN PriceQuoteBuyingPreferences PQBP ON PQBP.Id = NBP.BuyingPreference "
-                + " WHERE  MONTH(NBP.RequestDateTime) = @Month AND YEAR(NBP.RequestDateTime) = @Year ";
-				
             if (rbtnlOption.SelectedValue == "2")
             {
 
@@ -174,37 +170,32 @@ namespace BikeWaleOpr.Content
                 }
                 else
                 {
-                    sql += " AND NBP.CityId IN  (" + db.GetInClauseValue(city, "CityIds", cmd) + ")";
+                    sql += " and nbp.cityid in  (" + db.GetInClauseValue(city, "CityIds", cmd) + ")";
                 }
             }
             else
             {
-                sql += " AND NBP.CityId IN (SELECT ID FROM Cities Where StateId=@State AND IsDeleted=0)";
+                sql += " and nbp.cityid in (select id from cities where stateid=@state and isdeleted=0)";
 
             }
-            //sql += " GROUP BY VW.Make,PM.MakeId,VW.Model,PM.ModelId,PM.Month,PM.ForwardedLead,Day ORDER BY PM.MakeId,VW.Model ";
-            sql += " GROUP BY VW.Make,VW.Model,VW.Version,VW.MakeId,VW.ModelId,VW.VersionId, "
-                 + " MONTH(NBP.RequestDateTime),DAY(NBP.RequestDateTime) ORDER BY VW.MakeId , VW.Model ";
-            Trace.Warn("data qry: " + sql);
+
+            sql += " group by vw.make,vw.model,vw.version,vw.makeid,vw.modelid,vw.versionid, month,day order by vw.makeid , vw.model ";
 
             try
             {
                 cmd.CommandText = sql;
-                cmd.Parameters.Add("@Month", SqlDbType.Int).Value = dtMonthYear.Month;
-                cmd.Parameters.Add("@Year", SqlDbType.Int).Value = dtMonthYear.Year;
-                cmd.Parameters.Add("@State", SqlDbType.Int).Value = drpState.SelectedValue;
+                cmd.Parameters.Add(DbFactory.GetDbParam("@month", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtMonthYear.Month));
+                cmd.Parameters.Add(DbFactory.GetDbParam("@year", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtMonthYear.Year));
+                cmd.Parameters.Add(DbFactory.GetDbParam("@state", DbParamTypeMapper.GetInstance[SqlDbType.Int], drpState.SelectedValue));
 
-                
-                ds = db.SelectAdaptQry(cmd);
-                Trace.Warn("city" + city);
+                ds = MySqlDatabase.SelectAdapterQuery(cmd);
+
                 txt_Month.Text = Convert.ToString(dtMonthYear.Month);
                 txt_Year.Text = Convert.ToString(dtMonthYear.Year);
-                txt_City.Text= city;
+                txt_City.Text = city;
                 txt_State.Text = drpState.SelectedValue;
 
 
-                
-                Trace.Warn("data qry executed cnt: " + ds.Tables[0].Rows.Count);
             }
             catch (SqlException err)
             {
@@ -217,10 +208,6 @@ namespace BikeWaleOpr.Content
                 Trace.Warn(err.Message + err.Source);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return ds;
         }
@@ -228,7 +215,7 @@ namespace BikeWaleOpr.Content
         //Modified :Vaibhav K (03-May-2012)
         //          Get data from table PQMatrixUniquePerDay & PQMatrixUniquePerMonth
         //          Get unique data perday and permonth
-		//Modified By : Sadhana Upadhyay on 30 Jan 2915 to chnage sql query
+        //Modified By : Sadhana Upadhyay on 30 Jan 2915 to chnage sql query
         DataSet GetUniquePQ(string city)
         {
             Trace.Warn("GetUniquePQ");
@@ -236,24 +223,16 @@ namespace BikeWaleOpr.Content
             DateTime dtMonthYear = selDate.Value;
             DataSet ds = new DataSet();
             Database db = new Database();
-            SqlCommand cmd = new SqlCommand();
-            SqlCommand cmdMonth = new SqlCommand();
+            DbCommand cmd = DbFactory.GetDBCommand();
 
-            //Union to get records per day as well as per month in same table
-            //sql = " SELECT cast(cast(Day as char) as varchar(10)) AS Day,CNT, CASE ForwardedLead WHEN 1 THEN 't' ELSE 'f' END AS ForwardedLead"
-            //    + " FROM PQMatrixUniquePerDay WITH (NOLOCK)"
-            //    + " WHERE Month=@Month AND Year=@Year";
+            sql = @" select cast(day(nbp.requestdatetime) as char) AS Day, 
+                    count(distinct nbp.id)as CNT 
+                    from newbikepricequotes nbp  
+                    left join pricequotebuyingpreferences pqbp on pqbp.id = nbp.buyingpreference
+                    where month(nbp.requestdatetime)=@month and 
+                    year(nbp.requestdatetime) = @year ";
 
 
-            sql = " SELECT CONVERT(VarChar,DAY(NBP.RequestDateTime)) AS Day, "
-                + " COUNT(DISTINCT NBP.Id)AS CNT "
-                //+ ",CASE PQBP.IsForwarded WHEN 1 THEN 't' ELSE 'f' END AS ForwardedLead "
-                + " FROM NewBikePriceQuotes NBP WITH(NOLOCK) "
-                + " LEFT JOIN PriceQuoteBuyingPreferences PQBP ON PQBP.Id = NBP.BuyingPreference"
-                + " WHERE MONTH(NBP.RequestDateTime)=@Month AND "
-                + " YEAR(NBP.RequestDateTime) = @Year ";
-				
-			
             if (rbtnlOption.SelectedValue == "2")
             {
                 if (city == "")
@@ -262,17 +241,17 @@ namespace BikeWaleOpr.Content
                 }
                 else
                 {
-                    sql += " AND NBP.CityId IN  (" + db.GetInClauseValue(city, "CityIds", cmd) + ")";
+                    sql += " and nbp.cityid in  (" + db.GetInClauseValue(city, "CityIds", cmd) + ")";
                 }
             }
             else
             {
-                sql += " AND NBP.CityId IN (SELECT ID FROM Cities Where StateId=@State AND IsDeleted=0)";
+                sql += " and nbp.cityid in (select id from cities where stateid=@state and isdeleted=0)";
 
             }
 
-            sql += " GROUP BY CONVERT(VarChar,DAY(NBP.RequestDateTime)) ";
-                //+", CASE PQBP.IsForwarded WHEN 1 THEN 't' ELSE 'f' END ";
+            sql += " group by cast(dayname(nbp.requestdatetime) as char(3) ) ";
+            //+", CASE PQBP.IsForwarded WHEN 1 THEN 't' ELSE 'f' END ";
             //sql += " UNION"
             //    //To cast month and year in the form:- Month-yr (eg. May-12) as Varchar
             //    + " SELECT left(DateName(month ,DateAdd(month,Month,0)-1),3) + '-' + cast(cast(Year%100 as char) as varchar(10)) AS Day,"
@@ -280,13 +259,12 @@ namespace BikeWaleOpr.Content
             //    + " FROM PQMatrixUniquePerMonth WITH (NOLOCK)"
             //    + " WHERE Month=@Month AND Year=@Year";
 
-            sql += " UNION "
-               + " SELECT (CONVERT(VarChar(3),DATENAME(Month,NBP.RequestDateTime)) + '-' + CONVERT(Varchar,Year(NBP.RequestDateTime))) AS Day,COUNT (DISTINCT NBP.Id)AS CNT "
-               //+ " ,CASE PQBP.IsForwarded WHEN 1 THEN 't' ELSE 'f' END AS ForwardedLead "
-               + " FROM NewBikePriceQuotes NBP WITH(NOLOCK) "
-               //+ " LEFT JOIN PriceQuoteBuyingPreferences PQBP ON PQBP.Id = NBP.BuyingPreference"
-               + " WHERE MONTH(NBP.RequestDateTime)=@Month AND "
-               + " YEAR(NBP.RequestDateTime) = @Year ";
+            sql += @" union 
+                select concat(cast(monthname(nbp.requestdatetime) as char(3)) ,'-' ,year(nbp.requestdatetime)) as Day,Count (distinct nbp.id)as CNT 
+                from newbikepricequotes nbp 
+                where month(nbp.requestdatetime)=@month and
+                year(nbp.requestdatetime) = @year ";
+
             if (rbtnlOption.SelectedValue == "2")
             {
 
@@ -296,25 +274,26 @@ namespace BikeWaleOpr.Content
                 }
                 else
                 {
-                    sql += " AND NBP.CityId IN  (" + db.GetInClauseValue(city, "Citys", cmd) + ")";
+                    sql += " and nbp.cityid in  (" + db.GetInClauseValue(city, "Citys", cmd) + ")";
                 }
             }
             else
             {
-                sql += " AND NBP.CityId IN (SELECT ID FROM Cities Where StateId=@State AND IsDeleted=0)";
+                sql += " and nbp.cityid in (select id from cities where stateid=@state and isdeleted=0)";
 
             }
-            sql += "GROUP BY (CONVERT(VarChar(3),DATENAME(Month,NBP.RequestDateTime)) + '-' + CONVERT(Varchar,Year(NBP.RequestDateTime))) ";
+            sql += "group by concat(cast(monthname(nbp.requestdatetime) as char(3)) ,'-' ,year(nbp.requestdatetime))  ";
             Trace.Warn("unique data qry: " + sql);
-             
+
             try
             {
+
                 cmd.CommandText = sql;
-                cmd.Parameters.Add("@Month", SqlDbType.Int).Value = dtMonthYear.Month;
-                cmd.Parameters.Add("@Year", SqlDbType.Int).Value = dtMonthYear.Year;
-                cmd.Parameters.Add("@State", SqlDbType.Int).Value = drpState.SelectedValue;
-                ds = db.SelectAdaptQry(cmd);
-                Trace.Warn("uniqueday qry executed cnt: " + ds.Tables[0].Rows.Count);
+                cmd.Parameters.Add(DbFactory.GetDbParam("@month", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtMonthYear.Month));
+                cmd.Parameters.Add(DbFactory.GetDbParam("@year", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtMonthYear.Year));
+                cmd.Parameters.Add(DbFactory.GetDbParam("@state", DbParamTypeMapper.GetInstance[SqlDbType.Int], drpState.SelectedValue));
+
+                ds = MySqlDatabase.SelectAdapterQuery(cmd);
             }
             catch (SqlException err)
             {
@@ -327,10 +306,6 @@ namespace BikeWaleOpr.Content
                 Trace.Warn(err.Message + err.Source);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return ds;
         }
@@ -445,7 +420,7 @@ namespace BikeWaleOpr.Content
                             drMake["Total"] = Convert.ToInt32(totalMake == "" ? "0" : totalMake);
                             drMake["TotalF"] = Convert.ToInt32(totalMF == "" ? "0" : totalMF);
 
-                           // Trace.Warn("currentMake TOTAL=" + drMake["Total"] + "/" + drMake["TotalF"]);
+                            // Trace.Warn("currentMake TOTAL=" + drMake["Total"] + "/" + drMake["TotalF"]);
 
                             for (int i = 1; i <= days; i++)
                             {
@@ -458,7 +433,7 @@ namespace BikeWaleOpr.Content
 
                                 //Trace.Warn("currentMake=" +  drMake["Day" + i]);
                             }
-                            
+
 
 
                             //Calculate Projection
@@ -493,7 +468,7 @@ namespace BikeWaleOpr.Content
 
                             dtMake.Rows.Add(drMake);
                         }
-                       
+
 
                         if (currentModel != rowPQ["ModelId"].ToString())
                         {
@@ -528,7 +503,7 @@ namespace BikeWaleOpr.Content
                                 //Trace.Warn("currentModel=" +  drModel["Day" + i]);
                             }
 
-                           
+
 
                             //Calculate Projection
                             if (DateTime.Today.Month == Convert.ToDateTime(selDate.Value).Month)
@@ -774,7 +749,7 @@ namespace BikeWaleOpr.Content
                 dsUnique = GetUniquePQ("");//Get unique PQ per day & month for all cities
             }
 
-            Trace.Warn("Count..." + dsUnique.Tables[0].Rows.Count.ToString() +  " ABCDE=" + selDate.Value.ToString("MMM-yyyy"));
+            Trace.Warn("Count..." + dsUnique.Tables[0].Rows.Count.ToString() + " ABCDE=" + selDate.Value.ToString("MMM-yyyy"));
 
             if (dsUnique.Tables.Count > 0)
             {
@@ -792,8 +767,8 @@ namespace BikeWaleOpr.Content
                 Trace.Warn("All Total");
                 dr = dt.NewRow();
                 total = dsUnique.Tables[0].Compute("Sum(CNT)", "Day='" + selDate.Value.ToString("MMM-yyyy") + "'").ToString();
-                totalF = dsUnique.Tables[0].Compute("Sum(CNT)", "Day='" + selDate.Value.ToString("MMM-yyyy")+ "' ").ToString();
-                
+                totalF = dsUnique.Tables[0].Compute("Sum(CNT)", "Day='" + selDate.Value.ToString("MMM-yyyy") + "' ").ToString();
+
                 //To get record as forwardedLeads / totalLeads
                 dr["Value"] = ((total == "0" && totalF == "0") ? "" : total);   //totalF + "/" + total);
                 dt.Rows.Add(dr);

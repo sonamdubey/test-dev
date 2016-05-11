@@ -67,7 +67,7 @@ namespace BikeWaleOpr.Content
         public BikeModels()
         {
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
-            if (_mc == null)
+            if (_isMemcachedUsed && _mc == null)
             {
                 InitializeMemcached();
             }
