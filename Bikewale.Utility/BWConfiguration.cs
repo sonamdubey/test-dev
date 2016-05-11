@@ -66,7 +66,7 @@ namespace Bikewale.Utility
             _GoogleApiKey = string.Empty,
             _GoogleMapApiKey = String.Empty,
             _apiMaxWaitTime = string.Empty,
-            _useGrpc = string.Empty;
+            _useGrpc = string.Empty,
             _bikeWaleLogo = string.Empty;
 
 

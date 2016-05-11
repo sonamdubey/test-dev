@@ -24,13 +24,17 @@ using Bikewale.Common;
 
 namespace Bikewale.BikeBooking
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore on 11 May 2016.
+    /// Summary : VersionName added and paramete to call BookingEmailToCustomer() updated.
+    /// </summary>
     public class BillDeskResponse : System.Web.UI.Page
     {
         protected PQ_DealerDetailEntity _objPQ = null;
         protected PQCustomerDetail objCustomer = null;
         protected uint totalPrice = 0;
         protected UInt32 BookingAmt = 0;
-        protected string contactNo = string.Empty, organization = string.Empty, address = string.Empty, bikeName = string.Empty, MakeModel = string.Empty, bookingRefNum = string.Empty, WorkingTime = string.Empty, bikeColor = String.Empty;
+        protected string contactNo = string.Empty, organization = string.Empty, address = string.Empty, bikeName = string.Empty, MakeModel = string.Empty, VersionName = string.Empty, bookingRefNum = string.Empty, WorkingTime = string.Empty, bikeColor = String.Empty;
         protected UInt32 insuranceAmount = 0;
         protected bool IsInsuranceFree = false;
         protected uint pqId = 0, versionId = 0, cityId = 0, areaId = 0, dealerId = 0;
@@ -200,6 +204,8 @@ namespace Bikewale.BikeBooking
         /// Author          :   Sumit Kate
         /// Created Date    :   21 Oct 2015
         /// Description     :   Sends the notification to Customer and Dealer
+        /// Modified By : Lucky Rathore on 11 May 2016.
+        /// Summary : paramete to call BookingEmailToCustomer() updated.
         /// </summary>
         private void SentSuccessNotification()
         {
@@ -217,17 +223,19 @@ namespace Bikewale.BikeBooking
                 Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingSMSToDealer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, 
                     bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address, bookingRefNum, BookingAmt, insuranceAmount);
 
-                //send email to customer
-                Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingEmailToCustomer(objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerName, 
-                    _objPQ.objOffers, bookingRefNum, _objPQ.objBookingAmt.Amount, bikeName, _objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName, 
-                    _objPQ.objDealer.Organization, address, _objPQ.objDealer.MobileNo, insuranceAmount);
 
-                //send email to dealer
+               
                 if (_objPQ.objQuotation != null && _objPQ.objQuotation.OriginalImagePath != null && _objPQ.objQuotation.HostUrl != null)
                 {
                     imgPath = Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath, _objPQ.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
                 }
 
+                //send email to customer
+                Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingEmailToCustomer(objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerName
+                   , _objPQ.objQuotation.PriceList, _objPQ.objOffers, bookingRefNum, totalPrice, _objPQ.objBookingAmt.Amount, MakeModel, VersionName, bikeColor, imgPath,
+               _objPQ.objDealer.Organization, address, _objPQ.objDealer.MobileNo, _objPQ.objDealer.EmailId, _objPQ.objDealer.WorkingTime, _objPQ.objDealer.objArea.Latitude, _objPQ.objDealer.objArea.Longitude);
+
+                //send email to dealer
                 Bikewale.Notifications.SendEmailSMSToDealerCustomer.BookingEmailToDealer(_objPQ.objDealer.EmailId, ConfigurationManager.AppSettings["OfferClaimAlertEmail"],
                     objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, 
                     objCustomer.objCustomerBase.CustomerEmail, totalPrice, _objPQ.objBookingAmt.Amount, totalPrice - _objPQ.objBookingAmt.Amount, 
@@ -276,7 +284,7 @@ namespace Bikewale.BikeBooking
                     {
                         bikeName = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName + " " + _objPQ.objQuotation.objVersion.VersionName;
                         MakeModel = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName;
-
+                        VersionName = _objPQ.objQuotation.objVersion.VersionName;
                         bool isShowroomPriceAvail = false, isBasicAvail = false;
                         uint exShowroomCost = 0;
                         foreach (var item in _objPQ.objQuotation.PriceList)
