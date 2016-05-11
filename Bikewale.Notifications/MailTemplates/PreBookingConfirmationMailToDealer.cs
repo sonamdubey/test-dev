@@ -9,6 +9,8 @@ namespace Bikewale.Notifications.MailTemplates
     /// <summary>
     /// Created By : Lucky Rathore on 20 Jan 2016.
     /// Summary : To send pre-booking email to dealer.
+    /// Modified By : Vivek Gupta on 11-5-2016
+    /// Desc : Mail format (html has been revamped/changed)
     /// </summary>
     public class PreBookingConfirmationMailToDealer : ComposeEmailBase
     {
@@ -76,14 +78,15 @@ namespace Bikewale.Notifications.MailTemplates
 
 
                 //customer details starts here
-                sb.AppendFormat("<div style=\"margin:0 20px 15px; border-bottom:1px solid #f5f5f5; border-top:1px solid #f5f5f5; padding-top:15px; word-break:break-all;\">"
-                + "        <div style=\"font-weight:bold; margin-bottom:15px;\">Our customer details:</div>"
-                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Name: </span><span style=\"font-weight:bold;\">{0}</span></div>"
-                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Email Id: </span><span style=\"font-weight:bold;\">{1}</span></div>"
+                sb.AppendFormat(
+                  " <div style=\"margin:0 20px 20px 15px; border-bottom:1px solid #f5f5f5; border-top:1px solid #f5f5f5; padding-top:15px; word-break:break-all;\">"
+                + "            <div style=\"font-weight:bold; margin-bottom:15px;\">Our customer details:</div>"
+                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Name:      </span><span style=\"font-weight:bold;\">{0}</span></div>"
+                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Email Id:  </span><span style=\"font-weight:bold;\">{1}</span></div>"
                 + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Mobile no: </span><span style=\"font-weight:bold;\">{2}</span></div>"
-                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Location: </span><span style=\"font-weight:bold;\">{3}</span></div>"
-                + "        <div style=\"clear:both;\"></div>"
-                + "        </div>"
+                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Location:  </span><span style=\"font-weight:bold;\">{3}</span></div>"
+                + "            <div style=\"clear:both;\"></div>"
+                + " </div>"
                     , customerName //0
                     , customerEmail//1
                     , customerMobile //2
@@ -92,15 +95,16 @@ namespace Bikewale.Notifications.MailTemplates
 
 
                 //bike details starts here
-                sb.AppendFormat("<div style=\"margin:0 20px 15px 20px;padding-bottom:15px; border-bottom:1px solid #f5f5f5;\">"
-                + "        <div style=\"width:184px; min-height:150px; display:inline-block; vertical-align:top; margin:0 12px 10px 0; text-align:left;\">"
+                sb.AppendFormat(
+                  "<div style=\"margin:0 20px 15px 20px;padding-bottom:15px; border-bottom:1px solid #f5f5f5;\">"
+                + "    <div style=\"width:184px; min-height:150px; display:inline-block; vertical-align:top; margin:0 12px 10px 0; text-align:left;\">"
                 + "            <div style=\"font-weight:bold;\">{0}</div>"
-                + "            <img src=\"{3}\" alt=\"{0}\" title=\"{0}\" border=\"0\" style=\"margin:20px 0 0 5px\"/>"
-                + "            </div>"
-                + "            <div style=\"display:inline-block; vertical-align:top; max-width:455px; text-align:left;\">"
+                + "            <img src=\"{3}\" alt=\"{0}\" title=\"{0}\" border=\"0\" style=\"margin:20px 0 0 5px;\"/>"
+                + "    </div>"
+                + "    <div style=\"display:inline-block; vertical-align:top; max-width:455px; text-align:left;\">"
                 + "                <div style=\"float:left; width:226px; margin-right:5px; padding-bottom:15px;\"><div style=\"color:#82888b; width:55px; float:left;\">Version: </div><div style=\"float:left; width:170px; font-weight:bold; \">{1}</div><div style=\"clear:both;\"></div></div>"
                 + "                <div style=\"float:left; width:220px; padding-bottom:15px; \"><div style=\"color:#82888b; width:50px; float:left;\">Colour: </div><div style=\"float:left; width:163px; font-weight:bold;\">{2}</div><div style=\"clear:both;\"></div></div>"
-                + "                <div style=\"clear:both;\"></div>"
+                + "    <div style=\"clear:both;\"></div>"
                 , bikeName //0
                 , versionName //1
                 , bikeColor //2

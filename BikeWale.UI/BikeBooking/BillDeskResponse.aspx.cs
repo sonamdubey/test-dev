@@ -191,7 +191,9 @@ namespace Bikewale.BikeBooking
         /// <summary>
         /// Author          :   Sumit Kate
         /// Created Date    :   21 Oct 2015
-        /// Description     :   Sends the notification to Customer and Dealer
+        /// Description     :   Sends the notification to Customer and Dealer 
+        /// Modified By : Vivek Gupta on 11-5-2016
+        /// Desc : versionName added in SendEmailSMSToDealerCustomer.BookingEmailToDealer
         /// </summary>
         private void SentSuccessNotification()
         {

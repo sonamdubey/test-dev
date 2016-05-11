@@ -79,6 +79,8 @@ namespace Bikewale.BikeBooking
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Dec 2014
         /// Summary : to send prebooking email to dealer
+        /// Modified By : Vivek Gupta on 11-5-2016
+        /// Desc : versionName added in BookingEmailToDealer
         /// </summary>
         /// <param name="dealerEmail"></param>
         /// <param name="customerName"></param>
@@ -111,6 +113,8 @@ namespace Bikewale.BikeBooking
         /// Author              : Sumit Kate
         /// Date                : 04/06/2015
         /// Pivotal Tracker Id  :   96159278
+        /// Modified By : Vivek Gupta on 11-5-2016
+        /// Desc : versionName added in BookingEmailToDealerv
         /// This is overloaded method. It keeps BikeWale representative in CC.
         /// </summary>
         /// <param name="dealerEmail">Dealers Email ids comma separated</param>
