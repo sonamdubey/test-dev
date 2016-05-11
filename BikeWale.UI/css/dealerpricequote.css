@@ -109,3 +109,4 @@ a.text-darker-black:hover { text-decoration:none; }
 .dealership-loc-icon { width:8px; height:12px; background-position:-53px -469px; position:relative;top:4px; }
 .dealership-address { width:92%; }
 .vertical-top { display:inline-block;vertical-align:top; }
+.disclaimer {list-style-type: circle; padding-left:20px;}

@@ -132,4 +132,3 @@ $('.btn-grey-state').on('click', function () {
 $('#getMoreDetails').on('click', function () {
     getMoreDetailsClicked = true;
 });
-
