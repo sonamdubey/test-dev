@@ -1,19 +1,15 @@
 ﻿using Bikewale.DTO.CMS.Articles;
 using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.CMS;
-using Bikewale.Utility;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.Entities.CMS.Articles;
-using Bikewale.Service.Utilities;
 
 namespace Bikewale.Service.Controllers.CMS
 {
@@ -25,8 +21,8 @@ namespace Bikewale.Service.Controllers.CMS
     /// </summary>
     public class CMSListController : ApiController
     {
-        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;                
- 
+        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
+
         private readonly IPager _pager = null;
         public CMSListController(IPager pager)
         {
@@ -128,7 +124,7 @@ namespace Bikewale.Service.Controllers.CMS
                     apiUrl += "&makeid=" + makeId;
                 }
                 else
-                {                    
+                {
                     apiUrl += "&makeid=" + makeId + "&modelid=" + modelId;
                 }
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
@@ -176,7 +172,7 @@ namespace Bikewale.Service.Controllers.CMS
             Bikewale.Entities.CMS.Articles.CMSContent objFeaturedArticles = null;
             try
             {
-                int startIndex=0, endIndex=0;
+                int startIndex = 0, endIndex = 0;
                 _pager.GetStartEndIndex(Convert.ToInt32(posts), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
 
                 string apiUrl = "/webapi/article/listbycategory/?applicationid=2";
@@ -195,7 +191,7 @@ namespace Bikewale.Service.Controllers.CMS
                 }
                 apiUrl += "&startindex=" + startIndex + "&endindex=" + endIndex;
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {                                        
+                {
                     objFeaturedArticles = objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
                 }
 
@@ -280,7 +276,7 @@ namespace Bikewale.Service.Controllers.CMS
                     if (objFeaturedArticles.Articles != null)
                     {
                         objFeaturedArticles.Articles.Clear();
-                        objFeaturedArticles.Articles = null; 
+                        objFeaturedArticles.Articles = null;
                     }
 
                     objCMSFArticles = new CMSShareUrl().GetShareUrl(objCMSFArticles);
