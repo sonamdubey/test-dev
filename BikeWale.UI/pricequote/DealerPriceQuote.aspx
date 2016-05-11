@@ -557,7 +557,7 @@
                                    else{ %>
                                 The bike prices mentioned here are indicative and are provided by their authorized dealerships.
                                 <% } %>
-                                  <a id="readmore">read more</a>
+                                  <a id="readmore" class="text-link">read more</a>
                             </span>
                             <span id="read-more">
                             </span>
