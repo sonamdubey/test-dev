@@ -49,7 +49,7 @@ namespace Bikewale.Mobile.New
         protected string modelId = string.Empty;
         protected Repeater rptModelPhotos, rptVarients, rptColors;
         protected String bikeName = String.Empty;
-        protected String clientIP = string.Empty;
+        protected String clientIP = CommonOpn.GetClientIP();
         protected uint cityId = 0;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE class
@@ -149,7 +149,6 @@ namespace Bikewale.Mobile.New
                     BindAlternativeBikeControl();
                     Trace.Warn("Trace 15 : BindAlternativeBikeControl End");
                     Trace.Warn("Trace 16 : GetClientIP Start");
-                    clientIP = CommonOpn.GetClientIP();
                     Trace.Warn("Trace 17 : GetClientIP End");
                     Trace.Warn("Trace 18 : LoadVariants Start");
                     LoadVariants();

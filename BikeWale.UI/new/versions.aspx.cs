@@ -51,7 +51,7 @@ namespace Bikewale.New
         protected int variantId = 0;
         protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptVariants, rptSecondaryDealers;
         protected String bikeName = String.Empty;
-        protected String clientIP = string.Empty;
+        protected String clientIP = CommonOpn.GetClientIP();
         protected uint cityId = 0;
         protected int areaId = 0;
         protected string cityName = string.Empty;
@@ -242,7 +242,6 @@ namespace Bikewale.New
                         Trace.Warn("Trace 10 : FetchOnRoadPrice End");
                     }
                     BindPhotoRepeater();
-                    clientIP = CommonOpn.GetClientIP();
                     LoadVariants();
                     Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
                     BindAlternativeBikeControl();
