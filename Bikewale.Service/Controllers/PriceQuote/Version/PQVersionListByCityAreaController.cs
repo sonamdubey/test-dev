@@ -64,7 +64,15 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                 if (objVersionsList != null && objVersionsList.Count() > 0)
                 {
                     PQByCityArea pqByCityArea = new PQByCityArea();
-                    pqEntity = pqByCityArea.GetVersionList(modelId, objVersionsList, cityId, areaId);
+                    string platformId = string.Empty;
+                    UInt16 platform = default(UInt16);
+                    if (Request.Headers.Contains("platformId"))
+                    {
+                        platformId = Request.Headers.GetValues("platformId").First().ToString();
+                    }
+                    UInt16.TryParse(platformId, out platform);
+                    string deviceId = Request.Headers.Contains("device") ? Request.Headers.GetValues("device").First().ToString() : String.Empty;
+                    pqEntity = pqByCityArea.GetVersionList(modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
                     objPQDTO = ModelMapper.Convert(pqEntity);
                     objVersionsList = null;
                     return Ok(objPQDTO);
