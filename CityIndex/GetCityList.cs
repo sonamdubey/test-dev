@@ -75,6 +75,7 @@ namespace CityAutoSuggest
                 ht.Add("Ropar", "Rupnagar");                ht.Add("Chennai", "Madras");         ht.Add("Kolkata", "Calcutta");
                 ht.Add("Varanasi", "Banaras");              ht.Add("Bijapur", "Vijayapura");     ht.Add("Gurugram", "Gurgaon");
                 ht.Add("Pune", "Poona");                    ht.Add("Navi Mumbai", "New Bombay"); ht.Add("Nuh", "Mewat");
+                ht.Add("Bengaluru", "Bangalore");
 
                 
                 Hashtable htd = new Hashtable();                                                //For Removing Text After Bracket
