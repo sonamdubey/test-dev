@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -11,7 +6,7 @@ namespace Bikewale.Controls
     {
         public string PageId { get; set; }
         public int PQSourceId { get; set; }
-
+        public string ClientIP { get { return Bikewale.Common.CommonOpn.GetClientIP(); } }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -19,7 +14,7 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
         }
 
 

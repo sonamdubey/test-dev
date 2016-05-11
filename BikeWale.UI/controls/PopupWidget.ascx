@@ -342,7 +342,7 @@
                     'CityId': viewModelPopup.selectedCity(),
                     'AreaId': viewModelPopup.selectedArea(),
                     'ModelId': selectedModel,
-                    'ClientIP': '',
+                    'ClientIP': '<%= ClientIP %>',
                     'SourceType': '1',
                     'VersionId': 0,
                     'pQLeadId': PQSourceId,

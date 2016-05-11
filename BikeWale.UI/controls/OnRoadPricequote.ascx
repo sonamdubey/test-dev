@@ -174,7 +174,7 @@
                 'CityId': viewModelOnRoad.selectedCity(),
                 'AreaId': viewModelOnRoad.selectedArea(),
                 'ModelId': selectedModel,
-                'ClientIP': '',
+                'ClientIP': '<%= ClientIP %>',
                 'SourceType': '1',
                 'VersionId': 0,
                 'pQLeadId' : '<%= PQSourceId%>',

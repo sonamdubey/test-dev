@@ -1,6 +1,7 @@
 ﻿using Bikewale.Common;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
@@ -28,6 +29,7 @@ namespace Bikewale.New
         private uint cityId;
         private string makeMaskingName = string.Empty;
         protected bool cityDetected = false;
+        protected Bikewale.Controls.NewBikeLaunches ctrl_NewBikeLaunches;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -54,7 +56,7 @@ namespace Bikewale.New
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
+            ctrl_NewBikeLaunches.PQSourceId = (int)PQSourceEnum.Desktop_LocateDealer_NewLaunches;
             ushort _makeId = 0;
 
             if (ProcessQS() && ushort.TryParse(makeId, out _makeId))
