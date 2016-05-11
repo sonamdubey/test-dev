@@ -52,6 +52,25 @@ namespace Bikewale.Service.Utilities
         }
 
         /// <summary>
+        /// Created by  :    Vivek Gupta 
+        /// Summary     :    overload to fetch share URL for IEnumerable<CMSArticleSummary>
+        /// Modified on :    11-5-2016
+        /// Summary     :    Removed switch case
+        /// </summary>
+        /// <param name="objCMSFArticles"></param>
+        /// <returns></returns>
+        public IEnumerable<CMSArticleSummary> GetShareUrl(IEnumerable<CMSArticleSummary> objCMSFArticles)
+        {
+            string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
+            foreach (var article in objCMSFArticles)
+            {
+                article.ShareUrl = ReturnShareUrl(article);
+                article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+            }
+            return objCMSFArticles;
+        }
+
+        /// <summary>
         /// Created by  :   Sangram Nandkhile on 03 Mar 2016
         /// Summary     :   Common function to return shareurl as per categoryid of the article
         /// Modified on :   04 Mar 2016
