@@ -364,11 +364,10 @@ li.offertxt:hover span {display:inline}
 .insurance-breakup-text{position: relative; color: rgb(153, 153, 153); font-size: 14px; margin-top: 1px; text-decoration: solid;float:left; clear:left;}
 
 
-#modelDetailsFloatingCardContent { display:block; position:fixed; top:0px; left:5%; right:5%; margin:0 auto; width:996px; z-index:5;
--webkit-transition:transform 0.2s ease-in-out; -moz-transition:transform 0.2s ease-in-out; -o-transition:transform 0.2s ease-in-out; -ms-transition:transform 0.2s ease-in-out; transition:transform 0.2s ease-in-out;
--webkit-transform:translate(0, -150px); -moz-transform:translate(0, -150px); -o-transform:translate(0, -150px); -ms-transform:translate(0, -150px); transform: translate(0, -150px); }
+#modelDetailsFloatingCardContent { display:block; position:fixed; top:-150px; left:5%; right:5%; margin:0 auto; width:996px; z-index:5;
+-webkit-transition:all 0.2s ease 0s; -moz-transition:all 0.2s ease 0s; -o-transition:all 0.2s ease 0s; -ms-transition:all 0.2s ease 0s; transition:all 0.2s ease 0s;}
 #modelDetailsFloatingCardContent .model-details-floating-card { width:976px; }
-#modelDetailsFloatingCardContent.fixed-card { -webkit-transform:translate(0, 0); -moz-transform:translate(0, 0); -o-transform:translate(0, 0); -ms-transform:translate(0, 0); transform: translate(0, 0); }
+#modelDetailsFloatingCardContent.fixed-card { top:0; }
 #modelDetailsFloatingCardContent .overall-specs-tabs-wrapper { display:none; }
 #modelDetailsFloatingCardContent.activate-tabs .overall-specs-tabs-wrapper { display:block; }
 .inline-block-top { display:inline-block; vertical-align:top; }
@@ -386,6 +385,7 @@ li.offertxt:hover span {display:inline}
 .overall-specs-tabs-wrapper a:hover { text-decoration:none; color:#4d5057; }
 .overall-specs-tabs-wrapper a.active { border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057; }
 .content-inner-block-1020 { padding:10px 20px; }
+.content-inner-block-21522 { padding:20px 15px 20px 20px;  }
 .border-divider { border-top:1px solid #e2e2e2; }
 .line-height17 { line-height:1.7; }
 .margin-top17 { margin-top:17px; }
@@ -414,8 +414,10 @@ li.offertxt:hover span {display:inline}
 .jcarousel-pagination a { width:12px; height:12px; margin:0 6px; }
 .jcarousel-pagination a.active { border-color:#82888b; }
 .prices-by-cities-list { overflow:hidden; }
-.prices-by-cities-list li { margin-top:23px; overflow:hidden; }
-.prices-by-cities-list li:first-child { margin-top:0; }
+.prices-by-cities-list li { margin-bottom:23px; overflow:hidden; float:left; width:50%; }
+.prices-by-cities-list .grid-7 { width:80px; padding-right:5px; }
+.prices-by-cities-list .grid-7 a { display:block; }
+.prices-by-cities-list .grid-5 { width:60px; color:#2a2a2a; }
 #modelSpecsFeaturesContent .grid-6 p { margin-top:20px; width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 #modelSpecsFeaturesContent .grid-6 p:first-child { margin-top:0; }
 .blue-right-arrow-icon { width:6px; height:10px; background-position:-74px -469px; position:relative; top:1px; left:7px; }

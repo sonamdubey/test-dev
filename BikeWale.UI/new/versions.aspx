@@ -674,7 +674,7 @@
 
                     <div class="margin-right10 margin-left10 border-solid-top"></div> <!-- divider -->
 
-                    <div id="modelPricesContent" class="bw-model-tabs-data content-inner-block-20">
+                    <div id="modelPricesContent" class="bw-model-tabs-data content-inner-block-21522">
                         <h2>Bajaj Pulsar RS200 Prices</h2>
                         <div class="grid-8 alpha">
                             <h3 class="margin-bottom20">Prices by versions</h3>
@@ -742,44 +742,79 @@
                                 <p class="jcarousel-pagination text-center"></p>
                             </div>
                         </div>
-                        <div class="grid-4 padding-left20">
-                            <h3 class="margin-bottom20">Prices by cities<span class="text-light-grey text-unbold"> (Ex-showroom)</span></h3>
+                        <div class="grid-4 omega padding-left20">
+                            <h3>Prices by cities<span class="text-light-grey text-unbold"> (Ex-showroom)</span></h3>
                             <ul class="prices-by-cities-list font14">
                                 <li>
-                                    <div class="grid-8 alpha">
-                                        <a href="javascript:void(0)">Pune</a>
+                                    <div class="grid-7 alpha">
+                                        <a href="javascript:void(0)" class="text-truncate">Pune</a>
                                     </div>
-                                    <div class="grid-4 alpha omega">
+                                    <div class="grid-5 alpha text-right">
                                         <span class="fa fa-rupee"></span>
-                                        <span>1,67,673</span>
+                                        <span>1.67 L</span>
                                     </div>
+                                    <div class="clear"></div>
                                 </li>
                                 <li>
-                                    <div class="grid-8 alpha">
-                                        <a href="javascript:void(0)">Bengaluru</a>
+                                    <div class="grid-7 alpha">
+                                        <a href="javascript:void(0)" class="text-truncate">Bengaluru</a>
                                     </div>
-                                    <div class="grid-4 alpha omega">
+                                    <div class="grid-5 alpha text-right">
                                         <span class="fa fa-rupee"></span>
-                                        <span>89,387</span>
+                                        <span>89 K</span>
                                     </div>
+                                    <div class="clear"></div>
                                 </li>
                                 <li>
-                                    <div class="grid-8 alpha">
-                                        <a href="javascript:void(0)">Chennai</a>
+                                    <div class="grid-7 alpha">
+                                        <a href="javascript:void(0)" class="text-truncate">Chennai</a>
                                     </div>
-                                    <div class="grid-4 alpha omega">
+                                    <div class="grid-5 alpha text-right">
                                         <span class="fa fa-rupee"></span>
-                                        <span>1,45,233</span>
+                                        <span>1.45 L</span>
                                     </div>
+                                    <div class="clear"></div>
                                 </li>
                                 <li>
-                                    <div class="grid-8 alpha">
-                                        <a href="javascript:void(0)">Hyderabad</a>
+                                    <div class="grid-7 alpha">
+                                        <a href="javascript:void(0)" class="text-truncate">Hyderabad</a>
                                     </div>
-                                    <div class="grid-4 alpha omega">
+                                    <div class="grid-5 alpha text-right">
                                         <span class="fa fa-rupee"></span>
-                                        <span>67,673</span>
+                                        <span>67 K</span>
                                     </div>
+                                    <div class="clear"></div>
+                                </li>
+
+                                <li>
+                                    <div class="grid-7 alpha">
+                                        <a href="javascript:void(0)" class="text-truncate">Pune</a>
+                                    </div>
+                                    <div class="grid-5 alpha text-right">
+                                        <span class="fa fa-rupee"></span>
+                                        <span>1.67 L</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </li>
+                                <li>
+                                    <div class="grid-7 alpha">
+                                        <a href="javascript:void(0)" class="text-truncate">Bengaluru</a>
+                                    </div>
+                                    <div class="grid-5 alpha text-right">
+                                        <span class="fa fa-rupee"></span>
+                                        <span>89 K</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </li>
+                                <li>
+                                    <div class="grid-7 alpha">
+                                        <a href="javascript:void(0)" class="text-truncate">Chennai</a>
+                                    </div>
+                                    <div class="grid-5 alpha text-right">
+                                        <span class="fa fa-rupee"></span>
+                                        <span>1.45 L</span>
+                                    </div>
+                                    <div class="clear"></div>
                                 </li>
                             </ul>
                         </div>
