@@ -99,7 +99,7 @@ namespace BikeWaleOpr.Content
                 using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql))
                 {
 
-                    if (ds != null && ds.Tables == null && ds.Tables.Count > 0)
+                    if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                     {   
                         MyRepeater.DataSource = ds;
                         MyRepeater.DataBind();
