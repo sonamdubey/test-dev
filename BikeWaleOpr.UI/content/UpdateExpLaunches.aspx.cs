@@ -15,11 +15,14 @@ using BikeWaleOpr.Common;
 using BikeWaleOpr.RabbitMQ;
 using RabbitMqPublishing;
 using System.Collections.Specialized;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
+using System.Data.Common;
 
 namespace BikeWaleOpr.Content
 {
-	public class UpdateExpLaunches : Page
-	{
+    public class UpdateExpLaunches : Page
+    {
         protected TextBox txtEstMinPri, txtEstMaxPri, txtExpLaunch;
         protected HtmlInputFile filLarge;
         protected HtmlInputButton btnUpdate;
@@ -39,7 +42,7 @@ namespace BikeWaleOpr.Content
         void InitializeComponent()
         {
             base.Load += new EventHandler(Page_Load);
-            btnUpdate.ServerClick += new EventHandler(this.btnUpdate_Click);            
+            btnUpdate.ServerClick += new EventHandler(this.btnUpdate_Click);
         }
 
         void Page_Load(object Sender, EventArgs e)
@@ -49,7 +52,7 @@ namespace BikeWaleOpr.Content
             if (!IsPostBack)
             {
                 FillDetails();
-            }            
+            }
         }
 
         void btnUpdate_Click(object sender, EventArgs e)
@@ -87,60 +90,55 @@ namespace BikeWaleOpr.Content
 
         void FillDetails()
         {
-            Trace.Warn("+++inside  fill details");
-            Trace.Warn("++Hours .. " + calFrom.Value.Hour);
-            Trace.Warn("++Mins .. " + calFrom.Value.Minute);
-            Trace.Warn("++PM .. " + calFrom.Value);
+            if (date != "")
+            {
+                Trace.Warn("date : " + Convert.ToDateTime(date));
+                calFrom.Value = Convert.ToDateTime(date);
 
-             if (date != "") 
-             {
-                 Trace.Warn("date : " + Convert.ToDateTime(date));
-                 calFrom.Value = Convert.ToDateTime(date);
 
-                
-                 string[] dtSplit = date.Split(' ');
+                string[] dtSplit = date.Split(' ');
 
-                 if (dtSplit[1] != "") 
-                 {                     
-                      if (dtSplit.Length >=3 && dtSplit[2] != "PM") 
-                      {
-                          if (Convert.ToInt32(Convert.ToDateTime(date).Hour) == 12)
-                          {
-                              ddlHour.SelectedIndex = ddlHour.Items.IndexOf(ddlHour.Items.FindByValue("0"));
-                          }
-                          else
-                          {
-                              ddlHour.SelectedIndex = ddlHour.Items.IndexOf(ddlHour.Items.FindByValue(Convert.ToDateTime(date).Hour.ToString()));
-                          }
-                      }
-                      else
-                      {
-                          if (Convert.ToInt32(Convert.ToDateTime(date).Hour) == 12)
-                          {
-                              ddlHour.SelectedIndex = ddlHour.Items.IndexOf(ddlHour.Items.FindByValue(Convert.ToDateTime(date).Hour.ToString()));
-                          }
-                          else
-                          {
-                              ddlHour.SelectedIndex = ddlHour.Items.IndexOf(ddlHour.Items.FindByValue((Convert.ToInt32(Convert.ToDateTime(date).Hour) + 12).ToString()));
-                              Trace.Warn("Hours 2nd.. " + (Convert.ToInt32(Convert.ToDateTime(date).Hour) + 12));
-                          }
-                      }
+                if (dtSplit[1] != "")
+                {
+                    if (dtSplit.Length >= 3 && dtSplit[2] != "PM")
+                    {
+                        if (Convert.ToInt32(Convert.ToDateTime(date).Hour) == 12)
+                        {
+                            ddlHour.SelectedIndex = ddlHour.Items.IndexOf(ddlHour.Items.FindByValue("0"));
+                        }
+                        else
+                        {
+                            ddlHour.SelectedIndex = ddlHour.Items.IndexOf(ddlHour.Items.FindByValue(Convert.ToDateTime(date).Hour.ToString()));
+                        }
+                    }
+                    else
+                    {
+                        if (Convert.ToInt32(Convert.ToDateTime(date).Hour) == 12)
+                        {
+                            ddlHour.SelectedIndex = ddlHour.Items.IndexOf(ddlHour.Items.FindByValue(Convert.ToDateTime(date).Hour.ToString()));
+                        }
+                        else
+                        {
+                            ddlHour.SelectedIndex = ddlHour.Items.IndexOf(ddlHour.Items.FindByValue((Convert.ToInt32(Convert.ToDateTime(date).Hour) + 12).ToString()));
+                            Trace.Warn("Hours 2nd.. " + (Convert.ToInt32(Convert.ToDateTime(date).Hour) + 12));
+                        }
+                    }
 
-                      ddlMinutes.SelectedIndex = ddlMinutes.Items.IndexOf(ddlMinutes.Items.FindByValue(Convert.ToDateTime(date).Minute.ToString()));
-                      Trace.Warn("Mins 2nd.. " + Convert.ToDateTime(date).Minute.ToString());
-                 }
-             }
-             else 
-             {
+                    ddlMinutes.SelectedIndex = ddlMinutes.Items.IndexOf(ddlMinutes.Items.FindByValue(Convert.ToDateTime(date).Minute.ToString()));
+                    Trace.Warn("Mins 2nd.. " + Convert.ToDateTime(date).Minute.ToString());
+                }
+            }
+            else
+            {
                 calFrom.Value = DateTime.Now;
                 ddlHour.SelectedIndex = ddlHour.Items.IndexOf(ddlHour.Items.FindByValue("0"));
                 ddlMinutes.SelectedIndex = ddlMinutes.Items.IndexOf(ddlMinutes.Items.FindByValue("00"));
             }
 
-             txtEstMinPri.Text = estMinPri;
-             txtEstMaxPri.Text = estMaxPri;
-             txtExpLaunch.Text = expLaunch;
-             spnBikeName.InnerHtml = cName;
+            txtEstMinPri.Text = estMinPri;
+            txtEstMaxPri.Text = estMaxPri;
+            txtExpLaunch.Text = expLaunch;
+            spnBikeName.InnerHtml = cName;
         }
 
         // Modified By : Sadhana Upadhyay on 20th Dec
@@ -148,16 +146,12 @@ namespace BikeWaleOpr.Content
         bool UpdateLaunchDate(string Id, string minPrice, string maxPrice, string expLaunch, string newLaunch, string modelId)
         {
             Trace.Warn("newLaunch: " + newLaunch);
-                       
+
             string[] tempDate = newLaunch.Split('-');
-            
+
             DateTime newLaunchDate = new DateTime(int.Parse(tempDate[0]), int.Parse(tempDate[1]), int.Parse(tempDate[2]), int.Parse(tempDate[3]), int.Parse(tempDate[4]), 0);
 
             bool retVal = false;
-            
-            SqlParameter prm;
-            Database db = new Database();
-            CommonOpn op = new CommonOpn();
 
             Trace.Warn("ModelId ... " + modelId);
 
@@ -166,62 +160,28 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using(SqlConnection con=new SqlConnection(db.GetConString()))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "con_updateexpectedbikelaunches";
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_expectedlaunch", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, expLaunch)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_launchdate", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], newLaunchDate));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedpricemin", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], minPrice));  
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedpricemax", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], maxPrice)); 
+                    if (!String.IsNullOrEmpty(modelId))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "con_updateexpectedbikelaunches";
-                        cmd.Connection = con;
-
-                        prm = cmd.Parameters.Add("@Id", SqlDbType.BigInt);
-                        prm.Value = Id;
-                        Trace.Warn("Id ... " + Id);
-
-                        prm = cmd.Parameters.Add("@ExpectedLaunch", SqlDbType.VarChar, 250);
-                        prm.Value = expLaunch;
-                        Trace.Warn("expLaunch ... " + expLaunch);
-
-                        prm = cmd.Parameters.Add("@LaunchDate", SqlDbType.DateTime);
-                        prm.Value = newLaunchDate;
-                        Trace.Warn("newLaunchDate ... " + newLaunchDate);
-
-                        prm = cmd.Parameters.Add("@EstimatedPriceMin", SqlDbType.BigInt);
-                        prm.Value = minPrice;
-                        Trace.Warn("minPrice ... " + minPrice);
-
-                        prm = cmd.Parameters.Add("@EstimatedPriceMax", SqlDbType.BigInt);
-                        prm.Value = maxPrice;
-                        Trace.Warn("EstimatedPriceMax ... " + maxPrice);
-
-                        if (!String.IsNullOrEmpty(modelId))
-                        {
-                            if (!String.IsNullOrEmpty(filLarge.Value))
-                            {
-                                originalImgPath = ("/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId + ".jpg?" + timeStamp).ToLower();
-                            }
-                        }
-                        cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 100).Value = originalImgPath;
-
-                        prm = cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100);
-                        prm.Value = ConfigurationManager.AppSettings["imgHostURL"]; ;
-
                         if (!String.IsNullOrEmpty(filLarge.Value))
                         {
-                            cmd.Parameters.Add("@IsReplication", SqlDbType.Bit).Value = 0;
-                            isReplicated = "0";
+                            originalImgPath = ("/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId + ".jpg?" + timeStamp).ToLower();
                         }
-                        else
-                            cmd.Parameters.Add("@IsReplication", SqlDbType.Bit).Value = 1;
-
-                        Trace.Warn("Url  ... " + ConfigurationManager.AppSettings["imgHostURL"]);
-
-                        con.Open();
-                        //run the command
-                        cmd.ExecuteNonQuery();
-                        retVal = true;
-                    }
-                    con.Close();
+                    } 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, originalImgPath)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ConfigurationManager.AppSettings["imghosturl"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplication", DbParamTypeMapper.GetInstance[SqlDbType.Bit], (!String.IsNullOrEmpty(filLarge.Value)) ? false : true)); 
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    retVal = true;
                 }
             }
             catch (SqlException err)
@@ -230,7 +190,6 @@ namespace BikeWaleOpr.Content
                 HttpContext.Current.Trace.Warn(err.Message.ToString());
                 ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.UpdateLaunchDate");
                 objErr.SendMail();
-                Trace.Warn("SqlException");
                 retVal = false;
                 //retVal = "SqlException : " + err.Message;
             } // catch SqlException
@@ -239,7 +198,6 @@ namespace BikeWaleOpr.Content
                 HttpContext.Current.Trace.Warn(err.Message.ToString());
                 ErrorClass objErr = new ErrorClass(err, "AjaxFunctions.UpdateLaunchDate");
                 objErr.SendMail();
-                Trace.Warn("Exception");
                 retVal = false;
             } // catch Exception
             return retVal;
@@ -256,8 +214,8 @@ namespace BikeWaleOpr.Content
         {
             string imgPath = ImagingOperations.GetPathToSaveImages("\\bw\\upcoming\\");
             string hostUrl = ConfigurationManager.AppSettings["imgHostURL"].ToString();
-            string imageUrl = ("http://" + hostUrl + "/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId).ToLower()+".jpg";
-           string imageTargetPath=("/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId + ".jpg").ToLower();
+            string imageUrl = ("http://" + hostUrl + "/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId).ToLower() + ".jpg";
+            string imageTargetPath = ("/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId + ".jpg").ToLower();
             if (!Directory.Exists(imgPath))
             {
                 Directory.CreateDirectory(imgPath);
@@ -298,51 +256,46 @@ namespace BikeWaleOpr.Content
         /// </summary>
         public void GetExpectedBikeLaunches()
         {
-            Database db=new Database();
+            Database db = new Database();
 
             try
             {
-            using(SqlConnection con=new SqlConnection(db.GetConString()))
-            {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     if (Request.QueryString["Id"] != null && Request.QueryString["Id"].ToString() != "")
                     {
                         Id = Request.QueryString["Id"].ToString();
                     }
 
-                    cmd.CommandText = "CON_GetExpectedBikeLaunches";
+                    cmd.CommandText = "con_getexpectedbikelaunches";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = con;
 
-                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Id;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_launchdate", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makename", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedpricemin", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedpricemax", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_date", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
 
-                    cmd.Parameters.Add("@LaunchDate", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@MakeName", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@ModelName", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@EstimatedPriceMin", SqlDbType.BigInt).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@EstimatedPriceMax", SqlDbType.BigInt).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@HostURL", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@Date", SqlDbType.DateTime).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@IsReplicated", SqlDbType.Bit).Direction = ParameterDirection.Output;
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-                    expLaunch = cmd.Parameters["@LaunchDate"].Value.ToString();
-                    cName = cmd.Parameters["@MakeName"].Value.ToString() + "-" + cmd.Parameters["@ModelName"].Value.ToString();
-                    estMaxPri = cmd.Parameters["@EstimatedPriceMax"].Value.ToString();
-                    estMinPri = cmd.Parameters["@EstimatedPriceMin"].Value.ToString();
-                    hostUrl = cmd.Parameters["@HostURL"].Value.ToString();
-                    originalImgPath = cmd.Parameters["@OriginalImagePath"].Value.ToString();
-                    modelId = cmd.Parameters["@ModelId"].Value.ToString();
-                    date = cmd.Parameters["@Date"].Value.ToString();
-                    isReplicated = cmd.Parameters["@IsReplicated"].Value.ToString();
+                    expLaunch = cmd.Parameters["par_launchdate"].Value.ToString();
+                    cName = cmd.Parameters["par_makename"].Value.ToString() + "-" + cmd.Parameters["par_modelname"].Value.ToString();
+                    estMaxPri = cmd.Parameters["par_EstimatedPriceMax"].Value.ToString();
+                    estMinPri = cmd.Parameters["par_estimatedpricemin"].Value.ToString();
+                    hostUrl = cmd.Parameters["par_HostURL"].Value.ToString();
+                    originalImgPath = cmd.Parameters["par_originalimagepath"].Value.ToString();
+                    modelId = cmd.Parameters["par_modelid"].Value.ToString();
+                    date = cmd.Parameters["par_date"].Value.ToString();
+                    isReplicated = cmd.Parameters["par_isreplicated"].Value.ToString();
+
                 }
-                con.Close();
-            }
             }
             catch (SqlException err)
             {
@@ -358,5 +311,5 @@ namespace BikeWaleOpr.Content
             } // catch Exception
         }   // End of GetExpectedBikeLaunches
 
-	}//Class
+    }//Class
 }// Namespace

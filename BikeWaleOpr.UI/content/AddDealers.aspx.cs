@@ -8,6 +8,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using System.Configuration;
+using BikeWaleOPR.DAL.CoreDAL;
+using System.Data.Common;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Content
 {
@@ -77,7 +80,7 @@ namespace BikeWaleOpr.Content
         //Fill states
         void FillStates()
         {
-            string sql = "SELECT Name, Id FROM States WHERE IsDeleted = 0 ORDER BY Name";
+            string sql = "select Name, Id from states where isdeleted = 0 order by name";
 
             CommonOpn op = new CommonOpn();
 
@@ -100,7 +103,7 @@ namespace BikeWaleOpr.Content
         {
             string sql = "";
 
-            sql = " SELECT Id, Name AS MakeName FROM BikeMakes WHERE IsDeleted = 0 ORDER BY MakeName";
+            sql = " SELECT Id, name as MakeName from bikemakes where isdeleted = 0 order by makename";
 
             CommonOpn op = new CommonOpn();
 
@@ -119,7 +122,7 @@ namespace BikeWaleOpr.Content
 
         void FillCities(string StateId)
         {
-            string sql = "SELECT Name, Id FROM Cities WHERE IsDeleted = 0 and StateId = '" + StateId + "' ORDER BY Name";
+            string sql = "select Name, Id from cities where isdeleted = 0 and stateid = '" + StateId + "' order by name";
             CommonOpn op = new CommonOpn();
 
             try
@@ -142,56 +145,51 @@ namespace BikeWaleOpr.Content
             if (URLData != null)
             {
                 btnSave.Text = "Update Details";
-                SqlConnection con;
-                Database db = new Database();
+
                 CommonOpn op = new CommonOpn();
-                string conStr = db.GetConString();
-                con = new SqlConnection(conStr);
-                SqlDataReader dr = null;
+
                 lbl.Text = "Edit Dealer Details";
-                
+                 string sql = @"select ct.stateid,dl.makeid,dl.cityid,dl.name,dl.address,dl.pincode,dl.contactno,dl.faxno,
+                                dl.emailid,dl.website,dl.workinghours,dl.isncd,dl.isactive from dealer_newbike dl, cities ct where 
+                                dl.id = '" + URLData + "' and ct.id = dl.cityid";
                 try
                 {
-                    SqlCommand cmd = new SqlCommand("select ct.StateId,dl.MakeId,dl.CityId,dl.Name,dl.Address,dl.Pincode,dl.ContactNo,dl.FaxNo,"
-                    +"dl.EmailId,dl.WebSite,dl.WorkingHours,dl.IsNCD,dl.IsActive from Dealer_NewBike dl, Cities ct where "
-                    +"dl.Id = '" + URLData + "' and ct.ID = dl.CityId",con);
-                    con.Open();
-                    dr = cmd.ExecuteReader();
-                    while (dr.Read())
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                     {
-                        drpMake.SelectedValue = dr["MakeId"].ToString();
-                        drpState.SelectedValue = dr["StateId"].ToString();
-                        drpCity.Enabled = true;
-                        FillCities(dr["StateId"].ToString());
-                        drpCity.SelectedValue = dr["CityId"].ToString();
-                        txtName.Text = dr["Name"].ToString();
-                        txtAddress.Text = dr["Address"].ToString();
-                        txtPincode.Text = dr["Pincode"].ToString();
-                        txtContact.Text = dr["ContactNo"].ToString();
-                        txtFax.Text = dr["FaxNo"].ToString();
-                        txtEmail.Text = dr["EmailId"].ToString();
-                        txtWebsite.Text = dr["WebSite"].ToString();
-                        txtWorkingHours.Text = dr["WorkingHours"].ToString();
-                        if (dr["IsNCD"].ToString() == "1")
+                        if (dr!=null)
                         {
-                            cbxIsNcd.Checked = true;
-                        }
-                        if (dr["IsActive"].ToString() == "1")
-                        {
-                            cbxIsActive.Checked = true;
-                        }
+                            while (dr.Read())
+                            {
+                                drpMake.SelectedValue = dr["MakeId"].ToString();
+                                drpState.SelectedValue = dr["StateId"].ToString();
+                                drpCity.Enabled = true;
+                                FillCities(dr["StateId"].ToString());
+                                drpCity.SelectedValue = dr["CityId"].ToString();
+                                txtName.Text = dr["Name"].ToString();
+                                txtAddress.Text = dr["Address"].ToString();
+                                txtPincode.Text = dr["Pincode"].ToString();
+                                txtContact.Text = dr["ContactNo"].ToString();
+                                txtFax.Text = dr["FaxNo"].ToString();
+                                txtEmail.Text = dr["EmailId"].ToString();
+                                txtWebsite.Text = dr["WebSite"].ToString();
+                                txtWorkingHours.Text = dr["WorkingHours"].ToString();
+                                if (dr["IsNCD"].ToString() == "1")
+                                {
+                                    cbxIsNcd.Checked = true;
+                                }
+                                if (dr["IsActive"].ToString() == "1")
+                                {
+                                    cbxIsActive.Checked = true;
+                                }
+                            } 
+                        } 
                     }
                 }
 
                 catch (Exception ex)
                 {
                     Response.Write(ex.Message);
-                }
-
-                finally
-                {
-                    if (con.State == ConnectionState.Open)
-                        con.Close();
                 }
             }
             else
@@ -210,16 +208,10 @@ namespace BikeWaleOpr.Content
                 isNcd = 1;
             bool isCompleted = true;
             string errM = "";
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
+
             CommonOpn op = new CommonOpn();
 	    string URLData;
 
-            string conStr = db.GetConString();
-
-            con = new SqlConnection(conStr);
 
             if(Request.QueryString["id"] == null)
             {
@@ -233,54 +225,28 @@ namespace BikeWaleOpr.Content
 
             try
                 {
-                    cmd = new SqlCommand("AddDealers", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (DbCommand cmd = DbFactory.GetDBCommand("adddealers"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    prm = cmd.Parameters.Add("@Id", SqlDbType.VarChar, 50);
-                    prm.Value = URLData;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, URLData));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], drpMake.SelectedItem.Value));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], SelectedCity));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtName.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, txtAddress.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtPincode.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contactno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, txtContact.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_faxno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtFax.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtEmail.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_website", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtWebsite.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_workinghours", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtWorkingHours.Text));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isncd", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], isNcd));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], isActive));
 
-                    prm = cmd.Parameters.Add("@MakeId", SqlDbType.BigInt);
-                    prm.Value = drpMake.SelectedItem.Value;
-
-                    prm = cmd.Parameters.Add("@CityId", SqlDbType.BigInt);
-                    prm.Value = SelectedCity;
-
-                    prm = cmd.Parameters.Add("@Name", SqlDbType.VarChar, 100);
-                    prm.Value = txtName.Text.Trim();
-
-                    prm = cmd.Parameters.Add("@Address", SqlDbType.VarChar, 1000);
-                    prm.Value = txtAddress.Text.Trim();
-
-                    prm = cmd.Parameters.Add("@Pincode", SqlDbType.VarChar, 50);
-                    prm.Value = txtPincode.Text.Trim();
-
-                    prm = cmd.Parameters.Add("@ContactNo", SqlDbType.VarChar, 200);
-                    prm.Value = txtContact.Text.Trim();
-
-                    prm = cmd.Parameters.Add("@FaxNo", SqlDbType.VarChar, 50);
-                    prm.Value = txtFax.Text.Trim();
-
-                    prm = cmd.Parameters.Add("@EMailId", SqlDbType.VarChar, 100);
-                    prm.Value = txtEmail.Text.Trim();
-
-                    prm = cmd.Parameters.Add("@WebSite", SqlDbType.VarChar, 100);
-                    prm.Value = txtWebsite.Text.Trim();
-
-                    prm = cmd.Parameters.Add("@WorkingHours", SqlDbType.VarChar, 50);
-                    prm.Value = txtWorkingHours.Text;
-
-                    prm = cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime);
-                    prm.Value = DateTime.Now;
-
-                    prm = cmd.Parameters.Add("@IsNCD", SqlDbType.SmallInt);
-                    prm.Value = isNcd;
-
-                    prm = cmd.Parameters.Add("@IsActive", SqlDbType.SmallInt);
-                    prm.Value = isActive;
-
-                    con.Open();
-                    //run the command
-                    cmd.ExecuteNonQuery();
+                        //run the command
+                        MySqlDatabase.ExecuteNonQuery(cmd); 
+                    }
                 }
                 catch (SqlException err)
                 {
@@ -300,14 +266,7 @@ namespace BikeWaleOpr.Content
                     isCompleted = false;
                     //throw;
                 } // catch Exception
-                finally
-                {
-                    //close the connection	
-                    if (con.State == ConnectionState.Open)
-                    {
-                        con.Close();
-                    }
-                }
+
                 return isCompleted;
             }
 

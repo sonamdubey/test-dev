@@ -8,6 +8,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using System.Configuration;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
+using System.Data.Common;
 
 namespace BikeWaleOpr.Content
 {
@@ -55,7 +58,7 @@ namespace BikeWaleOpr.Content
         /// </summary>
         protected void FillMakes()
         {
-            string sql = "SELECT Id,Name FROM BikeMakes WHERE IsDeleted=0 ORDER BY Name";
+            string sql = "select Id,Name from bikemakes where isdeleted=0 order by name";
 
             try
             {
@@ -96,42 +99,43 @@ namespace BikeWaleOpr.Content
             string makeId = string.Empty, modelId = string.Empty;
             bool isPending = true, isVerified = false, isDiscarded = false;
 
-            Database db = null;
-            DataSet ds = null;
-            DataTable dt = null;
-
             GetReviewCriteria(ref makeId, ref modelId, ref isPending, ref isVerified, ref isDiscarded);
             
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                if (!string.IsNullOrEmpty(makeId) && makeId != "0")
                 {
-                    cmd.CommandText = "GetCustomerReviews_SP";
-                    cmd.CommandType = CommandType.StoredProcedure;                    
-
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = String.IsNullOrEmpty(modelId) ? "0" : modelId;
-                    cmd.Parameters.Add("@IsVerified", SqlDbType.Bit).Value = isVerified;
-                    cmd.Parameters.Add("@IsDiscarded", SqlDbType.Bit).Value = isDiscarded;
-                    cmd.Parameters.Add("@IsPending", SqlDbType.Bit).Value = isPending;
-
-                    ds = db.SelectAdaptQry(cmd);
-                    dt = ds.Tables[0];
-
-                    if (dt != null && dt.Rows.Count > 0)
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
-                        rptReviews.DataSource = dt;
-                        rptReviews.DataBind();
-                        rptReviews.Visible = true;
+                        cmd.CommandText = "getcustomerreviews_sp";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], String.IsNullOrEmpty(modelId) ? "0" : modelId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isVerified));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isdiscarded", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isDiscarded));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ispending", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isPending));
+
+
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        {
+                            if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            {
+                                rptReviews.DataSource = ds.Tables[0];
+                                rptReviews.DataBind();
+                                rptReviews.Visible = true;
+                            }
+                            else
+                            {
+                                rptReviews.Visible = false;
+                                errMsg.InnerHtml = "<h3>Oops !! The records does not exists.</h3>";
+                                errMsg.Visible = true;
+                            }
+                        }
+                        
                     }
-                    else
-                    {
-                        rptReviews.Visible = false;
-                        errMsg.InnerHtml = "<h3>Oops !! The records does not exists.</h3>";
-                        errMsg.Visible = true;
-                    }
+                   
                 }
             }
             catch (SqlException ex)

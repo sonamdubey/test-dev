@@ -373,7 +373,8 @@
 	    var count = '<%=count%>';
 	    priority = PrioList.split('_');
 	    $(":text.priority").each(function () {
-	        var text = $(this).val();
+	        var text = $(this).val().trim();
+	        if (text!="0" && text.length == 0) return;
 	        $(":text.priority").not($(this)).each(function () {
 	            if ($(this).val() != "" && $(this).val() != "0") {
 	                if (text == $(this).val()) {

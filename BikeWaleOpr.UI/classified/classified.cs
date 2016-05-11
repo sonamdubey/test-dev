@@ -32,7 +32,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], startIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], endIndex));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!String.IsNullOrEmpty(inquiryId)) ? Convert.ToUInt32(inquiryId.Substring(1, inquiryId.Length - 1)): Convert.DBNull ));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!String.IsNullOrEmpty(inquiryId) && inquiryId != "0") ? Convert.ToUInt32(inquiryId.Substring(1, inquiryId.Length - 1)) : Convert.DBNull));
                     
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
@@ -61,19 +61,19 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerLiveListings(int customerId)
         {
-            Database db = null;
+            
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetLiveListings";
+                    cmd.CommandText = "getlivelistings";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = customerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -100,19 +100,19 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerPendingListings(int customerId)
         {
-            Database db = null;
+            
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetCustomerVerifiedListings";
+                    cmd.CommandText = "getcustomerverifiedlistings";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = customerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -139,19 +139,19 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerFakeListings(int customerId)
         {
-            Database db = null;
+            
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetCustomerFakeListings";
+                    cmd.CommandText = "getcustomerfakelistings";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = customerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -178,19 +178,19 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerUnVerifiedListings(int customerId)
         {
-            Database db = null;
+            
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetCustomerUnVerifiedListings";
+                    cmd.CommandText = "getcustomerunverifiedlistings";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = customerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -217,19 +217,19 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerSoldListings(int customerId)
         {
-            Database db = null;
+            
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetCustomerSoldListings";
+                    cmd.CommandText = "getcustomersoldlistings";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = customerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -256,19 +256,19 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerTotalListings(int customerId)
         {
-            Database db = null;
+            
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetCustomerTotalListings";
+                    cmd.CommandText = "getcustomertotallistings";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = customerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -295,19 +295,19 @@ namespace BikeWaleOpr.Classified
         /// <param name="profileId"></param>
         public DataSet CustomerTotalListingPhotos(int ProfileId)
         {
-            Database db = null;
+            
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "listingPhotos";
+                    cmd.CommandText = "listingphotos";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@InquiryId", SqlDbType.Int).Value = ProfileId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ProfileId));
 
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+                    
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -335,18 +335,18 @@ namespace BikeWaleOpr.Classified
         public bool ApproveListing(int profileId)
         {
             bool isSuccess = false;
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "Classified_Inquiry_Approve";
+                    cmd.CommandText = "classified_inquiry_approve";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@inquiryId", SqlDbType.Int).Value = profileId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], profileId));
 
-                    db = new Database();
-                    db.UpdateQry(cmd);
+                    
+                    MySqlDatabase.UpdateQuery(cmd);
                     isSuccess = true;
                 }
             }
@@ -377,18 +377,18 @@ namespace BikeWaleOpr.Classified
         public bool DiscardListing(int profileId)
         {
             bool isSuccess = false;
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "Classified_Inquiry_Fake";
+                    cmd.CommandText = "classified_inquiry_fake";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@inquiryId", SqlDbType.Int).Value = profileId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], profileId));
 
-                    db = new Database();
-                    db.UpdateQry(cmd);
+                    
+                    MySqlDatabase.UpdateQuery(cmd);
                     isSuccess = true;
                 }
             }
@@ -418,18 +418,18 @@ namespace BikeWaleOpr.Classified
         /// <param name="photoIdList"></param>
         public void ApproveSelectedPhotos(string photoIdList)
         {
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "classified_BikePhotos_MarkVerified";
+                    cmd.CommandText = "classified_bikephotos_markverified";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@photoIdList", SqlDbType.VarChar,-1).Value = photoIdList;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], -1, photoIdList));
 
-                    db = new Database();
-                    db.UpdateQry(cmd);
+                    
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -455,18 +455,18 @@ namespace BikeWaleOpr.Classified
         /// <param name="photoIdList"></param>
         public void DiscardSelectedPhotos(string photoIdList)
         {
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "classified_BikePhotos_MarkFake";
+                    cmd.CommandText = "classified_bikephotos_markfake";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@photoIdList", SqlDbType.VarChar,-1).Value = photoIdList;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], -1, photoIdList));
 
-                    db = new Database();
-                    db.UpdateQry(cmd);
+                    
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException ex)
@@ -492,18 +492,18 @@ namespace BikeWaleOpr.Classified
         /// <param name="CustIdList"></param>
         public void DiscardCustomers(string CustIdList)
         {
-            Database db = null;
+            
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "FakeCustomer";
+                    cmd.CommandText = "fakecustomer";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@CustIdList", SqlDbType.VarChar, -1).Value = CustIdList;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_custidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], -1, CustIdList));
 
-                    db = new Database();
-                    db.UpdateQry(cmd);
+                    
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException ex)

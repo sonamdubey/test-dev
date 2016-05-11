@@ -217,7 +217,7 @@ namespace BikeWaleOpr.Content
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.CommandText = "getvideos";
 
-                    Trace.Warn("GetVideosData : makeId : " + makeId + " : modelId : " + modelId + " : isActive : " + isActive.ToString());
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
 

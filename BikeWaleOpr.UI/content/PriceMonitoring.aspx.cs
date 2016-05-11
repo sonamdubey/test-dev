@@ -14,6 +14,7 @@ using System.Drawing.Imaging;
 using BikeWaleOpr.Common;
 using FreeTextBoxControls;
 using Ajax;
+using BikeWaleOPR.DAL.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -98,7 +99,7 @@ namespace BikeWaleOpr.Content
 		{
 			CommonOpn op = new CommonOpn();
 			string sql;
-			sql = "SELECT ID, Name FROM BikeMakes WHERE IsDeleted = 0 AND New = 1 ORDER BY NAME";
+			sql = "SELECT ID, Name FROM bikemakes where isdeleted = 0 and new = 1 order by name";
 			try
 			{
 				op.FillDropDown( sql, drpMake, "Name", "ID" );
@@ -124,48 +125,47 @@ namespace BikeWaleOpr.Content
 			
 			try
 			{
-				sql = " SELECT CV.ID, (CMO.Name + ' ' + CV.Name) AS BikeName, CMO.Id AS ModelId, CMO.BikeMakeId"
-					+ " FROM BikeModels AS CMO, BikeVersions AS CV"
-					+ " WHERE CMO.ID = CV.BikeModelId AND CMO.New = 1 AND CV.New = 1"
-					+ " AND CMO.IsDeleted <> 1 AND CV.IsDeleted <> 1"
-					+ " AND CMO.BikeMakeId = " + drpMake.SelectedItem.Value + "";
+				sql = @" SELECT cv.ID, concat(cmo.Name , ' ' , cv.Name) AS BikeName, cmo.Id AS ModelId, cmo.BikeMakeId
+					from bikemodels as cmo, bikeversions as cv
+					where cmo.id = cv.bikemodelid and cmo.new = 1 and cv.new = 1
+					and cmo.isdeleted <> 1 and cv.isdeleted <> 1
+					and cmo.bikemakeid = " + drpMake.SelectedItem.Value;
 					
 				if(SelectedModel != "-1" && SelectedModel != "" && SelectedModel != "0")
-					sql = sql + " AND CMO.Id = " + SelectedModel + "";
+					sql +=" and cmo.id = " + SelectedModel + "";
 				
-				sql = sql + " ORDER BY CV.Name";
+				sql +=" order by cv.name";
 				
-				Trace.Warn("sqlBikes=" + sql);
-				dsModelVersions = db.SelectAdaptQry(sql);
+
+				dsModelVersions = MySqlDatabase.SelectAdapterQuery(sql);
 				rptModelVersion.DataSource = dsModelVersions;
 				rptModelVersion.DataBind();
 				
 			
 				
-				sql = " SELECT CityId, BikeVersionId, LastUpdated"
-					+ " FROM NewBikeShowroomPrices NSP, BikeMakes AS CMA, BikeModels AS CMO, BikeVersions AS CV"
-					+ " WHERE NSP.BikeVersionId = CV.Id AND CV.BikeModelId = CMO.Id AND CMO.BikeMakeId = CMA.Id"
-					+ " AND CMA.New = 1 AND CMO.New = 1 AND CV.New = 1"
-					+ " AND CMA.IsDeleted <> 1 AND CMO.IsDeleted <> 1 AND CV.IsDeleted <> 1"
-					+ " AND CV.New = 1 AND CMA.Id = " + drpMake.SelectedItem.Value + "";
+				sql = @" SELECT CityId, BikeVersionId, LastUpdated
+					from newbikeshowroomprices nsp, bikemakes as cma, bikemodels as cmo, bikeversions as cv
+					where nsp.bikeversionid = cv.id and cv.bikemodelid = cmo.id and cmo.bikemakeid = cma.id
+					and cma.new = 1 and cmo.new = 1 and cv.new = 1
+					and cma.isdeleted <> 1 and cmo.isdeleted <> 1 and cv.isdeleted <> 1
+					and cv.new = 1 and cma.id = " + drpMake.SelectedItem.Value;
 				
 				if(SelectedModel != "-1" && SelectedModel != "" && SelectedModel != "0")
-					sql = sql + " AND CMO.Id = " + SelectedModel + "";
+					sql = sql + " and cmo.id = " + SelectedModel + "";
 					
-				sql = sql + " ORDER BY CV.Name";
+				sql = sql + " order by cv.name";
+
+
+                dsModelVersionsValues = MySqlDatabase.SelectAdapterQuery(sql);
 				
-				Trace.Warn("sqlBikeValues=" + sql);
-				dsModelVersionsValues = db.SelectAdaptQry(sql);
 				
-				
-				sql = " SELECT DISTINCT C.ID, C.Name AS CityName"
-					+ " FROM BWCities AS C, Dealer_NewBike AS DN"
-					+ " WHERE DN.CityId = C.Id AND C.IsDeleted <> 1 "
-					+ " AND DN.MakeId = " + drpMake.SelectedItem.Value + ""
-					+ " ORDER BY CityName";
-				
-				Trace.Warn("sqlCities=" + sql);
-				dsBikeCities = db.SelectAdaptQry(sql);
+				sql = @" SELECT DISTINCT c.ID, c.Name AS CityName
+				        from bwcities as c, dealer_newbike as dn
+				        where dn.cityid = c.id and c.isdeleted <> 1 
+				        and dn.makeid = " + drpMake.SelectedItem.Value +" order by cityname";
+
+
+                dsBikeCities = MySqlDatabase.SelectAdapterQuery(sql);
 				rptCity.DataSource = dsBikeCities;
 				rptCity.DataBind();
 				

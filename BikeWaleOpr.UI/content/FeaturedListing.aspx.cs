@@ -1,22 +1,18 @@
 using System;
-using System.Text;
-using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.IO;
-using System.Drawing;
-using System.Drawing.Imaging;
 using BikeWaleOpr.Common;
-using FreeTextBoxControls;
-using Ajax;
 using System.Configuration;
 using BikeWaleOpr.RabbitMQ;
 using RabbitMqPublishing;
 using System.Collections.Specialized;
+using BikeWaleOPR.DAL.CoreDAL;
+using System.Data.Common;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Content
 {
@@ -99,13 +95,6 @@ namespace BikeWaleOpr.Content
 		void Page_Load( object Sender, EventArgs e )
 		{
 			CommonOpn op = new CommonOpn();
-			
-            //if( HttpContext.Current.User.Identity.IsAuthenticated != true) 
-            //        Response.Redirect("../users/Login.aspx?ReturnUrl=../Contents/FeaturedListing.aspx");
-				
-            //if ( Request.Cookies["Customer"] == null )
-            //    Response.Redirect("../Users/Login.aspx?ReturnUrl=../Contents/FeaturedListing.aspx");
-				
 			if( Request.QueryString["UpdateId"] != null && Request.QueryString["UpdateId"].ToString() != "")
 			{
 				updateData = Request.QueryString["UpdateId"].ToString();
@@ -209,7 +198,7 @@ namespace BikeWaleOpr.Content
 		{
 			CommonOpn op = new CommonOpn();
 			string sql;
-			sql = "SELECT ID, Name FROM BikeMakes WHERE IsDeleted <> 1 ORDER BY NAME";
+			sql = "select ID, Name from bikemakes where isdeleted <> 1 order by name";
 			try
 			{
 				op.FillDropDown( sql, drpMake, "Name", "ID" );
@@ -227,52 +216,29 @@ namespace BikeWaleOpr.Content
 		
 		string SaveData( string updateId )
 		{
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-			string conStr = db.GetConString();
 			string lastSavedId = "";
-			
-			con = new SqlConnection( conStr );
 
 			try
 			{
-				Trace.Warn( "Submitting Data" );
-				
-				cmd = new SqlCommand("CON_AddFeaturedListing", con);
-				cmd.CommandType = CommandType.StoredProcedure;
-				
-				prm = cmd.Parameters.Add("@Id", SqlDbType.BigInt);
-				prm.Value = updateId;
-				
-				prm = cmd.Parameters.Add("@BikeId", SqlDbType.BigInt);
-				prm.Value = chkIsModel.Checked ? SelectedModel : SelectedVersion;
-			
-				prm = cmd.Parameters.Add("@Description", SqlDbType.VarChar,1000);
-				prm.Value = txtDescription.Text.Trim();
-				
-				prm = cmd.Parameters.Add("@IsModel", SqlDbType.Bit);
-				prm.Value = chkIsModel.Checked ? 1 : 0;
-				
-				prm = cmd.Parameters.Add("@IsVisible", SqlDbType.Bit);
-				prm.Value = chkIsVisible.Checked ? 1 : 0;
-				
-				prm = cmd.Parameters.Add("@IsActive", SqlDbType.Bit);
-				prm.Value = chkIsActive.Checked ? 1 : 0;
-				
-				prm = cmd.Parameters.Add("@EntryDateTime", SqlDbType.DateTime);
-				prm.Value = DateTime.Now;
-				
-				prm = cmd.Parameters.Add("@LastSavedId", SqlDbType.BigInt);
-				prm.Direction = ParameterDirection.Output;
-				
-				con.Open();
-    			cmd.ExecuteNonQuery();			
-					
-				Trace.Warn(cmd.Parameters["@LastSavedId"].Value.ToString());
-				if ( cmd.Parameters["@LastSavedId"].Value.ToString() != "" ) 
-					lastSavedId = cmd.Parameters["@LastSavedId"].Value.ToString();
+                using (DbCommand cmd = DbFactory.GetDBCommand("con_addfeaturedlisting"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], updateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], chkIsModel.Checked ? SelectedModel : SelectedVersion));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, txtDescription.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodel", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIsModel.Checked ? true : false));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isvisible", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIsVisible.Checked ? true : false));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIsActive.Checked ? true : false));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastsavedid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+
+
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+
+                    if (cmd.Parameters["par_lastsavedid"].Value.ToString() != "")
+                        lastSavedId = cmd.Parameters["par_lastsavedid"].Value.ToString(); 
+                }
 								
 			}
 			catch(SqlException err)
@@ -287,14 +253,6 @@ namespace BikeWaleOpr.Content
 				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
 				objErr.SendMail();
 			} 
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
 			return lastSavedId;
 		}
 		
@@ -395,29 +353,19 @@ namespace BikeWaleOpr.Content
         /// <param name="smallImage"></param>
         protected void UpdateBikePhotoContent(string id, string hostUrl, string imagePath, string originalImagePath)
         {
-            Database db = null;
-
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "Con_UpdateFeaturedListingPhoto";
+                    cmd.CommandText = "con_updatefeaturedlistingphoto";
 
-                    cmd.Parameters.Add("@Id", SqlDbType.Decimal);
-                    cmd.Parameters["@Id"].Precision = 18;
-                    cmd.Parameters["@Id"].Scale = 0;
-                    cmd.Parameters["@Id"].Value = id;
-                    cmd.Parameters.Add("@HostURL", SqlDbType.VarChar, 100).Value = hostUrl;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, hostUrl));  
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, (!String.IsNullOrEmpty(flphoto.PostedFile.FileName)) ? (imagePath + originalImagePath) : Convert.DBNull ));
 
-                    if (!String.IsNullOrEmpty(flphoto.PostedFile.FileName))
-                    {
-                        cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 200).Value = imagePath + originalImagePath;
-                    }
-
-                    db.InsertQry(cmd);
+                    MySqlDatabase.InsertQuery(cmd);
                 }
             }
             catch (SqlException err)
@@ -431,10 +379,6 @@ namespace BikeWaleOpr.Content
                 Trace.Warn(err.Message + err.Source);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.ConsumeError();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
         }   // End of UpdateBikePhotoContent method
 		
@@ -488,33 +432,24 @@ namespace BikeWaleOpr.Content
 		{
 			string sql = "";
 			string count = "";
-			SqlDataReader dr = null;
-			Database db = new Database();
 			
-			sql = "SELECT COUNT(ID) AS TCount FROM Con_FeaturedListings AS FL WHERE FL.IsVisible = 1 AND FL.IsActive = 1";
+			sql = "select count(id) as TCount from con_featuredlistings as fl where fl.isvisible = 1 and fl.isactive = 1";
 			
 			try
 			{
-				dr = db.SelectQry(sql);	
-				
-				if(dr.Read())
-				{
-					count = dr["TCount"].ToString();
-				}
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                {
+                    if (dr.Read())
+                    {
+                        count = dr["TCount"].ToString();
+                    } 
+                }
 			}
 			catch(Exception err)
 			{
 				Trace.Warn(err.Message + err.Source);
 				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
 				objErr.ConsumeError();
-			}
-			finally
-			{
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-				db.CloseConnection();
 			}
 			
 			return count;
@@ -527,21 +462,19 @@ namespace BikeWaleOpr.Content
 			
 			int pageSizeM = dtgrdFeaturedListing.PageSize;
 												
-			sql = " SELECT FL.Id, (CMA.Name + ' ' + CMO.Name) AS BikeName, IsActive, IsVisible, "
-                + " IsModel, Description, EntryDateTime, FL.HostURL, FL.OriginalImagePath, FL.DisplayPriority, FL.IsReplicated "
-				+ " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO "
-				+ " WHERE FL.BikeId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 1 "
+			sql = @" SELECT fl.Id, concat(cma.name , ' ' , cmo.name) AS BikeName, IsActive, IsVisible, 
+                IsModel, Description, EntryDateTime, fl.HostURL, fl.OriginalImagePath, fl.DisplayPriority, fl.IsReplicated 
+				from con_featuredlistings as fl, bikemakes as cma, bikemodels as cmo 
+				where fl.bikeid = cmo.id and cmo.bikemakeid = cma.id and fl.ismodel = 1 
 				
-				+ " UNION ALL "
+				UNION ALL 
 				
-				+ " SELECT FL.Id, (CMA.Name + ' ' + CMO.Name + ' ' + CV.Name) AS BikeName, IsActive, IsVisible, "
-                + " IsModel, Description, EntryDateTime, FL.HostURL, FL.OriginalImagePath, FL.DisplayPriority, FL.IsReplicated "
-				+ " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO, BikeVersions AS CV "
-				+ " WHERE FL.BikeId = CV.Id AND CV.BikeModelId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 0 "
-                + " ORDER BY IsActive DESC, DisplayPriority";
-			
-																				
-			Trace.Warn(sql);
+				SELECT fl.Id, concat(cma.name , ' ' , cmo.name , ' ' , cv.name) AS BikeName, IsActive, IsVisible, 
+                IsModel, Description, EntryDateTime, fl.HostURL, fl.OriginalImagePath, fl.DisplayPriority, fl.IsReplicated 
+				from con_featuredlistings as fl, bikemakes as cma, bikemodels as cmo, bikeversions as cv 
+				where fl.bikeid = cv.id and cv.bikemodelid = cmo.id and cmo.bikemakeid = cma.id and fl.ismodel = 0 
+                order by isactive desc, displaypriority";
+
 			CommonOpn objCom = new CommonOpn();	
 					
 			try
@@ -601,128 +534,92 @@ namespace BikeWaleOpr.Content
 			string sql = "" ;
 			
 			AjaxFunctions aj = new AjaxFunctions();
-			SqlDataReader dr = null;
-			Database db = new Database();
 			
 			if ( updateData != "" )
 			{
-				sql = " SELECT CMA.Id AS MakeId, CMO.Id AS ModelId, BikeId, IsActive, IsVisible,"
-                    + " IsModel, Description, FL.HostUrl as hostUrl, FL.OriginalImagePath, FL.LargeImageName as largeImgPath "
-					+ " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO"
-					+ " WHERE FL.BikeId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 1"
-					+ " AND FL.Id = " + updateData + ""
+				sql = @" select cma.id as MakeId, cmo.id as ModelId, BikeId, IsActive, IsVisible,
+                    IsModel, Description, fl.hosturl as hostUrl, fl.OriginalImagePath, fl.largeimagename as largeImgPath 
+					from con_featuredlistings as fl, bikemakes as cma, bikemodels as cmo
+					where fl.bikeid = cmo.id and cmo.bikemakeid = cma.id and fl.ismodel = 1
+					and fl.id = " + updateData + 
 				
-					+ " UNION ALL"
+					@" union all
 				
-					+ " SELECT CMA.Id AS MakeId, CMO.Id AS ModelId, BikeId, IsActive, IsVisible,"
-                    + " IsModel, Description, FL.HostUrl as hostUrl, FL.OriginalImagePath, FL.LargeImageName as largeImgPath "
-					+ " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO, BikeVersions AS CV"
-					+ " WHERE FL.BikeId = CV.Id AND CV.BikeModelId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 0"
-					+ " AND FL.Id = " + updateData + "";
+					select cma.id as MakeId, cmo.id as ModelId, BikeId, IsActive, IsVisible,
+                    IsModel, Description, fl.hosturl as hostUrl, fl.OriginalImagePath, fl.largeimagename as largeImgPath 
+					from con_featuredlistings as fl, bikemakes as cma, bikemodels as cmo, bikeversions as cv
+					where fl.bikeid = cv.id and cv.bikemodelid = cmo.id and cmo.bikemakeid = cma.id and fl.ismodel = 0
+					and fl.id = " + updateData ;
 				
 				CommonOpn objCom = new CommonOpn(); 	
 				
-				Trace.Warn(sql);
-				
 				try
 				{
-					dr = db.SelectQry(sql);	
-					
-					if(dr.Read())
-					{
-						txtDescription.Text 	= dr["Description"].ToString();
-						drpMake.SelectedValue 	= dr["MakeId"].ToString();
-						
-						if(Convert.ToBoolean(dr["IsActive"]) == false)
-						{
-							chkIsActive.Checked = false;
-						}
-						if(Convert.ToBoolean(dr["IsModel"]) == false)
-						{
-							chkIsModel.Checked = false;
-							
-							drpModel.DataSource = aj.GetModels(dr["MakeId"].ToString());
-							drpModel.DataTextField = "Text";
-							drpModel.DataValueField = "Value";
-							drpModel.DataBind();
-							drpModel.Items.Insert(0, new ListItem("Any","0"));
-							drpModel.SelectedIndex = drpModel.Items.IndexOf(drpModel.Items.FindByValue(dr["ModelId"].ToString()));
-							
-							drpVersion.DataSource = aj.GetVersions(dr["ModelId"].ToString());
-							drpVersion.DataTextField = "Text";
-							drpVersion.DataValueField = "Value";
-							drpVersion.DataBind();
-							drpVersion.Items.Insert(0, new ListItem("Any","0"));
-							drpVersion.SelectedIndex = drpVersion.Items.IndexOf(drpVersion.Items.FindByValue(dr["BikeId"].ToString()));
-							
-							drpModel.Enabled = true;
-							drpVersion.Enabled = true;
-						}
-						else
-						{
-							drpModel.DataSource = aj.GetModels(dr["MakeId"].ToString());
-							drpModel.DataTextField = "Text";
-							drpModel.DataValueField = "Value";
-							drpModel.DataBind();
-							drpModel.Items.Insert(0, new ListItem("Any","0"));
-							drpModel.SelectedIndex = drpModel.Items.IndexOf(drpModel.Items.FindByValue(dr["ModelId"].ToString()));
-							
-							drpVersion.DataSource = aj.GetVersions(dr["ModelId"].ToString());
-							drpVersion.DataTextField = "Text";
-							drpVersion.DataValueField = "Value";
-							drpVersion.DataBind();
-							drpVersion.Items.Insert(0, new ListItem("Any","0"));
-							
-							drpModel.Enabled = true;
-							drpVersion.Enabled = true;
-						}
-												
-						if(Convert.ToBoolean(dr["IsVisible"]) == false)
-						{
-							chkIsVisible.Checked = false;
-						}
-                        originalImgPath = dr["OriginalImagePath"].ToString();
-                        hostURL = dr["hostUrl"].ToString();
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            txtDescription.Text = dr["Description"].ToString();
+                            drpMake.SelectedValue = dr["MakeId"].ToString();
 
-                       // imgFLPhoto.Src = BikeWaleOpr.ImagingOperations.GetPathToShowImages(imgPath + smallImgPath, hostUrl);
-						
-                        //if(dr["ShowResearch"].ToString() != "")
-                        //    chkIsResearch.Checked = Convert.ToBoolean(dr["ShowResearch"]);
-                        //else
-                        //    chkIsResearch.Checked = false;
-							
-                        //if(dr["ShowPrice"].ToString() != "")
-                        //    chkIsPrice.Checked = Convert.ToBoolean(dr["ShowPrice"]);
-                        //else
-                        //    chkIsPrice.Checked = false;
-							
-                        //if(dr["Link"].ToString() != "")
-                        //{
-                        //    txtLink.Text = dr["Link"].ToString();
-							
-                        //    if(dr["ShowRoadTest"].ToString() != "")
-                        //    {
-                        //        if(Convert.ToBoolean(dr["ShowRoadTest"]) == true)
-                        //            rdRT.Checked = true;
-                        //        else
-                        //            rdFD.Checked = true;
-                        //    }
-                        //}
-					}					
+                            if (Convert.ToBoolean(dr["IsActive"]) == false)
+                            {
+                                chkIsActive.Checked = false;
+                            }
+                            if (Convert.ToBoolean(dr["IsModel"]) == false)
+                            {
+                                chkIsModel.Checked = false;
+
+                                drpModel.DataSource = aj.GetModels(dr["MakeId"].ToString());
+                                drpModel.DataTextField = "Text";
+                                drpModel.DataValueField = "Value";
+                                drpModel.DataBind();
+                                drpModel.Items.Insert(0, new ListItem("Any", "0"));
+                                drpModel.SelectedIndex = drpModel.Items.IndexOf(drpModel.Items.FindByValue(dr["ModelId"].ToString()));
+
+                                drpVersion.DataSource = aj.GetVersions(dr["ModelId"].ToString());
+                                drpVersion.DataTextField = "Text";
+                                drpVersion.DataValueField = "Value";
+                                drpVersion.DataBind();
+                                drpVersion.Items.Insert(0, new ListItem("Any", "0"));
+                                drpVersion.SelectedIndex = drpVersion.Items.IndexOf(drpVersion.Items.FindByValue(dr["BikeId"].ToString()));
+
+                                drpModel.Enabled = true;
+                                drpVersion.Enabled = true;
+                            }
+                            else
+                            {
+                                drpModel.DataSource = aj.GetModels(dr["MakeId"].ToString());
+                                drpModel.DataTextField = "Text";
+                                drpModel.DataValueField = "Value";
+                                drpModel.DataBind();
+                                drpModel.Items.Insert(0, new ListItem("Any", "0"));
+                                drpModel.SelectedIndex = drpModel.Items.IndexOf(drpModel.Items.FindByValue(dr["ModelId"].ToString()));
+
+                                drpVersion.DataSource = aj.GetVersions(dr["ModelId"].ToString());
+                                drpVersion.DataTextField = "Text";
+                                drpVersion.DataValueField = "Value";
+                                drpVersion.DataBind();
+                                drpVersion.Items.Insert(0, new ListItem("Any", "0"));
+
+                                drpModel.Enabled = true;
+                                drpVersion.Enabled = true;
+                            }
+
+                            if (Convert.ToBoolean(dr["IsVisible"]) == false)
+                            {
+                                chkIsVisible.Checked = false;
+                            }
+                            originalImgPath = dr["OriginalImagePath"].ToString();
+                            hostURL = dr["hostUrl"].ToString();
+                        } 
+                    }					
 				}
 				catch(Exception err)
 				{
 					Trace.Warn(err.Message + err.Source);
 					ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
 					objErr.ConsumeError();
-				}
-				finally
-				{
-					db.CloseConnection();
-                    if (dr != null)
-                    {
-                        dr.Close();
-                    }
 				}
 			}
 		}
@@ -742,29 +639,31 @@ namespace BikeWaleOpr.Content
         protected void GetAllPriority()
         {
             string sql = string.Empty;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    sql = "select DisplayPriority from Con_FeaturedListings  WHERE DisplayPriority IS NOT NULL AND DisplayPriority <> 0 order by DisplayPriority";
+                    sql = "select displaypriority from con_featuredlistings  where displaypriority is not null and displaypriority <> 0 order by displaypriority";
                     cmd.CommandText = sql;
                     cmd.CommandType = CommandType.Text;
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd)) 
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd)) 
                     {
-                        while (dr.Read())
+                        if (dr!=null)
                         {
-                            if (String.IsNullOrEmpty(priorityList))
+                            while (dr.Read())
                             {
-                                priorityList += dr["DisplayPriority"].ToString();
-                                count++;
-                            }
-                            else
-                            {
-                                priorityList += "," + dr["DisplayPriority"].ToString();
-                                count++;
-                            }
+                                if (String.IsNullOrEmpty(priorityList))
+                                {
+                                    priorityList += dr["DisplayPriority"].ToString();
+                                    count++;
+                                }
+                                else
+                                {
+                                    priorityList += "," + dr["DisplayPriority"].ToString();
+                                    count++;
+                                }
+                            } 
                         }
                     }
                 }
@@ -781,10 +680,6 @@ namespace BikeWaleOpr.Content
                 Trace.Warn(err.Message + err.Source);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.ConsumeError();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
         }
 		

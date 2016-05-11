@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Web;
@@ -51,31 +52,25 @@ namespace BikeWaleOpr.RabbitMQ
             string url = string.Empty;
 
             try
-            {
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
+            {    using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "IMG_AllBikePhotosInsert";
-                        cmd.Connection = con;
+                        cmd.CommandText = "img_allbikephotosinsert";
 
-                        cmd.Parameters.Add("@ItemId", SqlDbType.BigInt).Value = photoId;
-                        cmd.Parameters.Add("@OrigFileName", SqlDbType.VarChar).Value = imageName;
-                        cmd.Parameters.Add("@CategoryId", SqlDbType.Int).Value = imgC;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_itemid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], photoId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_origfilename", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], imageName));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], imgC));
                         //die path for original image
-                        cmd.Parameters.Add("@DirPath", SqlDbType.VarChar).Value = directoryPath;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dirpath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], directoryPath));
                         //host url for original image
-                        cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar).Value = ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString();
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString()));
                         //output parameter complete url for original image
-                        cmd.Parameters.Add("@Url", SqlDbType.VarChar, 255).Direction = ParameterDirection.Output;
-                        if (con.State == ConnectionState.Closed)
-                            con.Open();
-                        cmd.ExecuteNonQuery();
-                        url = cmd.Parameters["@Url"].Value.ToString();
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 255, ParameterDirection.Output));
+
+                         MySqlDatabase.ExecuteNonQuery(cmd);
+
+                         url = cmd.Parameters["par_url"].Value.ToString();
                     }
-                    con.Close();
-                }
             }
             catch (SqlException ex)
             {
@@ -103,19 +98,18 @@ namespace BikeWaleOpr.RabbitMQ
         public DataSet FetchProcessedImagesList(string imageList, ImageCategories imgC)
         {
             //verify that all the values in the image list is numeric
-            Database db = new Database();
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "IMG_FetchProcessedImageList";
+                    cmd.CommandText = "img_fetchprocessedimagelist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@ImageList", SqlDbType.VarChar, 1000).Value = imageList;
-                    cmd.Parameters.Add("@CategoryId", SqlDbType.Int).Value = imgC;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagelist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, imageList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], imgC));
 
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (Exception ex)
@@ -124,12 +118,6 @@ namespace BikeWaleOpr.RabbitMQ
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection  
-                db.CloseConnection();
-            }
-
             return ds;
         }   //End of FetchProcessedImagesList
 
@@ -138,7 +126,7 @@ namespace BikeWaleOpr.RabbitMQ
             DataSet ds = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandText = "img_checkphotosstatus";
                     cmd.CommandType = CommandType.StoredProcedure;

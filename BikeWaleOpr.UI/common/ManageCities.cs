@@ -29,14 +29,13 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                Database db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand("GetAllCitiesDetails"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getallcitiesdetails")) 
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = stateId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], stateId));
 
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                   
                 }
             }

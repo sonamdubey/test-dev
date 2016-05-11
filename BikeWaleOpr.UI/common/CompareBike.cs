@@ -54,8 +54,8 @@ namespace BikeWaleOpr.Common
                     cmd.CommandText = "setbikecomparisonpriority";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    //cmd.Parameters.Add("@PrioritiesList", SqlDbType.VarChar, 1000).Value = prioritiesList;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],1000, prioritiesList));
+                    //cmd.Parameters.Add("@prioritieslist", SqlDbType.VarChar, 1000).Value = prioritiesList;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_prioritieslist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, prioritiesList));
 
                     MySqlDatabase.UpdateQuery(cmd);
                 }

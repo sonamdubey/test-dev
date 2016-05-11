@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using System.Configuration;
+using BikeWaleOPR.DAL.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -44,7 +45,7 @@ namespace BikeWaleOpr.Content
 
         void FillStates()
         {
-            string sql = "SELECT Name, Id FROM States WHERE IsDeleted = 0 ORDER BY Name";
+            string sql = "select Name, Id from states where isdeleted = 0 order by name";
 
             CommonOpn op = new CommonOpn();
 
@@ -67,7 +68,7 @@ namespace BikeWaleOpr.Content
         {
             string sql = "";
 
-            sql = " SELECT Id, Name AS MakeName FROM BikeMakes WHERE IsDeleted = 0 ORDER BY MakeName";
+            sql = " SELECT Id, name as MakeName from bikemakes where isdeleted = 0 order by makename";
 
             CommonOpn op = new CommonOpn();
 
@@ -86,28 +87,28 @@ namespace BikeWaleOpr.Content
 
         void btnFind_Click(object Sender, EventArgs e)
         {           
-            string sql = " SELECT"
-                       + " Id,MakeId,CityId,Name,Address,Pincode,ContactNo,"
-                       + " FaxNo,EMailId,WebSite,WorkingHours,LastUpdated,IsActive,IsNCD"
-                       + " FROM Dealer_NewBike where MakeId='" + drpMake.SelectedItem.Value + "' and CityId='" + drpCity.SelectedItem.Value + "'";
-                       
-            SqlConnection con;
-            Database db = new Database();
+            string sql = string.Format(@" SELECT Id,MakeId,CityId,Name,Address,Pincode,ContactNo, FaxNo,EMailId,WebSite,WorkingHours,LastUpdated,IsActive,IsNCD
+                       from dealer_newbike where makeid= {0}  and cityid= {1}",drpMake.SelectedItem.Value,drpCity.SelectedItem.Value);
+
             CommonOpn op = new CommonOpn();
 
-            string conStr = db.GetConString();
-            con = new SqlConnection(conStr);
             try
             {
-      
-                SqlDataAdapter da = new SqlDataAdapter(sql, con);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
-                MyRepeater.DataSource = ds;
-                MyRepeater.DataBind();
-                if (ds.Tables[0].Rows.Count == 0)
+
+
+                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql))
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('No record found');", true);
+
+                    if (ds != null && ds.Tables == null && ds.Tables.Count > 0)
+                    {   
+                        MyRepeater.DataSource = ds;
+                        MyRepeater.DataBind();
+                        
+                    }
+                    else
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('No record found');", true);
+                    }
                 }
             }
             catch (Exception err)
@@ -115,11 +116,6 @@ namespace BikeWaleOpr.Content
                 Trace.Warn(err.Message + err.Source);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
             }
 
         }

@@ -207,11 +207,9 @@ namespace BikeWaleOpr.Content
         /// <param name="launchBikeModelIds"></param>
         protected void UpdateBikeIsLaunched(string launchBikeIds, string launchBikeModelIds)
         {
-            Database db = null;
-
             try
             {
-                using (SqlCommand cmd = new SqlCommand("updatebikeislaunched"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatebikeislaunched"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sellaunchbikeids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, launchBikeIds));

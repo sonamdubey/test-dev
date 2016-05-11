@@ -12,6 +12,7 @@ using Ajax;
 using BikeWaleOpr.Common;
 using System.Text.RegularExpressions;
 using System.Configuration;
+using BikeWaleOPR.DAL.CoreDAL;
 
 namespace BikeWaleOpr
 {
@@ -27,15 +28,19 @@ namespace BikeWaleOpr
             if (stateId == "")
                 return ds;
 
-            Database db = new Database();
             string sql = "";
-
-            sql = " SELECT ID AS Value, Name AS Text FROM Cities WHERE "
-                + " StateId =" + stateId + " AND IsDeleted = 0 ORDER BY Text ";
+            uint _stateId = default(uint);
+            if (!string.IsNullOrEmpty(stateId) && uint.TryParse(stateId, out _stateId))
+            {
+                sql = " select id as Value, name as Text from cities where  stateid =" + _stateId + " and isdeleted = 0 order by text ";
+            }             
 
             try
             {
-                ds = db.SelectAdaptQry(sql);
+                if (_stateId > 0)
+                {
+                    ds = MySqlDatabase.SelectAdapterQuery(sql); 
+                }
             }
             catch (Exception err)
             {
@@ -56,15 +61,21 @@ namespace BikeWaleOpr
 
             if (makeId == "")
                 return ds;
-
-            Database db = new Database();
             string sql = "";
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeModels WHERE IsDeleted = 0 AND "
-                + " BikeMakeId =" + makeId + " ORDER BY Text ";
+            uint _makeId = default(uint);
+            if(!string.IsNullOrEmpty(makeId) && uint.TryParse(makeId,out _makeId))
+            {
+                sql = " select id AS Value, name AS Text from bikemodels where isdeleted = 0 and bikemakeid =" + _makeId + " order by text ";
+            }
+
+            
             try
             {
-                ds = db.SelectAdaptQry(sql);
+                if (_makeId > 0)
+                {
+                    ds = MySqlDatabase.SelectAdapterQuery(sql); 
+                }
             }
             catch (Exception err)
             {
@@ -84,16 +95,21 @@ namespace BikeWaleOpr
 
             if (modelId == "")
                 return ds;
-
-            Database db = new Database();
             string sql = "";
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeVersions WHERE IsDeleted = 0 AND "
-                + " BikeModelId =" + modelId + " ORDER BY Text ";
+            uint _modelid = default(uint);
+            if (!string.IsNullOrEmpty(modelId) && uint.TryParse(modelId, out _modelid))
+            {
+                sql = " select id as Value, name as Text from bikeversions where isdeleted = 0 and  bikemodelid =" + modelId + " order by text ";
+            }
+            
             try
             {
-                ds = db.SelectAdaptQry(sql);
-                HttpContext.Current.Trace.Warn("dscount" + ds.Tables[0].Rows.Count.ToString());
+                if (_modelid > 0)
+                {
+                    ds = MySqlDatabase.SelectAdapterQuery(sql); 
+                }
+                
             }
             catch (Exception err)
             {
