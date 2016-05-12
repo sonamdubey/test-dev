@@ -333,7 +333,7 @@ namespace Bikewale.DAL.Compare
                         command.CommandText = "GetSimilarCompareBikesList";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Connection = connection;
-                        command.Parameters.Add("@BikeVersionIdList", System.Data.SqlDbType.VarChar).Value = versionList;
+                        command.Parameters.Add("@BikeVersionIdList", System.Data.SqlDbType.VarChar, 20).Value = versionList;
                         command.Parameters.Add("@TopCount", System.Data.SqlDbType.SmallInt).Value = topCount;
 
                         connection.Open();

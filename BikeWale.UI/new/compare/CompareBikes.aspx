@@ -263,6 +263,12 @@
         height: 33.33%;
         display: block !important;
     }
+
+    #smc {
+    background-color: #efeeee!important;
+    margin-top: 15px;
+    padding: 10px;
+}
 </style>
 
 <div class="container_12">
@@ -1088,8 +1094,9 @@
                     </td>
                 </tr>
             </table>
-            <div>
+            <div id="smc">
                 <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
+            <div class="clear"></div>
             </div>
         </div>
     </div>

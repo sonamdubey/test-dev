@@ -1,5 +1,4 @@
-﻿using Bikewale.BindViewModels.Controls;
-using Bikewale.Cache.BikeData;
+﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
@@ -34,7 +33,7 @@ namespace Bikewale.New
         protected AddBikeToCompare addBike;
         DataSet ds = null;
         protected string versions = string.Empty, featuredBikeId = string.Empty, spotlightUrl = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, reWriteURL = string.Empty, targetedModels = string.Empty,
-            estimatePrice = string.Empty, estimateLaunchDate = string.Empty;
+            estimatePrice = string.Empty, estimateLaunchDate = string.Empty, similarVersion = string.Empty;
         protected int count = 0, totalComp = 5;
         public int featuredBikeIndex = 0;
         protected bool isFeatured = false;
@@ -72,6 +71,7 @@ namespace Bikewale.New
                 }
                 ltrTitle.Text = title;
                 pageTitle = title;
+                BindSimilarCompareBikes(versions);
             }
         }
 
@@ -401,10 +401,10 @@ namespace Bikewale.New
 
         }
 
-        private void BindSimilarCompareBikes()
+        private void BindSimilarCompareBikes(string verList)
         {
-            ctrlSimilarBikes.TopCount = 8;
-            ctrlSimilarBikes.versionsList = "59,99";
+            ctrlSimilarBikes.TopCount = 4;
+            ctrlSimilarBikes.versionsList = verList;
         }
         ///// <summary>
         ///// Created By : Ashish G. Kamble on 13 Mar 2014

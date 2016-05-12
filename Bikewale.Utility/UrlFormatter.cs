@@ -22,7 +22,7 @@ namespace Bikewale.Utility
 
         public static string CreateCompareUrl(string makeMasking1, string modelMasking1, string makeMasking2, string modelMasking2, string versionId1, string versionId2)
         {
-            return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}/", makeMasking1, modelMasking1, makeMasking2, modelMasking2, versionId1, versionId2);
+            return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}", makeMasking1, modelMasking1, makeMasking2, modelMasking2, versionId1, versionId2);
         }
 
         public static string CreateCompareTitle(string make1, string model1, string make2, string model2)

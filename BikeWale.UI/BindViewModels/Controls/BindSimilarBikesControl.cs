@@ -39,7 +39,6 @@ namespace Bikewale.BindViewModels.Controls
                         objCompare = objPQCont.Resolve<IBikeCompare>();
                         objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count);
                     }
-
                     if (objSimilarBikes.Count() > 0)
                     {
                         rptSimlarCompareBikes.DataSource = objSimilarBikes;
