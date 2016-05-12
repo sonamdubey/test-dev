@@ -98,14 +98,14 @@ namespace Bikewale.Notifications.MailTemplates
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Notification.NewBikePriceQuoteMailToDealerTemplate.ComposeBody");
                 objErr.SendMail();
             }
-            MailHTML = Convert.ToString(mail);
+            MailHTML = mail.ToString();
         }
 
         /// <summary>
         /// Modified BY : Lucky Rathore on 12 May 2016
         /// Description : return mailHTML string of mail template HTML.
         /// </summary>
-        /// <returns>string of HTNL of Mail template</returns>
+        /// <returns>string of HTML of Mail template</returns>
         public override string ComposeBody()
         {
             return MailHTML;
