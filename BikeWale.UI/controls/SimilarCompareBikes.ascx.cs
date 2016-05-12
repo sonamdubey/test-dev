@@ -12,8 +12,8 @@ namespace Bikewale.Controls
     {
         public Repeater rptSimilarBikes;
         public string versionsList { get; set; }
-        private int _topCount = 4;
-        public int TopCount
+        private uint _topCount = 0;
+        public uint TopCount
         {
             get { return _topCount; }
             set { _topCount = value; }
@@ -31,11 +31,14 @@ namespace Bikewale.Controls
         {
             BindSimilarCompareBikes();
         }
-
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 12 May 2016
+        /// Desc       : To bind similar bikes
+        /// </summary>
         private void BindSimilarCompareBikes()
         {
             BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
-            objAlt.BindAlternativeBikes(rptSimilarBikes);
+            objAlt.BindAlternativeBikes(rptSimilarBikes, versionsList, TopCount);
         }
 
         public override void Dispose()
