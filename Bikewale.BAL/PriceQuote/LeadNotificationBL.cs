@@ -13,6 +13,8 @@ namespace Bikewale.BAL.PriceQuote
     /// <summary>
     /// Created by  :   Sumit Kate on 02 May 2016
     /// Description :   Lead Notification BL
+    /// Modified BY : Lucky Rathore on 12 May 2016
+    /// Description : Signature of Notify Dealer and SendEmailToDealer changed.
     /// </summary>
     public class LeadNotificationBL : ILeadNofitication
     {
@@ -67,6 +69,8 @@ namespace Bikewale.BAL.PriceQuote
 
         /// <summary>
         /// Sends SMS and Email to Dealer
+        /// Modified BY : Lucky Rathore on 12 May 2016
+        /// Description : Signature of Notify Dealer and SendEmailToDealer.
         /// </summary>
         /// <param name="pqId"></param>
         /// <param name="makeName"></param>
@@ -86,11 +90,12 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="dealerMobile"></param>
         /// <param name="bikeName"></param>
         /// <param name="insuranceAmount"></param>
-        public void NotifyDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, string dealerMobile, string bikeName, uint insuranceAmount = 0)
+
+        public void NotifyDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, string dealerMobile, string bikeName)
         {
             try
             {
-                SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath, insuranceAmount);
+                SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath);
                 SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName);
             }
             catch (Exception ex)

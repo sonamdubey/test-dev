@@ -9,10 +9,12 @@ namespace Bikewale.BikeBooking
 {
     /// <summary>
     /// Created By : Sadhana Upadhyay
+    /// Modified by :   Lucky Rathore on 12 May 2016
+    /// Description :   Update SendEmailToDealer() and NewBikePriceQuoteMailToDealerTemplate() Sinature.
     /// </summary>
     public class SendEmailSMSToDealerCustomer
     {
-        public static void SendEmailToDealer(string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, uint insuranceAmount = 0)
+        public static void SendEmailToDealer(string makeModelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath)
         {
             if (!String.IsNullOrEmpty(dealerEmail))
             {
@@ -20,8 +22,10 @@ namespace Bikewale.BikeBooking
 
                 foreach (string email in arrDealerEmail)
                 {
-                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate(makeName, modelName, dealerName, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, DateTime.Now, imagePath, insuranceAmount);
-                    objEmail.Send(email, "BikeWale Purchase Inquiry - " + makeName + " " + modelName + " " + versionName, customerEmail);
+                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate(makeModelName, versionName, dealerName, customerName, 
+                        customerEmail, customerMobile, areaName, cityName,
+                        priceList, totalPrice, offerList, imagePath);
+                    objEmail.Send(string.Format("{0} BikeWale Purchase Inquiry - {1} {2}", email, makeModelName, versionName), customerEmail);
                 }
             }
         }
