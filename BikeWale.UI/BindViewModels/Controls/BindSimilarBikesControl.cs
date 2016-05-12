@@ -18,28 +18,20 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindSimilarCompareBikesControl
     {
-        public int VersionId { get; set; }
-        public int TopCount { get; set; }
-        public int? Deviation { get; set; }
-        public int FetchedRecordsCount { get; set; }
-
-        public void BindAlternativeBikes(Repeater rptSimlarCompareBikes, string versionList, uint count)
+        public uint FetchedRecordsCount { get; set; }
+        public uint BindAlternativeBikes(Repeater rptSimlarCompareBikes, string versionList, uint count)
         {
-            FetchedRecordsCount = 0;
-
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
                     IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = new List<SimilarCompareBikeEntity>();
-                    IBikeCompare objCompare = null;
-                    using (IUnityContainer objPQCont = new UnityContainer())
-                    {
-                        objPQCont.RegisterType<IBikeCompare, BikeCompareRepository>();
-                        objCompare = objPQCont.Resolve<IBikeCompare>();
-                        objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count);
-                    }
-                    if (objSimilarBikes.Count() > 0)
+                    container.RegisterType<IBikeCompare, BikeCompareRepository>();
+                    IBikeCompare objCompare = container.Resolve<IBikeCompare>();
+                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count);
+                    FetchedRecordsCount = (uint)objSimilarBikes.Count();
+
+                    if (FetchedRecordsCount > 0)
                     {
                         rptSimlarCompareBikes.DataSource = objSimilarBikes;
                         rptSimlarCompareBikes.DataBind();
@@ -52,6 +44,7 @@ namespace Bikewale.BindViewModels.Controls
                 objErr.SendMail();
             }
 
+            return FetchedRecordsCount;
         }
     }
 }

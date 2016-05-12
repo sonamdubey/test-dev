@@ -264,7 +264,7 @@
         display: block !important;
     }
 
-    #smc {
+    #similarbikes {
     background-color: #efeeee!important;
     margin-top: 15px;
     padding: 10px;
@@ -1094,7 +1094,7 @@
                     </td>
                 </tr>
             </table>
-            <div id="smc">
+            <div id="similarbikes" class="margin-bottom30 <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">
                 <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
             <div class="clear"></div>
             </div>

@@ -13,13 +13,12 @@ namespace Bikewale.Controls
         public Repeater rptSimilarBikes;
         public string versionsList { get; set; }
         private uint _topCount = 0;
+        public uint fetchedCount { get; set; }
         public uint TopCount
         {
             get { return _topCount; }
             set { _topCount = value; }
         }
-
-        public int? Deviation { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -38,7 +37,7 @@ namespace Bikewale.Controls
         private void BindSimilarCompareBikes()
         {
             BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
-            objAlt.BindAlternativeBikes(rptSimilarBikes, versionsList, TopCount);
+            fetchedCount = objAlt.BindAlternativeBikes(rptSimilarBikes, versionsList, TopCount);
         }
 
         public override void Dispose()
