@@ -92,7 +92,6 @@ namespace Bikewale.Mobile.New
         protected string pqId = string.Empty;
         protected string mpqQueryString = String.Empty, modelImage = string.Empty;
         protected UsersTestimonials ctrlUsersTestimonials;
-        protected bool isDealerAssitance = false;
         protected uint campaignId, manufacturerId;
 
         #region Subscription model variables

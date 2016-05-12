@@ -2,6 +2,8 @@
 
 <%@ Register TagPrefix="AddBike" TagName="AddBike" Src="~/controls/AddBikeToCompare.ascx" %>
 <%@ Import Namespace="Bikewale.Utility.StringExtention" %>
+<%@ Register Src="~/controls/SimilarCompareBikes.ascx" TagPrefix="BW" TagName="SimilarBikes" %>
+
 <%
     title = "Compare " + pageTitle + "- BikeWale";
     description = "BikeWale&reg; - Compare " + keyword + ". Compare Price, Mileage, Engine Power, Specifications, features and colors of bikes on BikeWale.";
@@ -1086,6 +1088,9 @@
                     </td>
                 </tr>
             </table>
+            <div>
+                <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
+            </div>
         </div>
     </div>
     <!--    Left Container ends here -->
