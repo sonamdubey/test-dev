@@ -1,4 +1,5 @@
 ﻿using Bikewale.CoreDAL;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
@@ -7,8 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.DAL.Compare
@@ -22,7 +21,7 @@ namespace Bikewale.DAL.Compare
             ICollection<BikeSpecification> specs = null;
             ICollection<BikeFeature> features = null;
             List<BikeColor> color = null;
-            ICollection<BikeModelColor> hexCodes = null;            
+            ICollection<Bikewale.Entities.Compare.BikeModelColor> hexCodes = null;
             Database db = null;
             SqlCommand command = null;
             SqlConnection connection = null;
@@ -63,7 +62,7 @@ namespace Bikewale.DAL.Compare
                                         VersionId = GetUint32(reader["BikeVersionId"]),
                                         VersionRating = GetUInt16(reader["VersionRating"])
                                     });
-                                } 
+                                }
                                 #endregion
                                 #region Bike Specification
                                 if (reader.NextResult())
@@ -188,16 +187,16 @@ namespace Bikewale.DAL.Compare
                                 #region Color Hex Codes
                                 if (reader.NextResult())
                                 {
-                                    hexCodes = new List<BikeModelColor>();
+                                    hexCodes = new List<Bikewale.Entities.Compare.BikeModelColor>();
                                     while (reader.Read())
                                     {
-                                        hexCodes.Add(new BikeModelColor()
+                                        hexCodes.Add(new Bikewale.Entities.Compare.BikeModelColor()
                                         {
                                             ModelColorId = GetInt32(reader["ModelColorId"]),
                                             HexCode = GetString(reader["HexCode"])
                                         });
                                     }
-                                } 
+                                }
                                 #endregion
                                 compare = new BikeCompareEntity();
                                 compare.BasicInfo = basicInfos;
@@ -208,10 +207,10 @@ namespace Bikewale.DAL.Compare
                         }
 
                         compare.Color.ForEach(
-                            _color => _color.HexCodes = 
+                            _color => _color.HexCodes =
                                 (from hexCode in hexCodes
-                                where hexCode.ModelColorId == _color.ColorId                                
-                                select hexCode.HexCode)
+                                 where hexCode.ModelColorId == _color.ColorId
+                                 select hexCode.HexCode)
                             );
                     }
                 }
@@ -313,6 +312,72 @@ namespace Bikewale.DAL.Compare
             return topBikeList;
         }
 
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 11 May 2016
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, uint topCount)
+        {
+            Database db = null;
+            SqlCommand command = null;
+            List<SimilarCompareBikeEntity> similarBikeList = null;
+            try
+            {
+                db = new Database();
+                using (SqlConnection connection = new SqlConnection(db.GetConString()))
+                {
+                    using (command = new SqlCommand())
+                    {
+                        command.CommandText = "GetSimilarCompareBikesList";
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Connection = connection;
+                        command.Parameters.Add("@BikeVersionIdList", System.Data.SqlDbType.VarChar).Value = versionList;
+                        command.Parameters.Add("@TopCount", System.Data.SqlDbType.SmallInt).Value = topCount;
+
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader(System.Data.CommandBehavior.CloseConnection))
+                        {
+                            if (reader != null && reader.HasRows)
+                            {
+                                similarBikeList = new List<SimilarCompareBikeEntity>();
+                                while (reader.Read())
+                                {
+                                    similarBikeList.Add(new SimilarCompareBikeEntity()
+                                    {
+                                        Make1 = GetString(reader["Make1"]),
+                                        MakeMasking1 = GetString(reader["MakeMaskingName1"]),
+                                        Make2 = GetString(reader["Make2"]),
+                                        MakeMasking2 = GetString(reader["MakeMaskingName2"]),
+                                        Model1 = GetString(reader["Model1"]),
+                                        ModelMasking1 = GetString(reader["ModelMaskingName1"]),
+                                        Model2 = GetString(reader["Model2"]),
+                                        ModelMasking2 = GetString(reader["ModelMaskingName2"]),
+                                        VersionId1 = GetString(reader["VersionId1"]),
+                                        VersionId2 = GetString(reader["VersionId2"]),
+                                    });
+                                }
+
+                                reader.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqEx)
+            {
+                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return similarBikeList;
+        }
         private uint GetUint32(object o)
         {
             return (DBNull.Value == o) ? 0 : Convert.ToUInt32(o);
