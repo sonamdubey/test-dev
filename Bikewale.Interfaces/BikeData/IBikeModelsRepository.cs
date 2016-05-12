@@ -7,6 +7,8 @@ namespace Bikewale.Interfaces.BikeData
     /// <summary>
     /// Created By : Ashish G. Kamble on 24 Sept 2014
     /// Summary : Interface for DAL to get bikedata 
+    /// Modified By Vivek Gupta on 9-5-2016
+    /// Added defimition of BikeModelContent GetRecentModelArticles(U modelId);
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -43,5 +45,6 @@ namespace Bikewale.Interfaces.BikeData
         List<FeaturedBikeEntity> GetFeaturedBikes(uint topRecords);
         IEnumerable<BikeMakeModelEntity> GetAllModels(EnumBikeType requestType);
         List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew);
+        BikeModelContent GetRecentModelArticles(U modelId);
     }
 }

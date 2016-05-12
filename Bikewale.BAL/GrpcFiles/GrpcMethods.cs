@@ -22,7 +22,7 @@ namespace Grpc.CMS
             return DateTime.Now.AddMilliseconds(incrementMillisecond).ToUniversalTime();
         }
 
-        internal static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx)
+        public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx)
         {
 
             GrpcCMSContent _objArticleList = null;
@@ -70,14 +70,14 @@ namespace Grpc.CMS
 
         }
 
-        internal static GrpcArticleSummaryList MostRecentList(string contenTypes, int totalRecords, int? makeId=0, int? modelId=0)
+        public static GrpcArticleSummaryList MostRecentList(string contenTypes, int totalRecords, int? makeId = 0, int? modelId = 0)
         {
 
             GrpcArticleSummaryList _objArticleSummaryList = null;
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
             while (true)
-            {               
+            {
                 if (ch != null)
                 {
                     Debug.WriteLine("Got channel for " + ch.ResolvedTarget);
@@ -97,13 +97,13 @@ namespace Grpc.CMS
                                 }
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
-                            
+
                         break;
                     }
                     catch (Exception e)
                     {
                         RpcException rpcEx = e as RpcException;
-                   
+
 
                         if (rpcEx != null &&
                             (rpcEx.Status.StatusCode == StatusCode.DeadlineExceeded || rpcEx.Status.StatusCode == StatusCode.Unavailable))

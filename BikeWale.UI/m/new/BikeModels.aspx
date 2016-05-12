@@ -19,6 +19,9 @@
         Ad_300x250 = true;
         TargetedModel = bikeModelName;
         TargetedCity = cityName;
+        keywords = string.Format("{0}, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
+        EnableOG = true;
+        OGImage = modelImage;
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <script type="text/javascript">
@@ -869,7 +872,7 @@
                                                 </p>
                                                 <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
                                                     <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>,
-                                                     <% if (cityId != 0)
+                                                     <% if (cityId != 0 && cityName != string.Empty)
                                                         { %>
                                                     <%= cityName %>
                                                     <% }
@@ -1116,7 +1119,6 @@
             <div class="fixed-close-btn-wrapper">
                 <div class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
             </div>
-            <h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
                 <img src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
             </div>

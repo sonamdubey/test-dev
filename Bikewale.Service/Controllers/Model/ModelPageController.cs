@@ -313,13 +313,17 @@ namespace Bikewale.Service.Controllers.Model
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
-
+                            string deviceId = Request.Headers.Contains("platformId") ? Request.Headers.GetValues("platformId").First().ToString() : String.Empty;
                             #region On road pricing for versions
-                            PQOnRoadPrice pqOnRoad = new PQOnRoadPrice();
-                            PQByCityArea getPQ = new PQByCityArea();
-                            PQByCityAreaEntity pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId);
+                            PQOnRoadPrice pqOnRoad; PQByCityArea getPQ;
+                            PQByCityAreaEntity pqEntity = null;
+                            if (!objModelPage.ModelDetails.Futuristic && objModelPage.ModelDetails.New)
+                            {
+                                pqOnRoad = new PQOnRoadPrice();
+                                getPQ = new PQByCityArea();
+                                pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android),null,null,deviceId);
+                            }
                             objDTOModelPage = ModelMapper.ConvertV3(objModelPage, pqEntity);
-
                             #endregion
                         }
                     }

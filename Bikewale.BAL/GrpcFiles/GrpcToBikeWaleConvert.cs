@@ -2,13 +2,12 @@
 using Grpc.CMS;
 using System;
 using System.Collections.Generic;
-using Grpc.Core;
 
-namespace Bikewale.News.GrpcFiles
+namespace Bikewale.BAL.GrpcFiles
 {
     public class GrpcToBikeWaleConvert
     {
-        internal static CMSContent ConvertFromGrpcToBikeWale(GrpcCMSContent data)
+        public static CMSContent ConvertFromGrpcToBikeWale(GrpcCMSContent data)
         {
             CMSContent dataNew = new CMSContent();
             dataNew.RecordCount = data.RecordCount;
@@ -39,7 +38,7 @@ namespace Bikewale.News.GrpcFiles
         }
 
 
-        internal static IList<ArticleSummary> ConvertFromGrpcToBikeWale(GrpcArticleSummaryList data)
+        public static IList<ArticleSummary> ConvertFromGrpcToBikeWale(GrpcArticleSummaryList data)
         {
             List<ArticleSummary> retData = new List<ArticleSummary>();
             ArticleSummary curArticleSummary;

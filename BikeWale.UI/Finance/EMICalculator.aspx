@@ -2,7 +2,7 @@
 
 <%
     title = "EMI Calculator | Calculate Bike Loan EMI - BikeWale";
-    keywords = "calculate emi, emi calculator, calculate loan, loan calculator, indian emi calculator, used Bike emi, new Bike emi, BMW, Chevrolet, Daewoo, Fiat, Ford, Hindustan Motors, Honda, Hyundai, Mahindra, Maruti, Mercedes-Benz, Mitsubishi, Opel, Premier, Skoda, Tata, Toyota";
+    keywords = "calculate emi, emi calculator, calculate loan, loan calculator, indian emi calculator, used bike emi, new bike emi, new bike emi calculator, used bike emi calculator";
     description = "EMI Calculator for new and used Bike loans. Calculate accurate Bike loan emi in advanced and arrears finance modes.";
     AdId = "1395991249804";
     AdPath = "/1017752/BikeWale_EMICalculator_";
@@ -71,7 +71,7 @@
     <div class="grid_8 margin-top10">
         <div id="ncd_bikes_testdrive">
             <h1>EMI Calculator - Calculate Your Bike Loan EMI</h1>
-            <p class="margin-top10">Enter the amount of loan you want to get financed and interest rate. EMI Calculator calculates installment on reducing balance. EMI Calculator does not include any other processing fee or possible charges which may be applicable as per the rules of financing institutions.</p>
+            <p class="margin-top10">Bike loan EMI calculation was never this easy. Just enter the amount of loan you want to get financed and interest rate. EMI Calculator calculates installment on reducing balance. EMI Calculator does not include any other processing fee or possible charges which may be applicable as per the rules of financing institutions.</p>
             <div class="grid_4 alpha margin-top15">
                 <table border="0" cellpadding="0" cellspacing="0" class="tbl-default" width="100%">
                     <tr>
@@ -153,7 +153,8 @@
                 </div>
             </div>
             <div class="clear"></div>
-            <p class="margin-top10">The calculation performed by EMI Calculator is based on the information you entered and is for illustrative purposes only.</p>
+            <p class="margin-top10">Disclaimer: The calculation performed by EMI Calculator is based on the information you entered and is for illustrative purposes only. This calculation reflects amounts in Indian Rupee rounded to the nearest whole figure. Estimated monthly payments DO NOT include any processing or other possible fees which may depend on the financial institution / banks.
+All loan figures are based upon non-commercial usage and are subject to credit approval from an independent lending source. Actual down payment and resulting monthly payments may vary depending upon type and use of vehicle, regional lender requirements, and the strength of your credit. Check with your dealer for exact monthly payment.</p>
         </div>
     </div>
     <div class="grid_4">

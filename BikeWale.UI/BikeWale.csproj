@@ -1053,11 +1053,6 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="News\GrpcFiles\Article.cs" />
-    <Compile Include="News\GrpcFiles\ArticleGrpc.cs" />
-    <Compile Include="News\GrpcFiles\CustomGRPCLoadBalancer.cs" />
-    <Compile Include="News\GrpcFiles\GrpcMethods.cs" />
-    <Compile Include="News\GrpcFiles\GrpcToBikeWaleConvert.cs" />
     <Compile Include="News\news.aspx.cs">
       <DependentUpon>news.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2474,6 +2469,8 @@
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\Videos\videoByCategory.js" />
+    <Content Include="staticHtml\premium.html" />
+    <Content Include="staticHtml\standard.html" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test.aspx" />
     <!--     <Content Include="test\css\bw-new-style.css" />

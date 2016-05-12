@@ -118,3 +118,4 @@ a.text-darker-black:hover { text-decoration:none; }
 .btn-grey-state {background:#fff;color:#82888b;border:1px solid #82888b;}
 .button-clicked-state {background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b;}
 #calldealer:hover { text-decoration:none; }
+.get-offer-link {color: #034fb6!important;}

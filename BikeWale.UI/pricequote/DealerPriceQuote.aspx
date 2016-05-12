@@ -147,7 +147,8 @@
                                         </tr>
 
                                         <tr>
-                                            <td colspan="2" class="text-right padding-top5"><a class="font14 text-link " leadSourceId="8" id="leadLink" name="leadLink" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a></td>
+                                            <td colspan="2" class="text-right padding-top5">
+                                                <a class="font14 text-link bw-ga" leadSourceId="8" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a></td>
                                         </tr>
                                         <tr class="hide">
                                             <td colspan="3">
@@ -547,9 +548,21 @@
                         <div class="clear"></div>
                         <%} %>
                         <div class="clear"></div>
-                        <p id="disclaimerText" class="<%= primarydealer.DealerDetails != null ? "" : "hide" %> padding-left20 font11 text-light-grey padding-top20 padding-bottom20"><span class="bwsprite disclaimer-sm-icon"></span>On-road price <%= (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)?"": "and EMI calculator" %> is provided for information. BikeWale does not own any responsibility for the same.</p>
+                        <p id="disclaimerText" class="<%= primarydealer.DealerDetails != null ? "" : "hide" %> padding-left20 font11 text-light-grey padding-top20 padding-bottom20">
+                            <span id="read-less">
+                                <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+                                          { %>
+                                The bike prices and EMI quote mentioned here are indicative and are provided by their authorized dealerships.
+                                <% }
+                                   else{ %>
+                                The bike prices mentioned here are indicative and are provided by their authorized dealerships.
+                                <% } %>
+                                  <a id="readmore" class="text-link">read more</a>
+                            </span>
+                            <span id="read-more">
+                            </span>
+                        </p>
                     </div>
-
                     <!--Primary Dealer Section-->
                     <div class="grid-4 alpha padding-top20 <%= primarydealer.DealerDetails != null ? "dealer-pointer" : "" %> " id="PQDealerSidebarContainer">
                         <div class="pqdealer-and-listing-container">
@@ -805,11 +818,11 @@
             });
 
             $("#leadBtnBookNow").on("click", function () {
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Button", "lab": bikeName + "_" + getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Button", "lab": GetBikeVerLoc() });
             });
 
             $("#leadLink").on("click", function () {
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Link", "lab": bikeName + "_" + getCityArea });
+                getMoreDetailsClick = true;
             });
 
             $("input[name*='btnVariant']").on("click", function () {
@@ -817,7 +830,7 @@
                     return false;
                 }
                 $('#hdnVariant').val($(this).attr('title'));
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeName + "_" + versionName + "_" + getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": GetBikeVerLoc() });
             });
 
             $("input[name*='switchDealer']").on("click", function () {
@@ -825,7 +838,7 @@
                     return false;
                 }
                 $('#hdnDealerId').val($(this).attr('title'));
-                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeName + "_" + versionName + "_" + getCityArea });
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": GetBikeVerLoc() });
             });
             $("#dealerList li").on("click", function(){
                 registerPQ($(this).attr('dealerId'));
@@ -868,6 +881,10 @@
                 });
             }
 
+            function GetBikeVerLoc() {
+                return bikeName + "_" + versionName + "_" + getCityArea;
+            }
+
             function formatPrice(price) {
                 price = price.toString();
                 var lastThree = price.substring(price.length - 3);
@@ -881,6 +898,10 @@
                 if ($('.pricequote-benefits-list li').length % 2 == 0) {
                     $('.pricequote-benefits-list').addClass("pricequote-two-benefits");
                 }
+            });
+            $("#readmore").on("click", function () {
+                var dealerType = '<%=dealerType %>';
+                loadDisclaimer(dealerType);
             });
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>

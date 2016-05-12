@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" EnableViewState="false" Trace="false" %>
-
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
@@ -21,9 +20,10 @@
 		alternate = "http://www.bikewale.com/m/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
 		isAd970x90Shown = true;
 		TargetedCity = cityName;
-    %>
-
-    <% isAd970x90BTFShown = true; %>
+        keywords = string.Format("{0}, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
+        enableOG = true;
+        ogImage = modelImage; 
+        isAd970x90BTFShown = true; %>
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
     <script type="text/javascript">
@@ -539,7 +539,6 @@
                 <div class="fixed-close-btn-wrapper">
                     <div class="termsPopUpCloseBtn fixed-close-btn bwsprite cross-lg-lgt-grey cur-pointer"></div>
                 </div>
-                <h3>Terms and Conditions</h3>
                 <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
                     <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
                     <img class="lazy" data-original="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
@@ -1153,7 +1152,7 @@
                                             </p>
                                             <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
                                                 <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>, 
-												<% if (cityId != 0)
+												<% if (cityId != 0 && cityName != string.Empty)
 												   { %>
                                                 <%= cityName %>
                                                 <% }

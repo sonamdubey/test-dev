@@ -42,7 +42,7 @@ namespace Bikewale.Mobile.BikeBooking
         protected AlternativeBikes ctrlAlternateBikes;
         protected string cityArea = string.Empty;
         protected uint bookingAmount = 0;
-        protected String clientIP = string.Empty;
+        protected String clientIP = CommonOpn.GetClientIP();
         protected bool IsDiscount = false;
         protected UInt32 totalDiscount = 0;
         protected DetailedDealerQuotationEntity objPriceQuote = null;
@@ -85,7 +85,6 @@ namespace Bikewale.Mobile.BikeBooking
 
                     GetDealerPriceQuote(cityId, versionId, dealerId);
                     BindAlternativeBikeControl(versionId.ToString());
-                    clientIP = CommonOpn.GetClientIP();
                     mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId), Convert.ToString(dealerId)));
                 }
                 else
@@ -368,20 +367,20 @@ namespace Bikewale.Mobile.BikeBooking
                 {
                     if (objPQOutput.DealerId > 0)
                     {
-                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(objPQOutput.DealerId))), false);
+                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(dealerId))), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
 
                     else if (objPQOutput.DealerId == 0 && objPQOutput.IsDealerAvailable)
                     {
-                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(objPQOutput.DealerId))), false);
+                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(dealerId))), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
                     else if (objPQOutput.DealerId == 0 && !objPQOutput.IsDealerAvailable)
                     {
-                        Response.Redirect("~/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(objPQOutput.DealerId))), false);
+                        Response.Redirect("~/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(dealerId))), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
