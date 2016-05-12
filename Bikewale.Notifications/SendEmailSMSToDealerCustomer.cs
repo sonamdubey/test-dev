@@ -27,9 +27,13 @@ namespace Bikewale.Notifications
             }
         }
 
-        public static void SendEmailToCustomer(string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, uint isInsuranceFree = 0)
+        public static void SendEmailToCustomer(string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo,
+            string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList,
+            string pinCode, string stateName, string cityName, uint totalPrice,
+            string versionName, double dealerLat, double dealerLong, string workingHours)
         {
-            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, "", address, customerName, DateTime.Now, priceList, offerList, pinCode, stateName, cityName, totalPrice, isInsuranceFree);
+            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, versionName, bikeImage, dealerEmail, dealerMobileNo,
+                organization, address, customerName, priceList, offerList, pinCode, stateName, cityName, totalPrice, dealerLat, dealerLong, workingHours);
             objEmail.Send(customerEmail, "Your Dealer Price Certificate - " + bikeName, dealerEmail);
         }
 
@@ -78,7 +82,7 @@ namespace Bikewale.Notifications
             ComposeEmailBase objEmail = new PreBookingConfirmationToCustomer(customerName, priceList, offerList, bookingReferenceNo, totalAmount, preBookingAmount, makeModelName, version, color, img, dealerName, dealerAddress, dealerMobile, dealerEmailId, dealerWorkingTime, dealerLatitude, dealerLongitude);
             objEmail.Send(customerEmail, "Congratulations on pre-booking the " + makeModelName, "");
         }
-         
+
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Dec 2014
@@ -175,9 +179,11 @@ namespace Bikewale.Notifications
             }
         }
 
-        public static void SaveEmailToCustomer(uint pqId, string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, uint isInsuranceFree = 0)
+        public static void SaveEmailToCustomer(uint pqId, string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice,
+            string versionName, double dealerLat, double dealerLong, string workingHours)
         {
-            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, "", address, customerName, DateTime.Now, priceList, offerList, pinCode, stateName, cityName, totalPrice, isInsuranceFree);
+            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, versionName, bikeImage, dealerEmail, dealerMobileNo,
+                organization, address, customerName, priceList, offerList, pinCode, stateName, cityName, totalPrice, dealerLat, dealerLong, workingHours);
 
             // Save the template into database and other parameters
 

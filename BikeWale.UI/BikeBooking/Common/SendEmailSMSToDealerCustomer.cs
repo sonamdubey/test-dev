@@ -26,10 +26,11 @@ namespace Bikewale.BikeBooking
             }
         }
 
-        public static void SendEmailToCustomer(string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, uint isInsuranceFree = 0)
+        public static void SendEmailToCustomer(string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice,
+            string versionName, double dealerLat, double dealerLong, string workingHours)
         {
-            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, "", address, customerName, DateTime.Now, priceList, offerList, pinCode, stateName, cityName, totalPrice, isInsuranceFree);
-            objEmail.Send(customerEmail, "Your Dealer Price Certificate - " + bikeName, dealerEmail);
+            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, versionName, bikeImage, dealerEmail, dealerMobileNo,
+                organization, address, customerName, priceList, offerList, pinCode, stateName, cityName, totalPrice, dealerLat, dealerLong, workingHours);
         }
 
         public static void SMSToDealer(string dealerMobile, string customerName, string customerMobile, string bikeName, string areaName, string cityName)

@@ -4,22 +4,15 @@ using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Mobile.PriceQuote;
-using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
-using iTextSharp.text.pdf;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -30,7 +23,7 @@ namespace Bikewale.Mobile.BikeBooking
         protected PQ_DealerDetailEntity _objPQ = null;
         protected HtmlGenericControl divBookBike, divBikeBooked;
         protected Repeater rptQuote, rptOffers, rptFacility, rptColors, rptDisclaimer, rptPopupColors;
-        protected string ImgPath = string.Empty, BikeName = string.Empty, cityId = string.Empty, contactNo = string.Empty, dealerId = string.Empty, organization = string.Empty, address = string.Empty, versionId = string.Empty, MakeModel = string.Empty;
+        protected string ImgPath = string.Empty, BikeName = string.Empty, cityId = string.Empty, contactNo = string.Empty, dealerId = string.Empty, organization = string.Empty, address = string.Empty, versionId = string.Empty, MakeModel = string.Empty, VersionName = string.Empty;
         protected UInt32 TotalPrice = 0, exShowroomCost = 0;
         protected CalculatedEMI objCEMI = null;
         protected double lattitude = 0, longitude = 0;
@@ -211,13 +204,13 @@ namespace Bikewale.Mobile.BikeBooking
         /// <param name="dealerId"></param>
         /// <param name="versionId"></param>
         private void GetBikeAvailability(string dealerId, string versionId)
-        {            
+        {
             string _apiUrl = "/api/Dealers/GetAvailabilityDays/?dealerId=" + dealerId + "&versionId=" + versionId;
-         
-            using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+
+            using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
             {
                 noOfDays = objClient.GetApiResponseSync<uint>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, noOfDays);
-            }            
+            }
         }
 
         /// <summary>
@@ -229,13 +222,13 @@ namespace Bikewale.Mobile.BikeBooking
             try
             {
                 string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteQueryString.VersionId + "&DealerId=" + PriceQuoteQueryString.DealerId + "&CityId=" + cityId;
-                
+
                 Trace.Warn("_apiUrl: ", _apiUrl);
 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
                     _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
-                }                
+                }
 
                 if (_objPQ != null && _objPQ.objQuotation != null)
                 {
@@ -243,12 +236,13 @@ namespace Bikewale.Mobile.BikeBooking
                     ImgPath = Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath, _objPQ.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
                     BikeName = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName + " " + _objPQ.objQuotation.objVersion.VersionName;
                     MakeModel = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName;
+                    VersionName = _objPQ.objQuotation.objVersion.VersionName;
                     //hide book a bike button from page when booking amount is 0
                     if (_objPQ.objBookingAmt != null && _objPQ.objBookingAmt.Amount > 0)
                     {
                         bookingAmount = _objPQ.objBookingAmt.Amount;
                         divBookBike.Visible = true;
-                        if (objCustomer!=null && objCustomer.IsTransactionCompleted)
+                        if (objCustomer != null && objCustomer.IsTransactionCompleted)
                         {
                             divBikeBooked.Visible = true;
                             divBookBike.Visible = false;
@@ -321,7 +315,7 @@ namespace Bikewale.Mobile.BikeBooking
                         rptFacility.DataBind();
                     }
 
-                    if (_objPQ.objDealer != null  && objCustomer!=null)
+                    if (_objPQ.objDealer != null && objCustomer != null)
                     {
                         contactNo = _objPQ.objDealer.PhoneNo + (!String.IsNullOrEmpty(_objPQ.objDealer.PhoneNo) && !String.IsNullOrEmpty(_objPQ.objDealer.MobileNo) ? ", " : "") + _objPQ.objDealer.MobileNo;
                         organization = _objPQ.objDealer.Organization;
@@ -335,17 +329,20 @@ namespace Bikewale.Mobile.BikeBooking
                         }
 
                         address += ", " + _objPQ.objDealer.objState.StateName;
-                        
+
                         if (!DealerPriceQuoteCookie.IsSMSSend && !DealerPriceQuoteCookie.IsMailSend)
                         {
-                            SendEmailSMSToDealerCustomer.SendEmailToCustomer(BikeName, ImgPath, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Organization, _objPQ.objDealer.Address, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, _objPQ.objQuotation.PriceList, _objPQ.objOffers, _objPQ.objDealer.objArea.PinCode, _objPQ.objDealer.objState.StateName, _objPQ.objDealer.objCity.CityName, TotalPrice, insuranceAmount);
-                            hasBumperDealerOffer = Bikewale.Utility.OfferHelper.HasBumperDealerOffer(_objPQ.objDealer.DealerId.ToString(), "");
+                            SendEmailSMSToDealerCustomer.SendEmailToCustomer(BikeName, ImgPath, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId,
+                                _objPQ.objDealer.MobileNo, _objPQ.objDealer.Organization, _objPQ.objDealer.Address, objCustomer.objCustomerBase.CustomerName,
+                                objCustomer.objCustomerBase.CustomerEmail, _objPQ.objQuotation.PriceList, _objPQ.objOffers, _objPQ.objDealer.objArea.PinCode,
+                                _objPQ.objDealer.objState.StateName, _objPQ.objDealer.objCity.CityName, TotalPrice, VersionName, _objPQ.objDealer.objArea.Latitude, _objPQ.objDealer.objArea.Longitude, _objPQ.objDealer.WorkingTime);
+
 
                             if (bookingAmount > 0)
                             {
-                                SendEmailSMSToDealerCustomer.SMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, BikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address + "" + address, bookingAmount, insuranceAmount, hasBumperDealerOffer); 
+                                SendEmailSMSToDealerCustomer.SMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, BikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address + "" + address, bookingAmount, insuranceAmount, hasBumperDealerOffer);
                             }
-                            
+
                             if (!IsDealerNotified())
                             {
                                 SendEmailSMSToDealerCustomer.SendEmailToDealer(_objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName, _objPQ.objQuotation.objVersion.VersionName, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName, _objPQ.objQuotation.PriceList, Convert.ToInt32(TotalPrice), _objPQ.objOffers, ImgPath, insuranceAmount);
