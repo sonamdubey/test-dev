@@ -185,7 +185,7 @@ namespace Bikewale.Notifications.MailTemplates
                 + "            </div>"
                 + "            <div style=\"margin:15px 20px 15px 0;display:inline-block;float:right\">"
                 + "            <div>"
-                + "            <a href=\" https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=&utm_medium=email&utm_campaign= \" target=\"_blank\" style=\"text-decoration:none; color:#fff; font-weight:bold; font-size:12px; width:70px; background-color:#ef3f30; padding:8px 10px; border-radius:2px; display:block;\">Get the App</a>"
+                + "            <a href=\" https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=BookingMailer&utm_medium=email&utm_campaign=DealerBookingMail \" target=\"_blank\" style=\"text-decoration:none; color:#fff; font-weight:bold; font-size:12px; width:70px; background-color:#ef3f30; padding:8px 10px; border-radius:2px; display:block;\">Get the App</a>"
                 + "                </div>"
                 + "            </div>"
                 + "             <div style=\"clear:both;\"></div>"

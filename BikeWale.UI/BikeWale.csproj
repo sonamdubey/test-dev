@@ -1224,10 +1224,6 @@
       <DependentUpon>PaymentConfirmation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pricequote\PaymentConfirmation_old.aspx.cs">
-      <DependentUpon>PaymentConfirmation_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="pricequote\PaymentFailure.aspx.cs">
       <DependentUpon>PaymentFailure.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2423,7 +2419,6 @@
     <Content Include="pricequote\default.aspx" />
     <Content Include="pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="pricequote\faq.aspx" />
-    <Content Include="pricequote\PaymentConfirmation_old.aspx" />
     <Content Include="pricequote\PaymentFailure.aspx" />
     <Content Include="pricequote\quotation.aspx" />
     <Content Include="pricequote\RSAOfferClaim.aspx" />
