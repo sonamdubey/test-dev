@@ -35,12 +35,8 @@ namespace Bikewale.DAL.UsedBikes
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalCount;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], totalCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
 
-                    if (cityId.HasValue)
-                    {
-                        //cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId.Value;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId.Value));
-                    }
 
                     objUsedBikesList = new List<PopularUsedBikesEntity>();
 
