@@ -317,7 +317,7 @@ namespace Bikewale.Service.Controllers.Model
                             #region On road pricing for versions
                             PQOnRoadPrice pqOnRoad; PQByCityArea getPQ;
                             PQByCityAreaEntity pqEntity = null;
-                            if (!objModelPage.ModelDetails.Futuristic && objModelPage.ModelDetails.New)
+                            if (!objModelPage.ModelDetails.Futuristic)
                             {
                                 pqOnRoad = new PQOnRoadPrice();
                                 getPQ = new PQByCityArea();
