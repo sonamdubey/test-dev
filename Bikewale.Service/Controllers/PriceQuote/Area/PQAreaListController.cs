@@ -1,18 +1,15 @@
-﻿using Bikewale.DAL.BikeBooking;
-using Bikewale.DTO.PriceQuote.Area;
+﻿using Bikewale.DTO.PriceQuote.Area;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote.Area;
-using Microsoft.Practices.Unity;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Linq;
 
 namespace Bikewale.Service.Controllers.PriceQuote.Area
 {
@@ -23,7 +20,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Area
     /// Modified by :   Sumit Kate on 25 Jan 2016
     /// Description :   Added AreaCache repository interface
     /// </summary>
-    public class PQAreaListController : ApiController
+    public class PQAreaListController : CompressionApiController//ApiController
     {
         private readonly IDealerPriceQuote _dealerRepository = null;
         private readonly IAreaCacheRepository _areaCache = null;
@@ -95,7 +92,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Area
                 if (objAreaList != null && objAreaList.Count() > 0)
                 {
                     // Auto map the properties
-                    objDTOAreaList = new  DTO.PriceQuote.Area.v2.PQAreaList();
+                    objDTOAreaList = new DTO.PriceQuote.Area.v2.PQAreaList();
                     objDTOAreaList.Areas = PQAreaListMapper.ConvertV2(objAreaList);
                     objAreaList = null;
 

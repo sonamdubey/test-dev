@@ -79,6 +79,7 @@
         $.ajax({
             type: "GET",
             url: "/api/PQCityList/?modelId=" + modelId,
+            dataType: 'json',
             success: function (response) {
                 var cities = response.cities;
                 var citySelected = null;
