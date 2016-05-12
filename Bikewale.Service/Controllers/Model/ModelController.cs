@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Web.Http;
 using System.Web.Http.Description;
-
+using Bikewale.Service.Utilities;
 namespace Bikewale.Service.Controllers.Model
 {
     /// <summary>
@@ -141,10 +141,9 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     bkContent = new BikeModelContentDTO();
                     bkContent = ModelMapper.Convert(bkModelContent);
-                    
                     bkModelContent = null;
                     bkContent.News = new CMSShareUrl().GetShareUrl(bkContent.News);
-                    bkContent.ExpertReviews = new CMSShareUrl().GetShareUrl(bkContent.ExpertReviews);
+                    bkContent.ExpertReviews = new CMSShareUrl().GetShareUrl(bkContent.ExpertReviews);                   
 
                     bkModelContent = null;
 
