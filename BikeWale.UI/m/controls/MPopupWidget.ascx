@@ -369,7 +369,7 @@
                         'CityId': self.SelectedCityId(),
                         'AreaId': self.SelectedAreaId(),
                         'ModelId': (self.SelectedModelId() != undefined) ? self.SelectedModelId() : selectedModel,
-                        'ClientIP': '',
+                        'ClientIP': '<%= ClientIP %>',
                         'SourceType': '2',
                         'VersionId': 0,
                         'pQLeadId': PQSourceId,

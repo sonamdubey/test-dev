@@ -34,7 +34,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="cityId">City id (optional)</param>
         /// <param name="areaId">Area id (optional)</param>
         /// <returns></returns>
-        public PQOnRoadPrice GetOnRoadPrice(int modelId, int? cityId = null, int? areaId = null, int? versionId = null, ushort? sourceId = null, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null)
+        public PQOnRoadPrice GetOnRoadPrice(int modelId, int? cityId = null, int? areaId = null, int? versionId = null, ushort? sourceId = null, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null, string PQLeadId = null)
         {
             PQOnRoadPrice pqOnRoad = null;
             try
@@ -55,7 +55,6 @@ namespace Bikewale.BAL.PriceQuote
                     objPQEntity.SourceId = Convert.ToUInt16(sourceId);
                     objPQEntity.ModelId = Convert.ToUInt32(modelId);
                     objPQEntity.VersionId = Convert.ToUInt32(versionId);
-                    objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_ModelPage);
                     objPQEntity.UTMA = UTMA;
                     objPQEntity.UTMZ = UTMZ;
                     objPQEntity.DeviceId = DeviceId;
@@ -185,7 +184,7 @@ namespace Bikewale.BAL.PriceQuote
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
-        public PQByCityAreaEntity GetVersionList(int modelID, IEnumerable<BikeVersionMinSpecs> modelVersions, int? cityId, int? areaId)
+        public PQByCityAreaEntity GetVersionList(int modelID, IEnumerable<BikeVersionMinSpecs> modelVersions, int? cityId, int? areaId, ushort? sourceId, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null)
         {
             PQByCityAreaEntity pqEntity = new PQByCityAreaEntity();
             try
@@ -204,7 +203,7 @@ namespace Bikewale.BAL.PriceQuote
                         {
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                         }
-                        pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId);
+                        pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
                         if (pqOnRoad != null)
                         {
                             pqEntity.PqId = pqOnRoad.PriceQuote.PQId;

@@ -1,125 +1,87 @@
 ﻿using Bikewale.Entities.BikeBooking;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Bikewale.Utility;
 
 namespace Bikewale.Notifications.MailTemplates
 {
     /// <summary>
-    /// Created By : Sadhana Upadhyay on 19 Dec 2014
-    /// Summary : To send Email to customer on payment success
-    /// Modified By  : Sushil Kumar on 26th Feb 2016
-    /// Description : Added check for offerslist and made provision not to show offer text if no offers are available
-    /// Modified By : Sushil Kumar on 20th April 2016
-    /// Description : Removed contact us number and text 
-    /// </summary>
+    /// Created By : Lucky Rathore on 11 May 2016.
+    /// Summary : Template Revamped.
+    /// </summary>    
     public class PreBookingConfirmationToCustomer : ComposeEmailBase
     {
-        public string CustomerName { get; set; }
-        public List<OfferEntity> OfferList { get; set; }
-        public string BookingReferenceNo { get; set; }
-        public uint PreBookingAmount { get; set; }
-        public DateTime Date { get; set; }
-        public string MakeName { get; set; }
-        public string ModelName { get; set; }
-        public string DealerName { get; set; }
-        public string DealerAddress { get; set; }
-        public string DealerMobile { get; set; }
-        public uint InsuranceAmount { get; set; }
-        public string BikeName { get; set; }
-        public PreBookingConfirmationToCustomer(string customerName, List<OfferEntity> offerList, string bookingReferenceNo, uint preBookingAmount, string makeName, string modelName, string dealerName, string dealerAddress, string dealerMobile, DateTime date, uint insuranceAmount = 0)
-        {
-            CustomerName = customerName;
-            OfferList = offerList;
-            BookingReferenceNo = bookingReferenceNo;
-            PreBookingAmount = preBookingAmount;
-            MakeName = makeName;
-            ModelName = modelName;
-            DealerName = dealerName;
-            DealerMobile = dealerMobile;
-            DealerAddress = dealerAddress;
-            Date = date;
-            InsuranceAmount = insuranceAmount;
-        }
+        private string MailHTML = string.Empty;
 
-        public PreBookingConfirmationToCustomer(string customerName, List<OfferEntity> offerList, string bookingReferenceNo, uint preBookingAmount, string bikeName ,string makeName, string modelName, string dealerName, string dealerAddress, string dealerMobile, DateTime date, uint insuranceAmount = 0)
+        /// <summary>
+        /// Created By : Lucky Rathore on 11 May 2016.
+        /// Summary : Constructor to update MailHTML with html of mail.
+        /// </summary>  
+        public PreBookingConfirmationToCustomer(string customerName,
+            List<PQ_Price> priceList, List<OfferEntity> offerList,
+            string bookingReferenceNo, uint totalAmount,
+            uint preBookingAmount, string makeModelName, string versionName, string color, string img,
+            string dealerName, string dealerAddress, string dealerMobile, string dealerEmailId, string dealerWorkingTime, double dealerLatitude, double dealerLongitude)
         {
-            CustomerName = customerName;
-            OfferList = offerList;
-            BookingReferenceNo = bookingReferenceNo;
-            PreBookingAmount = preBookingAmount;
-            MakeName = makeName;
-            ModelName = modelName;
-            DealerName = dealerName;
-            DealerMobile = dealerMobile;
-            DealerAddress = dealerAddress;
-            Date = date;
-            InsuranceAmount = insuranceAmount;
-            BikeName = bikeName;
-        }
-
-        public override string ComposeBody()
-        {
-            StringBuilder sb = null;
-
+            StringBuilder mail = new StringBuilder();
             try
             {
-                sb = new StringBuilder();
-
-                sb.Append("<div style=\"max-width:680px; margin:0 auto; border:1px solid #d8d8d8; font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#666666; background:#eeeeee;padding:10px 10px 10px 10px; word-wrap:break-word\">");
-                sb.Append("<div style=\"margin:5px 0 0;\"><div style=\" background:#fff; padding:7px; border-top:7px solid #333333;\"><div style=\"float:left; margin-right:10px;\">");
-                sb.Append("<a target=\"_blank\" href=\"http://www.bikewale.com/\"><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png\" border=\"0\" alt=\"\" title=\"\"></a></div><div style=\" font-size:18px; font-weight:bold; float:left; margin:5px 0 0;\">Pre-Booking Confirmation</div>");
-                sb.Append("<div style=\"float:right; color:#666; margin:5px 0 0;\">" + Date.ToString("MMM dd, yyyy") + "</div><div style=\"clear:both;\"></div></div><div style=\" background:#fff; padding:10px; margin:10px 0 0;\">");
-                sb.Append("<div style=\"padding:10px 0;\"><p style=\" margin:0; font-size:14px; font-weight:bold; color:#333;\">Dear " + CustomerName + ",</p>");
-                sb.Append("<p style=\"margin:10px 0 0;\">Thank you for making a payment of Rs. " + Format.FormatPrice(PreBookingAmount.ToString()) + " to pre-book the " + BikeName + ".</p>");
-                sb.Append("<p style=\"margin:7px 0;\">Your BikeWale Pre-Booking Reference Number is <span style=\" font-size:14px; font-weight:bold;\">" + BookingReferenceNo + "</span>.</p>");                   
-
-                if (InsuranceAmount > 0)
+                mail.AppendFormat("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> <html xmlns=\"http://www.w3.org/1999/xhtml\"> <head> <meta name=\"viewport\" content=\"width=device-width\" /> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /> <title>Emailer</title> </head> <body> <div style=\"max-width:692px; margin:0 auto; border:1px solid #f5f5f5; font-family: Arial, Helvetica, sans-serif; font-size:14px; color:#4d5057; background:#ffffff; word-wrap:break-word;\"> <div style=\"color:#fff; max-width:100%; min-height:195px; background:url('http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/user-booking-banner.jpg') no-repeat; padding:0 20px; \"> <!-- banner starts here --><div style=\"padding-top:20px;\"></div><div style=\"clear:both;\"></div> <div style=\"max-width:100%; min-height:40px; background:#2a2a2a;\"> <div style=\"float:left; max-width:82px; margin-top:5px; margin-left:20px;\"> <a href=\"www.bikewale.com\" target=\"_blank\"><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-white-logo.png\" alt=\"BikeWale\" title=\"BikeWale\" width=\"100%\" border=\"0\" /></a> </div> <div style=\"float:right; margin-right:20px; font-size:14px; line-height:40px;\"> {0} </div> <div style=\"clear:both\"></div> </div> <div style=\"text-align:center\"> <div style=\"width:100%; height:115px; font-size:28px; text-align:center; display:table;\"> <div style=\"display:table-cell; vertical-align: middle;\">Congratulations!</div> </div> </div> </div> <!-- banner ends here --> <div> <!-- main content starts here --> <!-- paid and balance amount details starts here --> <div style=\"margin:0 10px;\"> <div style=\"display:inline-block; vertical-align:top; margin:15px 10px 0; max-width:430px;\"> <div style=\"font-weight:bold; margin-bottom:20px;\">Dear {1},</div> <div style=\"margin-bottom:10px; color:#82888b; line-height:1.5;\"> Congratulations on booking the <span style=\"color:#4d5057;\">{2}</span> on BikeWale. The booking amount of <span style=\"font-weight:bold; color:#4d5057;\"><img border=\"0\" title=\"Rupee\" alt=\"Rupee\" src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-icon.png\">{3}</span> has been received. Your BikeWale Booking Reference Number is <span style=\"font-weight:bold; color:#4d5057;\">{4}</span>. <br />Following are the details: </div> </div> <div style=\"display:inline-block; vertical-align:top; margin:15px 10px 0; color:#82888b; width:180px;\"> <div style=\"padding-bottom:15px; border-bottom:1px solid #f5f5f5;\"> <div style=\"margin-bottom:10px;\">Advance payment</div> <div style=\"font-weight:bold; font-size:16px; color:#4d5057;\"><img border=\"0\" title=\"Rupee\" alt=\"Rupee\" src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-med-icon.jpg\"> {3}</div> </div> <div style=\"padding-top:15px; padding-bottom:15px;\"> <div style=\"margin-bottom:10px;\">Balance payable amount</div> <div style=\"font-weight:bold; font-size:16px; color:#4d5057;\"><img border=\"0\" title=\"Rupee\" alt=\"Rupee\" src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-med-icon.jpg\"> {5}</div> </div> </div> </div> <div style=\"margin:0 20px 15px 20px; padding-top:15px; padding-bottom:15px; border-top:1px solid #f5f5f5; border-bottom:1px solid #f5f5f5;\"> <!-- bike details starts here --> <div style=\"width:184px; min-height:150px; display:inline-block; vertical-align:top; margin:0 12px 10px 0; text-align:left;\"> <div style=\"font-weight:bold;\">{6}</div> <img src=\"{9}\" alt=\"Bajaj Pulsar RS200 ABS\" title=\"Bajaj Pulsar RS200 ABS\" border=\"0\" style=\"margin:20px 0 0 0\"/> </div> <div style=\"display:inline-block; vertical-align:top; max-width:455px; text-align:left;\"> <div style=\"float:left; width:226px; margin-right:5px; padding-bottom:15px;\"><div style=\"color:#82888b; width:55px; float:left;\">Version: </div><div style=\"float:left; width:170px; font-weight:bold; \">Alloy, Double Disc, Self</div><div style=\"clear:both;\"></div></div> <div style=\"float:left; width:220px; padding-bottom:15px; \"><div style=\"color:#82888b; width:50px; float:left;\">Colour: </div><div style=\"float:left; width:163px; font-weight:bold;\">{8}</div><div style=\"clear:both;\"></div></div> <div style=\"clear:both;\"></div>",
+                    DateTime.Now.ToString("dd MMM, yyyy"), customerName, makeModelName, Utility.Format.FormatPrice(Convert.ToString(preBookingAmount)),
+                    bookingReferenceNo, Utility.Format.FormatPrice(Convert.ToString(totalAmount - preBookingAmount)), makeModelName, versionName, color, img); //TODO : imagePath ;) , color , versionName
+                if (priceList != null && priceList.Count > 0)
                 {
-                    sb.Append("<p style=\"margin:7px 0;\">You have just secured the following offers that come with purchase:</p></div>");
-                    sb.Append("<div style=\"background: none repeat scroll 0 0 #fef5e6;border: 2px dotted #f5b048; margin: 0 0 10px; padding: 10px;\"><div style=\"font-size:14px; font-weight:bold;\">Exclusive BikeWale Offer</div>");
-                    sb.AppendFormat("<p style=\" margin:10px 0 5px;\"><span>Free Insurance for 1 year worth Rs. {0} at the dealership</p>", InsuranceAmount);
-                    sb.Append("</div>");
-                }
-                else
-                {
-                    if (OfferList!=null && OfferList.Count > 0)
+                    foreach (var list in priceList)
                     {
-                        sb.Append("<p style=\"margin:7px 0;\">You have just secured the following offers that come with purchase:</p></div>");
-                        sb.Append("<div style=\"background: none repeat scroll 0 0 #fef5e6;border: 2px dotted #f5b048; margin: 0 0 10px; padding: 10px;\"><div style=\"font-size:14px; font-weight:bold;\">Exclusive BikeWale Offer</div>");
-                        foreach (var item in OfferList)
-                        {
-                            sb.Append("<p style=\" margin:10px 0 5px;\"><span>" + item.OfferText + "</p>");
-                        }
-                        sb.Append("</div>");
-                    }                   
+                        mail.AppendFormat("<div style=\" padding-top:15px; padding-bottom:15px; border-top:1px solid #f5f5f5;\"> <div style=\"width:60%; float:left; color:#82888b;\">{0}</div> <div style=\"width:40%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-icon.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span> {1}</div> <div style=\"clear:both;\"></div> </div>"
+                            , list.CategoryName, Utility.Format.FormatPrice(Convert.ToString(list.Price)));
+                    }
                 }
-                sb.Append("<div style=\"padding:10px 0;\"><p style=\" margin:7px 0;\">If you are eligible for free Road Side Assistance (RSA) or free Flipkart voucher/ helmet offer, <a target=\"_blank\" href=\"http://www.bikewale.com/pricequote/rsaofferclaim.aspx\" style=\"text-decoration:none; color:#034fb6;\">click here</a> to claim your offer after bike delivery. </p></div>");
-                sb.Append("<div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/red-border.png) no-repeat center center; height:2px; width:100%;\"></div><div style=\" padding:10px 0;\">");
-                sb.Append("<div style=\"font-size:14px; font-weight:bold; color:#333; margin-bottom:10px;\">Contact Details of the Assigned " + MakeName + " Dealership:</div><table cellpadding=\"0\" cellspacing=\"0\" style=\"color:#666;\">");
-                sb.Append("<tbody><tr><td width=\"140\" style=\"font-weight:bold; color:#333; padding-bottom:5px; font-size:14px;\">Dealership Name:</td><td style=\"padding-bottom:5px; font-size:12px;\">" + DealerName + "</td>");
-                sb.Append("</tr><tr><td style=\"font-weight:bold; color:#333; padding-bottom:5px; font-size:14px;\">Address:</td><td style=\"padding-bottom:5px;font-size:12px;\">" + DealerAddress + "</td></tr><tr>");
-                sb.Append("<td style=\"font-weight:bold; color:#333; padding-bottom:5px; font-size:14px;\">Contact Number:</td><td style=\"padding-bottom:5px; font-size:12px;\">" + DealerMobile + "</td></tr></tbody></table>");
-                sb.Append("</div><div style=\"background:url(http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/red-border.png) no-repeat center center; height:2px; width:100%\"></div><div style=\"padding:10px 0;\">");
-                sb.Append("<p style=\" margin:7px 0;\">You would get a call from the dealership for next steps. Dealership will schedule your visit to the showroom to proceed with further buying process. The offer benefits will be shipped to you once you take delivery of the vehicle.</p>");
-                sb.Append("<p style=\" margin:7px 0;\">Should you choose to cancel or change your pre-booking, please write us at <a style=\"text-decoration:none; color:#034fb6;\" href=\"mailto:contact@bikewale.com\">contact@bikewale.com</a>. Please mention the Pre-booking Reference Number and your mobile number in all correspondence. You can go through our <a target=\"_blank\" href=\"http://www.bikewale.com/pricequote/CancellationPolicy.aspx\" style=\"text-decoration:none; color:#034fb6;\">Cancellation Policy</a> and <a target=\"_blank\" href=\"http://www.bikewale.com/pricequote/faq.aspx\" style=\"text-decoration:none; color:#034fb6;\">FAQs</a> here.</p>");
-                sb.Append("<p style=\" margin:7px 0;\">Wishing you a great buying experience!</p>");
-                sb.Append("</div><div style=\"padding:10px 0 0;\"><p style=\" margin:5px 0;\">Best Regards,</p><p style=\" margin:5px 0;font-weight:bold; margin:0;\">Team BikeWale</p>");
-                sb.Append("</div><div style=\"margin-top:20px; margin-bottom:10px; max-width:670px;\"><a href=\"https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=BookingMailer&utm_medium=email&utm_campaign=UserBookingMail\" target=\"_blank\"><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-footer-banner.jpg\" style=\"border:0; width:100%\"></a>");
-                sb.Append("</div></div></div></div><div style=\"background:url(http://imgd4.aeplcdn.com/0x0/bw/static/design15/mailer-images/bottom-shadow.png) center center #eeeeee no-repeat; height:9px; width:100%\"></div>");
-                sb.Append("<div style=\"padding:5px 0px;width:100%\"><div style=\" width:110px; margin:0 auto\"><div style=\" float:left; padding-right:5px;\"><a href=\"https://twitter.com/Bikewale\" target=\"_blank\"><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/BW-RSA-t-icon.jpg\" alt=\"Twitter\" title=\"Twitter\" border=\"0\" /></a></div>");
-                sb.Append("<div style=\"float:left; padding-right:5px;\"><a href=\"https://www.facebook.com/Bikewale.Official\" target=\"_blank\"><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/BW-RSA-f-icon.jpg\" alt=\"Facebook\" title=\"Facebook\" border=\"0\" /></a></div><div style=\"clear:both;\"></div>");
-                sb.Append("</div><div style=\"clear:both;\"></div></div><div style=\"font-size:11px;\">This newsletter is to attempt to keep you updated with the latest launches. If you are not interested anymore, Please <a style=\"text-decoration:none; color:#034fb6;\" target=\"_blank\" href=\"http://www.bikewale.com/newsletter/unsubscribe.aspx\">unsubscribe here</a>.</div></div>");
+                if (offerList != null && offerList.Count > 0)
+                {
+                    mail.Append("<div style=\" padding-top:15px; padding-bottom:15px; border-top:1px solid #f5f5f5;\">");
+                    foreach (var list in offerList)
+                    {
+                        mail.AppendFormat("<div style=\" padding-top:15px; padding-bottom:15px; border-top:1px solid #f5f5f5;\"> <div style=\"width:60%; float:left; color:#82888b;\">Minus {0}</div> <div style=\"width:40%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-icon.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span> {1}</div> <div style=\"clear:both;\"></div> </div>"
+                            , list.OfferText, Utility.Format.FormatPrice(Convert.ToString(list.OfferValue)));
+                    }
+                }
+                mail.AppendFormat("<div> <div style=\"width:60%; float:left; color:#82888b;\">Balance payable amount</div> <div style=\"width:40%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-icon.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{0}</div> <div style=\"clear:both;\"></div> </div></div></div>"
+                    , Utility.Format.FormatPrice(Convert.ToString(totalAmount - preBookingAmount)));
+                //balace amount test end and dealer Deatail start.
+                mail.AppendFormat("<div style=\"margin:0 20px; border-bottom:1px solid #f5f5f5; \"> <div style=\"font-size:14px; color:#4d5057; font-weight:bold;\">{0}:</div> <div style=\"font-size:14px; color:#82888b; margin:10px 0 10px 0;\">{1}</div> <div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/call-icon.png) 0 2px no-repeat ;font-size:16px; color:#4d5057; margin:0 20px 10px 0; padding-left:15px; font-weight:bold; float:left;\">{2}</div> <div style=\"float:left; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/mail-letter-icon.png) 0 4px no-repeat ;font-size:14px;  margin:2px 0 10px 0; padding-left:20px;\"><a href=\"mailto:bikewale@motors.com\" style=\"color:#82888b; text-decoration:none;\">{3}</a></div> <div style=\"clear:both;\"></div> <div style=\"font-size:14px; color:#82888b;\">Working hours: {4}</div> <div style=\"margin:10px 0 15px 0;\"><a href=\"https://www.google.com/maps?daddr={5},{6}\" target=\"_blank\" style=\" background: url( http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/get-directions-icon.png) no-repeat 0 3px; padding-left:15px; color:#0288d1; font-size:14px; text-decoration: none;\">Get directions</a></div> </div>"
+                    , dealerName, dealerAddress, dealerMobile, dealerEmailId, dealerWorkingTime, dealerLatitude, dealerLongitude);
+                if (offerList != null && offerList.Count > 0)
+                {
+                    mail.AppendFormat("<div style=\"text-align:center;\"> <div style=\" padding-bottom:10px; margin:15px 20px 0 20px; text-align:left; font-size:14px; font-weight:bold; color:#4d5057;\">Exclusive offers from this dealer:</div><div style=\"padding:0 20px; line-height:1.4; text-align:left;\">");
+                    foreach (var list in offerList)
+                    {
+                        mail.AppendFormat("<div style=\"max-width:190px; margin:10px 5px 10px; display:inline-block; vertical-align:top;\"> <div style=\"width:45px; display:inline-block; vertical-align:middle;\"><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/offerIcon_{0}.png\" alt=\"Free bike insurance\" title=\"Free bike insurance\" border=\"0\" style=\"border:none;margin-right:5px;\" /></div> <div style=\"width:140px; display:inline-block; vertical-align:middle; text-align:left; font-size:14px; color:#82888b; margin:5px  0 0 0;\">{1}</div> <div style=\"clear:both;\"></div> </div>",
+                            list.OfferCategoryId, list.OfferText);
+                    }
+                    mail.Append("</div></div>");
+                }
+                mail.Append("<div style=\"margin:0 20px 0 20px; line-height:1.5; border-top:1px solid #e2e2e2;\"> <div style=\"font-size:14px; color:#82888b; margin-bottom:10px; margin-top:10px;\">We wish you a great buying experience!</div> <div style=\"margin-bottom:20px; color:#82888b;\">Regards,<br />Team BikeWale</div> </div> <div style=\"max-width:100%; background:url('http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/query-bg-banner.jpg') no-repeat center bottom / cover #2e2e2e; color:#fff;\"> <div style=\"padding:7px 15px 7px 20px;display:inline-block;vertical-align:middle;\"> <div style=\"float:left; width:46px; font-weight:bold;\"><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-app-red-icon.png\" border=\"0\"/></div> <div style=\"font-size:16px;height:46px;text-align:left;display:table;margin-left:60px;\"> <div style=\"display:table-cell; vertical-align:middle;\">India’s #1 Bike Research Destination</div> </div> </div> <div style=\"margin:15px 20px 15px 0;display:inline-block;float:right\"> <div> <a href=\"https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=BookingMailer&utm_medium=email&utm_campaign=UserBookingMail\" target=\"_blank\" style=\"text-decoration:none; color:#fff; font-weight:bold; font-size:12px; width:70px; background-color:#ef3f30; padding:8px 10px; border-radius:2px; display:block; \">Get the App</a> </div> </div> <div style=\"clear:both;\"></div> </div> <div style=\"margin:10px 0 4px 0; border-bottom:2px solid #c20000;\"></div> </div> </div> </body> </html>");
+                MailHTML = Convert.ToString(mail);
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("Notifications.ErrorTempate ComposeBody : " + ex.Message);
             }
-            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Created By : Lucky Rathore on 11 May 2016.
+        /// Summary : Retrun the MailHTML
+        /// </summary>
+        /// <returns></returns>
+        public override string ComposeBody()
+        {
+            return MailHTML;
         }
     }
 }

@@ -2464,6 +2464,8 @@
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\Videos\videoByCategory.js" />
+    <Content Include="staticHtml\premium.html" />
+    <Content Include="staticHtml\standard.html" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test.aspx" />
     <!--     <Content Include="test\css\bw-new-style.css" />

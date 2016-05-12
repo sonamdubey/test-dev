@@ -48,9 +48,9 @@ namespace Bikewale.Service.Utilities
         }
 
         /// <summary>
-        /// Created by  :    Sangram Nandkhile on 03 Mar 2016
-        /// Summary     :    overload to fetch share URL for List<CMSArticleSummary>
-        /// Modified on :    04 Mar 2016
+        /// Created by  :    Vivek Gupta 
+        /// Summary     :    overload to fetch share URL for IEnumerable<CMSArticleSummary>
+        /// Modified on :    11-5-2016
         /// Summary     :    Removed switch case
         /// </summary>
         /// <param name="objCMSFArticles"></param>

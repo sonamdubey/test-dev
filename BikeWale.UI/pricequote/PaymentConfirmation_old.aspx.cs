@@ -11,6 +11,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.PriceQuote
 {
+    /// <summary>
+    /// Created By : Lucky Rathore on 11 May 2016.
+    /// Summary : Template Revamped.
+    /// </summary> 
     public class PaymentConfirmation_old : System.Web.UI.Page
     {
         protected Repeater rptOffers;
@@ -20,7 +24,7 @@ namespace Bikewale.PriceQuote
         protected double lattitude, longitude;
         protected uint totalPrice = 0;
         protected UInt32 BooingAmt = 0;
-        protected string contactNo = string.Empty, organization = string.Empty, address = string.Empty, bikeName = string.Empty, MakeModel = string.Empty,
+        protected string contactNo = string.Empty, organization = string.Empty, address = string.Empty, bikeName = string.Empty, MakeModel = string.Empty, VersionName = string.Empty, 
             bookingRefNum = string.Empty, WorkingTime = string.Empty;
         protected UInt32 insuranceAmount = 0;
         protected bool IsInsuranceFree = false;
@@ -28,6 +32,12 @@ namespace Bikewale.PriceQuote
         {
             this.Load += new EventHandler(Page_Load);
         }
+        /// <summary>
+        /// Modified By : Lucky Rathore on 11 May 2016.
+        /// Summary : paramete to call BookingEmailToCustomer() updated.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             DeviceDetection dd = new DeviceDetection();
@@ -47,8 +57,7 @@ namespace Bikewale.PriceQuote
                         SendEmailSMSToDealerCustomer.BookingSMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, address, bookingRefNum, insuranceAmount);
                         //send sms to dealer
                         SendEmailSMSToDealerCustomer.BookingSMSToDealer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address, bookingRefNum, BooingAmt, insuranceAmount);
-                        //send email to customer
-                        SendEmailSMSToDealerCustomer.BookingEmailToCustomer(objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerName, _objPQ.objOffers, bookingRefNum, _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName, _objPQ.objDealer.Organization, address, _objPQ.objDealer.MobileNo, insuranceAmount);
+                        
                         //send email to dealer
 
                         if (objCustomer.objColor != null)
@@ -62,6 +71,10 @@ namespace Bikewale.PriceQuote
                         }
                         SendEmailSMSToDealerCustomer.BookingEmailToDealer(_objPQ.objDealer.EmailId, ConfigurationManager.AppSettings["OfferClaimAlertEmail"], objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.CustomerEmail, totalPrice, _objPQ.objBookingAmt.Amount, totalPrice - _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.PriceList, bookingRefNum, bikeName, bikeColor, _objPQ.objDealer.Name, _objPQ.objOffers, imgPath
                             , "", insuranceAmount);
+                        //send email to customer
+                        SendEmailSMSToDealerCustomer.BookingEmailToCustomer(objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerName
+                            , _objPQ.objQuotation.PriceList, _objPQ.objOffers, bookingRefNum, totalPrice, _objPQ.objBookingAmt.Amount, MakeModel, VersionName, bikeColor, imgPath,
+                            _objPQ.objDealer.Organization, address, _objPQ.objDealer.MobileNo, _objPQ.objDealer.EmailId, _objPQ.objDealer.WorkingTime, _objPQ.objDealer.objArea.Latitude, _objPQ.objDealer.objArea.Longitude);
                     }
                     else
                     {
@@ -87,6 +100,8 @@ namespace Bikewale.PriceQuote
         /// <summary>
         /// Created By : Sadhana Upadhyay on 15 Dec 2014
         /// Summary : To get dealer price break up and other details
+        /// Modified By : Lucky Rathore on 11 May 2016.
+        /// Summary : Assing Value to VersionName.
         /// </summary>
         private void GetDetailedQuote()
         {
@@ -128,6 +143,7 @@ namespace Bikewale.PriceQuote
                     {
                         bikeName = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName + " " + _objPQ.objQuotation.objVersion.VersionName;
                         MakeModel = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName;
+                        VersionName = _objPQ.objQuotation.objVersion.VersionName;
                         bool isShowroomPriceAvail = false, isBasicAvail = false;
                         uint exShowroomCost = 0;
                         foreach (var item in _objPQ.objQuotation.PriceList)

@@ -60,6 +60,8 @@ namespace Bikewale.Notifications
         /// <summary>
         /// Created By : Sadhana Upadhyay on 22 Dec 2014
         /// Summary : To send prebooking bike email to customer
+        /// Modified By : Lucky Rathore on 11 May 2016.
+        /// Summary : price List, versionName, makeModelName, dealer mail, working hour, lat long added.
         /// </summary>
         /// <param name="customerEmail"></param>
         /// <param name="customerName"></param>
@@ -71,11 +73,12 @@ namespace Bikewale.Notifications
         /// <param name="dealerName"></param>
         /// <param name="dealerAddress"></param>
         /// <param name="dealerMobile"></param>
-        public static void BookingEmailToCustomer(string customerEmail, string customerName, List<OfferEntity> offerList, string bookingReferenceNo, uint preBookingAmount, string bikeName, string makeName, string modelName, string dealerName, string dealerAddress, string dealerMobile, uint insuranceAmount = 0)
+        public static void BookingEmailToCustomer(string customerEmail, string customerName, List<PQ_Price> priceList, List<OfferEntity> offerList, string bookingReferenceNo, uint totalAmount, uint preBookingAmount, string makeModelName, string version, string color, string img, string dealerName, string dealerAddress, string dealerMobile, string dealerEmailId, string dealerWorkingTime, double dealerLatitude, double dealerLongitude)
         {
-            ComposeEmailBase objEmail = new PreBookingConfirmationToCustomer(customerName, offerList, bookingReferenceNo, preBookingAmount, bikeName, makeName, modelName, dealerName, dealerAddress, dealerMobile, DateTime.Now, insuranceAmount);
-            objEmail.Send(customerEmail, "Congratulations on pre-booking the " + bikeName, "");
+            ComposeEmailBase objEmail = new PreBookingConfirmationToCustomer(customerName, priceList, offerList, bookingReferenceNo, totalAmount, preBookingAmount, makeModelName, version, color, img, dealerName, dealerAddress, dealerMobile, dealerEmailId, dealerWorkingTime, dealerLatitude, dealerLongitude);
+            objEmail.Send(customerEmail, "Congratulations on pre-booking the " + makeModelName, "");
         }
+         
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Dec 2014
@@ -260,5 +263,6 @@ namespace Bikewale.Notifications
         }
 
         #endregion
+
     }
 }
