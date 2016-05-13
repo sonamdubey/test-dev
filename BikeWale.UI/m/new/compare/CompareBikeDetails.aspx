@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.CompareBikeDetails" Trace="false" %>
+
+<%@ Register Src="~/m/controls/SimilarCompareBikes.ascx" TagPrefix="BW" TagName="SimilarBikes" %>
 <%
     if (count == 2)
     {
@@ -833,22 +835,11 @@
         </div>
     <% } %>
 
-    <section class="container related-comparison-container margin-bottom20">
+    <section class="container related-comparison-container margin-bottom20 <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">
         <h2 class="font14 padding-left10 margin-top5 margin-bottom15">Related comparisons</h2>
         <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide related-comparison-carousel-content">
-                    <a href="javascript:void(0)">Honda Navi Standard vs TVS Scooty Pep Plus Standard</a>
-                    <a href="javascript:void(0)">Honda Navi Standard vs Honda Active 3G</a>
-                </div>
-                <div class="swiper-slide related-comparison-carousel-content">
-                    <a href="javascript:void(0)">Honda Navi Standard vs TVS Scooty Pep Plus Standard</a>
-                    <a href="javascript:void(0)">Honda Navi Standard vs Honda Active 3G</a>
-                </div>
-                <div class="swiper-slide related-comparison-carousel-content">
-                    <a href="javascript:void(0)">Honda Navi Standard vs TVS Scooty Pep Plus Standard</a>
-                    <a href="javascript:void(0)">Honda Navi Standard vs Honda Active 3G</a>
-                </div>
+            <div class="swiper-wrapper">             
+                 <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />                       
             </div>
         </div>
     </section>

@@ -356,6 +356,7 @@ namespace Bikewale.DAL.Compare
                                         ModelMasking2 = GetString(reader["ModelMaskingName2"]),
                                         VersionId1 = GetString(reader["VersionId1"]),
                                         VersionId2 = GetString(reader["VersionId2"]),
+                                        Version1 = GetString(reader["Version1"]),
                                     });
                                 }
 

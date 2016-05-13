@@ -13,6 +13,7 @@ namespace Bikewale.Entities.BikeData
         public string MakeMasking2 { get; set; }
         public string Model1 { get; set; }
         public string Model2 { get; set; }
+        public string Version1 { get; set; }
         public string ModelMasking1 { get; set; }
         public string ModelMasking2 { get; set; }
         public string VersionId1 { get; set; }
