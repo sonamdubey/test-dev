@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -44,16 +45,20 @@ namespace Bikewale.Notifications.MailTemplates
                 if (offerList != null && offerList.Count > 0)
                 {
                     mail.Append("<div style=\" padding-top:15px; padding-bottom:15px; border-top:1px solid #f5f5f5;\">");
-                    foreach (var list in offerList)
+                    List<PQ_Price> discountList = OfferHelper.ReturnDiscountPriceList(offerList, priceList);
+                    if (discountList != null && discountList.Count > 0)
                     {
-                        mail.AppendFormat("<div style=\" padding-top:15px; padding-bottom:15px; border-top:1px solid #f5f5f5;\"> <div style=\"width:60%; float:left; color:#82888b;\">Minus {0}</div> <div style=\"width:40%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-icon.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span> {1}</div> <div style=\"clear:both;\"></div> </div>"
-                            , list.OfferText, Utility.Format.FormatPrice(Convert.ToString(list.OfferValue)));
+                        foreach (var list in discountList)
+                        {
+                            mail.AppendFormat("<div style=\" padding-top:15px; padding-bottom:15px; border-top:1px solid #f5f5f5;\"> <div style=\"width:60%; float:left; color:#82888b;\">Minus {0}</div> <div style=\"width:40%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-icon.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span> {1}</div> <div style=\"clear:both;\"></div> </div>"
+                                , list.CategoryName, Utility.Format.FormatPrice(Convert.ToString(list.Price)));
+                        }
                     }
                 }
                 mail.AppendFormat("<div> <div style=\"width:60%; float:left; color:#82888b;\">Balance payable amount</div> <div style=\"width:40%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-icon.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{0}</div> <div style=\"clear:both;\"></div> </div></div></div>"
                     , Utility.Format.FormatPrice(Convert.ToString(totalAmount - preBookingAmount)));
                 //balace amount test end and dealer Deatail start.
-                mail.AppendFormat("<div style=\"margin:0 20px; border-bottom:1px solid #f5f5f5; \"> <div style=\"font-size:14px; color:#4d5057; font-weight:bold;\">{0}:</div> <div style=\"font-size:14px; color:#82888b; margin:10px 0 10px 0;\">{1}</div> <div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/call-icon.png) 0 2px no-repeat ;font-size:16px; color:#4d5057; margin:0 20px 10px 0; padding-left:15px; font-weight:bold; float:left;\">{2}</div> <div style=\"float:left; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/mail-letter-icon.png) 0 4px no-repeat ;font-size:14px;  margin:2px 0 10px 0; padding-left:20px;\"><a href=\"mailto:bikewale@motors.com\" style=\"color:#82888b; text-decoration:none;\">{3}</a></div> <div style=\"clear:both;\"></div> <div style=\"font-size:14px; color:#82888b;\">Working hours: {4}</div> <div style=\"margin:10px 0 15px 0;\"><a href=\"https://www.google.com/maps?daddr={5},{6}\" target=\"_blank\" style=\" background: url( http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/get-directions-icon.png) no-repeat 0 3px; padding-left:15px; color:#0288d1; font-size:14px; text-decoration: none;\">Get directions</a></div> </div>"
+                mail.AppendFormat("<div style=\"margin:0 20px; border-bottom:1px solid #f5f5f5; \"> <div style=\"font-size:14px; color:#4d5057; font-weight:bold;\">{0}:</div> <div style=\"font-size:14px; color:#82888b; margin:10px 0 10px 0;\">{1}</div> <div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/call-icon.png) 0 2px no-repeat ;font-size:16px; color:#4d5057; margin:0 20px 10px 0; padding-left:15px; font-weight:bold; float:left;\">{2}</div> <div style=\"float:left; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/mail-letter-icon.png) 0 4px no-repeat ;font-size:14px;  margin:2px 0 10px 0; padding-left:20px;\"><a href=\"mailto:bikewale@motors.com\" style=\"color:#82888b; text-decoration:none;\">{3}</a></div> <div style=\"clear:both;\"></div> <div style=\"font-size:14px; color:#82888b;\">Working hours: {4}</div> <div style=\"margin:10px 0 15px 0;\"><a href=\"http://maps.google.com/maps?q={5},{6}\" target=\"_blank\" style=\" background: url( http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/get-directions-icon.png) no-repeat 0 3px; padding-left:15px; color:#0288d1; font-size:14px; text-decoration: none;\">Get directions</a></div> </div>"
                     , dealerName, dealerAddress, dealerMobile, dealerEmailId, dealerWorkingTime, dealerLatitude, dealerLongitude);
                 if (offerList != null && offerList.Count > 0)
                 {
