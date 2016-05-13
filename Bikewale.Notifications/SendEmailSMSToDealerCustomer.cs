@@ -48,9 +48,36 @@ namespace Bikewale.Notifications
             }
         }
 
-        public static void SendEmailToCustomer(string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, uint isInsuranceFree = 0)
+        /// <summary>
+        /// Modified By : Vivek Gupta On 13 May 2016
+        /// Description : Changes in Singnature of funtion
+        /// </summary>
+        /// <param name="bikeName">BikeName</param>
+        /// <param name="bikeImage">URL of Bike Model default Image.</param>
+        /// <param name="dealerName"></param>
+        /// <param name="dealerEmail"></param>
+        /// <param name="dealerMobileNo"></param>
+        /// <param name="organization"></param>
+        /// <param name="address"></param>
+        /// <param name="customerName"></param>
+        /// <param name="customerEmail"></param>
+        /// <param name="priceList">List of break up of price.</param>
+        /// <param name="offerList"></param>
+        /// <param name="pinCode"></param>
+        /// <param name="stateName"></param>
+        /// <param name="cityName"></param>
+        /// <param name="totalPrice">Total Price</param>
+        /// <param name="versionName"></param>
+        /// <param name="dealerLat">dealer location's Latitiude</param>
+        /// <param name="dealerLong">dealer location's Longitude</param>
+        /// <param name="workingHours">dealer Working Hours</param>
+        public static void SendEmailToCustomer(string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo,
+            string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList,
+            string pinCode, string stateName, string cityName, uint totalPrice,
+            string versionName, double dealerLat, double dealerLong, string workingHours)
         {
-            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, "", address, customerName, DateTime.Now, priceList, offerList, pinCode, stateName, cityName, totalPrice, isInsuranceFree);
+            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, versionName, bikeImage, dealerEmail, dealerMobileNo,
+                organization, address, customerName, priceList, offerList, pinCode, stateName, cityName, totalPrice, dealerLat, dealerLong, workingHours);
             objEmail.Send(customerEmail, "Your Dealer Price Certificate - " + bikeName, dealerEmail);
         }
 
@@ -99,7 +126,7 @@ namespace Bikewale.Notifications
             ComposeEmailBase objEmail = new PreBookingConfirmationToCustomer(customerName, priceList, offerList, bookingReferenceNo, totalAmount, preBookingAmount, makeModelName, version, color, img, dealerName, dealerAddress, dealerMobile, dealerEmailId, dealerWorkingTime, dealerLatitude, dealerLongitude);
             objEmail.Send(customerEmail, "Congratulations on pre-booking the " + makeModelName, "");
         }
-         
+
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Dec 2014
@@ -175,9 +202,11 @@ namespace Bikewale.Notifications
 
         #region Save sms and email information of the customer and dealer after generating the leads
 
-        public static void SaveEmailToCustomer(uint pqId, string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, uint isInsuranceFree = 0)
+        public static void SaveEmailToCustomer(uint pqId, string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice,
+            string versionName, double dealerLat, double dealerLong, string workingHours)
         {
-            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, "", address, customerName, DateTime.Now, priceList, offerList, pinCode, stateName, cityName, totalPrice, isInsuranceFree);
+            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, versionName, bikeImage, dealerEmail, dealerMobileNo,
+                organization, address, customerName, priceList, offerList, pinCode, stateName, cityName, totalPrice, dealerLat, dealerLong, workingHours);
 
             // Save the template into database and other parameters
 

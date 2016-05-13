@@ -1,198 +1,80 @@
 ﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using Bikewale.Utility;
 
 namespace Bikewale.Notifications.MailTemplates
 {
     /// <summary>
-    /// Created By : Sadhana Upadhyay on 9 Nov 2014
-    /// Summary : Template for new bike price quote customer
-    /// Modified By : Sushil Kumar on 20th April 2016
-    /// Description : Removed contact us number and text 
+    /// Create By : Lucky Rathore on 27 Apr 2016
+    /// Description : New Mail Template used for user mail. 
     /// </summary>
     public class NewBikePriceQuoteToCustomerTemplate : ComposeEmailBase
     {
-        public string BikeName { get; set; }
-        public string BikeImage { get; set; }
-        public string DealerName { get; set; }
-        public string DealerEmailId { get; set; }
-        public string DealerMobileNo { get; set; }
-        public string PinCode { get; set; }
-        public string StateName { get; set; }
-        public string CityName { get; set; }
-        public string Organization { get; set; }
-        public string Website { get; set; }
-        public string Address { get; set; }
-        public string CustomerName { get; set; }
-        public List<PQ_Price> PriceList { get; set; }
-        public uint TotalPrice { get; set; }
-        public List<OfferEntity> OfferList { get; set; }
-        public DateTime Date { get; set; }
-        public string ModelId { get; set; }
-        public string DealerId { get; set; }
-        public uint InsuranceAmount { get; set; }
-        public List<PQ_Price> DiscountList { get; set; }
+        private StringBuilder mail = null;
 
-
-
-        public NewBikePriceQuoteToCustomerTemplate(string bikeName, string bikeImage, string dealerName, string dealerEmailId, string dealerMobileNo,
-            string organization, string website, string address, string customerName, DateTime date, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, uint insuranceAmount)
+        public NewBikePriceQuoteToCustomerTemplate(string bikeName, string versionName, string bikeImage, string dealerEmailId, string dealerMobileNo,
+            string organization, string address, string customerName, List<PQ_Price> priceList, List<OfferEntity> offerList,
+            string pinCode, string stateName, string cityName, uint totalPrice
+            , double dealerLat, double dealerLong, string workingHours)
         {
-            BikeName = bikeName;
-            BikeImage = bikeImage;
-            DealerName = dealerName;
-            DealerEmailId = DealerEmailId;
-            DealerMobileNo = dealerMobileNo;
+            List<PQ_Price> discountList = OfferHelper.ReturnDiscountPriceList(offerList, priceList); //null Exception handle in the function.
+            mail = new StringBuilder();
 
-            Organization = organization;
-            Website = website;
-            Address = address;
-            CustomerName = customerName;
-            PriceList = priceList;
-            TotalPrice = totalPrice;
-            OfferList = offerList;
-            Date = date;
-            PinCode = pinCode;
-            StateName = stateName;
-            CityName = cityName;
-            InsuranceAmount = insuranceAmount;
-            DiscountList = OfferHelper.ReturnDiscountPriceList(offerList, priceList);
+            mail.AppendFormat("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> <html xmlns=\"http://www.w3.org/1999/xhtml\"> <head> <meta name=\"viewport\" content=\"width=device-width\" /> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /> <title>Emailer</title> </head> <body> <div style=\"max-width:692px; margin:0 auto; border:1px solid #f5f5f5; font-family: Arial, Helvetica, sans-serif; font-size:14px; color:#4d5057; background:#ffffff; word-wrap:break-word;\"> <div style=\"color:#fff; max-width:100%; min-height:195px; background:url('http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/lead-sub-banner.jpg') no-repeat; padding:0 20px; \"> <!-- banner starts here --><div style=\"padding-top:20px;\"></div><div style=\"clear:both;\"></div> <div style=\"max-width:100%; min-height:40px; background:#2a2a2a;\"> <div style=\"float:left; max-width:82px; margin-top:5px; margin-left:20px;\"> <a href=\"#\" target=\"_blank\"><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-white-logo.png\" alt=\"BikeWale\" title=\"BikeWale\" width=\"100%\" border=\"0\" /></a> </div> <div style=\"float:right; margin-right:20px; font-size:14px; line-height:40px;\"> {0} </div> <div style=\"clear:both\"></div> </div> <div style=\"text-align:center\"> <div style=\"width:100%; height:115px; font-size:28px; text-align:center; display:table;\"> <div style=\"display:table-cell; vertical-align: middle;\">Thanks for your interest</div> </div> </div> </div> <!-- banner ends here --> <div> <!-- main content starts here --> <div style=\"font-weight:bold; margin-bottom:20px; padding:15px 20px 0;\">Dear {1},</div> <div style=\"color:#82888b; margin-bottom:18px; padding:0 20px; line-height:1.5;\">Congratulations on selecting the fantastic <span style=\"color:#4d5057;\">{2}</span>. Following are the details on its price, applicable offers and nearest dealer for your ready reference:</div> <div style=\"margin:0 20px 15px 20px; padding:15px 0 15px 0;border-top:1px solid #f5f5f5; border-bottom:1px solid #f5f5f5; text-align:center;\"> <!-- bike details starts here --> <div style=\"width:184px; min-height:150px; display:inline-block; vertical-align:top; margin:0 12px 10px 0; text-align:left;\"> <div style=\"font-weight:bold;\">{2}</div> <img src=\"{3}\" alt=\"{2}\" title=\"{2}\" border=\"0\" style=\"margin:20px 0 0 5px\"/> </div> <div style=\"display:inline-block; vertical-align:top; max-width:455px; text-align:left;\"> <div style=\"float:left; width:226px; margin-right:5px; padding-bottom:15px;\"><div style=\"color:#82888b; width:55px; float:left;\">Version: </div><div style=\"float:left; width:170px; font-weight:bold; \">{4}</div><div style=\"clear:both;\"></div></div> <div style=\"float:left; width:220px; padding-bottom:15px;\"><div style=\"clear:both;\"></div></div> <div style=\"clear:both;\"></div>"
+                , DateTime.Now.ToString("dd MMM, yyyy"), customerName, bikeName, bikeImage, versionName);
+
+            if (priceList != null && priceList.Count > 0)
+            {
+                mail.Append("<div style=\" border-top:1px solid #f5f5f5 \"></div>");
+                foreach (var plist in priceList)
+                {
+                    mail.AppendFormat("<div style=\" padding-top:15px;\"> <div style=\"width:60%; float:left; color:#82888b;\">{0}</div> <div style=\"width:40%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-icon.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{1}</div> <div style=\"clear:both;\"></div> </div>"
+                        , plist.CategoryName, Format.FormatPrice(Convert.ToString(plist.Price)));
+                }
+                if (discountList != null && discountList.Count > 0)
+                {
+                    mail.Append("<div style=\" border-top:1px solid #f5f5f5 \"></div>");
+                    foreach (var dlist in discountList)
+                    {
+                        mail.AppendFormat("<div style=\" padding-top:15px;\"> <div style=\"width:60%; float:left; color:#82888b;\">{0}</div> <div style=\"width:40%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-icon.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{1}</div> <div style=\"clear:both;\"></div> </div>"
+                            , dlist.CategoryName, Format.FormatPrice(Convert.ToString(dlist.Price)));
+                    }
+                }
+                mail.AppendFormat("<div style=\"margin-top:15px; padding-top:15px; padding-bottom:15px;  border-top:1px solid #f5f5f5;\"> <div style=\"width:60%; float:left; color:#82888b;\">On-road price</div> <div style=\"width:40%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/inr-rupee-icon.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{0}</div> <div style=\"clear:both;\"></div> </div>"
+                    , Format.FormatPrice(Convert.ToString(totalPrice)));
+            }
+
+            //Dealer deatails
+            mail.AppendFormat("</div></div><!-- bike details ends here --><div style=\"margin:0 20px; border-bottom:1px solid #f5f5f5; \"> <div style=\"font-size:14px; color:#4d5057; font-weight:bold;\">{0}</div> <div style=\"font-size:14px; color:#82888b; margin:10px 0 10px 0;\">{1}, {2}, {3}, {4}</div> <div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/call-icon.png) 0 2px no-repeat ;font-size:16px; color:#4d5057; margin:0 20px 10px 0; padding-left:15px; font-weight:bold; float:left;\">{5}</div> <div style=\"float:left; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/mail-letter-icon.png) 0 4px no-repeat ;font-size:14px;  margin:2px 0 10px 0; padding-left:20px;\"><a href=\"mailto:{6}\" style=\"color:#82888b; text-decoration:none;\">{6}</a></div> <div style=\"clear:both;\"></div>"
+                , organization, address, cityName, stateName, pinCode, dealerMobileNo, dealerEmailId);
+
+            if (!string.IsNullOrEmpty(workingHours))
+            {
+                mail.AppendFormat("<div style=\"font-size:14px; color:#82888b;\">Working hours: {0}</div>", workingHours);//ToTest 
+            }
+            //Get Direction code.
+            mail.AppendFormat("<div style=\"margin:10px 0 15px 0;\"><a href=\"http://maps.google.com/maps?q={0},{1}\" target=\"_blank\" style=\" background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/get-directions-icon.png) no-repeat 0 3px; padding-left:15px; color:#0288d1; font-size:14px; text-decoration: none;\">Get directions</a></div> </div>"
+                , dealerLat, dealerLong); //url need to copy paste
+
+            if (offerList != null && offerList.Count() > 0)
+            {
+                mail.Append("<div style=\"text-align:center;\"> <div style=\" padding-bottom:10px; margin:15px 20px 0 20px; text-align:left; font-size:14px; font-weight:bold; color:#4d5057;\">Exclusive offers from this dealer:</div> <div style=\" line-height:1.4; margin:0 20px; text-align:left;\">");
+                foreach (var offer in offerList)
+                {
+                    mail.AppendFormat("<div style=\"max-width:210px; margin:10px 5px 10px; display:inline-block; vertical-align:top;\"> <div style=\"width:45px; float:left;\"><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/offerIcon_{1}.png\" alt=\"Free bike insurance\" title=\"Free bike insurance\" border=\"0\" style=\"border:none;margin-right:5px;\" /></div> <div style=\"width:160px; float:left; text-align:left; font-size:14px; color:#82888b; margin:5px  0 0 0;\">{0}</div> <div style=\"clear:both;\"></div> </div>",
+                        offer.OfferText);//ToDO : Offer Images
+                }
+                mail.Append("</div> </div>");
+            }
+            mail.Append("<div style=\"border-top:1px solid #f5f5f5;margin:10px 20px 0 20px; line-height:1.5;\"> <div style=\"font-size:14px; color:#82888b; margin:15px 0 15px 0;\">The dealership will call you shortly to schedule your visit to dealership. You will be required to go to the dealership to complete the remaining procedure and take delivery of the vehicle. <div style=\"margin:15px 0 10px 0;\">We wish you a great buying experience! </div> <div style=\"margin-bottom:25px;\">Regards,<br />Team BikeWale</div> </div> </div> <div style=\"max-width:100%; background:url('http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/query-bg-banner.jpg') no-repeat center bottom / cover #2e2e2e; color:#fff;\"> <div style=\"padding:7px 15px 7px 20px;display:inline-block;vertical-align:middle;\"> <div style=\"float:left; width:46px; font-weight:bold;\"><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-app-red-icon.png\" border=\"0\"/></div> <div style=\"font-size:16px;height:46px;text-align:left;display:table;margin-left:60px;\"> <div style=\"display:table-cell; vertical-align:middle;\">India’s #1 Bike Research Destination</div> </div> </div> <div style=\"margin:15px 20px 15px 0;display:inline-block;float:right\"> <div> <a href=\"https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=LeadMailer&utm_medium=email&utm_campaign=UserLeadMail\" target=\"_blank\" style=\"text-decoration:none; color:#fff; font-weight:bold; font-size:12px; width:70px; background-color:#ef3f30; padding:8px 10px; border-radius:2px; display:block; \">Get the App</a> </div> </div> <div style=\"clear:both;\"></div> </div> <div style=\"margin:10px 0 4px 0; border-bottom:2px solid #c20000;\"></div> </div> <!-- main content ends here --> </div> </body> </html>");
         }
 
         public override string ComposeBody()
         {
-            StringBuilder sb = null;
-            try
-            {
-                sb = new StringBuilder();
-                sb.Append("<div style=\"max-width:670px; margin:0 auto; border:1px solid #d8d8d8; font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#333333; background:#eeeeee;padding:10px; word-wrap:break-word\">");
-                //sb.Append("<div style=\" font-size:11px; float:left;\"><a target=\"_blank\" href=\"#\" style=\"text-decoration:none; color:#034fb6;\">Click here</a> to view in your browser</div>");
-                sb.Append("<div style=\"clear:both;\"></div><div style=\"margin:5px 0 0; background:#fff;\"><div style=\"padding:7px; border-top:7px solid #333333;\">");
-                sb.Append("<div style=\"float:left;\"><a target=\"_blank\" href=\"http://www.bikewale.com/\" style=\"text-decoration:none;\"><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png\" border=\"0\" style=\"margin-right:20px;\"></a></div>");
-                sb.Append("<div style=\"float:left; margin-top:5px; font-size:22px; color:#333333;\">Dealer Price Certificate</div><div style=\"float:right; margin:10px 0 0;\">" + Date.ToString("MMM dd, yyyy") + "</div>");
-                sb.Append("<div style=\"clear:both;\"></div></div><div style=\"background:url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/shadow.png) repeat-x #eeeeee; height:10px;\"></div>");//<div style=\"padding-bottom:10px;\">");
-                //sb.Append("<img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/banner.jpg\" width=\"100%\" border=\"0\"></div><div style=\"padding:10px 10px 0;\"><div style=\"font-size:14px; font-weight:bold; color:#333333; margin-bottom:10px;\">Dear " + CustomerName + ",</div>");
-                sb.Append("<div style=\"padding:10px 10px 0;\"><div style=\"font-size:14px; font-weight:bold; color:#333333; margin-bottom:10px;\">Dear " + CustomerName + ",</div>");
-                sb.Append("<div style=\"color:#666666;\"><span style=\"font-size:14px; font-weight:bold; color:#333;\">Congratulations</span> on selecting the fantastic <span style=\"font-size:14px; font-weight:bold; color:#333;\">" + BikeName + "</span> and securing the guaranteed pricing for your purchase</div>");
-                sb.Append("<div style=\"background:url(http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div>");
-                //sb.Append("</div><div style=\"padding:10px 10px 0;\"><div style=\"font-size:16px; font-weight:bold; color:#333; margin-bottom:10px;\">What Happens Next?</div><div style=\"padding-top:10px; text-align:center;\">");
-                //sb.Append("<div style=\"display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0 5px 15px;text-align:center; vertical-align:top; position:relative;\">");
-                //sb.Append("<div><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/dealer-confirmation.png\" border=\"0\"></div><div style=\"font-size:12px; font-weight:bold; color:#333;margin:15px 0;\">Get in touch with Dealership</div>");
-                //sb.Append("<div style=\"color:#666666; text-align:left;\">" + DealerName + " will get back to you and schedule your visit to the showroom. Alternatively, you can also call them to set-up a visit  at a convenient time.</div></div>");
-                //sb.Append("<div style=\"display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0 5px 15px; text-align:center; vertical-align:top; position:relative;\">");
-                //sb.Append("<div><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/claim-price.png\" border=\"0\"></div><div style=\"font-size:12px; font-weight:bold; color:#333;margin:15px 0 26px;\">Claim your Price</div>");
-                //sb.Append("<div style=\"color:#666666; text-align:left;\">Please present this price certificate to dealership to claim the price for your purchase.</div>");
-                //sb.Append("</div><div style=\"display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0 5px 15px; text-align:center; vertical-align:top; position:relative;\">");
-                //sb.Append("<div><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/documentation.png\" border=\"0\"></div><div style=\"font-size:12px; font-weight:bold; color:#333;margin:15px 0;\">Be ready with Documentation</div>");
-                //sb.Append("<div style=\"color:#666666; text-align:left;\">Please be ready with all the required documents and payment to avoid multiple visits and faster vehicle delivery.</div>");
-                //sb.Append("</div><div style=\"display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0 5px 15px; text-align:center; vertical-align:top; position:relative;\">");
-                //sb.Append("<div><img src=\"http://imgd4.aeplcdn.com/0x0/bw/static/design15/mailer-images/buy-your-bike.png\" border=\"0\"></div><div style=\"font-size:12px; font-weight:bold; color:#333;margin:15px 0 26px;\">Buy your Bike!</div>");
-                //sb.Append("<div style=\"color:#666666; text-align:left;\">Dealer will help you in RTO formalities. Ride out from the dealership on your newly purchased " + BikeName + ".</div>");
-                //sb.Append("</div><div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></div></div>");
-
-                if (PriceList != null && PriceList.Count > 0)
-                {
-                    sb.Append("<div style=\"padding:10px 10px 0;\">");
-                    sb.Append("<div style=\"color:#666666;\">Following are the Price and dealership details for your brand new <span style=\"font-size:14px; font-weight:bold; color:#333;\">" + BikeName + "</span> </div>");
-                    sb.Append("<div style=\"padding:10px 0; text-align:center;\"><div style=\" display:inline-block; max-width:190px; border:1px solid #e3e3e3; background:#f5f5f5; padding:5px;\">");
-                    sb.Append("<img src=\"" + BikeImage + "\" width=\"100%\" border=\"0\"></div><div style=\"padding:10px 10px 10px 5px; display:inline-block; vertical-align:top;\">");
-                    sb.Append("<div style=\"font-size:14px; font-weight:bold; color:#333; text-align:left;\">On Road Price Breakup</div><table><tbody>");
-                    foreach (var list in PriceList)
-                        {
-                            sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">" + list.CategoryName + "</td><td align=\"right\" style=\"color:#333;\">" + Format.FormatPrice(list.Price.ToString()) + "</td></tr>");
-                        }
-                    if (DiscountList != null && DiscountList.Count > 0)
-                    {
-                        sb.Append("<tr><td colspan=\"2\"><div style=\"border-top:1px solid #eaeaea; margin-top:5px;\"></div></td></tr>");
-                        sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px; \">Total On Road Price</td><td align=\"right\" style=\"color:#333; font-weight:bold;\"><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/rupee-large.png\" border=\"0\" style=\"margin-right:5px; text-decoration: line-through;\">" + Format.FormatPrice(TotalPrice.ToString()) + "</td></tr>");
-                        foreach (var list in DiscountList)
-                        {
-                            sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">Minus " + list.CategoryName + "</td><td align=\"right\" style=\"color:#333;\">" + Format.FormatPrice(list.Price.ToString()) + "</td></tr>");
-                        }
-                    }
-                    sb.Append("<tr><td colspan=\"2\"><div style=\"border-top:1px solid #eaeaea; margin-top:5px;\"></div></td></tr>");
-                    sb.Append("<tr><td colspan=\"2\"><div style=\"background:url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></td></tr>");
-                    sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">Total On Road Price</td><td align=\"right\" style=\"color:#333; font-weight:bold;\"><img src=\"http://imgd4.aeplcdn.com/0x0/bw/static/design15/mailer-images/rupee-large.png\" border=\"0\" style=\"margin-right:5px;\">" + Format.FormatPrice((TotalPrice - TotalDiscountedPrice()).ToString()) + "</td></tr>");
-                    sb.Append("</tbody></table></div></div>");
-                    
-                }
-                if (OfferList != null && OfferList.Count > 0)
-                {
-                    sb.Append("</div><div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div>");
-                    sb.Append("<div style=\"padding:10px 0 0;\"><div style=\"font-size:14px; font-weight:bold; color:#333333;\">Exciting Offers for BikeWale Customers</div>");
-                    if (InsuranceAmount == 0)
-                    {
-                        foreach (var offer in OfferList)
-                        {
-                            sb.Append("<div style=\"margin-top:5px;\"><div style=\"float:left; margin-right:10px;\"><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/offers.png\" border=\"0\"></div><div style=\"padding-top:7px;\">" + offer.OfferText);
-                            sb.Append("</div></div><div style=\"clear:both;\"></div>");
-                        }
-                    }
-                    else
-                    {
-                        sb.Append("<div style=\"margin-top:5px;\"><div style=\"float:left; margin-right:10px;\"><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/offers.png\" border=\"0\"></div><div style=\"padding-top:7px;\">" + "Book Your Bike at BikeWale and Get Insurance Absolutely Free at the Dealership");
-                        sb.Append("</div></div><div style=\"clear:both;\"></div>");
-                    }
-                }
-                else
-                {
-                    sb.Append("</div><div><div>");
-                }
-                sb.Append("<div style=\"background:url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></div></div><div style=\"padding:10px 10px 0;\">");
-                sb.Append("<div style=\"font-size:16px; color:#333; font-weight:bold;\">Authorised Dealer Details</div><div style=\"font-size:14px; font-weight:bold; color:#333; margin-top:10px;\"><span style=\"margin-right:10px;\"><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/dealer.png\"></span>" + Organization + "</div>");
-                sb.Append("<div style=\"margin:5px 0 0 20px; max-width:430px;\">" + Address + ", " + CityName + ", " + StateName + "-" + PinCode + "</div>");
-                //sb.Append("<div style=\"margin-left:20px;\"><a target=\"_blank\" href=\"#\" style=\"text-decoration:none; color:#034fb6;\">Locate on Map</a></div>");
-                sb.Append("<div style=\"margin-top:20px;\"><span style=\"margin-right:10px;\"><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/call-icon.png\"></span>" + DealerMobileNo + "</div>");
-                sb.Append("<div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></div><div style=\"padding:10px 10px 15px;\">");
-                sb.Append("<div style=\"padding:10px 5px 0;\"><div style=\"font-size:16px; font-weight:bold; color:#333; margin-bottom:10px;\">What Happens Next?</div><div style=\"padding-top:10px; text-align:center;\">");
-                sb.Append("<div style=\"display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0px 2px 15px;text-align:center; vertical-align:top; position:relative;\">");
-                sb.Append("<div><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/dealer-confirmation.png\" border=\"0\"></div><div style=\"font-size:12px; font-weight:bold; color:#333;margin:15px 0;\">Get in touch with Dealership</div>");
-                sb.Append("<div style=\"color:#666666; text-align:left;\">" + Organization + " will get back to you and schedule your visit to the showroom. Alternatively, you can also call them to set-up a visit  at a convenient time.</div></div>");
-                sb.Append("<div style=\"display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0px 2px 15px; text-align:center; vertical-align:top; position:relative;\">");
-                sb.Append("<div><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/claim-price.png\" border=\"0\"></div><div style=\"font-size:12px; font-weight:bold; color:#333;margin:15px 0 26px;\">Claim your Price</div>");
-                sb.Append("<div style=\"color:#666666; text-align:left;\">Please present this price certificate to dealership to claim the price for your purchase.</div>");
-                sb.Append("</div><div style=\"display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0px 2px 15px; text-align:center; vertical-align:top; position:relative;\">");
-                sb.Append("<div><img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/mailer-images/documentation.png\" border=\"0\"></div><div style=\"font-size:12px; font-weight:bold; color:#333;margin:15px 0;\">Be ready with Documentation</div>");
-                sb.Append("<div style=\"color:#666666; text-align:left;\">Please be ready with all the required documents and payment to avoid multiple visits and faster vehicle delivery.</div>");
-                sb.Append("</div><div style=\"display:inline-block; max-width:136px; height:200px; border:2px solid #eeeeee; padding:20px 5px 10px; margin:0px 2px 15px; text-align:center; vertical-align:top; position:relative;\">");
-                sb.Append("<div><img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/mailer-images/buy-your-bike.png\" border=\"0\"></div><div style=\"font-size:12px; font-weight:bold; color:#333;margin:15px 0 26px;\">Buy your Bike!</div>");
-                sb.Append("<div style=\"color:#666666; text-align:left;\">Dealer will help you in RTO formalities. Ride out from the dealership on your newly purchased " + BikeName + ".</div>");
-                sb.Append("</div><div style=\"background:url(http://imgd4.aeplcdn.com/0x0/bw/static/design15/mailer-images/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></div></div>");
-                sb.Append("<div style=\"margin-bottom:15px;\">We wish you a great buying experience!</div>");
-                sb.Append("<div style=\"margin-bottom:2px;\">Best Regards</div><div>Team BikeWale</div><div style=\"margin-top:20px; margin-bottom:10px; max-width:670px;\"><a href=\"https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=PQMailer&utm_medium=email&utm_campaign=UserPQMail\" target=\"_blank\"><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-footer-banner.jpg\" style=\"border:0; width:100%\"></a></div></div></div><div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bottom-shadow.png) center center no-repeat; height:6px;\"></div>");
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Notifications.ErrorTempate ComposeBody : " + ex.Message);
-            }
-
-            HttpContext.Current.Trace.Warn(sb.ToString());
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Creted By : Lucky Rathore
-        /// Created on : 08 January 2016
-        /// </summary>
-        /// <returns>Total dicount on specific Version.</returns>
-        protected UInt32 TotalDiscountedPrice()
-        {
-            UInt32 totalPrice = 0;
-
-            if (DiscountList != null && DiscountList.Count > 0)
-            {
-                foreach (var priceListObj in DiscountList)
-                {
-                    totalPrice += priceListObj.Price;
-                }
-            }
-
-            return totalPrice;
+            return Convert.ToString(mail);
         }
     }
 }
