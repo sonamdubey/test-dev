@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using Bikewale.DTO.Make;
+using Bikewale.DTO.Model;
+using Newtonsoft.Json;
 using System;
 
-namespace Bikewale.DTO.Version
+namespace Bikewale.DTO.Version.v2
 {
-    /// <summary>
-    /// Modified by :   Sumit Kate on 12 Apr 2016
-    /// Description :   Changed the access modifier for MakeBase and ModelBase from private to public
-    /// </summary>
     public class VersionDetails
     {
         [JsonProperty("new")]
@@ -35,5 +33,13 @@ namespace Bikewale.DTO.Version
 
         [JsonProperty("originalImagePath")]
         public string OriginalImagePath { get; set; }
+
+        [JsonProperty("makeDetails")]
+        public MakeBase MakeBase { get; set; }
+
+        [JsonProperty("modelDetails")]
+        public ModelBase ModelBase { get; set; }
+
+
     }
 }

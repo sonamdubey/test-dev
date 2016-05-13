@@ -3,10 +3,7 @@ using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.Version
 {
@@ -21,7 +18,7 @@ namespace Bikewale.Service.AutoMappers.Version
         internal static DTO.Version.VersionDetails Convert(Entities.BikeData.BikeVersionEntity objVersion)
         {
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();            
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeVersionEntity, VersionDetails>();
             return Mapper.Map<BikeVersionEntity, VersionDetails>(objVersion);
         }
@@ -43,6 +40,14 @@ namespace Bikewale.Service.AutoMappers.Version
         {
             Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
             return Mapper.Map<List<BikeVersionsListEntity>, List<VersionBase>>(objVersionList);
+        }
+
+        internal static DTO.Version.v2.VersionDetails ConvertV2(BikeVersionEntity objVersion)
+        {
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeVersionEntity, DTO.Version.v2.VersionDetails>();
+            return Mapper.Map<BikeVersionEntity, DTO.Version.v2.VersionDetails>(objVersion);
         }
     }
 }
