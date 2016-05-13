@@ -103,13 +103,13 @@
                                             </asp:Repeater>
                                         </ul>
                                     </div>
-                                    <a href="#" class="prev prev-stage bwsprite"></a>
-                                    <a href="#" class="next next-stage bwsprite"></a>
+                                    <a href="#" class="prev prev-stage bwsprite" rel="nofollow"></a>
+                                    <a href="#" class="next next-stage bwsprite" rel="nofollow"></a>
                                 </div>
 
                                 <div class="navigation">
-                                    <a href="#" class="prev prev-navigation bwsprite"></a>
-                                    <a href="#" class="next next-navigation bwsprite"></a>
+                                    <a href="#" class="prev prev-navigation bwsprite" rel="nofollow"></a>
+                                    <a href="#" class="next next-navigation bwsprite" rel="nofollow"></a>
                                     <div class="carousel carousel-navigation">
                                         <ul>
                                             <asp:Repeater ID="rptNavigationPhoto" runat="server">
@@ -566,7 +566,7 @@
                         <span class="model-about-more-desc hide" style="display: none;">
                             <%= modelPage.ModelDesc.FullDescription %>
                         </span>
-                        <span><a href="javascript:void(0)" class="read-more-btn">Read <span>full story</span></a></span>
+                        <span><a href="javascript:void(0)" class="read-more-btn" rel="nofollow">Read <span>full story</span></a></span>
                     </p>
                 </div>
             </div>
@@ -593,20 +593,20 @@
                             </div>
                         </div>
                         <div class="grid-3 model-orp-btn alpha omega">
-                            <a href="javascript:void(0)" class="btn btn-orange font14 margin-top5">Get offers from this dealer</a>
+                            <a href="javascript:void(0)" class="btn btn-orange font14 margin-top5" rel="nofollow">Get offers from this dealer</a>
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
                             <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span>BikeWale Motor</p>
                         </div>
                         <div class="clear"></div>
                     </div>
                     <div class="overall-specs-tabs-wrapper content-box-shadow">
-                        <a class="active" href="#modelSummaryContent">Summary</a>
-                        <a href="#modelPricesContent">Prices</a>
-                        <a href="#modelSpecsFeaturesContent">Specs & Features</a>
-                        <a href="#modelReviewsContent">Reviews</a>
-                        <a href="#modelNewsContent">News</a>
-                        <a href="#modelAlternateBikeContent">Alternatives</a>
-                        <a href="#modelForSaleContent">Used</a>
+                        <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
+                        <a href="#modelPricesContent" rel="nofollow">Prices</a>
+                        <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
+                        <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
+                        <a href="#modelNewsContent" rel="nofollow">News</a>
+                        <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>
+                        <a href="#modelForSaleContent" rel="nofollow">Used</a>
                     </div>
                 </div>
             </div>
@@ -616,13 +616,13 @@
             <div id="modelSpecsTabsContentWrapper" class="grid-12 margin-bottom20">
                 <div class="content-box-shadow">
                     <div class="overall-specs-tabs-wrapper">
-                        <a class="active" href="#modelSummaryContent">Summary</a>
-                        <a href="#modelPricesContent">Prices</a>
-                        <a href="#modelSpecsFeaturesContent">Specs & Features</a>
-                        <a href="#modelReviewsContent">Reviews</a>
-                        <a href="#modelNewsContent">News</a>
-                        <a href="#modelAlternateBikeContent">Alternatives</a>
-                        <a href="#modelForSaleContent">Used</a>
+                        <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
+                        <a href="#modelPricesContent" rel="nofollow">Prices</a>
+                        <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
+                        <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
+                        <a href="#modelNewsContent" rel="nofollow">News</a>
+                        <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>
+                        <a href="#modelForSaleContent" rel="nofollow">Used</a>
                     </div>
                     <div class="border-divider"></div>
 
@@ -630,9 +630,14 @@
                         <div class="grid-8 alpha margin-bottom20">
                             <h2>Bajaj Pulsar RS200 Summary</h2>
                             <h3>Preview</h3>
-                            <p class="font14 text-light-grey line-height17">After number of spy pictures doing the round of the internet, Bajaj Motorcycles has finally                                 launched its first fully-faired motorcycle, the Pulsar RS 200 for the Indian market. Previously                                 touted to be called as the Pulsar SS200, this bike has been the most anticipated launch from                                 the company.<br /><br />                                Marketed as the fastest Pulsar yet, the Pulsar RS200 designed to be a compact sportsbike                                and features clip-on handlebars. Unlike other fully-faired motorcycle like the Yamaha YZF-R15,
+                            <p class="font14 text-light-grey line-height17">                                <span class="model-preview-main-content">After number of spy pictures doing the round of the internet, Bajaj Motorcycles has finally                                 launched its first fully-faired motorcycle, the Pulsar RS 200 for the Indian market. Previously                                 touted to be called as the Pulsar SS200, this bike has been the most anticipated launch from                                 the company.<br /><br />                                Marketed as the fastest Pulsar yet, the Pulsar RS200 designed to be a compact sportsbike                                and features clip-on handlebars. Unlike other fully-faired motorcycle like the Yamaha YZF-R15,
                                 the RS200 doesn’t have as aggressive riding stance as of a super sport motorcycle...
-                                <a href="javascript:void(0)">Read more</a>
+                                </span>
+                                <span class="model-preview-more-content">After number of spy pictures doing the round of the internet, Bajaj Motorcycles has finally                                 launched its first fully-faired motorcycle, the Pulsar RS 200 for the Indian market. Previously                                 touted to be called as the Pulsar SS200, this bike has been the most anticipated launch from                                 the company.<br /><br />                                Marketed as the fastest Pulsar yet, the Pulsar RS200 designed to be a compact sportsbike                                and features clip-on handlebars. Unlike other fully-faired motorcycle like the Yamaha YZF-R15,
+                                the RS200 doesn’t have as aggressive riding stance as of a super sport motorcycle.<br /><br />                                Marketed as the fastest Pulsar yet, the Pulsar RS200 designed to be a compact sportsbike                                and features clip-on handlebars. Unlike other fully-faired motorcycle like the Yamaha YZF-R15,
+                                the RS200 doesn’t have as aggressive riding stance as of a super sport motorcycle...
+                                </span>
+                                <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read <span>more</span></a>
                             </p>
                         </div>
                         <div class="grid-4 text-center alpha omega margin-bottom20">
@@ -737,8 +742,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                                 <p class="jcarousel-pagination text-center"></p>
                             </div>
                         </div>
@@ -972,7 +977,7 @@
                                     <h3 class="margin-top5"><a href="" class="font16 text-black">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a></h3>
                                     <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
                                     <p class="line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
-                                        <a href="">Read full story</a>
+                                        <a href="">Read full review</a>
                                     </p>
                                 </div>
                                 <div class="clear"></div>
@@ -991,7 +996,7 @@
                                     <h3 class="margin-top5"><a href="" class="font16 text-black">TVS launches improved 2014 Wego in India</a></h3>
                                     <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
                                     <p class="line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
-                                        <a href="">Read full story</a>
+                                        <a href="">Read full review</a>
                                     </p>
                                 </div>
                                 <div class="clear"></div>
@@ -1017,7 +1022,7 @@
                                 </div>
                                 <div class="clear"></div>
                                 <p class="margin-top20 line-height17">Style Good. Engine Performance, Fuel Economy and Gearbox Good. Ride Quality & Handling Good. Areas of improve...
-                                    <a href="">Read full story</a>
+                                    <a href="">Read full review</a>
                                 </p>
                             </div>
                             <div class="grid-6 margin-bottom15">
@@ -1033,7 +1038,7 @@
                                 </div>
                                 <div class="clear"></div>
                                 <p class="margin-top20 line-height17">Style Good. Engine Performance, Fuel Economy and Gearbox Good. Ride Quality & Handling Good. Areas of improve...
-                                    <a href="">Read full story</a>
+                                    <a href="">Read full review</a>
                                 </p>
                             </div>
                             <div class="clear"></div>
@@ -1171,7 +1176,7 @@
                                         <div class="font20 margin-bottom15">
                                             <span class="fa fa-rupee"></span> <span class="font22 text-bold">50,398</span>
                                         </div>
-                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14">Check on-road price</a>
+                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14" rel="nofollow">Check on-road price</a>
                                     </li>
                                     <li>
                                         <div class="model-jcarousel-image-preview margin-bottom15">
@@ -1185,7 +1190,7 @@
                                         <div class="font20 margin-bottom15">
                                             <span class="fa fa-rupee"></span> <span class="font22 text-bold">49,712</span>
                                         </div>
-                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14">Check on-road price</a>
+                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14" rel="nofollow">Check on-road price</a>
                                     </li>
                                     <li>
                                         <div class="model-jcarousel-image-preview margin-bottom15">
@@ -1199,7 +1204,7 @@
                                         <div class="font20 margin-bottom15">
                                             <span class="fa fa-rupee"></span> <span class="font22 text-bold">49,860</span>
                                         </div>
-                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14">Check on-road price</a>
+                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14" rel="nofollow">Check on-road price</a>
                                     </li>
                                     <li>
                                         <div class="model-jcarousel-image-preview margin-bottom15">
@@ -1213,12 +1218,12 @@
                                         <div class="font20 margin-bottom15">
                                             <span class="fa fa-rupee"></span> <span class="font22 text-bold">59,796</span>
                                         </div>
-                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14">Check on-road price</a>
+                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14" rel="nofollow">Check on-road price</a>
                                     </li>
                                 </ul>
                             </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
                     </div>
 

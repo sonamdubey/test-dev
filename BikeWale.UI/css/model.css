@@ -397,6 +397,7 @@ li.offertxt:hover span {display:inline}
 .specs-mileage-icon { width:40px; background-position:-55px 0; }
 .specs-maxpower-icon { width:22px; background-position:-105px 0; }
 .specs-weight-icon { width:31px; background-position:-137px 0; }
+.model-preview-more-content { display:none; }
 #modelPricesContent .jcarousel-wrapper { width:100%; }
 #modelPricesContent .jcarousel { width:606px; padding-top:0; }
 #modelPricesContent .jcarousel li { width:293px; height:153px; padding:15px; font-size:14px; border:1px solid #f1f1f1; }

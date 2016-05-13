@@ -9,7 +9,7 @@
         </li>
 
         <li>
-            <a href="javascript:void(0)">
+            <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwsprite newBikes-icon"></span>
                 <span class="navbarTitle">New Bikes</span>
                 <span class="nav-drop fa fa-angle-down"></span>
@@ -25,7 +25,7 @@
             </ul>
         </li>
         <li>
-            <a href="javascript:void(0)">
+            <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwsprite usedBikes-icon"></span>
                 <span class="navbarTitle">Used Bikes</span>
                 <span class="nav-drop fa fa-angle-down"></span>
@@ -42,7 +42,7 @@
             </a>
         </li>
         <li>
-            <a href="javascript:void(0)">
+            <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwsprite reviews-icon"></span>
                 <span class="navbarTitle">Reviews, News &amp; Videos</span>
                 <span class="nav-drop fa fa-angle-down"></span>
