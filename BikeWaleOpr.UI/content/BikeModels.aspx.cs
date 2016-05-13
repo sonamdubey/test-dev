@@ -153,14 +153,17 @@ namespace BikeWaleOpr.Content
                         WriteFileModel(currentId, txtModel.Text.Trim().Replace("'", "''"));
                     }
 
-                    if (_mc.Get("BW_ModelMapping") != null)
-                        _mc.Remove("BW_ModelMapping");
+                    if (_mc!=null)
+                    {
+                        if (_mc.Get("BW_ModelMapping") != null)
+                            _mc.Remove("BW_ModelMapping");
 
-                    if (_mc.Get("BW_NewModelMaskingNames") != null)
-                        _mc.Remove("BW_NewModelMaskingNames");
+                        if (_mc.Get("BW_NewModelMaskingNames") != null)
+                            _mc.Remove("BW_NewModelMaskingNames");
 
-                    if (_mc.Get("BW_OldModelMaskingNames") != null)
-                        _mc.Remove("BW_OldModelMaskingNames");
+                        if (_mc.Get("BW_OldModelMaskingNames") != null)
+                            _mc.Remove("BW_OldModelMaskingNames"); 
+                    }
                 }
 
             }
