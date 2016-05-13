@@ -247,6 +247,7 @@
     <Compile Include="Series\SeriesList.cs" />
     <Compile Include="State\StateBase.cs" />
     <Compile Include="State\StateList.cs" />
+    <Compile Include="Version\v2\VersionDetails.cs" />
     <Compile Include="Version\VersionBase.cs" />
     <Compile Include="Version\VersionDetails.cs" />
     <Compile Include="Version\VersionList.cs" />
