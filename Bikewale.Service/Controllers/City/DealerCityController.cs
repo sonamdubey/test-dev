@@ -4,11 +4,10 @@ using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.City;
+using Bikewale.Service.AutoMappers.PriceQuote.City;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -75,6 +74,8 @@ namespace Bikewale.Service.Controllers.City
         /// Created by  :   Sumit Kate on 22 Mar 2016
         /// Make wise Dealer City List
         /// It Includes BW Dealer Cities and AB Dealer Cities
+        /// Modified by :   Sumit Kate on 13 May 2016
+        /// Description :   If android, IOS client send the response similar to PQCityList API
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
@@ -82,6 +83,7 @@ namespace Bikewale.Service.Controllers.City
         public IHttpActionResult GetV2(uint makeId)
         {
             IEnumerable<CityEntityBase> cities = null;
+            Bikewale.DTO.PriceQuote.City.v2.PQCityList objDTOCityList = null;
             try
             {
                 if (makeId > 0)
@@ -89,9 +91,29 @@ namespace Bikewale.Service.Controllers.City
                     cities = _objDealer.FetchDealerCitiesByMake(makeId);
                     if (cities != null && cities.Count() > 0)
                     {
-                        CityList dtoCities = new CityList();
-                        dtoCities.City = CityListMapper.Convert(cities);
-                        return Ok(dtoCities);
+                        // If android, IOS client send the response similar to PQCityList API
+                        string platformId = string.Empty;
+
+                        if (Request.Headers.Contains("platformId"))
+                        {
+                            platformId = Request.Headers.GetValues("platformId").First().ToString();
+                        }
+
+                        if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
+                        {
+                            objDTOCityList = new Bikewale.DTO.PriceQuote.City.v2.PQCityList();
+                            objDTOCityList.Cities = PQCityListMapper.ConvertV2(cities);
+
+                            cities = null;
+
+                            return Ok(objDTOCityList);
+                        }
+                        else
+                        {
+                            CityList dtoCities = new CityList();
+                            dtoCities.City = CityListMapper.Convert(cities);
+                            return Ok(dtoCities);
+                        }
                     }
                     else
                     {
