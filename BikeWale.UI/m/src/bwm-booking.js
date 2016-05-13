@@ -198,6 +198,7 @@ function CustomerModel() {
                     xhr.setRequestHeader('utmz', getCookie('__utmz'));
                 },
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     var obj = ko.toJS(response);
                     self.IsVerified(obj.isSuccess);
@@ -252,6 +253,7 @@ function CustomerModel() {
                 async: false,
                 data: ko.toJSON(objCust),
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     var obj = ko.toJS(response);
                     self.IsVerified(obj.isSuccess);

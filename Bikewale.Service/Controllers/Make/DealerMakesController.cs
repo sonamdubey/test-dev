@@ -2,11 +2,10 @@
 using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -17,7 +16,7 @@ namespace Bikewale.Service.Controllers.Make
     /// Created :   04 Sept 2015
     /// Dealer Makes Controller
     /// </summary>
-    public class DealerMakesController : ApiController
+    public class DealerMakesController : CompressionApiController//ApiController
     {
         private readonly IDealer _objDealer = null;
         /// <summary>

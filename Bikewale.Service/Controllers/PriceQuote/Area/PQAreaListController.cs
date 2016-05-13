@@ -19,6 +19,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.Area
     /// Created : 20 Aug 2015
     /// Modified by :   Sumit Kate on 25 Jan 2016
     /// Description :   Added AreaCache repository interface
+    /// Modified by :   Sumit Kate on 12 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
     public class PQAreaListController : CompressionApiController//ApiController
     {

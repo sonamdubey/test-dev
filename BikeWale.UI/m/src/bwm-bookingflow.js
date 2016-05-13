@@ -361,6 +361,7 @@ var BikeCustomer = function () {
                 data: ko.toJSON(objCust),
                 async: false,
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     var obj = ko.toJS(response);
                     self.IsVerified(obj.isSuccess);

@@ -13,6 +13,7 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Bikebooking;
 using Bikewale.Service.AutoMappers.PriceQuote;
+using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// Author      :   Sumit Kate
     /// Created On  :   21 Aug 2015
     /// </summary>
-    public class PQCustomerDetailController : ApiController
+    public class PQCustomerDetailController : CompressionApiController//ApiController
     {
         private readonly ICustomerAuthentication<CustomerEntity, UInt32> _objAuthCustomer = null;
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;

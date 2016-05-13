@@ -309,6 +309,7 @@ function CustomerModel(obj) {
                 },
                 async: false,
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     var obj = ko.toJS(response);                   
                     self.IsVerified(obj.isSuccess);
@@ -342,6 +343,7 @@ function CustomerModel(obj) {
                 data: ko.toJSON(objCust),
                 async: false,
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     var obj = ko.toJS(response);
                     self.IsVerified(obj.isSuccess);

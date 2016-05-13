@@ -10,6 +10,7 @@ using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Bikebooking;
+using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
     /// Mobile Verification Controller
     /// Modified by :   Sumit Kate on Added Lead Notification Interface reference
     /// </summary>
-    public class PQMobileVerificationController : ApiController
+    public class PQMobileVerificationController : CompressionApiController//ApiController
     {
         private readonly IDealerPriceQuote _objDealerPriceQuote = null;
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;

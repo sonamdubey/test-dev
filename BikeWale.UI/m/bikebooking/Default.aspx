@@ -277,7 +277,7 @@
                         $.ajax({
                             type: "GET",
                             url: "/api/BBAreaList/?cityId=" + cid,
-                            contentType: "application/json",
+                            dataType: 'json',
                             beforeSend: function () {
                                 $("div.booking-search-area-form span").text("Loading areas..");
                             },

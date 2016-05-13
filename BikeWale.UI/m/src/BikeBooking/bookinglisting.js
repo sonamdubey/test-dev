@@ -1191,7 +1191,7 @@ function onChangeCity(objCity) {
             $.ajax({
                 type: "GET",
                 url: "/api/BBAreaList/?cityId=" + selectedCityId,
-                contentType: "application/json",
+                dataType: 'json',
                 beforeSend: function () {
 
                 },
