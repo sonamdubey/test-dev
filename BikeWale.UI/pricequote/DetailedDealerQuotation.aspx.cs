@@ -20,6 +20,8 @@ namespace Bikewale.BikeBooking
 {
     /// <summary>
     /// Created By : Ashwini Todkar 6 Nov 2014
+    /// Modified by : Vivek Gupta on 13 May 2016
+    /// Description :  Field versionName added, function signature updated.
     /// </summary>
     public class DetailedDealerQuotation : Page
     {
@@ -246,6 +248,8 @@ namespace Bikewale.BikeBooking
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
         /// Summary    : PopulateWhere to get availability of bike with dealer e.g. in stock or waiting
+        /// Modified By : Lucky Rathore on 13 May 2016
+        /// Description : Signature of SendEmailToCustomer() changed.
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="versionId"></param>

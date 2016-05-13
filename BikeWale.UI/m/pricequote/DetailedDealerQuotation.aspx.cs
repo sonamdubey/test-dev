@@ -18,6 +18,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.BikeBooking
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore on 13 May 2016
+    /// Description : Field versionName added, function signature updated.
+    /// </summary>
     public class DetailedDealerQuotation : System.Web.UI.Page
     {
         protected PQ_DealerDetailEntity _objPQ = null;
@@ -216,6 +220,8 @@ namespace Bikewale.Mobile.BikeBooking
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
         /// Summary    : PopulateWhere to get dealer price quote, offers, facilities, contact details 
+        /// Modified By : Lucky Rathore on 13 May 2016
+        /// Description : Signature of SendEmailToCustomer() changed.
         /// </summary>
         private void GetDetailedQuote()
         {

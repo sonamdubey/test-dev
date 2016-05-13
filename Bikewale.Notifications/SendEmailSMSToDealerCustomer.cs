@@ -27,6 +27,29 @@ namespace Bikewale.Notifications
             }
         }
 
+        /// <summary>
+        /// Modified By : Vivek Gupta On 13 May 2016
+        /// Description : Changes in Singnature of funtion
+        /// </summary>
+        /// <param name="bikeName">BikeName</param>
+        /// <param name="bikeImage">URL of Bike Model default Image.</param>
+        /// <param name="dealerName"></param>
+        /// <param name="dealerEmail"></param>
+        /// <param name="dealerMobileNo"></param>
+        /// <param name="organization"></param>
+        /// <param name="address"></param>
+        /// <param name="customerName"></param>
+        /// <param name="customerEmail"></param>
+        /// <param name="priceList">List of break up of price.</param>
+        /// <param name="offerList"></param>
+        /// <param name="pinCode"></param>
+        /// <param name="stateName"></param>
+        /// <param name="cityName"></param>
+        /// <param name="totalPrice">Total Price</param>
+        /// <param name="versionName"></param>
+        /// <param name="dealerLat">dealer location's Latitiude</param>
+        /// <param name="dealerLong">dealer location's Longitude</param>
+        /// <param name="workingHours">dealer Working Hours</param>
         public static void SendEmailToCustomer(string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo,
             string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList,
             string pinCode, string stateName, string cityName, uint totalPrice,

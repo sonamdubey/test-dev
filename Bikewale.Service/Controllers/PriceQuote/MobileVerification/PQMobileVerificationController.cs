@@ -54,6 +54,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
         /// Description :   Changed making no. (mobile no.) of dealer to his phone no. for sms to customer.
         /// Modified by :   Sumit Kate on 02 May 2016
         /// Description :   Send the notification immediately
+        /// Modified by :   Lucky Rathore on 13 May 2016
+        /// Description :   New Field VersionName Intialize and NotifyCustomer() signature updated.
         /// </summary>
         /// <param name="input">Mobile Verification Input</param>
         /// <returns></returns>

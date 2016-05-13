@@ -70,6 +70,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Description : Changed making no. (mobile no.) of dealer to his phone no. for sms to customer.
         /// Modified by :   Sumit Kate on 02 May 2016
         /// Description :   Send the notification immediately
+        /// Modified by :   Lucky Rathore on 13 May 2016
+        /// Description :   var versionName declare, Intialized and NotifyCustomer() singature Updated.
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>

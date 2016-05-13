@@ -8,7 +8,8 @@ namespace Bikewale.Service.Utilities
     /// <summary>
     /// Created by  :     Sangram Nandkhile on 03 Mar 2016
     /// Summary     :     Class to hold create share url manipuation logic
-    ///           
+    /// Modified By : Vivek Gupta on 13 May 2016.
+    /// Description : public IEnumerable<CMSArticleSummary> GetShareUrl(IEnumerable<CMSArticleSummary> objCMSFArticles) Removed
     /// </summary>
     public class CMSShareUrl
     {

@@ -66,6 +66,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Summary : Masking No. (mobile no.) of dealer is changed to dealer phone no. for sms to customer.
         /// Modified by :   Sumit Kate on 02 May 2016
         /// Description :   Send the notification immediately
+        /// Modified by :   Lucky Rathore on 13 May 2016
+        /// Description :   var versionName declare, Intialized and NotifyCustomer() singature Updated.
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>

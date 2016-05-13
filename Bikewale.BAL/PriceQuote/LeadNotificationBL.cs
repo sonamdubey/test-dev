@@ -18,6 +18,8 @@ namespace Bikewale.BAL.PriceQuote
     {
         /// <summary>
         /// Sends Email and SMS to Customer
+        /// Modified By : Lucky Rathore on 13 May 2016
+        /// Description : parameter versionName, dealerLat, dealerLong, workingHours added.
         /// </summary>
         /// <param name="pqId"></param>
         /// <param name="bikeName"></param>

@@ -7,6 +7,8 @@ namespace Bikewale.Interfaces.PriceQuote
     /// <summary>
     /// Created by  :   Sumit Kate on 02 May 2016
     /// Description :   Lead Notification Interface
+    /// Modified By : Lucky Rathore on 13 May 2016
+    /// Description : NotifyCustomer() signature Changed.
     /// </summary>
     public interface ILeadNofitication
     {
