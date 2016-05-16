@@ -48,7 +48,7 @@ namespace Bikewale.Notifications.MailTemplates
             }
 
             //Dealer deatails
-            mail.AppendFormat("</div></div><!-- bike details ends here --><div style=\"margin:0 20px; border-bottom:1px solid #f5f5f5; \"> <div style=\"font-size:14px; color:#4d5057; font-weight:bold;\">{0}</div> <div style=\"font-size:14px; color:#82888b; margin:10px 0 10px 0;\">{1}, {2}, {3}, {4}</div> <div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/call-icon.png) 0 2px no-repeat ;font-size:16px; color:#4d5057; margin:0 20px 10px 0; padding-left:15px; font-weight:bold; float:left;\">{5}</div> <div style=\"float:left; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/mail-letter-icon.png) 0 4px no-repeat ;font-size:14px;  margin:2px 0 10px 0; padding-left:20px;\"><a href=\"mailto:{6}\" style=\"color:#82888b; text-decoration:none;\">{6}</a></div> <div style=\"clear:both;\"></div>"
+            mail.AppendFormat("</div></div><!-- bike details ends here --><div style=\"margin:0 20px; \"> <div style=\"font-size:14px; color:#4d5057; font-weight:bold;\">{0}</div> <div style=\"font-size:14px; color:#82888b; margin:10px 0 10px 0;\">{1}, {2}, {3}, {4}</div> <div style=\"background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/call-icon.png) 0 2px no-repeat ;font-size:16px; color:#4d5057; margin:0 20px 10px 0; padding-left:15px; font-weight:bold; float:left;\">{5}</div> <div style=\"float:left; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/mail-letter-icon.png) 0 4px no-repeat ;font-size:14px;  margin:2px 0 10px 0; padding-left:20px;\"><a href=\"mailto:{6}\" style=\"color:#82888b; text-decoration:none;\">{6}</a></div> <div style=\"clear:both;\"></div>"
                 , organization, address, cityName, stateName, pinCode, dealerMobileNo, dealerEmailId);
 
             if (!string.IsNullOrEmpty(workingHours))
@@ -61,7 +61,7 @@ namespace Bikewale.Notifications.MailTemplates
 
             if (offerList != null && offerList.Count() > 0)
             {
-                mail.Append("<div style=\"text-align:center;\"> <div style=\" padding-bottom:10px; margin:15px 20px 0 20px; text-align:left; font-size:14px; font-weight:bold; color:#4d5057;\">Exclusive offers from this dealer:</div> <div style=\" line-height:1.4; margin:0 20px; text-align:left;\">");
+                mail.Append("<div style=\"text-align:center; border-top:1px solid #f5f5f5;\"> <div style=\" padding-bottom:10px; padding-top:15px; margin:0 20px; text-align:left; font-size:14px; font-weight:bold; color:#4d5057;\">Exclusive offers from this dealer:</div> <div style=\" line-height:1.4; margin:0 20px; text-align:left;\">");
                 foreach (var offer in offerList)
                 {
                     mail.AppendFormat("<div style=\"max-width:210px; margin:10px 5px 10px; display:inline-block; vertical-align:top;\"> <div style=\"width:45px; float:left;\"><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/offerIcon_{1}.png\" alt=\"Free bike insurance\" title=\"Free bike insurance\" border=\"0\" style=\"border:none;margin-right:5px;\" /></div> <div style=\"width:160px; float:left; text-align:left; font-size:14px; color:#82888b; margin:5px  0 0 0;\">{0}</div> <div style=\"clear:both;\"></div> </div>",
