@@ -47,7 +47,7 @@ namespace Bikewale.Notifications.MailTemplates
 
 
                 sb.AppendFormat("<div style=\"margin:0 10px;\">"
-                + "            <div style=\"display:inline-block; vertical-align:top; margin:15px 10px 0; max-width:430px;\">"
+                + "            <div style=\"display:inline-block; vertical-align:top; margin:15px 10px; max-width:430px; border-right:1px solid #f5f5f5;\">"
                 + "                <div style=\"font-weight:bold; margin-bottom:20px;\">Dear {0},</div>"
                 + "                <div style=\"margin-bottom:10px; color:#82888b; line-height:1.5;\">"
                 + "                    Our customer {1} has booked <span style=\"color:#4d5057;\">{2}</span>"
@@ -81,10 +81,10 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.AppendFormat(
                   " <div style=\"margin:0 20px 20px 15px; border-bottom:1px solid #f5f5f5; border-top:1px solid #f5f5f5; padding-top:15px; word-break:break-all;\">"
                 + "            <div style=\"font-weight:bold; margin-bottom:15px;\">Our customer details:</div>"
-                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Name:      </span><span style=\"font-weight:bold;\">{0}</span></div>"
-                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Location:  </span><span style=\"font-weight:bold;\">{3}</span></div><div style=\"clear:both;\"></div>"
-                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Mobile no: </span><span style=\"font-weight:bold;\">{2}</span></div>"
-                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Email Id:  </span><span style=\"font-weight:bold;\">{1}</span></div>"
+                + "            <div style=\"display:inline-block; vertical-align:top; width:185px; margin:0 10px 15px 0;\"><span style=\"color:#82888b;width:45px; float:left;\">Name:      </span><span style=\"font-weight:bold;width:140px; float:left;\">{0}</span></div>"
+                + "            <div style=\"display:inline-block; vertical-align:top; width:60%; margin:0 10px 15px 0;\"><span style=\"color:#82888b;\">Location:  </span><span style=\"font-weight:bold;\">{3}</span></div><div style=\"clear:both;\"></div>"
+                + "            <div style=\"display:inline-block; vertical-align:top; width:185px; margin:0 10px 15px 0;\"><span style=\"color:#82888b;\">Mobile no: </span><span style=\"font-weight:bold;\">{2}</span></div>"
+                + "            <div style=\"display:inline-block; vertical-align:top; width:60%; margin:0 10px 15px 0;\"><span style=\"color:#82888b;\">Email Id:  </span><span style=\"font-weight:bold;\">{1}</span></div>"
                 + "            <div style=\"clear:both;\"></div>"
                 + " </div>"
                     , customerName //0
