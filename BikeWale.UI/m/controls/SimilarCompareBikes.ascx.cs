@@ -1,8 +1,10 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.BikeData;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.controls
@@ -45,21 +47,35 @@ namespace Bikewale.Mobile.controls
         {
             BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
 
-            objSimilarBikes = objAlt.BindAlternativeBikes(versionsList, TopCount);
-
-            fetchedCount = (uint)objSimilarBikes.Count();
-
-            if (fetchedCount > 0)
+            try
             {
-                var source = from bike in objSimilarBikes
-                             select new { VersionId = bike.VersionId1, BikeName = bike.Make1 + " " + bike.Model1 + " " + bike.Version1 };
+                objSimilarBikes = objAlt.BindAlternativeBikes(versionsList, TopCount);
 
-                rptSimilarBikes.DataSource = source.Distinct();
-                rptSimilarBikes.DataBind();
+                fetchedCount = (uint)objSimilarBikes.Count();
+
+                if (fetchedCount > 0)
+                {
+                    var source = from bike in objSimilarBikes
+                                 select new { VersionId = bike.VersionId1, BikeName = bike.Make1 + " " + bike.Model1 + " " + bike.Version1 };
+
+                    rptSimilarBikes.DataSource = source.Distinct();
+                    rptSimilarBikes.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
         }
 
-        //Added By Vivek on 13-05-2016
+
+        /// <summary>
+        /// Added By Vivek on 13-05-2016
+        /// To bind child repeater
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
         public IEnumerable<SimilarCompareBikeEntity> getChildData(string versionId)
         {
 
@@ -71,7 +87,8 @@ namespace Bikewale.Mobile.controls
             }
             catch (Exception ex)
             {
-                Trace.Warn("ex", ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             return obj;
         }
