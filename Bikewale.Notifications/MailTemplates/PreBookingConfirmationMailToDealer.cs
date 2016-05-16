@@ -96,7 +96,7 @@ namespace Bikewale.Notifications.MailTemplates
 
                 //bike details starts here
                 sb.AppendFormat(
-                  "<div style=\"margin:0 20px 15px 20px;padding-bottom:15px; border-bottom:1px solid #f5f5f5;\">"
+                  "<div style=\"margin:0 20px 15px 20px;padding-bottom:15px;\">"
                 + "    <div style=\"width:184px; min-height:150px; display:inline-block; vertical-align:top; margin:0 12px 10px 0; text-align:left;\">"
                 + "            <div style=\"font-weight:bold;\">{0}</div>"
                 + "            <img src=\"{3}\" alt=\"{0}\" title=\"{0}\" border=\"0\" style=\"margin:20px 0 0 5px;\"/>"
@@ -149,7 +149,7 @@ namespace Bikewale.Notifications.MailTemplates
                 if (offerList != null && offerList.Count > 0)
                 {
                     sb.AppendFormat(
-                        "<div style=\"text-align:center;\">"
+                        "<div style=\"text-align:center; border-top:1px solid #f5f5f5;\">"
                     + "        <div style=\" padding-bottom:10px; margin:15px 20px 0 20px; text-align:left; font-size:14px; font-weight:bold; color:#4d5057;\">Offers availed by our customer:</div>"
                     + "            <div style=\"padding:0 20px; text-align:left; line-height:1.4;\">");
                     foreach (var offer in offerList)
