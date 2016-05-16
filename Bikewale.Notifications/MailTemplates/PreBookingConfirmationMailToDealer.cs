@@ -47,7 +47,7 @@ namespace Bikewale.Notifications.MailTemplates
 
 
                 sb.AppendFormat("<div style=\"margin:0 10px;\">"
-                + "            <div style=\"display:inline-block; vertical-align:top; margin:15px 10px 0; max-width:430px;\">"
+                + "            <div style=\"display:inline-block; vertical-align:top; margin:15px 10px; max-width:430px; border-right:1px solid #f5f5f5;\">"
                 + "                <div style=\"font-weight:bold; margin-bottom:20px;\">Dear {0},</div>"
                 + "                <div style=\"margin-bottom:10px; color:#82888b; line-height:1.5;\">"
                 + "                    Our customer {1} has booked <span style=\"color:#4d5057;\">{2}</span>"
@@ -81,10 +81,10 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.AppendFormat(
                   " <div style=\"margin:0 20px 20px 15px; border-bottom:1px solid #f5f5f5; border-top:1px solid #f5f5f5; padding-top:15px; word-break:break-all;\">"
                 + "            <div style=\"font-weight:bold; margin-bottom:15px;\">Our customer details:</div>"
-                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Name:      </span><span style=\"font-weight:bold;\">{0}</span></div>"
-                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Location:  </span><span style=\"font-weight:bold;\">{3}</span></div><div style=\"clear:both;\"></div>"
-                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Mobile no: </span><span style=\"font-weight:bold;\">{2}</span></div>"
-                + "            <div style=\"float:left; margin:0 20px 15px 0;\"><span style=\"color:#82888b;\">Email Id:  </span><span style=\"font-weight:bold;\">{1}</span></div>"
+                + "            <div style=\"display:inline-block; vertical-align:top; width:185px; margin:0 10px 15px 0;\"><span style=\"color:#82888b;width:45px; float:left;\">Name:      </span><span style=\"font-weight:bold;width:140px; float:left;\">{0}</span></div>"
+                + "            <div style=\"display:inline-block; vertical-align:top; width:60%; margin:0 10px 15px 0;\"><span style=\"color:#82888b;\">Location:  </span><span style=\"font-weight:bold;\">{3}</span></div><div style=\"clear:both;\"></div>"
+                + "            <div style=\"display:inline-block; vertical-align:top; width:185px; margin:0 10px 15px 0;\"><span style=\"color:#82888b;\">Mobile no: </span><span style=\"font-weight:bold;\">{2}</span></div>"
+                + "            <div style=\"display:inline-block; vertical-align:top; width:60%; margin:0 10px 15px 0;\"><span style=\"color:#82888b;\">Email Id:  </span><span style=\"font-weight:bold;\">{1}</span></div>"
                 + "            <div style=\"clear:both;\"></div>"
                 + " </div>"
                     , customerName //0
@@ -96,7 +96,7 @@ namespace Bikewale.Notifications.MailTemplates
 
                 //bike details starts here
                 sb.AppendFormat(
-                  "<div style=\"margin:0 20px 15px 20px;padding-bottom:15px; border-bottom:1px solid #f5f5f5;\">"
+                  "<div style=\"margin:0 20px 15px 20px;padding-bottom:15px;\">"
                 + "    <div style=\"width:184px; min-height:150px; display:inline-block; vertical-align:top; margin:0 12px 10px 0; text-align:left;\">"
                 + "            <div style=\"font-weight:bold;\">{0}</div>"
                 + "            <img src=\"{3}\" alt=\"{0}\" title=\"{0}\" border=\"0\" style=\"margin:20px 0 0 5px;\"/>"
@@ -149,7 +149,7 @@ namespace Bikewale.Notifications.MailTemplates
                 if (offerList != null && offerList.Count > 0)
                 {
                     sb.AppendFormat(
-                        "<div style=\"text-align:center;\">"
+                        "<div style=\"text-align:center; border-top:1px solid #f5f5f5;\">"
                     + "        <div style=\" padding-bottom:10px; margin:15px 20px 0 20px; text-align:left; font-size:14px; font-weight:bold; color:#4d5057;\">Offers availed by our customer:</div>"
                     + "            <div style=\"padding:0 20px; text-align:left; line-height:1.4;\">");
                     foreach (var offer in offerList)
