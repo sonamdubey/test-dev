@@ -269,6 +269,7 @@
     margin-top: 15px;
     padding: 10px;
 }
+    .related-comparison-wrapper { display:inline-block; vertical-align:top; width:220px; }
 </style>
 
 <div class="container_12">
