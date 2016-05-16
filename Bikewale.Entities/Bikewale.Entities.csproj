@@ -106,6 +106,7 @@
     <Compile Include="BikeData\NewLaunchedBikeEntity.cs" />
     <Compile Include="BikeData\Overview.cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
+    <Compile Include="BikeData\SimilarCompareBikeEntity.cs" />
     <Compile Include="BikeData\Specifications.cs" />
     <Compile Include="BikeData\Specs.cs" />
     <Compile Include="BikeData\SpecsCategory.cs" />

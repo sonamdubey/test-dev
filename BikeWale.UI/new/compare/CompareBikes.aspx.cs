@@ -1,25 +1,22 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-using System.Collections.Generic;
-using Bikewale.Memcache;
-using System.Text.RegularExpressions;
 using Bikewale.Controls;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
-using Microsoft.Practices.Unity;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.DAL.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.BikeData;
-using Bikewale.Utility;
+using Bikewale.Memcache;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Web;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
@@ -35,13 +32,13 @@ namespace Bikewale.New
         protected Literal ltrTitle;
         protected AddBikeToCompare addBike;
         DataSet ds = null;
-        protected string versions = string.Empty, featuredBikeId = string.Empty, spotlightUrl = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, reWriteURL = string.Empty, targetedModels = string.Empty, 
-            estimatePrice = string.Empty, estimateLaunchDate = string.Empty;
+        protected string versions = string.Empty, featuredBikeId = string.Empty, spotlightUrl = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, reWriteURL = string.Empty, targetedModels = string.Empty,
+            estimatePrice = string.Empty, estimateLaunchDate = string.Empty, similarVersion = string.Empty;
         protected int count = 0, totalComp = 5;
         public int featuredBikeIndex = 0;
         protected bool isFeatured = false;
         protected Int16 trSize = 45;
-
+        public SimilarCompareBikes ctrlSimilarBikes;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -51,7 +48,7 @@ namespace Bikewale.New
         {
             base.Load += new EventHandler(Page_Load);
         }
-		
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Ashish Kamble on 5 Feb 2016
@@ -61,19 +58,20 @@ namespace Bikewale.New
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-            
+
             if (!IsPostBack)
             {
-                getVersionIdList();              
+                getVersionIdList();
                 BindRepeater();
                 if (count < 2)
                 {
-                    Response.Redirect("/comparebikes/",false);//return;	
+                    Response.Redirect("/comparebikes/", false);//return;	
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
                 ltrTitle.Text = title;
-                pageTitle = title;                 
+                pageTitle = title;
+                BindSimilarCompareBikes(versions);
             }
         }
 
@@ -131,7 +129,7 @@ namespace Bikewale.New
                     rptColors.DataBind();
                 }
 
-                
+
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
@@ -167,13 +165,13 @@ namespace Bikewale.New
                 ErrorClass objErr = new ErrorClass(err, "new.default.LoadMakes");
                 objErr.SendMail();
             }
-        }     
+        }
 
 
         protected void getVersionIdList()
         {
             string QueryString = Request.QueryString.ToString();
-            
+
             if (QueryString.Contains("bike"))
             {
                 for (int i = 1; i < totalComp; i++)
@@ -194,7 +192,7 @@ namespace Bikewale.New
                 if (!string.IsNullOrEmpty(HttpUtility.ParseQueryString(QueryString).Get("mo")))
                 {
                     string[] models = HttpUtility.ParseQueryString(QueryString).Get("mo").Split(',');
-                    
+
                     ModelMapping objCache = new ModelMapping();
 
                     string _newUrl = string.Empty;
@@ -219,7 +217,7 @@ namespace Bikewale.New
                                 else
                                     _newUrl = _newUrl.Replace(models[iTmp].ToLower(), objResponse.MaskingName);
                             }
-                            else 
+                            else
                             {
                                 Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -267,10 +265,10 @@ namespace Bikewale.New
             addBike.IsFeatured = isFeatured;
         }
 
-        private ModelMaskingResponse  IsMaskingNameChanged(string maskingName)
+        private ModelMaskingResponse IsMaskingNameChanged(string maskingName)
         {
             ModelMaskingResponse objResponse = null;
-         
+
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
@@ -383,9 +381,9 @@ namespace Bikewale.New
             StringBuilder cs = new StringBuilder();
 
             var colorData = from r in (ds.Tables[3]).AsEnumerable()
-                       where r.Field<int>("BikeVersionId") == Convert.ToInt32(versionId)
-                       group r by r.Field<int>("ColorId") into g
-                       select g;
+                            where r.Field<int>("BikeVersionId") == Convert.ToInt32(versionId)
+                            group r by r.Field<int>("ColorId") into g
+                            select g;
 
             cs.Append("<div style='width:100; text-align:center;padding:5px;'>");
             foreach (var color in colorData)
@@ -394,7 +392,7 @@ namespace Bikewale.New
                 IList<string> HexCodeList = new List<string>();
                 foreach (var colorList in color)
                 {
-                    cs.AppendFormat("<span style='background-color:#{0}'></span>",colorList.ItemArray[5]);
+                    cs.AppendFormat("<span style='background-color:#{0}'></span>", colorList.ItemArray[5]);
                 }
                 cs.AppendFormat("</div><div style='padding-top:3px;'>{0}</div></div>", color.FirstOrDefault().ItemArray[3]);
             }
@@ -403,7 +401,11 @@ namespace Bikewale.New
 
         }
 
-
+        private void BindSimilarCompareBikes(string verList)
+        {
+            ctrlSimilarBikes.TopCount = 4;
+            ctrlSimilarBikes.versionsList = verList;
+        }
         ///// <summary>
         ///// Created By : Ashish G. Kamble on 13 Mar 2014
         ///// Summary : Function to transpose the datatable.
