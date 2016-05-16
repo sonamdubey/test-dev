@@ -13,7 +13,7 @@ namespace Bikewale.Mobile.controls
     /// Created by : Sangram Nandkhile on 12 May 2016
     /// Desc       : Created control to show similar Bike links below compare bikes 
     /// </summary>
-    [System.Runtime.InteropServices.GuidAttribute("1B6B1D4A-0BE5-4276-881D-5CFA6E53B261")]
+
     public class SimilarCompareBikes : System.Web.UI.UserControl
     {
         public Repeater rptSimilarBikes, rptSimilarBikesInner;
@@ -56,7 +56,7 @@ namespace Bikewale.Mobile.controls
                 if (fetchedCount > 0)
                 {
                     var source = from bike in objSimilarBikes
-                                 select new { VersionId = bike.VersionId1, BikeName = bike.Make1 + " " + bike.Model1 + " " + bike.Version1 };
+                                 select new { VersionId = bike.VersionId1, BikeName = string.Format("{0} {1} {2}", bike.Make1, bike.Model1, bike.Version1) };
 
                     rptSimilarBikes.DataSource = source.Distinct();
                     rptSimilarBikes.DataBind();
