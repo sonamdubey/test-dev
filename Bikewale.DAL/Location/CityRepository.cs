@@ -77,30 +77,31 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public List<CityEntityBase> GetCities(string stateId, EnumBikeType requestType)
         {
-            Database db = null;
             List<CityEntityBase> objCityList = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetCities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType;
-                    cmd.Parameters.Add("@StateId", SqlDbType.BigInt).Value = stateId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], stateId));
 
-                    db = new Database();
                     objCityList = new List<CityEntityBase>();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr.Read())
+                        if (dr!=null)
                         {
-                            objCityList.Add(new CityEntityBase
+                            while (dr.Read())
                             {
-                                CityId = Convert.ToUInt32(dr["Value"]),
-                                CityName = Convert.ToString(dr["Text"]),
-                                CityMaskingName = Convert.ToString(dr["MaskingName"])
-                            });
+                                objCityList.Add(new CityEntityBase
+                                {
+                                    CityId = Convert.ToUInt32(dr["Value"]),
+                                    CityName = Convert.ToString(dr["Text"]),
+                                    CityMaskingName = Convert.ToString(dr["MaskingName"])
+                                });
+                            } 
                         }
                     }
                 }
@@ -116,10 +117,6 @@ namespace Bikewale.DAL.Location
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return objCityList;
         }   // End of GetCities method

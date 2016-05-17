@@ -10,6 +10,7 @@ using Bikewale.Entities.CMS;
 using Bikewale.Interfaces.CMS;
 using Bikewale.CoreDAL;
 using Bikewale.Notifications;
+using System.Data.Common;
 
 namespace Bikewale.DAL.CMS
 {
@@ -36,20 +37,18 @@ namespace Bikewale.DAL.CMS
         public virtual V GetContentDetails(int contentId, int pageId)
         {
             V v = default(V);
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetCMSPageDetails";
+                    cmd.CommandText = "getcmspagedetails";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = contentId;
-                    cmd.Parameters.Add("@Priority", SqlDbType.TinyInt).Value = pageId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], contentId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_priority", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], pageId));
 
-                    db = new Database();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -169,10 +168,6 @@ namespace Bikewale.DAL.CMS
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return v;
         }   // End of GetContentDetails
@@ -183,19 +178,17 @@ namespace Bikewale.DAL.CMS
         /// <param name="contentId"></param>
         public void UpdateViews(int contentId)
         {
-            Database db = null;
             try
             {
-                db = new Database();
 
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "UpdateCMSViews";
+                    cmd.CommandText = "updatecmsviews";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@BasicId", SqlDbType.BigInt).Value = contentId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], contentId));
 
-                    db.UpdateQry(cmd);
+                    MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (SqlException err)
@@ -208,26 +201,20 @@ namespace Bikewale.DAL.CMS
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
         }   // End of UpdateViews
 
 
         public List<CMSFeaturedArticlesEntity> GetFeaturedArticles(List<EnumCMSContentType> contentTypes, ushort totalRecords)
         {
             List<CMSFeaturedArticlesEntity> featuredList = null;
-            Database db = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetFeaturedArticlesList";
-
-                    cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalRecords;
+                    cmd.CommandText = "getfeaturedarticleslist";                    
 
                     string contentTypeList = string.Empty;
 
@@ -238,11 +225,12 @@ namespace Bikewale.DAL.CMS
                         contentTypeList = contentTypeList.Substring(0, contentTypeList.Length - 1);
                     }
 
-                    cmd.Parameters.Add("@CategoryList", SqlDbType.VarChar, 20).Value = contentTypeList;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], totalRecords));
 
-                    db = new Database();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categorylist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, contentTypeList));
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -276,10 +264,6 @@ namespace Bikewale.DAL.CMS
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return featuredList;
@@ -290,16 +274,13 @@ namespace Bikewale.DAL.CMS
         public List<CMSFeaturedArticlesEntity> GetMostRecentArticles(List<EnumCMSContentType> contentTypes, ushort totalRecords)
         {
             List<CMSFeaturedArticlesEntity> featuredList = null;
-            Database db = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetMostRecentArticlesList";
-
-                    cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalRecords;
+                    cmd.CommandText = "getmostrecentarticleslist";
 
                     string contentTypeList = string.Empty;
 
@@ -310,11 +291,11 @@ namespace Bikewale.DAL.CMS
                         contentTypeList = contentTypeList.Substring(0, contentTypeList.Length - 1);
                     }
 
-                    cmd.Parameters.Add("@CategoryList", SqlDbType.VarChar, 20).Value = contentTypeList;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], totalRecords));
 
-                    db = new Database();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categorylist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, contentTypeList));
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -348,10 +329,6 @@ namespace Bikewale.DAL.CMS
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return featuredList;

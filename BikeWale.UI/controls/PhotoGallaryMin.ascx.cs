@@ -1,23 +1,14 @@
-﻿using Bikewale.BAL.PhotoGallery;
-using Bikewale.Entities.CMS;
-using Bikewale.Entities.PhotoGallery;
-using Bikewale.Interfaces.PhotoGallery;
+﻿using Bikewale.Entities.CMS;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using System.Data;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.BAL.BikeData;
 using Bikewale.Common;
-using System.Net.Http;
-using System.Configuration;
-using System.Net.Http.Headers;
 using Bikewale.Entities.CMS.Photos;
 
 namespace Bikewale.Controls
@@ -159,75 +150,8 @@ namespace Bikewale.Controls
 
             rptPhotos.DataSource = _objImageList;
             rptPhotos.DataBind();
-        }
-
-
-        //Commented By Ashwini Todkar on 3 Oct 2014
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 4 July 2014
-        /// Summary : to get all model photo list
-        /// </summary>
-       // protected void AllImageList()
-        //{
-            //List<ModelPhotoEntity> objPhotosList = null;
-
-            //using (IUnityContainer container = new UnityContainer())
-            //{
-            //    container.RegisterType<IModelPhotos<ModelPhotoEntity, int>, ModelPhotos<ModelPhotoEntity, int>>();
-            //    IModelPhotos<ModelPhotoEntity, int> objPhotos = container.Resolve<IModelPhotos<ModelPhotoEntity, int>>();
-
-                
-
-
-                //objPhotosList = new List<ModelPhotoEntity>();
-                //objPhotosList = objPhotos.GetModelPhotosList(ModelId, categorList);
-               
-            //    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-            //    IBikeModels<BikeModelEntity, int> objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-
-            //    //Get Model details
-            //    objModelEntity = objModel.GetById(Convert.ToInt32(ModelId));
-
-            //    recordCount = objPhotosList.Count;
-
-            //    if (recordCount > 0)
-            //    {
-            //        if (ImageId != string.Empty)
-            //        {
-            //            Trace.Warn("img id ", ImageId);
-
-            //            ModelPhotoEntity value = objPhotosList.Find(item => item.ImageId == Convert.ToUInt32(ImageId));
-
-            //            if (value != null)
-            //            {
-            //                selectedImagePath = Bikewale.Common.ImagingFunctions.GetPathToShowImages(value.ImagePathLarge, value.HostUrl);
-                            
-            //                selectedImageCategoryName = value.ImageCategory;
-            //                selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : "";
-            //            }
-            //        }
-            //        else // first image not selected
-            //        {
-            //            // Retrive the first row from DataTable
-            //            selectedImagePath = Bikewale.Common.ImagingFunctions.GetPathToShowImages(objPhotosList[0].ImagePathLarge, objPhotosList[0].HostUrl);
-
-            //            selectedImageCategoryName = objPhotosList[0].ImageCategory;
-            //            selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : "";
-            //        }
-
-            //        rptPhotos.Visible = true;
-            //        noImageAv.Visible = false;
-
-            //        rptPhotos.DataSource = objPhotosList;
-            //        rptPhotos.DataBind();
-            //    }
-            //    else
-            //    {
-            //        rptPhotos.Visible = false;
-            //        noImageAv.Visible = true;
-            //    }
-                
-            //}
+        } 
+        
     }// End of class  
     //}   //End of class
 }   //End of namespace

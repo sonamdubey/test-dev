@@ -23,7 +23,6 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public List<StateEntityBase> GetStates()
         {
-            Database db = null;
             List<StateEntityBase> objStateList = null;
 
             try
@@ -32,9 +31,8 @@ namespace Bikewale.DAL.Location
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    db = new Database();
                     objStateList = new List<StateEntityBase>();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -62,10 +60,6 @@ namespace Bikewale.DAL.Location
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return objStateList;
         }   // End of GetStates method

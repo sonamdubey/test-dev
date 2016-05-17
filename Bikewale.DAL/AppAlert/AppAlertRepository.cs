@@ -4,6 +4,7 @@ using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -25,29 +26,21 @@ namespace Bikewale.DAL.AppAlert
        /// <returns></returns>
         public bool SaveImeiGcmData(string imei, string gcmId, string osType, string subsMasterId)
         {
-            Database db = null;
             bool isResult = true;
             try
             {
-                db = new Database();
-
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
-                        cmd.CommandText = "Mobile.SubscriptionActivity";
+                        cmd.CommandText = "subscriptionactivity";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = con;
 
-                        cmd.Parameters.Add("@imei", SqlDbType.VarChar, 50).Value = imei;
-                        cmd.Parameters.Add("@Gcmid", SqlDbType.VarChar, 200).Value = gcmId;
-                        cmd.Parameters.Add("@osType", SqlDbType.TinyInt).Value = osType;
-                        cmd.Parameters.Add("@subsMasterId", SqlDbType.VarChar).Value = subsMasterId;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_imei", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, imei));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, gcmId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], osType));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], subsMasterId));
 
-                        con.Open();
-                        cmd.ExecuteNonQuery();
+                        MySqlDatabase.ExecuteNonQuery(cmd);
                     }
-                }
             }
             catch (SqlException ex)
             {
@@ -55,11 +48,6 @@ namespace Bikewale.DAL.AppAlert
                 objErr.SendMail();
                 isResult = false;
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return isResult;
         }   // End of GetAreas method
 

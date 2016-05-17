@@ -401,20 +401,18 @@ namespace Bikewale.DAL.BikeData
         public List<BikeVersionsListEntity> GetVersionsList(U modelId, bool isNew)
         {
             List<BikeVersionsListEntity> objList = null;
-            Database db = null;
+
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetVersions_New";
+                    cmd.CommandText = "getversions_new";
 
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isNew));
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -447,10 +445,6 @@ namespace Bikewale.DAL.BikeData
                 HttpContext.Current.Trace.Warn("GetVersionsList ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objList;
@@ -560,42 +554,18 @@ namespace Bikewale.DAL.BikeData
             List<UpcomingBikeEntity> objModelList = null;
 
             recordCount = 0;
-            Database db = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getupcomingbikeslist_new"))
                 {
-                    //cmd.CommandText = "getupcomingbikeslist_new";
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    //cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = inputParams.StartIndex;
-                    //cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = inputParams.EndIndex;
-
-                    //if (inputParams.MakeId > 0) cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = inputParams.MakeId;
-                    //if (inputParams.ModelId > 0) cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = inputParams.ModelId;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], inputParams.StartIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], inputParams.EndIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (inputParams.MakeId > 0) ? inputParams.MakeId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (inputParams.ModelId > 0) ? inputParams.ModelId : Convert.DBNull));
-
-
-
-                    //if (sortBy != EnumUpcomingBikesFilter.Default)
-                    //{
-                    //    if (sortBy == EnumUpcomingBikesFilter.PriceLowToHigh)
-                    //        //cmd.Parameters.Add("@EstimatedPrice", SqlDbType.Bit).Value = 0;
-
-                    //    else if (sortBy == EnumUpcomingBikesFilter.PriceHighToLow)
-                    //        //cmd.Parameters.Add("@EstimatedPrice", SqlDbType.Bit).Value = 1;
-                    //    else if (sortBy == EnumUpcomingBikesFilter.LaunchDateSooner)
-                    //        //cmd.Parameters.Add("@LaunchDate", SqlDbType.Bit).Value = 0;
-                    //    else if (sortBy == EnumUpcomingBikesFilter.LaunchDateLater)
-                    //       // cmd.Parameters.Add("@LaunchDate", SqlDbType.Bit).Value = 1;
-                    //}
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedprice", DbParamTypeMapper.GetInstance[SqlDbType.Bit], (sortBy != EnumUpcomingBikesFilter.Default) ? ((sortBy == EnumUpcomingBikesFilter.PriceHighToLow) ? true : false) : (bool?)null));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_launchdate", DbParamTypeMapper.GetInstance[SqlDbType.Bit], (sortBy != EnumUpcomingBikesFilter.Default) ? ((sortBy == EnumUpcomingBikesFilter.LaunchDateLater) ? true : false) : (bool?)null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedprice", DbParamTypeMapper.GetInstance[SqlDbType.Bit], (sortBy != EnumUpcomingBikesFilter.Default) ? ((sortBy == EnumUpcomingBikesFilter.PriceHighToLow) ? true : false) : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_launchdate", DbParamTypeMapper.GetInstance[SqlDbType.Bit], (sortBy != EnumUpcomingBikesFilter.Default) ? ((sortBy == EnumUpcomingBikesFilter.LaunchDateLater) ? true : false) : Convert.DBNull));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -651,16 +621,12 @@ namespace Bikewale.DAL.BikeData
         public List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int startIndex, int endIndex, out int recordCount)
         {
             List<NewLaunchedBikeEntity> objModelList = null;
-            Database db = null;
             recordCount = 0;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    //cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = startIndex;
-                    //cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = endIndex;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], startIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], endIndex));
 
@@ -727,10 +693,6 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = topCount;
-                    //cmd.Parameters.AddWithValue("@MakeId", makeId);
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
 
@@ -791,7 +753,6 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymake"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.AddWithValue("@MakeId", makeId);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -900,50 +861,47 @@ namespace Bikewale.DAL.BikeData
         /// <returns></returns>
         public Hashtable GetOldMaskingNames()
         {
-            Database db = null;
             Hashtable ht = null;
 
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "GetOldMaskingNamesList";
-                    cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        cmd.CommandText = "getoldmaskingnameslist";
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    db = new Database();
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //        {
+            //            if (dr != null)
+            //            {
+            //                ht = new Hashtable();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
-                    {
-                        if (dr != null)
-                        {
-                            ht = new Hashtable();
+            //                if (dr!=null)
+            //                {
+            //                    while (dr.Read())
+            //                    {
+            //                        if (!ht.ContainsKey(dr["OldMaskingName"]))
+            //                            ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
+            //                    } 
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
-                            while (dr.Read())
-                            {
-                                if (!ht.ContainsKey(dr["OldMaskingName"]))
-                                    ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
-                            }
-                        }
-                    }
-                }
-            }
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("GetOldMaskingNamesList sql ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("GetOldMaskingNamesList ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetOldMaskingNamesList sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetOldMaskingNamesList ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
             return ht;
         }
 
@@ -956,20 +914,18 @@ namespace Bikewale.DAL.BikeData
         /// <returns></returns>
         public List<FeaturedBikeEntity> GetFeaturedBikes(uint topRecords)
         {
-            Database db = null;
             List<FeaturedBikeEntity> objFeatured = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetFeaturedBikeMin_New";
+                    cmd.CommandText = "getfeaturedbikemin_new";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@TopCount", SqlDbType.TinyInt).Value = topRecords;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], topRecords));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -1013,10 +969,6 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
 
             return objFeatured;
         }
@@ -1031,19 +983,17 @@ namespace Bikewale.DAL.BikeData
         /// <returns></returns>
         public IEnumerable<BikeMakeModelEntity> GetAllModels(EnumBikeType requestType)
         {
-            Database db = null;
             IList<BikeMakeModelEntity> objList = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetAllModels";
+                    cmd.CommandText = "getallmodels";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@RequestType", SqlDbType.TinyInt).Value = (int)requestType;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], (int)requestType));
 
-                    db = new Database();
-                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (reader != null)
                         {

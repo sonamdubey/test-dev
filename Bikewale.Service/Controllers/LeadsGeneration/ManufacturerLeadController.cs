@@ -58,16 +58,6 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
 
                 if (objLead.CityId > 0 && objLead.VersionId > 0 && objLead.PQId != 0 && !String.IsNullOrEmpty(objLead.Name) && !String.IsNullOrEmpty(objLead.Email) && !String.IsNullOrEmpty(objLead.Mobile) && objLead.DealerId != 0)
                 {
-                    //objLead = new ManufacturerLeadEntity();
-                    //objLead.Name = objMfgLead.Name;
-                    //objLead.Mobile = mobile;
-                    //objLead.Email = email;
-                    //objLead.CityId = cityId;
-                    //objLead.VersionId = versionId;
-                    //objLead.PQId = Convert.ToUInt32(pqId);
-
-                    //dealer Id for TVS manufacturer 
-                    //objLead.DealerId = Convert.ToUInt32(ConfigurationManager.AppSettings["TVSManufacturerId"]);
 
                     if (objLead != null && objLead.PQId > 0 && objLead.DealerId > 0)
                     {
@@ -77,7 +67,6 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                         if (status)
                         {
                             //Push inquiry Id to AutoBiz
-                            //objLead.DealerId, objLead.PQId, objLead.Name, objLead.Mobile, objLead.Email,null
                             DPQ_SaveEntity entity = new DPQ_SaveEntity()
                             {
                                 DealerId = objLead.DealerId,

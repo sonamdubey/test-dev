@@ -24,28 +24,28 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public List<AreaEntityBase> GetAreas(string cityId)
         {
-            Database db = null;
             List<AreaEntityBase> objAreaList = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetAreas"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getareas"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-
-                    db = new Database();
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
 
                     objAreaList = new List<AreaEntityBase>();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr.Read())
+                        if (dr!=null)
                         {
-                            objAreaList.Add(new AreaEntityBase
+                            while (dr.Read())
                             {
-                                AreaId = Convert.ToUInt32(dr["Value"]),
-                                AreaName = Convert.ToString(dr["Text"]),
-                                AreaMaskingName = Convert.ToString(dr["MaskingName"])
-                            });
+                                objAreaList.Add(new AreaEntityBase
+                                {
+                                    AreaId = Convert.ToUInt32(dr["Value"]),
+                                    AreaName = Convert.ToString(dr["Text"]),
+                                    AreaMaskingName = Convert.ToString(dr["MaskingName"])
+                                });
+                            } 
                         }
                     }
 
@@ -62,10 +62,6 @@ namespace Bikewale.DAL.Location
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
             return objAreaList;

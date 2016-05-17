@@ -10,6 +10,7 @@ using Bikewale.Entities.CMS;
 using Bikewale.Interfaces.CMS;
 using Bikewale.CoreDAL;
 using Bikewale.Notifications;
+using System.Data.Common;
 
 namespace Bikewale.DAL.CMS
 {
@@ -33,23 +34,21 @@ namespace Bikewale.DAL.CMS
         public override IList<T> GetContentList(int startIndex, int endIndex, out int recordCount, ContentFilter filters)
         {
             IList<T> objList = default(List<T>);
-            Database db = null;
             recordCount = 0;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetDefaultNewsPageDetails";
+                    cmd.CommandText = "getdefaultnewspagedetails";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@startindex", SqlDbType.Int).Value = startIndex;
-                    cmd.Parameters.Add("@endindex", SqlDbType.Int).Value = endIndex;
-                    cmd.Parameters.Add("@CategoryId", SqlDbType.BigInt).Value = EnumCMSContentType.News;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], startIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], endIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], EnumCMSContentType.News));
 
-                    db = new Database();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -96,11 +95,6 @@ namespace Bikewale.DAL.CMS
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return objList;
         }   // End of GetContentList
 
@@ -112,74 +106,67 @@ namespace Bikewale.DAL.CMS
         public override V GetContentDetails(int contentId, int pageId)
         {
             V v = default(V);
-            Database db = null;
+
             try
             {
-                db = new Database();
 
-                using (SqlConnection con = new SqlConnection(db.GetConString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetNewsPageDetails";
-                        cmd.Connection = con;
+                        cmd.CommandText = "getnewspagedetails";
 
-                        cmd.Parameters.Add("@BasicId", SqlDbType.Int).Value = contentId;
-                        cmd.Parameters.Add("@IsPublished", SqlDbType.Bit).Value = true;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contentId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ispublished", DbParamTypeMapper.GetInstance[SqlDbType.Bit], true));
 
-                        cmd.Parameters.Add("@AuthorName", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@DisplayDate", SqlDbType.DateTime).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Title", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Url", SqlDbType.VarChar, 200).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Views", SqlDbType.Int).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Content", SqlDbType.VarChar, 8000).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@ImagePathLarge", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@MainImgCaption", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@MainImgSet", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@CommentCount", SqlDbType.Int).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_authorname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_displaydate", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_title", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_views", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_content", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 8000, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepathlarge", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_mainimgcaption", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_mainimgset", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_commentcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
 
-                        cmd.Parameters.Add("@ImagePathThumbnail", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepaththumbnail", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
 
-                        cmd.Parameters.Add("@NextId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@NextUrl", SqlDbType.VarChar, 200).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@NextTitle", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@PrevId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@PrevUrl", SqlDbType.VarChar, 200).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@PrevTitle", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_nextid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_nexturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_nexttitle", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_previd", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_prevurl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_prevtitle", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
 
-
-                        con.Open();
-                        cmd.ExecuteNonQuery();
+                        MySqlDatabase.ExecuteNonQuery(cmd);
 
                         v = new V();
 
-                        if (!string.IsNullOrEmpty(cmd.Parameters["@AuthorName"].Value.ToString()))
+                        if (!string.IsNullOrEmpty(cmd.Parameters["par_authorname"].Value.ToString()))
                         {
-                            v.AuthorName = cmd.Parameters["@AuthorName"].Value.ToString();
-                            v.DisplayDate = cmd.Parameters["@DisplayDate"].Value.ToString();
-                            v.Title = cmd.Parameters["@Title"].Value.ToString();
-                            v.Url = cmd.Parameters["@Url"].Value.ToString();
-                            v.Views = Convert.ToUInt32(cmd.Parameters["@Views"].Value);
-                            v.Data = cmd.Parameters["@Content"].Value.ToString();
-                            v.HostUrl = cmd.Parameters["@HostUrl"].Value.ToString();
-                            v.IsMainImageSet = Convert.ToBoolean(cmd.Parameters["@MainImgSet"].Value);
-                            v.LargePicUrl = cmd.Parameters["@ImagePathLarge"].Value.ToString();
-                            v.SmallPicUrl = cmd.Parameters["@ImagePathThumbnail"].Value.ToString();
-                            v.MainImgCaption = cmd.Parameters["@MainImgCaption"].Value.ToString();
-                            v.FacebookCommentCount = Convert.ToUInt32(cmd.Parameters["@CommentCount"].Value);
+                            v.AuthorName = cmd.Parameters["par_authorname"].Value.ToString();
+                            v.DisplayDate = cmd.Parameters["par_displaydate"].Value.ToString();
+                            v.Title = cmd.Parameters["par_title"].Value.ToString();
+                            v.Url = cmd.Parameters["par_url"].Value.ToString();
+                            v.Views = Convert.ToUInt32(cmd.Parameters["par_views"].Value);
+                            v.Data = cmd.Parameters["par_content"].Value.ToString();
+                            v.HostUrl = cmd.Parameters["par_hosturl"].Value.ToString();
+                            v.IsMainImageSet = Convert.ToBoolean(cmd.Parameters["par_mainimgset"].Value);
+                            v.LargePicUrl = cmd.Parameters["par_imagepathlarge"].Value.ToString();
+                            v.SmallPicUrl = cmd.Parameters["par_imagepaththumbnail"].Value.ToString();
+                            v.MainImgCaption = cmd.Parameters["par_mainimgcaption"].Value.ToString();
+                            v.FacebookCommentCount = Convert.ToUInt32(cmd.Parameters["par_commentcount"].Value);
 
                             // Next, Previous new articles
-                            v.NextId = cmd.Parameters["@NextId"].Value.ToString();
-                            v.PrevId = cmd.Parameters["@PrevId"].Value.ToString();
-                            v.NextUrl = cmd.Parameters["@NextUrl"].Value.ToString();
-                            v.PrevUrl = cmd.Parameters["@PrevUrl"].Value.ToString();
-                            v.NextTitle = cmd.Parameters["@NextTitle"].Value.ToString();
-                            v.PrevTitle = cmd.Parameters["@PrevTitle"].Value.ToString();
+                            v.NextId = cmd.Parameters["par_nextid"].Value.ToString();
+                            v.PrevId = cmd.Parameters["par_previd"].Value.ToString();
+                            v.NextUrl = cmd.Parameters["par_nexturl"].Value.ToString();
+                            v.PrevUrl = cmd.Parameters["par_prevurl"].Value.ToString();
+                            v.NextTitle = cmd.Parameters["par_nexttitle"].Value.ToString();
+                            v.PrevTitle = cmd.Parameters["par_prevtitle"].Value.ToString();
                         }
                     }
-                }
             }
             catch (SqlException err)
             {
@@ -191,11 +178,6 @@ namespace Bikewale.DAL.CMS
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
-
             return v;
         }   // end of GetContentDetails
         

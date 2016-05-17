@@ -28,43 +28,43 @@ namespace Bikewale.DAL.Feedback
         public bool SaveCustomerFeedback(string feedbackComment, ushort feedbackType, ushort platformId,string pageUrl)
         {
             bool isSaved = false;
-            Database db = null;
+            //Database db = null;
 
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "SaveFeedback";
-                    cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        cmd.CommandText = "SaveFeedback";
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@FeedbackComment", SqlDbType.VarChar, 500).Value = feedbackComment;
-                    cmd.Parameters.Add("@FeedbackType", SqlDbType.TinyInt).Value = feedbackType;
-                    cmd.Parameters.Add("@PlatformId", SqlDbType.TinyInt).Value = platformId;
-                    cmd.Parameters.Add("@PageUrl", SqlDbType.VarChar, 150).Value = pageUrl;
+            //        cmd.Parameters.Add("@FeedbackComment", SqlDbType.VarChar, 500).Value = feedbackComment;
+            //        cmd.Parameters.Add("@FeedbackType", SqlDbType.TinyInt).Value = feedbackType;
+            //        cmd.Parameters.Add("@PlatformId", SqlDbType.TinyInt).Value = platformId;
+            //        cmd.Parameters.Add("@PageUrl", SqlDbType.VarChar, 150).Value = pageUrl;
 
-                    db = new Database();
+            //        db = new Database();
 
-                    isSaved = db.InsertQry(cmd);
-                }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("SaveCustomerFeedback sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                isSaved = false;
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("SaveCustomerFeedback ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                isSaved = false;
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //        isSaved = db.InsertQry(cmd);
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("SaveCustomerFeedback sql ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //    isSaved = false;
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("SaveCustomerFeedback ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //    isSaved = false;
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
             return isSaved;
         }   //End of SaveCustomerFeedback
     }   //End of class

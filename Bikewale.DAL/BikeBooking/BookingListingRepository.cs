@@ -203,21 +203,20 @@ namespace Bikewale.DAL.BikeBooking
         /// <returns></returns>
         public List<OfferEntity> FetchOffer(uint dealerId, int modelId, int cityId)
         {
-            Database db = null;
             List<OfferEntity> lstOffer = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealerOffers";
-                    cmd.Parameters.AddWithValue("@DealerId", Convert.ToInt32(dealerId));
-                    cmd.Parameters.AddWithValue("@ModelId", Convert.ToInt32(modelId));
-                    cmd.Parameters.AddWithValue("@CityID", Convert.ToInt32(cityId));
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    cmd.CommandText = "getdealeroffers";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId ));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr != null && dr.HasRows)
+                        if (dr != null)
                         {
                             lstOffer = new List<OfferEntity>();
                             while (dr.Read())
@@ -241,10 +240,7 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, "BookingListingRepository.FetchOffer");
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return lstOffer;
         }
 

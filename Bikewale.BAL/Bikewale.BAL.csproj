@@ -77,14 +77,17 @@
     <Compile Include="AppDeepLinking\DeepLinking.cs" />
     <Compile Include="AutoComplete\AutoSuggest.cs" />
     <Compile Include="BikeBooking\AbstractBikeBooking.cs" />
-    <Compile Include="BikeBooking\BookingCancellation.cs" />
     <Compile Include="BikeBooking\BrowserBikeBooking.cs" />
     <Compile Include="BikeBooking\DealerPriceQuote.cs" />
     <Compile Include="BikeData\BikeMakes.cs" />
     <Compile Include="BikeData\BikeModels.cs" />
-    <Compile Include="BikeData\BikeSeries.cs" />
+    <Compile Include="BikeData\BikeSeries.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="BikeData\BikeVersions.cs" />
-    <Compile Include="CMS\CMSData.cs" />
+    <Compile Include="CMS\CMSData.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Compare\BikeComparison.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerAuthentication.cs" />
@@ -93,7 +96,6 @@
     <Compile Include="Feedback\Feedback.cs" />
     <Compile Include="MobileVerification\MobileVerification.cs" />
     <Compile Include="Pager\Pager.cs" />
-    <Compile Include="PhotoGallery\ModelPhotos.cs" />
     <Compile Include="PriceQuote\DealerPriceQuoteDetail.cs" />
     <Compile Include="PriceQuote\PQByCityArea.cs" />
     <Compile Include="PriceQuote\PriceQuote.cs" />
@@ -147,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Insurance\" />
+    <Folder Include="PhotoGallery\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

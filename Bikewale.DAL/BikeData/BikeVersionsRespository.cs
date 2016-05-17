@@ -436,18 +436,12 @@ namespace Bikewale.DAL.BikeData
         public List<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint percentDeviation)
         {
             List<SimilarBikeEntity> objSimilarBikes = null;
-            Database db = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandText = "getsimilarbikeslist";
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    //cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = topCount;
-                    //cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = versionId;
-                    //if (percentDeviation > 0)
-                    //    cmd.Parameters.Add("@PercentDeviation", SqlDbType.Int).Value = percentDeviation;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("v_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("v_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
@@ -504,23 +498,25 @@ namespace Bikewale.DAL.BikeData
         public List<VersionColor> GetColorByVersion(U versionId)
         {
             List<VersionColor> objColors = null;
-            Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetVersionColors";
+                    cmd.CommandText = "getversioncolors";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
 
-                    db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         objColors = new List<VersionColor>();
 
-                        while (dr.Read())
-                            objColors.Add(new VersionColor() { ColorName = dr["Color"].ToString(), ColorCode = dr["HexCode"].ToString(), CompanyCode = dr["CompanyCode"].ToString(), ColorId = Convert.ToUInt32(dr["ColorId"]) });
+                        if (dr!=null)
+                        {
+                            while (dr.Read())
+                                objColors.Add(new VersionColor() { ColorName = dr["Color"].ToString(), ColorCode = dr["HexCode"].ToString(), CompanyCode = dr["CompanyCode"].ToString(), ColorId = Convert.ToUInt32(dr["ColorId"]) });
+                            
+                        }
                     }
                 }
             }
@@ -534,10 +530,7 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return objColors;
         }
 

@@ -53,7 +53,6 @@
     <Compile Include="App\IAppVersion.cs" />
     <Compile Include="AutoComplete\IAutoSuggest.cs" />
     <Compile Include="BikeBooking\IBikeBooking.cs" />
-    <Compile Include="BikeBooking\IBookingCancellation.cs" />
     <Compile Include="BikeBooking\IBookingListing.cs" />
     <Compile Include="BikeBooking\IDealerPriceQuote.cs" />
     <Compile Include="BikeData\IBikeMakes.cs" />
@@ -62,7 +61,9 @@
     <Compile Include="BikeData\IBikeModels.cs" />
     <Compile Include="BikeData\IBikeModelsCacheRepository.cs" />
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
-    <Compile Include="BikeData\IBikeSeries.cs" />
+    <Compile Include="BikeData\IBikeSeries.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikeBooking\IFeedBacks.cs" />
     <Compile Include="CMS\ICMSContentRepository.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="NewBikeSearch\ISearchQuery.cs" />
     <Compile Include="NewBikeSearch\ISearchResult.cs" />
     <Compile Include="Pager\IPager.cs" />
-    <Compile Include="PhotoGallery\IModelPhotos.cs" />
     <Compile Include="PriceQuote\IDealerPriceQuoteDetail.cs" />
     <Compile Include="PriceQuote\IPriceQuote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,7 +100,9 @@
     <Compile Include="Videos\IVideos.cs" />
     <Compile Include="Videos\IVideosCacheRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="PhotoGallery\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>

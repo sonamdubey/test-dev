@@ -1,15 +1,12 @@
 ﻿using Bikewale.Notifications;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Enyim.Caching;
 using Enyim.Caching.Memcached;
 using System.Data;
 using System.Data.SqlClient;
 using Bikewale.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.Cache.Memcache
 {
@@ -114,20 +111,18 @@ namespace Bikewale.Cache.Memcache
 
             try
             {
-                Database db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = spName;
 
                     if (param != null)
                     {
-                        cmd.Parameters.Add(param.ParameterName, param.SqlDbType).Value = param.Value;
+                        cmd.Parameters.Add(DbFactory.GetDbParam(param.ParameterName, DbParamTypeMapper.GetInstance[param.SqlDbType], param.Value));
                     }
 
                     // Fetch the data from the database into DataSet
-                    ds = db.SelectAdaptQry(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException ex)
