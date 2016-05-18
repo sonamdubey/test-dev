@@ -108,79 +108,79 @@ namespace BikeWaleOpr.Content
 		
 		void btnSave_Click( object Sender, EventArgs e )
 		{
+            throw new Exception("Method not used/commented");
+            //if ( Request.Form["cmbVersion"] == null || !CommonOpn.CheckId( Request.Form["cmbVersion"] ) )
+            //    return;
 			
-			if ( Request.Form["cmbVersion"] == null || !CommonOpn.CheckId( Request.Form["cmbVersion"] ) )
-				return;
+            //Trace.Warn("saving data for : " + Request.Form["cmbVersion"]);
 			
-			Trace.Warn("saving data for : " + Request.Form["cmbVersion"]);
+            //string sql = "";
+            //Database db = new Database();
 			
-			string sql = "";
-			Database db = new Database();
-			
-			try
-			{
-				// Delete all features for this version first.
-				sql = " DELETE FROM NewBikeFeatures WHERE BikeVersionId=" + Request.Form["cmbVersion"];
-				db.InsertQry( sql );
-			}
-            catch (SqlException err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-			catch( Exception err )
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
+            //try
+            //{
+            //    // Delete all features for this version first.
+            //    sql = " DELETE FROM NewBikeFeatures WHERE BikeVersionId=" + Request.Form["cmbVersion"];
+            //    db.InsertQry( sql );
+            //}
+            //catch (SqlException err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch( Exception err )
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 					
-			foreach ( RepeaterItem item in rptFeatures.Items )
-			{
-				Trace.Warn("Repeater...");
-				if( (item.ItemType == ListItemType.Item) || (item.ItemType == ListItemType.AlternatingItem) )
-				{
-					DataGrid dg = ( DataGrid )item.FindControl( "dgItems" );
+            //foreach ( RepeaterItem item in rptFeatures.Items )
+            //{
+            //    Trace.Warn("Repeater...");
+            //    if( (item.ItemType == ListItemType.Item) || (item.ItemType == ListItemType.AlternatingItem) )
+            //    {
+            //        DataGrid dg = ( DataGrid )item.FindControl( "dgItems" );
 					
-					if ( dg != null )
-					{
-						foreach ( DataGridItem gridItem in dg.Items )
-						{
-							Trace.Warn("Grid...");
-							CheckBox chk = (CheckBox)gridItem.FindControl( "chkFeature" );
-							try
-							{
-								if ( chk.Checked )
-								{	
-									sql = " INSERT INTO NewBikeFeatures(BikeVersionId,FeatureItemId)"
-										+ " VALUES(" + Request.Form["cmbVersion"] + ", " + dg.DataKeys[ gridItem.ItemIndex ] + " )";
+            //        if ( dg != null )
+            //        {
+            //            foreach ( DataGridItem gridItem in dg.Items )
+            //            {
+            //                Trace.Warn("Grid...");
+            //                CheckBox chk = (CheckBox)gridItem.FindControl( "chkFeature" );
+            //                try
+            //                {
+            //                    if ( chk.Checked )
+            //                    {	
+            //                        sql = " INSERT INTO NewBikeFeatures(BikeVersionId,FeatureItemId)"
+            //                            + " VALUES(" + Request.Form["cmbVersion"] + ", " + dg.DataKeys[ gridItem.ItemIndex ] + " )";
 								
-									Trace.Warn( sql );		
-									db.InsertQry( sql );	
-								}
-							}
-                            catch (SqlException err)
-                            {
-                                Trace.Warn(err.Message + err.Source);
-                                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                                objErr.SendMail();
-                            }
-							catch(Exception err)
-							{
-								Trace.Warn(err.Message + err.Source);
-								ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-								objErr.SendMail();
-							}
-						}
-					}
-				}
-			}
+            //                        Trace.Warn( sql );		
+            //                        db.InsertQry( sql );	
+            //                    }
+            //                }
+            //                catch (SqlException err)
+            //                {
+            //                    Trace.Warn(err.Message + err.Source);
+            //                    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //                    objErr.SendMail();
+            //                }
+            //                catch(Exception err)
+            //                {
+            //                    Trace.Warn(err.Message + err.Source);
+            //                    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //                    objErr.SendMail();
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
             
-            db.CloseConnection();
-            //Update Changes Log
-            //ContentCommon cc = new ContentCommon();
-            //cc.LogUpdates("Link Features with version", "VersionId", Request.Form["cmbVersion"].ToString());
+            //db.CloseConnection();
+            ////Update Changes Log
+            ////ContentCommon cc = new ContentCommon();
+            ////cc.LogUpdates("Link Features with version", "VersionId", Request.Form["cmbVersion"].ToString());
 		}
 		
 		///<summary>
@@ -189,55 +189,57 @@ namespace BikeWaleOpr.Content
 		///</summary>
 		void BindRepeater()
 		{
-			string sql = "";
-						
-			sql = " SELECT NC.Id AS CategoryId, NC.Name As Category "
-				+ " FROM NewBikeFeatureCategories NC ";
-			
-			Trace.Warn(sql);
-			
-			Database db = new Database();
-			
-			DataSet ds = new DataSet();
-			SqlConnection cn = new SqlConnection( db.GetConString() );
-			
-			try
-			{
-				cn.Open();
-				
-				SqlDataAdapter adp = new SqlDataAdapter( sql, cn );
-				adp.Fill( ds, "Categories" );
-				
-				sql = " SELECT NI.ID, NI.Name Feature, NI.CategoryId AS CategoryId,"
-					+ " (SELECT FeatureItemId FROM NewBikeFeatures "
-					+ " 	WHERE FeatureItemId=NI.ID AND BikeVersionId=" + Request.Form["cmbVersion"] + ") IsAvailable" 
-					+ " FROM NewBikeFeatureItems NI WHERE IsObsolete<>1 AND BikeModelId=" + Request.Form["cmbModel"];
-					
-                Trace.Warn("sql : ",sql);
+            throw new Exception("Method not used/commented");
 
-				adp = new SqlDataAdapter( sql, cn );
-				adp.Fill( ds, "Features" );	
+            //string sql = "";
+						
+            //sql = " SELECT NC.Id AS CategoryId, NC.Name As Category "
+            //    + " FROM NewBikeFeatureCategories NC ";
+			
+            //Trace.Warn(sql);
+			
+            //Database db = new Database();
+			
+            //DataSet ds = new DataSet();
+            //SqlConnection cn = new SqlConnection( db.GetConString() );
+			
+            //try
+            //{
+            //    cn.Open();
 				
-				ds.Relations.Add( 
-						"myRelation", 
-						ds.Tables["Categories"].Columns["CategoryId"], 
-						ds.Tables["Features"].Columns["CategoryId"] 
-					);
+            //    SqlDataAdapter adp = new SqlDataAdapter( sql, cn );
+            //    adp.Fill( ds, "Categories" );
+				
+            //    sql = " SELECT NI.ID, NI.Name Feature, NI.CategoryId AS CategoryId,"
+            //        + " (SELECT FeatureItemId FROM NewBikeFeatures "
+            //        + " 	WHERE FeatureItemId=NI.ID AND BikeVersionId=" + Request.Form["cmbVersion"] + ") IsAvailable" 
+            //        + " FROM NewBikeFeatureItems NI WHERE IsObsolete<>1 AND BikeModelId=" + Request.Form["cmbModel"];
 					
-				rptFeatures.DataSource = ds.Tables["Categories"];	
-				rptFeatures.DataBind();
+            //    Trace.Warn("sql : ",sql);
+
+            //    adp = new SqlDataAdapter( sql, cn );
+            //    adp.Fill( ds, "Features" );	
 				
-			}
-			catch(Exception err)
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-				if ( cn.State == ConnectionState.Open ) cn.Close();
-			}
+            //    ds.Relations.Add( 
+            //            "myRelation", 
+            //            ds.Tables["Categories"].Columns["CategoryId"], 
+            //            ds.Tables["Features"].Columns["CategoryId"] 
+            //        );
+					
+            //    rptFeatures.DataSource = ds.Tables["Categories"];	
+            //    rptFeatures.DataBind();
+				
+            //}
+            //catch(Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if ( cn.State == ConnectionState.Open ) cn.Close();
+            //}
 			
 		}
 	} // class

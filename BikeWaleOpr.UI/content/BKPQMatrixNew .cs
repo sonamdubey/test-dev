@@ -152,8 +152,8 @@ namespace BikeWaleOpr.Content
             string sql = "";
             DateTime dtMonthYear = selDate.Value;
             DataSet ds = new DataSet();
-            Database db = new Database();
             DbCommand cmd = DbFactory.GetDBCommand();
+            MySqlDbUtilities db = new MySqlDbUtilities();
 
             sql = @" select count( distinct nbp.id) as CNT,vw.Make AS Make, 
                 vw.Model,vw.modelid AS ModelId,vw.Version,vw.makeid AS MakeId,vw.VersionId, 
@@ -222,8 +222,8 @@ namespace BikeWaleOpr.Content
             string sql = "";
             DateTime dtMonthYear = selDate.Value;
             DataSet ds = new DataSet();
-            Database db = new Database();
             DbCommand cmd = DbFactory.GetDBCommand();
+            MySqlDbUtilities db = new MySqlDbUtilities();
 
             sql = @" select cast(day(nbp.requestdatetime) as char) AS Day, 
                     count(distinct nbp.id)as CNT 

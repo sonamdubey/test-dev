@@ -213,7 +213,6 @@
     </Compile>
     <Compile Include="common\AjaxAppVersion.cs" />
     <Compile Include="common\AjaxCompareFeaturedBike.cs" />
-    <Compile Include="common\AjaxEditCms.cs" />
     <Compile Include="common\AjaxFunctions.cs" />
     <Compile Include="common\Ajax\AjaxCommon.cs" />
     <Compile Include="common\Ajax\AjaxManufacturerCampaign.cs" />
@@ -225,6 +224,7 @@
     <Compile Include="common\Mysql\DbFactory.cs" />
     <Compile Include="common\Mysql\MySqlDatabase.cs" />
     <Compile Include="common\Mysql\Utils\DbParamTypeMapper.cs" />
+    <Compile Include="common\Mysql\Utils\MySqlDbUtilities.cs" />
     <Compile Include="CommuteDistance\CommuteDistanceBL.cs" />
     <Compile Include="CommuteDistance\CommuteDistanceRepository.cs" />
     <Compile Include="CommuteDistance\GoogleDistanceAPIHelper.cs" />
@@ -246,7 +246,6 @@
     <Compile Include="common\Configuration.cs" />
     <Compile Include="common\ContentCommon.cs" />
     <Compile Include="common\CurrentUser.cs" />
-    <Compile Include="common\database.cs" />
     <Compile Include="common\ErrorClass.cs" />
     <Compile Include="common\ImagingFunctions.cs" />
     <Compile Include="common\ImagingOperations.cs" />

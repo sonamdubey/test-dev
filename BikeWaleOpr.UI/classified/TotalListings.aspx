@@ -147,7 +147,7 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"InsuranceExpiryDate","{0:MMM-yyyy}")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"LifetimeTax")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
-                        <td><input id="btnSView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"ProfileId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" value ="View Photos" <%# ((int)DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0 ? "" : "style='display:none;'" %> /></td>
+                        <td><input id="btnSView" type="button" onclick ="javascript:window.open('/classified/listingphotos.aspx?profileid=<%# DataBinder.Eval(Container.DataItem,"ProfileId")%>    ','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')" value ="View Photos"<%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> /></td>
                         <td></td>
                     </tr>
                 </ItemTemplate>

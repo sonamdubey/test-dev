@@ -129,46 +129,46 @@ namespace BikeWaleOpr.Common
 		
 		private void FetchRoadTests()
 		{
-			string sql = " SELECT TOP 5 CRT.*, CMA.Name + ' ' + CMO.Name + ' ' + ISNULL(CV.Name, '') AS Bike  "
-					   + " FROM	Con_RoadTest CRT "
-					   + " LEFT JOIN BikeVersions CV"
-					   + " ON CRT.BikeVersionId = CV.Id"
-					   + " LEFT JOIN BikeModels CMO"
-					   + " ON CRT.BikeModelId = CMO.Id"
-					   + " LEFT JOIN BikeMakes CMA"
-					   + " ON CMO.BikeMakeId = CMA.Id"
-					   + " WHERE CRT.IsActive = 1 AND CRT.IsPublished = 1"
-					   + " ORDER BY CRT.DisplayDate DESC";
+            //string sql = " SELECT TOP 5 CRT.*, CMA.Name + ' ' + CMO.Name + ' ' + ISNULL(CV.Name, '') AS Bike  "
+            //           + " FROM	Con_RoadTest CRT "
+            //           + " LEFT JOIN BikeVersions CV"
+            //           + " ON CRT.BikeVersionId = CV.Id"
+            //           + " LEFT JOIN BikeModels CMO"
+            //           + " ON CRT.BikeModelId = CMO.Id"
+            //           + " LEFT JOIN BikeMakes CMA"
+            //           + " ON CMO.BikeMakeId = CMA.Id"
+            //           + " WHERE CRT.IsActive = 1 AND CRT.IsPublished = 1"
+            //           + " ORDER BY CRT.DisplayDate DESC";
 					   
-			Database db = new Database();
-			SqlDataReader dr = null;
-			try
-			{
-				dr = db.SelectQry(sql);
-				while(dr.Read())
-				{
-					AddRoadTest(dr["Id"].ToString(),
-								dr["Bike"].ToString(),
-								dr["BikeModelId"].ToString(),
-								dr["BikeVersionId"].ToString(),
-								dr["Title"].ToString(),
-								dr["AuthorName"].ToString(),
-								dr["MainImgPath"].ToString(),
-								dr["Description"].ToString()	
-					);	
-				}
-			}
-			catch(Exception ex)
-			{
-				//Response.Write(ex.Message);
-				ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.ConsumeError();
-			}
-			finally
-			{
-				dr.Close();
-				db.CloseConnection();
-			}		   	
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //try
+            //{
+            //    dr = db.SelectQry(sql);
+            //    while(dr.Read())
+            //    {
+            //        AddRoadTest(dr["Id"].ToString(),
+            //                    dr["Bike"].ToString(),
+            //                    dr["BikeModelId"].ToString(),
+            //                    dr["BikeVersionId"].ToString(),
+            //                    dr["Title"].ToString(),
+            //                    dr["AuthorName"].ToString(),
+            //                    dr["MainImgPath"].ToString(),
+            //                    dr["Description"].ToString()	
+            //        );	
+            //    }
+            //}
+            //catch(Exception ex)
+            //{
+            //    //Response.Write(ex.Message);
+            //    ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.ConsumeError();
+            //}
+            //finally
+            //{
+            //    dr.Close();
+            //    db.CloseConnection();
+            //}		   	
 
 		}
 		
@@ -224,43 +224,45 @@ namespace BikeWaleOpr.Common
 		
 		private void FetchUpcomingBikes()
 		{
-			string sql  = " SELECT	"
-						+ " Top 5 ECL.*, CMA.Name + ' ' + ECL.ModelName AS Bike"
-						+ " FROM	"
-						+ " ExpectedBikeLaunches ECL, BikeMakes CMA"
-						+ " WHERE	"
-						+ " ECL.IsLaunched = 0"
-						+ " AND ECL.BikeMakeId = CMA.ID"
-						+ " ORDER	BY ECL.Sort ";
+            throw new Exception("Method not used/commented");
+
+            //string sql  = " SELECT	"
+            //            + " Top 5 ECL.*, CMA.Name + ' ' + ECL.ModelName AS Bike"
+            //            + " FROM	"
+            //            + " ExpectedBikeLaunches ECL, BikeMakes CMA"
+            //            + " WHERE	"
+            //            + " ECL.IsLaunched = 0"
+            //            + " AND ECL.BikeMakeId = CMA.ID"
+            //            + " ORDER	BY ECL.Sort ";
 					   
-			Database db = new Database();
-			SqlDataReader dr = null;
-			try
-			{
-				dr = db.SelectQry(sql);
-				while(dr.Read())
-				{
-					AddUpcomingBike(dr["Id"].ToString(),
-								dr["Bike"].ToString(),
-								dr["BikeMakeId"].ToString(),
-								dr["ModelName"].ToString(),
-								dr["PhotoName"].ToString(),
-								dr["Description"].ToString(),
-								dr["ExpectedLaunch"].ToString(),
-								dr["EstimatedPrice"].ToString()
-					);	
-				}
-			}
-			catch(Exception ex)
-			{
-				ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-				dr.Close();
-				db.CloseConnection();
-			}		   	
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //try
+            //{
+            //    dr = db.SelectQry(sql);
+            //    while(dr.Read())
+            //    {
+            //        AddUpcomingBike(dr["Id"].ToString(),
+            //                    dr["Bike"].ToString(),
+            //                    dr["BikeMakeId"].ToString(),
+            //                    dr["ModelName"].ToString(),
+            //                    dr["PhotoName"].ToString(),
+            //                    dr["Description"].ToString(),
+            //                    dr["ExpectedLaunch"].ToString(),
+            //                    dr["EstimatedPrice"].ToString()
+            //        );	
+            //    }
+            //}
+            //catch(Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    dr.Close();
+            //    db.CloseConnection();
+            //}		   	
 
 		}
 		
@@ -317,93 +319,95 @@ namespace BikeWaleOpr.Common
 		
 		private void FetchFeaturedBikes()
 		{
-			string sql = "";
-			CheckForModel();
+            throw new Exception("Method not used/commented");
+
+        //    string sql = "";
+        //    CheckForModel();
 			
-			if (isModel == "1")
-			{
-				sql = " SELECT FL.ID, CMO.Id AS ModelId, CMA.Name AS MakeName, CMO.Name AS ModelName, '' AS VersionName,"
-					+ " IsModel, Description, ShowResearch, ShowPrice, ShowRoadTest, Link"
-					+ " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO"
-					+ " WHERE FL.BikeId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 1"
-					+ " AND FL.ID = " + listingId;
-			}
-			else
-			{
-				sql = " SELECT FL.ID, CV.Id AS ModelId, CMA.Name AS MakeName, CMO.Name AS ModelName, CV.Name AS VersionName,"
-					+ " IsModel, Description, ShowResearch, ShowPrice, ShowRoadTest, Link"
-					+ " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO, BikeVersions AS CV"
-					+ " WHERE FL.BikeId = CV.Id AND CV.BikeModelId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 0"
-					+ " AND FL.ID = " + listingId;
-			}
+        //    if (isModel == "1")
+        //    {
+        //        sql = " SELECT FL.ID, CMO.Id AS ModelId, CMA.Name AS MakeName, CMO.Name AS ModelName, '' AS VersionName,"
+        //            + " IsModel, Description, ShowResearch, ShowPrice, ShowRoadTest, Link"
+        //            + " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO"
+        //            + " WHERE FL.BikeId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 1"
+        //            + " AND FL.ID = " + listingId;
+        //    }
+        //    else
+        //    {
+        //        sql = " SELECT FL.ID, CV.Id AS ModelId, CMA.Name AS MakeName, CMO.Name AS ModelName, CV.Name AS VersionName,"
+        //            + " IsModel, Description, ShowResearch, ShowPrice, ShowRoadTest, Link"
+        //            + " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO, BikeVersions AS CV"
+        //            + " WHERE FL.BikeId = CV.Id AND CV.BikeModelId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 0"
+        //            + " AND FL.ID = " + listingId;
+        //    }
 		
-			Database db = new Database();
-			SqlDataReader dr = null;
-			try
-			{
-				dr = db.SelectQry(sql);
-				if(dr.Read())
-				{
-					AddFeaturedBike(dr["id"].ToString(),
-								   dr["MakeName"].ToString() + " " + dr["ModelName"].ToString() + " " + dr["VersionName"].ToString(),
-								   dr["Description"].ToString(),
-								   Convert.ToBoolean(dr["IsModel"]),
-								   Convert.ToBoolean(dr["ShowResearch"]),	
-								   Convert.ToBoolean(dr["ShowPrice"]),
-								   Convert.ToBoolean(dr["ShowRoadTest"]),
-								   dr["Link"].ToString(),
-								   dr["MakeName"].ToString(),
-								   dr["ModelName"].ToString(),
-								   dr["VersionName"].ToString(),
-								   dr["ModelId"].ToString()		
-					);	
-				}
-			}
-			catch(Exception ex)
-			{
-				//Response.Write(ex.Message);
-				ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.ConsumeError();
-			}
-			finally
-			{
-				dr.Close();
-				db.CloseConnection();
-			}
-		}
+        //    Database db = new Database();
+        //    SqlDataReader dr = null;
+        //    try
+        //    {
+        //        dr = db.SelectQry(sql);
+        //        if(dr.Read())
+        //        {
+        //            AddFeaturedBike(dr["id"].ToString(),
+        //                           dr["MakeName"].ToString() + " " + dr["ModelName"].ToString() + " " + dr["VersionName"].ToString(),
+        //                           dr["Description"].ToString(),
+        //                           Convert.ToBoolean(dr["IsModel"]),
+        //                           Convert.ToBoolean(dr["ShowResearch"]),	
+        //                           Convert.ToBoolean(dr["ShowPrice"]),
+        //                           Convert.ToBoolean(dr["ShowRoadTest"]),
+        //                           dr["Link"].ToString(),
+        //                           dr["MakeName"].ToString(),
+        //                           dr["ModelName"].ToString(),
+        //                           dr["VersionName"].ToString(),
+        //                           dr["ModelId"].ToString()		
+        //            );	
+        //        }
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        //Response.Write(ex.Message);
+        //        ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
+        //        objErr.ConsumeError();
+        //    }
+        //    finally
+        //    {
+        //        dr.Close();
+        //        db.CloseConnection();
+        //    }
+        //}
 		
-		private void CheckForModel()
-		{
-			isModel = "";
-			listingId = "";
-			string sql = "SELECT TOP 1 Id, IsModel FROM Con_FeaturedListings WHERE IsVisible = 1 AND IsActive = 1 ORDER BY ID DESC";
+        //private void CheckForModel()
+        //{
+        //    isModel = "";
+        //    listingId = "";
+        //    string sql = "SELECT TOP 1 Id, IsModel FROM Con_FeaturedListings WHERE IsVisible = 1 AND IsActive = 1 ORDER BY ID DESC";
 		
-			Database db = new Database();
-			SqlDataReader dr = null;
+        //    Database db = new Database();
+        //    SqlDataReader dr = null;
 			
-			try
-			{
-				dr = db.SelectQry(sql);
-				if (dr.Read())
-				{
-					if (Convert.ToBoolean(dr["IsModel"]))
-						isModel = "1";
-					else
-						isModel = "0";
+        //    try
+        //    {
+        //        dr = db.SelectQry(sql);
+        //        if (dr.Read())
+        //        {
+        //            if (Convert.ToBoolean(dr["IsModel"]))
+        //                isModel = "1";
+        //            else
+        //                isModel = "0";
 						
-					listingId = dr["Id"].ToString();			
-				}
-			}
-			catch(Exception ex)
-			{
-				ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.ConsumeError();
-			}
-			finally
-			{
-				dr.Close();
-				db.CloseConnection();
-			}	
+        //            listingId = dr["Id"].ToString();			
+        //        }
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
+        //        objErr.ConsumeError();
+        //    }
+        //    finally
+        //    {
+        //        dr.Close();
+        //        db.CloseConnection();
+        //    }	
 		}
 		
 		private void AddFeaturedBike(string id, string bike, string description, bool isModel, bool showResearch, bool showPrice, bool showRoadTest, string link, string makeName, string modelName, string versionName, string modelId)
@@ -475,49 +479,51 @@ namespace BikeWaleOpr.Common
 		
 		private void FetchComparisonBikes()
 		{
-			string sql 	= " SELECT	TOP 3 "
-					   	+ " CCL.VersionId1 AS Bike1, "
-						+ " CCL.VersionId2 AS Bike2,"
-						+ " CMA.Name + ' ' + CMO.Name AS BikeName1, "
-						+ " CMAK.Name + ' ' + CMOD.Name AS BikeName2 "
-						+ " FROM	"
-						+ " Con_BikeComparisonList CCL, "
-						+ " BikeVersions CV, BikeModels CMO, BikeMakes CMA,"
-						+ " BikeVersions CVE, BikeModels CMOD, BikeMakes CMAK"
-						+ " WHERE	"
-						+ " CCL.IsActive = 1"
-						+ " AND		CCL.VersionId1 = CV.ID "
-						+ " AND		CV.BikeModelId = CMO.ID"
-						+ " AND		CMO.BikeMakeId = CMA.ID"
-						+ " AND		CCL.VersionId2 = CVE.ID "
-						+ " AND		CVE.BikeModelId = CMOD.ID"
-						+ " AND		CMOD.BikeMakeId = CMAK.ID"
-						+ " ORDER	BY CCL.EntryDate DESC";
+            throw new Exception("Method not used/commented");
+
+            //string sql 	= " SELECT	TOP 3 "
+            //            + " CCL.VersionId1 AS Bike1, "
+            //            + " CCL.VersionId2 AS Bike2,"
+            //            + " CMA.Name + ' ' + CMO.Name AS BikeName1, "
+            //            + " CMAK.Name + ' ' + CMOD.Name AS BikeName2 "
+            //            + " FROM	"
+            //            + " Con_BikeComparisonList CCL, "
+            //            + " BikeVersions CV, BikeModels CMO, BikeMakes CMA,"
+            //            + " BikeVersions CVE, BikeModels CMOD, BikeMakes CMAK"
+            //            + " WHERE	"
+            //            + " CCL.IsActive = 1"
+            //            + " AND		CCL.VersionId1 = CV.ID "
+            //            + " AND		CV.BikeModelId = CMO.ID"
+            //            + " AND		CMO.BikeMakeId = CMA.ID"
+            //            + " AND		CCL.VersionId2 = CVE.ID "
+            //            + " AND		CVE.BikeModelId = CMOD.ID"
+            //            + " AND		CMOD.BikeMakeId = CMAK.ID"
+            //            + " ORDER	BY CCL.EntryDate DESC";
 					   
-			Database db = new Database();
-			SqlDataReader dr = null;
-			try
-			{
-				dr = db.SelectQry(sql);
-				while(dr.Read())
-				{
-					AddComparisonBike(dr["Bike1"].ToString(),
-									 dr["Bike2"].ToString(),
-									 dr["BikeName1"].ToString(),
-									 dr["BikeName2"].ToString()	
-									);	
-				}
-			}
-			catch(Exception ex)
-			{
-				ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.ConsumeError();
-			}
-			finally
-			{
-				dr.Close();
-				db.CloseConnection();
-			}		   	
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //try
+            //{
+            //    dr = db.SelectQry(sql);
+            //    while(dr.Read())
+            //    {
+            //        AddComparisonBike(dr["Bike1"].ToString(),
+            //                         dr["Bike2"].ToString(),
+            //                         dr["BikeName1"].ToString(),
+            //                         dr["BikeName2"].ToString()	
+            //                        );	
+            //    }
+            //}
+            //catch(Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.ConsumeError();
+            //}
+            //finally
+            //{
+            //    dr.Close();
+            //    db.CloseConnection();
+            //}		   	
 		}
 		
 		private void AddComparisonBike(string bike1, string bike2, string bikeName1, string bikeName2)
@@ -574,40 +580,42 @@ namespace BikeWaleOpr.Common
 		
 		private void FetchNewLaunches()
 		{
-			string sql 	= " SELECT Top 3	"
-						+ " NL.Id, CMA.Name AS Make, CMO.Name AS Model, NL.ModelId, CMO.SmallPic"
-						+ " FROM"
-						+ " NewLaunches NL, BikeModels CMO, BikeMakes CMA"
-						+ " WHERE"
-						+ " NL.ModelId = CMO.Id"
-						+ " AND CMO.BikeMakeId = CMA.ID"
-						+ " ORDER BY Id DESC";
+            throw new Exception("Method not used/commented");
+
+            //string sql 	= " SELECT Top 3	"
+            //            + " NL.Id, CMA.Name AS Make, CMO.Name AS Model, NL.ModelId, CMO.SmallPic"
+            //            + " FROM"
+            //            + " NewLaunches NL, BikeModels CMO, BikeMakes CMA"
+            //            + " WHERE"
+            //            + " NL.ModelId = CMO.Id"
+            //            + " AND CMO.BikeMakeId = CMA.ID"
+            //            + " ORDER BY Id DESC";
 					   
-			Database db = new Database();
-			SqlDataReader dr = null;
-			try
-			{
-				dr = db.SelectQry(sql);
-				while(dr.Read())
-				{
-					AddNewLaunch(dr["Id"].ToString(),
-								 dr["ModelId"].ToString(),
-								 dr["Make"].ToString(),
-								 dr["Model"].ToString(),
-								 dr["SmallPic"].ToString()	
-								);	
-				}
-			}
-			catch(Exception ex)
-			{
-				ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.ConsumeError();
-			}
-			finally
-			{
-				dr.Close();
-				db.CloseConnection();
-			}		   	
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //try
+            //{
+            //    dr = db.SelectQry(sql);
+            //    while(dr.Read())
+            //    {
+            //        AddNewLaunch(dr["Id"].ToString(),
+            //                     dr["ModelId"].ToString(),
+            //                     dr["Make"].ToString(),
+            //                     dr["Model"].ToString(),
+            //                     dr["SmallPic"].ToString()	
+            //                    );	
+            //    }
+            //}
+            //catch(Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.ConsumeError();
+            //}
+            //finally
+            //{
+            //    dr.Close();
+            //    db.CloseConnection();
+            //}		   	
 		}
 		
 		private void AddNewLaunch(string id, string modelId, string make, string model, string smallPic)

@@ -256,7 +256,6 @@ namespace BikeWaleOpr.Content
         /// </summary>
         public void GetExpectedBikeLaunches()
         {
-            Database db = new Database();
 
             try
             {

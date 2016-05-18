@@ -463,14 +463,14 @@ namespace BikeWaleOpr.Content
 			int pageSizeM = dtgrdFeaturedListing.PageSize;
 												
 			sql = @" SELECT fl.Id, concat(cma.name , ' ' , cmo.name) AS BikeName, IsActive, IsVisible, 
-                IsModel, Description, EntryDateTime, fl.HostURL, fl.OriginalImagePath, fl.DisplayPriority, fl.IsReplicated 
+                IsModel, Description, EntryDateTime, ifnull(fl.HostURL,'') as HostURL,ifnull(fl.OriginalImagePath,'') as  OriginalImagePath, fl.DisplayPriority, if(fl.IsReplicated,1,0) as IsReplicated 
 				from con_featuredlistings as fl, bikemakes as cma, bikemodels as cmo 
 				where fl.bikeid = cmo.id and cmo.bikemakeid = cma.id and fl.ismodel = 1 
 				
 				UNION ALL 
 				
 				SELECT fl.Id, concat(cma.name , ' ' , cmo.name , ' ' , cv.name) AS BikeName, IsActive, IsVisible, 
-                IsModel, Description, EntryDateTime, fl.HostURL, fl.OriginalImagePath, fl.DisplayPriority, fl.IsReplicated 
+                IsModel, Description, EntryDateTime, ifnull(fl.HostURL,'') as HostURL,ifnull(fl.OriginalImagePath,'') as  OriginalImagePath, fl.DisplayPriority, if(fl.IsReplicated,1,0) as IsReplicated 
 				from con_featuredlistings as fl, bikemakes as cma, bikemodels as cmo, bikeversions as cv 
 				where fl.bikeid = cv.id and cv.bikemodelid = cmo.id and cmo.bikemakeid = cma.id and fl.ismodel = 0 
                 order by isactive desc, displaypriority";
@@ -499,7 +499,7 @@ namespace BikeWaleOpr.Content
 		
 		public string  GetString( string str )
 		{
-			if (str =="True")
+			if (Convert.ToInt16(str) > 0)
 				return "<img src=http://opr.carwale.com/Images/tick.jpg /> ";
 			else
                 return "<img src=http://opr.carwale.com/images/delete.gif /> ";
@@ -537,16 +537,16 @@ namespace BikeWaleOpr.Content
 			
 			if ( updateData != "" )
 			{
-				sql = @" select cma.id as MakeId, cmo.id as ModelId, BikeId, IsActive, IsVisible,
-                    IsModel, Description, fl.hosturl as hostUrl, fl.OriginalImagePath, fl.largeimagename as largeImgPath 
+                sql = @" select cma.id as MakeId, cmo.id as ModelId, BikeId, if(IsActive,1,0) as IsActive,if(IsVisible,1,0) as  IsVisible,
+                    if(IsModel,1,0) as  IsModel, Description, fl.hosturl as hostUrl, fl.OriginalImagePath, fl.largeimagename as largeImgPath 
 					from con_featuredlistings as fl, bikemakes as cma, bikemodels as cmo
 					where fl.bikeid = cmo.id and cmo.bikemakeid = cma.id and fl.ismodel = 1
-					and fl.id = " + updateData + 
+					and fl.id = " + updateData +
+
+                    @" union all
 				
-					@" union all
-				
-					select cma.id as MakeId, cmo.id as ModelId, BikeId, IsActive, IsVisible,
-                    IsModel, Description, fl.hosturl as hostUrl, fl.OriginalImagePath, fl.largeimagename as largeImgPath 
+					select cma.id as MakeId, cmo.id as ModelId, BikeId, if(IsActive,1,0) as IsActive,if(IsVisible,1,0) as  IsVisible,
+                    if(IsModel,1,0) as  IsModel, Description, fl.hosturl as hostUrl, fl.OriginalImagePath, fl.largeimagename as largeImgPath 
 					from con_featuredlistings as fl, bikemakes as cma, bikemodels as cmo, bikeversions as cv
 					where fl.bikeid = cv.id and cv.bikemodelid = cmo.id and cmo.bikemakeid = cma.id and fl.ismodel = 0
 					and fl.id = " + updateData ;

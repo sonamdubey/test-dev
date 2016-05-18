@@ -79,11 +79,11 @@ namespace BikeWaleOpr.Common
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
-                    objState.StateName = cmd.Parameters["@Name"].Value.ToString();
-                    HttpContext.Current.Trace.Warn(" objState.StateName  :" + objState.StateName);
-                    objState.MaskingName = cmd.Parameters["@MaskingName"].Value.ToString();
-                    objState.StdCode = cmd.Parameters["@StateCode"].Value.ToString();
-                    objState.IsDeleted = Convert.ToBoolean(cmd.Parameters["@IsDeleted"].Value);
+                    objState.StateName = cmd.Parameters["par_name"].Value.ToString();
+
+                    objState.MaskingName = cmd.Parameters["par_maskingname"].Value.ToString();
+                    objState.StdCode = cmd.Parameters["par_statecode"].Value.ToString();
+                    objState.IsDeleted = Convert.ToBoolean(cmd.Parameters["par_isdeleted"].Value);
                 }
 
             }

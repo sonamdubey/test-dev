@@ -83,7 +83,7 @@ namespace BikeWaleOpr.Content
         void Page_Load(object Sender, EventArgs e)
         {
             CommonOpn op = new CommonOpn();
-
+            lblStatus.Text = "";
             if (!IsPostBack)
             {
                 DataTable dt = null;
@@ -120,50 +120,52 @@ namespace BikeWaleOpr.Content
             Page.Validate();
             if (!Page.IsValid) return;
 
-            string sql = "", sqlId = "";
             string currentId = "-1";
-
-            sql = @"insert into bikemodels( name,maskingname,bikemakeid,bikeseriesid,bikeclasssegmentsid, isdeleted,mocreatedon,moupdatedby )
-                    values( @modelname, @modelmaskingname,@makeid ,@seriesid,@segmentid,0,now(), @userid)";
-
-            sqlId = "select id from bikemodels where name = @modelname  and bikemakeid = @makeid and isdeleted = 0";
-
-            DbParameter[] param = new[]
-                {
-                    DbFactory.GetDbParam("@modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, txtModel.Text.Trim().Replace("'", "''")),
-                    DbFactory.GetDbParam("@modelmaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50,  txtMaskingName.Text.Trim()),
-                    DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cmbMakes.SelectedValue),
-                    DbFactory.GetDbParam("@seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ddlSeries.SelectedValue),
-                    DbFactory.GetDbParam("@segmentid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ddlSegment.SelectedValue),
-                    DbFactory.GetDbParam("@userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId())
-                };
 
             try
             {
-                MySqlDatabase.InsertQuery(sql, param);
 
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sqlId, param))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel"))
                 {
-                    if (dr != null && dr.Read())
-                    {
-                        currentId = dr["Id"].ToString();
-                    }
-                    if (currentId != "-1")
-                    {
-                        WriteFileModel(currentId, txtModel.Text.Trim().Replace("'", "''"));
-                    }
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, txtModel.Text.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelmaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtMaskingName.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cmbMakes.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ddlSeries.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ddlSegment.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
 
-                    if (_mc!=null)
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (_mc.Get("BW_ModelMapping") != null)
-                            _mc.Remove("BW_ModelMapping");
+                        if (dr != null && dr.Read())
+                        {
+                            currentId = dr["Id"].ToString();
+                        }
+                        if (currentId != "-1")
+                        {
+                            WriteFileModel(currentId, txtModel.Text.Trim().Replace("'", "''"));
+                        }
 
-                        if (_mc.Get("BW_NewModelMaskingNames") != null)
-                            _mc.Remove("BW_NewModelMaskingNames");
+                        if (!Convert.ToBoolean(cmd.Parameters["par_ismodelexist"].Value))
+                        {
+                            lblStatus.Text = "Model Masking Name already exists. Can not insert duplicate name.";
+                        }                       
 
-                        if (_mc.Get("BW_OldModelMaskingNames") != null)
-                            _mc.Remove("BW_OldModelMaskingNames"); 
-                    }
+
+                        if (_mc != null)
+                        {
+                            if (_mc.Get("BW_ModelMapping") != null)
+                                _mc.Remove("BW_ModelMapping");
+
+                            if (_mc.Get("BW_NewModelMaskingNames") != null)
+                                _mc.Remove("BW_NewModelMaskingNames");
+
+                            if (_mc.Get("BW_OldModelMaskingNames") != null)
+                                _mc.Remove("BW_OldModelMaskingNames");
+                        }
+                    } 
                 }
 
             }
@@ -173,19 +175,6 @@ namespace BikeWaleOpr.Content
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
                 Trace.Warn("exception number : ", ex.Number.ToString());
-
-                if (ex.Number == 2601)
-                {
-                    lblStatus.Text = "Model Name already exists. Can not insert duplicate name.";
-                }
-                else
-                {  // Error code Unique key constraint in the database.
-                    if (ex.Number == 2627)
-                        lblStatus.Text = "Model Masking Name already exists. Can not insert duplicate name.";
-                    else
-                        lblStatus.Text = "";
-                }
-
             }
             BindGrid();
         }
@@ -652,7 +641,6 @@ namespace BikeWaleOpr.Content
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    Database db = new Database();
                     cmd.CommandText = "updatemodelsegments";
                     cmd.CommandType = CommandType.StoredProcedure;
 

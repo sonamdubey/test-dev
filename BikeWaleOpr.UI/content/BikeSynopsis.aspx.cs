@@ -58,6 +58,7 @@ namespace BikeWaleOpr.Content
 			{
 				Response.Redirect("bikemodels.aspx");
 			}
+
             GetBikeName(qryStrModel);
 			
 			if ( !IsPostBack )
@@ -74,7 +75,7 @@ namespace BikeWaleOpr.Content
 				FillRatings(drpOverall);
 				
 				//Fill Existing data if Exist
-				GetBikeName(qryStrModel);
+				//GetBikeName(qryStrModel);
                 FillExistingData(qryStrModel);
 			}
          

@@ -112,37 +112,39 @@ namespace BikeWaleOpr.Content
 		
 		void btnSave_Click( object Sender, EventArgs e )
 		{
-			string sql;
-			
-			string[] features = txtItems.Text.Split( '\n' );
-			Database db = new Database();
-			
-			for ( int i = 0; i < features.Length; i++ )
-			{
-				sql = "INSERT INTO NewBikeFeatureItems( Name, CategoryId, BikeModelId ) "
-					+ " VALUES( '" + features[i].Trim().Replace( "'", "''" ) + "', " 
-					+ cmbCategories.SelectedValue + ", "
-					+ Request.Form["cmbModel"] + " )";
+            throw new Exception("Method not used/commented");
 
-				try
-				{
-					db.InsertQry( sql );
-				}
-				catch( SqlException ex )	
-				{
-					Trace.Warn(ex.Message + ex.Source);
-					ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-					objErr.SendMail();
-				}
-			}
+            //string sql;
 			
-			//Update Changes Log
-            //ContentCommon cc = new ContentCommon();
-            //cc.LogUpdates("Available Features Add", "ModelId", Request.Form["cmbModel"]);
+            //string[] features = txtItems.Text.Split( '\n' );
+            //Database db = new Database();
+			
+            //for ( int i = 0; i < features.Length; i++ )
+            //{
+            //    sql = "INSERT INTO NewBikeFeatureItems( Name, CategoryId, BikeModelId ) "
+            //        + " VALUES( '" + features[i].Trim().Replace( "'", "''" ) + "', " 
+            //        + cmbCategories.SelectedValue + ", "
+            //        + Request.Form["cmbModel"] + " )";
+
+            //    try
+            //    {
+            //        db.InsertQry( sql );
+            //    }
+            //    catch( SqlException ex )	
+            //    {
+            //        Trace.Warn(ex.Message + ex.Source);
+            //        ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
+            //        objErr.SendMail();
+            //    }
+            //}
+			
+            ////Update Changes Log
+            ////ContentCommon cc = new ContentCommon();
+            ////cc.LogUpdates("Available Features Add", "ModelId", Request.Form["cmbModel"]);
 					
-			txtItems.Text = "";
+            //txtItems.Text = "";
 			
-			BindGrid();
+            //BindGrid();
 		}
 		
 		///<summary>
@@ -184,34 +186,36 @@ namespace BikeWaleOpr.Content
 		
 		void dtgrdMembers_Update( object sender, DataGridCommandEventArgs e )
 		{
-			Page.Validate();
-			if ( !Page.IsValid ) return;
+            throw new Exception("Method not used/commented");
+
+            //Page.Validate();
+            //if ( !Page.IsValid ) return;
 			
-			string sql;
-			TextBox txt = (TextBox) e.Item.FindControl( "txtItem" );
-			sql = "UPDATE NewBikeFeatureItems SET "
-				+ " Name='" + txt.Text.Trim().Replace("'","''") + "',"
-				+ " CategoryId=" + Request.Form["cmbGridCategory"]
-				+ " WHERE Id=" + dtgrdMembers.DataKeys[ e.Item.ItemIndex ];
+            //string sql;
+            //TextBox txt = (TextBox) e.Item.FindControl( "txtItem" );
+            //sql = "UPDATE NewBikeFeatureItems SET "
+            //    + " Name='" + txt.Text.Trim().Replace("'","''") + "',"
+            //    + " CategoryId=" + Request.Form["cmbGridCategory"]
+            //    + " WHERE Id=" + dtgrdMembers.DataKeys[ e.Item.ItemIndex ];
 			
-			Database db = new Database();
+            //Database db = new Database();
 			
-			try
-			{
-				db.InsertQry( sql );
-				//Update Changes Log
-                //ContentCommon cc = new ContentCommon();
-                //cc.LogUpdates("Available Features Update", "ModelId", Request.Form["cmbModel"]);
-			}
-			catch( SqlException ex )	
-			{
-				Trace.Warn(ex.Message + ex.Source);
-				ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			dtgrdMembers.EditItemIndex = -1;
-			btnSave.Enabled = true;
-			BindGrid();
+            //try
+            //{
+            //    db.InsertQry( sql );
+            //    //Update Changes Log
+            //    //ContentCommon cc = new ContentCommon();
+            //    //cc.LogUpdates("Available Features Update", "ModelId", Request.Form["cmbModel"]);
+            //}
+            //catch( SqlException ex )	
+            //{
+            //    Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //dtgrdMembers.EditItemIndex = -1;
+            //btnSave.Enabled = true;
+            //BindGrid();
 		}
 		
 		void dtgrdMembers_Cancel( object sender, DataGridCommandEventArgs e )
@@ -223,27 +227,28 @@ namespace BikeWaleOpr.Content
 		
 		void dtgrdMembers_Delete( object sender, DataGridCommandEventArgs e )
 		{
-			string sql;
+            throw new Exception("Method not used/commented");
+            //string sql;
 			
-			sql = "DELETE NewBikeFeatureItems WHERE Id=" + dtgrdMembers.DataKeys[ e.Item.ItemIndex ];
+            //sql = "DELETE NewBikeFeatureItems WHERE Id=" + dtgrdMembers.DataKeys[ e.Item.ItemIndex ];
 			
-			Database db = new Database();
+            //Database db = new Database();
 			
-			try
-			{
-				db.DeleteQry( sql );
+            //try
+            //{
+            //    db.DeleteQry( sql );
 				
-				//Update Changes Log
-                //ContentCommon cc = new ContentCommon();
-                //cc.LogUpdates("Available Features Delete", "ModelId", Request.Form["cmbModel"]);
-			}
-			catch( SqlException ex )	
-			{
-				Trace.Warn(ex.Message + ex.Source);
-				ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			BindGrid();
+            //    //Update Changes Log
+            //    //ContentCommon cc = new ContentCommon();
+            //    //cc.LogUpdates("Available Features Delete", "ModelId", Request.Form["cmbModel"]);
+            //}
+            //catch( SqlException ex )	
+            //{
+            //    Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //BindGrid();
 		}
 		
 		void Page_Change(object sender,DataGridPageChangedEventArgs e)

@@ -109,7 +109,6 @@ namespace BikewaleOpr.Common
         public bool UpdateBikeAvailabilityByColor(VersionColorWithAvailability versionColor, int versionId, int userId,int dealerId)
         {
             bool isSaved = false;
-            Database db = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatebikeavailabilitybycolor"))
@@ -121,7 +120,6 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_noofdays", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 5, versionColor.NoOfDays));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],100, userId));
 
-                    db = new Database();
                     isSaved = MySqlDatabase.UpdateQuery(cmd);
                 }
             }
@@ -129,12 +127,6 @@ namespace BikewaleOpr.Common
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageBikeAvailbilityByColor.UpdateBikeAvailabilityByColor");
                 objErr.SendMail();
-            }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null; db = null;
             }
             return isSaved;
         }

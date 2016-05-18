@@ -218,7 +218,7 @@ namespace BikeWaleOpr.Content
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                         {
-                            rptFeatures.DataSource = ds.Tables["Categories"];
+                            rptFeatures.DataSource = ds.Tables[0];
                             rptFeatures.DataBind();
 
                             if (ds.Tables[0].Rows.Count < 1)

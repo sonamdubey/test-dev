@@ -101,25 +101,27 @@ namespace BikeWaleOpr.Content
 		
 		void SaveColor( string modelId )
 		{
-			string sql = "";
-			Database db = new Database();
+            throw new Exception("Method not used/commented");
+
+            //string sql = "";
+            //Database db = new Database();
 					
-			sql = " INSERT INTO ModelColors ( Color, Code, HexCode, BikeModelId ) "
-				+ " VALUES('" 
-				+ txtColor.Text.Trim().Replace("'","''") + "','" 
-				+ txtCode.Text.Trim().Replace("'","''") + "','" 
-				+ txtHexCode.Text.Trim().Replace("'","''") + "', " + modelId + " )";
+            //sql = " INSERT INTO ModelColors ( Color, Code, HexCode, BikeModelId ) "
+            //    + " VALUES('" 
+            //    + txtColor.Text.Trim().Replace("'","''") + "','" 
+            //    + txtCode.Text.Trim().Replace("'","''") + "','" 
+            //    + txtHexCode.Text.Trim().Replace("'","''") + "', " + modelId + " )";
 				
-			try
-			{
-				db.InsertQry( sql );
-			}
-			catch(SqlException err)
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
+            //try
+            //{
+            //    db.InsertQry( sql );
+            //}
+            //catch(SqlException err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 		}
 		
 		///<summary>
@@ -128,39 +130,41 @@ namespace BikeWaleOpr.Content
 		///</summary>
 		void BindGrid()
 		{
-			string sql = "";
+            throw new Exception("Method not used/commented");
+
+            //string sql = "";
 						
-			sql = " SELECT ID, Color, Code, HexCode "
-				+ " FROM ModelColors WHERE IsActive=1 AND BikeModelId=" + Request["cmbModel"];
+            //sql = " SELECT ID, Color, Code, HexCode "
+            //    + " FROM ModelColors WHERE IsActive=1 AND BikeModelId=" + Request["cmbModel"];
 			
-			Trace.Warn(sql);
+            //Trace.Warn(sql);
 			
-			Database db = new Database();
+            //Database db = new Database();
 			
-			DataSet ds = new DataSet();
-			SqlConnection cn = new SqlConnection( db.GetConString() );
+            //DataSet ds = new DataSet();
+            //SqlConnection cn = new SqlConnection( db.GetConString() );
 						
-			try
-			{
-				cn.Open();
+            //try
+            //{
+            //    cn.Open();
 				
-				SqlDataAdapter adp = new SqlDataAdapter( sql, cn );
-				adp.Fill( ds, "Categories" );				
+            //    SqlDataAdapter adp = new SqlDataAdapter( sql, cn );
+            //    adp.Fill( ds, "Categories" );				
 					
-				dtgrdColors.DataSource = ds.Tables["Categories"];	
-				dtgrdColors.DataBind();
+            //    dtgrdColors.DataSource = ds.Tables["Categories"];	
+            //    dtgrdColors.DataBind();
 				
-			}
-			catch(Exception err)
-			{
-				Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-				if ( cn.State == ConnectionState.Open ) cn.Close();
-			}
+            //}
+            //catch(Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if ( cn.State == ConnectionState.Open ) cn.Close();
+            //}
 		}
 		
 		void dtgrdColors_Edit( object sender, DataGridCommandEventArgs e )
@@ -172,38 +176,40 @@ namespace BikeWaleOpr.Content
 		
 		void dtgrdColors_Update( object sender, DataGridCommandEventArgs e )
 		{
-			Page.Validate();
-			if ( !Page.IsValid ) return;
+            throw new Exception("Method not used/commented");
+
+            //Page.Validate();
+            //if ( !Page.IsValid ) return;
 			
-			string sql;
+            //string sql;
 			
-			TextBox txtCol = (TextBox) e.Item.FindControl( "txtColor" );
-			TextBox txtCod = (TextBox) e.Item.FindControl( "txtCode" );
-			TextBox txtHCod = (TextBox) e.Item.FindControl( "txtHexCode" );
+            //TextBox txtCol = (TextBox) e.Item.FindControl( "txtColor" );
+            //TextBox txtCod = (TextBox) e.Item.FindControl( "txtCode" );
+            //TextBox txtHCod = (TextBox) e.Item.FindControl( "txtHexCode" );
 			
-			sql = "UPDATE ModelColors SET "
-				+ " Color='" + txtCol.Text.Trim().Replace("'","''") + "',"
-				+ " Code='" + txtCod.Text.Trim().Replace("'","''") + "',"
-				+ " HexCode='" + txtHCod.Text.Trim().Replace("'","''") + "'"
-				+ " WHERE Id=" + dtgrdColors.DataKeys[ e.Item.ItemIndex ];
+            //sql = "UPDATE ModelColors SET "
+            //    + " Color='" + txtCol.Text.Trim().Replace("'","''") + "',"
+            //    + " Code='" + txtCod.Text.Trim().Replace("'","''") + "',"
+            //    + " HexCode='" + txtHCod.Text.Trim().Replace("'","''") + "'"
+            //    + " WHERE Id=" + dtgrdColors.DataKeys[ e.Item.ItemIndex ];
 				
-			Trace.Warn( sql );
-			Database db = new Database();
+            //Trace.Warn( sql );
+            //Database db = new Database();
 			
-			try
-			{
-				db.InsertQry( sql );
-			}
-			catch( SqlException ex )	
-			{
-				Trace.Warn(ex.Message + ex.Source);
-				ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
+            //try
+            //{
+            //    db.InsertQry( sql );
+            //}
+            //catch( SqlException ex )	
+            //{
+            //    Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 			
-			dtgrdColors.EditItemIndex = -1;
-			btnSave.Enabled = true;
-			BindGrid();
+            //dtgrdColors.EditItemIndex = -1;
+            //btnSave.Enabled = true;
+            //BindGrid();
 		}
 		
 		void dtgrdColors_Cancel( object sender, DataGridCommandEventArgs e )
@@ -215,23 +221,25 @@ namespace BikeWaleOpr.Content
 		
 		void dtgrdColors_Delete( object sender, DataGridCommandEventArgs e )
 		{
-			string sql;
+            throw new Exception("Method not used/commented");
+
+            //string sql;
 			
-			sql = "UPDATE ModelColors SET IsActive=0 WHERE Id=" + dtgrdColors.DataKeys[ e.Item.ItemIndex ];
+            //sql = "UPDATE ModelColors SET IsActive=0 WHERE Id=" + dtgrdColors.DataKeys[ e.Item.ItemIndex ];
 			
-			Database db = new Database();
+            //Database db = new Database();
 			
-			try
-			{
-				db.InsertQry( sql );
-			}
-			catch( SqlException ex )	
-			{
-				Trace.Warn(ex.Message + ex.Source);
-				ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			BindGrid();
+            //try
+            //{
+            //    db.InsertQry( sql );
+            //}
+            //catch( SqlException ex )	
+            //{
+            //    Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //BindGrid();
 		}
 	} // class
 } // namespace

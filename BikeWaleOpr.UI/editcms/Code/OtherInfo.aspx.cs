@@ -89,97 +89,102 @@ namespace BikeWaleOpr.EditCms
 		
 		private void GetFieldData()
 		{
-			string sql = "SELECT * FROM Con_EditCms_OtherInfo WHERE BasicId = " + Request.QueryString["bid"].ToString();
-			SqlDataReader dr = null;
-			Database db = new Database();
-			try
-			{
-				dr = db.SelectQry(sql);
+            throw new Exception("Method not used/commented");
+
+            //string sql = "SELECT * FROM Con_EditCms_OtherInfo WHERE BasicId = " + Request.QueryString["bid"].ToString();
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(sql);
 				
-				while(dr.Read())
-				{
-					if (dr["ValueType"].ToString() == "1")
-					{
-						CheckBox chk = (CheckBox)this.FindControl(dr["ValueType"].ToString() + "_" + dr["CategoryFieldId"].ToString());	
-						chk.Checked = Convert.ToBoolean(dr["BooleanValue"]);
-					}
-					else if (dr["ValueType"].ToString() == "5")
-					{
-						DateControl dt = (DateControl)this.FindControl(dr["ValueType"].ToString() + "_" + dr["CategoryFieldId"].ToString());	
-						dt.Value = Convert.ToDateTime(dr["DateTimeValue"].ToString());
-					}
-					else
-					{
-						TextBox txt = (TextBox)this.FindControl(dr["ValueType"].ToString() + "_" + dr["CategoryFieldId"].ToString());
-						switch (dr["ValueType"].ToString())
-						{
-							case "2"	:	txt.Text = dr["NumericValue"].ToString();
-											break;
-							case "3"	:	txt.Text = dr["DecimalValue"].ToString();
-											break;				
-							case "4"	:	txt.Text = dr["TextValue"].ToString();
-											break;								
-							case "5"	:	if (dr["DateTimeValue"].ToString() != "")
-											{
-												txt.Text = Convert.ToDateTime(dr["DateTimeValue"].ToString()).ToString("dd/MM/yyyy");
-											}
-											break;		
-							default		:	break;														
-						}
-					}
-					lblIsSaved.Text = "1";
-				}
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-				if( dr != null )
-					dr.Close();
-				db.CloseConnection();
-			}
+            //    while(dr.Read())
+            //    {
+            //        if (dr["ValueType"].ToString() == "1")
+            //        {
+            //            CheckBox chk = (CheckBox)this.FindControl(dr["ValueType"].ToString() + "_" + dr["CategoryFieldId"].ToString());	
+            //            chk.Checked = Convert.ToBoolean(dr["BooleanValue"]);
+            //        }
+            //        else if (dr["ValueType"].ToString() == "5")
+            //        {
+            //            DateControl dt = (DateControl)this.FindControl(dr["ValueType"].ToString() + "_" + dr["CategoryFieldId"].ToString());	
+            //            dt.Value = Convert.ToDateTime(dr["DateTimeValue"].ToString());
+            //        }
+            //        else
+            //        {
+            //            TextBox txt = (TextBox)this.FindControl(dr["ValueType"].ToString() + "_" + dr["CategoryFieldId"].ToString());
+            //            switch (dr["ValueType"].ToString())
+            //            {
+            //                case "2"	:	txt.Text = dr["NumericValue"].ToString();
+            //                                break;
+            //                case "3"	:	txt.Text = dr["DecimalValue"].ToString();
+            //                                break;				
+            //                case "4"	:	txt.Text = dr["TextValue"].ToString();
+            //                                break;								
+            //                case "5"	:	if (dr["DateTimeValue"].ToString() != "")
+            //                                {
+            //                                    txt.Text = Convert.ToDateTime(dr["DateTimeValue"].ToString()).ToString("dd/MM/yyyy");
+            //                                }
+            //                                break;		
+            //                default		:	break;														
+            //            }
+            //        }
+            //        lblIsSaved.Text = "1";
+            //    }
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if( dr != null )
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
 		}
 		
 		private void GetCategoryFields(string bid)
 		{
-			string sql  = " SELECT	CF.*"
-						+ " FROM"	
-						+ " Con_EditCms_Basic B, Con_EditCms_CategoryFields CF"
-						+ " WHERE	"
-						+ " B.CategoryId = CF.CategoryId"
-						+ " AND B.ID =  " + Request.QueryString["bid"].ToString() + ""
-						+ " AND CF.IsActive = 1"
-						+ " ORDER BY CF.Priority ";
-						
-			SqlDataReader dr = null;
-			Database db = new Database();
-			try
-			{
-				dr = db.SelectQry(sql);
 
-				while (dr.Read())
-				{
-					AddTableRows(dr["FieldName"].ToString(), dr["ValueType"].ToString(), dr["Id"].ToString());
+            throw new Exception("Method not used/commented");
+
+            //string sql  = " SELECT	CF.*"
+            //            + " FROM"	
+            //            + " Con_EditCms_Basic B, Con_EditCms_CategoryFields CF"
+            //            + " WHERE	"
+            //            + " B.CategoryId = CF.CategoryId"
+            //            + " AND B.ID =  " + Request.QueryString["bid"].ToString() + ""
+            //            + " AND CF.IsActive = 1"
+            //            + " ORDER BY CF.Priority ";
+						
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(sql);
+
+            //    while (dr.Read())
+            //    {
+            //        AddTableRows(dr["FieldName"].ToString(), dr["ValueType"].ToString(), dr["Id"].ToString());
 					
-				}
-				AddButtonRow();
-				AddLabelRow();
-				myDiv.Controls.Add(table1);
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-				if( dr != null )
-					dr.Close();
-				db.CloseConnection();
-			}
+            //    }
+            //    AddButtonRow();
+            //    AddLabelRow();
+            //    myDiv.Controls.Add(table1);
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if( dr != null )
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
 		}
 		
 		private void AddTableRows(string fieldName, string valueType, string catFieldId)
@@ -342,78 +347,80 @@ namespace BikeWaleOpr.EditCms
 		
 		private void SaveFieldData(string _CatFieldId, string _ValueType, string _Value)
 		{
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
+            throw new Exception("Method not used/commented");
 
-			string conStr = db.GetConString();
-			con = new SqlConnection( conStr );
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
+
+            //string conStr = db.GetConString();
+            //con = new SqlConnection( conStr );
 			
-			try
-			{
-				cmd = new SqlCommand("Con_EditCms_OtherInfoSave", con);
-				cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{
+            //    cmd = new SqlCommand("Con_EditCms_OtherInfoSave", con);
+            //    cmd.CommandType = CommandType.StoredProcedure;
 				
-				prm = cmd.Parameters.Add("@BasicId", SqlDbType.BigInt);
-				prm.Value = Request.QueryString["bid"];
+            //    prm = cmd.Parameters.Add("@BasicId", SqlDbType.BigInt);
+            //    prm.Value = Request.QueryString["bid"];
 				
-				prm = cmd.Parameters.Add("@CategoryFieldId", SqlDbType.BigInt);
-				prm.Value = _CatFieldId;
+            //    prm = cmd.Parameters.Add("@CategoryFieldId", SqlDbType.BigInt);
+            //    prm.Value = _CatFieldId;
 				
-				prm = cmd.Parameters.Add("@ValueType", SqlDbType.BigInt);
-				prm.Value = _ValueType;
+            //    prm = cmd.Parameters.Add("@ValueType", SqlDbType.BigInt);
+            //    prm.Value = _ValueType;
 				
-				if (_ValueType == "1")
-				{
-					prm = cmd.Parameters.Add("@BooleanValue", SqlDbType.Bit);
-					if (_Value == "1")
-						prm.Value = true;
-					else
-						prm.Value = false;	
-				}
-				else if (_ValueType == "2" && _Value.Trim() != "")
-				{
-					prm = cmd.Parameters.Add("@NumericValue", SqlDbType.BigInt);
-					prm.Value = _Value;	
-				}
-				else if (_ValueType == "3" && _Value.Trim() != "")
-				{
-					prm = cmd.Parameters.Add("@DecimalValue", SqlDbType.Decimal);
-					prm.Value = _Value;	
-				}
-				else if (_ValueType == "4" && _Value.Trim() != "")
-				{
-					prm = cmd.Parameters.Add("@TextValue", SqlDbType.VarChar, 250);
-					prm.Value = _Value;	
-				}
-				else if (_ValueType == "5" && _Value.Trim() != "")
-				{
-					prm = cmd.Parameters.Add("@DateTimeValue", SqlDbType.DateTime);
-					//string[] splittedDateValue = _Value.Split('/');
-					//prm.Value = splittedDateValue[2] + "-" + splittedDateValue[1] + "-" + splittedDateValue[0];	
-					prm.Value = _Value;
-				}
+            //    if (_ValueType == "1")
+            //    {
+            //        prm = cmd.Parameters.Add("@BooleanValue", SqlDbType.Bit);
+            //        if (_Value == "1")
+            //            prm.Value = true;
+            //        else
+            //            prm.Value = false;	
+            //    }
+            //    else if (_ValueType == "2" && _Value.Trim() != "")
+            //    {
+            //        prm = cmd.Parameters.Add("@NumericValue", SqlDbType.BigInt);
+            //        prm.Value = _Value;	
+            //    }
+            //    else if (_ValueType == "3" && _Value.Trim() != "")
+            //    {
+            //        prm = cmd.Parameters.Add("@DecimalValue", SqlDbType.Decimal);
+            //        prm.Value = _Value;	
+            //    }
+            //    else if (_ValueType == "4" && _Value.Trim() != "")
+            //    {
+            //        prm = cmd.Parameters.Add("@TextValue", SqlDbType.VarChar, 250);
+            //        prm.Value = _Value;	
+            //    }
+            //    else if (_ValueType == "5" && _Value.Trim() != "")
+            //    {
+            //        prm = cmd.Parameters.Add("@DateTimeValue", SqlDbType.DateTime);
+            //        //string[] splittedDateValue = _Value.Split('/');
+            //        //prm.Value = splittedDateValue[2] + "-" + splittedDateValue[1] + "-" + splittedDateValue[0];	
+            //        prm.Value = _Value;
+            //    }
 				
-				prm = cmd.Parameters.Add("@LastUpdatedBy", SqlDbType.BigInt);
-				prm.Value = CurrentUser.Id;
+            //    prm = cmd.Parameters.Add("@LastUpdatedBy", SqlDbType.BigInt);
+            //    prm.Value = CurrentUser.Id;
 				
-				con.Open();
+            //    con.Open();
 
-				cmd.ExecuteNonQuery();
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
+            //    cmd.ExecuteNonQuery();
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if(con.State == ConnectionState.Open)
+            //    {
+            //        con.Close();
+            //    }
+            //}
 		}
 	} // class
 } // namespace

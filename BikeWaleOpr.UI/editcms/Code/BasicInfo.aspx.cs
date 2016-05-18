@@ -99,165 +99,170 @@ namespace BikeWaleOpr.EditCms
 
         private bool AllowBikeSelection()
 		{
-            Trace.Warn("AllowBikeSelection");
-            bool returnVal = true;
-            Trace.Warn("ddlCategory.SelectedItem.Value : ", ddlCategory.SelectedItem.Value);
-			string sql = "SELECT AllowBikeSelection FROM Con_EditCms_Category WHERE ID = " + ddlCategory.SelectedItem.Value;
-			SqlDataReader dr = null;
-			Database db = new Database();
-			try
-			{
-				dr = db.SelectQry(sql);
-				if (dr.Read())
-				{
-					returnVal = Convert.ToBoolean(dr[0]);
-				}
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-				if( dr != null )
-					dr.Close();
-				db.CloseConnection();
-			}
-			return returnVal;
+            throw new Exception("Method not used/commented");
+            //Trace.Warn("AllowBikeSelection");
+            //bool returnVal = true;
+            //Trace.Warn("ddlCategory.SelectedItem.Value : ", ddlCategory.SelectedItem.Value);
+            //string sql = "SELECT AllowBikeSelection FROM Con_EditCms_Category WHERE ID = " + ddlCategory.SelectedItem.Value;
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(sql);
+            //    if (dr.Read())
+            //    {
+            //        returnVal = Convert.ToBoolean(dr[0]);
+            //    }
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if( dr != null )
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
+            //return returnVal;
 		}
 		
 		private void LoadData(string bid)
 		{
-            Trace.Warn("LoadData");
-            string sql = "SELECT ID, CategoryId,Title,DisplayDate, AuthorName," +
-                        "AuthorId,Description, IsFeatured FROM Con_EditCms_Basic " +                       
-                        "WHERE ID = @ID";
-			SqlDataReader dr = null;
-			Database db = new Database();
-			DateTime dateTimeVal = new DateTime();
-			SqlParameter [] param = 
-			{
-				new SqlParameter("@ID", bid)
-			};            
-			try
-			{
+            throw new Exception("Method not used/commented");
+
+            //Trace.Warn("LoadData");
+            //string sql = "SELECT ID, CategoryId,Title,DisplayDate, AuthorName," +
+            //            "AuthorId,Description, IsFeatured FROM Con_EditCms_Basic " +                       
+            //            "WHERE ID = @ID";
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+            //DateTime dateTimeVal = new DateTime();
+            //SqlParameter [] param = 
+            //{
+            //    new SqlParameter("@ID", bid)
+            //};            
+            //try
+            //{
 				
-				dr = db.SelectQry(sql, param);            
-                 if (dr.Read())
-                    {
-                        ddlCategory.SelectedValue = dr["CategoryId"].ToString();
-                        Trace.Warn("ddlCategory.SelectedValue : " + dr["CategoryId"].ToString());
-                        if (txtTitle.Text == "")
-                        {
-                            dateTimeVal = Convert.ToDateTime(dr["DisplayDate"].ToString());
-                            txtTitle.Text = dr["Title"].ToString();
-                            ddlAuthor.SelectedValue = dr["AuthorId"].ToString();
-                            rteDescription.Text = dr["Description"].ToString();
-                            dtDate.Value = dateTimeVal;
-                            ddlHours.SelectedValue = int.Parse(dateTimeVal.ToString("HH")).ToString();
-                            ddlMins.SelectedValue = int.Parse(dateTimeVal.ToString("mm")).ToString();
-                            chkIsFeatured.Checked = !String.IsNullOrEmpty(dr["IsFeatured"].ToString()) ? Convert.ToBoolean(dr["IsFeatured"].ToString()) : false;
-                        }
-                    }                
-				LoadSubCategories(bid);
-			}
-			catch(Exception err)
-			{
-                Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-				if( dr != null )
-					dr.Close();
-				db.CloseConnection();
-			}
+            //    dr = db.SelectQry(sql, param);            
+            //     if (dr.Read())
+            //        {
+            //            ddlCategory.SelectedValue = dr["CategoryId"].ToString();
+            //            Trace.Warn("ddlCategory.SelectedValue : " + dr["CategoryId"].ToString());
+            //            if (txtTitle.Text == "")
+            //            {
+            //                dateTimeVal = Convert.ToDateTime(dr["DisplayDate"].ToString());
+            //                txtTitle.Text = dr["Title"].ToString();
+            //                ddlAuthor.SelectedValue = dr["AuthorId"].ToString();
+            //                rteDescription.Text = dr["Description"].ToString();
+            //                dtDate.Value = dateTimeVal;
+            //                ddlHours.SelectedValue = int.Parse(dateTimeVal.ToString("HH")).ToString();
+            //                ddlMins.SelectedValue = int.Parse(dateTimeVal.ToString("mm")).ToString();
+            //                chkIsFeatured.Checked = !String.IsNullOrEmpty(dr["IsFeatured"].ToString()) ? Convert.ToBoolean(dr["IsFeatured"].ToString()) : false;
+            //            }
+            //        }                
+            //    LoadSubCategories(bid);
+            //}
+            //catch(Exception err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if( dr != null )
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
 		}
 		
 		private void LoadSubCategories(string bid)
 		{
-            Trace.Warn("LoadSubCategories");
-			bool found = false;
-			string sql = string.Empty;
-			Database db = new Database();
-			SqlDataReader dr = null;
-			StringBuilder sb = new StringBuilder();
-            Trace.Warn("Category = " + ddlCategory.SelectedItem.Value);
-			sql = " Select Id, Name, IsNull(SubCategoryId, 0) As SubCategoryId From Con_EditCms_SubCategories A "
-				+ " Left Join Con_EditCms_BasicSubCategories B On B.SubCategoryId = A.Id  And BasicId = @BasicId "
-				+ " Where CategoryId = @CategoryId And IsActive = 1 Order By Name";
-			
-			SqlParameter[] param = { new SqlParameter( "@CategoryId", ddlCategory.SelectedItem.Value ), new SqlParameter( "@BasicId", bid )  };
+            throw new Exception("Method not used/commented");
 
-            Trace.Warn("sql : " + sql);
+            //Trace.Warn("LoadSubCategories");
+            //bool found = false;
+            //string sql = string.Empty;
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //StringBuilder sb = new StringBuilder();
+            //Trace.Warn("Category = " + ddlCategory.SelectedItem.Value);
+            //sql = " Select Id, Name, IsNull(SubCategoryId, 0) As SubCategoryId From Con_EditCms_SubCategories A "
+            //    + " Left Join Con_EditCms_BasicSubCategories B On B.SubCategoryId = A.Id  And BasicId = @BasicId "
+            //    + " Where CategoryId = @CategoryId And IsActive = 1 Order By Name";
+			
+            //SqlParameter[] param = { new SqlParameter( "@CategoryId", ddlCategory.SelectedItem.Value ), new SqlParameter( "@BasicId", bid )  };
+
+            //Trace.Warn("sql : " + sql);
 			
 			
-			try
-			{
-				string isChecked = string.Empty;
-				string idValue = string.Empty;
-				string nameValue = string.Empty;
-				string subCatValue = string.Empty;
-                string strSubCatIds = string.Empty;
-				dr = db.SelectQry( sql, param );
+            //try
+            //{
+            //    string isChecked = string.Empty;
+            //    string idValue = string.Empty;
+            //    string nameValue = string.Empty;
+            //    string subCatValue = string.Empty;
+            //    string strSubCatIds = string.Empty;
+            //    dr = db.SelectQry( sql, param );
 				
-				sb.Append("<ul>");
-				while( dr.Read() )
-				{
-					found = true;
-					idValue = dr["Id"].ToString();
-					nameValue = dr["Name"].ToString();
-					subCatValue = dr["SubCategoryId"].ToString();
+            //    sb.Append("<ul>");
+            //    while( dr.Read() )
+            //    {
+            //        found = true;
+            //        idValue = dr["Id"].ToString();
+            //        nameValue = dr["Name"].ToString();
+            //        subCatValue = dr["SubCategoryId"].ToString();
 					
-					if( subCatValue != "0" )
-					{
-						isChecked = "checked=\"checked\"";
-                        if (strSubCatIds == string.Empty)
-                        {
-                            strSubCatIds = idValue;
-                        }
-                        else
-                        {
-                            strSubCatIds = strSubCatIds + "," + idValue;                            
-                        }
-                        Trace.Warn("strSubCatIds: " + strSubCatIds);
-					}		
-					else
-					{
-						isChecked = "";
-					}
-					sb.AppendFormat("<li><input id=\"{0}\" type=\"checkbox\" {2} name=\"chk\" /><label for=\"{0}\">{1}</label></li>", idValue, nameValue, isChecked);					
-				}
-                Trace.Warn("strSubCatIds: " + strSubCatIds);
-                if (!hdnSubCat.Value.Contains(strSubCatIds))
-                {
-                    hdnSubCat.Value = strSubCatIds;
-                }
+            //        if( subCatValue != "0" )
+            //        {
+            //            isChecked = "checked=\"checked\"";
+            //            if (strSubCatIds == string.Empty)
+            //            {
+            //                strSubCatIds = idValue;
+            //            }
+            //            else
+            //            {
+            //                strSubCatIds = strSubCatIds + "," + idValue;                            
+            //            }
+            //            Trace.Warn("strSubCatIds: " + strSubCatIds);
+            //        }		
+            //        else
+            //        {
+            //            isChecked = "";
+            //        }
+            //        sb.AppendFormat("<li><input id=\"{0}\" type=\"checkbox\" {2} name=\"chk\" /><label for=\"{0}\">{1}</label></li>", idValue, nameValue, isChecked);					
+            //    }
+            //    Trace.Warn("strSubCatIds: " + strSubCatIds);
+            //    if (!hdnSubCat.Value.Contains(strSubCatIds))
+            //    {
+            //        hdnSubCat.Value = strSubCatIds;
+            //    }
 
-				sb.Append("</ul>");
-                Trace.Warn("2nd load " + hdnSubCat.Value);
-				subCatContainer.InnerHtml = found == true ? sb.ToString() : "";
-			} 
-			catch(SqlException err)
-			{
-				Trace.Warn("LoadSubCatSqlErr: " + err.Message);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			catch(Exception err)
-			{
-				Trace.Warn("LoadSubCatErr: " + err.Message);
-				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-			finally
-			{
-				if( dr!=null )
-					dr.Close();				
-				db.CloseConnection();
-			}
+            //    sb.Append("</ul>");
+            //    Trace.Warn("2nd load " + hdnSubCat.Value);
+            //    subCatContainer.InnerHtml = found == true ? sb.ToString() : "";
+            //} 
+            //catch(SqlException err)
+            //{
+            //    Trace.Warn("LoadSubCatSqlErr: " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch(Exception err)
+            //{
+            //    Trace.Warn("LoadSubCatErr: " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if( dr!=null )
+            //        dr.Close();				
+            //    db.CloseConnection();
+            //}
 		}
 		
 		private void LoadCategory()
@@ -341,79 +346,79 @@ namespace BikeWaleOpr.EditCms
         private void SaveFieldData(string _CatFieldId, string _ValueType, string _Value,string BasicId)
         {
             Trace.Warn("Save Other Info");
-            
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
+            throw new Exception("Method not used/commented");
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
 
-            string conStr = db.GetConString();
-            con = new SqlConnection(conStr);
+            //string conStr = db.GetConString();
+            //con = new SqlConnection(conStr);
 
-            try
-            {
-                cmd = new SqlCommand("Con_EditCms_OtherInfoSave", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{
+            //    cmd = new SqlCommand("Con_EditCms_OtherInfoSave", con);
+            //    cmd.CommandType = CommandType.StoredProcedure;
 
-                prm = cmd.Parameters.Add("@BasicId", SqlDbType.BigInt);
-                prm.Value = BasicId;
+            //    prm = cmd.Parameters.Add("@BasicId", SqlDbType.BigInt);
+            //    prm.Value = BasicId;
 
-                prm = cmd.Parameters.Add("@CategoryFieldId", SqlDbType.BigInt);
-                prm.Value = _CatFieldId;
+            //    prm = cmd.Parameters.Add("@CategoryFieldId", SqlDbType.BigInt);
+            //    prm.Value = _CatFieldId;
 
-                prm = cmd.Parameters.Add("@ValueType", SqlDbType.BigInt);
-                prm.Value = _ValueType;
+            //    prm = cmd.Parameters.Add("@ValueType", SqlDbType.BigInt);
+            //    prm.Value = _ValueType;
 
-                if (_ValueType == "1")
-                {
-                    prm = cmd.Parameters.Add("@BooleanValue", SqlDbType.Bit);
-                    if (_Value == "1")
-                        prm.Value = true;
-                    else
-                        prm.Value = false;
-                }
-                else if (_ValueType == "2" && _Value.Trim() != "")
-                {
-                    prm = cmd.Parameters.Add("@NumericValue", SqlDbType.BigInt);
-                    prm.Value = _Value;
-                }
-                else if (_ValueType == "3" && _Value.Trim() != "")
-                {
-                    prm = cmd.Parameters.Add("@DecimalValue", SqlDbType.Decimal);
-                    prm.Value = _Value;
-                }
-                else if (_ValueType == "4" && _Value.Trim() != "")
-                {
-                    prm = cmd.Parameters.Add("@TextValue", SqlDbType.VarChar, 250);
-                    prm.Value = _Value;
-                }
-                else if (_ValueType == "5" && _Value.Trim() != "")
-                {
-                    prm = cmd.Parameters.Add("@DateTimeValue", SqlDbType.DateTime);                   
-                    prm.Value = _Value;
-                }
+            //    if (_ValueType == "1")
+            //    {
+            //        prm = cmd.Parameters.Add("@BooleanValue", SqlDbType.Bit);
+            //        if (_Value == "1")
+            //            prm.Value = true;
+            //        else
+            //            prm.Value = false;
+            //    }
+            //    else if (_ValueType == "2" && _Value.Trim() != "")
+            //    {
+            //        prm = cmd.Parameters.Add("@NumericValue", SqlDbType.BigInt);
+            //        prm.Value = _Value;
+            //    }
+            //    else if (_ValueType == "3" && _Value.Trim() != "")
+            //    {
+            //        prm = cmd.Parameters.Add("@DecimalValue", SqlDbType.Decimal);
+            //        prm.Value = _Value;
+            //    }
+            //    else if (_ValueType == "4" && _Value.Trim() != "")
+            //    {
+            //        prm = cmd.Parameters.Add("@TextValue", SqlDbType.VarChar, 250);
+            //        prm.Value = _Value;
+            //    }
+            //    else if (_ValueType == "5" && _Value.Trim() != "")
+            //    {
+            //        prm = cmd.Parameters.Add("@DateTimeValue", SqlDbType.DateTime);                   
+            //        prm.Value = _Value;
+            //    }
 
-                prm = cmd.Parameters.Add("@LastUpdatedBy", SqlDbType.BigInt);
-                prm.Value = CurrentUser.Id;
+            //    prm = cmd.Parameters.Add("@LastUpdatedBy", SqlDbType.BigInt);
+            //    prm.Value = CurrentUser.Id;
 
                
-                con.Open();
+            //    con.Open();
 
-                cmd.ExecuteNonQuery();
+            //    cmd.ExecuteNonQuery();
             
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (con.State == ConnectionState.Open)
+            //    {
+            //        con.Close();
+            //    }
+            //}
         }     
 
         private void saveOtherInfo(HtmlTable tbl,string BasicId)

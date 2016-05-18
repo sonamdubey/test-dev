@@ -47,8 +47,6 @@ namespace BikeWaleOpr.RabbitMQ
         /// <param name="directoryPath"></param>
         public string UploadImageToCommonDatabase(string photoId, string imageName, ImageCategories imgC, string directoryPath)
         {
-            Database db = new Database();
-
             string url = string.Empty;
 
             try

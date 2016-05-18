@@ -113,7 +113,6 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                Database db = new Database();
                 ManageCities objMC = new ManageCities();
 
                 ds = objMC.GetAllCitiesDetails(stateId);

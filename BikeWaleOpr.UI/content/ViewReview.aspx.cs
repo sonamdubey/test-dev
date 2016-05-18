@@ -145,7 +145,6 @@ namespace BikeWaleOpr.Content
         /// <param name="e"></param>
         protected void UpdateReview(object sender, EventArgs e)
         {
-            Database db = null;
             float overallRating;
 
             overallRating = (Convert.ToInt32(txtExterior.Text) + Convert.ToInt32(txtComfort.Text) + Convert.ToInt32(txtPerformance.Text) + Convert.ToInt32(txtFuel.Text) + Convert.ToInt32(txtValue.Text)) / 5;
@@ -168,15 +167,18 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cons", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtCons.Text));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 8000, SanitizeHTML.ToSafeHtml(rteDetail.Text)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_title", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtTitle.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt],ParameterDirection.Output, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], reviewId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_familiarity", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtFamiliarity.Text));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtMileage.Text));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    if (MySqlDatabase.UpdateQuery(cmd))
+                    {
+                        errMsg.InnerHtml = "<h3>Record Updated Successfully.</h3>";
+                        errMsg.Visible = true;
+                    }
 
-                    errMsg.InnerHtml = "<h3>Record Updated Successfully.</h3>";
-                    errMsg.Visible = true;
+                    
                 }
             }
             catch (SqlException ex)

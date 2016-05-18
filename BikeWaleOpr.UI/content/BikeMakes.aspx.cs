@@ -71,37 +71,32 @@ namespace BikeWaleOpr.Content
 		{
 			Page.Validate();
 			if ( !Page.IsValid ) return;
-			
-			string sql;
-			
-			sql = @"insert into bikemakes( name,maskingname,isdeleted,macreatedon,maupdatedby)
-                                   values( @make, @makemaskingname, 0 , now(),@userid)";
 
 			try
 			{
-                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "insertbikemake";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtMake.Text.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtMaskingName.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismakeexist", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtMake.Text.Trim().Replace("'", "''")));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtMaskingName.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
-
-                    MySqlDatabase.InsertQuery(cmd); 
+                    // Error code Unique key constraint in the database.
+                    if (!Convert.ToBoolean(cmd.Parameters["par_ismakeexist"].Value))
+                    {
+                        lblStatus.Text = "Make name or make masking name already exists. Can not insert duplicate name.";
+                    }
+                    
                 }
 			}
 			catch( SqlException ex )	
 			{
 				Trace.Warn("Error", ex.Message + ex.Source);
 				ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-
-                // Error code Unique key constraint in the database.
-                if (ex.Number == 2627)
-                {
-                    lblStatus.Text = "Make name or make masking name already exists. Can not insert duplicate name.";
-                }
-                else
-                    lblStatus.Text = "";
+				objErr.SendMail();                 
 			}
             catch(Exception ex)
             {

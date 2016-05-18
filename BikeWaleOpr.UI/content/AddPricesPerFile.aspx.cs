@@ -100,73 +100,75 @@ namespace BikeWaleOpr.Content
 		
 		void SaveData(string cityId, string bikeId, string price)
 		{
-			//get the new insurance and the new RTO
-			double insurance = CommonOpn.GetInsurancePremium(bikeId, cityId, Convert.ToDouble(price));
-			double rto = CommonOpn.GetRegistrationCharges(bikeId, cityId, Convert.ToDouble(price));
+            throw new Exception("Method not used/commented");
+
+            ////get the new insurance and the new RTO
+            //double insurance = CommonOpn.GetInsurancePremium(bikeId, cityId, Convert.ToDouble(price));
+            //double rto = CommonOpn.GetRegistrationCharges(bikeId, cityId, Convert.ToDouble(price));
 			
-			Trace.Warn("Saving data for : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
+            //Trace.Warn("Saving data for : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
 
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-			CommonOpn op = new CommonOpn();
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
+            //CommonOpn op = new CommonOpn();
 				
-			string conStr = db.GetConString();
+            //string conStr = db.GetConString();
 
-			try
-			{
-                using (con = new SqlConnection(conStr))
-                {
-                    Trace.Warn("Submitting Data");
-                    cmd = new SqlCommand("InsertShowroomPrices", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{
+            //    using (con = new SqlConnection(conStr))
+            //    {
+            //        Trace.Warn("Submitting Data");
+            //        cmd = new SqlCommand("InsertShowroomPrices", con);
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    prm = cmd.Parameters.Add("@BikeVersionId", SqlDbType.BigInt);
-                    prm.Value = bikeId;
+            //        prm = cmd.Parameters.Add("@BikeVersionId", SqlDbType.BigInt);
+            //        prm.Value = bikeId;
 
-                    prm = cmd.Parameters.Add("@MumbaiPrice", SqlDbType.BigInt);
-                    prm.Value = price;
+            //        prm = cmd.Parameters.Add("@MumbaiPrice", SqlDbType.BigInt);
+            //        prm.Value = price;
 
-                    prm = cmd.Parameters.Add("@MumbaiInsurance", SqlDbType.BigInt);
-                    prm.Value = insurance;
+            //        prm = cmd.Parameters.Add("@MumbaiInsurance", SqlDbType.BigInt);
+            //        prm.Value = insurance;
 
-                    prm = cmd.Parameters.Add("@MumbaiRTO", SqlDbType.BigInt);
-                    prm.Value = rto;
+            //        prm = cmd.Parameters.Add("@MumbaiRTO", SqlDbType.BigInt);
+            //        prm.Value = rto;
 
-                    prm = cmd.Parameters.Add("@CityId", SqlDbType.BigInt);
-                    prm.Value = cityId;
+            //        prm = cmd.Parameters.Add("@CityId", SqlDbType.BigInt);
+            //        prm.Value = cityId;
 
-                    prm = cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime);
-                    prm.Value = DateTime.Now;
+            //        prm = cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime);
+            //        prm.Value = DateTime.Now;
 
-                    con.Open();
-                    //run the command
-                    cmd.ExecuteNonQuery();
+            //        con.Open();
+            //        //run the command
+            //        cmd.ExecuteNonQuery();
                         
-                    //close the connection	
-                    if (con.State == ConnectionState.Open)
-                    {
-                        con.Close();
-                    }
-                }
-			}
-            catch (SqlException err)
-            {
-                Trace.Warn(err.Message);
-                Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
+            //        //close the connection	
+            //        if (con.State == ConnectionState.Open)
+            //        {
+            //            con.Close();
+            //        }
+            //    }
+            //}
+            //catch (SqlException err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
 
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            } // catch Exception
-			catch(Exception err)
-			{
-				Trace.Warn(err.Message);
-				Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //} // catch Exception
+            //catch(Exception err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
 					
-				ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			} // catch Exception
+            //    ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //} // catch Exception
 		}
 	}//Class
 }// Namespace

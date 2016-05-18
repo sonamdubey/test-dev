@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.Net.Mail;
 using BikeWaleOPR.DAL.CoreDAL;
 using System.Data.Common;
+using BikeWaleOPR.Utilities;
 
 namespace BikeWaleOpr.Common
 {
@@ -30,11 +31,9 @@ namespace BikeWaleOpr.Common
         //takes as input the sql string and the datagridname
         public void BindGridReader(string sql, DataGrid dtgrd)
         {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
             try
             {
-                dataReader = objSelect.SelectQry(sql);
+                IDataReader dataReader = MySqlDatabase.SelectQuery(sql);
                 dtgrd.DataSource = dataReader;
                 dtgrd.DataBind();
                 dataReader.Close();
@@ -43,23 +42,17 @@ namespace BikeWaleOpr.Common
             {
                 throw;
             }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
-                objSelect.CloseConnection();
-            }
+
         }
 
         //this function binds the grid with the datareader
         //takes as input the sql string and the datagridname
         public void BindGridReader(string sql, DataGrid dtgrd, SqlParameter[] param)
         {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
+
             try
             {
-                dataReader = objSelect.SelectQry(sql, param);
+                IDataReader dataReader = MySqlDatabase.SelectQuery(sql,param);
                 dtgrd.DataSource = dataReader;
                 dtgrd.DataBind();
                 dataReader.Close();
@@ -68,12 +61,7 @@ namespace BikeWaleOpr.Common
             {
                 throw;
             }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
-                objSelect.CloseConnection();
-            }
+
         }
 
 
@@ -214,50 +202,56 @@ namespace BikeWaleOpr.Common
         //takes as input the sql string and the datalist id
         public void BindListReader(string sql, DataList dtlst)
         {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql);
-                dtlst.DataSource = dataReader;
-                dtlst.DataBind();
-                dataReader.Close();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
-                objSelect.CloseConnection();
-            }
+
+            throw new Exception("Method not used/commented");
+
+            //SqlDataReader dataReader = null;
+            //Database objSelect = new Database();
+            //try
+            //{
+            //    dataReader = objSelect.SelectQry(sql);
+            //    dtlst.DataSource = dataReader;
+            //    dtlst.DataBind();
+            //    dataReader.Close();
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            //finally
+            //{
+            //    if (dataReader != null)
+            //        dataReader.Close();
+            //    objSelect.CloseConnection();
+            //}
         }
 
         //this function binds the datalist with the datareader
         //takes as input the sql string and the datalist id
         public void BindListReader(string sql, DataList dtlst, SqlParameter[] param)
         {
-            SqlDataReader dataReader = null;
-            Database objSelect = new Database();
-            try
-            {
-                dataReader = objSelect.SelectQry(sql, param);
-                dtlst.DataSource = dataReader;
-                dtlst.DataBind();
-                dataReader.Close();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                if (dataReader != null)
-                    dataReader.Close();
-                objSelect.CloseConnection();
-            }
+
+            throw new Exception("Method not used/commented");
+
+            //SqlDataReader dataReader = null;
+            //Database objSelect = new Database();
+            //try
+            //{
+            //    dataReader = objSelect.SelectQry(sql, param);
+            //    dtlst.DataSource = dataReader;
+            //    dtlst.DataBind();
+            //    dataReader.Close();
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            //finally
+            //{
+            //    if (dataReader != null)
+            //        dataReader.Close();
+            //    objSelect.CloseConnection();
+            //}
         }
 
         //this function binds the dropdownlist with the datareader
@@ -268,13 +262,11 @@ namespace BikeWaleOpr.Common
             {
                 using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                 {
-                    if (dr!=null && dr.Read())
-                    {
-                        drp.DataSource = dr;
-                        drp.DataTextField = text;
-                        drp.DataValueField = value;
-                        drp.DataBind(); 
-                    } 
+
+                            drp.DataSource = dr;
+                            drp.DataTextField = text;
+                            drp.DataValueField = value;
+                            drp.DataBind();
                 }
             }
             catch (Exception)
@@ -975,58 +967,61 @@ namespace BikeWaleOpr.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string Query1, string Query2)
         {
-            StringBuilder sb = new StringBuilder();
+            throw new Exception("Method not used/commented");
 
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
-                //sb.Append( "alert('" + DropDownList2 + "');" );
-                sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "' ); }");
+            //StringBuilder sb = new StringBuilder();
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
+            //sb.Append("<script language=\"javascript\">");
+            //sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+            //sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
+            //sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
+            //SqlDataReader dr;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(Query1);
 
-            sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
-            sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //    }
+            //    //sb.Append( "alert('" + DropDownList2 + "');" );
+            //    sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "' ); }");
 
-            dr = db.SelectQry(Query2);
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 
-            while (dr.Read())
-            {
-                sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-            }
+            //sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
 
-            dr.Close();
-            db.CloseConnection();
+            //dr = db.SelectQry(Query2);
 
-            sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA' ); } ");
+            //while (dr.Read())
+            //{
+            //    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //}
 
-            sb.Append("</script>");
+            //dr.Close();
+            //db.CloseConnection();
 
-            return sb.ToString();
+            //sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA' ); } ");
+
+            //sb.Append("</script>");
+
+            //return sb.ToString();
 
         }
         /*****************************************************************************************************
@@ -1038,74 +1033,76 @@ namespace BikeWaleOpr.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string TextBox1, string TextBox2, string Query1, string Query2, string Query3)
         {
-            StringBuilder sb = new StringBuilder();
 
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
-            sb.Append("document.getElementById('" + DropDownList3 + "').onchange = " + DropDownList3 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
+            throw new Exception("Method not used/commented");
+            //StringBuilder sb = new StringBuilder();
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
+            //sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
+            //sb.Append("<script language=\"javascript\">");
+            //sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+            //sb.Append("document.getElementById('" + DropDownList2 + "').onchange = " + DropDownList2 + "_OnChange; ");
+            //sb.Append("document.getElementById('" + DropDownList3 + "').onchange = " + DropDownList3 + "_OnChange; ");
+            //sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
+            //SqlDataReader dr;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(Query1);
 
-                sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "','" + TextBox1 + "','" + TextBox2 + "'); }");
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //    }
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //    sb.Append("fillChain( '" + DropDownList2 + "', DropDownList1, arrayValues, '" + DropDownList3 + "','" + TextBox1 + "','" + TextBox2 + "'); }");
 
-            sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
-            sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 
-            dr = db.SelectQry(Query2);
+            //sb.Append("function " + DropDownList2 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList = document.getElementById('" + DropDownList2 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
 
-            while (dr.Read())
-            {
-                sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-            }
+            //dr = db.SelectQry(Query2);
 
-            sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA','" + TextBox1 + "','" + TextBox2 + "' ); } ");
+            //while (dr.Read())
+            //{
+            //    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //}
 
-            dr.Close();
-            db.CloseConnection();
+            //sb.Append("fillChain( '" + DropDownList3 + "', DropDownList, arrayValues, 'NA','" + TextBox1 + "','" + TextBox2 + "' ); } ");
 
-            sb.Append("function " + DropDownList3 + "_OnChange( e ) {");
-            sb.Append("var DropDownList = document.getElementById('" + DropDownList3 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
+            //dr.Close();
+            //db.CloseConnection();
 
-            dr = db.SelectQry(Query3);
+            //sb.Append("function " + DropDownList3 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList = document.getElementById('" + DropDownList3 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
 
-            while (dr.Read())
-            {
-                sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\",\"" + dr[2] + "\" ]; i++;");
-            }
-            sb.Append("fillChainText( '" + TextBox1 + "','" + TextBox2 + "', DropDownList, arrayValues ); } ");
-            dr.Close();
-            db.CloseConnection();
+            //dr = db.SelectQry(Query3);
+
+            //while (dr.Read())
+            //{
+            //    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\",\"" + dr[2] + "\" ]; i++;");
+            //}
+            //sb.Append("fillChainText( '" + TextBox1 + "','" + TextBox2 + "', DropDownList, arrayValues ); } ");
+            //dr.Close();
+            //db.CloseConnection();
 
 
-            sb.Append("</script>");
+            //sb.Append("</script>");
 
-            return sb.ToString();
+            //return sb.ToString();
 
         }
         /*****************************************************************************************************
@@ -1117,41 +1114,44 @@ namespace BikeWaleOpr.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string Query1)
         {
-            StringBuilder sb = new StringBuilder();
 
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
+            throw new Exception("Method not used/commented");
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
+            //StringBuilder sb = new StringBuilder();
 
-                sb.Append("fillChainTwo( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
+            //sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
+            //sb.Append("<script language=\"javascript\">");
+            //sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+            //sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
+            //SqlDataReader dr;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(Query1);
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //    }
 
-            sb.Append("</script>");
+            //    sb.Append("fillChainTwo( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
 
-            return sb.ToString();
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
+
+            //sb.Append("</script>");
+
+            //return sb.ToString();
 
         }
         /*****************************************************************************************************
@@ -1166,41 +1166,43 @@ namespace BikeWaleOpr.Common
         *****************************************************************************************************/
         public string GenerateReverseChainScript(string DropDownList1, string DropDownList2, string Query1)
         {
-            StringBuilder sb = new StringBuilder();
+            throw new Exception("Method not used/commented");
 
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
+            //StringBuilder sb = new StringBuilder();
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-                }
+            //sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
+            //sb.Append("<script language=\"javascript\">");
+            //sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+            //sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
+            //SqlDataReader dr;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(Query1);
 
-                sb.Append("fillReverseChain( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //    }
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //    sb.Append("fillReverseChain( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
 
-            sb.Append("</script>");
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 
-            return sb.ToString();
+            //sb.Append("</script>");
+
+            //return sb.ToString();
 
         }
         /*****************************************************************************************************
@@ -1212,64 +1214,67 @@ namespace BikeWaleOpr.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string Query1, string Query2, bool fillTwoCombosWithOneParent)
         {
-            StringBuilder sb = new StringBuilder();
 
-            sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
-            SqlDataReader dr;
-            Database db = new Database();
-            try
-            {
-                dr = db.SelectQry(Query1);
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
-                }
+            throw new Exception("Method not used/commented");
+            //StringBuilder sb = new StringBuilder();
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //sb.Append("<script language=\"javascript\" src=\"../src/chains.js\"></script>");
+            //sb.Append("<script language=\"javascript\">");
+            //sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+            //sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            //sb.Append("var arrayValues = new Array(); var i = 0;");
+            //SqlDataReader dr;
+            //Database db = new Database();
+            //try
+            //{
+            //    dr = db.SelectQry(Query1);
 
-            sb.Append("var arrayValues1 = new Array(); i = 0;");
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
+            //    }
 
-            try
-            {
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 
-                dr = db.SelectQry(Query2);
+            //sb.Append("var arrayValues1 = new Array(); i = 0;");
 
-                while (dr.Read())
-                {
-                    sb.Append("arrayValues1[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
-                }
+            //try
+            //{
 
-                dr.Close();
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //    dr = db.SelectQry(Query2);
 
-            sb.Append("fillChainTwoSameParent( '" + DropDownList2 + "','" + DropDownList3 + "', DropDownList1, arrayValues , arrayValues1 ); }");
+            //    while (dr.Read())
+            //    {
+            //        sb.Append("arrayValues1[i] = [ " + dr[0] + ",'" + dr[1] + "'," + dr[2] + " ]; i++;");
+            //    }
 
-            sb.Append("</script>");
+            //    dr.Close();
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
 
-            return sb.ToString();
+            //sb.Append("fillChainTwoSameParent( '" + DropDownList2 + "','" + DropDownList3 + "', DropDownList1, arrayValues , arrayValues1 ); }");
+
+            //sb.Append("</script>");
+
+            //return sb.ToString();
 
         }
 
@@ -1324,11 +1329,11 @@ namespace BikeWaleOpr.Common
         {
             DataSet ds = new DataSet();
             DbCommand cmd = DbFactory.GetDBCommand();
+            MySqlDbUtilities db = new MySqlDbUtilities();
 
             if (makeId == "")
                 return ds;
 
-            Database db = new Database();
             string sql = "";
 
             sql = " select id as Value, name as Text from bikemodels where isdeleted = 0 and  bikemakeid in (" + db.GetInClauseValue(makeId, "MakeId", cmd) + ") order by text ";

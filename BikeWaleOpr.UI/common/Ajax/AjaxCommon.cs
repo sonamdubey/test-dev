@@ -8,6 +8,9 @@ using BikeWaleOpr.Classified;
 using System.Configuration;
 using Enyim.Caching;
 using BikewaleOpr.Common;
+using BikeWaleOPR.Utilities;
+using BikeWaleOPR.DAL.CoreDAL;
+using System.Data.Common;
 
 namespace BikeWaleOpr.Common
 {
@@ -64,42 +67,44 @@ namespace BikeWaleOpr.Common
         [AjaxPro.AjaxMethod()]
         public string GetModels(string makeId)
         {
-            string sql = string.Empty, jsonModels = string.Empty;
-            DataTable dt = null;
-            DataSet ds = null;
-            Database db = null;
+            throw new Exception("Method not used/commented");
 
-            if (String.IsNullOrEmpty(makeId))
-                return jsonModels;
+            //string sql = string.Empty, jsonModels = string.Empty;
+            //DataTable dt = null;
+            //DataSet ds = null;
+            //Database db = null;
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeModels WHERE IsDeleted = 0 AND "
-                + " BikeMakeId =" + makeId  + " ORDER BY Text ";
-            try
-            {
-                db = new Database();
-                ds = db.SelectAdaptQry(sql);
+            //if (String.IsNullOrEmpty(makeId))
+            //    return jsonModels;
 
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    dt = ds.Tables[0];
+            //sql = " SELECT ID AS Value, Name AS Text FROM BikeModels WHERE IsDeleted = 0 AND "
+            //    + " BikeMakeId =" + makeId  + " ORDER BY Text ";
+            //try
+            //{
+            //    db = new Database();
+            //    ds = db.SelectAdaptQry(sql);
 
-                    jsonModels = JSON.GetJSONString(dt);
-                }
-            }
-            catch (SqlException err)
-            {
-                HttpContext.Current.Trace.Warn("AjaxCommon.GetModels Sql Ex : ", err.Message);
-                ErrorClass objErr = new ErrorClass(err, "AjaxCommon.GetModels");
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("AjaxCommon.GetModels Ex : ", err.Message);
-                ErrorClass objErr = new ErrorClass(err, "AjaxCommon.GetModels");
-                objErr.SendMail();
-            }
+            //    if (ds.Tables[0].Rows.Count > 0)
+            //    {
+            //        dt = ds.Tables[0];
 
-            return jsonModels;
+            //        jsonModels = JSON.GetJSONString(dt);
+            //    }
+            //}
+            //catch (SqlException err)
+            //{
+            //    HttpContext.Current.Trace.Warn("AjaxCommon.GetModels Sql Ex : ", err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, "AjaxCommon.GetModels");
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("AjaxCommon.GetModels Ex : ", err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, "AjaxCommon.GetModels");
+            //    objErr.SendMail();
+            //}
+
+            //return jsonModels;
         }   // End of GetModels function
 
         /// <summary>
@@ -333,20 +338,22 @@ namespace BikeWaleOpr.Common
         [AjaxPro.AjaxMethod()]
         public void DeleteCompBikeData(string deleteId)
         {
-            try
-            {
-                Database db = new Database();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    CompareBike compBike = new CompareBike();
-                    compBike.DeleteCompareBike(deleteId);
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            throw new Exception("Method not used/commented");
+
+            //try
+            //{
+            //    Database db = new Database();
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        CompareBike compBike = new CompareBike();
+            //        compBike.DeleteCompareBike(deleteId);
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }   //End of DeleteCompBikeData
 
         /// <summary>
@@ -600,30 +607,27 @@ namespace BikeWaleOpr.Common
         [AjaxPro.AjaxMethod()]
         public void MapCampaign(string contractId, string campaignId)
         {
-            bool isSuccess = false;
-            Database db = null;
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("BW_UpdateBWDealerContractCampaign"))
-                {
-                    db = new Database();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ContractId", contractId);
-                    cmd.Parameters.AddWithValue("@CampaignId", campaignId);
-                    isSuccess = db.UpdateQry(cmd);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (db != null)
-                    db.CloseConnection();
-                db = null;
-            }
+            throw new Exception("Method not used/commented");
+
+            //bool isSuccess = false;
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebwdealercontractcampaign"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
+
+            //        isSuccess = MySqlDatabase.UpdateQuery(cmd);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
+            //    objErr.SendMail();
+            //}
+
         }
 
         /// <summary>

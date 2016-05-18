@@ -25,7 +25,6 @@ namespace BikeWaleOpr.Common
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    Database db = new Database();
                     cmd.CommandText = "setfeaturedbikepriority";
                     cmd.CommandType = CommandType.StoredProcedure;
 

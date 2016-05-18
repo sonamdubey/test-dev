@@ -28,32 +28,33 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public DataSet GetSeries(string makeId)
         {
-            Database db = null;
-            DataSet ds = null;
+            throw new Exception("Method not used/commented");
+            //Database db = null;
+            //DataSet ds = null;
 
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("GetBikeSeries"))
-                {
-                    db = new Database();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    ds = db.SelectAdaptQry(cmd);
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("Sql Exception in GetMakeSeries: ", sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Exception in GetMakeSeries: ", ex.Message);
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
-            return ds;
+            //try
+            //{
+            //    using (SqlCommand cmd = new SqlCommand("GetBikeSeries"))
+            //    {
+            //        db = new Database();
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+            //        ds = db.SelectAdaptQry(cmd);
+            //    }
+            //}
+            //catch (SqlException sqlEx)
+            //{
+            //    HttpContext.Current.Trace.Warn("Sql Exception in GetMakeSeries: ", sqlEx.Message);
+            //    ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    errObj.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Exception in GetMakeSeries: ", ex.Message);
+            //    ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    errObj.SendMail();
+            //}
+            //return ds;
         }//End of GetMakeSeries()
 
         /// <summary>
@@ -66,37 +67,39 @@ namespace BikeWaleOpr.Common
         /// <param name="id" > if id = -1 then it adds record to BikeSeries table else update particular bike series</param>
         public bool SaveSeries(string name, string maskingName, string makeId)
         {
-            Database db = null;
-            bool isSuccess = false;
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "SaveBikeSeries";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Name", SqlDbType.VarChar, 30).Value = name;
-                    cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50).Value = maskingName;
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.Int).Value = BikeWaleAuthentication.GetOprUserId();
+            throw new Exception("Method not used/commented");
 
-                    db = new Database();
-                    isSuccess = db.InsertQry(cmd);
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("Sql Exception in SaveSeries", sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Exception in SaveSeries", ex.Message);
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
+            //Database db = null;
+            //bool isSuccess = false;
+            //try
+            //{
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        cmd.CommandText = "SaveBikeSeries";
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add("@Name", SqlDbType.VarChar, 30).Value = name;
+            //        cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50).Value = maskingName;
+            //        cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+            //        cmd.Parameters.Add("@UpdatedBy", SqlDbType.Int).Value = BikeWaleAuthentication.GetOprUserId();
 
-            return isSuccess;
+            //        db = new Database();
+            //        isSuccess = db.InsertQry(cmd);
+            //    }
+            //}
+            //catch (SqlException sqlEx)
+            //{
+            //    HttpContext.Current.Trace.Warn("Sql Exception in SaveSeries", sqlEx.Message);
+            //    ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    errObj.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Exception in SaveSeries", ex.Message);
+            //    ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    errObj.SendMail();
+            //}
+
+            //return isSuccess;
         }//End of SaveSeries()
 
         /// <summary>
@@ -108,38 +111,40 @@ namespace BikeWaleOpr.Common
         /// <param name="seriesId"></param>
         public bool UpdateSeries(string name, string maskingName, string seriesId)
         {
-            Database db = null;
-            bool isSuccess = false;
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "UpdateBikeSeries";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Name", SqlDbType.VarChar, 30).Value = name;
-                    cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50).Value = maskingName;
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.Int).Value = BikeWaleAuthentication.GetOprUserId();
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = seriesId;
-                    db = new Database();
+            //Database db = null;
+            //bool isSuccess = false;
 
-                    isSuccess = db.UpdateQry(cmd);
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("Sql Exception in UpdateSeries", sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Exception in UpdateSeries", ex.Message);
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
+            //try
+            //{
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        cmd.CommandText = "UpdateBikeSeries";
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add("@Name", SqlDbType.VarChar, 30).Value = name;
+            //        cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50).Value = maskingName;
+            //        cmd.Parameters.Add("@UpdatedBy", SqlDbType.Int).Value = BikeWaleAuthentication.GetOprUserId();
+            //        cmd.Parameters.Add("@ID", SqlDbType.Int).Value = seriesId;
+            //        db = new Database();
 
-            return isSuccess;
+            //        isSuccess = db.UpdateQry(cmd);
+            //    }
+            //}
+            //catch (SqlException sqlEx)
+            //{
+            //    HttpContext.Current.Trace.Warn("Sql Exception in UpdateSeries", sqlEx.Message);
+            //    ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    errObj.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Exception in UpdateSeries", ex.Message);
+            //    ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    errObj.SendMail();
+            //}
+
+            //return isSuccess;
         }//End of SaveSeries()
 
         /// <summary>
@@ -149,33 +154,35 @@ namespace BikeWaleOpr.Common
         /// <param name="seriesId"></param>
         public void DeleteSeries(string seriesId)
         {
-            Database db = null;
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "DeleteSeries";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = seriesId;
+            //Database db = null;
 
-                    db = new Database();
+            //try
+            //{
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        cmd.CommandText = "DeleteSeries";
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = seriesId;
 
-                    db.UpdateQry(cmd);
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("Sql Exception in DeleteSeries", sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Exception in DeleteSeries", ex.Message);
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
+            //        db = new Database();
+
+            //        db.UpdateQry(cmd);
+            //    }
+            //}
+            //catch (SqlException sqlEx)
+            //{
+            //    HttpContext.Current.Trace.Warn("Sql Exception in DeleteSeries", sqlEx.Message);
+            //    ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    errObj.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Exception in DeleteSeries", ex.Message);
+            //    ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    errObj.SendMail();
+            //}
         }//End of DeleteSeries
 
         /// <summary>
@@ -214,34 +221,36 @@ namespace BikeWaleOpr.Common
         /// <param name="imageName"></param>
         private void SaveImagePathToDB(string seriesId, string imageName)
         {
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    Database db = new Database();
+            throw new Exception("Method not used/commented");
 
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "SaveBikeSeriesPhotos";
-                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = seriesId;
-                    cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100).Value = ConfigurationManager.AppSettings["imgHostURL"];
-                    cmd.Parameters.Add("@OriginalImageUrl", SqlDbType.VarChar, 150).Value = "/bw/series/" + imageName + "-" + seriesId + ".jpg?" + CommonOpn.GetTimeStamp();
-                    cmd.Parameters.Add("@IsReplicated", SqlDbType.Bit).Value = 0;
+            //try
+            //{
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        Database db = new Database();
 
-                    db.UpdateQry(cmd);
-                }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("SavePhoto sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("SavePhoto ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.CommandText = "SaveBikeSeriesPhotos";
+            //        cmd.Parameters.Add("@Id", SqlDbType.Int).Value = seriesId;
+            //        cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100).Value = ConfigurationManager.AppSettings["imgHostURL"];
+            //        cmd.Parameters.Add("@OriginalImageUrl", SqlDbType.VarChar, 150).Value = "/bw/series/" + imageName + "-" + seriesId + ".jpg?" + CommonOpn.GetTimeStamp();
+            //        cmd.Parameters.Add("@IsReplicated", SqlDbType.Bit).Value = 0;
+
+            //        db.UpdateQry(cmd);
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("SavePhoto sql ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("SavePhoto ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }
 
         /// <summary>
@@ -274,38 +283,41 @@ namespace BikeWaleOpr.Common
         /// <returns></returns>
         public DataSet GetSeriesDetails(string seriesId)
         {
-            Database db = null;
-            DataSet ds = null;
 
-            try
-            {
-                db = new Database();
+            throw new Exception("Method not used/commented");
 
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "GetBikeSeriesInfo";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = seriesId;
-                    ds = db.SelectAdaptQry(cmd);
-                }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("SqlEx in GetSeriesDetails : " + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Ex in GetSeriesDetails: " + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
-            return ds;
+            //Database db = null;
+            //DataSet ds = null;
+
+            //try
+            //{
+            //    db = new Database();
+
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        cmd.CommandText = "GetBikeSeriesInfo";
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = seriesId;
+            //        ds = db.SelectAdaptQry(cmd);
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("SqlEx in GetSeriesDetails : " + ex.Message);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Ex in GetSeriesDetails: " + ex.Message);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
+            //return ds;
         }
 
 
@@ -422,53 +434,55 @@ namespace BikeWaleOpr.Common
         /// <param name="makeId"></param>
         public void GetSeriesSynopsis(string seriesId, ref string series, ref string synopsis, ref string makeName)
         {
-            Database db = null;
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                db = new Database();
+            //Database db = null;
 
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "GetSeriesSynopsis";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+            //try
+            //{
+            //    db = new Database();
 
-                        cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = seriesId;
-                        cmd.Parameters.Add("@Series", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@Synopsis", SqlDbType.VarChar, 8000).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@MakeName", SqlDbType.VarChar, 8000).Direction = ParameterDirection.Output;
+            //    using (SqlConnection conn = new SqlConnection(db.GetConString()))
+            //    {
+            //        using (SqlCommand cmd = new SqlCommand())
+            //        {
+            //            cmd.CommandText = "GetSeriesSynopsis";
+            //            cmd.CommandType = CommandType.StoredProcedure;
+            //            cmd.Connection = conn;
 
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
+            //            cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = seriesId;
+            //            cmd.Parameters.Add("@Series", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
+            //            cmd.Parameters.Add("@Synopsis", SqlDbType.VarChar, 8000).Direction = ParameterDirection.Output;
+            //            cmd.Parameters.Add("@MakeName", SqlDbType.VarChar, 8000).Direction = ParameterDirection.Output;
 
-                        series = cmd.Parameters["@Series"].Value.ToString();
-                        synopsis = cmd.Parameters["@Synopsis"].Value.ToString();
-                        makeName = cmd.Parameters["@MakeName"].Value.ToString();
+            //            conn.Open();
+            //            cmd.ExecuteNonQuery();
 
-                        if (conn.State == ConnectionState.Open)
-                            conn.Close();
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("GetSeriesSynopsis Sql Error : ", sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetSeriesSynopsis Exception : ", ex.Message);
-                ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
-            }
+            //            series = cmd.Parameters["@Series"].Value.ToString();
+            //            synopsis = cmd.Parameters["@Synopsis"].Value.ToString();
+            //            makeName = cmd.Parameters["@MakeName"].Value.ToString();
+
+            //            if (conn.State == ConnectionState.Open)
+            //                conn.Close();
+            //        }
+            //    }
+            //}
+            //catch (SqlException sqlEx)
+            //{
+            //    HttpContext.Current.Trace.Warn("GetSeriesSynopsis Sql Error : ", sqlEx.Message);
+            //    ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    errObj.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("GetSeriesSynopsis Exception : ", ex.Message);
+            //    ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    errObj.SendMail();
+            //}
+            //finally
+            //{
+            //    db.CloseConnection();
+            //}
         }   // End of GetSeriesSynopsis
     }//End of class ManageBikeSeries
 }//End of Namespace

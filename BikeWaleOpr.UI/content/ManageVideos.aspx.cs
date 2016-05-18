@@ -217,8 +217,8 @@ namespace BikeWaleOpr.Content
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.CommandText = "getvideos";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!string.IsNullOrEmpty(makeId)) ? makeId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!string.IsNullOrEmpty(modelId)) ? modelId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
 
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);    

@@ -1,4 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="false"  Inherits="BikeWaleOpr.Content.UpdateStateDetails" Trace="false" %>
+<form runat="server">
 <script type="text/javascript" src="/src/common/common.js?V1.1"></script>
     <div>
         <div  class="margin10">

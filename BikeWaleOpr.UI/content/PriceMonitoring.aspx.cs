@@ -119,7 +119,6 @@ namespace BikeWaleOpr.Content
 		{
 			CommonOpn op = new CommonOpn();
 			DataSet dsBikeCities = new DataSet();
-			Database db = new Database();
 			
 			string sql = "";
 			

@@ -370,11 +370,9 @@ namespace BikeWaleOpr.Content
         /// <param name="e"></param>
         void btnSubmit_Click(object Sender, EventArgs e)
         {
-            Database db = null;
 
             try
             {
-                db = new Database();
 
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
@@ -488,10 +486,6 @@ namespace BikeWaleOpr.Content
                 Trace.Warn("btnSubmit_Click exception : ", err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
 
         }   // End of btn_Submit_click function
