@@ -828,3 +828,116 @@ $('.less-dealers-link').on('click', function () {
     $(this).parent().prev('#moreDealersList').slideUp();
     $(this).hide().prev('.more-dealers-link').show();
 });
+
+
+
+//
+$(document).ready(function () {
+    
+    var $window = $(window),
+        overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
+        modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
+        modelSpecsFooter = $('#modelSpecsFooter'),
+        topNavBarHeight = overallSpecsTabsContainer.height();
+
+    $('#modelOverallSpecsTopContent').css('height', topNavBarHeight);
+
+    var tabsLength = $('.overall-specs-tabs-wrapper li').length - 1;
+
+    $(window).scroll(function () {
+        var windowScrollTop = $window.scrollTop(),
+            modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
+            modelSpecsFooterOffsetTop = modelSpecsFooter.offset().top;
+
+        if (windowScrollTop > modelSpecsTabsOffsetTop) {
+            overallSpecsTabsContainer.addClass('fixed-tab-nav');
+        }
+
+        else if (windowScrollTop < modelSpecsTabsOffsetTop) {
+                overallSpecsTabsContainer.removeClass('fixed-tab-nav');
+        }
+
+        if (overallSpecsTabsContainer.hasClass('fixed-tab-nav')) {
+            if (windowScrollTop > modelSpecsFooterOffsetTop - topNavBarHeight) {
+                overallSpecsTabsContainer.removeClass('fixed-tab-nav');
+            }
+        }
+
+
+        $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
+            var top = $(this).offset().top - overallSpecsTabsContainer.height(),
+                bottom = top + $(this).outerHeight();
+            if (windowScrollTop >= top && windowScrollTop <= bottom) {
+                overallSpecsTabsContainer.find('li').removeClass('active');
+                $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+
+                $(this).addClass('active');
+                
+                var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
+                overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
+                
+            }
+        });
+        
+        var scrollToTab = $('#modelReviewsContent');
+        
+        if (windowScrollTop > scrollToTab.offset().top - 45) {
+            if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
+                $('.overall-specs-tabs-container').addClass('scrolled-left');
+                scrollHorizontal(300);
+            }
+        }
+
+        else if (windowScrollTop < scrollToTab.offset().top) {
+            if ($('#overallSpecsTab').hasClass('scrolled-left')) {
+                $('.overall-specs-tabs-container').removeClass('scrolled-left');
+                scrollHorizontal(0);
+            }
+        }
+
+
+    });
+
+    function scrollHorizontal(pos) {
+        $('#overallSpecsTab').animate({ scrollLeft: pos + 'px' }, 500);
+    }
+
+    $('.overall-specs-tabs-wrapper li').click(function () {
+        var target = $(this).attr('data-tabs');
+        $('html, body').animate({ scrollTop: $(target).offset().top - overallSpecsTabsContainer.height() }, 1000);
+        centerItVariableWidth($(this), '.overall-specs-tabs-container');
+        return false;
+    });
+
+    function centerItVariableWidth(target, outer) {
+        var out = $(outer);
+        var tar = target;
+        var x = out.width();
+        var y = tar.outerWidth(true);
+        var z = tar.index();
+        var q = 0;
+        var m = out.find('li');
+        for (var i = 0; i < z; i++) {
+            q += $(m[i]).outerWidth(true);
+        }
+        out.animate({ scrollLeft: Math.max(0, q - (x - y) / 2) }, 500, 'swing');
+    }
+
+});
+
+$('a.read-more-model-preview').click(function () {
+    if (!$(this).hasClass('open')) {
+        var self = $(this);
+        $('.model-preview-main-content').hide();
+        $('.model-preview-more-content').show();
+        self.text(self.text() === 'Read more' ? 'Collapse' : 'Read more');
+        self.addClass("open");
+    }
+    else if ($(this).hasClass('open')) {
+        var self = $(this);
+        $('.model-preview-main-content').show();
+        $('.model-preview-more-content').hide();
+        self.text(self.text() === 'Read more' ? 'Collapse' : 'Read more');
+        self.removeClass('open');
+    }
+});
