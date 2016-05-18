@@ -234,6 +234,7 @@ var BookingPageViewModel = function () {
                     data: ko.toJSON(objCust),
                     async: false,
                     contentType: "application/json",
+                    dataType: 'json',
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('utma', getCookie('__utma'));
                         xhr.setRequestHeader('utmz', getCookie('__utmz'));
@@ -308,6 +309,7 @@ var BookingPageViewModel = function () {
                     async: false,
                     data: ko.toJSON(objData),
                     contentType: "application/json",
+                    dataType: 'json',
                     success: function (response) {
                         var obj = ko.toJS(response);
                         if (obj.isUpdated) {
@@ -390,6 +392,7 @@ var BikeCustomer = function () {
                 async: false,
                 data: ko.toJSON(objCustomer),
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     self.IsVerified(false);
                     self.OtpAttempts(response.noOfAttempts);

@@ -17,8 +17,10 @@ namespace Bikewale.Service.Controllers.Model
     /// To Get Model Details and other required Information related to the Models
     /// Author : Sushil Kumar
     /// Created On : 24th August 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class ModelController : ApiController
+    public class ModelController : CompressionApiController//ApiController
     {
         private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
@@ -141,7 +143,7 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     bkContent = new BikeModelContentDTO();
                     bkContent = ModelMapper.Convert(bkModelContent);
-                    
+
                     bkModelContent = null;
                     bkContent.News = new CMSShareUrl().GetShareUrl(bkContent.News);
                     bkContent.ExpertReviews = new CMSShareUrl().GetShareUrl(bkContent.ExpertReviews);

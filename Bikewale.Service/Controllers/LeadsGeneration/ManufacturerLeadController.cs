@@ -4,6 +4,7 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Service.TCAPI;
+using Bikewale.Service.Utilities;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -15,8 +16,10 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
     /// Craeted By  : Sushil Kumar
     /// Created On  : 23rd October 2015
     /// Summary     : To generate manufacturer Lead against the bikewale pricequote
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class ManufacturerLeadController : ApiController
+    public class ManufacturerLeadController : CompressionApiController//ApiController
     {
         private readonly IDealerPriceQuote _objIPQ = null;
         private readonly IDealer _objDealer = null;

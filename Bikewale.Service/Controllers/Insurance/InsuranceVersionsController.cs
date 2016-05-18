@@ -1,12 +1,8 @@
 ﻿using Bikewale.Notifications;
+using Bikewale.Service.Utilities;
 using Bikewale.UI.Entities.Insurance;
-using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -16,8 +12,10 @@ namespace Bikewale.Service.Controllers.Insurance
     /// Created By : Lucky Rathore
     /// Date : 23 Nov 2015
     /// Description : To call Policyboss Model API.
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class InsuranceVersionsController : ApiController
+    public class InsuranceVersionsController : CompressionApiController//ApiController
     {
         string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
 
@@ -32,7 +30,7 @@ namespace Bikewale.Service.Controllers.Insurance
         [ResponseType(typeof(IEnumerable<VersionDetail>))]
         public IHttpActionResult Get(int modelId)
         {
-            _headerParameters = new Dictionary<string, string>();    
+            _headerParameters = new Dictionary<string, string>();
             _headerParameters.Add("clientid", "5");
             _headerParameters.Add("platformid", "2");
             try

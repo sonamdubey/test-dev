@@ -1,14 +1,10 @@
 ﻿using Bikewale.DTO.DealerLocator;
 using Bikewale.Entities.DealerLocator;
-using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.DealerLocator;
+using Bikewale.Service.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Bikewale.Service.Controllers.DealerLocator
@@ -17,8 +13,10 @@ namespace Bikewale.Service.Controllers.DealerLocator
     /// Created By : Lucky Rathore
     /// Created on : 22 march 2016
     /// Description : for getting dealer detail and bike detail w.r.t dealer.
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class DealerBikesController : ApiController
+    public class DealerBikesController : CompressionApiController//ApiController
     {
         private readonly IDealer _dealer = null;
         private readonly IDealerCacheRepository _cache = null;

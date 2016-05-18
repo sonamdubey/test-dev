@@ -3,11 +3,10 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Make;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -17,8 +16,10 @@ namespace Bikewale.Service.Controllers.Make
     /// Make Page Controller
     /// Author  :   Sumit Kate
     /// Created :   03 Sept 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class MakePageController : ApiController
+    public class MakePageController : CompressionApiController//ApiController
     {
         private readonly IBikeMakes<BikeMakeEntity, int> _makesRepository;
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
@@ -44,7 +45,7 @@ namespace Bikewale.Service.Controllers.Make
         [ResponseType(typeof(MakePage))]
         public IHttpActionResult Get(int makeId)
         {
-            BikeMakePageEntity entity = null;            
+            BikeMakePageEntity entity = null;
             BikeDescriptionEntity description = null;
             IEnumerable<MostPopularBikesBase> objModelList = null;
             MakePage makePage = null;
@@ -53,7 +54,7 @@ namespace Bikewale.Service.Controllers.Make
             {
                 objModelList = _modelRepository.GetMostPopularBikesByMake(makeId);
                 description = _makesRepository.GetMakeDescription(makeId);
-                
+
                 if (objModelList != null && objModelList.Count() > 0 && description != null)
                 {
                     entity = new BikeMakePageEntity();
@@ -61,7 +62,7 @@ namespace Bikewale.Service.Controllers.Make
                     entity.PopularBikes = objModelList;
                     makePage = MakePageEntityMapper.Convert(entity);
 
-                    objModelList = null;                    
+                    objModelList = null;
 
                     return Ok(makePage);
                 }

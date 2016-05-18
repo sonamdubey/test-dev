@@ -4,11 +4,8 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Bikebooking;
+using Bikewale.Service.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -18,8 +15,10 @@ namespace Bikewale.Service.Controllers.BikeBooking
     /// Bike Booking Page Controller
     /// Author  :   Sumit Kate
     /// Created On  :   10 Sept 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class BikeBookingPageController : ApiController
+    public class BikeBookingPageController : CompressionApiController//ApiController
     {
         private readonly IDealerPriceQuote _objDealerPriceQuote = null;
         private readonly IMobileVerificationRepository _mobileVerRespo = null;
@@ -57,24 +56,24 @@ namespace Bikewale.Service.Controllers.BikeBooking
                         if (objBookingPageDetailsEntity.Offers != null)
                         {
                             objBookingPageDetailsEntity.Offers.Clear();
-                            objBookingPageDetailsEntity.Offers = null; 
+                            objBookingPageDetailsEntity.Offers = null;
                         }
 
 
                         if (objBookingPageDetailsEntity.Varients != null)
                         {
                             objBookingPageDetailsEntity.Varients.Clear();
-                            objBookingPageDetailsEntity.Varients = null; 
+                            objBookingPageDetailsEntity.Varients = null;
                         }
 
                         if (objBookingPageDetailsEntity.Disclaimers != null)
                         {
                             objBookingPageDetailsEntity.Disclaimers.Clear();
-                            objBookingPageDetailsEntity.Disclaimers = null; 
+                            objBookingPageDetailsEntity.Disclaimers = null;
                         }
-                        
+
                     }
-                    
+
                     objBookingPageOutput = new BookingPageOutput();
                     objBookingPageOutput.Disclaimers = objBookingPageDetailsDTO.Disclaimers;
                     objBookingPageOutput.Offers = objBookingPageDetailsDTO.Offers;

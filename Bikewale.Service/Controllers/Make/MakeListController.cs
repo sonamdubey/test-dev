@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.DTO.Make;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.DAL.BikeData;
-using Bikewale.DTO.Make;
-using AutoMapper;
-using System.Web.Http.Description;
-using Bikewale.Service.AutoMappers.Make;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Make;
+using Bikewale.Service.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 
 namespace Bikewale.Service.Controllers.Make
@@ -21,8 +16,10 @@ namespace Bikewale.Service.Controllers.Make
     /// To Get List of Makes 
     /// Author : Sushil Kumar
     /// Created On : 24th August 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class MakeListController : ApiController
+    public class MakeListController : CompressionApiController//ApiController
     {
         private readonly IBikeMakes<BikeMakeEntity, int> _makesRepository;
 
@@ -47,18 +44,18 @@ namespace Bikewale.Service.Controllers.Make
             List<BikeMakeEntityBase> objMakeList = null;
             MakeList objDTOMakeList = null;
             try
-            {       
+            {
                 objMakeList = _makesRepository.GetMakesByType(requestType);
 
                 if (objMakeList != null && objMakeList.Count > 0)
                 {
                     objDTOMakeList = new MakeList();
-                        
+
                     objDTOMakeList.Makes = MakeListMapper.Convert(objMakeList);
 
                     objMakeList.Clear();
                     objMakeList = null;
-                        
+
                     return Ok(objDTOMakeList);
                 }
             }
@@ -72,6 +69,6 @@ namespace Bikewale.Service.Controllers.Make
         }   // Get 
         #endregion
 
-        
+
     }    // Class
 }   // Namespace

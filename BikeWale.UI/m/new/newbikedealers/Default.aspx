@@ -355,6 +355,7 @@
                             type: "GET",
                             url: "/api/v2/DealerCity/?makeId=" + mId,
                             contentType: "application/json",
+                            dataType: 'json',
                             beforeSend: function () {
                                 $("div.locator-search-city-form span").text("Loading cities..");
                             },

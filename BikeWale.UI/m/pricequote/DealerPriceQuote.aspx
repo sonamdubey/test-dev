@@ -755,6 +755,7 @@
                             async: false,
                             data: ko.toJSON(objCustomer),
                             contentType: "application/json",
+                            dataType: 'json',
                             success: function (response) {
                                 self.IsVerified(false);
                                 self.NoOfAttempts(response.noOfAttempts);

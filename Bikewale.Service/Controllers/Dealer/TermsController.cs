@@ -1,22 +1,19 @@
 ﻿using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
+using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Dealer
 {
     /// <summary>
-    /// summary
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class TermsController : ApiController
+    public class TermsController : CompressionApiController//ApiController
     {
         [ResponseType(typeof(string))]
         public IHttpActionResult Get(int? offerId, string offerMaskingName = null)
@@ -33,7 +30,7 @@ namespace Bikewale.Service.Controllers.Dealer
                     offerText = objClient.GetApiResponseSync<OfferHtmlEntity>(APIHost.AB, _requestType, _apiUrl, offerText);
                 }
 
-                if(offerText != null)
+                if (offerText != null)
                 {
                     return Ok(offerText.Html);
                 }

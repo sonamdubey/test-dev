@@ -144,6 +144,7 @@ function CustomerModel() {
                 async: false,
                 data: ko.toJSON(objCustomer),
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     self.IsVerified(false);
                     self.NoOfAttempts(response.noOfAttempts);
@@ -182,6 +183,7 @@ function CustomerModel() {
                 async: false,
                 data: ko.toJSON(objData),
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     self.pqId(response.quoteId);
                     isSuccess = true;

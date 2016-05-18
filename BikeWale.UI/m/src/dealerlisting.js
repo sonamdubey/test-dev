@@ -81,7 +81,8 @@ $(".filter-brand-city-ul").on("click", "li", function () {
                 $.ajax({
                     type: "GET",
                     url: "/api/v2/DealerCity/?makeId=" + selMakeId,
-                    contentType: "application/json",                    
+                    contentType: "application/json",
+                    dataType: 'json',
                     success: function (data) {
                         lscache.set(key + selMakeId, data.City, 30);
                         setOptions(data.City);
@@ -202,6 +203,7 @@ function getDealerBikes(id, campId) {
                 type: "GET",
                 url: "/api/DealerBikes/?dealerId="+ id + "&campaignId=" + campId,
                 contentType: "application/json",
+                dataType: 'json',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('utma', getCookie('__utma'));
                     xhr.setRequestHeader('utmz', getCookie('__utmz'));
@@ -370,6 +372,7 @@ function CustomerModel(obj) {
                 async: false,
                 data: ko.toJSON(objCustomer),
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     self.IsVerified(false);
                     self.NoOfAttempts(response.noOfAttempts);
@@ -408,6 +411,7 @@ function CustomerModel(obj) {
                 async: false,
                 data: ko.toJSON(objData),
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     self.pqId(response.quoteId);
                     isSuccess = true;
