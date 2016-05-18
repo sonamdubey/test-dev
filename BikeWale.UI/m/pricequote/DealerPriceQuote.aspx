@@ -120,7 +120,7 @@
                     </tr>
                     <tr>
                         <td colspan="2" align="right" class="text-light-grey padding-bottom15">
-                            <strong><a id='getMoreDetails' leadSourceId="23" class="get-offer-link bw-ga" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" >Get more details</a></strong>
+                            <a id='getMoreDetails' leadSourceId="23" class="bw-ga" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" >Get more details</a>
                         </td>
                     </tr>
                     <%
