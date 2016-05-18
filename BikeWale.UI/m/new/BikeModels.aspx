@@ -176,7 +176,7 @@
                         <% else
                                if (!isCitySelected)
                                {%>
-                        <p class="font14 fillPopupData margin-top10">
+                        <p class="font14 fillPopupData text-light-grey margin-top10 margin-bottom7">
                             Ex-showroom price in <span href="javascript:void(0)" class="text-light-grey clear">
                                 <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span>
                             <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity" rel="nofollow">
@@ -735,12 +735,13 @@
                                     </a>
                                 </div>
                                 <div class="model-swiper-details">
-                                    <a href="" class="font12 text-black text-bold">Honda Unicorn</a>
-                                    <p class="text-truncate text-xt-light-grey font11 margin-bottom5">Ex-showroom New Delhi</p>
-                                    <p class="font16 text-bold">
+                                    <a href="" class="font14 text-black text-bold">Honda Unicorn</a>
+                                    <p class="text-truncate text-light-grey font12 margin-top5 margin-bottom5">Ex-showroom New Delhi</p>
+                                    <p class="font18 text-bold margin-bottom10">
                                         <span class="bwmsprite inr-xsm-icon"></span>
                                         <span>50,551</span>
                                     </p>
+                                    <a href="javascript:void(0)" class="btn btn-grey btn-x-sm font12">Check on-road price</a>
                                 </div>
                             </div>
                             <div class="swiper-slide">
@@ -750,12 +751,13 @@
                                     </a>
                                 </div>
                                 <div class="model-swiper-details">
-                                    <a href="" class="font12 text-black text-bold">Honda Unicorn</a>
-                                    <p class="text-truncate text-xt-light-grey font11 margin-bottom5">Ex-showroom New Delhi</p>
-                                    <p class="font16 text-bold">
+                                    <a href="" class="font14 text-black text-bold">Honda CB Trigger</a>
+                                    <p class="text-truncate text-light-grey font12 margin-top5 margin-bottom5">Ex-showroom New Delhi</p>
+                                    <p class="font18 text-bold margin-bottom10">
                                         <span class="bwmsprite inr-xsm-icon"></span>
-                                        <span>47,261</span>
+                                        <span>49,728</span>
                                     </p>
+                                    <a href="javascript:void(0)" class="btn btn-grey btn-x-sm font12">Check on-road price</a>
                                 </div>
                             </div>
                             <div class="swiper-slide">
@@ -765,12 +767,13 @@
                                     </a>
                                 </div>
                                 <div class="model-swiper-details">
-                                    <a href="" class="font12 text-black text-bold">Honda Unicorn</a>
-                                    <p class="text-truncate text-xt-light-grey font11 margin-bottom5">Ex-showroom New Delhi</p>
-                                    <p class="font16 text-bold">
+                                    <a href="" class="font14 text-black text-bold">Honda Unicorn</a>
+                                    <p class="text-truncate text-light-grey font12 margin-top5 margin-bottom5">Ex-showroom New Delhi</p>
+                                    <p class="font18 text-bold margin-bottom10">
                                         <span class="bwmsprite inr-xsm-icon"></span>
                                         <span>50,551</span>
                                     </p>
+                                    <a href="javascript:void(0)" class="btn btn-grey btn-x-sm font12">Check on-road price</a>
                                 </div>
                             </div>
 
