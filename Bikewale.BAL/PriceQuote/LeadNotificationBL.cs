@@ -59,9 +59,12 @@ namespace Bikewale.BAL.PriceQuote
                     if (leadSourceId != 16 && leadSourceId != 22)
                         SendEmailSMSToDealerCustomer.SendSMSToCustomer(pqId, requestUrl, objDPQSmsEntity, DPQTypes.SubscriptionModel);
                 }
-
-                SendEmailSMSToDealerCustomer.SendEmailToCustomer(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, address, customerName, customerEmail, priceList, offerList, pinCode, stateName, cityName, totalPrice,
-                    versionName, dealerLat, dealerLong, workingHours);
+                //If lead is submitted while Booking a bike online don't sent SMS to customer
+                if (leadSourceId != 16 && leadSourceId != 22)
+                {
+                    SendEmailSMSToDealerCustomer.SendEmailToCustomer(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, address, customerName, customerEmail, priceList, offerList, pinCode, stateName, cityName, totalPrice,
+                        versionName, dealerLat, dealerLong, workingHours);
+                }
             }
             catch (Exception ex)
             {
