@@ -112,15 +112,15 @@
                         else
                         {%>
                     <tr>
-                        <td align="left" class="text-dark-black padding-bottom15">Total On Road Price</td>
-                        <td align="right" class="text-dark-black padding-bottom15">
+                        <td align="left" class="text-dark-black padding-bottom5">Total On Road Price</td>
+                        <td align="right" class="text-dark-black padding-bottom5">
                             <div><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(totalPrice.ToString()) %></div>
 
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2" align="right" class="text-light-grey padding-bottom15">
-                            <a id='getMoreDetails' leadSourceId="23" class="bw-ga" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" >Get more details</a>
+                           <a id='getMoreDetails' leadSourceId="23" class="get-offer-link bw-ga" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" >Get more details</a>
                         </td>
                     </tr>
                     <%
