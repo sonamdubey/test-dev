@@ -51,7 +51,8 @@ namespace Bikewale.Mobile.controls
             {
                 objSimilarBikes = objAlt.BindAlternativeBikes(versionsList, TopCount);
 
-                fetchedCount = (uint)objSimilarBikes.Count();
+                if (objSimilarBikes != null)
+                    fetchedCount = (uint)objSimilarBikes.Count();
 
                 if (fetchedCount > 0)
                 {
