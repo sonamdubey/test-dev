@@ -48,7 +48,7 @@ namespace Bikewale.New
         protected PQOnRoadPrice pqOnRoad;
         protected int grid1_size = 9, grid2_size = 3;
         protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptVariants, rptSecondaryDealers;
-        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, clientIP = string.Empty;
+        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty;
         protected String clientIP = CommonOpn.GetClientIP();
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
         //Varible to Hide or show controlers
@@ -70,7 +70,7 @@ namespace Bikewale.New
         protected HiddenField hdnVariant;
         protected IList<PQ_Price> priceList { get; set; }
         //protected BikeModelPageEntity modelPg;
-        protected string bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty;
+
 
         #region Subscription model variables
 
@@ -262,6 +262,7 @@ namespace Bikewale.New
                 ctrlUserReviews.PageSize = 4;
                 ctrlUserReviews.ModelId = _modelId;
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+            }
         }
 
         // Clear trailing query string -- added on 09-feb-2016 by Sangram

@@ -111,8 +111,6 @@ namespace Bikewale.Mobile.New
         {
 
             // Do not change the sequence of the function calls
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
             Trace.Warn("Trace 3 : ParseQueryString Start");
             ParseQueryString();
             Trace.Warn("Trace 4 : ParseQueryString End");
@@ -191,9 +189,6 @@ namespace Bikewale.Mobile.New
                         isreadonly.SetValue(this.Request.QueryString, false, null);
                         this.Request.QueryString.Clear();
                     }
-
-                    stopwatch.Start();
-                    Trace.Warn("Trace 22 : Time elapsed" + stopwatch.Elapsed);
                 }
             }
             catch (Exception ex)
