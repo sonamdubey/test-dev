@@ -434,8 +434,8 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .swiper-container .swiper-slide:hover .back-circle-icon { background-position: -150px -291px; }
 
 /* Brand Sprite */
-.brandlogosprite { display: inline-block; }
-.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royalenfield, .brand-motoguzzi, .brand-harleydavidson, .brand-heroelectric, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-mv-agusta, .brand-um { height:30px; }
+.brandlogosprite { background:url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?v=19May2016') no-repeat; display: inline-block; }
+.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royalenfield, .brand-motoguzzi, .brand-harleydavidson, .brand-heroelectric, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-mv-agusta, .brand-um, .brand-eider { height:30px; }
 
 .brand-aprilia { width: 52px; background-position: 0 0; }
 .brand-honda { width: 34px; background-position: -58px 0; }
@@ -462,6 +462,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .brand-royalenfield { width: 74px; background-position: -1354px 0;  }
 .brand-mv-agusta { width: 40px; background-position: -1432px 0; }
 .brand-um { width: 38px; background-position: -1481px 0; }
+.brand-eider { width:38px; background-position:-1529px 0; }
 /* common properties */
 .leftfloat{float:left;}
 .rightfloat{float:right;}
