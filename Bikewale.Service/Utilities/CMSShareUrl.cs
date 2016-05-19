@@ -1,18 +1,15 @@
 ﻿using Bikewale.DTO.CMS.Articles;
 using Bikewale.Entities.CMS;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
 using Bikewale.Utility;
+using System.Collections.Generic;
 
 namespace Bikewale.Service.Utilities
 {
     /// <summary>
     /// Created by  :     Sangram Nandkhile on 03 Mar 2016
     /// Summary     :     Class to hold create share url manipuation logic
-    ///           
+    /// Modified By : Vivek Gupta on 13 May 2016.
+    /// Description : public IEnumerable<CMSArticleSummary> GetShareUrl(IEnumerable<CMSArticleSummary> objCMSFArticles) Removed
     /// </summary>
     public class CMSShareUrl
     {
@@ -52,6 +49,25 @@ namespace Bikewale.Service.Utilities
         }
 
         /// <summary>
+        /// Created by  :    Vivek Gupta 
+        /// Summary     :    overload to fetch share URL for IEnumerable<CMSArticleSummary>
+        /// Modified on :    11-5-2016
+        /// Summary     :    Removed switch case
+        /// </summary>
+        /// <param name="objCMSFArticles"></param>
+        /// <returns></returns>
+        public IEnumerable<CMSArticleSummary> GetShareUrl(IEnumerable<CMSArticleSummary> objCMSFArticles)
+        {
+            string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
+            foreach (var article in objCMSFArticles)
+            {
+                article.ShareUrl = ReturnShareUrl(article);
+                article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+            }
+            return objCMSFArticles;
+        }
+
+        /// <summary>
         /// Created by  :   Sangram Nandkhile on 03 Mar 2016
         /// Summary     :   Common function to return shareurl as per categoryid of the article
         /// Modified on :   04 Mar 2016
@@ -67,40 +83,22 @@ namespace Bikewale.Service.Utilities
             {
                 case EnumCMSContentType.News:
                 case EnumCMSContentType.AutoExpo2016:
-                    articleSummary.ShareUrl = string.Format("{0}/news/{1}-{2}.html",_bwHostUrl,articleSummary.BasicId,articleSummary.ArticleUrl);
+                    articleSummary.ShareUrl = string.Format("{0}/news/{1}-{2}.html", _bwHostUrl, articleSummary.BasicId, articleSummary.ArticleUrl);
                     break;
                 case EnumCMSContentType.Features:
-                    articleSummary.ShareUrl = string.Format("{0}/features/{1}-{2}/",_bwHostUrl,articleSummary.ArticleUrl,articleSummary.BasicId);
+                    articleSummary.ShareUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
                     break;
                 case EnumCMSContentType.RoadTest:
-                    articleSummary.ShareUrl = string.Format("{0}/road-tests/{1}-{2}.html",_bwHostUrl,articleSummary.ArticleUrl,articleSummary.BasicId);
+                    articleSummary.ShareUrl = string.Format("{0}/road-tests/{1}-{2}.html", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
                     break;
                 case EnumCMSContentType.SpecialFeature:
-                    articleSummary.ShareUrl = string.Format("{0}/features/{1}-{2}/",_bwHostUrl,articleSummary.ArticleUrl,articleSummary.BasicId);
+                    articleSummary.ShareUrl = string.Format("{0}/features/{1}-{2}/", _bwHostUrl, articleSummary.ArticleUrl, articleSummary.BasicId);
                     break;
                 default:
                     break;
             }
             return articleSummary.ShareUrl;
         }
-
-        /// <summary>
-         /// Created by  :    Vivek Gupta 
-         /// Summary     :    overload to fetch share URL for IEnumerable<CMSArticleSummary>
-         /// Modified on :    11-5-2016
-         /// Summary     :    Removed switch case
-         /// </summary>
-         /// <param name="objCMSFArticles"></param>
-         /// <returns></returns>
-         public IEnumerable<CMSArticleSummary> GetShareUrl(IEnumerable<CMSArticleSummary> objCMSFArticles)
-         {
-             string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
-             foreach (var article in objCMSFArticles)
-             {
-                 article.ShareUrl = ReturnShareUrl(article);
-                 article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
-             }
-             return objCMSFArticles;
-         }
+        
     }
 }

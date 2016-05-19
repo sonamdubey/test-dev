@@ -13,11 +13,15 @@ namespace Bikewale.BAL.PriceQuote
     /// <summary>
     /// Created by  :   Sumit Kate on 02 May 2016
     /// Description :   Lead Notification BL
+    /// Modified BY : Lucky Rathore on 12 May 2016
+    /// Description : Signature of Notify Dealer and SendEmailToDealer changed.
     /// </summary>
     public class LeadNotificationBL : ILeadNofitication
     {
         /// <summary>
         /// Sends Email and SMS to Customer
+        /// Modified By : Lucky Rathore on 13 May 2016
+        /// Description : parameter versionName, dealerLat, dealerLong, workingHours added.
         /// </summary>
         /// <param name="pqId"></param>
         /// <param name="bikeName"></param>
@@ -40,7 +44,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="leadSourceId"></param>
         /// <param name="platformId">For Android : 3 and iOS : 4</param>
         /// <param name="isInsuranceFree"></param>
-        public void NotifyCustomer(uint pqId, string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, DPQSmsEntity objDPQSmsEntity, string requestUrl, uint? leadSourceId, string platformId = "", uint isInsuranceFree = 0)
+        public void NotifyCustomer(uint pqId, string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, DPQSmsEntity objDPQSmsEntity, string requestUrl, uint? leadSourceId, string versionName, double dealerLat, double dealerLong, string workingHours, string platformId = "")
         {
             try
             {
@@ -55,8 +59,12 @@ namespace Bikewale.BAL.PriceQuote
                     if (leadSourceId != 16 && leadSourceId != 22)
                         SendEmailSMSToDealerCustomer.SendSMSToCustomer(pqId, requestUrl, objDPQSmsEntity, DPQTypes.SubscriptionModel);
                 }
-
-                SendEmailSMSToDealerCustomer.SendEmailToCustomer(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, address, customerName, customerEmail, priceList, offerList, pinCode, stateName, cityName, totalPrice, isInsuranceFree);
+                //If lead is submitted while Booking a bike online don't sent SMS to customer
+                if (leadSourceId != 16 && leadSourceId != 22)
+                {
+                    SendEmailSMSToDealerCustomer.SendEmailToCustomer(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, address, customerName, customerEmail, priceList, offerList, pinCode, stateName, cityName, totalPrice,
+                        versionName, dealerLat, dealerLong, workingHours);
+                }
             }
             catch (Exception ex)
             {
@@ -67,6 +75,8 @@ namespace Bikewale.BAL.PriceQuote
 
         /// <summary>
         /// Sends SMS and Email to Dealer
+        /// Modified BY : Lucky Rathore on 12 May 2016
+        /// Description : Signature of Notify Dealer and SendEmailToDealer.
         /// </summary>
         /// <param name="pqId"></param>
         /// <param name="makeName"></param>
@@ -86,11 +96,12 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="dealerMobile"></param>
         /// <param name="bikeName"></param>
         /// <param name="insuranceAmount"></param>
-        public void NotifyDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, string dealerMobile, string bikeName, uint insuranceAmount = 0)
+
+        public void NotifyDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, string dealerMobile, string bikeName)
         {
             try
             {
-                SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath, insuranceAmount);
+                SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath);
                 SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName);
             }
             catch (Exception ex)

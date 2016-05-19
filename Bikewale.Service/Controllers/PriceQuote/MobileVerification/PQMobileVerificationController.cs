@@ -54,6 +54,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
         /// Description :   Changed making no. (mobile no.) of dealer to his phone no. for sms to customer.
         /// Modified by :   Sumit Kate on 02 May 2016
         /// Description :   Send the notification immediately
+        /// Modified by :   Lucky Rathore on 13 May 2016
+        /// Description :   New Field VersionName Intialize and NotifyCustomer() signature updated.
         /// </summary>
         /// <param name="input">Mobile Verification Input</param>
         /// <returns></returns>
@@ -69,6 +71,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
             PQ_DealerDetailEntity dealerDetailEntity = null;
             string bikeName = string.Empty;
             string imagePath = string.Empty;
+            string versionName = string.Empty;
+
             bool isSuccess = false;
             uint exShowroomCost = 0;
             UInt32 TotalPrice = 0;
@@ -172,6 +176,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
 
                                     imagePath = Bikewale.Utility.Image.GetPathToShowImages(dealerDetailEntity.objQuotation.OriginalImagePath, dealerDetailEntity.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
                                     bikeName = dealerDetailEntity.objQuotation.objMake.MakeName + " " + dealerDetailEntity.objQuotation.objModel.ModelName + " " + dealerDetailEntity.objQuotation.objVersion.VersionName;
+                                    versionName = dealerDetailEntity.objQuotation.objVersion.VersionName;
 
                                     var platformId = "";
                                     if (Request.Headers.Contains("platformId"))
@@ -191,8 +196,14 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                                     objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
                                     objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
 
-                                    _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail, dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity, "api/PQMobileVerification", 0, platformId, insuranceAmount);
-                                    _objLeadNofitication.NotifyDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName, insuranceAmount);
+                                    _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Name,
+                                   dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization,
+                                   dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail,
+                                   dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
+                                   dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
+                                   "api/PQMobileVerification", 0, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude,
+                                   dealerDetailEntity.objDealer.WorkingTime, platformId = "");
+
 
                                     _objPriceQuote.SaveBookingState(input.PQId, PriceQuoteStates.LeadSubmitted);
                                     _objLeadNofitication.PushtoAB(input.BranchId.ToString(), input.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, input.VersionId.ToString(), input.CityId.ToString());

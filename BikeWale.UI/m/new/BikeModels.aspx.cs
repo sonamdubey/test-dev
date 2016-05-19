@@ -92,7 +92,6 @@ namespace Bikewale.Mobile.New
         protected string pqId = string.Empty;
         protected string mpqQueryString = String.Empty, modelImage = string.Empty;
         protected UsersTestimonials ctrlUsersTestimonials;
-        protected bool isDealerAssitance = false;
         protected uint campaignId, manufacturerId;
 
         #region Subscription model variables
@@ -183,10 +182,6 @@ namespace Bikewale.Mobile.New
                         rptVarients.DataBind();
                     }
                     ToggleOfferDiv();
-                    if (variantId != 0)
-                    {
-                        FetchVariantDetails(variantId);
-                    }
                     // Clear trailing query string -- added on 09-feb-2016 by Sangram
                     PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
                     if (isreadonly != null)

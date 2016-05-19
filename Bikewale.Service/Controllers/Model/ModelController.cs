@@ -4,6 +4,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -142,7 +143,7 @@ namespace Bikewale.Service.Controllers.Model
                     bkContent = ModelMapper.Convert(bkModelContent);
                     bkModelContent = null;
                     bkContent.News = new CMSShareUrl().GetShareUrl(bkContent.News);
-                    bkContent.ExpertReviews = new CMSShareUrl().GetShareUrl(bkContent.ExpertReviews);
+                    bkContent.ExpertReviews = new CMSShareUrl().GetShareUrl(bkContent.ExpertReviews);                   
 
                     bkModelContent = null;
 

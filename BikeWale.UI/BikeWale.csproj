@@ -300,6 +300,7 @@
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindSimilarBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
@@ -636,6 +637,10 @@
       <DependentUpon>SimilarBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\SimilarCompareBikes.ascx.cs">
+      <DependentUpon>SimilarCompareBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\SimilarBikesHorizontal.ascx.cs">
       <DependentUpon>SimilarBikesHorizontal.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -868,6 +873,10 @@
     </Compile>
     <Compile Include="m\controls\PopularUsedBikes.ascx.cs">
       <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\SimilarCompareBikes.ascx.cs">
+      <DependentUpon>SimilarCompareBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\SimilarVideos.ascx.cs">
@@ -1222,10 +1231,6 @@
     </Compile>
     <Compile Include="pricequote\PaymentConfirmation.aspx.cs">
       <DependentUpon>PaymentConfirmation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pricequote\PaymentConfirmation_old.aspx.cs">
-      <DependentUpon>PaymentConfirmation_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pricequote\PaymentFailure.aspx.cs">
@@ -1764,6 +1769,7 @@
     <Content Include="controls\RoadTestControl.ascx" />
     <Content Include="controls\RoadTestMin.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
+    <Content Include="controls\SimilarCompareBikes.ascx" />
     <Content Include="controls\SimilarBikesHorizontal.ascx" />
     <Content Include="controls\SimilarVideos.ascx" />
     <Content Include="controls\TipsAdvicesMin.ascx" />
@@ -2239,6 +2245,7 @@
     <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
+    <Content Include="m\controls\SimilarCompareBikes.ascx" />
     <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
@@ -2423,7 +2430,6 @@
     <Content Include="pricequote\default.aspx" />
     <Content Include="pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="pricequote\faq.aspx" />
-    <Content Include="pricequote\PaymentConfirmation_old.aspx" />
     <Content Include="pricequote\PaymentFailure.aspx" />
     <Content Include="pricequote\quotation.aspx" />
     <Content Include="pricequote\RSAOfferClaim.aspx" />
