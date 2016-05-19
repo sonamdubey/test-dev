@@ -566,7 +566,7 @@ namespace Bikewale.Mobile.New
                                 {
                                     bikeMakeName = modelPage.ModelDetails.MakeBase.MakeName;
                                 }
-                                bikeName = bikeMakeName + " " + bikeModelName;
+                                bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
                             }
                         }
                     }
