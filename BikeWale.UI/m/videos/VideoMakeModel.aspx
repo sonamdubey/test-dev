@@ -5,9 +5,16 @@
 <head>
     <%
         title = titleName;
-        canonical = canonicalUrl;
         description = metaDescription;
         keywords = metaKeywords;
+        if (isModel)
+        {
+            canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/videos/", makeMaskingName, modelMaskingName);
+        }
+        else
+        {
+            canonical = string.Format("http://www.bikewale.com/{0}-bikes/videos/", makeMaskingName);
+        }
          %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">

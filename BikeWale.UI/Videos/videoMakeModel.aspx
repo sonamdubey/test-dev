@@ -2,16 +2,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%        
-       // Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(makeModelId, out title, out description, null, null);
-       //canonical = string.Format("http://www.bikewale.com/bike-videos/category/{0}-{1}/", canonTitle, categoryIdList.Replace(',', '-'));
-    %>
     <%
         isAd970x90Shown = false;
         title = titleName;
-        canonical = canonicalUrl;
         description = metaDescription;
         keywords = metaKeywords;
+        if (isModel)
+        {
+            canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/videos/", makeMaskingName, modelMaskingName);
+            alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/videos/", makeMaskingName, modelMaskingName);
+        }
+        else
+        {
+            canonical = string.Format("http://www.bikewale.com/{0}-bikes/videos/", makeMaskingName);
+            alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/videos/", makeMaskingName);
+        }
          %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
