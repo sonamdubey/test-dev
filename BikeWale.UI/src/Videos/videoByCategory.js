@@ -106,17 +106,20 @@ $.getVideos = function () {
             url: catURL,
             dataType: 'json',
             success: function (response) {
-                var objVideos;
-                if (typeof response.Videos == 'undefined') {
-                    objVideos = { 'Videos': response };
+                if (response)
+                {
+                    var objVideos;
+                    if (typeof response.Videos == 'undefined') {
+                        objVideos = { 'Videos': response };
+                    }
+                    else {
+                        objVideos = response;
+                    }
+                    $.bindVideos(objVideos);
+                    isNextPage = true;
+                    lscache.set("catVideo_" + cacheKey + "_" + pageNo, objVideos, 60);
+                    window.location.hash = "pn=" + pageNo;
                 }
-                else {
-                    objVideos = response;
-                }
-                $.bindVideos(objVideos);
-                isNextPage = true;
-                lscache.set("catVideo_" + cacheKey + "_" + pageNo, objVideos, 60);
-                window.location.hash = "pn=" + pageNo;
             },
             error: function (e) {
                 isNextPage = false;
