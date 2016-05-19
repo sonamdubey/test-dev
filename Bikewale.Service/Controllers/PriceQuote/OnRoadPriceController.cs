@@ -10,13 +10,9 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote;
-using Bikewale.Utility;
+using Bikewale.Service.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -26,8 +22,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// On Road Price Controller
     /// Author  :   Sumit Kate
     /// Created :   08 Sept 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class OnRoadPriceController : ApiController
+    public class OnRoadPriceController : CompressionApiController//ApiController
     {
         private readonly IDealerPriceQuote _objIPQ = null;
         private readonly IPriceQuote _objPriceQuote = null;

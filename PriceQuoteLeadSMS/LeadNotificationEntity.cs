@@ -34,5 +34,6 @@ namespace PriceQuoteLeadSMS
         public string EmailToDealerReplyTo { get; set; }
         public ulong CustomerId { get; set; }
         public string CampaignId { get; set; }
+        public ushort? LeadSourceId { get; set; }
     }
 }

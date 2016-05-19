@@ -1,8 +1,9 @@
 ﻿<script language="c#" runat="server">	
     private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "", TargetedCity = "";
-    private string fbTitle = "", fbImage;
+    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "", TargetedCity = ""
+        , fbTitle = "", fbImage,
+        ogImage = "";
     private ushort feedbackTypeId = 0;
     private bool isHeaderFix = true,
         isAd970x90Shown = true,
@@ -10,8 +11,9 @@
         isAd970x90BottomShown = true,
         isAd976x400FirstShown = false,
         isAd976x400SecondShown = false,
-        isAd976x204 = false;
-    private bool isTransparentHeader = false;  
+        isAd976x204 = false,
+        isTransparentHeader = false,
+        enableOG = false;  
 </script>
 
 <title><%= title %></title>
@@ -22,9 +24,20 @@
 <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
 <% if(!String.IsNullOrEmpty(keywords)) { %><meta name="keywords" content="<%= keywords %>" /><% } %>
 <%if(!String.IsNullOrEmpty(alternate)) { %><meta name="alternate" content="<%= alternate %>" /><% } %>
-<%if(!String.IsNullOrEmpty(canonical)) { %><link rel="canonical" href="<%=canonical %>" /> <% } %>
+<%if(!String.IsNullOrEmpty(canonical)) { %>
+    <link rel="canonical" href="<%=canonical %>" /> 
+<% } %>
 
-<link rel="SHORTCUT ICON" href="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
+<%if(enableOG) { %>
+    <meta property="og:title" content="<%= title %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="<%= description %>" />
+    <%if(!String.IsNullOrEmpty(canonical)) { %><meta property="og:url" content="<%=canonical %>" /> <% } %>
+    <meta property="og:image" content = "<%= string.IsNullOrEmpty(ogImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : ogImage %>" />
+<% } %>
+
+
+
 <script type="text/javascript">
     bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';
     var ga_pg_id = '0';
@@ -57,8 +70,8 @@
 </script>
 <script type='text/javascript'>
     googletag.cmd.push(function () {
-        googletag.defineSlot('<%= AdPath%>300x250', [[300, 250], [300,600]], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());                    
-        googletag.defineSlot('<%= AdPath%>300x250_BTF', [[300, 250], [300, 600]], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());        
+        googletag.defineSlot('<%= AdPath%>300x250', [[300, 250]], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());                    
+        googletag.defineSlot('<%= AdPath%>300x250_BTF', [[300, 250]], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());        
         <% if(isAd970x90Shown){ %>
         googletag.defineSlot('<%= AdPath%>970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads()); 
         <% } %>

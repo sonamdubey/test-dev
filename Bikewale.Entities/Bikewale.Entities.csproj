@@ -82,6 +82,7 @@
     <Compile Include="BikeData\BikeDescriptionEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntity.cs" />
     <Compile Include="BikeData\BikeMakePageEntity.cs" />
+    <Compile Include="BikeData\BikeModelContent.cs" />
     <Compile Include="BikeData\BikeModelEntity.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeModelPageEntity.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="BikeData\NewLaunchedBikeEntity.cs" />
     <Compile Include="BikeData\Overview.cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
+    <Compile Include="BikeData\SimilarCompareBikeEntity.cs" />
     <Compile Include="BikeData\Specifications.cs" />
     <Compile Include="BikeData\Specs.cs" />
     <Compile Include="BikeData\SpecsCategory.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="DealerLocator\Dealers.cs" />
     <Compile Include="DealerLocator\DealersList.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
+    <Compile Include="Dealer\DealerInfo.cs" />
     <Compile Include="Dealer\Dealers.cs" />
     <Compile Include="Dealer\EnumNewBikeDealerClient.cs" />
     <Compile Include="Dealer\ManufacturerLeadEntity.cs" />

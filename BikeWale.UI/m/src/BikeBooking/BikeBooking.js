@@ -226,6 +226,7 @@ function ResendCode() {
         url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
         data: '{ "customerMobile":"' + mobileNo + '", "customerEmail":"' + email + '", "customerName":"' + Customername + '"}',
         beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ResendVerificationCode"); },
+        dataType: 'json',
         success: function (response) {
             var responseJSON = eval('(' + response + ')');
             var resObj = eval('(' + responseJSON.value + ')');

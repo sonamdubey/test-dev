@@ -1,33 +1,27 @@
-﻿using AutoMapper;
-using Bikewale.BAL.Pager;
-using Bikewale.DAL.BikeData;
-using Bikewale.DTO.BikeData;
+﻿using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Make;
-using Bikewale.DTO.Model;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.BikeData;
 using Bikewale.Service.AutoMappers.Make;
-using Microsoft.Practices.Unity;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web.Mvc;
 
 namespace Bikewale.Service.Controllers.BikeData
 {
     /// <summary>
     /// Upcoming Bike Controller
     /// Created By : Sadhana Upadhyay on 25 Aug 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class UpcomingBikeController : ApiController
+    public class UpcomingBikeController : CompressionApiController//ApiController
     {
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _makeRepository = null;
@@ -56,7 +50,7 @@ namespace Bikewale.Service.Controllers.BikeData
             int recordCount = 0;
             int startIndex = 0, endIndex = 0, currentPageNo = 0;
             try
-            {                
+            {
                 currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
 
                 _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
@@ -70,7 +64,7 @@ namespace Bikewale.Service.Controllers.BikeData
                 };
 
                 List<UpcomingBikeEntity> objUpcoming = _modelRepository.GetUpcomingBikesList(inputParams, sortBy, out recordCount);
-                                
+
                 upcomingBikes.UpcomingBike = UpcomingBikeListMapper.Convert(objUpcoming);
 
                 if (objUpcoming != null)

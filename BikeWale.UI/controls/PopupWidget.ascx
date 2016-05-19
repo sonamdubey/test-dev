@@ -99,6 +99,7 @@
             $.ajax({
                 type: "GET",
                 url: "/api/v2/PQCityList/?modelId=" + modelId,
+                dataType: 'json',
                 beforeSend: function (xhr) {
                     viewModelPopup.bookingCities([]);
                     viewModelPopup.bookingAreas([]);
@@ -131,10 +132,10 @@
                         selectedMakeName = makeName;
 
                     if (modelName != undefined && modelName != '')
-                        selectedModelName = modelName;
-
-                    lscache.set(modelCityKey, response.cities, 60);
-                    var cities = response.cities;                    
+                        selectedModelName = modelName;                    
+                    var _gZippedCitiesParse = ko.toJS(response);                    
+                    lscache.set(modelCityKey, _gZippedCitiesParse.cities, 60);
+                    var cities = _gZippedCitiesParse.cities;
                     if (cities) {                        
                         stopLoading($("#divCityLoader"));
                         $("#divCityLoader .placeholder-loading-text").hide();
@@ -216,7 +217,7 @@
                         }
                     },
                     success: function (response) {
-                        var areas = response.areas;                        
+                        var areas = ko.toJS(response.areas);
                         lscache.set(cityAreaKey, areas, 60);
                         if (areas.length) {                            
                             stopLoading($("#divAreaLoader"));
@@ -342,7 +343,7 @@
                     'CityId': viewModelPopup.selectedCity(),
                     'AreaId': viewModelPopup.selectedArea(),
                     'ModelId': selectedModel,
-                    'ClientIP': '',
+                    'ClientIP': '<%= ClientIP %>',
                     'SourceType': '1',
                     'VersionId': 0,
                     'pQLeadId': PQSourceId,
@@ -375,15 +376,21 @@
 
                         cookieValue = "CityId=" + viewModelPopup.selectedCity() + "&AreaId=" + (!isNaN(viewModelPopup.selectedArea()) ? viewModelPopup.selectedArea() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
                         //SetCookie("_MPQ", cookieValue);
-
+                        
                         if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                             gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                             window.location = "/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
                         }
-                        else if (jsonObj != undefined && jsonObj.quoteId > 0) {
-                            gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
-                            window.location = "/pricequote/quotation.aspx" + "?MPQ=" + Base64.encode(cookieValue);
-                        } else {
+
+                        else if (jsonObj != undefined && jsonObj.dealerId == 0 && jsonObj.isDealerAvailable && jsonObj.quoteId > 0) {
+                            gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                            window.location = "/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
+                        }
+                        else if (jsonObj != undefined && jsonObj.dealerId == 0 && jsonObj.quoteId > 0 && !jsonObj.isDealerAvailable) {
+                                gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
+                                window.location = "/pricequote/quotation.aspx" + "?MPQ=" + Base64.encode(cookieValue);
+                        }
+                        else {
                             gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                             $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
                         }

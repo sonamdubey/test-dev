@@ -74,6 +74,7 @@
     <Compile Include="Dealer\IDealer.cs" />
     <Compile Include="Dealer\IDealerCacheRepository.cs" />
     <Compile Include="Dealer\IOffer.cs" />
+    <Compile Include="EditCMS\IArticles.cs" />
     <Compile Include="Feedback\IFeedback.cs" />
     <Compile Include="Insurance\IInsuranceDetail.cs" />
     <Compile Include="Insurance\IInsuranceRepository.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Pager\IPager.cs" />
     <Compile Include="PhotoGallery\IModelPhotos.cs" />
     <Compile Include="PriceQuote\IDealerPriceQuoteDetail.cs" />
+    <Compile Include="PriceQuote\ILeadNofitication.cs" />
     <Compile Include="PriceQuote\IPriceQuote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsedBikes\IUsedBikes.cs" />

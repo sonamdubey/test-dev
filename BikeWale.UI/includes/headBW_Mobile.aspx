@@ -52,7 +52,7 @@
             <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
         </div>
         <div class="app-banner-text-container margin-top5">
-            <h2 class="text-grey">India’s #1</h2>
+            <p class="text-grey text-bold font20">India’s #1</p>
             <p class="font12 text-bold text-grey margin-bottom5">Bike Research Destination</p>
             <a  id="btnInstallApp" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
                 <span class="btn btn-orange font12 text-bold">Install our app</span>

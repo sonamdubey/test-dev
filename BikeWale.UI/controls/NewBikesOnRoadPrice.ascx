@@ -79,6 +79,7 @@
         $.ajax({
             type: "GET",
             url: "/api/PQCityList/?modelId=" + modelId,
+            dataType: 'json',
             success: function (response) {
                 var cities = response.cities;
                 var citySelected = null;
@@ -192,7 +193,7 @@
                 'CityId': viewModelOnRoad.selectedCity(),
                 'AreaId': viewModelOnRoad.selectedArea(),
                 'ModelId': selectedModel,
-                'ClientIP': '',
+                'ClientIP': '<%= ClientIP %>',
                 'SourceType': '1',
                 'VersionId': 0,
                 'pQLeadId': '<%= PQSourceId%>',

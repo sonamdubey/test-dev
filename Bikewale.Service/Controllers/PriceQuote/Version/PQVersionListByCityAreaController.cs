@@ -6,6 +6,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
+using Bikewale.Service.Utilities;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,10 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
     /// <summary>
     /// Created by: Sangram Nandkhile on 20 Apr 2016
     /// Summary: API to return PriceQuote for model by city and area
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class PQVersionListByCityAreaController : ApiController
+    public class PQVersionListByCityAreaController : CompressionApiController//ApiController
     {
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion = null;
         private readonly IBikeModelsRepository<BikeModelEntity, int> _objModel = null;
@@ -64,7 +67,15 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                 if (objVersionsList != null && objVersionsList.Count() > 0)
                 {
                     PQByCityArea pqByCityArea = new PQByCityArea();
-                    pqEntity = pqByCityArea.GetVersionList(modelId, objVersionsList, cityId, areaId);
+                    string platformId = string.Empty;
+                    UInt16 platform = default(UInt16);
+                    if (Request.Headers.Contains("platformId"))
+                    {
+                        platformId = Request.Headers.GetValues("platformId").First().ToString();
+                    }
+                    UInt16.TryParse(platformId, out platform);
+                    string deviceId = Request.Headers.Contains("device") ? Request.Headers.GetValues("device").First().ToString() : String.Empty;
+                    pqEntity = pqByCityArea.GetVersionList(modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
                     objPQDTO = ModelMapper.Convert(pqEntity);
                     objVersionsList = null;
                     return Ok(objPQDTO);

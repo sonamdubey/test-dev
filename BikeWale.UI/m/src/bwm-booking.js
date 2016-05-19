@@ -111,6 +111,7 @@ function BookingPageVMModel() {
                 data: ko.toJSON(objPQ),
                 async: false,
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
 
                 },
@@ -140,6 +141,7 @@ function BookingPageVMModel() {
             async: false,
             data: ko.toJSON(objPQColor),
             contentType: "application/json",
+            dataType: 'json',
             success: function (response) {
                 var obj = ko.toJS(response);
             },
@@ -198,6 +200,7 @@ function CustomerModel() {
                     xhr.setRequestHeader('utmz', getCookie('__utmz'));
                 },
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     var obj = ko.toJS(response);
                     self.IsVerified(obj.isSuccess);
@@ -252,6 +255,7 @@ function CustomerModel() {
                 async: false,
                 data: ko.toJSON(objCust),
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     var obj = ko.toJS(response);
                     self.IsVerified(obj.isSuccess);
@@ -298,6 +302,7 @@ function CustomerModel() {
                 async: false,
                 data: ko.toJSON(objCustomer),
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     self.IsVerified(false);
                     self.NoOfAttempts(response.noOfAttempts);

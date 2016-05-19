@@ -1,38 +1,34 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.BikeData;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Mobile.PriceQuote;
-using Bikewale.Controls;
-using Bikewale.BikeBooking;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Entities.Customer;
-using System.IO;
-using System.Diagnostics;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.BAL.BikeData;
-using Carwale.BL.PaymentGateway;
-using System.Text;
 
 namespace Bikewale.BikeBooking
 {
     /// <summary>
     /// Created By : Ashwini Todkar 6 Nov 2014
+    /// Modified by : Vivek Gupta on 13 May 2016
+    /// Description :  Field versionName added, function signature updated.
     /// </summary>
     public class DetailedDealerQuotation : Page
     {
         protected PQ_DealerDetailEntity _objPQ = null;
         protected Repeater rptQuote, rptOffers, rptFacility, rptColors, rptDisclaimer, rptPopupColors;
         protected SimilarBikes ctrl_similarBikes;
-        protected string ImgPath = string.Empty, BikeName = string.Empty, cityId = string.Empty, versionId = string.Empty, dealerId = string.Empty, contactNo = string.Empty, organization = string.Empty, address = string.Empty, MakeModel = string.Empty;
+        protected string ImgPath = string.Empty, BikeName = string.Empty, cityId = string.Empty, versionId = string.Empty, dealerId = string.Empty, contactNo = string.Empty, organization = string.Empty, address = string.Empty, MakeModel = string.Empty, VersionName = string.Empty;
         protected double lattitude = 0, longitude = 0;
         protected UInt32 TotalPrice = 0;
         protected CalculatedEMI objCEMI = null;
@@ -252,24 +248,28 @@ namespace Bikewale.BikeBooking
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
         /// Summary    : PopulateWhere to get availability of bike with dealer e.g. in stock or waiting
+        /// Modified By : Lucky Rathore on 13 May 2016
+        /// Description : Signature of SendEmailToCustomer() changed.
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="versionId"></param>
         private void GetBikeAvailability()
         {
             string _apiUrl = "/api/Dealers/GetAvailabilityDays/?dealerId=" + dealerId + "&versionId=" + versionId;
-            
-            using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+
+            using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
             {
                 numOfDays = objClient.GetApiResponseSync<uint>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, numOfDays);
             }
-            
+
             Trace.Warn("noOfDays : " + numOfDays);
         }
 
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
         /// Summary    : PopulateWhere to get dealer price quote, offers, facilities, contact details 
+        /// Modified By : Lucky Rathore
+        /// Description : SendEmailToDealer() Sinature Updated.
         /// </summary>
         private void GetDetailedQuote()
         {
@@ -277,18 +277,19 @@ namespace Bikewale.BikeBooking
             try
             {
                 string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + versionId + "&DealerId=" + dealerId + "&CityId=" + cityId;
-                
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
                     _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
-                }                
+                }
 
-                if (_objPQ != null && _objPQ.objQuotation != null && objCustomer!=null)
+                if (_objPQ != null && _objPQ.objQuotation != null && objCustomer != null)
                 {
                     //_objPQ.objQuotation.HostUrl + _objPQ.objQuotation.LargePicUrl + _objPQ.objQuotation.objMake.MakeName + _objPQ.objQuotation.objModel.ModelName + _objPQ.objQuotation.objVersion.VersionName +
                     ImgPath = Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath, _objPQ.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
                     BikeName = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName + " " + _objPQ.objQuotation.objVersion.VersionName;
                     MakeModel = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName;
+                    VersionName = _objPQ.objQuotation.objVersion.VersionName;
                     //hide book a bike button if booking amount is not available for a bike
                     //Check if the customer already paid for this bike
 
@@ -390,16 +391,20 @@ namespace Bikewale.BikeBooking
 
                         if (!DealerPriceQuoteCookie.IsSMSSend && !DealerPriceQuoteCookie.IsMailSend)
                         {
-                            SendEmailSMSToDealerCustomer.SendEmailToCustomer(BikeName, ImgPath, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Organization, _objPQ.objDealer.Address, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, _objPQ.objQuotation.PriceList, _objPQ.objOffers, _objPQ.objDealer.objArea.PinCode, _objPQ.objDealer.objState.StateName, _objPQ.objDealer.objCity.CityName, TotalPrice, insuranceAmount);
+                            SendEmailSMSToDealerCustomer.SendEmailToCustomer(BikeName, ImgPath, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId,
+                               _objPQ.objDealer.MobileNo, _objPQ.objDealer.Organization, _objPQ.objDealer.Address, objCustomer.objCustomerBase.CustomerName,
+                               objCustomer.objCustomerBase.CustomerEmail, _objPQ.objQuotation.PriceList, _objPQ.objOffers, _objPQ.objDealer.objArea.PinCode,
+                               _objPQ.objDealer.objState.StateName, _objPQ.objDealer.objCity.CityName, TotalPrice, VersionName, _objPQ.objDealer.objArea.Latitude, _objPQ.objDealer.objArea.Longitude, _objPQ.objDealer.WorkingTime);
+
                             hasBumperDealerOffer = Bikewale.Utility.OfferHelper.HasBumperDealerOffer(_objPQ.objDealer.DealerId.ToString(), "");
                             if (bookingAmount > 0)
                             {
                                 SendEmailSMSToDealerCustomer.SMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, BikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address + "" + address, bookingAmount, insuranceAmount, hasBumperDealerOffer);
-                            }                                 
-                            
+                            }
+
                             if (!IsDealerNotified())
                             {
-                                SendEmailSMSToDealerCustomer.SendEmailToDealer(_objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName, _objPQ.objQuotation.objVersion.VersionName, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName, _objPQ.objQuotation.PriceList, Convert.ToInt32(TotalPrice), _objPQ.objOffers, ImgPath, insuranceAmount);
+                                SendEmailSMSToDealerCustomer.SendEmailToDealer(_objPQ.objQuotation.objMake.MakeName+ " "+ _objPQ.objQuotation.objModel.ModelName, _objPQ.objQuotation.objVersion.VersionName, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName, _objPQ.objQuotation.PriceList, Convert.ToInt32(TotalPrice), _objPQ.objOffers, ImgPath);
                                 SendEmailSMSToDealerCustomer.SMSToDealer(_objPQ.objDealer.MobileNo, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, BikeName, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName);
                             }
                             DealerPriceQuoteCookie.CreateDealerPriceQuoteCookie(PriceQuoteQueryString.PQId, true, true);

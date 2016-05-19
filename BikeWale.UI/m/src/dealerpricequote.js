@@ -34,27 +34,29 @@ $(document).ready(function () {
         $window = $(window),
         floatButton = $('.float-button'),
         bodHt, footerHt, scrollPosition;
-    $window.scroll(function () {
-        if (!pqDealerHeader.hasClass('pq-fixed')) {
-            if ($window.scrollTop() > pqDealerHeader.offset().top && $window.scrollTop() < pqRemoveHeader.offset().top - 40) { //subtract 40px (pq header height)
-                pqDealerHeader.addClass('pq-fixed').find('.dealership-name').addClass('text-truncate padding-bottom5 border-light-bottom');
-                pqDealerBody.addClass('padding-top40');
+        $window.scroll(function () {
+            if ($('#pqDealerHeader')[0] != undefined) {
+                if (!pqDealerHeader.hasClass('pq-fixed')) {
+                    if ($window.scrollTop() > pqDealerHeader.offset().top && $window.scrollTop() < pqRemoveHeader.offset().top - 40) { //subtract 40px (pq header height)
+                        pqDealerHeader.addClass('pq-fixed').find('.dealership-name').addClass('text-truncate padding-bottom5 border-light-bottom');
+                        pqDealerBody.addClass('padding-top40');
+                    }
+                }
+                else if (pqDealerHeader.hasClass('pq-fixed')) {
+                    if ($window.scrollTop() < pqDealerHeaderWrapper.offset().top || $window.scrollTop() > pqRemoveHeader.offset().top - 40) { //subtract 40px (pq header height)
+                        pqDealerHeader.removeClass('pq-fixed').find('.dealership-name').removeClass('text-truncate padding-bottom5 border-light-bottom');
+                        pqDealerBody.removeClass('padding-top40');
+                    }
+                }
             }
-        }
-        else if (pqDealerHeader.hasClass('pq-fixed')) {
-            if ($window.scrollTop() < pqDealerHeaderWrapper.offset().top || $window.scrollTop() > pqRemoveHeader.offset().top - 40) { //subtract 40px (pq header height)
-                pqDealerHeader.removeClass('pq-fixed').find('.dealership-name').removeClass('text-truncate padding-bottom5 border-light-bottom');
-                pqDealerBody.removeClass('padding-top40');
-            }
-        }
-        bodHt = $('body').height();
-        footerHt = $('footer').height();
-        scrollPosition = $(this).scrollTop();
-        if (floatButton.offset().top < $('footer').offset().top - 50)
-            floatButton.addClass('float-fixed');
-        if (floatButton.offset().top > $('footer').offset().top - 50)
-                floatButton.removeClass('float-fixed');
-    });
+            bodHt = $('body').height();
+            footerHt = $('footer').height();
+            scrollPosition = $(this).scrollTop();
+            if (floatButton.offset().top < $('footer').offset().top - 50)
+                floatButton.addClass('float-fixed');
+            if (floatButton.offset().top > $('footer').offset().top - 50)
+                    floatButton.removeClass('float-fixed');
+        });
     
 });
 
@@ -126,4 +128,7 @@ $(".offers-popup-close-btn").on("click", function () {
 $('.btn-grey-state').on('click', function () {
     $(this).addClass('button-clicked-state');
     setTimeout(function () { $('.btn-grey-state').removeClass('button-clicked-state'); }, 100);
+});
+$('#getMoreDetails').on('click', function () {
+    getMoreDetailsClicked = true;
 });

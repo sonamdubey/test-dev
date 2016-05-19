@@ -33,6 +33,8 @@ namespace Bikewale.Mobile.New
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 9 Sept 2015    
+    /// Modified By : Lucky Rathore on 09 May 2016
+    /// Description : modelImage declare used for bike model default image url.
     /// </summary>
     public class NewBikeModels : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
@@ -48,7 +50,7 @@ namespace Bikewale.Mobile.New
         protected string modelId = string.Empty;
         protected Repeater rptModelPhotos, rptVarients, rptColors;
         protected String bikeName = String.Empty;
-        protected String clientIP = string.Empty;
+        protected String clientIP = CommonOpn.GetClientIP();
         protected uint cityId = 0;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE class
@@ -88,9 +90,8 @@ namespace Bikewale.Mobile.New
         protected HiddenField hdnVariant;
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
-        protected string mpqQueryString = String.Empty;
+        protected string mpqQueryString = String.Empty, modelImage = string.Empty;
         protected UsersTestimonials ctrlUsersTestimonials;
-        protected bool isDealerAssitance = false;
         protected uint campaignId, manufacturerId;
 
         #region Subscription model variables
@@ -149,7 +150,6 @@ namespace Bikewale.Mobile.New
                     BindAlternativeBikeControl();
                     Trace.Warn("Trace 15 : BindAlternativeBikeControl End");
                     Trace.Warn("Trace 16 : GetClientIP Start");
-                    clientIP = CommonOpn.GetClientIP();
                     Trace.Warn("Trace 17 : GetClientIP End");
                     Trace.Warn("Trace 18 : LoadVariants Start");
                     LoadVariants();
@@ -184,7 +184,6 @@ namespace Bikewale.Mobile.New
                         rptVarients.DataBind();
                     }
                     ToggleOfferDiv();
-                    Trace.Warn("Trace 21 : Fetch variant details");
                     // Clear trailing query string -- added on 09-feb-2016 by Sangram
                     PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
                     if (isreadonly != null)
@@ -590,6 +589,8 @@ namespace Bikewale.Mobile.New
         /// Description     :   Fetch On road price depending on City, Area and DealerPQ and BWPQ
         /// Modified By     :   Sushil Kumar on 19th April 2016
         /// Description     :   Removed repeater binding for rptCategory and rptDiscount as view breakup popup removed 
+        /// Modified by     :   Sumit Kate on 29 Apr 2016
+        /// Description     :   Removed the Dealer Assistance code as it is not used.
         /// </summary>
         private void FetchOnRoadPrice()
         {
@@ -605,11 +606,6 @@ namespace Bikewale.Mobile.New
                         if (pqOnRoad.PriceQuote != null)
                         {
                             dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
-                            if (!String.IsNullOrEmpty(dealerId))
-                            {
-                                DealerAssistance dealerAssisteance = new DealerAssistance();
-                                isDealerAssitance = dealerAssisteance.IsDealerAssistance(dealerId);
-                            }
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
                         }
                         //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
@@ -823,6 +819,8 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Author: Sangram Nandkhile
         /// Desc: Removed API Call for on road Price Quote
+        /// Modified By : Lucky Rathore on 09 May 2016.
+        /// Description : modelImage intialize.
         /// </summary>
         /// <returns></returns>
         private PQOnRoadPrice GetOnRoadPrice()
@@ -863,8 +861,11 @@ namespace Bikewale.Mobile.New
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.PriceQuote = objPQOutput;
                         BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
-                        pqOnRoad.BikeDetails = bikemodelEnt;
-
+                        if (bikemodelEnt != null)
+                        {
+                            modelImage = Utility.Image.GetPathToShowImages(bikemodelEnt.OriginalImagePath, bikemodelEnt.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                            pqOnRoad.BikeDetails = bikemodelEnt;
+                        }
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {
                             bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);

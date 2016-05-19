@@ -178,20 +178,22 @@ namespace Bikewale.Common
         private void UpdateSMSSentData(string currentId, string retMsg)
         {
             if (currentId != "")
-            {
-                SqlCommand cmd = new SqlCommand();
+            {                
                 Database db = new Database();
 
                 string sql = "UPDATE SMSSent SET ReturnedMsg = @RetMsg WHERE ID = @CurrentId";
 
                 try
                 {
-                    cmd.CommandText = sql;
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add("@CurrentId", SqlDbType.Int).Value = Convert.ToInt32(currentId);
-                    cmd.Parameters.Add("@RetMsg", SqlDbType.VarChar).Value = retMsg;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = sql;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.Add("@CurrentId", SqlDbType.Int).Value = Convert.ToInt32(currentId);
+                        cmd.Parameters.Add("@RetMsg", SqlDbType.VarChar).Value = retMsg;
 
-                    db.UpdateQry(cmd);
+                        db.UpdateQry(cmd);
+                    }
                 }
                 catch (SqlException ex)
                 {

@@ -1,14 +1,11 @@
-﻿using Bikewale.Entities.App;
-using Bikewale.DTO.App;
+﻿using Bikewale.DTO.App;
 using Bikewale.Interfaces.App;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Bikewale.Service.AutoMappers.App;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.App;
+using Bikewale.Service.Utilities;
+using System;
+using System.Linq;
+using System.Web.Http;
 using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.App
@@ -17,8 +14,10 @@ namespace Bikewale.Service.Controllers.App
     /// Author      :   Sumit Kate
     /// Description :   To check whether APP Versions is supported and Latest
     /// Created On  :   07 Dec 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class AppVersionCheckController : ApiController
+    public class AppVersionCheckController : CompressionApiController//ApiController
     {
         private readonly IAppVersion _AppVersion = null;
         /// <summary>

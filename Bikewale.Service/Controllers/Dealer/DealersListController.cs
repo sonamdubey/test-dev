@@ -3,11 +3,10 @@ using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Dealer;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -17,8 +16,10 @@ namespace Bikewale.Service.Controllers.Dealer
     /// To Get List of Dealers
     /// Author : Sushil Kumar
     /// Created On : 7th October 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class DealersListController : ApiController
+    public class DealersListController : CompressionApiController//ApiController
     {
         private readonly IDealer _dealer = null;
         /// <summary>
@@ -29,7 +30,7 @@ namespace Bikewale.Service.Controllers.Dealer
         {
             _dealer = dealer;
         }
-        
+
         #region Dealer List for clients
         /// <summary>
         /// Created By : Sushil Kumar
@@ -50,14 +51,14 @@ namespace Bikewale.Service.Controllers.Dealer
                 objDealers = _dealer.GetNewBikeDealersList(makeId, cityId, clientId);
 
                 if (objDealers != null && objDealers.Count() > 0)
-                {                    
+                {
                     objDTODealerList = new NewBikeDealerList();
                     objDTODealerList.Dealers = DealerListMapper.Convert(objDealers);
                     objDTODealerList.TotalDealers = objDealers.Count();
 
                     objDealers = null;
 
-                    return Ok(objDTODealerList);                     
+                    return Ok(objDTODealerList);
                 }
                 else
                 {

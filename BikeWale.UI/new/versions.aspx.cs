@@ -30,6 +30,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore on 09 May 2016.
+    /// Description : modelImage declare used for bike model default image url.
+    /// </summary>
     public class bikeModel : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
         #region Global Variables
@@ -45,6 +49,7 @@ namespace Bikewale.New
         protected int grid1_size = 9, grid2_size = 3;
         protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptVariants, rptSecondaryDealers;
         protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, clientIP = string.Empty;
+        protected String clientIP = CommonOpn.GetClientIP();
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
         //Varible to Hide or show controlers
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerAssitance, isBookingAvailable, isOfferAvailable;
@@ -65,6 +70,7 @@ namespace Bikewale.New
         protected HiddenField hdnVariant;
         protected IList<PQ_Price> priceList { get; set; }
         //protected BikeModelPageEntity modelPg;
+        protected string bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty;
 
         #region Subscription model variables
 
@@ -213,7 +219,6 @@ namespace Bikewale.New
                         Trace.Warn("Trace 10 : FetchOnRoadPrice End");
                     }
                     BindPhotoRepeater(modelPageEntity);
-                    clientIP = CommonOpn.GetClientIP();
                     LoadVariants(modelPageEntity);
                     Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
                     BindAlternativeBikeControl(modelPageEntity);
@@ -257,7 +262,6 @@ namespace Bikewale.New
                 ctrlUserReviews.PageSize = 4;
                 ctrlUserReviews.ModelId = _modelId;
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
-            }
         }
 
         // Clear trailing query string -- added on 09-feb-2016 by Sangram
@@ -404,7 +408,6 @@ namespace Bikewale.New
         }
 
 
-
         private void BindPhotoRepeater(BikeModelPageEntity modelPage)
         {
             if (modelPage != null)
@@ -414,7 +417,6 @@ namespace Bikewale.New
                 {
                     rptModelPhotos.DataSource = photos;
                     rptModelPhotos.DataBind();
-
                     rptNavigationPhoto.DataSource = photos;
                     rptNavigationPhoto.DataBind();
 
@@ -763,6 +765,8 @@ namespace Bikewale.New
         /// <summary>
         /// Author: Sangram Nandkhile
         /// Desc: Removed API Call for on road Price Quote
+        /// Modified By : Lucky Rathore on 09 May 2016.
+        /// Description : modelImage intialize.
         /// </summary>
         /// <returns></returns>
         private PQOnRoadPrice GetOnRoadPrice()
@@ -802,7 +806,11 @@ namespace Bikewale.New
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.PriceQuote = objPQOutput;
                         BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
-                        pqOnRoad.BikeDetails = bikemodelEnt;
+                        if (bikemodelEnt != null)
+                        {
+                            modelImage = Utility.Image.GetPathToShowImages(bikemodelEnt.OriginalImagePath, bikemodelEnt.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                            pqOnRoad.BikeDetails = bikemodelEnt;
+                        }
                         string api = string.Empty;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {

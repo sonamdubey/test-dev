@@ -50,6 +50,7 @@
     <Compile Include="App\AppVersion.cs" />
     <Compile Include="App\AppVersionMessageCode.cs" />
     <Compile Include="AutoComplete\BikeList.cs" />
+    <Compile Include="AutoComplete\CityPayload.cs" />
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionList.cs" />
     <Compile Include="BikeBooking\BikeBookingListingDTO.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Make\MakePage.cs" />
     <Compile Include="Make\NewBikeDealersMakeBase.cs" />
     <Compile Include="Make\NewBikedealersMakeList.cs" />
+    <Compile Include="Model\BikeModelContentDTO.cs" />
     <Compile Include="Model\BikeSpecs.cs" />
     <Compile Include="Model\Features.cs" />
     <Compile Include="Model\ModelColor.cs" />
@@ -245,6 +247,7 @@
     <Compile Include="Series\SeriesList.cs" />
     <Compile Include="State\StateBase.cs" />
     <Compile Include="State\StateList.cs" />
+    <Compile Include="Version\v2\VersionDetails.cs" />
     <Compile Include="Version\VersionBase.cs" />
     <Compile Include="Version\VersionDetails.cs" />
     <Compile Include="Version\VersionList.cs" />

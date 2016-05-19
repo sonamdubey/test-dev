@@ -1,31 +1,36 @@
-﻿using System;
+﻿using Bikewale.BAL.PriceQuote;
+using Bikewale.DTO.Model;
+using Bikewale.DTO.Version;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Model;
+using Bikewale.Service.Utilities;
+using System;
 using System.Configuration;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.DTO.Version;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Notifications;
-using Bikewale.Service.AutoMappers.Model;
-using Bikewale.DTO.Model;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.BAL.PriceQuote;
 
 namespace Bikewale.Service.Controllers.Model
 {
-    public class ModelSpecsController : ApiController
+    /// <summary>
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// </summary>
+    public class ModelSpecsController : CompressionApiController//ApiController
     {
         private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _cache;
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="modelRepository"></param>
-        public ModelSpecsController(IBikeModelsRepository<BikeModelEntity, int> modelRepository,  IBikeModelsCacheRepository<int> cache)
+        public ModelSpecsController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache)
         {
             _modelRepository = modelRepository;
             _cache = cache;
@@ -103,20 +108,21 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     return BadRequest();
                 }
-                
+
                 getPQ = new PQByCityArea();
-                objModelPage = _cache.GetModelPageDetails(modelId);                
-                if (objModelPage != null )
+                objModelPage = _cache.GetModelPageDetails(modelId);
+                if (objModelPage != null)
                 {
-                    objPQ = getPQ.GetVersionList(modelId, objModelPage.ModelVersions, cityId, areaId);
+                    string deviceId = Request.Headers.Contains("device") ? Request.Headers.GetValues("device").First().ToString() : String.Empty;
+                    objPQ = getPQ.GetVersionList(modelId, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(platformId), null, null, deviceId);
                     if (objPQ != null)
                     {
                         specs = new BikeSpecs();
                         specs = ModelMapper.ConvertToBikeSpecs(objModelPage, objPQ);
                         return Ok(specs);
-                    }                    
+                    }
                 }
-                return NotFound();                
+                return NotFound();
             }
             catch (Exception ex)
             {
@@ -124,6 +130,6 @@ namespace Bikewale.Service.Controllers.Model
                 objErr.SendMail();
                 return InternalServerError();
             }
-        } 
+        }
     }
 }
