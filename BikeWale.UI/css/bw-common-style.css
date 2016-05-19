@@ -439,8 +439,8 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .login-logout-icon { background-position:-150px -250px; }
 
 /* Brand sprite */
-.brandlogosprite { background-repeat:no-repeat; display: inline-block; }
-.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-escorts, .brand-harleydavidson, .brand-hero, .brand-heroelectric, .brand-herohonda, .brand-honda, .brand-husqvarna, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-kinetic, .brand-ktm, .brand-lml, .brand-mahindra, .brand-motoguzzi, .brand-mv-agusta, .brand-piaggio, .brand-royalenfield, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-um, .brand-vespa, .brand-victory, .brand-yamaha, .brand-yo { height:50px; }
+.brandlogosprite { background:url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?v=19May2016') no-repeat; display: inline-block; }
+.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-escorts, .brand-harleydavidson, .brand-hero, .brand-heroelectric, .brand-herohonda, .brand-honda, .brand-husqvarna, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-kinetic, .brand-ktm, .brand-lml, .brand-mahindra, .brand-motoguzzi, .brand-mv-agusta, .brand-piaggio, .brand-royalenfield, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-um, .brand-vespa, .brand-victory, .brand-yamaha, .brand-yo, .brand-eider { height:50px; }
 
 .brand-aprilia { width: 87px; background-position: 0 0; }
 .brand-honda { width: 56px; background-position: -96px 0; }
@@ -467,6 +467,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .brand-royalenfield { width: 121px; background-position: -2258px 0; }
 .brand-mv-agusta { width:63px; background-position: -2389px 0; }
 .brand-um { width:64px; background-position:-2461px 0; }
+.brand-eider { width:71px; background-position:-2535px 0; }
 
 /* News-Reviews-Videos New Bikes */
 .newBikes-latest-updates-container .grid-4 { padding-left:10px; !important }

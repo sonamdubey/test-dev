@@ -7,6 +7,7 @@
 <%@ Register Src="~/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/OnRoadPriceQuote.ascx" TagName="OnRoadPriceQuote" TagPrefix="BW" %>
 
+<!doctype html>
 <html>
 <head>
     <%
@@ -89,7 +90,7 @@
                                             <li>
                                                 <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-bikes/">
                                                     <span class="brand-type">                                                        
-                                                	<span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                                	    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>"></span>
                                                     </span>
                                                     <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                                 </a>
@@ -104,14 +105,12 @@
                                     <asp:Repeater ID="rptOtherBrands" runat="server">
                                         <ItemTemplate>
                                             <li>
-
                                                 <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-bikes/">
                                                     <span class="brand-type">
-                                                        <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                                        <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>"></span>
                                                     </span>
                                                     <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                                 </a>
-
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
