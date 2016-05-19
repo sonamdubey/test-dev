@@ -234,8 +234,7 @@
 
         <script>
             $("a.read-more-btn").click(function () {
-                $("span.brand-about-main").toggleClass('hide');
-                $("span.brand-about-more-desc").toggleClass('hide');
+                $("span.brand-about-more-desc").toggle('hide');
                 var a = $(this).find("span");
                 a.text(a.text() === "more" ? "less" : "more");
             });
