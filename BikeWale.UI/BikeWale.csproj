@@ -1098,6 +1098,10 @@
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="new\ModelSpecsFeatures.aspx.cs">
+      <DependentUpon>ModelSpecsFeatures.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\versions.aspx.cs">
       <DependentUpon>versions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2377,6 +2381,7 @@
     <Content Include="new\locatenewbikedealers_old.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\ModelPricesInCity.aspx" />
+    <Content Include="new\ModelSpecsFeatures.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
