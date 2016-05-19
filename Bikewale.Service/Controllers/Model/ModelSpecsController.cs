@@ -6,6 +6,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
+using Bikewale.Service.Utilities;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -14,7 +15,11 @@ using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Model
 {
-    public class ModelSpecsController : ApiController
+    /// <summary>
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// </summary>
+    public class ModelSpecsController : CompressionApiController//ApiController
     {
         private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         private string _applicationid = ConfigurationManager.AppSettings["applicationId"];

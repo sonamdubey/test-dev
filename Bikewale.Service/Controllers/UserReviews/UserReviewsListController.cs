@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using AutoMapper;
-using Bikewale.DAL.UserReviews;
-using Bikewale.DTO.Make;
-using Bikewale.DTO.Model;
-using Bikewale.DTO.Version;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.DTO;
+﻿using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
-using Microsoft.Practices.Unity;
-using System.Web.Http.Description;
-using Bikewale.Service.AutoMappers.UserReviews;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.UserReviews;
+using Bikewale.Service.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.UserReviews
 {
@@ -24,10 +15,12 @@ namespace Bikewale.Service.Controllers.UserReviews
     /// To List of User Reviews based on tagging and pagination
     /// Author : Sushil Kumar
     /// Created On : 24th August 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class UserReviewsListController : ApiController
+    public class UserReviewsListController : CompressionApiController//ApiController
     {
-        
+
         private readonly IUserReviews _userReviewsRepo = null;
         public UserReviewsListController(IUserReviews userReviewsRepo)
         {
@@ -127,7 +120,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             List<Review> objDTOUserReview = null;
             try
             {
-               objUserReview = _userReviewsRepo.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalRecords);
+                objUserReview = _userReviewsRepo.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalRecords);
 
                 if (objUserReview != null)
                 {

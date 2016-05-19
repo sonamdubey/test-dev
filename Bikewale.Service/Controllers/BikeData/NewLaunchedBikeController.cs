@@ -1,24 +1,14 @@
-﻿using Bikewale.BAL.Pager;
-using Bikewale.DAL.BikeData;
+﻿using Bikewale.DTO.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
-using Bikewale.DTO.BikeData;
-using Microsoft.Practices.Unity;
+using Bikewale.Service.AutoMappers.BikeData;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
-using Bikewale.DTO.Make;
-using Bikewale.DTO.Model;
-using AutoMapper;
-using Bikewale.DTO.Series;
-using Bikewale.Service.AutoMappers.BikeData;
 using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.BikeData
@@ -26,8 +16,10 @@ namespace Bikewale.Service.Controllers.BikeData
     /// <summary>
     /// New Launched Bike Controller
     /// Created By : Sadhana Upadhyay on 25 Aug 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class NewLaunchedBikeController : ApiController
+    public class NewLaunchedBikeController : CompressionApiController//ApiController
     {
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IPager _objPager = null;
@@ -56,13 +48,13 @@ namespace Bikewale.Service.Controllers.BikeData
                 _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
 
                 List<NewLaunchedBikeEntity> objRecent = _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex, out recordCount);
-                                
+
                 objLaunched.LaunchedBike = LaunchedBikeListMapper.Convert(objRecent);
 
                 if (objRecent != null)
                 {
                     objRecent.Clear();
-                    objRecent = null; 
+                    objRecent = null;
                 }
 
                 if (objLaunched != null && objLaunched.LaunchedBike != null && objLaunched.LaunchedBike.Count() > 0)

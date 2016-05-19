@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.Model;
+using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.DAL.BikeData;
-using AutoMapper;
-using System.Web.Http.Description;
-using Bikewale.DTO.Model;
-using Bikewale.Service.AutoMappers.Model;
-using Bikewale.DTO.Widgets;
-using Bikewale.DTO.Version;
-using Bikewale.DTO.Make;
 using Bikewale.Notifications;
-using Bikewale.DTO.BikeData;
 using Bikewale.Service.AutoMappers.BikeData;
+using Bikewale.Service.AutoMappers.Model;
+using Bikewale.Service.Utilities;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Model
 {
@@ -25,8 +20,10 @@ namespace Bikewale.Service.Controllers.Model
     /// To Get List of Models
     /// Author : Sushil Kumar
     /// Created On : 24th August 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class ModelListController : ApiController
+    public class ModelListController : CompressionApiController//ApiController
     {
 
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
@@ -34,7 +31,7 @@ namespace Bikewale.Service.Controllers.Model
         {
             _modelRepository = modelRepository;
         }
-    
+
         #region Minimum Model Details
         /// <summary>
         /// To Minimum Model Details for Dropdowns 
@@ -49,7 +46,7 @@ namespace Bikewale.Service.Controllers.Model
             ModelBase objDTOModel = null;
             using (IUnityContainer container = new UnityContainer())
                 try
-                {   
+                {
                     objModel = _modelRepository.GetById(modelId);
 
                     if (objModel != null)
@@ -68,7 +65,7 @@ namespace Bikewale.Service.Controllers.Model
 
             return NotFound();
         }   // Get 
-        #endregion     
+        #endregion
 
         #region Get Most Popular Bikes
         /// <summary>
@@ -78,7 +75,7 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="makeId">Optional (To return Models List Based on MakeID)</param>
         /// <returns>Most Popular bikes based on totalCount and MakeId(Optional)</returns>
         [ResponseType(typeof(MostPopularBikesList))]
-        public IHttpActionResult Get(sbyte? totalCount=null, int? makeId = null)
+        public IHttpActionResult Get(sbyte? totalCount = null, int? makeId = null)
         {
             List<MostPopularBikesBase> objModelList = null;
             MostPopularBikesList objDTOModelList = null;
@@ -122,18 +119,18 @@ namespace Bikewale.Service.Controllers.Model
             ModelList objDTOModelList = null;
             try
             {
-                 objModelList = _modelRepository.GetModelsByType(requestType, makeId);
+                objModelList = _modelRepository.GetModelsByType(requestType, makeId);
 
-                    if (objModelList != null && objModelList.Count > 0)
-                    {
-                        objDTOModelList = new ModelList();
-                        objDTOModelList.Model = ModelMapper.Convert(objModelList);
+                if (objModelList != null && objModelList.Count > 0)
+                {
+                    objDTOModelList = new ModelList();
+                    objDTOModelList.Model = ModelMapper.Convert(objModelList);
 
-                        objModelList.Clear();
-                        objModelList = null;
+                    objModelList.Clear();
+                    objModelList = null;
 
-                        return Ok(objDTOModelList);
-                    }
+                    return Ok(objDTOModelList);
+                }
             }
             catch (Exception ex)
             {

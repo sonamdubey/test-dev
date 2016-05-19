@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Bikewale.Entities.Insurance;
-using Bikewale.DAL.Insurance;
-using System.Web.Http.Description;
-using Bikewale.Notifications;
+﻿using Bikewale.DAL.Insurance;
 using Bikewale.DTO.Insurance;
-using System.Configuration;
-using Bikewale.Utility;
-using Bikewale.Interfaces.Customer;
 using Bikewale.Entities.Customer;
+using Bikewale.Entities.Insurance;
+using Bikewale.Interfaces.Customer;
+using Bikewale.Notifications;
+using Bikewale.Service.Utilities;
+using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Insurance
 {
@@ -20,8 +17,10 @@ namespace Bikewale.Service.Controllers.Insurance
     /// Created BY : Lucky Rathore
     /// Date : 20 November 2015
     /// Description : API to handle User Insurance Detail.
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class InsuranceLeadController : ApiController
+    public class InsuranceLeadController : CompressionApiController//ApiController
     {
         private readonly ICustomerAuthentication<CustomerEntity, UInt32> _objAuthCustomer = null;
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
@@ -54,7 +53,7 @@ namespace Bikewale.Service.Controllers.Insurance
 
             //http Header Parameter
             IDictionary<string, string> _headerParameters = new Dictionary<string, string>();
-             _headerParameters.Add("clientid", "5");
+            _headerParameters.Add("clientid", "5");
             _headerParameters.Add("platformid", "2");
 
             ClientResponse response = null;
@@ -114,11 +113,11 @@ namespace Bikewale.Service.Controllers.Insurance
                 ErrorClass objErr = new ErrorClass(err, "Exception : Bikewale.Service.Controllers.Insurance.SaveLeadOnClient");
                 objErr.SendMail();
             }
-           
+
             //Data Submitt on our side
             try
-            {               
-                
+            {
+
             }
             catch (Exception err)
             {
@@ -129,7 +128,7 @@ namespace Bikewale.Service.Controllers.Insurance
             return NotFound();
         }
 
-      
-        
+
+
     }
 }

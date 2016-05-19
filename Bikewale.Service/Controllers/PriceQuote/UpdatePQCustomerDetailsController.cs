@@ -9,6 +9,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
+using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;
 using System.Configuration;
@@ -22,8 +23,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// Price Quote Customer Detail Controller with VersionId and ColorId Updation
     /// Author      :   Sushil Kumar
     /// Created On  :   12th December 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class UpdatePQCustomerDetailsController : ApiController
+    public class UpdatePQCustomerDetailsController : CompressionApiController//ApiController
     {
         private readonly ICustomerAuthentication<CustomerEntity, UInt32> _objAuthCustomer = null;
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;

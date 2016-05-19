@@ -91,6 +91,7 @@
         $.ajax({
             type: "GET",
             url: "/api/PQCityList/?modelId=" + modelId,
+            dataType: 'json',
             //data: '{"modelId":"' + modelId + '"}',
             //beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
             success: function (response) {

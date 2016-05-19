@@ -24,6 +24,7 @@ $("#" + ctrlBtnLoginId).click(function () {
             url: bwHostUrl + "/api/customer/authenticate/",
             data: JSON.stringify(source),
             contentType: 'application/json',
+            dataType: 'json',
             async: false,
             success: function (response) {
                 if (response != null && response.isAuthorized == true) {

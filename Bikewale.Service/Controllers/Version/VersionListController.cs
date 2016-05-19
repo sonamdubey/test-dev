@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.DAL.BikeData;
-using AutoMapper;
-using System.Web.Http.Description;
-using Bikewale.DTO.Version;
-using Bikewale.Service.AutoMappers.Version;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Version;
+using Bikewale.Service.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Version
 {
@@ -20,16 +15,18 @@ namespace Bikewale.Service.Controllers.Version
     /// To Get List of Versions
     /// Author : Sushil Kumar
     /// Created On : 24th August 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class VersionListController : ApiController
-    {                                 
-        
-        private readonly  IBikeVersions<BikeVersionEntity, uint> _versionRepository = null;
+    public class VersionListController : CompressionApiController//ApiController
+    {
+
+        private readonly IBikeVersions<BikeVersionEntity, uint> _versionRepository = null;
         public VersionListController(IBikeVersions<BikeVersionEntity, uint> versionRepository)
         {
             _versionRepository = versionRepository;
         }
-        
+
         #region List of Models Version with MinSpecs
         /// <summary>
         /// Versions List with minimum specs details
@@ -66,7 +63,7 @@ namespace Bikewale.Service.Controllers.Version
             return NotFound();
         }   // Get 
         #endregion
-        
+
         #region List of Models Version
         /// <summary>
         /// List of Versions based on models and requesttype
@@ -103,7 +100,7 @@ namespace Bikewale.Service.Controllers.Version
             }
             return NotFound();
         }   // Get 
-        #endregion                 
+        #endregion
 
     }
 }

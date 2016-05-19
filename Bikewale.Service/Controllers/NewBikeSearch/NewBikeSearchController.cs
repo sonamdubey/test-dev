@@ -1,19 +1,19 @@
-﻿using Bikewale.Entities.NewBikeSearch;
-using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using Bikewale.DTO.NewBikeSearch;
+using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
-using Bikewale.DTO.NewBikeSearch;
 using Bikewale.Service.AutoMappers.NewBikeSearch;
+using Bikewale.Service.Utilities;
+using System;
+using System.Web.Http;
 
 namespace Bikewale.Service.Controllers.NewBikeSearch
 {
-    public class NewBikeSearchController : ApiController
+    /// <summary>
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// </summary>
+    public class NewBikeSearchController : CompressionApiController//ApiController
     {
         //private readonly ISearchQuery _searchQuery = null;
         private readonly ISearchResult _searchResult = null;
@@ -42,7 +42,7 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
                 else
                     return NotFound();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.NewBikeSearch.NewBikeSearchController");
                 objErr.SendMail();

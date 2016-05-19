@@ -428,7 +428,7 @@
                             $.ajax({
                                 type: "GET",
                                 url: "/api/BBAreaList/?cityId=" + selCityId,
-                                contentType: "application/json",
+                                dataType: 'json',
                                 beforeSend: function () {
                                     return;
                                 },

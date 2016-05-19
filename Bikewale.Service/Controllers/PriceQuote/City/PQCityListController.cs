@@ -1,17 +1,14 @@
-﻿using Bikewale.DAL.Location;
-using Bikewale.DTO.PriceQuote.City;
+﻿using Bikewale.DTO.PriceQuote.City;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote.City;
-using Microsoft.Practices.Unity;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Linq;
 
 namespace Bikewale.Service.Controllers.PriceQuote.City
 {
@@ -21,11 +18,18 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
     /// Created On : 20 Aug 2015
     /// Modified by :   Sumit Kate on 25 Jan 2016
     /// Description :   Get the PQ Cities from Cache Repository
+    /// Modified by :   Sumit Kate on 12 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class PQCityListController : ApiController
+    public class PQCityListController : CompressionApiController//ApiController
     {
         private readonly ICity _cityRepository = null;
         private readonly ICityCacheRepository _cityCache = null;
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="cityRepository"></param>
+        /// <param name="cityCache"></param>
         public PQCityListController(ICity cityRepository, ICityCacheRepository cityCache)
         {
             _cityRepository = cityRepository;
@@ -50,7 +54,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
                     // Auto map the properties
                     objDTOCityList = new PQCityList();
                     objDTOCityList.Cities = PQCityListMapper.Convert(objCityList);
-                    
+
                     objCityList = null;
 
                     return Ok(objDTOCityList);
@@ -91,6 +95,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
 
                     objCityList = null;
 
+                    //return OkCompressed(objDTOCityList);
                     return Ok(objDTOCityList);
                 }
                 else

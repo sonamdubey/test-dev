@@ -3,6 +3,7 @@ using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.UserReviews;
+using Bikewale.Service.Utilities;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -16,8 +17,10 @@ namespace Bikewale.Service.Controllers.UserReviews
     /// And To Update Review Status to Helpful/Abuse/ViewCount
     /// Author : Sushil Kumar
     /// Created On : 26th August 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class UserReviewsController : ApiController
+    public class UserReviewsController : CompressionApiController//ApiController
     {
 
         private readonly IUserReviews _userReviewsRepo = null;

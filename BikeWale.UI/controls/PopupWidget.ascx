@@ -99,6 +99,7 @@
             $.ajax({
                 type: "GET",
                 url: "/api/v2/PQCityList/?modelId=" + modelId,
+                dataType: 'json',
                 beforeSend: function (xhr) {
                     viewModelPopup.bookingCities([]);
                     viewModelPopup.bookingAreas([]);
@@ -131,10 +132,10 @@
                         selectedMakeName = makeName;
 
                     if (modelName != undefined && modelName != '')
-                        selectedModelName = modelName;
-
-                    lscache.set(modelCityKey, response.cities, 60);
-                    var cities = response.cities;                    
+                        selectedModelName = modelName;                    
+                    var _gZippedCitiesParse = ko.toJS(response);                    
+                    lscache.set(modelCityKey, _gZippedCitiesParse.cities, 60);
+                    var cities = _gZippedCitiesParse.cities;
                     if (cities) {                        
                         stopLoading($("#divCityLoader"));
                         $("#divCityLoader .placeholder-loading-text").hide();
@@ -216,7 +217,7 @@
                         }
                     },
                     success: function (response) {
-                        var areas = response.areas;                        
+                        var areas = ko.toJS(response.areas);
                         lscache.set(cityAreaKey, areas, 60);
                         if (areas.length) {                            
                             stopLoading($("#divAreaLoader"));
