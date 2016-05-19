@@ -66,19 +66,19 @@ namespace BikeWaleOpr.Content
                 try
                 {
                     op.FillDropDown(sql, cmbMakes, "Name", "Id");
-                    cmbMakes.Items.Insert(0, new ListItem("Select Make", "-1"));
+                    cmbMakes.Items.Insert(0, new ListItem("Select Make", "0"));
 
                     sql = "select Id, Name from bikesegments";
                     op.FillDropDown(sql, cmbSegments, "Name", "Id");
-                    cmbSegments.Items.Add(new ListItem("--Select--", "-1"));
+                    cmbSegments.Items.Add(new ListItem("--Select--", "0"));
 
                     sql = "select Id, Name from bikesubsegments";
                     op.FillDropDown(sql, cmbSubSegments, "Name", "Id");
-                    cmbSubSegments.Items.Add(new ListItem("--Select--", "-1"));
+                    cmbSubSegments.Items.Add(new ListItem("--Select--", "0"));
 
                     sql = "select Id, Name from bikebodystyles";
                     op.FillDropDown(sql, cmbBodyStyles, "Name", "Id");
-                    cmbBodyStyles.Items.Add(new ListItem("--Select--", "-1"));
+                    cmbBodyStyles.Items.Add(new ListItem("--Select--", "0"));
                 }
                 catch (SqlException ex)
                 {

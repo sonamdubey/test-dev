@@ -135,7 +135,7 @@ namespace Bikewale.New
             WhereClause = " mo.futuristic = 1 and ecl.islaunched = 0  and ecl.isdeleted = 0 ";
             if (makeId != string.Empty)
             {
-                WhereClause += "and mk.id = par_makeid ";
+                WhereClause += "and mk.id = @makeid ";
             }
             OrderByClause = GetSortCriteria(sort);
             if (sort != string.Empty)
@@ -145,8 +145,7 @@ namespace Bikewale.New
             //if(PageNumber != string.Empty)
                 //BaseUrl = "/" + makeName + "-bikes/upcoming/page/" + PageNumber + "/";
 
-            //cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-            cmd.Parameters.Add(DbFactory.GetDbParam("par_makelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId)); 
+            cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId)); 
 
             RecordCntQry = " select count(*) from " + FromClause + " where " + WhereClause;
 

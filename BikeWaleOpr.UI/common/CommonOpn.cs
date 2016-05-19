@@ -263,10 +263,13 @@ namespace BikeWaleOpr.Common
                 using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                 {
 
-                            drp.DataSource = dr;
-                            drp.DataTextField = text;
-                            drp.DataValueField = value;
-                            drp.DataBind();
+                    if (dr!=null)
+                    {
+                        drp.DataSource = dr;
+                        drp.DataTextField = text;
+                        drp.DataValueField = value;
+                        drp.DataBind(); 
+                    }
                 }
             }
             catch (Exception)
@@ -283,7 +286,7 @@ namespace BikeWaleOpr.Common
             { 
                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,param))
                 {
-                    if (dr != null && dr.Read())
+                    if (dr != null)
                     {
                         drp.DataSource = dr;
                         drp.DataTextField = text;
@@ -308,7 +311,7 @@ namespace BikeWaleOpr.Common
 
                 using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                 {
-                    if (dr != null && dr.Read())
+                    if (dr != null)
                     {
                         chk.DataSource = dr;
                         chk.DataTextField = text;
@@ -332,7 +335,7 @@ namespace BikeWaleOpr.Common
             {
                 using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param))
                 {
-                    if (dr != null && dr.Read())
+                    if (dr != null)
                     {
                         chk.DataSource = dr;
                         chk.DataTextField = text;
@@ -356,7 +359,7 @@ namespace BikeWaleOpr.Common
             {
                 using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                 {
-                    if (dr != null && dr.Read())
+                    if (dr != null)
                     {
                         clst.DataSource = dr;
                         clst.DataBind();
@@ -378,7 +381,7 @@ namespace BikeWaleOpr.Common
             {
                 using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param))
                 {
-                    if (dr != null && dr.Read())
+                    if (dr != null)
                     {
                         clst.DataSource = dr;
                         clst.DataBind();
@@ -1398,7 +1401,7 @@ namespace BikeWaleOpr.Common
             {
                 using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                 {
-                    if (dr.Read())
+                    if (dr!=null && dr.Read())
                     {
                         cc = Convert.ToDouble(dr["Displacement"].ToString() == "" ? "0" : dr["Displacement"].ToString());
                         city = dr["city"].ToString();
@@ -1551,7 +1554,7 @@ namespace BikeWaleOpr.Common
             {
                 using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                 {
-                    if (dr.Read())
+                    if (dr!=null && dr.Read())
                     {
                         stateId = Convert.ToInt32(dr["StateId"].ToString());
                         weight = Convert.ToInt32(dr["Weight"].ToString());
