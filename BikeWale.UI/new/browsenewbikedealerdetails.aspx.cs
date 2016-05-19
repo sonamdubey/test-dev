@@ -27,7 +27,7 @@ namespace Bikewale.New
     /// </summary>
     public class BrowseNewBikeDealerDetails : Page
     {
-        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty;
+        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
         protected uint cityId, makeId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
@@ -251,11 +251,11 @@ namespace Bikewale.New
             var currentReq = HttpContext.Current.Request;
             try
             {
-
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
                     makeMaskingName = currentReq.QueryString["make"];
-                    uint.TryParse(currentReq.QueryString["cityId"], out cityId);
+                    urlCityMaskingName = currentReq.QueryString["city"];
+                    cityId = CitiMapping.GetCityId(urlCityMaskingName);
                     clientIP = Bikewale.Common.CommonOpn.GetClientIP();
                     pageUrl = currentReq.ServerVariables["URL"];
                 }

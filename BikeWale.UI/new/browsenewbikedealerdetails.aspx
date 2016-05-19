@@ -104,20 +104,25 @@
                             <ItemTemplate>
                                 <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-item-number="<%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>">
                                     <div class="font14">
-                                        <h2 class="font16 margin-bottom10">
-                                            <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
-                                                <span class="featured-tag text-white text-center font14 margin-bottom5">Featured
-                                                </span>
-                                                <span class="dealer-pointer-arrow"></span>
+                                        <div class="dealer-card">
+                                            <h2 class="font16 margin-bottom10">
+                                                <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
+                                                    <span class="featured-tag text-white text-center font14 margin-bottom5">Featured
+                                                    </span>
+                                                    <span class="dealer-pointer-arrow"></span>
+                                                </div>
+                                                <a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a>
+                                            </h2>
+                                            <p class="text-light-grey margin-bottom5">
+                                                <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                                <span class="vertical-top dealership-address"><%# DataBinder.Eval(Container.DataItem,"Address") %></span>
+                                            </p>
+                                            <%--<p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))? string.Empty:DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>--%>
+
+                                            <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>">
+                                                <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></p>
                                             </div>
-                                            <a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a>
-                                        </h2>
-                                        <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
-
-                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>">
-                                            <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></p>
                                         </div>
-
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>">
                                             <a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey">
                                                 <span class="bwsprite mail-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"Email") %></a>
@@ -125,7 +130,7 @@
 
                                         <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
                                             <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" leadSourceId="14" 
-                                                pqSourceId="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" class="btn btn-white-orange margin-top15 get-assistance-btn">Get offers</a>
+                                                pqSourceId="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" class="btn btn-white-orange margin-top15 get-assistance-btn">Get offers from dealer</a>
                                         </div>
                                     </div>
                                 </li>
@@ -147,7 +152,8 @@
                             </p>
                             <div class="padding-bottom20 position-rel" id="dealerPersonalInfo">
                                 <h3 class="font18 text-dark-black margin-bottom10" data-bind="text: name"></h3>
-                                <p class="text-light-grey margin-bottom5" data-bind="visible :address() && address().length > 0,text: address()"></p>
+                                <p><span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                <span class="text-light-grey margin-bottom5 " data-bind="visible :address() && address().length > 0,text: address()"></span></p>
                                 <div class="margin-bottom5">
                                     <span class="font16 text-bold margin-right10" data-bind="visible : mobile() && mobile().length > 0"><span class="bwsprite phone-black-icon"></span><span data-bind="    text: mobile()"></span></span>
                                     <a href="#" class="text-light-grey" data-bind="visible : email() && email().length > 0,attr : { href :'mailto:' + email() }"><span class="bwsprite mail-grey-icon"></span><span data-bind="    text: email()"></span></a>

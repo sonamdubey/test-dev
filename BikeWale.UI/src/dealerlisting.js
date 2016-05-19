@@ -329,7 +329,7 @@ $(document).on('mouseout', '#dealersList li', function () {
     infowindow.close();
 });
 
-$(document).on('click', 'a.dealer-sidebar-link', function () {
+$(document).on('click', '.dealer-card', function () {
     var parentLI = $(this).parents('li');
     selectedDealer(parentLI);
     $("#buyingAssistanceForm").show();
