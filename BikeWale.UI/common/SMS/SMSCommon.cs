@@ -179,35 +179,37 @@ namespace Bikewale.Common
         /// <param name="retMsg">The return message from the provider that is received after the SMS is sent</param>
         private void UpdateSMSSentData(string currentId, string retMsg)
         {
-            if (currentId != "")
-            {
-                SqlCommand cmd = new SqlCommand();
-                Database db = new Database();
+            throw new Exception("Method not used/commented");
 
-                string sql = "UPDATE SMSSent SET ReturnedMsg = @RetMsg WHERE ID = @CurrentId";
+            //if (currentId != "")
+            //{
+            //    SqlCommand cmd = new SqlCommand();
+            //    Database db = new Database();
 
-                try
-                {
-                    cmd.CommandText = sql;
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add("@CurrentId", SqlDbType.Int).Value = Convert.ToInt32(currentId);
-                    cmd.Parameters.Add("@RetMsg", SqlDbType.VarChar).Value = retMsg;
+            //    string sql = "UPDATE SMSSent SET ReturnedMsg = @RetMsg WHERE ID = @CurrentId";
 
-                    db.UpdateQry(cmd);
-                }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn("Error Message: " + ex);
-                }
-                catch (Exception e)
-                {
-                    HttpContext.Current.Trace.Warn("Error: " + e);
-                }
-                finally
-                {
-                    db.CloseConnection();
-                }
-            }
+            //    try
+            //    {
+            //        cmd.CommandText = sql;
+            //        cmd.CommandType = CommandType.Text;
+            //        cmd.Parameters.Add("@CurrentId", SqlDbType.Int).Value = Convert.ToInt32(currentId);
+            //        cmd.Parameters.Add("@RetMsg", SqlDbType.VarChar).Value = retMsg;
+
+            //        db.UpdateQry(cmd);
+            //    }
+            //    catch (SqlException ex)
+            //    {
+            //        HttpContext.Current.Trace.Warn("Error Message: " + ex);
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        HttpContext.Current.Trace.Warn("Error: " + e);
+            //    }
+            //    finally
+            //    {
+            //        db.CloseConnection();
+            //    }
+            //}
         }
 
 

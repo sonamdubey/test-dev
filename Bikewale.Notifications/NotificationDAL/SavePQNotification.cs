@@ -118,14 +118,8 @@ namespace Bikewale.Notifications.NotificationDAL
                     {
                         cmd.CommandText = "savepqleademailtodealer";
                         cmd.CommandType = CommandType.StoredProcedure;
-
-                        //cmd.Parameters.Add("@PQId", SqlDbType.BigInt).Value = pqId;
-                        //cmd.Parameters.Add("@EmailToDealerMessageBody", SqlDbType.VarChar).Value = emailBody;
-                        //cmd.Parameters.Add("@EmailToDealerSubject", SqlDbType.VarChar, 500).Value = emailsubject;
-                        //cmd.Parameters.Add("@EmailToDealerReplyTo", SqlDbType.VarChar, 200).Value = dealerEmail;
-
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealermessagebody", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10000, emailBody)); // MySqlDatabase.EscapeString(emailBody)));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealermessagebody", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10000, emailBody));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealersubject", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, emailsubject));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealerreplyto", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, dealerEmail));
 

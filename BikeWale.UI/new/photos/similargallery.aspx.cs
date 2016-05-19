@@ -83,45 +83,47 @@ namespace Bikewale.New.PhotoGallery
 
         private string GetSimilarBikes(string modelId)
         {
-            string retVal = string.Empty;
-            string sql = " SELECT SCM.SimilarModels FROM SimilarBikeModels SCM With(NoLock) WHERE SCM.ModelId = @ModelId";
+            throw new Exception("Method not used/commented");
 
-            Trace.Warn(sql);
+            //string retVal = string.Empty;
+            //string sql = " SELECT SCM.SimilarModels FROM SimilarBikeModels SCM With(NoLock) WHERE SCM.ModelId = @ModelId";
 
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@ModelId", SqlDbType.BigInt).Value = modelId;
+            //Trace.Warn(sql);
 
-            SqlDataReader dr = null;
-            Database db = new Database();
+            //SqlCommand cmd = new SqlCommand(sql);
+            //cmd.Parameters.Add("@ModelId", SqlDbType.BigInt).Value = modelId;
 
-            try
-            {
-                dr = db.SelectQry(cmd);
-                while (dr.Read())
-                    retVal = dr["SimilarModels"].ToString();
-            }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                //Dispose of all the objects and Close connection objects.
-                if (dr != null)
-                {
-                    dr.Close();
-                    dr.Dispose();
-                }                
-                db.CloseConnection();
-            }
+            //SqlDataReader dr = null;
+            //Database db = new Database();
 
-            return retVal;
+            //try
+            //{
+            //    dr = db.SelectQry(cmd);
+            //    while (dr.Read())
+            //        retVal = dr["SimilarModels"].ToString();
+            //}
+            //catch (SqlException err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    //Dispose of all the objects and Close connection objects.
+            //    if (dr != null)
+            //    {
+            //        dr.Close();
+            //        dr.Dispose();
+            //    }                
+            //    db.CloseConnection();
+            //}
+
+            //return retVal;
         }
 
         private string GetSelectClause()

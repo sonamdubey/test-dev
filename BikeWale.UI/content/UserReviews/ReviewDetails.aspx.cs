@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.Forums.Common;
 using System.Data.Common;
 
 namespace Bikewale.Content

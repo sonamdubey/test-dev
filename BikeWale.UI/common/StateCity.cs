@@ -61,7 +61,6 @@ namespace Bikewale.Common
         /// <returns></returns>
         public DataTable GetCities(string requestType)
         {
-            Database db = null;
             DataTable dt = null;
 
                 try
@@ -198,34 +197,36 @@ namespace Bikewale.Common
         /// <returns></returns>
         public DataTable GetPriceQuoteCities(string modelId)
         {
-            Database db = null;
-            DataTable dt = null;
+            throw new Exception("Method not used/commented");
 
-            using (SqlCommand cmd = new SqlCommand("GetPriceQuoteCities"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
+            //Database db = null;
+            //DataTable dt = null;
 
-                try
-                {
-                    db = new Database();
-                    if (db != null)
-                        dt = db.SelectAdaptQry(cmd).Tables[0];
-                }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-            }
-            return dt;
+            //using (SqlCommand cmd = new SqlCommand("GetPriceQuoteCities"))
+            //{
+            //    cmd.CommandType = CommandType.StoredProcedure;
+            //    cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
+
+            //    try
+            //    {
+            //        db = new Database();
+            //        if (db != null)
+            //            dt = db.SelectAdaptQry(cmd).Tables[0];
+            //    }
+            //    catch (SqlException ex)
+            //    {
+            //        HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        objErr.SendMail();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        objErr.SendMail();
+            //    }
+            //}
+            //return dt;
         }   // End of GetCities method
 
         /// <summary>
@@ -236,58 +237,60 @@ namespace Bikewale.Common
         /// <returns>Function returns the Cities object in which city's details data is stored.</returns>
         public Cities GetCityDetails(string cityId)
         {
-            Database db = null;
-            SqlConnection conn = null;
+            throw new Exception("Method not used/commented");
 
-            Cities objCity = null;
+            //Database db = null;
+            //SqlConnection conn = null;
 
-            string city = string.Empty;
+            //Cities objCity = null;
 
-            using (SqlCommand cmd = new SqlCommand())
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "GetCityDetails_SP";
+            //string city = string.Empty;
 
-                cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-                cmd.Parameters.Add("@City", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
+            //using (SqlCommand cmd = new SqlCommand())
+            //{
+            //    cmd.CommandType = CommandType.StoredProcedure;
+            //    cmd.CommandText = "GetCityDetails_SP";
 
-                try
-                {
-                    db = new Database();
-                    conn = new SqlConnection(db.GetConString());
-                    cmd.Connection = conn;
+            //    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+            //    cmd.Parameters.Add("@City", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
 
-                    conn.Open();
+            //    try
+            //    {
+            //        db = new Database();
+            //        conn = new SqlConnection(db.GetConString());
+            //        cmd.Connection = conn;
 
-                    cmd.ExecuteNonQuery();
+            //        conn.Open();
 
-                    // Set all details of the city into the cities object.
-                    objCity = new Cities();
+            //        cmd.ExecuteNonQuery();
 
-                    objCity.City = cmd.Parameters["@City"].Value.ToString();
-                }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                finally
-                {
-                    if (conn.State == ConnectionState.Open)
-                    {
-                        conn.Close();
-                    }
-                }
-            }
+            //        // Set all details of the city into the cities object.
+            //        objCity = new Cities();
 
-            return objCity;
+            //        objCity.City = cmd.Parameters["@City"].Value.ToString();
+            //    }
+            //    catch (SqlException ex)
+            //    {
+            //        HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        objErr.SendMail();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        objErr.SendMail();
+            //    }
+            //    finally
+            //    {
+            //        if (conn.State == ConnectionState.Open)
+            //        {
+            //            conn.Close();
+            //        }
+            //    }
+            //}
+
+            //return objCity;
         }   // End of GetCityDetails function
 
         /// <summary>
@@ -298,33 +301,35 @@ namespace Bikewale.Common
         /// <returns></returns>
         public DataTable GetAreas(string cityId)
         {
-            Database db = null;
-            DataTable dt = null;
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("GetAreas"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+            throw new Exception("Method not used/commented");
 
-                    db = new Database();
-                    dt = db.SelectAdaptQry(cmd).Tables[0];
+            //Database db = null;
+            //DataTable dt = null;
+            //try
+            //{
+            //    using (SqlCommand cmd = new SqlCommand("GetAreas"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
 
-                }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return dt;
+            //        db = new Database();
+            //        dt = db.SelectAdaptQry(cmd).Tables[0];
+
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //return dt;
         }   // End of GetAreas method
 
     }   // End of class

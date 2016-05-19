@@ -9,6 +9,7 @@ using System.Web;
 using Bikewale.Common;
 using System.Data.Common;
 using Bikewale.Notifications.CoreDAL;
+using Bikewale.Notifications.MySqlUtility;
 
 /// <summary>
 /// Summary description for ParseSearchCriteria
@@ -223,7 +224,7 @@ namespace Bikewale.Used
             sbClause = new StringBuilder();
 
             // object of 'Database' class. nedeed to querysreing IN clause value 
-            Database db = new Database();
+            MySqlDbUtilities db = new MySqlDbUtilities();
 
             // Get method returns null in the following cases: 1) if the specified key is not found; and 2) 
             // if the specified key is found and its associated value is null. This method does not distinguish between the two cases.						

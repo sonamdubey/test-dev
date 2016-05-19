@@ -336,7 +336,6 @@
     <Compile Include="common\Customers.cs" />
     <Compile Include="common\CustomersLogin.cs" />
     <Compile Include="common\CustomerVerification.cs" />
-    <Compile Include="common\Database.cs" />
     <Compile Include="common\DealerOfferHelper.cs" />
     <Compile Include="common\DeviceDetection.cs" />
     <Compile Include="common\ErrorClass.cs" />
@@ -704,34 +703,8 @@
       <DependentUpon>VideosControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default_old.aspx.cs">
-      <DependentUpon>Default_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Forums\common\ForumsCommon.cs" />
-    <Compile Include="Forums\common\UserTracking.cs" />
-    <Compile Include="Forums\CreateThreads.aspx.cs">
-      <DependentUpon>CreateThreads.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Forums\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Forums\Reply.aspx.cs">
-      <DependentUpon>Reply.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Forums\Threads.aspx.cs">
-      <DependentUpon>Threads.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Forums\ViewThreads.aspx.cs">
-      <DependentUpon>ViewThreads.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -1078,10 +1051,6 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\browsenewbikedealerdetails_old.aspx.cs">
-      <DependentUpon>browsenewbikedealerdetails_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\listnewbikedealersbycity.aspx.cs">
       <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1175,10 +1144,6 @@
     </Compile>
     <Compile Include="new\upcomingbikes\UpcomingBikesList.aspx.cs">
       <DependentUpon>UpcomingBikesList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\versions_old.aspx.cs">
-      <DependentUpon>versions_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\VersionSpecs.aspx.cs">
@@ -1830,7 +1795,6 @@
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
-    <Content Include="Default_old.aspx" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\content_old.css" />
@@ -2098,12 +2062,6 @@
     <Content Include="Finance\EMICalculator.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\WebRupee.V2.0.svg" />
-    <Content Include="Forums\CreateThreads.aspx" />
-    <Content Include="Forums\Default.aspx" />
-    <Content Include="Forums\NotAuthorized.aspx" />
-    <Content Include="Forums\Reply.aspx" />
-    <Content Include="Forums\Threads.aspx" />
-    <Content Include="Forums\ViewThreads.aspx" />
     <Content Include="Global.asax" />
     <Content Include="images\0.gif" />
     <Content Include="images\1.gif" />
@@ -2209,8 +2167,6 @@
     <Content Include="includes\Navigation_Mobile.aspx" />
     <Content Include="includes\PaymentHeaderMobile.aspx" />
     <Content Include="includes\pgheader.aspx" />
-    <Content Include="Forums\ISAPI\ISAPI_Rewrite.dll" />
-    <Content Include="Forums\ISAPI\ISAPI_Rewrite_x64.dll" />
     <Content Include="insurance\Default.aspx" />
     <Content Include="mybikewale\buyerdetails.aspx" />
     <Content Include="mybikewale\Default.aspx" />
@@ -2367,7 +2323,6 @@
     <Content Include="m\videos\VideoCategories.aspx" />
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
-    <Content Include="new\browsenewbikedealerdetails_old.aspx" />
     <Content Include="new\locatenewbikedealers_old.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\versions.aspx" />
@@ -2417,7 +2372,6 @@
     <Content Include="new\Specs.aspx" />
     <Content Include="new\upcomingbikes\upcomingbikesfeed.aspx" />
     <Content Include="new\upcomingbikes\UpcomingBikesList.aspx" />
-    <Content Include="new\versions_old.aspx" />
     <Content Include="new\VersionSpecs.aspx" />
     <Content Include="pagenotfound.aspx" />
     <Content Include="Partners.aspx" />
@@ -2528,7 +2482,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- <Content Include="Forums\ISAPI\error.log" /> -->
-    <Content Include="Forums\ISAPI\httpd.conf" />
     <Content Include="m\.htaccess" />
     <Content Include="m\fonts\Roboto-Regular.ttf" />
   </ItemGroup>

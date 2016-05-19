@@ -91,68 +91,68 @@ namespace Bikewale.New
 
         private void BindDataGrid()
         {
-            string sql;
+            //string sql;
 
-            CommonOpn objCom = new CommonOpn();
+            //CommonOpn objCom = new CommonOpn();
 
-            sql = " SELECT DNC.Name AS DealerName, DNC.Address, DNC.PinCode, DNC.ContactNo,"
-                + " DNC.FaxNo, DNC.EMailId, DNC.WebSite, DNC.WorkingHours,"
-                + " CMA.Name AS BikeMake, CMA.MaskingName AS MakeMaskingName, C.Name AS City, S.Name AS State"
+            //sql = " SELECT DNC.Name AS DealerName, DNC.Address, DNC.PinCode, DNC.ContactNo,"
+            //    + " DNC.FaxNo, DNC.EMailId, DNC.WebSite, DNC.WorkingHours,"
+            //    + " CMA.Name AS BikeMake, CMA.MaskingName AS MakeMaskingName, C.Name AS City, S.Name AS State"
 
-                + " FROM Dealer_NewBike AS DNC, "
-                + " BWCities AS C, BWStates AS S, BikeMakes AS CMA With(NoLock) "
+            //    + " FROM Dealer_NewBike AS DNC, "
+            //    + " BWCities AS C, BWStates AS S, BikeMakes AS CMA With(NoLock) "
 
-                + " WHERE DNC.MakeId = CMA.ID AND DNC.CityId = C.ID AND C.StateId = S.Id"
-                + " AND DNC.CityId = @CityId AND DNC.MakeId = @MakeId "
-                + " AND DNC.IsActive = 1 AND C.IsDeleted = 0 AND S.IsDeleted = 0 AND CMA.IsDeleted = 0"
-                + " ORDER BY DealerName";
+            //    + " WHERE DNC.MakeId = CMA.ID AND DNC.CityId = C.ID AND C.StateId = S.Id"
+            //    + " AND DNC.CityId = @CityId AND DNC.MakeId = @MakeId "
+            //    + " AND DNC.IsActive = 1 AND C.IsDeleted = 0 AND S.IsDeleted = 0 AND CMA.IsDeleted = 0"
+            //    + " ORDER BY DealerName";
 
-            Trace.Warn(sql);
+            //Trace.Warn(sql);
 
-            SqlParameter[] param = { 
-				new SqlParameter("@MakeId", makeId),
-				new SqlParameter("@CityId", cityId)						
-			};
+            //SqlParameter[] param = { 
+            //    new SqlParameter("@MakeId", makeId),
+            //    new SqlParameter("@CityId", cityId)						
+            //};
 
-            Database db = new Database();
-            SqlDataReader dr = null;
+            //Database db = new Database();
+            //SqlDataReader dr = null;
 
-            try
-            {
-                objCom.BindListReader(sql, dlDealers, param);
+            //try
+            //{
+            //    objCom.BindListReader(sql, dlDealers, param);
 
-                if (dlDealers.Items.Count == 0)
-                {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-                else
-                {
-                    dealerCount = dlDealers.Items.Count;
+            //    if (dlDealers.Items.Count == 0)
+            //    {
+            //        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+            //        HttpContext.Current.ApplicationInstance.CompleteRequest();
+            //        this.Page.Visible = false;
+            //    }
+            //    else
+            //    {
+            //        dealerCount = dlDealers.Items.Count;
 
-                    dr = db.SelectQry(sql, param);
-                    if (dr.Read())
-                    {
-                        makeName = dr["BikeMake"].ToString();
-                        MakeMaskingName = dr["MakeMaskingName"].ToString();
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
-            }
+            //        dr = db.SelectQry(sql, param);
+            //        if (dr.Read())
+            //        {
+            //            makeName = dr["BikeMake"].ToString();
+            //            MakeMaskingName = dr["MakeMaskingName"].ToString();
+            //        }
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //    {
+            //        dr.Close();
+            //    }
+            //    db.CloseConnection();
+            //}
         }
 
         // function to return formatted address 

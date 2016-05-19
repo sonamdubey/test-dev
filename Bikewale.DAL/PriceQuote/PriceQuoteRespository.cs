@@ -311,10 +311,6 @@ namespace Bikewale.DAL.PriceQuote
                 {
                     cmd.CommandText = "savepqbookingstate";
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    //cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
-                    //cmd.Parameters.Add("@stateid", SqlDbType.Int).Value = Convert.ToInt32(state);
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbParamTypeMapper.GetInstance[SqlDbType.Int], pqId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Convert.ToInt32(state)));
 

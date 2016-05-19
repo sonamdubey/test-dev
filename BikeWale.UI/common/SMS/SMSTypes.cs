@@ -14,71 +14,74 @@ namespace Bikewale.Common
         public void SMSToSeller(string profileId, string buyerName, string buyerMobile,
                                     bool showDetails, string bikeModel, string makeYear, string pageUrl)
         {
-            //check whether the seller is an individual or a dealer
-            bool isDealer = CommonOpn.CheckIsDealerFromProfileNo(profileId);
-            string sellInqId = CommonOpn.GetProfileNo(profileId);
 
-            //now get the seller mobile number from the profile id
-            Database db = new Database();
-            SqlDataReader dr = null;
-            string sql = "", sellerMobile = "";
-            try
-            {
-                if (isDealer == true)
-                    sql = " Select D.MobileNo AS Mobile From Dealers AS D, SellInquiries AS SI With(NoLock) "
-                        + " Where SI.ID = @sellInqId AND D.ID = SI.DealerId ";
-                else
-                    sql = " Select C.Mobile AS Mobile From Customers AS C, ClassifiedIndividualSellInquiries AS SI With(NoLock) "
-                        + " Where SI.ID = @sellInqId AND C.ID = SI.CustomerId ";
+            throw new Exception("Method not used/commented");
 
-                SqlParameter[] param = { new SqlParameter("@sellInqId", sellInqId) };
-                dr = db.SelectQry(sql, param);
+            ////check whether the seller is an individual or a dealer
+            //bool isDealer = CommonOpn.CheckIsDealerFromProfileNo(profileId);
+            //string sellInqId = CommonOpn.GetProfileNo(profileId);
 
-                if (dr.Read())
-                {
-                    sellerMobile = dr["Mobile"].ToString();
-                }
+            ////now get the seller mobile number from the profile id
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //string sql = "", sellerMobile = "";
+            //try
+            //{
+            //    if (isDealer == true)
+            //        sql = " Select D.MobileNo AS Mobile From Dealers AS D, SellInquiries AS SI With(NoLock) "
+            //            + " Where SI.ID = @sellInqId AND D.ID = SI.DealerId ";
+            //    else
+            //        sql = " Select C.Mobile AS Mobile From Customers AS C, ClassifiedIndividualSellInquiries AS SI With(NoLock) "
+            //            + " Where SI.ID = @sellInqId AND C.ID = SI.CustomerId ";
 
-                db.CloseConnection();
+            //    SqlParameter[] param = { new SqlParameter("@sellInqId", sellInqId) };
+            //    dr = db.SelectQry(sql, param);
 
-                // old template commented by Ashish on 15/9/2012
-                //string message = "New Enquiry on BikeWale for your " + makeYear + "-" + bikeModel + ": " + buyerName + " " + buyerMobile + ".";
-                string message = "New inquiry on BikeWale for your " + bikeModel + ":" + buyerName + buyerMobile + ".";
+            //    if (dr.Read())
+            //    {
+            //        sellerMobile = dr["Mobile"].ToString();
+            //    }
 
-                if (isDealer == false)
-                    //message += " SMS 'REMOVE' to 56767767 to remove your advertisement from bikeWale.";
-                    //message += " SMS SOLD to 56767767 to remove your ad from BikeWale.";
-                    message += " Visit www.bikewale.com/mybikewale/ to manage your ad.";
-                else
-                    message += " Visit www.bikewale.com/dealers for more details.";
+            //    db.CloseConnection();
 
+            //    // old template commented by Ashish on 15/9/2012
+            //    //string message = "New Enquiry on BikeWale for your " + makeYear + "-" + bikeModel + ": " + buyerName + " " + buyerMobile + ".";
+            //    string message = "New inquiry on BikeWale for your " + bikeModel + ":" + buyerName + buyerMobile + ".";
 
-                EnumSMSServiceType esms = isDealer == true ?
-                                                    EnumSMSServiceType.UsedPurchaseInquiryDealerSeller :
-                                                    EnumSMSServiceType.UsedPurchaseInquiryIndividualSeller;
+            //    if (isDealer == false)
+            //        //message += " SMS 'REMOVE' to 56767767 to remove your advertisement from bikeWale.";
+            //        //message += " SMS SOLD to 56767767 to remove your ad from BikeWale.";
+            //        message += " Visit www.bikewale.com/mybikewale/ to manage your ad.";
+            //    else
+            //        message += " Visit www.bikewale.com/dealers for more details.";
 
 
-                HttpContext.Current.Trace.Warn("Sending SMS To Seller : " + message);
+            //    EnumSMSServiceType esms = isDealer == true ?
+            //                                        EnumSMSServiceType.UsedPurchaseInquiryDealerSeller :
+            //                                        EnumSMSServiceType.UsedPurchaseInquiryIndividualSeller;
 
-                SMSCommon sc = new SMSCommon();
 
-                sc.ProcessSMS(sellerMobile, message, esms, pageUrl, true);
+            //    HttpContext.Current.Trace.Warn("Sending SMS To Seller : " + message);
 
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
-            }
+            //    SMSCommon sc = new SMSCommon();
+
+            //    sc.ProcessSMS(sellerMobile, message, esms, pageUrl, true);
+
+            //}
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //    {
+            //        dr.Close();
+            //    }
+            //    db.CloseConnection();
+            //}
         }
 
         public void SMSToBuyer(string profileId, string buyerMobile, string sellerName,
@@ -305,35 +308,37 @@ namespace Bikewale.Common
         // FUNCTION TO SEND ADDRESS OF THE DEALER TO THE REQUESTED CUSTOMER FROM DEALER SHOWROOM
         private string GetTCNumber(string serviceType)
         {
-            Database db = new Database();
-            SqlDataReader dr = null;
-            string sql = "";
-            string number = "";
-            try
-            {
-                sql = " Select Number From TeleCaller_SMS With(NoLock) Where ServiceType = @serviceType";
+            throw new Exception("Method not used/commented");
 
-                SqlParameter[] param = { new SqlParameter("@serviceType", serviceType) };
-                dr = db.SelectQry(sql, param);
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //string sql = "";
+            //string number = "";
+            //try
+            //{
+            //    sql = " Select Number From TeleCaller_SMS With(NoLock) Where ServiceType = @serviceType";
 
-                if (dr.Read())
-                {
-                    number = dr["Number"].ToString();
-                }
-                dr.Close();
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("Common.GetTCNumber : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.GetTCNumber");
-                objErr.SendMail();
-            }
-            finally
-            {
+            //    SqlParameter[] param = { new SqlParameter("@serviceType", serviceType) };
+            //    dr = db.SelectQry(sql, param);
 
-                db.CloseConnection();
-            }
-            return number;
+            //    if (dr.Read())
+            //    {
+            //        number = dr["Number"].ToString();
+            //    }
+            //    dr.Close();
+            //}
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("Common.GetTCNumber : " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, "Common.GetTCNumber");
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+
+            //    db.CloseConnection();
+            //}
+            //return number;
         }
 
         /// <summary>

@@ -62,43 +62,45 @@ namespace Bikewale.Controls
         }
         private void FetchReviews()
         {
-            SqlCommand cmd = new SqlCommand("GetCustomerReviewMin");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
-            if (MakeId != "")
-                cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = MakeId;
-            if (ModelId != "")
-                cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = ModelId;
-            if (!String.IsNullOrEmpty(SeriesId))
-                cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = SeriesId;
+            throw new Exception("Method not used/commented");
 
-            Database db = new Database();
-            SqlDataReader dr = null;
-            try
-            {
-                dr = db.SelectQry(cmd);
-                if (dr.HasRows)
-                {
-                    divControl.Attributes.Remove("class");
-                    rptReviews.DataSource = dr;
-                    rptReviews.DataBind();
-                }
-                else
-                    divControl.Attributes.Add("class", "hide");
+            //SqlCommand cmd = new SqlCommand("GetCustomerReviewMin");
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
+            //if (MakeId != "")
+            //    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = MakeId;
+            //if (ModelId != "")
+            //    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = ModelId;
+            //if (!String.IsNullOrEmpty(SeriesId))
+            //    cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = SeriesId;
+
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //try
+            //{
+            //    dr = db.SelectQry(cmd);
+            //    if (dr.HasRows)
+            //    {
+            //        divControl.Attributes.Remove("class");
+            //        rptReviews.DataSource = dr;
+            //        rptReviews.DataBind();
+            //    }
+            //    else
+            //        divControl.Attributes.Add("class", "hide");
                 
-                RecordCount = rptReviews.Items.Count;
-                Trace.Warn("RecordCountUserReview: " + RecordCount.ToString());
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-            }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
+            //    RecordCount = rptReviews.Items.Count;
+            //    Trace.Warn("RecordCountUserReview: " + RecordCount.ToString());
+            //}
+            //catch (Exception ex)
+            //{
+            //    Trace.Warn(ex.Message);
+            //}
+            //finally
+            //{
+            //    if(dr != null)
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
         }
 
         //public string GetRateImage(double value)

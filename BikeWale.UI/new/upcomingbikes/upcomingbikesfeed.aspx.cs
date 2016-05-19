@@ -37,43 +37,45 @@ namespace Bikewale.New
         /// </summary>
         private void GetUpcomingBikesFeed()
         {
-            Database db = new Database();
-            using (SqlCommand cmd = new SqlCommand("GetUpcomingBikesList"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                using (DataTable dt = db.SelectAdaptQry(cmd).Tables[0])
-                {
-                    if (dt.Rows.Count > 0)
-                    {
-                        WriteRSSPrologue();
-                        for (int index = 0; index < dt.Rows.Count; index++)
-                        {
-                            //Create the items in the RSS documents in the Channel element.
-                            AddRSSItem(
-                                dt.Rows[index]["ExpectedLaunchId"].ToString(),
-                                dt.Rows[index]["BikeName"].ToString(),
-                                "http://www.bikewale.com/" + dt.Rows[index]["MakeMaskingName"].ToString().ToLower() + "-bikes/" + dt.Rows[index]["ModelMaskingName"].ToString().ToLower() + "/",
-                                dt.Rows[index]["ExpectedLaunch"].ToString(),
-                                dt.Rows[index]["EstimatedPriceMin"].ToString(),
-                                dt.Rows[index]["EstimatedPriceMax"].ToString(),
-                                //Bikewale.Common.ImagingFunctions.GetImagePath("/cars/") + dt.Rows[index]["LargePic"].ToString(),
-                                Bikewale.Utility.Image.GetPathToShowImages(dt.Rows[index]["OriginalImagePath"].ToString(), dt.Rows[index]["HostURL"].ToString(), Bikewale.Utility.ImageSize._210x118),
-                                dt.Rows[index]["Description"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""), "", ""
-                                //dt.Rows[index]["UpdatedDate"].ToString(),
-                                //dt.Rows[index]["CWConfidenceText"].ToString()
-                                );
-                        }
-                        WriteRSSClosing();
+            throw new Exception("Method not used/commented");
 
-                        writer.Flush();
-                        writer.Close();
+            //Database db = new Database();
+            //using (SqlCommand cmd = new SqlCommand("GetUpcomingBikesList"))
+            //{
+            //    cmd.CommandType = CommandType.StoredProcedure;
+            //    using (DataTable dt = db.SelectAdaptQry(cmd).Tables[0])
+            //    {
+            //        if (dt.Rows.Count > 0)
+            //        {
+            //            WriteRSSPrologue();
+            //            for (int index = 0; index < dt.Rows.Count; index++)
+            //            {
+            //                //Create the items in the RSS documents in the Channel element.
+            //                AddRSSItem(
+            //                    dt.Rows[index]["ExpectedLaunchId"].ToString(),
+            //                    dt.Rows[index]["BikeName"].ToString(),
+            //                    "http://www.bikewale.com/" + dt.Rows[index]["MakeMaskingName"].ToString().ToLower() + "-bikes/" + dt.Rows[index]["ModelMaskingName"].ToString().ToLower() + "/",
+            //                    dt.Rows[index]["ExpectedLaunch"].ToString(),
+            //                    dt.Rows[index]["EstimatedPriceMin"].ToString(),
+            //                    dt.Rows[index]["EstimatedPriceMax"].ToString(),
+            //                    //Bikewale.Common.ImagingFunctions.GetImagePath("/cars/") + dt.Rows[index]["LargePic"].ToString(),
+            //                    Bikewale.Utility.Image.GetPathToShowImages(dt.Rows[index]["OriginalImagePath"].ToString(), dt.Rows[index]["HostURL"].ToString(), Bikewale.Utility.ImageSize._210x118),
+            //                    dt.Rows[index]["Description"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""), "", ""
+            //                    //dt.Rows[index]["UpdatedDate"].ToString(),
+            //                    //dt.Rows[index]["CWConfidenceText"].ToString()
+            //                    );
+            //            }
+            //            WriteRSSClosing();
 
-                        Response.ContentEncoding = System.Text.Encoding.UTF8;
-                        Response.ContentType = "text/xml";
-                        Response.Cache.SetCacheability(HttpCacheability.Public);
-                    }
-                }
-            }
+            //            writer.Flush();
+            //            writer.Close();
+
+            //            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            //            Response.ContentType = "text/xml";
+            //            Response.Cache.SetCacheability(HttpCacheability.Public);
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>

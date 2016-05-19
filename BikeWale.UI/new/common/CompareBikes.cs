@@ -47,7 +47,6 @@ namespace Bikewale.New
 		public static string GetFeaturedBike(string versions)
 		{
 			string featuredBikeId = "";
-			Database db = new Database();
 			//string sql = "";
             //sql = " Select Top 1 FeaturedVersionId, COUNT(FeaturedVersionId) FeaturedCount, SpotlightUrl from CompareFeaturedBike With(NoLock) "
             //    + " WHERE VersionId IN("+ db.GetInClauseValue(versions, "VersionId", cmd) +") AND IsActive = 1 AND FeaturedVersionId NOT IN("+ db.GetInClauseValue(versions, "VersionId1", cmd) +") AND IsCompare = 1 "
@@ -107,11 +106,7 @@ namespace Bikewale.New
 				ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
 				objErr.SendMail();
 			}
-			finally
-			{
-				db.CloseConnection();
-			}
-			
+
 			return featuredBikeId;
 		}
 		
@@ -154,27 +149,29 @@ namespace Bikewale.New
 		
 		void GetAllModelRatings(string versions)
 		{
-			string sql = string.Empty;
-			SqlCommand cmd =  new SqlCommand();
-			Database db = new Database();
-			dsRating = new DataSet();
+            throw new Exception("Method not used/commented");
 
-            sql = " SELECT (SELECT MaskingName FROM BikeMakes With(NoLock) WHERE ID = MO.BikeMakeId) AS MakeMaskingName, MO.ID as ModelId, MO.Name AS ModelName,MO.MaskingName AS ModelMaskingName, CV.ID As BikeVersionId, IsNull(MO.ReviewRate, 0) AS ModelRate, IsNull(MO.ReviewCount, 0) AS ModelTotal, "
-				+ " IsNull(CV.ReviewRate, 0) AS VersionRate, IsNull(CV.ReviewCount, 0) AS VersionTotal "
-                + " FROM BikeModels AS MO, BikeVersions AS CV With(NoLock) WHERE CV.ID in ( " + db.GetInClauseValue(versions, "BikeVersionId", cmd) + " ) AND MO.ID = CV.BikeModelId ";
+            //string sql = string.Empty;
+            //SqlCommand cmd =  new SqlCommand();
+            //Database db = new Database();
+            //dsRating = new DataSet();
+
+            //sql = " SELECT (SELECT MaskingName FROM BikeMakes With(NoLock) WHERE ID = MO.BikeMakeId) AS MakeMaskingName, MO.ID as ModelId, MO.Name AS ModelName,MO.MaskingName AS ModelMaskingName, CV.ID As BikeVersionId, IsNull(MO.ReviewRate, 0) AS ModelRate, IsNull(MO.ReviewCount, 0) AS ModelTotal, "
+            //    + " IsNull(CV.ReviewRate, 0) AS VersionRate, IsNull(CV.ReviewCount, 0) AS VersionTotal "
+            //    + " FROM BikeModels AS MO, BikeVersions AS CV With(NoLock) WHERE CV.ID in ( " + db.GetInClauseValue(versions, "BikeVersionId", cmd) + " ) AND MO.ID = CV.BikeModelId ";
 			
-			cmd.CommandText = sql;
+            //cmd.CommandText = sql;
 			
-			try
-			{
-				dsRating = db.SelectAdaptQry(cmd);				
-			}
-			catch ( SqlException err )
-			{
-				//Trace.Warn("GetAllModelRatings Error = " + err.Message);			
-				ErrorClass objErr = new ErrorClass(err,objTrace.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
+            //try
+            //{
+            //    dsRating = db.SelectAdaptQry(cmd);				
+            //}
+            //catch ( SqlException err )
+            //{
+            //    //Trace.Warn("GetAllModelRatings Error = " + err.Message);			
+            //    ErrorClass objErr = new ErrorClass(err,objTrace.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 		}
 		
 		public string GetModelRatings( string versionId )

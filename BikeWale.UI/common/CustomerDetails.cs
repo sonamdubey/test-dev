@@ -420,71 +420,77 @@ namespace Bikewale.Common
         //this function returns true or false depending on the customer is fake or not
         public static bool IsValidEmailId(string emailId)
         {
-            SqlDataReader dr = null;
-            Database db = new Database();
-            string sql = "";
-            bool status = true;
-            try
-            {
-                sql = " Select IsFake From Customers With(NoLock) Where Email = @emailId";
 
-                SqlParameter[] param = { new SqlParameter("@emailId", emailId.Trim()) };
-                dr = db.SelectQry(sql, param);
+            throw new Exception("Method not used/commented");
+            
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+            //string sql = "";
+            //bool status = true;
+            //try
+            //{
+            //    sql = " Select IsFake From Customers With(NoLock) Where Email = @emailId";
 
-                if (dr.Read())
-                {
-                    status = !(Convert.ToBoolean(dr["IsFake"]));
-                }
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("Common.IsValidEmailId : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.IsValidEmailId");
-                objErr.SendMail();
-            } // catch Exception
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
+            //    SqlParameter[] param = { new SqlParameter("@emailId", emailId.Trim()) };
+            //    dr = db.SelectQry(sql, param);
 
-                db.CloseConnection();
-            }
-            return status;
+            //    if (dr.Read())
+            //    {
+            //        status = !(Convert.ToBoolean(dr["IsFake"]));
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("Common.IsValidEmailId : " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, "Common.IsValidEmailId");
+            //    objErr.SendMail();
+            //} // catch Exception
+            //finally
+            //{
+            //    if (dr != null)
+            //        dr.Close();
+
+            //    db.CloseConnection();
+            //}
+            //return status;
         }
 
         //this function returns customerid of the customer based on customer email
         public static string GetCustomerIdFromEmail(string emailId)
         {
-            SqlDataReader dr = null;
-            Database db = new Database();
-            string sql = "";
-            string id = "-1";
-            try
-            {
-                sql = " Select Id From Customers With(NoLock) Where Email = @emailId";
 
-                SqlParameter[] param = { new SqlParameter("@emailId", emailId.Trim()) };
-                dr = db.SelectQry(sql, param);
+            throw new Exception("Method not used/commented");
+            
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+            //string sql = "";
+            //string id = "-1";
+            //try
+            //{
+            //    sql = " Select Id From Customers With(NoLock) Where Email = @emailId";
 
-                if (dr.Read())
-                {
-                    id = dr["Id"].ToString();
-                }
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("Common.GetCustomerIdFromEmail : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.GetCustomerIdFromEmail");
-                objErr.SendMail();
-            } // catch Exception
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
+            //    SqlParameter[] param = { new SqlParameter("@emailId", emailId.Trim()) };
+            //    dr = db.SelectQry(sql, param);
 
-                db.CloseConnection();
-            }
-            return id;
+            //    if (dr.Read())
+            //    {
+            //        id = dr["Id"].ToString();
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn("Common.GetCustomerIdFromEmail : " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, "Common.GetCustomerIdFromEmail");
+            //    objErr.SendMail();
+            //} // catch Exception
+            //finally
+            //{
+            //    if (dr != null)
+            //        dr.Close();
+
+            //    db.CloseConnection();
+            //}
+            //return id;
         }
     }
 }//namespace

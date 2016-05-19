@@ -260,9 +260,6 @@ namespace Bikewale.Common
         public static bool AutomaticLogin(string code)
         {
             bool allowed = false;
-            string sql = "";
-            Database db = new Database();
-
             try
             {
                 string userIdTemp = BikewaleSecurity.GetCustomerIdFromKey(code);
@@ -283,7 +280,7 @@ namespace Bikewale.Common
                     StartSession(cd.Name, userIdTemp, cd.Email);
 
                     //update the isemailverified Budget of the customer
-                    sql = " update customers set isverified = 1 where id = @v_useridtemp";
+                    string sql = " update customers set isverified = 1 where id = @v_useridtemp";
 
                     using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                     {

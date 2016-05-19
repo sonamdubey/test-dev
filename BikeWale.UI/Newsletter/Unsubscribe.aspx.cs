@@ -8,6 +8,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 
 namespace Bikewale.Newsletter
 {
@@ -36,15 +38,7 @@ namespace Bikewale.Newsletter
             //string conStr = db.GetConString();
 
             //con = new SqlConnection(conStr);
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
             CommonOpn op = new CommonOpn();
-
-            string conStr = db.GetConString();
-
-            con = new SqlConnection(conStr);
             
 			
 			try
@@ -59,13 +53,16 @@ namespace Bikewale.Newsletter
 
 				dReq.Visible = false;
 				dMes.Visible = true;
-                cmd = new SqlCommand("InsertDoNotSendEmail", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                prm = cmd.Parameters.Add("@Email", SqlDbType.VarChar);
-                prm.Value = txtEmail.Text;
-                con.Open();
-                //run the command
-                cmd.ExecuteNonQuery();
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertdonotsendemail"))
+
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtEmail.Text));
+
+                    //run the command
+                    MySqlDatabase.ExecuteNonQuery(cmd); 
+                }
                 
 			}
 			catch(SqlException err)

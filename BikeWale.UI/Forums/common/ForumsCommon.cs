@@ -17,237 +17,245 @@ namespace Bikewale.Forums.Common
 	public class ForumsCommon
 	{
 		public static string CreateNewThread( string customerId, string messageText, int alertType, string forumId, string title )
-		{
-			string threadId = "-1";
+        {
+            throw new Exception("Method not used/commented");
+
+            //string threadId = "-1";
 			
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-			CommonOpn op = new CommonOpn();
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
+            //CommonOpn op = new CommonOpn();
 						
-			string conStr = db.GetConString();
+            //string conStr = db.GetConString();
 			
-			con = new SqlConnection( conStr );
+            //con = new SqlConnection( conStr );
 			
-			try
-			{		
-				cmd = new SqlCommand("CreateForumThread", con);
-				cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{		
+            //    cmd = new SqlCommand("CreateForumThread", con);
+            //    cmd.CommandType = CommandType.StoredProcedure;
 			
-				prm = cmd.Parameters.Add("@ForumSubCategoryId", SqlDbType.BigInt);
-				prm.Value = forumId;
+            //    prm = cmd.Parameters.Add("@ForumSubCategoryId", SqlDbType.BigInt);
+            //    prm.Value = forumId;
 				
-				prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-				prm.Value = customerId;
+            //    prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
+            //    prm.Value = customerId;
 												
-				prm = cmd.Parameters.Add("@Topic", SqlDbType.VarChar, 200);
-				prm.Value = title;
+            //    prm = cmd.Parameters.Add("@Topic", SqlDbType.VarChar, 200);
+            //    prm.Value = title;
 								
-				prm = cmd.Parameters.Add("@StartDateTime", SqlDbType.DateTime);
-				prm.Value = DateTime.Now;
+            //    prm = cmd.Parameters.Add("@StartDateTime", SqlDbType.DateTime);
+            //    prm.Value = DateTime.Now;
 				
-				prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 4000);
-				prm.Value = messageText;
+            //    prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 4000);
+            //    prm.Value = messageText;
 				
-				prm = cmd.Parameters.Add("@AlertType", SqlDbType.Int);
-				prm.Value = alertType;
+            //    prm = cmd.Parameters.Add("@AlertType", SqlDbType.Int);
+            //    prm.Value = alertType;
 														
-				prm = cmd.Parameters.Add("@ThreadId", SqlDbType.BigInt);
-				prm.Direction = ParameterDirection.Output;
+            //    prm = cmd.Parameters.Add("@ThreadId", SqlDbType.BigInt);
+            //    prm.Direction = ParameterDirection.Output;
 						
-				con.Open();
-				//run the command
-				cmd.ExecuteNonQuery();
+            //    con.Open();
+            //    //run the command
+            //    cmd.ExecuteNonQuery();
 				
-				threadId = cmd.Parameters[ "@ThreadId" ].Value.ToString();
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			} // catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open) con.Close();
-			}
+            //    threadId = cmd.Parameters[ "@ThreadId" ].Value.ToString();
+            //}
+            //catch(Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //} // catch Exception
+            //finally
+            //{
+            //    //close the connection	
+            //    if(con.State == ConnectionState.Open) con.Close();
+            //}
 			
-			return threadId;
+            //return threadId;
 		}
 		
 		public static string SavePost( string customerId, string messageText, int alertType, string threadId )
-		{
-			string postId = "-1";
+        {
+            throw new Exception("Method not used/commented");
+
+            //string postId = "-1";
 						
-			SqlConnection con;
-			SqlCommand cmd;
-			SqlParameter prm;
-			Database db = new Database();
-			CommonOpn op = new CommonOpn();
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
+            //CommonOpn op = new CommonOpn();
 						
-			string conStr = db.GetConString();
+            //string conStr = db.GetConString();
 			
-			con = new SqlConnection( conStr );
+            //con = new SqlConnection( conStr );
 					
-			try
-			{					
-				cmd = new SqlCommand("EnterForumMessage", con);
-				cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{					
+            //    cmd = new SqlCommand("EnterForumMessage", con);
+            //    cmd.CommandType = CommandType.StoredProcedure;
 			
-				prm = cmd.Parameters.Add("@ForumId", SqlDbType.BigInt);
-				prm.Value = threadId;
+            //    prm = cmd.Parameters.Add("@ForumId", SqlDbType.BigInt);
+            //    prm.Value = threadId;
 				
-				prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-				prm.Value = customerId;
+            //    prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
+            //    prm.Value = customerId;
 				
-				prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 4000);
-				prm.Value = messageText;
+            //    prm = cmd.Parameters.Add("@Message", SqlDbType.VarChar, 4000);
+            //    prm.Value = messageText;
 								
-				prm = cmd.Parameters.Add("@MsgDateTime", SqlDbType.DateTime);
-				prm.Value = DateTime.Now;
+            //    prm = cmd.Parameters.Add("@MsgDateTime", SqlDbType.DateTime);
+            //    prm.Value = DateTime.Now;
 				
-				prm = cmd.Parameters.Add("@AlertType", SqlDbType.Int);
-				prm.Value = alertType;
+            //    prm = cmd.Parameters.Add("@AlertType", SqlDbType.Int);
+            //    prm.Value = alertType;
 				
-				prm = cmd.Parameters.Add("@PostId", SqlDbType.BigInt);
-				prm.Direction = ParameterDirection.Output;
+            //    prm = cmd.Parameters.Add("@PostId", SqlDbType.BigInt);
+            //    prm.Direction = ParameterDirection.Output;
 																
-				con.Open();
-				//run the command
-    			cmd.ExecuteNonQuery();
+            //    con.Open();
+            //    //run the command
+            //    cmd.ExecuteNonQuery();
 				
-				postId = cmd.Parameters[ "@PostId" ].Value.ToString();
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			} // catch Exception
-			finally
-			{
-				//close the connection	
-			    if(con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
+            //    postId = cmd.Parameters[ "@PostId" ].Value.ToString();
+            //}
+            //catch(Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //} // catch Exception
+            //finally
+            //{
+            //    //close the connection	
+            //    if(con.State == ConnectionState.Open)
+            //    {
+            //        con.Close();
+            //    }
+            //}
 			
-			return postId;
+            //return postId;
 		}
 		
 		// send mail to the thread starter and all the participants.
 		// dont send the mail to the current user.
 		public static void NotifySubscribers( string discussionUrl, string threadId, string threadName )
-		{
-			string sql = "";
-			//string repliername = currentuser.id == "-1" ? "anonymous" : currentuser.name;
-			//code changed by sentil on 29 dec 2009 (2 days to go !)
-            CommonMessage cm = new CommonMessage();
-            string repliername = CurrentUser.Id == "-1" ? "anonymous" : cm.GetHandleName(CurrentUser.Id);
-			
-			string url = "http://www.bikewale.com" + discussionUrl;
-			
-			Database db = new Database();
-			
-			try
-			{
-				//get the name and the email of the people who have subscribed to this thread
-                sql = " SELECT C.Name, C.Email FROM Customers AS C With(NoLock) WHERE C.IsFake=0 AND C.ID IN "
-                    + " (SELECT CustomerId FROM ForumSubscriptions With(NoLock) WHERE EmailSubscriptionId=2 AND ForumThreadId = @ForumThreadId) "
-					+ " AND C.Id <> @CustomerId ";
-				
-				SqlCommand cmd = new SqlCommand(sql);
+        {
+            throw new Exception("Method not used/commented");
 
-				cmd.Parameters.Add("@ForumThreadId", SqlDbType.BigInt).Value = threadId;
-				cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = CurrentUser.Id;
+            //string sql = "";
+            ////string repliername = currentuser.id == "-1" ? "anonymous" : currentuser.name;
+            ////code changed by sentil on 29 dec 2009 (2 days to go !)
+            //CommonMessage cm = new CommonMessage();
+            //string repliername = CurrentUser.Id == "-1" ? "anonymous" : cm.GetHandleName(CurrentUser.Id);
+			
+            //string url = "http://www.bikewale.com" + discussionUrl;
+			
+            //Database db = new Database();
+			
+            //try
+            //{
+            //    //get the name and the email of the people who have subscribed to this thread
+            //    sql = " SELECT C.Name, C.Email FROM Customers AS C With(NoLock) WHERE C.IsFake=0 AND C.ID IN "
+            //        + " (SELECT CustomerId FROM ForumSubscriptions With(NoLock) WHERE EmailSubscriptionId=2 AND ForumThreadId = @ForumThreadId) "
+            //        + " AND C.Id <> @CustomerId ";
 				
-				DataSet ds = db.SelectAdaptQry(cmd);
+            //    SqlCommand cmd = new SqlCommand(sql);
+
+            //    cmd.Parameters.Add("@ForumThreadId", SqlDbType.BigInt).Value = threadId;
+            //    cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = CurrentUser.Id;
 				
-				foreach(DataRow dr in ds.Tables[0].Rows)
-				{
-					string name = dr["Name"].ToString();
-					string email = dr["Email"].ToString();
+            //    DataSet ds = db.SelectAdaptQry(cmd);
+				
+            //    foreach(DataRow dr in ds.Tables[0].Rows)
+            //    {
+            //        string name = dr["Name"].ToString();
+            //        string email = dr["Email"].ToString();
 					
-					HttpContext.Current.Trace.Warn( "sending mail to " + name );
+            //        HttpContext.Current.Trace.Warn( "sending mail to " + name );
 					
-					//send mail to the thread participants
-                    //if(email.ToLower() != CurrentUser.Email.ToLower() )
-                    //    Mails.NotifyForumSubscribedUsers( email, name, replierName, threadName, url);
-				}
+            //        //send mail to the thread participants
+            //        //if(email.ToLower() != CurrentUser.Email.ToLower() )
+            //        //    Mails.NotifyForumSubscribedUsers( email, name, replierName, threadName, url);
+            //    }
 				
-				//Mails.NotifyForumSubscribedUsers( "rajeev@carwale.com", "Rajeev", replierName, threadName, url);
+            //    //Mails.NotifyForumSubscribedUsers( "rajeev@carwale.com", "Rajeev", replierName, threadName, url);
 				
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
+            //}
+            //catch(Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 		}
 		
 		// This function will manage when a user was last logged into Forums.
 		public static void ManageLastLogin()
-		{
-			if ( CurrentUser.Id != "-1" ) // user is logged in
-			{
-				// cookie is not available.
-				if ( HttpContext.Current.Request.Cookies["ForumLastLogin"] == null )
-				{
-                    SqlDataReader reader = null;
-                    Database db = null;
+        {
+            throw new Exception("Method not used/commented");
 
-					// try fetching last login from database.
-                    try
-                    {
-                        string sql = "SELECT ForumLastLogin FROM UserProfile With(NoLock) WHERE UserId=" + CurrentUser.Id;
+            //if ( CurrentUser.Id != "-1" ) // user is logged in
+            //{
+            //    // cookie is not available.
+            //    if ( HttpContext.Current.Request.Cookies["ForumLastLogin"] == null )
+            //    {
+            //        SqlDataReader reader = null;
+            //        Database db = null;
+
+            //        // try fetching last login from database.
+            //        try
+            //        {
+            //            string sql = "SELECT ForumLastLogin FROM UserProfile With(NoLock) WHERE UserId=" + CurrentUser.Id;
                         
-                        DateTime lastLogin = new DateTime();
+            //            DateTime lastLogin = new DateTime();
 
-                        reader = db.SelectQry(sql);
-                        db = new Database();
+            //            reader = db.SelectQry(sql);
+            //            db = new Database();
 
-                        // if found in db
-                        if (reader.Read())
-                        {
-                            if (reader["ForumLastLogin"].ToString() != "")
-                                lastLogin = Convert.ToDateTime(reader["ForumLastLogin"]);
-                        }
+            //            // if found in db
+            //            if (reader.Read())
+            //            {
+            //                if (reader["ForumLastLogin"].ToString() != "")
+            //                    lastLogin = Convert.ToDateTime(reader["ForumLastLogin"]);
+            //            }
 
-                        // in case not available in db, keep last visit as two days ago.
-                        if (lastLogin.Year < 2000)
-                        {
-                            lastLogin = DateTime.Now.AddDays(-2);
-                        }
+            //            // in case not available in db, keep last visit as two days ago.
+            //            if (lastLogin.Year < 2000)
+            //            {
+            //                lastLogin = DateTime.Now.AddDays(-2);
+            //            }
 
-                        // set last visit cookie.
-                        HttpCookie lastLoginCookie = new HttpCookie("ForumLastLogin");
-                        lastLoginCookie.Value = lastLogin.ToString();
-                        lastLoginCookie.Expires = DateTime.Now.AddHours(2);
-                        HttpContext.Current.Response.Cookies.Add(lastLoginCookie);
+            //            // set last visit cookie.
+            //            HttpCookie lastLoginCookie = new HttpCookie("ForumLastLogin");
+            //            lastLoginCookie.Value = lastLogin.ToString();
+            //            lastLoginCookie.Expires = DateTime.Now.AddHours(2);
+            //            HttpContext.Current.Response.Cookies.Add(lastLoginCookie);
 
-                        // now save current datetime as ForumLastLogin in db
-                        sql = " UPDATE UserProfile SET ForumLastLogin='" + DateTime.Now + "'"
-                            + " WHERE UserId=" + CurrentUser.Id;
+            //            // now save current datetime as ForumLastLogin in db
+            //            sql = " UPDATE UserProfile SET ForumLastLogin='" + DateTime.Now + "'"
+            //                + " WHERE UserId=" + CurrentUser.Id;
 
-                        db.UpdateQry(sql);
-                    }
-                    catch (Exception err)
-                    {
-                        HttpContext.Current.Trace.Warn(err.Message);
-                        ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                        objErr.SendMail();
-                    }
-                    finally
-                    {
-                        reader.Close();
-                        db.CloseConnection();
-                    }
-				}
-			}
+            //            db.UpdateQry(sql);
+            //        }
+            //        catch (Exception err)
+            //        {
+            //            HttpContext.Current.Trace.Warn(err.Message);
+            //            ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //            objErr.SendMail();
+            //        }
+            //        finally
+            //        {
+            //            reader.Close();
+            //            db.CloseConnection();
+            //        }
+            //    }
+            //}
 		}
 		
 		// an overloading function. Seek below this function for the original one.
@@ -342,149 +350,155 @@ namespace Bikewale.Forums.Common
 		}
 		
 		public static bool IsUserBanned(string customerId)
-		{
-			//return true if the user is in the banned list. else return false
-			string sql = "";
-			Database db = new Database();
+        {
+            throw new Exception("Method not used/commented");
+
+            ////return true if the user is in the banned list. else return false
+            //string sql = "";
+            //Database db = new Database();
 			
-			SqlDataReader dr = null;
+            //SqlDataReader dr = null;
 			
-			bool banned = false;
+            //bool banned = false;
 
-            try
-            {
-                sql = " Select CustomerId From Forum_BannedList With(NoLock) Where CustomerId = @CustomerId ";
+            //try
+            //{
+            //    sql = " Select CustomerId From Forum_BannedList With(NoLock) Where CustomerId = @CustomerId ";
 
-                SqlCommand cmd = new SqlCommand(sql);
+            //    SqlCommand cmd = new SqlCommand(sql);
 
-                cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
+            //    cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
 
-                dr = db.SelectQry(cmd);
+            //    dr = db.SelectQry(cmd);
 
-                if (dr.Read())
-                {
-                    banned = true;
-                }
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            { 
-                if(dr != null)
-                    dr.Close();
+            //    if (dr.Read())
+            //    {
+            //        banned = true;
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{ 
+            //    if(dr != null)
+            //        dr.Close();
 
-                db.CloseConnection();
-            }
+            //    db.CloseConnection();
+            //}
 			
-			return banned;
+            //return banned;
 		}
 		
 		//Check whether Handle Exists for the User
 		public static bool CheckUserHandle( string userId )
-		{
-			Database db = new Database();
+        {
+            throw new Exception("Method not used/commented");
 
-			SqlDataReader dr = null;			
-			
-			string sql = "";
-			bool result = false;
-			
-			if( userId == "")
-				return result ;
+           // Database db = new Database();
 
-            sql = " SELECT HandleName, IsUpdated FROM UserProfile With(NoLock) "
-				+ " WHERE UserID = @UserId ";
+           // SqlDataReader dr = null;			
 			
-			HttpContext.Current.Trace.Warn("Check User Handle Query : " + sql);
+           // string sql = "";
+           // bool result = false;
 			
-			try
-			{
-				SqlCommand cmd = new SqlCommand(sql);
+           // if( userId == "")
+           //     return result ;
 
-				cmd.Parameters.Add("@UserId", SqlDbType.BigInt).Value = userId;
-
-				dr  = db.SelectQry(cmd);
+           // sql = " SELECT HandleName, IsUpdated FROM UserProfile With(NoLock) "
+           //     + " WHERE UserID = @UserId ";
 			
-				if(dr.Read())
-				{
-					if( dr["HandleName"].ToString()== "" || dr["IsUpdated"].ToString() == "False")
-						result = true;
-				}
-				else
-				{
-					result = true;
-				}
+           // HttpContext.Current.Trace.Warn("Check User Handle Query : " + sql);
+			
+           // try
+           // {
+           //     SqlCommand cmd = new SqlCommand(sql);
+
+           //     cmd.Parameters.Add("@UserId", SqlDbType.BigInt).Value = userId;
+
+           //     dr  = db.SelectQry(cmd);
+			
+           //     if(dr.Read())
+           //     {
+           //         if( dr["HandleName"].ToString()== "" || dr["IsUpdated"].ToString() == "False")
+           //             result = true;
+           //     }
+           //     else
+           //     {
+           //         result = true;
+           //     }
 				
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn("Check User Handle Query : " + sql);				
-				ErrorClass objErr = new ErrorClass(err, "ForumsCommon.CheckUserHandle()");
-				objErr.SendMail();
-			}
-   			finally
-			{
-                if(dr != null)
-                    dr.Close();
+           // }
+           // catch(Exception err)
+           // {
+           //     HttpContext.Current.Trace.Warn("Check User Handle Query : " + sql);				
+           //     ErrorClass objErr = new ErrorClass(err, "ForumsCommon.CheckUserHandle()");
+           //     objErr.SendMail();
+           // }
+           // finally
+           // {
+           //     if(dr != null)
+           //         dr.Close();
 
-				db.CloseConnection();
-			}
+           //     db.CloseConnection();
+           // }
 
-		   return result;
+           //return result;
 		}
 		
 		
 		public bool GetModeratorLoginStatus( string customerId )
-		{
-			bool modLogin = false;
-			Database db = new Database();
-			SqlDataReader dr = null;
+        {
+            throw new Exception("Method not used/commented");
+
+            //bool modLogin = false;
+            //Database db = new Database();
+            //SqlDataReader dr = null;
 			
-			string sql = "";
+            //string sql = "";
 			
-			sql = " SELECT Role "
-                + " FROM BikeWaleRoles CR, ForumCustomerRoles FCR With(NoLock) "
-				+ " WHERE FCR.RoleId=CR.ID AND CustomerId= @CustomerId ";
+            //sql = " SELECT Role "
+            //    + " FROM BikeWaleRoles CR, ForumCustomerRoles FCR With(NoLock) "
+            //    + " WHERE FCR.RoleId=CR.ID AND CustomerId= @CustomerId ";
 
-            try
-            {
-                SqlCommand cmd = new SqlCommand(sql);
+            //try
+            //{
+            //    SqlCommand cmd = new SqlCommand(sql);
 
-                cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
+            //    cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
 
-                HttpContext.Current.Trace.Warn("GetModeratorLoginStatus : " + sql);
+            //    HttpContext.Current.Trace.Warn("GetModeratorLoginStatus : " + sql);
 
-                dr = db.SelectQry(cmd);
+            //    dr = db.SelectQry(cmd);
 
-                if (dr.Read())
-                {
-                    if (dr["Role"].ToString().ToLower() == "moderator")
-                    {
-                        modLogin = true;
-                    }
-                }
-                HttpContext.Current.Trace.Warn("GetModeratorLoginStatus : " + modLogin.ToString());
+            //    if (dr.Read())
+            //    {
+            //        if (dr["Role"].ToString().ToLower() == "moderator")
+            //        {
+            //            modLogin = true;
+            //        }
+            //    }
+            //    HttpContext.Current.Trace.Warn("GetModeratorLoginStatus : " + modLogin.ToString());
 
-                db.CloseConnection();
-            }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "ForumsCommon.GetModeratorLoginStatus()");
-                objErr.SendMail();
+            //    db.CloseConnection();
+            //}
+            //catch (SqlException err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, "ForumsCommon.GetModeratorLoginStatus()");
+            //    objErr.SendMail();
 
-                modLogin = false;
-            } // catch Exception
-            finally
-            { 
-                if(dr != null)
-                    dr.Close();
-            }
+            //    modLogin = false;
+            //} // catch Exception
+            //finally
+            //{ 
+            //    if(dr != null)
+            //        dr.Close();
+            //}
 			
-			return modLogin;
+            //return modLogin;
 		}
 		
 	} // class

@@ -112,8 +112,6 @@ namespace Bikewale.Content
                 using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand("getuserreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    Database db = new Database();
                      using (DataSet ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(cmd))
                      {
 

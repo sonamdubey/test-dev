@@ -363,48 +363,50 @@ namespace Bikewale.Common
         /// <returns></returns>
         public string GetMakeDetails(string makeId)
         {
-            // Validate the makeId
-            if (!CommonOpn.IsNumeric(makeId))
-                return "";
+            throw new Exception("Method not used/commented");
 
-            string sql = "";
+            //// Validate the makeId
+            //if (!CommonOpn.IsNumeric(makeId))
+            //    return "";
 
-            sql = " SELECT Name AS MakeName, ID AS MakeId , MaskingName FROM BikeMakes With(NoLock) "
-                + " WHERE ID = @makeId ";
+            //string sql = "";
 
-            SqlDataReader dr = null;
-            Database db = new Database();
-            SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
+            //sql = " SELECT Name AS MakeName, ID AS MakeId , MaskingName FROM BikeMakes With(NoLock) "
+            //    + " WHERE ID = @makeId ";
 
-            try
-            {
-                dr = db.SelectQry(sql, param);
+            //SqlDataReader dr = null;
+            //Database db = new Database();
+            //SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
 
-                if (dr.Read())
-                {
-                    Make = dr["MakeName"].ToString();
-                    MakeId = dr["MakeId"].ToString();
+            //try
+            //{
+            //    dr = db.SelectQry(sql, param);
 
-                    BikeName = dr["MakeName"].ToString();
-                    MakeMappingName = dr["MaskingName"].ToString();
-                }
+            //    if (dr.Read())
+            //    {
+            //        Make = dr["MakeName"].ToString();
+            //        MakeId = dr["MakeId"].ToString();
 
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
-            }
+            //        BikeName = dr["MakeName"].ToString();
+            //        MakeMappingName = dr["MaskingName"].ToString();
+            //    }
 
-            return Make;
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //    {
+            //        dr.Close();
+            //    }
+            //    db.CloseConnection();
+            //}
+
+            //return Make;
         }   // End of getMakeDetails
 
         /// <summary>
@@ -466,34 +468,36 @@ namespace Bikewale.Common
         /// <returns>datatable containing id and buying preferences like 1 week or just researching</returns>
         public DataTable GetBuyingPreference()
         {
-            DataSet ds = null;
-            Database db = null;
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("GetPricequoteBuyingPreferences"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    db = new Database();
-                    ds = db.SelectAdaptQry(cmd);
+            //DataSet ds = null;
+            //Database db = null;
 
-                    if (ds != null && ds.Tables[0].Rows.Count > 0)
-                    {
-                        return ds.Tables[0];
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return null;
+            //try
+            //{
+            //    using (SqlCommand cmd = new SqlCommand("GetPricequoteBuyingPreferences"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        db = new Database();
+            //        ds = db.SelectAdaptQry(cmd);
+
+            //        if (ds != null && ds.Tables[0].Rows.Count > 0)
+            //        {
+            //            return ds.Tables[0];
+            //        }
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //return null;
         }
 
     }   // End of class

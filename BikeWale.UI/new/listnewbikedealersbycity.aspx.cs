@@ -3,10 +3,12 @@ using Bikewale.DAL.Dealer;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Memcache;
+using Bikewale.Notifications.CoreDAL;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -118,27 +120,29 @@ namespace Bikewale.New
         private void BindControl()
         {
             string sql = "";
-            Database db = new Database();
 
-            sql = " SELECT  C.Id AS CityId,c.MaskingName AS CityMaskingName, "
-                + " C.Name AS City, COUNT(DNC.Id) AS TotalBranches, "
-                + " S.Name AS [State], S.ID AS StateId, "
-                + " ROW_NUMBER() Over(Partition By StateId Order by StateId) AS StateRank "
-                + " FROM Dealer_NewBike AS DNC, BWCities AS C, States AS S With(NoLock) "
-                + " WHERE DNC.CityId = C.Id AND C.StateId = S.ID AND DNC.IsActive = 1 "
-                + " AND C.IsDeleted = 0 AND DNC.MakeId = @MakeId "
-                + " GROUP By C.Id, C.Name, S.Name, S.ID, StateId,C.MaskingName "
-                + " Order By [State], CityId  ";
-
-            SqlParameter[] param = { 				
-				new SqlParameter("@MakeId", makeId)
-			};
-
-            Trace.Warn(sql);
+            sql = @" select  c.id as cityid,c.maskingname as citymaskingname,
+                        c.name as city, count(dnc.id) as totalbranches, 
+                        s.name as state, s.id as stateid
+                        from dealer_newbike as dnc, bwcities as c, states as s  
+                        where dnc.cityid = c.id and c.stateid = s.id and dnc.isactive = 1
+                        and c.isdeleted = 0 and dnc.makeid = @makeid 
+                        group by c.id, c.name, s.name, s.id, stateid,c.maskingname 
+                        order by state, cityid ";
 
             try
             {
-                dsStateCity = db.SelectAdaptQry(sql, param);
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId)); 
+
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    {
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dsStateCity = ds;
+                    }
+                }
+
                 StateCount = int.Parse(dsStateCity.Tables[0].Rows.Count.ToString());
                 Trace.Warn("----------" + makeId);
             }

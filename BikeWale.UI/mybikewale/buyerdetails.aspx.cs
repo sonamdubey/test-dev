@@ -49,12 +49,10 @@ namespace Bikewale.MyBikeWale
 
         protected void FillBuyersList()
         {
-            Database db = null;
             DataSet ds = null;
 
             try
             {
-                db = new Database();
 
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {

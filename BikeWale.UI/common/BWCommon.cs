@@ -59,90 +59,96 @@ namespace Bikewale.Common
 		// i.e. New/Used/All
 		public DataSet GetBikeMakes(string makeType)
 		{
-			DataSet ds = new DataSet();
-			Database db = new Database();
+            throw new Exception("Method not used/commented");
+
+            //DataSet ds = new DataSet();
+            //Database db = new Database();
 			
-			string sql = "";
+            //string sql = "";
 			
-			sql = " SELECT ID AS Value, Name AS Text FROM BikeMakes With(NoLock) WHERE IsDeleted = 0 ";
+            //sql = " SELECT ID AS Value, Name AS Text FROM BikeMakes With(NoLock) WHERE IsDeleted = 0 ";
 				
-			if( makeType == "New" )	
-				sql += " AND New = 1 ";
-			else if( makeType == "Used" )
-				sql += " AND Used = 1 ";
+            //if( makeType == "New" )	
+            //    sql += " AND New = 1 ";
+            //else if( makeType == "Used" )
+            //    sql += " AND Used = 1 ";
 				
-			sql += "ORDER BY Text ";
+            //sql += "ORDER BY Text ";
 			
-			try
-			{
-				ds = db.SelectAdaptQry(sql);
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-				objErr.SendMail();
-			}
+            //try
+            //{
+            //    ds = db.SelectAdaptQry(sql);
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
+            //    objErr.SendMail();
+            //}
 			
-			return ds;
+            //return ds;
 		}
 		
 		// make type is what kind of makes do you want
 		// i.e. New/Used/All
 		public DataSet GetBikeModels(string makeId)
 		{
-			if( CommonOpn.CheckId(makeId) == false )
-			{
-				return null;
-			}
-			
-			DataSet ds = new DataSet();
-			Database db = new Database();
-			
-			string sql = "";
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeModels With(NoLock) WHERE IsDeleted = 0 AND BikeMakeId = @BikeMakeId ORDER BY Text ";
+            throw new Exception("Method not used/commented");
+            //if( CommonOpn.CheckId(makeId) == false )
+            //{
+            //    return null;
+            //}
 			
-			SqlParameter [] param ={new SqlParameter("@BikeMakeId", makeId)};
-			try
-			{
-				ds = db.SelectAdaptQry(sql, param);
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-				objErr.SendMail();
-			}
+            //DataSet ds = new DataSet();
+            //Database db = new Database();
 			
-			return ds;
+            //string sql = "";
+
+            //sql = " SELECT ID AS Value, Name AS Text FROM BikeModels With(NoLock) WHERE IsDeleted = 0 AND BikeMakeId = @BikeMakeId ORDER BY Text ";
+			
+            //SqlParameter [] param ={new SqlParameter("@BikeMakeId", makeId)};
+            //try
+            //{
+            //    ds = db.SelectAdaptQry(sql, param);
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
+            //    objErr.SendMail();
+            //}
+			
+            //return ds;
 		}
 		
 		/* This function returns DataSet of new Bike Makes(New = 1) */		
 		public DataSet GetNewMakes()
 		{
-			DataSet ds = new DataSet();
-			Database db = new Database();
-			
-			string sql = "";
-			
-            //sql = " SELECT ID AS Value, Name AS Text FROM BikeMakes WHERE IsDeleted = 0 "
-            //    + " AND New = 1 ORDER BY Text ";
+            throw new Exception("Method not used/commented");
 
-            // Modified By : Ashish G. Kamble
-            // Added Futuristic = 0 in the query to check whether Bike is launched or not.
-
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeMakes With(NoLock) WHERE IsDeleted = 0 "
-                + " AND New = 1 AND Futuristic = 0 ORDER BY Text ";
-			try
-			{
-				ds = db.SelectAdaptQry(sql);
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-				objErr.SendMail();
-			}
+            //DataSet ds = new DataSet();
+            //Database db = new Database();
 			
-			return ds;
+            //string sql = "";
+			
+            ////sql = " SELECT ID AS Value, Name AS Text FROM BikeMakes WHERE IsDeleted = 0 "
+            ////    + " AND New = 1 ORDER BY Text ";
+
+            //// Modified By : Ashish G. Kamble
+            //// Added Futuristic = 0 in the query to check whether Bike is launched or not.
+
+            //sql = " SELECT ID AS Value, Name AS Text FROM BikeMakes With(NoLock) WHERE IsDeleted = 0 "
+            //    + " AND New = 1 AND Futuristic = 0 ORDER BY Text ";
+            //try
+            //{
+            //    ds = db.SelectAdaptQry(sql);
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
+            //    objErr.SendMail();
+            //}
+			
+            //return ds;
 		}
 		
 		/* This function returns DataSet of new Bike models(New = 1) */
@@ -179,119 +185,125 @@ namespace Bikewale.Common
 		// i.e. New/Used/All
 		public DataSet GetBikeVersions(string modelId, string makeType)
 		{
-			DataSet ds = new DataSet();
-			Database db = new Database();
-			
-			string sql = "";
+            throw new Exception("Method not used/commented");
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeVersions With(NoLock) WHERE IsDeleted = 0 AND BikeModelId = @BikeModelId ";
+            //DataSet ds = new DataSet();
+            //Database db = new Database();
 			
-			SqlParameter [] param ={new SqlParameter("@BikeModelId", modelId)};
+            //string sql = "";
+
+            //sql = " SELECT ID AS Value, Name AS Text FROM BikeVersions With(NoLock) WHERE IsDeleted = 0 AND BikeModelId = @BikeModelId ";
 			
-			if( makeType == "New" )	
-				sql += " AND New = 1 ";
-			else if( makeType == "Used" )
-				sql += " AND Used = 1 ";
+            //SqlParameter [] param ={new SqlParameter("@BikeModelId", modelId)};
+			
+            //if( makeType == "New" )	
+            //    sql += " AND New = 1 ";
+            //else if( makeType == "Used" )
+            //    sql += " AND Used = 1 ";
 				
-			sql += " ORDER BY Text ";
+            //sql += " ORDER BY Text ";
 			
-			try
-			{
-				ds = db.SelectAdaptQry(sql, param);
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-				objErr.SendMail();
-			}
+            //try
+            //{
+            //    ds = db.SelectAdaptQry(sql, param);
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
+            //    objErr.SendMail();
+            //}
 			
-			return ds;
+            //return ds;
 		}
 		
 		public string GetBikeName( string versionId )
 		{
-			string sql = "", bikeName = "";
+            throw new Exception("Method not used/commented");
 
-            sql = " select ( mk.name +' '+ mo.name +' '+ vs.name ) Bike from bikeversions vs, bikemodels mo, bikemakes mk  With(NoLock) "
-				+ " where vs.bikemodelid = mo.id and mo.bikemakeid = mk.id and vs.id = @versionId";
-				
-			SqlParameter [] param ={new SqlParameter("@versionId", versionId)};
-				
-			SqlDataReader dr = null;	
-			Database db = new Database();
-			
-			try
-			{
-				dr = db.SelectQry(sql, param);
-				
-				if( dr.Read() )
-				{
-					bikeName = dr["Bike"].ToString();
-				}
-				
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-				objErr.SendMail();
-			}
-			finally
-			{
-				if(dr != null)
-                    dr.Close();
+            //string sql = "", bikeName = "";
 
-				db.CloseConnection();
-			}
+            //sql = " select ( mk.name +' '+ mo.name +' '+ vs.name ) Bike from bikeversions vs, bikemodels mo, bikemakes mk  With(NoLock) "
+            //    + " where vs.bikemodelid = mo.id and mo.bikemakeid = mk.id and vs.id = @versionId";
+				
+            //SqlParameter [] param ={new SqlParameter("@versionId", versionId)};
+				
+            //SqlDataReader dr = null;	
+            //Database db = new Database();
 			
-			return bikeName;
+            //try
+            //{
+            //    dr = db.SelectQry(sql, param);
+				
+            //    if( dr.Read() )
+            //    {
+            //        bikeName = dr["Bike"].ToString();
+            //    }
+				
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if(dr != null)
+            //        dr.Close();
+
+            //    db.CloseConnection();
+            //}
+			
+            //return bikeName;
 		}
 		
 		public string Get_Make_Model_Version( string versionId, out string makeName, out string modelName, out string versionName, out string makeId, out string modelId)
-		{
-			string sql = "";
-			
-			makeName = ""; 
-			modelName = "";
-			versionName = "";
-			makeId = "";
-			modelId = "";
-			
-			sql = " SELECT Mk.Name MakeName, Mo.Name ModelName, Vs.Name VersionName, Mk.Id MakeId, Mo.Id ModelName  "
-                + " FROM BikeVersions Vs, BikeModels Mo, BikeMakes Mk  With(NoLock) "
-				+  "WHERE Vs.BikeModelId = Mo.Id AND Mo.BikeMakeId = Mk.Id AND Vs.Id = @versionId";
-				
-			SqlDataReader dr = null;	
-			Database db = new Database();
-			SqlParameter [] param ={new SqlParameter("@versionId", versionId)};
-			
-			try
-			{
-				dr = db.SelectQry(sql, param);
-				
-				if( dr.Read() )
-				{
-					makeName = dr["MakeName"].ToString();
-					modelName = dr["ModelName"].ToString();
-					versionName = dr["VersionName"].ToString();
-					makeId = dr["MakeId"].ToString();
-					modelId = dr["ModelId"].ToString();
-				}
-				
-			}
-			catch(Exception err)
-			{
-				ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
-				objErr.SendMail();
-			}
-			finally
-			{
-				if(dr != null)
-                    dr.Close();
+        {
+            throw new Exception("Method not used/commented");
 
-				db.CloseConnection();
-			}
+            //string sql = "";
 			
-			return makeName +" "+ modelName +" "+ versionName;
+            //makeName = ""; 
+            //modelName = "";
+            //versionName = "";
+            //makeId = "";
+            //modelId = "";
+			
+            //sql = " SELECT Mk.Name MakeName, Mo.Name ModelName, Vs.Name VersionName, Mk.Id MakeId, Mo.Id ModelName  "
+            //    + " FROM BikeVersions Vs, BikeModels Mo, BikeMakes Mk  With(NoLock) "
+            //    +  "WHERE Vs.BikeModelId = Mo.Id AND Mo.BikeMakeId = Mk.Id AND Vs.Id = @versionId";
+				
+            //SqlDataReader dr = null;	
+            //Database db = new Database();
+            //SqlParameter [] param ={new SqlParameter("@versionId", versionId)};
+			
+            //try
+            //{
+            //    dr = db.SelectQry(sql, param);
+				
+            //    if( dr.Read() )
+            //    {
+            //        makeName = dr["MakeName"].ToString();
+            //        modelName = dr["ModelName"].ToString();
+            //        versionName = dr["VersionName"].ToString();
+            //        makeId = dr["MakeId"].ToString();
+            //        modelId = dr["ModelId"].ToString();
+            //    }
+				
+            //}
+            //catch(Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err,"AjaxFunctions.GetNewMakes");
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if(dr != null)
+            //        dr.Close();
+
+            //    db.CloseConnection();
+            //}
+			
+            //return makeName +" "+ modelName +" "+ versionName;
 		}
 		
 		//this function adds the selected ids as comma separated values,
@@ -741,62 +753,63 @@ namespace Bikewale.Common
         /// <returns></returns>
         public bool SaveEMIAssistaneRequest(string custName, string email, string mobile,  string modelId, string selectedCityId, string leadtype)
         {
+            throw new Exception("Method not used/commented");
 
-            bool isSaved = false;
-            SqlCommand cmd = null;
-            Database db = null;
+            //bool isSaved = false;
+            //SqlCommand cmd = null;
+            //Database db = null;
 
-            //Carwale.Service.Indigo.Web.HDFC_Bank_C2TSoapClient objTableSpool = new Carwale.Service.Indigo.Web.HDFC_Bank_C2TSoapClient();
+            ////Carwale.Service.Indigo.Web.HDFC_Bank_C2TSoapClient objTableSpool = new Carwale.Service.Indigo.Web.HDFC_Bank_C2TSoapClient();
 
-            int _cityId = selectedCityId == "" ? 0 : Convert.ToInt32(selectedCityId);
+            //int _cityId = selectedCityId == "" ? 0 : Convert.ToInt32(selectedCityId);
 
-            if (custName.Length > 0 && mobile.Length > 0)
-            {
-                try
-                {   
-                    db = new Database();
+            //if (custName.Length > 0 && mobile.Length > 0)
+            //{
+            //    try
+            //    {   
+            //        db = new Database();
 
-                    using(cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "InsertEmiAssistaceRequets";
-                        cmd.CommandType = CommandType.StoredProcedure;
+            //        using(cmd = new SqlCommand())
+            //        {
+            //            cmd.CommandText = "InsertEmiAssistaceRequets";
+            //            cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
-                        cmd.Parameters.Add("@custName", SqlDbType.VarChar, 100).Value = custName.Trim();
-                        cmd.Parameters.Add("@Email", SqlDbType.VarChar, 100).Value = email.Trim();
-                        cmd.Parameters.Add("@Mobile", SqlDbType.VarChar, 50).Value = mobile.Trim();
-                        cmd.Parameters.Add("@selectedCityId", SqlDbType.Int).Value = _cityId;
+            //            cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
+            //            cmd.Parameters.Add("@custName", SqlDbType.VarChar, 100).Value = custName.Trim();
+            //            cmd.Parameters.Add("@Email", SqlDbType.VarChar, 100).Value = email.Trim();
+            //            cmd.Parameters.Add("@Mobile", SqlDbType.VarChar, 50).Value = mobile.Trim();
+            //            cmd.Parameters.Add("@selectedCityId", SqlDbType.Int).Value = _cityId;
 
-                        if(!String.IsNullOrEmpty(leadtype))
-                            cmd.Parameters.Add("@leadType", SqlDbType.Int).Value = Convert.ToInt32(leadtype);
+            //            if(!String.IsNullOrEmpty(leadtype))
+            //                cmd.Parameters.Add("@leadType", SqlDbType.Int).Value = Convert.ToInt32(leadtype);
 
-                        //if(leadtype=="1")
-                        //    objTableSpool.AddDetails(custName,"",email,"","","","","",mobile,GeoCitiesRepository.GetCityNameById(cityid.ToString()),
+            //            //if(leadtype=="1")
+            //            //    objTableSpool.AddDetails(custName,"",email,"","","","","",mobile,GeoCitiesRepository.GetCityNameById(cityid.ToString()),
 
-                        if(db.InsertQry(cmd))
-                            isSaved = true;
-                    }
-                }
-                catch (SqlException err)
-                {
-                    HttpContext.Current.Trace.Warn(err.Message);
-                    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                } 
-                catch (Exception err)
-                {
-                    HttpContext.Current.Trace.Warn(err.Message);
-                    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                finally
-                {
-                    db.CloseConnection();
-                    cmd.Dispose();
-                }              
-            }
+            //            if(db.InsertQry(cmd))
+            //                isSaved = true;
+            //        }
+            //    }
+            //    catch (SqlException err)
+            //    {
+            //        HttpContext.Current.Trace.Warn(err.Message);
+            //        ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        objErr.SendMail();
+            //    } 
+            //    catch (Exception err)
+            //    {
+            //        HttpContext.Current.Trace.Warn(err.Message);
+            //        ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //        objErr.SendMail();
+            //    }
+            //    finally
+            //    {
+            //        db.CloseConnection();
+            //        cmd.Dispose();
+            //    }              
+            //}
 
-            return isSaved;
+            //return isSaved;
         }//End of SaveEMIAssistaneRequest
 
 	}//class

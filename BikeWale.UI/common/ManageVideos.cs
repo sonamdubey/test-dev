@@ -19,40 +19,42 @@ namespace Bikewale.Common
         /// <returns>Function returns data table containing videos data. If data is not available return null.</returns>
         public DataSet GetVideosData(string makeId, string modelId, bool isActive)
         {
-            DataSet ds = null;
-            Database db = null;
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                db = new Database();
+            //DataSet ds = null;
+            //Database db = null;
 
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetVideos";
-                    HttpContext.Current.Trace.Warn("GetVideosData : makeId : " + makeId + " : modelId : " + modelId + " : isActive : " + isActive.ToString());
-                    //Trace.Warn("GetVideosData : makeId : " + makeId + " : modelId : " + modelId + " : isActive : " + isActive.ToString());
-                    cmd.Parameters.Add("@makeId", SqlDbType.Int).Value = String.IsNullOrEmpty(makeId) ? Convert.DBNull : makeId;
-                    cmd.Parameters.Add("@modelId", SqlDbType.Int).Value = String.IsNullOrEmpty(modelId) ? Convert.DBNull : modelId;
-                    cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = isActive;
+            //try
+            //{
+            //    db = new Database();
 
-                    ds = db.SelectAdaptQry(cmd);
-                }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("sql ex : ", ex.Message);
-                ErrorClass err = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                err.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("ex : ", ex.Message);
-                ErrorClass err = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                err.SendMail();
-            }
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.CommandText = "GetVideos";
+            //        HttpContext.Current.Trace.Warn("GetVideosData : makeId : " + makeId + " : modelId : " + modelId + " : isActive : " + isActive.ToString());
+            //        //Trace.Warn("GetVideosData : makeId : " + makeId + " : modelId : " + modelId + " : isActive : " + isActive.ToString());
+            //        cmd.Parameters.Add("@makeId", SqlDbType.Int).Value = String.IsNullOrEmpty(makeId) ? Convert.DBNull : makeId;
+            //        cmd.Parameters.Add("@modelId", SqlDbType.Int).Value = String.IsNullOrEmpty(modelId) ? Convert.DBNull : modelId;
+            //        cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = isActive;
 
-            return ds;
+            //        ds = db.SelectAdaptQry(cmd);
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("sql ex : ", ex.Message);
+            //    ErrorClass err = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    err.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("ex : ", ex.Message);
+            //    ErrorClass err = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    err.SendMail();
+            //}
+
+            //return ds;
 
         }   // End of GetVideosData
     }//class

@@ -49,54 +49,56 @@ namespace Bikewale.Used
         }
         void GetSoldBikeDetails()
         {
-            string sql = "";
+            throw new Exception("Method not used/commented");
 
-            if (CommonOpn.CheckIsDealerFromProfileNo(profileNo) == true)
-            {
-                sql = " SELECT Si.BikeVersionId, Ds.CityId AS BikeCityId, Si.Price "
-                    + " FROM SellInquiries AS Si, Dealers AS Ds With(NoLock) "
-                    + " WHERE Si.DealerId = Ds.Id AND Si.Id = @Id";
-            }
-            else
-            {
-                sql = " SELECT Csi.BikeVersionId, Csi.CityId AS BikeCityId, Csi.Price "
-                    + " FROM ClassifiedIndividualSellInquiries AS Csi With(NoLock)"
-                    + " WHERE Csi.Id = @Id";
-            }
-            Trace.Warn(sql);
-            Database db = new Database();
-            SqlDataReader dr = null;
+            //string sql = "";
 
-            try
-            {
-                SqlParameter[] param = { new SqlParameter("@Id", CommonOpn.GetProfileNo(profileNo)) };
-                dr = db.SelectQry(sql, param);
+            //if (CommonOpn.CheckIsDealerFromProfileNo(profileNo) == true)
+            //{
+            //    sql = " SELECT Si.BikeVersionId, Ds.CityId AS BikeCityId, Si.Price "
+            //        + " FROM SellInquiries AS Si, Dealers AS Ds With(NoLock) "
+            //        + " WHERE Si.DealerId = Ds.Id AND Si.Id = @Id";
+            //}
+            //else
+            //{
+            //    sql = " SELECT Csi.BikeVersionId, Csi.CityId AS BikeCityId, Csi.Price "
+            //        + " FROM ClassifiedIndividualSellInquiries AS Csi With(NoLock)"
+            //        + " WHERE Csi.Id = @Id";
+            //}
+            //Trace.Warn(sql);
+            //Database db = new Database();
+            //SqlDataReader dr = null;
 
-                if (dr.Read())
-                {
-                    //set the city id as the current city id
-                    CommonOpn.SetCityId(dr["BikeCityId"].ToString());
+            //try
+            //{
+            //    SqlParameter[] param = { new SqlParameter("@Id", CommonOpn.GetProfileNo(profileNo)) };
+            //    dr = db.SelectQry(sql, param);
 
-                    soldVersion = dr["BikeVersionId"].ToString();
-                    soldPrice = Convert.ToInt32(dr["Price"]);
-                    soldCity = dr["BikeCityId"].ToString();
-                    Trace.Warn("soldVersion : " + soldVersion + "soldPrice : " + soldPrice + "soldCity : " + soldCity);
-                }
+            //    if (dr.Read())
+            //    {
+            //        //set the city id as the current city id
+            //        CommonOpn.SetCityId(dr["BikeCityId"].ToString());
 
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if(dr != null)
-                    dr.Close();
+            //        soldVersion = dr["BikeVersionId"].ToString();
+            //        soldPrice = Convert.ToInt32(dr["Price"]);
+            //        soldCity = dr["BikeCityId"].ToString();
+            //        Trace.Warn("soldVersion : " + soldVersion + "soldPrice : " + soldPrice + "soldCity : " + soldCity);
+            //    }
 
-                db.CloseConnection();
-            }
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if(dr != null)
+            //        dr.Close();
+
+            //    db.CloseConnection();
+            //}
         }
 
         /// <summary>

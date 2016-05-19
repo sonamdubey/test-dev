@@ -79,67 +79,69 @@ namespace Bikewale.Controls
 		
 		//function to show more Bikes(10) at the same budget
 		void ShowHighlights()
-		{
-			string sql;
-			
-			double lattDiff = CommonOpn.GetLattitude(cityDistance);
-			double longDiff = CommonOpn.GetLongitude(cityDistance);
+        {
+            throw new Exception("Method not used/commented");
 
-            Trace.Warn("cityDistance : ", cityDistance.ToString());
-            Trace.Warn("lattDiff : ", lattDiff.ToString());
-            Trace.Warn("longDiff : ", longDiff.ToString());
+            //string sql;
 			
-			Trace.Warn("ShowHighlights : price : " + price.ToString());			
-			if ( price != 0 )
-			{
-				sql = " SELECT TOP " + records + " LL.ProfileId, "
-                    + " ( MakeName + ' ' + ModelName + ' ' + VersionName ) BikeMake, MakeName, ModelName, LC.Name AS CityName,LC.MaskingName as CityMaskingName, "
-                    + " MakeYear, LL.Price, LL.Color, LL.Kilometers, BM.MaskingName AS MakeMaskingName, BMO.MaskingName AS ModelMaskingName FROM LiveListings AS LL With(NoLock) INNER JOIN BikeMakes BM With(NoLock) ON  LL.MakeId = BM.ID INNER JOIN BikeModels BMO With(NoLock) ON LL.ModelId = BMO.ID, BWCities AS LC With(NoLock) WHERE "
-					+ " LL.ProfileId <> @ProfileNo AND "
-					+ " LC.Id = @CityId AND " 
-					+ " LL.Lattitude BETWEEN LC.Lattitude - @LattDiff AND LC.Lattitude + @LattDiff AND "
-					+ " LL.Longitude BETWEEN LC.Longitude - @LongDiff AND LC.Longitude + @LongDiff "
-					+ " ORDER BY ABS(LL.Price - @Price) ASC ";
-				
-				Trace.Warn(sql);
-                Trace.Warn("profileNo : " + profileNo + " cityId : " + cityId + " lattDiff : " + lattDiff + " longDiff : " + longDiff + " price : " + price);
-				SqlParameter [] param = 
-				{
-					new SqlParameter("@ProfileNo", profileNo),
-					new SqlParameter("@CityId", cityId),
-					new SqlParameter("@LattDiff", lattDiff),
-					new SqlParameter("@LongDiff", longDiff),
-					new SqlParameter("@Price", price)
-				};
-				
-				Database db = new Database();
-                DataSet ds = null;				
-				try
-				{
-					ds = db.SelectAdaptQry( sql, param );
-                    _recordCount = ds.Tables[0].Rows.Count;
+            //double lattDiff = CommonOpn.GetLattitude(cityDistance);
+            //double longDiff = CommonOpn.GetLongitude(cityDistance);
 
-                    if (ds != null && ds.Tables[0].Rows.Count > 0)
-                    {
-                        dlHighlights.DataSource = ds.Tables[0];
-                        dlHighlights.DataBind();
-                    }
-				}
-				catch( SqlException err )
-				{
-					Trace.Warn(err.Message);
-					ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-					objErr.SendMail();
-				}
-                catch (Exception err)
-                {
-                    Trace.Warn(err.Message);
-                    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-			}
+            //Trace.Warn("cityDistance : ", cityDistance.ToString());
+            //Trace.Warn("lattDiff : ", lattDiff.ToString());
+            //Trace.Warn("longDiff : ", longDiff.ToString());
 			
-			lblCities.Text = selectedCities;
+            //Trace.Warn("ShowHighlights : price : " + price.ToString());			
+            //if ( price != 0 )
+            //{
+            //    sql = " SELECT TOP " + records + " LL.ProfileId, "
+            //        + " ( MakeName + ' ' + ModelName + ' ' + VersionName ) BikeMake, MakeName, ModelName, LC.Name AS CityName,LC.MaskingName as CityMaskingName, "
+            //        + " MakeYear, LL.Price, LL.Color, LL.Kilometers, BM.MaskingName AS MakeMaskingName, BMO.MaskingName AS ModelMaskingName FROM LiveListings AS LL With(NoLock) INNER JOIN BikeMakes BM With(NoLock) ON  LL.MakeId = BM.ID INNER JOIN BikeModels BMO With(NoLock) ON LL.ModelId = BMO.ID, BWCities AS LC With(NoLock) WHERE "
+            //        + " LL.ProfileId <> @ProfileNo AND "
+            //        + " LC.Id = @CityId AND " 
+            //        + " LL.Lattitude BETWEEN LC.Lattitude - @LattDiff AND LC.Lattitude + @LattDiff AND "
+            //        + " LL.Longitude BETWEEN LC.Longitude - @LongDiff AND LC.Longitude + @LongDiff "
+            //        + " ORDER BY ABS(LL.Price - @Price) ASC ";
+				
+            //    Trace.Warn(sql);
+            //    Trace.Warn("profileNo : " + profileNo + " cityId : " + cityId + " lattDiff : " + lattDiff + " longDiff : " + longDiff + " price : " + price);
+            //    SqlParameter [] param = 
+            //    {
+            //        new SqlParameter("@ProfileNo", profileNo),
+            //        new SqlParameter("@CityId", cityId),
+            //        new SqlParameter("@LattDiff", lattDiff),
+            //        new SqlParameter("@LongDiff", longDiff),
+            //        new SqlParameter("@Price", price)
+            //    };
+				
+            //    Database db = new Database();
+            //    DataSet ds = null;				
+            //    try
+            //    {
+            //        ds = db.SelectAdaptQry( sql, param );
+            //        _recordCount = ds.Tables[0].Rows.Count;
+
+            //        if (ds != null && ds.Tables[0].Rows.Count > 0)
+            //        {
+            //            dlHighlights.DataSource = ds.Tables[0];
+            //            dlHighlights.DataBind();
+            //        }
+            //    }
+            //    catch( SqlException err )
+            //    {
+            //        Trace.Warn(err.Message);
+            //        ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
+            //        objErr.SendMail();
+            //    }
+            //    catch (Exception err)
+            //    {
+            //        Trace.Warn(err.Message);
+            //        ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //        objErr.SendMail();
+            //    }
+            //}
+			
+            //lblCities.Text = selectedCities;
 		} // ShowHighlights
 
         

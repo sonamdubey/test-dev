@@ -215,72 +215,74 @@ namespace Bikewale.Used
         /// <returns>id of the latest inserted record in ClassifiedRequests table</returns>
         private static string SubmitInquiryCustomer(string customerId, string sellInqId)
         {
-            string inqId = "-1";
+            throw new Exception("Method not used/commented");
 
-            SqlConnection con;
-            SqlCommand cmd;
-            SqlParameter prm;
-            Database db = new Database();
-            CommonOpn op = new CommonOpn();
+            //string inqId = "-1";
 
-            string conStr = db.GetConString();
-            con = new SqlConnection(conStr);
+            //SqlConnection con;
+            //SqlCommand cmd;
+            //SqlParameter prm;
+            //Database db = new Database();
+            //CommonOpn op = new CommonOpn();
 
-            try
-            {
-                HttpContext.Current.Trace.Warn("Submitting Data");
-                cmd = new SqlCommand("InsertClassifiedRequests", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+            //string conStr = db.GetConString();
+            //con = new SqlConnection(conStr);
 
-                prm = cmd.Parameters.Add("@SellInquiryId", SqlDbType.BigInt);
-                prm.Value = sellInqId;
+            //try
+            //{
+            //    HttpContext.Current.Trace.Warn("Submitting Data");
+            //    cmd = new SqlCommand("InsertClassifiedRequests", con);
+            //    cmd.CommandType = CommandType.StoredProcedure;
 
-                prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-                prm.Value = customerId;
+            //    prm = cmd.Parameters.Add("@SellInquiryId", SqlDbType.BigInt);
+            //    prm.Value = sellInqId;
 
-                prm = cmd.Parameters.Add("@RequestDateTime", SqlDbType.DateTime);
-                prm.Value = DateTime.Now;
+            //    prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
+            //    prm.Value = customerId;
 
-                prm = cmd.Parameters.Add("@Comments", SqlDbType.VarChar, 500);
-                prm.Value = "";
+            //    prm = cmd.Parameters.Add("@RequestDateTime", SqlDbType.DateTime);
+            //    prm.Value = DateTime.Now;
 
-                prm = cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt);
-                prm.Direction = ParameterDirection.Output;
+            //    prm = cmd.Parameters.Add("@Comments", SqlDbType.VarChar, 500);
+            //    prm.Value = "";
 
-                prm = cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40);
-                prm.Value = CommonOpn.GetClientIP();
+            //    prm = cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt);
+            //    prm.Direction = ParameterDirection.Output;
 
-                con.Open();
-                //run the command
-                cmd.ExecuteNonQuery();
+            //    prm = cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40);
+            //    prm.Value = CommonOpn.GetClientIP();
 
-                inqId = cmd.Parameters["@InquiryId"].Value.ToString();
+            //    con.Open();
+            //    //run the command
+            //    cmd.ExecuteNonQuery();
 
-            }
-            catch (SqlException err)
-            {
-                //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
-                HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+            //    inqId = cmd.Parameters["@InquiryId"].Value.ToString();
+
+            //}
+            //catch (SqlException err)
+            //{
+            //    //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
 
 
-            } // catch SqlException
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
-            return inqId;
+            //} // catch SqlException
+            //catch (Exception err)
+            //{
+            //    HttpContext.Current.Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //} // catch Exception
+            //finally
+            //{
+            //    //close the connection	
+            //    if (con.State == ConnectionState.Open)
+            //    {
+            //        con.Close();
+            //    }
+            //}
+            //return inqId;
         }   // End of SubmitInquiryCustomer
 
              

@@ -103,50 +103,52 @@ namespace Bikewale.Content
 
         DataSet LoadSqlDataToCache()
         {
-            string sql = string.Empty;
+            throw new Exception("Method not used/commented");
 
-            Database db = new Database();
-            DataSet ds = new DataSet();
-            DataSet dsPageData = new DataSet();
+            //string sql = string.Empty;
 
-            DataTable dtPageData = new DataTable("PageData");
+            //Database db = new Database();
+            //DataSet ds = new DataSet();
+            //DataSet dsPageData = new DataSet();
 
-            SqlParameter[] param = { new SqlParameter("@BasicId", id) };
+            //DataTable dtPageData = new DataTable("PageData");
 
-            // Data to fill all the details on the page
+            //SqlParameter[] param = { new SqlParameter("@BasicId", id) };
 
-            sql = " Select B.Title, B.AuthorName, B.Url, B.HostURL, B.DisplayDate, CMA.Name As Make, CMO.Name As Model, CV.Name As Version, C.ModelId, C.VersionId, "
-                + "		Case When C.VersionId = -1 Then CMA.Name + ' ' + CMO.Name  Else CMA.Name + ' ' + CMO.Name + ' ' + CV.Name End As Car, CA.Name As Category, CF.FieldName, CF.ValueType, "
-                + "		Case When CF.ValueType = 1 Then Cast(OI.BooleanValue As VarChar(1)) When CF.ValueType = 2 Then Cast(OI.NumericValue As VarChar(15)) When CF.ValueType = 3 Then Cast(OI.DecimalValue As VarChar) "
-                + "		 When CF.ValueType = 4 Then OI.TextValue  When CF.ValueType = 5 Then Convert(VarChar, OI.DateTimeValue, 103) Else '' End As OtherInfoValue, ( Cast( P.Priority As VarChar(10) ) + '. ' + P.PageName ) As PageNameForDDL, P.PageName, P.Priority, PC.Data "
-                + "	From Con_EditCms_Basic B With(NoLock) "
-                + "		Left Join Con_EditCms_Bikes C With(NoLock) On C.BasicId = B.Id And C.IsActive = 1 "
-                + "		Left Join Con_EditCms_OtherInfo OI With(NoLock) On OI.BasicId = B.Id "
-                + "		Left Join Con_EditCms_CategoryFields CF With(NoLock) On CF.Id = OI.CategoryFieldId And B.CategoryId = CF.CategoryId "
-                + "		Left Join Con_EditCms_Category Ca With(NoLock) On Ca.Id = B.CategoryId "
-                + " 	Left Join Con_EditCms_Pages P With(NoLock) On P.BasicId = B.Id "
-                + " 	Left Join Con_EditCms_PageContent PC With(NoLock) On PC.PageId = P.Id "
-                + "		Left JOIN BikeMakes CMA With(NoLock) On C.MakeId = CMA.ID "
-                + "		Left JOIN BikeModels CMO With(NoLock) On C.ModelId = CMO.ID "
-                + "		Left JOIN BikeVersions CV With(NoLock) On C.VersionId = CV.ID "
-                + "	Where "
-                + "		B.ID = @BasicId "
-                + " Order By P.Priority ";
+            //// Data to fill all the details on the page
 
-            Trace.Warn("sql: " + sql);
+            //sql = " Select B.Title, B.AuthorName, B.Url, B.HostURL, B.DisplayDate, CMA.Name As Make, CMO.Name As Model, CV.Name As Version, C.ModelId, C.VersionId, "
+            //    + "		Case When C.VersionId = -1 Then CMA.Name + ' ' + CMO.Name  Else CMA.Name + ' ' + CMO.Name + ' ' + CV.Name End As Car, CA.Name As Category, CF.FieldName, CF.ValueType, "
+            //    + "		Case When CF.ValueType = 1 Then Cast(OI.BooleanValue As VarChar(1)) When CF.ValueType = 2 Then Cast(OI.NumericValue As VarChar(15)) When CF.ValueType = 3 Then Cast(OI.DecimalValue As VarChar) "
+            //    + "		 When CF.ValueType = 4 Then OI.TextValue  When CF.ValueType = 5 Then Convert(VarChar, OI.DateTimeValue, 103) Else '' End As OtherInfoValue, ( Cast( P.Priority As VarChar(10) ) + '. ' + P.PageName ) As PageNameForDDL, P.PageName, P.Priority, PC.Data "
+            //    + "	From Con_EditCms_Basic B With(NoLock) "
+            //    + "		Left Join Con_EditCms_Bikes C With(NoLock) On C.BasicId = B.Id And C.IsActive = 1 "
+            //    + "		Left Join Con_EditCms_OtherInfo OI With(NoLock) On OI.BasicId = B.Id "
+            //    + "		Left Join Con_EditCms_CategoryFields CF With(NoLock) On CF.Id = OI.CategoryFieldId And B.CategoryId = CF.CategoryId "
+            //    + "		Left Join Con_EditCms_Category Ca With(NoLock) On Ca.Id = B.CategoryId "
+            //    + " 	Left Join Con_EditCms_Pages P With(NoLock) On P.BasicId = B.Id "
+            //    + " 	Left Join Con_EditCms_PageContent PC With(NoLock) On PC.PageId = P.Id "
+            //    + "		Left JOIN BikeMakes CMA With(NoLock) On C.MakeId = CMA.ID "
+            //    + "		Left JOIN BikeModels CMO With(NoLock) On C.ModelId = CMO.ID "
+            //    + "		Left JOIN BikeVersions CV With(NoLock) On C.VersionId = CV.ID "
+            //    + "	Where "
+            //    + "		B.ID = @BasicId "
+            //    + " Order By P.Priority ";
 
-            try
-            {
-                dtPageData = db.SelectAdaptQry(sql, param).Tables[0].Copy();
-                dsPageData.Tables.Add(dtPageData);
-                Cache.Insert("dsCarCompDataCache", dsPageData, null, DateTime.Now.AddMinutes(30), TimeSpan.Zero);
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn(ex.Message);
-            }
+            //Trace.Warn("sql: " + sql);
 
-            return dsPageData;
+            //try
+            //{
+            //    dtPageData = db.SelectAdaptQry(sql, param).Tables[0].Copy();
+            //    dsPageData.Tables.Add(dtPageData);
+            //    Cache.Insert("dsCarCompDataCache", dsPageData, null, DateTime.Now.AddMinutes(30), TimeSpan.Zero);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Trace.Warn(ex.Message);
+            //}
+
+            //return dsPageData;
         }
 
         private void LoadPhotos()
@@ -193,152 +195,154 @@ namespace Bikewale.Content
 
         void FillPages()
         {
-            string sql = string.Empty;
+            throw new Exception("Method not used/commented");
 
-            Database db = new Database();
-            SqlDataReader dr = null;
+            //string sql = string.Empty;
 
-            try
-            {
-                CommonOpn op = new CommonOpn();
-                DataSet ds = new DataSet();
+            //Database db = new Database();
+            //SqlDataReader dr = null;
 
-                if ((DataSet)Cache.Get("dsCarCompDataCache") != null)
-                {
-                    ds = (DataSet)Cache.Get("dsCarCompDataCache");
-                }
-                else
-                {
-                    ds = LoadSqlDataToCache();
-                }
+            //try
+            //{
+            //    CommonOpn op = new CommonOpn();
+            //    DataSet ds = new DataSet();
 
-                DataTable distinctTable = ds.Tables[0].DefaultView.ToTable("DistinctTable", true, new string[] { "PageNameForDDL", "Priority" });
+            //    if ((DataSet)Cache.Get("dsCarCompDataCache") != null)
+            //    {
+            //        ds = (DataSet)Cache.Get("dsCarCompDataCache");
+            //    }
+            //    else
+            //    {
+            //        ds = LoadSqlDataToCache();
+            //    }
 
-                DataRow[] distinctRows = distinctTable.Select("", "Priority ASC");
+            //    DataTable distinctTable = ds.Tables[0].DefaultView.ToTable("DistinctTable", true, new string[] { "PageNameForDDL", "Priority" });
 
-                DataTable dt = new DataTable();
-                DataColumn column;
-                DataRow row;
+            //    DataRow[] distinctRows = distinctTable.Select("", "Priority ASC");
 
-                /*Create new DataColumn, Add ColumnName and add to DataTable. 
-                The following is done since we cannont bind DataRows to the control directly*/
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.String");
-                column.ColumnName = "PageName";
-                column.ReadOnly = true;
+            //    DataTable dt = new DataTable();
+            //    DataColumn column;
+            //    DataRow row;
 
-                dt.Columns.Add(column);
+            //    /*Create new DataColumn, Add ColumnName and add to DataTable. 
+            //    The following is done since we cannont bind DataRows to the control directly*/
+            //    column = new DataColumn();
+            //    column.DataType = System.Type.GetType("System.String");
+            //    column.ColumnName = "PageName";
+            //    column.ReadOnly = true;
 
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.Int32");
-                column.ColumnName = "Priority";
-                column.ReadOnly = true;
+            //    dt.Columns.Add(column);
 
-                dt.Columns.Add(column);
+            //    column = new DataColumn();
+            //    column.DataType = System.Type.GetType("System.Int32");
+            //    column.ColumnName = "Priority";
+            //    column.ReadOnly = true;
 
-                for (int i = 0; i < distinctRows.Length; ++i)
-                {
-                    row = dt.NewRow();
-                    row["PageName"] = distinctRows[i]["PageNameForDDL"].ToString();
-                    row["Priority"] = distinctRows[i]["Priority"].ToString();
-                    dt.Rows.Add(row);
-                }
+            //    dt.Columns.Add(column);
 
-                if (distinctRows.Length <= 1)
-                {
-                    topNav.Visible = false;
-                    bottomNav.Visible = false;
-                }
+            //    for (int i = 0; i < distinctRows.Length; ++i)
+            //    {
+            //        row = dt.NewRow();
+            //        row["PageName"] = distinctRows[i]["PageNameForDDL"].ToString();
+            //        row["Priority"] = distinctRows[i]["Priority"].ToString();
+            //        dt.Rows.Add(row);
+            //    }
 
-                // Bind the New DataTable to the control and set the Text and Value fields
-                drpPages.DataSource = dt;
-                drpPages.DataTextField = "PageName";
-                drpPages.DataValueField = "Priority";
-                drpPages.DataBind();
+            //    if (distinctRows.Length <= 1)
+            //    {
+            //        topNav.Visible = false;
+            //        bottomNav.Visible = false;
+            //    }
 
-                drpPages_footer.DataSource = dt;
-                drpPages_footer.DataTextField = "PageName";
-                drpPages_footer.DataValueField = "Priority";
-                drpPages_footer.DataBind();
+            //    // Bind the New DataTable to the control and set the Text and Value fields
+            //    drpPages.DataSource = dt;
+            //    drpPages.DataTextField = "PageName";
+            //    drpPages.DataValueField = "Priority";
+            //    drpPages.DataBind();
 
-                strCount = drpPages.Items.Count;
-                str = (strCount + 1).ToString();
+            //    drpPages_footer.DataSource = dt;
+            //    drpPages_footer.DataTextField = "PageName";
+            //    drpPages_footer.DataValueField = "Priority";
+            //    drpPages_footer.DataBind();
 
-                SqlParameter[] param = { new SqlParameter("@BasicId", id) };
+            //    strCount = drpPages.Items.Count;
+            //    str = (strCount + 1).ToString();
 
-                sql = " Select ShowGallery From Con_EditCms_Basic With(NoLock) Where Id = @BasicId";
+            //    SqlParameter[] param = { new SqlParameter("@BasicId", id) };
 
-                dr = db.SelectQry(sql, param);
+            //    sql = " Select ShowGallery From Con_EditCms_Basic With(NoLock) Where Id = @BasicId";
 
-                while (dr.Read())
-                {
-                    ShowGallery = Convert.ToBoolean(dr["ShowGallery"].ToString());
-                }
+            //    dr = db.SelectQry(sql, param);
 
-                //dr.Close();
+            //    while (dr.Read())
+            //    {
+            //        ShowGallery = Convert.ToBoolean(dr["ShowGallery"].ToString());
+            //    }
 
-                if (ShowGallery)
-                {
-                    if (distinctRows.Length >= 1)
-                    {
-                        topNav.Visible = true;
-                        bottomNav.Visible = true;
-                    }
-                    // If Photo Gallery is to be shown, then add the extra List Item
-                    drpPages.Items.Insert(strCount, new ListItem((strCount + 1).ToString() + ". Photos", str));
-                    drpPages_footer.Items.Insert(strCount, new ListItem((strCount + 1).ToString() + ". Photos", str));
+            //    //dr.Close();
 
-                    drpPages.SelectedValue = pageid;
-                    drpPages_footer.SelectedValue = pageid;
+            //    if (ShowGallery)
+            //    {
+            //        if (distinctRows.Length >= 1)
+            //        {
+            //            topNav.Visible = true;
+            //            bottomNav.Visible = true;
+            //        }
+            //        // If Photo Gallery is to be shown, then add the extra List Item
+            //        drpPages.Items.Insert(strCount, new ListItem((strCount + 1).ToString() + ". Photos", str));
+            //        drpPages_footer.Items.Insert(strCount, new ListItem((strCount + 1).ToString() + ". Photos", str));
 
-                    CheckPage();
-                }
+            //        drpPages.SelectedValue = pageid;
+            //        drpPages_footer.SelectedValue = pageid;
 
-                distinctTable = ds.Tables[0].DefaultView.ToTable("DistinctTable", true, "Priority");
+            //        CheckPage();
+            //    }
 
-                distinctRows = distinctTable.Select("", "Priority ASC");
+            //    distinctTable = ds.Tables[0].DefaultView.ToTable("DistinctTable", true, "Priority");
 
-                dt = new DataTable();
+            //    distinctRows = distinctTable.Select("", "Priority ASC");
 
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.Int32");
-                column.ColumnName = "Priority";
-                column.ReadOnly = true;
+            //    dt = new DataTable();
 
-                dt.Columns.Add(column);
+            //    column = new DataColumn();
+            //    column.DataType = System.Type.GetType("System.Int32");
+            //    column.ColumnName = "Priority";
+            //    column.ReadOnly = true;
 
-                for (int i = 0; i < distinctRows.Length; ++i)
-                {
-                    row = dt.NewRow();
-                    row["Priority"] = distinctRows[i]["Priority"].ToString();
-                    dt.Rows.Add(row);
-                }
+            //    dt.Columns.Add(column);
 
-                rptPages.DataSource = dt;
-                rptPages.DataBind();
+            //    for (int i = 0; i < distinctRows.Length; ++i)
+            //    {
+            //        row = dt.NewRow();
+            //        row["Priority"] = distinctRows[i]["Priority"].ToString();
+            //        dt.Rows.Add(row);
+            //    }
 
-                rptPages_footer.DataSource = dt;
-                rptPages_footer.DataBind();
+            //    rptPages.DataSource = dt;
+            //    rptPages.DataBind();
 
-            }
-            catch (SqlException err)
-            {
-                Trace.Warn("Error: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                Trace.Warn("Error: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
+            //    rptPages_footer.DataSource = dt;
+            //    rptPages_footer.DataBind();
+
+            //}
+            //catch (SqlException err)
+            //{
+            //    Trace.Warn("Error: " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn("Error: " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
         }
 
         void GetPageData()
@@ -513,105 +517,109 @@ namespace Bikewale.Content
 
         string GetThreadId(string Id)
         {
-            Database db = new Database();
-            SqlDataReader dr = null;
-            string sql = "";
-            string tId = "";
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                if (type != "")
-                {
-                    sql = " SELECT ThreadId FROM Forum_ArticleAssociation With(NoLock) "
-                        + " WHERE ArticleType = @type AND ArticleId = @Id";
+            //Database db = new Database();
+            //SqlDataReader dr = null;
+            //string sql = "";
+            //string tId = "";
 
-                    Trace.Warn(sql);
-                    SqlCommand cmd = new SqlCommand(sql);
-                    cmd.Parameters.Add("@Id", SqlDbType.BigInt).Value = Id;
-                    cmd.Parameters.Add("@type", SqlDbType.SmallInt).Value = type;
+            //try
+            //{
+            //    if (type != "")
+            //    {
+            //        sql = " SELECT ThreadId FROM Forum_ArticleAssociation With(NoLock) "
+            //            + " WHERE ArticleType = @type AND ArticleId = @Id";
 
-                    dr = db.SelectQry(cmd);
+            //        Trace.Warn(sql);
+            //        SqlCommand cmd = new SqlCommand(sql);
+            //        cmd.Parameters.Add("@Id", SqlDbType.BigInt).Value = Id;
+            //        cmd.Parameters.Add("@type", SqlDbType.SmallInt).Value = type;
 
-                    if (dr.Read())
-                    {
-                        tId = dr["ThreadId"].ToString();
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                Trace.Warn("Error Message : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
-            return tId;
+            //        dr = db.SelectQry(cmd);
+
+            //        if (dr.Read())
+            //        {
+            //            tId = dr["ThreadId"].ToString();
+            //        }
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn("Error Message : " + err.Message);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
+            //return tId;
         }
 
         protected void GoogleKeywords()
         {
-            if (versionId == "" && modelId == "")
-                return;
+            throw new Exception("Method not used/commented");
 
-            Trace.Warn(" versionId : " + versionId);
-            Trace.Warn(" modelId : " + modelId);
+            //if (versionId == "" && modelId == "")
+            //    return;
 
-            string sql = "";
-            SqlDataReader dr = null;
+            //Trace.Warn(" versionId : " + versionId);
+            //Trace.Warn(" modelId : " + modelId);
 
-            if (versionId != "")
-            {
-                sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
-                    + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
-                    + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
-                    + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
-                    + " AND Ve.Id = @versionId";
-            }
-            else
-            {
-                sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
-                    + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
-                    + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
-                    + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
-                    + " AND Ve.BikeModelId = @modelId";
-            }
+            //string sql = "";
+            //SqlDataReader dr = null;
 
-            Database db = new Database();
-            try
-            {
-                SqlParameter[] param = { new SqlParameter("@modelId", modelId), new SqlParameter("@versionId", versionId) };
-                dr = db.SelectQry(sql, param);
-                if (dr.Read())
-                {
-                    oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
-                    bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
-                    subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
-                }
+            //if (versionId != "")
+            //{
+            //    sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
+            //        + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
+            //        + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
+            //        + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
+            //        + " AND Ve.Id = @versionId";
+            //}
+            //else
+            //{
+            //    sql = " SELECT DISTINCT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
+            //        + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
+            //        + " (BikeVersions Ve With(NoLock) LEFT JOIN BikeSubSegments Se With(NoLock) ON Se.Id = Ve.SubSegmentId ) "
+            //        + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
+            //        + " AND Ve.BikeModelId = @modelId";
+            //}
 
-                Trace.Warn("sql : " + sql);
-                Trace.Warn("oem : " + oem);
-                Trace.Warn(" bodyType : " + bodyType);
-                Trace.Warn(" subSegment : " + subSegment);
+            //Database db = new Database();
+            //try
+            //{
+            //    SqlParameter[] param = { new SqlParameter("@modelId", modelId), new SqlParameter("@versionId", versionId) };
+            //    dr = db.SelectQry(sql, param);
+            //    if (dr.Read())
+            //    {
+            //        oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+            //        bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+            //        subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+            //    }
 
-            }
-            catch (Exception err)
-            {
-                Exception ex = new Exception(err.Message + ":" + sql + " : " + id);
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
-                db.CloseConnection();
-            }
+            //    Trace.Warn("sql : " + sql);
+            //    Trace.Warn("oem : " + oem);
+            //    Trace.Warn(" bodyType : " + bodyType);
+            //    Trace.Warn(" subSegment : " + subSegment);
+
+            //}
+            //catch (Exception err)
+            //{
+            //    Exception ex = new Exception(err.Message + ":" + sql + " : " + id);
+            //    Trace.Warn(err.Message);
+            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{
+            //    if (dr != null)
+            //        dr.Close();
+            //    db.CloseConnection();
+            //}
         }
 
         protected string GetImagePath(string articleId, string photoId, string imgSize, string hostUrl)

@@ -341,88 +341,92 @@ namespace Bikewale.Content
         // query provided.
         public void BindRepeater()
         {
-            this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
+            throw new Exception("Method not used/commented");
 
-            string sql = "";
-            CommonOpn objCom = new CommonOpn();
+            //this.SerialNo = (this.CurrentPageIndex - 1) * this.PageSize;
 
-            Database db = new Database();
+            //string sql = "";
+            //CommonOpn objCom = new CommonOpn();
 
-            int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
-            int endIndex = this.CurrentPageIndex * this.PageSize;
+            //Database db = new Database();
 
-            //form the query. Only fetch the desired rows. 
+            //int startIndex = (this.CurrentPageIndex - 1) * this.PageSize + 1;
+            //int endIndex = this.CurrentPageIndex * this.PageSize;
 
-            sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + OrderByClause + ") AS RowN, "
-                + " " + SelectClause + " From " + FromClause + " "
-                + (WhereClause != "" ? " Where " + WhereClause + " " : "")
-                + " ) AS TopRecords Where "
-                + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
+            ////form the query. Only fetch the desired rows. 
 
-            Trace.Warn("Fetch the desired rows : " + sql);
-            Trace.Warn("Current Page Index : " + CurrentPageIndex);
-            try
-            {
-                DataSet ds = new DataSet();
-                if (sql != "")
-                {
-                    Trace.Warn("Binding Sql : ");
+            //sql = " Select * From (Select Top " + endIndex + " Row_Number() Over (Order By " + OrderByClause + ") AS RowN, "
+            //    + " " + SelectClause + " From " + FromClause + " "
+            //    + (WhereClause != "" ? " Where " + WhereClause + " " : "")
+            //    + " ) AS TopRecords Where "
+            //    + " RowN >= " + startIndex + " AND RowN <= " + endIndex + " ";
 
-                    CmdParamQ.CommandText = sql;
-                    ds = db.SelectAdaptQry(CmdParamQ);
+            //Trace.Warn("Fetch the desired rows : " + sql);
+            //Trace.Warn("Current Page Index : " + CurrentPageIndex);
+            //try
+            //{
+            //    DataSet ds = new DataSet();
+            //    if (sql != "")
+            //    {
+            //        Trace.Warn("Binding Sql : ");
 
-                    rpt.DataSource = ds;
-                    rpt.DataBind();
-                    Trace.Warn("PageSize: " + PageSize);
-                }
-                Trace.Warn("Binding Complete...");
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //        CmdParamQ.CommandText = sql;
+            //        ds = db.SelectAdaptQry(CmdParamQ);
+
+            //        rpt.DataSource = ds;
+            //        rpt.DataBind();
+            //        Trace.Warn("PageSize: " + PageSize);
+            //    }
+            //    Trace.Warn("Binding Complete...");
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }
 
 
         int GetRecordCount()
         {
-            int count = 0;
-            SqlDataReader dr = null;
-            Database db = new Database();
+            throw new Exception("Method not used/commented");
 
-            try
-            {
-                if (RecordCountQuery != "")
-                {
-                    CmdParamR.CommandText = RecordCountQuery;
+            //int count = 0;
+            //SqlDataReader dr = null;
+            //Database db = new Database();
 
-                    Trace.Warn("RecordCountQuery: " + RecordCountQuery);
-                    dr = db.SelectQry(CmdParamR);
+            //try
+            //{
+            //    if (RecordCountQuery != "")
+            //    {
+            //        CmdParamR.CommandText = RecordCountQuery;
 
-                    if (dr.Read())
-                    {
-                        count = Convert.ToInt32(dr[0]);
-                    }
+            //        Trace.Warn("RecordCountQuery: " + RecordCountQuery);
+            //        dr = db.SelectQry(CmdParamR);
 
-                    db.CloseConnection();
-                }
+            //        if (dr.Read())
+            //        {
+            //            count = Convert.ToInt32(dr[0]);
+            //        }
 
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            { 
-                if(dr != null)
-                    dr.Close();
-            }
+            //        db.CloseConnection();
+            //    }
 
-            return count;
+            //}
+            //catch (Exception err)
+            //{
+            //    Trace.Warn(err.Message + err.Source);
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //finally
+            //{ 
+            //    if(dr != null)
+            //        dr.Close();
+            //}
+
+            //return count;
         }
 
 

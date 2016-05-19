@@ -1,11 +1,9 @@
 ﻿using Bikewale.Common;
+using Bikewale.Notifications.CoreDAL;
 using System;
-using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -49,27 +47,17 @@ namespace Bikewale.MyBikeWale
         private bool SaveNewsSubscription()
         {
             bool returnVal = false;
-            SqlParameter prm = null;
-            SqlConnection con = null;
-
             try
             {
-                Database db = new Database();
-                string conStr = db.GetConString();
 
-                using (con = new SqlConnection(conStr))
+                using (DbCommand cmd = DbFactory.GetDBCommand("SubscribeNewsletter"))
                 {
-                    SqlCommand cmd = new SqlCommand("SubscribeNewsletter", con);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-                    prm.Value = customerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_receivenewsletters", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkNewsLetter.Checked));
 
-                    prm = cmd.Parameters.Add("@ReceiveNewsletters", SqlDbType.Bit);
-                    prm.Value = chkNewsLetter.Checked;
-
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
                     returnVal = true;
 
@@ -95,14 +83,7 @@ namespace Bikewale.MyBikeWale
                 objErr.SendMail();
                 returnVal = false;
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
+
             return returnVal;
         }
 
@@ -119,28 +100,25 @@ namespace Bikewale.MyBikeWale
 
         private bool IsNewsLetterSubscribed()
         {
-            Database db = null;
-            SqlDataReader dr = null;
             bool isNewsSubscribed = false;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetNewsSubscription"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnewssubscription"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
 
-                    db = new Database();
-
-                    dr = db.SelectQry(cmd);
-
-                    if (dr != null)
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            isNewsSubscribed = Convert.ToBoolean(dr["SubscribeNewsletters"]);
-                        }
+                            while (dr.Read())
+                            {
+                                isNewsSubscribed = Convert.ToBoolean(dr["SubscribeNewsletters"]);
+                            }
+                        } 
                     }
                 }
             }
@@ -155,12 +133,6 @@ namespace Bikewale.MyBikeWale
                 Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }
-            finally
-            {
-                if (dr != null)
-                    dr.Close();
-                db.CloseConnection();
             }
 
             return isNewsSubscribed;
