@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.DAL.Dealer;
-using Bikewale.Entities.Dealer;
-using Bikewale.Interfaces.Dealer;
-using Bikewale.Entities.Location;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Dealer;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.BAL.Dealer
 {
@@ -39,7 +36,7 @@ namespace Bikewale.BAL.Dealer
 
             objMakeList = dealerRepository.GetDealersMakesList();
 
-            return objMakeList;          
+            return objMakeList;
         }
 
         /// <summary>
@@ -50,7 +47,7 @@ namespace Bikewale.BAL.Dealer
         public NewBikeDealersListEntity GetDealersCitiesListByMakeId(uint makeId)
         {
             NewBikeDealersListEntity objDealerList = null;
-            
+
             objDealerList = dealerRepository.GetDealersCitiesListByMakeId(makeId);
 
             return objDealerList;
@@ -68,7 +65,7 @@ namespace Bikewale.BAL.Dealer
 
             objDealersList = dealerRepository.GetDealersList(makeId, cityId);
 
-            return objDealersList;          
+            return objDealersList;
         }
 
         /// <summary>
@@ -82,8 +79,8 @@ namespace Bikewale.BAL.Dealer
         /// <returns></returns>
         public IEnumerable<NewBikeDealerEntityBase> GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null)
         {
-            IEnumerable<NewBikeDealerEntityBase> objDealersList = null; 
-            objDealersList = dealerRepository.GetNewBikeDealersList(makeId, cityId,clientId);
+            IEnumerable<NewBikeDealerEntityBase> objDealersList = null;
+            objDealersList = dealerRepository.GetNewBikeDealersList(makeId, cityId, clientId);
             return objDealersList;
         }
 
@@ -111,7 +108,7 @@ namespace Bikewale.BAL.Dealer
 
             objCitiesList = dealerRepository.GetDealersCitiesList();
 
-            return objCitiesList;          
+            return objCitiesList;
         }
 
         /// <summary>
@@ -152,17 +149,28 @@ namespace Bikewale.BAL.Dealer
 
             return lstCity;
         }
-        
+
         /// <summary>
         /// Created By : Lucky Rathore on 21 March 2016
         /// Descritption : Implemented in DAL
+        /// Modified by :   Sumit Kate on 20 May 2016
+        /// Description :   Call the DAL function
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
         public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return dealerRepository.GetDealerByMakeCity(cityId, makeId);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerByMakeCity");
+                objErr.SendMail();
+                return null;
+            }
         }
 
         /// <summary>
@@ -195,9 +203,9 @@ namespace Bikewale.BAL.Dealer
         {
             try
             {
-                return dealerRepository.GetDealerDetailsAndBikes(dealerId,campaignId);
+                return dealerRepository.GetDealerDetailsAndBikes(dealerId, campaignId);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerDetailsAndBikes");
                 objErr.SendMail();
