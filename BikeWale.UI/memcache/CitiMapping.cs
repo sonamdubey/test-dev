@@ -8,13 +8,15 @@ using System.Web;
 /// Summary description for CitiMapping
 /// Class contains method which returns city mapping name 
 /// </summary>
-/// 
+
 namespace Bikewale.Memcache
 {
     public static class CitiMapping
     {
         /// <summary>
         /// Written By : Ashwini Todkar on 2nd Dec 2013
+        /// Updated By; Sangram Nandkhile on 20 May 2016
+        /// Summary: Changed return type to Uint
         /// </summary>
         /// <param name="mappingName"></param>
         /// <returns>city id of city for url rewritting</returns>
