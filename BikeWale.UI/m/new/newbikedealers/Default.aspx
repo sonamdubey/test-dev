@@ -388,7 +388,7 @@
                 if (!isNaN(selMakeId) && selMakeId != "0") {
                     if (!isNaN(selCityId) && selCityId != "0") {
                         ddlcityMasking = $ddlCities.find("li.activeCity").attr("cityMaskingName");
-                        window.location.href = "/m/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                        window.location.href = "/m/" + ddlmakemasking + "-bikes/dealers-in-" + ddlcityMasking + "/";
                     }
                     else {
                         setError($("div.locator-search-city-form"), "Please select city !");

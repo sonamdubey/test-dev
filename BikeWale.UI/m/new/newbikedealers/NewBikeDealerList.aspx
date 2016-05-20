@@ -5,10 +5,10 @@
 <head>
 
     <% 
-        keywords = String.Format("{0} dealers city, Make showrooms  {1}, {1} bike dealers, {0} dealers, {1} bike showrooms, bike dealers, bike showrooms, dealerships", makeName, cityName);
+        keywords = String.Format("{0} dealers city, {0} showrooms {1}, {1} bike dealers, {0} dealers, {1} bike showrooms, bike dealers, bike showrooms, dealerships", makeName, cityName);
         description = String.Format("{0} bike dealers/showrooms in {1}. Find {0} bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc", makeName, cityName);
         title = String.Format("{0} Dealers in {1} city | {0} New bike Showrooms in {1} - BikeWale", makeName, cityName);
-        canonical = String.Format("http://www.bikewale.com/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, cityMaskingName);              
+        canonical = String.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);              
     %>
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -30,6 +30,8 @@
         #brandSearchBar { padding:0; background: #f5f5f5; z-index: 11; position: fixed; left: 100%; top: 0; overflow-y: scroll; width: 100%; height: 100%;}#brandSearchBar li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor: pointer;}#brandSearchBar li:hover { background: #ededed; }.dealer-brand-wrapper { display:none; }.bwm-dealer-brand-box .back-arrow-box { height: 30px; width: 40px; position: absolute; top: 5px; z-index: 11; cursor: pointer; }.bwm-dealer-brand-box span.back-long-arrow-left {position: absolute;top: 7px;left: 10px;}.bwm-dealer-brand-box .back-arrow-box {position: absolute;left: 5px;}.bwm-dealer-brand-box .form-control {padding: 10px 50px;}.activeBrand {font-weight: bold;background-color: #ddd;}.dealer-search-brand-form { padding:10px 25px 10px 10px; text-align:left; cursor:pointer; background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; text-align:left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-radius:2px;border: 1px solid #ccc; }.dealer-search-brand { width:100%; height: 40px;}.border-red { border:1px solid #f00 !important; }
         .btnSpinner{right:8px;top:10px;z-index:9;display:none;background:#fff;}
         .thankyou-icon {width:34px; height:38px; background-position: -143px -406px;}
+        .dealership-loc-icon { width:8px; height:12px; background-position:-41px -437px; position:relative;top:4px; }
+        .vertical-top { display:inline-block;vertical-align:top; }
     </style>
     <script type="text/javascript">
         var makeName = "<%=makeName%>";
@@ -71,10 +73,11 @@
                                     </div>
                                     <div class="font14">
                                         <h2 class="font16 margin-bottom10"><%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %></h2>
-                                        <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
+                                        <p><span class="bwmsprite dealership-loc-icon vertical-top margin-right10"></span><span class="vertical-top dealership-address"><%# DataBinder.Eval(Container.DataItem,"Address") %></span></p>
+                                        <%--<p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>--%>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>"><a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-light-grey margin-bottom5 maskingNumber"><span class="bwmsprite tel-sm-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a></div>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"Email") %></a></div>
-                                        <input leadSourceId="20" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" campId="<%# (DataBinder.Eval(Container.DataItem,"CampaignId")) %>" type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers">
+                                        <input leadSourceId="20" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" campId="<%# (DataBinder.Eval(Container.DataItem,"CampaignId")) %>" type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers from dealer">
                                     </div>
                                 </li>
                             </ItemTemplate>

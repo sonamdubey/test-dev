@@ -28,7 +28,7 @@ namespace Bikewale.Mobile.New
     /// </summary>
     public class NewBikeDealerList : PageBase
     {
-        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty;
+        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
         protected uint cityId, makeId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
@@ -50,15 +50,16 @@ namespace Bikewale.Mobile.New
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
 
-            ProcessQueryString();
-            GetMakeIdByMakeMaskingName(makeMaskingName);
-
-            if (makeId > 0 && cityId > 0)
+            if (ProcessQueryString())
             {
-                BindMakesDropdown();
-                BindCitiesDropdown();
+                GetMakeIdByMakeMaskingName(makeMaskingName);
 
-                BindDealerList();
+                if (makeId > 0 && cityId > 0)
+                {
+                    BindMakesDropdown();
+                    BindCitiesDropdown();
+                    BindDealerList();
+                }
             }
 
         }
@@ -222,16 +223,27 @@ namespace Bikewale.Mobile.New
         /// Created On : 16th March 2016 
         /// Description : Private Method to query string fro make masking name and cityId
         /// </summary>
-        private void ProcessQueryString()
+        private bool ProcessQueryString()
         {
             var currentReq = HttpContext.Current.Request;
+            bool isValidQueryString = false;
             try
             {
-
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
                     makeMaskingName = currentReq.QueryString["make"];
-                    uint.TryParse(currentReq.QueryString["city"], out cityId);
+                    urlCityMaskingName = currentReq.QueryString["city"];
+                    if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
+                    {
+                        cityId = CitiMapping.GetCityId(urlCityMaskingName);
+                        isValidQueryString = true;
+                    }
+                    else
+                    {
+                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                     clientIP = Bikewale.Common.CommonOpn.GetClientIP();
                     pageUrl = currentReq.ServerVariables["URL"];
                 }
@@ -247,6 +259,7 @@ namespace Bikewale.Mobile.New
                 ErrorClass objErr = new ErrorClass(ex, " : ProcessQueryString ");
                 objErr.SendMail();
             }
+            return isValidQueryString;
 
         }
 
