@@ -405,7 +405,7 @@
                 if(!isNaN(ddlcityId) && ddlcityId != "0")
                 {
                     ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");   
-                    window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                    window.location.href = "/" + ddlmakemasking + "-bikes/dealers-in-"+ ddlcityMasking + "/";
                 }
                 else{
                     if($ddlCities.find("option").length < 2)
