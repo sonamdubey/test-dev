@@ -11,7 +11,6 @@
     Ad_Bot_320x50 = true;
     menu = "3";
 %>
-<!-- #include file="/includes/headscript_mobile.aspx" -->
 <!-- #include file="/includes/headermobile_noad.aspx" -->
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/placeholder.js?v=1.0"></script>
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
