@@ -32,6 +32,7 @@
         .thankyou-icon {width:34px; height:38px; background-position: -143px -406px;}
         .dealership-loc-icon { width:8px; height:12px; background-position:-41px -437px; position:relative;top:4px; }
         .vertical-top { display:inline-block;vertical-align:top; }
+        .dealership-address { width:92%; }
     </style>
     <script type="text/javascript">
         var makeName = "<%=makeName%>";
