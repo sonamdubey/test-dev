@@ -60,18 +60,18 @@
         </BikeWale:RepeaterPager>
     </div>
     <div class="grid_4">
-        <%--<div class="margin-top15">
+        <div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>--%>
+        </div>
         <div class="grey-bg content-block border-radius5 padding-bottom20 margin-top15">
             <NBL:NewBikeLaunches ID="ctrl_NewBikeLaunches" TopCount="3" runat="server" />
             <div class="clear"></div>
         </div>
-        <%--<div class="margin-top15">
+        <div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>--%>
+        </div>
     </div>
 </div>
 <!-- #include file="/includes/footerInner.aspx" -->
