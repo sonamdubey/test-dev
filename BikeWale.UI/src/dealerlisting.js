@@ -329,7 +329,7 @@ $(document).on('mouseout', '#dealersList li', function () {
     infowindow.close();
 });
 
-$(document).on('click', 'a.dealer-sidebar-link', function () {
+$(document).on('click', '.dealer-card', function () {
     var parentLI = $(this).parents('li');
     selectedDealer(parentLI);
     $("#buyingAssistanceForm").show();
@@ -339,7 +339,8 @@ $(document).on('click', 'a.dealer-sidebar-link', function () {
 });
 
 $(document).on('click', '#dealersList a.get-assistance-btn', function (e) {
-    leadSourceId = id = $(this).attr("leadSourceId");
+    leadSourceId = $(this).attr("leadSourceId");
+    pqSourceId = $(this).attr("pqSourceId");
     id = $(this).attr("data-item-id");
     type = $(this).attr("data-item-type");
     parentLi = $(this).parents("li");
@@ -525,6 +526,7 @@ function getDealerDetails(id, campId, name) {
                 type: "GET",
                 url: "/api/DealerBikes/?dealerId=" + id + "&campaignId=" + campId,
                 contentType: "application/json",
+                dataType: 'json',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('utma', getCookie('__utma'));
                     xhr.setRequestHeader('utmz', getCookie('__utmz'));
@@ -661,6 +663,7 @@ function CustomerModel(obj) {
         isValidDetails = false;
         if (event.target.id == 'submitAssistanceFormBtn') {
             leadSourceId = $(event.target).attr("leadSourceId");
+            pqSourceId = $(event.target).attr("pqSourceId");
             isValidDetails &= validateBike(assistGetModel);
             isValidDetails = validateUserInfo(assistanceGetName, assistanceGetEmail, assistanceGetMobile);
             startLoading($("#buyingAssistanceForm"));
@@ -696,7 +699,7 @@ function CustomerModel(obj) {
                 "cityId": bikeCityId,
                 "areaId": 0,
                 "sourceType": pageSrcId,
-                "pQLeadId": leadSrcId,
+                "pQLeadId": pqSourceId,
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -705,6 +708,7 @@ function CustomerModel(obj) {
                 async: false,
                 data: ko.toJSON(objData),
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     self.pqId(response.quoteId);
                     isSuccess = true;
@@ -763,6 +767,7 @@ function CustomerModel(obj) {
                 },
                 async: false,
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     var obj = ko.toJS(response);
                     self.IsVerified(obj.isSuccess);
@@ -812,6 +817,7 @@ function CustomerModel(obj) {
                 data: ko.toJSON(objCust),
                 async: false,
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     var obj = ko.toJS(response);
                     self.IsVerified(obj.isSuccess);
@@ -845,6 +851,7 @@ function CustomerModel(obj) {
                 async: false,
                 data: ko.toJSON(objCustomer),
                 contentType: "application/json",
+                dataType: 'json',
                 success: function (response) {
                     self.IsVerified(false);
                     self.NoOfAttempts(response.noOfAttempts);

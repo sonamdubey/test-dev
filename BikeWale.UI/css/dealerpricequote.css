@@ -26,8 +26,10 @@
 .offerIcon_4 { height:26px; background-position:0 -257px; }
 .offerIcon_5, .benifitIcon_5, .offerIcon_7  { height:30px; background-position:0 -217px; }
 .offerIcon_6 { height:21px; background-position:0 -110px; }
-.pricequote-benefits-list { overflow:hidden; }
-.pricequote-benefits-list li { width:205px; padding-right:10px; margin-top:10px; margin-bottom:10px; display:inline-block; vertical-align:middle;}
+.pricequote-offers-list,.pricequote-benefits-list { overflow:hidden; }
+.pricequote-offers-list li,.pricequote-benefits-list li { width:205px; padding-right:10px; margin-top:10px; margin-bottom:10px; display:inline-block; vertical-align:middle;}
+.pricequote-offers-list.pricequote-two-benefits li, .pricequote-benefits-list.pricequote-two-benefits li { width:310px; }
+.pricequote-two-benefits .pq-benefits-title{width:255px;}
 .pq-benefits-title { width: 140px; }
 .buying-assistance-form .form-control-box { width:160px; float:left; }
 .buying-assistance-form .form-control { border-radius:2px; }
@@ -107,3 +109,4 @@ a.text-darker-black:hover { text-decoration:none; }
 .dealership-loc-icon { width:8px; height:12px; background-position:-53px -469px; position:relative;top:4px; }
 .dealership-address { width:92%; }
 .vertical-top { display:inline-block;vertical-align:top; }
+.disclaimer {list-style-type: disc; padding-left:20px;}

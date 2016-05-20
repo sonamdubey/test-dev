@@ -171,6 +171,7 @@
                 $.ajax({
                     type: "GET",
                     url: "/api/v2/PQCityList/?modelId=" + self.SelectedModelId(),
+                    dataType: 'json',
                     beforeSend: function (xhr) {
                         startLoading($("#citySelection"));
                         $("#popupContent").show();
@@ -190,8 +191,9 @@
                         }
                     },
                     success: function (response) {
-                        lscache.set(modelCityKey, response.cities, 60);
-                        var cities = ko.toJS(response.cities);
+                        var _gZippedCitiesParse = ko.toJS(response);
+                        lscache.set(modelCityKey, _gZippedCitiesParse.cities, 60);
+                        var cities = ko.toJS(_gZippedCitiesParse.cities);
                         var citySelected = null;
                         if (cities) {
                             self.BookingCities(cities);
@@ -236,6 +238,7 @@
                     $.ajax({
                         type: "GET",
                         url: "/api/v2/PQAreaList/?modelId=" + self.SelectedModelId() + "&cityId=" + self.SelectedCity().id,
+                        dataType: 'json',
                         beforeSend: function (xhr) {
                             startLoading($("#areaSelection"));
                             $("#areaSelection div.selected-area").text("Loading areas..").next().show();
@@ -254,8 +257,9 @@
                             }
                         },
                         success: function (response) {
-                            lscache.set(cityAreaKey, response.areas, 60);
-                            var areas = ko.toJS(response.areas);
+                            var gArea = ko.toJS(response.areas);
+                            lscache.set(cityAreaKey, gArea, 60);
+                            var areas = ko.toJS(gArea);
                             var areaSelected = null;
                             if (areas) {
                                 self.BookingAreas(areas);
@@ -369,7 +373,7 @@
                         'CityId': self.SelectedCityId(),
                         'AreaId': self.SelectedAreaId(),
                         'ModelId': (self.SelectedModelId() != undefined) ? self.SelectedModelId() : selectedModel,
-                        'ClientIP': '',
+                        'ClientIP': '<%= ClientIP %>',
                         'SourceType': '2',
                         'VersionId': 0,
                         'pQLeadId': PQSourceId,
@@ -401,18 +405,25 @@
                             }
 
                             cookieValue = "CityId=" + self.SelectedCityId() + "&AreaId=" + (!isNaN(self.SelectedAreaId()) ? self.SelectedAreaId() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
-
-                            if (jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
+                           
+                            if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                                 gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
-                                window.location = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
+                                window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
                             }
-                            else if (jsonObj.quoteId > 0) {
+
+                            else if (jsonObj != undefined && jsonObj.dealerId == 0 && jsonObj.isDealerAvailable && jsonObj.quoteId > 0) {
+                                gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                                window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
+                            }
+                            else if (jsonObj != undefined && jsonObj.dealerId == 0 && jsonObj.quoteId > 0 && !jsonObj.isDealerAvailable) {
                                 gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
-                                window.location = "/m/pricequote/quotation.aspx?MPQ=" + Base64.encode(cookieValue);
-                            } else {
+                                window.location = "/m/pricequote/quotation.aspx" + "?MPQ=" + Base64.encode(cookieValue);
+                            }
+                            else {
                                 gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                                 $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
                             }
+
                             //window.history.back();
                         },
                         complete: function (e) {

@@ -33,7 +33,7 @@
         }
         var clientIP = "<%= clientIP%>";
         var pageUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.BwHostUrl %>" + "/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;       
-
+        ga_pg_id = "7";
     </script>
     <style type="text/css">
         
@@ -66,6 +66,8 @@
 
             <!--Price Breakup starts here-->
             <div class="margin-top15 padding-left10 padding-right10">
+                <%if (isPriceAvailable)
+                  { %>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
                     <asp:Repeater ID="rptPriceList" runat="server">
                         <ItemTemplate>
@@ -110,16 +112,53 @@
                         else
                         {%>
                     <tr>
-                        <td align="left" class="text-dark-black padding-bottom15">Total On Road Price</td>
-                        <td align="right" class="text-dark-black padding-bottom15">
+                        <td align="left" class="text-dark-black padding-bottom5">Total On Road Price</td>
+                        <td align="right" class="text-dark-black padding-bottom5">
                             <div><span class="bwmsprite inr-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(totalPrice.ToString()) %></div>
 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="right" class="text-light-grey padding-bottom15">
+                           <a id='getMoreDetails' leadSourceId="23" class="get-offer-link bw-ga" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" >Get more details</a>
                         </td>
                     </tr>
                     <%
                         }
                     %>
                 </table>
+                 <%} else if (objExQuotation != null && objExQuotation.ExShowroomPrice > 0)
+                   {%>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
+                    <tr>
+                        <td class="text-light-grey padding-bottom15" width="75%" align="left">Ex-Showroom Price</td>
+                        <td class="padding-bottom15" width="25%" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.ExShowroomPrice.ToString()) %></td>
+                    </tr>
+                    <tr>
+                        <td class="text-light-grey padding-bottom15" align="left">RTO</td>
+                        <td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.RTO.ToString()) %></td>
+                    </tr>
+                    <tr>
+                        <td class="text-light-grey padding-bottom15" align="left">Insurance (<a target="_blank" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objExQuotation!=null)?(objExQuotation.MakeName + "_" + objExQuotation.ModelName + "_" + objExQuotation.VersionName + "_" + objExQuotation.City):string.Empty %>' });" href="/m/insurance/" style="display: inline-block; position: relative; font-size: 11px; margin-top: 1px;">
+                                Up to 60% off - PolicyBoss                                
+                        </a>)<span style="margin-left: 5px; vertical-align: super; font-size: 9px;">Ad</span>
+                        </td>
+                        <td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objExQuotation.Insurance.ToString()) %></td>
+                    </tr>
+                    
+                    <tr align="left">
+                        <td height="1" colspan="2" class="break-line padding-bottom10"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-dark-black padding-bottom15" align="left">On-road price</td>
+                        <td class="text-dark-black padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objExQuotation.OnRoadPrice.ToString()) %></td>
+                    </tr>
+                </table>
+                <%}
+                 else
+                   {%>
+                <div class="margin-top-10 padding5" style="background: #fef5e6;">Price for this bike is not available in this city.</div>
+                <%} %>
             </div>
             <!--Price Breakup ends here-->
 
@@ -266,7 +305,7 @@
                     <asp:Repeater ID="rptSecondaryDealers" runat="server">
                         <ItemTemplate>
                             <li>
-                                <a href="#" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="secondary-dealer font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a><br />
+                                <a href="javascript:void(0)" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="secondary-dealer font18 text-darker-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a><br />
                                 <p class="font14 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></p>
                             </li>
                         </ItemTemplate>
@@ -281,12 +320,17 @@
                 <%if (!string.IsNullOrEmpty(maskingNum))
                   { %>
                 <div class="grid-6 alpha omega padding-right5">
-                    <a id="calldealer" class="btn btn-grey-state btn-full-width btn-sm rightfloat" href="tel:<%= maskingNum %>"><span class="bwmsprite tel-grey-icon margin-right5"></span>Call dealer</a>
+                    <input type="button" data-role="none" id="leadBtnBookNow" leadSourceId="17" name="leadBtnBookNow" class="btn btn-sm btn-full-width btn-white" value="Get offers" />
+                </div>
+                <%}
+
+                    if (isPrimaryDealer){ %>
+
+                <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega padding-left5" : "" %>">
+                    <a id="calldealer" class="btn btn-sm btn-full-width btn-orange rightfloat" href="tel:<%= maskingNum %>">
+                        <span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                 </div>
                 <%} %>
-                <div class="<%= !string.IsNullOrEmpty(maskingNum) ? "grid-6 omega padding-left5" : "" %>">
-                    <input type="button" data-role="none" id="leadBtnBookNow" leadSourceId="17" name="leadBtnBookNow" class="btn btn-sm btn-full-width btn-orange" value="Get offers" />
-                </div>
             </div>
             <div class="clear"></div>
             <!--Exciting Offers section ends here-->
@@ -559,7 +603,7 @@
             });
 
 
-            var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#btnEmiQuote"), leadCapturePopup = $("#leadCapturePopup");
+            var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#btnEmiQuote,#getMoreDetails"), leadCapturePopup = $("#leadCapturePopup");
             var fullname = $("#getFullName");
             var emailid = $("#getEmailID");
             var mobile = $("#getMobile");
@@ -574,6 +618,7 @@
 
             var getOffersClicked = false;
             var getEMIClicked = false;
+            var getMoreDetailsClicked = false;
 
             var getCityArea = GetGlobalCityArea();
             var customerViewModel = new CustomerModel();
@@ -650,6 +695,7 @@
                             },
                             async: false,
                             contentType: "application/json",
+                            dataType: 'json',
                             success: function (response) {
                                 var obj = ko.toJS(response);
                                 self.IsVerified(obj.isSuccess);
@@ -681,6 +727,7 @@
                             data: ko.toJSON(objCust),
                             async: false,
                             contentType: "application/json",
+                            dataType: 'json',
                             success: function (response) {
                                 var obj = ko.toJS(response);
                                 self.IsVerified(obj.isSuccess);
@@ -708,6 +755,7 @@
                             async: false,
                             data: ko.toJSON(objCustomer),
                             contentType: "application/json",
+                            dataType: 'json',
                             success: function (response) {
                                 self.IsVerified(false);
                                 self.NoOfAttempts(response.noOfAttempts);
@@ -727,7 +775,6 @@
                             $("#contactDetailsPopup").hide();
                             $("#otpPopup").hide();
                             $("#dealer-assist-msg").show();
-
                             if (getOffersClicked) {
                                 dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
                                 getOffersClicked = false;
@@ -736,6 +783,10 @@
                             else if (getEMIClicked) {
                                 dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_EMI_Quote_" + bikeName + "_" + versionName + "_" + getCityArea });
                                 getEMIClicked = false;
+                            }
+                            else if (getMoreDetailsClicked) {
+                                triggerGA('Dealer_PQ', 'Lead_Submitted', 'Get_more_details_' + GetBikeVerLoc());
+                                getMoreDetailsClicked = false;
                             }
                         }
                         else {
@@ -749,27 +800,25 @@
                             otpText.val('').removeClass("border-red").siblings("span, div").hide();
                         }
                         setPQUserCookie();
-
-                       
                     }
-
                 };
 
                 otpBtn.click(function () {
                     $('#processing').show();
                     if (!validateOTP())
                         $('#processing').hide();
-
                     if (validateOTP() && ValidateUserDetail()) {
                         customerViewModel.generateOTP();
                         if (customerViewModel.IsVerified()) {
                             $(".booking-dealer-details").removeClass("hide").addClass("show");
                             $('#processing').hide();
-
                             detailsSubmitBtn.show();
                             otpText.val('');
                             otpContainer.removeClass("show").addClass("hide");
-                            dataLayer.push({ "event": "Bikewale_all", "cat": "DealerQuotation_Page", "act": "Step_1_OTP_Successful_Submit", "lab": getCityArea });
+                            if (getMoreDetailsClicked) {
+                                triggerGA('Dealer_PQ', 'Lead_Submitted', 'Get_more_details_' + GetBikeVerLoc());
+                                getMoreDetailsClicked = false;
+                            }
                             $("#contactDetailsPopup").hide();
                             $("#otpPopup").hide();
                             $("#dealer-assist-msg").show();
@@ -777,7 +826,6 @@
                         else {
                             $('#processing').hide();
                             otpVal("Please enter a valid OTP.");
-                            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
                         }
                     }
                 });
@@ -790,8 +838,6 @@
                 isValid &= validateName();
                 return isValid;
             };
-
-
             function validateName() {
                 var isValid = true;
                 var a = fullname.val().length;
@@ -867,8 +913,6 @@
                 mobile.removeClass("border-red");
                 mobile.siblings("span, div").hide();
             };
-
-
             otpText.on("focus", function () {
                 otpText.val('');
                 otpText.siblings("span, div").hide();
@@ -925,7 +969,6 @@
                 otpText.siblings("div").text(msg);
             };
 
-
             function validateOTP() {
                 var retVal = true;
                 var isNumber = /^[0-9]{5}$/;
@@ -955,7 +998,6 @@
                     return arr;
                 }
             }
-
             function setPQUserCookie() {
                 var val = fullname.val() + '&' + emailid.val() + '&' + mobile.val();
                 SetCookie("_PQUser", val);
@@ -994,9 +1036,7 @@
                     hideError(mobileNo)
                 return isValid;
             };
-            $('#bookNowBtn').on('click', function (e) {
-                window.location.href = "/m/pricequote/bookingSummary_new.aspx";
-            });
+
             ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
             // GA Tags
             $("#leadBtnBookNow").on("click", function () {
@@ -1006,8 +1046,6 @@
             $("#leadLink").on("click", function () {
                 dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Link", "lab": bikeName + "_" + getCityArea });
             });
-            ga_pg_id = "7";
-
             $('.tnc').on('click', function (e) {
                 LoadTerms($(this).attr("id"));
             });
@@ -1194,7 +1232,9 @@
             ko.applyBindings(EMIviewModel, $("#emiPopup")[0]);
 
             <% } %>
-
+            function GetBikeVerLoc() {
+                return bikeName + "_" + versionName + "_" + getCityArea;
+            }
         </script>
 
     </form>

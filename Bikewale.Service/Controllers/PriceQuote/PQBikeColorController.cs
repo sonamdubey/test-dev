@@ -1,12 +1,7 @@
 ﻿using Bikewale.DTO.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -16,8 +11,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// Price Quote Bike Color Controller
     /// Author  :   Sumit Kate
     /// Created On  : 21 Aug 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class PQBikeColorController : ApiController
+    public class PQBikeColorController : Bikewale.Service.Utilities.CompressionApiController//ApiController
     {
         private readonly IDealerPriceQuote _objDealer = null;
         public PQBikeColorController(IDealerPriceQuote objDealer)

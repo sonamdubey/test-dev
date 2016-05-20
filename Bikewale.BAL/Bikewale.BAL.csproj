@@ -48,6 +48,12 @@
     <Reference Include="Carwale.Interfaces">
       <HintPath>..\Libs\Carwale.Interfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\Libs\grpc\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Core">
+      <HintPath>..\Libs\grpc\Grpc.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
@@ -64,9 +70,13 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Interactive.Async">
+      <HintPath>..\Libs\grpc\System.Interactive.Async.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -74,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABServiceRef\TCApi_Inquiry.cs" />
     <Compile Include="AppDeepLinking\DeepLinking.cs" />
     <Compile Include="AutoComplete\AutoSuggest.cs" />
     <Compile Include="BikeBooking\AbstractBikeBooking.cs" />
@@ -93,10 +104,17 @@
     <Compile Include="Customer\CustomerAuthentication.cs" />
     <Compile Include="Customer\RegisterCustomer.cs" />
     <Compile Include="Dealer\Dealer.cs" />
+    <Compile Include="EditCMS\Articles.cs" />
     <Compile Include="Feedback\Feedback.cs" />
+    <Compile Include="GrpcFiles\Article.cs" />
+    <Compile Include="GrpcFiles\ArticleGrpc.cs" />
+    <Compile Include="GrpcFiles\CustomGRPCLoadBalancer.cs" />
+    <Compile Include="GrpcFiles\GrpcMethods.cs" />
+    <Compile Include="GrpcFiles\GrpcToBikeWaleConvert.cs" />
     <Compile Include="MobileVerification\MobileVerification.cs" />
     <Compile Include="Pager\Pager.cs" />
     <Compile Include="PriceQuote\DealerPriceQuoteDetail.cs" />
+    <Compile Include="PriceQuote\LeadNotificationBL.cs" />
     <Compile Include="PriceQuote\PQByCityArea.cs" />
     <Compile Include="PriceQuote\PriceQuote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

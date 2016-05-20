@@ -1,6 +1,7 @@
 ﻿using Bikewale.Common;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Memcache;
 using Bikewale.Notifications.CoreDAL;
@@ -30,6 +31,7 @@ namespace Bikewale.New
         private uint cityId;
         private string makeMaskingName = string.Empty;
         protected bool cityDetected = false;
+        protected Bikewale.Controls.NewBikeLaunches ctrl_NewBikeLaunches;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -56,7 +58,7 @@ namespace Bikewale.New
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
+            ctrl_NewBikeLaunches.PQSourceId = (int)PQSourceEnum.Desktop_LocateDealer_NewLaunches;
             ushort _makeId = 0;
 
             if (ProcessQS() && ushort.TryParse(makeId, out _makeId))
@@ -99,7 +101,7 @@ namespace Bikewale.New
                         var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (_city != null)
                         {
-                            string _redirectUrl = String.Format("/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, _city.CityMaskingName);
+                            string _redirectUrl = String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName, _city.CityMaskingName);
                             Response.Redirect(_redirectUrl, false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;

@@ -158,11 +158,15 @@ namespace Bikewale.Notifications
 
         /// <summary>
         /// Method to update the database with the details of the SMS data sent.
+        /// Modified By : Ashish G. Kamble on 6 May 2016
+        /// Modified : Added exception handling. BW connection string retrived using configuration class
         /// </summary>
         /// <param name="currentId">Id for which the sms was just sent</param>
         /// <param name="retMsg">The return message from the provider that is received after the SMS is sent</param>
         private void UpdateSMSSentData(string currentId, string retMsg)
         {
+            SqlConnection con = null;
+
             if (!String.IsNullOrEmpty(currentId))
             {
                 string sql = "update smssent set returnedmsg = @retmsg where id = @currentid";
@@ -176,13 +180,17 @@ namespace Bikewale.Notifications
                             cmd.ExecuteNonQuery();
                         }
                 }
-                catch (SqlException)
+                catch (Exception err)
                 {
-
+                    ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
+                    objErr.SendMail();
                 }
-                catch (Exception)
+                finally
                 {
-
+                    if (con != null && con.State == ConnectionState.Open)
+                    {
+                        con.Close();
+                    }
                 }
             }
         }

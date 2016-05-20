@@ -86,6 +86,7 @@ var BookingConfigViewModel = function () {
             async: true,
             data: ko.toJSON(objData),
             contentType: "application/json",
+            dataType: 'json',
             success: function (response) {
                 var obj = ko.toJS(response);
                 if (obj.isUpdated) {
@@ -121,6 +122,7 @@ var BookingConfigViewModel = function () {
                     async: true,
                     data: ko.toJSON(objData),
                     contentType: "application/json",
+                    dataType: 'json',
                     success: function (response) {
                         var obj = ko.toJS(response);
                         if (obj.isUpdated) {

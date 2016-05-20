@@ -48,6 +48,10 @@ namespace Bikewale.BikeBooking
         protected Label defaultVariant;
         protected DealerPackageTypes dealerType;
         protected DealerQuotationEntity primarydealer = null;
+        IPriceQuote objPriceQuote = null;
+        protected BikeQuotationEntity objQuotation = null;
+        protected IEnumerable<PQ_Price> primaryPriceList = null;
+        protected bool isSecondaryDealerAvailable = false;
 
 
 
@@ -64,7 +68,7 @@ namespace Bikewale.BikeBooking
         /// Description : Moved process query functionality to new function ProcessQueryString();  
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
-        {            
+        {
             //code for device detection added by Ashwini Todkar
             // Modified By :Ashish Kamble on 5 Feb 2016
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
@@ -111,8 +115,8 @@ namespace Bikewale.BikeBooking
                 SavePriceQuote();
             }
         }
-        #endregion   
-      
+        #endregion
+
 
         #region Dealer PriceQuote Details Binding
         /// <summary>
@@ -157,22 +161,22 @@ namespace Bikewale.BikeBooking
                         if (detailedDealer.PrimaryDealer != null)
                         {
                             primarydealer = detailedDealer.PrimaryDealer;
-                            IEnumerable<PQ_Price> priceList = primarydealer.PriceList;
+                            primaryPriceList = primarydealer.PriceList;
                             IEnumerable<OfferEntityBase> offerList = primarydealer.OfferList;
-                            if (priceList != null && priceList.Count() > 0)
+                            if (primaryPriceList != null && primaryPriceList.Count() > 0)
                             {
-                                rptPriceList.DataSource = priceList;
+                                rptPriceList.DataSource = primaryPriceList;
                                 rptPriceList.DataBind();
-                                foreach (var price in priceList)
+                                foreach (var price in primaryPriceList)
                                 {
                                     totalPrice += price.Price;
                                 }
                             }
                             else
                             {
-                                Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId), "")), false);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                this.Page.Visible = false;
+                                container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+                                objPriceQuote = container.Resolve<IPriceQuote>();
+                                objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(pqId));
                             }
 
 
@@ -207,6 +211,7 @@ namespace Bikewale.BikeBooking
                             //bind secondary Dealer
                             if (detailedDealer.SecondaryDealerCount > 0)
                             {
+                                isSecondaryDealerAvailable = true;
                                 rptDealers.DataSource = detailedDealer.SecondaryDealers;
                                 rptDealers.DataBind();
                             }
@@ -259,6 +264,16 @@ namespace Bikewale.BikeBooking
                 Trace.Warn("SetDealerPriceQuoteDetail Ex: ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
+            }
+
+            finally
+            {
+                if (dealerId == 0 && !isSecondaryDealerAvailable && pqId > 0)
+                {
+                    Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
         #endregion
@@ -313,7 +328,7 @@ namespace Bikewale.BikeBooking
                         rptVersion.DataSource = versionList;
                         rptVersion.DataBind();
                         var defVar = versionList.Find(x => x.VersionId == versionId);
-                        if(defVar!=null)
+                        if (defVar != null)
                             defaultVariant.Text = defVar.VersionName;
                     }
 
@@ -347,6 +362,8 @@ namespace Bikewale.BikeBooking
         /// <summary>
         /// Modified By : Sushil Kumar on 18th March 2016
         /// Description : Changed finally section from code as no check was made for objPQOutput == null
+        /// Modified By : Vivek Gupta on 29-04-2016
+        /// Desc : In case of dealerId=0 and isDealerAvailable = true , while redirecting to pricequotes ,don't redirect to BW PQ redirect to dpq
         /// </summary>
         protected void SavePriceQuote()
         {
@@ -384,21 +401,32 @@ namespace Bikewale.BikeBooking
             }
             finally
             {
-                if (objPQOutput != null)
+                if (objPQOutput != null && objPQOutput.PQId > 0)
                 {
-                    if (objPQOutput.PQId > 0 && objPQOutput.DealerId > 0)
+                    if (objPQOutput.DealerId > 0)
                     {
+                        // Save pq cookie
+                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());                          
                         Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(dealerId))), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-                    else if (objPQOutput.PQId > 0)
+
+                    else if (objPQOutput.DealerId == 0 && objPQOutput.IsDealerAvailable)
                     {
-                        Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "")), false);
+                        // Save pq cookie
+                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());                        
+                        Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(dealerId))), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-
+                    else if (objPQOutput.DealerId == 0 && !objPQOutput.IsDealerAvailable)
+                    {
+                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), "");                        
+                        Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(dealerId))), false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                 }
                 else
                 {
@@ -461,7 +489,8 @@ namespace Bikewale.BikeBooking
         {
             try
             {
-                if (PriceQuoteQueryString.IsPQQueryStringExists() && UInt32.TryParse(PriceQuoteQueryString.PQId, out pqId) && UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId))
+                UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId);
+                if (PriceQuoteQueryString.IsPQQueryStringExists() && UInt32.TryParse(PriceQuoteQueryString.PQId, out pqId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId))
                 {
                     UInt32.TryParse(PriceQuoteQueryString.CityId, out cityId);
                     UInt32.TryParse(PriceQuoteQueryString.AreaId, out areaId);

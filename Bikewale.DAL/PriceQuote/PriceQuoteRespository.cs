@@ -331,7 +331,9 @@ namespace Bikewale.DAL.PriceQuote
         /// Author          :   Sumit Kate
         /// Created date    :   08 Jan 2016
         /// Description     :   Gets the Areaid, cityid, dealerid, bikeversionid by pqid
-        /// This is required to form the PQ Query string
+        ///                     This is required to form the PQ Query string
+        /// Modified by     :   Sumit Kate on 02 May 2016
+        /// Description     :   Return the Campaign Id
         /// </summary>
         /// <param name="pqId"></param>
         /// <returns></returns>
@@ -342,7 +344,7 @@ namespace Bikewale.DAL.PriceQuote
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getpricequotedata";
+                        cmd.CommandText = "GetPriceQuoteData_02052016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     //cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
@@ -356,6 +358,7 @@ namespace Bikewale.DAL.PriceQuote
                             objQuotation.CityId = !Convert.IsDBNull(dr["cityid"]) ? Convert.ToUInt32(dr["cityid"]) : default(UInt32);
                             objQuotation.VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32);
                             objQuotation.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
+                                objQuotation.CampaignId = !Convert.IsDBNull(dr["CampaignId"]) ? Convert.ToUInt32(dr["CampaignId"]) : default(UInt32);
                         }
                     }
 

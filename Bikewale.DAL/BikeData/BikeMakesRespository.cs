@@ -65,6 +65,8 @@ namespace Bikewale.DAL.BikeData
                                     PopularityIndex = Convert.IsDBNull(dr["PopularityIndex"]) ? default(UInt16) : Convert.ToUInt16(dr["PopularityIndex"])
                                 });
                             }
+
+                            dr.Close();
                         }
                     }
                 }
@@ -249,6 +251,8 @@ namespace Bikewale.DAL.BikeData
                                 SmallDescription = Convert.ToString(dr["Description"]),
                                 FullDescription = Convert.ToString(dr["Description"])
                             };
+
+                            dr.Close();
                         }
                     }
                 }

@@ -14,6 +14,25 @@ function triggerGA(cat, act, lab) {
     catch (e) {// log error   
     }
 }
+
+$('.bw-ga').click(function () {
+    try {
+        var obj = $(this);
+        if (obj.attr('l') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+        }
+        else if (obj.attr('v') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+        }
+        else if (obj.attr('f') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f")+'()'));
+        }
+    }
+    catch (e) {
+    }
+});
+
+
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
         var len = this.length >>> 0;
@@ -77,6 +96,13 @@ function GetCatForNav() {
             case "13":
                 ret_category = "Expert_Reviews_Detail";
                 break;
+            case "14":
+                ret_category = "BookingSummary_New";
+                break;
+            case "39":
+                ret_category = "BookingListing";
+                break;
+            
         }
     }
     return ret_category;
@@ -274,11 +300,11 @@ $(document).ready(function () {
             var city = new Object();
             city.cityId = ui.item.payload.cityId;
             city.maskingName = ui.item.payload.cityMaskingName;
-            var CookieValue = city.cityId + "_" + ui.item.label, oneYear = 365;
+            var cityName = ui.item.label.split(',')[0];
+            var CookieValue = city.cityId + "_" + cityName, oneYear = 365;
             SetCookieInDays("location", CookieValue, oneYear);
             CloseCityPopUp();
-            showGlobalCity(ui.item.label);
-            var cityName = $(".cityName").html();
+            showGlobalCity(ui.item.label);            
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
         },
         open: function (result) {
@@ -439,7 +465,7 @@ $(document).ready(function () {
         var slideCount = function (swiper) {
             try {
                 imgTotalCount = swiper.slides.length;
-                $(document).find('.bike-model-gallery-count').text(swiper.activeIndex + 1 + "/" + imgTotalCount.toString());
+                $(document).find('.bike-model-gallery-count').text(swiper.activeIndex + 1 + " of " + imgTotalCount.toString());
             } catch (e) { }
         };
 
@@ -476,6 +502,16 @@ $(document).ready(function () {
                 $(this).parent().find('.swiper-lazy-preloader').remove();
         });
 
+        if ($('#bikeBannerImageCarousel')[0] != undefined) {
+            var bikeModelSwiper = $('#bikeBannerImageCarousel')[0].swiper;
+
+            var currentMainStageActiveImage;        
+            bikeModelSwiper.on('slideChangeStart', function () {
+                currentMainStageActiveImage = $('#bikeBannerImageCarousel .stage').find(".swiper-slide.swiper-slide-active img");
+                $('#bikeBannerImageCarousel').css({ 'height': currentMainStageActiveImage.height() });
+            });
+        }
+        
     });
     // common autocomplete data call function
     function dataListDisplay(availableTags, request, response) {
@@ -1131,10 +1167,21 @@ $.fn.shake = function (options) {
 $(function () {
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
     var appbanner = getCookie("AppBanner");
+    // Add the page ids of all the pages which need not show app banner ads
+    var hideBannerPages = ['7','14'];
+    
+    if (ga_pg_id == 2 ) {
+        if (typeof isDealerPQ !== 'undefined') {
+            if (isDealerPQ === 'False') {
+                appbanner = "true";
+            } else { appbanner = "false"; }
+        }
+    } else if (hideBannerPages.indexOf(ga_pg_id) > -1) { appbanner = "false"; }
+
     if ((appbanner == null || appbanner == "true") && !isSafari) {
         $("#appBanner").slideDown();
         SetCookie("AppBanner", true);
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
+        dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
     }
 });
 

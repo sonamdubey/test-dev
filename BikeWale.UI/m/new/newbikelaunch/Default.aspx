@@ -10,6 +10,8 @@
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     AdId = "1398766302464";
     menu = "5";
+    Ad_320x50 = true;
+    Ad_Bot_320x50 = true;
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <div class="padding5">

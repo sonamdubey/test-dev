@@ -68,7 +68,7 @@
                                         <li>
                                             <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>-bikes/">
                                                 <span class="brand-type">
-                                                    <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                                    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>"></span>
                                                 </span>
                                                 <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() %></span>
                                             </a>
@@ -83,14 +83,12 @@
                                 <asp:Repeater ID="rptOtherBrands" runat="server">
                                     <ItemTemplate>
                                         <li>
-
                                             <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>-bikes/">
                                                 <span class="brand-type">
-                                                    <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>" data-original="http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                                    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName").ToString() %>"></span>
                                                 </span>
                                                 <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName").ToString() %></span>
                                             </a>
-
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>

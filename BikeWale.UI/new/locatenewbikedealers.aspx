@@ -141,7 +141,7 @@
                     if (!isNaN(ddlmakeId) && ddlmakeId != "0") {
                         if (!isNaN(ddlcityId) && ddlcityId != "0") {
                             ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
-                            window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                            window.location.href = "/" + ddlmakemasking + "-bikes/dealers-in-" + ddlcityMasking + "/";
                         }
                         else {
                             toggleErrorMsg($ddlCities, true, "Choose a city");
@@ -162,6 +162,7 @@
                                 type: "GET",
                                 url: "/api/v2/DealerCity/?makeId=" + selMakeId,
                                 contentType: "application/json",
+                                dataType: 'json',
                                 success: function (data) {
                                     lscache.set(key + selMakeId, data.City, 30);
                                     setOptions(data.City);

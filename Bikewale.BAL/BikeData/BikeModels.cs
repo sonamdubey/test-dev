@@ -1,19 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.BAL.EditCMS;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using System.Collections;
 using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
-using System.Configuration;
+using Bikewale.Entities.UserReviews;
+using Bikewale.Entities.Videos;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using Bikewale.Interfaces.Pager;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Threading.Tasks;
+using System.Web;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -27,6 +32,8 @@ namespace Bikewale.BAL.BikeData
     {
         private readonly IBikeModelsRepository<T, U> modelRepository = null;
         private readonly IPager _objPager = null;
+        private readonly IUserReviews _userReviewsRepo = null;
+        private readonly IArticles _articles = null;
 
         public BikeModels()
         {
@@ -34,9 +41,13 @@ namespace Bikewale.BAL.BikeData
             {
                 container.RegisterType<IBikeModelsRepository<T, U>, BikeModelsRepository<T, U>>();
                 container.RegisterType<IPager, BAL.Pager.Pager>();
+                container.RegisterType<IArticles, Articles>();
+                container.RegisterType<IUserReviews, Bikewale.BAL.UserReviews.UserReviews>();
 
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
+                _articles = container.Resolve<IArticles>();
+                _userReviewsRepo = container.Resolve<IUserReviews>();
             }
         }
 
@@ -992,5 +1003,46 @@ namespace Bikewale.BAL.BikeData
 
             return objNewLaunchedBikeList;
         }
+
+        public BikeModelContent GetRecentModelArticles(U modelId)
+        {
+            BikeModelContent objModelArticles = new BikeModelContent();
+            IEnumerable<ReviewEntity> objReview = null;
+            IEnumerable<ArticleSummary> objRecentNews = null;
+            IEnumerable<ArticleSummary> objExpertReview = null;
+            IEnumerable<BikeVideoEntity> objVideos = null;
+            uint recCount = 0;
+            string _apiVideoUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", modelId, 1, 2);
+
+            try
+            {
+                //creating tasks to call them asynchronously
+                var reviewTask = Task.Factory.StartNew(() => objReview = _userReviewsRepo.GetBikeReviewsList(1, 2, Convert.ToUInt32(modelId), 0, FilterBy.MostRecent, out recCount));
+                var newsTask = Task.Factory.StartNew(() => objRecentNews = _articles.GetRecentNews(0, Convert.ToInt32(modelId), 2));
+                var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _articles.GetRecentExpertReviews(0, Convert.ToInt32(modelId), 2));
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    var videosTask = Task.Factory.StartNew(() => objVideos = objClient.GetApiResponseSync<IEnumerable<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiVideoUrl, objVideos));
+                    Task.WaitAll(reviewTask, newsTask, expReviewTask, videosTask); //calling tasks asynchronously, this will wait untill all tasks are completed
+                }
+
+                objModelArticles.ReviewDetails = objReview;
+                objModelArticles.News = objRecentNews;
+                objModelArticles.ExpertReviews = objExpertReview;
+                objModelArticles.Videos = objVideos;
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objModelArticles;
+        }
+
+
+
     }   // Class
 }   // namespace

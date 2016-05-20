@@ -109,7 +109,6 @@
             </div>
             <span id="spn" class="error"></span>
         </div>
-        <p class="margin-top15">* This bike has been discontinued and is no longer available for sale in India. We are providing this data for research purpose only.</p>
         <div class="margin-top15">
             <div class="grey-bg content-block">
                 <uc:BrowseUserReviews ID="ucUserReviews" runat="server" />

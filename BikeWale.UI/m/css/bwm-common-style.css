@@ -434,8 +434,8 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .swiper-container .swiper-slide:hover .back-circle-icon { background-position: -150px -291px; }
 
 /* Brand Sprite */
-.brandlogosprite { display: inline-block; }
-.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royalenfield, .brand-motoguzzi, .brand-harleydavidson, .brand-heroelectric, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-mv-agusta, .brand-um { height:30px; }
+.brandlogosprite { background:url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?v=19May2016') no-repeat; display: inline-block; }
+.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royalenfield, .brand-motoguzzi, .brand-harleydavidson, .brand-heroelectric, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-mv-agusta, .brand-um, .brand-eider { height:30px; }
 
 .brand-aprilia { width: 52px; background-position: 0 0; }
 .brand-honda { width: 34px; background-position: -58px 0; }
@@ -462,6 +462,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .brand-royalenfield { width: 74px; background-position: -1354px 0;  }
 .brand-mv-agusta { width: 40px; background-position: -1432px 0; }
 .brand-um { width: 38px; background-position: -1481px 0; }
+.brand-eider { width:38px; background-position:-1529px 0; }
 /* common properties */
 .leftfloat{float:left;}
 .rightfloat{float:right;}
@@ -767,3 +768,5 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .star-one-icon { width:20px; height:20px; display:inline-block; vertical-align:top; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAATlBMVEUAAAD/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gEQx+PJAAAAGXRSTlMAFRAf7cy9fHJB5yL1wp1XRzQI5aWgZGMmBPUZEAAAAH1JREFUGNN9zNsSwiAMRdGEUAqld6/n/3/UjKjBobqfwpoz0P/u+QBjPMAQWnOAa3ABlgbPwMVektk5xx7wzyOLYhrw1ZBI41BbYCr1Zv2Lqi9OyUy3trO6gl1touA9AKkw6khE57HCCfNOtM+YzHi8leM68gfX7X1tK/3qARbaCZMv/AncAAAAAElFTkSuQmCC'); }
 .star-half-icon { width:20px; height:20px; display:inline-block; vertical-align:top; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAflBMVEUAAADMzMz/0gHMzMz/0gHMzMz/0gHMzMz/0gHMzMz/0gHMzMz/0gHMzMz/0gH/0gHMzMz/0gHMzMz/0gHMzMzMzMz/0gH/0gH/0gHMzMz/0gHMzMzMzMz/0gH/0gH/0gHMzMz/0gHMzMzMzMzMzMzMzMzMzMz/0gHMzMz/0gFX+3coAAAAKHRSTlMAEREgIPj47e3n583Nvr6hf31ycl5HQiIYxcOlm2RVSEE0MigZGAgIXgJX3AAAAItJREFUGNN90NkSgyAMQNEouLRuXbTafW+T///BwsRKZlDvE5wJPATma58juN2MYFn4FsZR4OGFsPawIjy6m25DW0qYBDalDO6WxCG3aMDUlRKLN3Brh6ue/l/YpzdnPMtzopwxk6aNpYlRJZdBlGuVIcqlHKj6AnxOuHfWxWc+1NFrwOsd+h4NTPUDYuAPs+QbA3EAAAAASUVORK5CYII='); }
 .star-zero-icon { width:20px; height:20px; display:inline-block; vertical-align:top; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAASFBMVEUAAADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMwqgb9tAAAAF3RSTlMAER/258y9oHxxQSIX7ezCY1dHCDQzKCqVHdMAAAB6SURBVBjTfcxXEsIwDEVRucQ9HXj73ykCD8gZJ7lf8hlZdF9+nWCMJ+hcb8oY1eEKrB16wMtLZ/VpBMbvkDVjsjhkE3HFteYK1YJYkLvJylcpyJ40VBxa0wzTBEA3GHkpa16PDc7wO9HuMYsVs9RhMeWP2+M3PTe66g1paAjabbO70gAAAABJRU5ErkJggg=='); }
+
+.globalCity-autocomplete.ui-menu .ui-menu-item a { width:99%; }

@@ -1,11 +1,5 @@
-﻿using Bikewale.DTO.Make;
-using Bikewale.DTO.Model;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.Version
 {
@@ -41,13 +35,5 @@ namespace Bikewale.DTO.Version
 
         [JsonProperty("originalImagePath")]
         public string OriginalImagePath { get; set; }
-
-        [JsonProperty("makeDetails")]
-        public MakeBase MakeBase { get; set; }
-
-        [JsonProperty("modelDetails")]
-        public ModelBase ModelBase { get; set; }
-
-
     }
 }

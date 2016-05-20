@@ -6,11 +6,11 @@
     <%
         isAd970x90Shown = false;
 
-        keywords = String.Format("{0} dealers city, Make showrooms  {1}, {1} bike dealers, {0} dealers, {1} bike showrooms, bike dealers, bike showrooms, dealerships", makeName, cityName);
+        keywords = String.Format("{0} dealers city, {0} showrooms {1}, {1} bike dealers, {0} dealers, {1} bike showrooms, bike dealers, bike showrooms, dealerships", makeName, cityName);
         description = String.Format("{0} bike dealers/showrooms in {1}. Find {0} bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc", makeName, cityName);
         title = String.Format("{0} Dealers in {1} city | {0} New bike Showrooms in {1} - BikeWale", makeName, cityName);
-        canonical = String.Format("http://www.bikewale.com/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, cityMaskingName);
-        alternate = String.Format("http://www.bikewale.com/m/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, cityMaskingName);
+        canonical = String.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);
+        alternate = String.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
         isAd970x90Shown = false;
@@ -104,27 +104,33 @@
                             <ItemTemplate>
                                 <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-item-number="<%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>">
                                     <div class="font14">
-                                        <h2 class="font16 margin-bottom10">
-                                            <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
-                                                <span class="featured-tag text-white text-center font14 margin-bottom5">Featured
-                                                </span>
-                                                <span class="dealer-pointer-arrow"></span>
+                                        <div class="dealer-card">
+                                            <h2 class="font16 margin-bottom10">
+                                                <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
+                                                    <span class="featured-tag text-white text-center font14 margin-bottom5">Featured
+                                                    </span>
+                                                    <span class="dealer-pointer-arrow"></span>
+                                                </div>
+                                                <a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a>
+                                            </h2>
+                                            <p class="text-light-grey margin-bottom5">
+                                                <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                                <span class="vertical-top dealership-address"><%# DataBinder.Eval(Container.DataItem,"Address") %></span>
+                                            </p>
+                                            <%--<p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))? string.Empty:DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>--%>
+
+                                            <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>">
+                                                <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></p>
                                             </div>
-                                            <a href="javascript:void(0)" class="dealer-sidebar-link text-black text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></a>
-                                        </h2>
-                                        <p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>
-
-                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>">
-                                            <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></p>
                                         </div>
-
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>">
                                             <a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey">
                                                 <span class="bwsprite mail-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"Email") %></a>
                                         </div>
 
                                         <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">
-                                            <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" leadSourceId="14" class="btn btn-white-orange margin-top15 get-assistance-btn">Get offers</a>
+                                            <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" leadSourceId="14" 
+                                                pqSourceId="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" class="btn btn-white-orange margin-top15 get-assistance-btn">Get offers from dealer</a>
                                         </div>
                                     </div>
                                 </li>
@@ -146,7 +152,8 @@
                             </p>
                             <div class="padding-bottom20 position-rel" id="dealerPersonalInfo">
                                 <h3 class="font18 text-dark-black margin-bottom10" data-bind="text: name"></h3>
-                                <p class="text-light-grey margin-bottom5" data-bind="visible :address() && address().length > 0,text: address()"></p>
+                                <p><span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                <span class="text-light-grey margin-bottom5 " data-bind="visible :address() && address().length > 0,text: address()"></span></p>
                                 <div class="margin-bottom5">
                                     <span class="font16 text-bold margin-right10" data-bind="visible : mobile() && mobile().length > 0"><span class="bwsprite phone-black-icon"></span><span data-bind="    text: mobile()"></span></span>
                                     <a href="#" class="text-light-grey" data-bind="visible : email() && email().length > 0,attr : { href :'mailto:' + email() }"><span class="bwsprite mail-grey-icon"></span><span data-bind="    text: email()"></span></a>
@@ -204,7 +211,8 @@
                                         <span class="bwsprite error-icon errorIcon"></span>
                                         <div class="bw-blackbg-tooltip errorText"></div>
                                     </div>
-                                    <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" leadSourceId="15" value="Submit" data-bind="event: { click: submitLead }" />
+                                    <input type="button" class="btn btn-orange btn-md" id="submitAssistanceFormBtn" leadSourceId="15" 
+                                        pqSourceId="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_SubmitButton %>" value="Submit" data-bind="event: { click: submitLead }" />
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -384,8 +392,7 @@
             var pageUrl = "<%= pageUrl%>";
             var key = "dealerCities_";
             lscache.setBucket('DLPage');
-            var leadSrcId = eval("<%= (int)(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerLocator_Desktop) %>");
-            var leadSourceId;
+            var leadSourceId, pqSourceId;
             var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
             var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
             var makeName = "<%= makeName%>"; 
@@ -398,7 +405,7 @@
                 if(!isNaN(ddlcityId) && ddlcityId != "0")
                 {
                     ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");   
-                    window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                    window.location.href = "/" + ddlmakemasking + "-bikes/dealers-in-"+ ddlcityMasking + "/";
                 }
                 else{
                     if($ddlCities.find("option").length < 2)
@@ -427,6 +434,7 @@
                             type: "GET",
                             url: "/api/v2/DealerCity/?makeId=" + selMakeId,
                             contentType: "application/json",
+                            dataType: 'json',
                             success: function (data) {
                                 lscache.set(key + selMakeId, data.City, 30);
                                 setOptions(data.City);

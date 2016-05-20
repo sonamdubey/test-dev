@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.PriceQuote.Quotation" Trace="false" Debug="false" %>
 <%@ Register TagPrefix="uc" TagName="UserReviewsMin" Src="~/controls/UserReviewsMin.ascx" %>
-<%@ Register TagPrefix="LD" TagName="LocateDealer" Src="/controls/locatedealer.ascx" %>
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
+
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
@@ -185,7 +185,7 @@
                 </div>
                 <div class="grid-4 padding-right20 padding-left15">
                     <%if (objQuotation.CampaignId == 0){ %>
-                    <LD:LocateDealer ID="ucLocateDealer" runat="server" />
+                    <!-- #include file="/ads/Ad300x250.aspx" -->
                     <%}
                       else if ((objQuotation.CampaignId > 0)){ %>
                     <div class="modelGetDetails padding-right20">
@@ -565,6 +565,7 @@
                     },
                     async: false,
                     contentType: "application/json",
+                    dataType: 'json',
                     success: function (response) {
                         //var obj = ko.toJS(response);
                         $("#personalInfo,#otpPopup").hide();

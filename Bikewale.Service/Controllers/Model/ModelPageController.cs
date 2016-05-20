@@ -4,6 +4,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
+using Bikewale.Service.Utilities;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -13,7 +14,11 @@ using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Model
 {
-    public class ModelPageController : ApiController
+    /// <summary>
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// </summary>
+    public class ModelPageController : CompressionApiController//ApiController
     {
         //private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         //private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
@@ -313,13 +318,17 @@ namespace Bikewale.Service.Controllers.Model
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
-
+                            string deviceId = Request.Headers.Contains("platformId") ? Request.Headers.GetValues("platformId").First().ToString() : String.Empty;
                             #region On road pricing for versions
-                            PQOnRoadPrice pqOnRoad = new PQOnRoadPrice();
-                            PQByCityArea getPQ = new PQByCityArea();
-                            PQByCityAreaEntity pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId);
+                            PQOnRoadPrice pqOnRoad; PQByCityArea getPQ;
+                            PQByCityAreaEntity pqEntity = null;
+                            if (!objModelPage.ModelDetails.Futuristic)
+                            {
+                                pqOnRoad = new PQOnRoadPrice();
+                                getPQ = new PQByCityArea();
+                                pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
+                            }
                             objDTOModelPage = ModelMapper.ConvertV3(objModelPage, pqEntity);
-
                             #endregion
                         }
                     }

@@ -596,6 +596,8 @@ namespace Bikewale.DAL.BikeData
 
                                 recordCount = Convert.ToInt32(dr["RecordCount"]);
                             }
+
+                            dr.Close();
                         }
                     }
                 }
@@ -1028,5 +1030,17 @@ namespace Bikewale.DAL.BikeData
             return objList;
         }   //End of GetAllModels Method
         #endregion
+
+
+        /// <summary>
+        /// Author : Vivek Gupta on 9-5-2016
+        /// Desc : this method has not been implemented in dal
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeModelContent GetRecentModelArticles(U modelId)
+        {
+            throw new NotImplementedException();
+        }
     }   // class
 }   // namespace

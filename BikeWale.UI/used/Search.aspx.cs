@@ -103,7 +103,9 @@ namespace Bikewale.Used
 
                 if (!String.IsNullOrEmpty(Request.QueryString["city"]))
                 {
-                    cityId = CitiMapping.GetCityId(Request.QueryString["city"]);
+                    uint cityID;
+                    cityID = CitiMapping.GetCityId(Request.QueryString["city"]);
+                    cityId = cityID.ToString();
                     cityMaskingName = Request.QueryString["city"];
                 }
 

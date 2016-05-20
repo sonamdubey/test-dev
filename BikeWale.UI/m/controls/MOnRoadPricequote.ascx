@@ -91,6 +91,7 @@
         $.ajax({
             type: "GET",
             url: "/api/PQCityList/?modelId=" + modelId,
+            dataType: 'json',
             //data: '{"modelId":"' + modelId + '"}',
             //beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
             success: function (response) {
@@ -197,7 +198,7 @@
                 'CityId': viewModelOnRoad.selectedCity(),
                 'AreaId': viewModelOnRoad.selectedArea(),
                 'ModelId': selectedModel,
-                'ClientIP': '',
+                'ClientIP': '<%= ClientIP %>',
                 'SourceType': '2',
                 'VersionId': 0,
                 'pQLeadId': '<%= PQSourceId%>',

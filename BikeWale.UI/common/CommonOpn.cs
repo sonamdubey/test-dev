@@ -3,22 +3,18 @@ COMMON OPERATIONS.
 */
 
 using System;
-using System.Text;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web;
-using System.Web.Caching;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Configuration;
-using System.Text.RegularExpressions;
-using System.Net.Mail;
 using System.Globalization;
-using System.Net;
-using Bikewale.Entities.CMS;
-using System.Collections.Generic;
-using Bikewale.Entities.BikeBooking;
+using System.Net.Mail;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 using Bikewale.CoreDAL;
 using System.Data.Common;
 
@@ -2008,6 +2004,8 @@ namespace Bikewale.Common
         /// <summary>
         /// Created By : Sadhana Upadhyay on 1st April 2014
         /// Summary : Function to get Client IP Address
+        /// Modified by :   Sumit Kate on 11 May 2016
+        /// Summary :   handle all possible server variables to get the client ip
         /// </summary>
         /// <returns></returns>
         public static string GetClientIP()
@@ -2037,7 +2035,28 @@ namespace Bikewale.Common
 
             //return result.ToString();
 
-            string clientIp = HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
+            string[] serVars = { "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "HTTP_X_FORWARDED", "HTTP_X_CLUSTER_CLIENT_IP", "HTTP_FORWARDED_FOR", "HTTP_FORWARDED", "REMOTE_ADDR" };
+            string clientIp = string.Empty;
+            foreach (string serverVariable in serVars)
+            {
+                clientIp = HttpContext.Current.Request.ServerVariables[serverVariable] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables[serverVariable];
+                if (!String.IsNullOrEmpty(clientIp))
+                {
+                    if (serverVariable == "HTTP_X_FORWARDED_FOR")
+                    {
+                        if (!string.IsNullOrEmpty(clientIp))
+                        {
+                            string[] ipRange = clientIp.Split(',');
+                            if (ipRange != null)
+                            {
+                                clientIp = ipRange[ipRange.Length - 1];
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            //string clientIp = HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
 
             return clientIp;
         }

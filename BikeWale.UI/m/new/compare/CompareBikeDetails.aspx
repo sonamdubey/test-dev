@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.CompareBikeDetails" Trace="false" %>
+
+<%@ Register Src="~/m/controls/SimilarCompareBikes.ascx" TagPrefix="BW" TagName="SimilarBikes" %>
 <%
     if (count == 2)
     {
@@ -22,56 +24,62 @@
     .color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; } 
     .color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#e34f4f; }
     .color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }  
+    .related-comparison-container.container { border-bottom:0; padding:0; }
+    .related-comparison-carousel-content { width:260px; min-height:118px; border:1px solid #ccc; background:#fff; padding:20px 20px 10px; }
+    .related-comparison-carousel-content a {color:#0288d1;font-size:14px;font-weight:400; margin-bottom:10px;display:block;}
+    .related-comparison-carousel-content a:hover {color:#0288d1;}
+    
 </style>
-    <div class="padding5">
-        <div id="br-cr"  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; 
-            <a href="/m/comparebikes/" class="normal" itemprop="url"><span itemprop="title">Compare Bike</span></a> &rsaquo; 
-            <span class="lightgray">Compare Bikes</span>
-        </div>
-        <div style="margin-bottom:10px;">
-	        <div style="float:left;top:3px;" class="position-rel"><h1>Compare Bikes</h1></div>
-            <div style="float:right;"><a style="text-decoration:none !important; font-weight:normal; font-size:15px;" href="/m/comparebikes/" ><span class="btn btn-orange rounded-corner2 btn-sm">Edit Compare</span></a></div>
-            <div class="clear"></div>
-        </div>
-        <% if(count == 2) { %>
+    <div>
+        <div class="padding10">
+            <div id="br-cr"  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; 
+                <a href="/m/comparebikes/" class="normal" itemprop="url"><span itemprop="title">Compare Bike</span></a> &rsaquo; 
+                <span class="lightgray">Compare Bikes</span>
+            </div>
+            <div style="margin-bottom:10px;">
+	            <div style="float:left;top:3px;" class="position-rel"><h1 class="font18">Compare Bikes</h1></div>
+                <div style="float:right;"><a style="text-decoration:none !important; font-weight:normal; font-size:15px;" href="/m/comparebikes/" ><span class="btn btn-orange rounded-corner2 btn-sm">Edit Compare</span></a></div>
+                <div class="clear"></div>
+            </div>
+            <% if(count == 2) { %>
 
-        <div style="position: fixed; right: 9px; top: -5px; left: 9px; z-index: 10; display: block;" id="divFloat">
-            <div style="padding:0px 0px;position:static;" class="box2 new-line5">
-             <div id="divFloatBikeHeader" type="divBikeImage" style="border-bottom:1px solid #b3b4c6;">
-                <div style="position:relative;" class="compareBikeContainer">
-                    <div class="compareBikeBox compareBikeBorder-Rt">
-                         <div class="new-line5"><a href="/m/<%=bikeDetails.Rows[0]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[0]["ModelMaskingName"] %>" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] + " " + bikeDetails.Rows[0]["Version"]%></a></div>
-                        <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[0]["Price"].ToString()) %></div>
-                        <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() != "0" ? "hide" : "" %>"><a class="fillPopupData" href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[0]["BikeVersionId"] %>" modelId="<%=bikeDetails.Rows[0]["Model"]%>">Check On-Road Price</a></div>
-                    </div>
-                <div style="width:23px;height:24px;position:absolute;top:17px;z-index:1;right:-10px;background: url('http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=5.2') no-repeat scroll 0 0 transparent;background-position: 0 -1148px;"></div></div>
+            <div style="position: fixed; right: 9px; top: -5px; left: 9px; z-index: 10; display: block;" id="divFloat">
+                <div style="padding:0px 0px;position:static;" class="box2 new-line5">
+                 <div id="divFloatBikeHeader" type="divBikeImage" style="border-bottom:1px solid #b3b4c6;">
+                    <div style="position:relative;" class="compareBikeContainer">
+                        <div class="compareBikeBox compareBikeBorder-Rt">
+                             <div class="new-line5"><a href="/m/<%=bikeDetails.Rows[0]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[0]["ModelMaskingName"] %>" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] + " " + bikeDetails.Rows[0]["Version"]%></a></div>
+                            <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[0]["Price"].ToString()) %></div>
+                            <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() != "0" ? "hide" : "" %>"><a class="fillPopupData" href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[0]["BikeVersionId"] %>" modelId="<%=bikeDetails.Rows[0]["Model"]%>">Check On-Road Price</a></div>
+                        </div>
+                    <div style="width:23px;height:24px;position:absolute;top:17px;z-index:1;right:-10px;background: url('http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=5.2') no-repeat scroll 0 0 transparent;background-position: 0 -1148px;"></div></div>
             
-                <div style="position:relative;" class="compareBikeContainer">
-                    <div class="compareBikeBox compareBikeBorder-Rt">
-                        <div class="new-line5"><a href="/m/<%=bikeDetails.Rows[1]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[1]["ModelMaskingName"] %>" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] + " " + bikeDetails.Rows[1]["Version"]%></a></div>
-                        <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[1]["Price"].ToString()) %></div>
-                        <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() != "0" ? "hide" : "" %>"><a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[1]["BikeVersionId"] %>" class="fillPopupData" modelId="<%=bikeDetails.Rows[1]["Model"]%>">Check On-Road Price</a></div>
+                    <div style="position:relative;" class="compareBikeContainer">
+                        <div class="compareBikeBox compareBikeBorder-Rt">
+                            <div class="new-line5"><a href="/m/<%=bikeDetails.Rows[1]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[1]["ModelMaskingName"] %>" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] + " " + bikeDetails.Rows[1]["Version"]%></a></div>
+                            <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[1]["Price"].ToString()) %></div>
+                            <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() != "0" ? "hide" : "" %>"><a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[1]["BikeVersionId"] %>" class="fillPopupData" modelId="<%=bikeDetails.Rows[1]["Model"]%>">Check On-Road Price</a></div>
+                        </div>
                     </div>
+            
+                    <div style="clear:both;"></div>
                 </div>
-            
-                <div style="clear:both;"></div>
+                <div style="text-align:center;" class="new-line10">
+                    Prices are Ex-showroom, <%= System.Configuration.ConfigurationManager.AppSettings["defaultName"] %>
+                </div>
+                <div id="divCompareBikeFloatMenu" class="new-line10 divCompareBikeMenu">
+                <ul>
+                    <li contenttype="CD0" style="width:33%;" class="listActive"><div style="padding:10px 0px;">Specs</div></li>
+                    <li contenttype="CD2" style="width:33%;" class="list"><div class="compareBikeBorder-Rt compareBikeBorder-Lt" style="padding:10px 0px;">Features</div></li>
+                    <li style="width:34%;" contenttype="CD1" class="list"><div style="padding:10px 0px;">Colors</div></li>
+                    <li style="clear:both;"></li>
+                </li></ul>
             </div>
-            <div style="text-align:center;" class="new-line10">
-                Prices are Ex-showroom, <%= System.Configuration.ConfigurationManager.AppSettings["defaultName"] %>
             </div>
-            <div id="divCompareBikeFloatMenu" class="new-line10 divCompareBikeMenu">
-            <ul>
-                <li contenttype="CD0" style="width:33%;" class="listActive"><div style="padding:10px 0px;">Specs</div></li>
-                <li contenttype="CD2" style="width:33%;" class="list"><div class="compareBikeBorder-Rt compareBikeBorder-Lt" style="padding:10px 0px;">Features</div></li>
-                <li style="width:34%;" contenttype="CD1" class="list"><div style="padding:10px 0px;">Colors</div></li>
-                <li style="clear:both;"></li>
-            </li></ul>
         </div>
-        </div>
-    </div>
 
-        <div class="box2">
+            <div class="box2">
         <div id="divBikeHeader" type="divBikeImage" style="border-bottom:1px solid #b3b4c6;position:relative;">
             <div style="position:relative;" class="compareBikeContainer">
                 <div class="compareBikeBox">
@@ -824,19 +832,34 @@
             </table>
         </div>
     </div>
+        </div>
     <% } %>
+
+    <section class="container related-comparison-container margin-bottom20 <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">
+        <h2 class="font14 padding-left10 margin-top5 margin-bottom15">Related comparisons</h2>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">             
+                 <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />                       
+            </div>
+        </div>
+    </section>
     </div>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#divFloat").hide();
-
+        var relatedComparisonContainer = $('.related-comparison-container');
+        $(".swiper-slide:first").css("margin-left", "10px");
         $(window).bind("scroll", function () {
-            var offset = $(this).scrollTop();
+            var offset = $(this).scrollTop(),
+                relatedComparisonContainerOffset = relatedComparisonContainer.offset();
 
             if (offset > parseInt($("#divBikeName").position().top) + 180) {
                 $("#divFloat").show();
             }
             else {
+                $("#divFloat").hide();
+            }
+            if (offset > relatedComparisonContainerOffset.top - $('#divFloat').height()) {
                 $("#divFloat").hide();
             }
         });

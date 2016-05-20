@@ -1,31 +1,18 @@
-﻿using System;
+﻿using Bikewale.DTO.CMS.Articles;
+using Bikewale.DTO.CMS.Photos;
+using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.CMS.Photos;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.CMS;
+using Bikewale.Service.Utilities;
+using Bikewale.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Configuration;
-using Bikewale.Entities.BikeData;
 using System.Web.Http.Description;
-using Bikewale.Entities.CMS.Photos;
-using Bikewale.DTO.CMS;
-using Bikewale.Utility;
-using System.Net.Http.Formatting;
-using Bikewale.Interfaces.Pager;
-using Microsoft.Practices.Unity;
-using Bikewale.BAL.Pager;
-using Bikewale.Entities.CMS;
-using Bikewale.DTO.CMS.Photos;
-using AutoMapper;
-using Bikewale.DTO.Make;
-using Bikewale.DTO.Model;
-using Newtonsoft.Json;
-using Bikewale.Entities.CMS.Articles;
-using Bikewale.DTO.CMS.Articles;
-using Bikewale.DTO.Version;
-using Bikewale.Service.AutoMappers.CMS;
-using Bikewale.Notifications;
-using Bikewale.Service.Utilities;
 
 namespace Bikewale.Service.Controllers.CMS
 {
@@ -33,10 +20,12 @@ namespace Bikewale.Service.Controllers.CMS
     /// Edit CMS Controller :  All Edit CMS related Operations 
     /// Author : Sushil Kumar
     /// Created On : 24th August 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class CMSController : ApiController
-    {        
-        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;        
+    public class CMSController : CompressionApiController//ApiController
+    {
+        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
 
         private readonly IPager _pager = null;
 
@@ -150,7 +139,7 @@ namespace Bikewale.Service.Controllers.CMS
                     if (objPhotos.Images != null)
                     {
                         objPhotos.Images.Clear();
-                        objPhotos.Images = null; 
+                        objPhotos.Images = null;
                     }
 
                     return Ok(objCMSModelImageList);
@@ -182,7 +171,7 @@ namespace Bikewale.Service.Controllers.CMS
             try
             {
                 ArticlePageDetails objFeaturedArticles = null;
-                
+
                 string _apiUrl = "/webapi/article/contentpagedetail/?basicid=" + basicId;
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
@@ -200,19 +189,19 @@ namespace Bikewale.Service.Controllers.CMS
                         if (objFeaturedArticles.PageList != null)
                         {
                             objFeaturedArticles.PageList.Clear();
-                            objFeaturedArticles.PageList = null; 
+                            objFeaturedArticles.PageList = null;
                         }
 
                         if (objFeaturedArticles.TagsList != null)
                         {
                             objFeaturedArticles.TagsList.Clear();
-                            objFeaturedArticles.TagsList = null; 
+                            objFeaturedArticles.TagsList = null;
                         }
 
                         if (objFeaturedArticles.VehiclTagsList != null)
                         {
                             objFeaturedArticles.VehiclTagsList.Clear();
-                            objFeaturedArticles.VehiclTagsList = null; 
+                            objFeaturedArticles.VehiclTagsList = null;
                         }
                     }
 
@@ -221,7 +210,7 @@ namespace Bikewale.Service.Controllers.CMS
                     // If android, IOS client sanitize the article content 
                     string platformId = string.Empty;
 
-                    if(Request.Headers.Contains("platformId"))
+                    if (Request.Headers.Contains("platformId"))
                     {
                         platformId = Request.Headers.GetValues("platformId").First().ToString();
                     }
@@ -247,7 +236,7 @@ namespace Bikewale.Service.Controllers.CMS
                     }
                     objCMSFArticles.ShareUrl = new CMSShareUrl().ReturnShareUrl(objCMSFArticles);
                     return Ok(objCMSFArticles);
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -287,24 +276,24 @@ namespace Bikewale.Service.Controllers.CMS
                 }
 
                 if (objNews != null)
-                {                    
+                {
                     objCMSFArticles = new CMSArticleDetails();
                     objCMSFArticles = CMSMapper.Convert(objNews);
 
                     if (objNews.TagsList != null)
                     {
                         objNews.TagsList.Clear();
-                        objNews.TagsList = null; 
+                        objNews.TagsList = null;
                     }
 
                     if (objNews.VehiclTagsList != null)
                     {
                         objNews.VehiclTagsList.Clear();
-                        objNews.VehiclTagsList = null; 
+                        objNews.VehiclTagsList = null;
                     }
 
                     objCMSFArticles.FormattedDisplayDate = objNews.DisplayDate.ToString("MMMM dd, yyyy hh:mm tt");
-                    
+
                     // If android, IOS client execute this code
                     string platformId = string.Empty;
 
@@ -325,7 +314,7 @@ namespace Bikewale.Service.Controllers.CMS
                             if (objContent.HtmlItems != null)
                             {
                                 objContent.HtmlItems.Clear();
-                                objContent.HtmlItems = null; 
+                                objContent.HtmlItems = null;
                             }
 
                             objCMSFArticles.htmlContent = htmlContent;

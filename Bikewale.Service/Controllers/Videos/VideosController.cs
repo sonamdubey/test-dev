@@ -2,29 +2,26 @@
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Videos;
-using Bikewale.Service.Controllers;
-using Bikewale.Utility;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;                                                    
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
 namespace Bikewale.Service.Videos.Controllers
-{   
+{
     /// <summary>
     ///  Bikewale Videos Api : List of Videos and Details
     /// Author : Sushil Kumar
     /// Created On : 24th August 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class VideosController : ApiController
+    public class VideosController : CompressionApiController//ApiController
     {
-        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;        
+        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
 
-        #region Videos List 
+        #region Videos List
         /// <summary>
         ///  Modified By : Ashish G. Kamble
         ///  Summary : API to get the list of videos for the specified video subcategory.
@@ -34,12 +31,12 @@ namespace Bikewale.Service.Videos.Controllers
         /// <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>
         /// <returns>Categorized Videos List</returns>
         [ResponseType(typeof(VideosList)), Route("api/videos/cat/{categoryId}/pn/{pageNo}/ps/{pageSize}/")]
-        public IHttpActionResult Get(EnumVideosCategory categoryId,uint pageNo,uint pageSize)
-        {              
+        public IHttpActionResult Get(EnumVideosCategory categoryId, uint pageNo, uint pageSize)
+        {
             try
             {
                 string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId={1}&pageNo={2}&pageSize={3}", (int)categoryId, _applicationid, pageNo, pageSize);
-                
+
                 List<BikeVideoEntity> objVideosList = null;
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
@@ -71,9 +68,9 @@ namespace Bikewale.Service.Videos.Controllers
             }
 
         }  //get  Categorized Videos 
-        #endregion 
+        #endregion
 
-        #region Videos List        
+        #region Videos List
         /// <summary>
         ///  Modified By : Ashish G. Kamble
         ///  Summary : API to get the list of videos for the specified make.
@@ -88,8 +85,8 @@ namespace Bikewale.Service.Videos.Controllers
             try
             {
                 string _apiUrl = string.Empty;
-                
-                if(makeId > 0)
+
+                if (makeId > 0)
                 {
                     _apiUrl = String.Format("/api/v1/videos/make/{0}/?appId=2&pageNo={1}&pageSize={2}", makeId, pageNo, pageSize);
 
@@ -123,10 +120,10 @@ namespace Bikewale.Service.Videos.Controllers
             }
 
         }  //get  Model/Makes Videos 
-        #endregion 
+        #endregion
 
 
-        #region Videos List        
+        #region Videos List
         /// <summary>
         ///  Modified By : Ashish G. Kamble
         ///  Summary : API to get the list of videos for the specified model.

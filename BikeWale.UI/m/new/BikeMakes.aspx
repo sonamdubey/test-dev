@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.BikeMakes" %> 
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.BikeMakes" EnableViewState="false" %> 
 <%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
@@ -18,6 +18,7 @@
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;        
         TargetedMakes = _make.MakeName;
+        keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, new {0} Bikes", _make.MakeName);
     %>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -166,15 +167,15 @@
             <!--  News, reviews and videos code starts here -->
             <div class="container">
                 <div class="grid-12 alpha omega">
-                    <h2 class="text-center margin-top40 margin-bottom30 padding-left30 padding-right30">Latest Updates from <%= _make.MakeName %></h2>
+                    <h2 class="text-center margin-top40 margin-bottom30 padding-left30 padding-right30">Latest <%= _make.MakeName %> News & Reviews</h2>
                     <div class="bw-tabs-panel">
                         <div class="bw-tabs">
                             <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                                 <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                     <ul>
-                                        <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                        <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                   
-                                        <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                        <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews"><h3>News</h3></li>
+                                        <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews"><h3>Expert Reviews</h3></li>                                   
+                                        <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos"><h3>Videos</h3></li>
                                     </ul>
                                 </div>
                             </div>
@@ -196,12 +197,15 @@
                 <div class="grid-12">
                     <div class="content-inner-block-10 content-box-shadow margin-bottom30">
                         <h2 class="text-center margin-top30 margin-bottom10">About <%= _make.MakeName %> bikes</h2>
-                        <p>
-                            <%= _bikeDesc.SmallDescription %>
-                        </p>
-                        <p class="margin-top10">
-                            <a class="font14" href="javascript:void(0)">Read more</a>
-                        </p>
+                        <div>
+                            <div class="brand-about-main">
+                                <%= Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 265)%>
+                            </div>
+                            <div class="brand-about-more-desc hide">
+                                <%= _bikeDesc.FullDescription %>
+                            </div>
+                            <span><a href="javascript:void(0)" class="read-more-btn">Read <span>more</span></a></span>
+                        </div>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -236,8 +240,13 @@
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
-
             $('#sort-btn').removeClass('hide').addClass("show");
+            $("a.read-more-btn").click(function () {
+                $("div.brand-about-more-desc").slideToggle();
+                $("div.brand-about-main").slideToggle();
+                var a = $(this).find("span");
+                a.text(a.text() === "more" ? "less" : "more");
+            });
         </script>
     </form>
     <div class="back-to-top" id="back-to-top"><a><span></span></a></div>

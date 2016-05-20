@@ -567,6 +567,8 @@ namespace Bikewale.DAL.UserReviews
 
                                 totalReviews = Convert.ToUInt32(dr["RecordCount"]);
                             }
+                            
+                            dr.Close();
                         }
                     }
                 }

@@ -2027,7 +2027,9 @@
   <ItemGroup>
     <Content Include="content\web.config" />
     <Content Include="editcms\web.config" />
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="newbikebooking\web.config" />

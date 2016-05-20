@@ -1,30 +1,31 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
+using Bikewale.Mobile.controls;
+using Bikewale.New;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.New;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.DAL.BikeData;
 using System.Text;
+using System.Web;
 
 namespace Bikewale.Mobile.New
 {
-	public class CompareBikeDetails : System.Web.UI.Page
-	{
+    public class CompareBikeDetails : System.Web.UI.Page
+    {
         protected int count = 0, totalComp = 3, version1 = 0, version2 = 0;
         protected string versions = string.Empty, targetedModels = string.Empty;
         protected DataSet ds = null;
         protected DataTable bikeDetails = null, bikeSpecs = null, bikeFeatures = null;
+        public SimilarCompareBikes ctrlSimilarBikes;
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -42,14 +43,17 @@ namespace Bikewale.Mobile.New
             {
                 getVersionIdList();
                 GetCompareBikeDetails();
-                Trace.Warn("version List",versions);
+                Trace.Warn("version List", versions);
                 if (count < 2)
                 {
                     Response.Redirect("/m/comparebikes/", false);//return;	
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-                
+
+
+                BindSimilarCompareBikes(versions);
+
             }
         }
 
@@ -209,6 +213,12 @@ namespace Bikewale.Mobile.New
             return cs.ToString();
         }
 
+        private void BindSimilarCompareBikes(string verList)
+        {
+            ctrlSimilarBikes.TopCount = 4;
+            ctrlSimilarBikes.versionsList = verList;
+        }
+
         protected string ShowFormatedData(string value)
         {
             if (String.IsNullOrEmpty(value))
@@ -242,5 +252,5 @@ namespace Bikewale.Mobile.New
             }
             return adString;
         }   // End of ShowFeature method
-	}   //End of Class
+    }   //End of Class
 }   //End of namespace

@@ -157,6 +157,8 @@
             #getUserLocation {position:absolute;cursor:pointer}
             .thankyou-icon {width:34px; height:38px; background-position: -143px -406px;}
             .crosshair-icon {width: 20px;height: 20px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat;}
+            .dealership-loc-icon { width:8px; height:12px; background-position:-41px -437px; position:relative;top:4px; }
+            .vertical-top { display:inline-block;vertical-align:top; }
     </style>
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
 </head>
@@ -180,7 +182,7 @@
                 <%} %>
                 <h1 class="font18 text-pure-black margin-bottom5"><%= dealerDetails.Name %></h1>
                 <div class="dealer-details-section text-light-grey padding-bottom15 border-light-bottom">
-                    <p class="margin-bottom5"><%= dealerDetails.Address %></p>
+                    <p class="margin-bottom5"><span class="bwmsprite dealership-loc-icon vertical-top margin-right5"></span><%= dealerDetails.Address %></p>
                     <% if (!string.IsNullOrEmpty(dealerDetails.EMail))
                        { %>
                     <div class="margin-bottom5">

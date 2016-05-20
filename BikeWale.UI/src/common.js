@@ -17,6 +17,22 @@ function triggerGA(cat, act, lab) {
     catch (e) {// log error   
     }
 }
+$('.bw-ga').click(function () {
+    try {
+        var obj = $(this);
+        if (obj.attr('l') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+        }
+        else if (obj.attr('v') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+        }
+        else if (obj.attr('f') !== undefined) {
+            triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+        }
+    }
+    catch (e) {
+    }
+});
 
 //fallback for indexOf for IE7
 if (!Array.prototype.indexOf) {
@@ -64,13 +80,14 @@ $(document).ready(function () {
 	        var city = new Object();
 	        city.cityId = ui.item.payload.cityId;
 	        city.maskingName = ui.item.payload.cityMaskingName;
-	        var CookieValue = city.cityId + "_" + ui.item.label, oneYear = 365;
+	        var cityName = ui.item.label.split(',')[0];
+	        var CookieValue = city.cityId + "_" + cityName, oneYear = 365;
 	        SetCookieInDays("location", CookieValue, oneYear);
 	        globalCityId = city.cityId;
 	        CloseCityPopUp();
-	        showGlobalCity(ui.item.label);
+	        showGlobalCity(cityName);
 	        // City is selected
-	        var cityName = $(".cityName").html();
+	        //var cityName = $(".cityName").html();
 	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
 	    },
 	    open: function (result) {
@@ -389,7 +406,10 @@ $('#btnSearch').on('click', function (e) {
 var _target = 3;
 $(function () {
     if (typeof (testimonialSlider) != 'undefined') {
-        _target = 1
+        _target = 1;
+    }
+    if (typeof (modelPriceByVersionSlider) != 'undefined') {
+        _target = 2;
     }
     var jcarousel = $('.jcarousel').jcarousel({
         vertical: false

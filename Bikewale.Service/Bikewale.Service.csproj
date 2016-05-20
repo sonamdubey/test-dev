@@ -307,6 +307,8 @@
     <Compile Include="UnityBootstrapper\UnityBootstrapper.cs" />
     <Compile Include="UnityBootstrapper\UnityResolver.cs" />
     <Compile Include="Utilities\CMSShareUrl.cs" />
+    <Compile Include="Utilities\CompressionApiController.cs" />
+    <Compile Include="Utilities\CustomOkResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

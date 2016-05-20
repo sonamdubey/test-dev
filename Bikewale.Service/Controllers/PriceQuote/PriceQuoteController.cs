@@ -1,22 +1,14 @@
-﻿using Bikewale.Entities.BikeBooking;
+﻿using Bikewale.DTO.PriceQuote;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
-using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Bikewale.DTO;
-using AutoMapper;
-using System.Web.Http.Description;
-using Bikewale.DTO.PriceQuote;
-using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Notifications;
-using Bikewale.DTO.PriceQuote.DealerPriceQuote;
-using System.Configuration;
-using Bikewale.Utility;
+using Bikewale.Service.AutoMappers.PriceQuote;
+using Bikewale.Service.Utilities;
+using System;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Description;
 namespace Bikewale.Service.Controllers.PriceQuote
 {
     /// <summary>
@@ -24,7 +16,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// Author  :   Sumit Kate
     /// Created On  :   21 Aug 2015
     /// </summary>
-    public class PriceQuoteController : ApiController
+    public class PriceQuoteController : CompressionApiController//ApiController
     {
         private readonly IDealerPriceQuote _objIPQ = null;
         /// <summary>

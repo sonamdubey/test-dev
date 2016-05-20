@@ -102,7 +102,7 @@
             </ul>
             <h3 class="margin-top10">Tools</h3>
             <ul class="ul-normal">
-                <li><a href="/finance/emicalculator.aspx">EMI Calculator</a></li>
+                <li><a href="/bike-loan-emi-calculator/">EMI Calculator</a></li>
             </ul>                         
         </div>
          <div class="grid_4 omega margin-top15">
