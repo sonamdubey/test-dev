@@ -154,7 +154,7 @@ namespace Bikewale.BAL.Dealer
         /// Created By : Lucky Rathore on 21 March 2016
         /// Descritption : Implemented in DAL
         /// Modified by :   Sumit Kate on 20 May 2016
-        /// Description :   Call the DAL function
+        /// Description :   Called the DAL function rather than throwing NotImplementedException
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="makeId"></param>
