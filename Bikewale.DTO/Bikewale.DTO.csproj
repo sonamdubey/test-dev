@@ -101,6 +101,8 @@
     <Compile Include="DealerLocator\DealerDetail.cs" />
     <Compile Include="Dealer\NewBikeDealerBase.cs" />
     <Compile Include="Dealer\NewBikeDealerList.cs" />
+    <Compile Include="Dealer\v2\NewBikeDealerBase.cs" />
+    <Compile Include="Dealer\v2\NewBikeDealerList.cs" />
     <Compile Include="Insurance\ClientResponse.cs" />
     <Compile Include="Insurance\InsuranceLead.cs" />
     <Compile Include="Insurance\PostInsuranceDetail.cs" />

@@ -1181,7 +1181,7 @@ $(function () {
     if ((appbanner == null || appbanner == "true") && !isSafari) {
         $("#appBanner").slideDown();
         SetCookie("AppBanner", true);
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
+        dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
     }
 });
 
