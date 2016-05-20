@@ -7,6 +7,8 @@
     canonical = "http://www.bikewale.com/pricequote/";
     AdPath = "/1017752/Bikewale_Mobile_OnRoadPrice";
     AdId = "1398839030772";
+    Ad_320x50 = true;
+    Ad_Bot_320x50 = true;
     menu = "3";
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->

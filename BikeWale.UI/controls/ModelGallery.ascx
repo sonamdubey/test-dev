@@ -37,13 +37,13 @@
                         <span class="leftfloatbike-gallery-details"></span>
                         <span class="rightfloat bike-gallery-count"></span>
                     </div>
-                    <a href="#" class="prev photos-prev-stage bwsprite hide"></a>
-                    <a href="#" class="next photos-next-stage bwsprite hide"></a>
+                    <a href="#" class="prev photos-prev-stage bwsprite hide" rel="nofollow"></a>
+                    <a href="#" class="next photos-next-stage bwsprite hide" rel="nofollow"></a>
                 </div>
 
                 <div class="navigation-photos">
-                    <a href="#" class="prev photos-prev-navigation bwsprite hide"></a>
-                    <a href="#" class="next photos-next-navigation bwsprite hide"></a>
+                    <a href="#" class="prev photos-prev-navigation bwsprite hide" rel="nofollow"></a>
+                    <a href="#" class="next photos-next-navigation bwsprite hide" rel="nofollow"></a>
                     <div class="carousel-photos carousel-navigation-photos">
                         <ul>
                             <asp:Repeater ID="rptNavigationPhoto" runat="server">
@@ -72,8 +72,8 @@
                         </div>
                     </div>
                 <div class="navigation-videos">
-                    <a href="#" class="prev videos-prev-navigation bwsprite hide"></a>
-                    <a href="#" class="next videos-next-navigation bwsprite hide"></a>
+                    <a href="#" class="prev videos-prev-navigation bwsprite hide" rel="nofollow"></a>
+                    <a href="#" class="next videos-next-navigation bwsprite hide" rel="nofollow"></a>
                     <div class="carousel-videos carousel-navigation-videos">
                         <ul>
                             <asp:Repeater ID="rptVideoNav" runat="server">

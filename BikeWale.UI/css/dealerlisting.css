@@ -28,7 +28,7 @@ body { overflow-x:hidden; }
 #dealersList li.active h2 .dealer-pointer-arrow::before {border-right: 14px solid #e2e2e2;border-top: 14px solid transparent;border-bottom: 14px solid transparent;content: "";position: absolute; top:50px; left: -35px;z-index: 1;}
 #dealersList li.active h2 .dealer-pointer-arrow::after { border-right: 14px solid #f9f9f9; border-top: 14px solid transparent; border-bottom: 14px solid transparent; content: ""; position: absolute; top:50px;left: -34px; z-index: 1; }
 #dealersList h2 { padding-top:18px; border-top:1px solid #e2e2e2; }
-#dealersList .btn.get-assistance-btn {padding:8px 35px;width:180px}
+#dealersList .btn.get-assistance-btn {padding:8px 20px;width:236px}
 #dealersList a { display:block; }
 #dealersList a:hover, #dealerDetailsSliderCard a:hover { text-decoration:none; }
 .featured-tag {position:relative;left:-20px;top:-5px;width:100px;display:block;background:#4d5057;z-index:1; line-height:28px; }
@@ -77,6 +77,9 @@ a.text-black:hover { text-decoration:none; }
 .get-direction-icon, .sendto-phone-icon { width:10px; height:10px; margin-right:3px; }
 .get-direction-icon { background-position:-113px -446px; }
 .sendto-phone-icon { background-position:-132px -446px; }
+.dealership-loc-icon { width:8px; height:12px; background-position:-53px -469px; position:relative;top:4px; }
+.dealership-address { width:92%; }
+.vertical-top { display:inline-block;vertical-align:top; }
 .crosshair-icon { width:20px; height:20px; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat; }
 
 #leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:5%;right:5%;left:5%;z-index:10;padding:30px 40px}
@@ -105,3 +108,4 @@ a.text-black:hover { text-decoration:none; }
     .brand-city-filter .chosen-container {padding: 9px;}
     #applyFiltersBtn.btn{padding:7px 31px;}
 }
+.dealer-card{cursor:pointer}

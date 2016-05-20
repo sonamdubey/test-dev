@@ -1082,3 +1082,97 @@ assistFormSubmit.on('click', function () {
     leadSourceId = $(this).attr("leadSourceId");
     ValidateUserDetail(assistGetName, assistGetEmail, assistGetMobile);    
 });
+
+
+//
+$(document).ready(function () {
+    modelPriceCarouselPagination();
+
+    var modelPrice = $('#modelPriceContainer'),
+        $window = $(window),
+        modelDetailsFloatingCard = $('#modelDetailsFloatingCardContent'),
+        modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper');
+
+    var modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
+        overallSpecsDetailsFooter = $('#overallSpecsDetailsFooter'),
+        topNavBar = $('.model-details-floating-card');
+
+    $(window).scroll(function () {
+        var windowScrollTop = $window.scrollTop(),
+            modelPriceOffsetTop = modelPrice.offset().top,
+            modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top;
+
+        if (windowScrollTop > modelPriceOffsetTop + 40) {
+            modelDetailsFloatingCard.addClass('fixed-card');
+            if (windowScrollTop > modelSpecsTabsOffsetTop - topNavBar.height()) {
+                modelDetailsFloatingCard.addClass('activate-tabs');
+            }
+        }
+        else if (windowScrollTop < modelPriceOffsetTop + 40) {
+            modelDetailsFloatingCard.removeClass('fixed-card');
+        }
+
+        if (modelDetailsFloatingCard.hasClass('activate-tabs')) {
+            if (windowScrollTop < modelSpecsTabsOffsetTop + 43 - topNavBar.height())
+                modelDetailsFloatingCard.removeClass('activate-tabs');
+            if (windowScrollTop > overallSpecsDetailsFooter.offset().top - topNavBar.height())
+                modelDetailsFloatingCard.removeClass('fixed-card');
+        }
+
+
+        $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
+            var top = $(this).offset().top - topNavBar.height(),
+            bottom = top + $(this).outerHeight();
+            if (windowScrollTop >= top && windowScrollTop <= bottom) {
+                topNavBar.find('a').removeClass('active');
+                $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+
+                $(this).addClass('active');
+                topNavBar.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+            }
+        });
+
+    });
+    
+
+    $('.overall-specs-tabs-wrapper a[href^="#"]').click(function () {
+        var target = $(this.hash);
+        if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
+        if (target.length == 0) target = $('html');
+        $('html, body').animate({ scrollTop: target.offset().top - topNavBar.height() }, 1000);
+        return false;
+    });
+
+});
+
+$(window).resize(function () {
+    modelPriceCarouselPagination();
+});
+
+var modelPriceCarouselPagination = function () {
+    var modelPriceCarousel = $('#modelPricesContent .jcarousel-pagination a');
+    modelPriceCarousel.each(function () {
+        var anchorTag = $(this).attr('href');
+        var anchorTarget = anchorTag.substr(1, anchorTag.length);
+        if (anchorTarget % 2 == 0)
+            $(this).remove();
+    });
+};
+
+$('a.read-more-model-preview').click(function () {
+    if (!$(this).hasClass('open')) {
+        $('.model-preview-main-content').hide();
+        $('.model-preview-more-content').show();
+        var span = $(this).find('span');
+        span.text(span.text() === 'more' ? 'less' : 'more');
+        $(this).addClass("open");
+    }
+    else if ($(this).hasClass('open')) {
+        $('.model-preview-main-content').show();
+        $('.model-preview-more-content').hide();
+        var span = $(this).find('span');
+        span.text(span.text() === 'more' ? 'less' : 'more');
+        $(this).removeClass('open');
+    }
+
+});

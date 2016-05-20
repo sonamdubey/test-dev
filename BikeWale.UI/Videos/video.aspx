@@ -9,6 +9,7 @@
         keywords = metaKeywords;
         isAd970x90Shown = false;
         canonical = string.Format("http://www.bikewale.com/bike-videos/{0}-{1}/", videoModel.VideoTitleUrl, videoModel.BasicId);
+        alternate = string.Format("http://www.bikewale.com/m/bike-videos/{0}-{1}/", videoModel.VideoTitleUrl, videoModel.BasicId);
     %>
     <meta property="og:type" content="website" />
     <meta property="og:title" content="<%=metaTitle%>"/> 
