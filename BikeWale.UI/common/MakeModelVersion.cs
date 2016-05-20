@@ -363,50 +363,42 @@ namespace Bikewale.Common
         /// <returns></returns>
         public string GetMakeDetails(string makeId)
         {
-            throw new Exception("Method not used/commented");
 
-            //// Validate the makeId
-            //if (!CommonOpn.IsNumeric(makeId))
-            //    return "";
+            // Validate the makeId
+            if (!CommonOpn.IsNumeric(makeId))
+                return "";
 
-            //string sql = "";
+            string sql = " select name as makename, id as makeid , maskingname from bikemakes   where id = @makeid ";
 
-            //sql = " SELECT Name AS MakeName, ID AS MakeId , MaskingName FROM BikeMakes With(NoLock) "
-            //    + " WHERE ID = @makeId ";
 
-            //SqlDataReader dr = null;
-            //Database db = new Database();
-            //SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
+            try
+            {
 
-            //try
-            //{
-            //    dr = db.SelectQry(sql, param);
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId)); 
 
-            //    if (dr.Read())
-            //    {
-            //        Make = dr["MakeName"].ToString();
-            //        MakeId = dr["MakeId"].ToString();
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr!=null && dr.Read())
+                        {
+                            Make = dr["MakeName"].ToString();
+                            MakeId = dr["MakeId"].ToString();
 
-            //        BikeName = dr["MakeName"].ToString();
-            //        MakeMappingName = dr["MaskingName"].ToString();
-            //    }
+                            BikeName = dr["MakeName"].ToString();
+                            MakeMappingName = dr["MaskingName"].ToString();
+                        }
+                    } 
+                }
 
-            //}
-            //catch (Exception err)
-            //{
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //finally
-            //{
-            //    if (dr != null)
-            //    {
-            //        dr.Close();
-            //    }
-            //    db.CloseConnection();
-            //}
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
 
-            //return Make;
+            return Make;
         }   // End of getMakeDetails
 
         /// <summary>

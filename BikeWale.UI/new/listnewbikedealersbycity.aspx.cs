@@ -119,22 +119,11 @@ namespace Bikewale.New
 
         private void BindControl()
         {
-            string sql = "";
-
-            sql = @" select  c.id as cityid,c.maskingname as citymaskingname,
-                        c.name as city, count(dnc.id) as totalbranches, 
-                        s.name as state, s.id as stateid
-                        from dealer_newbike as dnc, bwcities as c, states as s  
-                        where dnc.cityid = c.id and c.stateid = s.id and dnc.isactive = 1
-                        and c.isdeleted = 0 and dnc.makeid = @makeid 
-                        group by c.id, c.name, s.name, s.id, stateid,c.maskingname 
-                        order by state, cityid ";
-
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getstatewisecitydealers"))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId)); 
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
