@@ -197,12 +197,15 @@
                 <div class="grid-12">
                     <div class="content-inner-block-10 content-box-shadow margin-bottom30">
                         <h2 class="text-center margin-top30 margin-bottom10">About <%= _make.MakeName %> bikes</h2>
-                        <p>
-                            <%= _bikeDesc.SmallDescription %>
-                        </p>
-                        <p class="margin-top10">
-                            <a class="font14" href="javascript:void(0)">Read more</a>
-                        </p>
+                        <div>
+                            <div class="brand-about-main">
+                                <%= Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 265)%>
+                            </div>
+                            <div class="brand-about-more-desc hide">
+                                <%= _bikeDesc.FullDescription %>
+                            </div>
+                            <span><a href="javascript:void(0)" class="read-more-btn">Read <span>more</span></a></span>
+                        </div>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -237,8 +240,13 @@
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
-
             $('#sort-btn').removeClass('hide').addClass("show");
+            $("a.read-more-btn").click(function () {
+                $("div.brand-about-more-desc").slideToggle();
+                $("div.brand-about-main").slideToggle();
+                var a = $(this).find("span");
+                a.text(a.text() === "more" ? "less" : "more");
+            });
         </script>
     </form>
     <div class="back-to-top" id="back-to-top"><a><span></span></a></div>

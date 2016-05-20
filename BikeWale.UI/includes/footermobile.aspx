@@ -1,4 +1,4 @@
-﻿                <% if(Ad_320x50){ %>                
+﻿                <% if(Ad_Bot_320x50){ %>                
                 <div class="ad-unit">
                     <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
                 </div>

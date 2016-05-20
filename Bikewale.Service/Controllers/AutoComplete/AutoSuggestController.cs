@@ -29,13 +29,15 @@ namespace Bikewale.Service.Controllers.AutoComplete
         /// Summary : Auto Suggest Api for Make And Model
         /// Modified by :   Sumit Kate on 06 May 2016
         /// Description :   For APP, Handle the city name if it contains state name
+        /// Modified by :   Sangram Nandkhile on 20 May 2016
+        /// Description :   For APP version 11 and +, send state name along with city name
         /// </summary>
-        /// <param name="inputText">String</param>
+        /// <param name="inputText">user entered input in search box</param>
         /// <returns></returns>
         public IHttpActionResult Get(string inputText, AutoSuggestEnum source, int? noOfRecords = null)
         {
             string platformId = string.Empty;
-            IList<CityPayload> cities = null;
+            uint appVersion = 0;
             CityPayload city = null;
             try
             {
@@ -54,10 +56,17 @@ namespace Bikewale.Service.Controllers.AutoComplete
                     {
                         platformId = Request.Headers.GetValues("platformId").First().ToString();
                     }
-
-                    if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4") && source == AutoSuggestEnum.AllCity)
+                    if (Request.Headers.Contains("version_code"))
                     {
-                        cities = new List<CityPayload>();
+                        string t_appVersion = Request.Headers.GetValues("version_code").First().ToString();
+                        if (!string.IsNullOrEmpty(t_appVersion))
+                        {
+                            appVersion = Convert.ToUInt32(t_appVersion);
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4") && source == AutoSuggestEnum.AllCity && appVersion < 11)
+                    {
                         foreach (var item in objBikes.Bikes)
                         {
                             city = Newtonsoft.Json.JsonConvert.DeserializeObject<CityPayload>(item.Payload.ToString());
