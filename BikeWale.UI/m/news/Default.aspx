@@ -9,6 +9,8 @@
     relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "http://www.bikewale.com" + nextPageUrl;
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     AdId = "1398766302464";
+    Ad_320x50 = true;
+    Ad_Bot_320x50 = true;
     menu = "6";
 %>
 <style type="text/css">
