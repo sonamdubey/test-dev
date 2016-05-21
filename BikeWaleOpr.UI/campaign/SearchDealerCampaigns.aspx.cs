@@ -12,7 +12,7 @@ namespace BikewaleOpr.campaign
 {
     public class SearchDealerCampaigns : System.Web.UI.Page
     {
-        protected DropDownList drpCity, drpAllCity, drpDealer, ddlState, ddlDealerCity;
+        protected DropDownList drpCity, drpDealer;
         private string _requestType = "application/json";
         protected string cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
 
@@ -51,14 +51,6 @@ namespace BikewaleOpr.campaign
                     drpCity.DataValueField = "Value";
                     drpCity.DataBind();
                     drpCity.Items.Insert(0, new ListItem("--Select City--", "0"));
-
-                    //Added By : Sadhana Upadhyay on 5 Oct 2015
-                    //To fill city dropdown where dealers are available to copy dealer Price
-                    ddlDealerCity.DataSource = dt;
-                    ddlDealerCity.DataTextField = "Text";
-                    ddlDealerCity.DataValueField = "Value";
-                    ddlDealerCity.DataBind();
-                    ddlDealerCity.Items.Insert(0, new ListItem("--Select City--", "0"));
                 }
             }
             catch (Exception err)

@@ -329,34 +329,31 @@ namespace Bikewale.Controls
 		// Total number of records matched users criteria	
 		int GetRecordCount()
 		{
-            throw new Exception("Method not used/commented");
+            int count = 0;
 
-            //int count = 0;
-            //Database db = new Database();
-			
-            //try
-            //{				
-            //    if(RecordCountQuery != "")
-            //    {
-            //        CmdParamCountQry.CommandText = RecordCountQuery;
+            try
+            {
+                if (RecordCountQuery != "")
+                {
+                    CmdParamCountQry.CommandText = RecordCountQuery;
 
-            //        using (IDataReader dr = MySqlDatabase.SelectQuery(CmdParamCountQry))
-            //        {
-            //            if (dr != null && dr.Read())
-            //            {
-            //                count = Convert.ToInt32(dr[0]);
-            //            } 
-            //        }					
-            //    }				
-            //}
-            //catch(Exception err)
-            //{
-            //    Trace.Warn(err.Message + err.Source);
-            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(CmdParamCountQry))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            count = Convert.ToInt32(dr[0]);
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                Trace.Warn(err.Message + err.Source);
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
 
-            //return count;
+            return count;
 		}
 		
 		// Function to create paging navigation, so that user can browse across the pages.

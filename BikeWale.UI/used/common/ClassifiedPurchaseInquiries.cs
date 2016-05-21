@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using System.Web;
 using Bikewale.Common;
 using Bikewale.Ajax;
+using Bikewale.Notifications.CoreDAL;
+using System.Data.Common;
 
 /// <summary>
 ///     Created By : Ashish G. Kamble
@@ -215,74 +217,63 @@ namespace Bikewale.Used
         /// <returns>id of the latest inserted record in ClassifiedRequests table</returns>
         private static string SubmitInquiryCustomer(string customerId, string sellInqId)
         {
-            throw new Exception("Method not used/commented");
 
-            //string inqId = "-1";
+            string inqId = "-1";
 
-            //SqlConnection con;
-            //SqlCommand cmd;
-            //SqlParameter prm;
-            //Database db = new Database();
-            //CommonOpn op = new CommonOpn();
-
-            //string conStr = db.GetConString();
-            //con = new SqlConnection(conStr);
-
-            //try
-            //{
-            //    HttpContext.Current.Trace.Warn("Submitting Data");
-            //    cmd = new SqlCommand("InsertClassifiedRequests", con);
-            //    cmd.CommandType = CommandType.StoredProcedure;
-
-            //    prm = cmd.Parameters.Add("@SellInquiryId", SqlDbType.BigInt);
-            //    prm.Value = sellInqId;
-
-            //    prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
-            //    prm.Value = customerId;
-
-            //    prm = cmd.Parameters.Add("@RequestDateTime", SqlDbType.DateTime);
-            //    prm.Value = DateTime.Now;
-
-            //    prm = cmd.Parameters.Add("@Comments", SqlDbType.VarChar, 500);
-            //    prm.Value = "";
-
-            //    prm = cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt);
-            //    prm.Direction = ParameterDirection.Output;
-
-            //    prm = cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40);
-            //    prm.Value = CommonOpn.GetClientIP();
-
-            //    con.Open();
-            //    //run the command
-            //    cmd.ExecuteNonQuery();
-
-            //    inqId = cmd.Parameters["@InquiryId"].Value.ToString();
-
-            //}
-            //catch (SqlException err)
-            //{
-            //    //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
-            //    HttpContext.Current.Trace.Warn(err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
+            CommonOpn op = new CommonOpn();
 
 
-            //} // catch SqlException
-            //catch (Exception err)
-            //{
-            //    HttpContext.Current.Trace.Warn(err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //} // catch Exception
-            //finally
-            //{
-            //    //close the connection	
-            //    if (con.State == ConnectionState.Open)
-            //    {
-            //        con.Close();
-            //    }
-            //}
-            //return inqId;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertclassifiedrequests"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellinquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], sellInqId));
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requestdatetime", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, ""));
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 40, CommonOpn.GetClientIP()));
+
+
+                    //run the command
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+
+                    inqId = cmd.Parameters["par_inquiryid"].Value.ToString(); 
+                }
+
+            }
+            catch (SqlException err)
+            {
+                //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
+                HttpContext.Current.Trace.Warn(err.Message);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+
+
+            } // catch SqlException
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn(err.Message);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            } // catch Exception
+            finally
+            {
+                //close the connection	
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+            return inqId;
         }   // End of SubmitInquiryCustomer
 
              

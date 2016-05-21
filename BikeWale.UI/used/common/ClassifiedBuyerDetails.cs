@@ -167,7 +167,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, buyerMobile));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
 
-                    cmd.ExecuteNonQuery();//run the command
+                    MySqlDatabase.ExecuteNonQuery(cmd);//run the command
 
                     status = Convert.ToBoolean(cmd.Parameters["par_status"].Value);
                 }
