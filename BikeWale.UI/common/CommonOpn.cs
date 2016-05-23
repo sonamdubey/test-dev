@@ -1812,50 +1812,46 @@ namespace Bikewale.Common
         //Supportive function of above function
         static bool GetBikeCity(string bikeProfileNo, bool isDealer)
         {
-            throw new Exception("Method not used/commented");
+            string sql = "";
+            bool isCity = false;
 
-            //string sql = "";
-            //bool isCity = false;
-            //SqlDataReader dr = null;
-            //Database db = new Database();
+            //dealer
+            if (isDealer)
+            {
+                sql = @"select si.id from sellinquiries as si, dealers as d  
+                    where d.id = si.dealerid and d.cityid in(1,6,8,13,40)
+                    and si.id = @bikeprofileno";
+            }
+            //Individual
+            else
+            {
+                sql = "select id from classifiedindividualsellinquiries  where cityid in(1,6,8,13,40) and id = @bikeprofileno";
+            }
+            try
+            {
 
-            ////dealer
-            //if (isDealer == true)
-            //{
-            //    sql = "SELECT SI.ID FROM SellInquiries AS SI, Dealers AS D With(NoLock) "
-            //        + " WHERE D.Id = SI.DealerId AND D.CityId IN(1,6,8,13,40)"
-            //        + " AND SI.Id = @bikeProfileNo";
-            //}
-            ////Individual
-            //else
-            //{
-            //    sql = "SELECT Id FROM ClassifiedIndividualSellInquiries With(NoLock) "
-            //        + " WHERE CityId IN(1,6,8,13,40) AND Id = @bikeProfileNo";
-            //}
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@bikeprofileno", DbParamTypeMapper.GetInstance[SqlDbType.Int], bikeProfileNo ));
 
-            //SqlParameter[] param = { new SqlParameter("@bikeProfileNo", bikeProfileNo) };
-            //try
-            //{
-            //    dr = db.SelectQry(sql, param);
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr.Read())
+                        {
+                            isCity = true;
+                        }
+                    }
+                }
 
-            //    if (dr.Read())
-            //    {
-            //        isCity = true;
-            //    }
-            //    dr.Close();
-            //}
-            //catch (Exception err)
-            //{
-            //    HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, "Common.GetBikeCity");
-            //    objErr.SendMail();
-            //}
-            //finally
-            //{
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, "Common.GetBikeCity");
+                objErr.SendMail();
+            }
 
-            //    db.CloseConnection();
-            //}
-            //return isCity;
+            return isCity;
         }
 
         //this function returns the city id as selected by the user and is as set in

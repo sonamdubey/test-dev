@@ -30,28 +30,27 @@ namespace Bikewale.Used
                 inner join bikemodels bmo   on bmo.id = modelid 
 				where showdetails = 1 and cityid = @v_cityid
                 and modelid = @v_modelid and profileid <> @v_profileid
-				order by newid() limit 5";
+				order by rand() limit 5";
 
 			try
 			{
 
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    //cmd.Parameters.Add("@CityId", SqlDbType.BigInt).Value = cityId;
-                    //cmd.Parameters.Add("@ModelId", SqlDbType.BigInt).Value = modelId;
-                    //cmd.Parameters.Add("@VersionId", SqlDbType.BigInt).Value = versionId;
-                    //cmd.Parameters.Add("@ProfileId", SqlDbType.VarChar, 50).Value = profileId;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("@v_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("@v_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("@v_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_profileid", DbParamTypeMapper.GetInstance[SqlDbType.Int], profileId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_profileid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], profileId));
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
 
-                        rptBikeDetails.DataSource = ds;
-                        rptBikeDetails.DataBind();  
+                        if (ds!=null)
+                        {
+                            rptBikeDetails.DataSource = ds;
+                            rptBikeDetails.DataBind();  
+                        } 
                     }
                 }
 			}

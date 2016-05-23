@@ -55,117 +55,113 @@ namespace Bikewale.Common
 
         public string GetInquiryDetails(string inquiryId)
         {
-            throw new Exception("Method not used/commented");
 
-            //string _status = string.Empty;
+            string _status = string.Empty;
 
-            //SqlDataReader dr = null;
-            //Database db = new Database();
-            //string sql;
+            string sql = @" select si.*, ci.cityid, ci.city, si.cityid as newcity, cu.email as emailentered, 
+                si.statusid inqstatus, 
+                ve.make, ve.model, ve.version, ve.makeid, ve.modelid,ve.versionid as bikeversionid, ve.smallpic, ve.largepic, 
+                cu.name as sellername, cu.email as selleremail, cu.mobile sellermobile 
+                from classifiedindividualsellinquiries si  
+                left join vwmmv ve   on ve.versionid = si.bikeversionid 
+                left join customers cu   on cu.id = si.customerid 
+                left join vwcity as ci  on ci.cityid = si.cityid 
+                where si.id = @inquiryid";
 
-            //sql = " SELECT Si.*, Ci.CityId, Ci.City, Si.CityId as NewCity, Cu.Email AS EmailEntered, "
-            //    + " Si.StatusId InqStatus, "
-            //    + " Ve.Make, Ve.Model, Ve.Version, Ve.MakeId, Ve.ModelId,Ve.VersionId AS BikeVersionId, Ve.SmallPic, Ve.LargePic, "
-            //    + " Cu.Name AS SellerName, Cu.Email AS SellerEmail, Cu.Mobile SellerMobile "
 
-            //    + " FROM ClassifiedIndividualSellInquiries Si With(NoLock) "
-            //    + " LEFT JOIN vwMMV Ve With(NoLock) ON Ve.VersionId = Si.BikeVersionId "
-            //    + " LEFT JOIN Customers Cu With(NoLock) ON Cu.Id = Si.CustomerId "
-            //    + " LEFT JOIN vwCity AS Ci With(NoLock) ON Ci.CityId = Si.CityId "
-            //   /* + " LEFT JOIN BikeVersions AS BV ON BV.ID = Si.BikeVersionId "*/
-            //   /* + " LEFT JOIN BikeSegments CS ON CS.Id = Ve.SegmentId "*/
-            //   /* + " LEFT JOIN BikeBodyStyles BS ON BS.Id=Ve.BodyStyleId "*/
-            //   /* + " LEFT JOIN ClassifiedIndividualSellInquiriesStatus IqS ON IqS.Id=Si.StatusId "*/
-            //    + " WHERE Si.ID = @InquiryId";
 
-            ////SqlParameter[] param = { new SqlParameter("@inquiryId", inquiryId) };
-            ////HttpContext.Current.Trace.Warn("Sell Inquiry Control : " + sql);
+            try
+            {
 
-            //try
-            //{
-            //    SqlCommand cmd = new SqlCommand(sql);
-            //    cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+                {
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
 
-            //    dr = db.SelectQry(cmd);
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr!=null && dr.Read())
+                        {
+                            this.Exists = true;
 
-            //    if (dr.Read())
-            //    {
-            //        this.Exists = true;
+                            this.CustomerId = dr["CustomerId"].ToString();
 
-            //        this.CustomerId = dr["CustomerId"].ToString();
+                            this.BikeMake = dr["Make"].ToString();
+                            this.BikeModel = dr["model"].ToString();
+                            this.BikeVersion = dr["version"].ToString();
+                            this.BikeName = this.BikeMake + " " + this.BikeModel + " " + this.BikeVersion;
 
-            //        this.BikeMake = dr["Make"].ToString();
-            //        this.BikeModel = dr["model"].ToString();
-            //        this.BikeVersion = dr["version"].ToString();
-            //        this.BikeName = this.BikeMake + " " + this.BikeModel + " " + this.BikeVersion;
+                            this.SellerName = dr["SellerName"].ToString();
+                            this.SellerEmail = dr["SellerEmail"].ToString();
+                            this.SellerMobile = dr["SellerMobile"].ToString();
 
-            //        this.SellerName = dr["SellerName"].ToString();
-            //        this.SellerEmail = dr["SellerEmail"].ToString();
-            //        this.SellerMobile = dr["SellerMobile"].ToString();
+                            this.BikeMakeId = dr["MakeId"].ToString();
+                            this.BikeModelId = dr["ModelId"].ToString();
+                            this.BikeVersionId = dr["BikeVersionId"].ToString();
+                            this.BikeRegNo = dr["BikeRegNo"].ToString();
+                            this.EntryDate = dr["EntryDate"].ToString();
+                            this.Price = dr["Price"].ToString();
+                            this.MakeYear = Convert.ToDateTime(dr["MakeYear"].ToString()).ToString("MMM, yyyy");
+                            this.Kilometers = dr["Kilometers"].ToString();
+                            this.Color = dr["Color"].ToString();
+                            this.Comments = dr["Comments"].ToString();
 
-            //        this.BikeMakeId = dr["MakeId"].ToString();
-            //        this.BikeModelId = dr["ModelId"].ToString();
-            //        this.BikeVersionId = dr["BikeVersionId"].ToString();
-            //        this.BikeRegNo = dr["BikeRegNo"].ToString();
-            //        this.EntryDate = dr["EntryDate"].ToString();
-            //        this.Price = dr["Price"].ToString();
-            //        this.MakeYear = Convert.ToDateTime(dr["MakeYear"].ToString()).ToString("MMM, yyyy");
-            //        this.Kilometers = dr["Kilometers"].ToString();
-            //        this.Color = dr["Color"].ToString();
-            //        this.Comments = dr["Comments"].ToString();
+                            this.ViewCount = dr["ViewCount"].ToString();
+                            bool _isapproved = false;
+                            string isap = dr["IsApproved"].ToString();
+                            if(!string.IsNullOrEmpty(isap) && bool.TryParse(isap,out _isapproved))
+                            {
+                                this.IsVerified = _isapproved;
+                            }
+                            else
+                            {
+                                this.IsVerified = false;
+                            }
+                            
 
-            //        this.ViewCount = dr["ViewCount"].ToString();
-            //        this.IsVerified = Convert.ToBoolean(dr["IsApproved"].ToString());
+                            this.CityId = dr["CityId"].ToString();
+                            this.City = dr["City"].ToString();
+                            //this.Segment = dr["Segment"].ToString();
+                            //this.BodyStyle = dr["BodyStyle"].ToString();
+                            this.EmailEntered = dr["EmailEntered"].ToString();
 
-            //        this.CityId = dr["CityId"].ToString();
-            //        this.City = dr["City"].ToString();
-            //        //this.Segment = dr["Segment"].ToString();
-            //        //this.BodyStyle = dr["BodyStyle"].ToString();
-            //        this.EmailEntered = dr["EmailEntered"].ToString();
+                            this.SmallImgUrl = dr["SmallPic"].ToString();
+                            this.BigImgUrl = dr["LargePic"].ToString();
+                            this.IsActive = dr["InqStatus"].ToString() == "1" ? true : false;
 
-            //        this.SmallImgUrl = dr["SmallPic"].ToString();
-            //        this.BigImgUrl = dr["LargePic"].ToString();
-            //        this.IsActive = dr["InqStatus"].ToString() == "1" ? true : false;
+                            // check if details are available for this Bike.
+                            if (dr["Id"].ToString().Length > 0)
+                            {
+                                this.RegistrationPlace = dr["RegistrationPlace"].ToString();
+                                this.Insurance = dr["InsuranceType"].ToString();
+                                this.InsuranceExpiry = dr["InsuranceExpiryDate"].ToString().Length > 0 ? Convert.ToDateTime(dr["InsuranceExpiryDate"].ToString()).ToString("dd-MMM-yy") : "";
+                                this.Owners = dr["Owner"].ToString();
+                                this.Tax = dr["LifetimeTax"].ToString();
+                                this.BikeDriven = dr["Kilometers"].ToString();
+                                this.Warranties = dr["Warranties"].ToString();
+                                this.Modifications = dr["Modifications"].ToString();
+                            }
+                        }
+                    } 
+                }
+            }
+            catch (SqlException err)
+            {
+                _status = "Sell Inquiry sql err : " + err.Message;
+                HttpContext.Current.Trace.Warn("Sell Inquiry Control : " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+                throw;
+            } // catch Exception
+            catch (Exception err)
+            {
+                _status = "Sell Inquiry err : " + err.Message;
+                HttpContext.Current.Trace.Warn("Sell Inquiry Control : " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+                throw;
+            } // catch Exception
 
-            //        // check if details are available for this Bike.
-            //        if (dr["Id"].ToString().Length > 0)
-            //        {
-            //            this.RegistrationPlace = dr["RegistrationPlace"].ToString();
-            //            this.Insurance = dr["InsuranceType"].ToString();
-            //            this.InsuranceExpiry = dr["InsuranceExpiryDate"].ToString().Length > 0 ? Convert.ToDateTime(dr["InsuranceExpiryDate"].ToString()).ToString("dd-MMM-yy") : "";
-            //            this.Owners = dr["Owner"].ToString();
-            //            this.Tax = dr["LifetimeTax"].ToString();
-            //            this.BikeDriven = dr["Kilometers"].ToString();
-            //            this.Warranties = dr["Warranties"].ToString();
-            //            this.Modifications = dr["Modifications"].ToString();
-            //        }
-            //    }
-            //}
-            //catch (SqlException err)
-            //{
-            //    _status = "Sell Inquiry sql err : " + err.Message;
-            //    HttpContext.Current.Trace.Warn("Sell Inquiry Control : " + err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //    throw;
-            //} // catch Exception
-            //catch (Exception err)
-            //{
-            //    _status = "Sell Inquiry err : " + err.Message;
-            //    HttpContext.Current.Trace.Warn("Sell Inquiry Control : " + err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //    throw;
-            //} // catch Exception
-            //finally
-            //{
-            //    if (dr != null)
-            //    {
-            //        dr.Close();
-            //    }
-            //    db.CloseConnection();
-            //}
-            //return _status;
+            return _status;
         }
 		
 		public string InquiryId

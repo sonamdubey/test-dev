@@ -33,7 +33,8 @@ namespace Bikewale.BindViewModels.Controls
 
                     List<SimilarBikeEntity>  objSimilarBikes = objVersion.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), Convert.ToUInt32(Deviation));
 
-                    FetchedRecordsCount = objSimilarBikes.Count;
+                    
+                    FetchedRecordsCount = (objSimilarBikes!=null) ? objSimilarBikes.Count:0;
 
                     if (objSimilarBikes.Count > 0)
                     {

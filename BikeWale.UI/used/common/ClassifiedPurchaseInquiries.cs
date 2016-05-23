@@ -265,14 +265,7 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-            finally
-            {
-                //close the connection	
-                if (con.State == ConnectionState.Open)
-                {
-                    con.Close();
-                }
-            }
+
             return inqId;
         }   // End of SubmitInquiryCustomer
 

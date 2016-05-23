@@ -182,7 +182,7 @@ namespace BikeWaleOpr.Content
             {
                 sql = @"select bv.id,bv.name,se.id as segmentid,se.name as segment,bs.id as bodystyleid,bs.name as bodystyle, bv.bikefueltype, bv.biketransmission,
                 bikemodelid, if(bv.used,1,0) as used, if(bv.new,1,0) as new, if(bv.indian,1,0) as indian, if(bv.imported,1,0) as imported, if(bv.classic,1,0) as classic, if(bv.modified,1,0) as modified, if(bv.futuristic,1,0) as futuristic, sse.id as subsegmentid, sse.name as subsegmentname,
-                cast(bv.vcreatedon as char(24)) as createdon, cast(bv.vupdatedon as char(24))  as updatedon, ou.username as updatedby
+                DATE_FORMAT(bv.vcreatedon, '%d %b %Y %T') as createdon, DATE_FORMAT(bv.vupdatedon, '%d %b %Y %T')  as updatedon, ou.username as updatedby
                 from bikeversions bv left join bikebodystyles bs on bs.id = bv.bodystyleid left join bikesegments se on se.id = bv.segmentid 
 		        left join bikesubsegments sse on sse.id = bv.subsegmentid left join oprusers ou on bv.vupdatedby = ou.id 
                 where bv.isdeleted = 0 and bv.bikemodelid = " + _modelid;

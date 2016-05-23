@@ -222,7 +222,9 @@
     });
 
     $("#drpCity").chosen({ width: "200px", no_results_text: "No matches found!!", search_contains: true });
-    $("#drpDealer").chosen({ width: "200px", no_results_text: "No matches found!!", search_contains: true });    function startLoading(ele) {
+    $("#drpDealer").chosen({ width: "200px", no_results_text: "No matches found!!", search_contains: true });
+
+    function startLoading(ele) {
         try {
             var _self = $(ele).find(".progress-bar").css({ 'width': '0' }).show();
             _self.animate({ width: '100%' }, 5000);
@@ -237,6 +239,8 @@
         }
         catch (e) { return };
     }
-
+
+
+
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->
