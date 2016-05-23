@@ -516,7 +516,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 }
                 else
                 {
-                    return Unauthorized();
+                    return BadRequest();
                 }
             }
             catch (Exception ex)
