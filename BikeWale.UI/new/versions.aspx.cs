@@ -43,7 +43,9 @@ namespace Bikewale.New
         protected VideosControl ctrlVideos;
         protected UserReviewsList ctrlUserReviews;
         protected ModelGallery ctrlModelGallery;
+        protected PriceInTopCities ctrlTopCityPrices;
         protected BikeModelPageEntity modelPageEntity;
+
         protected VersionSpecifications bikeSpecs;
         protected PQOnRoadPrice pqOnRoad;
         protected int grid1_size = 9, grid2_size = 3;
@@ -262,8 +264,12 @@ namespace Bikewale.New
                 ctrlUserReviews.PageSize = 4;
                 ctrlUserReviews.ModelId = _modelId;
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+                
+                ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);
+                ctrlTopCityPrices.TopCount = 8;
             }
         }
+
 
         // Clear trailing query string -- added on 09-feb-2016 by Sangram
         private void ClearTrailingQuerystring(bikeModel bikeModel)

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
+using System;
 namespace Bikewale.Utility
 {
     public static class Format
@@ -47,6 +43,42 @@ namespace Bikewale.Utility
             }
 
             return formatted;
+        }
+
+        /// <summary>
+        /// Created By : Vivek Gupta
+        /// Date : 23-05-2016
+        /// Desc : formatting price in format : 23456 => 23.45 K
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string FormatPriceShort(string number)
+        {
+            int length = number.Length;
+
+            double numeric = Convert.ToDouble(number);
+            string retValue = string.Empty;
+
+            switch (length)
+            {
+                case 4:
+                case 5:
+                    retValue = String.Format("{0} K", Convert.ToString(Math.Round(numeric / 1000, 2)));
+                    break;
+                case 6:
+                case 7:
+                    retValue = String.Format("{0} L", Convert.ToString(Math.Round(numeric / 100000, 2)));
+                    break;
+                case 8:
+                case 9:
+                    retValue = String.Format("{0} C", Convert.ToString(Math.Round(numeric / 10000000, 2)));
+                    break;
+                default:
+                    retValue = FormatPrice(number);
+                    break;
+            }
+
+            return retValue.Replace(".00", string.Empty);
         }
     }
 }

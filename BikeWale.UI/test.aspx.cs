@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Cache.Core;
+using Bikewale.Controls;
 using Bikewale.Interfaces.Cache.Core;
 using Enyim.Caching;
 using Microsoft.Practices.Unity;
@@ -16,9 +17,14 @@ namespace Bikewale
     {        
         private bool _isMemcachedUsed;
 		protected static MemcachedClient _mc = null;
+        protected ModelPriceInNearestCities ctrlTopCityPrices;
 
         protected void Page_Load(object sender, EventArgs e)
-        {            		    
+        {
+            ctrlTopCityPrices.ModelId = Convert.ToUInt32(99);
+            ctrlTopCityPrices.CityId = 1;
+            ctrlTopCityPrices.TopCount = 8;
+
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
 			
             if (_mc == null)
