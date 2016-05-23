@@ -21,8 +21,9 @@ namespace Bikewale.Controls
         protected Repeater rptTopCityPrices;
 
         public uint ModelId { get; set; }
-
         public uint TopCount { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

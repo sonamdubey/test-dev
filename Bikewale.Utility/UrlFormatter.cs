@@ -29,5 +29,15 @@ namespace Bikewale.Utility
         {
             return String.Format("{0} {1} vs {2} {3}", make1, model1, make2, model2);
         }
+
+        /// <summary>
+        /// Created By Vivek Gupta on 23-05-2016
+        /// Desc : url format "/<make>-bikes/<model>/price-in-<city>/" for prices in city
+        /// </summary>
+        /// <returns></returns>
+        public static string PriceInCityUrl(string make, string model, string city)
+        {
+            return String.Format("/{0}-bikes/{1}/price-in-{2}/", make, model, city);
+        }
     }
 }

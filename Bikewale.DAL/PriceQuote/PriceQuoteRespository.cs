@@ -437,7 +437,7 @@ namespace Bikewale.DAL.PriceQuote
         /// <returns></returns>
         public IEnumerable<PriceQuoteOfTopCities> FetchPriceQuoteOfTopCities(uint modelId, uint topCount)
         {
-            List<PriceQuoteOfTopCities> objPrice = null;
+            IList<PriceQuoteOfTopCities> objPrice = null;
             Database db = null;
             try
             {
