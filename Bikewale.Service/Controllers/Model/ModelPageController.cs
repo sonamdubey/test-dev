@@ -296,10 +296,12 @@ namespace Bikewale.Service.Controllers.Model
         /// Created by  :   Sangram Nandkhile on 13 Apr 2016
         /// Description :   This the new version v3 of existing API.        
         /// Removed specs, colors, features and unnecessary properties
+        /// Modified by :   Sumit Kate on 23 May 2016
+        /// Description :   Get the Device Id from deviceId parameter
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
-        public IHttpActionResult GetV3(uint modelId, int? cityId, int? areaId)
+        public IHttpActionResult GetV3(uint modelId, int? cityId, int? areaId, string deviceId = null)
         {
             int modelID = Convert.ToInt32(modelId);
             Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
@@ -318,7 +320,6 @@ namespace Bikewale.Service.Controllers.Model
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
-                            string deviceId = Request.Headers.Contains("platformId") ? Request.Headers.GetValues("platformId").First().ToString() : String.Empty;
                             #region On road pricing for versions
                             PQOnRoadPrice pqOnRoad; PQByCityArea getPQ;
                             PQByCityAreaEntity pqEntity = null;
