@@ -593,7 +593,15 @@
                             </div>
                         </div>
                         <div class="grid-3 model-orp-btn alpha omega">
-                            <a href="javascript:void(0)" class="btn btn-orange font14 margin-top5" rel="nofollow">Get offers from this dealer</a>
+                             <% if (toShowOnRoadPriceButton)
+                               { %>                            
+                             <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData bw-ga" rel="nofollow" c="Model_Page" a="Floating_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check On-Road Price</a>
+                            <%} else
+                                    if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
+                                    {%>									 
+                                     <a href="javascript:void(0)" id="getOffersFromDealerFloating" leadSourceId="24" class="btn btn-orange font14 margin-top5 bw-ga" rel="nofollow">Get offers from dealer</a>
+                                    <%} %>
+                            
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
                             <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span>BikeWale Motor</p>
                         </div>
@@ -817,7 +825,7 @@
                             </div>
                             <div class="clear"></div>
                             <div class="margin-top25 padding-left20">
-                                <a href="javascript:void(0)">View full specifications<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                <a href="javascript:void(0)" class="bw-ga" c="Model_Page" a="View_full_specifications_link_cliked" v="myBikeName">View full specifications<span class="bwsprite blue-right-arrow-icon" ></span></a>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -841,7 +849,7 @@
                                 </div>
                                 <div class="clear"></div>
                                 <div class="margin-top25 padding-left20">
-                                    <a href="javascript:void(0)">View all features<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                    <a href="javascript:void(0)" class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName">View all features<span class="bwsprite blue-right-arrow-icon"></span></a>
                                 </div>
                             </div>
                             <div class="grid-4">
@@ -941,7 +949,7 @@
                             </div>
 
                             <div class="padding-left20">
-                                <a href="javascript:void(0)">Read all expert reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                <a href="javascript:void(0)" class="bw-ga" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="myBikeName">Read all expert reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
                             </div>
                         </div>
 
@@ -1000,7 +1008,7 @@
                         </div>
                         <div class="clear"></div>
                         <div class="padding-left20">
-                            <a href="javascript:void(0)">Read all user reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            <a href="javascript:void(0)" class="bw-ga" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all user reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
                         </div>
 
                         <h3 class="margin-top25 padding-left20 model-section-subtitle">Videos</h3>
@@ -1032,7 +1040,7 @@
                             </div>
                         </div>
                         <div class="padding-left20">
-                            <a href="javascript:void(0)">View all videos<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            <a href="javascript:void(0)"  class="bw-ga" c="Model_Page" a="View_all_videos_link_cliked" v="myBikeName">View all videos<span class="bwsprite blue-right-arrow-icon"></span></a>
                         </div>
                     </div>
 
