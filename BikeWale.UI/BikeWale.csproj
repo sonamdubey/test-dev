@@ -300,6 +300,7 @@
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindNewsWidget.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
@@ -559,6 +560,10 @@
     </Compile>
     <Compile Include="controls\NewLaunchedBikes_new.ascx.cs">
       <DependentUpon>NewLaunchedBikes_new.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\News.ascx.cs">
+      <DependentUpon>News.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\NewsMin.ascx.cs">
@@ -1757,6 +1762,7 @@
     <Content Include="controls\NewBikeLaunches.ascx" />
     <Content Include="controls\NewBikesOnRoadPrice.ascx" />
     <Content Include="controls\NewLaunchedBikes_new.ascx" />
+    <Content Include="controls\News.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\News_new.ascx" />
     <Content Include="controls\NoFollowPagerControl.ascx" />

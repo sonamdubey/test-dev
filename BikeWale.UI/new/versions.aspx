@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" EnableViewState="false" Trace="false" %>
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
-<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
+<%--<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>--%>
+<%@ Register Src="~/controls/News.ascx" TagName="LatestNews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
@@ -1110,64 +1111,9 @@
                         </div>
                     </div>
 
-                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
-
-                    <div id="modelNewsContent" class="bw-model-tabs-data padding-top20 font14">
-                        <h2 class="padding-left20 padding-right20">Bajaj Pulsar RS200 News</h2>
-                        <div class="margin-bottom10">
-                            <div class="grid-8 padding-left20 border-light-right">
-                                <div class="padding-bottom5">
-                                    <div class="model-preview-image-container leftfloat">
-                                        <a href="javascript:void(0)">
-                                            <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/ec/21352/TVS-Wego-Front-threequarter-63408.jpg?wm=0&t=193955533&t=193955533" title="" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="model-news-title-container leftfloat">
-                                        <h3 class="margin-top5"><a href="" class="font16 text-black line-height">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a></h3>
-                                        <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <p class="margin-top20 line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
-                                        <a href="">Read full story</a>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="grid-4">
-                                <ul>
-                                    <li>
-                                        <h3 class="red-bullet-point"><a href="" class="text-black line-height17">Bajaj Avenger Cruise 220 proves popular with families</a></h3>
-                                        <p class="text-light-grey margin-left15">April 15, 2016, by Sagar Bhanushali</p>
-                                    </li>
-                                    <li>
-                                        <h3 class="red-bullet-point"><a href="" class="text-black line-height17">Triumph Street Twin : Auto Expo 2016 : PowerDrift</a></h3>
-                                        <p class="text-light-grey margin-left15">March 15, 2016, by BikeWale Team</p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-
-                        
-                        <div class="grid-12 model-single-news margin-bottom20 omega padding-left20 hide"><!-- when one news -->
-                            <div class="model-preview-image-container leftfloat">
-                                <a href="javascript:void(0)">
-                                    <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/ec/21352/TVS-Wego-Front-threequarter-63408.jpg?wm=0&t=193955533&t=193955533" title="" alt="" />
-                                </a>
-                            </div>
-                            <div class="model-news-title-container leftfloat">
-                                <h3 class="margin-top5"><a href="" class="font16 text-black line-height">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a></h3>
-                                <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
-                                <p class="margin-top20 line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
-                                    <a href="">Read full story</a>
-                                </p>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-
-                        <div class="padding-left20">
-                            <a href="javascript:void(0)">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
-                        </div>
-                    </div>
+                    <%--<BW:News runat="server" ID="News" />--%>
+                    
+                    <BW:LatestNews runat="server" ID="ctrlNews" />
 
                     <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
 
@@ -1957,7 +1903,7 @@
                         <% } %>
                         <%if (!isNewsZero)
 						  { %>
-                        <BW:News runat="server" ID="ctrlNews" />
+                        <%--<BW:News runat="server" ID="ctrlNews" />--%>
                         <% } %>
                         <%if (!isVideoZero)
 						  { %>
