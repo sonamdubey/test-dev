@@ -39,9 +39,9 @@ namespace Bikewale.New
         #region Global Variables
 
         protected News_Widget ctrlNews;
-        protected ExpertReviews ctrlExpertReviews;
-        protected VideosControl ctrlVideos;
-        protected UserReviewsList ctrlUserReviews;
+        protected NewExpertReviews ctrlExpertReviews;
+        protected NewVideosControl ctrlVideos;
+        protected NewUserReviewsList ctrlUserReviews;
         protected ModelGallery ctrlModelGallery;
         protected BikeModelPageEntity modelPageEntity;
         protected VersionSpecifications bikeSpecs;
@@ -54,7 +54,7 @@ namespace Bikewale.New
         //Varible to Hide or show controlers
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive;
-        protected AlternativeBikes ctrlAlternativeBikes;
+        protected NewAlternativeBikes ctrlAlternativeBikes;
         protected short reviewTabsCnt;
         //Variable to Assing ACTIVE class
 
@@ -244,20 +244,20 @@ namespace Bikewale.New
                 ctrlNews.ModelId = _modelId;
                 ctrlNews.WidgetTitle = bikeName;
 
-                ctrlExpertReviews.TotalRecords = 3;
+                ctrlExpertReviews.TotalRecords = 2;
                 ctrlExpertReviews.ModelId = _modelId;
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
 
-                ctrlVideos.TotalRecords = 3;
+                ctrlVideos.TotalRecords = 1;
                 ctrlVideos.ModelId = _modelId;
                 ctrlVideos.MakeId = modelPage.ModelDetails.MakeBase.MakeId;
                 ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
 
-                ctrlUserReviews.ReviewCount = 4;
+                ctrlUserReviews.ReviewCount = 2;
                 ctrlUserReviews.PageNo = 1;
-                ctrlUserReviews.PageSize = 4;
+                ctrlUserReviews.PageSize = 2;
                 ctrlUserReviews.ModelId = _modelId;
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
             }
@@ -395,7 +395,7 @@ namespace Bikewale.New
         {
             ctrlAlternativeBikes.TopCount = 6;
             ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_ModelPage_Alternative;
-
+            ctrlAlternativeBikes.WidgetTitle = bikeName;
             if (modelPage != null)
             {
                 var modelVersions = modelPage.ModelVersions;

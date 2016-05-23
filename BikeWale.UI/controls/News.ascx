@@ -62,7 +62,7 @@
                         </div>
 
        <div class="padding-left20">
-           <a href="javascript:void(0)">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
+           <a href="/news/" >Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
        </div>
      </div>
 
