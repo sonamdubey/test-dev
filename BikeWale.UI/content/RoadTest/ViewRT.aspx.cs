@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using Bikewale.Common;
-using Bikewale.Memcache;
-using System.Net.Http;
-using System.Configuration;
-using System.Net.Http.Headers;
-using Bikewale.Entities.CMS.Articles;
-using System.Text;
+﻿using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Memcache;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Web;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Content
 {
@@ -52,7 +45,7 @@ namespace Bikewale.Content
             GetArticlePhotos();
         }
 
-        
+
 
         /// <summary>
         /// 
@@ -90,24 +83,24 @@ namespace Bikewale.Content
         /// Written By : Ashwini Todkar on 24 Sept 2014
         /// PopulateWhere to fetch roadtest details from api asynchronously
         /// </summary>
-       
+
         private async void GetRoadtestDetails()
         {
             try
             {
                 string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + _basicId;
-              
+
                 // Send HTTP GET requests 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
                     objRoadtest = await objClient.GetApiResponse<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objRoadtest);
                 }
-                
+
                 if (objRoadtest != null)
                 {
                     BindPages();
                     GetRoadtestData();
-                    if(objRoadtest.VehiclTagsList.Count > 0)
+                    if (objRoadtest.VehiclTagsList.Count > 0)
                         GetTaggedBikeList();
                 }
                 else
@@ -135,16 +128,16 @@ namespace Bikewale.Content
         private async void GetArticlePhotos()
         {
             try
-            {                
+            {
                 string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + _basicId;
-                
+
                 List<ModelImage> objImg = null;
 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
                     objImg = await objClient.GetApiResponse<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImg);
                 }
-                
+
                 if (objImg != null && objImg.Count > 0)
                 {
                     ctrPhotoGallery.BasicId = Convert.ToInt32(_basicId);
@@ -157,7 +150,7 @@ namespace Bikewale.Content
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }           
+            }
         }
 
         /// <summary>
@@ -165,18 +158,25 @@ namespace Bikewale.Content
         /// </summary>
         private void GetTaggedBikeList()
         {
-            _bikeTested =  new StringBuilder();
-
-            _bikeTested.Append("Bike Tested: ");
-
-            IEnumerable<int> ids = objRoadtest.VehiclTagsList
-                   .Select(e => e.ModelBase.ModelId)
-                   .Distinct();
-
-            foreach (var i in ids)
+            if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
             {
-                VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
-                    _bikeTested.Append("<a title='" + item.MakeBase.MakeName + " " + item.ModelBase.ModelName + " Bikes' href='/" + item.MakeBase.MakeName.ToLower() + "-bikes/" + item.ModelBase.MaskingName + "/'>" + item.ModelBase.ModelName + "</a>   ");
+                _bikeTested = new StringBuilder();
+
+                _bikeTested.Append("Bike Tested: ");
+
+                IEnumerable<int> ids = objRoadtest.VehiclTagsList
+                       .Select(e => e.ModelBase.ModelId)
+                       .Distinct();
+
+                foreach (var i in ids)
+                {
+                    VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
+                    if (!String.IsNullOrEmpty(item.MakeBase.MaskingName))
+                    {
+                        _bikeTested.Append("<a title='" + item.MakeBase.MakeName + " " + item.ModelBase.ModelName + " Bikes' href='/" + item.MakeBase.MaskingName + "-bikes/" + item.ModelBase.MaskingName + "/'>" + item.ModelBase.ModelName + "</a>   ");
+                    }
+                }
+                Trace.Warn("biketested", _bikeTested.ToString());
             }
         }
 
@@ -335,7 +335,7 @@ namespace Bikewale.Content
         //        Trace.Warn("CheckPage() str: " + str);
         //        IsPhotoGalleryPage = true;
         //        LoadPhotos();
-           
+
         //    }
         //    else if (pageid != str)
         //    {
@@ -442,7 +442,7 @@ namespace Bikewale.Content
         //    string sql = "SELECT HostUrl,ImagePathThumbnail  FROM Con_EditCms_Images CI With(NoLock) " +
         //                 "Inner Join Con_PhotoCategory CP With(NoLock) On CP.Id = CI.ImageCategoryId " +
         //                 "WHERE BasicId = @BasicId AND IsActive = 1 AND IsMainImage = 1  ";
-            
+
         //    try
         //    {
         //        db = new Database();
@@ -453,9 +453,9 @@ namespace Bikewale.Content
         //            cmd.Parameters.Add("@BasicId", System.Data.SqlDbType.Int).Value = id;
 
         //            ds = db.SelectAdaptQry(cmd);
-                    
+
         //            DataTable dt = ds.Tables[0];
-                    
+
         //            if (dt.Rows.Count > 0)
         //            {
         //                hostUrl =  dt.Rows[0]["HostUrl"].ToString();
@@ -848,7 +848,7 @@ namespace Bikewale.Content
         //            VersionName = versionNames;
         //            MakeMaskName = makeMasks;
         //            ModelMaskName = modelMasks;
-                    
+
 
         //            Trace.Warn("VersionName: " + VersionName);
         //            Trace.Warn("VersionId:" + versionId);

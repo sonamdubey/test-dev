@@ -224,11 +224,11 @@
                             $.ajax({
                                 type: "GET",
                                 url: "/api/BBAreaList/?cityId=" + selCityId,
-                                contentType: "application/json",
+                                dataType: 'json',
                                 beforeSend: function () {
                                     return;
                                 },
-                                success: function (data) {
+                                success: function (data) {                                    
                                     lscache.set(key + selCityId, data.areas, 30);
                                     setOptions(data.areas);
                                 },

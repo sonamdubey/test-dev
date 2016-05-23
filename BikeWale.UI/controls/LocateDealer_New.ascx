@@ -48,7 +48,8 @@
         //$.getJSON("/api/DealerMakes/", self.Makes);
         $.ajax({
             type: "GET",
-            url: "/api/DealerMakes/",            
+            url: "/api/DealerMakes/",
+            dataType: 'json',
             success: function (response) {                
                 var makes = response.makes;                
                 if (makes) {                    

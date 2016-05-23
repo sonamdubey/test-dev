@@ -18,8 +18,10 @@ namespace Bikewale.Service.Controllers.CMS
     /// Edit CMS List Controller :  Operations related to list of content 
     /// Author : Sushil Kumar
     /// Created On : 24th August 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class CMSListController : ApiController
+    public class CMSListController : CompressionApiController//ApiController
     {
         string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
 

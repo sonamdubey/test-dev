@@ -162,6 +162,7 @@
                                 type: "GET",
                                 url: "/api/v2/DealerCity/?makeId=" + selMakeId,
                                 contentType: "application/json",
+                                dataType: 'json',
                                 success: function (data) {
                                     lscache.set(key + selMakeId, data.City, 30);
                                     setOptions(data.City);

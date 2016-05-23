@@ -4,6 +4,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
+using Bikewale.Service.Utilities;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -13,7 +14,11 @@ using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Model
 {
-    public class ModelPageController : ApiController
+    /// <summary>
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// </summary>
+    public class ModelPageController : CompressionApiController//ApiController
     {
         //private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         //private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
@@ -291,10 +296,12 @@ namespace Bikewale.Service.Controllers.Model
         /// Created by  :   Sangram Nandkhile on 13 Apr 2016
         /// Description :   This the new version v3 of existing API.        
         /// Removed specs, colors, features and unnecessary properties
+        /// Modified by :   Sumit Kate on 23 May 2016
+        /// Description :   Get the Device Id from deviceId parameter
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
-        public IHttpActionResult GetV3(uint modelId, int? cityId, int? areaId)
+        public IHttpActionResult GetV3(uint modelId, int? cityId, int? areaId, string deviceId = null)
         {
             int modelID = Convert.ToInt32(modelId);
             Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
@@ -313,7 +320,6 @@ namespace Bikewale.Service.Controllers.Model
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
                         if (platformId == "3")
                         {
-                            string deviceId = Request.Headers.Contains("platformId") ? Request.Headers.GetValues("platformId").First().ToString() : String.Empty;
                             #region On road pricing for versions
                             PQOnRoadPrice pqOnRoad; PQByCityArea getPQ;
                             PQByCityAreaEntity pqEntity = null;
@@ -321,7 +327,7 @@ namespace Bikewale.Service.Controllers.Model
                             {
                                 pqOnRoad = new PQOnRoadPrice();
                                 getPQ = new PQByCityArea();
-                                pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android),null,null,deviceId);
+                                pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
                             }
                             objDTOModelPage = ModelMapper.ConvertV3(objModelPage, pqEntity);
                             #endregion

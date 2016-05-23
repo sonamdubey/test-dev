@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using Bikewale.Entities.AppDeepLinking;
 using Bikewale.Interfaces.AppDeepLinking;
-using System.Web.Http.Description;
 using Bikewale.Notifications;
-using Bikewale.Interfaces.App;
-using Bikewale.DTO.AppDeepLinking;
-using Bikewale.Entities.AppDeepLinking;
 using Bikewale.Service.AutoMappers.AppDeepLinking;
+using Bikewale.Service.Utilities;
+using System;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.AppDeepLinking
 {
@@ -18,8 +13,10 @@ namespace Bikewale.Service.Controllers.AppDeepLinking
     /// Created By : Lucky Rathore
     /// Created On : 10 March 2016
     /// Description : API to handle Deeplinking Requests.
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class DeepLinkingController : ApiController
+    public class DeepLinkingController : CompressionApiController//ApiController
     {
         private readonly IDeepLinking _deeplink = null;
         /// <summary>
@@ -41,7 +38,7 @@ namespace Bikewale.Service.Controllers.AppDeepLinking
         [ResponseType(typeof(Bikewale.DTO.AppDeepLinking.DeepLinking))]
         public IHttpActionResult Get(string url)
         {
-            try 
+            try
             {
                 if (Request.Headers.Contains("version_code") && Request.Headers.Contains("platformId") && !string.IsNullOrEmpty(url))
                 {
@@ -67,6 +64,6 @@ namespace Bikewale.Service.Controllers.AppDeepLinking
                 objErr.SendMail();
                 return InternalServerError();
             }
-        }       
+        }
     }
 }

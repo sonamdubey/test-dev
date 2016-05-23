@@ -6,6 +6,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
+using Bikewale.Service.Utilities;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -14,7 +15,11 @@ using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Model
 {
-    public class ModelSpecsController : ApiController
+    /// <summary>
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// </summary>
+    public class ModelSpecsController : CompressionApiController//ApiController
     {
         private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
@@ -71,13 +76,15 @@ namespace Bikewale.Service.Controllers.Model
         /// <summary>
         /// Created By : Lucky Rathore on 14 Apr 2016
         /// Description : API to give Model Specification, Feature, Versions and Colors.
+        /// Modified by :   Sumit Kate on 23 May 2016
+        /// Description :   Get the Device Id from deviceId parameter
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
         /// <param name="areaId"></param>
         /// <returns></returns>
         [ResponseType(typeof(BikeSpecs)), Route("api/model/bikespecs/")]
-        public IHttpActionResult GetBikeSpecs(int modelId, int? cityId, int? areaId)
+        public IHttpActionResult GetBikeSpecs(int modelId, int? cityId, int? areaId, string deviceId = null)
         {
             if (modelId <= 0 || cityId <= 0 || areaId <= 0)
             {
@@ -108,7 +115,6 @@ namespace Bikewale.Service.Controllers.Model
                 objModelPage = _cache.GetModelPageDetails(modelId);
                 if (objModelPage != null)
                 {
-                    string deviceId = Request.Headers.Contains("device") ? Request.Headers.GetValues("device").First().ToString() : String.Empty;
                     objPQ = getPQ.GetVersionList(modelId, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(platformId), null, null, deviceId);
                     if (objPQ != null)
                     {

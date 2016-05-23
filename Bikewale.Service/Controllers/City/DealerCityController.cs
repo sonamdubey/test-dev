@@ -5,6 +5,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.City;
 using Bikewale.Service.AutoMappers.PriceQuote.City;
+using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Bikewale.Service.Controllers.City
     /// Author  :   Sumit Kate
     /// Created :   04 Sept 2015
     /// </summary>
-    public class DealerCityController : ApiController
+    public class DealerCityController : CompressionApiController//ApiController
     {
         private readonly IDealer _objDealer = null;
         /// <summary>

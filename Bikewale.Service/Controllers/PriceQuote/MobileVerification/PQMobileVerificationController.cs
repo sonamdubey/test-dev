@@ -10,6 +10,7 @@ using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Bikebooking;
+using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;
 using System.Linq;
@@ -21,8 +22,10 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
     /// <summary>
     /// Mobile Verification Controller
     /// Modified by :   Sumit Kate on Added Lead Notification Interface reference
+    /// Modified by :   Sumit Kate on 20 May 2016
+    /// Description :   Serialize the input to error message for more details
     /// </summary>
-    public class PQMobileVerificationController : ApiController
+    public class PQMobileVerificationController : CompressionApiController//ApiController
     {
         private readonly IDealerPriceQuote _objDealerPriceQuote = null;
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
@@ -260,7 +263,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.Post");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.Post({0})", Newtonsoft.Json.JsonConvert.SerializeObject(input)));
                 objErr.SendMail();
                 return InternalServerError();
             }

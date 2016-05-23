@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
-using AutoMapper;
+﻿using AutoMapper;
 using Bikewale.DTO.Customer;
 using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Notifications;
+using Bikewale.Service.Utilities;
+using System;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Customer
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 3 Sept 2015
     /// Summary : Controller have methods to authenticate the user.
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
     [Route("api/customer/authenticate/")]
-    public class AuthenticateController : ApiController
+    public class AuthenticateController : CompressionApiController//ApiController
     {
         private readonly ICustomerAuthentication<CustomerEntity, UInt32> _authenticate = null;
 
@@ -39,7 +38,7 @@ namespace Bikewale.Service.Controllers.Customer
         [ResponseType(typeof(AuthenticatedCustomer))]
         public IHttpActionResult POST(LoginInputParameters objLogin)
         {
-            CustomerEntity objCust = null;             
+            CustomerEntity objCust = null;
             try
             {
 
@@ -55,7 +54,7 @@ namespace Bikewale.Service.Controllers.Customer
                 AuthenticatedCustomer objCustomer = new AuthenticatedCustomer();
 
                 if (objCust != null && objCust.IsExist == true)
-                {                    
+                {
                     Mapper.CreateMap<CustomerEntity, AuthenticatedCustomer>();
                     objCustomer = Mapper.Map<CustomerEntity, AuthenticatedCustomer>(objCust);
 

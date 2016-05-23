@@ -416,6 +416,7 @@ function insuranceDetailViewModel() {
             type: "POST",
             url: "/api/InsuranceLead/",
             contentType: "application/json",
+            dataType: 'json',
             data: ko.toJSON(self),
             success: function (response) {
             },

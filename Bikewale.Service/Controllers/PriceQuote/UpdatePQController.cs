@@ -4,6 +4,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
+using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -16,8 +17,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
 {
     /// <summary>
     /// Controller to update the PQ details
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class UpdatePQController : ApiController
+    public class UpdatePQController : CompressionApiController//ApiController
     {
         private readonly IPriceQuote _objPQ = null;
         private readonly IDealerPriceQuote _objDealerPQ = null;

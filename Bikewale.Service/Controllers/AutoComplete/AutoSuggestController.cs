@@ -3,6 +3,7 @@ using Bikewale.Entities.AutoComplete;
 using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.AutoComplete;
+using Bikewale.Service.Utilities;
 using Nest;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,10 @@ namespace Bikewale.Service.Controllers.AutoComplete
     /// <summary>
     /// Auto Suggest Controller
     /// Created By : Sadhana Upadhyay on 25 Aug 2015
+    /// Modified by :   Sumit Kate on 18 May 2016
+    /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class AutoSuggestController : ApiController
+    public class AutoSuggestController : CompressionApiController//ApiController
     {
         private readonly IAutoSuggest _autoSuggest = null;
         public AutoSuggestController(IAutoSuggest autoSuggest)

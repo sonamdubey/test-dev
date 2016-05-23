@@ -13,6 +13,7 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Bikebooking;
 using Bikewale.Service.AutoMappers.PriceQuote;
+using Bikewale.Service.Utilities;
 using Bikewale.Utility;
 using System;
 using System.Linq;
@@ -24,8 +25,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// Price Quote Customer Detail Controller
     /// Author      :   Sumit Kate
     /// Created On  :   21 Aug 2015
+    /// Modified by :   Sumit Kate on 20 May 2016
+    /// Description :   Serialize the input to error message for more details
     /// </summary>
-    public class PQCustomerDetailController : ApiController
+    public class PQCustomerDetailController : CompressionApiController//ApiController
     {
         private readonly ICustomerAuthentication<CustomerEntity, UInt32> _objAuthCustomer = null;
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
@@ -309,7 +312,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Post");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Post({0})", Newtonsoft.Json.JsonConvert.SerializeObject(input)));
                 objErr.SendMail();
                 return InternalServerError();
             }
