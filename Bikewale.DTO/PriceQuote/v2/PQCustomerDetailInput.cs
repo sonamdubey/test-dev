@@ -3,7 +3,7 @@
 namespace Bikewale.DTO.PriceQuote.v2
 {
     /// <summary>
-    /// Price Quote Customer Details Input entity version 2
+    /// Price Quote Customer Details Input DTO version 2
     /// Author  :   Sumit Kate
     /// Date    :   23 May 2016    
     /// </summary>
@@ -11,8 +11,6 @@ namespace Bikewale.DTO.PriceQuote.v2
     {
         [JsonProperty("dealerId")]
         public uint DealerId { get; set; }
-        [JsonProperty("pqId")]
-        public uint PQId { get; set; }
         [JsonProperty("customerName")]
         public string CustomerName { get; set; }
         [JsonProperty("customerMobile")]

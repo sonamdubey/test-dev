@@ -5,7 +5,7 @@ using System;
 namespace Bikewale.DTO.PriceQuote.v2
 {
     /// <summary>
-    /// Price quote customer details output entity version 2
+    /// Price quote customer details output DTO version 2
     /// Author  :   Sumit Kate
     /// Date    :   23 May 2016
     /// </summary>
