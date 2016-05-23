@@ -267,6 +267,8 @@ namespace Bikewale.New
                 
                 ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);
                 ctrlTopCityPrices.TopCount = 8;
+                    ctrlTopCityPrices.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+                    ctrlTopCityPrices.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
             }
         }
 

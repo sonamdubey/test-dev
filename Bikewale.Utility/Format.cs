@@ -1,5 +1,7 @@
 ﻿
+using RabbitMqPublishing.Common;
 using System;
+using System.Text.RegularExpressions;
 namespace Bikewale.Utility
 {
     public static class Format
@@ -54,31 +56,46 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string FormatPriceShort(string number)
         {
-            int length = number.Length;
-
-            double numeric = Convert.ToDouble(number);
             string retValue = string.Empty;
 
-            switch (length)
+            try
             {
-                case 4:
-                case 5:
+                if (!Regex.IsMatch(number, @"^[0-9]+$") || number.Length > 9)
+                {
+                    return "N/A";
+                }
+
+                int length = number.Length;
+                double numeric = Convert.ToDouble(number);
+                switch (length)
+                {
+                    case 4:
+                    case 5:
                     retValue = String.Format("{0} K", Convert.ToString(Math.Round(numeric / 1000, 2)));
-                    break;
-                case 6:
-                case 7:
+                        break;
+                    case 6:
+                    case 7:
                     retValue = String.Format("{0} L", Convert.ToString(Math.Round(numeric / 100000, 2)));
-                    break;
-                case 8:
-                case 9:
+                        break;
+                    case 8:
+                    case 9:
                     retValue = String.Format("{0} C", Convert.ToString(Math.Round(numeric / 10000000, 2)));
-                    break;
-                default:
-                    retValue = FormatPrice(number);
-                    break;
+                        break;
+                    default:
+                        retValue = FormatPrice(number);
+                        break;
+                }
+
+                retValue.Replace(".00", string.Empty);
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("FormatPriceShort, input : {0}", number));
+                objErr.SendMail();
+                return "N/A";
             }
 
-            return retValue.Replace(".00", string.Empty);
+            return retValue;
         }
     }
 }

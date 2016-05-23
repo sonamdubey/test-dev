@@ -6,7 +6,7 @@
         <ItemTemplate>       
             <li>
                 <div class="grid-7 alpha">
-                    <a href="javascript:void(0)" class="text-truncate"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></a>
+                    <a href="<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(MakeMaskingName, ModelMaskingName, DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString()) %>" class="text-truncate"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></a>
                 </div>
                 <div class="grid-5 alpha omega text-right">
                     <span class="fa fa-rupee"></span>
