@@ -906,6 +906,10 @@
     <Compile Include="m\new\ModelPricesInCity.aspx.cs">
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
     </Compile>
+    <Compile Include="m\new\ModelSpecsFeatures.aspx.cs">
+      <DependentUpon>ModelSpecsFeatures.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\newbikedealers\DealerDetails.aspx.cs">
       <DependentUpon>DealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2287,6 +2291,7 @@
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\new\ModelPricesInCity.aspx" />
+    <Content Include="m\new\ModelSpecsFeatures.aspx" />
     <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\Default_old.aspx" />
