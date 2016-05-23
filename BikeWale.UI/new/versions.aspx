@@ -5,6 +5,7 @@
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
+<%@ Register Src="~/controls/PriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <!doctype html>
 <html>
 <head>
@@ -759,82 +760,7 @@
                                 <p class="jcarousel-pagination text-center"></p>
                             </div>
                         </div>
-                        <div class="grid-4 omega padding-left20">
-                            <h3>Prices by cities<span class="text-light-grey text-unbold"> (Ex-showroom)</span></h3>
-                            <ul class="prices-by-cities-list font14">
-                                <li>
-                                    <div class="grid-7 alpha">
-                                        <a href="javascript:void(0)" class="text-truncate">Pune</a>
-                                    </div>
-                                    <div class="grid-5 alpha text-right">
-                                        <span class="fa fa-rupee"></span>
-                                        <span>1.67 L</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                                <li>
-                                    <div class="grid-7 alpha">
-                                        <a href="javascript:void(0)" class="text-truncate">Bengaluru</a>
-                                    </div>
-                                    <div class="grid-5 alpha text-right">
-                                        <span class="fa fa-rupee"></span>
-                                        <span>89 K</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                                <li>
-                                    <div class="grid-7 alpha">
-                                        <a href="javascript:void(0)" class="text-truncate">Chennai</a>
-                                    </div>
-                                    <div class="grid-5 alpha text-right">
-                                        <span class="fa fa-rupee"></span>
-                                        <span>1.45 L</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                                <li>
-                                    <div class="grid-7 alpha">
-                                        <a href="javascript:void(0)" class="text-truncate">Hyderabad</a>
-                                    </div>
-                                    <div class="grid-5 alpha text-right">
-                                        <span class="fa fa-rupee"></span>
-                                        <span>67 K</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-
-                                <li>
-                                    <div class="grid-7 alpha">
-                                        <a href="javascript:void(0)" class="text-truncate">Pune</a>
-                                    </div>
-                                    <div class="grid-5 alpha text-right">
-                                        <span class="fa fa-rupee"></span>
-                                        <span>1.67 L</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                                <li>
-                                    <div class="grid-7 alpha">
-                                        <a href="javascript:void(0)" class="text-truncate">Bengaluru</a>
-                                    </div>
-                                    <div class="grid-5 alpha text-right">
-                                        <span class="fa fa-rupee"></span>
-                                        <span>89 K</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                                <li>
-                                    <div class="grid-7 alpha">
-                                        <a href="javascript:void(0)" class="text-truncate">Chennai</a>
-                                    </div>
-                                    <div class="grid-5 alpha text-right">
-                                        <span class="fa fa-rupee"></span>
-                                        <span>1.45 L</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                            </ul>
-                        </div>
+                       <BW:TopCityPrice ID="ctrlTopCityPrices" runat="server" />
                         <div class="clear"></div>
                     </div>
 

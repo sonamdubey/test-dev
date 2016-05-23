@@ -43,6 +43,8 @@ namespace Bikewale.New
         protected VideosControl ctrlVideos;
         protected UserReviewsList ctrlUserReviews;
         protected ModelGallery ctrlModelGallery;
+        protected PriceInTopCities ctrlTopCityPrices;
+
         protected BikeModelPageEntity modelPage;
         protected VersionSpecifications bikeSpecs;
         //protected PQOnRoad pqOnRoad;
@@ -269,6 +271,9 @@ namespace Bikewale.New
                     ctrlUserReviews.PageSize = 4;
                     ctrlUserReviews.ModelId = _modelId;
                     ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+
+                    ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);
+                    ctrlTopCityPrices.TopCount = 8;
 
                     ToggleOfferDiv();
                     Trace.Warn("Trace 20 : Page Load ends");
