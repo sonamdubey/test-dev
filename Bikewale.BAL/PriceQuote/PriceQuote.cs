@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.DAL.PriceQuote;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -38,7 +35,7 @@ namespace Bikewale.BAL.PriceQuote
         public ulong RegisterPriceQuote(PriceQuoteParametersEntity pqParams)
         {
             ulong pqId = 0;
-            
+
             pqId = objPQ.RegisterPriceQuote(pqParams);
 
             return pqId;
@@ -66,7 +63,7 @@ namespace Bikewale.BAL.PriceQuote
         public BikeQuotationEntity GetPriceQuote(PriceQuoteParametersEntity pqParams)
         {
             BikeQuotationEntity objQuotation = null;
-            
+
             objQuotation = objPQ.GetPriceQuote(pqParams);
 
             return objQuotation;
@@ -109,13 +106,26 @@ namespace Bikewale.BAL.PriceQuote
 
         public bool SaveBookingState(uint pqId, PriceQuoteStates state)
         {
-            return objPQ.SaveBookingState(pqId,state);
+            return objPQ.SaveBookingState(pqId, state);
         }
 
 
         public PriceQuoteParametersEntity FetchPriceQuoteDetailsById(ulong pqId)
         {
             return objPQ.FetchPriceQuoteDetailsById(pqId);
+        }
+
+        /// <summary>
+        /// Created By : Vivek Gupta
+        /// Date : 20-05-2016
+        /// Desc : Fetch BW Pricequote of top cities by modelId
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<PriceQuoteOfTopCities> FetchPriceQuoteOfTopCities(uint modelId, uint topCount)
+        {
+            return objPQ.FetchPriceQuoteOfTopCities(modelId, topCount);
         }
     }   // class
 }   // namespace

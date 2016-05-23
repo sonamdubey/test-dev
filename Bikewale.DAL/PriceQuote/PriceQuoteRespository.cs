@@ -426,5 +426,61 @@ namespace Bikewale.DAL.PriceQuote
 
             return objQuotation;
         }
+
+        /// <summary>
+        /// Created By : Vivek Gupta
+        /// Date : 20-05-2016
+        /// Desc : Fetch BW Pricequote of top cities by modelId
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<PriceQuoteOfTopCities> FetchPriceQuoteOfTopCities(uint modelId, uint topCount)
+        {
+            IList<PriceQuoteOfTopCities> objPrice = null;
+            Database db = null;
+            try
+            {
+                db = new Database();
+
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "GetModelPriceForTopCities";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                        cmd.Parameters.Add("@TopCount", SqlDbType.TinyInt).Value = topCount;
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            objPrice = new List<PriceQuoteOfTopCities>();
+                            while (dr.Read())
+                            {
+                                objPrice.Add(new PriceQuoteOfTopCities
+                                {
+                                    CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
+                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string),
+                                    OnRoadPrice = !Convert.IsDBNull(dr["OnRoadPrice"]) ? Convert.ToUInt32(dr["OnRoadPrice"]) : default(UInt32)
+
+                                });
+                            }
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " inputs: modelId : " + modelId + " : topCount :" + topCount);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objPrice;
+        }
     }   // Class
 }   // namespace
