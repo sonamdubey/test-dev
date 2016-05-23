@@ -190,19 +190,24 @@ namespace Bikewale.Content
 
             if (objRoadtest.VehiclTagsList != null && objRoadtest.VehiclTagsList.Count > 0)
             {
-
-                _bikeTested = new StringBuilder();
-
-                _bikeTested.Append("Bike Tested: ");
-
-                IEnumerable<int> ids = objRoadtest.VehiclTagsList
-                       .Select(e => e.ModelBase.ModelId)
-                       .Distinct();
-
-                foreach (var i in ids)
+                if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
                 {
-                    VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
-                    _bikeTested.Append("<a title='" + item.MakeBase.MakeName + " " + item.ModelBase.ModelName + " Bikes' href='/m/" + item.MakeBase.MaskingName + "-bikes/" + item.ModelBase.MaskingName + "/'>" + item.ModelBase.ModelName + "</a>   ");
+                    _bikeTested = new StringBuilder();
+
+                    _bikeTested.Append("Bike Tested: ");
+
+                    IEnumerable<int> ids = objRoadtest.VehiclTagsList
+                           .Select(e => e.ModelBase.ModelId)
+                           .Distinct();
+
+                    foreach (var i in ids)
+                    {
+                        VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
+                        if (!String.IsNullOrEmpty(item.MakeBase.MaskingName))
+                        {
+                            _bikeTested.Append("<a title='" + item.MakeBase.MakeName + " " + item.ModelBase.ModelName + " Bikes' href='/m/" + item.MakeBase.MaskingName + "-bikes/" + item.ModelBase.MaskingName + "/'>" + item.ModelBase.ModelName + "</a>   ");
+                        }
+                    }
                 }
             }
 

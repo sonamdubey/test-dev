@@ -46,7 +46,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
         /// <param name="areaId"></param>
         /// <returns></returns>
         [ResponseType(typeof(PQByCityAreaEntity)), Route("api/model/versionlistprice/")]
-        public IHttpActionResult Get(int modelId, int? cityId = null, int? areaId = null)
+        public IHttpActionResult Get(int modelId, int? cityId = null, int? areaId = null, string deviceId = null)
         {
             if (cityId < 0 || modelId < 0)
             {
@@ -74,7 +74,6 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                         platformId = Request.Headers.GetValues("platformId").First().ToString();
                     }
                     UInt16.TryParse(platformId, out platform);
-                    string deviceId = Request.Headers.Contains("device") ? Request.Headers.GetValues("device").First().ToString() : String.Empty;
                     pqEntity = pqByCityArea.GetVersionList(modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
                     objPQDTO = ModelMapper.Convert(pqEntity);
                     objVersionsList = null;

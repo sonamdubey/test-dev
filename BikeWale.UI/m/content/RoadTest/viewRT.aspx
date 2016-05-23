@@ -28,7 +28,7 @@
         </div>
     
         <h1><%= pageTitle %></h1>
-        <div class="new-line5 f-12"><%=Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %> | By <%=author %>| <%=_bikeTested %></div>
+        <div class="new-line5 f-12"><%=Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %> | By <%=author %> <%= (_bikeTested != null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("| {0}",_bikeTested) : "" %></div>
         <div class="new-line5">
             <ul class="socialplugins  new-line10">
                 <li><fb:like href="<%= canonicalUrl%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>
