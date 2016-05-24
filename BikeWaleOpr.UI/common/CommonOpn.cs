@@ -1539,7 +1539,7 @@ namespace BikeWaleOpr.Common
                 ifnull(nbs.fueltype, '') as fueltype, 
                 ifnull(nbs.displacement, 0) as  displacement, 
                 if(bv.imported,true,false) as isimported, 
-                ifnull(cr.amount, 1, 0) as regcharges, 
+                ifnull(cr.amount,0) as regcharges, 
                 ifnull(topspeed, 0) topspeed, 
                 bs.id as bodystyleid 
                 from  
