@@ -48,48 +48,14 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "savepricequote_new_20042016";
 
-                        //cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = pqParams.CityId;
-
-                        //if (pqParams.AreaId > 0)
-                        //{
-                        //    cmd.Parameters.Add("@AreaId", SqlDbType.Int).Value = pqParams.AreaId;
-                        //}
-
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], pqParams.CityId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (pqParams.AreaId > 0) ? pqParams.AreaId : Convert.DBNull));
-
-                        //cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = pqParams.VersionId;
-                        //cmd.Parameters.Add("@SourceId", SqlDbType.TinyInt).Value = pqParams.SourceId;
-                        //cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = String.IsNullOrEmpty(pqParams.ClientIP) ? Convert.DBNull : pqParams.ClientIP;
-                        //cmd.Parameters.Add("@QuoteId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
-                        //cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = pqParams.DealerId;
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], pqParams.VersionId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], pqParams.SourceId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 40, String.IsNullOrEmpty(pqParams.ClientIP) ? Convert.DBNull : pqParams.ClientIP));
                        
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], pqParams.DealerId));
-
-                        //if (pqParams.PQLeadId.HasValue)
-                        //{
-                        //    cmd.Parameters.Add("@PQSourceId", SqlDbType.TinyInt).Value = pqParams.PQLeadId.Value;
-                        //}
-                        //if (!String.IsNullOrEmpty(pqParams.UTMA))
-                        //{
-                        //    cmd.Parameters.Add("@utma", SqlDbType.VarChar, 100).Value = pqParams.UTMA;
-                        //}
-                        //if (!String.IsNullOrEmpty(pqParams.UTMZ))
-                        //{
-                        //    cmd.Parameters.Add("@utmz", SqlDbType.VarChar, 100).Value = pqParams.UTMZ;
-                        //}
-                        //if (!String.IsNullOrEmpty(pqParams.DeviceId))
-                        //{
-                        //    cmd.Parameters.Add("@deviceId", SqlDbType.VarChar, 25).Value = pqParams.DeviceId;
-                        //}
-                        //if(pqParams.RefPQId.HasValue)
-                        //{
-                        //    cmd.Parameters.Add("@refPQId", SqlDbType.Int).Value = pqParams.RefPQId.Value;
-                        //}
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqsourceid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], (pqParams.PQLeadId.HasValue) ? pqParams.PQLeadId : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, (!String.IsNullOrEmpty(pqParams.UTMA)) ? pqParams.UTMA : null));

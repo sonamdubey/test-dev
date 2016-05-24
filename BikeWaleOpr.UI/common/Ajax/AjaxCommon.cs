@@ -145,13 +145,13 @@ namespace BikeWaleOpr.Common
         {
             bool isSuccess = false;
             try
-            { 
+            {
                 MakeModelVersion mmv = new MakeModelVersion();
                 isSuccess = mmv.UpdateMakeMaskingName(maskingName, updatedBy, makeId);
             }
-            catch(Exception err)
+            catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err,HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             return isSuccess;
@@ -165,7 +165,7 @@ namespace BikeWaleOpr.Common
         /// <param name="name">passed as series name to bikeseries table</param>   
         /// <param name="maskingName">passed as series masking name for url formation to bikeseries table</param>      
         /// <param name="seriesId">identify which series mask name is changed</param>
-      
+
         [AjaxPro.AjaxMethod()]
         public bool UpdateSeriesMaskingName(string name, string maskingName, string seriesId)
         {
@@ -174,7 +174,7 @@ namespace BikeWaleOpr.Common
             {
                 ManageBikeSeries mbs = new ManageBikeSeries();
                 //MakeModelVersion mmv = new MakeModelVersion();
-                isSuccess = mbs.UpdateSeries(name,maskingName,seriesId);
+                isSuccess = mbs.UpdateSeries(name, maskingName, seriesId);
             }
             catch (Exception err)
             {
@@ -192,7 +192,7 @@ namespace BikeWaleOpr.Common
         /// <param name="updatedBy"> passed which user has updated last time</param>
         /// <param name="modelId">identify which model mask name is changed</param>
         /// <returns>nothing</returns>
-       
+
         [AjaxPro.AjaxMethod()]
         public bool UpdateModelMaskingName(string maskingName, string updatedBy, string modelId)
         {
@@ -219,7 +219,7 @@ namespace BikeWaleOpr.Common
         public void DeleteState(string stateId)
         {
             try
-            {          
+            {
                 ManageStates objMS = new ManageStates();
                 objMS.DeleteState(stateId);
             }
@@ -228,7 +228,7 @@ namespace BikeWaleOpr.Common
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }           
+            }
         }
 
         /// <summary>
@@ -242,13 +242,13 @@ namespace BikeWaleOpr.Common
             try
             {
                 ManageCities objMC = new ManageCities();
-                objMC.DeleteCity(cityId);           
-            }        
+                objMC.DeleteCity(cityId);
+            }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }        
+            }
         }
 
         /// <summary>
@@ -337,23 +337,18 @@ namespace BikeWaleOpr.Common
         /// <param name="deleteId"></param>
         [AjaxPro.AjaxMethod()]
         public void DeleteCompBikeData(string deleteId)
-        {
-            throw new Exception("Method not used/commented");
+        {  
+            try
+            { 
+                CompareBike compBike = new CompareBike();
+                compBike.DeleteCompareBike(deleteId);
 
-            //try
-            //{
-            //    Database db = new Database();
-            //    using (SqlCommand cmd = new SqlCommand())
-            //    {
-            //        CompareBike compBike = new CompareBike();
-            //        compBike.DeleteCompareBike(deleteId);
-            //    }
-            //}
-            //catch (Exception err)
-            //{
-            //    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
         }   //End of DeleteCompBikeData
 
         /// <summary>
@@ -365,7 +360,7 @@ namespace BikeWaleOpr.Common
         /// <param name="prioritiesList"></param>
         [AjaxPro.AjaxMethod()]
         public void UpdatePriorities(string prioritiesList)
-        {            
+        {
             if (prioritiesList.Length > 0)
                 prioritiesList = prioritiesList.Substring(0, prioritiesList.Length - 1);
             try
@@ -556,7 +551,7 @@ namespace BikeWaleOpr.Common
                     jsonCities = JSON.GetJSONString(dt);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetPriceQuoteCities");
                 objErr.SendMail();
@@ -592,7 +587,7 @@ namespace BikeWaleOpr.Common
                     jsonCities = JSON.GetJSONString(dt);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetAreas");
                 objErr.SendMail();
@@ -653,7 +648,7 @@ namespace BikeWaleOpr.Common
                     jsonDealerCampaigns = JSON.GetJSONString(dt);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetDealerCampaigns");
                 objErr.SendMail();

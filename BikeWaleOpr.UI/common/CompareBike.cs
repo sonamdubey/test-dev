@@ -25,10 +25,8 @@ namespace BikeWaleOpr.Common
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("deletecomparebikedate"))
                 {
-                    //cmd.CommandText = "DeleteCompareBikeDate";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    //cmd.Parameters.Add("@Id", SqlDbType.Int).Value = deleteId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], deleteId)); 
                     MySqlDatabase.UpdateQuery(cmd);
                 }
