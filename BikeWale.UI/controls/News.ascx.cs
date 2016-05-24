@@ -5,6 +5,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
+    /// <summary>
+    /// Written By : Sangram Nandkhile on 24 May 2016
+    /// Summary : Control to show News
+    /// </summary>
     public class News_Widget : System.Web.UI.UserControl
     {
         protected Repeater rptNews;

@@ -4,9 +4,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
+
     /// <summary>
-    /// Modified By : Lucky Rathore on 01 March 2016
-    /// Description : functionality for view more videos URL added.
+    /// Written By : Sangram Nandkhile on 24 May 2016
+    /// Summary : Control to show videos
     /// </summary>
     public class NewVideosControl : System.Web.UI.UserControl
     {
