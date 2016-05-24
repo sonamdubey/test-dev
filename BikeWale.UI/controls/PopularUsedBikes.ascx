@@ -18,8 +18,8 @@
                                         <div class="bikeTitle margin-bottom15">
                                             <h3><a href="<%# FormatUsedBikeUrl(DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString(), DataBinder.Eval(Container.DataItem,"CityMaskingName").ToString()) %>" title="<%# DataBinder.Eval(Container.DataItem,"MakeName").ToString() %>"><%# DataBinder.Eval(Container.DataItem,"MakeName").ToString() %></a></h3>
                                         </div>
-                                        <div class="margin-bottom10 font20">
-                                            <span class="fa fa-rupee"></span>
+                                        <div class="margin-bottom10">
+                                            <span class="bwsprite inr-xl"></span>
                                             <span class="font22"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"AvgPrice").ToString()) %></span>
                                             <span class="font16">(Average price)</span>
                                         </div>
@@ -33,9 +33,8 @@
                     </asp:Repeater>
                 </ul>
             </div>
-            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
-            <!--<p class="jcarousel-pagination"></p> -->
+            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
         </div>
         <div class="text-center margin-bottom30">
             <a class="font16" href="<%= FormatCompleteListUrl() %>">View complete list</a>

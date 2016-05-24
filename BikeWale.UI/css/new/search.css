@@ -29,7 +29,8 @@
 /* filter reset button */
 .filter-reset-btn { color:#555; cursor:pointer; }
 /* filter more-less button */
-.more-filters-container { width:976px;  }
+.more-filters-container { width:976px; padding:0 10px 10px; }
+.more-filters-container h3 { font-weight:normal; }
 .more-filter-item-data .form-control { width:99%; }
 .ride-style-list.list-items { width:185px; }
 .more-filters-btn { width:98px; height:40px; padding:9px 8px; border:1px solid #555; margin-top:10px; color:#555; text-align:center; cursor:pointer; background:#fff; }

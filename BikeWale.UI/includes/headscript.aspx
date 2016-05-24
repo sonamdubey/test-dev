@@ -52,7 +52,7 @@
     }, 1);
 </script>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-<link href="/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 <script type='text/javascript'>
     var googletag = googletag || {};

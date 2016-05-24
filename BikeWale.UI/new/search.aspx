@@ -30,7 +30,7 @@
                                     <span itemprop="title">Home</span>
                                 </a>
                             </li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>New Bikes</li>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span>New Bikes</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -54,7 +54,7 @@
                                             <span class="leftfloat filter-select-btn default-text">Select brand</span>
                                             <span class="clear"></span>
                                         </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                     </div>
                                     <div id="filter-select-brand" name="bike" class="filter-selection-div filter-brand-list list-items hide">
                                         <span class="top-arrow"></span>
@@ -84,7 +84,7 @@
                                             <span class="default-text" id="budgetBtn">Select budget</span>
                                             <span class="minAmount"></span>
                                             <span class="maxAmount"></span>
-                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                             <span class="clear"></span>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                             <span class="leftfloat filter-select-btn default-text">Select mileage</span>
                                             <span class="clear"></span>
                                         </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                     </div>
                                     <div name="mileage" class="filter-selection-div filter-mileage-list list-items hide">
                                         <span class="top-arrow"></span>
@@ -129,7 +129,7 @@
                                             <span class="leftfloat filter-select-btn default-text">Select displacement</span>
                                             <span class="clear"></span>
                                         </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                     </div>
                                     <div name="displacement" class="filter-selection-div filter-displacement-list list-items hide">
                                         <span class="top-arrow"></span>
@@ -178,7 +178,7 @@
                                             <span class="leftfloat filter-select-btn default-text">Select ride style</span>
                                             <span class="clear"></span>
                                         </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                     </div>
                                     <div name="ridestyle" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
                                         <span class="top-arrow"></span>
@@ -275,7 +275,7 @@
                 <div class="grid-12">
                     <div class="search-result-container content-box-shadow rounded-corner2">
                         <div class="search-count-container border-solid-bottom padding-top10 padding-bottom10">
-                            <div class="leftfloat grid-8">
+                            <div class="leftfloat grid-8 padding-top5">
                                 <h2><span id="bikecount"></span></h2>
                             </div>
                             <div class="rightfloat padding-right10 padding-left30 grid-3">
@@ -284,7 +284,7 @@
                                         <span class="leftfloat sort-select-btn">Popular</span>
                                         <span class="clear"></span>
                                     </div>
-                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                 </div>
                                 <div class="sort-selection-div sort-list-items hide">
                                     <ul>
@@ -325,9 +325,9 @@
                                         <div class="bikeTitle margin-bottom10">
                                             <h3><a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }"></a></h3>
                                         </div>
-                                        <div class="font20">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font22" data-bind="text: price"></span><span class="font16">onwards</span>
+                                        <div>
+                                            <span class="bwsprite inr-xl"></span>
+                                            <span class="font22" data-bind="text: price"></span><span class="font16"> onwards</span>
                                         </div>
                                         <div class="font12 text-light-grey margin-bottom10">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
                                         <div class="font14 margin-bottom10">

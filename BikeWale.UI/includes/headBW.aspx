@@ -52,7 +52,7 @@
                 <div class="gl-default-stage">
                 	<div id="globalCity-text">
                         <span class="cityName" id="cityName">Select City</span>
-                        <span class="fa fa-map-marker margin-left10"></span>
+                        <span class="bwsprite global-map-marker margin-left10"></span>
                     </div>
                 </div>            
             </div>

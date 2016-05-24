@@ -16,7 +16,7 @@
                 <div class="grid-6 alpha border-solid-right">
                     <div class="content-inner-block-5 text-center">
                         <div class="font18 margin-bottom5">
-                            <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(TopRecord.Price1)) %>
+                            <span class="bwsprite inr-md"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(TopRecord.Price1)) %>
                         </div>
                         <div>
                             <% if (Convert.ToDouble(TopRecord.Review1) > 0)
@@ -36,7 +36,7 @@
                 <div class="grid-6 omega">
                     <div class="content-inner-block-5 text-center">
                         <div class="font18 margin-bottom5">
-                            <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price2.ToString()) %>
+                            <span class="bwsprite inr-md"></span> <%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price2.ToString()) %>
                         </div>
                         <div>
                             <% if (Convert.ToDouble(TopRecord.Review2) > 0)
@@ -68,11 +68,11 @@
                                     <%# FormatBikeCompareAnchorText(DataBinder.Eval(Container.DataItem,"Bike1").ToString(),DataBinder.Eval(Container.DataItem,"Bike2").ToString()) %>
                                 </a>
                             </p>
-                            <div class="font16 text-light-grey">
+                            <div>
                                 <span class="margin-right50">
-                                    <span class="fa fa-rupee"></span> <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price1").ToString()) %></span>
+                                    <span class="bwsprite inr-md-light"></span> <span class="font16 text-xt-light-grey"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price1").ToString()) %></span>
                                 </span>
-                                <span class="fa fa-rupee"></span> <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price2").ToString()) %></span>
+                                <span class="bwsprite inr-md-light"></span> <span class="font16 text-xt-light-grey"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price2").ToString()) %></span>
                             </div>
                         </li>
                     </ItemTemplate>

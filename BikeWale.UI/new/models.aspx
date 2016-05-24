@@ -41,7 +41,7 @@
                                     <span itemprop="title">Home</span>
                                 </a>
                             </li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><%= _make.MakeName %> Bikes</li>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span><%= _make.MakeName %> Bikes</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -59,7 +59,7 @@
                                         <span class="leftfloat sort-select-btn">Price: Low to High</span>
                                         <span class="clear"></span>
                                     </div>
-                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                 </div>
                                 <div class="sort-selection-div sort-list-items hide">
                                     <ul id="sortbike">
@@ -190,9 +190,9 @@
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>">
                                 <ul>
-                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews"><h3>News</h3></li>
-                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews"><h3>Expert Reviews</h3></li>
-                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos"><h3>Videos</h3></li>
+                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews"><h3 class="text-unbold">News</h3></li>
+                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews"><h3 class="text-unbold">Expert Reviews</h3></li>
+                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos"><h3 class="text-unbold">Videos</h3></li>
                                 </ul>
                             </div>
                         </div>
