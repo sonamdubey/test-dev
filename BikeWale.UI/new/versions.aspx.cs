@@ -224,8 +224,9 @@ namespace Bikewale.New
                     LoadNewsVidsReviews(modelId, modelPageEntity);
                     Trace.Warn("Trace 21 : LoadNewsVidsReviews ends");
                     ToggleOfferDiv();
-                    Trace.Warn("Trace 22 : Page Load ends");
+                    Trace.Warn("Trace 22 : Clear trailing Query");
                     ClearTrailingQuerystring(this);
+                    Trace.Warn("Trace 23 : Page Load ends");
                 }
             }
             catch (Exception ex)
@@ -240,7 +241,7 @@ namespace Bikewale.New
             if (modelPage != null)
             {
                 int _modelId = Convert.ToInt32(modelId);
-                ctrlNews.TotalRecords = 2;
+                ctrlNews.TotalRecords = 3;
                 ctrlNews.ModelId = _modelId;
                 ctrlNews.WidgetTitle = bikeName;
 
@@ -249,7 +250,7 @@ namespace Bikewale.New
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
 
-                ctrlVideos.TotalRecords = 1;
+                ctrlVideos.TotalRecords = 2;
                 ctrlVideos.ModelId = _modelId;
                 ctrlVideos.MakeId = modelPage.ModelDetails.MakeBase.MakeId;
                 ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();

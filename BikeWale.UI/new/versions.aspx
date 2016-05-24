@@ -974,22 +974,37 @@
                     <div class="margin-right10 margin-left10 border-solid-top"></div>
                     <div id="modelReviewsContent" class="bw-model-tabs-data padding-top20 font14">
                         <h2 class="padding-left20 padding-right20"><%= bikeName %> Reviews</h2>
+                        <% if(ctrlExpertReviews.FetchedRecordsCount > 0){ %>
                         <!-- expert review starts-->
                         <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                         <!-- expert review ends-->
+                        <% } %>
+
+                        <% if (ctrlUserReviews.FetchedRecordsCount > 0){ %>
                         <!-- user reviews -->
                         <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                         <!-- user reviews ends -->
+                         <% } %>
+
+                        <% if (ctrlVideos.FetchedRecordsCount > 0)
+                           { %>
                         <!-- Video reviews -->
                         <BW:Videos runat="server" ID="ctrlVideos" />
                         <!-- Video reviews ends -->
+                        <% } %>
                     </div>
-                    <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
-
-                    <%--<BW:News runat="server" ID="News" />--%>
-                    
+                    <% if (ctrlNews.FetchedRecordsCount > 0)
+                       { %>
+                    <!-- News widget starts -->                    
                     <BW:LatestNews runat="server" ID="ctrlNews" />
-                    
+                    <!-- News widget ends --> 
+                    <% } %>  
+
+                    <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
+                    <!-- Alternative reviews ends -->
+                    <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+                    <!-- Alternative reviews ends -->
+                    <% } %>
 
                     <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
 

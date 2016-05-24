@@ -9,7 +9,7 @@
 <html>
 <head>
     <%
-        description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price));
+        description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()));
         title = String.Format("{0} Price in India, Review, Mileage & Photos - Bikewale", bikeName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
@@ -201,13 +201,13 @@
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="margin-bottom5">
                                 <p class="line-Ht18">
 
-                                    <%if (price != "0" && price != string.Empty)
+                                    <%if (price > 0)
                                       { %>
 
                                     <span class="font22 text-bold">
                                         <span itemprop="priceCurrency" content="INR"><span class="bwmsprite inr-md-icon"></span></span>
                                         <span itemprop="price" content="<%=price %>">
-                                            <%= Bikewale.Utility.Format.FormatPrice(price) %>
+                                            <%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>
                                         </span>
                                     </span>
 
@@ -218,7 +218,7 @@
                                     <%  } %>
                                 </p>
                             </div>
-                            <%if (isOnRoadPrice && price != "0")
+                            <%if (isOnRoadPrice && price > 0)
                               {%>
                             <span id="viewBreakupText" class="font16 text-bold viewBreakupText">View detailed price</span>
                             <p class="font12 text-light-grey clear" />

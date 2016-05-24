@@ -43,7 +43,8 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     FetchedRecordsCount = _objArticleList.Count();
                     firstArticle = _objArticleList.First();
-                    rptr.DataSource = _objArticleList.Take(2).Skip(1);
+                    var lst = _objArticleList.Skip(1);
+                    rptr.DataSource = lst;
                     rptr.DataBind();
                 }
             }
