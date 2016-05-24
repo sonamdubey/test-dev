@@ -265,11 +265,11 @@ namespace Bikewale.New
                 ctrlUserReviews.ModelId = _modelId;
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
-                ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);        
+                ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);
                 ctrlTopCityPrices.TopCount = 8;
                 ctrlTopCityPrices.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlTopCityPrices.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-    }
+            }
         }
         // Clear trailing query string -- added on 09-feb-2016 by Sangram
         private void ClearTrailingQuerystring(bikeModel bikeModel)
@@ -301,7 +301,7 @@ namespace Bikewale.New
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
 
                         var totalDiscount = totalDiscountedPrice;
-                        //if ((isCitySelected && !isAreaAvailable))
+
                         if (isOnRoadPrice)
                             lblExOn.Text = "On-road price";
 
@@ -319,7 +319,6 @@ namespace Bikewale.New
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -462,12 +461,6 @@ namespace Bikewale.New
             {
                 if (!string.IsNullOrEmpty(modelQuerystring))
                 {
-                    if (modelQuerystring.Contains("/"))
-                    {
-                        modelQuerystring = modelQuerystring.Split('/')[0];
-                    }
-
-                    Trace.Warn("modelQuerystring 2 : ", modelQuerystring);
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()

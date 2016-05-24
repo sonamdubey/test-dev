@@ -701,67 +701,39 @@
                     <div class="margin-right10 margin-left10 border-solid-top"></div> <!-- divider -->
 
                     <div id="modelPricesContent" class="bw-model-tabs-data content-inner-block-21522">
-                        <h2>Bajaj Pulsar RS200 Prices</h2>
+                        <h2><%=bikeName %> Prices</h2>
                         <div class="grid-8 alpha">
                             <h3 class="margin-bottom20">Prices by versions</h3>
                             <div class="jcarousel-wrapper">
                                 <div class="jcarousel">
                                     <ul>
-                                        <li class="rounded-corner2">
-                                            <p class="text-bold text-truncate margin-bottom15">Self Start Double Disc Brake Alloy Wheels</p>
-                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Alloy wheel, Disc brake, Electric Start, ABS</p>
-                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
-                                            <p class="font18 text-bold text-black">
-                                                <span class="fa fa-rupee"></span>
-                                                <span>50,551</span>
-                                            </p>
-                                        </li>
-                                        <li class="rounded-corner2">
-                                            <p class="text-bold text-truncate margin-bottom15">Self Start Double Disc Brake</p>
-                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Alloy wheel, Electric Start, ABS</p>
-                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
-                                            <p class="font18 text-bold text-black">
-                                                <span class="fa fa-rupee"></span>
-                                                <span>62,453</span>
-                                            </p>
-                                        </li>
-                                        <li class="rounded-corner2">
-                                            <p class="text-bold text-truncate margin-bottom15">Self Start Double Alloy Wheels</p>
-                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Disc brake, Electric Start, ABS</p>
-                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
-                                            <p class="font18 text-bold text-black">
-                                                <span class="fa fa-rupee"></span>
-                                                <span>55,311</span>
-                                            </p>
-                                        </li>
-                                        <li class="rounded-corner2">
-                                            <p class="text-bold text-truncate margin-bottom15">Brake Alloy Wheels</p>
-                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Alloy wheel, Electric Start, ABS</p>
-                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
-                                            <p class="font18 text-bold text-black">
-                                                <span class="fa fa-rupee"></span>
-                                                <span>70,121</span>
-                                            </p>
-                                        </li>
-                                        <li class="rounded-corner2">
-                                            <p class="text-bold text-truncate margin-bottom15">Self Start Alloy Wheels</p>
-                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Electric Start, ABS</p>
-                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
-                                            <p class="font18 text-bold text-black">
-                                                <span class="fa fa-rupee"></span>
-                                                <span>53,831</span>
-                                            </p>
-                                        </li>
-                                        <li class="rounded-corner2">
-                                            <p class="text-bold text-truncate margin-bottom15">Self Start Brake Alloy Wheels</p>
-                                            <p class="text-truncate text-xt-light-grey margin-bottom15">Alloy wheel, Disc brake</p>
-                                            <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
-                                            <p class="font18 text-bold text-black">
-                                                <span class="fa fa-rupee"></span>
-                                                <span>57,177</span>
-                                            </p>
-                                        </li>
-                                    </ul>
+                                       <asp:Repeater runat="server" ID="rptVarients" OnItemDataBound="rptVarients_ItemDataBound">
+	                                        <ItemTemplate>
+                                                <li class="rounded-corner2">
+                                                    <p class="text-bold text-truncate margin-bottom15"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionName")) %></p>
+                                                    <p class="text-truncate text-xt-light-grey margin-bottom15"><%# FormatVarientMinSpec(Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AlloyWheels")),Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "ElectricStart")),Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AntilockBrakingSystem")),Convert.ToString(DataBinder.Eval(Container.DataItem, "BrakeType"))) %></p>
+                                                    <p class="text-truncate text-light-grey margin-bottom10" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">On-road price in 
+                                                        <% if (areaName != string.Empty && cityName != string.Empty)
+												        { %>
+                                                            <%String.Format("{0}, {1}", areaName, cityName);%>
+                                                       <% }
+                                                        else if(areaName == string.Empty && cityName !=string.Empty)
+                                                           {%>
+                                                               <%= cityName%>
+                                                        <%} else
+												        {%>                                                 
+                                                            <%= Bikewale.Common.Configuration.GetDefaultCityName %>
+                                                         <% } %>
+                                                    </p>
+                                                    <p class="font18 text-bold text-black">
+                                                        <span class="fa fa-rupee"></span>
+                                                        <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(Eval("Price"))) %></span>
+                                                    </p>
+                                                </li>
+                                                <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />                                                        
+	                                        </ItemTemplate>
+                                        </asp:Repeater>                                  
+                                    </ul>                                      
                                 </div>
                                 <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
@@ -1758,44 +1730,7 @@
                             <div class="more-features-btn"><a href="javascript:void(0)">+</a></div>
                         </div>
                     </div>
-                    <!-- variant code starts here -->
-                    <div class="bw-tabs-data margin-bottom20 <%= modelPageEntity.ModelVersions != null && modelPageEntity.ModelVersions.Count > 0 ? string.Empty : "hide" %>" id="variants">
-                        <h2 class="font24 margin-bottom20 text-center">Versions</h2>
-                        <asp:Repeater runat="server" ID="rptVarients" OnItemDataBound="rptVarients_ItemDataBound">
-                            <ItemTemplate>
-                                <div class="grid-6">
-                                    <div class="border-solid content-inner-block-10 margin-bottom20">
-                                        <div class="grid-8 varient-desc-container alpha">
-                                            <h3 class="font16 margin-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionName")) %></h3>
-                                            <p class="font14"><%# FormatVarientMinSpec(Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AlloyWheels")),Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "ElectricStart")),Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AntilockBrakingSystem")),Convert.ToString(DataBinder.Eval(Container.DataItem, "BrakeType"))) %></p>
-                                        </div>
-                                        <div class="grid-4 omega">
-                                            <p class="font18 margin-bottom10">
-                                                <span class="fa fa-rupee margin-right5"></span>
-                                                <span id="<%# "price_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
-                                                    <asp:Label Text='<%#Eval("Price") %>' ID="txtComment" runat="server"></asp:Label>
-                                                </span>
-                                            </p>
-                                            <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
-                                                <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>, 
-												<% if (cityId != 0 && cityName != string.Empty)
-												   { %>
-                                                <%= cityName %>
-                                                <% }
-												   else
-												   { %>
-                                                <%= Bikewale.Common.Configuration.GetDefaultCityName %>
-                                                <% } %>
-                                            </p>
-                                            <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                </div>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                        <div class="clear"></div>
-                    </div>
+                   <div class="clear"></div>
                     <!-- colours code starts here -->
                     <div class="bw-tabs-data margin-bottom20 <%= modelPageEntity.ModelColors != null ? string.Empty : "hide" %>" id="colours">
                         <div class="border-solid-top margin-left10 margin-right10"></div>
