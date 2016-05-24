@@ -22,6 +22,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
     /// <summary>
     /// Mobile Verification Controller
     /// Modified by :   Sumit Kate on Added Lead Notification Interface reference
+    /// Modified by :   Sumit Kate on 20 May 2016
+    /// Description :   Serialize the input to error message for more details
     /// </summary>
     public class PQMobileVerificationController : CompressionApiController//ApiController
     {
@@ -83,7 +85,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
             uint bookingAmount = 0;
             try
             {
-                if (input != null && !String.IsNullOrEmpty(input.CustomerMobile) && !String.IsNullOrEmpty(input.CwiCode) && !String.IsNullOrEmpty(input.CustomerEmail))
+                if (input != null && !String.IsNullOrEmpty(input.CustomerMobile) && !String.IsNullOrEmpty(input.CwiCode) && !String.IsNullOrEmpty(input.CustomerEmail) && input.PQId > 0 && input.BranchId > 0)
                 {
                     if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
                     {
@@ -261,7 +263,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.Post");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.Post({0})", Newtonsoft.Json.JsonConvert.SerializeObject(input)));
                 objErr.SendMail();
                 return InternalServerError();
             }

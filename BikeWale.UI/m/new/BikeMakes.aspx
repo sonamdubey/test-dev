@@ -198,7 +198,7 @@
                     <div class="content-inner-block-10 content-box-shadow margin-bottom30">
                         <h2 class="text-center margin-top30 margin-bottom10">About <%= _make.MakeName %> bikes</h2>
                         <div>
-                            <div class="brand-about-main">
+                            <%= _bikeDesc !=null ? _bikeDesc.SmallDescription : "" %>
                                 <%= Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 265)%>
                             </div>
                             <div class="brand-about-more-desc hide">

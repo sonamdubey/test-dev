@@ -65,7 +65,7 @@ namespace Bikewale.Service.Controllers.AutoComplete
                         }
                     }
 
-                    if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4") && source == AutoSuggestEnum.AllCity && appVersion < 11)
+                    if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4") && source == AutoSuggestEnum.AllCity && appVersion < 12)
                     {
                         foreach (var item in objBikes.Bikes)
                         {
