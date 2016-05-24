@@ -1,17 +1,13 @@
-﻿using Bikewale.DTO.Make;
+﻿using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
-using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-using Bikewale.DTO.Widgets;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.DAL.BikeData;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -26,24 +22,24 @@ namespace Bikewale.BindViewModels.Controls
         public Int64 MaxPrice { get; set; }
 
         public void BindMostPopularBikes(Repeater rptr)
-        {            
+        {
             FetchedRecordsCount = 0;
-            
+
             BikeDescriptionEntity description = null;
             IEnumerable<MostPopularBikesBase> objModelList = null;
 
             try
             {
-                using(IUnityContainer container = new UnityContainer())
+                using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                         .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
 
                     var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
                     var modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-
+                    Make = makesRepository.GetMakeDetails(makeId.ToString());
                     objModelList = modelRepository.GetMostPopularBikesByMake(makeId);
-                    description = makesRepository.GetMakeDescription(makeId);                    
+                    description = makesRepository.GetMakeDescription(makeId);
                 }
 
                 if (objModelList != null && objModelList.Count() > 0)
