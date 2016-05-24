@@ -9,8 +9,8 @@
     <%
         title = String.Format("{0} {1} {2} Price Quote", objPriceQuote.objMake.MakeName, objPriceQuote.objModel.ModelName, objPriceQuote.objVersion.VersionName);
         description = String.Format("{0} {1} {2} price quote", objPriceQuote.objMake.MakeName, objPriceQuote.objModel.ModelName, objPriceQuote.objVersion.VersionName);
-        keywords = "";
-        canonical = "";
+        keywords = string.Empty;
+        canonical = string.Empty;
         AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
         AdId = "1398766000399";
         PopupWidget.Visible = true;
@@ -33,7 +33,6 @@
         }
         var clientIP = "<%= clientIP%>";
         var pageUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.BwHostUrl %>" + "/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;       
-        ga_pg_id = "7";
     </script>
     <style type="text/css">
         
@@ -1235,6 +1234,7 @@
             function GetBikeVerLoc() {
                 return bikeName + "_" + versionName + "_" + getCityArea;
             }
+            ga_pg_id = "7";
         </script>
 
     </form>

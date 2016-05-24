@@ -1,9 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" EnableViewState="false" Trace="false" %>
-<%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
-<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
-<%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
-<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
-<%@ Register Src="~/controls/UserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
+<%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
+<%--<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>--%>
+<%@ Register Src="~/controls/News.ascx" TagName="LatestNews" TagPrefix="BW" %>
+<%@ Register Src="~/controls/NewExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
+<%@ Register Src="~/controls/NewVideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
+<%@ Register Src="~/controls/NewUserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register Src="~/controls/PriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <!doctype html>
@@ -877,273 +878,39 @@
                     </div>
                     
                     <div class="margin-right10 margin-left10 border-solid-top"></div>
-
                     <div id="modelReviewsContent" class="bw-model-tabs-data padding-top20 font14">
-                        <h2 class="padding-left20 padding-right20">Bajaj Pulsar RS200 Reviews</h2>
-                        <h3 class="padding-left20 model-section-subtitle">Expert reviews</h3>
-                        <div class="model-expert-review-container">
-                            <div class="margin-bottom20">
-                                <div class="grid-4 alpha">
-                                    <div class="model-preview-image-container">
-                                        <a href="javascript:void(0)">
-                                            <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/ec/21352/TVS-Wego-Front-threequarter-63408.jpg?wm=0&t=193955533&t=193955533" title="" alt="" />
-                                        </a>
-                                    </div>
+                        <h2 class="padding-left20 padding-right20"><%= bikeName %> Reviews</h2>
+                        <% if(ctrlExpertReviews.FetchedRecordsCount > 0){ %>
+                        <!-- expert review starts-->
+                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <!-- expert review ends-->
+                        <% } %>
 
-                                </div>
-                                <div class="grid-8 alpha omega">
-                                    <h3 class="margin-top5"><a href="" class="font16 text-black">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a></h3>
-                                    <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
-                                    <p class="line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
-                                        <a href="">Read full review</a>
-                                    </p>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
+                        <% if (ctrlUserReviews.FetchedRecordsCount > 0){ %>
+                        <!-- user reviews -->
+                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                        <!-- user reviews ends -->
+                         <% } %>
 
-                            <div class="margin-bottom20">
-                                <div class="grid-4 alpha">
-                                    <div class="model-preview-image-container">
-                                        <a href="javascript:void(0)">
-                                            <img class="lazy" data-original="http://imgd7.aeplcdn.com//310x174//bikewaleimg/ec/1409/img/m/tvs-wego-side-8233_l.jpg?20142905165602&t=165602597&t=165602597" title="" alt="" />
-                                        </a>
-                                    </div>
-
-                                </div>
-                                <div class="grid-8 alpha omega">
-                                    <h3 class="margin-top5"><a href="" class="font16 text-black">TVS launches improved 2014 Wego in India</a></h3>
-                                    <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
-                                    <p class="line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
-                                        <a href="">Read full review</a>
-                                    </p>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-
-                            <div class="padding-left20">
-                                <a href="javascript:void(0)" class="bw-ga" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="myBikeName">Read all expert reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
-                            </div>
-                        </div>
-
-                        <h3 class="margin-top25 padding-left20 model-section-subtitle">User reviews</h3>
-                        <div class="model-user-review-container grid-12">
-                            <div class="grid-6 margin-bottom15">
-                                <div class="model-user-review-rating-container leftfloat">
-                                    <p>4</p>
-                                    <p class="inline-block margin-bottom5 margin-top5">
-                                        <span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-zero-icon"></span>
-                                    </p>
-                                </div>
-                                <div class="model-user-review-title-container padding-left20 leftfloat">
-                                    <h3>not upto the mark compared to its price</h3>
-                                    <p class="text-light-grey">April 15, 2016, by Parth Shukla</p>
-                                </div>
-                                <div class="clear"></div>
-                                <p class="margin-top20 line-height17">Style Good. Engine Performance, Fuel Economy and Gearbox Good. Ride Quality & Handling Good. Areas of improve...
-                                    <a href="">Read full review</a>
-                                </p>
-                            </div>
-                            <div class="grid-6 margin-bottom15">
-                                <div class="model-user-review-rating-container leftfloat">
-                                    <p>4</p>
-                                    <p class="inline-block margin-bottom5 margin-top5">
-                                        <span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-zero-icon"></span>
-                                    </p>
-                                </div>
-                                <div class="model-user-review-title-container padding-left20 leftfloat">
-                                    <h3>not upto the mark compared to its price</h3>
-                                    <p class="text-light-grey">April 15, 2016, by Parth Shukla</p>
-                                </div>
-                                <div class="clear"></div>
-                                <p class="margin-top20 line-height17">Style Good. Engine Performance, Fuel Economy and Gearbox Good. Ride Quality & Handling Good. Areas of improve...
-                                    <a href="">Read full review</a>
-                                </p>
-                            </div>
-                            <div class="clear"></div>
-                            
-                            <div class="grid-12 margin-bottom15 hide"><!-- when one review -->
-                                <div class="model-user-review-rating-container leftfloat">
-                                    <p>4</p>
-                                    <p class="inline-block margin-bottom5 margin-top5">
-                                        <span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-zero-icon"></span>
-                                    </p>
-                                </div>
-                                <div class="model-single-user-review padding-left20 leftfloat">
-                                    <h3>not upto the mark compared to its price</h3>
-                                    <p class="text-light-grey">April 15, 2016, by Parth Shukla</p>
-                                    <p class="margin-top10 line-height17">Style Good. Engine Performance, Fuel Economy and Gearbox Good. Ride Quality & Handling Good. Areas of improve...
-                                        <a href="">Read full story</a>
-                                    </p>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                        <div class="padding-left20">
-                            <a href="javascript:void(0)" class="bw-ga" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all user reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
-                        </div>
-
-                        <h3 class="margin-top25 padding-left20 model-section-subtitle">Videos</h3>
-                        <div class="model-updates-videos-container">
-                            <div class="margin-bottom20">
-                                <div class="grid-4 alpha">
-                                    <div class="model-preview-image-container">
-                                        <a href="javascript:void(0)">
-                                            <img class="lazy" data-original="http://img.youtube.com/vi/d4k5IB23N-4/mqdefault.jpg" title="" alt="" />
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="grid-8 alpha omega">
-                                    <h3 class="margin-top5"><a href="" class="font16 text-black">Launch Alert : Yamaha Saluto RX : PowerDrift</a></h3>
-                                    <p class="text-light-grey margin-bottom15">Uploaded on November 23, 2015</p>
-                                    <div class="grid-3 alpha omega border-solid-right font14">
-                                        <span class="bwsprite video-views-icon margin-right5"></span>
-                                        <span class="text-light-grey margin-right5">Views:</span>
-                                        <span>34,609</span>
-                                    </div>
-                                    <div class="grid-3 omega padding-left20 font14">
-                                        <span class="bwsprite video-likes-icon margin-right5"></span>
-                                        <span class="text-light-grey margin-right5">Likes:</span>
-                                        <span>1,767</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="padding-left20">
-                            <a href="javascript:void(0)"  class="bw-ga" c="Model_Page" a="View_all_videos_link_cliked" v="myBikeName">View all videos<span class="bwsprite blue-right-arrow-icon"></span></a>
-                        </div>
+                        <% if (ctrlVideos.FetchedRecordsCount > 0)
+                           { %>
+                        <!-- Video reviews -->
+                        <BW:Videos runat="server" ID="ctrlVideos" />
+                        <!-- Video reviews ends -->
+                        <% } %>
                     </div>
+                    <% if (ctrlNews.FetchedRecordsCount > 0)
+                       { %>
+                    <!-- News widget starts -->                    
+                    <BW:LatestNews runat="server" ID="ctrlNews" />
+                    <!-- News widget ends --> 
+                    <% } %>  
 
-                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
-
-                    <div id="modelNewsContent" class="bw-model-tabs-data padding-top20 font14">
-                        <h2 class="padding-left20 padding-right20">Bajaj Pulsar RS200 News</h2>
-                        <div class="margin-bottom10">
-                            <div class="grid-8 padding-left20 border-light-right">
-                                <div class="padding-bottom5">
-                                    <div class="model-preview-image-container leftfloat">
-                                        <a href="javascript:void(0)">
-                                            <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/ec/21352/TVS-Wego-Front-threequarter-63408.jpg?wm=0&t=193955533&t=193955533" title="" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="model-news-title-container leftfloat">
-                                        <h3 class="margin-top5"><a href="" class="font16 text-black line-height">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a></h3>
-                                        <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <p class="margin-top20 line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
-                                        <a href="">Read full story</a>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="grid-4">
-                                <ul>
-                                    <li>
-                                        <h3 class="red-bullet-point"><a href="" class="text-black line-height17">Bajaj Avenger Cruise 220 proves popular with families</a></h3>
-                                        <p class="text-light-grey margin-left15">April 15, 2016, by Sagar Bhanushali</p>
-                                    </li>
-                                    <li>
-                                        <h3 class="red-bullet-point"><a href="" class="text-black line-height17">Triumph Street Twin : Auto Expo 2016 : PowerDrift</a></h3>
-                                        <p class="text-light-grey margin-left15">March 15, 2016, by BikeWale Team</p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-
-                        
-                        <div class="grid-12 model-single-news margin-bottom20 omega padding-left20 hide"><!-- when one news -->
-                            <div class="model-preview-image-container leftfloat">
-                                <a href="javascript:void(0)">
-                                    <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/ec/21352/TVS-Wego-Front-threequarter-63408.jpg?wm=0&t=193955533&t=193955533" title="" alt="" />
-                                </a>
-                            </div>
-                            <div class="model-news-title-container leftfloat">
-                                <h3 class="margin-top5"><a href="" class="font16 text-black line-height">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a></h3>
-                                <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
-                                <p class="margin-top20 line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
-                                    <a href="">Read full story</a>
-                                </p>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-
-                        <div class="padding-left20">
-                            <a href="javascript:void(0)">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
-                        </div>
-                    </div>
-
-                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
-
-                    <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 font14">
-                        <h2 class="padding-left20 padding-right20">Bajaj Pulsar RS200 Alternate bikes</h2>
-                        <div class="jcarousel-wrapper">
-                            <div class="jcarousel">
-                                <ul>
-                                    <li>
-                                        <div class="model-jcarousel-image-preview margin-bottom15">
-                                            <a href="">
-                                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/upcoming/honda-cb500f-420.jpg?20151209054312" title="" alt="" />
-                                            </a>
-                                        </div>
-                                        <h3><a href="" class="text-black">Harley Davidson Heritage Softail Classic</a></h3>
-                                        <p class="text-xt-light-grey margin-bottom12">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
-                                        <p class="text-light-grey margin-bottom10">Ex-showroom, Mumbai</p>
-                                        <div class="font20 margin-bottom15">
-                                            <span class="fa fa-rupee"></span> <span class="font22 text-bold">50,398</span>
-                                        </div>
-                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14" rel="nofollow">Check on-road price</a>
-                                    </li>
-                                    <li>
-                                        <div class="model-jcarousel-image-preview margin-bottom15">
-                                            <a href="">
-                                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-vfr1200f-dct-126.jpg?20151209184918" title="" alt="" />
-                                            </a>
-                                        </div>
-                                        <h3><a href="" class="text-black">Honda VFR1200F</a></h3>
-                                        <p class="text-xt-light-grey margin-bottom12">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
-                                        <p class="text-light-grey margin-bottom10">Ex-showroom, Mumbai</p>
-                                        <div class="font20 margin-bottom15">
-                                            <span class="fa fa-rupee"></span> <span class="font22 text-bold">49,712</span>
-                                        </div>
-                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14" rel="nofollow">Check on-road price</a>
-                                    </li>
-                                    <li>
-                                        <div class="model-jcarousel-image-preview margin-bottom15">
-                                            <a href="">
-                                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cbr1000rr-fireblade-c-abs-125.jpg?20151209184557" title="" alt="" />
-                                            </a>
-                                        </div>
-                                        <h3><a href="" class="text-black">Harley Davidson Heritage Softail Classic</a></h3>
-                                        <p class="text-xt-light-grey margin-bottom12">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
-                                        <p class="text-light-grey margin-bottom10">Ex-showroom, Mumbai</p>
-                                        <div class="font20 margin-bottom15">
-                                            <span class="fa fa-rupee"></span> <span class="font22 text-bold">49,860</span>
-                                        </div>
-                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14" rel="nofollow">Check on-road price</a>
-                                    </li>
-                                    <li>
-                                        <div class="model-jcarousel-image-preview margin-bottom15">
-                                            <a href="">
-                                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cbr250r-sports/red/black-color-std-121.jpg?20151209184646" title="" alt="" />
-                                            </a>
-                                        </div>
-                                        <h3><a href="" class="text-black">Harley Davidson Heritage Softail Classic</a></h3>
-                                        <p class="text-xt-light-grey margin-bottom12">200 cc, 45 kmpl, 24 bhp, 150 kgs</p>
-                                        <p class="text-light-grey margin-bottom10">Ex-showroom, Mumbai</p>
-                                        <div class="font20 margin-bottom15">
-                                            <span class="fa fa-rupee"></span> <span class="font22 text-bold">59,796</span>
-                                        </div>
-                                        <a href="Javascript:void(0)" class="btn btn-sm btn-grey font14" rel="nofollow">Check on-road price</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                        </div>
-                    </div>
+                    <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
+                    <!-- Alternative reviews ends -->
+                    <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+                    <!-- Alternative reviews ends -->
+                    <% } %>
 
                     <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
 
@@ -1818,19 +1585,16 @@
                         </div>
                         <%if (!isUserReviewZero)
 						  { %>
-                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                         <% } %>
                         <%if (!isExpertReviewZero)
 						  { %>
-                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                         <% } %>
                         <%if (!isNewsZero)
 						  { %>
-                        <BW:News runat="server" ID="ctrlNews" />
                         <% } %>
                         <%if (!isVideoZero)
 						  { %>
-                        <BW:Videos runat="server" ID="ctrlVideos" />
+                        <%--<BW:Videos runat="server" ID="ctrlVideos" />--%>
                         <% } %>
                     </div>
                 </div>
@@ -1838,7 +1602,7 @@
             </div>
         </section>
 
-        <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
+       <%-- <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div class="container">
                 <div class="grid-12 alternative-section" id="alternative-bikes-section">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= bikeName %> alternate Bikes</h2>
@@ -1856,7 +1620,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
-        </section>
+        </section>--%>
 
         <!-- Check On-Road Price popup -->
         <div id="onRoadPricePopup" class="rounded-corner2 content-inner-block-20 text-center hide">
@@ -1917,10 +1681,10 @@
                         
 			<% } %>
             ga_pg_id = '2';
-            if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
-            if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+            //if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
+            //if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
+            //if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+            //if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
             var getCityArea = GetGlobalCityArea();
             if (bikeVersionLocation == '') {
                 bikeVersionLocation = getBikeVersionLocation();
