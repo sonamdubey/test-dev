@@ -2,17 +2,11 @@
 using Bikewale.Common;
 using Bikewale.controls;
 using Bikewale.Controls;
-using Bikewale.DTO.Make;
 using Bikewale.Entities.BikeData;
 using Bikewale.Memcache;
 using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.New
@@ -22,7 +16,7 @@ namespace Bikewale.New
     /// Description : Removed postback and inherit PageBase.
     /// </summary>
     public class Model : PageBase
-	{
+    {
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected News_new ctrlNews;
         protected ExpertReviews ctrlExpertReviews;
@@ -30,14 +24,14 @@ namespace Bikewale.New
         protected MostPopularBikes_new ctrlMostPopularBikes;
         protected Repeater rptMostPopularBikes;
 
-        protected bool isDescription = false;  
+        protected bool isDescription = false;
         protected Literal ltrDefaultCityName;
-        protected int fetchedRecordsCount=0;
+        protected int fetchedRecordsCount = 0;
         protected string makeId = String.Empty;
         protected BikeMakeEntityBase _make = null;
         protected BikeDescriptionEntity _bikeDesc = null;
-        protected Int64 _minModelPrice;
-        protected Int64 _maxModelPrice;
+        protected Int64 _minModelPrice = 0;
+        protected Int64 _maxModelPrice = 0;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -60,13 +54,13 @@ namespace Bikewale.New
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		protected void Page_Load(object sender, EventArgs e)
-		{            
+        protected void Page_Load(object sender, EventArgs e)
+        {
             //Function to process and validate Query String  
             if (ProcessQueryString())
             {
                 //to get complete make page
-                GetMakePage(); 
+                GetMakePage();
                 // Modified By :Ashish Kamble on 5 Feb 2016
                 string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
                 if (String.IsNullOrEmpty(originalUrl))
@@ -86,9 +80,9 @@ namespace Bikewale.New
                 ctrlVideos.MakeId = Convert.ToInt32(makeId);
                 ctrlVideos.MakeMaskingName = makeMaskingName;
                 ctrlExpertReviews.MakeMaskingName = makeMaskingName;
-            } 
-            
-		}
+            }
+
+        }
 
         bool ProcessQueryString()
         {
@@ -150,6 +144,6 @@ namespace Bikewale.New
                 return "<span class='font22'>Price Unavailable</span>";
             }
         }
-       
-	}
+
+    }
 }

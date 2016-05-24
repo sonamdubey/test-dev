@@ -101,7 +101,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             sbyte noOfAttempts = 0;
             try
             {
-                if (input != null && !String.IsNullOrEmpty(input.CustomerEmail) && !String.IsNullOrEmpty(input.CustomerMobile))
+                if (input != null && !String.IsNullOrEmpty(input.CustomerEmail) && !String.IsNullOrEmpty(input.CustomerMobile) && input.PQId > 0 && input.DealerId > 0)
                 {
                     if (input != null && ((input.PQId > 0) && (Convert.ToUInt32(input.VersionId) > 0)))
                     {

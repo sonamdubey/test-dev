@@ -220,10 +220,10 @@
                     <h2 class="text-bold text-center margin-top30 margin-bottom30">About <%= _make.MakeName %></h2>
                     <div class="content-box-shadow content-inner-block-10 rounded-corner2 margin-bottom30 font14">
                         <div class="brand-about-main">
-                            <%= Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 265)%>
+                            <%= _bikeDesc !=null ? Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 265) : ""%>
                         </div>
                         <div class="brand-about-more-desc hide">
-                            <%= _bikeDesc.FullDescription %>
+                            <%= _bikeDesc !=null ? _bikeDesc.FullDescription : "" %>
                         </div>
                         <span><a href="javascript:void(0)" class="read-more-btn">Read <span>more</span></a></span>
                     </div>

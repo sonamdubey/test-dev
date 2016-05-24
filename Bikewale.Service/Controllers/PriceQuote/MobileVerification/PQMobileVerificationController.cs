@@ -85,7 +85,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
             uint bookingAmount = 0;
             try
             {
-                if (input != null && !String.IsNullOrEmpty(input.CustomerMobile) && !String.IsNullOrEmpty(input.CwiCode) && !String.IsNullOrEmpty(input.CustomerEmail))
+                if (input != null && !String.IsNullOrEmpty(input.CustomerMobile) && !String.IsNullOrEmpty(input.CwiCode) && !String.IsNullOrEmpty(input.CustomerEmail) && input.PQId > 0 && input.BranchId > 0)
                 {
                     if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
                     {
