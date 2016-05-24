@@ -82,8 +82,8 @@ namespace Bikewale.BikeBooking
                 {
                     if (objBooking.Varients != null)
                     {
-                        uint data = Convert.ToUInt32((objBooking.Varients).Where(v => v.MinSpec != null && v.MinSpec.VersionId == versionId).FirstOrDefault().BookingAmount);
-                        if (data > 0)
+                        var _data = (objBooking.Varients).Where(v => v.MinSpec != null && v.MinSpec.VersionId == versionId);
+                        if(_data!=null && _data.FirstOrDefault()!=null && _data.FirstOrDefault().BookingAmount > 0)
                         {
                             BindVarientDetails();
                         }
