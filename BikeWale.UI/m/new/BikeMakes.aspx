@@ -198,7 +198,7 @@
                     <div class="content-inner-block-10 content-box-shadow margin-bottom30">
                         <h2 class="text-center margin-top30 margin-bottom10">About <%= _make.MakeName %> bikes</h2>
                         <p>
-                            <%= _bikeDesc.SmallDescription %>
+                            <%= _bikeDesc !=null ? _bikeDesc.SmallDescription : "" %>
                         </p>
                         <p class="margin-top10">
                             <a class="font14" href="javascript:void(0)">Read more</a>
