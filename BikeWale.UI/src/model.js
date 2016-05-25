@@ -274,6 +274,9 @@ function CustomerModel() {
             else if (event.target.id == "assistFormSubmit") {
                 dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeVersionLocation });
             }
+            else if (leadSourceId == "24") {
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Floating_Card_" + bikeVersionLocation });
+            }
             else {
                 dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": bikeVersionLocation });
             }
@@ -910,7 +913,7 @@ $("input[name*='btnVariant']").on("click", function () {
 
 var getOffersClick = false;
 
-$("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign, #getassistance").on("click", function () {
+$("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign, #getassistance, #getOffersFromDealerFloating").on("click", function () {
     leadSourceId = $(this).attr("leadSourceId");
     $("#leadCapturePopup").show();
     $('body').addClass('lock-browser-scroll');

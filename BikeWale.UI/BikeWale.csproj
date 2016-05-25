@@ -422,8 +422,8 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\PriceInTopCities.ascx.cs">
-      <DependentUpon>PriceInTopCities.ascx</DependentUpon>
+    <Compile Include="controls\UsedBikes.ascx.cs">
+      <DependentUpon>UsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\AddBikeToCompare.ascx.cs">
@@ -550,6 +550,10 @@
       <DependentUpon>ModelGallery.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\ModelPriceInNearestCities.ascx.cs">
+      <DependentUpon>ModelPriceInNearestCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\MostPopularBikes_new.ascx.cs">
       <DependentUpon>MostPopularBikes_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -616,6 +620,10 @@
     </Compile>
     <Compile Include="controls\PhotoGallaryMin.ascx.cs">
       <DependentUpon>PhotoGallaryMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\PriceInTopCities.ascx.cs">
+      <DependentUpon>PriceInTopCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\RecentLaunchedBikesMin.ascx.cs">
@@ -930,6 +938,7 @@
     </Compile>
     <Compile Include="m\new\ModelPricesInCity.aspx.cs">
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\ModelSpecsFeatures.aspx.cs">
       <DependentUpon>ModelSpecsFeatures.aspx</DependentUpon>
@@ -1749,7 +1758,7 @@
     <Content Include="content\UserReviews\ReviewDetails.aspx" />
     <Content Include="content\UserReviews\ReviewMessage.aspx" />
     <Content Include="content\UserReviews\WriteReviews.aspx" />
-    <Content Include="controls\PriceInTopCities.ascx" />
+    <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\AddBikeToCompare.ascx" />
     <Content Include="controls\AlternativeBikes.ascx" />
     <Content Include="controls\ArticlePhotoGallery.ascx" />
@@ -1786,6 +1795,7 @@
     <Content Include="controls\LoginStatusNew.ascx" />
     <Content Include="controls\MakeModelSearch.ascx" />
     <Content Include="controls\ModelGallery.ascx" />
+    <Content Include="controls\ModelPriceInNearestCities.ascx" />
     <Content Include="controls\MostPopularBikes_new.ascx" />
     <Content Include="controls\NewAlternativeBikes.ascx" />
     <Content Include="controls\NewBikeLaunches.ascx" />
@@ -1803,6 +1813,7 @@
     <Content Include="controls\PopupWidget.ascx" />
     <Content Include="controls\PQPdfTemplate.ascx" />
     <Content Include="controls\PhotoGallaryMin.ascx" />
+    <Content Include="controls\PriceInTopCities.ascx" />
     <Content Include="controls\RecentLaunchedBikesMin.ascx" />
     <Content Include="controls\RegisterControl.ascx" />
     <Content Include="controls\RepeaterPager.ascx" />

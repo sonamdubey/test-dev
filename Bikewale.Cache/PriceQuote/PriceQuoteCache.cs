@@ -3,6 +3,7 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.Cache.PriceQuote
 {
@@ -17,8 +18,6 @@ namespace Bikewale.Cache.PriceQuote
             _cache = cache;
             _obPriceQuote = obPriceQuote;
         }
-
-
 
         /// <summary>
         /// Created By : Vivek Gupta on 20-05-2016
@@ -38,6 +37,33 @@ namespace Bikewale.Cache.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "PriceQuoteCache.FetchPriceQuoteOfTopCitiesCache");
+                objErr.SendMail();
+            }
+            return prices;
+        }
+
+
+        /// <summary>
+        /// Written BY : Ashish G. Kamble 
+        /// Summary : Function get the prices of the given model in the nearest cities of the given city. Function gets data from BAL and cache it.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<Entities.PriceQuote.PriceQuoteOfTopCities> GetModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount)
+        {
+            IEnumerable<PriceQuoteOfTopCities> prices = null;
+            
+            string key = String.Format("BW_PriceInNearestCities_m_{0}_c_{1}_t_{2}", modelId, cityId, topCount);
+
+            try
+            {
+                prices = _cache.GetFromCache<IEnumerable<PriceQuoteOfTopCities>>(key, new TimeSpan(1, 0, 0), () => _obPriceQuote.GetModelPriceInNearestCities(modelId, cityId, topCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "PriceQuoteCache.GetModelPriceInNearestCities");
                 objErr.SendMail();
             }
             return prices;
