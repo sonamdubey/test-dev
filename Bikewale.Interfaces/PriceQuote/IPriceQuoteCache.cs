@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.Interfaces.PriceQuote
 {
@@ -10,6 +11,7 @@ namespace Bikewale.Interfaces.PriceQuote
     /// </summary>
     public interface IPriceQuoteCache
     {
-        IEnumerable<Bikewale.Entities.PriceQuote.PriceQuoteOfTopCities> FetchPriceQuoteOfTopCitiesCache(uint modelId, uint topCount);
+        IEnumerable<PriceQuoteOfTopCities> FetchPriceQuoteOfTopCitiesCache(uint modelId, uint topCount);
+        IEnumerable<PriceQuoteOfTopCities> GetModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount);
     }
 }

@@ -452,6 +452,7 @@ namespace Bikewale.DAL.PriceQuote
 
                         cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                         cmd.Parameters.Add("@TopCount", SqlDbType.TinyInt).Value = topCount;
+
                         using (SqlDataReader dr = db.SelectQry(cmd))
                         {
                             objPrice = new List<PriceQuoteOfTopCities>();
@@ -461,10 +462,84 @@ namespace Bikewale.DAL.PriceQuote
                                 {
                                     CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
                                     CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string),
-                                    OnRoadPrice = !Convert.IsDBNull(dr["OnRoadPrice"]) ? Convert.ToUInt32(dr["OnRoadPrice"]) : default(UInt32)
+                                    OnRoadPrice = !Convert.IsDBNull(dr["OnRoadPrice"]) ? Convert.ToUInt32(dr["OnRoadPrice"]) : default(UInt32),
+                                    Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
+                                    MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
+                                    Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
+                                    ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
 
                                 });
                             }
+
+                            if(dr != null)
+                                dr.Close();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " inputs: modelId : " + modelId + " : topCount :" + topCount);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objPrice;
+        }
+
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 23 May 2016
+        /// Summary : Function to get the pricing of the nearest cities for the given model and city.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="topCount"></param>
+        /// <returns>Returns List of the pricing for the nearest cities for the given model and city</returns>
+        public IEnumerable<PriceQuoteOfTopCities> GetModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount)
+        {
+            IList<PriceQuoteOfTopCities> objPrice = null;
+            Database db = null;
+            
+            try
+            {
+                db = new Database();
+
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "GetModelPriceForNearestCities";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                        cmd.Parameters.Add("@TopRecords", SqlDbType.TinyInt).Value = topCount;
+                        
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            objPrice = new List<PriceQuoteOfTopCities>();
+
+                            while (dr.Read())
+                            {
+                                objPrice.Add(new PriceQuoteOfTopCities
+                                {
+                                    CityName = Convert.IsDBNull(dr["City"]) ? default(string) : Convert.ToString(dr["City"]),
+                                    CityMaskingName = Convert.IsDBNull(dr["CityMaskingName"]) ? default(string) : Convert.ToString(dr["CityMaskingName"]),
+                                    OnRoadPrice = Convert.IsDBNull(dr["OnRoadPrice"]) ? default(UInt32) : Convert.ToUInt32(dr["OnRoadPrice"]),
+                                    Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
+                                    MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
+                                    Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
+                                    ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
+                                });
+                            }
+
+                            if (dr != null)
+                                dr.Close();
                         }
 
                     }

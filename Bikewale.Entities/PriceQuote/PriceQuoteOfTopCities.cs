@@ -5,9 +5,12 @@ namespace Bikewale.Entities.PriceQuote
     public class PriceQuoteOfTopCities
     {
         public string CityName { get; set; }
-
         public string CityMaskingName { get; set; }
-
         public uint OnRoadPrice { get; set; }
+        public string Make { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string Model { get; set; }
+        public string ModelMaskingName { get; set; }
+
     }
 }

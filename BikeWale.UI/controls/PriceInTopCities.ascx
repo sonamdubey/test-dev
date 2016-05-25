@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.PriceInTopCities" %>
+<% if(showWidget) { %>  
 <div class="grid-4 omega padding-left20">
     <h3>Prices by cities<span class="text-light-grey text-unbold"> (Ex-showroom)</span></h3>
      <ul class="prices-by-cities-list font14">
@@ -6,7 +7,7 @@
         <ItemTemplate>       
             <li>
                 <div class="grid-7 alpha">
-                    <a href="<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(MakeMaskingName, ModelMaskingName, DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString()) %>" class="text-truncate"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></a>
+                    <a href="/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-bikes/<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>/price-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/" class="text-truncate"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></a>
                 </div>
                 <div class="grid-5 alpha omega text-right">
                     <span class="fa fa-rupee"></span>
@@ -18,3 +19,4 @@
     </asp:Repeater>
     </ul>
 </div>
+<% } %>

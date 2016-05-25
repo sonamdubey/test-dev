@@ -1,4 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="ModelPricesInCity.aspx.cs" Inherits="Bikewale.New.ModelPricesInCity" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ModelPricesInCity" %>
+<%@ Register Src="/controls/ModelPriceInNearestCities.ascx" TagPrefix="BW" TagName="ModelPriceInNearestCities" %>
+<%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 
 <!doctype html>
 <html>
@@ -146,32 +148,7 @@
                     </div>
                     <div class="margin-right20 margin-left20 border-divider"></div>
 
-                    <div id="modelPriceInNearbyCities" class="content-inner-block-20">
-                        <h2 class="font14 text-bold text-x-black margin-bottom15">Bajaj Pulsar RS200 price in nearby cities <span class="text-light-grey text-unbold">(Ex-showroom)</span></h2>
-                        <ul>
-                            <li>
-                                <a href="" title="Mumbai">Mumbai</a>
-                                <span class="nearby-city-price"><span class="fa fa-rupee"></span>&nbsp;1.67 L</span>
-                            </li>
-                            <li>
-                                <a href="" title="Navi Mumbai">Navi Mumbai</a>
-                                <span class="nearby-city-price"><span class="fa fa-rupee"></span>&nbsp;1.32 L</span>
-                            </li>
-                            <li>
-                                <a href="" title="Thane">Thane</a>
-                                <span class="nearby-city-price"><span class="fa fa-rupee"></span>&nbsp;1.04 L</span>
-                            </li>
-                            <li>
-                                <a href="" title="Kalyan">Kalyan</a>
-                                <span class="nearby-city-price"><span class="fa fa-rupee"></span>&nbsp;87 K</span>
-                            </li>
-                            <li>
-                                <a href="" title="Kalyan">Kalyan</a>
-                                <span class="nearby-city-price"><span class="fa fa-rupee"></span>&nbsp;77 K</span>
-                            </li>
-                        </ul>
-                        <div class="clear"></div>
-                    </div>
+                    <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
                 </div>
             </div>
             <div class="clear"></div>
