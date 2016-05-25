@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AppNotification.Entity;
 using AppNotification.Interfaces;
 using System.Data.SqlClient;
 using System.Data;
 using AppNotification.DAL.Core;
 using AppNotification.Notifications;
+using System.Data.Common;
 
 namespace AppNotification.DAL
 {
@@ -19,18 +17,21 @@ namespace AppNotification.DAL
             var regList = new List<string>();
             try
             {
-                using (SqlCommand cmd = new SqlCommand("[Mobile].[GetRegIds]"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getregids"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@OBJ_TYPE_ID", SqlDbType.Int).Value = alertTypeId;
-                    cmd.Parameters.Add("@START_NUM", SqlDbType.Int).Value = startNum;
-                    cmd.Parameters.Add("@END_NUM", SqlDbType.Int).Value = endNum;
-                    var db = new Database();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], alertTypeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_start_num", DbParamTypeMapper.GetInstance[SqlDbType.Int], startNum));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_end_num", DbParamTypeMapper.GetInstance[SqlDbType.Int], endNum));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr.Read())
+                        if (dr!=null)
                         {
-                            regList.Add(dr["GCMRegId"].ToString() + "," + dr["Os"]);
+                            while (dr.Read())
+                            {
+                                regList.Add(dr["gcmregid"].ToString() + "," + dr["os"]);
+                            } 
                         }
                     }
                 }
@@ -50,15 +51,14 @@ namespace AppNotification.DAL
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("[Mobile].[GetNumberOfRegIds]"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnumberofregids"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@OBJ_TYPE_ID", SqlDbType.Int).Value = alertTypeId;
-                    cmd.Parameters.Add("@Count", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], alertTypeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_count", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
 
-                    var db = new Database();
-                    db.ExecuteScalar(cmd);
-                    numOfRegIds = (int)cmd.Parameters["@Count"].Value;
+                    MySqlDatabase.ExecuteScalar(cmd);
+                    numOfRegIds = (int)cmd.Parameters["par_count"].Value;
                 }
             }
             catch (Exception ex)
@@ -77,19 +77,18 @@ namespace AppNotification.DAL
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("[Mobile].[SubscriptionActivity]"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("subscriptionactivity"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@IMEI", SqlDbType.VarChar).Value = t.IMEI;
-                    cmd.Parameters.Add("@Name", SqlDbType.VarChar).Value = t.Name;
-                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = t.EmailId;
-                    cmd.Parameters.Add("@ContactNo", SqlDbType.VarChar).Value = t.ContactNo;
-                    cmd.Parameters.Add("@OsType", SqlDbType.TinyInt).Value = t.OsType;
-                    cmd.Parameters.Add("@GCMId", SqlDbType.VarChar).Value = t.GCMId;
-                    cmd.Parameters.Add("@SubsMasterId", SqlDbType.VarChar).Value = t.SubsMasterId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imei", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.IMEI));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.Name));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.EmailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contactno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.ContactNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], t.OsType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.GCMId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.SubsMasterId));
 
-                    var db = new Database();
-                    db.ExecuteScalar(cmd);
+                    MySqlDatabase.ExecuteScalar(cmd);
 
                     isComplete = true;
                 }
@@ -114,13 +113,12 @@ namespace AppNotification.DAL
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("[Mobile].[ResetSubscriptionMaster_IsProcessing]"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("resetsubscriptionmaster_isprocessing"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@OBJ_TYPE_ID", SqlDbType.Int).Value = alertTypeId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], alertTypeId));
 
-                    var db = new Database();
-                    isNotificationComplete = db.UpdateQry(cmd);
+                    isNotificationComplete = MySqlDatabase.UpdateQuery(cmd);
                 }
             }
             catch (Exception ex)

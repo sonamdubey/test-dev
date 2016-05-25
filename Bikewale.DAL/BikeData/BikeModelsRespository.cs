@@ -661,13 +661,13 @@ namespace Bikewale.DAL.BikeData
                                 objModelList.Add(objModels);
 
                             }
-                            if (dr.NextResult())
-                            {
-                                if (dr.Read())
+                                if (dr.NextResult())
                                 {
-                                    recordCount = Convert.ToInt32(dr["RecordCount"]);
+                                    if (dr.Read())
+                                    {
+                                        recordCount = Convert.ToInt32(dr["RecordCount"]);
+                                    }
                                 }
-                            }
                         }
                     }
                 }
