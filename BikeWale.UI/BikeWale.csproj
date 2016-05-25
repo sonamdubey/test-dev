@@ -300,6 +300,7 @@
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindNewsWidget.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
@@ -553,6 +554,10 @@
       <DependentUpon>MostPopularBikes_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\NewAlternativeBikes.ascx.cs">
+      <DependentUpon>NewAlternativeBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\NewBikeLaunches.ascx.cs">
       <DependentUpon>NewBikeLaunches.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -561,8 +566,16 @@
       <DependentUpon>NewBikesOnRoadPrice.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\NewExpertReviews.ascx.cs">
+      <DependentUpon>NewExpertReviews.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\NewLaunchedBikes_new.ascx.cs">
       <DependentUpon>NewLaunchedBikes_new.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\News.ascx.cs">
+      <DependentUpon>News.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\NewsMin.ascx.cs">
@@ -571,6 +584,14 @@
     </Compile>
     <Compile Include="controls\News_new.ascx.cs">
       <DependentUpon>News_new.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\NewUserReviewsList.ascx.cs">
+      <DependentUpon>NewUserReviewsList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\NewVideosControl.ascx.cs">
+      <DependentUpon>NewVideosControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\NoFollowPagerControl.ascx.cs">
@@ -1766,11 +1787,16 @@
     <Content Include="controls\MakeModelSearch.ascx" />
     <Content Include="controls\ModelGallery.ascx" />
     <Content Include="controls\MostPopularBikes_new.ascx" />
+    <Content Include="controls\NewAlternativeBikes.ascx" />
     <Content Include="controls\NewBikeLaunches.ascx" />
     <Content Include="controls\NewBikesOnRoadPrice.ascx" />
+    <Content Include="controls\NewExpertReviews.ascx" />
     <Content Include="controls\NewLaunchedBikes_new.ascx" />
+    <Content Include="controls\News.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\News_new.ascx" />
+    <Content Include="controls\NewUserReviewsList.ascx" />
+    <Content Include="controls\NewVideosControl.ascx" />
     <Content Include="controls\NoFollowPagerControl.ascx" />
     <Content Include="controls\OnRoadPricequote.ascx" />
     <Content Include="controls\PopularUsedBikes.ascx" />
