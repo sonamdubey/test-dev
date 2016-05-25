@@ -67,6 +67,13 @@ $.sortChangeUp = function (sortByDiv) {
     sortListDiv.slideUp();
 };
 
+$(document).mouseup(function (e) {
+    e.stopPropagation();
+    if (!$(".sort-select-btn, .sort-div #upDownArrow").is(e.target)) {
+        $.sortChangeUp($(".sort-div"));
+    }
+});
+
 function applyTabsLazyLoad() {
     $("img.lazy").lazyload({
         failure_limit: 20
@@ -80,8 +87,46 @@ function pushGaTags(label) {
 //800X600
 if ($(window).width() < 996 && $(window).width() > 790) {
     $("#sortByContainer .sort-by-text").removeClass("margin-left50");
-    $(".rated-container, .not-rated-container").removeClass("font16").css("font-size", "14px")
-    $(".rated-container").removeClass("margin-left10").addClass("margin-left5");
-    $(".not-rated-container").find("span.write-review-span").removeClass("margin-left10").addClass("margin-left5");
-    $(".rating-stars-container").removeClass("padding-right10").addClass("padding-right5");
 }
+
+$('a.read-more-bike-preview').click(function () {
+    if (!$(this).hasClass('open')) {
+        $('.preview-main-content').hide();
+        $('.preview-more-content').show();
+        $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+        $(this).addClass("open");
+    }
+    else if ($(this).hasClass('open')) {
+        $('.preview-main-content').show();
+        $('.preview-more-content').hide();
+        $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+        $(this).removeClass('open');
+    }
+});
+
+$(document).ready(function () {
+    var makeOverallTabs = $('#makeOverallTabs'),
+        overallMakeDetailsFooter = $('#overallMakeDetailsFooter'),
+        makeTabsContentWrapper = $('#makeTabsContentWrapper');
+
+    $(window).scroll(function () {
+        var windowScrollTop = $(window).scrollTop(),
+            makeOverallTabsOffsetTop = makeOverallTabs.offset().top,
+            makeDetailsFooterOffsetTop = overallMakeDetailsFooter.offset().top,
+            makeTabsContentWrapperOffsetTop = makeTabsContentWrapper.offset().top;
+
+        if (windowScrollTop > makeOverallTabsOffsetTop) {
+            makeOverallTabs.addClass('fixed-tab');
+        }
+
+        else if (windowScrollTop < makeTabsContentWrapperOffsetTop) {
+            makeOverallTabs.removeClass('fixed-tab');
+        }
+
+        if (windowScrollTop > makeDetailsFooterOffsetTop - 44) { //44 height of top nav bar
+            makeOverallTabs.removeClass('fixed-tab');
+        }
+
+
+    });
+});
