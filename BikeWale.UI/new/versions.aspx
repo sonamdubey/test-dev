@@ -630,10 +630,10 @@
                             <h2><%=bikeName %></h2>
                             <h3>Preview</h3>
                             <p class="font14 text-light-grey line-height17">
-                                <span class="model-about-main">
+                                <span class="model-preview-main-content">
                                     <%= modelPageEntity.ModelDesc.SmallDescription %>
                                 </span>
-                                <span class="model-about-more-desc hide" style="display: none;">
+                                <span class="model-preview-more-content hide" style="display: none;">
                                     <%= modelPageEntity.ModelDesc.FullDescription %>
                                 </span>
                                 <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
