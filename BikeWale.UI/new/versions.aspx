@@ -636,7 +636,7 @@
                                 <span class="model-about-more-desc hide" style="display: none;">
                                     <%= modelPageEntity.ModelDesc.FullDescription %>
                                 </span>
-                                <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read <span>more</span></a>
+                                <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
                             </p>
                         </div>
                         <div class="grid-4 text-center alpha omega margin-bottom20">
@@ -662,7 +662,7 @@
                         <div class="grid-3 padding-left60 border-light-right omega">
                             <span class="inline-block model-sprite specs-maxpower-icon margin-right30"></span>
                             <div class="inline-block">
-                                <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.MaxPower) %><span class="text-uppercase"> ps</span></p>
+                                <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.MaxPower) %><span class="text-uppercase"> bhp</span></p>
                                 <p class="font16 text-light-grey">Max power</p>
                             </div>
                         </div>
@@ -774,67 +774,66 @@
                         
                         <div class="grid-8 alpha margin-top25">
                             <h3 class="padding-left20">Features</h3>
+                            <div class="grid-12 alpha omega">
+                                <div class="grid-6 alpha">
+                                    <div class="grid-6 padding-left20 text-light-grey">
+                                        <p>Speedometer</p>
+                                        <p>Fuel Guage</p>
+                                        <p>Tachometer Type</p>
+                                    </div>
+                                    <div class="grid-6 omega text-bold">
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.Speedometer) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.FuelGauge) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.DigitalFuelGauge) %></p>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="margin-top25 padding-left20">
+                                        <a href="<%# Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName, "features") %>" class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName">View all features<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                    </div>
+                                </div>
+                                <div class="grid-6">
+                                    <div class="grid-6 padding-left20 text-light-grey">
+                                        <p>Digital Fuel Guage</p>
+                                        <p>Tripmeter</p>
+                                        <p>Electric Start</p>
+                                    </div>
+                                    <div class="grid-6 omega text-bold">
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.DigitalFuelGauge) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.Tripmeter) %></p>
+                                        <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.ElectricStart) %></p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
                         </div>
-                        <div class="clear"></div>
-
-                        <div class="grid-12 alpha omega">
-                            <div class="grid-4 alpha">
-                                <div class="grid-6 padding-left20 text-light-grey">
-                                    <p>Speedometer</p>
-                                    <p>Fuel Guage</p>
-                                    <p>Tachometer Type</p>
-                                </div>
-                                <div class="grid-6 omega text-bold">
-                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.Speedometer) %></p>
-                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.FuelGauge) %></p>
-                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.DigitalFuelGauge) %></p>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="margin-top25 padding-left20">
-                                    <a href="<%# Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName, "features") %>" class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName">View all features<span class="bwsprite blue-right-arrow-icon"></span></a>
-                                </div>
-                            </div>
-                            <div class="grid-4">
-                                <div class="grid-6 padding-left20 text-light-grey">
-                                    <p>Digital Fuel Guage</p>
-                                    <p>Tripmeter</p>
-                                    <p>Electric Start</p>
-                                </div>
-                                <div class="grid-6 omega text-bold">
-                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.DigitalFuelGauge) %></p>
-                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.Tripmeter) %></p>
-                                    <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.ElectricStart) %></p>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="grid-4 omega text-center">
-                                <!-- #include file="/ads/Ad300x250.aspx" -->
-                            </div>
-                            <div class="clear"></div>
-                        </div>                      
+                        <div id="modelFeaturesAd" class="grid-4 omega text-center">
+                            <!-- #include file="/ads/Ad300x250.aspx" -->
+                        </div>
+                        <div class="clear"></div>                      
                          
                         <%if (modelPageEntity.ModelColors != null){ %>
-                         <div class="grid-12 alpha omega">
-                            <h3 class="margin-top25 padding-left20">Colours</h3>
+                         <%--<div class="grid-12 alpha omega">--%>
+                            <h3 class="padding-left20">Colours</h3>
                             <ul id="modelColorsList">
                                 <asp:Repeater ID="rptColor" runat="server">
                                     <ItemTemplate>
                                         <li>                                                                                                                                     
-                                            <div class="color-box <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %>">
+                                            <div class="color-box inline-block <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %>">
                                                 <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
                                                     <ItemTemplate>
                                                         <span <%# String.Format("style='background-color: #{0}'",Convert.ToString(Container.DataItem)) %>></span>
                                                     </ItemTemplate>
                                                 </asp:Repeater>
                                             </div>
-                                            <p class="font16"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
+                                            <p class="font16 inline-block"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </ul>
-                         </div>
+                         <%--</div>--%>
                         <%} %>
-                        <div class="clear"></div>
+                        <%--<div class="clear"></div>--%>
                     </div>
                     
                     <div class="margin-right10 margin-left10 border-solid-top"></div>

@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.News_Widget" %>
-<!-- #include file="/ads/Ad976x204.aspx" -->
 <div id="ctrlNews">
     <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
     <div id="modelNewsContent" class="bw-model-tabs-data padding-top20 font14">
@@ -52,9 +51,6 @@
             <div class="grid-4">
                 <ul>
                     <asp:Repeater ID="rptNews" runat="server">
-                        <HeaderTemplate>
-                            <!-- #include file="/ads/Ad976x204.aspx" -->
-                        </HeaderTemplate>
                         <ItemTemplate>
                             <li>
                                 <h3 class="red-bullet-point">
