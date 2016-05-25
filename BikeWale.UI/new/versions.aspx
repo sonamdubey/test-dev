@@ -586,15 +586,17 @@
                         <div class="grid-3 model-orp-btn alpha omega">
                              <% if (toShowOnRoadPriceButton)
                                { %>                            
-                             <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData bw-ga" rel="nofollow" c="Model_Page" a="Floating_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check On-Road Price</a>
+                             <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange font14 <%=viewModel != null ? "margin-top5" : "margin-top20" %> fillPopupData bw-ga" rel="nofollow" c="Model_Page" a="Floating_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check On-Road Price</a>
                             <%} else
                                     if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
                                     {%>									 
-                                     <a href="javascript:void(0)" id="getOffersFromDealerFloating" leadSourceId="24" class="btn btn-orange font14 margin-top5 bw-ga" rel="nofollow">Get offers from dealer</a>
+                                     <a href="javascript:void(0)" id="getOffersFromDealerFloating" leadSourceId="24" class="btn btn-orange font14 <%=viewModel != null ? "margin-top5" : "margin-top20" %> bw-ga" rel="nofollow">Get offers from dealer</a>
                                     <%} %>
                             
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
+                            <%if (viewModel != null){ %>
                             <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= viewModel.Organization %></p>
+                            <%} %>
                         </div>
                         <div class="clear"></div>
                     </div>
