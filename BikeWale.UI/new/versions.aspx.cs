@@ -264,11 +264,11 @@ namespace Bikewale.New
                 ctrlUserReviews.ModelId = _modelId;
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
-                ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);        
+                ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);
                 ctrlTopCityPrices.TopCount = 8;
                 ctrlTopCityPrices.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlTopCityPrices.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-    }
+            }
         }
         // Clear trailing query string -- added on 09-feb-2016 by Sangram
         private void ClearTrailingQuerystring(bikeModel bikeModel)
@@ -606,36 +606,33 @@ namespace Bikewale.New
                         container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                                  .RegisterType<ICacheManager, MemcacheManager>();
-
                         var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                         modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID));
                         if (modelPg != null)
                         {
-                            if (modelPg != null)
+                            if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {
-                                if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
+                                price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
+                                if (variantId == 0 && cityId == 0)
                                 {
-                                    price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
-                                    if (variantId == 0 && cityId == 0)
-                                    {
-                                        variantId = modelPg.ModelVersionSpecs.BikeVersionId;
-                                    }
-                                    // Check it versionId passed through url exists in current model's versions
-                                    else if (!modelPg.ModelVersions.Exists(p => p.VersionId == variantId))
-                                    {
-                                        variantId = modelPg.ModelVersionSpecs.BikeVersionId;
-                                    }
+                                    variantId = modelPg.ModelVersionSpecs.BikeVersionId;
                                 }
-                                if (!modelPg.ModelDetails.New)
-                                    isDiscontinued = true;
-                                if (modelPg.ModelDetails != null)
+                                // Check it versionId passed through url exists in current model's versions
+                                else if (!modelPg.ModelVersions.Exists(p => p.VersionId == variantId))
                                 {
-                                    if (modelPg.ModelDetails.ModelName != null)
-                                        bikeModelName = modelPg.ModelDetails.ModelName;
-                                    if (modelPg.ModelDetails.MakeBase != null)
-                                        bikeMakeName = modelPg.ModelDetails.MakeBase.MakeName;
-                                    bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
+                                    variantId = modelPg.ModelVersionSpecs.BikeVersionId;
                                 }
+                            }
+                            if (!modelPg.ModelDetails.New)
+                                isDiscontinued = true;
+                            if (modelPg.ModelDetails != null)
+                            {
+                                if (modelPg.ModelDetails.ModelName != null)
+                                    bikeModelName = modelPg.ModelDetails.ModelName;
+                                if (modelPg.ModelDetails.MakeBase != null)
+                                    bikeMakeName = modelPg.ModelDetails.MakeBase.MakeName;
+                                bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
+                                modelImage = Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                             }
                         }
                     }
@@ -811,12 +808,6 @@ namespace Bikewale.New
                     {
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.PriceQuote = objPQOutput;
-                        BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
-                        if (bikemodelEnt != null)
-                        {
-                            modelImage = Utility.Image.GetPathToShowImages(bikemodelEnt.OriginalImagePath, bikemodelEnt.HostUrl, Bikewale.Utility.ImageSize._476x268);
-                            pqOnRoad.BikeDetails = bikemodelEnt;
-                        }
                         string api = string.Empty;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {

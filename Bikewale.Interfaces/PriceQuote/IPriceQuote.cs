@@ -23,5 +23,6 @@ namespace Bikewale.Interfaces.PriceQuote
         bool SaveBookingState(UInt32 pqId, PriceQuoteStates state);
         PriceQuoteParametersEntity FetchPriceQuoteDetailsById(UInt64 pqId);
         IEnumerable<PriceQuoteOfTopCities> FetchPriceQuoteOfTopCities(uint modelId, uint topCount);
+        IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId);
     }
 }
