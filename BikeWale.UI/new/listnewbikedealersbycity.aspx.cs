@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -124,6 +125,7 @@ namespace Bikewale.New
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getstatewisecitydealers"))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId)); 
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))

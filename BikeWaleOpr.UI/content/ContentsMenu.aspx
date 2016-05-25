@@ -3,7 +3,7 @@
 	<div class="right_articles">
 		<ul id="sidemenulist">
 			<li><a href="/content/bikemakes.aspx">Bike Makes</a></li>
-            <%--<li><a href="/content/bikeseries.aspx">Bike Series</li>--%>
+            <li><a href="/content/bikeseries.aspx">Bike Series</li>
             <li><a href="/content/bikemodels.aspx">Bike Models</a></li> 
             <li><a href="/content/bikeversions.aspx">Bike Versions</a></li>
            <%-- <li><a href="/content/newbikemodelcolors.aspx">Bike Model Colors</a></li>--%>

@@ -169,12 +169,15 @@ namespace BikeWaleOPR.DAL.CoreDAL
 		{
             using (DbCommand cmd = DbFactory.GetDBCommand(strSql))
             {
-                foreach (DbParameter p in commandParameters)
+                if (commandParameters !=null)
                 {
-                    if ((p.Direction == ParameterDirection.InputOutput) && (p.Value == null))
-                        p.Value = DBNull.Value;
+                    foreach (DbParameter p in commandParameters)
+                    {
+                        if ((p.Direction == ParameterDirection.InputOutput) && (p.Value == null))
+                            p.Value = DBNull.Value;
 
-                    cmd.Parameters.Add(p);
+                        cmd.Parameters.Add(p);
+                    } 
                 }
 
                 return UpdateQuery(cmd);
