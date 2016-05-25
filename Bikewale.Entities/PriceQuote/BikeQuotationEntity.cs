@@ -17,7 +17,7 @@ namespace Bikewale.Entities.PriceQuote
         public uint CityId { get; set; }
         public string City { get; set; }
         public string Area { get; set; }
-
+        public bool HasArea { get; set; }
         public uint VersionId { get; set; }
 
         public uint CampaignId { get; set; }
@@ -25,5 +25,8 @@ namespace Bikewale.Entities.PriceQuote
         public uint ManufacturerId { get; set; }
 
         public IEnumerable<OtherVersionInfoEntity> Varients { get; set; }
+
+        public string OriginalImage { get; set; }
+        public string HostUrl { get; set; }
     }
 }

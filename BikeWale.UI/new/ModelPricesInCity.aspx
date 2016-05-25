@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ModelPricesInCity" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="ModelPricesInCity.aspx.cs" Inherits="Bikewale.New.ModelPricesInCity" EnableViewState="false" %>
 <%@ Register Src="/controls/ModelPriceInNearestCities.ascx" TagPrefix="BW" TagName="ModelPriceInNearestCities" %>
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 
@@ -28,7 +28,7 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="font22 text-default margin-bottom20">Bajaj Pulsar RS200 price in Pune</h1>
+                    <h1 class="font22 text-default margin-bottom20"><%=bikeName %> price in <%=cityName %></h1>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -37,47 +37,57 @@
         <section id="versionPriceInCityWrapper" class="container margin-bottom25">
             <div class="grid-12 font14">
                 <div class="content-box-shadow">
-                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey">Bajaj Pulsar On-road price in Pune - <span class="fa fa-rupee"></span>&nbsp;1,25,657  onwards. This bike comes in 4 versions.<br />Click on any version name to know on-road price in this city:</p>
-                    <div class="model-versions-tabs-wrapper">
-                        <a href="javascript:void(0)" class="active">Electric Start/Drum/Alloy</a>
-                        <a href="javascript:void(0)">Electric Start/Disc/Alloy</a>
-                        <a href="javascript:void(0)">Standard</a>
-                        <a href="javascript:void(0)">ABS</a>
+                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %> - <span class="fa fa-rupee"></span>&nbsp;<%=firstVersion.OnRoadPrice %>  onwards. This bike comes in <%=versionCount %> versions.<br />Click on any version name to know on-road price in this city:</p>
+                    <div id='versions' class="model-versions-tabs-wrapper">
+                        <asp:Repeater ID="rpVersioNames" runat="server">
+                            <ItemTemplate>
+                                <a id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>" href="javascript:void(0)"><%# DataBinder.Eval(Container.DataItem, "VersionName").ToString() %></a>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </div>
                     <div class="border-divider"></div>
 
                     <div id="modelVersionDetailsWrapper" class="text-light-grey padding-bottom20">
                         <div class="grid-4 padding-top10">
                             <div class="model-version-image-content">
-                                <img src="http://imgd1.aeplcdn.com//310x174//bw/models/tvs-wego-drum-165.jpg?20151209224944" title="" alt="" />
+                                <img src="<%=modelImage %>" title="" alt="" />
                             </div>
                         </div>
                         <div class="grid-4 padding-top15">
-                            <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                                <tr>
-                                    <td width="200" class="padding-bottom15">Ex-showroom</td>
-                                    <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>&nbsp;1,25,657</td>
-                                </tr>
-                                <tr>
-                                    <td class="padding-bottom15">RTO</td>
-                                    <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>&nbsp;3,000</td>
-                                </tr>
-                                <tr>
-                                    <td class="padding-bottom15">Insurance</td>
-                                    <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>&nbsp;1,500</td>
-                                </tr>
-                                <tr>
-                                    <td class="padding-bottom15">Accessories</td>
-                                    <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>&nbsp;1,500</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="padding-bottom15 border-divider"></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-bold text-default">On-road price in Pune</td>
-                                    <td align="right" class="font16 text-bold text-default"><span class="fa fa-rupee"></span>&nbsp;1,25,657</td>
-                                </tr>
-                            </table>
+                            <asp:Repeater ID="rprVersionPrices" runat="server">
+                                <ItemTemplate>
+                                    <div class="priceTable hide" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
+                                        <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                            <tr>
+                                                <td width="200" class="padding-bottom15">Ex-showroom</td>
+                                                <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
+                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "ExShowroomPrice").ToString() %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="padding-bottom15">RTO</td>
+                                                <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
+                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "RTO").ToString() %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="padding-bottom15">Insurance</td>
+                                                <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
+                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "Insurance").ToString() %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" class="padding-bottom15 border-divider"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-bold text-default">On-road price in <%=TargetedCity %></td>
+                                                <td align="right" class="font16 text-bold text-default"><span class="fa fa-rupee"></span>
+                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "OnRoadPrice").ToString() %></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
                         </div>
                         <div class="grid-4 padding-top15 padding-left30">
                             <p class="text-black">Please select your area to get:</p>
@@ -92,7 +102,7 @@
                                     <p>Complete buying assistance</p>
                                 </li>
                             </ul>
-                            <a href="javascript:void(0)" class="btn btn-orange btn-xxlg font14">Select your area</a>
+                            <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 fillPopupData changeCity">Select your area</a>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -147,7 +157,6 @@
                         <a href="" class="margin-left20">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
                     </div>
                     <div class="margin-right20 margin-left20 border-divider"></div>
-
                     <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
                 </div>
             </div>
@@ -165,11 +174,21 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
             $('.model-versions-tabs-wrapper a').on('click', function () {
-                $('.model-versions-tabs-wrapper a').removeClass('active');
-                $(this).addClass('active');
+                var verid = $(this).attr('id');
+                showTab(verid);
             });
+            $(document).ready(function () {
+                $('#versions a').first().addClass('active');
+                $('.priceTable').first().show();
+            });
+            
+            function showTab(version) {
+                $('.model-versions-tabs-wrapper a').removeClass('active');
+                $('.model-versions-tabs-wrapper a[id="' + version + '"]').addClass('active');
+                $('.priceTable').hide();
+                $('.priceTable[id="' + version + '"]').show();
+            }
         </script>
-
     </form>
 </body>
 </html>

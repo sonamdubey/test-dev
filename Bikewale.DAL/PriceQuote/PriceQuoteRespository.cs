@@ -471,7 +471,7 @@ namespace Bikewale.DAL.PriceQuote
                                 });
                             }
 
-                            if(dr != null)
+                            if (dr != null)
                                 dr.Close();
                         }
 
@@ -504,7 +504,7 @@ namespace Bikewale.DAL.PriceQuote
         {
             IList<PriceQuoteOfTopCities> objPrice = null;
             Database db = null;
-            
+
             try
             {
                 db = new Database();
@@ -519,7 +519,7 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                         cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                         cmd.Parameters.Add("@TopRecords", SqlDbType.TinyInt).Value = topCount;
-                        
+
                         using (SqlDataReader dr = db.SelectQry(cmd))
                         {
                             objPrice = new List<PriceQuoteOfTopCities>();
@@ -558,9 +558,10 @@ namespace Bikewale.DAL.PriceQuote
             return objPrice;
         }
 
-        public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId)
+        public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool HasArea)
         {
             List<BikeQuotationEntity> bikePrices = null;
+            HasArea = false;
             Database db = null;
             try
             {
@@ -569,11 +570,12 @@ namespace Bikewale.DAL.PriceQuote
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "[GetVersionPricesByModelId";
+                        cmd.CommandText = "GetVersionPricesByModelId";
                         cmd.CommandType = CommandType.StoredProcedure;
 
                         cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                         cmd.Parameters.Add("@CityId", SqlDbType.TinyInt).Value = cityId;
+                        cmd.Parameters.Add("@HasAreasInCity", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         using (SqlDataReader dr = db.SelectQry(cmd))
                         {
                             bikePrices = new List<BikeQuotationEntity>();
@@ -583,15 +585,27 @@ namespace Bikewale.DAL.PriceQuote
                                 {
                                     VersionId = Convert.ToUInt32(dr["BikeVersionId"].ToString()),
                                     VersionName = Convert.ToString(dr["Version"]),
+                                    MakeName = Convert.ToString(dr["Make"]),
                                     ModelName = Convert.ToString(dr["Model"]),
                                     CityId = Convert.ToUInt32(dr["CityId"]),
                                     City = Convert.ToString(dr["City"]),
                                     ExShowroomPrice = Convert.ToUInt64(dr["Price"]),
                                     RTO = Convert.ToUInt32(dr["RTO"]),
                                     Insurance = Convert.ToUInt32(dr["Insurance"]),
-                                    OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"])
+                                    OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
+                                    OriginalImage = Convert.ToString(dr["OriginalImagePath"]),
+                                    HostUrl = Convert.ToString(dr["HostUrl"]),
                                 });
+
                             }
+                            if (dr.NextResult())
+                            {
+                                if (dr.Read())
+                                {
+                                    HasArea = Convert.ToBoolean(dr["HasAreasInCity"]);
+                                }
+                            }
+
                         }
 
                     }
