@@ -422,6 +422,10 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsedBikes.ascx.cs">
+      <DependentUpon>UsedBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\PriceInTopCities.ascx.cs">
       <DependentUpon>PriceInTopCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -930,6 +934,7 @@
     </Compile>
     <Compile Include="m\new\ModelPricesInCity.aspx.cs">
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\ModelSpecsFeatures.aspx.cs">
       <DependentUpon>ModelSpecsFeatures.aspx</DependentUpon>
@@ -1749,6 +1754,7 @@
     <Content Include="content\UserReviews\ReviewDetails.aspx" />
     <Content Include="content\UserReviews\ReviewMessage.aspx" />
     <Content Include="content\UserReviews\WriteReviews.aspx" />
+    <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\PriceInTopCities.ascx" />
     <Content Include="controls\AddBikeToCompare.ascx" />
     <Content Include="controls\AlternativeBikes.ascx" />

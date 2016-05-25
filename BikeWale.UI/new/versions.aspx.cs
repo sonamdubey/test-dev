@@ -387,6 +387,11 @@ namespace Bikewale.New
                                 variantText = firstVer.VersionName;
                         }
 
+                        if (string.IsNullOrEmpty(variantText))
+                        {
+                            variantText = defaultVariant.Text;
+                        }
+
                     }
                 }
             }
