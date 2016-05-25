@@ -10,7 +10,33 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
+        <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />  
+        
+        <%
+           Enyim.Caching.MemcachedClient _mc1= new Enyim.Caching.MemcachedClient("memcached");
+                      
+              string key1 = "BW_MakeMapping";
+
+              var cacheObject1 = _mc1.Get(key1);
+                
+              if (cacheObject1 != null)
+              {
+                  HttpContext.Current.Response.Write("Given key '" + key1 + "' - object exists in the memcache. On Page");
+              }
+              else
+              {
+                  HttpContext.Current.Response.Write("Given key '" + key1 + "' - object do not exists in the memcache. On Page");
+              }
+			  
+			  bool refreshKey = false;
+			  
+			  if(refreshKey)
+			  {
+                  _mc1.Remove(key1);
+				HttpContext.Current.Response.Write("Given key '" + key1 + "' - object removed from the memcache. On Page");
+			  }
+			  
+            %>    
     </div>
     </form>
 </body>

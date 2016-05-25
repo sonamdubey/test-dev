@@ -71,15 +71,15 @@ namespace Bikewale.Utility
                 {
                     case 4:
                     case 5:
-                    retValue = String.Format("{0} K", Convert.ToString(Math.Round(numeric / 1000, 2)));
+                    retValue = String.Format("{0} K", Convert.ToString(Math.Round(numeric / 1000, 1)));
                         break;
                     case 6:
                     case 7:
-                    retValue = String.Format("{0} L", Convert.ToString(Math.Round(numeric / 100000, 2)));
+                    retValue = String.Format("{0} L", Convert.ToString(Math.Round(numeric / 100000, 1)));
                         break;
                     case 8:
                     case 9:
-                    retValue = String.Format("{0} C", Convert.ToString(Math.Round(numeric / 10000000, 2)));
+                    retValue = String.Format("{0} C", Convert.ToString(Math.Round(numeric / 10000000, 1)));
                         break;
                     default:
                         retValue = FormatPrice(number);

@@ -25,6 +25,9 @@ namespace Bikewale.Controls
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
         public ushort TopCount { get; set; }
+        protected bool showWidget = false;
+        protected string make = string.Empty;
+        protected string model = string.Empty;
 
 
         protected override void OnInit(EventArgs e)
@@ -34,7 +37,24 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindNearestCityPrices();            
+            if(isValidData())
+                BindNearestCityPrices();            
+        }
+
+        /// <summary>
+        /// Function to validate the data passed to the widget
+        /// </summary>
+        /// <returns></returns>
+        private bool isValidData()
+        {
+            bool isValid = true;
+
+            if (ModelId <= 0 || CityId <= 0)
+            {
+                isValid = false;
+            }
+
+            return isValid;
         }
 
         /// <summary>
@@ -44,6 +64,8 @@ namespace Bikewale.Controls
         {
             try
             {
+                if (TopCount <= 0) { TopCount = 8; }
+
                 IEnumerable<PriceQuoteOfTopCities> prices = null;
 
                 using (IUnityContainer container = new UnityContainer())
@@ -59,8 +81,13 @@ namespace Bikewale.Controls
 
                     if (prices != null && prices.Count() > 0)
                     {
+                        make = prices.First().Make;
+                        model = prices.First().Model;
+
                         rptTopCityPrices.DataSource = prices;
                         rptTopCityPrices.DataBind();
+
+                        showWidget = true;
                     }
                 }
             }
