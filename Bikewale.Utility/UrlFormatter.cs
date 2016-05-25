@@ -39,5 +39,15 @@ namespace Bikewale.Utility
         {
             return String.Format("/{0}-bikes/{1}/price-in-{2}/", make, model, city);
         }
+
+        /// <summary>
+        /// Created By Vivek Gupta on 25-05-2016
+        /// Desc : url format /<make>-bikes/<model>/specifications-features/#specs,/<make>-bikes/<model>/specifications-features/#features
+        /// </summary>
+        /// <returns></returns>
+        public static string ViewAllFeatureSpecs(string make, string model, string hash)
+        {
+            return String.Format("/{0}-bikes/{1}/specifications-features/#{2}", make, model, hash);
+        }
     }
 }
