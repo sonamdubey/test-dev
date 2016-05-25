@@ -21,7 +21,7 @@ namespace Bikewale.Controls
             get { return _reviewCount; }
             set { _reviewCount = value; }
         }
-
+        protected ushort CssWidth = 6;
         public FilterBy Filter { get; set; }
         public int PageNo { get; set; }
         public int PageSize { get; set; }
@@ -56,6 +56,8 @@ namespace Bikewale.Controls
             MakeMaskingName = objUserReview.MakeMaskingName;
             ModelMaskingName = objUserReview.ModelMaskingName;
             this.FetchedRecordsCount = objUserReview.FetchedRecordsCount;
+            if (this.FetchedRecordsCount == 1)
+                CssWidth = 12;
         }
 
         public override void Dispose()

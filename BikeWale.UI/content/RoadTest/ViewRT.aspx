@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.ViewRT" Trace="false" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.ViewRT" Trace="false" Async="true" Debug="false" %>
 
 <%@ Register TagPrefix="CE" TagName="CalculateEMIMin" Src="/controls/CalculateEMIMin.ascx" %>
 <%@ Register TagPrefix="uc" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
@@ -159,7 +159,7 @@
     <div class="grid_8 margin-top10">
         <h1 class="hd1"><%= articleTitle%></h1>
         <div class="byline" style="display: none;"><%=articleTitle %> </div>
-        <div class="byline" style="padding-bottom: 5px;"><%= authorName %>, <%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %>. <%=_bikeTested%></div>
+        <div class="byline" style="padding-bottom: 5px;"><%= authorName %>, <%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %>. <%= (_bikeTested!=null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("| {0}",_bikeTested) : "" %></div>
         <ul class="social">
             <li>
                 <fb:like href="http://www.bikewale.com/road-tests/<%= articleUrl%>-<%= basicId %>.html" send="false" layout="button_count" width="80" show_faces="false"></fb:like>

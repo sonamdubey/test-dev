@@ -30,7 +30,6 @@ namespace Bikewale.BindViewModels.Controls
             try
             {
                 IEnumerable<ArticleSummary> _objArticleList = null;
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IArticles, Articles>();
@@ -38,13 +37,11 @@ namespace Bikewale.BindViewModels.Controls
                     _objArticleList = _articles.GetRecentNews(Convert.ToInt32(MakeId), Convert.ToInt32(ModelId), Convert.ToInt32(TotalRecords));
                 }
 
-
                 if (_objArticleList != null && _objArticleList.Count() > 0)
                 {
                     FetchedRecordsCount = _objArticleList.Count();
                     firstArticle = _objArticleList.First();
-                    var lst = _objArticleList.Skip(1);
-                    rptr.DataSource = lst;
+                    rptr.DataSource = _objArticleList.Skip(1);
                     rptr.DataBind();
                 }
             }
