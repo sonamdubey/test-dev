@@ -179,16 +179,16 @@
             <div class="grid-12">
                 <div class="content-box-shadow padding-top20 padding-bottom25">
                     <h2 class="padding-left20 padding-right20 text-x-black text-bold margin-bottom20">Upcoming <%= _make.MakeName %> bikes</h2>
-                    <div class="jcarousel-wrapper">
+                    <div class="jcarousel-wrapper bike-carousel-wrapper">
                         <div class="jcarousel">
                             <ul>
                                 <li>
-                                    <div class="model-jcarousel-image-preview margin-bottom15">
+                                    <div class="model-preview-image-container margin-bottom15">
                                         <a href="">
                                             <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/upcoming/honda-cb500f-420.jpg?20151209054312" title="" alt="" />
                                         </a>
                                     </div>
-                                    <h3 class="font16 margin-bottom10"><a href="" class="font16 text-black">Harley Davidson Heritage</a></h3>
+                                    <a href="" class="block font16 text-bold margin-bottom10 text-black">Harley Davidson Heritage</a>
                                     <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
                                     <p class="font16 text-bold margin-bottom15">June 2016</p>
                                     <p class="font14 text-light-grey margin-bottom5">Expected price</p>
@@ -197,12 +197,12 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="model-jcarousel-image-preview margin-bottom15">
+                                    <div class="model-preview-image-container margin-bottom15">
                                         <a href="">
                                             <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cbr1000rr-fireblade-c-abs-125.jpg?20151209184557" title="" alt="" />
                                         </a>
                                     </div>
-                                    <h3 class="font16 margin-bottom10"><a href="" class="text-black">Harley Davidson Heritage Softail Classic</a></h3>
+                                    <a href="" class="block font16 text-bold margin-bottom10 text-black">Harley Davidson Heritage Softail Classic</a>
                                     <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
                                     <p class="font16 text-bold margin-bottom15">June 2016</p>
                                     <p class="font14 text-light-grey margin-bottom5">Expected price</p>
@@ -211,12 +211,12 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="model-jcarousel-image-preview margin-bottom15">
+                                    <div class="model-preview-image-container margin-bottom15">
                                         <a href="">
                                             <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cbr250r-sports/red/black-color-std-121.jpg?20151209184646" title="" alt="" />
                                         </a>
                                     </div>
-                                    <h3 class="font16 margin-bottom10"><a href="" class="text-black">Harley Davidson Heritage</a></h3>
+                                    <a href="" class="block font16 text-bold margin-bottom10 text-black">Harley Davidson Heritage</a>
                                     <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
                                     <p class="font16 text-bold margin-bottom15">June 2016</p>
                                     <p class="font14 text-light-grey margin-bottom5">Expected price</p>
@@ -225,12 +225,12 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="model-jcarousel-image-preview margin-bottom15">
+                                    <div class="model-preview-image-container margin-bottom15">
                                         <a href="">
                                             <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/upcoming/honda-cb500f-420.jpg?20151209054312" title="" alt="" />
                                         </a>
                                     </div>
-                                    <h3 class="font16 margin-bottom10"><a href="" class="text-black">Harley Davidson Heritage Softail Classic</a></h3>
+                                    <a href="" class="block font16 text-bold margin-bottom10 text-black">Harley Davidson Heritage Softail Classic</a>
                                     <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
                                     <p class="font16 text-bold margin-bottom15">June 2016</p>
                                     <p class="font14 text-light-grey margin-bottom5">Expected price</p>
@@ -255,14 +255,14 @@
                         <div id="makeOverallTabs">
                             <div class="overall-specs-tabs-wrapper">
                                 <a class="active" href="#makeAboutContent" rel="nofollow">About</a>
-                                <a href="#makeNewsContent" rel="nofollow">News</a>
+                                <a href="#modelNewsContent" rel="nofollow">News</a>
                                 <a href="#makeReviewsContent" rel="nofollow">Reviews</a>
                                 <a href="#makeDealersContent" rel="nofollow">Dealers</a>
-                                <a href="#makeUsedContent" rel="nofollow">Used</a>
+                                <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
                             </div>
                         </div>
                     </div>
-                    <div id="modelSummaryContent" class="bw-model-tabs-data content-inner-block-20">
+                    <div id="makeAboutContent" class="bw-model-tabs-data padding-top20 padding-right20 padding-left20">
                         <div class="grid-8 alpha">
                             <h2>Bajaj Pulsar RS200 Summary</h2>
                             <p class="font14 text-light-grey line-height17">
@@ -293,9 +293,10 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div class="margin-right10 margin-left10 border-solid-top"></div>
 
-                    <div id="makeNewsContent" class="bw-model-tabs-data padding-top20 font14">
+                    <!-- news control starts here -->
+                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+                    <div id="modelNewsContent" class="bw-model-tabs-data padding-top20 font14">
                         <h2 class="padding-left20 padding-right20"><%= _make.MakeName %> News</h2>
                         <div class="margin-bottom10">
                             <div class="grid-8 padding-left20 border-light-right">
@@ -351,7 +352,111 @@
                             <a href="javascript:void(0)">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
                         </div>
                     </div>
+                    <!-- news control ends here -->
+                    
                     <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+                    <div id="makeReviewsContent" class="bw-model-tabs-data padding-top20 font14">
+                        <h2 class="padding-left20 padding-right20"><%= _make.MakeName %> Reviews</h2>
+                        <!-- expert reviews control -->
+                        <!-- user reviews control -->
+                        <!-- videos control -->
+                    </div>
+
+                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+                    <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 margin-bottom20 font14">
+                        <h2 class="padding-left20 padding-right20"><%= _make.MakeName %> Dealers in India</h2>
+                        <div class="jcarousel-wrapper bike-carousel-wrapper margin-bottom15">
+                            <div class="jcarousel">
+                                <ul>
+                                    <li>
+                                        <a href="" class="dealer-jcarousel-image-preview">
+                                            <span></span>
+                                        </a>
+                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Mumbai</a></h3>
+                                        <p>24 showrooms</p>
+                                    </li>
+                                    <li>
+                                        <a href="" class="dealer-jcarousel-image-preview">
+                                            <span></span>
+                                        </a>
+                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Pune</a></h3>
+                                        <p>24 showrooms</p>
+                                    </li>
+                                    <li>
+                                        <a href="" class="dealer-jcarousel-image-preview">
+                                            <span></span>
+                                        </a>
+                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Bengaluru</a></h3>
+                                        <p>24 showrooms</p>
+                                    </li>
+                                    <li>
+                                        <a href="" class="dealer-jcarousel-image-preview">
+                                            <img />
+                                        </a>
+                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Mumbai</a></h3>
+                                        <p>24 showrooms</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                        </div>
+                        <div class="padding-left20">
+                            <a href="javascript:void(0)">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
+                        </div>
+                    </div>
+
+                    <div class="margin-right10 margin-left10 border-solid-top"></div>
+                    <div id="makeUsedBikeContent" class="bw-model-tabs-data padding-top20 font14">
+                        <h2 class="padding-left20 padding-right20">Recently uploaded <%= _make.MakeName %> Used bikes</h2>
+                        <!-- when city is not selected -->
+                        <div class="grid-12 text-black">
+                            <div class="grid-4 margin-bottom20">
+                                <a href=""><%= _make.MakeName %> Used bikes in Mumbai</a>
+                                <p class="margin-top10">500 bikes available</p>
+                            </div>
+                            <div class="grid-4 margin-bottom20">
+                                <a href=""><%= _make.MakeName %> Used bikes in Pune</a>
+                                <p class="margin-top10">500 bikes available</p>
+                            </div>
+                            <div class="grid-4 margin-bottom20">
+                                <a href=""><%= _make.MakeName %> Used bikes in Bengaluru</a>
+                                <p class="margin-top10">500 bikes available</p>
+                            </div>
+                            <div class="grid-4 margin-bottom20">
+                                <a href=""><%= _make.MakeName %> Used bikes in Delhi</a>
+                                <p class="margin-top10">500 bikes available</p>
+                            </div>
+                            <div class="grid-4 margin-bottom20">
+                                <a href=""><%= _make.MakeName %> Used bikes in Hyderabad</a>
+                                <p class="margin-top10">500 bikes available</p>
+                            </div>
+                            <div class="grid-4 margin-bottom20">
+                                <a href=""><%= _make.MakeName %> Used bikes in Chennai</a>
+                                <p class="margin-top10">500 bikes available</p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+
+                        <!-- when city is selected -->
+                        <div class="grid-12 text-black">
+                            <div class="grid-4 margin-bottom20">
+                                <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
+                                <p class="margin-top10"><span class="fa fa-rupee"></span> <span>1,67,673</span> in Mumbai</p>
+                            </div>
+                            <div class="grid-4 margin-bottom20">
+                                <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
+                                <p class="margin-top10"><span class="fa fa-rupee"></span> <span>1,67,673</span> in Mumbai</p>
+                            </div>
+                            <div class="grid-4 margin-bottom20">
+                                <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
+                                <p class="margin-top10"><span class="fa fa-rupee"></span> <span>1,67,673</span> in Mumbai</p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
 
                     <div id="overallMakeDetailsFooter"></div>
                 </div>
