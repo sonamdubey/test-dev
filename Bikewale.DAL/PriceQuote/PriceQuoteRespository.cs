@@ -557,7 +557,14 @@ namespace Bikewale.DAL.PriceQuote
 
             return objPrice;
         }
-
+        /// <summary>
+        /// Author: Sangram Nandkhile on 25 May 2016
+        /// Summary: Get bike versions and prices by model Id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="HasArea"></param>
+        /// <returns></returns>
         public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool HasArea)
         {
             List<BikeQuotationEntity> bikePrices = null;
@@ -600,14 +607,12 @@ namespace Bikewale.DAL.PriceQuote
                             }
                             if (dr.NextResult())
                             {
-                                if (dr.Read())
+                                while (dr.Read())
                                 {
-                                    HasArea = Convert.ToBoolean(dr["HasAreasInCity"]);
+                                    HasArea = Convert.ToBoolean(dr["HasAreasInCity"].ToString());
                                 }
                             }
-
                         }
-
                     }
                 }
             }

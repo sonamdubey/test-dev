@@ -30,7 +30,8 @@ namespace Bikewale.New
         public int versionCount;
         public string makeName = string.Empty, modelName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty;
         string redirectUrl = string.Empty;
-        private bool redirectToPageNotFound = false, redirectPermanent = false, isAreaAvailable;
+        private bool redirectToPageNotFound = false, redirectPermanent = false;
+        public bool isAreaAvailable;
 
         protected override void OnInit(EventArgs e)
         {
@@ -64,6 +65,7 @@ namespace Bikewale.New
                 objPQCont.RegisterType<IPriceQuote, PriceQuoteRepository>();
                 objPQ = objPQCont.Resolve<IPriceQuote>();
                 IEnumerable<BikeQuotationEntity> bikePrices = objPQ.GetVersionPricesByModelId(modelId, cityId, out hasArea);
+                isAreaAvailable = false;
                 if (bikePrices != null)
                 {
                     SetModelDetails(bikePrices);
