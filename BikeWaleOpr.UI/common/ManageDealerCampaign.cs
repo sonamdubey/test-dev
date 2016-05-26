@@ -274,7 +274,7 @@ namespace BikewaleOpr.Common
                     {
                         
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId > 0 ? dealerId : Convert.DBNull));
 
                         using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                         {

@@ -42,13 +42,13 @@
                                     <tr id="trCampaignDetails">
                                         <td class="rdbCampaignId">
                                             <span id="rdb_<%#Eval("CampaignId") %>">
-                                                <input type="radio" name="rdbCampaign" runat="server" id="rdbCampaign" value='<%#Eval("CampaignId") %>' checked='<%#Eval("IsMapped")%>' /> 
+                                                <input type="radio" name="rdbCampaign" runat="server" id="rdbCampaign" value='<%#Eval("CampaignId") %>' checked='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsMapped")) %>' /> 
                                             </span>
                                         </td>
                                         <td><%#Eval("CampaignId") %></td>
                                         <td width="150"><%#Eval("DealerEmailId") %></td>
                                         <td><%#Eval("DealerName") %></td>
-                                        <td><%#(bool)Eval("IsActive")== true? "Active" : "Inactive" %></td>
+                                        <td><%#Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsActive"))? "Active" : "Inactive" %></td>
                                         <td>
                                             <%--<a target="_blank" onclick="mapCampaign.showMapMaskingNumberPopup(<%#Eval("CampaignId") %>)" id="addMaskingNumberLink_<%#Eval("CampaignId") %>">Add Masking Number</a>--%>
                                             <span id="addMaskingNumber_<%#Eval("CampaignId") %>"><%#Eval("Number").ToString() == "" ? "" : Eval("Number") %></span>

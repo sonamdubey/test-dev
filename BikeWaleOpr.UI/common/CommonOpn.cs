@@ -1568,7 +1568,7 @@ namespace BikeWaleOpr.Common
                         HttpContext.Current.Trace.Warn("regCharges : ", regCharges.ToString());
                         HttpContext.Current.Trace.Warn("FuelType : ", fuelType);
 
-                        isImported = Convert.ToBoolean(dr["IsImported"].ToString());
+                        isImported = Convert.ToBoolean(dr["IsImported"]);
 
                         //sc = Convert.ToInt32(dr["SeatingCapacity"]);
                         cc = Convert.ToInt32(dr["Displacement"]);

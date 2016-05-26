@@ -456,7 +456,7 @@ namespace BikeWaleOpr.Content
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], photoId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ConfigurationManager.AppSettings["imghosturl"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ConfigurationManager.AppSettings["imgHostURL"]));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_imagename", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, (drpMake1.SelectedItem.Text + "_" + drpModel1.SelectedItem.Text + "_vs_" + drpMake2.SelectedItem.Text + "_" + drpModel2.SelectedItem.Text + ".jpg?").Replace(" ", "").ToLower() + timeStamp));
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, "/bw/bikecomparison/"));

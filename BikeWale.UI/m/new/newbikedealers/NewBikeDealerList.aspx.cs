@@ -226,26 +226,17 @@ namespace Bikewale.Mobile.New
         private bool ProcessQueryString()
         {
             var currentReq = HttpContext.Current.Request;
-            bool isValidQueryString = false;
+            bool isValid = false;
             try
             {
+
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
                     makeMaskingName = currentReq.QueryString["make"];
-                    urlCityMaskingName = currentReq.QueryString["city"];
-                    if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
-                    {
-                        cityId = CitiMapping.GetCityId(urlCityMaskingName);
-                        isValidQueryString = true;
-                    }
-                    else
-                    {
-                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
+                    uint.TryParse(currentReq.QueryString["cityId"], out cityId);
                     clientIP = Bikewale.Common.CommonOpn.GetClientIP();
                     pageUrl = currentReq.ServerVariables["URL"];
+                    isValid = true;
                 }
                 else
                 {
@@ -256,10 +247,13 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, " : ProcessQueryString ");
+
+                Trace.Warn("ProcessQueryString Ex: ", ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, currentReq.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            return isValidQueryString;
+
+            return isValid;
 
         }
 

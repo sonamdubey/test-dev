@@ -153,7 +153,7 @@ namespace BikewaleOpr.CommuteDistance
                     command.CommandText = "updatecommutedistance";
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
-                    command.Parameters.Add(DbFactory.GetDbParam("par_areadistance", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], -1, areaDistance));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_areadistance", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], areaDistance));
 
                     resp = MySqlDatabase.ExecuteNonQuery(command);
                 }

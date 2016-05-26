@@ -95,6 +95,10 @@ namespace Bikewale.Notifications
         /// </summary>
         public void SendMail()
         {
+            //exception log
+            //ExceptionLogging.SendErrorToText(Error);
+
+
             string email = ErrorMailConfiguration.ERRORMAILTO;
             string subject = "Error in " + ErrorMailConfiguration.APPLICATIONNAME + " at page: " + PageUrl;
 
