@@ -217,6 +217,7 @@
     <Compile Include="common\Ajax\AjaxCommon.cs" />
     <Compile Include="common\Ajax\AjaxManufacturerCampaign.cs" />
     <Compile Include="common\Ajax\ImageReplication.cs" />
+    <Compile Include="common\ErrorLoggingIntoFile.cs" />
     <Compile Include="common\KnowlarityApi.cs" />
     <Compile Include="common\ManageDealerBenefits.cs" />
     <Compile Include="common\ManageDealerCampaign.cs" />
