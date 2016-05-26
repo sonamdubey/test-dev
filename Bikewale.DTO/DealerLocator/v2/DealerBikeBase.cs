@@ -8,7 +8,7 @@ namespace Bikewale.DTO.DealerLocator.v2
     /// </summary>
     public class DealerBikeBase
     {
-        [JsonProperty("bike")]
+        [JsonProperty("versionName")]
         public string Bike { get; set; }
         [JsonProperty("versionId")]
         public int VersionId { get; set; }
