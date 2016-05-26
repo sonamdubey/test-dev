@@ -281,8 +281,9 @@ namespace Bikewale.DAL.PriceQuote
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Convert.ToInt32(state)));
 
 
-                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd)))
-                        isUpdated = true;
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+
+                    isUpdated = true;
                 }
             }
             catch (Exception ex)

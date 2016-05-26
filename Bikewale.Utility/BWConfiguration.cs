@@ -75,8 +75,8 @@ namespace Bikewale.Utility
         {
             // Initialize _data member here
             _defaultCity = ConfigurationManager.AppSettings["defaultName"];
-            _bwconnectionString = ConfigurationManager.AppSettings["bwconnectionString"];
-            _cwconnectionString = ConfigurationManager.AppSettings["connectionString"];
+            _bwconnectionString = ConfigurationManager.AppSettings["mySqlBwConnectionString"];
+            _cwconnectionString = ConfigurationManager.AppSettings["mySqlConnectionString"];
             _offerUniqueTransaction = ConfigurationManager.AppSettings["OfferUniqueTransaction"];
             _billDeskWorkingKey = ConfigurationManager.AppSettings["BillDeskWorkingKey"];
             _imgHostURL = ConfigurationManager.AppSettings["imgHostURL"];
