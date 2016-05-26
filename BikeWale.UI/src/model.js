@@ -1166,15 +1166,13 @@ $('a.read-more-model-preview').click(function () {
     if (!$(this).hasClass('open')) {
         $('.model-preview-main-content').hide();
         $('.model-preview-more-content').show();
-        var span = $(this).find('span');
-        span.text(span.text() === 'more' ? 'less' : 'more');
+        $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
         $(this).addClass("open");
     }
     else if ($(this).hasClass('open')) {
         $('.model-preview-main-content').show();
         $('.model-preview-more-content').hide();
-        var span = $(this).find('span');
-        span.text(span.text() === 'more' ? 'less' : 'more');
+        $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
         $(this).removeClass('open');
     }
 
