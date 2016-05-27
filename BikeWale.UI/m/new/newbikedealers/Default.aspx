@@ -10,8 +10,6 @@
         canonical = "http://www.bikewale.com/new/locate-dealers/";
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
-        Ad_320x50 = true;
-        Ad_Bot_320x50 = true;
         //menu = "10";
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -295,7 +293,7 @@
             if (($ddlCities.find("li.activeCity")).length > 0) {
                 $("div.locator-search-city-form span").text($ddlCities.find("li.activeCity:first").text());
             }
-            
+
 
             $ddlMakes.on("click", "li", function () {
                 var _self = $(this),
@@ -370,7 +368,7 @@
                                 if (xhr.status != 200) {
                                     $("div.locator-search-city-form span").text("No cities available");
                                     lscache.set(key + mId, null, 30);
-                                    setOptions(null);  
+                                    setOptions(null);
                                 }
                             }
                         });
