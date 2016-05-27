@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Cache.BikeData;
+﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
@@ -13,18 +7,21 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
+using System;
+using System.Web;
 
 namespace Bikewale.New
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 23 May 2016
     /// </summary>
-	public class ModelPricesInCity : System.Web.UI.Page
-	{
+    public class ModelPricesInCity : System.Web.UI.Page
+    {
         protected ModelPriceInNearestCities ctrlTopCityPrices;
-        
+        protected DealerCard ctrlDealers;
+
         private uint modelId = 0, cityId = 0;
-        string redirectUrl = string.Empty;                
+        string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
 
         protected override void OnInit(EventArgs e)
@@ -32,21 +29,26 @@ namespace Bikewale.New
             this.Load += new EventHandler(Page_Load);
         }
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
+        protected void Page_Load(object sender, EventArgs e)
+        {
             ParseQueryString();
 
             if (redirectToPageNotFound || redirectPermanent)
             {
-                DoRedirection();                
+                DoRedirection();
             }
             else
             {
                 ctrlTopCityPrices.ModelId = modelId;
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.TopCount = 8;
+
+                ctrlDealers.MakeId = 7;
+                ctrlDealers.CityId = cityId;
+                ctrlDealers.TopCount = 3;
+
             }
-		}
+        }
 
         /// <summary>
         /// Function to do the redirection on different pages.
@@ -56,7 +58,7 @@ namespace Bikewale.New
             // Redirection
             if (redirectToPageNotFound)
             {
-                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);                
+                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
             }
             else if (redirectPermanent)
                 CommonOpn.RedirectPermanent(redirectUrl);
@@ -97,7 +99,7 @@ namespace Bikewale.New
                 }
             }
             catch (Exception ex)
-            {                
+            {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
                 objErr.SendMail();
 
@@ -106,7 +108,7 @@ namespace Bikewale.New
                 this.Page.Visible = false;
             }
             finally
-            {                
+            {
                 // Get ModelId
                 // Code to check whether masking name is changed or not. If changed redirect to appropriate url
                 if (objResponse != null)
@@ -123,7 +125,7 @@ namespace Bikewale.New
                         redirectPermanent = true;
                     }
                     else
-                    {                        
+                    {
                         redirectToPageNotFound = true;
                     }
                 }
@@ -133,11 +135,11 @@ namespace Bikewale.New
                 }
 
                 // Get CityId
-                cityId = Convert.ToUInt32(Request.QueryString["cityid"]);                             
-                    
+                cityId = Convert.ToUInt32(Request.QueryString["cityid"]);
+
             }
         }
 
 
-	}   // class
+    }   // class
 }   // namespace
