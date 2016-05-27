@@ -70,7 +70,6 @@
     <Compile Include="Description.cs" />
     <Compile Include="Distance.cs" />
     <Compile Include="EncodingDecodingHelper.cs" />
-    <Compile Include="ErrorLoggingIntoFile.cs" />
     <Compile Include="Format.cs" />
     <Compile Include="FormatDate.cs" />
     <Compile Include="FormatMinSpecs.cs" />
