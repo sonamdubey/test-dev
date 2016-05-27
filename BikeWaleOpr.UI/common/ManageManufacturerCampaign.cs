@@ -90,7 +90,8 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, modelIds));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, description));
-                    success = MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+                     success = true;
                 }
             }
             catch (Exception ex)
@@ -122,7 +123,8 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, campaignIds));
 
-                    success = MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    success = true;
                 }
             }
             catch (Exception ex)
