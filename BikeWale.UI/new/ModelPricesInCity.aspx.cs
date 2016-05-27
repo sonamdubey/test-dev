@@ -59,26 +59,34 @@ namespace Bikewale.New
         /// </summary>
         private void FetchVersionPrices()
         {
-            IPriceQuote objPQ; bool hasArea;
-            using (IUnityContainer objPQCont = new UnityContainer())
+            try
             {
-                objPQCont.RegisterType<IPriceQuote, PriceQuoteRepository>();
-                objPQ = objPQCont.Resolve<IPriceQuote>();
-                IEnumerable<BikeQuotationEntity> bikePrices = objPQ.GetVersionPricesByModelId(modelId, cityId, out hasArea);
-                isAreaAvailable = false;
-                if (bikePrices != null)
+                IPriceQuote objPQ; bool hasArea;
+                using (IUnityContainer objPQCont = new UnityContainer())
                 {
-                    SetModelDetails(bikePrices);
+                    objPQCont.RegisterType<IPriceQuote, PriceQuoteRepository>();
+                    objPQ = objPQCont.Resolve<IPriceQuote>();
+                    IEnumerable<BikeQuotationEntity> bikePrices = objPQ.GetVersionPricesByModelId(modelId, cityId, out hasArea);
+                    isAreaAvailable = false;
+                    if (bikePrices != null)
+                    {
+                        SetModelDetails(bikePrices);
 
-                    rprVersionPrices.DataSource = bikePrices;
-                    rprVersionPrices.DataBind();
-                    rpVersioNames.DataSource = bikePrices;
-                    rpVersioNames.DataBind();
+                        rprVersionPrices.DataSource = bikePrices;
+                        rprVersionPrices.DataBind();
+                        rpVersioNames.DataSource = bikePrices;
+                        rpVersioNames.DataBind();
+                    }
+                    else
+                    {
+                        DoPageNotFounRedirection();
+                    }
                 }
-                else
-                {
-                    DoPageNotFounRedirection();
-                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "-FetchVersionPrices");
+                objErr.SendMail();
             }
 
         }
@@ -89,18 +97,26 @@ namespace Bikewale.New
         /// <param name="bikePrices"></param>
         private void SetModelDetails(IEnumerable<BikeQuotationEntity> bikePrices)
         {
-            versionCount = bikePrices.Count();
-            if (versionCount > 0)
+            try
             {
-                firstVersion = bikePrices.FirstOrDefault();
-                if (firstVersion != null)
+                versionCount = bikePrices.Count();
+                if (versionCount > 0)
                 {
-                    makeName = bikePrices.First().MakeName;
-                    modelName = bikePrices.First().ModelName;
-                    bikeName = String.Format("{0} {1}", makeName, modelName);
-                    modelImage = Utility.Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, Bikewale.Utility.ImageSize._310x174);
-                    cityName = firstVersion.City;
+                    firstVersion = bikePrices.FirstOrDefault();
+                    if (firstVersion != null)
+                    {
+                        makeName = bikePrices.First().MakeName;
+                        modelName = bikePrices.First().ModelName;
+                        bikeName = String.Format("{0} {1}", makeName, modelName);
+                        modelImage = Utility.Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, Bikewale.Utility.ImageSize._310x174);
+                        cityName = firstVersion.City;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "-SetModelDetails");
+                objErr.SendMail();
             }
         }
 
