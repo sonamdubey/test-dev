@@ -1,13 +1,9 @@
 ﻿using Bikewale.CoreDAL;
 using Bikewale.Interfaces.AppAlert;
 using Bikewale.Notifications;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Web;
 
 namespace Bikewale.DAL.AppAlert
@@ -15,32 +11,32 @@ namespace Bikewale.DAL.AppAlert
     public class AppAlertRepository : IAppAlert
     {
 
-       /// <summary>
-       /// Auth: Sangram Nandkhile on 5th January 2016
-       /// Desc: Push IMEI, GCM id, OS Type, Subscription Master Id
-       /// </summary>
-       /// <param name="imei"></param>
-       /// <param name="gcmId"></param>
-       /// <param name="osType"></param>
-       /// <param name="subsMasterId"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// Auth: Sangram Nandkhile on 5th January 2016
+        /// Desc: Push IMEI, GCM id, OS Type, Subscription Master Id
+        /// </summary>
+        /// <param name="imei"></param>
+        /// <param name="gcmId"></param>
+        /// <param name="osType"></param>
+        /// <param name="subsMasterId"></param>
+        /// <returns></returns>
         public bool SaveImeiGcmData(string imei, string gcmId, string osType, string subsMasterId)
         {
             bool isResult = true;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
-                    {
-                        cmd.CommandText = "subscriptionactivity";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                {
+                    cmd.CommandText = "subscriptionactivity";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_imei", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, imei));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, gcmId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], osType));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], subsMasterId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imei", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, imei));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, gcmId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], osType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, subsMasterId));
 
-                        MySqlDatabase.ExecuteNonQuery(cmd);
-                    }
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+                }
             }
             catch (SqlException ex)
             {
