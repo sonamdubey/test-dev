@@ -10,6 +10,9 @@ using System.Collections;
 using System.IO;
 using BikeWaleOpr.Common;
 using System.Xml;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
+using System.Data.Common;
 
 namespace BikeWaleOpr.Content
 {
@@ -100,75 +103,53 @@ namespace BikeWaleOpr.Content
 		
 		void SaveData(string cityId, string bikeId, string price)
 		{
-            throw new Exception("Method not used/commented");
 
-            ////get the new insurance and the new RTO
-            //double insurance = CommonOpn.GetInsurancePremium(bikeId, cityId, Convert.ToDouble(price));
-            //double rto = CommonOpn.GetRegistrationCharges(bikeId, cityId, Convert.ToDouble(price));
-			
-            //Trace.Warn("Saving data for : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
+            //get the new insurance and the new RTO
+            double insurance = CommonOpn.GetInsurancePremium(bikeId, cityId, Convert.ToDouble(price));
+            double rto = CommonOpn.GetRegistrationCharges(bikeId, cityId, Convert.ToDouble(price));
 
-            //SqlConnection con;
-            //SqlCommand cmd;
-            //SqlParameter prm;
-            //Database db = new Database();
-            //CommonOpn op = new CommonOpn();
-				
-            //string conStr = db.GetConString();
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-            //try
-            //{
-            //    using (con = new SqlConnection(conStr))
-            //    {
-            //        Trace.Warn("Submitting Data");
-            //        cmd = new SqlCommand("InsertShowroomPrices", con);
-            //        cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], bikeId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiprice", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], price)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiinsurance", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], insurance));
 
-            //        prm = cmd.Parameters.Add("@BikeVersionId", SqlDbType.BigInt);
-            //        prm.Value = bikeId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaicorporaterto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], Convert.DBNull)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetprice", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], Convert.DBNull)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetcorporaterto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], Convert.DBNull)); 
 
-            //        prm = cmd.Parameters.Add("@MumbaiPrice", SqlDbType.BigInt);
-            //        prm.Value = price;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetinsurance", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], Convert.DBNull)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetrto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], Convert.DBNull)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbairto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], rto));  
+   
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], cityId));                
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
 
-            //        prm = cmd.Parameters.Add("@MumbaiInsurance", SqlDbType.BigInt);
-            //        prm.Value = insurance;
+                    //run the command
+                    MySqlDatabase.ExecuteNonQuery(cmd); 
+                }
 
-            //        prm = cmd.Parameters.Add("@MumbaiRTO", SqlDbType.BigInt);
-            //        prm.Value = rto;
+            }
+            catch (SqlException err)
+            {
+                Trace.Warn(err.Message);
+                Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
 
-            //        prm = cmd.Parameters.Add("@CityId", SqlDbType.BigInt);
-            //        prm.Value = cityId;
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            } // catch Exception
+            catch (Exception err)
+            {
+                Trace.Warn(err.Message);
+                Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
 
-            //        prm = cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime);
-            //        prm.Value = DateTime.Now;
-
-            //        con.Open();
-            //        //run the command
-            //        cmd.ExecuteNonQuery();
-                        
-            //        //close the connection	
-            //        if (con.State == ConnectionState.Open)
-            //        {
-            //            con.Close();
-            //        }
-            //    }
-            //}
-            //catch (SqlException err)
-            //{
-            //    Trace.Warn(err.Message);
-            //    Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
-
-            //    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //} // catch Exception
-            //catch(Exception err)
-            //{
-            //    Trace.Warn(err.Message);
-            //    Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
-					
-            //    ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //} // catch Exception
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            } // catch Exception
 		}
 	}//Class
 }// Namespace

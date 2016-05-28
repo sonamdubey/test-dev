@@ -426,7 +426,7 @@ namespace BikeWaleOpr.Classified
                     cmd.CommandText = "classified_bikephotos_markverified";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], -1, photoIdList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],  photoIdList));
 
                     
                     MySqlDatabase.UpdateQuery(cmd);
@@ -463,7 +463,7 @@ namespace BikeWaleOpr.Classified
                     cmd.CommandText = "classified_bikephotos_markfake";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], -1, photoIdList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], photoIdList));
 
                     
                     MySqlDatabase.UpdateQuery(cmd);
@@ -500,7 +500,7 @@ namespace BikeWaleOpr.Classified
                     cmd.CommandText = "fakecustomer";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_custidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], -1, CustIdList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_custidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], CustIdList));
 
                     
                     MySqlDatabase.UpdateQuery(cmd);

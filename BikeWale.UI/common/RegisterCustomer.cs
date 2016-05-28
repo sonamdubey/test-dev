@@ -425,9 +425,6 @@ namespace Bikewale.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "savepasswordrecoverytoken";
 
-                    //cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
-                    //cmd.Parameters.Add("@Token", SqlDbType.VarChar, 200).Value = token;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, token));
 
@@ -691,7 +688,6 @@ namespace Bikewale.Common
                     cmd.CommandText = "checkfakecustomerbyid";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    //cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = customerId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
