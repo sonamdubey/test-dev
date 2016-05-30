@@ -20,6 +20,7 @@ namespace Bikewale.Notifications.MailTemplates
         /// <param name="pageUrl">Page url on which exception occured.</param>
         public ErrorMailTemplate(Exception ex, string pageUrl)
         {
+            //ExceptionLogging.SendErrorToText(ex);
             err = ex;
             PageUrl = pageUrl;
         }

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
-using Bikewale.Entities.NewBikeSearch;
-using Microsoft.Practices.Unity;
 using Bikewale.Notifications;
-using System.Configuration;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
 
 namespace Bikewale.DAL.NewBikeSearch
 {
@@ -58,7 +53,7 @@ namespace Bikewale.DAL.NewBikeSearch
                                 ,ifnull(sd.maximumtorque,0) maximumtorque
                                 ,ifnull(mpb.modelwisepqcount, 0) modelwisepqcount ";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetSelectClause");
                 objError.SendMail();
@@ -77,7 +72,7 @@ namespace Bikewale.DAL.NewBikeSearch
                             + " left join newbikespecifications as sd  on sd.bikeversionid = bv.id "
                             + " left join mostpopularbikes mpb  on mpb.modelid = mo.id and mpb.rownum = 1 ";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetSelectClause");
                 objError.SendMail();
@@ -114,7 +109,7 @@ namespace Bikewale.DAL.NewBikeSearch
                         break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetOrderByClause");
                 objError.SendMail();
@@ -129,7 +124,7 @@ namespace Bikewale.DAL.NewBikeSearch
             {
                 recordCountQuery = " select count(*) as recordcount  from temp_bikes_searched   where modelrank = 1 ; drop temporary table if exists temp_bikes_searched;";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetRecordCountQry");
             }
@@ -139,7 +134,7 @@ namespace Bikewale.DAL.NewBikeSearch
         public void InitSearchCriteria(FilterInput filter)
         {
             filterInputs = filter;
-            if(!String.IsNullOrEmpty(filterInputs.MinBudget))
+            if (!String.IsNullOrEmpty(filterInputs.MinBudget))
                 BudgetClause();
 
             if (CollectionHelper.IsNotEmpty(filterInputs.Displacement))
@@ -151,7 +146,7 @@ namespace Bikewale.DAL.NewBikeSearch
             if (CollectionHelper.IsNotEmpty(filterInputs.RideStyle))
                 RideStyleClause();
 
-            if(CollectionHelper.IsNotEmpty(filterInputs.Make) || CollectionHelper.IsNotEmpty(filterInputs.Model))
+            if (CollectionHelper.IsNotEmpty(filterInputs.Make) || CollectionHelper.IsNotEmpty(filterInputs.Model))
                 MakeModelFilterClause();
 
             ABSFilterClause();
@@ -167,15 +162,15 @@ namespace Bikewale.DAL.NewBikeSearch
         {
             if (filterInputs.DrumBrake && !filterInputs.DiscBrake)
                 _whereClause += " and sd.frontdisc = 0 ";
-            else if(filterInputs.DiscBrake && !filterInputs.DrumBrake)
-                _whereClause += " AND SD.FrontDisc = 1 ";
+            else if (filterInputs.DiscBrake && !filterInputs.DrumBrake)
+                _whereClause += " and sd.frontdisc = 1 ";
         }
 
         private void StartTypeFilterClause()
         {
             if (filterInputs.Electric && !filterInputs.Manual)
                 _whereClause += " and sd.electricstart = 1 ";
-            else if(!filterInputs.Electric && filterInputs.Manual)
+            else if (!filterInputs.Electric && filterInputs.Manual)
                 _whereClause += " and sd.electricstart = 0 ";
         }
 
@@ -191,7 +186,7 @@ namespace Bikewale.DAL.NewBikeSearch
         {
             if (filterInputs.ABSAvailable && !filterInputs.ABSNotAvailable)
                 _whereClause += " and sd.antilockbrakingsystem = 1 ";
-            else if(!filterInputs.ABSAvailable && filterInputs.ABSNotAvailable)
+            else if (!filterInputs.ABSAvailable && filterInputs.ABSNotAvailable)
                 _whereClause += " and sd.antilockbrakingsystem = 0 ";
         }
 
@@ -213,9 +208,9 @@ namespace Bikewale.DAL.NewBikeSearch
                     makeList = makeList.Substring(0, makeList.Length - 1);
 
                     _whereClause += " and ma.id in ( " + makeList + " ) ";
-                 }
+                }
 
-                if(filterInputs.Model!=null && filterInputs.Model.Length>0)
+                if (filterInputs.Model != null && filterInputs.Model.Length > 0)
                 {
                     foreach (string str in filterInputs.Model)
                     {
@@ -231,7 +226,7 @@ namespace Bikewale.DAL.NewBikeSearch
                     _whereClause += " mo.id in ( " + modelList + " ) ";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.MileageClause");
                 objError.SendMail();
@@ -341,7 +336,7 @@ namespace Bikewale.DAL.NewBikeSearch
                 else if (!String.IsNullOrEmpty(filterInputs.MinBudget) && String.IsNullOrEmpty(filterInputs.MaxBudget))
                     _whereClause += " and mo.minprice >= " + filterInputs.MinBudget;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.BudgetClause");
                 objError.SendMail();
@@ -415,7 +410,7 @@ namespace Bikewale.DAL.NewBikeSearch
                 //                    + " WHERE DenseRank BETWEEN " + filterInputs.StartIndex + " AND " + filterInputs.EndIndex
                 //                    + " AND ModelRank = 1 ORDER BY " + GetOrderByClause() + " ; ";
 
-               searchResultQuery = string.Format(@"set @row_number:=0;set @curr_id:=0;
+                searchResultQuery = string.Format(@"set @row_number:=0;set @curr_id:=0;
                                                     drop temporary table if exists temp_bikes_searched;
                                                     create temporary table temp_bikes_searched
                                                     select *, @row_number:= if(@curr_Id = modelid,@row_number+1,1) as modelrank,@curr_Id := modelid from
@@ -436,9 +431,9 @@ namespace Bikewale.DAL.NewBikeSearch
                                                     ) as t
                                                     where denserank between {4} and {5};
                                                  ", GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex, filterInputs.EndIndex);
- 
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetSearchResultQuery");
                 objError.SendMail();

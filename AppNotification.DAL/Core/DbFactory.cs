@@ -10,7 +10,7 @@ namespace AppNotification.DAL.Core
     {
 
         static DataBaseType _currentDbtype = DataBaseType.MySql;
-        static string _connectionString = ConfigurationManager.AppSettings["mySqlConnectionString"];
+        static string _connectionString = ConfigurationManager.AppSettings["mySqlBwConnectionString"];
 
         //static DataBaseType _currentDbtype = DataBaseType.MsSqlServer;
         //static string _connectionString = ConfigurationManager.AppSettings["connectionString"];

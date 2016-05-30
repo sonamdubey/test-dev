@@ -381,8 +381,8 @@ namespace Bikewale.BikeBooking
                         container.RegisterType<IPaymentGateway, BillDesk>();
                         transaction.SourceId = Convert.ToInt16(sourceType);
                     }
-                     Bikewale.Notifications.ErrorClass err = new Bikewale.Notifications.ErrorClass(new Exception(), "Transaction started : " + PriceQuoteQueryString.QueryString + " " + Newtonsoft.Json.JsonConvert.SerializeObject(transaction));
-                err.SendMail();
+                    
+
                     IPriceQuote _objPriceQuote = null;
                     container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                     _objPriceQuote = container.Resolve<IPriceQuote>();
