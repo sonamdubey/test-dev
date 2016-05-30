@@ -49,7 +49,7 @@
                         <td><%# DataBinder.Eval(Container.DataItem,"InsuranceExpiryDate","{0:MMM-yyyy}")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"LifetimeTax")%></td>
                         <td><%# DataBinder.Eval(Container.DataItem,"EntryDate","{0:dd-MMM-yyyy}")%></td>
-                        <td><input id="btnLView" onclick ="<%# string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0},left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')",DataBinder.Eval(Container.DataItem,"ProfileId").ToString()) %>"  <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> type="button" value ="View Photos"  /></td>
+                        <td><input id="btnLView" onclick ="<%# string.Format("javascript:window.open('/classified/listingphotos.aspx?profileid={0}','','left=0,top=0,width=1400,height=660,resizable=0,scrollbars=yes')",DataBinder.Eval(Container.DataItem,"ProfileId").ToString()) %>"  <%# (Convert.ToInt32(DataBinder.Eval(Container.DataItem, "PhotoCount")) > 0) ? "" : "style='display:none;'" %> type="button" value ="View Photos"  /></td>
                         <td><input class="discardList" id="btnLDiscard" type="button" value ="Discard" profileId="<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>" /></td>
                     </tr>
                 </ItemTemplate>
