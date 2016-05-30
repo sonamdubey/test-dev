@@ -162,7 +162,7 @@ namespace Bikewale.DAL.Dealer
                     {
                         objState = new StateEntityBase();
 
-                        if (dr!=null)
+                        if (dr != null)
                         {
                             while (dr.Read())
                             {
@@ -179,7 +179,7 @@ namespace Bikewale.DAL.Dealer
                                     Fax = Convert.ToString(dr["FaxNo"]),
                                     State = objState
                                 });
-                            } 
+                            }
                         }
                     }
                 }
@@ -223,7 +223,7 @@ namespace Bikewale.DAL.Dealer
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr!=null)
+                        if (dr != null)
                         {
                             objDealerList = new List<NewBikeDealerEntityBase>();
                             while (dr.Read())
@@ -243,7 +243,7 @@ namespace Bikewale.DAL.Dealer
                                 objDealer.City = Convert.ToString(dr["City"]);
                                 objDealer.State = Convert.ToString(dr["State"]);
                                 objDealerList.Add(objDealer);
-                            } 
+                            }
                         }
                     }
                 }
@@ -286,7 +286,7 @@ namespace Bikewale.DAL.Dealer
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr!=null)
+                        if (dr != null)
                         {
                             while (dr.Read())
                             {
@@ -296,7 +296,7 @@ namespace Bikewale.DAL.Dealer
                                     MakeName = Convert.ToString(dr["Name"]),
                                     MaskingName = Convert.ToString(dr["MaskingName"])
                                 });
-                            } 
+                            }
                         }
                     }
                 }
@@ -375,31 +375,31 @@ namespace Bikewale.DAL.Dealer
         /// <returns>Lead submission status</returns>
         public bool SaveManufacturerLead(ManufacturerLeadEntity objLead)
         {
-            
+
             bool status = false;
             try
             {
-                
+
 
                 if (objLead != null && objLead.PQId > 0 && objLead.DealerId > 0)
                 {
-                        using (SqlCommand cmd = new SqlCommand())
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.CommandText = "savemanufacturerlead";
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "savemanufacturerlead";
 
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, objLead.Name));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, objLead.Email));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, objLead.Mobile));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], objLead.PQId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, objLead.Name));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, objLead.Email));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, objLead.Mobile));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], objLead.PQId));
 
-                            //TVS Dealer ID to be sent to update pricequote ID
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], objLead.DealerId));
+                        //TVS Dealer ID to be sent to update pricequote ID
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], objLead.DealerId));
 
-                            if (MySqlDatabase.ExecuteNonQuery(cmd) < 0)
-                                status = true;
+                        if (MySqlDatabase.ExecuteNonQuery(cmd) < 0)
+                            status = true;
 
-                        }
+                    }
                 }
             }
             catch (SqlException ex)
@@ -456,46 +456,46 @@ namespace Bikewale.DAL.Dealer
                     {
                         if (dr != null)
                         {
-                                DealersList dealerdetail;
-                                dealerList = new List<DealersList>();
-                                dealers = new DealersEntity();
-                                while (dr.Read())
-                                {
-                                    dealerdetail = new DealersList();
-                                    dealerdetail.DealerId = SqlReaderConvertor.ParseToInt16(dr["DealerId"]);
-                                    dealerdetail.Name = Convert.ToString(dr["DealerName"]);
-                                    dealerdetail.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerPackage"]);
-                                    dealerdetail.City = Convert.ToString(dr["City"]);
-                                    dealerdetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
-                                    dealerdetail.EMail = Convert.ToString(dr["EMail"]);
-                                    dealerdetail.Address = Convert.ToString(dr["Address"]);
-                                    dealerdetail.CampaignId = SqlReaderConvertor.ParseToUInt32(dr["CampaignId"]);
-                                    dealerdetail.objArea = new AreaEntityBase();
-                                    dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
-                                    dealerdetail.objArea.Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]);
-                                    dealerdetail.objArea.Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]); 
+                            DealersList dealerdetail;
+                            dealerList = new List<DealersList>();
+                            dealers = new DealersEntity();
+                            while (dr.Read())
+                            {
+                                dealerdetail = new DealersList();
+                                dealerdetail.DealerId = SqlReaderConvertor.ParseToInt16(dr["DealerId"]);
+                                dealerdetail.Name = Convert.ToString(dr["DealerName"]);
+                                dealerdetail.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerPackage"]);
+                                dealerdetail.City = Convert.ToString(dr["City"]);
+                                dealerdetail.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
+                                dealerdetail.EMail = Convert.ToString(dr["EMail"]);
+                                dealerdetail.Address = Convert.ToString(dr["Address"]);
+                                dealerdetail.CampaignId = SqlReaderConvertor.ParseToUInt32(dr["CampaignId"]);
+                                dealerdetail.objArea = new AreaEntityBase();
+                                dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
+                                dealerdetail.objArea.Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]);
+                                dealerdetail.objArea.Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]);
 
-                                    dealerList.Add(dealerdetail);
-                                }
+                                dealerList.Add(dealerdetail);
+                            }
 
-                                if (dr.NextResult() && dr.Read())
-                                {
-                                    dealers.TotalCount = !Convert.IsDBNull(dr["TotalCount"]) ? Convert.ToUInt16(dr["TotalCount"]) : default(UInt16);
-                                }
+                            if (dr.NextResult() && dr.Read())
+                            {
+                                dealers.TotalCount = !Convert.IsDBNull(dr["TotalCount"]) ? Convert.ToUInt16(dr["TotalCount"]) : default(UInt16);
+                            }
 
-                                dealers.Dealers = dealerList;
+                            dealers.Dealers = dealerList;
 
                         }
                     }
                 }
-            }             
+            }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetDealerByMakeCity ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-           
+
             return dealers;
         }
 
@@ -531,9 +531,9 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.Area = new AreaEntityBase
                                 {
                                     AreaName = Convert.ToString(dr["Area"]),
-                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]), 
+                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
                                     Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"])
-  
+
                                 };
                                 dealers.DealerDetails.City = Convert.ToString(dr["City"]);
                                 dealers.DealerDetails.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerType"]);
@@ -623,7 +623,7 @@ namespace Bikewale.DAL.Dealer
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                         {
-                            if (dr != null )
+                            if (dr != null)
                             {
                                 objCityList = new List<CityEntityBase>();
                                 while (dr.Read())
@@ -634,7 +634,7 @@ namespace Bikewale.DAL.Dealer
                                         CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
                                         CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(String)
                                     });
-                                } 
+                                }
                             }
                         }
                     }
