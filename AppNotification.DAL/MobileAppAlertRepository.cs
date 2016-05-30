@@ -57,7 +57,8 @@ namespace AppNotification.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], alertTypeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_count", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteScalar(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+
                     numOfRegIds = (int)cmd.Parameters["par_count"].Value;
                 }
             }
