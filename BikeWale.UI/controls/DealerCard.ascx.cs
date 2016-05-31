@@ -22,10 +22,9 @@ namespace Bikewale.Controls
         protected Repeater rptDealers;
 
         public uint MakeId { get; set; }
-        public uint ModelId { get; set; }
         public ushort TopCount { get; set; }
         public uint CityId { get; set; }
-        public string makeName = string.Empty, cityName = string.Empty;
+        public string makeName = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty;
 
         protected bool showWidget = false;
 
@@ -52,7 +51,7 @@ namespace Bikewale.Controls
         {
             bool isValid = true;
 
-            if (MakeId <= 0)
+            if (MakeId <= 0 || CityId <= 0)
             {
                 isValid = false;
             }
@@ -80,9 +79,18 @@ namespace Bikewale.Controls
                     var objCache = container.Resolve<IDealerCacheRepository>();
                     _dealers = objCache.GetDealerByMakeCity(CityId, MakeId);
 
-                    rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
-                    rptDealers.DataBind();
-                    showWidget = true;
+                    if (_dealers != null && _dealers.Dealers.Count() > 0)
+                    {
+                        rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
+                        rptDealers.DataBind();
+
+                        makeName = _dealers.MakeName;
+                        cityName = _dealers.CityName;
+                        cityMaskingName = _dealers.CityMaskingName;
+                        makeMaskingName = _dealers.MakeMaskingName;
+
+                        showWidget = true;
+                    }
                 }
             }
             catch (Exception err)

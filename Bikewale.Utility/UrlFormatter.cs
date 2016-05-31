@@ -49,5 +49,15 @@ namespace Bikewale.Utility
         {
             return String.Format("/{0}-bikes/{1}/specifications-features/#{2}", make, model, hash);
         }
+
+        /// <summary>
+        /// Created By Vivek Gupta on 31-05-2016
+        /// Desc : url format //new/honda-dealers/1-mumbai.html
+        /// </summary>
+        /// <returns></returns>
+        public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName, string cityId)
+        {
+            return String.Format("/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, cityMaskingName);
+        }
     }
 }

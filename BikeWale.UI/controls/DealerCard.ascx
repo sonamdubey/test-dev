@@ -4,10 +4,9 @@
     <div class="grid-12 padding-top15">
             <ul>
                 <asp:Repeater ID="rptDealers" runat="server">
-                    <ItemTemplate>
-           
+                    <ItemTemplate>           
                             <li class="dealer-details-item grid-4 margin-bottom25">
-                                <h3 class="font14"><a href="" class="text-default"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
+                                <h3 class="font14"><a href="<%# Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName,cityMaskingName, Convert.ToString(CityId)) %>" class="text-default"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
                                 <div class="margin-top10">
                                     <p class="text-light-grey margin-bottom5">
                                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
@@ -24,5 +23,5 @@
              </ul>
       </div>
       <div class="clear"></div>
-      <a href="" class="margin-left20">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
+      <a href="<%# Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName,cityMaskingName, Convert.ToString(CityId)) %>" class="margin-left20">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
 <% } %>

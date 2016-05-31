@@ -20,7 +20,7 @@ namespace Bikewale.New
         protected ModelPriceInNearestCities ctrlTopCityPrices;
         protected DealerCard ctrlDealers;
 
-        private uint modelId = 0, cityId = 0;
+        private uint modelId = 0, cityId = 0, makeId = 0;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
 
@@ -43,7 +43,7 @@ namespace Bikewale.New
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.TopCount = 8;
 
-                ctrlDealers.MakeId = 7;
+                ctrlDealers.MakeId = makeId;
                 ctrlDealers.CityId = cityId;
                 ctrlDealers.TopCount = 3;
 
