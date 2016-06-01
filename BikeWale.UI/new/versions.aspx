@@ -934,48 +934,10 @@
         <%--<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">--%>
 
         <script type="text/javascript">
-
+            ga_pg_id = '2';
             var modelPriceByVersionSlider = 2;
             // Cache selectors outside callback for performance.
             var leadSourceId;
-			<% if (!modelPageEntity.ModelDetails.Futuristic && modelPageEntity.ModelVersionSpecs != null)
-			   { %>
-            var $window = $(window),
-			$menu = $('.bw-overall-rating'),
-			menuTop = $menu.offset().top + 50;
-
-            var sections = $('.discover-bike-tabs-container .bw-tabs-data.margin-bottom20'),
-				nav = $('div.bw-overall-rating'),
-				nav_height = nav.outerHeight(),
-				section_height = $(".discover-bike-tabs-container"),
-				sectionContainer_height = section_height.outerHeight() + menuTop - 250,
-				sectionStart = section_height.offset().top - 150;
-
-            section_height.bind('heightChangeBlock', function () {
-                $(".more-features").css("display", "block");
-                sectionContainer_height = section_height.outerHeight() + menuTop - 250;
-                $(".more-features").css("display", "none");
-            });
-
-            section_height.bind('heightChangeNone', function () {
-                $(".more-features").css("display", "none");
-                sectionContainer_height = section_height.outerHeight() + menuTop - 250;
-                $(".more-features").css("display", "block");
-            });
-
-            $(".more-features-btn").click(function () {
-                if ($(".more-features").css("display") == "none")
-                    section_height.trigger('heightChangeBlock');
-                else if ($(".more-features").css("display") == "block")
-                    section_height.trigger('heightChangeNone');
-            });
-                        
-			<% } %>
-            ga_pg_id = '2';
-            //if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
-            //if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            //if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
-            //if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
             var getCityArea = GetGlobalCityArea();
             if (bikeVersionLocation == '') {
                 bikeVersionLocation = getBikeVersionLocation();

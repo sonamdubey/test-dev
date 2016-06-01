@@ -141,5 +141,11 @@ namespace Bikewale.BAL.PriceQuote
         {
             return objPQ.GetModelPriceInNearestCities(modelId, cityId, topCount);
         }
+
+        public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool hasArea)
+        {
+            hasArea = false;
+            return null;
+        }
     }   // class
 }   // namespace

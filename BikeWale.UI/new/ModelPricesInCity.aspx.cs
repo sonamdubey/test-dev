@@ -3,12 +3,19 @@ using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
@@ -19,10 +26,15 @@ namespace Bikewale.New
     {
         protected ModelPriceInNearestCities ctrlTopCityPrices;
         protected DealerCard ctrlDealers;
+        public BikeQuotationEntity firstVersion;
 
-        private uint modelId = 0, cityId = 0, makeId = 0;
+        public Repeater rprVersionPrices, rpVersioNames;
+        private uint modelId = 0, cityId = 0;
+        public int versionCount;
+        public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
+        public bool isAreaAvailable;
 
         protected override void OnInit(EventArgs e)
         {
@@ -32,13 +44,13 @@ namespace Bikewale.New
         protected void Page_Load(object sender, EventArgs e)
         {
             ParseQueryString();
-
             if (redirectToPageNotFound || redirectPermanent)
             {
-                DoRedirection();
+                DoPageNotFounRedirection();
             }
             else
             {
+                FetchVersionPrices();
                 ctrlTopCityPrices.ModelId = modelId;
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.TopCount = 8;
@@ -49,11 +61,80 @@ namespace Bikewale.New
 
             }
         }
+        /// <summary>
+        /// Author : Created by Sangram Nandkhile on 25 May 2016
+        /// Summary: Fetch version Prices according to model and city
+        /// </summary>
+        private void FetchVersionPrices()
+        {
+            try
+            {
+                IPriceQuote objPQ; bool hasArea;
+                using (IUnityContainer objPQCont = new UnityContainer())
+                {
+                    objPQCont.RegisterType<IPriceQuote, PriceQuoteRepository>();
+                    objPQ = objPQCont.Resolve<IPriceQuote>();
+                    IEnumerable<BikeQuotationEntity> bikePrices = objPQ.GetVersionPricesByModelId(modelId, cityId, out hasArea);
+                    isAreaAvailable = false;
+                    if (bikePrices != null)
+                    {
+                        SetModelDetails(bikePrices);
+
+                        rprVersionPrices.DataSource = bikePrices;
+                        rprVersionPrices.DataBind();
+                        rpVersioNames.DataSource = bikePrices;
+                        rpVersioNames.DataBind();
+                    }
+                    else
+                    {
+                        DoPageNotFounRedirection();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "-FetchVersionPrices");
+                objErr.SendMail();
+            }
+
+        }
+
+        /// <summary>
+        /// Sets model details
+        /// </summary>
+        /// <param name="bikePrices"></param>
+        private void SetModelDetails(IEnumerable<BikeQuotationEntity> bikePrices)
+        {
+            try
+            {
+                versionCount = bikePrices.Count();
+                if (versionCount > 0)
+                {
+                    firstVersion = bikePrices.FirstOrDefault();
+                    if (firstVersion != null)
+                    {
+                        makeName = firstVersion.MakeName;
+                        makeMaskingName = firstVersion.MakeMaskingName;
+                        modelName = firstVersion.ModelName;
+                        modelMaskingName = firstVersion.ModelMaskingName;
+                        cityMaskingName = firstVersion.CityMaskingName;
+                        bikeName = String.Format("{0} {1}", makeName, modelName);
+                        modelImage = Utility.Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, Bikewale.Utility.ImageSize._310x174);
+                        cityName = firstVersion.City;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "-SetModelDetails");
+                objErr.SendMail();
+            }
+        }
 
         /// <summary>
         /// Function to do the redirection on different pages.
         /// </summary>
-        private void DoRedirection()
+        private void DoPageNotFounRedirection()
         {
             // Redirection
             if (redirectToPageNotFound)
@@ -70,21 +151,17 @@ namespace Bikewale.New
         private void ParseQueryString()
         {
             ModelMaskingResponse objResponse = null;
-
             string model = string.Empty, city = string.Empty;
-
             try
             {
                 model = Request.QueryString["model"];
                 city = Request.QueryString["city"];
-
                 if (!string.IsNullOrEmpty(model))
                 {
                     if (model.Contains("/"))
                     {
                         model = model.Split('/')[0];
                     }
-
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
