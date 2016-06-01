@@ -14,8 +14,8 @@ using System;
 using System.Web;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI.WebControls;
+using Bikewale.controls;
 
 namespace Bikewale.New
 {
@@ -27,9 +27,10 @@ namespace Bikewale.New
         protected ModelPriceInNearestCities ctrlTopCityPrices;
         protected DealerCard ctrlDealers;
         public BikeQuotationEntity firstVersion;
-
+        protected NewAlternativeBikes ctrlAlternativeBikes;
+        protected LeadCaptureControl ctrlLeadCapture;
         public Repeater rprVersionPrices, rpVersioNames;
-        private uint modelId = 0, cityId = 0;
+        protected uint modelId = 0, cityId = 0;
         public int versionCount;
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;

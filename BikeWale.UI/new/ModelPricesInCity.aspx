@@ -2,6 +2,7 @@
 <%@ Register Src="/controls/ModelPriceInNearestCities.ascx" TagPrefix="BW" TagName="ModelPriceInNearestCities" %>
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="Dealers" TagPrefix="BW" %>
+<%@ Register Src="~/controls/LeadCaptureControl.ascx"  TagName="LeadCapture" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -140,6 +141,8 @@
             </div>
             <div class="clear"></div>
         </section>
+
+          <BW:LeadCapture ID="ctrlLeadCapture"  runat="server" />
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
