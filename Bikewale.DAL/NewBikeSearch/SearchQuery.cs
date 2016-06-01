@@ -106,7 +106,7 @@ namespace Bikewale.DAL.NewBikeSearch
                         break;
 
                     case "2":
-                        retVal = " FuelEfficiencyOverall " + (sortOrder == "0" ? " DESC " : " ASC ");
+                        retVal = " FuelEfficiencyOverall " + (string.IsNullOrEmpty(sortOrder) || sortOrder == "0" ? " DESC " : " ASC ");
                         break;
 
                     default:
