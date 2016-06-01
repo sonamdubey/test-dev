@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bikewale.Entities.PriceQuote
 {
     /// <summary>
@@ -59,6 +54,7 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_DealerLocator_Detail = 41,
         Mobile_DealerLocator_Listing = 42,
         Desktop_DealerLocator_SubmitButton = 43,
-        Desktop_DealerLocator_GetOfferButton = 44
+        Desktop_DealerLocator_GetOfferButton = 44,
+        Desktop_PriceInCity_SelectAreas = 45
     }
 }

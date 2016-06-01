@@ -32,6 +32,8 @@ namespace Bikewale.New
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         public bool isAreaAvailable;
+        protected String clientIP = CommonOpn.GetClientIP();
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -67,7 +69,7 @@ namespace Bikewale.New
                     objPQCont.RegisterType<IPriceQuote, PriceQuoteRepository>();
                     objPQ = objPQCont.Resolve<IPriceQuote>();
                     IEnumerable<BikeQuotationEntity> bikePrices = objPQ.GetVersionPricesByModelId(modelId, cityId, out hasArea);
-                    isAreaAvailable = false;
+                    isAreaAvailable = hasArea;
                     if (bikePrices != null)
                     {
                         SetModelDetails(bikePrices);
