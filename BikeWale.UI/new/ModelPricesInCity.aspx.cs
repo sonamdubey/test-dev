@@ -43,7 +43,7 @@ namespace Bikewale.New
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.TopCount = 8;
 
-                ctrlDealers.MakeId = makeId;
+                ctrlDealers.MakeId = 7;
                 ctrlDealers.CityId = cityId;
                 ctrlDealers.TopCount = 3;
 
