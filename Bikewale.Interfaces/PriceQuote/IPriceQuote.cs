@@ -24,5 +24,6 @@ namespace Bikewale.Interfaces.PriceQuote
         PriceQuoteParametersEntity FetchPriceQuoteDetailsById(UInt64 pqId);
         IEnumerable<PriceQuoteOfTopCities> FetchPriceQuoteOfTopCities(uint modelId, uint topCount);
         IEnumerable<PriceQuoteOfTopCities> GetModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount);
+        IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool HasArea);
     }
 }
