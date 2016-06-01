@@ -28,7 +28,7 @@ namespace Bikewale.New
         public Repeater rprVersionPrices, rpVersioNames;
         public uint modelId, cityId;
         public int versionCount;
-        public string makeName = string.Empty, modelName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty;
+        public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         public bool isAreaAvailable;
@@ -105,8 +105,11 @@ namespace Bikewale.New
                     firstVersion = bikePrices.FirstOrDefault();
                     if (firstVersion != null)
                     {
-                        makeName = bikePrices.First().MakeName;
-                        modelName = bikePrices.First().ModelName;
+                        makeName = firstVersion.MakeName;
+                        makeMaskingName = firstVersion.MakeMaskingName;
+                        modelName = firstVersion.ModelName;
+                        modelMaskingName = firstVersion.ModelMaskingName;
+                        cityMaskingName = firstVersion.CityMaskingName;
                         bikeName = String.Format("{0} {1}", makeName, modelName);
                         modelImage = Utility.Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, Bikewale.Utility.ImageSize._310x174);
                         cityName = firstVersion.City;

@@ -12,9 +12,12 @@ namespace Bikewale.Entities.PriceQuote
         public ulong OnRoadPrice { get; set; }
 
         public string MakeName { get; set; }
+        public string MakeMaskingName { get; set; }
         public string ModelName { get; set; }
+        public string ModelMaskingName { get; set; }
         public string VersionName { get; set; }
         public uint CityId { get; set; }
+        public string CityMaskingName { get; set; }
         public string City { get; set; }
         public string Area { get; set; }
         public bool HasArea { get; set; }
