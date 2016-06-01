@@ -33,6 +33,6 @@
 </div>
 <div class="clear"></div>
 <div class="padding-left20">
-    <a href="/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/">Read all user reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
+    <a href="/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/"  class="bw-ga" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all user reviews<span class="bwsprite blue-right-arrow-icon"></span></a>   
 </div>
 
