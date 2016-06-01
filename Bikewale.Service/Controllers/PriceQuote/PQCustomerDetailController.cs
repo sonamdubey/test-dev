@@ -388,8 +388,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
 
-                    noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
-
+                    //noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
+                    noOfAttempts = -1;// By-pass the mobile verification by setting noOfAttempts = -1
                     //here -1 implies mobile number is verified and resend OTP attempts is 2
                     if (noOfAttempts > -1)
                     {
@@ -412,7 +412,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     }
                     else
                     {
-                        isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(Convert.ToUInt32(pqId));
+                        //Don't mark mobile verified for pq
+                        //isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
+                        isVerified = true;// Set Verified to true to push the lead into AB for un-verified leads as well
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetails(Convert.ToUInt32(pqId));
                         objCust = pqCustomer.objCustomerBase;
 
