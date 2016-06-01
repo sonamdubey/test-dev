@@ -81,13 +81,13 @@ namespace Bikewale.Controls
 
                     if (_dealers != null && _dealers.Dealers.Count() > 0)
                     {
-                        rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
-                        rptDealers.DataBind();
-
                         makeName = _dealers.MakeName;
                         cityName = _dealers.CityName;
                         cityMaskingName = _dealers.CityMaskingName;
                         makeMaskingName = _dealers.MakeMaskingName;
+
+                        rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
+                        rptDealers.DataBind();
 
                         showWidget = true;
                     }

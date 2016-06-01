@@ -52,12 +52,22 @@ namespace Bikewale.Utility
 
         /// <summary>
         /// Created By Vivek Gupta on 31-05-2016
-        /// Desc : url format //new/honda-dealers/1-mumbai.html
+        /// Desc : url format honda-bikes/dealers-in-mumbai/#{dealerId}
         /// </summary>
         /// <returns></returns>
-        public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName, string cityId)
+        public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName)
         {
-            return String.Format("/new/{0}-dealers/{1}-{2}.html", makeMaskingName, cityId, cityMaskingName);
+            return String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);
+        }
+
+        /// <summary>
+        /// Created By Vivek Gupta on 31-05-2016
+        /// Desc : url format honda-bikes/dealers-in-mumbai/#{dealerId}
+        /// </summary>
+        /// <returns></returns>
+        public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName, string hash)
+        {
+            return String.Format("/{0}-bikes/dealers-in-{1}/#{2}", makeMaskingName, cityMaskingName, hash);
         }
     }
 }
