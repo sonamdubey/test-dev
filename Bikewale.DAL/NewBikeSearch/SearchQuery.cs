@@ -440,7 +440,7 @@ namespace Bikewale.DAL.NewBikeSearch
                         break;
 
                     case "2":
-                        retVal = " SD.FuelEfficiencyOverall " + (sortOrder == "0" ? " DESC " : " ASC ");
+                        retVal = " SD.FuelEfficiencyOverall " + (string.IsNullOrEmpty(sortOrder) || sortOrder == "0" ? " DESC " : " ASC ");
                         break;
 
                     default:
