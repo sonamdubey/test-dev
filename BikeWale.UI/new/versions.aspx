@@ -586,15 +586,16 @@
                         <div class="grid-3 model-orp-btn alpha omega">
                              <% if (toShowOnRoadPriceButton)
                                { %>                            
-                             <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange font14 <%=viewModel != null ? "margin-top5" : "margin-top20" %> fillPopupData bw-ga" rel="nofollow" c="Model_Page" a="Floating_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check On-Road Price</a>
+                             <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> fillPopupData bw-ga" rel="nofollow" c="Model_Page" a="Floating_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check On-Road Price</a>
                             <%} else
                                     if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
                                     {%>									 
-                                     <a href="javascript:void(0)" id="getOffersFromDealerFloating" leadSourceId="24" class="btn btn-orange font14 <%=viewModel != null ? "margin-top5" : "margin-top20" %> bw-ga" rel="nofollow">Get offers from dealer</a>
+                                     <a href="javascript:void(0)" id="getOffersFromDealerFloating" leadSourceId="24" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> bw-ga" rel="nofollow">Get offers from dealer</a>
                                     <%} %>
                             
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
-                            <%if (viewModel != null){ %>
+                            <%if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
+                              { %>
                             <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= viewModel.Organization %></p>
                             <%} %>
                         </div>
@@ -604,9 +605,17 @@
                         <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
                         <a href="#modelPricesContent" rel="nofollow">Prices</a>
                         <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
+                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                           { %>
                         <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
-                        <a href="#modelNewsContent" rel="nofollow">News</a>
-                        <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>                     
+                        <%} %>
+
+                         <% if (ctrlNews.FetchedRecordsCount > 0)
+                             { %>
+                        <a href="#modelNewsContent" rel="nofollow">News</a><%} %>
+                          <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
+                        <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>  
+                        <%} %>                   
                     </div>
                 </div>
             </div>
@@ -619,9 +628,18 @@
                         <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
                         <a href="#modelPricesContent" rel="nofollow">Prices</a>
                         <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
+                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                           { %>
                         <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
+                        <%} %>
+                          <% if (ctrlNews.FetchedRecordsCount > 0)
+                             { %>
                         <a href="#modelNewsContent" rel="nofollow">News</a>
-                        <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>                       
+                        <%} %>
+
+                        <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
+                        <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a> 
+                        <%} %>                      
                     </div>
                     <div class="border-divider"></div>
 
@@ -812,7 +830,8 @@
                         </div>
                         <div class="clear"></div>                      
                          
-                        <%if (modelPageEntity.ModelColors != null){ %>
+                        <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
+                          { %>
                          <%--<div class="grid-12 alpha omega">--%>
                             <h3 class="padding-left20">Colours</h3>
                             <ul id="modelColorsList">
@@ -835,10 +854,15 @@
                         <%} %>
                         <%--<div class="clear"></div>--%>
                     </div>
-                    
-                    <div class="margin-right10 margin-left10 border-solid-top"></div>
+                      <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
+                       { %>
+                        <div class="margin-right10 margin-left10 border-solid-top"></div>
+                      <%} %>
                     <div id="modelReviewsContent" class="bw-model-tabs-data padding-top20 font14">
+                        <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                          { %>
                         <h2 class="padding-left20 padding-right20"><%= bikeName %> Reviews</h2>
+                        <%} %>
                         <% if(ctrlExpertReviews.FetchedRecordsCount > 0){ %>
                         <!-- expert review starts-->
                         <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
