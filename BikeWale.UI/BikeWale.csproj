@@ -900,6 +900,10 @@
       <DependentUpon>MUpcomingBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\NewExpertReviewsWidget.ascx.cs">
+      <DependentUpon>NewExpertReviewsWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\NewsWidget.ascx.cs">
       <DependentUpon>NewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2300,6 +2304,7 @@
     <Content Include="m\controls\MOnRoadPricequote.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
     <Content Include="m\controls\MUpcomingBikes.ascx" />
+    <Content Include="m\controls\NewExpertReviewsWidget.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\SimilarCompareBikes.ascx" />

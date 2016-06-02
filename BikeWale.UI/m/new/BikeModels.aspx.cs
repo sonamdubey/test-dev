@@ -41,7 +41,7 @@ namespace Bikewale.Mobile.New
         // Register controls
         protected AlternativeBikes ctrlAlternateBikes;
         protected NewsWidget ctrlNews;
-        protected ExpertReviewsWidget ctrlExpertReviews;
+        protected NewExpertReviewsWidget ctrlExpertReviews;
         protected VideosWidget ctrlVideos;
         protected UserReviewList ctrlUserReviews;
         protected ModelGallery ctrlModelGallery;
@@ -131,7 +131,7 @@ namespace Bikewale.Mobile.New
                     ctrlNews.TotalRecords = 3;
                     ctrlNews.ModelId = Convert.ToInt32(modelId);
 
-                    ctrlExpertReviews.TotalRecords = 3;
+                    ctrlExpertReviews.TotalRecords = 2;
                     ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
 
                     ctrlVideos.TotalRecords = 3;
