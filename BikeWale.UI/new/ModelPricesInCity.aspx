@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="ModelPricesInCity.aspx.cs" Inherits="Bikewale.New.ModelPricesInCity" EnableViewState="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ModelPricesInCity" EnableViewState="false" %>
 <%@ Register Src="/controls/ModelPriceInNearestCities.ascx" TagPrefix="BW" TagName="ModelPriceInNearestCities" %>
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <!doctype html>
@@ -49,7 +49,7 @@
         <section id="versionPriceInCityWrapper" class="container margin-bottom25">
             <div class="grid-12 font14">
                 <div class="content-box-shadow">
-                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %> - <span class="fa fa-rupee"></span><% if(firstVersion!= null){ %>&nbsp;<%=firstVersion.OnRoadPrice %> <% } %>  onwards. 
+                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %> - <span class="fa fa-rupee"></span><% if(firstVersion!= null){ %>&nbsp;<span class='comma' ><%=firstVersion.OnRoadPrice %></span> <% } %>  onwards. 
                        <% if(versionCount > 1){ %> This bike comes in <%=versionCount %> versions.<br /> <% } %>Click on any version name to know on-road price in this city:</p>
                     <div id='versions' class="model-versions-tabs-wrapper">
                         <asp:Repeater ID="rpVersioNames" runat="server">
@@ -63,7 +63,7 @@
                     <div id="modelVersionDetailsWrapper" class="text-light-grey padding-bottom20">
                         <div class="grid-4 padding-top10">
                             <div class="model-version-image-content">
-                                <img src="<%=modelImage %>" title="" alt="" />
+                                <img src="<%=modelImage %>" title="<%= title %>" alt="<%= title %>" />
                             </div>
                         </div>
                         <div class="grid-4 padding-top15">
@@ -74,19 +74,19 @@
                                             <tr>
                                                 <td width="200" class="padding-bottom15">Ex-showroom</td>
                                                 <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
-                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "ExShowroomPrice").ToString() %>
+                                                    <span class='comma' ><%# DataBinder.Eval(Container.DataItem, "ExShowroomPrice").ToString() %></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="padding-bottom15">RTO</td>
                                                 <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
-                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "RTO").ToString() %>
+                                                    <span class='comma' ><%# DataBinder.Eval(Container.DataItem, "RTO").ToString() %></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="padding-bottom15">Insurance</td>
                                                 <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
-                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "Insurance").ToString() %>
+                                                    <span class='comma' ><%# DataBinder.Eval(Container.DataItem, "Insurance").ToString() %></span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -95,7 +95,8 @@
                                             <tr>
                                                 <td class="text-bold text-default">On-road price in <%=TargetedCity %></td>
                                                 <td align="right" class="font16 text-bold text-default"><span class="fa fa-rupee"></span>
-                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "OnRoadPrice").ToString() %></td>
+                                                    <span class='comma' ><%# DataBinder.Eval(Container.DataItem, "OnRoadPrice").ToString() %></span>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
@@ -206,13 +207,24 @@
             $(document).ready(function () {
                 $('#versions a').first().addClass('active');
                 $('.priceTable').first().show();
+                AddCommaToNumber();
             });
-            
             function showTab(version) {
                 $('.model-versions-tabs-wrapper a').removeClass('active');
                 $('.model-versions-tabs-wrapper a[id="' + version + '"]').addClass('active');
                 $('.priceTable').hide();
                 $('.priceTable[id="' + version + '"]').show();
+            }
+
+            function AddCommaToNumber() {
+                $('.comma').each(function () {
+                    var number = parseInt($(this).html());
+                    $(this).html(numberWithCommas(number));
+                });
+            }
+            // Works only with Int
+            function numberWithCommas(x) {
+                return x.toString().substring(0, x.toString().length - 3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().length - 3);
             }
         </script>
     </form>

@@ -68,7 +68,8 @@ namespace Bikewale.New
         {
             try
             {
-                IPriceQuote objPQ; bool hasArea;
+                IPriceQuote objPQ = null;
+                bool hasArea;
                 using (IUnityContainer objPQCont = new UnityContainer())
                 {
                     objPQCont.RegisterType<IPriceQuote, PriceQuoteRepository>();
