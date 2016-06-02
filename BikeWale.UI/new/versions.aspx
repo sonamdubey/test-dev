@@ -23,7 +23,6 @@
 		isAd970x90Shown = true;
 		TargetedCity = cityName;
         keywords = string.Format("{0}, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
-        enableOG = true;
         ogImage = modelImage; 
         isAd970x90BTFShown = true; %>
     <!-- #include file="/includes/headscript.aspx" -->
@@ -354,7 +353,7 @@
                         <div id="dealerDetailsWrapper" class="border-light margin-top20">
                             <div class="padding-top20 padding-right20 padding-left20">
                                 <div class="border-light-bottom padding-bottom20">
-                                    <h3 class="font18 text-darker-black leftfloat margin-right20"><%=viewModel.Organization %>, <%=viewModel.AreaName %></h3>
+                                    <h3 class="font18 text-darker-black leftfloat margin-right20"><%= viewModel.Organization %>, <%=viewModel.AreaName %></h3>
                                     <p class="leftfloat text-bold font16 position-rel pos-top2"><span class="fa fa-phone"></span> <%=viewModel.MaskingNumber %></p>
                                     <div class="clear"></div>
                                 </div>

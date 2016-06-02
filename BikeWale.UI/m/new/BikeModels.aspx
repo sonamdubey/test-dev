@@ -20,7 +20,6 @@
         TargetedModel = bikeModelName;
         TargetedCity = cityName;
         keywords = string.Format("{0}, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
-        EnableOG = true;
         OGImage = modelImage;
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->

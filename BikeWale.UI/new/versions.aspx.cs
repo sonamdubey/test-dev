@@ -610,8 +610,10 @@ namespace Bikewale.New
                         {
                             if (modelPg != null)
                             {
+
                                 if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                                 {
+                                    modelImage = string.Format("{0} {1}", modelPg.ModelDetails.HostUrl, modelPg.ModelDetails.OriginalImagePath);
                                     price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
                                     if (variantId == 0 && cityId == 0)
                                     {
@@ -811,7 +813,7 @@ namespace Bikewale.New
                         BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
                         if (bikemodelEnt != null)
                         {
-                            modelImage = Utility.Image.GetPathToShowImages(bikemodelEnt.OriginalImagePath, bikemodelEnt.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                            
                             pqOnRoad.BikeDetails = bikemodelEnt;
                         }
                         string api = string.Empty;

@@ -13,7 +13,7 @@
         isAd976x400SecondShown = false,
         isAd976x204 = false,
         isTransparentHeader = false,
-        enableOG = false;  
+        enableOG = true;  
 </script>
 
 <title><%= title %></title>
