@@ -255,7 +255,7 @@
                                 <% } %>
                                 <% else
 								   {%>
-                                <p class="font14 text-light-grey">On-road price in <span><span class="city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                <p class="font14 text-light-grey">On-road price in<span><span class="city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 
                                 <% } %>
                                 <%  if (price == 0)
@@ -566,17 +566,18 @@
                         <div class="grid-4 padding-left30">
                                 <% if (!isCitySelected)
 								   {%>
-                                <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom price in <span class="font14 text-default"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                <p class="font14 text-light-grey margin-bottom5"><span>Ex-showroom price in</span>&nbsp;<span class="font14 text-default text-truncate"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else if (!isOnRoadPrice)
 								   {%>
-                                <p class="font14 text-light-grey margin-bottom5 text-truncate">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                <p class="font14 text-light-grey margin-bottom5 leftfloat"><span class="leftfloat">Ex-showroom price in</span><span class="leftfloat text-default text-truncate city-area-name margin-right5"><%= areaName %> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="leftfloat fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else
 								   {%>
-                                <p class="font14 text-light-grey margin-bottom5 text-truncate">On-road price in <span><span class="city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                <p class="font14 text-light-grey margin-bottom5 leftfloat"><span class="leftfloat">On-road price in</span><span class="leftfloat text-truncate city-area-name margin-right5"><%= areaName %> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="leftfloat fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 
                                 <% } %>                          
+                            <div class="clear"></div>
                             <div class="font16">
                                 <span class="fa fa-rupee"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                             </div>
@@ -721,8 +722,8 @@
                                                         <span class="fa fa-rupee"></span>
                                                         <span><asp:Label Text='<%#Eval("Price") %>' ID="txtComment" runat="server"></asp:Label></span>
                                                     </p>
+                                                    <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />
                                                 </li>
-                                                <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />                                                        
 	                                        </ItemTemplate>
                                         </asp:Repeater>                                  
                                     </ul>                                      
@@ -794,7 +795,7 @@
                         </div>
                         <div class="clear"></div>
                         
-                        <div class="grid-8 alpha margin-top25">
+                        <div class="grid-8 alpha margin-top25 margin-bottom25">
                             <h3 class="padding-left20">Features</h3>
                             <div class="grid-12 alpha omega">
                                 <div class="grid-6 alpha">
@@ -862,10 +863,10 @@
                        { %>
                         <div class="margin-right10 margin-left10 border-solid-top"></div>
                       <%} %>
-                    <div id="modelReviewsContent" class="bw-model-tabs-data padding-top20 font14">
+                    <div id="modelReviewsContent" class="bw-model-tabs-data font14">
                         <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                           { %>
-                        <h2 class="padding-left20 padding-right20"><%= bikeName %> Reviews</h2>
+                        <h2 class="padding-top20 padding-right20 padding-left20"><%= bikeName %> Reviews</h2>
                         <%} %>
                         <% if(ctrlExpertReviews.FetchedRecordsCount > 0){ %>
                         <!-- expert review starts-->
