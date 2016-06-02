@@ -979,7 +979,7 @@
                 var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID;
                 window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
             }
-            $(function(){
+            $(function () {
                 if ($('.dealership-benefit-list li').length % 2 == 0) {
                     $('.dealership-benefit-list').addClass("dealer-two-offers");
                 }

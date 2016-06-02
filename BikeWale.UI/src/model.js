@@ -242,6 +242,9 @@ function CustomerModel() {
                 else if (event.target.id == "assistFormSubmit") {
                     dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeVersionLocation });
                 }
+                else if (leadSourceId == "24") {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Floating_Card_" + bikeVersionLocation });
+                }
                 else {
                     dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": bikeVersionLocation });
                 }
@@ -922,7 +925,7 @@ $("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign, #getassistance, #getOffersFro
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_Offers_Clicked", "lab": bikeVersionLocation });
         getOffersClick = true;
     }
-    else {
+    else if (leadSourceId != "24") {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_More_Details_Clicked", "lab": bikeVersionLocation });
     }  
 });

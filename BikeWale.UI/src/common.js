@@ -113,7 +113,7 @@ $(document).ready(function () {
 		navbarShow();
 	});
 	$(".blackOut-window").mouseup(function(e){
-		var nav = $("#nav"); 
+		var nav = $("#nav");
         if(e.target.id !== nav.attr('id') && !nav.has(e.target).length)		
         {
 		    nav.animate({'left':'-350px'});
