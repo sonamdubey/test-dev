@@ -162,9 +162,15 @@
 
     function completeCityPopup()
     {
-        if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
-            viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
-            viewModelPopup.hasAreas(findCityById(viewModelPopup, onCookieObj.PQCitySelectedId).hasAreas);
+        if (selCityId == null) {
+            if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
+                viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
+                viewModelPopup.hasAreas(findCityById(viewModelPopup, onCookieObj.PQCitySelectedId).hasAreas);
+            }
+        }
+        else {
+            viewModelPopup.hasAreas(findCityById(viewModelPopup, parseInt(selCityId)).hasAreas);
+            viewModelPopup.selectedCity(parseInt(selCityId));
         }
         popupcity.find("option[value='0']").prop('disabled', true);
         popupcity.trigger('chosen:updated');
@@ -489,6 +495,7 @@
                 }
             }
             pageIdAttr = $(this).attr('pageCatId');
+            selCityId = $(this).attr('selCityId');
             e.preventDefault();
             $("#errMsgPopUp").empty();
             var str = $(this).attr('modelId');
