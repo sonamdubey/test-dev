@@ -3,6 +3,7 @@
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx"  TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
 <head>
@@ -55,11 +56,11 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+                                                                                                                                                                          
         <section id="versionPriceInCityWrapper" class="container margin-bottom25">
             <div class="grid-12 font14">
                 <div class="content-box-shadow">
-                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %> - <span class="fa fa-rupee"></span><% if(firstVersion!= null){ %>&nbsp;<%=firstVersion.OnRoadPrice %> <% } %>  onwards. 
+                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %> - <span class="fa fa-rupee"></span><% if(firstVersion!= null){ %>&nbsp;<%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% } %>  onwards. 
                        <% if(versionCount > 1){ %> This bike comes in <%=versionCount %> versions.<br /> <% } %>Click on any version name to know on-road price in this city:</p>
                     <div id='versions' class="model-versions-tabs-wrapper">
                         <asp:Repeater ID="rpVersioNames" runat="server">
@@ -84,19 +85,19 @@
                                             <tr>
                                                 <td width="200" class="padding-bottom15">Ex-showroom</td>
                                                 <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
-                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "ExShowroomPrice").ToString() %>
+                                                    &nbsp;<%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %>                                                     
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="padding-bottom15">RTO</td>
                                                 <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
-                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "RTO").ToString() %>
+                                                    &nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"RTO").ToString()) %>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="padding-bottom15">Insurance</td>
                                                 <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
-                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "Insurance").ToString() %>
+                                                    &nbsp; <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Insurance").ToString()) %>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -105,7 +106,9 @@
                                             <tr>
                                                 <td class="text-bold text-default">On-road price in <%=TargetedCity %></td>
                                                 <td align="right" class="font16 text-bold text-default"><span class="fa fa-rupee"></span>
-                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "OnRoadPrice").ToString() %></td>
+                                                    &nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %>
+
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
