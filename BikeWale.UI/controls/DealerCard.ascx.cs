@@ -15,7 +15,9 @@ namespace Bikewale.Controls
 {
     /// <summary>
     /// Created By : Vivek Gupta on 20-05-2016
-    /// Description : Class to show dealers      
+    /// Description : Class to show dealers  
+    /// Modified By : Sushil Kumar on 2nd June 2016
+    /// Description : Added LeadsourceId and PQSourceId for lead and pq sources
     /// </summary>
     public class DealerCard : UserControl
     {
@@ -25,6 +27,8 @@ namespace Bikewale.Controls
         public ushort TopCount { get; set; }
         public uint CityId { get; set; }
         public string makeName = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty;
+        public int LeadSourceId = 25; // DealersCard GetOfferButton
+        public int PQSourceId { get; set; }
 
         protected bool showWidget = false;
 

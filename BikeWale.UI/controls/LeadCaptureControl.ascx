@@ -204,6 +204,7 @@
         self.dealerName = ko.observable();
         self.leadSourceId = ko.observable();
         self.dealerArea = ko.observable();
+        self.pqSourceId = ko.observable();
 
         self.generatePQ = function (data, event) {
             self.IsVerified(false);
@@ -222,8 +223,8 @@
                     "areaId": 0,
                     "clientIP": clientIP,
                     "pageUrl": pageUrl,
-                    "sourceType": pageSrcId,
-                    "pQLeadId": pqSourceId,
+                    "sourceType": 1,
+                    "pQLeadId": self.pqSourceId(),
                     "deviceId": getCookie('BWC')
                 }
                 $.ajax({

@@ -22,10 +22,10 @@
     </style>
     <script type="text/javascript">
         var modelId = <%= modelId %>;
-        var clientIP = "" ;
-        var pageUrl = "" ;
         var pageSrcId ="";
         var pqSourceId = "";
+        var clientIP = "<%= clientIP%>";
+        var pageUrl = window.location.href;   
 
     </script>
 </head>
@@ -168,11 +168,12 @@
         <script type="text/javascript">
 
             $(".leadcapturebtn").click(function(){
-                customerViewModel.leadSourceId($(this).attr('leadSourceId'));
                 customerViewModel.dealerId($(this).attr('data-item-id'));
                 customerViewModel.dealerName($(this).attr('data-item-name'));
-                customerViewModel.dealerArea($(this).attr('data-item-area'));                 
+                customerViewModel.dealerArea($(this).attr('data-item-area'));
                 customerViewModel.versionId($("#versions a.active").attr("id"));
+                customerViewModel.leadSourceId($(this).attr('leadSourceId'));
+                customerViewModel.pqSourceId($(this).attr('pqSourceId'));
             });
 
             $('.model-versions-tabs-wrapper a').on('click', function () {

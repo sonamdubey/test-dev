@@ -24,6 +24,9 @@ namespace Bikewale.New
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 23 May 2016
+    /// Modified By : Sushil Kumar on 2nd June 2016
+    /// Description :  Added and Linked LeadCapture Widget
+    ///                Added  PQSourceId for DealerCard Widget
     /// </summary>
     public class ModelPricesInCity : System.Web.UI.Page
     {
@@ -39,7 +42,6 @@ namespace Bikewale.New
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         protected bool isAreaAvailable;
-        protected NewAlternativeBikes ctrlAlternativeBikes;
         protected String clientIP = CommonOpn.GetClientIP();
 
 
@@ -65,14 +67,15 @@ namespace Bikewale.New
                 ctrlDealers.MakeId = 7;
                 ctrlDealers.CityId = cityId;
                 ctrlDealers.TopCount = 3;
+                ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealerCard_GetOffers;
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = 0;
 
+                BindAlternativeBikeControl();
 
-            }
-            BindAlternativeBikeControl();
+            }            
         }
         /// <summary>
         /// Author : Created by Sangram Nandkhile on 25 May 2016
@@ -189,8 +192,6 @@ namespace Bikewale.New
                                 ;
                         var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                         objResponse = objCache.GetModelMaskingResponse(model);
-
-                        //modelId = objResponse.ModelId;
                     }
                 }
             }
@@ -229,9 +230,6 @@ namespace Bikewale.New
                 {
                     redirectToPageNotFound = true;
                 }
-
-                // Get CityId
-                //cityId = Convert.ToUInt32(Request.QueryString["cityid"]);
 
             }
         }
