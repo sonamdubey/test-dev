@@ -14,28 +14,34 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI.WebControls;
+using Bikewale.controls;
 
 namespace Bikewale.New
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 23 May 2016
+    /// Modified By : Sushil Kumar on 2nd June 2016
+    /// Description :  Added and Linked LeadCapture Widget
+    ///                Added  PQSourceId for DealerCard Widget
     /// </summary>
     public class ModelPricesInCity : System.Web.UI.Page
     {
         protected ModelPriceInNearestCities ctrlTopCityPrices;
+        protected DealerCard ctrlDealers;
         public BikeQuotationEntity firstVersion;
+        protected NewAlternativeBikes ctrlAlternativeBikes;
+        protected LeadCaptureControl ctrlLeadCapture;
         public Repeater rprVersionPrices, rpVersioNames;
-        public uint modelId, cityId;
+        protected uint modelId = 0, cityId = 0, versionId;
         public int versionCount;
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         protected bool isAreaAvailable;
-        protected NewAlternativeBikes ctrlAlternativeBikes;
         protected String clientIP = CommonOpn.GetClientIP();
 
 
@@ -57,8 +63,19 @@ namespace Bikewale.New
                 ctrlTopCityPrices.ModelId = modelId;
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.TopCount = 8;
-            }
-            BindAlternativeBikeControl();
+
+                ctrlDealers.MakeId = 7;
+                ctrlDealers.CityId = cityId;
+                ctrlDealers.TopCount = 3;
+                ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealerCard_GetOffers;
+
+                ctrlLeadCapture.CityId = cityId;
+                ctrlLeadCapture.ModelId = modelId;
+                ctrlLeadCapture.AreaId = 0;
+
+                BindAlternativeBikeControl();
+
+            }            
         }
         /// <summary>
         /// Author : Created by Sangram Nandkhile on 25 May 2016
@@ -83,7 +100,7 @@ namespace Bikewale.New
                         rprVersionPrices.DataSource = bikePrices;
                         rprVersionPrices.DataBind();
                         rpVersioNames.DataSource = bikePrices;
-                        rpVersioNames.DataBind();
+                        rpVersioNames.DataBind();                         
                     }
                     else
                     {
@@ -122,6 +139,7 @@ namespace Bikewale.New
                         bikeName = String.Format("{0} {1}", makeName, modelName);
                         modelImage = Utility.Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, Bikewale.Utility.ImageSize._310x174);
                         cityName = firstVersion.City;
+                        versionId = firstVersion.VersionId;
                     }
                 }
             }
@@ -175,8 +193,6 @@ namespace Bikewale.New
                                 ;
                         var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                         objResponse = objCache.GetModelMaskingResponse(model);
-
-                        //modelId = objResponse.ModelId;
                     }
                 }
             }
@@ -215,9 +231,6 @@ namespace Bikewale.New
                 {
                     redirectToPageNotFound = true;
                 }
-
-                // Get CityId
-                //cityId = Convert.ToUInt32(Request.QueryString["cityid"]);
 
             }
         }
