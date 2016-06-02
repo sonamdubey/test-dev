@@ -7,8 +7,13 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.controls
 {
-    public partial class LeadCaptureControl : System.Web.UI.UserControl
+    public class LeadCaptureControl : UserControl
     {
+        public uint AreaId { get; set; }
+        public uint ModelId { get; set; }
+        public uint CityId { get; set; }
+        public uint VersionId { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 

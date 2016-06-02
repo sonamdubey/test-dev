@@ -23,7 +23,9 @@ namespace Bikewale.Controls
 
         public uint MakeId { get; set; }
         public ushort TopCount { get; set; }
+        public uint ModelId { get; set; }
         public uint CityId { get; set; }
+        public uint VersionId { get; set; }
         public string makeName = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty;
 
         protected bool showWidget = false;
@@ -99,5 +101,6 @@ namespace Bikewale.Controls
                 objErr.SendMail();
             }
         }
+        
     }
 }

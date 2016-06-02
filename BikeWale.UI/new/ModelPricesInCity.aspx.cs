@@ -30,7 +30,7 @@ namespace Bikewale.New
         protected NewAlternativeBikes ctrlAlternativeBikes;
         protected LeadCaptureControl ctrlLeadCapture;
         public Repeater rprVersionPrices, rpVersioNames;
-        protected uint modelId = 0, cityId = 0;
+        protected uint modelId = 0, cityId = 0, versionId;
         public int versionCount;
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;
@@ -58,7 +58,15 @@ namespace Bikewale.New
 
                 ctrlDealers.MakeId = 7;
                 ctrlDealers.CityId = cityId;
+                ctrlDealers.ModelId = modelId;
+                ctrlDealers.VersionId = (firstVersion !=null) ? firstVersion.VersionId : 0;
                 ctrlDealers.TopCount = 3;
+
+                ctrlLeadCapture.CityId = cityId;
+                ctrlLeadCapture.ModelId = modelId;
+                ctrlLeadCapture.VersionId = (firstVersion != null) ? firstVersion.VersionId : 0;
+                ctrlLeadCapture.AreaId = 0;
+
 
             }
         }
@@ -84,7 +92,7 @@ namespace Bikewale.New
                         rprVersionPrices.DataSource = bikePrices;
                         rprVersionPrices.DataBind();
                         rpVersioNames.DataSource = bikePrices;
-                        rpVersioNames.DataBind();
+                        rpVersioNames.DataBind();                         
                     }
                     else
                     {
@@ -122,6 +130,7 @@ namespace Bikewale.New
                         bikeName = String.Format("{0} {1}", makeName, modelName);
                         modelImage = Utility.Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, Bikewale.Utility.ImageSize._310x174);
                         cityName = firstVersion.City;
+                        versionId = firstVersion.VersionId;
                     }
                 }
             }
