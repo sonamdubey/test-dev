@@ -1153,13 +1153,21 @@ $(window).resize(function () {
 });
 
 var modelPriceCarouselPagination = function () {
-    var modelPriceCarousel = $('#modelPricesContent .jcarousel-pagination a');
-    modelPriceCarousel.each(function () {
-        var anchorTag = $(this).attr('href');
-        var anchorTarget = anchorTag.substr(1, anchorTag.length);
-        if (anchorTarget % 2 == 0)
+    var modelPriceCarousel = $('#modelPricesContent .jcarousel-pagination a'),
+        modelPricePaginationLength = modelPriceCarousel.length;
+    if (modelPricePaginationLength < 3) {
+        modelPriceCarousel.each(function () {
             $(this).remove();
-    });
+        });
+    }
+    else if (modelPricePaginationLength >= 3) {
+        modelPriceCarousel.each(function () {
+            var anchorTag = $(this).attr('href');
+            var anchorTarget = anchorTag.substr(1, anchorTag.length);
+            if (anchorTarget % 2 == 0)
+                $(this).remove();
+        });
+    }
 };
 
 $('a.read-more-model-preview').click(function () {
