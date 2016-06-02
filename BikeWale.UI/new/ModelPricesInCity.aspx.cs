@@ -3,11 +3,14 @@ using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Location;
 using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
@@ -31,7 +34,8 @@ namespace Bikewale.New
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
-        public bool isAreaAvailable;
+        protected bool isAreaAvailable;
+        protected NewAlternativeBikes ctrlAlternativeBikes;
         protected String clientIP = CommonOpn.GetClientIP();
 
 
@@ -54,6 +58,7 @@ namespace Bikewale.New
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.TopCount = 8;
             }
+            BindAlternativeBikeControl();
         }
         /// <summary>
         /// Author : Created by Sangram Nandkhile on 25 May 2016
@@ -70,7 +75,7 @@ namespace Bikewale.New
                     objPQ = objPQCont.Resolve<IPriceQuote>();
                     IEnumerable<BikeQuotationEntity> bikePrices = objPQ.GetVersionPricesByModelId(modelId, cityId, out hasArea);
                     isAreaAvailable = hasArea;
-                    if (bikePrices != null)
+                    if (bikePrices != null && bikePrices.Count() != 0)
                     {
                         SetModelDetails(bikePrices);
 
@@ -81,6 +86,7 @@ namespace Bikewale.New
                     }
                     else
                     {
+                        redirectToPageNotFound = true;
                         DoPageNotFounRedirection();
                     }
                 }
@@ -133,7 +139,7 @@ namespace Bikewale.New
             // Redirection
             if (redirectToPageNotFound)
             {
-                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
             }
             else if (redirectPermanent)
                 CommonOpn.RedirectPermanent(redirectUrl);
@@ -150,6 +156,10 @@ namespace Bikewale.New
             {
                 model = Request.QueryString["model"];
                 city = Request.QueryString["city"];
+                if (!string.IsNullOrEmpty(city))
+                {
+                    cityId = GetCityMaskingName(city);
+                }
                 if (!string.IsNullOrEmpty(model))
                 {
                     if (model.Contains("/"))
@@ -206,11 +216,41 @@ namespace Bikewale.New
                 }
 
                 // Get CityId
-                cityId = Convert.ToUInt32(Request.QueryString["cityid"]);
+                //cityId = Convert.ToUInt32(Request.QueryString["cityid"]);
 
             }
         }
 
+        /// <summary>
+        /// Returns City Masking Name from City Id
+        /// </summary>
+        /// <param name="cityId">city id</param>
+        /// <returns></returns>
+        public uint GetCityMaskingName(string maskingName)
+        {
+            ICity _city = new CityRepository();
+            List<CityEntityBase> objCityList = null;
+            uint _cityId = 0;
+            try
+            {
+                objCityList = _city.GetAllCities(EnumBikeType.All);
+                _cityId = objCityList.Find(c => c.CityMaskingName == maskingName).CityId;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : GetCityMaskingName - ModelPricesInCity");
+                objErr.SendMail();
+            }
+            return _cityId;
+        }
 
+        private void BindAlternativeBikeControl()
+        {
+            ctrlAlternativeBikes.TopCount = 6;
+            ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_Alternative;
+            ctrlAlternativeBikes.WidgetTitle = bikeName;
+            if (firstVersion != null)
+                ctrlAlternativeBikes.VersionId = (int)firstVersion.VersionId;
+        }
     }   // class
 }   // namespace

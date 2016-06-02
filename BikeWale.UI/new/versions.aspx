@@ -865,6 +865,7 @@
 
                     <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                     <!-- Alternative reviews ends -->
+                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                     <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
                     <!-- Alternative reviews ends -->
                     <% } %>   

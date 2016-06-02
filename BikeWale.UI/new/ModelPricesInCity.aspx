@@ -1,14 +1,14 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="ModelPricesInCity.aspx.cs" Inherits="Bikewale.New.ModelPricesInCity" EnableViewState="false" %>
 <%@ Register Src="/controls/ModelPriceInNearestCities.ascx" TagPrefix="BW" TagName="ModelPriceInNearestCities" %>
-<%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
-
+<%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
     
     <%
         title = string.Format("{0} price in {1}",bikeName,cityName);
-        description = string.Format("{0} price in {1} - Rs. {2} (On road price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, cityName, firstVersion.OnRoadPrice);
+        if (firstVersion!= null)
+            description = string.Format("{0} price in {1} - Rs. {2} (On road price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, cityName, firstVersion.OnRoadPrice);
         keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, cityName, modelName);
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
         alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
@@ -49,7 +49,7 @@
         <section id="versionPriceInCityWrapper" class="container margin-bottom25">
             <div class="grid-12 font14">
                 <div class="content-box-shadow">
-                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %> - <span class="fa fa-rupee"></span>&nbsp;<%=firstVersion.OnRoadPrice %>  onwards. 
+                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %> - <span class="fa fa-rupee"></span><% if(firstVersion!= null){ %>&nbsp;<%=firstVersion.OnRoadPrice %> <% } %>  onwards. 
                        <% if(versionCount > 1){ %> This bike comes in <%=versionCount %> versions.<br /> <% } %>Click on any version name to know on-road price in this city:</p>
                     <div id='versions' class="model-versions-tabs-wrapper">
                         <asp:Repeater ID="rpVersioNames" runat="server">
@@ -185,7 +185,13 @@
 
         <section class="container margin-bottom30">
             <div class="grid-12">
-                <h2 class="font18 text-bold text-x-black margin-bottom15 padding-left20">Bajaj Pulsar RS200 Alternate bikes</h2>
+                <div class="content-box-shadow padding-bottom20">
+                    <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
+                    <!-- Alternative reviews ends -->
+                    <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+                    <!-- Alternative reviews ends -->
+                    <% } %> 
+                </div>
             </div>
             <div class="clear"></div>
         </section>
