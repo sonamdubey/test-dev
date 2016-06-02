@@ -12,7 +12,6 @@ namespace Bikewale.controls
         public uint AreaId { get; set; }
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
-        public uint VersionId { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -105,7 +105,7 @@
                 <span class="bwsprite otp-icon margin-top25"></span>
             </div>
         </div>
-        <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>;&nbsp; will get in touch with you soon.</p>
+        <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
 
         <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
     </div>

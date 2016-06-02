@@ -58,13 +58,10 @@ namespace Bikewale.New
 
                 ctrlDealers.MakeId = 7;
                 ctrlDealers.CityId = cityId;
-                ctrlDealers.ModelId = modelId;
-                ctrlDealers.VersionId = (firstVersion !=null) ? firstVersion.VersionId : 0;
                 ctrlDealers.TopCount = 3;
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
-                ctrlLeadCapture.VersionId = (firstVersion != null) ? firstVersion.VersionId : 0;
                 ctrlLeadCapture.AreaId = 0;
 
 
