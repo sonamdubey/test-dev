@@ -33,8 +33,6 @@
         var pqId = '<%= pqId%>';
         var versionId = '<%= variantId%>';
         var cityId = '<%= cityId%>';
-        var clientIP = "<%= clientIP%>";
-        var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
         var bikeVersionLocation = '';
         var bikeVersion = '';
         var isBikeWalePq = "<%= isBikeWalePQ%>";
@@ -867,6 +865,7 @@
 
                     <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                     <!-- Alternative reviews ends -->
+                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                     <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
                     <!-- Alternative reviews ends -->
                     <% } %>   
