@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using Bikewale.Interfaces.Dealer;
-using Bikewale.Entities.Dealer;
-using Bikewale.Notifications;
-using Bikewale.Entities.Location;
+﻿using Bikewale.CoreDAL;
 using Bikewale.Entities.BikeData;
-using Bikewale.CoreDAL;
-using System.Data.SqlClient;
-using System.Data;
-using System.Web;
-using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.Dealer;
+using Bikewale.Notifications;
 using Bikewale.Utility;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web;
 
 namespace Bikewale.DAL.Dealer
 {
@@ -473,6 +473,8 @@ namespace Bikewale.DAL.Dealer
         /// <summary>
         /// Created By : Lucky Rathore on 21 March 2016
         /// Description : Return Dealers deatail list. 
+        /// Modified By : Vivek Gupta on 31-05-2016
+        /// Desc : MakeName , CityName, CityMaskingName and MakeMaskingName retrieved
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
@@ -490,7 +492,7 @@ namespace Bikewale.DAL.Dealer
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetDealerByMakeCity";
+                    cmd.CommandText = "GetDealerByMakeCity_31052016";
                     cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                     cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
 
@@ -517,7 +519,7 @@ namespace Bikewale.DAL.Dealer
                                     dealerdetail.objArea = new AreaEntityBase();
                                     dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
                                     dealerdetail.objArea.Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]);
-                                    dealerdetail.objArea.Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]); 
+                                    dealerdetail.objArea.Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]);
 
                                     dealerList.Add(dealerdetail);
                                 }
@@ -527,6 +529,14 @@ namespace Bikewale.DAL.Dealer
                                     dealers.TotalCount = !Convert.IsDBNull(dr["TotalCount"]) ? Convert.ToUInt16(dr["TotalCount"]) : default(UInt16);
                                 }
 
+                                if (dr.NextResult() && dr.Read())
+                                {
+                                    dealers.MakeName = !Convert.IsDBNull(dr["MakeName"]) ? Convert.ToString(dr["MakeName"]) : default(string);
+                                    dealers.CityName = !Convert.IsDBNull(dr["CityName"]) ? Convert.ToString(dr["CityName"]) : default(string);
+                                    dealers.CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string);
+                                    dealers.MakeMaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string);
+                                }
+
                                 dealers.Dealers = dealerList;
 
                             }
@@ -534,7 +544,7 @@ namespace Bikewale.DAL.Dealer
                         }
                     }
                 }
-            }             
+            }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetDealerByMakeCity ex : " + ex.Message + ex.Source);
@@ -585,9 +595,9 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.Area = new AreaEntityBase
                                 {
                                     AreaName = Convert.ToString(dr["Area"]),
-                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]), 
+                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
                                     Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"])
-  
+
                                 };
                                 dealers.DealerDetails.City = Convert.ToString(dr["City"]);
                                 dealers.DealerDetails.DealerType = SqlReaderConvertor.ParseToInt16(dr["DealerType"]);
@@ -680,7 +690,7 @@ namespace Bikewale.DAL.Dealer
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "GetDealersCitiesByMakeId_22032016";
-                        cmd.Parameters.AddWithValue("@MakeId", Convert.ToInt32(makeId));                        
+                        cmd.Parameters.AddWithValue("@MakeId", Convert.ToInt32(makeId));
 
                         using (SqlDataReader dr = db.SelectQry(cmd))
                         {
@@ -695,7 +705,7 @@ namespace Bikewale.DAL.Dealer
                                         CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
                                         CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(String)
                                     });
-                                } 
+                                }
                             }
                         }
                     }

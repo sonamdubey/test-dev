@@ -4,10 +4,9 @@
     <div class="grid-12 padding-top15">
             <ul>
                 <asp:Repeater ID="rptDealers" runat="server">
-                    <ItemTemplate>
-           
+                    <ItemTemplate>           
                             <li class="dealer-details-item grid-4 margin-bottom25">
-                                <h3 class="font14"><a href="" class="text-default"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
+                                <h3 class="font14"><a href="<%# Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName, Convert.ToString(DataBinder.Eval(Container.DataItem,"DealerId"))) %>" class="text-default"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
                                 <div class="margin-top10">
                                     <p class="text-light-grey margin-bottom5">
                                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
@@ -15,7 +14,7 @@
                                     </p>
                                     <p class="margin-bottom5"><span class="text-bold"><span class="bwsprite phone-black-icon"></span><span><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></span></span></p>
                                     <p class="margin-bottom15"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span><span><%# DataBinder.Eval(Container.DataItem,"Email") %></span></a></p>
-                                    <a href="" class="btn btn-grey btn-md font14">Get offers from dealer</a>
+                                    <input type="button"  leadSourceId="<%= LeadSourceId %>"  pqSourceId="<%= PQSourceId %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# (DataBinder.Eval(Container.DataItem,"objArea")!=null) ? DataBinder.Eval(Container.DataItem,"objArea.AreaName") : "" %>"  data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" class="btn btn-grey btn-md font14 leadcapturebtn" value="Get offers from dealer" />
                                 </div>
                                 <div class="clear"></div>
                             </li>                                             
@@ -24,5 +23,5 @@
              </ul>
       </div>
       <div class="clear"></div>
-      <a href="" class="margin-left20">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
+      <a href="<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" class="margin-left20">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
 <% } %>

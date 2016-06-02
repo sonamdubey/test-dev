@@ -471,7 +471,7 @@ namespace Bikewale.DAL.PriceQuote
                                 });
                             }
 
-                            if(dr != null)
+                            if (dr != null)
                                 dr.Close();
                         }
 
@@ -504,7 +504,7 @@ namespace Bikewale.DAL.PriceQuote
         {
             IList<PriceQuoteOfTopCities> objPrice = null;
             Database db = null;
-            
+
             try
             {
                 db = new Database();
@@ -519,7 +519,7 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                         cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                         cmd.Parameters.Add("@TopRecords", SqlDbType.TinyInt).Value = topCount;
-                        
+
                         using (SqlDataReader dr = db.SelectQry(cmd))
                         {
                             objPrice = new List<PriceQuoteOfTopCities>();
@@ -556,6 +556,79 @@ namespace Bikewale.DAL.PriceQuote
             }
 
             return objPrice;
+        }
+        /// <summary>
+        /// Author: Sangram Nandkhile on 25 May 2016
+        /// Summary: Get bike versions and prices by model Id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="HasArea"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool HasArea)
+        {
+            List<BikeQuotationEntity> bikePrices = null;
+            HasArea = false;
+            Database db = null;
+            try
+            {
+                db = new Database();
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "GetVersionPricesByModelId";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                        cmd.Parameters.Add("@CityId", SqlDbType.TinyInt).Value = cityId;
+                        cmd.Parameters.Add("@HasAreasInCity", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            bikePrices = new List<BikeQuotationEntity>();
+                            while (dr.Read())
+                            {
+                                bikePrices.Add(new BikeQuotationEntity
+                                {
+                                    VersionId = Convert.ToUInt32(dr["BikeVersionId"].ToString()),
+                                    VersionName = Convert.ToString(dr["Version"]),
+                                    MakeName = Convert.ToString(dr["Make"]),
+                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                    ModelName = Convert.ToString(dr["Model"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                    CityId = Convert.ToUInt32(dr["CityId"]),
+                                    City = Convert.ToString(dr["City"]),
+                                    ExShowroomPrice = Convert.ToUInt64(dr["Price"]),
+                                    RTO = Convert.ToUInt32(dr["RTO"]),
+                                    Insurance = Convert.ToUInt32(dr["Insurance"]),
+                                    OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
+                                    OriginalImage = Convert.ToString(dr["OriginalImagePath"]),
+                                    HostUrl = Convert.ToString(dr["HostUrl"]),
+                                });
+
+                            }
+                            if (dr.NextResult())
+                            {
+                                while (dr.Read())
+                                {
+                                    HasArea = Convert.ToBoolean(dr["HasAreasInCity"].ToString());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " inputs: modelId : " + modelId + " : topCount :" + cityId);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return bikePrices;
         }
     }   // Class
 }   // namespace
