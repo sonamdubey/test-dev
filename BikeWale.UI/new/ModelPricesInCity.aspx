@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ModelPricesInCity" %>
 <%@ Register Src="/controls/ModelPriceInNearestCities.ascx" TagPrefix="BW" TagName="ModelPriceInNearestCities" %>
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
-
+<%@ Register Src="~/controls/DealerCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -99,52 +99,7 @@
                     <div class="margin-right20 margin-left20 border-divider"></div>
 
                     <div id="dealersInCityWrapper" class="padding-top20 padding-bottom20">
-                        <h2 class="font14 text-bold text-x-black padding-right20 padding-left20">Bajaj dealers in Mumbai</h2>
-                        <div class="grid-12 padding-top15">
-                            <ul>
-                                <li class="dealer-details-item grid-4 margin-bottom25">
-                                    <h3 class="font14"><a href="" class="text-default">Kamala Landmarc Motorbikes</a></h3>
-                                    <div class="margin-top10">
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top dealership-address">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</span>
-                                        </p>
-                                        <p class="margin-bottom5"><span class="text-bold"><span class="bwsprite phone-black-icon"></span><span>9876543210</span></span></p>
-                                        <p class="margin-bottom15"><a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span><span>bikewale@motors.com</span></a></p>
-                                        <a href="" class="btn btn-grey btn-md font14">Get offers from dealer</a>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                                <li class="dealer-details-item grid-4 margin-bottom25">
-                                    <h3 class="font14"><a href="" class="text-default">Kamala Landmarc Motorbikes</a></h3>
-                                    <div class="margin-top10">
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top dealership-address">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</span>
-                                        </p>
-                                        <p class="margin-bottom5"><span class="text-bold"><span class="bwsprite phone-black-icon"></span><span>9876543210</span></span></p>
-                                        <p class="margin-bottom15"><a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span><span>bikewale@motors.com</span></a></p>
-                                        <a href="" class="btn btn-grey btn-md font14">Get offers from dealer</a>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                                <li class="dealer-details-item grid-4 margin-bottom25">
-                                    <h3 class="font14"><a href="" class="text-default">Kamala Landmarc Motorbikes</a></h3>
-                                    <div class="margin-top10">
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top dealership-address">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</span>
-                                        </p>
-                                        <p class="margin-bottom5"><span class="text-bold"><span class="bwsprite phone-black-icon"></span><span>9876543210</span></span></p>
-                                        <p class="margin-bottom15"><a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span><span>bikewale@motors.com</span></a></p>
-                                        <a href="" class="btn btn-grey btn-md font14">Get offers from dealer</a>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clear"></div>
-                        <a href="" class="margin-left20">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
+                       <BW:Dealers ID="ctrlDealers" runat="server" />
                     </div>
                     <div class="margin-right20 margin-left20 border-divider"></div>
 
