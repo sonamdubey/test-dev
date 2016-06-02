@@ -56,8 +56,9 @@
             <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
         </div>
     </div>
+
     <!-- contact details ends here -->
-    <!-- otp starts here -->
+    <%-- <!-- otp starts here -->
     <div id="otpPopup">
         <div class="icon-outer-container rounded-corner50">
             <div class="icon-inner-container rounded-corner50">
@@ -98,14 +99,15 @@
             </div>
         </div>
     </div>
-    <!-- otp ends here -->
+    <!-- otp ends here -->--%>
+
     <div id="dealer-lead-msg" class="hide">
         <div class="icon-outer-container rounded-corner50">
             <div class="icon-inner-container rounded-corner50">
                 <span class="bwsprite otp-icon margin-top25"></span>
             </div>
         </div>
-        <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+        <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="    visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
 
         <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
     </div>
@@ -119,19 +121,18 @@
     var fullName = $("#getFullName");
     var emailid = $("#getEmailID");
     var mobile = $("#getMobile");
-    var otpContainer = $(".mobile-verification-container");
     var detailsSubmitBtn = $("#user-details-submit-btn");
-    var otpText = $("#getOTP");
-    var otpBtn = $("#otp-submit-btn");
     var prevEmail = "";
     var prevMobile = "";
     var leadmodelid =  <%= ModelId %>, leadcityid = <%= CityId %>, leadareaid =  <%= AreaId %>;
-
     //var getCityArea = GetGlobalCityArea();
-    var customerViewModel = new CustomerModel();
+    
+
+   <%-- var otpContainer = $(".mobile-verification-container"), otpText = $("#getOTP"), otpBtn = $("#otp-submit-btn");  --%>
 
 
     $(function () {
+
         leadBtnBookNow.on('click', function () {
             leadCapturePopup.show();
             $("#dealer-lead-msg").hide();
@@ -159,21 +160,76 @@
             }
         });
 
-        $(".edit-mobile-btn").on("click", function () {
-            var prevMobile = $(this).prev("span.lead-mobile").text();
-            $(".lead-otp-box-container").hide();
-            $(".update-mobile-box").show();
-            $("#getUpdatedMobile").val(prevMobile).focus();
+        $("#getFullName").on("focus", function () {
+            hideError($(this));
         });
 
-        $("#generateNewOTP").on("click", function () {
-            if (validateMobileNo($("#getUpdatedMobile"))) {
-                var updatedNumber = $(".update-mobile-box").find("#getUpdatedMobile").val();
-                $(".update-mobile-box").hide();
-                $(".lead-otp-box-container").show();
-                $(".lead-mobile-box").find(".lead-mobile").text(updatedNumber);
+        $("#getEmailID").on("focus", function () {
+            hideError($(this));
+            prevEmail = $(this).val().trim();
+        });
+
+        $("#getMobile").on("focus", function () {
+            hideError($(this));
+            prevMobile = $(this).val().trim();
+        }); 
+
+        $("#getMobile").on("blur", function () {
+            if (prevMobile != $(this).val().trim()) {
+                if (validateMobileNo($(this))) {
+                    customerViewModel.IsVerified(false);
+                    otpText.val('');
+                    otpContainer.removeClass("show").addClass("hide");
+                    hideError($(this));
+                }
             }
         });
+
+        $("#getEmailID").on("blur", function () {
+            if (prevEmail != $(this).val().trim()) {
+                if (validateEmailId($(this))) {
+                    customerViewModel.IsVerified(false);
+                    otpText.val('');
+                    otpContainer.removeClass("show").addClass("hide");
+                    hideError($(this));
+                }
+            }
+        });
+
+        <%-- 
+        //$(".edit-mobile-btn").on("click", function () {
+        //    var prevMobile = $(this).prev("span.lead-mobile").text();
+        //    $(".lead-otp-box-container").hide();
+        //    $(".update-mobile-box").show();
+        //    $("#getUpdatedMobile").val(prevMobile).focus();
+        //});
+
+        //$("#generateNewOTP").on("click", function () {
+        //    if (validateMobileNo($("#getUpdatedMobile"))) {
+        //        var updatedNumber = $(".update-mobile-box").find("#getUpdatedMobile").val();
+        //        $(".update-mobile-box").hide();
+        //        $(".lead-otp-box-container").show();
+        //        $(".lead-mobile-box").find(".lead-mobile").text(updatedNumber);
+        //    }
+        //}); 
+        
+
+        //$("#getMobile,#getUpdatedMobile").on("focus", function () {
+        //    hideError($(this));
+        //    prevMobile = $(this).val().trim();
+        //}); 
+
+        //$("#getMobile,#getUpdatedMobile").on("blur", function () {
+        //    if (prevMobile != $(this).val().trim()) {
+        //        if (validateMobileNo($(this))) {
+        //            customerViewModel.IsVerified(false);
+        //            otpText.val('');
+        //            otpContainer.removeClass("show").addClass("hide");
+        //            hideError($(this));
+        //        }
+        //    }
+        //});
+    --%>
 
     });
 
@@ -192,9 +248,6 @@
             self.mobileNo = ko.observable();
         }
         self.IsVerified = ko.observable(false);
-        self.NoOfAttempts = ko.observable(0);
-        self.otpCode = ko.observable();
-        self.isAssist = ko.observable(false);
         self.pqId = ko.observable(0);
         self.dealerId = ko.observable();
         self.modelId = ko.observable(leadmodelid);
@@ -205,13 +258,32 @@
         self.leadSourceId = ko.observable();
         self.dealerArea = ko.observable();
         self.pqSourceId = ko.observable();
+        self.pageUrl = window.location.href;
+        self.clientIP = "";
+
+       <%-- //self.NoOfAttempts = ko.observable(0); //self.otpCode = ko.observable(); //self.isAssist = ko.observable(false); --%>
+        
+        self.setOptions = function(options)
+        {
+            if(options!=null)
+            {
+                self.dealerId(options.DealerId);
+                self.dealerName(options.DealerName);
+                self.dealerArea(options.DealerArea);
+                self.versionId(options.VersionId);
+                self.leadSourceId(options.LeadSourceId);
+                self.pqSourceId(options.PQSourceId);
+                self.pageUrl = options.PageUrl;
+                self.clientIP = options.ClientIP;
+            }
+        }
 
         self.generatePQ = function (data, event) {
             self.IsVerified(false);
             isSuccess = false;
             isValidDetails = false;
 
-            isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
+            isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
 
             if (isValidDetails && self.modelId() && self.versionId()) {
                 var url = '/api/RegisterPQ/';
@@ -220,9 +292,9 @@
                     "modelId": self.modelId(),
                     "versionId": self.versionId(),
                     "cityId": self.cityId(),
-                    "areaId": 0,
-                    "clientIP": clientIP,
-                    "pageUrl": pageUrl,
+                    "areaId": self.areaId(),
+                    "clientIP": self.clientIP,
+                    "pageUrl": self.pageUrl,
                     "sourceType": 1,
                     "pQLeadId": self.pqSourceId(),
                     "deviceId": getCookie('BWC')
@@ -267,7 +339,7 @@
                     "customerMobile": self.mobileNo(),
                     "customerEmail": self.emailId(),
                     "clientIP": clientIP,
-                    "pageUrl": pageUrl,
+                    "PageUrl": pageUrl,
                     "leadSourceId": self.leadSourceId(),
                     "deviceId": getCookie('BWC')
                 }
@@ -285,68 +357,10 @@
                     success: function (response) {
                         var obj = ko.toJS(response);
                         self.IsVerified(obj.isSuccess);
-                        if (!self.IsVerified()) {
-                            self.NoOfAttempts(obj.noOfAttempts);
-                        }
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        self.IsVerified(false);
-                    }
-                });
-            }
-        };
-
-
-        self.generateOTP = function () {
-            if (!self.IsVerified()) {
-                var objCust = {
-                    "pqId": self.pqId(),
-                    "customerMobile": self.mobileNo(),
-                    "customerEmail": self.emailId(),
-                    "cwiCode": self.otpCode(),
-                    "branchId": self.dealerId(),
-                    "customerName": self.fullName(),
-                    "versionId": self.versionId(),
-                    "cityId": self.cityId(),
-                }
-                $.ajax({
-                    type: "POST",
-                    url: "/api/PQMobileVerification/",
-                    data: ko.toJSON(objCust),
-                    async: false,
-                    contentType: "application/json",
-                    dataType: 'json',
-                    success: function (response) {
-                        var obj = ko.toJS(response);
-                        self.IsVerified(obj.isSuccess);
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        self.IsVerified(false);
-                    }
-                });
-            }
-        };
-
-        self.regenerateOTP = function () {
-            if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
-                var url = '/api/ResendVerificationCode/';
-                var objCustomer = {
-                    "customerName": self.fullName(),
-                    "customerMobile": self.mobileNo(),
-                    "customerEmail": self.emailId(),
-                    "source": 1
-                }
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    async: false,
-                    data: ko.toJSON(objCustomer),
-                    contentType: "application/json",
-                    dataType: 'json',
-                    success: function (response) {
-                        self.IsVerified(false);
-                        self.NoOfAttempts(response.noOfAttempts);
-                        alert("You will receive the new OTP via SMS shortly.");
+                        //self.IsVerified(obj.isSuccess);
+                        //if (!self.IsVerified()) {
+                        //    self.NoOfAttempts(obj.noOfAttempts);
+                        //}
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         self.IsVerified(false);
@@ -358,14 +372,14 @@
         self.submitLead = function (data, event) {
             self.IsVerified(false);
             isValidDetails = false;
-            isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
+            isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
             if (self.dealerId() && isValidDetails) {
                 self.verifyCustomer();
                 if (self.IsVerified()) {
 
                     $("#contactDetailsPopup").hide();
                     $("#personalInfo").hide()
-                    $("#otpPopup").hide();
+                    //$("#otpPopup").hide();
                     $("#dealer-lead-msg").fadeIn();
 
                 }
@@ -373,142 +387,188 @@
                     $("#leadCapturePopup").show();
                     $('body').addClass('lock-browser-scroll');
                     $(".blackOut-window").show();
-                    $("#contactDetailsPopup").hide();
-                    $("#otpPopup").show();
-                    var leadMobileVal = mobile.val();
-                    $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
-                    otpContainer.removeClass("hide").addClass("show");
-                    hideError(mobile);
-                    otpText.val('').removeClass("border-red").siblings("span, div").hide();
+                    <%-- 
+                   // $("#contactDetailsPopup").hide();
+                   // $("#otpPopup").show();
+                   // var leadMobileVal = mobile.val();
+                   // $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
+                    //otpContainer.removeClass("hide").addClass("show");
+                   // hideError(mobile);
+                   // otpText.val('').removeClass("border-red").siblings("span, div").hide();
+                    --%>
                 }
                 setPQUserCookie();
             }
         };
 
-        otpBtn.on("click", function (event) {
-            $('#processing').show();
-            isValidDetails = false;
-            if (!validateOTP())
-                $('#processing').hide();
+        self.validateUserInfo = function () {
+            var isValid = true;
+            isValid =  self.validateUserName();
+            isValid &= self.validateEmailId();
+            isValid &= self.validateMobileNo();
+            return isValid;
+        };
 
-            isValidDetails = ValidateUserDetail(fullName, emailid, mobile);
-
-            if (validateOTP() && isValidDetails) {
-                customerViewModel.generateOTP();
-                if (customerViewModel.IsVerified()) {
-                    $("#personalInfo").hide();
-                    otpText.val('');
-                    otpContainer.removeClass("show").addClass("hide");
-                    $("#personalInfo").hide()
-                    $("#otpPopup").hide();
-
-                    $("#dealer-lead-msg").fadeIn();
-
-
-                    // OTP Success
-                    if (getMoreDetailsClick) {
-                        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_more_details_" + GetBikeVerLoc() });
-                        getMoreDetailsClick = false;
-                    }
-                }
-                else {
-                    $('#processing').hide();
-                    otpVal("Please enter a valid OTP.");
-                }
+        self.validateUserName = function () {
+            leadUsername = fullName;
+            var isValid = true,
+                nameLength = self.fullName().length;
+            if (self.fullName().indexOf('&') != -1) {
+                setError(leadUsername, 'Invalid name');
+                isValid = false;
             }
-        });
+            else if (nameLength == 0) {
+                setError(leadUsername, 'Please enter your name');
+                isValid = false;
+            }
+            else if (nameLength >= 1) {
+                hideError(leadUsername);
+                isValid = true;
+            }
+            return isValid;
+        };
+
+        self.validateEmailId = function () {
+            leadEmailId = emailid;
+            //var emailid = $("#getEmailID");
+
+            var isValid = true,
+                emailVal = leadEmailId.val(),
+                reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
+            if (emailVal == "") {
+                setError(leadEmailId, 'Please enter email id');
+                isValid = false;
+            }
+            else if (!reEmail.test(emailVal)) {
+                setError(leadEmailId, 'Invalid Email');
+                isValid = false;
+            }
+            return isValid;
+        };
+
+        self.validateMobileNo = function () {
+            leadMobileNo = mobile;
+            //var mobile = $("#getMobile");
+            var isValid = true,
+                mobileVal = leadMobileNo.val(),
+                reMobile = /^[1-9][0-9]{9}$/;
+            if (mobileVal == "") {
+                setError(leadMobileNo, "Please enter your mobile no.");
+                isValid = false;
+            }
+            else if (mobileVal[0] == "0") {
+                setError(leadMobileNo, "Mobile no. should not start with zero");
+                isValid = false;
+            }
+            else if (!reMobile.test(mobileVal) && isValid) {
+                setError(leadMobileNo, "Mobile no. should be 10 digits only");
+                isValid = false;
+            }
+            else
+                hideError(leadMobileNo)
+            return isValid;
+        };
+
+
+       <%-- //self.generateOTP = function () {
+        //    if (!self.IsVerified()) {
+        //        var objCust = {
+        //            "pqId": self.pqId(),
+        //            "customerMobile": self.mobileNo(),
+        //            "customerEmail": self.emailId(),
+        //            "cwiCode": self.otpCode(),
+        //            "branchId": self.dealerId(),
+        //            "customerName": self.fullName(),
+        //            "versionId": self.versionId(),
+        //            "cityId": self.cityId(),
+        //        }
+        //        $.ajax({
+        //            type: "POST",
+        //            url: "/api/PQMobileVerification/",
+        //            data: ko.toJSON(objCust),
+        //            async: false,
+        //            contentType: "application/json",
+        //            dataType: 'json',
+        //            success: function (response) {
+        //                var obj = ko.toJS(response);
+        //                self.IsVerified(obj.isSuccess);
+        //            },
+        //            error: function (xhr, ajaxOptions, thrownError) {
+        //                self.IsVerified(false);
+        //            }
+        //        });
+        //    }
+        //};
+
+        //self.regenerateOTP = function () {
+        //    if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
+        //        var url = '/api/ResendVerificationCode/';
+        //        var objCustomer = {
+        //            "customerName": self.fullName(),
+        //            "customerMobile": self.mobileNo(),
+        //            "customerEmail": self.emailId(),
+        //            "source": 1
+        //        }
+        //        $.ajax({
+        //            type: "POST",
+        //            url: url,
+        //            async: false,
+        //            data: ko.toJSON(objCustomer),
+        //            contentType: "application/json",
+        //            dataType: 'json',
+        //            success: function (response) {
+        //                self.IsVerified(false);
+        //                self.NoOfAttempts(response.noOfAttempts);
+        //                alert("You will receive the new OTP via SMS shortly.");
+        //            },
+        //            error: function (xhr, ajaxOptions, thrownError) {
+        //                self.IsVerified(false);
+        //            }
+        //        });
+        //    }
+        //};
+
+        //otpBtn.on("click", function (event) {
+        //    $('#processing').show();
+        //    isValidDetails = false;
+        //    if (!validateOTP())
+        //        $('#processing').hide();
+
+        //    isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
+
+        //    if (validateOTP() && isValidDetails) {
+        //        customerViewModel.generateOTP();
+        //        if (customerViewModel.IsVerified()) {
+        //            $("#personalInfo").hide();
+        //            otpText.val('');
+        //            otpContainer.removeClass("show").addClass("hide");
+        //            $("#personalInfo").hide()
+        //            $("#otpPopup").hide();
+
+        //            $("#dealer-lead-msg").fadeIn();
+
+
+        //            // OTP Success
+        //            if (getMoreDetailsClick) {
+        //                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_more_details_" + GetBikeVerLoc() });
+        //                getMoreDetailsClick = false;
+        //            }
+        //        }
+        //        else {
+        //            $('#processing').hide();
+        //            otpVal("Please enter a valid OTP.");
+        //        }
+        //    }
+        //});   --%>
     }
+
+    var customerViewModel = new CustomerModel();
+    ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
 
     function ValidateUserDetail(fullName, emailid, mobile) {
-        return validateUserInfo(fullName, emailid, mobile);
+        return customerviewmodel.validateUserInfo(fullName, emailid, mobile);
     };
 
-
-    $("#getFullName").on("focus", function () {
-        hideError($(this));
-    });
-
-    $("#getEmailID").on("focus", function () {
-        hideError($(this));
-        prevEmail = $(this).val().trim();
-    });
-
-    $("#getMobile,#getUpdatedMobile").on("focus", function () {
-        hideError($(this));
-        prevMobile = $(this).val().trim();
-    });
-
-
-
-    $("#getEmailID").on("blur", function () {
-        if (prevEmail != $(this).val().trim()) {
-            if (validateEmailId($(this))) {
-                customerViewModel.IsVerified(false);
-                otpText.val('');
-                otpContainer.removeClass("show").addClass("hide");
-                hideError($(this));
-            }
-        }
-    });
-
-    $("#getMobile,#getUpdatedMobile").on("blur", function () {
-        if (prevMobile != $(this).val().trim()) {
-            if (validateMobileNo($(this))) {
-                customerViewModel.IsVerified(false);
-                otpText.val('');
-                otpContainer.removeClass("show").addClass("hide");
-                hideError($(this));
-            }
-        }
-    });
-
-    function mobileValTrue() {
-        mobile.removeClass("border-red");
-        mobile.siblings("span, div").hide();
-    };
-
-
-    otpText.on("focus", function () {
-        otpText.val('');
-        otpText.siblings("span, div").hide();
-    });
-
-    var setError = function (element, msg) {
-        element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
-        element.siblings("div.errorText").text(msg);
-    };
-
-    var hideError = function (element) {
-        element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
-    };
-    var otpVal = function (msg) {
-        otpText.addClass("border-red");
-        otpText.siblings("span, div").show();
-        otpText.siblings("div").text(msg);
-    };
-
-    function validateOTP() {
-        var retVal = true;
-        var isNumber = /^[0-9]{5}$/;
-        var cwiCode = otpText.val();
-        customerViewModel.IsVerified(false);
-        if (cwiCode == "") {
-            retVal = false;
-            otpVal("Please enter your Verification Code");
-            bindInsuranceText();
-        }
-        else {
-            if (isNaN(cwiCode)) {
-                retVal = false;
-                otpVal("Verification Code should be numeric");
-            }
-            else if (cwiCode.length != 5) {
-                retVal = false;
-                otpVal("Verification Code should be of 5 digits");
-            }
-        }
-        return retVal;
-    }
 
     function setuserDetails() {
         var cookieName = "_PQUser";
@@ -524,71 +584,49 @@
         SetCookie("_PQUser", val);
     }
 
-
-
-    var validateUserInfo = function (leadUsername, leadEmailId, leadMobileNo) {
-        var isValid = true;
-        isValid = validateUserName(leadUsername);
-        isValid &= validateEmailId(leadEmailId);
-        isValid &= validateMobileNo(leadMobileNo);
-        return isValid;
+    var setError = function (element, msg) {
+        element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
+        element.siblings("div.errorText").text(msg);
     };
 
-    var validateUserName = function (leadUsername) {
-        var isValid = true,
-            nameLength = leadUsername.val().length;
-        if (leadUsername.val().indexOf('&') != -1) {
-            setError(leadUsername, 'Invalid name');
-            isValid = false;
-        }
-        else if (nameLength == 0) {
-            setError(leadUsername, 'Please enter your name');
-            isValid = false;
-        }
-        else if (nameLength >= 1) {
-            hideError(leadUsername);
-            isValid = true;
-        }
-        return isValid;
+    var hideError = function (element) {
+        element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
     };
 
-    var validateEmailId = function (leadEmailId) {
-        var isValid = true,
-            emailVal = leadEmailId.val(),
-            reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
-        if (emailVal == "") {
-            setError(leadEmailId, 'Please enter email id');
-            isValid = false;
-        }
-        else if (!reEmail.test(emailVal)) {
-            setError(leadEmailId, 'Invalid Email');
-            isValid = false;
-        }
-        return isValid;
-    };
+    <%--
+    //otpText.on("focus", function () {
+    //    otpText.val('');
+    //    otpText.siblings("span, div").hide();
+    //}); 
 
-    var validateMobileNo = function (leadMobileNo) {
-        var isValid = true,
-            mobileVal = leadMobileNo.val(),
-            reMobile = /^[1-9][0-9]{9}$/;
-        if (mobileVal == "") {
-            setError(leadMobileNo, "Please enter your mobile no.");
-            isValid = false;
-        }
-        else if (mobileVal[0] == "0") {
-            setError(leadMobileNo, "Mobile no. should not start with zero");
-            isValid = false;
-        }
-        else if (!reMobile.test(mobileVal) && isValid) {
-            setError(leadMobileNo, "Mobile no. should be 10 digits only");
-            isValid = false;
-        }
-        else
-            hideError(leadMobileNo)
-        return isValid;
-    };
+    //var otpVal = function (msg) {
+    //    otpText.addClass("border-red");
+    //    otpText.siblings("span, div").show();
+    //    otpText.siblings("div").text(msg);
+    //};
 
-    ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
+    //function validateOTP() {
+    //    var retVal = true;
+    //    var isNumber = /^[0-9]{5}$/;
+    //    var cwiCode = otpText.val();
+    //    customerViewModel.IsVerified(false);
+    //    if (cwiCode == "") {
+    //        retVal = false;
+    //        otpVal("Please enter your Verification Code");
+    //        bindInsuranceText();
+    //    }
+    //    else {
+    //        if (isNaN(cwiCode)) {
+    //            retVal = false;
+    //            otpVal("Verification Code should be numeric");
+    //        }
+    //        else if (cwiCode.length != 5) {
+    //            retVal = false;
+    //            otpVal("Verification Code should be of 5 digits");
+    //        }
+    //    }
+    //    return retVal;
+    //}   --%>
 
 </script>
 

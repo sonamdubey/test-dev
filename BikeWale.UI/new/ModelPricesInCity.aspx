@@ -170,13 +170,21 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
 
-            $(".leadcapturebtn").click(function(){
-                customerViewModel.dealerId($(this).attr('data-item-id'));
-                customerViewModel.dealerName($(this).attr('data-item-name'));
-                customerViewModel.dealerArea($(this).attr('data-item-area'));
-                customerViewModel.versionId($("#versions a.active").attr("id"));
-                customerViewModel.leadSourceId($(this).attr('leadSourceId'));
-                customerViewModel.pqSourceId($(this).attr('pqSourceId'));
+            $(".leadcapturebtn").click(function(e){
+                ele = $(this);
+                var leadOptions = {
+                        "DealerId" : ele.attr('data-item-id'),
+                        "DealerName" : ele.attr('data-item-name'),
+                        "DealerArea"  : ele.attr('data-item-area'),
+                        "VersionId" : $("#versions a.active").attr("id") ,
+                        "LeadSourceId" : ele.attr('leadSourceId'),
+                        "PQSourceId" : ele.attr('pqSourceId'),
+                        "PageUrl" : pageUrl,
+                        "ClientIP" : clientIP
+                };
+
+                customerViewModel.setOptions(leadOptions);
+
             });
 
             $('.model-versions-tabs-wrapper a').on('click', function () {
