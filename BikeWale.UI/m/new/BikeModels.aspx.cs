@@ -495,33 +495,31 @@ namespace Bikewale.Mobile.New
                     modelPage = objCache.GetModelPageDetails(Convert.ToInt16(modelId));
                     if (modelPage != null)
                     {
-                        if (modelPage != null)
+                        if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
                         {
-                            if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
+                            price = Convert.ToUInt32(modelPage.ModelDetails.MinPrice);
+                            if (versionId == 0 && cityId == 0)
                             {
-                                price = Convert.ToUInt32(modelPage.ModelDetails.MinPrice);
-                                if (versionId == 0 && cityId == 0)
-                                {
-                                    versionId = modelPage.ModelVersionSpecs.BikeVersionId;
-                                }
-                                // Check it versionId passed through url exists in current model's versions
-                                else if (!modelPage.ModelVersions.Exists(p => p.VersionId == versionId))
-                                {
-                                    versionId = modelPage.ModelVersionSpecs.BikeVersionId;
-                                }
+                                versionId = modelPage.ModelVersionSpecs.BikeVersionId;
                             }
-                            if (!modelPage.ModelDetails.New)
-                                isDiscontinued = true;
+                            // Check it versionId passed through url exists in current model's versions
+                            else if (!modelPage.ModelVersions.Exists(p => p.VersionId == versionId))
+                            {
+                                versionId = modelPage.ModelVersionSpecs.BikeVersionId;
+                            }
+                        }
+                        if (!modelPage.ModelDetails.New)
+                            isDiscontinued = true;
 
-                            if (modelPage.ModelDetails != null)
+                        if (modelPage.ModelDetails != null)
+                        {
+                            bikeModelName = modelPage.ModelDetails.ModelName;
+                            if (modelPage.ModelDetails.MakeBase != null)
                             {
-                                bikeModelName = modelPage.ModelDetails.ModelName;
-                                if (modelPage.ModelDetails.MakeBase != null)
-                                {
-                                    bikeMakeName = modelPage.ModelDetails.MakeBase.MakeName;
-                                }
-                                bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
+                                bikeMakeName = modelPage.ModelDetails.MakeBase.MakeName;
                             }
+                            bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
+                            modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                         }
                     }
                 }
@@ -807,12 +805,6 @@ namespace Bikewale.Mobile.New
                     {
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.PriceQuote = objPQOutput;
-                        BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
-                        if (bikemodelEnt != null)
-                        {
-                            modelImage = Utility.Image.GetPathToShowImages(bikemodelEnt.OriginalImagePath, bikemodelEnt.HostUrl, Bikewale.Utility.ImageSize._476x268);
-                            pqOnRoad.BikeDetails = bikemodelEnt;
-                        }
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {
                             bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);
