@@ -29,13 +29,23 @@
             <div class="container">
                 <div class="grid-12">
                     <div class="breadcrumb margin-bottom15">
+                        <!-- breadcrumb code starts here -->
                         <ul>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url">
                                 <span itemprop="title">Home</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="fa fa-angle-right margin-right10"></span>
-                                <span>On-road price</span>
+                                <a href="/<%= makeMaskingName %>-bikes/" itemprop="url">
+                                    <span itemprop="title"><%=makeName %></span>
+                                </a></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span>
+                                <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url">
+                                <span><%= modelName %></span>
+                                    </a>
+                            </li>
+                            <li><span class="fa fa-angle-right margin-right10"></span>
+                                <span>Price in <%=cityName %></span>
                             </li>
                         </ul>
                         <div class="clear"></div>
