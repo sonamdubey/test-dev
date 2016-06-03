@@ -42,8 +42,8 @@ namespace Bikewale.Mobile.New
         protected AlternativeBikes ctrlAlternateBikes;
         protected NewsWidget ctrlNews;
         protected NewExpertReviewsWidget ctrlExpertReviews;
-        protected VideosWidget ctrlVideos;
-        protected UserReviewList ctrlUserReviews;
+        protected NewVideosWidget ctrlVideos;
+        protected NewUserReviewList ctrlUserReviews;
         protected ModelGallery ctrlModelGallery;
         protected BikeModelPageEntity modelPage;
         protected VersionSpecifications bikeSpecs;
@@ -55,7 +55,7 @@ namespace Bikewale.Mobile.New
         //Varible to Hide or show controlers
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerPQ, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive;
-        protected AlternativeBikes ctrlAlternativeBikes;
+        protected NewAlternativeBikes ctrlAlternativeBikes;
         protected short reviewTabsCnt;
         //Variable to Assing ACTIVE class
 

@@ -5,6 +5,7 @@
 .swiper-container.model .swiper-slide { background-color: #fff; width:100%; margin:0; min-height:180px; max-height:268px; position:relative; text-align:center;}
 .swiper-container.model .swiper-slide > img {max-width:100%; }
 .colours-wrap .jcarousel li {width:120px; height:auto;}
+#makeNewsContent .news-heading-wrapper h4, #makeReviewsContent .review-heading-wrapper h4, #makeReviewsContent .make-user-review-title-container h4 { margin-top:2px; margin-bottom:7px; }
 #versText { width:75%; }
 .rating-wrap img { width:18px;}
 .line-Ht22{line-height:22px;}
