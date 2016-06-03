@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using Bikewale.controls;
+using Bikewale.Memcache;
 
 namespace Bikewale.New
 {
@@ -36,7 +37,7 @@ namespace Bikewale.New
         protected NewAlternativeBikes ctrlAlternativeBikes;
         protected LeadCaptureControl ctrlLeadCapture;
         public Repeater rprVersionPrices, rpVersioNames;
-        protected uint modelId = 0, cityId = 0, versionId;
+        protected uint modelId = 0, cityId = 0, versionId, makeId;
         public int versionCount;
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;
@@ -64,7 +65,7 @@ namespace Bikewale.New
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.TopCount = 8;
 
-                ctrlDealers.MakeId = 7;
+                ctrlDealers.MakeId = makeId;
                 ctrlDealers.CityId = cityId;
                 ctrlDealers.TopCount = 3;
                 ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealerCard_GetOffers;
@@ -75,7 +76,7 @@ namespace Bikewale.New
 
                 BindAlternativeBikeControl();
 
-            }            
+            }
         }
         /// <summary>
         /// Author : Created by Sangram Nandkhile on 25 May 2016
@@ -100,7 +101,7 @@ namespace Bikewale.New
                         rprVersionPrices.DataSource = bikePrices;
                         rprVersionPrices.DataBind();
                         rpVersioNames.DataSource = bikePrices;
-                        rpVersioNames.DataBind();                         
+                        rpVersioNames.DataBind();
                     }
                     else
                     {
@@ -166,19 +167,35 @@ namespace Bikewale.New
 
         /// <summary>
         /// Function to get parameters from the query string.
+        /// Modified By : Sushil Kumar on 3rd June 2016
+        /// Description :  Added fetch operation for makeid from query string
         /// </summary>
         private void ParseQueryString()
         {
             ModelMaskingResponse objResponse = null;
-            string model = string.Empty, city = string.Empty;
+            string model = string.Empty, city = string.Empty, _make = string.Empty;
             try
             {
                 model = Request.QueryString["model"];
                 city = Request.QueryString["city"];
+                _make = Request.QueryString["make"];
+
                 if (!string.IsNullOrEmpty(city))
                 {
                     cityId = GetCityMaskingName(city);
                 }
+
+                if (!string.IsNullOrEmpty(_make))
+                {
+                    string _makeId = MakeMapping.GetMakeId(_make);
+
+                    if (CommonOpn.CheckId(_makeId))
+                    {
+                        makeId = Convert.ToUInt32(_makeId);
+                    }
+                }
+
+
                 if (!string.IsNullOrEmpty(model))
                 {
                     if (model.Contains("/"))
@@ -195,6 +212,9 @@ namespace Bikewale.New
                         objResponse = objCache.GetModelMaskingResponse(model);
                     }
                 }
+
+
+
             }
             catch (Exception ex)
             {
@@ -209,7 +229,7 @@ namespace Bikewale.New
             {
                 // Get ModelId
                 // Code to check whether masking name is changed or not. If changed redirect to appropriate url
-                if (objResponse != null)
+                if (makeId > 0  && objResponse != null && cityId > 0)
                 {
                     if (objResponse.StatusCode == 200)
                     {
