@@ -400,7 +400,29 @@ $('#btnSearch').on('click', function (e) {
         return false;
     }
 
-}); 
+});
+
+var popup = {
+    lock: function () {
+        var htmlElement = $('html'), bodyElement = $('body');
+        $(".blackOut-window").show();
+        if ($(document).height() > $(window).height()) {
+            var windowScrollTop = htmlElement.scrollTop() ? htmlElement.scrollTop() : bodyElement.scrollTop();
+            if (windowScrollTop < 0) {
+                windowScrollTop = 0;
+            }
+            htmlElement.addClass('lock-browser-scroll').css('top', -windowScrollTop);
+        }
+    },
+
+    unlock: function () {
+        var htmlElement = $('html'),
+            windowScrollTop = parseInt(htmlElement.css('top'));
+        $(".blackOut-window").hide();
+        htmlElement.removeClass('lock-browser-scroll');
+        $('html, body').scrollTop(-windowScrollTop);
+    }
+};
 
 /* jCarousel custom methods */
 var _target = 3;

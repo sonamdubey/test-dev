@@ -919,8 +919,7 @@ var getOffersClick = false;
 $("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign, #getassistance, #getOffersFromDealerFloating").on("click", function () {
     leadSourceId = $(this).attr("leadSourceId");
     $("#leadCapturePopup").show();
-    $('body').addClass('lock-browser-scroll');
-    $(".blackOut-window-model").show();
+    popup.lock();
     if ($(this).attr("id") == "getassistance") {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_Offers_Clicked", "lab": bikeVersionLocation });
         getOffersClick = true;
@@ -930,10 +929,9 @@ $("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign, #getassistance, #getOffersFro
     }  
 });
 
-$(".leadCapture-close-btn, .blackOut-window-model, #notifyOkayBtn").on("click", function () {
+$(".leadCapture-close-btn, .blackOut-window, #notifyOkayBtn").on("click", function () {
     leadCapturePopup.hide();
-    $('body').removeClass('lock-browser-scroll');
-    $(".blackOut-window-model").hide();
+    popup.unlock();
     $("#contactDetailsPopup").show();
     $("#otpPopup,#notify-response").hide();   
 });
@@ -943,12 +941,12 @@ $("#viewBreakupText").on('click', function (e) {
     secondarydealer_Click(dealerId);
 });
 
-$(".breakupCloseBtn,.blackOut-window").on('mouseup click',function (e) {         
+$(".breakupCloseBtn,.blackOut-window").on('click',function (e) {         
     $("div#breakupPopUpContainer").hide();
     $(".blackOut-window").hide();        
 });
 
-$(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+$(".termsPopUpCloseBtn,.blackOut-window").on('click', function (e) {
     $("div#termsPopUpContainer").hide();
     $(".blackOut-window").hide();
 });
