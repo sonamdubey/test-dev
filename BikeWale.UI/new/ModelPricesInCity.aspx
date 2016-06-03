@@ -1,12 +1,15 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ModelPricesInCity" EnableViewState="false" %>
 <%@ Register Src="/controls/ModelPriceInNearestCities.ascx" TagPrefix="BW" TagName="ModelPriceInNearestCities" %>
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/DealerCard.ascx" TagName="Dealers" TagPrefix="BW" %>
+<%@ Register Src="~/controls/LeadCaptureControl.ascx"  TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
 <head>
     
     <%
-        title = string.Format("{0} price in {1}",bikeName,cityName);
+        title = string.Format("{0} price in {1} - Check On Road Price & Dealer Info. - BikeWale", bikeName, cityName);
         if (firstVersion!= null)
             description = string.Format("{0} price in {1} - Rs. {2} (On road price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, cityName, firstVersion.OnRoadPrice);
         keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, cityName, modelName);
@@ -29,13 +32,23 @@
             <div class="container">
                 <div class="grid-12">
                     <div class="breadcrumb margin-bottom15">
+                        <!-- breadcrumb code starts here -->
                         <ul>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url">
                                 <span itemprop="title">Home</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="fa fa-angle-right margin-right10"></span>
-                                <span>On-road price</span>
+                                <a href="/<%= makeMaskingName %>-bikes/" itemprop="url">
+                                    <span itemprop="title"><%=makeName %></span>
+                                </a></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span>
+                                <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url">
+                                <span><%= modelName %></span>
+                                    </a>
+                            </li>
+                            <li><span class="fa fa-angle-right margin-right10"></span>
+                                <span>Price in <%=cityName %></span>
                             </li>
                         </ul>
                         <div class="clear"></div>
@@ -45,11 +58,11 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+                                                                                                                                                                          
         <section id="versionPriceInCityWrapper" class="container margin-bottom25">
             <div class="grid-12 font14">
                 <div class="content-box-shadow">
-                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %> - <span class="fa fa-rupee"></span><% if(firstVersion!= null){ %>&nbsp;<span class='comma' ><%=firstVersion.OnRoadPrice %></span> <% } %>  onwards. 
+                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %>&nbsp; <span class="fa fa-rupee"></span><% if(firstVersion!= null){ %>&nbsp;<%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% } %>  onwards. 
                        <% if(versionCount > 1){ %> This bike comes in <%=versionCount %> versions.<br /> <% } %>Click on any version name to know on-road price in this city:</p>
                     <div id='versions' class="model-versions-tabs-wrapper">
                         <asp:Repeater ID="rpVersioNames" runat="server">
@@ -74,19 +87,19 @@
                                             <tr>
                                                 <td width="200" class="padding-bottom15">Ex-showroom</td>
                                                 <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
-                                                    <span class='comma' ><%# DataBinder.Eval(Container.DataItem, "ExShowroomPrice").ToString() %></span>
+                                                    &nbsp;<%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %>                                                     
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="padding-bottom15">RTO</td>
                                                 <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
-                                                    <span class='comma' ><%# DataBinder.Eval(Container.DataItem, "RTO").ToString() %></span>
+                                                    &nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"RTO").ToString()) %>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="padding-bottom15">Insurance</td>
                                                 <td align="right" class="padding-bottom15 text-default"><span class="fa fa-rupee"></span>
-                                                    <span class='comma' ><%# DataBinder.Eval(Container.DataItem, "Insurance").ToString() %></span>
+                                                    &nbsp; <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Insurance").ToString()) %>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -95,7 +108,8 @@
                                             <tr>
                                                 <td class="text-bold text-default">On-road price in <%=TargetedCity %></td>
                                                 <td align="right" class="font16 text-bold text-default"><span class="fa fa-rupee"></span>
-                                                    <span class='comma' ><%# DataBinder.Eval(Container.DataItem, "OnRoadPrice").ToString() %></span>
+                                                    &nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %>
+
                                                 </td>
                                             </tr>
                                         </table>
@@ -126,59 +140,12 @@
                             <% } %>
                         </div>
                         <div class="clear"></div>
-                    </div>
-                    <div class="margin-right20 margin-left20 border-divider"></div>
+                    </div> 
 
-                    <div id="dealersInCityWrapper" class="padding-top20 padding-bottom20">
-                        <h2 class="font14 text-bold text-x-black padding-right20 padding-left20">Bajaj dealers in Mumbai</h2>
-                        <div class="grid-12 padding-top15">
-                            <ul>
-                                <li class="dealer-details-item grid-4 margin-bottom25">
-                                    <h3 class="font14"><a href="" class="text-default">Kamala Landmarc Motorbikes</a></h3>
-                                    <div class="margin-top10">
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top dealership-address">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</span>
-                                        </p>
-                                        <p class="margin-bottom5"><span class="text-bold"><span class="bwsprite phone-black-icon"></span><span>9876543210</span></span></p>
-                                        <p class="margin-bottom15"><a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span><span>bikewale@motors.com</span></a></p>
-                                        <a href="" class="btn btn-grey btn-md font14">Get offers from dealer</a>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                                <li class="dealer-details-item grid-4 margin-bottom25">
-                                    <h3 class="font14"><a href="" class="text-default">Kamala Landmarc Motorbikes</a></h3>
-                                    <div class="margin-top10">
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top dealership-address">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</span>
-                                        </p>
-                                        <p class="margin-bottom5"><span class="text-bold"><span class="bwsprite phone-black-icon"></span><span>9876543210</span></span></p>
-                                        <p class="margin-bottom15"><a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span><span>bikewale@motors.com</span></a></p>
-                                        <a href="" class="btn btn-grey btn-md font14">Get offers from dealer</a>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                                <li class="dealer-details-item grid-4 margin-bottom25">
-                                    <h3 class="font14"><a href="" class="text-default">Kamala Landmarc Motorbikes</a></h3>
-                                    <div class="margin-top10">
-                                        <p class="text-light-grey margin-bottom5">
-                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                            <span class="vertical-top dealership-address">Vishwaroop IT Park, Sector 30, Navi Mumbai, Maharashtra, 400067</span>
-                                        </p>
-                                        <p class="margin-bottom5"><span class="text-bold"><span class="bwsprite phone-black-icon"></span><span>9876543210</span></span></p>
-                                        <p class="margin-bottom15"><a href="mailto:bikewale@motors.com" class="text-light-grey"><span class="bwsprite mail-grey-icon"></span><span>bikewale@motors.com</span></a></p>
-                                        <a href="" class="btn btn-grey btn-md font14">Get offers from dealer</a>
-                                    </div>
-                                    <div class="clear"></div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clear"></div>
-                        <a href="" class="margin-left20">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
-                    </div>
-                    <div class="margin-right20 margin-left20 border-divider"></div>
+                    <BW:Dealers ID="ctrlDealers" runat="server" />
+
                     <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
+
                 </div>
             </div>
             <div class="clear"></div>
@@ -197,9 +164,34 @@
             <div class="clear"></div>
         </section>
 
+          <BW:LeadCapture ID="ctrlLeadCapture"  runat="server" />
+
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
+
+            var modelId = <%= modelId %>;
+            var clientIP = "<%= clientIP%>";
+            var pageUrl = window.location.href; 
+
+            $(".leadcapturebtn").click(function(e){
+                ele = $(this);
+                var leadOptions = {
+                        "dealerid" : ele.attr('data-item-id'),
+                        "dealername" : ele.attr('data-item-name'),
+                        "dealerarea"  : ele.attr('data-item-area'),
+                        "versionid" : $("#versions a.active").attr("id") ,
+                        "leadsourceid" : ele.attr('data-leadsourceid'),
+                        "pqsourceid" : ele.attr('data-pqsourceid'),
+                        "pageurl" : pageUrl,
+                        "clientip" : clientIP,
+                        "isregisterpq" : true
+                };
+
+                customerViewModel.setOptions(leadOptions);
+
+            });
+
             $('.model-versions-tabs-wrapper a').on('click', function () {
                 var verid = $(this).attr('id');
                 showTab(verid);

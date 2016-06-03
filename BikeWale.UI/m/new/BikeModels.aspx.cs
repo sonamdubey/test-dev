@@ -42,9 +42,9 @@ namespace Bikewale.Mobile.New
         // Register controls
         protected AlternativeBikes ctrlAlternateBikes;
         protected NewsWidget ctrlNews;
-        protected ExpertReviewsWidget ctrlExpertReviews;
-        protected VideosWidget ctrlVideos;
-        protected UserReviewList ctrlUserReviews;
+        protected NewExpertReviewsWidget ctrlExpertReviews;
+        protected NewVideosWidget ctrlVideos;
+        protected NewUserReviewList ctrlUserReviews;
         protected ModelGallery ctrlModelGallery;
         protected BikeModelPageEntity modelPage;
         protected VersionSpecifications bikeSpecs;
@@ -56,7 +56,7 @@ namespace Bikewale.Mobile.New
         //Varible to Hide or show controlers
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerPQ, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive;
-        protected AlternativeBikes ctrlAlternativeBikes;
+        protected NewAlternativeBikes ctrlAlternativeBikes;
         protected short reviewTabsCnt;
         //Variable to Assing ACTIVE class
 
@@ -133,7 +133,7 @@ namespace Bikewale.Mobile.New
                     ctrlNews.TotalRecords = 3;
                     ctrlNews.ModelId = Convert.ToInt32(modelId);
 
-                    ctrlExpertReviews.TotalRecords = 3;
+                    ctrlExpertReviews.TotalRecords = 2;
                     ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
 
                     ctrlVideos.TotalRecords = 3;

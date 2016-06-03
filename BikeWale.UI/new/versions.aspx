@@ -566,15 +566,15 @@
                         <div class="grid-4 padding-left30">
                                 <% if (!isCitySelected)
 								   {%>
-                                <p class="font14 text-light-grey margin-bottom5"><span>Ex-showroom price in</span>&nbsp;<span class="font14 text-default text-truncate"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                <p class="font14 text-light-grey margin-bottom5"><span>Ex-showroom price in</span>&nbsp;<span class="font14 text-default text-truncate"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span></p>
                                 <% } %>
                                 <% else if (!isOnRoadPrice)
 								   {%>
-                                <p class="font14 text-light-grey margin-bottom5 leftfloat"><span class="leftfloat">Ex-showroom price in</span><span class="leftfloat text-default text-truncate city-area-name margin-right5"><%= areaName %> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="leftfloat fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                <p class="font14 text-light-grey margin-bottom5 leftfloat"><span class="leftfloat">Ex-showroom price in</span><span class="leftfloat text-default text-truncate city-area-name margin-right5"><%= areaName %> <%= cityName %></span></p>
                                 <% } %>
                                 <% else
 								   {%>
-                                <p class="font14 text-light-grey margin-bottom5 leftfloat"><span class="leftfloat">On-road price in</span><span class="leftfloat text-truncate city-area-name margin-right5"><%= areaName %> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="leftfloat fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                <p class="font14 text-light-grey margin-bottom5 leftfloat"><span class="leftfloat">On-road price in</span><span class="leftfloat text-truncate city-area-name margin-right5"><%= areaName %> <%= cityName %></span></p>
 
                                 <% } %>                          
                             <div class="clear"></div>
@@ -830,8 +830,8 @@
                                 <div class="clear"></div>
                             </div>
                         </div>
-                        <div id="modelFeaturesAd" class="grid-4 omega text-center">
-                            <!-- #include file="/ads/Ad300x250.aspx" -->
+                        <div id="modelFeaturesAd" class="grid-4 omega text-center">                           
+                            <!-- #include file="/ads/Ad300x250BTF.aspx" -->
                         </div>
                         <div class="clear"></div>                      
                          

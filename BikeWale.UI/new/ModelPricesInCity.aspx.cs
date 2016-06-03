@@ -14,28 +14,35 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI.WebControls;
+using Bikewale.controls;
+using Bikewale.Memcache;
 
 namespace Bikewale.New
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 23 May 2016
+    /// Modified By : Sushil Kumar on 2nd June 2016
+    /// Description :  Added and Linked LeadCapture Widget
+    ///                Added  PQSourceId for DealerCard Widget
     /// </summary>
     public class ModelPricesInCity : System.Web.UI.Page
     {
         protected ModelPriceInNearestCities ctrlTopCityPrices;
+        protected DealerCard ctrlDealers;
         public BikeQuotationEntity firstVersion;
+        protected NewAlternativeBikes ctrlAlternativeBikes;
+        protected LeadCaptureControl ctrlLeadCapture;
         public Repeater rprVersionPrices, rpVersioNames;
-        public uint modelId, cityId;
+        protected uint modelId = 0, cityId = 0, versionId, makeId;
         public int versionCount;
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         protected bool isAreaAvailable;
-        protected NewAlternativeBikes ctrlAlternativeBikes;
         protected String clientIP = CommonOpn.GetClientIP();
 
 
@@ -57,8 +64,19 @@ namespace Bikewale.New
                 ctrlTopCityPrices.ModelId = modelId;
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.TopCount = 8;
+
+                ctrlDealers.MakeId = makeId;
+                ctrlDealers.CityId = cityId;
+                ctrlDealers.TopCount = 3;
+                ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealerCard_GetOffers;
+
+                ctrlLeadCapture.CityId = cityId;
+                ctrlLeadCapture.ModelId = modelId;
+                ctrlLeadCapture.AreaId = 0;
+
+                BindAlternativeBikeControl();
+
             }
-            BindAlternativeBikeControl();
         }
         /// <summary>
         /// Author : Created by Sangram Nandkhile on 25 May 2016
@@ -122,6 +140,7 @@ namespace Bikewale.New
                         bikeName = String.Format("{0} {1}", makeName, modelName);
                         modelImage = Utility.Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, Bikewale.Utility.ImageSize._310x174);
                         cityName = firstVersion.City;
+                        versionId = firstVersion.VersionId;
                     }
                 }
             }
@@ -148,19 +167,35 @@ namespace Bikewale.New
 
         /// <summary>
         /// Function to get parameters from the query string.
+        /// Modified By : Sushil Kumar on 3rd June 2016
+        /// Description :  Added fetch operation for makeid from query string
         /// </summary>
         private void ParseQueryString()
         {
             ModelMaskingResponse objResponse = null;
-            string model = string.Empty, city = string.Empty;
+            string model = string.Empty, city = string.Empty, _make = string.Empty;
             try
             {
                 model = Request.QueryString["model"];
                 city = Request.QueryString["city"];
+                _make = Request.QueryString["make"];
+
                 if (!string.IsNullOrEmpty(city))
                 {
                     cityId = GetCityMaskingName(city);
                 }
+
+                if (!string.IsNullOrEmpty(_make))
+                {
+                    string _makeId = MakeMapping.GetMakeId(_make);
+
+                    if (CommonOpn.CheckId(_makeId))
+                    {
+                        makeId = Convert.ToUInt32(_makeId);
+                    }
+                }
+
+
                 if (!string.IsNullOrEmpty(model))
                 {
                     if (model.Contains("/"))
@@ -175,10 +210,11 @@ namespace Bikewale.New
                                 ;
                         var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                         objResponse = objCache.GetModelMaskingResponse(model);
-
-                        //modelId = objResponse.ModelId;
                     }
                 }
+
+
+
             }
             catch (Exception ex)
             {
@@ -193,7 +229,7 @@ namespace Bikewale.New
             {
                 // Get ModelId
                 // Code to check whether masking name is changed or not. If changed redirect to appropriate url
-                if (objResponse != null)
+                if (makeId > 0  && objResponse != null && cityId > 0)
                 {
                     if (objResponse.StatusCode == 200)
                     {
@@ -215,9 +251,6 @@ namespace Bikewale.New
                 {
                     redirectToPageNotFound = true;
                 }
-
-                // Get CityId
-                //cityId = Convert.ToUInt32(Request.QueryString["cityid"]);
 
             }
         }

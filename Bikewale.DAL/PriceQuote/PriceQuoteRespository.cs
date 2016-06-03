@@ -592,6 +592,7 @@ namespace Bikewale.DAL.PriceQuote
                                     ModelName = Convert.ToString(dr["Model"]),
                                     ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     CityId = Convert.ToUInt32(dr["CityId"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
                                     City = Convert.ToString(dr["City"]),
                                     ExShowroomPrice = Convert.ToUInt64(dr["Price"]),
                                     RTO = Convert.ToUInt32(dr["RTO"]),

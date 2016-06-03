@@ -55,7 +55,10 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_DealerLocator_Listing = 42,
         Desktop_DealerLocator_SubmitButton = 43,
         Desktop_DealerLocator_GetOfferButton = 44,
-        Desktop_PriceInCity_SelectAreas = 45,
-        Desktop_PriceInCity_Alternative = 46
+        Desktop_DealerLocator_GetOfferButton_Floating = 45,
+        Desktop_PriceInCity_SelectAreas = 46,
+        Desktop_PriceInCity_Alternative = 47,
+        Desktop_PriceInCity_DealerCard_GetOffers = 48
+
     }
 }

@@ -1,9 +1,9 @@
 ﻿ <%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeModels" EnableViewState="false" Trace="false" %>
 <%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>
-<%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
-<%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
-<%@ Register Src="/m/controls/UserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
+<%@ Register Src="/m/controls/NewExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
+<%@ Register Src="/m/controls/NewUserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <!DOCTYPE html> 
@@ -364,6 +364,7 @@
                             <li data-tabs="#modelPricesContent"><h3>Prices</h3></li>
                             <li data-tabs="#modelSpecsFeaturesContent"><h3>Specs & Features</h3></li>
                             <li data-tabs="#modelReviewsContent"><h3>Reviews</h3></li>
+                            <li data-tabs="#makeNewsContent"><h3>News</h3></li>
                             <li data-tabs="#modelAlternateBikeContent"><h3>Alternatives</h3></li>                            
                         </ul>
                     </div>
@@ -567,149 +568,28 @@
                        <!-- #include file="/ads/Ad300x250.aspx" -->
                     </div>
                 </div>
-
                     <div id="modelReviewsContent" class="bw-model-tabs-data padding-top10 padding-right20 padding-left20 font14">
-                    <h2>Bajaj Pulsar RS200 Reviews</h2>
-                    <h3 class="model-section-subtitle">Expert reviews</h3>
-                    <div class="model-expert-review-container">
-                        <div class="margin-bottom20">
-                            <div class="review-image-wrapper">
-                                <a href="">
-                                    <img src="http://imgd1.aeplcdn.com//370x208//bw/ec/23331/TVS-Victor-Action-72508.jpg?wm=2" />
-                                </a>
-                            </div>
-                            <div class="review-heading-wrapper">
-                                <h4>
-                                    <a href="" class="font14 text-black">Bajaj Avenger 220 Cruise vs Royal Enfield...</a>
-                                </h4>
-                                <p class="font12 text-truncate text-light-grey">April 15, 2016, by Sagar Bhanushali</p>
-                            </div>
-                            <p class="margin-top17">I was excited when I got an email from Bajaj Motorcycles to test their Pulsar...<a href="">Read full review</a></p>
-                        </div>
-                    </div>
-                    <div class="model-expert-review-container">
-                        <div class="margin-bottom20">
-                            <div class="review-image-wrapper">
-                                <a href="">
-                                    <img src="http://imgd1.aeplcdn.com//370x208//bw/ec/23331/TVS-Victor-Action-72508.jpg?wm=2" />
-                                </a>
-                            </div>
-                            <div class="review-heading-wrapper">
-                                <h4>
-                                    <a href="" class="font14 text-black">Bajaj Avenger 220 Cruise vs Royal Enfield...</a>
-                                </h4>
-                                <p class="font12 text-truncate text-light-grey">April 15, 2016, by Sagar Bhanushali</p>
-                            </div>
-                            <p class="margin-top17">I was excited when I got an email from Bajaj Motorcycles to test their Pulsar...<a href="">Read full review</a></p>
-                        </div>
-                    </div>
-                    <div>
-                        <a href="javascript:void(0)">Read all expert reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                    </div>
+                    <h2><%=bikeName %> Reviews</h2>
+                       
+                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
+                           { %>
+                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <% } %>
+                        <%if (ctrlUserReviews.FetchedRecordsCount > 0)
+                              { %>
+                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                        <% } %>
+                        
+                        <%if (ctrlVideos.FetchedRecordsCount > 0)
+                            { %>
+                        <BW:Videos runat="server" ID="ctrlVideos" />
+                        <% } %>
 
-                    <h3 class="margin-top20 model-section-subtitle">User reviews</h3>
-                    <div class="model-user-review-container">
-                        <div class="margin-bottom20">
-                            <div class="model-user-review-rating-container">
-                                <p class="text-bold">4</p>
-                                <p class="inline-block margin-bottom5 margin-top5">
-                                    <span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-one-icon"></span><span class="star-zero-icon"></span>
-                                </p>
-                            </div>
-                            <div class="model-user-review-title-container">
-                                <h4>not upto the mark compared to its price...</h4>
-                                <p class="font12 text-truncate text-light-grey">April 15, 2016, by Parth Shukla</p>
-                            </div>
-                            <p class="margin-top17">Style Good. Engine Performance, Fuel Economy and Gearbox Good. Ride Quality & Handling Good. Areas of improve...
-                                <a href="">Read full review</a>
-                            </p>
-                        </div>
                     </div>
-                    <div>
-                        <a href="javascript:void(0)">Read all user reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                    </div>
-
-                    <h3 class="margin-top20 model-section-subtitle">Videos</h3>
-                    <div class="model-expert-review-container">
-                        <div class="margin-bottom20">
-                            <div class="review-image-wrapper">
-                                <a href="">
-                                    <img src="http://imgd1.aeplcdn.com//370x208//bw/ec/23331/TVS-Victor-Action-72508.jpg?wm=2" />
-                                </a>
-                            </div>
-                            <div class="review-heading-wrapper">
-                                <h4>
-                                    <a href="" class="font14 text-black">Bajaj Avenger 220 Cruise vs Royal Enfield...</a>
-                                </h4>
-                                <p class="font12 text-truncate text-light-grey">Uploaded on November 23, 2015</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <a href="javascript:void(0)">View all videos<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                    </div>
-
-                </div>
-
-                <div class="margin-top20 margin-right20 margin-left20 border-solid-top"></div>
-
-                <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top15 font14">
-                    <h2 class="padding-left20 padding-right20">Bajaj Pulsar RS200 Alternate bikes</h2>
-                    <div class="swiper-container padding-top5">
-                        <div class="swiper-wrapper font14">
-                            <div class="swiper-slide">
-                                <div class="model-swiper-image-preview">
-                                    <a href="">
-                                        <img src="http://imgd1.aeplcdn.com//310x174//bw/models/tvs-star-city-plus-kick-start-758.jpg?20151209224913" />
-                                    </a>
-                                </div>
-                                <div class="model-swiper-details">
-                                    <a href="" class="font14 text-black text-bold">Honda Unicorn</a>
-                                    <p class="text-truncate text-light-grey font12 margin-top5 margin-bottom5">Ex-showroom New Delhi</p>
-                                    <p class="font18 text-bold margin-bottom10">
-                                        <span class="bwmsprite inr-xsm-icon"></span>
-                                        <span>50,551</span>
-                                    </p>
-                                    <a href="javascript:void(0)" class="btn btn-grey btn-x-sm font12">Check on-road price</a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="model-swiper-image-preview">
-                                    <a href="">
-                                        <img src="http://imgd1.aeplcdn.com//310x174//bw/models/tvs-scooty-zest-110-standard-511.jpg?20151209224842" />
-                                    </a>
-                                </div>
-                                <div class="model-swiper-details">
-                                    <a href="" class="font14 text-black text-bold">Honda CB Trigger</a>
-                                    <p class="text-truncate text-light-grey font12 margin-top5 margin-bottom5">Ex-showroom New Delhi</p>
-                                    <p class="font18 text-bold margin-bottom10">
-                                        <span class="bwmsprite inr-xsm-icon"></span>
-                                        <span>49,728</span>
-                                    </p>
-                                    <a href="javascript:void(0)" class="btn btn-grey btn-x-sm font12">Check on-road price</a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="model-swiper-image-preview">
-                                    <a href="">
-                                        <img src="http://imgd1.aeplcdn.com//310x174//bw/models/tvs-star-city-plus-kick-start-758.jpg?20151209224913" />
-                                    </a>
-                                </div>
-                                <div class="model-swiper-details">
-                                    <a href="" class="font14 text-black text-bold">Honda Unicorn</a>
-                                    <p class="text-truncate text-light-grey font12 margin-top5 margin-bottom5">Ex-showroom New Delhi</p>
-                                    <p class="font18 text-bold margin-bottom10">
-                                        <span class="bwmsprite inr-xsm-icon"></span>
-                                        <span>50,551</span>
-                                    </p>
-                                    <a href="javascript:void(0)" class="btn btn-grey btn-x-sm font12">Check on-road price</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>             
-                
+                <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
+                   { %>
+                    <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />           
+                <%} %>
                 <div id="modelSpecsFooter"></div>
             </div>
         </section>
@@ -1182,22 +1062,15 @@
                             </ul>
                         </div>
                         <div class="grid-12">
-                            <%if (!isUserReviewZero)
-                              { %>
-                            <BW:UserReviews runat="server" ID="ctrlUserReviews" />
-                            <% } %>
-                            <%if (!isExpertReviewZero)
+                           
+                            <%--<%if (!isExpertReviewZero)
                               { %>
                             <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                            <% } %>
+                            <% } %>--%>
                             <%if (!isNewsZero)
                               { %>
                             <BW:News runat="server" ID="ctrlNews" />
-                            <% } %>
-                            <%if (!isVideoZero)
-                              { %>
-                            <BW:Videos runat="server" ID="ctrlVideos" />
-                            <% } %>
+                            <% } %>                           
                         </div>
                     </div>
                 </div>
@@ -1205,15 +1078,14 @@
             </div>
         </section>
 
-        <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
+        <section class="<%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
             <div class="container margin-bottom10">
                 <div class="grid-12">
                     <!-- Most Popular Bikes Starts here-->
                     <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> Alternate Bikes </h2>
 
                     <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
-                        <div class="swiper-wrapper">
-                            <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
+                        <div class="swiper-wrapper">                          
                         </div>
                         <!-- Add Pagination -->
                         <div class="swiper-pagination"></div>
@@ -1339,10 +1211,10 @@
             var pageUrl = "<%= canonical %>";
             var myBikeName = "<%= this.bikeName %>";
             ga_pg_id = '2';
-            if ('<%=isUserReviewActive%>' == "False") $("#ctrlUserReviews").addClass("hide");
+            <%--if ('<%=isUserReviewActive%>' == "False") $("#ctrlUserReviews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");--%>
             if (bikeVersionLocation == '') {
                 bikeVersionLocation = getBikeVersionLocation();
             }
