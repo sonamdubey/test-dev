@@ -62,7 +62,7 @@
         <section id="versionPriceInCityWrapper" class="container margin-bottom25">
             <div class="grid-12 font14">
                 <div class="content-box-shadow">
-                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %> - <span class="fa fa-rupee"></span><% if(firstVersion!= null){ %>&nbsp;<%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% } %>  onwards. 
+                    <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %>&nbsp; <span class="fa fa-rupee"></span><% if(firstVersion!= null){ %>&nbsp;<%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% } %>  onwards. 
                        <% if(versionCount > 1){ %> This bike comes in <%=versionCount %> versions.<br /> <% } %>Click on any version name to know on-road price in this city:</p>
                     <div id='versions' class="model-versions-tabs-wrapper">
                         <asp:Repeater ID="rpVersioNames" runat="server">
@@ -140,14 +140,12 @@
                             <% } %>
                         </div>
                         <div class="clear"></div>
-                    </div>
-                    <div class="margin-right20 margin-left20 border-divider"></div>
+                    </div> 
 
-                    <div id="dealersInCityWrapper" class="padding-top20 padding-bottom20">
-                       <BW:Dealers ID="ctrlDealers" runat="server" />
-                    </div>
-                  
+                    <BW:Dealers ID="ctrlDealers" runat="server" />
+
                     <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
+
                 </div>
             </div>
             <div class="clear"></div>
