@@ -205,42 +205,46 @@ namespace Bikewale.New
         {
             try
             {
-                UInt32.TryParse(Request.QueryString["vid"], out versionId);
-                modelMaskingName = Request.QueryString["model"];
+                if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys())
+                {
+                    UInt32.TryParse(Request.QueryString["vid"], out versionId);
+                    modelMaskingName = Request.QueryString["model"];
 
-                if (!string.IsNullOrEmpty(modelMaskingName) && versionId > 0)
-                {
-                    using (IUnityContainer container = new UnityContainer())
+                    if (!string.IsNullOrEmpty(modelMaskingName) && versionId > 0)
                     {
-                        container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                                 .RegisterType<ICacheManager, MemcacheManager>()
-                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                                ;
-                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                        ModelMaskingResponse objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
-                        if (objResponse != null && objResponse.StatusCode == 200)
+                        using (IUnityContainer container = new UnityContainer())
                         {
-                            modelId = objResponse.ModelId;
+                            container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                                     .RegisterType<ICacheManager, MemcacheManager>()
+                                     .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                    ;
+                            var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                            ModelMaskingResponse objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                            if (objResponse != null && objResponse.StatusCode == 200)
+                            {
+                                modelId = objResponse.ModelId;
+                            }
+                            else if (objResponse != null && objResponse.StatusCode == 301)
+                            {
+                                //redirect permanent to new page 
+                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
+                            }
+                            else
+                            {
+                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                this.Page.Visible = false;
+                            }
                         }
-                        else if (objResponse != null && objResponse.StatusCode == 301)
-                        {
-                            //redirect permanent to new page 
-                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
-                        }
-                        else
-                        {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
-                        }
-                    }                
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                 }
-                else
-                {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
+                
                 
             }
             catch (Exception ex)
