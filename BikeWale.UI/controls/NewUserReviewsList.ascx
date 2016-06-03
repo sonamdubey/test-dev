@@ -23,7 +23,7 @@
                 </div>
                 <div class="clear"></div>
                 <p class="margin-top20 line-height17">
-                    <%#Eval("Comments").ToString() %> ... 
+                    <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Comments").ToString(),160) %> 
              <a href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">Read full review</a>
                 </p>
             </div>
@@ -33,6 +33,6 @@
 </div>
 <div class="clear"></div>
 <div class="padding-left20">
-    <a href="/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/">Read all user reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
+    <a href="/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/"  class="bw-ga" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all user reviews<span class="bwsprite blue-right-arrow-icon"></span></a>   
 </div>
 

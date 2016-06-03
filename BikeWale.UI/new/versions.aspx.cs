@@ -265,7 +265,7 @@ namespace Bikewale.New
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
                 ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);
-                ctrlTopCityPrices.TopCount = 8;               
+                ctrlTopCityPrices.TopCount = 8;
             }
         }
 
@@ -446,6 +446,11 @@ namespace Bikewale.New
 
                     rptColor.DataSource = modelPage.ModelColors;
                     rptColor.DataBind();
+                }
+
+                if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath))
+                {
+                    modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                 }
             }
         }

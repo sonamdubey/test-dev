@@ -1,6 +1,6 @@
 ﻿ <%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeModels" EnableViewState="false" Trace="false" %>
 <%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>
-<%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/NewExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="/m/controls/UserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
@@ -637,46 +637,12 @@
                         <div style="width:300px; height:250px; background:#ccc; margin:0 auto"></div>
                     </div>
                 </div>
-
                     <div id="modelReviewsContent" class="bw-model-tabs-data padding-top10 padding-right20 padding-left20 font14">
-                    <h2>Bajaj Pulsar RS200 Reviews</h2>
-                    <h3 class="model-section-subtitle">Expert reviews</h3>
-                    <div class="model-expert-review-container">
-                        <div class="margin-bottom20">
-                            <div class="review-image-wrapper">
-                                <a href="">
-                                    <img src="http://imgd1.aeplcdn.com//370x208//bw/ec/23331/TVS-Victor-Action-72508.jpg?wm=2" />
-                                </a>
-                            </div>
-                            <div class="review-heading-wrapper">
-                                <h4>
-                                    <a href="" class="font14 text-black">Bajaj Avenger 220 Cruise vs Royal Enfield...</a>
-                                </h4>
-                                <p class="font12 text-truncate text-light-grey">April 15, 2016, by Sagar Bhanushali</p>
-                            </div>
-                            <p class="margin-top17">I was excited when I got an email from Bajaj Motorcycles to test their Pulsar...<a href="">Read full review</a></p>
-                        </div>
-                    </div>
-                    <div class="model-expert-review-container">
-                        <div class="margin-bottom20">
-                            <div class="review-image-wrapper">
-                                <a href="">
-                                    <img src="http://imgd1.aeplcdn.com//370x208//bw/ec/23331/TVS-Victor-Action-72508.jpg?wm=2" />
-                                </a>
-                            </div>
-                            <div class="review-heading-wrapper">
-                                <h4>
-                                    <a href="" class="font14 text-black">Bajaj Avenger 220 Cruise vs Royal Enfield...</a>
-                                </h4>
-                                <p class="font12 text-truncate text-light-grey">April 15, 2016, by Sagar Bhanushali</p>
-                            </div>
-                            <p class="margin-top17">I was excited when I got an email from Bajaj Motorcycles to test their Pulsar...<a href="">Read full review</a></p>
-                        </div>
-                    </div>
-                    <div>
-                        <a href="javascript:void(0)">Read all expert reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                    </div>
-
+                    <h2><%=bikeName %> Reviews</h2>
+                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
+                           { %>
+                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <% } %>
                     <h3 class="margin-top20 model-section-subtitle">User reviews</h3>
                     <div class="model-user-review-container">
                         <div class="margin-bottom20">
@@ -1443,10 +1409,10 @@
                               { %>
                             <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                             <% } %>
-                            <%if (!isExpertReviewZero)
+                            <%--<%if (!isExpertReviewZero)
                               { %>
                             <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                            <% } %>
+                            <% } %>--%>
                             <%if (!isNewsZero)
                               { %>
                             <BW:News runat="server" ID="ctrlNews" />
@@ -1596,10 +1562,10 @@
             var pageUrl = "<%= canonical %>";
             var myBikeName = "<%= this.bikeName %>";
             ga_pg_id = '2';
-            if ('<%=isUserReviewActive%>' == "False") $("#ctrlUserReviews").addClass("hide");
+            <%--if ('<%=isUserReviewActive%>' == "False") $("#ctrlUserReviews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");--%>
             if (bikeVersionLocation == '') {
                 bikeVersionLocation = getBikeVersionLocation();
             }

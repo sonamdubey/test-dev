@@ -389,28 +389,23 @@ namespace Bikewale.DAL.PriceQuote
             try
             {
                 db = new Database();
-
-                using (SqlConnection conn = new SqlConnection())
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandText = "GetPriceQuoteData_02052016";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
+                    using (SqlDataReader dr = db.SelectQry(cmd))
                     {
-                        cmd.CommandText = "GetPriceQuoteData_02052016";
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
-                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        objQuotation = new PriceQuoteParametersEntity();
+                        while (dr.Read())
                         {
-                            objQuotation = new PriceQuoteParametersEntity();
-                            while (dr.Read())
-                            {
-                                objQuotation.AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32);
-                                objQuotation.CityId = !Convert.IsDBNull(dr["cityid"]) ? Convert.ToUInt32(dr["cityid"]) : default(UInt32);
-                                objQuotation.VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32);
-                                objQuotation.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
-                                objQuotation.CampaignId = !Convert.IsDBNull(dr["CampaignId"]) ? Convert.ToUInt32(dr["CampaignId"]) : default(UInt32);
-                            }
+                            objQuotation.AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32);
+                            objQuotation.CityId = !Convert.IsDBNull(dr["cityid"]) ? Convert.ToUInt32(dr["cityid"]) : default(UInt32);
+                            objQuotation.VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32);
+                            objQuotation.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
+                            objQuotation.CampaignId = !Convert.IsDBNull(dr["CampaignId"]) ? Convert.ToUInt32(dr["CampaignId"]) : default(UInt32);
                         }
-
                     }
                 }
             }
@@ -561,9 +556,9 @@ namespace Bikewale.DAL.PriceQuote
         /// Author: Sangram Nandkhile on 25 May 2016
         /// Summary: Get bike versions and prices by model Id
         /// </summary>
-        /// <param name="modelId"></param>
-        /// <param name="cityId"></param>
-        /// <param name="HasArea"></param>
+        /// <param name="modelId">Model Id</param>
+        /// <param name="cityId">City Id </param>
+        /// <param name="HasArea">If city has models in those areas</param>
         /// <returns></returns>
         public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool HasArea)
         {
@@ -581,7 +576,7 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.CommandType = CommandType.StoredProcedure;
 
                         cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                        cmd.Parameters.Add("@CityId", SqlDbType.TinyInt).Value = cityId;
+                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                         cmd.Parameters.Add("@HasAreasInCity", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         using (SqlDataReader dr = db.SelectQry(cmd))
                         {
@@ -590,13 +585,14 @@ namespace Bikewale.DAL.PriceQuote
                             {
                                 bikePrices.Add(new BikeQuotationEntity
                                 {
-                                    VersionId = Convert.ToUInt32(dr["BikeVersionId"].ToString()),
+                                    VersionId = Convert.ToUInt32(Convert.ToString(dr["BikeVersionId"])),
                                     VersionName = Convert.ToString(dr["Version"]),
                                     MakeName = Convert.ToString(dr["Make"]),
                                     MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
                                     ModelName = Convert.ToString(dr["Model"]),
                                     ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     CityId = Convert.ToUInt32(dr["CityId"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
                                     City = Convert.ToString(dr["City"]),
                                     ExShowroomPrice = Convert.ToUInt64(dr["Price"]),
                                     RTO = Convert.ToUInt32(dr["RTO"]),
@@ -620,7 +616,7 @@ namespace Bikewale.DAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " inputs: modelId : " + modelId + " : topCount :" + cityId);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - {1}", HttpContext.Current.Request.ServerVariables["URL"], "GetVersionPricesByModelId"));
                 objErr.SendMail();
             }
             finally
