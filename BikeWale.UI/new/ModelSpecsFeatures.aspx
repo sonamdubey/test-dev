@@ -385,11 +385,12 @@
                 });
 
                 $(".leadcapturebtn").click(function () {
+                    ele = $(this);
                     var leadOptions = {
                         "dealerid": ele.attr('data-item-id'),
                         "dealername": ele.attr('data-item-name'),
                         "dealerarea": ele.attr('data-item-area'),
-                        "versionid": <%= versionName %>,
+                        "versionid": <%= versionId %>,
                         "leadsourceid": ele.attr('data-leadsourceid'),
                         "pqsourceid": ele.attr('data-pqsourceid'),
                         "pageurl": pageUrl,
@@ -397,7 +398,7 @@
                         "isregisterpq": true
                     };
                     customerViewModel.setOptions(leadOptions);
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': '<%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%>' });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': "<%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%>" });
                 });
             });
         </script>
