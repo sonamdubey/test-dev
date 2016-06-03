@@ -260,6 +260,7 @@
         self.pqSourceId = ko.observable();
         self.pageUrl = window.location.href;
         self.clientIP = "";
+        self.isRegisterPQ = ko.observable(false);
 
        <%-- //self.NoOfAttempts = ko.observable(0); //self.otpCode = ko.observable(); //self.isAssist = ko.observable(false); --%>
         
@@ -267,19 +268,37 @@
         {
             if(options!=null)
             {
-                self.dealerId(options.DealerId);
-                self.dealerName(options.DealerName);
-                self.dealerArea(options.DealerArea);
-                self.versionId(options.VersionId);
-                self.leadSourceId(options.LeadSourceId);
-                self.pqSourceId(options.PQSourceId);
-                self.pageUrl = options.PageUrl;
-                self.clientIP = options.ClientIP;
+                if(options.dealerid!=null)
+                    self.dealerId(options.dealerid);
+
+                if(options.dealername!=null)
+                    self.dealerName(options.dealername);
+
+                if(options.dealerarea!=null)
+                    self.dealerArea(options.dealerarea);
+
+                if(options.versionid!=null)
+                    self.versionId(options.versionid);
+
+                if(options.leadsourceid!=null)
+                    self.leadSourceId(options.leadsourceid);
+
+                if(options.pqsourceid!=null)
+                    self.pqSourceId(options.pqsourceid);
+
+                if(options.isregisterpq!=null)
+                    self.isRegisterPQ(options.isregisterpq);
+
+                if(options.pageurl!=null)
+                    self.pageUrl = options.pageurl;
+
+                if(options.clientip!=null)
+                    self.clientIP = options.clientip;
             }
         }
 
         self.generatePQ = function (data, event) {
-            self.IsVerified(false);
+
             isSuccess = false;
             isValidDetails = false;
 
@@ -326,10 +345,11 @@
         }
 
         self.verifyCustomer = function (data, event) {
+            
+            if(self.isRegisterPQ())
+                self.generatePQ(data, event);
 
-            var isValidDetails = self.generatePQ(data, event);
-
-            if (!self.IsVerified()) {
+            if (self.pqId() && self.dealerId()) {
                 var objCust = {
                     "dealerId": self.dealerId(),
                     "pqId": self.pqId(),
@@ -357,10 +377,7 @@
                     success: function (response) {
                         var obj = ko.toJS(response);
                         self.IsVerified(obj.isSuccess);
-                        //self.IsVerified(obj.isSuccess);
-                        //if (!self.IsVerified()) {
-                        //    self.NoOfAttempts(obj.noOfAttempts);
-                        //}
+                        <%--//self.IsVerified(obj.isSuccess); //if (!self.IsVerified()) { //    self.NoOfAttempts(obj.noOfAttempts); //} --%>
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         self.IsVerified(false);
@@ -371,8 +388,8 @@
 
         self.submitLead = function (data, event) {
             self.IsVerified(false);
-            isValidDetails = false;
             isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
+
             if (self.dealerId() && isValidDetails) {
                 self.verifyCustomer();
                 if (self.IsVerified()) {
