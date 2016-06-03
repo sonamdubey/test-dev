@@ -377,11 +377,9 @@ namespace Bikewale.BAL.BikeBooking
             DealerInfo objDealerDetail = new DealerInfo();
             try
             {
-                
-
                 if (versionId > 0 && areaId > 0)
                 {
-                    string api = "/api/v3/DealerPriceQuote/IsDealerExists/?areaid=" + areaId + "&versionid=" + versionId;
+                    string api = string.Format("/api/v3/DealerPriceQuote/IsDealerExists/?areaid={0}&versionid={1}", areaId, versionId);
 
                     using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                     {
