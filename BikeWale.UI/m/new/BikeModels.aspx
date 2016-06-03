@@ -364,8 +364,7 @@
                             <li data-tabs="#modelPricesContent"><h3>Prices</h3></li>
                             <li data-tabs="#modelSpecsFeaturesContent"><h3>Specs & Features</h3></li>
                             <li data-tabs="#modelReviewsContent"><h3>Reviews</h3></li>
-                            <li data-tabs="#modelAlternateBikeContent"><h3>Alternatives</h3></li>
-                            <li data-tabs="#modelForSaleContent"><h3>Used</h3></li>
+                            <li data-tabs="#modelAlternateBikeContent"><h3>Alternatives</h3></li>                            
                         </ul>
                     </div>
                 </div>
@@ -513,31 +512,31 @@
                         <ul id="modelFeaturesList">
                             <li>
                                 <div class="text-light-grey padding-right10">Speedometer</div>
-                                <div class="text-bold">Analogue</div>
+                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Speedometer) %></div>
                             </li>
                             <li>
                                 <div class="text-light-grey padding-right10">Fuel Guage</div>
-                                <div class="text-bold">Yes</div>
+                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelGauge) %></div>
                             </li>
                             <li>
                                 <div class="text-light-grey padding-right10">Tachometer Type</div>
-                                <div class="text-bold">--</div>
+                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Tachometer) %></div>
                             </li>
                             <li>
-                                <div class="text-light-grey padding-right10">Digital Fuel Guage</div>
-                                <div class="text-bold">No</div>
+                                <div class="text-light-grey padding-right10">Digital Fuel Gauge</div>
+                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.DigitalFuelGauge) %></div>
                             </li>
                             <li>
                                 <div class="text-light-grey padding-right10">Tripmeter</div>
-                                <div class="text-bold">Yes</div>
+                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Tripmeter) %></div>
                             </li>
                             <li>
                                 <div class="text-light-grey padding-right10">Electric Start</div>
-                                <div class="text-bold">Yes</div>
+                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ElectricStart) %></div>
                             </li>
                         </ul>
                         <div class="margin-top25">
-                            <a href="javascript:void(0)">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                            <a href="/m<%# Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName, "features") %>">View all features<span class="bwmsprite blue-right-arrow-icon"></span></a>
                         </div>
                             
                         <!-- colours code starts here -->    
@@ -709,53 +708,12 @@
 
                         </div>
                     </div>
-                </div>
-
-                <div class="margin-top20 margin-right20 margin-left20 border-solid-top"></div>
-
-                <div id="modelForSaleContent" class="bw-model-tabs-data content-inner-block-1222 font14">
-                    <h2>Used Bajaj Pulsar RS200 for sale</h2>
-                    <ul class="margin-bottom10">
-                        <li>
-                            <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
-                            <p class="margin-top10 text-black"><span class="bwmsprite inr-dark-grey-xsm-icon"></span> <span>1,67,673</span> in Mumbai</p>
-                        </li>
-                        <li>
-                            <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
-                            <p class="margin-top10 text-black"><span class="bwmsprite inr-dark-grey-xsm-icon"></span> <span>1,67,673</span> in Mumbai</p>
-                        </li>
-                        <li>
-                            <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
-                            <p class="margin-top10 text-black"><span class="bwmsprite inr-dark-grey-xsm-icon"></span> <span>1,67,673</span> in Mumbai</p>
-                        </li>
-                    </ul>
-                </div>
+                </div>             
                 
                 <div id="modelSpecsFooter"></div>
             </div>
         </section>
 
-
-        <section class="container ">
-            <div id="SneakPeak" class="container clearfix box-shadow margin-bottom20 margin-top20">
-                <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
-                   { %>
-                <h2 class="padding-bottom15  text-center">Sneak-peek</h2>
-                <% } %>
-                <div class="content-box-shadow content-inner-block-20">
-                    <p class="font14 text-grey padding-left10 padding-right10">
-                        <span class="model-about-main">
-                            <%= modelPage.ModelDesc.SmallDescription %>
-                        </span>
-                        <span class="model-about-more-desc hide" style="display: none;">
-                            <%= modelPage.ModelDesc.FullDescription %>
-                        </span>
-                        <span><a href="javascript:void(0)" class="read-more-btn">Read <span>full story</span></a></span>
-                    </p>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </section>
         <% if (modelPage.ModelVersionSpecs != null)
            { %>
         <section class="<%= modelPage.ModelVersionSpecs == null ? "hide" : "" %>">
