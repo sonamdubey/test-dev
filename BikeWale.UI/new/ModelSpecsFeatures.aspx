@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="modelSpecsFeatures.aspx.cs" Inherits="Bikewale.New.ModelSpecsFeatures" EnableViewState="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ModelSpecsFeatures" EnableViewState="false" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadPopUp" TagPrefix="BW" %>
 <!DOCTYPE html>
 
@@ -65,25 +65,40 @@
                                 </div>
                             </div>
                             <div class="grid-4 padding-left30">
+                                <%if(isDiscontinued) { %>
+                                <p class="font14 text-light-grey margin-bottom5 text-truncate">Last known Ex-showroom price</p>
+                                <div class="font16">
+                                    <span class="fa fa-rupee"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+                                </div>
+                                <p class="font14 text-light-grey margin-bottom5"><%= bikeName %> is now discontinued in India.</p>
+                                <%} else { %>
                                 <p class="font14 text-light-grey margin-bottom5 text-truncate"> <%=(dealerDetail!= null && dealerDetail.PrimaryDealer != null) ? string.Format("On-road price in {0}, {1}", areaName, cityName) : "Ex-showroom price in Mumbai" %></p>
                                 <div class="font16">
                                     <span class="fa fa-rupee"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 </div>
+                                <%} %>
+                                
                             </div>
-                            <%if (dealerDetail != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+
+                            <%
+                                if (!isDiscontinued) { 
+                                if (  dealerDetail != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                               {%>
                             <div class="grid-3 model-orp-btn alpha omega">
-                                <a href="javascript:void(0)" leadsourceid="26" pqSourceId="50" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Name %>" data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"  class="btn btn-orange font14 margin-top5 leadcapturebtn">Get offers from this dealer</a>
+                                <a href="javascript:void(0)" data-leadsourceid="26" data-pqsourceid="50" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Name %>" data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"  class="btn btn-orange font14 margin-top5 leadcapturebtn">Get offers from this dealer</a>
                                 <!-- if no 'powered by' text is present remove margin-top5 add margin-top10 in offers button -->
                                 <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= dealerDetail.PrimaryDealer.DealerDetails.Name %></p>
                             </div>
                             <% }
-                              else if (!isCitySelected || !isAreaAvailable )
+                              else if (!isCitySelected || !isAreaAvailable)
                               {%>
                                 <div class="grid-3 model-orp-btn alpha omega">
-                                    <a href="javascript:void(0)" isModel="true" pqSourceId="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check On-Road Price</a>
+                                    <a href="javascript:void(0)" isModel="true" data-pqsourceid="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check On-Road Price</a>
                                 </div>
-                            <% } %>
+                            <% 
+                            }
+                            } 
+                               %>
                             <div class="clear"></div>
                         </div>
                         <div class="overall-specs-tabs-wrapper">
@@ -370,15 +385,19 @@
                 });
 
                 $(".leadcapturebtn").click(function () {
-                    customerViewModel.dealerId($(this).attr('data-item-id'));
-                    customerViewModel.dealerName($(this).attr('data-item-name'));
-                    customerViewModel.dealerArea($(this).attr('data-item-area'));
-                    customerViewModel.versionId(<%= versionId %>);
-                    customerViewModel.leadSourceId($(this).attr('leadSourceId'));
-                    customerViewModel.pqSourceId($(this).attr('pqSourceId'));
-                    customerViewModel.pageUrl = pageUrl;
-                    customerViewModel.clientIP = clientIP;
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': <%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%> });
+                    var leadOptions = {
+                        "dealerid": ele.attr('data-item-id'),
+                        "dealername": ele.attr('data-item-name'),
+                        "dealerarea": ele.attr('data-item-area'),
+                        "versionid": <%= versionName %>,
+                        "leadsourceid": ele.attr('data-leadsourceid'),
+                        "pqsourceid": ele.attr('data-pqsourceid'),
+                        "pageurl": pageUrl,
+                        "clientip": clientIP,
+                        "isregisterpq": true
+                    };
+                    customerViewModel.setOptions(leadOptions);
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': '<%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%>' });
                 });
             });
         </script>

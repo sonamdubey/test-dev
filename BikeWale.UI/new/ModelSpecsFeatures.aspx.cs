@@ -38,7 +38,7 @@ namespace Bikewale.New
         protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName, modelMaskingName, clientIP = CommonOpn.GetClientIP();
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
-        protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton;
+        protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton, isDiscontinued;
         protected BikeSpecificationEntity specs;
         protected BikeModelPageEntity modelDetail;
         protected DetailedDealerQuotationEntity dealerDetail;
@@ -63,7 +63,7 @@ namespace Bikewale.New
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
             ProcessQueryString();
-            modelDetail = FetchModelPageDetails(modelId);//TODO: Cross checkt parameter to be passed.
+            modelDetail = FetchModelPageDetails(modelId);
             if (modelDetail != null)
             {
                 CheckCityCookie();
@@ -77,7 +77,7 @@ namespace Bikewale.New
                 }
                 if (dealerDetail != null)
                 {
-                    setPrice();
+                    price = Convert.ToUInt32(dealerDetail.PrimaryDealer.PriceList.Sum(p => p.Price));
                 }
             }
             specs = FetchVariantDetails(versionId);
@@ -105,9 +105,7 @@ namespace Bikewale.New
                         if (modelPg != null)
                         {
                             if (modelPg != null)
-                            {   
-                                //if (!modelPg.ModelDetails.New)
-                                //    isDiscontinued = true;
+                            {
                                 if (modelPg.ModelDetails != null)
                                 {
                                     if (modelPg.ModelDetails.ModelName != null)
@@ -124,10 +122,13 @@ namespace Bikewale.New
                                         {
                                             versionId = modelPg.ModelVersionSpecs.BikeVersionId;
                                         }
-                                        versionName = modelPg.ModelVersions.Find(item => item.VersionId == versionId).VersionName;//ToDo: Cross Check It.
+                                        versionName = modelPg.ModelVersions.Find(item => item.VersionId == versionId).VersionName;
                                     }
+                                    if (!modelPg.ModelDetails.New)
+                                        isDiscontinued = true;
                                 }
                             }
+                            
                         }
                     }
                 }
@@ -138,18 +139,6 @@ namespace Bikewale.New
                 objErr.SendMail();
             }
             return modelPg;
-        }
-
-        /// <summary>
-        /// Created By : Lucky Rathore on 03 June 2016
-        /// Description : Set price by Price List Object
-        /// </summary>
-        private void setPrice()
-        {
-            foreach (var priceList in dealerDetail.PrimaryDealer.PriceList)
-            {
-                price += priceList.Price;
-            }
         }
 
         /// <summary>
@@ -216,45 +205,43 @@ namespace Bikewale.New
         {
             try
             {
-                if (PriceQuoteQueryString.IsPQQueryStringExists())
-                {
-                    UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId);
-                    modelMaskingName = PriceQuoteQueryString.ModelMaskingName;
+                UInt32.TryParse(Request.QueryString["vid"], out versionId);
+                modelMaskingName = Request.QueryString["model"];
 
-                    if (!string.IsNullOrEmpty(modelMaskingName))
+                if (!string.IsNullOrEmpty(modelMaskingName) && versionId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        using (IUnityContainer container = new UnityContainer())
+                        container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                ;
+                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                        ModelMaskingResponse objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                        if (objResponse != null && objResponse.StatusCode == 200)
                         {
-                            container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                                     .RegisterType<ICacheManager, MemcacheManager>()
-                                     .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                                    ;
-                            var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                            ModelMaskingResponse objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
-                            if (objResponse != null && objResponse.StatusCode == 200)
-                            {
-                                modelId = objResponse.ModelId;
-                            }
-                            else if (objResponse != null && objResponse.StatusCode == 301)
-                            {
-                                //redirect permanent to new page 
-                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
-                            }
-                            else
-                            {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                this.Page.Visible = false;
-                            }
+                            modelId = objResponse.ModelId;
                         }
-                    }
-                    else
-                    {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
+                        else if (objResponse != null && objResponse.StatusCode == 301)
+                        {
+                            //redirect permanent to new page 
+                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                    }                
                 }
+                else
+                {
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+                
             }
             catch (Exception ex)
             {

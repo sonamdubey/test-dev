@@ -6,10 +6,7 @@ using System.Web;
 
 namespace Bikewale.Common
 {
-    /// <summary>
-    /// Modified By : Lucky Rathore on 03 June 2016
-    /// Description : fiedl ModelMaskingName added.
-    /// </summary>
+    
     public class PriceQuoteQueryString
     {
         #region Properties
@@ -88,21 +85,7 @@ namespace Bikewale.Common
                 return String.Empty;
             }
         }
-
-        public  static string ModelMaskingName
-        {
-            get
-            {
-                if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys() && (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"])))
-                {
-                    if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
-                    {
-                        return HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"])).Get("mdl");
-                    }
-                }
-                return String.Empty;
-            }
-        }
+        
         #endregion
         public static bool IsPQQueryStringExists()
         {
