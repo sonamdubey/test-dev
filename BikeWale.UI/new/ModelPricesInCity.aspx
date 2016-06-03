@@ -108,8 +108,7 @@
                                             <tr>
                                                 <td class="text-bold text-default">On-road price in <%=TargetedCity %></td>
                                                 <td align="right" class="font16 text-bold text-default"><span class="fa fa-rupee"></span>
-                                                    &nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %>
-
+                                                    &nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %>  
                                                 </td>
                                             </tr>
                                         </table>

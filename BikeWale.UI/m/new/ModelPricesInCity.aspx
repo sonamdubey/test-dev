@@ -1,11 +1,22 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="ModelPricesInCity.aspx.cs" Inherits="Bikewale.Mobile.New.ModelPricesInCity" %>
 
 <%@ Register Src="/m/controls/ModelPriceInNearestCities.ascx" TagPrefix="BW" TagName="ModelPriceInNearestCities" %>
+<%@ Register Src="/m/controls/DealersCard.ascx" TagName="Dealers" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
  <%@ Import Namespace="Bikewale.Common" %>
 
 <!DOCTYPE html>
 <html>
 <head>
+    <%
+        title = string.Format("{0} price in {1} - Check On Road Price & Dealer Info. - BikeWale", bikeName, cityName);
+        if (firstVersion!= null)
+            description = string.Format("{0} price in {1} - Rs. {2} (On road price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, cityName, firstVersion.OnRoadPrice);
+        keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, cityName, modelName);
+        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
+        OGImage = modelImage;
+     %>
+
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
         #modelCityPriceDetails {
@@ -229,14 +240,14 @@
                     <ul id='versions' class="model-versions-tabs-wrapper">
                         <asp:Repeater ID="rpVersioNames" runat="server">
                             <ItemTemplate>
-                                <li id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>"><%# DataBinder.Eval(Container.DataItem, "VersionName").ToString() %></li>
+                                <li class="<%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?string.Empty:"active" %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>"><%# DataBinder.Eval(Container.DataItem, "VersionName").ToString() %></li>
                             </ItemTemplate>
                         </asp:Repeater>
                     </ul>
                 </div>
                 <asp:Repeater ID="rprVersionPrices" runat="server">
                     <ItemTemplate>
-                        <div <%--id="versionOnRoadPriceDetails" --%>class="content-inner-block-20 margin-top5 font14 priceTable hide" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
+                        <div <%--id="versionOnRoadPriceDetails" --%>class="content-inner-block-20 margin-top5 font14 priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
                             <div class="version-details-row margin-bottom15">
                                 <p class="details-left-column text-light-grey vertical-top">Ex-showroom</p>
                                 <p class="details-right-column vertical-top"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">&nbsp;<%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %></span></p>
@@ -257,42 +268,8 @@
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
-                <div class="margin-right20 margin-left20 border-divider"></div>
-
-                <div id="dealersInCityWrapper" class="content-inner-block-2017 font14">
-                    <h2 class="font14 margin-top5 text-dark-black">Bajaj dealers in Mumbai</h2>
-                    <ul class="dealer-in-city-list">
-                        <li>
-                            <h3 class="margin-bottom10"><a href="" class="font16 text-default">Kamala Landmarc Motorbikes</a></h3>
-                            <p class="margin-bottom10">
-                                <span class="bwmsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                <span class="dealership-address vertical-top">55/1 Pune Nashik Highway Tal Junnar, Pung, Maharashtra - 410504</span>
-                            </p>
-                            <a href="tel:9876543210" class="block margin-right20 margin-bottom10">
-                                <span class="bwmsprite tel-sm-icon"></span><span class="text-default text-bold">9876543210</span>
-                            </a>
-                            <a href="mailto:bikewale@motors.com" class="block text-light-grey">
-                                <span class="bwmsprite mail-grey-icon"></span><span>bikewale@motors.com</span>
-                            </a>
-                            <a href="javascript:void(0)" class="margin-top15 btn btn-white font14" rel="nofollow">Get offers from dealer</a>
-                        </li>
-                        <li>
-                            <h3 class="margin-bottom10"><a href="" class="font16 text-default">Kamala Landmarc Motorbikes</a></h3>
-                            <p class="margin-bottom10">
-                                <span class="bwmsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                <span class="dealership-address vertical-top">55/1 Pune Nashik Highway Tal Junnar, Pung, Maharashtra - 410504</span>
-                            </p>
-                            <a href="tel:9876543210" class="block margin-right20 margin-bottom10">
-                                <span class="bwmsprite tel-sm-icon"></span><span class="text-default text-bold">9876543210</span>
-                            </a>
-                            <a href="mailto:bikewale@motors.com" class="block text-light-grey">
-                                <span class="bwmsprite mail-grey-icon"></span><span>bikewale@motors.com</span>
-                            </a>
-                            <a href="javascript:void(0)" class="margin-top15 btn btn-white font14" rel="nofollow">Get offers from dealer</a>
-                        </li>
-                    </ul>
-                    <a href="">View all dealers<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                </div>
+                
+                 <BW:Dealers ID="ctrlDealers" runat="server" />
 
                 <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
 
@@ -302,13 +279,53 @@
                         <a class="btn btn-sm btn-full-width font18 btn-orange" href="javascript:void(0)">Select area</a>
                     </p>
                 </div>
+
+             <%--   <div class="grid-12 float-button float-fixed">
+                            <% if(isAreaAvailable){ %>
+                            <p class="text-black">Please select your area to get:</p>
+                            <ul class="selectAreaToGetList margin-bottom20">
+                                <li class="bullet-point">
+                                    <p>Nearest dealership details</p>
+                                </li>
+                                <li class="bullet-point">
+                                    <p>Exclusive offers</p>
+                                </li>
+                                <li class="bullet-point">
+                                    <p>Complete buying assistance</p>
+                                </li>
+                            </ul>
+                            <a href="javascript:void(0)" pqSourceId="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" selCityId ="<%=cityId %>" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 fillPopupData changeCity">Select your area</a>
+                            <%} else { %>
+                            <script type='text/javascript' src='https://www.googletagservices.com/tag/js/gpt.js'>
+                              googletag.pubads().definePassback('/1017752/Bikewale_PQ_300x250', [300, 250]).display();
+                            </script>
+                            <% } %>
+                        </div>--%>
+
                 <div class="clear"></div>
 
             </div>
         </section>
 
-        <section>
-            <h2 class="font18 text-center text-dark-black margin-bottom20">Bajaj Pulsar RS200 Alternate bikes</h2>
+         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
+            <div class="container margin-bottom10">
+                <div class="grid-12">
+                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> Alternate Bikes </h2>
+
+                    <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
+                        <div class="swiper-wrapper">
+                            <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <!-- Navigation -->
+                        <div class="bwmsprite swiper-button-next hide"></div>
+                        <div class="bwmsprite swiper-button-prev hide"></div>
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+            </div>
         </section>
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->

@@ -28,8 +28,8 @@ namespace Bikewale.Mobile.New
         protected ModelPriceInNearestCities ctrlTopCityPrices;
         protected DealersCard ctrlDealers;
         public BikeQuotationEntity firstVersion;
-        protected NewAlternativeBikes ctrlAlternativeBikes;
-        protected LeadCaptureControl ctrlLeadCapture;
+        protected AlternativeBikes ctrlAlternateBikes;
+        //protected LeadCaptureControl ctrlLeadCapture;
         public Repeater rprVersionPrices, rpVersioNames;
         protected uint modelId = 0, cityId = 0, versionId, makeId;
         public int versionCount;
@@ -64,9 +64,9 @@ namespace Bikewale.Mobile.New
                 ctrlDealers.TopCount = 3;
                 ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealerCard_GetOffers;
 
-                ctrlLeadCapture.CityId = cityId;
-                ctrlLeadCapture.ModelId = modelId;
-                ctrlLeadCapture.AreaId = 0;
+                //ctrlLeadCapture.CityId = cityId;
+                //ctrlLeadCapture.ModelId = modelId;
+                //ctrlLeadCapture.AreaId = 0;
 
                 BindAlternativeBikeControl();
 
@@ -170,9 +170,9 @@ namespace Bikewale.Mobile.New
             string model = string.Empty, city = string.Empty, _make = string.Empty;
             try
             {
-                model = Request.QueryString["model"];
-                city = Request.QueryString["city"];
-                _make = Request.QueryString["make"];
+                model = "cbshine";//Request.QueryString["model"];
+                city = "mumbai";//Request.QueryString["city"];
+                _make = "honda";//Request.QueryString["make"];
 
                 if (!string.IsNullOrEmpty(city))
                 {
@@ -274,11 +274,11 @@ namespace Bikewale.Mobile.New
 
         private void BindAlternativeBikeControl()
         {
-            ctrlAlternativeBikes.TopCount = 6;
-            ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_Alternative;
-            ctrlAlternativeBikes.WidgetTitle = bikeName;
+            ctrlAlternateBikes.TopCount = 6;
+            ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_Alternative;
+            //ctrlAlternativeBikes.WidgetTitle = bikeName;
             if (firstVersion != null)
-                ctrlAlternativeBikes.VersionId = (int)firstVersion.VersionId;
+                ctrlAlternateBikes.VersionId = (int)firstVersion.VersionId;
         }
     }   // class
 }

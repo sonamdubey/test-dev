@@ -868,6 +868,13 @@
       <DependentUpon>CompareBikesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\DealersCard.ascx.cs">
+      <DependentUpon>DealersCard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\DealersCard.ascx.designer.cs">
+      <DependentUpon>DealersCard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="m\controls\ExpertReviewsWidget.ascx.cs">
       <DependentUpon>ExpertReviewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -894,6 +901,10 @@
     </Compile>
     <Compile Include="m\controls\ModelGallery.ascx.cs">
       <DependentUpon>ModelGallery.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\ModelPriceInNearestCities.ascx.cs">
+      <DependentUpon>ModelPriceInNearestCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\MOnRoadPricequote.ascx.cs">
@@ -2304,6 +2315,7 @@
     <Content Include="m\controls\CompareBikeMin.ascx" />
     <Content Include="m\controls\CompareBikeMin_old.ascx" />
     <Content Include="m\controls\CompareBikesMin.ascx" />
+    <Content Include="m\controls\DealersCard.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
@@ -2311,6 +2323,7 @@
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
     <Content Include="m\controls\ModelGallery.ascx" />
+    <Content Include="m\controls\ModelPriceInNearestCities.ascx" />
     <Content Include="m\controls\MOnRoadPricequote.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
     <Content Include="m\controls\MUpcomingBikes.ascx" />
