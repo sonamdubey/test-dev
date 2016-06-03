@@ -5,6 +5,7 @@
 <%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="/m/controls/UserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
+<%@ Register Src="~/m/controls/MPriceInTopCities.ascx" TagPrefix="BW" TagName="TopCityPrice" %>
 <!DOCTYPE html> 
 <html>
 <head>
@@ -370,24 +371,19 @@
                 </div>
 
                 <div id="modelSummaryContent" class="bw-model-tabs-data content-inner-block-1520">
-                    <h2>Bajaj Pulsar RS200 Summary</h2>
+                    <h2><%=bikeName %> Summary</h2>
+                    <%if (!(modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))){ %>
                     <h3>Preview</h3>
                     <p class="font14 text-light-grey line-height17 margin-bottom15">
-                        <span class="model-preview-main-content">After number of spy pictures doing the round of the internet, Bajaj Motorcycles has finally 
-                        launched its first fully-faired motorcycle, the Pulsar RS 200 for the Indian market. Previously 
-                        touted to be called as the Pulsar SS200, this bike has been the most anticipated...
+                        <span class="model-preview-main-content">
+                             <%= modelPage.ModelDesc.SmallDescription %>   
                         </span>
-                        <span class="model-preview-more-content">After number of spy pictures doing the round of the internet, Bajaj Motorcycles has finally 
-                        launched its first fully-faired motorcycle, the Pulsar RS 200 for the Indian market. Previously 
-                        touted to be called as the Pulsar SS200, this bike has been the most anticipated launch from 
-                        the company.<br /><br />
-                        Marketed as the fastest Pulsar yet, the Pulsar RS200 designed to be a compact sportsbike
-                        and features clip-on handlebars. Unlike other fully-faired motorcycle like the Yamaha YZF-R15,
-                        the RS200 doesn’t have as aggressive riding stance as of a super sport motorcycle.
+                        <span class="model-preview-more-content">
+                            <%= modelPage.ModelDesc.FullDescription %>
                         </span>
                         <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
                     </p>
-
+                    <%} %>
                     <h3>Specification summary</h3>
                     <div class="text-center">
                         <div class="summary-overview-box">
@@ -434,102 +430,42 @@
                 <div class="margin-right20 margin-left20 border-solid-top"></div>
 
                 <div id="modelPricesContent" class="bw-model-tabs-data">
-                    <h2 class="padding-top15 padding-right20 padding-left20">Bajaj Pulsar RS200 Prices</h2>
+                    <h2 class="padding-top15 padding-right20 padding-left20"><%= bikeName %> Prices</h2>
+
+                    <!-- varient code starts here -->
                     <h3 class="padding-right20 padding-left20">Prices by versions</h3>
 
                     <div class="swiper-container">
                         <div class="swiper-wrapper font14">
-                            <div class="swiper-slide model-prices-version-content rounded-corner2">
-                                <p class="text-bold text-truncate margin-bottom13">Self Start Double Disc Brake Alloy Wheels</p>
-                                <p class="text-truncate text-xt-light-grey margin-bottom13">Alloy wheel, Disc brake, Electric Start, ABS</p>
-                                <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
-                                <p class="font18 text-bold text-black">
-                                    <span class="bwmsprite inr-dark-md-icon"></span>
-                                    <span>50,551</span>
-                                </p>
-                            </div>
-                            <div class="swiper-slide model-prices-version-content rounded-corner2">
-                                <p class="text-bold text-truncate margin-bottom13">Self Start Double Disc Brake Alloy Wheels</p>
-                                <p class="text-truncate text-xt-light-grey margin-bottom13">Alloy wheel, Disc brake, Electric Start, ABS</p>
-                                <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
-                                <p class="font18 text-bold text-black">
-                                    <span class="bwmsprite inr-dark-md-icon"></span>
-                                    <span>50,551</span>
-                                </p>
-                            </div>
-                            <div class="swiper-slide model-prices-version-content rounded-corner2">
-                                <p class="text-bold text-truncate margin-bottom13">Self Start Double Disc Brake Alloy Wheels</p>
-                                <p class="text-truncate text-xt-light-grey margin-bottom13">Alloy wheel, Disc brake, Electric Start, ABS</p>
-                                <p class="text-truncate text-light-grey margin-bottom10">On-road price in Andheri, Mumbai</p>
-                                <p class="font18 text-bold text-black">
-                                    <span class="bwmsprite inr-dark-md-icon"></span>
-                                    <span>50,551</span>
-                                </p>
-                            </div>
+                            <asp:Repeater ID="rptVarients" runat="server" OnItemDataBound="rptVarients_ItemDataBound2">
+                                <ItemTemplate>                         
+                                        <div class="swiper-slide model-prices-version-content rounded-corner2">
+                                            <p class="text-bold text-truncate margin-bottom13"><%# DataBinder.Eval(Container.DataItem, "VersionName") %></p>
+                                            <p class="text-truncate text-xt-light-grey margin-bottom13"><%# Bikewale.Utility.FormatMinSpecs.GetMinVersionSpecs(Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AlloyWheels")), Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "ElectricStart")), Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AntilockBrakingSystem")), Convert.ToString(DataBinder.Eval(Container.DataItem, "BrakeType"))) %></p>
+                                            <p class="text-truncate text-light-grey margin-bottom10" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
+                                                 <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>,
+                                                    <% if (cityId != 0 && cityName != string.Empty)
+                                                    { %>
+                                                    <%= cityName %>
+                                                    <% }
+                                                        else
+                                                        { %>
+                                                    <%= Bikewale.Common.Configuration.GetDefaultCityName %>
+                                                    <% } %>
+                                            </p>
+                                            <p class="font18 text-bold text-black">
+                                                <span class="bwmsprite inr-dark-md-icon"></span>
+                                                <span id="<%# "priced_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>"> <asp:Label Text='<%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %>' ID="txtComment" runat="server"></asp:Label></span>
+                                            </p>
+                                        </div>
+                                        <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />                           
+                                </ItemTemplate>
+                            </asp:Repeater>
                         </div>
                     </div>
 
-                    <div>
-                        <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Prices by cities<span class="text-light-grey text-unbold"> (Ex-showroom)</span></h3>
-                        <ul class="prices-by-cities-list font14">
-                            <li>
-                                <a href="javascript:void(0)" class="text-truncate">Pune</a>
-                                <span class="price-in-city-price">
-                                    <span class="bwmsprite inr-dark-grey-xsm-icon"></span>
-                                    <span>1.62 L</span>
-                                </span>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="text-truncate">Bangalore</a>
-                                <span class="price-in-city-price">
-                                    <span class="bwmsprite inr-dark-grey-xsm-icon"></span>
-                                    <span>1.62 L</span>
-                                </span>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="text-truncate">Chennai</a>
-                                <span class="price-in-city-price">
-                                    <span class="bwmsprite inr-dark-grey-xsm-icon"></span>
-                                    <span>1.62 L</span>
-                                </span>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="text-truncate">Hyderabad</a>
-                                <span class="price-in-city-price">
-                                    <span class="bwmsprite inr-dark-grey-xsm-icon"></span>
-                                    <span>1.62 L</span>
-                                </span>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="text-truncate">Pune</a>
-                                <span class="price-in-city-price">
-                                    <span class="bwmsprite inr-dark-grey-xsm-icon"></span>
-                                    <span>1.62 L</span>
-                                </span>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="text-truncate">Bangalore</a>
-                                <span class="price-in-city-price">
-                                    <span class="bwmsprite inr-dark-grey-xsm-icon"></span>
-                                    <span>1.62 L</span>
-                                </span>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="text-truncate">Chennai</a>
-                                <span class="price-in-city-price">
-                                    <span class="bwmsprite inr-dark-grey-xsm-icon"></span>
-                                    <span>1.62 L</span>
-                                </span>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="text-truncate">Hyderabad</a>
-                                <span class="price-in-city-price">
-                                    <span class="bwmsprite inr-dark-grey-xsm-icon"></span>
-                                    <span>1.62 L</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
+                    <!-- varient code ends here -->
+                   <BW:TopCityPrice ID="ctrlTopCityPrices" runat="server" />
 
                 </div>
 
@@ -537,37 +473,39 @@
 
                 <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data font14">
                     <div class="content-inner-block-1520">
-                        <h2>Bajaj Pulsar RS200 Specifications & Features</h2>
+                        <h2><%=bikeName %> Specifications & Features</h2>
                         <h3>Specifications</h3>
 
                         <ul id="modelSpecsList">
                             <li>
                                 <div class="text-light-grey padding-right10">Displacement</div>
-                                <div class="text-bold">150 cc</div>
-                            </li>
+                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement,"cc") %></div>
+                            </li>       
                             <li>
                                 <div class="text-light-grey padding-right10">Max Power</div>
-                                <div class="text-bold">14.30 bhp@2500 rpm</div>
+                                <div class="text-bold"> <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", 
+                                                                    modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %></div>
                             </li>
                             <li>
                                 <div class="text-light-grey padding-right10">Maximum Torque</div>
-                                <div class="text-bold">12.50 Nm@2500 rpm</div>
+                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm",
+                                                                    modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %></div>
                             </li>
                             <li>
                                 <div class="text-light-grey padding-right10">No. of gears</div>
-                                <div class="text-bold">5</div>
+                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfGears) %></div>
                             </li>
                             <li>
                                 <div class="text-light-grey padding-right10">Fuel Tank Capacity</div>
-                                <div class="text-bold">10 litres</div>
+                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelTankCapacity, "litres") %></div>
                             </li>
                             <li>
                                 <div class="text-light-grey padding-right10">Top Speed</div>
-                                <div class="text-bold">110 kmph</div>
+                                <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TopSpeed, "kmph") %></div>
                             </li>
                         </ul>
                         <div class="margin-top25">
-                            <a href="javascript:void(0)">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                            <a href="/m<%# Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName, "specs") %>">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
                         </div>
 
                         <h3 class="margin-top25">Features</h3>
@@ -602,40 +540,32 @@
                             <a href="javascript:void(0)">View full features<span class="bwmsprite blue-right-arrow-icon"></span></a>
                         </div>
                             
+                        <!-- colours code starts here -->    
                         <h3 class="margin-top25">Colours</h3>
 
                         <ul id="modelColorsList" class="margin-top5">
-                            <li>
-                                <div class="color-box color-count-one inline-block">
-                                    <span style="background-color:#c83333"></span>
-                                </div>
-                                <p class="inline-block">Red</p>
-                            </li>
-                            <li>
-                                <div class="color-box color-count-one inline-block">
-                                    <span style="background-color:#3a5cee"></span>
-                                </div>
-                                <p class="inline-block">Blue</p>
-                            </li>
-                            <li>
-                                <div class="color-box color-count-one inline-block">
-                                    <span style="background-color:#1dc97e"></span>
-                                </div>
-                                <p class="inline-block">Green</p>
-                            </li>
-                            <li>
-                                <div class="color-box color-count-two inline-block">
-                                    <span style="background-color:#c83333"></span>
-                                    <span style="background-color:#040004"></span>
-                                </div>
-                                <p class="inline-block">Dual Tone Red</p>
-                            </li>
+                        <asp:Repeater ID="rptColors" runat="server">
+                                <ItemTemplate>                        
+                                    <li>
+                                        <div class="color-box <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %> inline-block">
+                                           <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
+                                                <ItemTemplate>
+                                                        <span <%# String.Format("style='background-color: #{0}'",Convert.ToString(Container.DataItem)) %>></span>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </div>
+                                        <p class="font16"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
+                                    </li>
+                              </ItemTemplate>
+                        </asp:Repeater>
                         </ul>
+  
+                         <!-- colours code ends here -->   
 
                     </div>
 
                     <div class="margin-top15 margin-bottom15 text-center">
-                        <div style="width:300px; height:250px; background:#ccc; margin:0 auto"></div>
+                       <!-- #include file="/ads/Ad300x250.aspx" -->
                     </div>
                 </div>
 
@@ -806,7 +736,7 @@
         </section>
 
 
-        <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
+        <section class="container ">
             <div id="SneakPeak" class="container clearfix box-shadow margin-bottom20 margin-top20">
                 <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
                    { %>
@@ -878,71 +808,7 @@
                         <div class="grid-12">
                             <div class="leftfloat bw-horz-tabs-data font16">
                                 <div class="bw-tabs-data" id="summary">
-                                    <ul>
-                                        <li>
-                                            <div class="text-light-grey">Displacement</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement,"cc") %></div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Max Power</div>
-                                            <div class="text-bold">
-                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", 
-                                                                    modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Maximum Torque</div>
-                                            <div class="text-bold">
-                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm",
-                                                                    modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">No. of gears</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfGears) %></div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Fuel Efficiency</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall, "kmpl") %></div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Brake Type</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.BrakeType) %></div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Front Disc</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FrontDisc) %></div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Rear Disc</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.RearDisc) %></div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Alloy Wheels</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.AlloyWheels) %></div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Kerb Weight</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight, "kg") %></div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Chassis Type</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ChassisType) %></div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Top Speed</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TopSpeed, "kmph") %></div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Tubeless Tyres</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TubelessTyres) %></div>
-                                        </li>
-                                        <li>
-                                            <div class="text-light-grey">Fuel Tank Capacity</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelTankCapacity, "litres") %></div>
-                                        </li>
-                                        <div class="clear"></div>
-                                    </ul>
+                                    
                                 </div>
                                 <div class="bw-tabs-data hide" id="engineTransmission">
                                     <ul>
@@ -1300,89 +1166,7 @@
                                 <div class="more-features-btn"><a href="javascript:void(0)">+</a></div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- variant code starts here -->
-                    <div class="grid-12">
-                        <div class="bw-tabs-data <%= (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0) ? "" : "hide" %>" id="variants">
-                            <h2 class="text-center margin-top30 margin-bottom20 text-center">Versions</h2>
-                            <asp:Repeater ID="rptVarients" runat="server" OnItemDataBound="rptVarients_ItemDataBound2">
-                                <ItemTemplate>
-                                    <div>
-                                        <div class="border-solid content-inner-block-10 margin-bottom20">
-                                            <div class="grid-8 alpha">
-                                                <h3 class="font16 margin-bottom10"><%# DataBinder.Eval(Container.DataItem, "VersionName") %></h3>
-                                                <%--<p class="font14">220 CC, 38 Kmpl, 103 bhp @ 11000 rpm</p>--%>
-                                                <p class="font14"><%# Bikewale.Utility.FormatMinSpecs.GetMinVersionSpecs(Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AlloyWheels")), Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "ElectricStart")), Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AntilockBrakingSystem")), Convert.ToString(DataBinder.Eval(Container.DataItem, "BrakeType"))) %></p>
-                                            </div>
-                                            <div class="grid-4 alpha omega">
-                                                <p class="font16 margin-bottom10 text-bold">
-                                                    <span class="bwmsprite inr-xsm-icon"></span>
-                                                    <span id="<%# "priced_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
-                                                        <asp:Label Text='<%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %>' ID="txtComment" runat="server"></asp:Label>
-                                                    </span>
-                                                </p>
-                                                <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
-                                                    <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>,
-                                                     <% if (cityId != 0 && cityName != string.Empty)
-                                                        { %>
-                                                    <%= cityName %>
-                                                    <% }
-                                                        else
-                                                        { %>
-                                                    <%= Bikewale.Common.Configuration.GetDefaultCityName %>
-                                                    <% } %>
-                                                </p>
-                                                <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                    <!-- colours code starts here -->
-                    <div class="grid-12">
-                        <div class="colours-wrap margin-bottom20 <%= modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0 ? "" : "hide" %>">
-                            <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
-                            <div class="swiper-container padding-bottom60">
-                                <div class="swiper-wrapper text-center">
-                                    <%-- <asp:Repeater ID="rptColors" runat="server">
-                                        <ItemTemplate>
-                                            <div class="swiper-slide available-colors">
-                                                <div class="color-box" style="background-color: #<%# DataBinder.Eval(Container.DataItem, "HexCode")%>;"></div>
-                                                <p class="font16 text-medium-grey"><%# DataBinder.Eval(Container.DataItem, "ColorName") %></p>
-                                            </div>
-                                        </ItemTemplate>
-                                    </asp:Repeater>--%>
-
-                                    <asp:Repeater ID="rptColors" runat="server">
-                                        <ItemTemplate>
-                                            <div class="swiper-slide available-colors">
-                                                <div class="color-box <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %>">
-                                                    <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
-                                                        <ItemTemplate>
-                                                            <span <%# String.Format("style='background-color: #{0}'",Convert.ToString(Container.DataItem)) %>></span>
-                                                        </ItemTemplate>
-                                                    </asp:Repeater>
-                                                </div>
-                                                <p class="font16"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
-                                            </div>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-
-                                </div>
-                                <!-- Add Pagination -->
-                                <div class="swiper-pagination"></div>
-                                <!-- Navigation -->
-                                <div class="bwmsprite swiper-button-next hide"></div>
-                                <div class="bwmsprite swiper-button-prev hide"></div>
-
-                            </div>
-                        </div>
-                    </div>
+                    </div>                                  
                 </div>
             </div>
         </section>

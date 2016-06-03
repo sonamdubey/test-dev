@@ -908,6 +908,10 @@
       <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\MPriceInTopCities.ascx.cs">
+      <DependentUpon>MPriceInTopCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\SimilarCompareBikes.ascx.cs">
       <DependentUpon>SimilarCompareBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2302,6 +2306,7 @@
     <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
+    <Content Include="m\controls\MPriceInTopCities.ascx" />
     <Content Include="m\controls\SimilarCompareBikes.ascx" />
     <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
