@@ -5,6 +5,7 @@ using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.Common;
+using Bikewale.controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
@@ -27,10 +28,14 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
+    /// <summary>
+    /// Created By : Lucky Rathore on 03 June 2016
+    /// Description : class handle Binding of specification and Feature and other logics.
+    /// </summary>
     public class ModelSpecsFeatures : PageBase
 	{
-        protected uint cityId, areaId, modelId, versionId, price = 0;
-        protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName;
+        protected uint cityId, areaId, modelId, versionId, dealerId, price = 0;
+        protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName, modelMaskingName, clientIP = CommonOpn.GetClientIP();
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton;
@@ -38,12 +43,18 @@ namespace Bikewale.New
         protected BikeModelPageEntity modelDetail;
         protected DetailedDealerQuotationEntity dealerDetail;
         protected BikeModelPageEntity modelPg;
+        protected LeadCaptureControl ctrlLeadPopUp;
 
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Created By : Lucky Rathore on 03 June 2016
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		protected void Page_Load(object sender, EventArgs e)
 		{
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
@@ -51,14 +62,15 @@ namespace Bikewale.New
                 originalUrl = Request.ServerVariables["URL"];
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
-            ParseQueryString();
-
+            ProcessQueryString();
             modelDetail = FetchModelPageDetails(modelId);//TODO: Cross checkt parameter to be passed.
             if (modelDetail != null)
             {
                 CheckCityCookie();
-                specs = modelDetail.ModelVersionSpecs;
+                //for Lead Pop up Controle
+                ctrlLeadPopUp.ModelId = modelId;
+                ctrlLeadPopUp.CityId = cityId;
+                ctrlLeadPopUp.AreaId = areaId;
                 if (cityId > 0 && versionId > 0)
                 {
                    dealerDetail =  GetDetailedDealer();
@@ -68,7 +80,7 @@ namespace Bikewale.New
                     setPrice();
                 }
             }
-            
+            specs = FetchVariantDetails(versionId);
 		}
 
         /// <summary>
@@ -107,7 +119,6 @@ namespace Bikewale.New
                                     {
                                         modelImage = string.Format("{0} {1}", modelPg.ModelDetails.HostUrl, modelPg.ModelDetails.OriginalImagePath);
                                         price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
-                                        versionId = modelPg.ModelVersionSpecs.BikeVersionId;
                                          //Check it versionId passed through url exists in current model's versions
                                         if (!modelPg.ModelVersions.Exists(p => p.VersionId == versionId))
                                         {
@@ -123,12 +134,16 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchmodelPgDetails");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchModelPageDetails");
                 objErr.SendMail();
             }
             return modelPg;
         }
 
+        /// <summary>
+        /// Created By : Lucky Rathore on 03 June 2016
+        /// Description : Set price by Price List Object
+        /// </summary>
         private void setPrice()
         {
             foreach (var priceList in dealerDetail.PrimaryDealer.PriceList)
@@ -136,8 +151,6 @@ namespace Bikewale.New
                 price += priceList.Price;
             }
         }
-
-        
 
         /// <summary>
         /// Created by: Sangram Nandkhile on 16 mar 2016
@@ -163,7 +176,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.GetDetailedDealer");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.New.ModelSpecsFeatures.GetDetailedDealer");
                 objErr.SendMail();
             }
             return detailedDealer;
@@ -172,82 +185,67 @@ namespace Bikewale.New
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   18 Nov 2015
-        /// 
+        /// Description     :   Sends the notification to Customer and Dealer
         /// </summary>
-
-        ///// <summary>
-        ///// Author          :   Sangram Nandkhile
-        ///// Created Date    :   18 Nov 2015
-        ///// Description     :   Sends the notification to Customer and Dealer
-        ///// </summary>
-        //private BikeSpecificationEntity FetchVariantDetails(uint versionId)
-        //{
-        //    BikeSpecificationEntity specsFeature = null;
-        //    try
-        //    {
-        //        using (IUnityContainer container = new UnityContainer())
-        //        {
-        //            container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-        //            IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-        //            specsFeature = objVersion.MVSpecsFeatures((int)versionId);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
-        //        objErr.SendMail();
-        //    }
-        //    return specsFeature;
-        //}
-
-        private void ParseQueryString()
+        private BikeSpecificationEntity FetchVariantDetails(uint versionId)
         {
-            ModelMaskingResponse objResponse = null;
-            string modelMaskingName = Request.QueryString["model"];
+            BikeSpecificationEntity specsFeature = null;
             try
             {
-                if (!string.IsNullOrEmpty(modelMaskingName))
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                                 .RegisterType<ICacheManager, MemcacheManager>()
-                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                                ;
-                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                        objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
-                    }
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+                    IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
+                    specsFeature = objVersion.MVSpecsFeatures((int)versionId);
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
                 objErr.SendMail();
-                Response.Redirect("/new/", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
             }
-            finally
+            return specsFeature;
+        }
+
+        /// <summary>
+        /// Created By : Lucky Rathore on 03 June 2016
+        /// Description : Private Method to proceess mpq queryString and set the values 
+        /// for queried parameters versionId, ModelMaskingName and set value of modelId from Model Masking Name. 
+        /// </summary>
+        private void ProcessQueryString()
+        {
+            try
             {
-                if (!string.IsNullOrEmpty(modelMaskingName))
+                if (PriceQuoteQueryString.IsPQQueryStringExists())
                 {
-                    if (objResponse != null)
+                    UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId);
+                    modelMaskingName = PriceQuoteQueryString.ModelMaskingName;
+
+                    if (!string.IsNullOrEmpty(modelMaskingName))
                     {
-                        //Trace.Warn(" objResponse.MaskingName : ", objResponse.MaskingName.ToString());
-                        if (objResponse.StatusCode == 200)
+                        using (IUnityContainer container = new UnityContainer())
                         {
-                            modelId = objResponse.ModelId;
-                        }
-                        else if (objResponse.StatusCode == 301)
-                        {
-                            //redirect permanent to new page 
-                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
-                        }
-                        else
-                        {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
+                            container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                                     .RegisterType<ICacheManager, MemcacheManager>()
+                                     .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                    ;
+                            var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                            ModelMaskingResponse objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
+                            if (objResponse != null && objResponse.StatusCode == 200)
+                            {
+                                modelId = objResponse.ModelId;
+                            }
+                            else if (objResponse != null && objResponse.StatusCode == 301)
+                            {
+                                //redirect permanent to new page 
+                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
+                            }
+                            else
+                            {
+                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                this.Page.Visible = false;
+                            }
                         }
                     }
                     else
@@ -257,13 +255,15 @@ namespace Bikewale.New
                         this.Page.Visible = false;
                     }
                 }
-                else
-                {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
             }
+            catch (Exception ex)
+            {
+
+                Trace.Warn("GetLocationCookie Ex: ", ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "ProcessQueryString");
+                objErr.SendMail();
+            }
+
         }
 
         /// <summary>

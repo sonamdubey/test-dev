@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="modelSpecsFeatures.aspx.cs" Inherits="Bikewale.New.ModelSpecsFeatures" EnableViewState="false" %>
-
+<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadPopUp" TagPrefix="BW" %>
 <!DOCTYPE html>
 
 <html>
@@ -56,7 +56,8 @@
                         <div class="content-inner-block-1020">
                             <div class="grid-5 alpha omega">
                                 <div class="model-card-image-content inline-block-top margin-right20">
-                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268) %>" />
+                                    <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268) %>" 
+                                        title="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos"alt="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos" src="" />
                                 </div>
                                 <div class="model-card-title-content inline-block-top">
                                     <h2 class="font18 text-bold margin-bottom10"><%= bikeName %></h2>
@@ -64,20 +65,23 @@
                                 </div>
                             </div>
                             <div class="grid-4 padding-left30">
-                                <p class="font14 text-light-grey margin-bottom5 text-truncate">On-road price in <%= areaName %>, <%= cityName %></p>
+                                <p class="font14 text-light-grey margin-bottom5 text-truncate"> <%=(dealerDetail!= null && dealerDetail.PrimaryDealer != null) ? string.Format("On-road price in {0}, {1}", areaName, cityName) : "Ex-showroom price in Mumbai" %></p>
                                 <div class="font16">
                                     <span class="fa fa-rupee"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 </div>
                             </div>
-                            <%if(dealerDetail.PrimaryDealer != null) {%>
+                            <%if (dealerDetail != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+                              {%>
                             <div class="grid-3 model-orp-btn alpha omega">
-                                <a href="javascript:void(0)" id="getassistance" class="btn btn-orange font14 margin-top5">Get offers from this dealer</a>
+                                <a href="javascript:void(0)" leadsourceid="26" pqSourceId="50" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Name %>" data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"  class="btn btn-orange font14 margin-top5 leadcapturebtn">Get offers from this dealer</a>
                                 <!-- if no 'powered by' text is present remove margin-top5 add margin-top10 in offers button -->
                                 <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= dealerDetail.PrimaryDealer.DealerDetails.Name %></p>
                             </div>
-                            <% } else {%>
+                            <% }
+                              else if (!isCitySelected || !isAreaAvailable )
+                              {%>
                                 <div class="grid-3 model-orp-btn alpha omega">
-                                    <a href="javascript:void(0)" id="btnGetOnRoadPrice" class="btn btn-orange font14 margin-top5">Check On-Road Price</a>
+                                    <a href="javascript:void(0)" isModel="true" pqSourceId="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check On-Road Price</a>
                                 </div>
                             <% } %>
                             <div class="clear"></div>
@@ -312,11 +316,13 @@
             </div>
             <div class="clear"></div>
         </section>
-
+        <BW:LeadPopUp ID="ctrlLeadPopUp" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
 
         <script type="text/javascript">
+            var pageUrl = window.location.href;
+            var clientIP = '<%= clientIP %>';
             $(document).ready(function () {
                 var $window = $(window),
                     modelCardAndDetailsWrapper = $('#modelCardAndDetailsWrapper'),
@@ -362,16 +368,17 @@
                     $('html, body').animate({ scrollTop: target.offset().top - modelDetailsFloatingCard.height() }, 1000);
                     return false;
                 });
-                //TODO: Remove it if not in use.
-                $("#getassistance").on("click", function () {
-                    leadSourceId = $(this).attr("leadSourceId");
-                    $("#leadCapturePopup").show();
-                    $('body').addClass('lock-browser-scroll');
-                    $(".blackOut-window-model").show();
-                    if ($(this).attr("id") == "getassistance") {
-                        dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_Offers_Clicked", "lab": bikeVersionLocation });
-                        //ToDo: getOffersClick = true;
-                    }
+
+                $(".leadcapturebtn").click(function () {
+                    customerViewModel.dealerId($(this).attr('data-item-id'));
+                    customerViewModel.dealerName($(this).attr('data-item-name'));
+                    customerViewModel.dealerArea($(this).attr('data-item-area'));
+                    customerViewModel.versionId(<%= versionId %>);
+                    customerViewModel.leadSourceId($(this).attr('leadSourceId'));
+                    customerViewModel.pqSourceId($(this).attr('pqSourceId'));
+                    customerViewModel.pageUrl = pageUrl;
+                    customerViewModel.clientIP = clientIP;
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': <%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%> });
                 });
             });
         </script>
