@@ -162,9 +162,15 @@
 
     function completeCityPopup()
     {
-        if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
-            viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
-            viewModelPopup.hasAreas(findCityById(viewModelPopup, onCookieObj.PQCitySelectedId).hasAreas);
+        if (selCityId == null) {
+            if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
+                viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
+                viewModelPopup.hasAreas(findCityById(viewModelPopup, onCookieObj.PQCitySelectedId).hasAreas);
+            }
+        }
+        else {
+            viewModelPopup.hasAreas(findCityById(viewModelPopup, parseInt(selCityId)).hasAreas);
+            viewModelPopup.selectedCity(parseInt(selCityId));
         }
         popupcity.find("option[value='0']").prop('disabled', true);
         popupcity.trigger('chosen:updated');
@@ -477,8 +483,8 @@
 
     $(document).ready(function () {
         $('body').on('click', 'a.fillPopupData', function (e) {
-            $('.blackOut-window,#popupWrapper').fadeIn(100);
-
+            $('#popupWrapper').fadeIn(100);
+            popup.lock();
             if (ga_pg_id != null & ga_pg_id == 2) {
                 var attr = $(this).attr('ismodel');
                 if (typeof attr !== typeof undefined && attr !== false) {
@@ -489,6 +495,7 @@
                 }
             }
             pageIdAttr = $(this).attr('pageCatId');
+            selCityId = $(this).attr('selCityId');
             e.preventDefault();
             $("#errMsgPopUp").empty();
             var str = $(this).attr('modelId');
@@ -499,8 +506,9 @@
             gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", modelName);
         });
 
-        $('#popupWrapper .close-btn,.blackOut-window').mouseup(function () {
-            $('.blackOut-window,#popupWrapper').fadeOut(100);
+        $('#popupWrapper .close-btn, .blackOut-window').mouseup(function () {
+            popup.unlock();
+            $('#popupWrapper').fadeOut(100);
         });
 
         $("#ddlCitiesPopup").chosen({ no_results_text: "No matches found!!" });

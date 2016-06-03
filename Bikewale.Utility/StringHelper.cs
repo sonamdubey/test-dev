@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Bikewale.Utility.StringExtention
 {
@@ -34,5 +29,8 @@ namespace Bikewale.Utility.StringExtention
             return str;
 
         }
+        // Added by Sangram Nandkhile on 24 May 2016
+        // Desc: To be used instead of  " " in entire code eg. StringHelper.Space
+        public static string Space = " ";
     }
 }

@@ -1,20 +1,17 @@
-﻿using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Data;
-using System.Linq;
+﻿using Bikewale.BAL.BikeData;
 using Bikewale.Common;
-using Bikewale.Memcache;
 using Bikewale.Entities.BikeData;
-using System.Collections.Generic;
-using Microsoft.Practices.Unity;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.BAL.BikeData;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
-{   
+{
     /// <summary>
     /// Created By : Sadhana Upadhyay on 13th March 2014
     /// Summary : Class for add bike to comparison 
@@ -34,7 +31,7 @@ namespace Bikewale.Controls
                 versionId = value;
             }
         }
-		//Added By Sadhana Upadhyay on 27 Aug 2014
+        //Added By Sadhana Upadhyay on 27 Aug 2014
         protected bool _isFeatured = false;
         public bool IsFeatured
         {
@@ -54,7 +51,7 @@ namespace Bikewale.Controls
         protected void Page_Load(object sender, EventArgs e)
         {
             FillMake();
-            Trace.Warn("sadhana",versionId);
+            Trace.Warn("sadhana", versionId);
         }
 
         /// <summary>

@@ -41,61 +41,36 @@ namespace Bikewale.Mobile.New
         // Register controls
         protected AlternativeBikes ctrlAlternateBikes;
         protected NewsWidget ctrlNews;
-        protected ExpertReviewsWidget ctrlExpertReviews;
+        protected NewExpertReviewsWidget ctrlExpertReviews;
         protected VideosWidget ctrlVideos;
         protected UserReviewList ctrlUserReviews;
         protected ModelGallery ctrlModelGallery;
-        // Register global variables
         protected BikeModelPageEntity modelPage;
-        protected string modelId = string.Empty;
-        protected Repeater rptModelPhotos, rptVarients, rptColors;
-        protected String bikeName = String.Empty;
-        protected String clientIP = CommonOpn.GetClientIP();
-        protected uint cityId = 0;
-        protected short reviewTabsCnt = 0;
-        //Variable to Assing ACTIVE class
-        protected bool isUserReviewActive = false, isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
-        //Varible to Hide or show controlers
-
-        protected bool isCitySelected, isAreaSelected, isOnRoadPrice, toShowOnRoadPriceButton;
-        protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
-
-        // New Model Revamp
-        protected bool isBookingAvailable, isOfferAvailable, isBikeWalePQ, isDiscontinued, isAreaAvailable, isDealerPQ;
-        protected Repeater rptOffers, rptMoreOffers, rptVariants;
-        static readonly string _bwHostUrl, _PageNotFoundPath;
         protected VersionSpecifications bikeSpecs;
-        protected uint versionId = 0;
         protected PQOnRoadPrice pqOnRoad;
-        protected int areaId = 0;
-        protected string cityName = string.Empty;
-        protected string areaName = string.Empty;
-        protected DropDownList ddlVariant;
-        protected string variantText = string.Empty;
-        protected uint bookingAmt = 0;
-        protected int urlVersionId = 0;
-        protected int grid1_size = 9;
-        protected int grid2_size = 3;
-        protected int btMoreDtlsSize = 12;
-        protected string cssOffers = "noOffers";
-        protected string offerDivHide = "hide";
-        protected string price = string.Empty, bikeMakeName = string.Empty, bikeModelName = string.Empty;
-        protected string viewbreakUpText = string.Empty;
-        protected UInt32 onRoadPrice = 0, totalDiscountedPrice = 0;
+        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptVariants, rptSecondaryDealers;
+        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty;
+        protected String clientIP = CommonOpn.GetClientIP();
+        protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
+        //Varible to Hide or show controlers
+        protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerPQ, isDealerAssitance, isBookingAvailable, isOfferAvailable;
+        protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive;
+        protected AlternativeBikes ctrlAlternativeBikes;
+        protected short reviewTabsCnt;
+        //Variable to Assing ACTIVE class
+
+        static readonly string _PageNotFoundPath;
+        static readonly string _bwHostUrl;
+        protected static bool isManufacturer;
+        //protected string cssOffers = "noOffers", offerDivHide = "hide"; protected int grid1_size = 9, grid2_size = 3;
+        protected uint onRoadPrice, totalDiscountedPrice, price, bookingAmt, cityId, campaignId, manufacturerId, modelId, versionId, areaId, dealerId;
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected OtherVersionInfoEntity objSelectedVariant = null;
-        protected ListView ListBox1;
         protected Label defaultVariant;
         protected HiddenField hdnVariant;
-        protected string dealerId = string.Empty;
-        protected string pqId = string.Empty;
-        protected string mpqQueryString = String.Empty, modelImage = string.Empty;
-        protected UsersTestimonials ctrlUsersTestimonials;
-        protected uint campaignId, manufacturerId;
 
         #region Subscription model variables
-        protected Repeater rptSecondaryDealers;
         protected ModelPageVM viewModel = null;
 
         #endregion Subscription model ends
@@ -116,7 +91,7 @@ namespace Bikewale.Mobile.New
             Trace.Warn("Trace 4 : ParseQueryString End");
             try
             {
-                if (!string.IsNullOrEmpty(modelId))
+                if (!string.IsNullOrEmpty(modelId.ToString()))
                 {
                     Trace.Warn("Trace 5 : CheckCityCookie Start");
                     CheckCityCookie();
@@ -124,8 +99,6 @@ namespace Bikewale.Mobile.New
                     Trace.Warn("Trace 6 : CheckCityCookie End");
                     if (hdnVariant.Value != "0")
                         versionId = Convert.ToUInt32(hdnVariant.Value);
-
-
                     Trace.Warn("Trace 7 : FetchModelPageDetails Start");
                     FetchModelPageDetails();
                     Trace.Warn("Trace 8 : FetchModelPageDetails End");
@@ -158,7 +131,7 @@ namespace Bikewale.Mobile.New
                     ctrlNews.TotalRecords = 3;
                     ctrlNews.ModelId = Convert.ToInt32(modelId);
 
-                    ctrlExpertReviews.TotalRecords = 3;
+                    ctrlExpertReviews.TotalRecords = 2;
                     ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
 
                     ctrlVideos.TotalRecords = 3;
@@ -181,7 +154,6 @@ namespace Bikewale.Mobile.New
                         rptVarients.DataSource = modelPage.ModelVersions;
                         rptVarients.DataBind();
                     }
-                    ToggleOfferDiv();
                     // Clear trailing query string -- added on 09-feb-2016 by Sangram
                     PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
                     if (isreadonly != null)
@@ -199,16 +171,6 @@ namespace Bikewale.Mobile.New
 
         }
 
-        /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   18 Nov 2015
-        /// Description     :   To change price and Minspecs when variant changes
-        /// </summary>
-        public void ddlVariant_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            versionId = Convert.ToUInt32(ddlVariant.SelectedValue);
-            FetchVariantDetails(versionId);
-        }
 
         protected void btnVariant_Command(object sender, CommandEventArgs e)
         {
@@ -309,14 +271,6 @@ namespace Bikewale.Mobile.New
             {
                 if (modelPage.Photos != null && modelPage.Photos.Count > 0)
                 {
-                    //if (modelPage.Photos.Count > 2)
-                    //{
-                    //    rptModelPhotos.DataSource = modelPage.Photos.Take(3);
-                    //}
-                    //else
-                    //{
-                    //    rptModelPhotos.DataSource = modelPage.Photos;
-                    //}
                     rptModelPhotos.DataSource = modelPage.Photos;
                     rptModelPhotos.DataBind();
 
@@ -383,7 +337,7 @@ namespace Bikewale.Mobile.New
                     {
                         if (objResponse.StatusCode == 200)
                         {
-                            modelId = objResponse.ModelId.ToString();
+                            modelId = objResponse.ModelId;
                         }
                         else if (objResponse.StatusCode == 301)
                         {
@@ -429,7 +383,7 @@ namespace Bikewale.Mobile.New
                     if (locArray.Length > 0)
                     {
                         UInt32.TryParse(locArray[0], out cityId);
-                        if (!string.IsNullOrEmpty(modelId))
+                        if (modelId > 0)
                         {
                             objCityList = FetchCityByModelId(modelId);
                             if (objCityList != null && objCityList.Count() > 0)
@@ -448,7 +402,7 @@ namespace Bikewale.Mobile.New
                     // locArray.Length = 4 Means City and area exists
                     if (locArray.Length > 3 && cityId != 0)
                     {
-                        Int32.TryParse(locArray[2], out areaId);
+                        UInt32.TryParse(locArray[2], out areaId);
                         if (objAreaList != null)
                         {
                             if (objAreaList.Any(p => p.AreaId == areaId))
@@ -541,33 +495,31 @@ namespace Bikewale.Mobile.New
                     modelPage = objCache.GetModelPageDetails(Convert.ToInt16(modelId));
                     if (modelPage != null)
                     {
-                        if (modelPage != null)
+                        if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
                         {
-                            if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
+                            price = Convert.ToUInt32(modelPage.ModelDetails.MinPrice);
+                            if (versionId == 0 && cityId == 0)
                             {
-                                price = Convert.ToString(modelPage.ModelDetails.MinPrice);
-                                if (versionId == 0 && cityId == 0)
-                                {
-                                    versionId = Convert.ToUInt32(modelPage.ModelVersionSpecs.BikeVersionId);
-                                }
-                                // Check it versionId passed through url exists in current model's versions
-                                else if (!modelPage.ModelVersions.Exists(p => p.VersionId == versionId))
-                                {
-                                    versionId = Convert.ToUInt32(modelPage.ModelVersionSpecs.BikeVersionId);
-                                }
+                                versionId = modelPage.ModelVersionSpecs.BikeVersionId;
                             }
-                            if (!modelPage.ModelDetails.New)
-                                isDiscontinued = true;
+                            // Check it versionId passed through url exists in current model's versions
+                            else if (!modelPage.ModelVersions.Exists(p => p.VersionId == versionId))
+                            {
+                                versionId = modelPage.ModelVersionSpecs.BikeVersionId;
+                            }
+                        }
+                        if (!modelPage.ModelDetails.New)
+                            isDiscontinued = true;
 
-                            if (modelPage.ModelDetails != null)
+                        if (modelPage.ModelDetails != null)
+                        {
+                            bikeModelName = modelPage.ModelDetails.ModelName;
+                            if (modelPage.ModelDetails.MakeBase != null)
                             {
-                                bikeModelName = modelPage.ModelDetails.ModelName;
-                                if (modelPage.ModelDetails.MakeBase != null)
-                                {
-                                    bikeMakeName = modelPage.ModelDetails.MakeBase.MakeName;
-                                }
-                                bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
+                                bikeMakeName = modelPage.ModelDetails.MakeBase.MakeName;
                             }
+                            bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
+                            modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                         }
                     }
                 }
@@ -597,15 +549,15 @@ namespace Bikewale.Mobile.New
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
-                        versionId = Convert.ToUInt32(pqOnRoad.PriceQuote.VersionId);
+                        versionId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)
                         {
-                            dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
+                            dealerId = pqOnRoad.PriceQuote.DealerId;
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
                         }
                         //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
 
-                        mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(versionId), dealerId));
+                        mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId, areaId.ToString(), versionId.ToString(), dealerId.ToString()));
                         if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null && pqOnRoad.DPQOutput.Varients.Count() > 0)
                         {
                             #region when dealer Price is Available
@@ -615,7 +567,7 @@ namespace Bikewale.Mobile.New
                             {
                                 isDealerPQ = true;
                                 onRoadPrice = selectedVariant.OnRoadPrice;
-                                price = onRoadPrice.ToString();
+                                price = onRoadPrice;
                                 if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
                                 {
                                     rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers;
@@ -631,7 +583,7 @@ namespace Bikewale.Mobile.New
                                     isBookingAvailable = true;
                                 if (pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
                                 {
-                                    price = Convert.ToString(onRoadPrice - totalDiscountedPrice);
+                                    price = (onRoadPrice - totalDiscountedPrice);
                                 }
                             }
                             #endregion
@@ -648,13 +600,13 @@ namespace Bikewale.Mobile.New
                                     {
 
                                         objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == versionId).FirstOrDefault();
-                                        price = Convert.ToString(objSelectedVariant.OnRoadPrice);
+                                        price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                     }
                                 }
                                 else
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
-                                    price = Convert.ToString(objSelectedVariant.OnRoadPrice);
+                                    price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                 }
                                 isBikeWalePQ = true;
 
@@ -676,12 +628,12 @@ namespace Bikewale.Mobile.New
                         {
                             var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == versionId).FirstOrDefault();
                             if (modelVersions != null)
-                                price = Convert.ToString(modelVersions.Price);
+                                price = Convert.ToUInt32(modelVersions.Price);
                         }
                         else
                         {
                             if (modelPage.ModelDetails != null)
-                                price = Convert.ToString(modelPage.ModelDetails.MinPrice);
+                                price = Convert.ToUInt32(modelPage.ModelDetails.MinPrice);
                         }
                     }
                 }
@@ -690,7 +642,7 @@ namespace Bikewale.Mobile.New
                     var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == versionId).FirstOrDefault();
 
                     if (modelVersions != null)
-                        price = Convert.ToString(modelVersions.Price);
+                        price = Convert.ToUInt32(modelVersions.Price);
                 }
             }
             catch (Exception ex)
@@ -705,25 +657,23 @@ namespace Bikewale.Mobile.New
         /// Created Date    :   27 Nov 2015
         /// Description     :   These values need to be set to reflect UI HTML changes
         /// </summary>
-        private void ToggleOfferDiv()
-        {
-            if (isOfferAvailable)
-            {
-                grid1_size = 5;
-                grid2_size = 7;
-                cssOffers = string.Empty;
-                offerDivHide = string.Empty;
-            }
-            else
-            {
-                grid1_size = 9;
-                grid2_size = 3;
-                cssOffers = "noOffers";
-                offerDivHide = "hide";
-            }
-            if (bookingAmt > 0)
-                btMoreDtlsSize = 7;
-        }
+        //private void ToggleOfferDiv()
+        //{
+        //    if (isOfferAvailable)
+        //    {
+        //        grid1_size = 5;
+        //        grid2_size = 7;
+        //        cssOffers = string.Empty;
+        //        offerDivHide = string.Empty;
+        //    }
+        //    else
+        //    {
+        //        grid1_size = 9;
+        //        grid2_size = 3;
+        //        cssOffers = "noOffers";
+        //        offerDivHide = "hide";
+        //    }
+        //}
 
         /// <summary>
         /// Author          :   Sangram Nandkhile
@@ -753,7 +703,7 @@ namespace Bikewale.Mobile.New
         /// Description     :   Gets City Details by ModelId
         /// </summary>
         /// <param name="modelId">Model Id</param>
-        private IEnumerable<CityEntityBase> FetchCityByModelId(string modelId)
+        private IEnumerable<CityEntityBase> FetchCityByModelId(uint modelId)
         {
             IEnumerable<CityEntityBase> cityList = null;
             try
@@ -764,7 +714,7 @@ namespace Bikewale.Mobile.New
                                  .RegisterType<ICacheManager, MemcacheManager>()
                                  .RegisterType<ICityCacheRepository, CityCacheRepository>();
                     ICityCacheRepository objcity = container.Resolve<ICityCacheRepository>();
-                    cityList = objcity.GetPriceQuoteCities(Convert.ToUInt16(modelId));
+                    cityList = objcity.GetPriceQuoteCities(modelId);
                     return cityList;
                 }
             }
@@ -786,7 +736,7 @@ namespace Bikewale.Mobile.New
             IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
             try
             {
-                if (CommonOpn.CheckId(modelId))
+                if (CommonOpn.CheckId(modelId.ToString()))
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
@@ -795,7 +745,7 @@ namespace Bikewale.Mobile.New
                             .RegisterType<IAreaCacheRepository, AreaCacheRepository>();
 
                         IAreaCacheRepository objArea = container.Resolve<IAreaCacheRepository>();
-                        areaList = objArea.GetAreaList(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId));
+                        areaList = objArea.GetAreaList(modelId, cityId);
                         if (areaList != null && areaList.Count() > 0)
                             isAreaAvailable = true;
                         return areaList;
@@ -833,12 +783,12 @@ namespace Bikewale.Mobile.New
 
                     BikeQuotationEntity bpqOutput = null;
                     PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
-                    objPQEntity.CityId = Convert.ToUInt16(cityId);
-                    objPQEntity.AreaId = Convert.ToUInt32(areaId);
+                    objPQEntity.CityId = cityId;
+                    objPQEntity.AreaId = areaId;
                     objPQEntity.ClientIP = clientIP;
                     objPQEntity.SourceId = 2;
-                    objPQEntity.ModelId = Convert.ToUInt32(modelId);
-                    objPQEntity.VersionId = Convert.ToUInt32(versionId);
+                    objPQEntity.ModelId = modelId;
+                    objPQEntity.VersionId = versionId;
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_ModelPage);
                     objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
                     objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
@@ -848,19 +798,13 @@ namespace Bikewale.Mobile.New
                     {
                         if (objPQOutput != null && objPQOutput.VersionId != null)
                         {
-                            versionId = Convert.ToUInt32(objPQOutput.VersionId);
+                            versionId = objPQOutput.VersionId;
                         }
                     }
                     if (objPQOutput != null)
                     {
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.PriceQuote = objPQOutput;
-                        BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
-                        if (bikemodelEnt != null)
-                        {
-                            modelImage = Utility.Image.GetPathToShowImages(bikemodelEnt.OriginalImagePath, bikemodelEnt.HostUrl, Bikewale.Utility.ImageSize._476x268);
-                            pqOnRoad.BikeDetails = bikemodelEnt;
-                        }
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {
                             bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);
@@ -958,7 +902,7 @@ namespace Bikewale.Mobile.New
             {
                 if (cityId > 0 && versionId > 0)
                 {
-                    viewModel = new ModelPageVM(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), Convert.ToUInt32(dealerId));
+                    viewModel = new ModelPageVM(cityId, versionId, dealerId);
                     if (viewModel.DealerCampaign.PrimaryDealer.OfferList != null && viewModel.DealerCampaign.PrimaryDealer.OfferList.Count() > 0)
                     {
                         rptOffers.DataSource = viewModel.Offers;

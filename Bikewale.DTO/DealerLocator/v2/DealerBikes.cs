@@ -9,7 +9,7 @@ namespace Bikewale.DTO.DealerLocator.v2
     /// </summary>
     public class DealerBikes
     {
-        [JsonProperty("bikes")]
+        [JsonProperty("Version")]
         public IEnumerable<DealerBikeBase> Bikes { get; set; }
     }
 }

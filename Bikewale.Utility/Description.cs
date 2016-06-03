@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Bikewale.Utility
 {
@@ -11,7 +6,7 @@ namespace Bikewale.Utility
     /// Created By : Ashish G. Kamble on 1 Sept 2015
     /// </summary>
     public static class FormatDescription
-    {        
+    {
         /// Function will return the description with truncated content.
         /// </summary>
         /// <param name="_desc">description which needs to be truncated.</param>
@@ -30,7 +25,7 @@ namespace Bikewale.Utility
             {
                 _desc = _desc.Substring(0, (descLength - 5));
                 _desc = _desc.Substring(0, _desc.LastIndexOf(" "));
-                return _desc + " [...]";
+                return _desc + " ...";
             }
         }
         /// <summary>
