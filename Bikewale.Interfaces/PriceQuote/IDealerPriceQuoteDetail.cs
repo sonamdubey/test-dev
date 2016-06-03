@@ -1,9 +1,6 @@
-﻿using Bikewale.Entities.PriceQuote;
+﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.PriceQuote;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Interfaces.PriceQuote
 {
@@ -15,5 +12,6 @@ namespace Bikewale.Interfaces.PriceQuote
     public interface IDealerPriceQuoteDetail
     {
         DetailedDealerQuotationEntity GetDealerQuotation(UInt32 cityId, UInt32 versionID, UInt32 dealerId);
+        PQ_QuotationEntity Quotation(uint cityId, UInt16 sourceType, string deviceId, uint dealerId, uint modelId, ulong pqId, bool isPQRegistered, uint? areaId = null, uint? versionId = null);
     }
 }
