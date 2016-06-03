@@ -883,6 +883,13 @@
       <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\LeadCaptureControl.ascx.cs">
+      <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\LeadCaptureControl.ascx.designer.cs">
+      <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="m\controls\ListPagerControl.ascx.cs">
       <DependentUpon>ListPagerControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -917,6 +924,10 @@
     </Compile>
     <Compile Include="m\controls\MUpcomingBikes.ascx.cs">
       <DependentUpon>MUpcomingBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\NewAlternativeBikes.ascx.cs">
+      <DependentUpon>NewAlternativeBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\NewExpertReviewsWidget.ascx.cs">
@@ -2318,6 +2329,7 @@
     <Content Include="m\controls\DealersCard.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
+    <Content Include="m\controls\LeadCaptureControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
@@ -2327,6 +2339,7 @@
     <Content Include="m\controls\MOnRoadPricequote.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
     <Content Include="m\controls\MUpcomingBikes.ascx" />
+    <Content Include="m\controls\NewAlternativeBikes.ascx" />
     <Content Include="m\controls\NewExpertReviewsWidget.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />

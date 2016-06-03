@@ -1,21 +1,23 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="ModelPricesInCity.aspx.cs" Inherits="Bikewale.Mobile.New.ModelPricesInCity" %>
 
-<%@ Register Src="/m/controls/ModelPriceInNearestCities.ascx" TagPrefix="BW" TagName="ModelPriceInNearestCities" %>
-<%@ Register Src="/m/controls/DealersCard.ascx" TagName="Dealers" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
- <%@ Import Namespace="Bikewale.Common" %>
+<%@ Register Src="~/m/controls/ModelPriceInNearestCities.ascx" TagPrefix="BW" TagName="ModelPriceInNearestCities" %>
+<%@ Register Src="~/m/controls/DealersCard.ascx" TagName="Dealers" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
+<%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+
+<%@ Import Namespace="Bikewale.Common" %>
 
 <!DOCTYPE html>
 <html>
 <head>
     <%
         title = string.Format("{0} price in {1} - Check On Road Price & Dealer Info. - BikeWale", bikeName, cityName);
-        if (firstVersion!= null)
+        if (firstVersion != null)
             description = string.Format("{0} price in {1} - Rs. {2} (On road price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, cityName, firstVersion.OnRoadPrice);
         keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, cityName, modelName);
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
         OGImage = modelImage;
-     %>
+    %>
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
@@ -212,6 +214,43 @@
             position: relative;
             top: 1px;
         }
+
+        #modelAlternateBikeContent .swiper-slide {
+            width: 186px;
+            min-height: 252px;
+            border: 1px solid #e2e2e2;
+            background: #fff;
+        }
+
+            #modelAlternateBikeContent .swiper-slide h3 {
+                margin-bottom: 7px;
+            }
+
+        .model-swiper-image-preview {
+            width: 100%;
+            height: 103px;
+        }
+
+            .model-swiper-image-preview a {
+                display: block;
+            }
+
+        .model-swiper-details {
+            padding: 10px 18px 20px;
+        }
+
+        .btn-x-sm {
+            padding: 8px 14px;
+            color: #4d5057;
+        }
+
+        #modelForSaleContent li {
+            margin-top: 20px;
+        }
+
+            #modelForSaleContent li:first-child {
+                margin-top: 0;
+            }
     </style>
 </head>
 <body class="bg-light-grey">
@@ -223,13 +262,13 @@
                 <div class="bike-image">
                     <img src="<%=modelImage %>" title="<%= title %>" alt="<%= title %>" />
                 </div>
-                <h1 class="text-dark-black font18">Bajaj Pulsar<br />
-                    price in Pune</h1>
+                <h1 class="text-dark-black font18"><%=bikeName %><br />
+                    price in <%=cityName %></h1>
             </div>
             <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10">
                 <%=bikeName %> On-road price in <%=cityName %>&nbsp; <span class="bwmsprite inr-xxsm-icon"></span>
                 <% if (firstVersion != null)
-                     { %>&nbsp;<%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% } %>  onwards. 
+                   { %>&nbsp;<%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% } %>  onwards. 
                        <% if (versionCount > 1)
                           { %> This bike comes in <%=versionCount %> versions.<br />
                 <% } %>Click on any version name to know on-road price in this city:
@@ -268,69 +307,60 @@
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
-                
-                 <BW:Dealers ID="ctrlDealers" runat="server" />
+
+                <BW:Dealers ID="ctrlDealers" runat="server" />
 
                 <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
 
+
+                <% if (isAreaAvailable)
+                   { %>
                 <div class="grid-12 float-button float-fixed">
                     <p class="grid-6 font13 select-area-label text-light-grey">Please select area to get accurate on-road price</p>
                     <p class="grid-6 alpha">
-                        <a class="btn btn-sm btn-full-width font18 btn-orange" href="javascript:void(0)">Select area</a>
+                        <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" selcityid="<%=cityId %>" modelid="<%=modelId %>" class="btn btn-sm btn-full-width font18 btn-orange fillPopupData changeCity">Select your area</a>
                     </p>
                 </div>
-
-             <%--   <div class="grid-12 float-button float-fixed">
-                            <% if(isAreaAvailable){ %>
-                            <p class="text-black">Please select your area to get:</p>
-                            <ul class="selectAreaToGetList margin-bottom20">
-                                <li class="bullet-point">
-                                    <p>Nearest dealership details</p>
-                                </li>
-                                <li class="bullet-point">
-                                    <p>Exclusive offers</p>
-                                </li>
-                                <li class="bullet-point">
-                                    <p>Complete buying assistance</p>
-                                </li>
-                            </ul>
-                            <a href="javascript:void(0)" pqSourceId="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" selCityId ="<%=cityId %>" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 fillPopupData changeCity">Select your area</a>
-                            <%} else { %>
-                            <script type='text/javascript' src='https://www.googletagservices.com/tag/js/gpt.js'>
-                              googletag.pubads().definePassback('/1017752/Bikewale_PQ_300x250', [300, 250]).display();
-                            </script>
-                            <% } %>
-                        </div>--%>
+                <%} %>
 
                 <div class="clear"></div>
 
             </div>
         </section>
 
-         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
-            <div class="container margin-bottom10">
-                <div class="grid-12">
-                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> Alternate Bikes </h2>
-
-                    <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
-                        <div class="swiper-wrapper">
-                            <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
-                        </div>
-                        <!-- Add Pagination -->
-                        <div class="swiper-pagination"></div>
-                        <!-- Navigation -->
-                        <div class="bwmsprite swiper-button-next hide"></div>
-                        <div class="bwmsprite swiper-button-prev hide"></div>
-                    </div>
-
-                </div>
-                <div class="clear"></div>
-            </div>
+        <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
+             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
         </section>
+
+        <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
+            
+            var modelId = <%= modelId %>;
+            var clientIP = "<%= clientIP%>";
+            var pageUrl = window.location.href; 
+
+            $(".leadcapturebtn").click(function(e){
+                ele = $(this);
+                var leadOptions = {
+                    "dealerid" : ele.attr('data-item-id'),
+                    "dealername" : ele.attr('data-item-name'),
+                    "dealerarea"  : ele.attr('data-item-area'),
+                    "versionid" : $("#versions li.active").attr("id") ,
+                    "leadsourceid" : ele.attr('data-leadsourceid'),
+                    "pqsourceid" : ele.attr('data-pqsourceid'),
+                    "pageurl" : pageUrl,
+                    "clientip" : clientIP,
+                    "isregisterpq" : true
+                };
+
+                customerViewModel.setOptions(leadOptions);
+
+            });
+
+
             $(document).ready(function () {
                 var floatButton = $('.float-button'),
                     footer = $('footer');
@@ -345,7 +375,15 @@
                 $('.model-versions-tabs-wrapper li').on('click', function () {
                     $('.model-versions-tabs-wrapper li').removeClass('active');
                     $(this).addClass('active');
+                    showTab($(this).attr('id'));
                 });
+
+                function showTab(version) {
+                    $('.model-versions-tabs-wrapper a').removeClass('active');
+                    $('.model-versions-tabs-wrapper a[id="' + version + '"]').addClass('active');
+                    $('.priceTable').hide();
+                    $('.priceTable[id="' + version + '"]').show();
+                }
 
             });
         </script>

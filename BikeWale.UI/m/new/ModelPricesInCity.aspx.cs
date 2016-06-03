@@ -28,8 +28,8 @@ namespace Bikewale.Mobile.New
         protected ModelPriceInNearestCities ctrlTopCityPrices;
         protected DealersCard ctrlDealers;
         public BikeQuotationEntity firstVersion;
-        protected AlternativeBikes ctrlAlternateBikes;
-        //protected LeadCaptureControl ctrlLeadCapture;
+        protected NewAlternativeBikes ctrlAlternateBikes;
+        protected LeadCaptureControl ctrlLeadCapture;
         public Repeater rprVersionPrices, rpVersioNames;
         protected uint modelId = 0, cityId = 0, versionId, makeId;
         public int versionCount;
@@ -64,9 +64,9 @@ namespace Bikewale.Mobile.New
                 ctrlDealers.TopCount = 3;
                 ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealerCard_GetOffers;
 
-                //ctrlLeadCapture.CityId = cityId;
-                //ctrlLeadCapture.ModelId = modelId;
-                //ctrlLeadCapture.AreaId = 0;
+                ctrlLeadCapture.CityId = cityId;
+                ctrlLeadCapture.ModelId = modelId;
+                ctrlLeadCapture.AreaId = 0;
 
                 BindAlternativeBikeControl();
 
@@ -170,9 +170,9 @@ namespace Bikewale.Mobile.New
             string model = string.Empty, city = string.Empty, _make = string.Empty;
             try
             {
-                model = "cbshine";//Request.QueryString["model"];
-                city = "mumbai";//Request.QueryString["city"];
-                _make = "honda";//Request.QueryString["make"];
+                model = Request.QueryString["model"];
+                city = Request.QueryString["city"];
+                _make = Request.QueryString["make"];
 
                 if (!string.IsNullOrEmpty(city))
                 {
@@ -276,7 +276,7 @@ namespace Bikewale.Mobile.New
         {
             ctrlAlternateBikes.TopCount = 6;
             ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_Alternative;
-            //ctrlAlternativeBikes.WidgetTitle = bikeName;
+            ctrlAlternateBikes.WidgetTitle = bikeName;
             if (firstVersion != null)
                 ctrlAlternateBikes.VersionId = (int)firstVersion.VersionId;
         }

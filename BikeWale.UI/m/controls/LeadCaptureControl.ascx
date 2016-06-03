@@ -1,120 +1,180 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.LeadCaptureControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.LeadCaptureControl" %>
 
 <style>
-    #leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:10%;right:5%;left:5%;z-index:10;padding:30px 40px}
-    .personal-info-form-container{margin:10px auto;width:300px;min-height:100px}
-    .personal-info-form-container .personal-info-list{margin:0 auto;width:280px;float:left;margin-bottom:20px;border-radius:0}
-    .personal-info-list .errorIcon,.personal-info-list .errorText{display:none}
-    .icon-outer-container{width:102px;height:102px;margin:0 auto;background:#fff;border:1px solid #ccc}
-    .icon-inner-container{width:92px;height:92px;margin:4px auto;background:#fff;border:1px solid #666}
-    .user-contact-details-icon{width:36px;height:44px;background-position:0 -391px}     
-    .mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999}
-     /*#otpPopup{display:none}
-    #otpPopup .otp-box,#otpPopup .update-mobile-box{width:280px;margin:15px auto 0}
-    #otpPopup .update-mobile-box .form-control-box{margin-top:25px;margin-bottom:50px}
-    #otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}
-    #otpPopup .update-mobile-box{display:none}
-    #otpPopup .edit-mobile-btn,.resend-otp-btn{cursor:pointer}
-    .otp-icon{width:30px;height:40px;background-position:-46px -391px}
-    #otpPopup .errorIcon,#otpPopup .errorText{display:none}*/  
-    .input-border-bottom{border-bottom:1px solid #ccc}
-    .assistance-response-close.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
+    #leadCapturePopup .leadCapture-close-btn {
+        z-index: 2;
+    }
+
+    #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {
+        display: none;
+    }
+
+    .btn-grey {
+        background: #fff;
+        color: #82888b;
+        border: 1px solid #82888b;
+    }
+
+        .btn-grey:hover {
+            background: #82888b;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #82888b;
+        }
+
+    #notifyAvailabilityContainer {
+        min-height: 320px;
+        background: #fff;
+        margin: 0 auto;
+        padding: 10px;
+        position: fixed;
+        top: 10%;
+        right: 5%;
+        left: 5%;
+        z-index: 10;
+    }
+
+    #notify-form .grid-12 {
+        padding: 10px 20px;
+    }
+
+    .personal-info-notify-container input {
+        margin: 0 auto;
+    }
+
+    .notify-offers-list {
+        list-style: disc;
+        margin-left: 10px;
+    }
+
+    #notifyAvailabilityContainer .notify-close-btn {
+        z-index: 2;
+    }
+
+    #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {
+        display: none;
+    }
+
+    .float-button {
+        background-color: #f5f5f5;
+        padding: 10px;
+    }
+
+        .float-button.float-fixed {
+            position: fixed;
+            bottom: 0;
+            z-index: 8;
+            left: 0;
+            right: 0;
+        }
+
+    #getMobile {
+        padding: 9px 40px;
+    }
+
+    .mobile-prefix {
+        position: absolute;
+        padding: 10px 13px 13px;
+        color: #999;
+        z-index: 2;
+    }
+
+    .thankyou-icon {
+        width: 48px;
+        height: 58px;
+        background-position: -137px -404px;
+    }
+
+    /*#otpPopup{display:none}
+.icon-outer-container{width:102px;height:102px;margin:0 auto;background:#fff;border:1px solid #ccc}
+.icon-inner-container{width:92px;height:92px;margin:4px auto;background:#fff;border:1px solid #666}
+.user-contact-details-icon{width:36px;height:44px;background-position:-107px -227px}
+.otp-icon{width:30px;height:40px;background-position:-107px -177px}
+.edit-blue-icon{width:16px;height:16px;background-position:-114px -123px}
+#otpPopup .errorIcon,#otpPopup .errorText{display:none}
+#otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}
+#otpPopup .update-mobile-box{display:none}
+#otpPopup .edit-mobile-btn{cursor:pointer}*/
 </style>
-<!-- lead capture popup start-->
-<div id="leadCapturePopup" class="text-center rounded-corner2">
-    <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-    <!-- contact details starts here -->
-    <div id="contactDetailsPopup">
-        <div class="icon-outer-container rounded-corner50">
-            <div class="icon-inner-container rounded-corner50">
-                <span class="bwsprite user-contact-details-icon margin-top25"></span>
-            </div>
-        </div>
-        <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
-        <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
-        <div class="personal-info-form-container">
-            <div class="form-control-box personal-info-list">
-                <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
-                    id="getFullName" data-bind="textInput: fullName">
-                <span class="bwsprite error-icon errorIcon"></span>
-                <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
-            </div>
-            <div class="form-control-box personal-info-list">
-                <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
-                    id="getEmailID" data-bind="textInput: emailId">
-                <span class="bwsprite error-icon errorIcon"></span>
-                <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
-            </div>
-            <div class="form-control-box personal-info-list">
-                <p class="mobile-prefix">+91</p>
-                <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
-                    id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
-                <span class="bwsprite error-icon errorIcon"></span>
-                <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
-            </div>
-            <div class="clear"></div>
-            <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-        </div>
-    </div>
+<!-- Lead Capture pop up start  -->
+<div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
+    <div class="popup-inner-container text-center">
+        <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
+        <div id="contactDetailsPopup">
+            <h2 class="margin-top10 margin-bottom10">Provide contact details</h2>
+            <p class="text-light-grey margin-bottom10">Dealership will get back to you with offers</p>
 
-    <!-- contact details ends here -->
-    <%-- <!-- otp starts here -->
-    <div id="otpPopup">
-        <div class="icon-outer-container rounded-corner50">
-            <div class="icon-inner-container rounded-corner50">
-                <span class="bwsprite otp-icon margin-top25"></span>
-            </div>
-        </div>
-        <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
-        <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
-        <div>
-            <div class="lead-mobile-box lead-otp-box-container font22">
-                <span class="fa fa-phone"></span>
-                <span class="text-light-grey font24">+91</span>
-                <span class="lead-mobile font24"></span>
-                <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
-            </div>
-            <div class="otp-box lead-otp-box-container">
-                <div class="form-control-box margin-bottom10">
-                    <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP" data-bind="value: otpCode">
-                    <span class="bwsprite error-icon errorIcon"></span>
+            <div class="personal-info-form-container">
+                <div class="form-control-box margin-top20">
+                    <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName" data-bind="textInput: fullName">
+                    <span class="bwmsprite error-icon errorIcon"></span>
                     <div class="bw-blackbg-tooltip errorText"></div>
                 </div>
-                <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP
-                </a>
-                <p class="otp-alert-text margin-left10 otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
-                    OTP has been already sent to your mobile
-                </p>
-                <div class="clear"></div>
-                <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
-            </div>
-            <div class="update-mobile-box">
-                <div class="form-control-box text-left">
+                <div class="form-control-box margin-top20">
+                    <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="textInput: emailId">
+                    <span class="bwmsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText"></div>
+                </div>
+                <div class="form-control-box margin-top20">
                     <p class="mobile-prefix">+91</p>
-                    <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
-                    <span class="bwsprite error-icon errorIcon"></span>
+                    <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="textInput: mobileNo">
+                    <span class="bwmsprite error-icon errorIcon"></span>
                     <div class="bw-blackbg-tooltip errorText"></div>
                 </div>
-                <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
+                <div class="clear"></div>
+                <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
             </div>
         </div>
-    </div>
-    <!-- otp ends here -->--%>
 
-    <div id="dealer-lead-msg" class="hide">
-        <div class="icon-outer-container rounded-corner50">
-            <div class="icon-inner-container rounded-corner50">
-                <span class="bwsprite otp-icon margin-top25"></span>
+        <!-- thank you message starts here -->
+        <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+            <div class="icon-outer-container rounded-corner50percent">
+                <div class="icon-inner-container rounded-corner50percent">
+                    <span class="bwmsprite thankyou-icon margin-top25"></span>
+                </div>
             </div>
+            <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+            <p class="font16 margin-bottom40">Dealer would get back to you shortly with additional information.</p>
+            <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
         </div>
-        <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="    visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
-
-        <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
+        <!-- thank you message ends here -->
+        <%--<div id="otpPopup">
+                    <p class="font18 margin-bottom5">Verify your mobile number</p>
+                    <p class="text-light-grey margin-bottom5">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
+                    <div>
+                        <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
+                            <span class="bwmsprite tel-grey-icon"></span>
+                            <span class="text-light-grey font24">+91</span>
+                            <span class="lead-mobile font24"></span>
+                            <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>
+                        </div>
+                        <div class="otp-box lead-otp-box-container">
+                            <div class="form-control-box margin-bottom10">
+                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" data-bind="value: otpCode"/>
+                                <span class="bwmsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                            <p class="margin-left10 margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
+                                OTP has been already sent to your mobile
+                            </p>
+                            <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
+                        </div>
+                        <div class="update-mobile-box">
+                            <div class="form-control-box text-left">
+                                <p class="mobile-prefix">+91</p>
+                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo"  />
+                                <span class="bwmsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
+                        </div>
+                    </div>
+                </div>--%>
     </div>
 </div>
-<!-- lead capture popup End-->
+<!-- Lead Capture pop up end  -->
 
-<!-- scripts goes here -->
 <script type="text/javascript">
 
     var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup");
@@ -135,7 +195,7 @@
 
         leadBtnBookNow.on('click', function () {
             leadCapturePopup.show();
-            $("#dealer-lead-msg").hide();
+            $("#notify-response").hide();
             $("div#contactDetailsPopup").show();
             $("#otpPopup").hide();
             $('body').addClass('lock-browser-scroll');
@@ -145,12 +205,12 @@
 
         $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
             leadCapturePopup.hide();
-            $("#dealer-lead-msg").hide();
+            $("#notify-response").hide();
             $('body').removeClass('lock-browser-scroll');
             $(".blackOut-window").hide();
         });
 
-        $(document).on('click', '#dealer-lead-msg .okay-thanks-msg', function () {
+        $(document).on('click', '#notifyOkayBtn', function () {
             $(".leadCapture-close-btn").click();
         });
 
@@ -397,7 +457,7 @@
                     $("#contactDetailsPopup").hide();
                     $("#personalInfo").hide()
                     //$("#otpPopup").hide();
-                    $("#dealer-lead-msg").fadeIn();
+                    $("#notify-response").fadeIn();
 
                 }
                 else {
@@ -646,4 +706,3 @@
     //}   --%>
 
 </script>
-

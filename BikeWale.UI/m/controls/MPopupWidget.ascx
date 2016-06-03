@@ -9,9 +9,26 @@
     var areaClicked = false;
 </script>
 <style type="text/css">
-    .progress-bar{width:0;height:2px;background:#16A085;bottom:0px;left:0;border-radius:2px;}
-    .btn-loader{background-color:#822821;}
-    .btnSpinner{right:8px;top:10px;z-index:9;display:none;background:#fff;}
+    .progress-bar {
+        width: 0;
+        height: 2px;
+        background: #16A085;
+        bottom: 0px;
+        left: 0;
+        border-radius: 2px;
+    }
+
+    .btn-loader {
+        background-color: #822821;
+    }
+
+    .btnSpinner {
+        right: 8px;
+        top: 10px;
+        z-index: 9;
+        display: none;
+        background: #fff;
+    }
 </style>
 <!--bw popup code starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup hide bw-popup-sm text-center" id="popupWrapper">
@@ -120,13 +137,14 @@
         $(".blackOut-window").hide();
         $('a.fillPopupData').removeClass('ui-btn-active');
     });
-    
+
     $('body').on("click", "a.fillPopupData", function (e) {
-        
+
         e.stopPropagation();
         $("#errMsgPopUp").empty();
         var str = $(this).attr('modelId');
         var pageIdAttr = $(this).attr('pagecatid');
+        selCityId = $(this).attr('selCityId');
         PQSourceId = $(this).attr('pqSourceId');
         var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
         var modelIdPopup = parseInt(str, 10);
@@ -358,7 +376,7 @@
                         if (self.SelectedArea() != undefined) {
                             selArea = '_' + self.SelectedArea().name;
                         }
-                        bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + selArea;                        
+                        bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + selArea;
                     }
                     catch (err) { }
                     window.location.reload();
@@ -405,7 +423,7 @@
                             }
 
                             cookieValue = "CityId=" + self.SelectedCityId() + "&AreaId=" + (!isNaN(self.SelectedAreaId()) ? self.SelectedAreaId() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
-                           
+
                             if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                                 gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                                 window.location = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
@@ -459,20 +477,44 @@
         }
         stopLoading($("#citySelection"));
         checkCookies();
-        if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && selectElementFromArray(self.BookingCities(), onCookieObj.PQCitySelectedId)) {
-            self.SelectedCity(ko.toJS({ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }));
-            self.SelectedCityId(onCookieObj.PQCitySelectedId);
-            var cityFound = findCityById(onCookieObj.PQCitySelectedId);
+        var cityFound = null;
+
+        if (selCityId == null) {
+            if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && selectElementFromArray(self.BookingCities(), onCookieObj.PQCitySelectedId)) {
+                cityFound = findCityById(onCookieObj.PQCitySelectedId);
+
+                if (cityFound != null) {
+                    self.SelectedCity(ko.toJS({ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }));
+                    self.SelectedCityId(onCookieObj.PQCitySelectedId);
+                    self.hasAreas(cityFound.hasAreas);
+                }
+                if (!self.oBrowser()) {
+                    $("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
+                }
+                else {
+                    self.selectCity(self, null);
+                }
+
+            }
+        }
+        else {
+            _cityid = parseInt(selCityId);
+            cityFound = findCityById(_cityid);
             if (cityFound != null) {
+                self.SelectedCityId(_cityid);
+                self.SelectedCity(ko.toJS({ 'id': cityFound.id, 'name': cityFound.name }));
                 self.hasAreas(cityFound.hasAreas);
             }
             if (!self.oBrowser()) {
-                $("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
+                $("ul#popupCityList li[cityId='" + _cityid + "']").click();
             }
             else {
                 self.selectCity(self, null);
             }
-        }
+
+        } 
+
+
     }
 
     function completeAreaOp(self, xhr) {
