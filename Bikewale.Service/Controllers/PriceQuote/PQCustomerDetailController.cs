@@ -71,6 +71,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Description :   Send the notification immediately
         /// Modified by :   Lucky Rathore on 13 May 2016
         /// Description :   var versionName declare, Intialized and NotifyCustomer() singature Updated.
+        /// Modified by :   Sumit Kate on 01 June 2016
+        /// Description :   Commented Mobile verification process
+        ///  noOfAttempts = -1 and isVerified = true to by pass the Mobile Verification Process
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
@@ -133,16 +136,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
 
-                    //if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
-                    //{
-                    //    mobileVer = _mobileVerificetion.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
-                    //    isVerified = false;
 
-                    //    SMSTypes st = new SMSTypes();
-                    //    st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.PageUrl);
-                    //}
-
-                    noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
+                    //noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
+                    noOfAttempts = -1;// By-pass the mobile verification by setting noOfAttempts = -1
 
                     //here -1 implies mobile number is verified and resend OTP attempts is 2
                     if (noOfAttempts > -1)
@@ -166,7 +162,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     }
                     else
                     {
-                        isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
+                        //Don't mark mobile verified for pq
+                        //isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
+                        isVerified = true;// Set Verified to true to push the lead into AB for un-verified leads as well
 
                         objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(input.CityId), Convert.ToUInt32(input.VersionId), input.DealerId);
                         objBookingPageDetailsDTO = BookingPageDetailsEntityMapper.Convert(objBookingPageDetailsEntity);
@@ -274,16 +272,16 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
                             objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
 
-                            _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Name,
+                            _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Organization,
                                dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization,
                                dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail,
                                dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
                                dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
                                "api/PQCustomerDetail", input.LeadSourceId, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude,
-                               dealerDetailEntity.objDealer.WorkingTime, platformId = "");
+                               dealerDetailEntity.objDealer.WorkingTime, platformId);
 
                             _objLeadNofitication.NotifyDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
-                                dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName);
+                                dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName);
 
                             if (isVerified)
                             {

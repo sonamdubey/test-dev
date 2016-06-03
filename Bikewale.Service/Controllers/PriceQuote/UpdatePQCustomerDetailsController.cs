@@ -75,6 +75,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Description :   Send the notification immediately
         /// Modified by :   Lucky Rathore on 13 May 2016
         /// Description :   var versionName declare, Intialized and NotifyCustomer() singature Updated.
+        /// Modified by :   Sumit Kate on 01 June 2016
+        /// Description :   Commented Mobile verification process
+        /// noOfAttempts = -1 and isVerified = true to by pass the Mobile Verification Process
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
@@ -131,8 +134,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     };
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
 
-                    noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
-
+                    //noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
+                    noOfAttempts = -1; // By-pass the mobile verification by setting noOfAttempts = -1
                     //here -1 implies mobile number is verified and resend OTP attempts is 2
                     if (noOfAttempts > -1)
                     {
@@ -153,10 +156,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     }
                     else
                     {
-                        isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
-
-                        // dealer = objBookingPageDetailsDTO.Dealer;
-                        //objCust = _objCustomer.GetByEmail(input.CustomerEmail);
+                        //Don't mark mobile verified for pq
+                        //isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
+                        isVerified = true; // Set Verified to true to push the lead into AB for un-verified leads as well
 
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetails(input.PQId);
                         objCust = pqCustomer.objCustomerBase;
@@ -237,12 +239,12 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
                             objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
 
-                            _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Name,
+                            _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Organization,
                                 dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization,
                                 dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail,
                                 dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
                                 dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
-                                "api/UpdatePQCustomerDetail", input.LeadSourceId, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude, dealerDetailEntity.objDealer.WorkingTime, platformId = "");
+                                "api/UpdatePQCustomerDetail", input.LeadSourceId, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude, dealerDetailEntity.objDealer.WorkingTime, platformId);
 
                             if (isVerified)
                             {
