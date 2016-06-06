@@ -42,7 +42,7 @@ namespace Bikewale.New
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
-        protected bool isAreaAvailable, isDiscontinued;
+        protected bool isAreaAvailable;
         protected String clientIP = CommonOpn.GetClientIP();
 
 
@@ -142,7 +142,6 @@ namespace Bikewale.New
                         cityName = firstVersion.City;
                         versionId = firstVersion.VersionId;
                         makeId = firstVersion.MakeId;
-                        isDiscontinued = !firstVersion.IsModelNew;
                     }
                 }
             }

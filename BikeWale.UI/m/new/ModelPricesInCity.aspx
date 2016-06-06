@@ -87,7 +87,7 @@
                 <div class="grid-12 float-button float-fixed">
                     <p class="grid-6 font13 select-area-label text-light-grey">Please select area to get accurate on-road price</p>
                     <p class="grid-6 alpha">
-                        <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" selcityid="<%=cityId %>" modelid="<%=modelId %>" class="btn btn-sm btn-full-width font18 btn-orange fillPopupData changeCity">Select your area</a>
+                        <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectAreas %>" selcityid="<%=cityId %>" modelid="<%=modelId %>" class="btn btn-sm btn-full-width font18 btn-orange fillPopupData changeCity">Select your area</a>
                     </p>
                 </div>
                 <%} %>

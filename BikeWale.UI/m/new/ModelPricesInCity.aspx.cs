@@ -62,7 +62,7 @@ namespace Bikewale.Mobile.New
                 ctrlDealers.MakeId = makeId;
                 ctrlDealers.CityId = cityId;
                 ctrlDealers.TopCount = 3;
-                ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealerCard_GetOffers;
+                ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_DealerCard_GetOffers;
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
@@ -275,7 +275,7 @@ namespace Bikewale.Mobile.New
         private void BindAlternativeBikeControl()
         {
             ctrlAlternateBikes.TopCount = 6;
-            ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_Alternative;
+            ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_Alternative;
             ctrlAlternateBikes.WidgetTitle = bikeName;
             if (firstVersion != null)
                 ctrlAlternateBikes.VersionId = (int)firstVersion.VersionId;
