@@ -32,15 +32,15 @@
                                 <a href="/" itemprop="url"><span itemprop="title">Home</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="fa fa-angle-right margin-right10"></span>
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= makeMaskingName %>-bikes/" itemprop="url"><span itemprop="title"><%= makeName %> Bikes</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="fa fa-angle-right margin-right10"></span>
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url"><span itemprop="title"><%= modelName %></span></a>
                             </li>
                             <li>
-                                <span class="fa fa-angle-right margin-right10"></span>
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <span>Specs & Features</span>
                             </li>
                         </ul>
@@ -69,14 +69,14 @@
                             <div class="grid-4 padding-left30">
                                 <%if(isDiscontinued) { %>
                                 <p class="font14 text-light-grey margin-bottom5 text-truncate">Last known Ex-showroom price</p>
-                                <div class="font16">
-                                    <span class="fa fa-rupee"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+                                <div>
+                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 </div>
                                 <p class="font14 text-light-grey margin-bottom5"><%= bikeName %> is now discontinued in India.</p>
                                 <%} else { %>
                                 <p class="font14 text-light-grey margin-bottom5 text-truncate"> <%=(dealerDetail!= null && dealerDetail.PrimaryDealer != null) ? string.Format("On-road price in {0}, {1}", areaName, cityName) : "Ex-showroom price in Mumbai" %></p>
-                                <div class="font16">
-                                    <span class="fa fa-rupee"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+                                <div>
+                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 </div>
                                 <%} %>
                                 
@@ -95,7 +95,7 @@
                               else if (!isCitySelected || !isAreaSelected) 
                               {%>
                                 <div class="grid-3 model-orp-btn alpha omega">
-                                    <a href="javascript:void(0)" isModel="true" data-pqsourceid="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check On-Road Price</a>
+                                    <a href="javascript:void(0)" isModel="true" data-pqsourceid="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check on-road price</a>
                                 </div>
                             <% 
                             }
