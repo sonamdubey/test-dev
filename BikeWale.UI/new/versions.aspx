@@ -59,11 +59,11 @@
                                 <span itemprop="title">Home</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="fa fa-angle-right margin-right10"></span>
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/" itemprop="url">
                                     <span itemprop="title"><%= modelPageEntity.ModelDetails.MakeBase.MakeName %></span>
                                 </a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span>
                                 <span><%= modelPageEntity.ModelDetails.ModelName %></span>
                             </li>
                         </ul>
@@ -177,7 +177,7 @@
                                                 </span>
                                                 <span class="clear"></span>
                                             </div>
-                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top5 pos-right10"></span>
+                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top13 pos-right10"></span>
                                         </div>
                                         <div class="sort-selection-div sort-list-items hide">
                                             <ul id="sortbike">
@@ -266,7 +266,7 @@
 									{ %>
                                 <div class="leftfloat margin-top5 margin-right15 <%= (isBookingAvailable && isDealerAssitance) ? "model-price-book-now-wrapper" : string.Empty %> " itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                     <span itemprop="priceCurrency" content="INR">
-                                        <span class="font20"><span class="fa fa-rupee"></span></span>
+                                        <span class="bwsprite inr-md-lg"></span>
                                     </span>
                                     <span id="new-bike-price" class="font22" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                     <%if (isOnRoadPrice)
@@ -319,11 +319,11 @@
                                 <div id="expectedPriceContainer" class="padding-top15">
                                     <p class="font14 default-showroom-text text-light-grey">Expected Price</p>
                                     <div class="modelExpectedPrice margin-bottom15">
-                                        <span class="font28"><span class="fa fa-rupee"></span></span>
-                                        <span id="bike-price" class="font32">
+                                        <span class="bwsprite inr-md-lg"></span>
+                                        <span id="bike-price" class="font22">
                                             <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)) %></span>
                                             <span>- </span>
-                                            <span class="font28"><span class="fa fa-rupee"></span></span>
+                                            <span class="bwsprite inr-md-lg"></span>
                                             <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)) %></span>
                                         </span>
                                     </div>
@@ -353,7 +353,7 @@
                             <div class="padding-top20 padding-right20 padding-left20">
                                 <div class="border-light-bottom padding-bottom20">
                                     <h3 class="font18 text-darker-black leftfloat margin-right20"><%=viewModel.Organization %>, <%=viewModel.AreaName %></h3>
-                                    <p class="leftfloat text-bold font16 position-rel pos-top2"><span class="fa fa-phone"></span> <%=viewModel.MaskingNumber %></p>
+                                    <p class="leftfloat text-bold font16 position-rel pos-top2"><span class="bwsprite phone-black-icon"></span><%=viewModel.MaskingNumber %></p>
                                     <div class="clear"></div>
                                 </div>
                             </div>
@@ -461,9 +461,9 @@
                                         <p class="font14 text-light-grey margin-bottom20">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
                                         <div>
                                             <div class="lead-mobile-box lead-otp-box-container font22">
-                                                <span class="fa fa-phone"></span>
-                                                <span class="text-light-grey font24">+91</span>
-                                                <span class="lead-mobile font24"></span>
+                                                <span class="bwsprite phone-black-icon"></span>
+                                                <span class="text-light-grey">+91</span>
+                                                <span class="lead-mobile"></span>
                                                 <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
                                             </div>
                                             <div class="otp-box lead-otp-box-container">
@@ -498,7 +498,7 @@
                                 </div>
                             <% if(isBookingAvailable && bookingAmt > 0){ %>
                             <div class="font14 text-light-grey content-inner-block-20">
-                                <p>The booking amount of <span class="fa fa-rupee"></span> <%=bookingAmt %> has to be paid online and balance amount of <span class="fa fa-rupee"></span> <%= price-bookingAmt  %> has to be paid at the dealership. <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>">Book now</a></p>
+                                <p>The booking amount of <span class="bwsprite inr-sm-grey"></span><%=bookingAmt %> has to be paid online and balance amount of <span class="bwsprite inr-sm-grey"></span><%= price-bookingAmt  %> has to be paid at the dealership. <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>">Book now</a></p>
                             </div>
                             <% } %>
                         </div>
@@ -511,7 +511,7 @@
                                     <li>
                                         <a href="javascript:void(0);" onclick="secondarydealer_Click(
                                             <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)" class="font18 text-bold text-darker-black margin-right20 secondary"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %>, <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Area")) %></a>
-                                        <span class="font16 text-bold"><span class="fa fa-phone"></span> <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MaskingNumber")) %></span>
+                                        <span class="font16 text-bold"><span class="bwsprite phone-black-icon"></span><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MaskingNumber")) %></span>
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -520,8 +520,8 @@
                         <% if (viewModel!=null && !isBikeWalePQ && viewModel.SecondaryDealerCount > 0)
                            { %>
                         <div class="text-center margin-top20">
-                            <a href="javascript:void(0)" class="font14 more-dealers-link">Check price from <%=viewModel.SecondaryDealerCount %> more dealers <span class="font12"><span class="fa fa-chevron-down"></span></span></a>
-                            <a href="javascript:void(0)" class="font14 less-dealers-link">Show less dealers <span class="font12"><span class="fa fa-chevron-up"></span></span></a>
+                            <a href="javascript:void(0)" class="font14 more-dealers-link">Check price from <%=viewModel.SecondaryDealerCount %> more dealers <span class="font12"><span class="bwsprite chevron-down"></span></span></a>
+                            <a href="javascript:void(0)" class="font14 less-dealers-link">Show less dealers <span class="font12"><span class="bwsprite chevron-up"></span></span></a>
                         </div>
                         <%} %>
                     </div>
@@ -578,8 +578,8 @@
 
                                 <% } %>                          
                             <div class="clear"></div>
-                            <div class="font16">
-                                <span class="fa fa-rupee"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+                            <div>
+                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                             </div>
                         </div>
                         <div class="grid-3 model-orp-btn alpha omega">
@@ -719,7 +719,7 @@
                                                         <% } %>                                                   
                                                     </p>
                                                     <p class="font18 text-bold text-black">
-                                                        <span class="fa fa-rupee"></span>
+                                                        <span class="bwsprite inr-lg-dark"></span>
                                                         <span><asp:Label Text='<%#Eval("Price") %>' ID="txtComment" runat="server"></asp:Label></span>
                                                     </p>
                                                     <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />
@@ -899,8 +899,7 @@
                     <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                     <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
                     <!-- Alternative reviews ends -->
-                    <% } %>   
-                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>                
+                    <% } %>
                     <div id="overallSpecsDetailsFooter"></div>
                 </div>
             </div>

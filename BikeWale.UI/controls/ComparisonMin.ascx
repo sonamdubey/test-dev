@@ -16,7 +16,7 @@
                 <div class="grid-6 alpha border-solid-right">
                     <div class="content-inner-block-5 text-center">
                         <div class="font18 margin-bottom5">
-                            <span class="bwsprite inr-md"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(TopRecord.Price1)) %>
+                            <span class="bwsprite inr-lg-thin"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(TopRecord.Price1)) %>
                         </div>
                         <div>
                             <% if (Convert.ToDouble(TopRecord.Review1) > 0)
@@ -36,7 +36,7 @@
                 <div class="grid-6 omega">
                     <div class="content-inner-block-5 text-center">
                         <div class="font18 margin-bottom5">
-                            <span class="bwsprite inr-md"></span> <%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price2.ToString()) %>
+                            <span class="bwsprite inr-lg-thin"></span> <%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price2.ToString()) %>
                         </div>
                         <div>
                             <% if (Convert.ToDouble(TopRecord.Review2) > 0)

@@ -25,10 +25,10 @@
                         <!-- breadcrumb code starts here -->
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><%= makeUrl %></li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><%= modelUrl %></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><span data-bind="text : $root.Bike().selectedVersion().MinSpec.VersionName"></span></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>Dealer Details</li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><%= makeUrl %></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><%= modelUrl %></li>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span><span data-bind="text : $root.Bike().selectedVersion().MinSpec.VersionName"></span></li>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span>Dealer Details</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -182,7 +182,7 @@
                                             </div>
                                         </div>
                                         <div class="emi-slider-box-right-section font16">
-                                            <span class="fa fa-rupee"></span>
+                                            <span class="bwsprite inr-md"></span>
                                             <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(downPayment())"></span>
                                         </div>
                                         <div class="clear"></div>
@@ -207,7 +207,7 @@
                                             </div>
                                         </div>
                                         <div class="emi-slider-box-right-section font16">
-                                            <span class="fa fa-rupee"></span>
+                                            <span class="bwsprite inr-md"></span>
                                             <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(loan())"></span>
                                         </div>
                                         <div class="clear"></div>
@@ -270,10 +270,10 @@
                                 <div class="finance-emi-right-box omega text-center">
                                     <h4 class="margin-top90 text-light-grey margin-bottom20">Indicative EMI</h4>
                                     <div class="indicative-emi-amount margin-bottom5">
-                                        <span class="font28"><span class="fa fa-rupee"></span></span>
-                                        <span id="emiAmount" class="font30" data-bind="text: monthlyEMI">12,000</span>
+                                        <span class="bwsprite inr-xl"></span>
+                                        <span id="emiAmount" class="font22" data-bind="text: monthlyEMI">12,000</span>
                                     </div>
-                                    <p class="font16 text-light-grey">per month</p>
+                                    <p class="font14 text-light-grey">per month</p>
                                 </div>
                                 <div class="clear"></div>
                                 <!-- /ko -->
@@ -304,7 +304,7 @@
                                     <% if (isOfferAvailable)
                                        { %>
                                     <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwsprite offers-icon margin-right5"></span>Available Offers </h3>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span> <span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5"></span>Pay <span class="bwsprite inr-md" style="font-size: 15px"></span> <span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
 
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
@@ -320,7 +320,7 @@
                                        else
                                        {%>
                                     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="bwsprite inr-md" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
                                     <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                                     <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
 
@@ -345,12 +345,12 @@
                                 <p class="text-light-grey margin-bottom5 font14">On-road price in <span class="font16 text-bold text-grey"><%= location %></span></p>
                                 <div class="modelPriceContainer margin-bottom15">
                                     <!-- ko if : (versionPrice() - insuranceAmount()) > 0 -->
-                                    <span class="font28"><span class="fa fa-rupee"></span></span>
-                                    <span class="font30" data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span>
+                                    <span class="bwsprite inr-xl"></span>
+                                    <span class="font22" data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span>
                                     <span class="font14 text-light-grey viewBreakupText">View breakup</span>
                                     <!-- /ko -->
                                     <!-- ko ifnot : (versionPrice() - insuranceAmount()) > 0 -->
-                                    <span class="font30">Price unavailable</span>
+                                    <span class="font22">Price unavailable</span>
                                     <!-- /ko -->
 
                                 </div>
@@ -373,7 +373,7 @@
                                             <!-- ko foreach: versionPriceBreakUp -->
                                             <tr>
                                                 <td width="350" class="padding-bottom10" data-bind="text: ItemName"></td>
-                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="bwsprite inr-md margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
                                             <!-- /ko -->
                                             <% if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null
@@ -386,12 +386,12 @@
                                             </tr>
                                             <tr>
                                                 <td class="padding-bottom10">Total on road price</td>
-                                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
+                                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="bwsprite inr-md margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
                                             </tr>
                                             <!-- ko foreach: discountList -->
                                             <tr>
                                                 <td width="350" class="padding-bottom10" data-bind="text: 'Minus '+CategoryName"></td>
-                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="bwsprite inr-md margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
                                             <!-- /ko -->
                                             <%} %>
@@ -404,7 +404,7 @@
                                             <tr>
 
                                                 <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
+                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="bwsprite inr-lg margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
 
                                             </tr>
                                             <tr>
