@@ -40,7 +40,6 @@ namespace Bikewale.Mobile.New
     public class NewBikeModels : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
         // Register controls
-        protected AlternativeBikes ctrlAlternateBikes;
         protected NewNewsWidget ctrlNews;
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected NewVideosWidget ctrlVideos;
@@ -258,12 +257,12 @@ namespace Bikewale.Mobile.New
 
         private void BindAlternativeBikeControl()
         {
-            ctrlAlternateBikes.TopCount = 6;
+            ctrlAlternativeBikes.TopCount = 6;
 
             if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
             {
-                ctrlAlternateBikes.VersionId = modelPage.ModelVersions[0].VersionId;
-                ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage_Alternative;
+                ctrlAlternativeBikes.VersionId = modelPage.ModelVersions[0].VersionId;
+                ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage_Alternative;
             }
         }
 
