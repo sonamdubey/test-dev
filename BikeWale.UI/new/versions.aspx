@@ -566,8 +566,8 @@
                         <div class="grid-4 padding-left30">
                                 <%if(isDiscontinued){ %>
                                 <p class="font14 text-light-grey margin-bottom5">Last known Ex-showroom price</p>
-                                <%} %>
-                                <% if (!isCitySelected)
+                                <%} else
+                                 if (!isCitySelected)
 								   {%>
                                 <p class="font14 text-light-grey margin-bottom5"><span>Ex-showroom price in</span>&nbsp;<span class="font14 text-default text-truncate"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span></p>
                                 <% } %>
