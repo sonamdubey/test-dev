@@ -563,7 +563,7 @@
                                                 </ItemTemplate>
                                             </asp:Repeater>
                                         </div>
-                                        <p class="font16"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
+                                        <p class="font16 inline-block"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
                                     </li>
                               </ItemTemplate>
                         </asp:Repeater>
@@ -573,7 +573,7 @@
 
                     </div>
 
-                    <div class="margin-top15 margin-bottom15 text-center">
+                    <div class="margin-top15 text-center">
                        <!-- #include file="/ads/Ad300x250.aspx" -->
                     </div>
                 </div>
@@ -597,6 +597,7 @@
                     </div>
                 <%if (ctrlNews.FetchedRecordsCount > 0)
                  { %>
+                <div class="margin-top20 margin-right20 margin-left20 border-solid-top"></div>
                  <BW:News runat="server" ID="ctrlNews" />
                 <% } %>      
 
@@ -604,7 +605,7 @@
                    { %>
                     <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />           
                 <%} %>
-                <div id="modelSpecsFooter"></div>
+                <div id="modelSpecsFooter" class="padding-bottom20"></div>
             </div>
         </section>
       
