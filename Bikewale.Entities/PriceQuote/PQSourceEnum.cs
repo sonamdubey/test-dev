@@ -8,6 +8,9 @@ namespace Bikewale.Entities.PriceQuote
     /// Modified By : Lucky Rathore
     /// Modified On : 28 March 2016
     /// Description : Desktop_DealerLocator_SubmitButton and  Desktop_DealerLocator_GetOfferButton added.
+    /// Modified By : Sushil Kumar
+    /// Modified On : 6th June 2016
+    /// Description : Mobile_PriceInCity_SelectAreas,Mobile_PriceInCity_Alternative and  Mobile_PriceInCity_DealerCard_GetOffers added.
     /// </summary>
     public enum PQSourceEnum
     {
@@ -58,7 +61,10 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_DealerLocator_GetOfferButton_Floating = 45,
         Desktop_PriceInCity_SelectAreas = 46,
         Desktop_PriceInCity_Alternative = 47,
-        Desktop_PriceInCity_DealerCard_GetOffers = 48
+        Desktop_PriceInCity_DealerCard_GetOffers = 48,
+        Mobile_PriceInCity_SelectAreas = 49,
+        Mobile_PriceInCity_Alternative = 50,
+        Mobile_PriceInCity_DealerCard_GetOffers = 51
 
     }
 }

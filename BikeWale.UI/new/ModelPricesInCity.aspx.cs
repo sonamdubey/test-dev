@@ -141,6 +141,7 @@ namespace Bikewale.New
                         modelImage = Utility.Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, Bikewale.Utility.ImageSize._310x174);
                         cityName = firstVersion.City;
                         versionId = firstVersion.VersionId;
+                        makeId = firstVersion.MakeId;
                     }
                 }
             }
@@ -167,8 +168,6 @@ namespace Bikewale.New
 
         /// <summary>
         /// Function to get parameters from the query string.
-        /// Modified By : Sushil Kumar on 3rd June 2016
-        /// Description :  Added fetch operation for makeid from query string
         /// </summary>
         private void ParseQueryString()
         {
@@ -178,23 +177,11 @@ namespace Bikewale.New
             {
                 model = Request.QueryString["model"];
                 city = Request.QueryString["city"];
-                _make = Request.QueryString["make"];
 
                 if (!string.IsNullOrEmpty(city))
                 {
                     cityId = GetCityMaskingName(city);
                 }
-
-                if (!string.IsNullOrEmpty(_make))
-                {
-                    string _makeId = MakeMapping.GetMakeId(_make);
-
-                    if (CommonOpn.CheckId(_makeId))
-                    {
-                        makeId = Convert.ToUInt32(_makeId);
-                    }
-                }
-
 
                 if (!string.IsNullOrEmpty(model))
                 {
@@ -213,8 +200,6 @@ namespace Bikewale.New
                     }
                 }
 
-
-
             }
             catch (Exception ex)
             {
@@ -229,7 +214,7 @@ namespace Bikewale.New
             {
                 // Get ModelId
                 // Code to check whether masking name is changed or not. If changed redirect to appropriate url
-                if (makeId > 0  && objResponse != null && cityId > 0)
+                if (objResponse != null && cityId > 0)
                 {
                     if (objResponse.StatusCode == 200)
                     {

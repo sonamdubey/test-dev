@@ -868,12 +868,20 @@
       <DependentUpon>CompareBikesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\DealersCard.ascx.cs">
+      <DependentUpon>DealersCard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\ExpertReviewsWidget.ascx.cs">
       <DependentUpon>ExpertReviewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\ExpertReviewsVideos.ascx.cs">
       <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\LeadCaptureControl.ascx.cs">
+      <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\ListPagerControl.ascx.cs">
@@ -896,6 +904,10 @@
       <DependentUpon>ModelGallery.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\ModelPriceInNearestCities.ascx.cs">
+      <DependentUpon>ModelPriceInNearestCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\MOnRoadPricequote.ascx.cs">
       <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -906,6 +918,10 @@
     </Compile>
     <Compile Include="m\controls\MUpcomingBikes.ascx.cs">
       <DependentUpon>MUpcomingBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\NewAlternativeBikes.ascx.cs">
+      <DependentUpon>NewAlternativeBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\NewExpertReviewsWidget.ascx.cs">
@@ -1893,6 +1909,7 @@
     <Content Include="css\jquery.ad-gallery.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
+    <Content Include="css\new\modelprice-in-city.css" />
     <Content Include="css\new\search.css" />
     <Content Include="css\pikaday.css" />
     <Content Include="css\rsa.css" />
@@ -2305,16 +2322,20 @@
     <Content Include="m\controls\CompareBikeMin.ascx" />
     <Content Include="m\controls\CompareBikeMin_old.ascx" />
     <Content Include="m\controls\CompareBikesMin.ascx" />
+    <Content Include="m\controls\DealersCard.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
+    <Content Include="m\controls\LeadCaptureControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
     <Content Include="m\controls\ModelGallery.ascx" />
+    <Content Include="m\controls\ModelPriceInNearestCities.ascx" />
     <Content Include="m\controls\MOnRoadPricequote.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
     <Content Include="m\controls\MUpcomingBikes.ascx" />
+    <Content Include="m\controls\NewAlternativeBikes.ascx" />
     <Content Include="m\controls\NewExpertReviewsWidget.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
@@ -2344,6 +2365,7 @@
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\new.css" />
     <Content Include="m\css\new\bwm-bookinglisting.css" />
+    <Content Include="m\css\new\bwm-modelprice-in-city.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
     <Content Include="m\css\zebra_datepicker.css" />

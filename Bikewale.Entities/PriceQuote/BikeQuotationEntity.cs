@@ -2,6 +2,11 @@
 
 namespace Bikewale.Entities.PriceQuote
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar
+    /// Modified On : 6th June 2016
+    /// Description : Added makeId property to get makeId for dealers card widget 
+    /// </summary>
     public class BikeQuotationEntity
     {
         public ulong PriceQuoteId { get; set; }
@@ -31,5 +36,8 @@ namespace Bikewale.Entities.PriceQuote
 
         public string OriginalImage { get; set; }
         public string HostUrl { get; set; }
+
+        public uint MakeId { get; set; }
+
     }
 }
