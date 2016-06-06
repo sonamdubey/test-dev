@@ -642,7 +642,8 @@
                     <div class="border-divider"></div>
 
                     <div id="modelSummaryContent" class="bw-model-tabs-data content-inner-block-20">
-                        <div class="grid-8 alpha margin-bottom20 container <%= (modelPageEntity.ModelDesc == null || string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) ? "hide" : string.Empty %>">
+                        <%if(modelPageEntity.ModelDesc == null || string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)){ %>
+                        <div class="grid-8 alpha margin-bottom20 container">
                             <h2><%=bikeName %></h2>
                             <h3>Preview</h3>
                             <p class="font14 text-light-grey line-height17">
@@ -658,6 +659,7 @@
                         <div class="grid-4 text-center alpha omega margin-bottom20">
                             <!-- #include file="/ads/Ad300x250.aspx" -->
                         </div>
+                        <%} %>
                         <div class="clear"></div>
 
                         <h3>Specification summary</h3>
