@@ -555,6 +555,9 @@ namespace Bikewale.DAL.PriceQuote
         /// <summary>
         /// Author: Sangram Nandkhile on 25 May 2016
         /// Summary: Get bike versions and prices by model Id
+        /// Modified By : Sushil Kumar
+        /// Modified On : 6th June 2016
+        /// Description : Added makeId property to get makeId for dealers card widget 
         /// </summary>
         /// <param name="modelId">Model Id</param>
         /// <param name="cityId">City Id </param>
