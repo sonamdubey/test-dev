@@ -600,6 +600,9 @@ namespace Bikewale.DAL.PriceQuote
                                     OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
                                     OriginalImage = Convert.ToString(dr["OriginalImagePath"]),
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
+                                    MakeId =  Convert.ToUInt32(Convert.ToString(dr["MakeId"])),
+                                    IsModelNew   = Convert.ToBoolean(dr["IsModelNew"]),
+                                    IsVersionId = Convert.ToBoolean(dr["IsVersionNew"])
                                 });
 
                             }

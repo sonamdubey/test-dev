@@ -18,9 +18,7 @@
         ogImage = modelImage;
      %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <style type="text/css">
-        .model-versions-tabs-wrapper { display:table; background:#fff; }.model-versions-tabs-wrapper a { padding:10px 20px; display:table-cell; font-size:14px; color:#82888b; }.model-versions-tabs-wrapper a:hover { text-decoration:none; color:#4d5057; }.model-versions-tabs-wrapper a.active { border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057; }.border-divider { border-top:1px solid #e2e2e2; }.model-version-image-content { width:292px; overflow:hidden; }.model-version-image-content img { width:100%; }#versionPriceInCityWrapper .selectAreaToGetList li { margin-top:13px; }.bullet-point { padding-left:13px; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkE0NDhENDQ2MTY5MTExRTZBRTE3QzMxMDE4N0IwNTUyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkE0NDhENDQ3MTY5MTExRTZBRTE3QzMxMDE4N0IwNTUyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QTQ0OEQ0NDQxNjkxMTFFNkFFMTdDMzEwMTg3QjA1NTIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QTQ0OEQ0NDUxNjkxMTFFNkFFMTdDMzEwMTg3QjA1NTIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6QHJtYAAAARElEQVR42mJcsX4zGwMDQzcQxwAxIxAvBuJSFiDRBcR5DAgAYn9nAhKxDJgglYkBB2CCmokO5oDsKINaCjMSpLAWIMAAxGMKcqcmhHwAAAAASUVORK5CYII=') no-repeat 0% 50%; }.btn-xxlg { padding: 8px 62px; }.text-x-black { color:#1a1a1a; }.dealer-details-item a:hover { text-decoration:none; }.phone-black-icon { width:11px; height:15px; position:relative; top:3px; margin-right:6px; background-position:-73px -444px; }.mail-grey-icon { width:12px; height:10px; margin-right:6px; background-position:-92px -446px; }#modelPriceInNearbyCities li { width:200px; display:inline-block; vertical-align:top; margin-right:30px; margin-bottom:10px; }#modelPriceInNearbyCities li a { width:135px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:5px; display:inline-block; vertical-align:top; }#modelPriceInNearbyCities .nearby-city-price { width:60px; color:#2a2a2a; text-align:right; display:inline-block; vertical-align:top; }.blue-right-arrow-icon { width:6px; height:10px; background-position:-74px -469px; position:relative; top:1px; left:7px; }.dealership-loc-icon { width:8px; height:12px; background-position:-53px -469px; position:relative;top:4px; }.dealership-address { width:92%; }.vertical-top { display:inline-block;vertical-align:top; }
-    </style>
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/modelprice-in-city.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form runat="server">
@@ -60,11 +58,11 @@
             <div class="grid-12 font14">
                 <div class="content-box-shadow">
                     <p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey"><%=bikeName %> On-road price in <%=cityName %>&nbsp; <span class="fa fa-rupee"></span><% if(firstVersion!= null){ %>&nbsp;<%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% } %>  onwards. 
-                       <% if(versionCount > 1){ %> This bike comes in <%=versionCount %> versions.<br /> <% } %>Click on any version name to know on-road price in this city:</p>
+                       <% if(versionCount > 1){ %> This bike comes in <%=versionCount %> versions.<br /> <% } %>Click on any version name to know on-road price in <%= cityName %>:</p>
                     <div id='versions' class="model-versions-tabs-wrapper">
                         <asp:Repeater ID="rpVersioNames" runat="server">
                             <ItemTemplate>
-                                <a id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>" href="javascript:void(0)"><%# DataBinder.Eval(Container.DataItem, "VersionName").ToString() %></a>
+                                <a class="<%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?string.Empty:"active" %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>" href="javascript:void(0)"><%# DataBinder.Eval(Container.DataItem, "VersionName").ToString() %></a>
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>
@@ -79,7 +77,7 @@
                         <div class="grid-4 padding-top15">
                             <asp:Repeater ID="rprVersionPrices" runat="server">
                                 <ItemTemplate>
-                                    <div class="priceTable hide" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
+                                    <div class="priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
                                         <table cellspacing="0" cellpadding="0" width="100%" border="0">
                                             <tr>
                                                 <td width="200" class="padding-bottom15">Ex-showroom</td>
@@ -103,7 +101,7 @@
                                                 <td colspan="2" class="padding-bottom15 border-divider"></td>
                                             </tr>
                                             <tr>
-                                                <td class="text-bold text-default">On-road price in <%=TargetedCity %></td>
+                                                <td class="text-bold text-default">On-road price in <%= cityName %></td>
                                                 <td align="right" class="font16 text-bold text-default"><span class="fa fa-rupee"></span>
                                                     &nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %>  
                                                 </td>
