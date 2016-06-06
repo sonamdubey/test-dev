@@ -546,10 +546,7 @@
                 </div>
             </div>
             <!-- Terms and condition Popup Ends -->
-        </section>
-        <section>
-            <!-- #include file="/ads/Ad970x90_BTF.aspx" -->
-        </section>
+        </section>       
         <section id="modelDetailsFloatingCardContent" class="container">
             <div class="grid-12">
                 <div class="model-details-floating-card">
