@@ -363,9 +363,18 @@
                             <li class="active" data-tabs="#modelSummaryContent"><h3>Summary</h3></li>
                             <li data-tabs="#modelPricesContent"><h3>Prices</h3></li>
                             <li data-tabs="#modelSpecsFeaturesContent"><h3>Specs & Features</h3></li>
+                            <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
+                             { %>
                             <li data-tabs="#modelReviewsContent"><h3>Reviews</h3></li>
-                            <li data-tabs="#makeNewsContent"><h3>News</h3></li>
-                            <li data-tabs="#modelAlternateBikeContent"><h3>Alternatives</h3></li>                            
+                              <%} %>
+                             <% if (ctrlNews.FetchedRecordsCount > 0)
+                             { %>
+                                <li data-tabs="#makeNewsContent"><h3>News</h3></li>
+                            <%} %>
+                             <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
+                              { %>
+                                 <li data-tabs="#modelAlternateBikeContent"><h3>Alternatives</h3></li>
+                            <%} %>
                         </ul>
                     </div>
                 </div>

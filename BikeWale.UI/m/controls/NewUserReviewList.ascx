@@ -14,7 +14,7 @@
                 </div>
                 <div class="model-user-review-title-container">
                     <h4><%#Eval("ReviewTitle").ToString() %> </h4>
-                    <p class="font12 text-truncate text-light-grey">April 15, 2016, by Parth Shukla</p>
+                    <p class="font12 text-truncate text-light-grey"><%#Eval("ReviewDate", "{0:dd-MMM-yyyy}") %> by <%#Eval("WrittenBy").ToString() %></p>
                 </div>
                 <p class="margin-top17"><%#Eval("Comments").ToString() %> ...
                     <a href="/m/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">Read full review</a>
