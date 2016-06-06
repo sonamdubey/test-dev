@@ -4,7 +4,7 @@
     <h2><%= WidgetTitle %> News</h2>
 
        <!-- when one news -->
-        <% if (true)
+        <% if (FetchedRecordsCount == 1)
            { %>
 
     <div class="margin-bottom15">
@@ -23,7 +23,7 @@
         </div>
     </div>
       <% }
-           else if(false)
+           else
            { %>
      
     <div class="margin-bottom15">
