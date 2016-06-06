@@ -436,6 +436,11 @@ $(document).ready(function () {
         panel.find(".bw-tabs-data").hide();
         $("#" + panelId).show();
         applyTabsLazyLoad();
+        $("#" + panelId).find(".swiper-slide-active img.swiper-lazy").each(function (index) {
+            var src = $(this).attr("data-src");
+            $(this).attr("src", src);
+            $(this).parent().find('.swiper-lazy-preloader').remove();
+        });
         centerItVariableWidth($(this), '.bw-tabs');
 
         var swiperContainer = $('#' + panelId + " .swiper-container");
