@@ -1,5 +1,5 @@
 ﻿ <%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeModels" EnableViewState="false" Trace="false" %>
-<%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/NewNewsWidget.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/NewExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
@@ -586,6 +586,11 @@
                         <% } %>
 
                     </div>
+                <%if (ctrlNews.FetchedRecordsCount > 0)
+                 { %>
+                 <BW:News runat="server" ID="ctrlNews" />
+                <% } %>      
+
                 <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                    { %>
                     <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />           
@@ -1067,10 +1072,7 @@
                               { %>
                             <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                             <% } %>--%>
-                            <%if (!isNewsZero)
-                              { %>
-                            <BW:News runat="server" ID="ctrlNews" />
-                            <% } %>                           
+                                               
                         </div>
                     </div>
                 </div>
@@ -1078,27 +1080,7 @@
             </div>
         </section>
 
-        <section class="<%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
-            <div class="container margin-bottom10">
-                <div class="grid-12">
-                    <!-- Most Popular Bikes Starts here-->
-                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> Alternate Bikes </h2>
-
-                    <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
-                        <div class="swiper-wrapper">                          
-                        </div>
-                        <!-- Add Pagination -->
-                        <div class="swiper-pagination"></div>
-                        <!-- Navigation -->
-                        <div class="bwmsprite swiper-button-next hide"></div>
-                        <div class="bwmsprite swiper-button-prev hide"></div>
-                    </div>
-
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-
+     
         <!-- Terms and condition Popup Ends -->
 
         <!-- Lead Capture pop up start  -->

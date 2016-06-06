@@ -41,7 +41,7 @@ namespace Bikewale.Mobile.New
     {
         // Register controls
         protected AlternativeBikes ctrlAlternateBikes;
-        protected NewsWidget ctrlNews;
+        protected NewNewsWidget ctrlNews;
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected NewVideosWidget ctrlVideos;
         protected NewUserReviewList ctrlUserReviews;
