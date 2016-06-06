@@ -564,6 +564,9 @@
                             </div>
                         </div>
                         <div class="grid-4 padding-left30">
+                                <%if(isDiscontinued){ %>
+                                <p class="font14 text-light-grey margin-bottom5">Last known Ex-showroom price</p>
+                                <%} %>
                                 <% if (!isCitySelected)
 								   {%>
                                 <p class="font14 text-light-grey margin-bottom5"><span>Ex-showroom price in</span>&nbsp;<span class="font14 text-default text-truncate"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span></p>
@@ -583,11 +586,11 @@
                             </div>
                         </div>
                         <div class="grid-3 model-orp-btn alpha omega">
-                             <% if (toShowOnRoadPriceButton)
+                             <% if (toShowOnRoadPriceButton && !isDiscontinued)
                                { %>                            
                              <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> fillPopupData bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check On-Road Price</a>
                             <%} else
-                                    if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
+                                    if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && !isDiscontinued)
                                     {%>									 
                                      <a href="javascript:void(0)" id="getOffersFromDealerFloating" leadSourceId="24" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="myBikeName">Get offers from dealer</a>
                                     <%} %>
@@ -604,7 +607,7 @@
                         <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
                         <a href="#modelPricesContent" rel="nofollow">Prices</a>
                         <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
-                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
                            { %>
                         <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
                         <%} %>
@@ -627,7 +630,7 @@
                         <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
                         <a href="#modelPricesContent" rel="nofollow">Prices</a>
                         <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
-                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
                            { %>
                         <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
                         <%} %>
@@ -864,7 +867,7 @@
                         <div class="margin-right10 margin-left10 border-solid-top"></div>
                       <%} %>
                     <div id="modelReviewsContent" class="bw-model-tabs-data font14">
-                        <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                        <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
                           { %>
                         <h2 class="padding-top20 padding-right20 padding-left20"><%= bikeName %> Reviews</h2>
                         <%} %>
