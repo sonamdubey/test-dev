@@ -44,7 +44,7 @@
             $.each(this.settings.buttons, function(index, value) {
                 $.each(networks, function(k, v) {
                     if (value === k) {
-                        var $icon = $("<i>", { class: "margin-top-5 fa fa-" + value }),
+                        var $icon = $("<i>", { class: "margin-top8 fa fa-" + value }),
                             _href = v.url.replace('{url}', base.settings.url)
                                          .replace('{title}', base.settings.title)
                                          .replace('{description}', base.settings.description)
@@ -152,7 +152,7 @@
 
     function appendButtons(count, $component) {
         if(count && count > 0) {
-            $component.append($("<span>", { class: "shareCount" }).append(shorten(count))).find("i").removeClass("margin-top-5");
+            $component.append($("<span>", { class: "shareCount" }).append(shorten(count))).find("i").removeClass("margin-top8");
         }
     }
 

@@ -2532,6 +2532,8 @@
     <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <!-- <Content Include="src\knockout.js" /> -->
+    <Content Include="src\jquery.floating-social-share.js" />
+    <Content Include="src\jquery.floating-social-share.min.js" />
     <Content Include="src\login\login.js" />
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />

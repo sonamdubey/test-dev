@@ -105,9 +105,9 @@
                                     <a href="/new/search.aspx#budget=0-50000">
                                         <span class="budget-title-box font16">Upto
                                         </span>
-                                        <span class="budget-amount-box font20">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font24">50,000</span>
+                                        <span class="budget-amount-box">
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">50,000</span>
                                         </span>
                                     </a>
                                 </li>
@@ -115,11 +115,11 @@
                                     <a href="/new/search.aspx#budget=50000-100000">
                                         <span class="budget-title-box font16">Between
                                         </span>
-                                        <span class="budget-amount-box font20">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font24">50,000 - </span>
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font24">1</span>
+                                        <span class="budget-amount-box">
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">50,000 - </span>
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">1</span>
                                             <span class="budget-amount-text-box font16">Lakhs</span>
                                         </span>
                                     </a>
@@ -128,13 +128,13 @@
                                     <a href="/new/search.aspx#budget=100000-250000">
                                         <span class="budget-title-box font16">Between
                                         </span>
-                                        <span class="budget-amount-box font20">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font24">1</span>
+                                        <span class="budget-amount-box">
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">1</span>
                                             <span class="budget-amount-text-box font16">Lakhs</span>
-                                            <span class="font24">- </span>
-                                            <span class="fa fa-rupee"></span>
-                                            <span>2.5</span>
+                                            <span>- </span>
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">2.5</span>
                                             <span class="budget-amount-text-box font16">Lakhs</span>
                                         </span>
                                     </a>
@@ -143,9 +143,9 @@
                                     <a href="/new/search.aspx#budget=250000-">
                                         <span class="budget-title-box font16">Above
                                         </span>
-                                        <span class="budget-amount-box font20">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font24">2.5</span>
+                                        <span class="budget-amount-box">
+                                            <span class="bwsprite inr-budget"></span>
+                                            <span class="font20">2.5</span>
                                             <span class="budget-amount-text-box font16">Lakhs</span>
                                         </span>
                                     </a>
@@ -160,8 +160,8 @@
                                     <a href="/new/search.aspx#mileage=1">
                                         <span class="mileage-title-box font16">Above
                                         </span>
-                                        <span class="mileage-amount-box font24">
-                                            <span>70 <span class="font16">Kmpl</span></span>
+                                        <span class="mileage-amount-box">
+                                            <span class="font20">70 <span class="font16">Kmpl</span></span>
                                         </span>
                                     </a>
                                 </li>
@@ -169,10 +169,10 @@
                                     <a href="/new/search.aspx#mileage=2">
                                         <span class="mileage-title-box font16">Between
                                         </span>
-                                        <span class="mileage-amount-box font24">
-                                            <span>70</span>
+                                        <span class="mileage-amount-box">
+                                            <span class="font20">70</span>
                                             <span class="mileage-amount-text-box font16">Kmpl</span>
-                                            <span>- 50</span>
+                                            <span class="font20">- 50</span>
                                             <span class="mileage-amount-text-box font16">Kmpl</span>
                                         </span>
                                     </a>
@@ -181,10 +181,10 @@
                                     <a href="/new/search.aspx#mileage=3">
                                         <span class="mileage-title-box font16">Between
                                         </span>
-                                        <span class="mileage-amount-box font24">
-                                            <span>50</span>
+                                        <span class="mileage-amount-box">
+                                            <span class="font20">50</span>
                                             <span class="mileage-amount-text-box font16">Kmpl</span>
-                                            <span>- 30</span>
+                                            <span class="font20">- 30</span>
                                             <span class="mileage-amount-text-box font16">Kmpl</span>
                                         </span>
                                     </a>
@@ -193,8 +193,8 @@
                                     <a href="/new/search.aspx#mileage=4">
                                         <span class="mileage-title-box font16">Upto
                                         </span>
-                                        <span class="mileage-amount-box font24">
-                                            <span>30</span>
+                                        <span class="mileage-amount-box">
+                                            <span class="font20">30</span>
                                             <span class="mileage-amount-text-box font16">Kmpl</span>
                                         </span>
                                     </a>
@@ -203,7 +203,7 @@
                         </div>
                     </div>
                     <div class="bw-tabs-data hide" id="discoverStyle">
-                        <div class="style-type-container margin-bottom35">
+                        <div class="style-type-container margin-bottom20">
                             <ul class="text-center">
                                 <li>
                                     <a href="/new/search.aspx#ridestyle=5">
@@ -363,8 +363,8 @@
                             <li data-tabs="calculate-emi" class="">Calculate EMI's</li>
                         </ul>
                     </div>
-                    <div class="bw-tabs-data" id="getFinal-price">
-                        <div class="getFinal-price-container text-center margin-bottom30">
+                    <div class="bw-tabs-data padding-bottom30" id="getFinal-price">
+                        <div class="getFinal-price-container text-center">
                             <div class="margin-bottom40">
                                 <span class="bw-circle-icon final-price-logo"></span>
                             </div>
@@ -372,10 +372,10 @@
                             <BW:NBOnRoadPrice PageId="4" Id="NBOnRoadPrice" runat="server" />
                         </div>
                     </div>
-                    <div class="bw-tabs-data hide" id="locate-dealer">
+                    <div class="bw-tabs-data padding-bottom30 hide" id="locate-dealer">
                         <BW:LocateDealer Id="ctrlLocateDealer" runat="server" />
                     </div>
-                    <div class="bw-tabs-data hide" id="calculate-emi">
+                    <div class="bw-tabs-data padding-bottom30 hide" id="calculate-emi">
                         <BW:EmiCalc Id="ctrlEmiCalc" runat="server"></BW:EmiCalc>
                         <div class="clear"></div>
                     </div>

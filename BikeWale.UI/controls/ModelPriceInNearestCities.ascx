@@ -8,7 +8,7 @@
             <ItemTemplate>
                 <li>
                     <a href="/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-bikes/<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>/price-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/" title="Price in <%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %>"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></a>
-                    <span class="nearby-city-price"><span class="fa fa-rupee"></span>&nbsp;<%# Bikewale.Utility.Format.FormatPriceShort(DataBinder.Eval(Container.DataItem, "OnRoadPrice").ToString()) %></span>
+                    <span class="nearby-city-price"><span class="bwsprite inr-sm-dark"></span>&nbsp;<%# Bikewale.Utility.Format.FormatPriceShort(DataBinder.Eval(Container.DataItem, "OnRoadPrice").ToString()) %></span>
                 </li>
             </ItemTemplate>
         </asp:Repeater>

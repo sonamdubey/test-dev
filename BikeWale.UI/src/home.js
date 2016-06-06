@@ -8,7 +8,7 @@ $("a.view-more-btn").click(function(e){
 	b.text(b.text() === "More" ? "Less" : "More");
 	c.slideToggle();
 	e.preventDefault();
-	e.stopPropagtion();
+	e.stopPropagation();
 });
 $("ul.brand-budget-mileage-style-UL li").click(function(){
 	var a,b;

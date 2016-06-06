@@ -1,5 +1,4 @@
 ﻿<nav id="nav">
-    <!-- nav code starts here -->
     <ul class="navUL">
         <li>
             <a href="/">
@@ -12,7 +11,7 @@
             <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwsprite newBikes-icon"></span>
                 <span class="navbarTitle">New Bikes</span>
-                <span class="nav-drop fa fa-angle-down"></span>
+                <span class="nav-drop fa-angle-down"></span>
             </a>
             <ul class="nestedUL">
                 <li><a href="/new/">Find New Bikes</a></li>
@@ -28,7 +27,7 @@
             <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwsprite usedBikes-icon"></span>
                 <span class="navbarTitle">Used Bikes</span>
-                <span class="nav-drop fa fa-angle-down"></span>
+                <span class="nav-drop fa-angle-down"></span>
             </a>
             <ul class="nestedUL">
                 <li><a href="/used/">Find Used Bikes</a></li>
@@ -45,7 +44,7 @@
             <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwsprite reviews-icon"></span>
                 <span class="navbarTitle">Reviews, News &amp; Videos</span>
-                <span class="nav-drop fa fa-angle-down"></span>
+                <span class="nav-drop fa-angle-down"></span>
             </a>
             <ul class="nestedUL">
                 <li><a href="/news/">News</a></li>
@@ -55,18 +54,6 @@
                 <li><a href="/bike-videos/">Videos</a></li>
             </ul>
         </li>
-        <%--        <li>
-            <a href="javascript:void(0)">
-                <span class="bwsprite newBikes-icon"></span>
-                <span class="navbarTitle">Bike Booking</span>
-                <span class="nav-drop fa fa-angle-down"></span>
-            </a>
-            <ul class="nestedUL">
-                <li><a href="/bikebooking/default.aspx">Book Your Bike</a></li>
-                <li><a href="/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
-                <li><a href="/bikebooking/cancellation.aspx">Cancel Your Booking</a></li>
-            </ul>
-        </li>--%>
         <li>
             <a href="/insurance/">
                 <span class="bwsprite insurance-icon"></span>
@@ -91,4 +78,3 @@
         <%--<a href="https://itunes.apple.com/in/app/bikewale/id910137745?mt=8" target="_blank" class="bwsprite app-store-icon"></a>--%>
     </div>
 </nav>
-<!-- ends here -->

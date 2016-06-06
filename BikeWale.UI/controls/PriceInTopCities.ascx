@@ -10,7 +10,7 @@
                     <a href="/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-bikes/<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>/price-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/" class="text-truncate"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></a>
                 </div>
                 <div class="grid-5 alpha omega text-right">
-                    <span class="fa fa-rupee"></span>
+                    <span class="bwsprite inr-sm-dark"></span>
                     <span><%# Bikewale.Utility.Format.FormatPriceShort(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %></span>
                 </div>
                 <div class="clear"></div>

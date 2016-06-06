@@ -10,10 +10,10 @@
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style>
-        .map-box {
-            width: 290px;
-            height: 90px;
-        }
+        .map-box {width: 290px;height: 90px;}
+        .inr-sm { width:8px; height:12px; background-position:-110px -468px; }
+        .inr-lg { width:10px; height:14px; background-position:-110px -490px; }
+        .phone-grey-icon { width:11px; height:15px; background-position:-53px -444px; position:relative; top:0; }
     </style>
 </head>
 <body class="bg-light-grey header-fixed-inner">
@@ -37,7 +37,7 @@
                         <!-- breadcrumb code starts here -->
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>New Bikes</li>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span>New Bikes</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -56,7 +56,7 @@
                             <p class="text-bold">
                                 <span class="inline-block booking-sprite booking-success-icon margin-right10"></span>
                                 <span class="inline-block font18">We have received your payment of
-                                <span class="fa fa-rupee margin-left5"></span>
+                                <span class="bwsprite inr-lg"></span>&nbsp;
                                     <span class="font20"><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></span>
                                 </span>
                             </p>
@@ -75,11 +75,11 @@
                                 <tbody>
                                     <tr>
                                         <td width="200" class="padding-bottom10">On road price:</td>
-                                        <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(totalPrice)) %></td>
+                                        <td align="right" class="padding-bottom10 text-bold"><span class="bwsprite inr-sm margin-right5"></span><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(totalPrice)) %></td>
                                     </tr>
                                     <tr>
                                         <td>Advance booking:</td>
-                                        <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></td>
+                                        <td align="right" class="text-bold"><span class="bwsprite inr-sm margin-right5"></span><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></td>
                                     </tr>
                                     <% if (_objPQ.objQuotation.discountedPriceList != null && _objPQ.objQuotation.discountedPriceList.Count > 0)
                                            {%>
@@ -87,7 +87,7 @@
                                             <ItemTemplate>
                                                 <tr>
                                                     <td>Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName")%></td>
-                                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span> <%# Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"Price")))%> </td>
+                                                    <td align="right" class="text-bold"><span class="bwsprite inr-sm margin-right5"></span> <%# Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"Price")))%> </td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -102,7 +102,7 @@
                                     </tr>
                                     <tr>
                                         <td>Balance amount:</td>
-                                        <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalPrice - _objPQ.objBookingAmt.Amount - totalDiscount)) %></td>
+                                        <td align="right" class="font18 text-bold"><span class="bwsprite inr-lg margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalPrice - _objPQ.objBookingAmt.Amount - totalDiscount)) %></td>
                                     </tr>
                                     <tr>
                                         <td class="font12" colspan="2">*Balance amount payable at the dealership</td>
@@ -116,7 +116,7 @@
                         <div class="booking-dealer-details ">
                             <h3 class="font18 margin-bottom15"><%= organization %></h3>
                             <p class="font14 text-light-grey margin-bottom10"><%= address %></p>
-                            <p class="font14 margin-bottom10"><span class="fa fa-phone margin-right5"></span><%=contactNo %></p>
+                            <p class="font14 margin-bottom10"><span class="bwsprite phone-grey-icon margin-right5"></span><%=contactNo %></p>
                             <div id="divMap" class="hide margin-top10 border-solid"></div>
                         </div>
                     </div>

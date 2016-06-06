@@ -11,14 +11,14 @@
             <a href="/" class="bwsprite bw-logo"></a>
             <p class="font18 text-white margin-top50 margin-bottom20">Join us on</p>
             <div class="footer-social-icons">
-                    <a href="https://www.facebook.com/Bikewale.Official" target="_blank" title="Facebook" class="margin-right30" rel="nofollow">
-                    <span class="fa fa-facebook"></span>
+                    <a href="https://www.facebook.com/Bikewale.Official" target="_blank" title="Facebook" class="margin-right30 fa-fb" rel="nofollow">
+                    <span class="bwsprite fa-facebook"></span>
                 </a>
-                    <a href="https://twitter.com/bikewale" target="_blank" title="Twitter" class="margin-right30" rel="nofollow">
-                    <span class="fa fa-twitter"></span>
+                    <a href="https://twitter.com/bikewale" target="_blank" title="Twitter" class="margin-right30 fa-tw" rel="nofollow">
+                    <span class="bwsprite fa-twitter"></span>
                 </a>
-                    <a href="https://plus.google.com/115751055341108541383/posts" target="_blank" title="Google+" rel="nofollow">
-                    <span class="fa fa-google-plus"></span>
+                    <a href="https://plus.google.com/115751055341108541383/posts" target="_blank" class="fa-gp" title="Google+" rel="nofollow">
+                    <span class="bwsprite fa-google-plus"></span>
                 </a>
             </div>
         </div>
