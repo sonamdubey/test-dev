@@ -789,7 +789,9 @@
                             </div>
                             <div class="clear"></div>
                             <div class="margin-top25 padding-left20">
-                                <a href="<%# Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName, "specs") %>" class="bw-ga" c="Model_Page" a="View_full_specifications_link_cliked" v="myBikeName">View full specifications<span class="bwsprite blue-right-arrow-icon" ></span></a>
+                                <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPageEntity.ModelDetails.MakeBase.MaskingName, 
+                                modelPageEntity.ModelDetails.MaskingName, "modelSpecificationContent", variantId) %>" 
+                                    class="bw-ga" c="Model_Page" a="View_full_specifications_link_cliked" v="myBikeName">View full specifications<span class="bwsprite blue-right-arrow-icon" ></span></a>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -810,7 +812,8 @@
                                     </div>
                                     <div class="clear"></div>
                                     <div class="margin-top25 padding-left20">
-                                        <a href="<%# Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName, "features") %>" class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName">View all features<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                        <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPageEntity.ModelDetails.MakeBase.MaskingName,
+                                        modelPageEntity.ModelDetails.MaskingName, "modelFeaturesContent", variantId) %>" class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName">View all features<span class="bwsprite blue-right-arrow-icon"></span></a>
                                     </div>
                                 </div>
                                 <div class="grid-6">

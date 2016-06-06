@@ -9,9 +9,12 @@
         title = string.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
         description = string.Format("Know more about {0} Specifications and Features. See details about mileage, engine displacement, power, kerb weight and other specifications.", bikeName);
         keywords = string.Format("{0} specification, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
-        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/specifications-features/", makeName, modelName);
-        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/", makeName, modelName);
-        ogImage = modelImage; 
+        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
+        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
+        ogImage = modelImage;
+        isAd970x90Shown = true;
+        AdId = "1017752";
+        AdPath = "/1017752/Bikewale_NewBike_";
           %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/specsandfeature.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -30,11 +33,11 @@
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="fa fa-angle-right margin-right10"></span>
-                                <a href="/" itemprop="url"><span itemprop="title"><%= makeName %> Bikes</span></a>
+                                <a href="/<%= makeMaskingName %>-bikes/" itemprop="url"><span itemprop="title"><%= makeName %> Bikes</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="fa fa-angle-right margin-right10"></span>
-                                <a href="/" itemprop="url"><span itemprop="title"><%= modelName %></span></a>
+                                <a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url"><span itemprop="title"><%= modelName %></span></a>
                             </li>
                             <li>
                                 <span class="fa fa-angle-right margin-right10"></span>
@@ -55,8 +58,8 @@
                         <div class="content-inner-block-1020">
                             <div class="grid-5 alpha omega">
                                 <div class="model-card-image-content inline-block-top margin-right20">
-                                    <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268) %>" 
-                                        title="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos"alt="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos" src="" />
+                                    <img src="<%= modelImage %>" 
+                                        title="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos"alt="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos"  />
                                 </div>
                                 <div class="model-card-title-content inline-block-top">
                                     <h2 class="font18 text-bold margin-bottom10"><%= bikeName %></h2>
@@ -89,7 +92,7 @@
                                 <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= dealerDetail.PrimaryDealer.DealerDetails.Name %></p>
                             </div>
                             <% }
-                              else if (!isCitySelected || !isAreaAvailable)
+                              else if (!isCitySelected || !isAreaSelected) 
                               {%>
                                 <div class="grid-3 model-orp-btn alpha omega">
                                     <a href="javascript:void(0)" isModel="true" data-pqsourceid="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check On-Road Price</a>
@@ -250,9 +253,8 @@
                             <p><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Performance_80_0_kmph) %></p>
                         </div>
                         <div class="clear"></div>
+                        <div class="margin-top30 margin-right10 margin-left10 border-divider"></div>
                     </div>
-
-                    <div class="margin-top30 margin-right10 margin-left10 border-divider"></div>
 
                     <div id="modelFeaturesContent" class="bw-model-tabs-data padding-top20 padding-bottom40">
                         <h2 class="padding-left20 padding-right20">Features</h2>
@@ -338,6 +340,14 @@
             var pageUrl = window.location.href;
             var clientIP = '<%= clientIP %>';
             $(document).ready(function () {
+                var hashValue = window.location.hash.substr(1);
+                if (hashValue.length > 0) {
+                    $("body, html").animate({
+                        scrollTop: $("#" + hashValue).offset().top - $('.model-details-floating-card').height()
+                    }, 500);
+                }
+            });
+            $(document).ready(function () {
                 var $window = $(window),
                     modelCardAndDetailsWrapper = $('#modelCardAndDetailsWrapper'),
                     modelDetailsFloatingCard = $('.model-details-floating-card'),
@@ -397,8 +407,14 @@
                         "isregisterpq": true
                     };
                     customerViewModel.setOptions(leadOptions);
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': "<%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%>" });
                 });
+                $("#user-details-submit-btn").click(function(){
+                    if(customerViewModel.IsVerified)
+                    {
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': "<%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%>" });
+                    }
+                });
+
             });
         </script>
 

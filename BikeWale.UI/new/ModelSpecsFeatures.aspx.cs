@@ -35,7 +35,7 @@ namespace Bikewale.New
     public class ModelSpecsFeatures : PageBase
 	{
         protected uint cityId, areaId, modelId, versionId, dealerId, price = 0;
-        protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName, modelMaskingName, clientIP = CommonOpn.GetClientIP();
+        protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName, makeMaskingName, modelMaskingName, clientIP = CommonOpn.GetClientIP();
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton, isDiscontinued;
@@ -108,14 +108,20 @@ namespace Bikewale.New
                             {
                                 if (modelPg.ModelDetails != null)
                                 {
-                                    if (modelPg.ModelDetails.ModelName != null)
+                                    if (modelPg.ModelDetails.ModelName != null) 
+                                    {
                                         modelName = modelPg.ModelDetails.ModelName;
+                                    }
                                     if (modelPg.ModelDetails.MakeBase != null)
+                                    {
                                         makeName = modelPg.ModelDetails.MakeBase.MakeName;
+                                        makeMaskingName = makeName = modelPg.ModelDetails.MakeBase.MaskingName;
+                                    }
+                                        
                                     bikeName = string.Format("{0} {1}", makeName, modelName);
                                     if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                                     {
-                                        modelImage = string.Format("{0} {1}", modelPg.ModelDetails.HostUrl, modelPg.ModelDetails.OriginalImagePath);
+                                        modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                                         price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
                                          //Check it versionId passed through url exists in current model's versions
                                         if (!modelPg.ModelVersions.Exists(p => p.VersionId == versionId))
