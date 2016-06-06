@@ -25,5 +25,5 @@
   </asp:Repeater>
 </div>
 <div>
-    <a class="font16" href="/m/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/" class="bw-ga" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all user reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
+    <a class="font14" href="/m/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/" class="bw-ga" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all user reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
