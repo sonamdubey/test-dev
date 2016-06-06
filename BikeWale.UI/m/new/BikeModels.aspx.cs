@@ -140,9 +140,9 @@ namespace Bikewale.Mobile.New
                     ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
                     ctrlVideos.ModelId = Convert.ToInt32(modelId);
 
-                    ctrlUserReviews.ReviewCount = 4;
+                    ctrlUserReviews.ReviewCount = 2;
                     ctrlUserReviews.PageNo = 1;
-                    ctrlUserReviews.PageSize = 4;
+                    ctrlUserReviews.PageSize = 2;
                     ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
                     ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 

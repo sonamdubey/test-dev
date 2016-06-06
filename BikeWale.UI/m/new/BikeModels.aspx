@@ -361,8 +361,13 @@
                     <div id="overallSpecsTab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
                             <li class="active" data-tabs="#modelSummaryContent"><h3>Summary</h3></li>
+                            <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                            { %>
                             <li data-tabs="#modelPricesContent"><h3>Prices</h3></li>
+                            <%} %>
+                            <% if(modelPage.ModelVersionSpecs!= null){ %>
                             <li data-tabs="#modelSpecsFeaturesContent"><h3>Specs & Features</h3></li>
+                            <% } %>
                             <li data-tabs="#modelReviewsContent"><h3>Reviews</h3></li>
                             <li data-tabs="#makeNewsContent"><h3>News</h3></li>
                             <li data-tabs="#modelAlternateBikeContent"><h3>Alternatives</h3></li>                            
@@ -384,6 +389,7 @@
                         <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
                     </p>
                     <%} %>
+                    <% if(modelPage.ModelVersionSpecs!= null){ %>
                     <h3>Specification summary</h3>
                     <div class="text-center">
                         <div class="summary-overview-box">
@@ -425,13 +431,15 @@
                         </div>
                     </div>
                     </div>
+                    <% } %>
                 </div>
 
                 <div class="margin-right20 margin-left20 border-solid-top"></div>
 
                 <div id="modelPricesContent" class="bw-model-tabs-data">
+                    <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                       { %>
                     <h2 class="padding-top15 padding-right20 padding-left20"><%= bikeName %> Prices</h2>
-
                     <!-- varient code starts here -->
                     <h3 class="padding-right20 padding-left20">Prices by versions</h3>
 
@@ -465,12 +473,12 @@
                     </div>
 
                     <!-- varient code ends here -->
+                    <% } %>
                    <BW:TopCityPrice ID="ctrlTopCityPrices" runat="server" />
 
                 </div>
-
+                <% if(modelPage.ModelVersionSpecs != null){ %>
                 <div class="margin-right20 margin-left20 border-solid-top"></div>
-
                 <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data font14">
                     <div class="content-inner-block-1520">
                         <h2><%=bikeName %> Specifications & Features</h2>
@@ -568,6 +576,8 @@
                        <!-- #include file="/ads/Ad300x250.aspx" -->
                     </div>
                 </div>
+                <% } %>
+
                     <div id="modelReviewsContent" class="bw-model-tabs-data padding-top10 padding-right20 padding-left20 font14">
                     <h2><%=bikeName %> Reviews</h2>
                        
@@ -577,7 +587,7 @@
                         <% } %>
                         <%if (ctrlUserReviews.FetchedRecordsCount > 0)
                               { %>
-                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                         <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                         <% } %>
                         
                         <%if (ctrlVideos.FetchedRecordsCount > 0)
