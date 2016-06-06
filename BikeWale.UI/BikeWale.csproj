@@ -1151,8 +1151,8 @@
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\ModelSpecsFeatures.aspx.cs">
-      <DependentUpon>ModelSpecsFeatures.aspx</DependentUpon>
+    <Compile Include="new\modelSpecsFeatures.aspx.cs">
+      <DependentUpon>modelSpecsFeatures.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\versions.aspx.cs">
@@ -1899,6 +1899,7 @@
     <Content Include="css\new\bookinglisting.css" />
     <Content Include="css\search.css" />
     <Content Include="css\slideshow.css" />
+    <Content Include="css\specsandfeature.css" />
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
@@ -2447,7 +2448,7 @@
     <Content Include="new\locatenewbikedealers_old.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\ModelPricesInCity.aspx" />
-    <Content Include="new\ModelSpecsFeatures.aspx" />
+    <Content Include="new\modelSpecsFeatures.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
@@ -2549,6 +2550,7 @@
     <!--     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\specsAndFeature.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="staticHtml\premium.html" />

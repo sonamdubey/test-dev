@@ -612,8 +612,10 @@ namespace Bikewale.New
                         modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID));
                         if (modelPg != null)
                         {
+
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {
+                                    modelImage = string.Format("{0} {1}", modelPg.ModelDetails.HostUrl, modelPg.ModelDetails.OriginalImagePath);
                                 price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
                                 if (variantId == 0 && cityId == 0)
                                 {
@@ -810,6 +812,7 @@ namespace Bikewale.New
                     {
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.PriceQuote = objPQOutput;
+                            
                         string api = string.Empty;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {
