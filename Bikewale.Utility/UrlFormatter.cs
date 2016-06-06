@@ -45,9 +45,9 @@ namespace Bikewale.Utility
         /// Desc : url format /<make>-bikes/<model>/specifications-features/#specs,/<make>-bikes/<model>/specifications-features/#features
         /// </summary>
         /// <returns></returns>
-        public static string ViewAllFeatureSpecs(string make, string model, string hash)
+        public static string ViewAllFeatureSpecs(string make, string model, string hash, uint versionID)
         {
-            return String.Format("/{0}-bikes/{1}/specifications-features/#{2}", make, model, hash);
+            return String.Format("/{0}-bikes/{1}/specifications-features/?vid={3}#{2}", make, model, hash, versionID);
         }
 
         /// <summary>
