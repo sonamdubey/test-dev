@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewUserReviewList" %>
 
+<div style='padding-left: 20px;padding-right: 20px;'>
 <h3 class="margin-top20 model-section-subtitle">User reviews</h3>
-<div class="model-user-review-container">
-
+<div class="model-user-review-container padding20">
   <asp:Repeater ID="rptUserReview" runat="server">
     <ItemTemplate>
             <div class="margin-bottom20">
@@ -27,3 +27,4 @@
 <div>
     <a class="font14" href="/m/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/" class="bw-ga" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all user reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
+    </div>

@@ -576,19 +576,19 @@
                               </ItemTemplate>
                         </asp:Repeater>
                         </ul>
-  
                          <!-- colours code ends here -->   
-
                     </div>
-
                     <div class="margin-top15 text-center">
                        <!-- #include file="/ads/Ad300x250.aspx" -->
                     </div>
                 </div>
                 <% } %>
 
+                <% if (ctrlExpertReviews.FetchedRecordsCount > 0 && ctrlUserReviews.FetchedRecordsCount > 0 && ctrlVideos.FetchedRecordsCount > 0)
+                           { %>
                     <div id="modelReviewsContent" class="bw-model-tabs-data padding-top10 padding-right20 padding-left20 font14">
                     <h2><%=bikeName %> Reviews</h2>
+                        <% } %>
                        
                         <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                            { %>
@@ -596,7 +596,9 @@
                         <% } %>
                         <%if (ctrlUserReviews.FetchedRecordsCount > 0)
                               { %>
+
                          <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+
                         <% } %>
                         
                         <%if (ctrlVideos.FetchedRecordsCount > 0)
