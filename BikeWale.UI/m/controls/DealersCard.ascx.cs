@@ -123,7 +123,7 @@ namespace Bikewale.Mobile.Controls
             }
             else
             {
-                retString = String.Format("<a class=\"font16 text-default\" href=\"m/{0}-bikes/dealers-in-{1}/\">{2}</a>", makeMaskingName, cityMaskingName, dealerName); 
+                retString = String.Format("<a class=\"font16 text-default\" href=\"/m/{0}-bikes/dealers-in-{1}/\">{2}</a>", makeMaskingName, cityMaskingName, dealerName); 
             }
 
             return retString;
