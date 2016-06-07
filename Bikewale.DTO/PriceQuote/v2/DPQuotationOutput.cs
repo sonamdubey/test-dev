@@ -21,5 +21,7 @@ namespace Bikewale.DTO.PriceQuote.v2
         public DTO.PriceQuote.v2.PQPrimaryDealer Dealer { get; set; }
         [JsonProperty("version")]
         public IEnumerable<DPQVersionBase> Versions { get; set; }
+        [JsonProperty("quoteId")]
+        public ulong PriceQuoteId { get; set; }
     }
 }

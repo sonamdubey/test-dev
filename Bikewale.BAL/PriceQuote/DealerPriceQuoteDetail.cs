@@ -67,7 +67,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="versionID">e.g. 112</param>
         /// <param name="dealerId">e.g. 19886</param>
         /// <returns></returns>
-        public PQ_QuotationEntity Quotation(uint cityId, UInt16 sourceType, string deviceId, uint dealerId, uint modelId, ulong pqId, bool isPQRegistered, uint? areaId = null, uint? versionId = null)
+        public PQ_QuotationEntity Quotation(uint cityId, UInt16 sourceType, string deviceId, uint dealerId, uint modelId,ref ulong pqId, bool isPQRegistered, uint? areaId = null, uint? versionId = null)
         {
             PQ_QuotationEntity objDealerPQ = null;
             IList<PQ_BikeVarient> pqVersion = null;
@@ -84,7 +84,7 @@ namespace Bikewale.BAL.PriceQuote
                     objPQEntity.VersionId = versionId.HasValue ? versionId.Value : default(uint);
                     objPQEntity.RefPQId = pqId;
                     objPQEntity.DealerId = dealerId;
-                    objPQ.RegisterPriceQuote(objPQEntity);
+                    pqId = objPQ.RegisterPriceQuote(objPQEntity);
                 }
 
                 if (dealerId > 0)
