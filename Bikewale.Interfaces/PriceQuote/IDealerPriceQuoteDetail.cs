@@ -8,6 +8,8 @@ namespace Bikewale.Interfaces.PriceQuote
     /// Created By : Lucky Rathore
     /// Created on : 15 March 2016
     /// Description : for Dealer Price quote page functionalies.
+    /// Modified By : Sumit Kate on 3rd June 2016
+    /// Description : New Quotation method for api/dealerversionprices and api/v2/onroadprice
     /// </summary>
     public interface IDealerPriceQuoteDetail
     {

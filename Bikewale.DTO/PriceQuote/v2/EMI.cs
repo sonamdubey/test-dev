@@ -2,7 +2,12 @@
 using System;
 
 namespace Bikewale.DTO.PriceQuote.v2
-{
+{   
+    /// <summary>
+    /// Created By : Sumit Kate
+    /// Created on : 3rd June 2016
+    /// Description : New EMI version for api/dealerversionprices and api/v2/onroadprice
+    /// </summary>
     public class EMI
     {
         [JsonProperty("id")]
