@@ -386,7 +386,6 @@
 
                 <div id="modelSummaryContent" class="bw-model-tabs-data content-inner-block-1520">
                     <h2><%=bikeName %> Summary</h2>
-                    <%if (!(modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))){ %>
                     <h3>Preview</h3>
                     <p class="font14 text-light-grey line-height17 margin-bottom15">
                         <span class="model-preview-main-content">
@@ -397,7 +396,6 @@
                         </span>
                         <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
                     </p>
-                    <%} %>
                     <% if(modelPage.ModelVersionSpecs!= null){ %>
                     <h3>Specification summary</h3>
                     <div class="text-center">
@@ -584,7 +582,7 @@
                 </div>
                 <% } %>
 
-                <% if (ctrlExpertReviews.FetchedRecordsCount > 0 && ctrlUserReviews.FetchedRecordsCount > 0 && ctrlVideos.FetchedRecordsCount > 0)
+                <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
                            { %>
                     <div id="modelReviewsContent" class="bw-model-tabs-data padding-top10 padding-right20 padding-left20 font14">
                     <h2><%=bikeName %> Reviews</h2>

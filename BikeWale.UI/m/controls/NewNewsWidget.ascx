@@ -9,17 +9,18 @@
 
     <div class="margin-bottom15">
         <div class="news-image-wrapper">
-            <a href="<%=firstPost.ArticleUrl %>">
+            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>">
+            <%--<a href="<%=firstPost.ArticleUrl %>">--%>
                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages( firstPost.OriginalImgUrl, firstPost.HostUrl ,Bikewale.Utility.ImageSize._370x208) %>" title="<%=firstPost.Title %>" alt="<%=firstPost.Title %>"  />
             </a>
         </div>
         <div class="news-heading-wrapper">
             <h4>
-                <a href="/news/<%=firstPost.ArticleUrl %>" class="font12 text-black">
+                <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>" class="font12 text-black">
                     <%=firstPost.Title %>
                 </a>
             </h4>
-            <p class="font10 text-truncate text-light-grey"><%# Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMMM dd, yyyy") %>, by <%=firstPost.AuthorName %></p>
+            <p class="font10 text-truncate text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMMM dd, yyyy") %>, by <%=firstPost.AuthorName %></p>
         </div>
     </div>
       <% }
@@ -28,17 +29,17 @@
      
     <div class="margin-bottom15">
         <div class="news-image-wrapper">
-            <a href="<%=firstPost.ArticleUrl %>">
+            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>">
                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages( firstPost.OriginalImgUrl, firstPost.HostUrl ,Bikewale.Utility.ImageSize._370x208) %>" title="<%=firstPost.Title %>" alt="<%=firstPost.Title %>"  />
             </a>
         </div>
         <div class="news-heading-wrapper">
             <h4>
-                <a href="/news/<%=firstPost.ArticleUrl %>" class="font12 text-black">
+                <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>" class="font12 text-black">
                     <%=firstPost.Title %>
                 </a>
             </h4>
-            <p class="font10 text-truncate text-light-grey"><%# Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMMM dd, yyyy") %>, by <%=firstPost.AuthorName %></p>
+           <p class="font10 text-truncate text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMMM dd, yyyy") %>, by <%=firstPost.AuthorName %></p>
         </div>
     </div>
 
