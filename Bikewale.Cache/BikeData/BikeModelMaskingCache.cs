@@ -68,5 +68,29 @@ namespace Bikewale.Cache.BikeData
 
             return response;
         }
+
+        /// <summary>
+        /// Created By : Lucky Rathore On 07 June 2016
+        /// Description : To cache version Specification Detail.
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public BikeSpecificationEntity MVSpecsFeatures(int versionId)
+        {
+            BikeSpecificationEntity specs = null;
+            string key = "BW_VersionSpecs_" + versionId;
+
+            try
+            {
+                specs = _cache.GetFromCache<BikeSpecificationEntity>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.MVSpecsFeatures(versionId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.MVSpecsFeatures");
+                objErr.SendMail();
+            }
+
+            return specs;
+        }
     }
 }
