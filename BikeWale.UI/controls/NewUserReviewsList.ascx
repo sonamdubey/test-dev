@@ -18,7 +18,10 @@
                     </p>
                 </div>
                 <div class="model-user-review-title-container padding-left20 leftfloat">
-                    <h3><%#Eval("ReviewTitle").ToString() %></h3>
+                    <h3 ><a class="font16 text-black line-height" href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">
+                        <%#Eval("ReviewTitle").ToString() %>
+                        </a>
+                    </h3>
                     <p class="text-light-grey"><%#Eval("ReviewDate", "{0:dd-MMM-yyyy}") %> by <%#Eval("WrittenBy").ToString() %></p>
                 </div>
                 <div class="clear"></div>

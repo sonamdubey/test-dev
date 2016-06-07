@@ -185,8 +185,7 @@ namespace Bikewale.New
                             bikeName = string.Format("{0} {1}", makeName, modelName);
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {
-                                modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
-                                //price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
+                                modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._272x153);
                                 var selectedVersion = modelPg.ModelVersions.First(p => p.VersionId == versionId);
                                 if (selectedVersion != null)
                                 {
