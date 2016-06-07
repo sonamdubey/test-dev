@@ -848,6 +848,10 @@
       <DependentUpon>ReviewDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\NewAlternativeBikes.ascx.cs">
+      <DependentUpon>NewAlternativeBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\AlternativeBikes.ascx.cs">
       <DependentUpon>AlternativeBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -928,12 +932,20 @@
       <DependentUpon>NewExpertReviewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\NewNewsWidget.ascx.cs">
+      <DependentUpon>NewNewsWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\NewsWidget.ascx.cs">
       <DependentUpon>NewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\PopularUsedBikes.ascx.cs">
       <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\MPriceInTopCities.ascx.cs">
+      <DependentUpon>MPriceInTopCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\SimilarCompareBikes.ascx.cs">
@@ -948,6 +960,10 @@
       <DependentUpon>TopUserReviews.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\NewUserReviewList.ascx.cs">
+      <DependentUpon>NewUserReviewList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\UserReviewList.ascx.cs">
       <DependentUpon>UserReviewList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -958,6 +974,10 @@
     </Compile>
     <Compile Include="m\controls\VideosByCategory.ascx.cs">
       <DependentUpon>VideosByCategory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\NewVideosWidget.ascx.cs">
+      <DependentUpon>NewVideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\VideosWidget.ascx.cs">
@@ -2317,6 +2337,7 @@
     <Content Include="m\content\userreviews\Default.aspx" />
     <Content Include="m\content\userreviews\ListReviews.aspx" />
     <Content Include="m\content\userreviews\ReviewDetails.aspx" />
+    <Content Include="m\controls\NewAlternativeBikes.ascx" />
     <Content Include="m\controls\AlternativeBikes.ascx" />
     <Content Include="m\controls\BookBikeSlug.ascx" />
     <Content Include="m\controls\CompareBikeMin.ascx" />
@@ -2337,14 +2358,18 @@
     <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewAlternativeBikes.ascx" />
     <Content Include="m\controls\NewExpertReviewsWidget.ascx" />
+    <Content Include="m\controls\NewNewsWidget.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
+    <Content Include="m\controls\MPriceInTopCities.ascx" />
     <Content Include="m\controls\SimilarCompareBikes.ascx" />
     <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
+    <Content Include="m\controls\NewUserReviewList.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
     <Content Include="m\controls\UsersTestimonials.ascx" />
     <Content Include="m\controls\VideosByCategory.ascx" />
+    <Content Include="m\controls\NewVideosWidget.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
     <Content Include="m\css\bwm-booking-landing.css" />
