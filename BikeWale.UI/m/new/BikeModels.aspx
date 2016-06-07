@@ -389,6 +389,8 @@
                 </div>
 
                 <div id="modelSummaryContent" class="bw-model-tabs-data content-inner-block-1520">
+                      <%if (modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
+                        { %>
                     <h2><%=bikeName %> Summary</h2>
                     <h3>Preview</h3>
                     <p class="font14 text-light-grey line-height17 margin-bottom15">
@@ -398,8 +400,13 @@
                         <span class="model-preview-more-content">
                             <%= modelPage.ModelDesc.FullDescription %>
                         </span>
-                        <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
+                        
+                          <%if (!string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
+                            { %>
+                                <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
+                                <% } %>
                     </p>
+                     <% } %>
                     <% if(modelPage.ModelVersionSpecs!= null){ %>
                     <h3>Specification summary</h3>
                     <div class="text-center">

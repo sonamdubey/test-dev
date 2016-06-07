@@ -657,7 +657,7 @@
                     <div class="border-divider"></div>
 
                     <div id="modelSummaryContent" class="bw-model-tabs-data content-inner-block-20">
-                        <%if(modelPageEntity.ModelDesc == null || string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)){ %>
+                        <%if(modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)){ %>
                         <div class="grid-8 alpha margin-bottom20 container">
                             <h2><%=bikeName %></h2>
                             <h3>Preview</h3>
@@ -668,7 +668,9 @@
                                 <span class="model-preview-more-content hide" style="display: none;">
                                     <%= modelPageEntity.ModelDesc.FullDescription %>
                                 </span>
+                                <%if (!string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) { %>
                                 <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
+                                <% } %>
                             </p>
                         </div>
                         <div class="grid-4 text-center alpha omega margin-bottom20">
