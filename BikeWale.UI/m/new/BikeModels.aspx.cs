@@ -131,6 +131,7 @@ namespace Bikewale.Mobile.New
                     ////news,videos,revews, user reviews
                     ctrlNews.TotalRecords = 3;
                     ctrlNews.ModelId = Convert.ToInt32(modelId);
+                    ctrlNews.WidgetTitle = bikeName;
 
                     ctrlExpertReviews.TotalRecords = 2;
                     ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
@@ -263,6 +264,7 @@ namespace Bikewale.Mobile.New
             {
                 ctrlAlternativeBikes.VersionId = modelPage.ModelVersions[0].VersionId;
                 ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage_Alternative;
+                ctrlAlternativeBikes.WidgetTitle = bikeName;
             }
         }
 
