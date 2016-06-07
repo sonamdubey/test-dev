@@ -186,6 +186,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Description : Added bike details to response (for android)
         /// Modified By : Sadhana Upadhyay on 29 Dec 2015
         /// Summary : To capture device id, utma, utmz, Pq lead id etc.
+        /// Modified By : Sushil Kumar on 7th June 2016 
+        /// Description : Added empty dealer to list for dealers in case no primary dealer available
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="modelId"></param>
@@ -231,7 +233,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                             DetailedDealerQuotationEntity objDealerQuotation = _objDPQ.GetDealerQuotation(cityId, objPQOutput.VersionId, objPQOutput.DealerId);
 
-                            onRoadPrice.Versions = PQBikePriceQuoteOutputMapper.Convert(bpqOutput.Varients);
+                            onRoadPrice.version = PQBikePriceQuoteOutputMapper.Convert(bpqOutput.Varients);
 
                             onRoadPrice.SecondaryDealers = PQBikePriceQuoteOutputMapper.Convert(objDealerQuotation.SecondaryDealers);
                             if (onRoadPrice.SecondaryDealers == null)
@@ -260,6 +262,17 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                     });
                                 }
                             }
+                            else
+                            {
+                                onRoadPrice.SecondaryDealers.Insert(0, new DTO.PriceQuote.v2.DPQDealerBase()
+                                {
+                                    Area = String.Empty,
+                                    DealerId = 0,
+                                    MaskingNumber = String.Empty,
+                                    Name = string.Empty
+                                });
+                            }
+
                             return Ok(onRoadPrice);
                         }
                         return Ok(onRoadPrice);
@@ -282,31 +295,54 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
         }
 
+        /// <summary>
+        /// Created By : Sumit Kate
+        /// Created on : 3th June 2016
+        /// Description : To provide dealer quotation and its bike's version prices 
+        /// Modified By : Sushil Kumar on 7th June 2016
+        /// Description : Added Try catch and null check for versionid
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="deviceId"></param>
+        /// <param name="dealerId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="areaId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.PriceQuote.v2.PQOnRoad)), Route("api/dealerversionprices")]
         public IHttpActionResult GetDealerVersionPrices(uint cityId, string deviceId, uint dealerId, uint modelId, uint? areaId = null, uint? versionId = null)
         {
-            bool isPQRegistered = Request.Headers.Contains("isRegistered") ? Convert.ToBoolean(Request.Headers.GetValues("isRegistered").FirstOrDefault()) : false;
-            UInt64 pqId = Request.Headers.Contains("quoteId") ? Convert.ToUInt64(Request.Headers.GetValues("quoteId").FirstOrDefault()) : default(UInt64);
-            UInt16 platformId = Request.Headers.Contains("platformId") ? Convert.ToUInt16(Request.Headers.GetValues("platformId").FirstOrDefault()) : default(UInt16);
-
-            if (pqId > 0 && platformId > 0)
+            try
             {
-                PQ_QuotationEntity bwPQ = _objDPQ.Quotation(cityId, platformId, deviceId, dealerId, modelId, pqId, isPQRegistered, areaId, versionId);
-                DTO.PriceQuote.v2.DPQuotationOutput dpq = null;
+                bool isPQRegistered = Request.Headers.Contains("isRegistered") ? Convert.ToBoolean(Request.Headers.GetValues("isRegistered").FirstOrDefault()) : false;
+                UInt64 pqId = Request.Headers.Contains("quoteId") ? Convert.ToUInt64(Request.Headers.GetValues("quoteId").FirstOrDefault()) : default(UInt64);
+                UInt16 platformId = Request.Headers.Contains("platformId") ? Convert.ToUInt16(Request.Headers.GetValues("platformId").FirstOrDefault()) : default(UInt16);
 
-                DetailedDealerQuotationEntity objDealerQuotation = _objDPQ.GetDealerQuotation(cityId, versionId.Value, dealerId);
-
-                dpq = PQBikePriceQuoteOutputMapper.Convert(objDealerQuotation, bwPQ.Varients);
-                if (objDealerQuotation.PrimaryDealer != null && objDealerQuotation.PrimaryDealer.DealerDetails != null)
+                if (pqId > 0 && platformId > 0)
                 {
+                    PQ_QuotationEntity bwPQ = _objDPQ.Quotation(cityId, platformId, deviceId, dealerId, modelId, pqId, isPQRegistered, areaId, versionId);
+                    DTO.PriceQuote.v2.DPQuotationOutput dpq = null;
 
-                    dpq.Dealer = PQBikePriceQuoteOutputMapper.Convert(objDealerQuotation.PrimaryDealer.DealerDetails);
+                    DetailedDealerQuotationEntity objDealerQuotation = _objDPQ.GetDealerQuotation(cityId, versionId.HasValue ? versionId.Value : 0, dealerId);
+
+                    dpq = PQBikePriceQuoteOutputMapper.Convert(objDealerQuotation, bwPQ.Varients);
+                    if (objDealerQuotation.PrimaryDealer != null && objDealerQuotation.PrimaryDealer.DealerDetails != null)
+                    {
+
+                        dpq.Dealer = PQBikePriceQuoteOutputMapper.Convert(objDealerQuotation.PrimaryDealer.DealerDetails);
+                    }
+                    return Ok(dpq);
                 }
-                return Ok(dpq);
+                else
+                {
+                    return BadRequest();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest();
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetDealerVersionPrices");
+                objErr.SendMail();
+                return InternalServerError();
             }
         }
     }
