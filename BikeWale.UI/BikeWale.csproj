@@ -424,9 +424,11 @@
     </Compile>
     <Compile Include="controls\DealerCard.ascx.cs">
       <DependentUpon>DealerCard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\LeadCaptureControl.ascx.cs">
       <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\UsedBikes.ascx.cs">
       <DependentUpon>UsedBikes.ascx</DependentUpon>
@@ -920,10 +922,15 @@
     </Compile>
     <Compile Include="m\controls\NewAlternativeBikes.ascx.cs">
       <DependentUpon>NewAlternativeBikes.ascx</DependentUpon>
-    </Compile>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\NewExpertReviewsWidget.ascx.cs">
       <DependentUpon>NewExpertReviewsWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\NewNewsWidget.ascx.cs">
+      <DependentUpon>NewNewsWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\NewsWidget.ascx.cs">
       <DependentUpon>NewsWidget.ascx</DependentUpon>
@@ -931,9 +938,11 @@
     </Compile>
     <Compile Include="m\controls\NewUserReviewList.ascx.cs">
       <DependentUpon>NewUserReviewList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\NewVideosWidget.ascx.cs">
       <DependentUpon>NewVideosWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\PopularUsedBikes.ascx.cs">
       <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
@@ -2340,6 +2349,7 @@
     <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewAlternativeBikes.ascx" />
     <Content Include="m\controls\NewExpertReviewsWidget.ascx" />
+    <Content Include="m\controls\NewNewsWidget.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\NewUserReviewList.ascx" />
     <Content Include="m\controls\NewVideosWidget.ascx" />

@@ -54,7 +54,7 @@ namespace Bikewale.Mobile.New
         //Varible to Hide or show controlers
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerPQ, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive;
-        protected AlternativeBikes ctrlAlternativeBikes;
+        protected NewAlternativeBikes ctrlAlternativeBikes;
         protected short reviewTabsCnt;
         //Variable to Assing ACTIVE class
 
