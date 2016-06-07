@@ -39,8 +39,7 @@ namespace Bikewale.Mobile.New
     public class NewBikeModels : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
         // Register controls
-        protected AlternativeBikes ctrlAlternateBikes;
-        protected NewsWidget ctrlNews;
+        protected NewNewsWidget ctrlNews;
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected VideosWidget ctrlVideos;
         protected UserReviewList ctrlUserReviews;
@@ -130,6 +129,7 @@ namespace Bikewale.Mobile.New
                     ////news,videos,revews, user reviews
                     ctrlNews.TotalRecords = 3;
                     ctrlNews.ModelId = Convert.ToInt32(modelId);
+                    ctrlNews.WidgetTitle = bikeName;
 
                     ctrlExpertReviews.TotalRecords = 2;
                     ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
@@ -139,9 +139,9 @@ namespace Bikewale.Mobile.New
                     ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
                     ctrlVideos.ModelId = Convert.ToInt32(modelId);
 
-                    ctrlUserReviews.ReviewCount = 4;
+                    ctrlUserReviews.ReviewCount = 2;
                     ctrlUserReviews.PageNo = 1;
-                    ctrlUserReviews.PageSize = 4;
+                    ctrlUserReviews.PageSize = 2;
                     ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
                     ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
@@ -252,12 +252,13 @@ namespace Bikewale.Mobile.New
 
         private void BindAlternativeBikeControl()
         {
-            ctrlAlternateBikes.TopCount = 6;
+            ctrlAlternativeBikes.TopCount = 6;
 
             if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
             {
-                ctrlAlternateBikes.VersionId = modelPage.ModelVersions[0].VersionId;
-                ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage_Alternative;
+                ctrlAlternativeBikes.VersionId = modelPage.ModelVersions[0].VersionId;
+                ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage_Alternative;
+                ctrlAlternativeBikes.WidgetTitle = bikeName;
             }
         }
 

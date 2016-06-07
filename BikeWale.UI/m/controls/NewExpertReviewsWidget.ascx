@@ -17,7 +17,7 @@
                     <p class="font12 text-truncate text-light-grey"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(), "MMMM dd, yyyy") %>, by <span class="text-light-grey"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></span></p>
                 </div>
                 <p class="margin-top17">
-                    <%# DataBinder.Eval(Container.DataItem, "Description").ToString()%>
+                    <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString(),120) %>
                     <a href="/m/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html">Read full review</a>
                 </p>
             </div>
@@ -25,7 +25,7 @@
     </ItemTemplate>
 </asp:Repeater>
 <div>
-    <a href="<%=MoreExpertReviewUrl%>">Read all expert reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
+    <a href="<%=MoreExpertReviewUrl%>"  class="bw-ga" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="myBikeName">Read all expert reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
 <script type="text/javascript">
     $(document).ready(function () { $("img.lazy").lazyload(); });
