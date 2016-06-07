@@ -240,7 +240,7 @@ namespace Bikewale.New
 
         private void LoadNewsVidsReviews(uint modelId, BikeModelPageEntity modelPage)
         {
-            if (modelPage != null)
+            if (modelPage != null && modelPage.ModelDetails != null)
             {
                 int _modelId = Convert.ToInt32(modelId);
                 ctrlNews.TotalRecords = 3;
@@ -264,7 +264,10 @@ namespace Bikewale.New
                 ctrlUserReviews.ModelId = _modelId;
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
-                ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);
+                if (!modelPage.ModelDetails.Futuristic || modelPageEntity.ModelDetails.New)
+                    ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);
+                else ctrlTopCityPrices.ModelId = 0;
+
                 ctrlTopCityPrices.TopCount = 8;
             }
         }
