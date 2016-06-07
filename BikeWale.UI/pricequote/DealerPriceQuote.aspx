@@ -714,7 +714,8 @@
                 self.maxTenure = ko.observable(<%= primarydealer.EMIDetails.MaxTenure  %>);
                 self.minROI = ko.observable(<%= primarydealer.EMIDetails.MinRateOfInterest %>);
                 self.maxROI = ko.observable(<%= primarydealer.EMIDetails.MaxRateOfInterest %>);
-                self.processingFees = ko.observable(<%= primarydealer.EMIDetails.ProcessingFee %>);
+                <%--self.processingFees = ko.observable(<%= primarydealer.EMIDetails.ProcessingFee %>);--%>
+                self.processingFees = ko.observable(0);
                 self.exshowroomprice = ko.observable(bikeVersionPrice);
                 self.loan = ko.observable();
 
@@ -745,8 +746,8 @@
                 var interest, totalRepay, finalEmi;
                 try {
                     interest = (loanAmount * tenure * rateOfInterest) / (12 * 100);
-                    totalRepay = loanAmount + interest;
-                    finalEmi = Math.ceil((totalRepay / tenure) + proFees);
+                    totalRepay = loanAmount + interest + proFees;
+                    finalEmi = Math.ceil((totalRepay / tenure));
                 }
                 catch (e) {
                 }
@@ -786,12 +787,16 @@
             };
 
             $.valueFormatter = function (num) {
-                if (num >= 100000) {
-                    return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
+                if(isNaN(num))
+                {
+                    if (num >= 100000) {
+                        return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
+                    }
+                    if (num >= 1000) {
+                        return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+                    }
                 }
-                if (num >= 1000) {
-                    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-                }
+              
                 return num;
             }
 
