@@ -9,8 +9,8 @@
         title = string.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
         description = string.Format("Know more about {0} Specifications and Features. See details about mileage, engine displacement, power, kerb weight and other specifications.", bikeName);
         keywords = string.Format("{0} specification, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
-        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
-        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
+        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/specifications-features/?vid={2}", makeMaskingName, modelMaskingName,versionId);
+        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/?vid={2}", makeMaskingName, modelMaskingName,versionId);
         ogImage = modelImage;
         isAd970x90Shown = true;
         AdId = "1017752";
@@ -67,16 +67,29 @@
                                 </div>
                             </div>
                             <div class="grid-4 padding-left30">
-                                <%if(isDiscontinued) { %>
+                                <%
+                                    if (isDiscontinued)
+                                    { %>
                                 <p class="font14 text-light-grey margin-bottom5 text-truncate">Last known Ex-showroom price</p>
                                 <div class="font16">
-                                    <span class="fa fa-rupee"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+                                    <span class="fa fa-rupee"></span><span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 </div>
                                 <p class="font14 text-light-grey margin-bottom5"><%= bikeName %> is now discontinued in India.</p>
-                                <%} else { %>
-                                <p class="font14 text-light-grey margin-bottom5 text-truncate"> <%=(dealerDetail!= null && dealerDetail.PrimaryDealer != null) ? string.Format("On-road price in {0}, {1}", areaName, cityName) : "Ex-showroom price in Mumbai" %></p>
+                                <%  }
+                                    else
+                                    { %>
+                                <p class="font14 text-light-grey margin-bottom5 text-truncate"><%=IsExShowroomPrice ? "Ex-showroom price in Mumbai" : string.Format("On-road price in {0} {1}", areaName, cityName) %></p>
                                 <div class="font16">
-                                    <span class="fa fa-rupee"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+                                    <span class="fa fa-rupee"></span><span class="font18 text-bold">
+                                        <% if (price > 0)
+                                           { %>
+                                        <%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>
+                                        <% }
+                                           else
+                                           { %>
+                                        Price not available
+                                        <% } %>
+                                    </span>
                                 </div>
                                 <%} %>
                                 
