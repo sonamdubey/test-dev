@@ -16,7 +16,7 @@ namespace Bikewale.Entities.BikeBooking
         public uint VersionId { get; set; }
         [JsonProperty("isDealerAvailable")]
         public bool IsDealerAvailable { get; set; }
-        [JsonProperty("makename")]
+        [JsonProperty("makeName")]
         public string MakeName { get; set; }
         [JsonProperty("modelName")]
         public string ModelName { get; set; }
