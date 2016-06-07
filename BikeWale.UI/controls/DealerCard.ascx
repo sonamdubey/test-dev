@@ -14,8 +14,8 @@
                             <p class="text-light-grey margin-bottom5">
                                 <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                 <span class="vertical-top dealership-card-details">
-                                    <span class="dealer-details-main-content"><%# DataBinder.Eval(Container.DataItem,"Address") %>...</span>
-                                    <span class="dealer-details-more-content"><%# DataBinder.Eval(Container.DataItem,"Address") %><%# DataBinder.Eval(Container.DataItem,"Address") %></span>
+                                    <span class="dealer-details-main-content" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")) %>"><%# Bikewale.Utility.FormatDescription.TruncateDescription(Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")), 75) %></span>
+                                    <span class="dealer-details-more-content"><%# Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")) %></span>
                                 </span>
                             </p>
                             <p class="margin-bottom5"><span class="text-bold">
