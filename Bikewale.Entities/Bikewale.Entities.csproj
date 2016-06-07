@@ -183,6 +183,7 @@
     <Compile Include="JSErrorLog\JSExceptionEntity.cs" />
     <Compile Include="Location\AreaEntityBase.cs" />
     <Compile Include="Location\CityEntityBase.cs" />
+    <Compile Include="Location\CityMaskingResponse.cs" />
     <Compile Include="Location\StateEntityBase.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotificationBase.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotifications.cs" />

@@ -20,6 +20,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Bikewale.Cache.Location;
 
 namespace Bikewale.Mobile.New
 {
@@ -166,36 +167,29 @@ namespace Bikewale.Mobile.New
         /// </summary>
         private void ParseQueryString()
         {
-            ModelMaskingResponse objResponse = null;
+            ModelMaskingResponse objModelResponse = null;
+            CityMaskingResponse objCityResponse = null;
             string model = string.Empty, city = string.Empty, _make = string.Empty;
             try
             {
                 model = Request.QueryString["model"];
                 city = Request.QueryString["city"];
-                _make = Request.QueryString["make"];
 
                 if (!string.IsNullOrEmpty(city))
                 {
-                    cityId = GetCityMaskingName(city);
-                }
-
-                if (!string.IsNullOrEmpty(_make))
-                {
-                    string _makeId = MakeMapping.GetMakeId(_make);
-
-                    if (CommonOpn.CheckId(_makeId))
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        makeId = Convert.ToUInt32(_makeId);
+                        container.RegisterType<ICityMaskingCacheRepository, CityMaskingCache>()
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<ICity, CityRepository>()
+                                ;
+                        var objCache = container.Resolve<ICityMaskingCacheRepository>();
+                        objCityResponse = objCache.GetCityMaskingResponse(city);
                     }
                 }
-
 
                 if (!string.IsNullOrEmpty(model))
                 {
-                    if (model.Contains("/"))
-                    {
-                        model = model.Split('/')[0];
-                    }
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
@@ -203,11 +197,9 @@ namespace Bikewale.Mobile.New
                                  .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                 ;
                         var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                        objResponse = objCache.GetModelMaskingResponse(model);
+                        objModelResponse = objCache.GetModelMaskingResponse(model);
                     }
                 }
-
-
 
             }
             catch (Exception ex)
@@ -221,19 +213,35 @@ namespace Bikewale.Mobile.New
             }
             finally
             {
-                // Get ModelId
-                // Code to check whether masking name is changed or not. If changed redirect to appropriate url
-                if (makeId > 0 && objResponse != null && cityId > 0)
+                if (objCityResponse != null && objModelResponse != null)
                 {
-                    if (objResponse.StatusCode == 200)
+                    // Get cityId
+                    // Code to check whether masking name is changed or not. If changed redirect to appropriate url
+                    if (objCityResponse.StatusCode == 200)
                     {
-                        modelId = objResponse.ModelId;
+                        cityId = objCityResponse.CityId;
                     }
-                    else if (objResponse.StatusCode == 301)
+                    else if (objCityResponse.StatusCode == 301)
                     {
-                        //redirect permanent to new page 
-                        //CommonOpn.RedirectPermanent(Request.RawUrl.Replace(model, objResponse.MaskingName));
-                        redirectUrl = Request.RawUrl.Replace(model, objResponse.MaskingName);
+                        //redirect permanent to new page                         
+                        redirectUrl = Request.RawUrl.Replace(city, objCityResponse.MaskingName);
+                        redirectPermanent = true;
+                    }
+                    else
+                    {
+                        redirectToPageNotFound = true;
+                    }
+
+                    // Get ModelId
+                    // Code to check whether masking name is changed or not. If changed redirect to appropriate url
+                    if (objModelResponse.StatusCode == 200)
+                    {
+                        modelId = objModelResponse.ModelId;
+                    }
+                    else if (objModelResponse.StatusCode == 301)
+                    {
+                        //redirect permanent to new page                         
+                        redirectUrl = Request.RawUrl.Replace(model, objModelResponse.MaskingName);
                         redirectPermanent = true;
                     }
                     else
