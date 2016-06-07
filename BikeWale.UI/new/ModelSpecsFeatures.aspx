@@ -50,6 +50,13 @@
                 <div class="clear"></div>
             </div>
         </section>
+
+        <section id="bikeModelHeading" class="container">
+            <div class="grid-12">
+                <h1 class="font22 text-x-black content-box-shadow content-inner-block-1420 box-shadow"><%= bikeName %> Specifications and Features</h1>
+            </div>
+            <div class="clear"></div>
+        </section>
         
         <section id="modelCardAndDetailsWrapper" class="container margin-bottom30 font14">
             <div class="grid-12">
