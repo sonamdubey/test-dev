@@ -64,7 +64,7 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_PriceInCity_DealerCard_GetOffers = 48,
         Mobile_PriceInCity_SelectAreas = 49,
         Mobile_PriceInCity_Alternative = 50,
-        Mobile_PriceInCity_DealerCard_GetOffers = 51
-
+        Mobile_PriceInCity_DealerCard_GetOffers = 51,
+        Desktop_SpecsAndFeature_PQOnroad = 52
     }
 }
