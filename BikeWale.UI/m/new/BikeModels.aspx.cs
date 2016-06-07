@@ -18,6 +18,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.m.controls;
+using Bikewale.Mobile.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -41,8 +42,8 @@ namespace Bikewale.Mobile.New
         // Register controls
         protected NewNewsWidget ctrlNews;
         protected NewExpertReviewsWidget ctrlExpertReviews;
-        protected VideosWidget ctrlVideos;
-        protected UserReviewList ctrlUserReviews;
+        protected NewVideosWidget ctrlVideos;
+        protected NewUserReviewList ctrlUserReviews;
         protected ModelGallery ctrlModelGallery;
         protected BikeModelPageEntity modelPage;
         protected VersionSpecifications bikeSpecs;
@@ -68,6 +69,7 @@ namespace Bikewale.Mobile.New
         protected OtherVersionInfoEntity objSelectedVariant = null;
         protected Label defaultVariant;
         protected HiddenField hdnVariant;
+        protected MPriceInTopCities ctrlTopCityPrices;
 
         #region Subscription model variables
         protected ModelPageVM viewModel = null;
@@ -161,6 +163,10 @@ namespace Bikewale.Mobile.New
                         isreadonly.SetValue(this.Request.QueryString, false, null);
                         this.Request.QueryString.Clear();
                     }
+
+
+                    ctrlTopCityPrices.ModelId = Convert.ToUInt32(modelId);
+                    ctrlTopCityPrices.TopCount = 8;
                 }
             }
             catch (Exception ex)

@@ -35,7 +35,7 @@
         var bikeVersionLocation = '';
         var bikeVersion = '';
         var isBikeWalePq = "<%= isBikeWalePQ%>";
-		var areaId = "<%= areaId %>";
+        var areaId = "<%= areaId %>";
         var isDealerPriceAvailable = "<%= pqOnRoad != null ? pqOnRoad.IsDealerPriceAvailable : false%>";
         var campaignId = "<%= campaignId%>";
         var manufacturerId = "<%= manufacturerId%>";
@@ -601,10 +601,7 @@
                     </div>
                     <div class="overall-specs-tabs-wrapper content-box-shadow">
                         <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
-                        <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
                         <a href="#modelPricesContent" rel="nofollow">Prices</a>
-                        <% } %>
-                        <% if(modelPageEntity.ModelVersionSpecs != null ){ %>
                         <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
                         <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
                            { %>
@@ -627,12 +624,8 @@
                 <div class="content-box-shadow">
                     <div class="overall-specs-tabs-wrapper">
                         <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
-                        <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
                         <a href="#modelPricesContent" rel="nofollow">Prices</a>
-                        <% } %>
-                        <% if(modelPageEntity.ModelVersionSpecs != null ){ %>
                         <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
-                        <% } %>
                         <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
                            { %>
                         <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
@@ -668,7 +661,7 @@
                         </div>
                         <%} %>
                         <div class="clear"></div>
-                        <% if(modelPageEntity.ModelVersionSpecs != null){ %>
+
                         <h3>Specification summary</h3>
                         <div class="grid-3 border-light-right omega">
                             <span class="inline-block model-sprite specs-capacity-icon margin-right30"></span>
@@ -699,12 +692,10 @@
                             </div>
                         </div>
                         <div class="clear"></div>
-                        <% } %>
                     </div>
 
-                    
-                    <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
                     <div class="margin-right10 margin-left10 border-solid-top"></div> <!-- divider -->
+
                     <div id="modelPricesContent" class="bw-model-tabs-data content-inner-block-21522">
                         <h2><%=bikeName %> Prices</h2>
                         <div class="grid-8 alpha">
@@ -746,11 +737,9 @@
                        <BW:TopCityPrice ID="ctrlTopCityPrices" runat="server" />
                         <div class="clear"></div>
                     </div>
-                    <% } %>
-                    
 
-                    <% if(modelPageEntity.ModelVersionSpecs != null ){ %>
                     <div class="margin-right10 margin-left10 border-solid-top"></div> <!-- divider -->
+
                     <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data padding-top20 font14">
                         <h2 class="padding-left20 padding-right20"><%=bikeName %> Specifications & Features</h2>
                         <h3 class="padding-left20">Specifications</h3>
@@ -874,7 +863,6 @@
                         <%} %>
                         <%--<div class="clear"></div>--%>
                     </div>
-                    <% } %>
                       <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
                        { %>
                         <div class="margin-right10 margin-left10 border-solid-top"></div>

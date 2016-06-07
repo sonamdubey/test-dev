@@ -240,7 +240,7 @@ namespace Bikewale.New
 
         private void LoadNewsVidsReviews(uint modelId, BikeModelPageEntity modelPage)
         {
-            if (modelPage != null)
+            if (modelPage != null && modelPage.ModelDetails != null)
             {
                 int _modelId = Convert.ToInt32(modelId);
                 ctrlNews.TotalRecords = 3;
@@ -264,7 +264,10 @@ namespace Bikewale.New
                 ctrlUserReviews.ModelId = _modelId;
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
-                ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);
+                if (!modelPage.ModelDetails.Futuristic || modelPageEntity.ModelDetails.New)
+                    ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);
+                else ctrlTopCityPrices.ModelId = 0;
+
                 ctrlTopCityPrices.TopCount = 8;
             }
         }
@@ -615,7 +618,7 @@ namespace Bikewale.New
 
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {
-                                    modelImage = string.Format("{0} {1}", modelPg.ModelDetails.HostUrl, modelPg.ModelDetails.OriginalImagePath);
+                                modelImage = string.Format("{0} {1}", modelPg.ModelDetails.HostUrl, modelPg.ModelDetails.OriginalImagePath);
                                 price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
                                 if (variantId == 0 && cityId == 0)
                                 {
@@ -812,7 +815,7 @@ namespace Bikewale.New
                     {
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.PriceQuote = objPQOutput;
-                            
+
                         string api = string.Empty;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
                         {
