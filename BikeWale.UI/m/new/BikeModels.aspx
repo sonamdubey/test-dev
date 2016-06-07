@@ -558,7 +558,8 @@
                         <div class="margin-top25">
                             <a href="/m<%# Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName, "features",versionId) %>"  class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName">View all features<span class="bwmsprite blue-right-arrow-icon"></span></a>
                         </div>
-                            
+                          <%if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
+                          { %>   
                         <!-- colours code starts here -->    
                         <h3 class="margin-top25">Colours</h3>
 
@@ -578,6 +579,7 @@
                               </ItemTemplate>
                         </asp:Repeater>
                         </ul>
+                        <%} %>
                          <!-- colours code ends here -->   
                     </div>
                     <div class="margin-top15 text-center">
@@ -586,11 +588,10 @@
                 </div>
                 <% } %>
 
-                <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                    <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                            { %>
                     <div id="modelReviewsContent" class="bw-model-tabs-data padding-top10 padding-right20 padding-left20 font14">
-                    <h2><%=bikeName %> Reviews</h2>
-                        <% } %>
+                    <h2><%=bikeName %> Reviews</h2>                      
                        
                         <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                            { %>
@@ -603,6 +604,7 @@
 
                         <% } %>
                     </div>
+                  <% } %>
                 <%if (ctrlVideos.FetchedRecordsCount > 0)
                     { %>
                     <div class="margin-top20 margin-right20 margin-left20 border-solid-top"></div>

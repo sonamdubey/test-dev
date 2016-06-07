@@ -164,8 +164,10 @@ namespace Bikewale.Mobile.New
                         this.Request.QueryString.Clear();
                     }
 
+                    if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
+                        ctrlTopCityPrices.ModelId = Convert.ToUInt32(modelId);
+                    else ctrlTopCityPrices.ModelId = 0;
 
-                    ctrlTopCityPrices.ModelId = Convert.ToUInt32(modelId);
                     ctrlTopCityPrices.TopCount = 8;
                 }
             }
