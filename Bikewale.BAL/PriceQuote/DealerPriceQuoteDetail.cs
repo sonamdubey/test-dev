@@ -134,7 +134,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "PQByCityArea: " + "GetOnRoadPrice");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealerPriceQuoteDetail: " + "Quotation");
                 objErr.SendMail();
             }
             return objDealerPQ;
