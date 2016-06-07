@@ -227,7 +227,12 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     if (objPQ != null && objPQ.PQId > 0)
                     {
                         bpqOutput = _objPriceQuote.GetPriceQuoteById(objPQ.PQId);
-                        bpqOutput.Varients = _objPriceQuote.GetOtherVersionsPrices(objPQ.PQId);
+                        //add bike make and model
+                        objPQ.MakeName = bpqOutput.MakeName;
+                        objPQ.ModelName = bpqOutput.ModelName;
+
+                        bpqOutput.Varients = _objPriceQuote.GetOtherVersionsPrices(objPQ.PQId);                        
+
                         if ((objPQ.DealerId != 0) || objPQ.IsDealerAvailable)
                         {
 
@@ -320,12 +325,13 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                 if (pqId > 0 && platformId > 0)
                 {
-                    PQ_QuotationEntity bwPQ = _objDPQ.Quotation(cityId, platformId, deviceId, dealerId, modelId, pqId, isPQRegistered, areaId, versionId);
+                    PQ_QuotationEntity bwPQ = _objDPQ.Quotation(cityId, platformId, deviceId, dealerId, modelId,ref pqId, isPQRegistered, areaId, versionId);
                     DTO.PriceQuote.v2.DPQuotationOutput dpq = null;
 
                     DetailedDealerQuotationEntity objDealerQuotation = _objDPQ.GetDealerQuotation(cityId, versionId.HasValue ? versionId.Value : 0, dealerId);
 
                     dpq = PQBikePriceQuoteOutputMapper.Convert(objDealerQuotation, bwPQ.Varients);
+                    dpq.PriceQuoteId = pqId;
                     if (objDealerQuotation.PrimaryDealer != null && objDealerQuotation.PrimaryDealer.DealerDetails != null)
                     {
 
