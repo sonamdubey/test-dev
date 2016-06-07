@@ -357,7 +357,7 @@ li.offertxt:hover .tnc {display:inline}*/
 #makeNewsList { overflow:hidden; margin-bottom:15px; }
 .news-heading-wrapper { width:47%; display:inline-block; vertical-align:top; }
 .review-image-wrapper { width:120px; height:68px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:15px; }
-#makeNewsContent .news-heading-wrapper h4, #modelReviewsContent .review-heading-wrapper h4, #modelReviewsContent .model-user-review-title-container h4 { margin-top:2px; margin-bottom:7px; color:#2a2a2a; }
+#makeNewsContent .news-heading-wrapper h4, #modelReviewsContent .review-heading-wrapper h4, #modelReviewsContent .model-user-review-title-container h4, #modelVideosContent .review-heading-wrapper h4 { margin-top:2px; margin-bottom:7px; color:#2a2a2a; }
 .review-heading-wrapper { width: 55%; display:inline-block; vertical-align:top; }
 .margin-top17 { margin-top:17px; }
 .model-user-review-rating-container { width:120px; height:68px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:10px; text-align:center;display:inline-block; vertical-align:top; margin-right:15px;}

@@ -368,10 +368,14 @@
                             <% if(modelPage.ModelVersionSpecs!= null){ %>
                             <li data-tabs="#modelSpecsFeaturesContent"><h3>Specs & Features</h3></li>
                             <% } %>
-                            <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
+                            <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                              { %>
                             <li data-tabs="#modelReviewsContent"><h3>Reviews</h3></li>
                               <%} %>
+                            <% if (ctrlVideos.FetchedRecordsCount > 0)
+                                { %>
+                                <li data-tabs="#modelVideosContent"><h3>Videos</h3></li>
+                            <%} %>
                              <% if (ctrlNews.FetchedRecordsCount > 0)
                              { %>
                                 <li data-tabs="#makeNewsContent"><h3>News</h3></li>
@@ -582,7 +586,7 @@
                 </div>
                 <% } %>
 
-                <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
+                <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                            { %>
                     <div id="modelReviewsContent" class="bw-model-tabs-data padding-top10 padding-right20 padding-left20 font14">
                     <h2><%=bikeName %> Reviews</h2>
@@ -598,13 +602,16 @@
                          <BW:UserReviews runat="server" ID="ctrlUserReviews" />
 
                         <% } %>
-                        
-                        <%if (ctrlVideos.FetchedRecordsCount > 0)
-                            { %>
-                        <BW:Videos runat="server" ID="ctrlVideos" />
-                        <% } %>
-
                     </div>
+                <%if (ctrlVideos.FetchedRecordsCount > 0)
+                    { %>
+                    <div class="margin-top20 margin-right20 margin-left20 border-solid-top"></div>
+                    <div id="modelVideosContent" class="bw-model-tabs-data padding-right20 padding-left20 font14">
+                        <h2 class="padding-top15"><%= bikeName %> Videos</h2>
+                            <BW:Videos runat="server" ID="ctrlVideos" />
+                    </div>
+                <% } %>
+
                 <%if (ctrlNews.FetchedRecordsCount > 0)
                  { %>
                 <div class="margin-top20 margin-right20 margin-left20 border-solid-top"></div>

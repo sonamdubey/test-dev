@@ -607,11 +607,14 @@
                          <% if(modelPageEntity.ModelVersionSpecs != null ){ %>
                         <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
                         <% } %>
-                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
+                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                            { %>
                         <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
                         <%} %>
-
+                        <% if (ctrlVideos.FetchedRecordsCount > 0)
+                            { %>
+                            <a href="#modelVideosContent" rel="nofollow">Videos</a>
+                        <%} %>
                          <% if (ctrlNews.FetchedRecordsCount > 0)
                              { %>
                         <a href="#modelNewsContent" rel="nofollow">News</a><%} %>
@@ -634,9 +637,13 @@
                         <% if(modelPageEntity.ModelVersionSpecs != null ){ %>
                         <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
                          <% } %>
-                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
+                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                            { %>
                         <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
+                        <%} %>
+                        <% if (ctrlVideos.FetchedRecordsCount > 0)
+                            { %>
+                            <a href="#modelVideosContent" rel="nofollow">Videos</a>
                         <%} %>
                           <% if (ctrlNews.FetchedRecordsCount > 0)
                              { %>
@@ -874,12 +881,12 @@
                         <%--<div class="clear"></div>--%>
                     </div>
                     <% } %>
-                      <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
+                      <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                        { %>
                         <div class="margin-right10 margin-left10 border-solid-top"></div>
                       <%} %>
                     <div id="modelReviewsContent" class="bw-model-tabs-data font14">
-                        <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlVideos.FetchedRecordsCount > 0)
+                        <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                           { %>
                         <h2 class="padding-top20 padding-right20 padding-left20"><%= bikeName %> Reviews</h2>
                         <%} %>
@@ -894,14 +901,19 @@
                         <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                         <!-- user reviews ends -->
                          <% } %>
-
-                        <% if (ctrlVideos.FetchedRecordsCount > 0)
-                           { %>
-                        <!-- Video reviews -->
-                        <BW:Videos runat="server" ID="ctrlVideos" />
-                        <!-- Video reviews ends -->
-                        <% } %>
                     </div>
+
+                    <% if (ctrlVideos.FetchedRecordsCount > 0)
+                        { %>
+                        <div id="modelVideosContent" class="bw-model-tabs-data font14">
+                            <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+                            <h2 class="padding-top20 padding-right20 padding-left20"><%= bikeName %> Videos</h2>
+                            <!-- Video reviews -->
+                            <BW:Videos runat="server" ID="ctrlVideos" />
+                            <!-- Video reviews ends -->
+                        </div>
+                    <% } %>
+
                     <% if (ctrlNews.FetchedRecordsCount > 0)
                        { %>
                     <!-- News widget starts -->                    
