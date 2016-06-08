@@ -76,6 +76,8 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Author : Created by Sangram Nandkhile on 25 May 2016
         /// Summary: Fetch version Prices according to model and city
+        /// Modified By : Sushil Kumar on 8th June 2016
+        /// Description : Added check for isdicontinued bikes and remove discontinued version if model is new 
         /// </summary>
         private void FetchVersionPrices()
         {

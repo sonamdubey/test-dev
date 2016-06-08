@@ -558,6 +558,8 @@ namespace Bikewale.DAL.PriceQuote
         /// Modified By : Sushil Kumar
         /// Modified On : 6th June 2016
         /// Description : Added makeId property to get makeId for dealers card widget 
+        /// Modified By : Sushil Kumar on 8th June 2016
+        /// Description : Added ismodelnew and isversion new data 
         /// </summary>
         /// <param name="modelId">Model Id</param>
         /// <param name="cityId">City Id </param>
