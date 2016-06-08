@@ -697,7 +697,7 @@
                         <div class="grid-3 padding-left60 border-light-right omega">
                             <span class="inline-block model-sprite specs-maxpower-icon margin-right30"></span>
                             <div class="inline-block">
-                                <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.MaxPower) %><span class="text-uppercase"> bhp</span></p>
+                                <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.MaxPower) %><span> bhp</span></p>
                                 <p class="font16 text-light-grey">Max power</p>
                             </div>
                         </div>
