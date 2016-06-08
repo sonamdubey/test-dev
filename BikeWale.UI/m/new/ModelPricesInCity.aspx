@@ -40,7 +40,7 @@
                    { %><%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% } %>  onwards. 
                        <% if (versionCount > 1)
                           { %> This bike comes in <%=versionCount %> versions.<br />
-                <% } %>Click on any version name to know on-road price in <%= cityName %>:
+                Click on any version name to know on-road price in <%= cityName %>:<% } %>
             </p>
 
             <div>

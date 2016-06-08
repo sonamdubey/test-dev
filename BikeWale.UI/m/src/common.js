@@ -1170,23 +1170,22 @@ $.fn.shake = function (options) {
 
 //App Banner
 $(function () {
+    debugger;
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
     var appbanner = getCookie("AppBanner");
-    // Add the page ids of all the pages which need not show app banner ads
-    var hideBannerPages = ['7','14'];
-    
-    if (ga_pg_id == 2 ) {
-        if (typeof isDealerPQ !== 'undefined') {
-            if (isDealerPQ === 'False') {
-                appbanner = "true";
-            } else { appbanner = "false"; }
-        }
-    } else if (hideBannerPages.indexOf(ga_pg_id) > -1) { appbanner = "false"; }
-
     if ((appbanner == null || appbanner == "true") && !isSafari) {
-        $("#appBanner").slideDown();
-        SetCookie("AppBanner", true);
-        dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
+        var hideBannerPages = ['7', '14'];
+        if (ga_pg_id == 2) {
+            if (typeof isDealerPQ !== 'undefined') {
+                if (isDealerPQ === 'False') {
+                    $("#appBanner").slideDown();
+                }
+            }
+        } else if (hideBannerPages.indexOf(ga_pg_id) == -1) {
+            $("#appBanner").slideDown();
+            SetCookie("AppBanner", true);
+            dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
+        }
     }
 });
 
