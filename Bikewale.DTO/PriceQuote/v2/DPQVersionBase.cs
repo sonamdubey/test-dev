@@ -16,5 +16,7 @@ namespace Bikewale.DTO.PriceQuote.v2
         public uint VersionId { get; set; }
         [JsonProperty("versionName")]
         public string VersionName { get; set; }
+        [JsonProperty("otherPriceList")]
+        public IEnumerable<DPQ_Price> OtherPriceList { get; set; }
     }
 }
