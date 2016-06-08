@@ -2,85 +2,81 @@
 COMMON OPERATIONS.
 */
 
+using Bikewale.Notifications;
 using System;
-using System.Text;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web;
-using System.Web.Caching;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Configuration;
-using System.Text.RegularExpressions;
-using System.Net.Mail;
 using System.Globalization;
-using System.Net;
-using Bikewale.Entities.CMS;
-using System.Collections.Generic;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Notifications;
+using System.Net.Mail;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.CoreDAL
 {
-	public class CommonOpn
-	{
-			
-		//used for writing the debug messages
-		private HttpContext objTrace = HttpContext.Current;
-        private char _delimiter = '|';
-		
-				
-		//this function binds the grid with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindGridReader(string sql, DataGrid dtgrd)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql);
-				dtgrd.DataSource = dataReader;
-				dtgrd.DataBind();				
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				if(dataReader != null)
-                    dataReader.Close();
+    public class CommonOpn
+    {
 
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the grid with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindGridReader(string sql, DataGrid dtgrd, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				dtgrd.DataSource = dataReader;
-				dtgrd.DataBind();
-			
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
+        //used for writing the debug messages
+        private HttpContext objTrace = HttpContext.Current;
+        private char _delimiter = '|';
+
+
+        //this function binds the grid with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindGridReader(string sql, DataGrid dtgrd)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
+                dataReader = objSelect.SelectQry(sql);
+                dtgrd.DataSource = dataReader;
+                dtgrd.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
                 if (dataReader != null)
                     dataReader.Close();
 
-				objSelect.CloseConnection();
-			}
-		}
+                objSelect.CloseConnection();
+            }
+        }
+
+        //this function binds the grid with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindGridReader(string sql, DataGrid dtgrd, SqlParameter[] param)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
+                dataReader = objSelect.SelectQry(sql, param);
+                dtgrd.DataSource = dataReader;
+                dtgrd.DataBind();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (dataReader != null)
+                    dataReader.Close();
+
+                objSelect.CloseConnection();
+            }
+        }
 
         /// <summary>
         /// Added By : Sadhana Upadhyay on 15/11/2013
@@ -103,13 +99,13 @@ namespace Bikewale.CoreDAL
                 return FormatNumeric(minPrice) + "-" + FormatNumeric(maxPrice);
         }
 
-       /// <summary>
+        /// <summary>
         /// Created By : Ashish G. Kamble on 31/7/2012
         /// Modified By : Sadhana Upadhyay on 7th may 
         /// Summary : to display 0 price as N/A
-       /// </summary>
-       /// <param name="price">Ex-showroom price</param>
-       /// <returns>formatted ex-showroom price</returns>
+        /// </summary>
+        /// <param name="price">Ex-showroom price</param>
+        /// <returns>formatted ex-showroom price</returns>
         public static string FormatPrice(string price)
         {
             if (price == "" || price == "0")
@@ -117,358 +113,358 @@ namespace Bikewale.CoreDAL
             else
                 return FormatNumeric(price);
         }
-			
-		//this function binds the repeater with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindRepeaterReader(string sql, Repeater rpt)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
+
+        //this function binds the repeater with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindRepeaterReader(string sql, Repeater rpt)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
                 HttpContext.Current.Trace.Warn(rpt.ID);
-				dataReader = objSelect.SelectQry(sql);
-				rpt.DataSource = dataReader;
-				rpt.DataBind();					
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-			    if(dataReader != null)
-	                dataReader.Close();
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the repeater with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindRepeaterReader(string sql, Repeater rpt, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				rpt.DataSource = dataReader;
-				rpt.DataBind();				
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				if(dataReader != null)
+                dataReader = objSelect.SelectQry(sql);
+                rpt.DataSource = dataReader;
+                rpt.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (dataReader != null)
                     dataReader.Close();
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the grid with the dataset
-		//takes as input the sql string and the datagridname
-		public void BindGridSet(string sql, DataGrid dtgrd)
-		{
-			DataSet dataSet = new DataSet();
-			
-			Database objSelect = new Database();
-			try
-			{
-				dataSet = objSelect.SelectAdaptQry(sql);
-				dtgrd.DataSource = dataSet;
-				dtgrd.DataBind();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-		}
-		
-		//this function binds the grid with the dataset
-		//takes as input the sql string and the datagridname
-		public void BindGridSet(string sql, DataGrid dtgrd, SqlParameter [] param)
-		{
-			DataSet dataSet = new DataSet();
-			
-			Database objSelect = new Database();
-			try
-			{
-				dataSet = objSelect.SelectAdaptQry(sql, param);
-				dtgrd.DataSource = dataSet;
-				dtgrd.DataBind();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-		}
-		
-		// This function does the same thing as the above one,
-		// but it has an unque feature of providing paging by default.
-		// you have to do nothing but provide pageSize.
-		public void BindGridSet( string sql, DataGrid dtgrd, int PageSize )
-		{
-			DataSet dataSet = new DataSet();
-			
-			Database objSelect = new Database();
-			try
-			{
-				dataSet = objSelect.SelectAdaptQry(sql);
-				if ( dataSet.Tables[0].Rows.Count > PageSize )
-				{
-					dtgrd.AllowPaging = true;
-					dtgrd.PageSize = PageSize;
-				}
-				else
-				{
-					dtgrd.AllowPaging = false;
-				}
-				dtgrd.DataSource = dataSet;
-				dtgrd.DataBind();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-		}
-		
-		// This function does the same thing as the above one,
-		// but it has an unque feature of providing paging by default.
-		// you have to do nothing but provide pageSize.
-		public void BindGridSet( string sql, DataGrid dtgrd, int PageSize, SqlParameter [] param)
-		{
-			DataSet dataSet = new DataSet();
-			
-			Database objSelect = new Database();
-			try
-			{
-				dataSet = objSelect.SelectAdaptQry(sql, param);
-				if ( dataSet.Tables[0].Rows.Count > PageSize )
-				{
-					dtgrd.AllowPaging = true;
-					dtgrd.PageSize = PageSize;
-				}
-				else
-				{
-					dtgrd.AllowPaging = false;
-				}
-				dtgrd.DataSource = dataSet;
-				dtgrd.DataBind();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-		}
-		
-		//this function binds the datalist with the datareader
-		//takes as input the sql string and the datalist id
-		public void BindListReader(string sql, DataList dtlst)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql);
-				dtlst.DataSource = dataReader;
-				dtlst.DataBind();				
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				if(dataReader != null)
+                objSelect.CloseConnection();
+            }
+        }
+
+        //this function binds the repeater with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindRepeaterReader(string sql, Repeater rpt, SqlParameter[] param)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
+                dataReader = objSelect.SelectQry(sql, param);
+                rpt.DataSource = dataReader;
+                rpt.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (dataReader != null)
                     dataReader.Close();
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the datalist with the datareader
-		//takes as input the sql string and the datalist id
-		public void BindListReader(string sql, DataList dtlst, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				dtlst.DataSource = dataReader;
-				dtlst.DataBind();				
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				if(dataReader != null)
+                objSelect.CloseConnection();
+            }
+        }
+
+        //this function binds the grid with the dataset
+        //takes as input the sql string and the datagridname
+        public void BindGridSet(string sql, DataGrid dtgrd)
+        {
+            DataSet dataSet = new DataSet();
+
+            Database objSelect = new Database();
+            try
+            {
+                dataSet = objSelect.SelectAdaptQry(sql);
+                dtgrd.DataSource = dataSet;
+                dtgrd.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //this function binds the grid with the dataset
+        //takes as input the sql string and the datagridname
+        public void BindGridSet(string sql, DataGrid dtgrd, SqlParameter[] param)
+        {
+            DataSet dataSet = new DataSet();
+
+            Database objSelect = new Database();
+            try
+            {
+                dataSet = objSelect.SelectAdaptQry(sql, param);
+                dtgrd.DataSource = dataSet;
+                dtgrd.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        // This function does the same thing as the above one,
+        // but it has an unque feature of providing paging by default.
+        // you have to do nothing but provide pageSize.
+        public void BindGridSet(string sql, DataGrid dtgrd, int PageSize)
+        {
+            DataSet dataSet = new DataSet();
+
+            Database objSelect = new Database();
+            try
+            {
+                dataSet = objSelect.SelectAdaptQry(sql);
+                if (dataSet.Tables[0].Rows.Count > PageSize)
+                {
+                    dtgrd.AllowPaging = true;
+                    dtgrd.PageSize = PageSize;
+                }
+                else
+                {
+                    dtgrd.AllowPaging = false;
+                }
+                dtgrd.DataSource = dataSet;
+                dtgrd.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        // This function does the same thing as the above one,
+        // but it has an unque feature of providing paging by default.
+        // you have to do nothing but provide pageSize.
+        public void BindGridSet(string sql, DataGrid dtgrd, int PageSize, SqlParameter[] param)
+        {
+            DataSet dataSet = new DataSet();
+
+            Database objSelect = new Database();
+            try
+            {
+                dataSet = objSelect.SelectAdaptQry(sql, param);
+                if (dataSet.Tables[0].Rows.Count > PageSize)
+                {
+                    dtgrd.AllowPaging = true;
+                    dtgrd.PageSize = PageSize;
+                }
+                else
+                {
+                    dtgrd.AllowPaging = false;
+                }
+                dtgrd.DataSource = dataSet;
+                dtgrd.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //this function binds the datalist with the datareader
+        //takes as input the sql string and the datalist id
+        public void BindListReader(string sql, DataList dtlst)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
+                dataReader = objSelect.SelectQry(sql);
+                dtlst.DataSource = dataReader;
+                dtlst.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (dataReader != null)
                     dataReader.Close();
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the dropdownlist with the datareader
-		//takes as input the sql string, dropdownlist name, the text field and the value field
-		public void FillDropDown(string sql, DropDownList drp, string text, string value)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql);
-				drp.DataSource = dataReader;
-				drp.DataTextField = text;
-				drp.DataValueField = value;
-				drp.DataBind();
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
+                objSelect.CloseConnection();
+            }
+        }
+
+        //this function binds the datalist with the datareader
+        //takes as input the sql string and the datalist id
+        public void BindListReader(string sql, DataList dtlst, SqlParameter[] param)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
+                dataReader = objSelect.SelectQry(sql, param);
+                dtlst.DataSource = dataReader;
+                dtlst.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (dataReader != null)
+                    dataReader.Close();
+                objSelect.CloseConnection();
+            }
+        }
+
+        //this function binds the dropdownlist with the datareader
+        //takes as input the sql string, dropdownlist name, the text field and the value field
+        public void FillDropDown(string sql, DropDownList drp, string text, string value)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
+                dataReader = objSelect.SelectQry(sql);
+                drp.DataSource = dataReader;
+                drp.DataTextField = text;
+                drp.DataValueField = value;
+                drp.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
                 if (dataReader != null)
                 {
                     dataReader.Close();
                 }
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the dropdownlist with the datareader
-		//takes as input the sql string, dropdownlist name, the text field and the value field
-		public void FillDropDown(string sql, DropDownList drp, string text, string value, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				drp.DataSource = dataReader;
-				drp.DataTextField = text;
-				drp.DataValueField = value;
-				drp.DataBind();				
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				if(dataReader != null)
+                objSelect.CloseConnection();
+            }
+        }
+
+        //this function binds the dropdownlist with the datareader
+        //takes as input the sql string, dropdownlist name, the text field and the value field
+        public void FillDropDown(string sql, DropDownList drp, string text, string value, SqlParameter[] param)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
+                dataReader = objSelect.SelectQry(sql, param);
+                drp.DataSource = dataReader;
+                drp.DataTextField = text;
+                drp.DataValueField = value;
+                drp.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (dataReader != null)
                     dataReader.Close();
 
-				objSelect.CloseConnection();				
-			}
-		}
-		
-		//this function binds the checkboxlist 
-		//takes as input the sql string, dropdownlist name, the text field and the value field
-		public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql);
-				chk.DataSource = dataReader;
-				chk.DataTextField = text;
-				chk.DataValueField = value;
-				chk.DataBind();				
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				if(dataReader != null)
+                objSelect.CloseConnection();
+            }
+        }
+
+        //this function binds the checkboxlist 
+        //takes as input the sql string, dropdownlist name, the text field and the value field
+        public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
+                dataReader = objSelect.SelectQry(sql);
+                chk.DataSource = dataReader;
+                chk.DataTextField = text;
+                chk.DataValueField = value;
+                chk.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (dataReader != null)
                     dataReader.Close();
 
-				objSelect.CloseConnection();				
-			}
-		}
-		
-		//this function binds the checkboxlist 
-		//takes as input the sql string, dropdownlist name, the text field and the value field
-		public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				chk.DataSource = dataReader;
-				chk.DataTextField = text;
-				chk.DataValueField = value;
-				chk.DataBind();				
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				if(dataReader != null)
+                objSelect.CloseConnection();
+            }
+        }
+
+        //this function binds the checkboxlist 
+        //takes as input the sql string, dropdownlist name, the text field and the value field
+        public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value, SqlParameter[] param)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
+                dataReader = objSelect.SelectQry(sql, param);
+                chk.DataSource = dataReader;
+                chk.DataTextField = text;
+                chk.DataValueField = value;
+                chk.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (dataReader != null)
                     dataReader.Close();
 
-				objSelect.CloseConnection();				
-			}
-		}
-		
-		//this function binds the RadioButtonList with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindRadioListReader(string sql, RadioButtonList clst)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql);
-				clst.DataSource = dataReader;
-				clst.DataBind();				
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				if(dataReader != null)
+                objSelect.CloseConnection();
+            }
+        }
+
+        //this function binds the RadioButtonList with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindRadioListReader(string sql, RadioButtonList clst)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
+                dataReader = objSelect.SelectQry(sql);
+                clst.DataSource = dataReader;
+                clst.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (dataReader != null)
                     dataReader.Close();
 
-				objSelect.CloseConnection();
-			}
-		}
-		
-		//this function binds the RadioButtonList with the datareader
-		//takes as input the sql string and the datagridname
-		public void BindRadioListReader(string sql, RadioButtonList clst, SqlParameter [] param)
-		{
-			SqlDataReader dataReader = null;
-			Database objSelect = new Database();
-			try
-			{
-				dataReader = objSelect.SelectQry(sql, param);
-				clst.DataSource = dataReader;
-				clst.DataBind();				
-			}
-			catch(Exception)
-			{
-				throw;
-			}
-			finally
-			{
-				if(dataReader != null)
+                objSelect.CloseConnection();
+            }
+        }
+
+        //this function binds the RadioButtonList with the datareader
+        //takes as input the sql string and the datagridname
+        public void BindRadioListReader(string sql, RadioButtonList clst, SqlParameter[] param)
+        {
+            SqlDataReader dataReader = null;
+            Database objSelect = new Database();
+            try
+            {
+                dataReader = objSelect.SelectQry(sql, param);
+                clst.DataSource = dataReader;
+                clst.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (dataReader != null)
                     dataReader.Close();
 
-				objSelect.CloseConnection();
-			}
-		}
+                objSelect.CloseConnection();
+            }
+        }
 
         /// <summary>
         /// Using in User tracking for SaveActivity 
@@ -490,16 +486,16 @@ namespace Bikewale.CoreDAL
             return ret;
         }
 
-		///<summary>
-		/// This Property will be used for Application Path.
-		///</summary>
-		public static string AppPath
-		{
-			get 
-			{ 
-				return (string)ConfigurationManager.AppSettings["AppPath"];
-			}
-		} // AppPath
+        ///<summary>
+        /// This Property will be used for Application Path.
+        ///</summary>
+        public static string AppPath
+        {
+            get
+            {
+                return (string)ConfigurationManager.AppSettings["AppPath"];
+            }
+        } // AppPath
 
         public static string ConvertToTitleCase(string input)
         {
@@ -536,7 +532,7 @@ namespace Bikewale.CoreDAL
             {
                 // make sure we use the local SMTP server
                 SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);//"127.0.0.1";
-                
+
                 //get the from mail address
                 string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
 
@@ -568,478 +564,478 @@ namespace Bikewale.CoreDAL
             }
             catch (Exception err)
             {
-                objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);                
+                objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
             }
         }
-		///<summary>
-		/// This Property will be used for Ad Path.
-		///</summary>
-		public static string AdPath
-		{
-			get 
-			{ 
-				string adPath = "";
-				
-				if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf( "bikewale.com" ) >= 0 ) 
-					adPath = "http://www.bikewale.co.in/";
-				else
-					adPath = "/";
-				
-				return adPath;
-			}
-		} // AdPath
-		
-		
-		///<summary>
-		/// This Method will be used for resolving relative paths 
-		/// in reference to the Absolute Application Path.
-		/// <param name="RelativePath">Relative Path of file.</param>
-		///</summary>
-		public static string ResolvePath( string RelativePath )
-		{
-            return (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath; 
-			
-		} // ResolvePath
-		
-		///<summary>
-		/// This Method will be used for resolving relative paths 
-		/// in reference to the Absolute Application Path.
-		/// <param name="RelativePath">Relative Path of file.</param>
-		///</summary>
-		public static string ResolvePhysicalPath( string RelativePath )
-		{
-            string fullPath = (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath; 
-			// the next line is to make path compatible with Plesk 6.5.
-			// Plesh uses paths after appending non_ssl.
-			Page myPage = new Page();
-			string makePleskCompatible = myPage.Server.MapPath( fullPath ).Replace( "\\default\\htdocs\\","\\carwale.com\\httpdocs\\" );
-			return makePleskCompatible; 
-			
-		} // ResolvePath
-		
-		// This Function will save image to the images.carwale.com.
-		// If the application is running locally, it will save the 
-		// file in the requested directory only.
-		public static void SaveImage( HtmlInputFile fil, string RelativePath )
-		{
-            string fullPath = (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath; 
-			fullPath = fullPath.Replace( "images/", "" );
-			HttpContext.Current.Trace.Warn("Images Path : " + fullPath );
-			// the next line is to make path compatible with Plesk 6.5.
-			// Plesh uses paths after appending non_ssl.
-			Page myPage = new Page();
-			string makePleskCompatible = myPage.Server.MapPath( fullPath ).Replace( "\\default\\htdocs\\","\\carwale.com\\subdomains\\images\\httpdocs\\" );
-			
-			fil.PostedFile.SaveAs( makePleskCompatible );
-		} // ResolvePath
-		
-		// This Function returns the path of the image for the images.carwale.com.
-		// If the application is running locally, it will return the path of the  
-		// file in the requested directory only.
-		//NOTE:-- if some changes is done in the below function, then corresponding changes
-		//is to be done in the function SaveImage, just above this function
-		//for the path of the image.
-		public static string ImagePathForSavingImages( string RelativePath )
-		{
+        ///<summary>
+        /// This Property will be used for Ad Path.
+        ///</summary>
+        public static string AdPath
+        {
+            get
+            {
+                string adPath = "";
+
+                if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("bikewale.com") >= 0)
+                    adPath = "http://www.bikewale.co.in/";
+                else
+                    adPath = "/";
+
+                return adPath;
+            }
+        } // AdPath
+
+
+        ///<summary>
+        /// This Method will be used for resolving relative paths 
+        /// in reference to the Absolute Application Path.
+        /// <param name="RelativePath">Relative Path of file.</param>
+        ///</summary>
+        public static string ResolvePath(string RelativePath)
+        {
+            return (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath;
+
+        } // ResolvePath
+
+        ///<summary>
+        /// This Method will be used for resolving relative paths 
+        /// in reference to the Absolute Application Path.
+        /// <param name="RelativePath">Relative Path of file.</param>
+        ///</summary>
+        public static string ResolvePhysicalPath(string RelativePath)
+        {
             string fullPath = (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath;
-			
-			if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf( "carwale.com" ) >= 0 ) 
-				fullPath = fullPath.Replace( "images/", "" );
-				
-			HttpContext.Current.Trace.Warn("Images Path : " + fullPath );
-			// the next line is to make path compatible with Plesk 6.5.
-			// Plesh uses paths after appending non_ssl.
-			Page myPage = new Page();
-			string makePleskCompatible = myPage.Server.MapPath( fullPath ).Replace( "\\default\\htdocs\\","\\carwale.com\\subdomains\\images\\httpdocs\\" );
-			HttpContext.Current.Trace.Warn("makePleskCompatible : " + makePleskCompatible);
-			
-			return makePleskCompatible;
-		} // ResolvePath
-		
-		// Returns the Images Path.
-		public static string ImagePath 
-		{
-			get
-			{
-				string imgPath = "";
-				
-				if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf( "carwale.com" ) >= 0 )
-				{
-					imgPath = "http://img.aeplcdn.com/";
+            // the next line is to make path compatible with Plesk 6.5.
+            // Plesh uses paths after appending non_ssl.
+            Page myPage = new Page();
+            string makePleskCompatible = myPage.Server.MapPath(fullPath).Replace("\\default\\htdocs\\", "\\carwale.com\\httpdocs\\");
+            return makePleskCompatible;
 
-				}
-				else
-				{
-					imgPath = AppPath + "images/";
-				}
+        } // ResolvePath
 
-				return imgPath;
-			}
-		}
-		
-		public static string ResolveImagePath ( string imgPath )
-		{
-			
-			Page myPage = new Page();
-			string absPath = "";
-			
-			if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf( "carwale.com" ) >= 0 )
-			{
-				absPath = myPage.Server.MapPath( imgPath.Replace("http://img.aeplcdn.com/","/") ).ToLower().Replace( "\\carwale\\","\\carwaleimg\\" );
+        // This Function will save image to the images.carwale.com.
+        // If the application is running locally, it will save the 
+        // file in the requested directory only.
+        public static void SaveImage(HtmlInputFile fil, string RelativePath)
+        {
+            string fullPath = (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath;
+            fullPath = fullPath.Replace("images/", "");
+            HttpContext.Current.Trace.Warn("Images Path : " + fullPath);
+            // the next line is to make path compatible with Plesk 6.5.
+            // Plesh uses paths after appending non_ssl.
+            Page myPage = new Page();
+            string makePleskCompatible = myPage.Server.MapPath(fullPath).Replace("\\default\\htdocs\\", "\\carwale.com\\subdomains\\images\\httpdocs\\");
+
+            fil.PostedFile.SaveAs(makePleskCompatible);
+        } // ResolvePath
+
+        // This Function returns the path of the image for the images.carwale.com.
+        // If the application is running locally, it will return the path of the  
+        // file in the requested directory only.
+        //NOTE:-- if some changes is done in the below function, then corresponding changes
+        //is to be done in the function SaveImage, just above this function
+        //for the path of the image.
+        public static string ImagePathForSavingImages(string RelativePath)
+        {
+            string fullPath = (string)ConfigurationManager.AppSettings["AppPath"] + RelativePath;
+
+            if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
+                fullPath = fullPath.Replace("images/", "");
+
+            HttpContext.Current.Trace.Warn("Images Path : " + fullPath);
+            // the next line is to make path compatible with Plesk 6.5.
+            // Plesh uses paths after appending non_ssl.
+            Page myPage = new Page();
+            string makePleskCompatible = myPage.Server.MapPath(fullPath).Replace("\\default\\htdocs\\", "\\carwale.com\\subdomains\\images\\httpdocs\\");
+            HttpContext.Current.Trace.Warn("makePleskCompatible : " + makePleskCompatible);
+
+            return makePleskCompatible;
+        } // ResolvePath
+
+        // Returns the Images Path.
+        public static string ImagePath
+        {
+            get
+            {
+                string imgPath = "";
+
+                if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
+                {
+                    imgPath = "http://img.aeplcdn.com/";
+
+                }
+                else
+                {
+                    imgPath = AppPath + "images/";
+                }
+
+                return imgPath;
             }
-			else
-			{
-				absPath = myPage.Server.MapPath( imgPath );
-			}
+        }
+
+        public static string ResolveImagePath(string imgPath)
+        {
+
+            Page myPage = new Page();
+            string absPath = "";
+
+            if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
+            {
+                absPath = myPage.Server.MapPath(imgPath.Replace("http://img.aeplcdn.com/", "/")).ToLower().Replace("\\carwale\\", "\\carwaleimg\\");
+            }
+            else
+            {
+                absPath = myPage.Server.MapPath(imgPath);
+            }
 
 
-			HttpContext.Current.Trace.Warn( "Resolved Image Path : " + absPath );
-			return absPath;
-			
-		} 
-		        
-		
-		///<summary>
-		/// This Method is used to verify the id of as passed in the url
-		/// This matches the string with the regular expression, and also
-		/// check its length not to be greater than 9
-		/// <param name="input">The input string to be verified.</param>
-		///</summary>
-		public static bool CheckId( string input )
-		{
-			bool retVal = false;
-			try
-			{
-				//check with the regular expression
-				if(Regex.IsMatch(input, @"^[0-9]+$") == true)
-				{
-					//check its length
-					if(input.Length <=9)
-					{
-						retVal = true;
-					}
-					else
-					{
-						retVal = false;
-					}
-				}
-				else
-				{
-					retVal = false;
-				}
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				retVal = false;
-			}
-			
-			return retVal;
-		} // CheckId
-		
-		
-		public static bool IsNumeric( string input )
-		{
-			bool retVal = false;
-			try
-			{
-				//check with the regular expression
-				if(Regex.IsMatch(input, @"^[0-9]+$") == true)
-				{
-					//check its length
-					if(input.Length <=9)
-					{
-						retVal = true;
-					}
-					else
-					{
-						retVal = false;
-					}
-				}
-				else
-				{
-					retVal = false;
-				}
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				retVal = false;
-			}
-			
-			return retVal;
-		} // IsNumeric
-		
-		///<summary>
-		/// This Method is used to verify the id of as passed in the url
-		/// This matches the string with the regular expression, and also
-		/// check its length not to be greater than 15
-		/// <param name="input">The input string to be verified.</param>
-		///</summary>
-		public static bool CheckLongId( string input )
-		{
-			bool retVal = false;
-			try
-			{
-				//check with the regular expression
-				if(Regex.IsMatch(input, @"^[0-9]+$") == true)
-				{
-					//check its length
-					if(input.Length <=15)
-					{
-						retVal = true;
-					}
-					else
-					{
-						retVal = false;
-					}
-				}
-				else
-				{
-					retVal = false;
-				}
-			}
-			catch(Exception err)
-			{
-				HttpContext.Current.Trace.Warn(err.Message);
-				retVal = false;
-			}
-			
-			return retVal;
-		} // CheckLongId
-		
-			
-		
-		/********************************************************************************************
-		6()
-		THIS FUNCTION sends the mail to the dealers with thte email id as passed in the text format.
-		Note that web.config file is case sensitive, 
-		The mail id from which the mail is to be sent is get from the key, "localMail".
-		********************************************************************************************/
-		public void SendMail(string email, string subject, string body)
-		{
-			try
+            HttpContext.Current.Trace.Warn("Resolved Image Path : " + absPath);
+            return absPath;
+
+        }
+
+
+        ///<summary>
+        /// This Method is used to verify the id of as passed in the url
+        /// This matches the string with the regular expression, and also
+        /// check its length not to be greater than 9
+        /// <param name="input">The input string to be verified.</param>
+        ///</summary>
+        public static bool CheckId(string input)
+        {
+            bool retVal = false;
+            try
+            {
+                //check with the regular expression
+                if (Regex.IsMatch(input, @"^[0-9]+$") == true)
+                {
+                    //check its length
+                    if (input.Length <= 9)
+                    {
+                        retVal = true;
+                    }
+                    else
+                    {
+                        retVal = false;
+                    }
+                }
+                else
+                {
+                    retVal = false;
+                }
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn(err.Message);
+                retVal = false;
+            }
+
+            return retVal;
+        } // CheckId
+
+
+        public static bool IsNumeric(string input)
+        {
+            bool retVal = false;
+            try
+            {
+                //check with the regular expression
+                if (Regex.IsMatch(input, @"^[0-9]+$") == true)
+                {
+                    //check its length
+                    if (input.Length <= 9)
+                    {
+                        retVal = true;
+                    }
+                    else
+                    {
+                        retVal = false;
+                    }
+                }
+                else
+                {
+                    retVal = false;
+                }
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn(err.Message);
+                retVal = false;
+            }
+
+            return retVal;
+        } // IsNumeric
+
+        ///<summary>
+        /// This Method is used to verify the id of as passed in the url
+        /// This matches the string with the regular expression, and also
+        /// check its length not to be greater than 15
+        /// <param name="input">The input string to be verified.</param>
+        ///</summary>
+        public static bool CheckLongId(string input)
+        {
+            bool retVal = false;
+            try
+            {
+                //check with the regular expression
+                if (Regex.IsMatch(input, @"^[0-9]+$") == true)
+                {
+                    //check its length
+                    if (input.Length <= 15)
+                    {
+                        retVal = true;
+                    }
+                    else
+                    {
+                        retVal = false;
+                    }
+                }
+                else
+                {
+                    retVal = false;
+                }
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn(err.Message);
+                retVal = false;
+            }
+
+            return retVal;
+        } // CheckLongId
+
+
+
+        /********************************************************************************************
+        6()
+        THIS FUNCTION sends the mail to the dealers with thte email id as passed in the text format.
+        Note that web.config file is case sensitive, 
+        The mail id from which the mail is to be sent is get from the key, "localMail".
+        ********************************************************************************************/
+        public void SendMail(string email, string subject, string body)
+        {
+            try
             {
                 // make sure we use the local SMTP server
                 SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);//"127.0.0.1";
-                
-                //get the from mail address
-                string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
-                
-                MailAddress from = new MailAddress(localMail, "BikeWale.com");
-        
-                // Set destinations for the e-mail message.
-                MailAddress to = new MailAddress(email);
-                
-                // create mail message object
-                MailMessage msg = new MailMessage(from, to);
-                
-                // Add Reply-to in the message header.
-                msg.Headers.Add("Reply-to", "contact@bikewale.com");
-                
-                // set some properties
-                msg.IsBodyHtml = true;
-                msg.Priority = MailPriority.High;
-                    
-                //prepare the subject
-                msg.Subject = subject;
-                
-                //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
-                msg.Body = body;
-                
-                // Mail Server Configuration. Needed for Rediff Hosting.
-                //msg.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 1;
-                //msg.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory"] = "C:\\inetpub\\mailroot\\pickup";
-                
-                // Send the e-mail
-                client.Send(msg);
-                
-                objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
-            }
-            catch(Exception err)
-            {
-                objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err,"SendMail in CommonOpn");
-                objErr.SendMail();
-            }			
-			
-		}
-		
-		/********************************************************************************************
-		SendMail()
-		THIS FUNCTION sends the mail to the dealers with thte email id as passed, in the html format.
-		Note that web.config file is case sensitive, 
-		The mail id from which the mail is to be sent is get from the key, "localMail".
-		********************************************************************************************/
-		public void SendMail(string email, string subject, string body, bool htmlType)
-		{
-			try
-            {
-                // make sure we use the local SMTP server
-                SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);//"127.0.0.1";
-                
+
                 //get the from mail address
                 string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
 
                 MailAddress from = new MailAddress(localMail, "BikeWale.com");
-        
+
                 // Set destinations for the e-mail message.
                 MailAddress to = new MailAddress(email);
-                
+
                 // create mail message object
                 MailMessage msg = new MailMessage(from, to);
-                
+
                 // Add Reply-to in the message header.
                 msg.Headers.Add("Reply-to", "contact@bikewale.com");
-                
+
                 // set some properties
                 msg.IsBodyHtml = true;
                 msg.Priority = MailPriority.High;
-                    
+
                 //prepare the subject
                 msg.Subject = subject;
-                
+
                 //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
                 msg.Body = body;
-                
+
                 // Mail Server Configuration. Needed for Rediff Hosting.
                 //msg.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 1;
                 //msg.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory"] = "C:\\inetpub\\mailroot\\pickup";
-                
+
                 // Send the e-mail
                 client.Send(msg);
-                
+
                 objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err,"SendMail in CommonOpn");
+                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
                 objErr.SendMail();
-            }			
-			
-		}
-		
-		/********************************************************************************************
-		Does exactly what the conventional SendMail function does except it 
-		needs replyTo parameter as well.
-		********************************************************************************************/
-		public void SendMail(string email, string subject, string body, bool htmlType, string replyTo )
-		{
-			try
+            }
+
+        }
+
+        /********************************************************************************************
+        SendMail()
+        THIS FUNCTION sends the mail to the dealers with thte email id as passed, in the html format.
+        Note that web.config file is case sensitive, 
+        The mail id from which the mail is to be sent is get from the key, "localMail".
+        ********************************************************************************************/
+        public void SendMail(string email, string subject, string body, bool htmlType)
+        {
+            try
             {
                 // make sure we use the local SMTP server
                 SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);//"127.0.0.1";
-                
+
                 //get the from mail address
                 string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
 
                 MailAddress from = new MailAddress(localMail, "BikeWale.com");
-        
+
                 // Set destinations for the e-mail message.
                 MailAddress to = new MailAddress(email);
-                
+
                 // create mail message object
                 MailMessage msg = new MailMessage(from, to);
-                
+
                 // Add Reply-to in the message header.
                 msg.Headers.Add("Reply-to", "contact@bikewale.com");
-                
+
                 // set some properties
                 msg.IsBodyHtml = true;
                 msg.Priority = MailPriority.High;
-                    
+
                 //prepare the subject
                 msg.Subject = subject;
-                
+
                 //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
                 msg.Body = body;
-                
+
                 // Mail Server Configuration. Needed for Rediff Hosting.
                 //msg.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 1;
                 //msg.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory"] = "C:\\inetpub\\mailroot\\pickup";
-                
+
                 // Send the e-mail
                 client.Send(msg);
-                
+
                 objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
-                ErrorClass objErr = new ErrorClass(err,"SendMail in CommonOpn");
+                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
                 objErr.SendMail();
-            }				
-			
-		}
-		
-		
-		//Send mail to multiple clients
-		public void SendMail(string email, string subject, string body, int mutipleMail)
-		{
-			try
+            }
+
+        }
+
+        /********************************************************************************************
+        Does exactly what the conventional SendMail function does except it 
+        needs replyTo parameter as well.
+        ********************************************************************************************/
+        public void SendMail(string email, string subject, string body, bool htmlType, string replyTo)
+        {
+            try
             {
-				if(email != "")
-				{
-					// make sure we use the local SMTP server
-					//SmtpClient client = new SmtpClient("124.153.73.180");//"127.0.0.1";
+                // make sure we use the local SMTP server
+                SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);//"127.0.0.1";
+
+                //get the from mail address
+                string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
+
+                MailAddress from = new MailAddress(localMail, "BikeWale.com");
+
+                // Set destinations for the e-mail message.
+                MailAddress to = new MailAddress(email);
+
+                // create mail message object
+                MailMessage msg = new MailMessage(from, to);
+
+                // Add Reply-to in the message header.
+                msg.Headers.Add("Reply-to", "contact@bikewale.com");
+
+                // set some properties
+                msg.IsBodyHtml = true;
+                msg.Priority = MailPriority.High;
+
+                //prepare the subject
+                msg.Subject = subject;
+
+                //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
+                msg.Body = body;
+
+                // Mail Server Configuration. Needed for Rediff Hosting.
+                //msg.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 1;
+                //msg.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory"] = "C:\\inetpub\\mailroot\\pickup";
+
+                // Send the e-mail
+                client.Send(msg);
+
+                objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
+            }
+            catch (Exception err)
+            {
+                objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
+                objErr.SendMail();
+            }
+
+        }
+
+
+        //Send mail to multiple clients
+        public void SendMail(string email, string subject, string body, int mutipleMail)
+        {
+            try
+            {
+                if (email != "")
+                {
+                    // make sure we use the local SMTP server
+                    //SmtpClient client = new SmtpClient("124.153.73.180");//"127.0.0.1";
                     SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);
-					
-					//get the from mail address
+
+                    //get the from mail address
                     string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
 
                     MailAddress from = new MailAddress(localMail, "BikeWale.com");
-					
-					// Set destinations for the e-mail message.
+
+                    // Set destinations for the e-mail message.
                     MailAddress to = new MailAddress(email);
-					
-					// create mail message object
-					MailMessage msg = new MailMessage(from, to);
-							
-					string [] emailList  = email.Split(',');
-					if(emailList.Length > 0)
-					{
-						for(int i=0; i<emailList.Length; i++)
-						{
-							msg.To.Add(new MailAddress(emailList[i].ToString()));
-						}
-					}
-					
-					// Add Reply-to in the message header.
+
+                    // create mail message object
+                    MailMessage msg = new MailMessage(from, to);
+
+                    string[] emailList = email.Split(',');
+                    if (emailList.Length > 0)
+                    {
+                        for (int i = 0; i < emailList.Length; i++)
+                        {
+                            msg.To.Add(new MailAddress(emailList[i].ToString()));
+                        }
+                    }
+
+                    // Add Reply-to in the message header.
                     msg.Headers.Add("Reply-to", "contact@bikewale.com");
-					
-					// set some properties
-					msg.IsBodyHtml = true;
-					msg.Priority = MailPriority.High;
-						
-					//prepare the subject
-					msg.Subject = subject;
-					
-					//body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
-					msg.Body = body;
-					
-					objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
-					
-					// Send the e-mail
-					client.Send(msg);
-					
-				}
+
+                    // set some properties
+                    msg.IsBodyHtml = true;
+                    msg.Priority = MailPriority.High;
+
+                    //prepare the subject
+                    msg.Subject = subject;
+
+                    //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
+                    msg.Body = body;
+
+                    objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
+
+                    // Send the e-mail
+                    client.Send(msg);
+
+                }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err,"SendMail in CommonOpn");
+                ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
                 objErr.SendMail();
-            }				
-		}
-		
-		//following is the function which returns a portion of a query which excludes the members whose status is in suspended mode
-		public string GetExcludedMembers()
-		{
-			string sql = "";
+            }
+        }
+
+        //following is the function which returns a portion of a query which excludes the members whose status is in suspended mode
+        public string GetExcludedMembers()
+        {
+            string sql = "";
             sql = " NOT IN ( SELECT Id FROM Dealers With(NoLock) WHERE Status = 1 )";
-				
-			return sql;
-		}
+
+            return sql;
+        }
 
 
         /********************************************************************************************
@@ -1059,7 +1055,7 @@ namespace Bikewale.CoreDAL
                 MailAddress from = new MailAddress(fromEmail, "");
 
                 // Set destinations for the e-mail message.
-                MailAddress to = new MailAddress(email);                
+                MailAddress to = new MailAddress(email);
 
                 // create mail message object
                 MailMessage msg = new MailMessage(from, to);
@@ -1069,7 +1065,7 @@ namespace Bikewale.CoreDAL
 
                 // Check if cc is there or not
                 if (addCC != "")
-                {                    
+                {
                     MailAddress cc = new MailAddress(addCC);
                     msg.CC.Add(cc);
                 }
@@ -1615,7 +1611,7 @@ namespace Bikewale.CoreDAL
         }
 
         public static string GetRateImage(double value)
-        {        
+        {
             string oneImg = "<img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.gif\">";
             string zeroImg = "<img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.gif\">";
             string halfImg = "<img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.gif\">";
@@ -1671,7 +1667,7 @@ namespace Bikewale.CoreDAL
                 HttpContext.Current.Response.Cookies.Add(objCookie);
             }
         }
-		
+
 
         public static string ParseMobileNumber(string input)
         {
@@ -1958,7 +1954,31 @@ namespace Bikewale.CoreDAL
         /// <returns></returns>
         public static string GetClientIP()
         {
-            string clientIp = HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
+            //string clientIp = HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
+            //return clientIp;
+            string[] serVars = { "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "HTTP_X_FORWARDED", "HTTP_X_CLUSTER_CLIENT_IP", "HTTP_FORWARDED_FOR", "HTTP_FORWARDED", "REMOTE_ADDR" };
+            string clientIp = string.Empty;
+            foreach (string serverVariable in serVars)
+            {
+                clientIp = HttpContext.Current.Request.ServerVariables[serverVariable] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables[serverVariable];
+                if (!String.IsNullOrEmpty(clientIp))
+                {
+                    if (serverVariable == "HTTP_X_FORWARDED_FOR")
+                    {
+                        if (!string.IsNullOrEmpty(clientIp))
+                        {
+                            string[] ipRange = clientIp.Split(',');
+                            if (ipRange != null)
+                            {
+                                clientIp = ipRange[ipRange.Length - 1];
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            //string clientIp = HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
+
             return clientIp;
         }
 
@@ -2010,7 +2030,7 @@ namespace Bikewale.CoreDAL
         /// <returns></returns>
         public static string GetContentTypesString<T>(List<T> contentList)
         {
-           
+
             string _contentTypes = string.Empty;
             ushort _contentType = 0;
 
@@ -2038,5 +2058,5 @@ namespace Bikewale.CoreDAL
             return dt;
         }
 
-	}//End Class 
+    }//End Class 
 }//namespace
