@@ -38,6 +38,8 @@ namespace Bikewale.Entities.PriceQuote
         public string HostUrl { get; set; }
 
         public uint MakeId { get; set; }
+        public bool IsModelNew { get; set; }
+        public bool IsVersionNew { get; set; }
 
     }
 }

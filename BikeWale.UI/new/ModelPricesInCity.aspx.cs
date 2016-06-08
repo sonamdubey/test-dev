@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using Bikewale.controls;
-using Bikewale.Memcache;
 using Bikewale.Cache.Location;
 
 namespace Bikewale.New
@@ -29,6 +28,8 @@ namespace Bikewale.New
     /// Modified By : Sushil Kumar on 2nd June 2016
     /// Description :  Added and Linked LeadCapture Widget
     ///                Added  PQSourceId for DealerCard Widget
+    /// Modified By : Sushil Kumar on 8th June 2016
+    /// Description :              
     /// </summary>
     public class ModelPricesInCity : System.Web.UI.Page
     {
@@ -43,7 +44,7 @@ namespace Bikewale.New
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
-        protected bool isAreaAvailable;
+        protected bool isAreaAvailable,isDiscontinued ;
         protected String clientIP = CommonOpn.GetClientIP();
 
 
@@ -97,12 +98,23 @@ namespace Bikewale.New
                     isAreaAvailable = hasArea;
                     if (bikePrices != null && bikePrices.Count() != 0)
                     {
+                        isDiscontinued  = !bikePrices.FirstOrDefault().IsModelNew;
+
+                        if (!isDiscontinued)
+                        {
+                            bikePrices = from bike in bikePrices
+                                              where bike.IsVersionNew == true
+                                              select bike;                            
+                        }
+
                         SetModelDetails(bikePrices);
 
                         rprVersionPrices.DataSource = bikePrices;
                         rprVersionPrices.DataBind();
                         rpVersioNames.DataSource = bikePrices;
                         rpVersioNames.DataBind();
+
+                       
                     }
                     else
                     {
