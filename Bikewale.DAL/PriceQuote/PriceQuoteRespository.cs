@@ -61,7 +61,7 @@ namespace Bikewale.DAL.PriceQuote
 
                             cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = pqParams.VersionId;
                             cmd.Parameters.Add("@SourceId", SqlDbType.TinyInt).Value = pqParams.SourceId;
-                            cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = String.IsNullOrEmpty(pqParams.ClientIP) ? Convert.DBNull : pqParams.ClientIP;
+                            cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = CommonOpn.GetClientIP();
                             cmd.Parameters.Add("@QuoteId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
                             cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = pqParams.DealerId;
 
