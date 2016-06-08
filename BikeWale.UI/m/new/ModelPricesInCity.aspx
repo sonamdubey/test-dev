@@ -17,6 +17,10 @@
         keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, cityName, modelName);
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
         OGImage = modelImage;
+        AdPath = "/1017752/Bikewale_Mobile_Model";
+        AdId = "1017752";
+        Ad_320x50 = true;
+        Ad_Bot_320x50 = true;
     %>
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
