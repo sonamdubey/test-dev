@@ -268,7 +268,9 @@ namespace Bikewale.New
                     ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);
                 else ctrlTopCityPrices.ModelId = 0;
 
+                ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
                 ctrlTopCityPrices.TopCount = 8;
+
             }
         }
 
