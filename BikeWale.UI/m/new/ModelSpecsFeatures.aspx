@@ -21,9 +21,8 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
         <section class="bg-white box-shadow margin-bottom25">
-            <h1 class="font22 text-dark-black margin-bottom5 content-inner-block-1420 box-shadow"><%= bikeName %> Specifications and Features</h1>
             <div id="modelPriceDetails" class="content-inner-block-120">
-                <h2 class="font18 text-dark-black margin-bottom5"><%= bikeName %></h2>
+                <h1 class="font18 text-dark-black margin-bottom5"><%= bikeName %> Specifications and Features</h1>
                 <p class="font20 text-bold model-price-content leftfloat"><span class="bwmsprite inr-sm-icon"></span>&nbsp;<%= price > 0 ? Bikewale.Utility.Format.FormatPrice(price.ToString()) : "Price not available" %></p>
                 <%if(isDiscontinued){ %>
                 <p class="font14 text-truncate text-light-grey model-area-content leftfloat">Last known Ex-showroom Price</p>
