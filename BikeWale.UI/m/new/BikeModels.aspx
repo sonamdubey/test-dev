@@ -200,12 +200,12 @@
                             </p>
                             <% } %>
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="margin-bottom5">
-                                <p class="line-Ht18">
+                                <p class="line-Ht18 padding-bottom10">
 
                                     <%if (price > 0)
                                       { %>
 
-                                    <span class="font22 text-bold padding-bottom10">
+                                    <span class="font22 text-bold">
                                         <span itemprop="priceCurrency" content="INR"><span class="bwmsprite inr-md-icon"></span></span>
                                         <span itemprop="price" content="<%=price %>">
                                             <%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>
@@ -317,30 +317,29 @@
                {
                    if (toShowOnRoadPriceButton)
                    {   %>
-            <div class="grid-12 float-button float-fixed clearfix">
+            <div class="grid-12 float-button float-fixed clearfix padding-bottom10">
 
                 <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Check On-Road Price</a>
                 <% }
                    else
                    {   %>
                 <div class="grid-12 float-button float-fixed clearfix">
-                    <div class="show padding-top10">
-                        <% if (modelPage.ModelDetails.New && viewModel != null && !isBikeWalePQ )
-                           {   
-                         %>
-                            <% if ( viewModel.IsPremiumDealer)
-                               { 
-                            %>
-                                    <div class="grid-6 alpha omega padding-right5">
-                                        <a id="getAssistance" leadSourceId="19" class="btn btn-white btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get offers</a>
-                                    </div>
-                                    <div class="grid-6 alpha omega padding-left5">
-                                        <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
-                                    </div>
-                            <% }                             
-                           }  
+                    
+                    <% if (modelPage.ModelDetails.New && viewModel != null && !isBikeWalePQ )
+                        {   
                         %>
-                    </div>
+                        <% if ( viewModel.IsPremiumDealer)
+                            { 
+                        %>  <div class="grid-6 alpha omega padding-top10 padding-right5 padding-bottom10">
+                                <a id="getAssistance" leadSourceId="19" class="btn btn-white btn-full-width btn-sm rightfloat" href="javascript:void(0);">Get offers</a>
+                            </div>
+                            <div class="grid-6 alpha omega padding-top10 padding-bottom10 padding-left5">
+                                <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+91<%= viewModel.MaskingNumber == string.Empty? viewModel.MobileNo: viewModel.MaskingNumber %>"><span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
+                            </div>
+                        <% }                             
+                        }  
+                    %>
+                    
                 </div>
                 <%
                 }
@@ -406,7 +405,7 @@
                     <div class="text-center">
                         <div class="summary-overview-box">
                         <div class="odd btmAftBorder">
-                            <span class="inline-block model-sprite specs-capacity-icon margin-right15"></span>
+                            <span class="inline-block model-sprite specs-capacity-icon margin-right10"></span>
                             <div class="inline-block">
                                 <p class="font18 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %>
                                     <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement).Equals("--") ? "hide":"" %>'>cc</span>
@@ -415,7 +414,7 @@
                             </div>
                         </div>
                         <div class="even btmAftBorder">
-                            <span class="inline-block model-sprite specs-mileage-icon margin-right15"></span>
+                            <span class="inline-block model-sprite specs-mileage-icon margin-right10"></span>
                             <div class="inline-block">
                                 <p class="font18 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall) %>
                                     <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall).Equals("--") ? "hide":"" %>'>kmpl</span>
@@ -424,7 +423,7 @@
                             </div>
                         </div>
                         <div class="odd">
-                            <span class="inline-block model-sprite specs-maxpower-icon margin-right15"></span>
+                            <span class="inline-block model-sprite specs-maxpower-icon margin-right10"></span>
                             <div class="inline-block">
                                 <p class="font18 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %>
                                     <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower).Equals("--") ? "hide":"text-uppercase" %>'>ps</span>
@@ -433,7 +432,7 @@
                             </div>
                         </div>
                         <div class="even">
-                            <span class="inline-block model-sprite specs-weight-icon margin-right15"></span>
+                            <span class="inline-block model-sprite specs-weight-icon margin-right10"></span>
                             <div class="inline-block">
                                 <p class="font18 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %>
                                     <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight).Equals("--") ? "hide":"" %>'>kg</span>
@@ -525,7 +524,8 @@
                             </li>
                         </ul>
                         <div class="margin-top25">
-                            <a href="/m<%# Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName, "specs",versionId) %>"  class="bw-ga" c="Model_Page" a="View_full_specifications_link_cliked" v="myBikeName">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                            <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName, "specs",versionId) %>"  class="bw-ga" c="Model_Page" a="View_full_specifications_link_cliked" v="myBikeName">View full specifications<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                            
                         </div>
 
                         <h3 class="margin-top25">Features</h3>
@@ -557,7 +557,7 @@
                             </li>
                         </ul>
                         <div class="margin-top25">
-                            <a href="/m<%# Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName, "features",versionId) %>"  class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName">View all features<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                            <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName, "features",versionId) %>"  class="bw-ga" c="Model_Page" a="View_all_features_link_cliked" v="myBikeName">View all features<span class="bwmsprite blue-right-arrow-icon"></span></a>
                         </div>
                           <%if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
                           { %>   

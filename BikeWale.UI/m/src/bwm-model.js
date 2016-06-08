@@ -844,9 +844,10 @@ $(document).ready(function () {
         modelSpecsFooter = $('#modelSpecsFooter'),
         topNavBarHeight = overallSpecsTabsContainer.height();
 
-    $('#modelOverallSpecsTopContent').css('height', topNavBarHeight);
-
     var tabsLength = $('.overall-specs-tabs-wrapper li').length - 1;
+    if (tabsLength < 3) {
+        $('.overall-specs-tabs-wrapper li').css({'display': 'inline-block', 'width': 'auto'});
+    }
 
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),

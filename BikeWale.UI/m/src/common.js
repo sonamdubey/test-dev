@@ -99,6 +99,9 @@ function GetCatForNav() {
             case "14":
                 ret_category = "BookingSummary_New";
                 break;
+            case "15":
+                ret_category = "SpecsAndFeature";
+                break;
             case "39":
                 ret_category = "BookingListing";
                 break;
@@ -1173,7 +1176,7 @@ $(function () {
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
     var appbanner = getCookie("AppBanner");
     // Add the page ids of all the pages which need not show app banner ads
-    var hideBannerPages = ['7','14'];
+    var hideBannerPages = ['7','14','15'];
     
     if (ga_pg_id == 2 ) {
         if (typeof isDealerPQ !== 'undefined') {

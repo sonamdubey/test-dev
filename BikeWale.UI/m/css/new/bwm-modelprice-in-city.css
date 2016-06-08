@@ -47,6 +47,7 @@ color: #4d5057;
 .model-versions-tabs-wrapper li {
     padding: 10px 20px;
     display: table-cell;
+    width:1%;
     text-align: center;
     white-space: nowrap;
     font-size: 14px;
@@ -58,6 +59,9 @@ color: #4d5057;
     font-weight: bold;
     color: #4d5057;
 }
+
+#versionTabsWrapper::-webkit-scrollbar {width: 0;}
+#versionTabsWrapper::-webkit-scrollbar-track, #versionTabsWrapper::-webkit-scrollbar-thumb {display:none;}
 
 .float-button {
     background-color: #f5f5f5;
@@ -83,12 +87,12 @@ color: #4d5057;
 }
 
 .details-left-column {
-    width: 73%;
+    width: 66%;
     padding-right: 5px;
 }
 
 .details-right-column {
-    width: 24%;
+    width: 30%;
     text-align: right;
 }
 

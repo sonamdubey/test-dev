@@ -86,40 +86,40 @@
                                     else
                                     { %>
                                 <p class="font14 text-light-grey margin-bottom5 text-truncate"><%=IsExShowroomPrice ? "Ex-showroom price in Mumbai" : string.Format("On-road price in {0} {1}", areaName, cityName) %></p>
-                                    <span class="fa fa-rupee"></span><span class="font18 text-bold">
+                                    <span class="bwsprite inr-lg"></span><span class="font18 text-bold">
                                         <% if (price > 0)
-                                           { %>
+                                            { %>
                                         <%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>
                                         <% }
-                                           else
-                                           { %>
+                                            else
+                                            { %>
                                         Price not available
                                         <% } %>
                                     </span>
                                 </div>
                                 <%} %>
                                 
-                            </div>
+                            
 
                             <%
                                 if (!isDiscontinued) { 
                                 if (  dealerDetail != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
-                              {%>
+                                {%>
                             <div class="grid-3 model-orp-btn alpha omega">
                                 <a href="javascript:void(0)" data-leadsourceid="26" data-pqsourceid="50" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Name %>" data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"  class="btn btn-orange font14 margin-top5 leadcapturebtn">Get offers from this dealer</a>
                                 <!-- if no 'powered by' text is present remove margin-top5 add margin-top10 in offers button -->
                                 <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= dealerDetail.PrimaryDealer.DealerDetails.Name %></p>
                             </div>
                             <% }
-                              else if (!isCitySelected || !isAreaSelected) 
-                              {%>
+                                else if (!isCitySelected || !isAreaSelected) 
+                                {%>
                                 <div class="grid-3 model-orp-btn alpha omega">
                                     <a href="javascript:void(0)" isModel="true" data-pqsourceid="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check on-road price</a>
                                 </div>
                             <% 
                             }
                             } 
-                               %>
+                                %>
                             <div class="clear"></div>
                         </div>
                         <div class="overall-specs-tabs-wrapper">
@@ -127,7 +127,7 @@
                             <a href="#modelFeaturesContent">Features</a>
                         </div>
                     </div>
-                </div>
+                 </div>
 
                 <div id="modelSpecsAndFeaturesWrapper" class="content-box-shadow">
                     <div class="border-divider"></div>
