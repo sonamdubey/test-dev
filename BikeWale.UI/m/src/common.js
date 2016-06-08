@@ -1173,7 +1173,6 @@ $.fn.shake = function (options) {
 
 //App Banner
 $(function () {
-    debugger;
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
     var appbanner = getCookie("AppBanner");
     if ((appbanner == null || appbanner == "true") && !isSafari) {

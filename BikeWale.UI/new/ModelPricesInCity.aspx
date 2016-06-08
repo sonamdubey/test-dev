@@ -70,8 +70,8 @@
                         { %>&nbsp;<%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% } else if (firstVersion != null) %>  <%=CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString())   %> onwards. 
                        <% if (versionCount > 1)
                           { %> This bike comes in <%=versionCount %> versions.<br />
-                        <% } %>Click on any version name to know <% if(!isDiscontinued) { %> on-road <% } %> price in <%= cityName %>:
-                    </p>
+                        Click on any version name to know <% if(!isDiscontinued) { %> on-road <% } %> price in <%= cityName %>:
+                    <% } %></p>
                     <div id='versions' class="model-versions-tabs-wrapper">
                         <asp:Repeater ID="rpVersioNames" runat="server">
                             <ItemTemplate>

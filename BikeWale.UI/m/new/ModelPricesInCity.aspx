@@ -51,7 +51,8 @@
                    { %> <%=CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString())   %> <%} %> onwards. 
                        <% if (versionCount > 1)
                           { %> This bike comes in <%=versionCount %> versions.<br />
-                <% } %>Click on any version name to know <% if(!isDiscontinued) { %> on-road <% } %> price in <%= cityName %>:
+                Click on any version name to know <% if(!isDiscontinued) { %> on-road <% } %> price in <%= cityName %>:
+                <% } %>
             </p>
 
             <div>
@@ -162,7 +163,7 @@
                     footer = $('footer');
 
                 var tabsLength = $('.model-versions-tabs-wrapper li').length - 1;
-                if (tabsLength < 3) {
+                if (tabsLength < 1) {
                     $('.model-versions-tabs-wrapper li').css({'display': 'inline-block', 'width': 'auto'});
                 }
 
