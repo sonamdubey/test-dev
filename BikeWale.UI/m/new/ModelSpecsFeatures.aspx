@@ -9,6 +9,7 @@
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", makeMaskingName, modelMaskingName);
         keywords = string.Format("{0} specifications, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
         EnableOG = true;
+        OGImage = modelImage;
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
