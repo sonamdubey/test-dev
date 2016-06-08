@@ -29,6 +29,7 @@ namespace Bikewale.Mobile.Controls
         public string makeName = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty;
         public int LeadSourceId = 27; // DealersCard GetOfferButton
         public int PQSourceId { get; set; }
+        public bool IsDiscontinued { get; set; }
 
         protected bool showWidget = false;
 
@@ -128,7 +129,6 @@ namespace Bikewale.Mobile.Controls
 
             return retString;
         }
-
-        
+ 
     }
 }

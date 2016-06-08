@@ -109,7 +109,7 @@
                 <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
 
 
-                <% if (isAreaAvailable)
+                <% if (isAreaAvailable && !isDiscontinued)
                    { %>
                 <div class="grid-12 float-button float-fixed">
                     <p class="grid-6 font13 select-area-label text-light-grey">Please select area to get accurate on-road price</p>

@@ -28,8 +28,10 @@
                                     <span class="vertical-top dealership-card-details"><%# Convert.ToString(DataBinder.Eval(Container.DataItem,"Email")).Replace(",",", ") %></span>
                                 </a>
                             </p>
+                            <% if(!IsDiscontinued) { %>
                             <input type="button" data-leadsourceid="<%= LeadSourceId %>" data-pqsourceid="<%= PQSourceId %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# (DataBinder.Eval(Container.DataItem,"objArea")!=null) ? DataBinder.Eval(Container.DataItem,"objArea.AreaName") : "" %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" 
                                 class="btn btn-grey btn-md font14 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers from dealer" />
+                            <%} %>
                         </div>
                         <div class="clear"></div>
                     </li>

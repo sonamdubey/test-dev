@@ -141,7 +141,7 @@
                         </div>
 
                         <div class="grid-4 padding-top15 padding-left15">
-                            <% if (isAreaAvailable)
+                            <% if (isAreaAvailable && !isDiscontinued)
                                { %>
                             <p class="text-black">Please select your area to get:</p>
                             <ul class="selectAreaToGetList margin-bottom20">
