@@ -189,14 +189,14 @@
                                    {%>
                             <p class="margin-top10 margin-bottom7 font14 text-light-grey clear">
                                 Ex-showroom price in <span><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite loc-change-blue-icon"></span></a>
+                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity" rel="nofollow"><span class="bwmsprite loc-change-blue-icon"></span></a>
                             </p>
                             <% } %>
                             <% else
                                    {%>
                             <p class="margin-top10 margin-bottom10 font14 text-light-grey clear">
                                 On-road price in <span><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite loc-change-blue-icon"></span></a>
+                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity" rel="nofollow"><span class="bwmsprite loc-change-blue-icon"></span></a>
                             </p>
                             <% } %>
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="margin-bottom5">
@@ -319,7 +319,7 @@
                    {   %>
             <div class="grid-12 float-button float-fixed clearfix padding-bottom10">
 
-                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Check On-Road Price</a>
+                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Check on-road price</a>
                 <% }
                    else
                    {   %>

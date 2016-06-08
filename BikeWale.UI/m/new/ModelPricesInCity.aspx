@@ -44,14 +44,15 @@
                     price in <%=cityName %></h1>
             </div>
             <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10">
-                <%=bikeName %> <% if(!isDiscontinued) { %> on-road <% } else { %> ex-showroom <% } %> price in <%=cityName %>&nbsp;<span class="bwmsprite inr-xxsm-icon"></span>
+                <%=bikeName %> <% if(!isDiscontinued) { %> on-road <% } else { %> ex-showroom <% } %> price in <%=cityName %>&nbsp;<span class="bwmsprite inr-grey-xxsm-icon"></span>
                 <% if (firstVersion != null && !isDiscontinued)
                    { %><%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% }
                    else if (firstVersion != null)
                    { %> <%=CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString())   %> <%} %> onwards. 
                        <% if (versionCount > 1)
                           { %> This bike comes in <%=versionCount %> versions.<br />
-                <% } %>Click on any version name to know <% if(!isDiscontinued) { %> on-road <% } %> price in <%= cityName %>:
+                Click on any version name to know <% if(!isDiscontinued) { %> on-road <% } %> price in <%= cityName %>:
+                <% } %>
             </p>
 
             <div>
@@ -114,7 +115,7 @@
                 <div class="grid-12 float-button float-fixed">
                     <p class="grid-6 font13 select-area-label text-light-grey">Please select area to get accurate on-road price</p>
                     <p class="grid-6 alpha">
-                        <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea %>" selcityid="<%=cityId %>" modelid="<%=modelId %>" class="btn btn-xs btn-full-width font16 btn-orange fillPopupData changeCity">Select your area</a>
+                        <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea %>" selcityid="<%=cityId %>" modelid="<%=modelId %>" class="btn btn-xs btn-full-width font16 btn-orange fillPopupData changeCity" rel="nofollow">Select your area</a>
                     </p>
                 </div>
                 <%} %>
@@ -162,7 +163,7 @@
                     footer = $('footer');
 
                 var tabsLength = $('.model-versions-tabs-wrapper li').length - 1;
-                if (tabsLength < 3) {
+                if (tabsLength < 1) {
                     $('.model-versions-tabs-wrapper li').css({'display': 'inline-block', 'width': 'auto'});
                 }
 
