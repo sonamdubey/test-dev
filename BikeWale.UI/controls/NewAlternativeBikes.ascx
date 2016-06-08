@@ -24,7 +24,7 @@
                             <div class="margin-bottom15">
                                 <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "VersionPrice").ToString()) %></span>
                             </div>
-                            <a href="javascript:void(0)" pqsourceid="<%= PQSourceId %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "modelBase.ModelId")) %>" class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?string.Empty:"hide" %> btn btn-sm btn-grey font14 fillPopupData">Check on-road price</a>
+                            <a href="javascript:void(0)" pqsourceid="<%= PQSourceId %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "modelBase.ModelId")) %>" class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?string.Empty:"hide" %> btn btn-sm btn-grey font14 fillPopupData" rel="nofollow">Check on-road price</a>
                         </li>
                     </ItemTemplate>
                 </asp:Repeater>
