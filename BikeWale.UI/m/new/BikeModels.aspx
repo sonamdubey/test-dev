@@ -347,13 +347,7 @@
                }
                %>
             </div>
-        </section>
-        <% if (Ad_300x250)
-           { %>
-        <section>
-            <!-- #include file="/ads/Ad300x250_mobile.aspx" -->
-        </section>
-        <% } %>
+        </section>      
 
         <section>
             <div id="modelSpecsTabsContentWrapper" class="container bg-white clearfix box-shadow margin-top30 margin-bottom30">
@@ -589,9 +583,12 @@
                         <%} %>
                          <!-- colours code ends here -->   
                     </div>
-                    <div class="margin-top15 text-center">
-                       <!-- #include file="/ads/Ad300x250.aspx" -->
-                    </div>
+                 <%if (Ad_300x250)
+                   { %>
+                <section>
+                    <!-- #include file="/ads/Ad300x250_mobile.aspx" -->
+                </section>
+                <% } %>
                 </div>
                 <% } %>
 
