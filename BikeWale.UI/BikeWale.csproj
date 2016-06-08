@@ -2684,8 +2684,7 @@
     <Content Include="images\ratings\Thumbs.db" />
     <Content Include="bin\*.*" />
     <!-- <Content Include="images\model-sprite_tmp5443" /> -->
-    <!-- <Content Include="images\ratings\ratings\Thumbs.db" /> -->
-    <Content Include="ClassDiagram1.cd" />
+    <!-- <Content Include="images\ratings\ratings\Thumbs.db" /> -->    
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2770,11 +2769,13 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>59720</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9011</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:9011/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
