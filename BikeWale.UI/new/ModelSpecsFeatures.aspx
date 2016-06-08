@@ -8,7 +8,7 @@
         isHeaderFix = false;
         title = string.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
         description = string.Format("Know more about {0} Specifications and Features. See details about mileage, engine displacement, power, kerb weight and other specifications.", bikeName);
-        keywords = string.Format("{0} specification, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
+        keywords = string.Format("{0} specifications, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
         alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/specifications-features/?vid={2}", makeMaskingName, modelMaskingName,versionId);
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/?vid={2}", makeMaskingName, modelMaskingName,versionId);
         ogImage = modelImage;
@@ -41,7 +41,7 @@
                             </li>
                             <li>
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
-                                <span>Specs & Features</span>
+                                <span>Specifications & Features</span>
                             </li>
                         </ul>
                         <div class="clear"></div>
@@ -114,7 +114,7 @@
                                 else if (!isCitySelected || !isAreaSelected) 
                                 {%>
                                 <div class="grid-3 model-orp-btn alpha omega">
-                                    <a href="javascript:void(0)" isModel="true" data-pqsourceid="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check on-road price</a>
+                                    <a href="javascript:void(0)" isModel="true" data-pqsourceid="49" pqSourceId="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check on-road price</a>
                                 </div>
                             <% 
                             }

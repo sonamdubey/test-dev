@@ -35,7 +35,7 @@ namespace Bikewale.Mobile
     public class ModelSpecsFeatures : PageBase
     {
         protected uint cityId, areaId, modelId, versionId, dealerId, price = 0;
-        protected string cityName = "Mumbai", areaName, makeName, modelName, modelImage, bikeName, versionName, makeMaskingName, modelMaskingName, clientIP = CommonOpn.GetClientIP();
+        protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName, makeMaskingName, modelMaskingName, modelImage, clientIP = CommonOpn.GetClientIP();
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isOnRoadPrice, isAreaAvailable, showOnRoadPriceButton, isDiscontinued, IsDealerPriceQuote, IsExShowroomPrice;
@@ -194,7 +194,7 @@ namespace Bikewale.Mobile
                                     bikeName = string.Format("{0} {1}", makeName, modelName);
                                     if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                                     {
-                                        modelImage = string.Format("{0} {1}", modelPg.ModelDetails.HostUrl, modelPg.ModelDetails.OriginalImagePath);
+                                        modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._272x153);
                                         price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
                                         //Check it versionId passed through url exists in current model's versions
                                         if (!modelPg.ModelVersions.Exists(p => p.VersionId == versionId))

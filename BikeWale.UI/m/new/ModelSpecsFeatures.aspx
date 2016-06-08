@@ -7,7 +7,7 @@
         description = String.Format("Know more about {0} Specifications and Features. See details about mileage, engine displacement, power, kerb weight and other specifications.", bikeName);
         title = String.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", makeMaskingName, modelMaskingName);
-        keywords = string.Format("{0} specification, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
+        keywords = string.Format("{0} specifications, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
         EnableOG = true;
         OGImage = modelImage;
     %>
