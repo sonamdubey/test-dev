@@ -44,7 +44,7 @@
                     price in <%=cityName %></h1>
             </div>
             <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10">
-                <%=bikeName %> <% if(!isDiscontinued) { %> on-road <% } else { %> ex-showroom <% } %> price in <%=cityName %>&nbsp;<span class="bwmsprite inr-xxsm-icon"></span>
+                <%=bikeName %> <% if(!isDiscontinued) { %> on-road <% } else { %> ex-showroom <% } %> price in <%=cityName %>&nbsp;<span class="bwmsprite inr-grey-xxsm-icon"></span>
                 <% if (firstVersion != null && !isDiscontinued)
                    { %><%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% }
                    else if (firstVersion != null)
