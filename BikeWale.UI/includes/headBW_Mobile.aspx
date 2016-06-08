@@ -54,7 +54,7 @@
         <div class="app-banner-text-container margin-top5">
             <p class="text-grey text-bold font20">India’s #1</p>
             <p class="font12 text-bold text-grey margin-bottom5">Bike Research Destination</p>
-            <a  id="btnInstallApp" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
+            <a id="btnInstallApp" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
                 <span class="btn btn-orange font12 text-bold">Install our app</span>
             </a>
         </div>
@@ -78,7 +78,7 @@
                 <div class="global-location">
                     <span class="bwmsprite map-loc-icon"></span>
                 </div>
-                <a class="sort-btn rightfloat hide" id="sort-btn">
+                <a href="javascript:void(0)" class="sort-btn rightfloat hide" id="sort-btn" rel="nofollow">
                     <span class="bwmsprite sort-icon"></span>
                 </a>
             </div>

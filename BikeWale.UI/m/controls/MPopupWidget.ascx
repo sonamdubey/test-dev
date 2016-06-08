@@ -67,7 +67,7 @@
                 <div id="errMsgPopup" class="text-red margin-bottom10 hide"></div>
                 <!-- ko if:SelectedCityId() > 0 &&  (SelectedAreaId() > 0 || !hasAreas()) -->
                 <span class="position-abt progress-bar btn-loader"></span>
-                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Show On-Road Price</a>
+                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Show on-road price</a>
                 <!-- /ko -->
             </div>
         </div>

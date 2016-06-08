@@ -141,7 +141,7 @@
                         </div>
 
                         <div class="grid-4 padding-top15 padding-left15">
-                            <% if (isAreaAvailable)
+                            <% if (isAreaAvailable && !isDiscontinued)
                                { %>
                             <p class="text-black">Please select your area to get:</p>
                             <ul class="selectAreaToGetList margin-bottom20">
@@ -155,7 +155,7 @@
                                     <p>Complete buying assistance</p>
                                 </li>
                             </ul>
-                            <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" selcityid="<%=cityId %>" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 fillPopupData changeCity">Select your area</a>
+                            <a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" selcityid="<%=cityId %>" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 fillPopupData changeCity" rel="nofollow">Select your area</a>
                             <%}
                                else
                                { %>

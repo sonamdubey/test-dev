@@ -69,6 +69,7 @@ namespace Bikewale.New
 
                 ctrlDealers.MakeId = makeId;
                 ctrlDealers.CityId = cityId;
+                ctrlDealers.IsDiscontinued = isDiscontinued;
                 ctrlDealers.TopCount = 3;
                 ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealersCard_GetOfferButton;
 

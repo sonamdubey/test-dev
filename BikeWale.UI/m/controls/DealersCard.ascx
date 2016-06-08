@@ -18,8 +18,10 @@
                     </p>
                     <div class=" margin-right20 margin-bottom10 <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"block" %>"><a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class=" margin-bottom5 maskingNumber text-default text-bold"><span class="bwmsprite tel-sm-icon"></span><%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a></div>
                     <div class=" margin-right20 <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":"block" %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"Email") %></a></div>
+                     <% if(!IsDiscontinued) { %>
                     <input type="button" data-leadsourceid="<%= LeadSourceId %>" data-pqsourceid="<%= PQSourceId %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# (DataBinder.Eval(Container.DataItem,"objArea")!=null) ? DataBinder.Eval(Container.DataItem,"objArea.AreaName") : "" %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>"
                         class="margin-top15 btn btn-white font14 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers from dealer" />
+                <% } %>
                 </li>
             </ItemTemplate>
         </asp:Repeater>

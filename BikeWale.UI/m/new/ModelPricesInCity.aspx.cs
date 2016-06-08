@@ -60,6 +60,7 @@ namespace Bikewale.Mobile.New
 
                 ctrlDealers.MakeId = makeId;
                 ctrlDealers.CityId = cityId;
+                ctrlDealers.IsDiscontinued = isDiscontinued;
                 ctrlDealers.TopCount = 3;
                 ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_DealersCard_GetOfferButton;
 
@@ -145,6 +146,7 @@ namespace Bikewale.Mobile.New
                         modelImage = Utility.Image.GetPathToShowImages(firstVersion.OriginalImage, firstVersion.HostUrl, Bikewale.Utility.ImageSize._310x174);
                         cityName = firstVersion.City;
                         versionId = firstVersion.VersionId;
+                        makeId = firstVersion.MakeId;
                     }
                 }
             }
