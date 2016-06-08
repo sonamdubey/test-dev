@@ -72,12 +72,12 @@ namespace Bikewale.Mobile
                 PQOnRoadPrice pqEntity = null;
                 if (cityId > 0 && versionId > 0)
                 {
-                    string PQLeadId = (PQSourceEnum.Desktop_SpecsAndFeature_PQOnroad).ToString();
+                    string PQLeadId = (PQSourceEnum.Mobile_SpecsAndFeature_PQOnroad).ToString();
                     string UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
                     string UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
                     string DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     pqOnRoad = new PQByCityArea();
-                    pqEntity = pqOnRoad.GetOnRoadPrice((int)modelId, (int)cityId, (int)areaId, (int)versionId, 1, UTMA, UTMZ, DeviceId, clientIP, PQLeadId);
+                    pqEntity = pqOnRoad.GetOnRoadPrice((int)modelId, (int)cityId, (int)areaId, (int)versionId, 2, UTMA, UTMZ, DeviceId, clientIP, PQLeadId);
                     dealerDetail = GetDetailedDealer();
                 }
                 if (pqEntity != null)
