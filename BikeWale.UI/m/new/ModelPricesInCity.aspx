@@ -134,6 +134,11 @@
                 var floatButton = $('.float-button'),
                     footer = $('footer');
 
+                var tabsLength = $('.model-versions-tabs-wrapper li').length - 1;
+                if (tabsLength < 3) {
+                    $('.model-versions-tabs-wrapper li').css({'display': 'inline-block', 'width': 'auto'});
+                }
+
                 $(window).scroll(function () {
                     if (floatButton.offset().top < footer.offset().top - 50)
                         floatButton.addClass('float-fixed').show();
