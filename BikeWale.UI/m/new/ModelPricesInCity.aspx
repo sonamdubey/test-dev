@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false"   Inherits="Bikewale.Mobile.New.ModelPricesInCity" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.ModelPricesInCity" %>
 
 <%@ Register Src="~/m/controls/ModelPriceInNearestCities.ascx" TagPrefix="BW" TagName="ModelPriceInNearestCities" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="Dealers" TagPrefix="BW" %>
@@ -12,8 +12,12 @@
 <head>
     <%
         title = string.Format("{0} price in {1} - Check On Road Price & Dealer Info. - BikeWale", bikeName, cityName);
-        if (firstVersion != null)
+        
+        if (firstVersion != null && !isDiscontinued)
             description = string.Format("{0} price in {1} - Rs. {2} (On road price). Get its detailed on road price in {1}. Check your nearest {0} Dealer in {1}", bikeName, cityName, firstVersion.OnRoadPrice);
+        else if (firstVersion != null)
+            description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom). Get prices for all the versions of and check out the nearest {0} Dealer in {1}", bikeName, cityName, firstVersion.ExShowroomPrice);
+            
         keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, cityName, modelName);
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
         OGImage = modelImage;
@@ -24,13 +28,14 @@
     %>
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
- <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-modelprice-in-city.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-modelprice-in-city.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
-        <section class="bg-white box-shadow margin-bottom25">
+        <section class="bg-white box-shadow padding-top10 margin-bottom25">
+              <%if(isDiscontinued) { %> <div class="discont-text-label font14 text-white text-center">Discontinued</div>     <% } %>
             <div id="modelCityPriceDetails">
                 <div class="bike-image">
                     <img src="<%=modelImage %>" title="<%= title %>" alt="<%= title %>" />
@@ -39,12 +44,14 @@
                     price in <%=cityName %></h1>
             </div>
             <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10">
-                <%=bikeName %> On-road price in <%=cityName %>&nbsp;<span class="bwmsprite inr-xxsm-icon"></span>
-                <% if (firstVersion != null)
-                   { %><%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% } %>  onwards. 
+                <%=bikeName %> <% if(!isDiscontinued) { %> on-road <% } else { %> ex-showroom <% } %> price in <%=cityName %>&nbsp;<span class="bwmsprite inr-xxsm-icon"></span>
+                <% if (firstVersion != null && !isDiscontinued)
+                   { %><%=CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()) %> <% }
+                   else if (firstVersion != null)
+                   { %> <%=CommonOpn.FormatPrice(firstVersion.ExShowroomPrice.ToString())   %> <%} %> onwards. 
                        <% if (versionCount > 1)
                           { %> This bike comes in <%=versionCount %> versions.<br />
-                Click on any version name to know on-road price in <%= cityName %>:<% } %>
+                <% } %>Click on any version name to know <% if(!isDiscontinued) { %> on-road <% } %> price in <%= cityName %>:
             </p>
 
             <div>
@@ -59,7 +66,9 @@
                 </div>
                 <asp:Repeater ID="rprVersionPrices" runat="server">
                     <ItemTemplate>
-                        <div <%--id="versionOnRoadPriceDetails" --%>class="content-inner-block-20 margin-top5 font14 priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
+                        <% if (!isDiscontinued)
+                           { %>
+                        <div class="content-inner-block-20 margin-top5 font14 priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
                             <div class="version-details-row margin-bottom15">
                                 <p class="details-left-column text-light-grey vertical-top">Ex-showroom</p>
                                 <p class="details-right-column vertical-top"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">&nbsp;<%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %></span></p>
@@ -78,6 +87,20 @@
                                 <p class="details-right-column vertical-top"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold">&nbsp;<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %></span></p>
                             </div>
                         </div>
+                        <%}
+                           else
+                           { %>
+                        <div class="content-inner-block-20 margin-top5 font14 priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
+                            <p class="text-x-grey margin-bottom15"><%=bikeName %> is now discontinued in India.</p>
+                            <div class="version-details-row">
+                                <p class="text-default text-bold">
+                                    <span class="margin-right5">Last known Ex-showroom price</span>
+                                    <span class="bwmsprite inr-xxsm-icon"></span>
+                                    <span class="text-bold"><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %></span>
+                                </p>
+                            </div>
+                        </div>
+                        <% } %>
                     </ItemTemplate>
                 </asp:Repeater>
 
@@ -102,7 +125,7 @@
         </section>
 
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
-             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
+            <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
         </section>
 
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
