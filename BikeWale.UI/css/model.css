@@ -46,7 +46,7 @@
 #moreDealersList li { padding-top:15px; padding-bottom:15px; border-bottom:1px solid #f1f1f1; }
 #moreDealersList a:hover { text-decoration:none; }
 /* model sprite classes */
-.model-sprite { background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/model-sprite.png?v=6Jun2016v01) no-repeat; display:inline-block;}
+.model-sprite { background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/model-sprite-new.png?v=08Jun2016v01) no-repeat; display:inline-block;}
 .loc-change-blue-icon { width:12px; height:16px; background-position:-205px -9px; cursor:pointer; position:relative; top:2px; }
 .loc-change-blue-icon:hover { background-position:-205px -35px; }
 .offer-benefit-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
