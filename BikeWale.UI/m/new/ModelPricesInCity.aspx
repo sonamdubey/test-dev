@@ -17,6 +17,10 @@
         keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, cityName, modelName);
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
         OGImage = modelImage;
+        AdPath = "/1017752/Bikewale_Mobile_Model";
+        AdId = "1017752";
+        Ad_320x50 = true;
+        Ad_Bot_320x50 = true;
     %>
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -133,6 +137,11 @@
             $(document).ready(function () {
                 var floatButton = $('.float-button'),
                     footer = $('footer');
+
+                var tabsLength = $('.model-versions-tabs-wrapper li').length - 1;
+                if (tabsLength < 3) {
+                    $('.model-versions-tabs-wrapper li').css({'display': 'inline-block', 'width': 'auto'});
+                }
 
                 $(window).scroll(function () {
                     if (floatButton.offset().top < footer.offset().top - 50)

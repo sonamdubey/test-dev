@@ -75,14 +75,14 @@ namespace Bikewale.New
                 PQOnRoadPrice pqEntity = null;
                 if (cityId > 0 && versionId > 0)
                 {
-                    string PQLeadId = (PQSourceEnum.Desktop_SpecsAndFeature_PQOnroad).ToString();
+                    string PQLeadId = (PQSourceEnum.Desktop_SpecsAndFeaturePage_OnLoad).ToString();
                     string UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
                     string UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
                     string DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
 
                     pqOnRoad = new PQByCityArea();
                     pqEntity = pqOnRoad.GetOnRoadPrice((int)modelId, (int)cityId, (int)areaId, (int)versionId, 1, UTMA, UTMZ, DeviceId, clientIP, PQLeadId);
-                    //dealerDetail =  GetDetailedDealer();
+                    dealerDetail =  GetDetailedDealer();
                 }
                 if (pqEntity != null)
                 {
@@ -266,9 +266,12 @@ namespace Bikewale.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                    IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-                    specsFeature = objVersion.MVSpecsFeatures((int)versionId);
+                    container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                            ;
+                    var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                    specsFeature = objCache.MVSpecsFeatures((int)versionId);
                 }
             }
             catch (Exception ex)

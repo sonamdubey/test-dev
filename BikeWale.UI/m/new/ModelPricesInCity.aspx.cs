@@ -1,5 +1,6 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
@@ -11,16 +12,13 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using Bikewale.Cache.Location;
 
 namespace Bikewale.Mobile.New
 {
@@ -63,7 +61,7 @@ namespace Bikewale.Mobile.New
                 ctrlDealers.MakeId = makeId;
                 ctrlDealers.CityId = cityId;
                 ctrlDealers.TopCount = 3;
-                ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_DealerCard_GetOffers;
+                ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_DealersCard_GetOfferButton;
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
@@ -283,7 +281,7 @@ namespace Bikewale.Mobile.New
         private void BindAlternativeBikeControl()
         {
             ctrlAlternateBikes.TopCount = 6;
-            ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_Alternative;
+            ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_AlternateBikes;
             ctrlAlternateBikes.WidgetTitle = bikeName;
             if (firstVersion != null)
                 ctrlAlternateBikes.VersionId = (int)firstVersion.VersionId;

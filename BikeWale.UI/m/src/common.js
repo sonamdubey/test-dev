@@ -99,6 +99,9 @@ function GetCatForNav() {
             case "14":
                 ret_category = "BookingSummary_New";
                 break;
+            case "15":
+                ret_category = "SpecsAndFeature";
+                break;
             case "39":
                 ret_category = "BookingListing";
                 break;

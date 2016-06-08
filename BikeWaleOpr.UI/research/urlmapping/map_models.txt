@@ -183,3 +183,4 @@ discover100t	226
 asmodel	613
 asmodel	613
 asmodel	613
+cbtrigger	220
