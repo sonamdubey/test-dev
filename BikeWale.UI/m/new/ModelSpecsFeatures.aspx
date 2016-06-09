@@ -291,7 +291,7 @@
                 <div class="grid-12 float-button float-fixed">
                     <div class="grid-6 alpha omega padding-right5">
                         <a class="btn btn-white btn-full-width btn-sm rightfloat leadcapturebtn" 
-                            data-leadsourceid="28" data-pqsourceid="55" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Name %>"
+                            data-leadsourceid="28" data-pqsourceid="55" data-item-name="<%= dealerDetail.PrimaryDealer.DealerDetails.Organization %>"
                              data-item-area="<%= areaName %>" data-item-id="<%= dealerDetail.PrimaryDealer.DealerDetails.DealerId %>"
                             href="javascript:void(0)" rel="nofollow">Get offers</a>
                     </div>
