@@ -66,27 +66,31 @@
                             <div class="grid-5 alpha omega">
                                 <div class="model-card-image-content inline-block-top margin-right20">
                                     <img src="<%= modelImage %>" 
-                                        title="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos"alt="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos"  />
+                                        title="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos" alt="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos"  />
                                 </div>
                                 <div class="model-card-title-content inline-block-top">
                                     <h2 class="font18 text-bold margin-bottom10"><%= bikeName %></h2>
                                     <p class="font14 text-light-grey"><%= versionName %></p>
                                 </div>
                             </div>
-                            <div class="grid-4 padding-left30">
-                                <%
-                                    if (isDiscontinued)
-                                    { %>
-                                <p class="font14 text-light-grey margin-bottom5 text-truncate">Last known Ex-showroom price</p>
-                                <div>
-                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+                            
+                            <% if (isDiscontinued)
+                                { %>
+                                <div class="grid-7 padding-left30">
+                                    <p class="font14 text-light-grey margin-bottom5 text-truncate">Last known Ex-showroom price</p>
+                                    <div>
+                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+                                    </div>
+                                    <p class="font14 text-light-grey margin-bottom5"><%= bikeName %> is now discontinued in India.</p>
                                 </div>
-                                <p class="font14 text-light-grey margin-bottom5"><%= bikeName %> is now discontinued in India.</p>
-                                <%  }
-                                    else
-                                    { %>
-                                <p class="font14 text-light-grey margin-bottom5 text-truncate"><%=IsExShowroomPrice ? "Ex-showroom price in Mumbai" : string.Format("On-road price in {0} {1}", areaName, cityName) %></p>
-                                    <span class="bwsprite inr-lg"></span><span class="font18 text-bold">
+                                <div class="clear"></div>
+                            <%  }
+                            else
+                            { %>
+                                <div class="grid-4 padding-left30">
+                                    <p class="font14 text-light-grey margin-bottom5 text-truncate"><%=IsExShowroomPrice ? "Ex-showroom price in Mumbai" : string.Format("On-road price in {0} {1}", areaName, cityName) %></p>
+                                    <span class="bwsprite inr-lg"></span>
+                                    <span class="font18 text-bold">
                                         <% if (price > 0)
                                             { %>
                                         <%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>
@@ -97,12 +101,9 @@
                                         <% } %>
                                     </span>
                                 </div>
-                                <%} %>
-                                
-                            
+                            <%} %>
 
-                            <%
-                                if (!isDiscontinued) { 
+                            <% if (!isDiscontinued) { 
                                 if (  dealerDetail != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                                 {%>
                             <div class="grid-3 model-orp-btn alpha omega">
@@ -116,22 +117,20 @@
                                 <div class="grid-3 model-orp-btn alpha omega">
                                     <a href="javascript:void(0)" isModel="true" data-pqsourceid="49" pqSourceId="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check on-road price</a>
                                 </div>
-                            <% 
-                            }
-                            } 
-                                %>
+                            <% } %>
                             <div class="clear"></div>
+                            <% } %>
                         </div>
                         <div class="overall-specs-tabs-wrapper">
-                            <a class="active" href="#modelSpecificationContent">Specifications</a>
-                            <a href="#modelFeaturesContent">Features</a>
+                            <a class="active" href="#specs">Specifications</a>
+                            <a href="#features">Features</a>
                         </div>
                     </div>
                  </div>
 
                 <div id="modelSpecsAndFeaturesWrapper" class="content-box-shadow">
                     <div class="border-divider"></div>
-                    <div id="modelSpecificationContent" class="bw-model-tabs-data padding-top20">
+                    <div id="specs" class="bw-model-tabs-data padding-top20">
                         <h2 class="padding-left20 padding-right20">Specifications</h2>
                         <h3 class="padding-left20">Engine and Transmission</h3>
                         <div class="grid-3 padding-left20 text-light-grey">
@@ -275,7 +274,7 @@
                         <div class="margin-top30 margin-right10 margin-left10 border-divider"></div>
                     </div>
 
-                    <div id="modelFeaturesContent" class="bw-model-tabs-data padding-top20 padding-bottom40">
+                    <div id="features" class="bw-model-tabs-data padding-top20 padding-bottom40">
                         <h2 class="padding-left20 padding-right20">Features</h2>
                         <div class="grid-3 padding-left20 text-light-grey">
                             <p>Speedometer</p>

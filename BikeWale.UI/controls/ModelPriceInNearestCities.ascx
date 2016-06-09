@@ -2,7 +2,7 @@
 <% if(showWidget) { %>
 <div class="margin-right20 margin-left20 border-divider"></div>
 <div id="modelPriceInNearbyCities" class="content-inner-block-20">
-    <h2 class="font14 text-bold text-x-black margin-bottom15"><%= make %> <%= model %> price in nearby cities <span class="text-light-grey text-unbold">(On road price)</span></h2>
+    <h2 class="font14 text-bold text-x-black margin-bottom15"><%= make %> <%= model %> price in nearby cities <span class="text-light-grey text-unbold">(<% if(!IsDiscontinued) { %>On road price<% } else { %>Ex-showroom price<%} %>)</span></h2>
     <ul>
         <asp:Repeater ID="rptTopCityPrices" runat="server">
             <ItemTemplate>

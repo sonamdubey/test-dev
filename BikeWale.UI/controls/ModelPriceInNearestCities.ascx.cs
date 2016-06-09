@@ -28,6 +28,7 @@ namespace Bikewale.Controls
         protected bool showWidget = false;
         protected string make = string.Empty;
         protected string model = string.Empty;
+        public bool IsDiscontinued { get; set; }
 
 
         protected override void OnInit(EventArgs e)
