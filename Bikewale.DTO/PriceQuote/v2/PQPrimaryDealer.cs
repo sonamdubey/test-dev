@@ -24,7 +24,7 @@ namespace Bikewale.DTO.PriceQuote.v2
         [JsonProperty("email")]
         public string Email { get; set; }
 
-        [JsonProperty("package")]
+        [JsonProperty("dealerType")]
         public DealerPackageTypes DealerType { get; set; }
 
         [JsonProperty("latitude")]
