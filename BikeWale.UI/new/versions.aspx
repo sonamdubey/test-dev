@@ -236,6 +236,7 @@
                                 <div class="clear"></div>
                                 <%} %>
                             </div>
+                            <div id="scrollFloatingButton"></div>
                             <!-- Variant div ends -->
                             <% if (!modelPageEntity.ModelDetails.Futuristic)
 							   { %>
@@ -560,6 +561,8 @@
                             </div>
                         </div>
                         <div class="grid-4 padding-left30">
+                              <% if (!modelPageEntity.ModelDetails.Futuristic)
+							   { %>
                                 <%if(isDiscontinued){ %>
                                 <p class="font14 text-light-grey margin-bottom5">Last known Ex-showroom price</p>
                                 <%} else
@@ -577,9 +580,42 @@
 
                                 <% } %>                          
                             <div class="clear"></div>
+
                             <div>
+                                 <% if (price == 0)
+									{ %>
+                                <span class="font32">Price not available</span>
+                                <%  } else{ %>
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+                                <%} %>
                             </div>
+                            <%} 
+                    //<!-- upcoming start Floating -->
+                             else if (modelPageEntity.UpcomingBike != null)
+							   { %>
+                            <div id="upcomingFloating">
+                                <% if (modelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && modelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
+								   { %>
+                                <div id="expectedPriceContainerFloating" class="padding-top15">
+                                    <p class="font14 default-showroom-text text-light-grey">Expected Price</p>
+                                    <div class="modelExpectedPrice margin-bottom15">
+                                        <span class="bwsprite inr-md-lg"></span>
+                                        <span id="bike-priceFloating" class="font22">
+                                            <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)) %></span>
+                                            <span>- </span>
+                                            <span class="bwsprite inr-md-lg"></span>
+                                            <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)) %></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <%}
+								   else
+								   { %>
+                                <p class="font30 default-showroom-text text-light-grey margin-bottom5">Price Unavailable</p>
+                                <% } %>                              
+                            </div>
+                            <% } %>
+                    <!-- upcoming end Floating-->
                         </div>
                         <div class="grid-3 model-orp-btn alpha omega">
                              <% if (toShowOnRoadPriceButton && !isDiscontinued)
@@ -600,7 +636,9 @@
                         <div class="clear"></div>
                     </div>
                     <div class="overall-specs-tabs-wrapper content-box-shadow">
-                        <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
+                        <% if(modelPageEntity.ModelVersionSpecs != null || (modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0)){ %>
+                        <a href="#modelSummaryContent" rel="nofollow">Summary</a>
+                        <%} %>
                         <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
                         <a href="#modelPricesContent" rel="nofollow">Prices</a>
                          <% } %>
@@ -630,7 +668,9 @@
             <div id="modelSpecsTabsContentWrapper" class="grid-12 margin-bottom20">
                 <div class="content-box-shadow">
                     <div class="overall-specs-tabs-wrapper">
+                        <% if(modelPageEntity.ModelVersionSpecs != null || (modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0)){ %>
                         <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
+                        <%} %>
                          <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
                         <a href="#modelPricesContent" rel="nofollow">Prices</a>
                          <% } %>
@@ -656,6 +696,7 @@
                     </div>
                     <div class="border-divider"></div>
 
+                    <% if(modelPageEntity.ModelVersionSpecs != null || (modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0)){ %>
                     <div id="modelSummaryContent" class="bw-model-tabs-data content-inner-block-20">
                         <%if(modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)){ %>
                         <div class="grid-8 alpha margin-bottom20 container">
@@ -711,9 +752,9 @@
                         <div class="clear"></div>
                           <% } %>
                     </div>
-                      <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
                     <div class="margin-right10 margin-left10 border-solid-top"></div> <!-- divider -->
-
+                    <%} %>
+                    <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
                     <div id="modelPricesContent" class="bw-model-tabs-data content-inner-block-21522">
                         <h2><%=bikeName %> Prices</h2>
                         <div class="grid-8 alpha">
@@ -896,12 +937,16 @@
                         <!-- expert review starts-->
                         <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                         <!-- expert review ends-->
+                        <% if (ctrlUserReviews.FetchedRecordsCount == 0){ %>
+                            <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+                        <% } %>
                         <% } %>
 
                         <% if (ctrlUserReviews.FetchedRecordsCount > 0){ %>
                         <!-- user reviews -->
                         <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                         <!-- user reviews ends -->
+                        <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                          <% } %>
                     </div>
 
@@ -914,6 +959,7 @@
                             <BW:Videos runat="server" ID="ctrlVideos" />
                             <!-- Video reviews ends -->
                         </div>
+                        <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                     <% } %>
 
                     <% if (ctrlNews.FetchedRecordsCount > 0)
