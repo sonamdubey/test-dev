@@ -288,7 +288,7 @@
 								   else
 									   if (toShowOnRoadPriceButton)
 									   { %>
-                                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Check On-Road Price</a>
+                                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Check on-road price</a>
                                 <div class="clear"></div>
                                 
                                 <% } %>
@@ -615,7 +615,7 @@
                         <div class="grid-3 model-orp-btn alpha omega">
                              <% if (toShowOnRoadPriceButton && !isDiscontinued)
                                { %>                            
-                             <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> fillPopupData bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check On-Road Price</a>
+                             <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> fillPopupData bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check on-road price</a>
                             <%} else
                                     if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && !isDiscontinued)
                                     {%>									 
