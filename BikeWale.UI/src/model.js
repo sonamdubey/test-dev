@@ -229,7 +229,8 @@ function CustomerModel() {
             if (self.IsValid()) {                             
                 if ($("#leadCapturePopup").css('display') === 'none') {
                     $("#leadCapturePopup").show();
-                    $(".blackOut-window-model").show();
+                    //$(".blackOut-window-model").show();
+                    popup.lock();
                 }
                 $("#contactDetailsPopup,#otpPopup").hide();
                 $('#notify-response .notify-leadUser').text(self.fullName());
