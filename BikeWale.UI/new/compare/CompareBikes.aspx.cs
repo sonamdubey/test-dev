@@ -337,7 +337,7 @@ namespace Bikewale.New
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@id", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@id", DbType.Int32, versionId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

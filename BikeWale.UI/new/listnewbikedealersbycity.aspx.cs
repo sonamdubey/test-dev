@@ -126,7 +126,7 @@ namespace Bikewale.New
                 using (DbCommand cmd = DbFactory.GetDBCommand("getstatewisecitydealers"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId)); 
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {

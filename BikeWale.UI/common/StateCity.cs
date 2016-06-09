@@ -70,8 +70,8 @@ namespace Bikewale.Common
                         cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = (int)bikeType;
                         //cmd.Parameters.Add("@StateId", SqlDbType.BigInt).Value = stateId;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, null));
 
                         using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                         {
@@ -116,8 +116,8 @@ namespace Bikewale.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = (int)bikeType;
                     //cmd.Parameters.Add("@StateId", SqlDbType.BigInt).Value = stateId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, (int)bikeType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!string.IsNullOrEmpty(stateId)) ? stateId : null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, (int)bikeType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, (!string.IsNullOrEmpty(stateId)) ? stateId : null));
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
@@ -159,8 +159,8 @@ namespace Bikewale.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, null));
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {

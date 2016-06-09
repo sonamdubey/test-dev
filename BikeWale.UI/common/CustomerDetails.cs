@@ -48,26 +48,26 @@ namespace Bikewale.Common
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_state", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_city", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_area", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pincodeid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_password", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_receivenewsletters", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationdatetime", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isfake", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isexist", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbType.String, 250, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_state", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_city", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_area", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pincodeid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbType.String, 10, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_password", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_receivenewsletters", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationdatetime", DbType.DateTime, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isfake", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isexist", DbType.Boolean, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -467,7 +467,7 @@ namespace Bikewale.Common
 
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@emailid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], emailId.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@emailid", DbType.String, emailId.Trim()));
 
                      using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

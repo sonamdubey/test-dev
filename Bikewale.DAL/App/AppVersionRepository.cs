@@ -38,8 +38,8 @@ namespace Bikewale.DAL.App
                 using (DbCommand cmd = DbFactory.GetDBCommand("checkversionstatusforapp"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_appversionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], appVersion));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], sourceId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_appversionid", DbType.Int32, appVersion));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, sourceId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

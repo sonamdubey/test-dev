@@ -51,8 +51,8 @@ namespace Bikewale.Common
 
                     HttpContext.Current.Trace.Warn("modelId : " + modelId);
                     HttpContext.Current.Trace.Warn("defaultcity : " + DefaultCity);
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], DefaultCity)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, DefaultCity)); 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -112,8 +112,8 @@ namespace Bikewale.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], VersionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], DefaultCity)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, VersionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, DefaultCity)); 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

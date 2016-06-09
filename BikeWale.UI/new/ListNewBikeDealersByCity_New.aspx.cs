@@ -73,7 +73,7 @@ namespace Bikewale.New
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, makeId));
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {

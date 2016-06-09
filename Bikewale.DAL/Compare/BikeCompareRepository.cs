@@ -32,7 +32,7 @@ namespace Bikewale.DAL.Compare
                 {
                     cmd.CommandText = "getcomparisondetails_20012016";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], versions));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, versions));
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -237,7 +237,7 @@ namespace Bikewale.DAL.Compare
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikecomparisonmin_29012016"))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -308,9 +308,9 @@ namespace Bikewale.DAL.Compare
                 {
                     cmd.CommandText = "getsimilarcomparebikeslist";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, versionList));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int16, topCount));
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                     {

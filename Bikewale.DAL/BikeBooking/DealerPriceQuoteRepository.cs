@@ -48,18 +48,18 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.CommandText = "savebikedealerquotations_30122015";
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int] , entity.DealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32 , entity.DealerId));
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.Int] , entity.PQId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , entity.CustomerName));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , entity.CustomerEmail));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , entity.CustomerMobile));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int32 , entity.PQId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50 , entity.CustomerName));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 50 , entity.CustomerEmail));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50 , entity.CustomerMobile));
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (entity.ColorId.HasValue) ? entity.ColorId.Value : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], (entity.LeadSourceId.HasValue) ? entity.LeadSourceId.Value : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, (entity.ColorId.HasValue) ? entity.ColorId.Value : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Byte, (entity.LeadSourceId.HasValue) ? entity.LeadSourceId.Value : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 100, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 100, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
 
                         if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd)))
                             isSuccess = true;
@@ -102,7 +102,7 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "updateismobileverified";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
 
                     if (Convert.ToBoolean(MySqlDatabase.UpdateQuery(cmd)))
                         isSuccess = true;
@@ -143,8 +143,8 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "updatemobilenumber";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, mobileNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, mobileNo));
 
                     if (Convert.ToBoolean(MySqlDatabase.UpdateQuery(cmd)))
                         isSuccess = true;
@@ -185,8 +185,8 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "ispushedtoab";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_abinquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], abInquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_abinquiryid", DbType.Int64, abInquiryId));
 
                     if (Convert.ToBoolean(MySqlDatabase.UpdateQuery(cmd)))
                         isSuccess = true;
@@ -273,7 +273,7 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "getnewbikepricequotecustomerdetail";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -344,7 +344,7 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "isnewbikepqexists";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
 
                     
                      using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -390,9 +390,9 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "getdealerpriceversionslist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
 
                     
                      using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -433,19 +433,19 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "saversaofferclaim";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bookingnum", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, objOffer.BookingNum));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, objOffer.CustomerName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, objOffer.CustomerMobile));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, objOffer.CustomerEmail));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeregistrationno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, objOffer.BikeRegistrationNo));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeraddress", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, objOffer.CustomerAddress));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_deliverydate", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], objOffer.DeliveryDate));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, objOffer.DealerName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeraddress", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, objOffer.DealerAddress));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], objOffer.VersionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, objOffer.Comments));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_helmetid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], objOffer.HelmetId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerpincode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 6, objOffer.CustomerPincode));                     
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bookingnum", DbType.String, 20, objOffer.BookingNum));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 100, objOffer.CustomerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, objOffer.CustomerMobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 50, objOffer.CustomerEmail));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeregistrationno", DbType.String, 50, objOffer.BikeRegistrationNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeraddress", DbType.String, 150, objOffer.CustomerAddress));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_deliverydate", DbType.DateTime, objOffer.DeliveryDate));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbType.String, 50, objOffer.DealerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeraddress", DbType.String, 150, objOffer.DealerAddress));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, objOffer.VersionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250, objOffer.Comments));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_helmetid", DbType.Byte, objOffer.HelmetId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerpincode", DbType.String, 6, objOffer.CustomerPincode));                     
 
                     isSuccess = MySqlDatabase.InsertQuery(cmd);
                 }
@@ -485,8 +485,8 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "updatepqcolor";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], colorId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, colorId)); 
                     
                     isSuccess = MySqlDatabase.UpdateQuery(cmd);
                 }
@@ -528,10 +528,10 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "updatepqtransactionaldetail_22012016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transactionid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], transId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transactioncompleted", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isTransComplete));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bookingreferenceno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, bookingReferenceNo)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transactionid", DbType.Int64, transId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transactioncompleted", DbType.Boolean, isTransComplete));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bookingreferenceno", DbType.String, 20, bookingReferenceNo)); 
 
                     isSuccess = MySqlDatabase.UpdateQuery(cmd);
                 }
@@ -573,10 +573,10 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.CommandText = "isdealernotified";
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, customerId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, customerMobile));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealernotified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.String, 50, customerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, customerMobile));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealernotified", DbType.Boolean, ParameterDirection.Output));
 
                         MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -617,9 +617,9 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.CommandText = "isdealerpriceavailable";
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, versionId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealerpriceavailable", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.String, 50, versionId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealerpriceavailable", DbType.Boolean, ParameterDirection.Output));
 
                          MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -663,8 +663,8 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "getpricequoteversion";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     
                      using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -714,8 +714,8 @@ namespace Bikewale.DAL.BikeBooking
 
                     //if (modelId > 0)
                     //    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], (modelId > 0) ? modelId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, (modelId > 0) ? modelId : Convert.DBNull));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -767,9 +767,9 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "bw_getvarientspricedetail_13012016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -1000,7 +1000,7 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getmodelcolor";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));                    
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));                    
 
                      using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -1054,7 +1054,7 @@ namespace Bikewale.DAL.BikeBooking
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getvariantcolorbymodel";
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     
                      using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

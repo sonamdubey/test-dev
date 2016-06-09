@@ -52,7 +52,7 @@ namespace Bikewale.Used
 			{
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], inquiryId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_inquiryid", DbType.Int32, inquiryId)); 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

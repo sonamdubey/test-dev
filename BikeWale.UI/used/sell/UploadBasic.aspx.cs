@@ -119,8 +119,8 @@ namespace Bikewale.Used
                                     inner join customers c on c.id = si.customerid
                                     where si.customerid = @customerid and si.id = @inquiryid and c.isfake = 0 ";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id == "-1" ? CookiesCustomers.CustomerId : CurrentUser.Id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], inquiryId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbType.Int32, CurrentUser.Id == "-1" ? CookiesCustomers.CustomerId : CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int32, inquiryId)); 
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {

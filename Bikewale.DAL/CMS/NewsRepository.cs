@@ -43,9 +43,9 @@ namespace Bikewale.DAL.CMS
                     cmd.CommandText = "getdefaultnewspagedetails";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], startIndex));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], endIndex));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], EnumCMSContentType.News));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbType.Int32, endIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int64, EnumCMSContentType.News));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -115,29 +115,29 @@ namespace Bikewale.DAL.CMS
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "getnewspagedetails";
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contentId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ispublished", DbParamTypeMapper.GetInstance[SqlDbType.Bit], true));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbType.Int32, contentId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ispublished", DbType.Boolean, true));
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_authorname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_displaydate", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_title", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_views", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_content", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 8000, ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepathlarge", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_mainimgcaption", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_mainimgset", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_commentcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_authorname", DbType.String, 100, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_displaydate", DbType.DateTime, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_title", DbType.String, 250, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbType.String, 200, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_views", DbType.Int32, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_content", DbType.String, 8000, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 250, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepathlarge", DbType.String, 100, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_mainimgcaption", DbType.String, 250, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_mainimgset", DbType.Boolean, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_commentcount", DbType.Int32, ParameterDirection.Output));
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepaththumbnail", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepaththumbnail", DbType.String, 100, ParameterDirection.Output));
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_nextid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_nexturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_nexttitle", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_previd", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_prevurl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, ParameterDirection.Output));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_prevtitle", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_nextid", DbType.Int64, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_nexturl", DbType.String, 200, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_nexttitle", DbType.String, 250, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_previd", DbType.Int64, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_prevurl", DbType.String, 200, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_prevtitle", DbType.String, 250, ParameterDirection.Output));
 
                         MySqlDatabase.ExecuteNonQuery(cmd);
 

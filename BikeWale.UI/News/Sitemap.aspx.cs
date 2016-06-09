@@ -39,7 +39,7 @@ namespace Bikewale.News
                     using (DbCommand cmd = DbFactory.GetDBCommand("googlesitemapdetails"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_applicationid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Convert.ToInt32(BWConfiguration.Instance.ApplicationId)));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_applicationid", DbType.Int32, Convert.ToInt32(BWConfiguration.Instance.ApplicationId)));
 
                         using (DataSet ds  = MySqlDatabase.SelectAdapterQuery(cmd))
                         {

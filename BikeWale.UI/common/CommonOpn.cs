@@ -1832,7 +1832,7 @@ namespace Bikewale.Common
 
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@bikeprofileno", DbParamTypeMapper.GetInstance[SqlDbType.Int], bikeProfileNo ));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@bikeprofileno", DbType.Int32, bikeProfileNo ));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

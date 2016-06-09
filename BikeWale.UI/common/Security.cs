@@ -230,8 +230,8 @@ namespace Bikewale.Common
                     //prm.Direction = ParameterDirection.Output;
 
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, key));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.String, 100, key));
 
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd);
@@ -264,7 +264,7 @@ namespace Bikewale.Common
                 sql = " select customerkey from customersecuritykey  where customerid = @v_id";
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], id)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_id", DbType.Int32, id)); 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

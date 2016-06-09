@@ -223,7 +223,7 @@ namespace Bikewale.New
                 using (System.Data.Common.DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand("getbikecomparisonmin"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_topcount", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], topCount));
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
 
                     ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(cmd);
                 }
@@ -263,7 +263,7 @@ namespace Bikewale.New
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@bikeversions", SqlDbType.VarChar, 50).Value = versionList;
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_bikeversions", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, versionList));
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_bikeversions", DbType.String, 50, versionList));
 
                     ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(cmd);
                 }

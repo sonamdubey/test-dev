@@ -165,7 +165,7 @@ namespace Bikewale.Common
 
             DbParameter[] param = new[]
             {
-                DbFactory.GetDbParam("@bikemakeid", DbParamTypeMapper.GetInstance[SqlDbType.Int],makeId )
+                DbFactory.GetDbParam("@bikemakeid", DbType.Int32,makeId )
             };
 
 			try

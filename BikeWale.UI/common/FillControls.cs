@@ -33,7 +33,7 @@ namespace Bikewale.Common
 
                 HttpContext.Current.Trace.Warn(sql);
 
-                DbParameter[] param = new[] { Bikewale.CoreDAL.DbFactory.GetDbParam("@par_modelid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], _modelid) };
+                DbParameter[] param = new[] { Bikewale.CoreDAL.DbFactory.GetDbParam("@par_modelid", DbType.Int32, _modelid) };
 
                 op.FillDropDown(sql, drpVersions, "VersionName", "VersionId", param);
 

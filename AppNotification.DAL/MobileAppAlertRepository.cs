@@ -20,9 +20,9 @@ namespace AppNotification.DAL
                 using (DbCommand cmd = DbFactory.GetDBCommand("getregids"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], alertTypeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_start_num", DbParamTypeMapper.GetInstance[SqlDbType.Int], startNum));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_end_num", DbParamTypeMapper.GetInstance[SqlDbType.Int], endNum));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbType.Int32, alertTypeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_start_num", DbType.Int32, startNum));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_end_num", DbType.Int32, endNum));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -54,8 +54,8 @@ namespace AppNotification.DAL
                 using (DbCommand cmd = DbFactory.GetDBCommand("getnumberofregids"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], alertTypeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_count", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbType.Int32, alertTypeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_count", DbType.Int32, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -81,13 +81,13 @@ namespace AppNotification.DAL
                 using (DbCommand cmd = DbFactory.GetDBCommand("subscriptionactivity"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imei", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.IMEI));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.Name));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.EmailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contactno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.ContactNo));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], t.OsType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.GCMId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], t.SubsMasterId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imei", DbType.String, t.IMEI));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, t.Name));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, t.EmailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contactno", DbType.String, t.ContactNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbType.Byte, t.OsType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbType.String, t.GCMId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbType.String, t.SubsMasterId));
 
                     MySqlDatabase.ExecuteScalar(cmd);
 
@@ -117,7 +117,7 @@ namespace AppNotification.DAL
                 using (DbCommand cmd = DbFactory.GetDBCommand("resetsubscriptionmaster_isprocessing"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], alertTypeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbType.Int32, alertTypeId));
 
                     isNotificationComplete = MySqlDatabase.UpdateQuery(cmd);
                 }

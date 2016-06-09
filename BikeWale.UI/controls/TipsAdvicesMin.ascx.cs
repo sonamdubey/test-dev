@@ -60,8 +60,8 @@ namespace Bikewale.Controls
                 using (DbCommand cmd = DbFactory.GetDBCommand("gettipsandadvices"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], TopRecords));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_category", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], "5")); // 5 category id for tips and advices.
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, TopRecords));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_category", DbType.Int16, "5")); // 5 category id for tips and advices.
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {

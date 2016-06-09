@@ -63,17 +63,17 @@ namespace Bikewale.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50,name));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50,email.Trim().ToLower()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20,String.IsNullOrEmpty(mobile) ? Convert.DBNull : mobile));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int],String.IsNullOrEmpty(cityId) ? Convert.DBNull : cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phoneno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20,String.IsNullOrEmpty(phone) ? Convert.DBNull : phone));
-                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_password", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20,String.IsNullOrEmpty(password) ? Convert.DBNull : password));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10,salt));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 64,hash));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt] , ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbParamTypeMapper.GetInstance[SqlDbType.Bit] , ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 40,CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50,name));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 50,email.Trim().ToLower()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 20,String.IsNullOrEmpty(mobile) ? Convert.DBNull : mobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32,String.IsNullOrEmpty(cityId) ? Convert.DBNull : cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phoneno", DbType.String, 20,String.IsNullOrEmpty(phone) ? Convert.DBNull : phone));
+                    //cmd.Parameters.Add(DbFactory.GetDbParam("par_password", DbType.String, 20,String.IsNullOrEmpty(password) ? Convert.DBNull : password));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbType.String, 10,salt));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbType.String, 64,hash));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64 , ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean , ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40,CommonOpn.GetClientIP()));
 
                     //run the command
 
@@ -132,7 +132,7 @@ namespace Bikewale.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@email", SqlDbType.VarChar, 50).Value = Email;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, Email)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 50, Email)); 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -300,11 +300,11 @@ namespace Bikewale.Common
                     //cmd.Parameters.Add("@customerid", SqlDbType.BigInt).Direction = ParameterDirection.Output;
                     //cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, email));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 64, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, email));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbType.String, 64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbType.String, 10, ParameterDirection.Output));
 
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
@@ -351,9 +351,9 @@ namespace Bikewale.Common
                     //cmd.Parameters.Add("@Salt", SqlDbType.VarChar, 10).Value = salt;
                     //cmd.Parameters.Add("@Hash", SqlDbType.VarChar, 64).Value = hash;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, salt));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 64, hash)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbType.String, 10, salt));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbType.String, 64, hash)); 
 
                     MySqlDatabase.UpdateQuery(cmd);
                 }
@@ -425,8 +425,8 @@ namespace Bikewale.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "savepasswordrecoverytoken";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, token));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbType.String, 200, token));
 
                     MySqlDatabase.InsertQuery(cmd);
                 }
@@ -469,9 +469,9 @@ namespace Bikewale.Common
                     //cmd.Parameters.Add("@Token", SqlDbType.VarChar, 200).Value = token;
                     //cmd.Parameters.Add("@isvalidtoken", SqlDbType.Bit).Direction = ParameterDirection.Output;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, token));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isvalidtoken", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbType.String, 200, token));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isvalidtoken", DbType.Boolean, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -512,7 +512,7 @@ namespace Bikewale.Common
                     cmd.CommandText = "updatepasswordrecoverytokenstatus";
 
                     //cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
 
                     MySqlDatabase.UpdateQuery(cmd);
 
@@ -650,9 +650,9 @@ namespace Bikewale.Common
                     //cmd.Parameters.Add("@email", SqlDbType.VarChar, 100).Value = email;
                     //if (!String.IsNullOrEmpty(name)) { cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = name; }
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, mobile));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, email));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, (!String.IsNullOrEmpty(name))?name:Convert.DBNull)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 20, mobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, email));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, (!String.IsNullOrEmpty(name))?name:Convert.DBNull)); 
 
                     MySqlDatabase.UpdateQuery(cmd);
                 }
@@ -688,7 +688,7 @@ namespace Bikewale.Common
                     cmd.CommandText = "checkfakecustomerbyid";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

@@ -33,7 +33,7 @@ namespace Bikewale.DAL.Location
                 using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.Int], requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, requestType));
                     //cmd.Parameters.AddWithValue("@RequestType", requestType);
 
                     
@@ -84,8 +84,8 @@ namespace Bikewale.DAL.Location
                 using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], stateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int64, stateId));
 
                     objCityList = new List<CityEntityBase>();
 
@@ -136,7 +136,7 @@ namespace Bikewale.DAL.Location
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, modelId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

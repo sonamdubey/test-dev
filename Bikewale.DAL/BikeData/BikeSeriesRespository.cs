@@ -119,7 +119,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getseriesdetails";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeseriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeseriesid", DbType.Int32, id));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd)) 
                     {

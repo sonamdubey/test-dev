@@ -30,8 +30,8 @@ namespace Bikewale.Common
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                     {
-                        cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], bikeId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, bikeId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbType.Int64, customerId));
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                         {

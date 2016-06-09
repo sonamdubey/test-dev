@@ -203,9 +203,9 @@ namespace Bikewale.Used
                     //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = "DETAILS";
                     //cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = CurrentUser.Id;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, "DETAILS"));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, inquiryId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, "DETAILS"));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.String, 10, inquiryId)); 
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
@@ -456,29 +456,29 @@ namespace Bikewale.Used
                             cmd.CommandText = "saveclassifiedindividualsellbikeinquiries_sp";
 
 
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.Int] , SelectedVersion));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemakeyear", DbParamTypeMapper.GetInstance[SqlDbType.Date], _bikemkyear));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeowner", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt] , drpOwner.SelectedValue));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolor", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100 , txtColor.Text.Trim()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_kilometers", DbParamTypeMapper.GetInstance[SqlDbType.Int] , txtKms.Text.Trim()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt] , SelectedCityId));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , txtRegNo.Text.Trim()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationplace", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , txtRegAt.Text.Trim()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_lifetimetax", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20 , GetLifetimeTax));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_insurancetype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20 , BikeInsurance));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_insuranceexpirydate", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], BikeInsurance == "No Insurance" ? Convert.DBNull : _insexpiry));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_expectedprice", DbParamTypeMapper.GetInstance[SqlDbType.BigInt] , txtPrice.Text.Trim()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250 , txtComments.Text.Trim() == "Your Comments" ? Convert.DBNull : txtComments.Text.Trim()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_modifications", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250 , String.IsNullOrEmpty(txtModifications.Text.Trim()) ? Convert.DBNull : txtModifications.Text.Trim()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_warranties", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 250 , String.IsNullOrEmpty(txtWaranties.Text.Trim()) ? Convert.DBNull : txtWaranties.Text.Trim()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt] , ConfigurationManager.AppSettings["sourceId"].ToString()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50 , txtName.Text.Trim()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100 , txtEmail.Text.Trim().ToLower()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20 , txtMobile.Text.Trim()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt] , ParameterDirection.InputOutput));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt] , customerId));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbParamTypeMapper.GetInstance[SqlDbType.VarChar] , 40, CommonOpn.GetClientIP()));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("par_statusid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt] , statusId));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32 , SelectedVersion));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemakeyear", DbType.DateTime, _bikemkyear));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeowner", DbType.Byte , drpOwner.SelectedValue));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolor", DbType.String, 100 , txtColor.Text.Trim()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_kilometers", DbType.Int32 , txtKms.Text.Trim()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16 , SelectedCityId));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationno", DbType.String, 50 , txtRegNo.Text.Trim()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_registrationplace", DbType.String, 50 , txtRegAt.Text.Trim()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_lifetimetax", DbType.String, 20 , GetLifetimeTax));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_insurancetype", DbType.String, 20 , BikeInsurance));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_insuranceexpirydate", DbType.DateTime, BikeInsurance == "No Insurance" ? Convert.DBNull : _insexpiry));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_expectedprice", DbType.Int64 , txtPrice.Text.Trim()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 250 , txtComments.Text.Trim() == "Your Comments" ? Convert.DBNull : txtComments.Text.Trim()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_modifications", DbType.String, 250 , String.IsNullOrEmpty(txtModifications.Text.Trim()) ? Convert.DBNull : txtModifications.Text.Trim()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_warranties", DbType.String, 250 , String.IsNullOrEmpty(txtWaranties.Text.Trim()) ? Convert.DBNull : txtWaranties.Text.Trim()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte , ConfigurationManager.AppSettings["sourceId"].ToString()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50 , txtName.Text.Trim()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100 , txtEmail.Text.Trim().ToLower()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 20 , txtMobile.Text.Trim()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64 , ParameterDirection.InputOutput));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64 , customerId));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String , 40, CommonOpn.GetClientIP()));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("par_statusid", DbType.Byte , statusId));
                             cmd.Parameters["par_inquiryid"].Value = inquiryId;
 
                             MySqlDatabase.ExecuteNonQuery(cmd); 

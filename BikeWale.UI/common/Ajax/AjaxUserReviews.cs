@@ -457,9 +457,9 @@ namespace Bikewale.Ajax
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatecustomerreviewsabuse"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure; 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], reviewId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, comments));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, comments));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int64, CurrentUser.Id)); 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     returnVal = true; 

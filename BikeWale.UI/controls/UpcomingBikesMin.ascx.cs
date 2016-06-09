@@ -80,12 +80,12 @@ namespace Bikewale.Controls
                     //if(!String.IsNullOrEmpty(MakeId)) { cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = MakeId; }
                     //if(!String.IsNullOrEmpty(SeriesId)) { cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = SeriesId; }
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], TopRecords));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_controlwidth", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, ControlWidth));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fetchallrecords", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Corousal));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!String.IsNullOrEmpty(ModelId)) ? ModelId : null));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!String.IsNullOrEmpty(MakeId)) ? MakeId : null));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!String.IsNullOrEmpty(SeriesId)) ? SeriesId : null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, TopRecords));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_controlwidth", DbType.String, 10, ControlWidth));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fetchallrecords", DbType.Boolean, Corousal));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, (!String.IsNullOrEmpty(ModelId)) ? ModelId : null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, (!String.IsNullOrEmpty(MakeId)) ? MakeId : null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, (!String.IsNullOrEmpty(SeriesId)) ? SeriesId : null));
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {

@@ -64,8 +64,8 @@ namespace Bikewale.Used
                     //prm = cmd.Parameters.Add("@IsDealer", SqlDbType.Bit);
                     //prm.Value = isDealer;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], inquiryId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isDealer)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer)); 
 
 
                     int rowsUpdated = (int)MySqlDatabase.ExecuteNonQuery(cmd);

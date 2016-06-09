@@ -271,8 +271,8 @@ namespace Bikewale.Content
                 using (DbCommand cmd = DbFactory.GetDBCommand("registercustomer"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtName.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtEmail.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, txtName.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, txtEmail.Text.Trim()));
 
                     MySqlDatabase.InsertQuery(cmd);
                 } 
@@ -303,8 +303,8 @@ namespace Bikewale.Content
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], (modelId != "" ? modelId : "-1")));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], (versionId != "" ? versionId : "-1")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@modelid", DbType.Int64, (modelId != "" ? modelId : "-1")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbType.Int64, (versionId != "" ? versionId : "-1")));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -361,9 +361,9 @@ namespace Bikewale.Content
                     {
                         using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                         {
-                            cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], (customerId != "" ? customerId : "-1")));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], (id != "" ? id : "-1")));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("@email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, email));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbType.Int64, (customerId != "" ? customerId : "-1")));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbType.Int64, (id != "" ? id : "-1")));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@email", DbType.String, 100, email));
 
                             using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                             {
@@ -397,7 +397,7 @@ namespace Bikewale.Content
             {
                 sql = " select Name, Id from bikeversions  where isdeleted = 0 and bikemodelid = @bikemodelid order by name ";
 
-                DbParameter[] param = new[] { DbFactory.GetDbParam("@bikemodelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ModelIdVer) };
+                DbParameter[] param = new[] { DbFactory.GetDbParam("@bikemodelid", DbType.Int64, ModelIdVer) };
 
                 op.FillDropDown(sql, drpVersions, "Name", "ID", param);
 
@@ -432,27 +432,27 @@ namespace Bikewale.Content
                 using (DbCommand cmd = DbFactory.GetDBCommand("entrycustomerreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], MakeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ModelIdVer));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_styler", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], hdnRateST.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comfortr", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], hdnRateCM.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performancer", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], hdnRatePE.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_valuer", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], hdnRateVC.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueleconomyr", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], hdnRateFE.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallr", DbParamTypeMapper.GetInstance[SqlDbType.Float], (Convert.ToInt32(hdnRateST.Value) + Convert.ToInt32(hdnRateCM.Value) + Convert.ToInt32(hdnRatePE.Value) + Convert.ToInt32(hdnRateVC.Value) + Convert.ToInt32(hdnRateFE.Value)) / 5));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pros", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtPros.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cons", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtCons.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 8000, SanitizeHTML.ToSafeHtml(ftbDescription.Text.Trim())));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_title", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtTitle.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isowned", DbParamTypeMapper.GetInstance[SqlDbType.Bit], !(radNot.Checked)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnewlypurchased", DbParamTypeMapper.GetInstance[SqlDbType.Bit], (radNew.Checked) ? true : false));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_familiarity", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ddlFamiliar.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbParamTypeMapper.GetInstance[SqlDbType.Float], _mileage));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 40, CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int64, MakeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, ModelIdVer));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int64, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_styler", DbType.Int16, hdnRateST.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comfortr", DbType.Int16, hdnRateCM.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performancer", DbType.Int16, hdnRatePE.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_valuer", DbType.Int16, hdnRateVC.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueleconomyr", DbType.Int16, hdnRateFE.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallr", DbType.Double, (Convert.ToInt32(hdnRateST.Value) + Convert.ToInt32(hdnRateCM.Value) + Convert.ToInt32(hdnRatePE.Value) + Convert.ToInt32(hdnRateVC.Value) + Convert.ToInt32(hdnRateFE.Value)) / 5));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pros", DbType.String, 100, txtPros.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cons", DbType.String, 100, txtCons.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 8000, SanitizeHTML.ToSafeHtml(ftbDescription.Text.Trim())));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_title", DbType.String, 100, txtTitle.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isowned", DbType.Boolean, !(radNot.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnewlypurchased", DbType.Boolean, (radNew.Checked) ? true : false));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_familiarity", DbType.Int16, ddlFamiliar.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbType.Double, _mileage));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 

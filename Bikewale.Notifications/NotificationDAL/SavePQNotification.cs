@@ -39,11 +39,11 @@ namespace Bikewale.Notifications.NotificationDAL
                         //cmd.Parameters.Add("@SMSToDealerServiceType", SqlDbType.TinyInt).Value = smsType;
                         //cmd.Parameters.Add("@SMSToDealerPageUrl", SqlDbType.VarChar, 500).Value = pageUrl;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealermessage", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], message));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealernumbers", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, dealerMobileNo));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealerservicetype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], smsType));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealerpageurl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, smsType));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealermessage", DbType.String, message));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealernumbers", DbType.String, 100, dealerMobileNo));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealerservicetype", DbType.Byte, smsType));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealerpageurl", DbType.String, 500, smsType));
 
 
                         MySqlDatabase.ExecuteNonQuery(cmd);
@@ -83,11 +83,11 @@ namespace Bikewale.Notifications.NotificationDAL
                         //cmd.Parameters.Add("@SMSToCustomerServiceType", SqlDbType.TinyInt).Value = smsType;
                         //cmd.Parameters.Add("@SMSToCustomerPageUrl", SqlDbType.VarChar, 500).Value = pageUrl;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomermessage", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], message));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomernumbers", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, customerMobile));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomerservicetype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], smsType));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomerpageurl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, smsType));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomermessage", DbType.String, message));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomernumbers", DbType.String, 100, customerMobile));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomerservicetype", DbType.Byte, smsType));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomerpageurl", DbType.String, 500, smsType));
 
                         MySqlDatabase.ExecuteNonQuery(cmd);
                     }
@@ -118,10 +118,10 @@ namespace Bikewale.Notifications.NotificationDAL
                     {
                         cmd.CommandText = "savepqleademailtodealer";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealermessagebody", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10000, emailBody));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealersubject", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, emailsubject));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealerreplyto", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, dealerEmail));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealermessagebody", DbType.String, 10000, emailBody));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealersubject", DbType.String, 500, emailsubject));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealerreplyto", DbType.String, 200, dealerEmail));
 
                         MySqlDatabase.ExecuteNonQuery(cmd);
                     }
@@ -152,10 +152,10 @@ namespace Bikewale.Notifications.NotificationDAL
                         //cmd.Parameters.Add("@EmailToCustomerSubject", SqlDbType.VarChar, 500).Value = emailSubject;
                         //cmd.Parameters.Add("@EmailToCustomerReplyTo", SqlDbType.VarChar, 200).Value = customerEmail;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], pqId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtocustomermessagebody", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], emailBody));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtocustomersubject", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, emailSubject));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtocustomerreplyto", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, customerEmail));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtocustomermessagebody", DbType.String, emailBody));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtocustomersubject", DbType.String, 500, emailSubject));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtocustomerreplyto", DbType.String, 200, customerEmail));
 
 
                         MySqlDatabase.ExecuteNonQuery(cmd);

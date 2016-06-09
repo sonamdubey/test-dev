@@ -48,10 +48,10 @@ namespace Bikewale.Used
                         //if (isAprooved)
                         //    cmd.Parameters.Add("@isaprooved", SqlDbType.Bit).Value = isAprooved;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isDealer));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isaprooved", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isAprooved));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, CurrentUser.Id));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isaprooved", DbType.Boolean, isAprooved));
 
 
                         using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
@@ -115,9 +115,9 @@ namespace Bikewale.Used
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_sellinquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], sellInquiryId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_buyerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], buyerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_consumertype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], consumerType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_sellinquiryid", DbType.Int64, sellInquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_buyerid", DbType.Int64, buyerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@par_consumertype", DbType.Byte, consumerType));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -147,11 +147,11 @@ namespace Bikewale.Used
                 using (DbCommand cmd = DbFactory.GetDBCommand("classified_uploadphotosrequest_sp"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellinquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], sellInquiryId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_buyerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], buyerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_consumertype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], consumerType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_buyermessage", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],200, buyerMessage));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],40, CommonOpn.GetClientIP()));  
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellinquiryid", DbType.Int64, sellInquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_buyerid", DbType.Int64, buyerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_consumertype", DbType.Byte, consumerType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_buyermessage", DbType.String,200, buyerMessage));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String,40, CommonOpn.GetClientIP()));  
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 

@@ -34,7 +34,7 @@ namespace Bikewale.Common
 
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@sellinqid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], sellInqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@sellinqid", DbType.Int64, sellInqId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

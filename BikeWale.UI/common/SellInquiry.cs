@@ -75,7 +75,7 @@ namespace Bikewale.Common
 
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -688,7 +688,7 @@ namespace Bikewale.Common
                         cmd.CommandText = "getinquirydetailsbyprofileid";
 
                         //cmd.Parameters.Add("@profileId", SqlDbType.VarChar, 50).Value = profileId;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_profileid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],50, profileId)); 
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_profileid", DbType.String,50, profileId)); 
 
                         using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                         {

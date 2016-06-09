@@ -163,9 +163,9 @@ namespace Bikewale.Used
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requestdate", DbParamTypeMapper.GetInstance[SqlDbType.Date], DateTime.Today));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, buyerMobile));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requestdate", DbType.DateTime, DateTime.Today));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 10, buyerMobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Boolean, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);//run the command
 

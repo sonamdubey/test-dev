@@ -136,8 +136,8 @@ namespace Bikewale.Controls
 
                     Trace.Warn(sql);
 
-                    DbParameter[] param = new[] { DbFactory.GetDbParam("@v_reviewerid", DbParamTypeMapper.GetInstance[SqlDbType.Int],this.ReviewerId ),
-                                          DbFactory.GetDbParam("@v_reviewcount", DbParamTypeMapper.GetInstance[SqlDbType.Int],_reviewCount )  };
+                    DbParameter[] param = new[] { DbFactory.GetDbParam("@v_reviewerid", DbType.Int32,this.ReviewerId ),
+                                          DbFactory.GetDbParam("@v_reviewcount", DbType.Int32,_reviewCount )  };
 
                     objCom.BindRepeaterReader(sql, rptUserReviews, param);
                 }

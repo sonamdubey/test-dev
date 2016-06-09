@@ -326,7 +326,7 @@ namespace Bikewale.Content
                 //cmd.Parameters.Add("@v_articleid", SqlDbType.BigInt).Value = (review_Id != "" ? review_Id : "-1");  
                 using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_articleid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.BigInt], _reviewId));
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_articleid", DbType.Int64, _reviewId));
                     using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr.Read())
@@ -364,7 +364,7 @@ namespace Bikewale.Content
                             cmd.CommandText = sql;
 
                             //cmd.Parameters.Add("@v_reviewid", SqlDbType.BigInt).Value = (reviewId != "" ? reviewId : "-1");
-                            cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_reviewid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.BigInt], _reviewId));
+                            cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_reviewid",DbType.Int64, _reviewId));
 
                             Bikewale.CoreDAL.MySqlDatabase.UpdateQuery(cmd);
 
@@ -376,7 +376,7 @@ namespace Bikewale.Content
 
                         cmd1.CommandType = CommandType.StoredProcedure;
                         cmd1.CommandText = "getcustomerreviewinfo";
-                        cmd1.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_reviewid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.BigInt], _reviewId));
+                        cmd1.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_reviewid", DbType.Int64, _reviewId));
 
 
                         using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd1))
@@ -472,8 +472,8 @@ namespace Bikewale.Content
 
                 using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], ModelId));
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_reviewid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], reviewId));
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", DbType.Int32, ModelId));
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_reviewid", DbType.Int32, reviewId));
 
                     using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
                     {
@@ -578,8 +578,8 @@ namespace Bikewale.Content
 
                 using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], _modelId));
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_versionid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int], _versionId));
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", DbType.Int32, _modelId));
+                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_versionid", DbType.Int32, _versionId));
 
                     using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
                     {
@@ -653,8 +653,8 @@ namespace Bikewale.Content
                         order by liked desc 
                         limit 5";
 
-                DbParameter[] param = new[] { Bikewale.CoreDAL.DbFactory.GetDbParam("par_modelid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int],ModelId ),
-                    Bikewale.CoreDAL.DbFactory.GetDbParam("par_reviewid", Bikewale.CoreDAL.DbParamTypeMapper.GetInstance[SqlDbType.Int],reviewId )};
+                DbParameter[] param = new[] { Bikewale.CoreDAL.DbFactory.GetDbParam("par_modelid", DbType.Int32,ModelId ),
+                    Bikewale.CoreDAL.DbFactory.GetDbParam("par_reviewid", DbType.Int32,reviewId )};
 
 
                 op.BindRepeaterReader(sql, rptMoreUserReviews, param);

@@ -30,10 +30,10 @@ namespace Bikewale.DAL.AppAlert
                     cmd.CommandText = "subscriptionactivity";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imei", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, imei));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, gcmId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], osType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, subsMasterId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imei", DbType.String, 50, imei));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbType.String, 200, gcmId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbType.Byte, osType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbType.String, 100, subsMasterId));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
                 }

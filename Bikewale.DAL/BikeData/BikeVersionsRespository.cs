@@ -40,9 +40,9 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikeversions_new"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.Int], (int)requestType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (cityId.HasValue && cityId.Value > 0) ? cityId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, (int)requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId : Convert.DBNull));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -112,8 +112,8 @@ namespace Bikewale.DAL.BikeData
                     //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     //cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isNew));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Boolean, isNew));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -164,23 +164,23 @@ namespace Bikewale.DAL.BikeData
 
                     var paramColl = cmd.Parameters;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_version", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_price", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bike", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbType.String, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_version", DbType.String, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_price", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bike", DbType.String, 100, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, 50, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, ParameterDirection.Output));
 
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
@@ -242,91 +242,91 @@ namespace Bikewale.DAL.BikeData
                     // cmd.CommandText = "getnewbikesspecification_sp_new";
 
                     DbParameterCollection paramColl = cmd.Parameters;
-                    paramColl.Add(DbFactory.GetDbParam("par_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], versionId));
-                    paramColl.Add(DbFactory.GetDbParam("par_displacement", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_cylinders", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_maxpower", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_maximumtorque", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_bore", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_stroke", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_valvespercylinder", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_fueldeliverysystem", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_fueltype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_ignition", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_sparkplugspercylinder", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_coolingsystem", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_gearboxtype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_noofgears", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_transmissiontype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_clutch", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_performance_0_60_kmph", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_performance_0_80_kmph", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_performance_0_40_m", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int16, versionId));
+                    paramColl.Add(DbFactory.GetDbParam("par_displacement", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_cylinders", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_maxpower", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_maximumtorque", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_bore", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_stroke", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_valvespercylinder", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fueldeliverysystem", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fueltype", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_ignition", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_sparkplugspercylinder", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_coolingsystem", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_gearboxtype", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_noofgears", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_transmissiontype", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_clutch", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_performance_0_60_kmph", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_performance_0_80_kmph", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_performance_0_40_m", DbType.Double, ParameterDirection.Output));
                     //changed topspeed data type from small int to Float
                     //Modified By : Sushil Kumar on 15-07-2015
-                    paramColl.Add(DbFactory.GetDbParam("par_topspeed", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_performance_60_0_kmph", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_performance_80_0_kmph", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_kerbweight", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_overalllength", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_overallwidth", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_overallheight", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_wheelbase", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_groundclearance", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_seatheight", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_fueltankcapacity", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_reservefuelcapacity", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_fuelefficiencyoverall", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_fuelefficiencyrange", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_chassistype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_frontsuspension", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_rearsuspension", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_braketype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_frontdisc", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_frontdisc_drumsize", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_reardisc", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_reardisc_drumsize", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_callipertype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_wheelsize", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_fronttyre", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_reartyre", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_tubelesstyres", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_radialtyres", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_alloywheels", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_electricsystem", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_battery", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_headlighttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_headlightbulbtype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_brake_tail_light", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_turnsignal", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_passlight", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_speedometer", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_tachometer", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_tachometertype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_shiftlight", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_electricstart", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_tripmeter", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_nooftripmeters", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_tripmetertype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_lowfuelindicator", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_lowoilindicator", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_lowbatteryindicator", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_fuelgauge", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_digitalfuelgauge", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_pillionseat", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_pillionfootrest", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_pillionbackrest", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_pilliongrabrail", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_standalarm", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_steppedseat", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_antilockbrakingsystem", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_killswitch", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_clock", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_colors", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_maxpowerrpm", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
-                    paramColl.Add(DbFactory.GetDbParam("par_maximumtorquerpm", DbParamTypeMapper.GetInstance[SqlDbType.Float], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_topspeed", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_performance_60_0_kmph", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_performance_80_0_kmph", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_kerbweight", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_overalllength", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_overallwidth", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_overallheight", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_wheelbase", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_groundclearance", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_seatheight", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fueltankcapacity", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_reservefuelcapacity", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fuelefficiencyoverall", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fuelefficiencyrange", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_chassistype", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_frontsuspension", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_rearsuspension", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_braketype", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_frontdisc", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_frontdisc_drumsize", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_reardisc", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_reardisc_drumsize", DbType.Int16, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_callipertype", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_wheelsize", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fronttyre", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_reartyre", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_tubelesstyres", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_radialtyres", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_alloywheels", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_electricsystem", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_battery", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_headlighttype", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_headlightbulbtype", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_brake_tail_light", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_turnsignal", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_passlight", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_speedometer", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_tachometer", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_tachometertype", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_shiftlight", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_electricstart", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_tripmeter", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_nooftripmeters", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_tripmetertype", DbType.String, 50, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_lowfuelindicator", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_lowoilindicator", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_lowbatteryindicator", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_fuelgauge", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_digitalfuelgauge", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_pillionseat", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_pillionfootrest", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_pillionbackrest", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_pilliongrabrail", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_standalarm", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_steppedseat", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_antilockbrakingsystem", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_killswitch", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_clock", DbType.Boolean, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_colors", DbType.String, 150, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_maxpowerrpm", DbType.Double, ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_maximumtorquerpm", DbType.Double, ParameterDirection.Output));
 
-                    paramColl.Add(DbFactory.GetDbParam("par_rowcount", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], ParameterDirection.Output));
+                    paramColl.Add(DbFactory.GetDbParam("par_rowcount", DbType.Byte, ParameterDirection.Output));
 
                     int rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -452,9 +452,9 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandText = "getsimilarbikeslist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_percentdeviation", DbParamTypeMapper.GetInstance[SqlDbType.Int], (percentDeviation > 0) ? percentDeviation : Convert.DBNull)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("v_topcount", DbType.Int32, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("v_bikeversionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("v_percentdeviation", DbType.Int32, (percentDeviation > 0) ? percentDeviation : Convert.DBNull)); 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -514,7 +514,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandText = "getversioncolors";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

@@ -86,8 +86,8 @@ namespace Bikewale.Controls
                 using (DbCommand cmd = DbFactory.GetDBCommand("getroadtestdetails"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_top", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], "3"));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_category", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], "8")); // 8 category id for road test.
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_top", DbType.Int16, "3"));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_category", DbType.Int16, "8")); // 8 category id for road test.
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {

@@ -51,7 +51,7 @@ namespace Bikewale.Controls
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], TopRecords));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, TopRecords));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

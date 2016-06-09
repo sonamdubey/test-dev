@@ -65,8 +65,8 @@ namespace Bikewale.Used
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
                     //cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = InquiryId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_currentuserid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], InquiryId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_currentuserid", DbType.Int64, CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_inquiryid", DbType.Int64, InquiryId)); 
 
                     string engine = "";
 

@@ -39,11 +39,11 @@ namespace Bikewale.DAL.CMS
                     cmd.CommandText = "getroadtestlist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], startIndex));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], endIndex));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], EnumCMSContentType.RoadTest)); 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (filters.MakeId > 0) ? filters.MakeId : Convert.DBNull));  
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (filters.ModelId > 0) ? filters.ModelId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbType.Int32, endIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Byte, EnumCMSContentType.RoadTest)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, (filters.MakeId > 0) ? filters.MakeId : Convert.DBNull));  
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, (filters.ModelId > 0) ? filters.ModelId : Convert.DBNull));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))

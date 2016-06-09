@@ -145,7 +145,7 @@ namespace Bikewale.New
             //if(PageNumber != string.Empty)
                 //BaseUrl = "/" + makeName + "-bikes/upcoming/page/" + PageNumber + "/";
 
-            cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId)); 
+            cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, makeId)); 
 
             RecordCntQry = " select count(*) from " + FromClause + " where " + WhereClause;
 

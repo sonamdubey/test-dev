@@ -58,7 +58,7 @@ namespace Bikewale.Newsletter
 
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtEmail.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, txtEmail.Text));
 
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd); 

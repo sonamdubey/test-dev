@@ -34,15 +34,15 @@ namespace Bikewale.Used
                 using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_insert"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, description));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_directorypath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbParamTypeMapper.GetInstance[SqlDbType.Bit],Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 300, originalImageName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isDealer));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismain", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isMain));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ConfigurationManager.AppSettings["imgHostURL"]));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 200, description));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_directorypath", DbType.String, 200, Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbType.Boolean,Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 300, originalImageName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismain", DbType.Boolean, isMain));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ConfigurationManager.AppSettings["imgHostURL"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -67,8 +67,8 @@ namespace Bikewale.Used
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -93,9 +93,9 @@ namespace Bikewale.Used
                 using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_mainimage"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], photoId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isDealer));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -121,8 +121,8 @@ namespace Bikewale.Used
                 using (DbCommand cmd = DbFactory.GetDBCommand("classified_bikephotos_desc"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], photoId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imgdesc", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, imgDesc));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imgdesc", DbType.String, 200, imgDesc));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -151,7 +151,7 @@ namespace Bikewale.Used
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "classified_upadateverifiedlisting";
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], sellInquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, sellInquiryId));
 
                     MySqlDatabase.UpdateQuery(cmd);
                     HttpContext.Current.Trace.Warn("update success verified...");

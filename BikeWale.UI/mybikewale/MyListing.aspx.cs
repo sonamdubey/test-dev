@@ -61,7 +61,7 @@ namespace Bikewale.MyBikeWale
                     cmd.CommandText = "getclassifiedindividuallistings_sp";
 
                     //cmd.Parameters.Add("@customerid", SqlDbType.BigInt).Value = customerId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId)); 
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {

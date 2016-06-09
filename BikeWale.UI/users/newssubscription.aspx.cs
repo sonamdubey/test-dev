@@ -54,8 +54,8 @@ namespace Bikewale.MyBikeWale
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_receivenewsletters", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkNewsLetter.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_receivenewsletters", DbType.Boolean, chkNewsLetter.Checked));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -108,7 +108,7 @@ namespace Bikewale.MyBikeWale
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

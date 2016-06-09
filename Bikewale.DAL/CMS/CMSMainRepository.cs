@@ -44,8 +44,8 @@ namespace Bikewale.DAL.CMS
                     cmd.CommandText = "getcmspagedetails";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], contentId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_priority", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], pageId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbType.Int64, contentId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_priority", DbType.Byte, pageId));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -186,7 +186,7 @@ namespace Bikewale.DAL.CMS
                     cmd.CommandText = "updatecmsviews";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], contentId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbType.Int64, contentId));
 
                     MySqlDatabase.UpdateQuery(cmd);
                 }
@@ -225,9 +225,9 @@ namespace Bikewale.DAL.CMS
                         contentTypeList = contentTypeList.Substring(0, contentTypeList.Length - 1);
                     }
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], totalRecords));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categorylist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, contentTypeList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categorylist", DbType.String, 20, contentTypeList));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -291,9 +291,9 @@ namespace Bikewale.DAL.CMS
                         contentTypeList = contentTypeList.Substring(0, contentTypeList.Length - 1);
                     }
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], totalRecords));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categorylist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, contentTypeList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categorylist", DbType.String, 20, contentTypeList));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

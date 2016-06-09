@@ -30,7 +30,7 @@ namespace Bikewale.DAL.Location
                 using (DbCommand cmd = DbFactory.GetDBCommand("getareas"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
                     objAreaList = new List<AreaEntityBase>();
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -82,7 +82,7 @@ namespace Bikewale.DAL.Location
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                     {

@@ -44,7 +44,7 @@ namespace Bikewale.Notifications.MySqlUtility
             {
                 for (int i = 0; i < inputArr.Length; i++)
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@" + fieldName + i, DbParamTypeMapper.GetInstance[SqlDbType.VarChar], inputArr[i].Length, inputArr[i].ToString()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@" + fieldName + i, DbType.String, inputArr[i].Length, inputArr[i].ToString()));
                     parameters[i] = "@" + fieldName + i;
                 }
             }

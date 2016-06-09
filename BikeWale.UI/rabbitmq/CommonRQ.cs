@@ -55,12 +55,12 @@ namespace Bikewale.RabbitMQ
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "img_allbikephotosinsert";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_itemid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], photoId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_origfilename", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], imageName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], imgC));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dirpath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], directoryPath));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 255, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_itemid", DbType.Int64, photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_origfilename", DbType.String, imageName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int32, imgC));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dirpath", DbType.String, directoryPath));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbType.String, 255, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -100,8 +100,8 @@ namespace Bikewale.RabbitMQ
                     //cmd.Parameters.Add("@imagelist", SqlDbType.VarChar, 1000).Value = imageList;
                     //cmd.Parameters.Add("@categoryid", SqlDbType.Int).Value = imgC;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], imgC));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagelist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, imageList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int32, imgC));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagelist", DbType.String, 1000, imageList));
 
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);  
                 }

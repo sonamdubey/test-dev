@@ -31,9 +31,9 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.CommandText = "cv_isverifiedmobile";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, emailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, mobileNo));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismobilever", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, 100, emailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobileNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismobilever", DbType.Boolean, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
                     isVerified = Convert.ToBoolean(cmd.Parameters["par_ismobilever"].Value);
@@ -71,9 +71,9 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.CommandText = "cv_isverifiedmobandnoofotpsend";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, emailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, mobileNo));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_noofattempts", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, 100, emailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobileNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_noofattempts", DbType.Int16, ParameterDirection.Output));
 
                      MySqlDatabase.ExecuteNonQuery(cmd);
                         noOfOTPSend = Convert.ToSByte(cmd.Parameters["par_noofattempts"].Value);
@@ -113,12 +113,12 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.CommandText = "cv_insertpendinglist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cwicode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, cwiCode));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cuicode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, cuiCode));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, emailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, mobileNo));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cvid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cwicode", DbType.String, 50, cwiCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cuicode", DbType.String, 50, cuiCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, emailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 50, mobileNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cvid", DbType.Int64, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
                         cvId = Convert.ToUInt64(cmd.Parameters["par_cvid"].Value);
@@ -158,10 +158,10 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "cv_checkverification";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, mobileNo));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cwicode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, cwiCode));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cuicode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, cuiCode));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobileNo));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cwicode", DbType.String, 50, cwiCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cuicode", DbType.String, 50, cuiCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
                         verified = Convert.ToBoolean(cmd.Parameters["par_isverified"].Value);

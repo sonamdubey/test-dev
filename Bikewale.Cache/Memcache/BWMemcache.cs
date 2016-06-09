@@ -56,7 +56,7 @@ namespace Bikewale.Cache.Memcache
             {
                 if (key.Equals("BW_BikeMakes"))
                 {
-                    param =   DbFactory.GetDbParam("v_condition", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, "Make") ;
+                    param =   DbFactory.GetDbParam("v_condition", DbType.String, 10, "Make") ;
 
                     ds = FetchDataFromDatabase("GetMakeModelVersion", param);
                 }
@@ -117,7 +117,7 @@ namespace Bikewale.Cache.Memcache
 
                     if (param != null)
                     {
-                        cmd.Parameters.Add(DbFactory.GetDbParam(param.ParameterName, DbParamTypeMapper.GetInstance[SqlDbType.VarChar], param.Value));
+                        cmd.Parameters.Add(DbFactory.GetDbParam(param.ParameterName, DbType.String, param.Value));
                     }
 
                     // Fetch the data from the database into DataSet

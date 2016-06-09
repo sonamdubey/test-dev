@@ -203,9 +203,9 @@ namespace Bikewale.Used
                     //sqlCmdParams.Parameters.Add("@v_longitude", SqlDbType.Decimal).Value = Longitude;
                     //sqlCmdParams.Parameters.Add("@v_cityid", SqlDbType.BigInt).Value = CityId;
 
-                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_lattitude", DbParamTypeMapper.GetInstance[SqlDbType.Decimal], Lattitude));
-                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_longitude", DbParamTypeMapper.GetInstance[SqlDbType.Decimal], Longitude));
-                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_cityid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CityId));
+                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_lattitude", DbType.Decimal, Lattitude));
+                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_longitude", DbType.Decimal, Longitude));
+                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_cityid", DbType.Int64, CityId));
 
                 }
             }
@@ -320,7 +320,7 @@ namespace Bikewale.Used
                 if (seller_type.IndexOf(',') < 0)
                 {
                     //sqlCmdParams.Parameters.Add("@SellerType", SqlDbType.SmallInt).Value = seller_type;
-                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_sellertype", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], seller_type));
+                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_sellertype", DbType.Int16, seller_type));
                     sbClause.Append(" and sellertype = @v_sellertype");
                 }
             }
@@ -355,7 +355,7 @@ namespace Bikewale.Used
 
                     sbClause.Append(" and vs.biketransmission = @v_transmission");
                     //sqlCmdParams.Parameters.Add("@Transmission", SqlDbType.TinyInt).Value = trans;
-                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_transmission", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], trans));
+                    sqlCmdParams.Parameters.Add(DbFactory.GetDbParam("@v_transmission", DbType.Byte, trans));
                 }
             }
 

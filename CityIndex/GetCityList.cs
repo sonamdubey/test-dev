@@ -24,7 +24,7 @@ namespace CityAutoSuggest
                 {
                     cmd.CommandText = "GetCitiesCS";                                          //----New SP-----
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, 7));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("v_requesttype", DbType.String, 20, 7));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

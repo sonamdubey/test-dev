@@ -40,7 +40,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.CommandText = "getmostreviewedbikes";
                     //cmd.Parameters.Add("@topcount", SqlDbType.Int).Value = totalRecords;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], totalRecords)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, totalRecords)); 
 
                     BikeMakeEntityBase objMakeBase = null;
                     BikeModelEntityBase objModelBase = null;
@@ -170,7 +170,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.CommandText = "getmostreadreviews";
                     //cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], totalRecords));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, totalRecords));
 
                     ReviewEntityBase  objReviewEntity =null;
                     ReviewRatingEntityBase objReviewRating = null;
@@ -244,7 +244,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.CommandText = "getmosthelpfulreviews";
                     //cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], totalRecords));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, totalRecords));
 
                     ReviewEntityBase objReviewEntity = null;
                     ReviewRatingEntityBase objReviewRating = null;
@@ -320,7 +320,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.CommandText = "getmostrecentreviews";
                     //cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], totalRecords));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, totalRecords));
 
                     ReviewEntityBase objReviewEntity = null;
                     ReviewRatingEntityBase objReviewRating = null;
@@ -395,7 +395,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.CommandText = "getmostratedreviews";
                     //cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.Int], totalRecords));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, totalRecords));
 
                     ReviewEntityBase objReviewEntity = null;
                     ReviewRatingEntityBase objReviewRating = null;
@@ -470,7 +470,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     //cmd.Parameters.Add("@modelid", SqlDbType.Int).Value = modelId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -531,11 +531,11 @@ namespace Bikewale.DAL.UserReviews
                     //cmd.Parameters.Add("@startindex", SqlDbType.Int).Value = startIndex;
                     //cmd.Parameters.Add("@endindex", SqlDbType.Int).Value = endIndex;
                     //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], startIndex));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], endIndex));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (versionId > 0) ? versionId : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_filter", DbParamTypeMapper.GetInstance[SqlDbType.Int], filter));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbType.Int32, endIndex));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, (versionId > 0) ? versionId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_filter", DbType.Int32, filter));
 
                     //if (versionId > 0)
                     //    cmd.Parameters.Add("@versionid", SqlDbType.Int).Value = versionId;
@@ -610,7 +610,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     //cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbParamTypeMapper.GetInstance[SqlDbType.Int], reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -707,9 +707,9 @@ namespace Bikewale.DAL.UserReviews
                     //cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
                     //cmd.Parameters.Add("@comments", SqlDbType.VarChar, 500).Value = comment;
                     //cmd.Parameters.Add("@reportedby", SqlDbType.Int).Value = userId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbParamTypeMapper.GetInstance[SqlDbType.Int], reviewId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],500, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int32, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String,500, userId));
 
 
                     success = MySqlDatabase.UpdateQuery(cmd);
@@ -746,7 +746,7 @@ namespace Bikewale.DAL.UserReviews
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbParamTypeMapper.GetInstance[SqlDbType.Int], reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
 
                     success = MySqlDatabase.UpdateQuery(cmd);
                 }
@@ -786,8 +786,8 @@ namespace Bikewale.DAL.UserReviews
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@reviewid", SqlDbType.Int).Value = reviewId;
                     //cmd.Parameters.Add("@helpful", SqlDbType.Bit).Value = isHelpful;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbParamTypeMapper.GetInstance[SqlDbType.Int], reviewId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_helpful", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isHelpful));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_helpful", DbType.Boolean, isHelpful));
 
                     success = MySqlDatabase.UpdateQuery(cmd);
                 }

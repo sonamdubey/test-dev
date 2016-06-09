@@ -210,7 +210,7 @@ namespace Bikewale.New
                 using ( DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
                     //cmd.Parameters.Add("par_id", SqlDbType.BigInt).Value = bike;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], bike)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, bike)); 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

@@ -234,7 +234,7 @@ namespace Bikewale.Common
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_emailid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],100, emailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_emailid", DbType.String,100, emailId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -284,7 +284,7 @@ namespace Bikewale.Common
 
                     using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                     {
-                        cmd.Parameters.Add(DbFactory.GetDbParam("@v_useridtemp", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],50, userIdTemp));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@v_useridtemp", DbType.String,50, userIdTemp));
 
                         MySqlDatabase.UpdateQuery(cmd);
                     }
@@ -311,7 +311,7 @@ namespace Bikewale.Common
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_dealerid", DbType.Int32, dealerId)); 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

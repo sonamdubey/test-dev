@@ -291,13 +291,13 @@ namespace Bikewale.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_number", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, number));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_message", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, message));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_servicetype", DbParamTypeMapper.GetInstance[SqlDbType.Int], esms));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smssentdatetime", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_successfull", DbParamTypeMapper.GetInstance[SqlDbType.Bit], status));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_returnedmsg", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, retMsg));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smspageurl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, pageUrl));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_number", DbType.String, 50, number));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_message", DbType.String, 500, message));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_servicetype", DbType.Int32, esms));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smssentdatetime", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_successfull", DbType.Boolean, status));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_returnedmsg", DbType.String, 500, retMsg));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smspageurl", DbType.String, 500, pageUrl));
 
                     currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd));
                 }

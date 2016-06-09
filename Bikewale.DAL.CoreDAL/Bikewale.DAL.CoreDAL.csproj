@@ -57,7 +57,6 @@
   <ItemGroup>
     <Compile Include="CommonOpn.cs" />
     <Compile Include="DbFactory.cs" />
-    <Compile Include="DbParamTypeMapper.cs" />
     <Compile Include="ElasticSearchInstance.cs" />
     <Compile Include="MySqlDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

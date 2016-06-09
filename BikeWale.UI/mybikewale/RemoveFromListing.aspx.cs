@@ -115,9 +115,9 @@ namespace Bikewale.MyBikeWale
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@reason", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, drpStatus.SelectedItem.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtComments.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@reason", DbType.String, 100, drpStatus.SelectedItem.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@comments", DbType.String, 100, txtComments.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId)); 
 
                     MySqlDatabase.InsertQuery(cmd);
                 }
@@ -150,7 +150,7 @@ namespace Bikewale.MyBikeWale
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
                     //cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId));
                     MySqlDatabase.UpdateQuery(cmd);                                                                                                        
                 }
             }

@@ -38,10 +38,10 @@ namespace Bikewale.Used
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_profileid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], profileId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_versionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_profileid", DbType.String, profileId));
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {

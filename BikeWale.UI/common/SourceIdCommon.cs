@@ -79,8 +79,8 @@ namespace Bikewale.Common
 					{
                         using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                         {
-                            cmd.Parameters.Add(DbFactory.GetDbParam("@sourceid", DbParamTypeMapper.GetInstance[SqlDbType.Int], sourceId));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("@id", DbParamTypeMapper.GetInstance[SqlDbType.Int], id)); 
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@sourceid", DbType.Int32, sourceId));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@id", DbType.Int32, id)); 
 
                             MySqlDatabase.UpdateQuery(cmd);
                         }
