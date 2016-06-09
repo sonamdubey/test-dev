@@ -426,7 +426,7 @@
                             <span class="inline-block model-sprite specs-maxpower-icon margin-right10"></span>
                             <div class="inline-block">
                                 <p class="font18 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %>
-                                    <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower).Equals("--") ? "hide":"text-uppercase" %>'>ps</span>
+                                    <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower).Equals("--") ? "hide":"" %>'>bhp</span>
                                 </p>
                                 <p class="font16 text-light-grey">Max power</p>
                             </div>

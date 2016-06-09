@@ -25,6 +25,7 @@ namespace Bikewale.Mobile.Controls
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
         public ushort TopCount { get; set; }
+        public bool IsDiscontinued { get; set; }
         protected bool showWidget = false;
         protected string make = string.Empty;
         protected string model = string.Empty;

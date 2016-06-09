@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.News_Widget" %>
 <div id="ctrlNews">
-    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
     <div id="modelNewsContent" class="bw-model-tabs-data padding-top20 font14">
         <h2 class="padding-left20 padding-right20"><%=WidgetTitle %> News</h2>
         <!-- when one news -->
