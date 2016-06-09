@@ -13,7 +13,7 @@
                 </div>
                 <div class="grid-8 alpha omega">
                     <h3 class="margin-top5">
-                        <a href="" class="font16 text-black"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a></h3>
+                        <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="font16 text-black"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a></h3>
                     <p class="text-light-grey margin-bottom15">Updated on <span><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"MMMM dd, yyyy") %></span></p>
                     <div class="grid-3 alpha omega border-solid-right font14">
                         <span class="bwsprite video-views-icon margin-right5"></span>
