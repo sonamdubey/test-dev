@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
+using System.Data.Common;
 
 namespace Bikewale.News
 {
@@ -45,8 +46,8 @@ namespace Bikewale.News
 
         public int totalPages = 1;
 
-        private SqlCommand _cmdParamQ = null;
-        private SqlCommand _cmdParamR = null;
+        private DbCommand _cmdParamQ = null;
+        private DbCommand _cmdParamR = null;
 
         private DataSet _dataSetTags = null;
         private DataSet _dataSetSubCat = null;
@@ -115,7 +116,7 @@ namespace Bikewale.News
         } // RecordCount
 
         // This property hold all the CmdParam
-        public SqlCommand CmdParamQ //command variable to store the parameters for query
+        public DbCommand CmdParamQ //command variable to store the parameters for query
         {
             get
             {
@@ -127,7 +128,7 @@ namespace Bikewale.News
             }
         } // CmdParam
 
-        public SqlCommand CmdParamR	//command variable for the record count
+        public DbCommand CmdParamR	//command variable for the record count
         {
             get
             {
@@ -207,8 +208,8 @@ namespace Bikewale.News
         }
 
         //added by : Ashwini Todkar on 21 jan 2014
-        SqlCommand _CmdParamQry;
-        public SqlCommand CmdParamQry //command variable to store the parameters for query
+        DbCommand _CmdParamQry;
+        public DbCommand CmdParamQry //command variable to store the parameters for query
         {
             get { return _CmdParamQry; }
             set { _CmdParamQry = value; }

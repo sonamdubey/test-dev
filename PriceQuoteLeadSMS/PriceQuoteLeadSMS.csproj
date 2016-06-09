@@ -59,8 +59,6 @@
     <Compile Include="AutoBizAdapter.cs" />
     <Compile Include="TCApi_Inquiry.cs" />
     <Compile Include="LeadNotificationEntity.cs" />
-    <Compile Include="LeadSMS.cs" />
-    <Compile Include="LeadSMSDAL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SMSCommon.cs" />

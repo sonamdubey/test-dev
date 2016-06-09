@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Web;
 using Bikewale.Notifications;
+using System.Data.Common;
 
 namespace Bikewale.DAL.Location
 {
@@ -27,7 +28,7 @@ namespace Bikewale.DAL.Location
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetStates"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getstates"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 

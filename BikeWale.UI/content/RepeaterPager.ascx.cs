@@ -12,6 +12,7 @@ using System.Web.Security;
 using System.Xml;
 using Bikewale.Common;
 using System.Text.RegularExpressions;
+using System.Data.Common;
 
 namespace Bikewale.Content
 {
@@ -46,8 +47,8 @@ namespace Bikewale.Content
 
         public int totalPages = 1;
 
-        private SqlCommand _cmdParamQ = null;
-        private SqlCommand _cmdParamR = null;
+        private DbCommand _cmdParamQ = null;
+        private DbCommand _cmdParamR = null;
 
 
         /******************************************************************************************/
@@ -113,7 +114,7 @@ namespace Bikewale.Content
         } // RecordCount
 
         // This property hold all the CmdParam
-        public SqlCommand CmdParamQ //command variable to store the parameters for query
+        public DbCommand CmdParamQ //command variable to store the parameters for query
         {
             get
             {
@@ -125,7 +126,7 @@ namespace Bikewale.Content
             }
         } // CmdParam
 
-        public SqlCommand CmdParamR	//command variable for the record count
+        public DbCommand CmdParamR	//command variable for the record count
         {
             get
             {

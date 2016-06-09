@@ -183,7 +183,7 @@ namespace Bikewale.Common
 
             //if (currentId != "")
             //{
-            //    SqlCommand cmd = new SqlCommand();
+             //   SqlCommand cmd = new SqlCommand();
             //    Database db = new Database();
 
             //    string sql = "UPDATE SMSSent SET ReturnedMsg = @RetMsg WHERE ID = @CurrentId";

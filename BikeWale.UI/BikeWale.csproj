@@ -364,10 +364,6 @@
     <Compile Include="common\UrlRewrite.cs" />
     <Compile Include="common\Validations.cs" />
     <Compile Include="community\pms\CommonMessage.cs" />
-    <Compile Include="content\ComparisonTest\DefaultCT.aspx.cs">
-      <DependentUpon>DefaultCT.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="content\ComparisonTest\ViewCT.aspx.cs">
       <DependentUpon>ViewCT.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -390,10 +386,6 @@
     </Compile>
     <Compile Include="content\RoadTest\ViewRT.aspx.cs">
       <DependentUpon>ViewRT.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\TipsAdvices\DefaultTA.aspx.cs">
-      <DependentUpon>DefaultTA.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\TipsAdvices\ViewTA.aspx.cs">
@@ -606,14 +598,6 @@
     </Compile>
     <Compile Include="controls\RepeaterPagerAdvanced.ascx.cs">
       <DependentUpon>RepeaterPagerAdvanced.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\RepeaterPagerAjax.ascx.cs">
-      <DependentUpon>RepeaterPagerAjax.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\RepeaterPagerPhotoGallery.ascx.cs">
-      <DependentUpon>RepeaterPagerPhotoGallery.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\RepeaterPagerUsed.ascx.cs">
@@ -1085,9 +1069,6 @@
     </Compile>
     <Compile Include="new\common\CompareBikes.cs" />
     <Compile Include="new\common\ModelPhotoGallery.cs" />
-    <Compile Include="new\common\ParseSearchCriteria.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\compare\BikeComparison.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -1130,20 +1111,12 @@
       <DependentUpon>othermodelsgallery.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\photos\similargallery.aspx.cs">
-      <DependentUpon>similargallery.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\search_old.aspx.cs">
       <DependentUpon>search_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\search_result.aspx.cs">
-      <DependentUpon>search_result.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\Specs.aspx.cs">
@@ -1156,10 +1129,6 @@
     </Compile>
     <Compile Include="new\upcomingbikes\UpcomingBikesList.aspx.cs">
       <DependentUpon>UpcomingBikesList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\VersionSpecs.aspx.cs">
-      <DependentUpon>VersionSpecs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="offerterms.aspx.cs">
@@ -1667,14 +1636,12 @@
     <Content Include="bin\Newtonsoft.Json.dll" />
     <!--     <Content Include="bin\Newtonsoft.Json.xml" /> -->
     <Content Include="contactus.aspx" />
-    <Content Include="content\ComparisonTest\DefaultCT.aspx" />
     <Content Include="content\ComparisonTest\ViewCT.aspx" />
     <Content Include="content\Features\DefaultF.aspx" />
     <Content Include="content\Features\ViewF.aspx" />
     <Content Include="content\RepeaterPager.ascx" />
     <Content Include="content\RoadTest\DefaultRT.aspx" />
     <Content Include="content\RoadTest\ViewRT.aspx" />
-    <Content Include="content\TipsAdvices\DefaultTA.aspx" />
     <Content Include="content\TipsAdvices\ViewTA.aspx" />
     <Content Include="content\UserReviews\DefaultUR.aspx" />
     <Content Include="content\UserReviews\ListReviews.aspx" />
@@ -1734,8 +1701,6 @@
     <Content Include="controls\RegisterControl.ascx" />
     <Content Include="controls\RepeaterPager.ascx" />
     <Content Include="controls\RepeaterPagerAdvanced.ascx" />
-    <Content Include="controls\RepeaterPagerAjax.ascx" />
-    <Content Include="controls\RepeaterPagerPhotoGallery.ascx" />
     <Content Include="controls\RepeaterPagerUsed.ascx" />
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="controls\RoadTest.ascx" />
@@ -2333,6 +2298,7 @@
     <Content Include="m\videos\VideoCategories.aspx" />
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
+    <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="new\locatenewbikedealers_old.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\ModelPricesInCity.aspx" />
@@ -2364,7 +2330,6 @@
     <Content Include="News\Default.aspx" />
     <Content Include="News\news.aspx" />
     <Content Include="News\newsfeed.aspx" />
-    <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="News\Sitemap.aspx" />
     <Content Include="new\bikeseries.aspx" />
     <Content Include="new\browsenewbikedealerdetails.aspx" />
@@ -2378,13 +2343,10 @@
     <Content Include="new\newbikelaunch\Default.aspx" />
     <Content Include="new\photos\Default.aspx" />
     <Content Include="new\photos\othermodelsgallery.aspx" />
-    <Content Include="new\photos\similargallery.aspx" />
     <Content Include="new\search_old.aspx" />
-    <Content Include="new\search_result.aspx" />
     <Content Include="new\Specs.aspx" />
     <Content Include="new\upcomingbikes\upcomingbikesfeed.aspx" />
     <Content Include="new\upcomingbikes\UpcomingBikesList.aspx" />
-    <Content Include="new\VersionSpecs.aspx" />
     <Content Include="pagenotfound.aspx" />
     <Content Include="Partners.aspx" />
     <Content Include="PQCertificate.aspx" />
@@ -2618,7 +2580,9 @@
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50080</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>         
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
