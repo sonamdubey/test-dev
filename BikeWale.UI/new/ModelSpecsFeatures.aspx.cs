@@ -190,12 +190,12 @@ namespace Bikewale.New
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {
                                 // Check it versionId passed through url exists in current model's versions
-                                if (!modelPg.ModelVersions.Exists(p => p.VersionId == versionId))
+                                if (this.versionId == 0)
                                 {
                                     this.versionId = modelPg.ModelVersionSpecs.BikeVersionId;
                                 }
                                 modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._272x153);
-                                var selectedVersion = modelPg.ModelVersions.First(p => p.VersionId == versionId);
+                                var selectedVersion = modelPg.ModelVersions.First(p => p.VersionId == this.versionId);
                                 if (selectedVersion != null)
                                 {
                                     price = Convert.ToUInt32(selectedVersion.Price);

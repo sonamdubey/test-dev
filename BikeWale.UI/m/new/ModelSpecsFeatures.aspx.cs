@@ -57,7 +57,7 @@ namespace Bikewale.Mobile
         {
             ProcessQueryString();
 
-            modelDetail = FetchModelPageDetails(modelId);
+            modelDetail = FetchModelPageDetails(modelId, versionId);
             if (modelDetail != null)
             {
                 CheckCityCookie();
@@ -156,7 +156,7 @@ namespace Bikewale.Mobile
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   18 Nov 2015
         /// </summary>
-        private BikeModelPageEntity FetchModelPageDetails(uint modelID)
+        private BikeModelPageEntity FetchModelPageDetails(uint modelID, uint versionId)
         {
             modelPg = new BikeModelPageEntity();
             try
@@ -170,35 +170,37 @@ namespace Bikewale.Mobile
                                  .RegisterType<ICacheManager, MemcacheManager>();
                         var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                         modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID));
-                        if (modelPg != null)
+                        if (modelPg != null && modelPg.ModelDetails != null)
                         {
-                            if (modelPg.ModelDetails != null)
+                            if (modelPg.ModelDetails.ModelName != null)
                             {
-                                if (modelPg.ModelDetails.ModelName != null)
-                                    modelName = modelPg.ModelDetails.ModelName;
-                                if (modelPg.ModelDetails.MakeBase != null)
-                                {
-                                    makeName = modelPg.ModelDetails.MakeBase.MakeName;
-                                    makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
-                                }
-                                bikeName = string.Format("{0} {1}", makeName, modelName);
-                                if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
-                                {
-                                    if (!modelPg.ModelVersions.Exists(p => p.VersionId == versionId))
-                                    {
-                                        versionId = modelPg.ModelVersionSpecs.BikeVersionId;
-                                    }
-                                    modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._272x153);
-                                    var selectedVersion = modelPg.ModelVersions.First(p => p.VersionId == versionId);
-                                    if (selectedVersion != null)
-                                    {
-                                        price = Convert.ToUInt32(selectedVersion.Price);
-                                        versionName = selectedVersion.VersionName;
-                                    }
-                                }
-                                if (!modelPg.ModelDetails.New)
-                                    isDiscontinued = true;
+                                modelName = modelPg.ModelDetails.ModelName;
                             }
+                            if (modelPg.ModelDetails.MakeBase != null)
+                            {
+                                makeName = modelPg.ModelDetails.MakeBase.MakeName;
+                                makeMaskingName = modelPg.ModelDetails.MakeBase.MaskingName;
+                            }
+                            bikeName = string.Format("{0} {1}", makeName, modelName);
+                            if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
+                            {
+                                // Check it versionId passed through url exists in current model's versions
+                                if (this.versionId == 0)
+                                {
+                                    this.versionId = modelPg.ModelVersionSpecs.BikeVersionId;
+                                }
+                                modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._272x153);
+                                var selectedVersion = modelPg.ModelVersions.First(p => p.VersionId == this.versionId);
+                                if (selectedVersion != null)
+                                {
+                                    price = Convert.ToUInt32(selectedVersion.Price);
+                                    versionName = selectedVersion.VersionName;
+                                }
+                                //versionName = modelPg.ModelVersions.Find(item => item.VersionId == versionId).VersionName;
+                            }
+                            if (!modelPg.ModelDetails.New)
+                                isDiscontinued = true;
+
                         }
                     }
                 }
