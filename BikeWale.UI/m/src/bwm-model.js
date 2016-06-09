@@ -705,9 +705,9 @@ $(window).scroll(function () {
     footerHt = $('footer').height();
     scrollPosition = $(this).scrollTop();
     if (scrollPosition + $(window).height() > (bodHt - footerHt))
-        $('.float-button').removeClass('float-fixed');
+        $('.float-button').hide().removeClass('float-fixed');
     else
-        $('.float-button').addClass('float-fixed');
+        $('.float-button').show().addClass('float-fixed');
 });
 
 var sortByDiv = $(".sort-div"),
