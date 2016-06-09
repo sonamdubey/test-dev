@@ -365,6 +365,7 @@
                     $("body, html").animate({
                         scrollTop: $("#" + hashValue).offset().top - $('.model-details-floating-card').height()
                     }, 500);
+                    $('.overall-specs-tabs-wrapper a[href="#'+ hashValue +'"]').trigger('click').addClass('active');
                 }
             });
             $(document).ready(function () {
@@ -374,33 +375,15 @@
                     modelSpecsFeaturesFooter = $('#modelSpecsFeaturesFooter');
 
                 $('#modelFloatingCardContent').css({ 'height': modelDetailsFloatingCard.height() });
-
-                var breadcrumbFlag,
-                    breadcrumbDiv = $('.breadcrumb');
-
+                
                 $(window).scroll(function () {
                     var windowScrollTop = $window.scrollTop(),
                         modelCardAndDetailsOffsetTop = modelCardAndDetailsWrapper.offset().top,
-                        modelSpecsFeaturesFooterOffsetTop = modelSpecsFeaturesFooter.offset().top,
-                        breadcrumbOffsetTop = breadcrumbDiv.offset().top;
+                        modelSpecsFeaturesFooterOffsetTop = modelSpecsFeaturesFooter.offset().top;
 
-                    if (breadcrumbOffsetTop < 100)
-                        breadcrumbFlag = true;
-                    else
-                        breadcrumbFlag = false;
-
-                    if(!breadcrumbFlag) {
-                        if (windowScrollTop > modelCardAndDetailsOffsetTop + 90)
-                            modelDetailsFloatingCard.addClass('fixed-card');
-                    }
-
-                    else if (windowScrollTop < modelCardAndDetailsOffsetTop + 90)
-                        modelDetailsFloatingCard.removeClass('fixed-card');
-
-                    if(breadcrumbFlag) {
-                        if (windowScrollTop > modelCardAndDetailsOffsetTop)
-                            modelDetailsFloatingCard.addClass('fixed-card');
-                    }
+                    
+                    if (windowScrollTop > modelCardAndDetailsOffsetTop)
+                        modelDetailsFloatingCard.addClass('fixed-card');
 
                     else if (windowScrollTop < modelCardAndDetailsOffsetTop)
                         modelDetailsFloatingCard.removeClass('fixed-card');
