@@ -124,7 +124,7 @@ namespace Bikewale.Memcache
                     if (param != null)
                     {
                         //cmd.Parameters.Add(param.ParameterName, param.SqlDbType).Value = param.Value;
-                        cmd.Parameters.Add(DbFactory.GetDbParam(param.ParameterName.ToLower(), DbParamTypeMapper.GetInstance[param.SqlDbType], param.Value));
+                        cmd.Parameters.Add(DbFactory.GetDbParam(param.ParameterName.ToLower(), param.DbType, param.Value));
                         HttpContext.Current.Trace.Warn("Added " + param.ParameterName + " with value " + param.Value.ToString() + " to SP " + spName);
                     }
 
