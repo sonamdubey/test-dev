@@ -47,11 +47,11 @@ $(document).ready(function (e) {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_More_Details_Shown", "lab": bikeVersionLocation });
     }
     if ($('#btnGetOnRoadPrice').length > 0) {
-        dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_On_Road_Price_Button_Shown", "lab": myBikeName + "_" + getBikeVersion() });
+        dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_On_Road_Price_Button_Shown", "lab": myBikeName + "_" + getBikeVersion() });
     }
     if ($('#getassistance').length > 0)
     {
-        dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": bikeVersionLocation });
+        dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": bikeVersionLocation });
     }
 });
 
@@ -229,7 +229,8 @@ function CustomerModel() {
             if (self.IsValid()) {                             
                 if ($("#leadCapturePopup").css('display') === 'none') {
                     $("#leadCapturePopup").show();
-                    $(".blackOut-window-model").show();
+                    //$(".blackOut-window-model").show();
+                    popup.lock();
                 }
                 $("#contactDetailsPopup,#otpPopup").hide();
                 $('#notify-response .notify-leadUser').text(self.fullName());
@@ -241,6 +242,9 @@ function CustomerModel() {
                 }
                 else if (event.target.id == "assistFormSubmit") {
                     dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeVersionLocation });
+                }
+                else if (leadSourceId == "24") {
+                    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Floating_Card_" + bikeVersionLocation });
                 }
                 else {
                     dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": bikeVersionLocation });
@@ -273,6 +277,9 @@ function CustomerModel() {
             }
             else if (event.target.id == "assistFormSubmit") {
                 dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeVersionLocation });
+            }
+            else if (leadSourceId == "24") {
+                dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": "Floating_Card_" + bikeVersionLocation });
             }
             else {
                 dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Lead_Submitted", "lab": bikeVersionLocation });
@@ -910,24 +917,22 @@ $("input[name*='btnVariant']").on("click", function () {
 
 var getOffersClick = false;
 
-$("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign, #getassistance").on("click", function () {
+$("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign, #getassistance, #getOffersFromDealerFloating").on("click", function () {
     leadSourceId = $(this).attr("leadSourceId");
     $("#leadCapturePopup").show();
-    $('body').addClass('lock-browser-scroll');
-    $(".blackOut-window-model").show();
+    popup.lock();
     if ($(this).attr("id") == "getassistance") {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_Offers_Clicked", "lab": bikeVersionLocation });
         getOffersClick = true;
     }
-    else {
+    else if (leadSourceId != "24") {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_More_Details_Clicked", "lab": bikeVersionLocation });
     }  
 });
 
-$(".leadCapture-close-btn, .blackOut-window-model, #notifyOkayBtn").on("click", function () {
+$(".leadCapture-close-btn, .blackOut-window, #notifyOkayBtn").on("click", function () {
     leadCapturePopup.hide();
-    $('body').removeClass('lock-browser-scroll');
-    $(".blackOut-window-model").hide();
+    popup.unlock();
     $("#contactDetailsPopup").show();
     $("#otpPopup,#notify-response").hide();   
 });
@@ -937,12 +942,12 @@ $("#viewBreakupText").on('click', function (e) {
     secondarydealer_Click(dealerId);
 });
 
-$(".breakupCloseBtn,.blackOut-window").on('mouseup click',function (e) {         
+$(".breakupCloseBtn,.blackOut-window").on('click',function (e) {         
     $("div#breakupPopUpContainer").hide();
     $(".blackOut-window").hide();        
 });
 
-$(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+$(".termsPopUpCloseBtn,.blackOut-window").on('click', function (e) {
     $("div#termsPopUpContainer").hide();
     $(".blackOut-window").hide();
 });
@@ -1081,4 +1086,104 @@ var assistFormSubmit = $('#assistFormSubmit'),
 assistFormSubmit.on('click', function () {
     leadSourceId = $(this).attr("leadSourceId");
     ValidateUserDetail(assistGetName, assistGetEmail, assistGetMobile);    
+});
+
+
+//
+$(document).ready(function () {
+    modelPriceCarouselPagination();
+
+    var modelPrice = $('#scrollFloatingButton'),
+        $window = $(window),
+        modelDetailsFloatingCard = $('#modelDetailsFloatingCardContent'),
+        modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper');
+
+    var modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
+        overallSpecsDetailsFooter = $('#overallSpecsDetailsFooter'),
+        topNavBar = $('.model-details-floating-card');
+
+    $(window).scroll(function () {
+        var windowScrollTop = $window.scrollTop(),
+            modelPriceOffsetTop = modelPrice.offset().top,
+            modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top;
+
+        if (windowScrollTop > modelPriceOffsetTop + 40) {
+            modelDetailsFloatingCard.addClass('fixed-card');
+            if (windowScrollTop > modelSpecsTabsOffsetTop - topNavBar.height()) {
+                modelDetailsFloatingCard.addClass('activate-tabs');
+            }
+        }
+        else if (windowScrollTop < modelPriceOffsetTop + 40) {
+            modelDetailsFloatingCard.removeClass('fixed-card');
+        }
+
+        if (modelDetailsFloatingCard.hasClass('activate-tabs')) {
+            if (windowScrollTop < modelSpecsTabsOffsetTop + 43 - topNavBar.height())
+                modelDetailsFloatingCard.removeClass('activate-tabs');
+            if (windowScrollTop > overallSpecsDetailsFooter.offset().top - topNavBar.height())
+                modelDetailsFloatingCard.removeClass('fixed-card');
+        }
+
+
+        $('#modelSpecsTabsContentWrapper .bw-model-tabs-data').each(function () {
+            var top = $(this).offset().top - topNavBar.height(),
+            bottom = top + $(this).outerHeight();
+            if (windowScrollTop >= top && windowScrollTop <= bottom) {
+                topNavBar.find('a').removeClass('active');
+                $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+
+                $(this).addClass('active');
+                topNavBar.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+            }
+        });
+
+    });
+    
+
+    $('.overall-specs-tabs-wrapper a[href^="#"]').click(function () {
+        var target = $(this.hash);
+        if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
+        if (target.length == 0) target = $('html');
+        $('html, body').animate({ scrollTop: target.offset().top - topNavBar.height() }, 1000);
+        return false;
+    });
+
+});
+
+$(window).resize(function () {
+    modelPriceCarouselPagination();
+});
+
+var modelPriceCarouselPagination = function () {
+    var modelPriceCarousel = $('#modelPricesContent .jcarousel-pagination a'),
+        modelPricePaginationLength = modelPriceCarousel.length;
+    if (modelPricePaginationLength < 3) {
+        modelPriceCarousel.each(function () {
+            $(this).remove();
+        });
+    }
+    else if (modelPricePaginationLength >= 3) {
+        modelPriceCarousel.each(function () {
+            var anchorTag = $(this).attr('href');
+            var anchorTarget = anchorTag.substr(1, anchorTag.length);
+            if (anchorTarget % 2 == 0)
+                $(this).remove();
+        });
+    }
+};
+
+$('a.read-more-model-preview').click(function () {
+    if (!$(this).hasClass('open')) {
+        $('.model-preview-main-content').hide();
+        $('.model-preview-more-content').show();
+        $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+        $(this).addClass("open");
+    }
+    else if ($(this).hasClass('open')) {
+        $('.model-preview-main-content').show();
+        $('.model-preview-more-content').hide();
+        $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+        $(this).removeClass('open');
+    }
+
 });

@@ -88,7 +88,7 @@
                                 <% if (isOfferAvailable)
                                    { %>
                                 <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 font-24"></span>Book online and avail </h3>
-                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee margin-right5" style="font-size: 15px"></span><span class="font16 margin-right5" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and avail</h3>
+                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="bwsprite inr-lg"></span>&nbsp;<span class="font16 margin-right5" data-bind="text : $root.Bike().bookingAmount()"></span>&nbsp;to book your bike and avail</h3>
 
                                 <ul>
                                     <asp:Repeater ID="rptDealerFinalOffers" runat="server">
@@ -103,7 +103,7 @@
                                 <%}
                                    else
                                    {%>
-                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee margin-right5" style="font-size: 15px"></span><span class="font16 margin-right5" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
+                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="bwsprite inr-lg"></span>&nbsp;<span class="font16 margin-right5" data-bind="text : $root.Bike().bookingAmount()"></span>&nbsp;to book your bike</h3>
                                 <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Get following details on the bike</h3>
                                 <ul>
                                     <li>Offers from the nearest dealers</li>
@@ -124,8 +124,8 @@
                                 <p class="font18 margin-bottom20">Verify your mobile number</p>
                                 <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
                                 <div>
-                                    <div class="lead-mobile-box lead-otp-box-container font22" style="display: block;">
-                                        <span class="fa fa-phone"></span>
+                                    <div class="lead-mobile-box lead-otp-box-container" style="display: block;">
+                                        <span class="bwsprite phone-grey-icon"></span>
                                         <span class="text-light-grey font24">+91</span>
                                         <span class="lead-mobile font24" data-bind="text : MobileNo"></span>
                                         <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
@@ -179,7 +179,7 @@
                                                 <span class="leftfloat select-btn font14" data-bind="text : selectedVersion().MinSpec.VersionName,attr:{versionId:selectedVersion().MinSpec.VersionId}"></span>
                                                 <span class="clear"></span>
                                             </div>
-                                            <span class="upDownArrow rightfloat fa fa-angle-down position-abt pos-right10"></span>
+                                            <span class="upDownArrow rightfloat fa fa-angle-down position-abt pos-top13 pos-right10"></span>
                                         </div>
                                         <div class="select-dropdown-list hide">
                                             <ul>
@@ -207,7 +207,7 @@
                                                 <span class="leftfloat select-btn font14" data-bind="text:selectedColor().ColorName"></span>
                                                 <span class="clear"></span>
                                             </div>
-                                            <span class="upDownArrow rightfloat fa fa-angle-down position-abt pos-right10"></span>
+                                            <span class="upDownArrow rightfloat fa fa-angle-down position-abt pos-top13 pos-right10"></span>
                                         </div>
                                         <div class="select-dropdown-list hide">
                                             <ul data-bind="foreach: versionColors">
@@ -229,7 +229,7 @@
                                         <p>On road price <span class="viewBreakupText text-blue text-link">(View breakup)</span></p>
                                         <div>
                                             <!-- ko if : versionPrice() > 0 -->
-                                            <span class="fa fa-rupee"></span>
+                                            <span class="bwsprite inr-lg"></span>
                                             <span data-bind="CurrencyText: versionPrice() - totalDiscount()"></span>
                                             <!-- /ko -->
                                             <!-- ko ifnot : (versionPrice() > 0) -->
@@ -240,7 +240,7 @@
                                     <li>
                                         <p>Booking amount:</p>
                                         <div>
-                                            <span class="fa fa-rupee"></span>
+                                            <span class="bwsprite inr-lg"></span>
                                             <span data-bind="CurrencyText: ($root.Bike().bookingAmount()> 0)?$root.Bike().bookingAmount():'Price unavailable'"></span>
                                         </div>
                                         <a class='viewBreakupText blue' id="cancellation-box" href="#">Hassle-free cancellation</a>
@@ -248,7 +248,7 @@
                                     <li>
                                         <p>Balance amount payable:</p>
                                         <div>
-                                            <span class="fa fa-rupee"></span>
+                                            <span class="bwsprite inr-lg"></span>
                                             <span data-bind="CurrencyText: remainingAmount()"></span>
                                         </div>
                                     </li>
@@ -261,13 +261,13 @@
                             <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
                                 <div class="breakupCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
                                 <div class="breakup-text-container padding-bottom10">
-                                    <h3 class="breakup-header font26 margin-bottom20"><span data-bind="text : bikeName()"></span><span class="font14 text-light-grey ">(On road price breakup)</span></h3>
-                                    <table id="model-view-breakup" class="font16">
+                                    <h3 class="breakup-header font22 margin-bottom20"><span data-bind="text : bikeName()"></span><span class="font14 text-light-grey ">&nbsp;(On road price breakup)</span></h3>
+                                    <table id="model-view-breakup" class="font16" width="100%">
                                         <tbody>
                                             <!-- ko foreach: versionPriceBreakUp -->
                                             <tr>
-                                                <td width="350" class="padding-bottom10" data-bind="text: ItemName"></td>
-                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                                <td width="450" class="padding-bottom10" data-bind="text: ItemName"></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="bwsprite inr-lg"></span>&nbsp;<span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
                                             <!-- /ko -->
                                             <%if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null
@@ -280,12 +280,12 @@
                                             </tr>
                                             <tr>
                                                 <td class="padding-bottom10">Total on road price</td>
-                                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
+                                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="bwsprite inr-lg"></span>&nbsp;<span data-bind="CurrencyText: versionPrice()"></span></td>
                                             </tr>
                                             <!-- ko foreach: discountList -->
                                             <tr>
-                                                <td width="350" class="padding-bottom10" data-bind="text: 'Minus ' + CategoryName"></td>
-                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                                <td width="450" class="padding-bottom10" data-bind="text: 'Minus ' + CategoryName"></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="bwsprite inr-lg"></span>&nbsp;<span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
                                             <!-- /ko -->
                                             <% } %>
@@ -305,7 +305,7 @@
                                             <tr>
 
                                                 <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
+                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="bwsprite inr-lg"></span>&nbsp;<span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
 
                                             </tr>
                                             <tr>
@@ -345,7 +345,7 @@
                                     <% if (isOfferAvailable)
                                        { %>
                                     <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 font-24"></span>Available Offers </h3>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="bwsprite inr-lg"></span>&nbsp;<span class="font16" data-bind="text : $root.Bike().bookingAmount()"></span>&nbsp;to book your bike and get:</h3>
 
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
@@ -361,7 +361,7 @@
                                        else
                                        {%>
                                     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="bwsprite inr-lg"></span>&nbsp;<span class="font16" data-bind="text : $root.Bike().bookingAmount()"></span>&nbsp;to book your bike</h3>
                                     <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                                     <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: $root.Dealer().latitude(), longitude: $root.Dealer().longitude() }"></div>
 

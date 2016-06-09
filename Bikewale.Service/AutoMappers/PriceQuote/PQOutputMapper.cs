@@ -4,10 +4,6 @@ using Bikewale.DTO.Model;
 using Bikewale.DTO.Series;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.PriceQuote
 {
@@ -17,6 +13,12 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
         {
             Mapper.CreateMap<PQOutputEntity, Bikewale.DTO.PriceQuote.PQOutput>();
             return Mapper.Map<PQOutputEntity, Bikewale.DTO.PriceQuote.PQOutput>(objPQOutput);
+        }
+
+        internal static DTO.PriceQuote.v2.PQOutput ConvertV2(Entities.BikeBooking.PQOutputEntity objPQOutput)
+        {
+            Mapper.CreateMap<PQOutputEntity, Bikewale.DTO.PriceQuote.v2.PQOutput>();
+            return Mapper.Map<PQOutputEntity, Bikewale.DTO.PriceQuote.v2.PQOutput>(objPQOutput);
         }
 
         internal static DTO.Model.ModelDetail Convert(Entities.BikeData.BikeModelEntity objModel)

@@ -23,9 +23,11 @@
 <body class="bg-light-grey">
     <!-- #include file="/includes/Navigation_Mobile.aspx" -->
     <section>            
-        <div>
-            <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
-        </div>
+        <div class="container">
+            <div>
+                 <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+            </div>
+        </div>     
     </section>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
@@ -150,7 +152,7 @@
                                             </div>
                                         </div>
                                         <div class="clear"></div>
-                                        <a data-bind="attr: { modelId: bikemodel.modelId , pqSourceId : '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch%>    '}" class="btn btn-sm btn-white margin-top10 fillPopupData">Check On-Road Price</a>
+                                        <a data-bind="attr: { modelId: bikemodel.modelId , pqSourceId : '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch%>    '}" class="btn btn-sm btn-white margin-top10 fillPopupData" rel="nofollow">Check on-road price</a>
                                     </div>
                                 </div>
                             </div>

@@ -7,6 +7,7 @@
 <%@ Register Src="~/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/OnRoadPriceQuote.ascx" TagName="OnRoadPriceQuote" TagPrefix="BW" %>
 
+<!doctype html>
 <html>
 <head>
     <%
@@ -89,7 +90,7 @@
                                             <li>
                                                 <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-bikes/">
                                                     <span class="brand-type">                                                        
-                                                	<span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                                	    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>"></span>
                                                     </span>
                                                     <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                                 </a>
@@ -104,14 +105,12 @@
                                     <asp:Repeater ID="rptOtherBrands" runat="server">
                                         <ItemTemplate>
                                             <li>
-
                                                 <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-bikes/">
                                                     <span class="brand-type">
-                                                        <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                                        <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>"></span>
                                                     </span>
                                                     <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                                 </a>
-
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -128,9 +127,9 @@
                                         <a href="/new/search.aspx#budget=0-50000">
                                             <span class="budget-title-box font16">Upto
                                             </span>
-                                            <span class="budget-amount-box font20">
-                                                <span class="fa fa-rupee"></span>
-                                                <span class="font24">50,000</span>
+                                            <span class="budget-amount-box">
+                                                <span class="bwsprite inr-budget"></span>
+                                                <span class="font20">50,000</span>
                                             </span>
                                         </a>
                                     </li>
@@ -138,11 +137,11 @@
                                         <a href="/new/search.aspx#budget=50000-100000">
                                             <span class="budget-title-box font16">Between
                                             </span>
-                                            <span class="budget-amount-box font20">
-                                                <span class="fa fa-rupee"></span>
-                                                <span class="font24">50,000 - </span>
-                                                <span class="fa fa-rupee"></span>
-                                                <span class="font24">1</span>
+                                            <span class="budget-amount-box">
+                                                <span class="bwsprite inr-budget"></span>
+                                                <span class="font20">50,000 - </span>
+                                                <span class="bwsprite inr-budget"></span>
+                                                <span class="font20">1</span>
                                                 <span class="budget-amount-text-box font16">Lakhs</span>
                                             </span>
                                         </a>
@@ -151,13 +150,13 @@
                                         <a href="/new/search.aspx#budget=100000-250000">
                                             <span class="budget-title-box font16">Between
                                             </span>
-                                            <span class="budget-amount-box font20">
-                                                <span class="fa fa-rupee"></span>
-                                                <span class="font24">1</span>
+                                            <span class="budget-amount-box">
+                                                <span class="bwsprite inr-budget"></span>
+                                                <span class="font20">1</span>
                                                 <span class="budget-amount-text-box font16">Lakhs</span>
-                                                <span class="font24">- </span>
-                                                <span class="fa fa-rupee"></span>
-                                                <span>2.5</span>
+                                                <span>- </span>
+                                                <span class="bwsprite inr-budget"></span>
+                                                <span class="font20">2.5</span>
                                                 <span class="budget-amount-text-box font16">Lakhs</span>
                                             </span>
                                         </a>
@@ -166,9 +165,9 @@
                                         <a href="/new/search.aspx#budget=250000-">
                                             <span class="budget-title-box font16">Above
                                             </span>
-                                            <span class="budget-amount-box font20">
-                                                <span class="fa fa-rupee"></span>
-                                                <span class="font24">2.5</span>
+                                            <span class="budget-amount-box">
+                                                <span class="bwsprite inr-budget"></span>
+                                                <span class="font20">2.5</span>
                                                 <span class="budget-amount-text-box font16">Lakhs</span>
                                             </span>
                                         </a>
@@ -183,7 +182,7 @@
                                         <a href="/new/search.aspx#mileage=1">
                                             <span class="mileage-title-box font16">Above
                                             </span>
-                                            <span class="mileage-amount-box font24">
+                                            <span class="mileage-amount-box font20">
                                                 <span>70 <span class="font16">Kmpl</span></span>
                                             </span>
                                         </a>
@@ -192,10 +191,10 @@
                                         <a href="/new/search.aspx#mileage=2">
                                             <span class="mileage-title-box font16">Between
                                             </span>
-                                            <span class="mileage-amount-box font24">
-                                                <span>70</span>
+                                            <span class="mileage-amount-box">
+                                                <span class="font20">70</span>
                                                 <span class="mileage-amount-text-box font16">Kmpl</span>
-                                                <span>- 50</span>
+                                                <span class="font20">- 50</span>
                                                 <span class="mileage-amount-text-box font16">Kmpl</span>
                                             </span>
                                         </a>
@@ -204,10 +203,10 @@
                                         <a href="/new/search.aspx#mileage=3">
                                             <span class="mileage-title-box font16">Between
                                             </span>
-                                            <span class="mileage-amount-box font24">
-                                                <span>50</span>
+                                            <span class="mileage-amount-box">
+                                                <span class="font20">50</span>
                                                 <span class="mileage-amount-text-box font16">Kmpl</span>
-                                                <span>- 30</span>
+                                                <span class="font20">- 30</span>
                                                 <span class="mileage-amount-text-box font16">Kmpl</span>
                                             </span>
                                         </a>
@@ -216,8 +215,8 @@
                                         <a href="/new/search.aspx#mileage=4">
                                             <span class="mileage-title-box font16">Upto
                                             </span>
-                                            <span class="mileage-amount-box font24">
-                                                <span>30</span>
+                                            <span class="mileage-amount-box">
+                                                <span class="font20">30</span>
                                                 <span class="mileage-amount-text-box font16">Kmpl</span>
                                             </span>
                                         </a>
@@ -328,13 +327,13 @@
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
                                     <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">
-                                        <h3>News</h3>
+                                        <h3 class="text-unbold">News</h3>
                                     </li>
                                     <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">
-                                        <h3>Expert Reviews</h3>
+                                        <h3 class="text-unbold">Expert Reviews</h3>
                                     </li>
                                     <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">
-                                        <h3>Videos</h3>
+                                        <h3 class="text-unbold">Videos</h3>
                                     </li>
                                 </ul>
                             </div>

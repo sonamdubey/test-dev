@@ -1,12 +1,12 @@
 ﻿<meta charset="utf-8">
 <script language="c#" runat="server">
-    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", canonical = "", TargetedModel = "", TargetedMakes = "", TargetedModels = "", TargetedCity = ""
+    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", canonical = "", TargetedModel = "", TargetedMakes = "", TargetedModels = "", TargetedCity = ""
         , OGImage = "";
     private ushort feedbackTypeId = 0;
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false, Ad320x150_I = false, Ad320x150_II = false,
-        EnableOG = false;    
+        EnableOG = true;    
 </script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title><%=title %></title>
@@ -14,7 +14,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
 <% if(!String.IsNullOrEmpty(keywords)) { %><meta name="keywords" content="<%= keywords %>" /><% } %>
-<%if(!String.IsNullOrEmpty(canonical)) { %>
+<%if (!String.IsNullOrEmpty(canonical))
+  { %>
     <link rel="canonical" href="<%=canonical %>" />
 <% } %>
 <link rel="SHORTCUT ICON" href="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>

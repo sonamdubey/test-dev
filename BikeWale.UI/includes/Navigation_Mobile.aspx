@@ -8,7 +8,7 @@
             </a>
         </li>
         <li>
-            <a href="javascript:void(0)">
+            <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwmsprite newBikes-icon"></span>
                 <span class="navbarTitle">New Bikes</span>
                 <span class="nav-drop bwmsprite fa-angle-down"></span>
@@ -24,7 +24,7 @@
             </ul>
         </li>
         <li>
-            <a href="javascript:void(0)">
+            <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwmsprite reviews-icon"></span>
                 <span class="navbarTitle">Reviews, News & Videos</span>
                 <span class="nav-drop bwmsprite fa-angle-down"></span>
@@ -56,6 +56,6 @@
             </a>
         </li>
     </ul>
-    <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank"></a>
+    <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank" rel="nofollow"></a>
 </nav>
 <!-- nav code ends here -->

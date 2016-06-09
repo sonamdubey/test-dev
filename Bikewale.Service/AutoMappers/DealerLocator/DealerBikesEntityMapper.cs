@@ -44,9 +44,22 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
             Mapper.CreateMap<NewBikeDealerBase, DealerBase>();
             Mapper.CreateMap<DealerPackageTypes, DealerPackageType>();
             Mapper.CreateMap<DealerDetailEntity, DealerDetail>();
-            
+
 
             return Mapper.Map<DealerBikesEntity, DealerBikes>(dealerBikes);
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 20 May 2016
+        /// Description :   Populates Dealer Bike list v2 DTO with dealer bikes entity
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        internal static System.Collections.Generic.IEnumerable<DTO.DealerLocator.v2.DealerBikeBase> ConvertV2(System.Collections.Generic.IEnumerable<MostPopularBikesBase> enumerable)
+        {
+            Mapper.CreateMap<Entities.BikeData.MostPopularBikesBase, DTO.DealerLocator.v2.DealerBikeBase>().ForMember(d => d.Bike, opt => opt.MapFrom(s => s.BikeName));
+            Mapper.CreateMap<Entities.BikeData.MostPopularBikesBase, DTO.DealerLocator.v2.DealerBikeBase>().ForMember(d => d.VersionId, opt => opt.MapFrom(s => s.objVersion.VersionId));
+            return Mapper.Map<System.Collections.Generic.IEnumerable<MostPopularBikesBase>, System.Collections.Generic.IEnumerable<DTO.DealerLocator.v2.DealerBikeBase>>(enumerable);
         }
     }
 }

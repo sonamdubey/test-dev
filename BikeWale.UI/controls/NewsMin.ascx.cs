@@ -1,16 +1,12 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using Bikewale.Entities.CMS.Articles;
-using System.Configuration;
-using Bikewale.Entities.CMS;
 
 namespace Bikewale.Controls
 {
@@ -86,11 +82,11 @@ namespace Bikewale.Controls
                         _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + posts + "&makeid=" + MakeId;
                 }
 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
                     _objArticleList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
                 }
-                
+
                 if (_objArticleList != null && _objArticleList.Count > 0)
                 {
                     RecordCount = _objArticleList.Count;
@@ -124,7 +120,7 @@ namespace Bikewale.Controls
             basicId = _objArticle.BasicId.ToString();
             authorName = _objArticle.AuthorName;
             description = _objArticle.Description;
-            displayDate =_objArticle.DisplayDate.ToString();
+            displayDate = _objArticle.DisplayDate.ToString();
             views = _objArticle.Views.ToString();
             title = _objArticle.Title;
             url = _objArticle.ArticleUrl;
@@ -132,7 +128,7 @@ namespace Bikewale.Controls
             imagePathCustom = _objArticle.OriginalImgUrl;
             hostUrl = _objArticle.HostUrl;
         }
-        
+
         /// <summary>
         /// Modified By : Sadhana Upadhyay on 27th March 2014
         /// Summary : function to retrieve news
@@ -228,7 +224,7 @@ namespace Bikewale.Controls
             {
                 _desc = _desc.Substring(0, 165);
                 _desc = _desc.Substring(0, _desc.LastIndexOf(" "));
-                return _desc + " [...]";
+                return _desc + " ...";
             }
         }
 

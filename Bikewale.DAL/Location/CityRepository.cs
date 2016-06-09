@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Collections;
 
 namespace Bikewale.DAL.Location
 {
@@ -177,6 +178,100 @@ namespace Bikewale.DAL.Location
             }
 
             return objCities;
+        }
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 7 June 2016        
+        /// Function to get the new city masking names 
+        /// </summary>
+        /// <returns></returns>
+        public Hashtable GetMaskingNames()
+        {
+            Database db = null;
+            Hashtable ht = null;
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "GetCityMappingNames";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    db = new Database();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            ht = new Hashtable();
+
+                            while (dr.Read())
+                            {
+                                if (!ht.ContainsKey(dr["CityMaskingName"]))
+                                    ht.Add(dr["CityMaskingName"], dr["ID"]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("CityRepository.GetMaskingNames ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return ht;
+        }
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 7 June 2016        
+        /// Function to get the old city masking names 
+        /// </summary>
+        /// <returns></returns>
+        public Hashtable GetOldMaskingNames()
+        {
+            Database db = null;
+            Hashtable ht = null;
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "GetOldCityMappingNames";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    db = new Database();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            ht = new Hashtable();
+
+                            while (dr.Read())
+                            {
+                                if (!ht.ContainsKey(dr["OldMaskingName"]))
+                                    ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("CityRepository.GetOldMaskingNamesList ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return ht;
         }
     }
 }

@@ -14,6 +14,7 @@ var otpText = $("#getOTP");
 var otpBtn = $("#otp-submit-btn");
 var prevEmail = "";
 var prevMobile = "";
+var currentUrl = ""
 
 ko.bindingHandlers.CurrencyText = {
     update: function (element, valueAccessor) {
@@ -34,6 +35,14 @@ $(document).ready(function () {
         $('#dealerMapWrapper, #dealersMap').css({ 'width': windowWidth - 355, 'height': windowHeight - 50 });
     $('#dealerListingSidebar').css({ 'min-height': windowHeight - 50 });
     $('.dealer-map-wrapper').css({ 'height': $('#dealerListingSidebar').height() + 1 });
+
+    currentUrl = window.location.href;
+    if (currentUrl.indexOf('#') > -1)
+    {
+        urlDealerId = currentUrl.split('#')[1];
+        showDealerDetailsHash(urlDealerId);
+    }
+
 });
 
 $(window).scroll(function () {
@@ -329,7 +338,7 @@ $(document).on('mouseout', '#dealersList li', function () {
     infowindow.close();
 });
 
-$(document).on('click', 'a.dealer-sidebar-link', function () {
+$(document).on('click', '.dealer-card', function () {
     var parentLI = $(this).parents('li');
     selectedDealer(parentLI);
     $("#buyingAssistanceForm").show();
@@ -1180,3 +1189,12 @@ String.prototype.toHHMMSS = function () {
     return time;
 }
 
+
+function showDealerDetailsHash(dealerId)
+{
+    var parentLI = $("#dealersList li[data-item-id=" + dealerId + "]");
+    selectedDealer(parentLI);
+    $("#buyingAssistanceForm").show();
+    $("#buying-assistance-form").show().siblings("#dealer-assist-msg").hide();
+    stopLoading('#buyingAssistanceForm');
+}

@@ -482,16 +482,17 @@ namespace Bikewale.BikeBooking
         /// <summary>
         /// Created By : Suhsil Kumar
         /// Created On : 16th March 2016 
-        /// Description : Private Method to proceess mpq queryString and set the values 
-        ///               for queried parameters viz. versionId,dealerId,cityId,pqId and areaId
+        /// Description : Private Method to proceess mpq queryString and set the for queried parameters viz. versionId,dealerId,cityId,pqId and areaId
+        /// Modified By : Lucky Rathore
+        /// Description : DealerId Assingment moved in "if" condition
         /// </summary>
         private void ProcessQueryString()
         {
             try
             {
-                UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId);
                 if (PriceQuoteQueryString.IsPQQueryStringExists() && UInt32.TryParse(PriceQuoteQueryString.PQId, out pqId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId))
                 {
+                    UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId);
                     UInt32.TryParse(PriceQuoteQueryString.CityId, out cityId);
                     UInt32.TryParse(PriceQuoteQueryString.AreaId, out areaId);
                     clientIP = Bikewale.Common.CommonOpn.GetClientIP();

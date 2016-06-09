@@ -2,16 +2,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%        
-       // Bikewale.Utility.VideoTitleDescription.VideoTitleDesc(makeModelId, out title, out description, null, null);
-       //canonical = string.Format("http://www.bikewale.com/bike-videos/category/{0}-{1}/", canonTitle, categoryIdList.Replace(',', '-'));
-    %>
     <%
         isAd970x90Shown = false;
         title = titleName;
-        canonical = canonicalUrl;
         description = metaDescription;
         keywords = metaKeywords;
+        if (isModel)
+        {
+            canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/videos/", makeMaskingName, modelMaskingName);
+            alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/videos/", makeMaskingName, modelMaskingName);
+        }
+        else
+        {
+            canonical = string.Format("http://www.bikewale.com/{0}-bikes/videos/", makeMaskingName);
+            alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/videos/", makeMaskingName);
+        }
          %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
@@ -27,11 +32,11 @@
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title">Home</span></a></li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/"><span  itemprop="title"><%=make %></span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/"><span  itemprop="title"><%=make %></span></a></li>
                             <% if(isModel){ %>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/"><span itemprop="title"><%=model %></span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/"><span itemprop="title"><%=model %></span></a></li>
                             <% } %>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><span  itemprop="title">Bike Videos</span></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span  itemprop="title">Bike Videos</span></li>
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5"><%= pageHeading %></h1>

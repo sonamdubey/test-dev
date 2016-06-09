@@ -61,7 +61,7 @@ namespace Bikewale.DAL.PriceQuote
 
                             cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = pqParams.VersionId;
                             cmd.Parameters.Add("@SourceId", SqlDbType.TinyInt).Value = pqParams.SourceId;
-                            cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = String.IsNullOrEmpty(pqParams.ClientIP) ? Convert.DBNull : pqParams.ClientIP;
+                            cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = CommonOpn.GetClientIP();
                             cmd.Parameters.Add("@QuoteId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
                             cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = pqParams.DealerId;
 
@@ -389,28 +389,23 @@ namespace Bikewale.DAL.PriceQuote
             try
             {
                 db = new Database();
-
-                using (SqlConnection conn = new SqlConnection())
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandText = "GetPriceQuoteData_02052016";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
+                    using (SqlDataReader dr = db.SelectQry(cmd))
                     {
-                        cmd.CommandText = "GetPriceQuoteData_02052016";
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
-                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        objQuotation = new PriceQuoteParametersEntity();
+                        while (dr.Read())
                         {
-                            objQuotation = new PriceQuoteParametersEntity();
-                            while (dr.Read())
-                            {
-                                objQuotation.AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32);
-                                objQuotation.CityId = !Convert.IsDBNull(dr["cityid"]) ? Convert.ToUInt32(dr["cityid"]) : default(UInt32);
-                                objQuotation.VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32);
-                                objQuotation.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
-                                objQuotation.CampaignId = !Convert.IsDBNull(dr["CampaignId"]) ? Convert.ToUInt32(dr["CampaignId"]) : default(UInt32);
-                            }
+                            objQuotation.AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32);
+                            objQuotation.CityId = !Convert.IsDBNull(dr["cityid"]) ? Convert.ToUInt32(dr["cityid"]) : default(UInt32);
+                            objQuotation.VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32);
+                            objQuotation.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
+                            objQuotation.CampaignId = !Convert.IsDBNull(dr["CampaignId"]) ? Convert.ToUInt32(dr["CampaignId"]) : default(UInt32);
                         }
-
                     }
                 }
             }
@@ -425,6 +420,220 @@ namespace Bikewale.DAL.PriceQuote
             }
 
             return objQuotation;
+        }
+
+        /// <summary>
+        /// Created By : Vivek Gupta
+        /// Date : 20-05-2016
+        /// Desc : Fetch BW Pricequote of top cities by modelId
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<PriceQuoteOfTopCities> FetchPriceQuoteOfTopCities(uint modelId, uint topCount)
+        {
+            IList<PriceQuoteOfTopCities> objPrice = null;
+            Database db = null;
+            try
+            {
+                db = new Database();
+
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "GetModelPriceForTopCities";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                        cmd.Parameters.Add("@TopCount", SqlDbType.TinyInt).Value = topCount;
+
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            objPrice = new List<PriceQuoteOfTopCities>();
+                            while (dr.Read())
+                            {
+                                objPrice.Add(new PriceQuoteOfTopCities
+                                {
+                                    CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
+                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string),
+                                    OnRoadPrice = !Convert.IsDBNull(dr["OnRoadPrice"]) ? Convert.ToUInt32(dr["OnRoadPrice"]) : default(UInt32),
+                                    Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
+                                    MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
+                                    Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
+                                    ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
+
+                                });
+                            }
+
+                            if (dr != null)
+                                dr.Close();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " inputs: modelId : " + modelId + " : topCount :" + topCount);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objPrice;
+        }
+
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 23 May 2016
+        /// Summary : Function to get the pricing of the nearest cities for the given model and city.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="topCount"></param>
+        /// <returns>Returns List of the pricing for the nearest cities for the given model and city</returns>
+        public IEnumerable<PriceQuoteOfTopCities> GetModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount)
+        {
+            IList<PriceQuoteOfTopCities> objPrice = null;
+            Database db = null;
+
+            try
+            {
+                db = new Database();
+
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "GetModelPriceForNearestCities";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                        cmd.Parameters.Add("@TopRecords", SqlDbType.TinyInt).Value = topCount;
+
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            objPrice = new List<PriceQuoteOfTopCities>();
+
+                            while (dr.Read())
+                            {
+                                objPrice.Add(new PriceQuoteOfTopCities
+                                {
+                                    CityName = Convert.IsDBNull(dr["City"]) ? default(string) : Convert.ToString(dr["City"]),
+                                    CityMaskingName = Convert.IsDBNull(dr["CityMaskingName"]) ? default(string) : Convert.ToString(dr["CityMaskingName"]),
+                                    OnRoadPrice = Convert.IsDBNull(dr["OnRoadPrice"]) ? default(UInt32) : Convert.ToUInt32(dr["OnRoadPrice"]),
+                                    Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
+                                    MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
+                                    Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
+                                    ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
+                                });
+                            }
+
+                            if (dr != null)
+                                dr.Close();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " inputs: modelId : " + modelId + " : topCount :" + topCount);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objPrice;
+        }
+        /// <summary>
+        /// Author: Sangram Nandkhile on 25 May 2016
+        /// Summary: Get bike versions and prices by model Id
+        /// Modified By : Sushil Kumar
+        /// Modified On : 6th June 2016
+        /// Description : Added makeId property to get makeId for dealers card widget 
+        /// Modified By : Sushil Kumar on 8th June 2016
+        /// Description : Added ismodelnew and isversion new data 
+        /// </summary>
+        /// <param name="modelId">Model Id</param>
+        /// <param name="cityId">City Id </param>
+        /// <param name="HasArea">If city has models in those areas</param>
+        /// <returns></returns>
+        public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool HasArea)
+        {
+            List<BikeQuotationEntity> bikePrices = null;
+            HasArea = false;
+            Database db = null;
+            try
+            {
+                db = new Database();
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "GetVersionPricesByModelId";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                        cmd.Parameters.Add("@HasAreasInCity", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            bikePrices = new List<BikeQuotationEntity>();
+                            while (dr.Read())
+                            {
+                                bikePrices.Add(new BikeQuotationEntity
+                                {
+                                    VersionId = Convert.ToUInt32(Convert.ToString(dr["BikeVersionId"])),
+                                    VersionName = Convert.ToString(dr["Version"]),
+                                    MakeName = Convert.ToString(dr["Make"]),
+                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                    ModelName = Convert.ToString(dr["Model"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                    CityId = Convert.ToUInt32(dr["CityId"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                    City = Convert.ToString(dr["City"]),
+                                    ExShowroomPrice = Convert.ToUInt64(dr["Price"]),
+                                    RTO = Convert.ToUInt32(dr["RTO"]),
+                                    Insurance = Convert.ToUInt32(dr["Insurance"]),
+                                    OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
+                                    OriginalImage = Convert.ToString(dr["OriginalImagePath"]),
+                                    HostUrl = Convert.ToString(dr["HostUrl"]),
+                                    MakeId = Convert.ToUInt32(Convert.ToString(dr["MakeId"])),
+                                    IsModelNew = Convert.ToBoolean(dr["IsModelNew"]),
+                                    IsVersionNew = Convert.ToBoolean(dr["IsVersionNew"])
+
+                                });
+
+                            }
+                            if (dr.NextResult())
+                            {
+                                while (dr.Read())
+                                {
+                                    HasArea = Convert.ToBoolean(dr["HasAreasInCity"].ToString());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - {1}", HttpContext.Current.Request.ServerVariables["URL"], "GetVersionPricesByModelId"));
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return bikePrices;
         }
     }   // Class
 }   // namespace

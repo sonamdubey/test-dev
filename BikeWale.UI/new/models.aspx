@@ -19,7 +19,6 @@
         AdId = "1442913773076";
         isAd970x90Shown = true;
         keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, new {0} Bikes", _make.MakeName);
-        enableOG = true;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
@@ -41,7 +40,7 @@
                                     <span itemprop="title">Home</span>
                                 </a>
                             </li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><%= _make.MakeName %> Bikes</li>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span><%= _make.MakeName %> Bikes</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -59,7 +58,7 @@
                                         <span class="leftfloat sort-select-btn">Price: Low to High</span>
                                         <span class="clear"></span>
                                     </div>
-                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                 </div>
                                 <div class="sort-selection-div sort-list-items hide">
                                     <ul id="sortbike">
@@ -118,7 +117,7 @@
                                                 </div>
 
                                                 <div class="clear"></div>
-                                                <a href="Javascript:void(0)" pagecatid="1" pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey margin-top10 fillPopupData">Check On-Road Price</a>
+                                                <a href="Javascript:void(0)" pagecatid="1" pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey margin-top10 fillPopupData">Check on-road price</a>
                                             </div>
                                         </div>
                                     </li>
@@ -190,9 +189,9 @@
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>">
                                 <ul>
-                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews"><h3>News</h3></li>
-                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews"><h3>Expert Reviews</h3></li>
-                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos"><h3>Videos</h3></li>
+                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews"><h3 class="text-unbold">News</h3></li>
+                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews"><h3 class="text-unbold">Expert Reviews</h3></li>
+                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos"><h3 class="text-unbold">Videos</h3></li>
                                 </ul>
                             </div>
                         </div>
@@ -219,12 +218,12 @@
                 <div class="grid-12" style="<%= (isDescription) ? "": "display:none;" %>">
                     <h2 class="text-bold text-center margin-top30 margin-bottom30">About <%= _make.MakeName %></h2>
                     <div class="content-box-shadow content-inner-block-10 rounded-corner2 margin-bottom30 font14">
-                        <span class="brand-about-main">
-                            <%= _bikeDesc !=null ? _bikeDesc.SmallDescription : "" %>
-                        </span>
-                        <span class="brand-about-more-desc hide">
+                        <div class="brand-about-main">
+                            <%= _bikeDesc !=null ? Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 265) : ""%>
+                        </div>
+                        <div class="brand-about-more-desc hide">
                             <%= _bikeDesc !=null ? _bikeDesc.FullDescription : "" %>
-                        </span>
+                        </div>
                         <span><a href="javascript:void(0)" class="read-more-btn">Read <span>more</span></a></span>
                     </div>
                 </div>
@@ -234,8 +233,8 @@
 
         <script>
             $("a.read-more-btn").click(function () {
-                $("span.brand-about-main").toggleClass('hide');
-                $("span.brand-about-more-desc").toggleClass('hide');
+                $("div.brand-about-more-desc").slideToggle();
+                $("div.brand-about-main").slideToggle();
                 var a = $(this).find("span");
                 a.text(a.text() === "more" ? "less" : "more");
             });
