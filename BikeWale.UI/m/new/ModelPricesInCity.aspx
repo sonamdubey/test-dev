@@ -60,7 +60,7 @@
                     <ul id='versions' class="model-versions-tabs-wrapper">
                         <asp:Repeater ID="rpVersioNames" runat="server">
                             <ItemTemplate>
-                                <li class="<%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?string.Empty:"active" %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>"><%# DataBinder.Eval(Container.DataItem, "VersionName").ToString() %></li>
+                                <li class="<%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?string.Empty:"active" %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>" <%if(versionCount==1) { %>style="display:inline-block; width:auto;" <% } %> ><%# DataBinder.Eval(Container.DataItem, "VersionName").ToString() %></li>
                             </ItemTemplate>
                         </asp:Repeater>
                     </ul>
