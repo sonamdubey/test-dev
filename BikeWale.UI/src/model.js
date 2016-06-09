@@ -1092,7 +1092,7 @@ assistFormSubmit.on('click', function () {
 $(document).ready(function () {
     modelPriceCarouselPagination();
 
-    var modelPrice = $('#modelPriceContainer'),
+    var modelPrice = $('#scrollFloatingButton'),
         $window = $(window),
         modelDetailsFloatingCard = $('#modelDetailsFloatingCardContent'),
         modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper');

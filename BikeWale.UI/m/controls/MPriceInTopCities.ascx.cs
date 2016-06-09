@@ -23,6 +23,7 @@ namespace Bikewale.Mobile.controls
 
         public uint ModelId { get; set; }
         public uint TopCount { get; set; }
+        public bool IsDiscontinued { get; set; }
 
         protected bool showWidget = false;
 
@@ -94,5 +95,7 @@ namespace Bikewale.Mobile.controls
                 objErr.SendMail();
             }
         }
+
+        
     }
 }
