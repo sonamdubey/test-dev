@@ -6,7 +6,7 @@
     <%
         description = String.Format("Know more about {0} Specifications and Features. See details about mileage, engine displacement, power, kerb weight and other specifications.", bikeName);
         title = String.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
-        canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", makeMaskingName, modelMaskingName);
+        canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
         keywords = string.Format("{0} specifications, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
         EnableOG = true;
         OGImage = modelImage;
@@ -23,15 +23,28 @@
         <section class="bg-white box-shadow margin-bottom25">
             <div id="modelPriceDetails" class="content-inner-block-120">
                 <h1 class="font18 text-dark-black margin-bottom5"><%= bikeName %> Specifications and Features</h1>
-                <p class="font20 text-bold model-price-content leftfloat"><span class="bwmsprite inr-sm-icon"></span>&nbsp;<%= price > 0 ? Bikewale.Utility.Format.FormatPrice(price.ToString()) : "Price not available" %></p>
-                <%if(isDiscontinued){ %>
+                
+                    <% if (price > 0)
+                       { %>
+                    <p class="font20 text-bold model-price-content leftfloat">
+                    <span class="bwmsprite inr-sm-icon"></span>&nbsp;<%= Bikewale.Utility.Format.FormatPrice(price.ToString())%> </p>
+                    <% } else{ %>
+                          <p>  Price not available</p>
+                    <% } %>
+                <% if (price > 0)
+                   { %>
+                <%if (isDiscontinued)
+                  { %>
                 <p class="font14 text-truncate text-light-grey model-area-content leftfloat">Last known Ex-showroom Price</p>
                 <% }
                   else if (!IsExShowroomPrice)
                   { %>
                 <p class="font14 text-truncate text-light-grey model-area-content leftfloat">On-road price in <%= string.IsNullOrEmpty(areaName) ? cityName : string.Format("{0}, {1}", areaName, cityName)%></p>
-                <% } else { %>
+                <% }
+                  else
+                  { %>
                 <p class="font14 text-truncate text-light-grey model-area-content leftfloat">Ex-showroom price in <%= string.IsNullOrEmpty(areaName) ? cityName : string.Format("{0}, {1}", areaName, cityName)%></p>
+                <%} %>
                 <%} %>
                 <div class="clear"></div>
             </div>
@@ -290,7 +303,7 @@
                 </div>
                 <div class="clear"></div>
                 <%}
-               else if (!isCitySelected || !isAreaSelected)
+                   else if (toShowOnRoadPriceButton)
                {%>
                 <div class="grid-12 float-button float-fixed">
                     <a class="btn btn-full-width font18 btn-orange fillPopupData" 

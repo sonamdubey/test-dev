@@ -9,8 +9,8 @@
         title = string.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
         description = string.Format("Know more about {0} Specifications and Features. See details about mileage, engine displacement, power, kerb weight and other specifications.", bikeName);
         keywords = string.Format("{0} specifications, {0} specs, {0} features, {0} mileage, {0} fuel efficiency", bikeName);
-        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/specifications-features/?vid={2}", makeMaskingName, modelMaskingName,versionId);
-        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/?vid={2}", makeMaskingName, modelMaskingName,versionId);
+        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
+        canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/", makeMaskingName, modelMaskingName);
         ogImage = modelImage;
         isAd970x90Shown = true;
         AdId = "1017752";
@@ -86,9 +86,10 @@
                                     else
                                     { %>
                                 <p class="font14 text-light-grey margin-bottom5 text-truncate"><%=IsExShowroomPrice ? "Ex-showroom price in Mumbai" : string.Format("On-road price in {0} {1}", areaName, cityName) %></p>
-                                    <span class="bwsprite inr-lg"></span><span class="font18 text-bold">
-                                        <% if (price > 0)
+                                    <% if (price > 0)
                                             { %>
+                                            <span class="bwsprite inr-lg"></span><span class="font18 text-bold">
+                                        
                                         <%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>
                                         <% }
                                             else
@@ -98,9 +99,6 @@
                                     </span>
                                 </div>
                                 <%} %>
-                                
-                            
-
                             <%
                                 if (!isDiscontinued) { 
                                 if (  dealerDetail != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer != null && dealerDetail.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
@@ -111,7 +109,7 @@
                                 <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= dealerDetail.PrimaryDealer.DealerDetails.Name %></p>
                             </div>
                             <% }
-                                else if (!isCitySelected || !isAreaSelected) 
+                                else if (toShowOnRoadPriceButton) 
                                 {%>
                                 <div class="grid-3 model-orp-btn alpha omega">
                                     <a href="javascript:void(0)" isModel="true" data-pqsourceid="49" pqSourceId="49" modelId="<%= modelId %>" class="btn btn-orange font14 margin-top5 fillPopupData">Check on-road price</a>
@@ -123,15 +121,15 @@
                             <div class="clear"></div>
                         </div>
                         <div class="overall-specs-tabs-wrapper">
-                            <a class="active" href="#modelSpecificationContent">Specifications</a>
-                            <a href="#modelFeaturesContent">Features</a>
+                            <a class="active" href="#specs">Specifications</a>
+                            <a href="#features">Features</a>
                         </div>
                     </div>
                  </div>
 
                 <div id="modelSpecsAndFeaturesWrapper" class="content-box-shadow">
                     <div class="border-divider"></div>
-                    <div id="modelSpecificationContent" class="bw-model-tabs-data padding-top20">
+                    <div id="specs" class="bw-model-tabs-data padding-top20">
                         <h2 class="padding-left20 padding-right20">Specifications</h2>
                         <h3 class="padding-left20">Engine and Transmission</h3>
                         <div class="grid-3 padding-left20 text-light-grey">
@@ -275,7 +273,7 @@
                         <div class="margin-top30 margin-right10 margin-left10 border-divider"></div>
                     </div>
 
-                    <div id="modelFeaturesContent" class="bw-model-tabs-data padding-top20 padding-bottom40">
+                    <div id="features" class="bw-model-tabs-data padding-top20 padding-bottom40">
                         <h2 class="padding-left20 padding-right20">Features</h2>
                         <div class="grid-3 padding-left20 text-light-grey">
                             <p>Speedometer</p>
@@ -374,13 +372,32 @@
 
                 $('#modelFloatingCardContent').css({ 'height': modelDetailsFloatingCard.height() });
 
+                var breadcrumbFlag,
+                    breadcrumbDiv = $('.breadcrumb');
+
                 $(window).scroll(function () {
                     var windowScrollTop = $window.scrollTop(),
                         modelCardAndDetailsOffsetTop = modelCardAndDetailsWrapper.offset().top,
-                        modelSpecsFeaturesFooterOffsetTop = modelSpecsFeaturesFooter.offset().top;
+                        modelSpecsFeaturesFooterOffsetTop = modelSpecsFeaturesFooter.offset().top,
+                        breadcrumbOffsetTop = breadcrumbDiv.offset().top;
 
-                    if (windowScrollTop > modelCardAndDetailsOffsetTop)
-                        modelDetailsFloatingCard.addClass('fixed-card');
+                    if (breadcrumbOffsetTop < 100)
+                        breadcrumbFlag = true;
+                    else
+                        breadcrumbFlag = false;
+
+                    if(!breadcrumbFlag) {
+                        if (windowScrollTop > modelCardAndDetailsOffsetTop + 90)
+                            modelDetailsFloatingCard.addClass('fixed-card');
+                    }
+
+                    else if (windowScrollTop < modelCardAndDetailsOffsetTop + 90)
+                        modelDetailsFloatingCard.removeClass('fixed-card');
+
+                    if(breadcrumbFlag) {
+                        if (windowScrollTop > modelCardAndDetailsOffsetTop)
+                            modelDetailsFloatingCard.addClass('fixed-card');
+                    }
 
                     else if (windowScrollTop < modelCardAndDetailsOffsetTop)
                         modelDetailsFloatingCard.removeClass('fixed-card');
