@@ -353,7 +353,10 @@
                 <div id="modelOverallSpecsTopContent">
                     <div id="overallSpecsTab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
+                            <% if ((modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) || modelPage.ModelVersionSpecs != null)
+                           { %>
                             <li class="active" data-tabs="#modelSummaryContent"><h3>Summary</h3></li>
+                            <% } %>
                             <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                             { %>
                             <li data-tabs="#modelPricesContent"><h3>Prices</h3></li>
