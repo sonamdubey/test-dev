@@ -99,6 +99,8 @@
     <Compile Include="DealerLocator\DealerBase.cs" />
     <Compile Include="DealerLocator\DealerBikes.cs" />
     <Compile Include="DealerLocator\DealerDetail.cs" />
+    <Compile Include="DealerLocator\v2\DealerBikeBase.cs" />
+    <Compile Include="DealerLocator\v2\DealerBikes.cs" />
     <Compile Include="Dealer\NewBikeDealerBase.cs" />
     <Compile Include="Dealer\NewBikeDealerList.cs" />
     <Compile Include="Dealer\v2\NewBikeDealerBase.cs" />
@@ -170,6 +172,18 @@
     <Compile Include="PriceQuote\PQUpdateOutput.cs" />
     <Compile Include="PriceQuote\UpdatePQCustomerInput.cs" />
     <Compile Include="PriceQuote\UpdatePQCustomerOutput.cs" />
+    <Compile Include="PriceQuote\v2\DPQBenefit.cs" />
+    <Compile Include="PriceQuote\v2\DPQOffer.cs" />
+    <Compile Include="PriceQuote\v2\DPQSecondaryDealer.cs" />
+    <Compile Include="PriceQuote\v2\DPQuotationOutput.cs" />
+    <Compile Include="PriceQuote\v2\DPQVersionBase.cs" />
+    <Compile Include="PriceQuote\v2\DPQ_Price.cs" />
+    <Compile Include="PriceQuote\v2\EMI.cs" />
+    <Compile Include="PriceQuote\v2\PQCustomerDetailInput.cs" />
+    <Compile Include="PriceQuote\v2\PQCustomerDetailOutput.cs" />
+    <Compile Include="PriceQuote\v2\PQOnRoad.cs" />
+    <Compile Include="PriceQuote\v2\PQOutput.cs" />
+    <Compile Include="PriceQuote\v2\PQPrimaryDealer.cs" />
     <Compile Include="PriceQuote\Version\PQByCityArea.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
     <Compile Include="Version\ModelVersionList.cs" />

@@ -365,6 +365,39 @@ namespace Bikewale.BAL.BikeBooking
             return objPQOutput;
         }   //End of ProcessPQ
 
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Description : To get dealer ID if primary dealer exist for mention Input.
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public DealerInfo IsDealerExists(uint versionId, uint areaId)
+        {
+            DealerInfo objDealerDetail = new DealerInfo();
+            try
+            {
+                if (versionId > 0 && areaId > 0)
+                {
+                    string api = string.Format("/api/v3/DealerPriceQuote/IsDealerExists/?areaid={0}&versionid={1}", areaId, versionId);
+
+                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                    {
+                        //dealerId = objClient.GetApiResponseSync<uint>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, dealerId);
+                        objDealerDetail = objClient.GetApiResponseSync<DealerInfo>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objDealerDetail);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                objDealerDetail.DealerId = 0;
+                objDealerDetail.IsDealerAvailable = false;
+                ErrorClass objErr = new ErrorClass(ex, "ProcessPQ ex : " + ex.Message);
+                objErr.SendMail();
+            }
+            return objDealerDetail;
+        }
+
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
             BookingPageDetailsEntity pageDetail = null;

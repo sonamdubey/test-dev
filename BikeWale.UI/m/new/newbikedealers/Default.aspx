@@ -10,6 +10,8 @@
         canonical = "http://www.bikewale.com/new/locate-dealers/";
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
+        Ad_320x50 = false;
+        Ad_Bot_320x50 = false;
         //menu = "10";
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->

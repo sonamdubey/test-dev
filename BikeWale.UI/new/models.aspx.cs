@@ -137,7 +137,7 @@ namespace Bikewale.New
         {
             if (estimatedPrice != null && Convert.ToInt32(estimatedPrice) > 0)
             {
-                return String.Format("<span class='fa fa-rupee'></span> <span class='font22'>{0}</span><span class='font16'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(estimatedPrice)));
+                return String.Format("<span class='bwsprite inr-xl'></span> <span class='font22'>{0}</span><span class='font16'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(estimatedPrice)));
             }
             else
             {

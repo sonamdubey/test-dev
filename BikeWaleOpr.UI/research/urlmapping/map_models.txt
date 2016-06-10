@@ -183,7 +183,7 @@ discover100t	226
 asmodel	613
 asmodel	613
 asmodel	613
-cbsushil	967
+cbtrigger	220
 cbsushilkumar	967
 cbsushilkumar	967
 vrgud	968

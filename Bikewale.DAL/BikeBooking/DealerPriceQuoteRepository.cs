@@ -16,6 +16,7 @@ using Bikewale.Entities.Location;
 using System.Configuration;
 using Bikewale.Entities.PriceQuote;
 using System.Data.Common;
+using Bikewale.Entities.Dealer;
 
 namespace Bikewale.DAL.BikeBooking
 {
@@ -1090,6 +1091,18 @@ namespace Bikewale.DAL.BikeBooking
             }
 
             return colors;
+        }
+
+        /// <summary>
+        /// Created By : Lucky Rathore on 02 June 2016
+        /// Description : Refer BAL.
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="areaId"></param>
+        /// <returns>DealerInfo entity</returns>
+        public DealerInfo IsDealerExists(uint versionId, uint areaId)
+        {
+            throw new NotImplementedException();
         }
 
     }   //End of class

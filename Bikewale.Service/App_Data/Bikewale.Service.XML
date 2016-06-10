@@ -578,6 +578,14 @@
             <param name="dealerBikes"></param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.AutoMappers.DealerLocator.DealerBikesEntityMapper.ConvertV2(System.Collections.Generic.IEnumerable{Bikewale.Entities.BikeData.MostPopularBikesBase})">
+            <summary>
+            Created by  :   Sumit Kate on 20 May 2016
+            Description :   Populates Dealer Bike list v2 DTO with dealer bikes entity
+            </summary>
+            <param name="enumerable"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.AutoMappers.Dealer.DealerListMapper">
             <summary>
             Created By : Sushil Kumar
@@ -1093,6 +1101,15 @@
             Description : To get Detail of Bikes for specific Dealer.
             Modified By : Sushil Kumar on 26th March 2016
             Description : Added campaignId as a parameter to fetch dealer info based on camapign Id
+            </summary>
+            <param name="dealerId"></param>
+            <param name="campaignId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.DealerLocator.DealerBikesController.GetV2(System.UInt32,System.UInt32)">
+            <summary>
+            Created by  :   Sumit Kate on 20 May 2016
+            Description :   Returns the Bike list for APP
             </summary>
             <param name="dealerId"></param>
             <param name="campaignId"></param>
@@ -1733,20 +1750,21 @@
             Description :   Send the notification immediately
             Modified by :   Lucky Rathore on 13 May 2016
             Description :   var versionName declare, Intialized and NotifyCustomer() singature Updated.
+            Modified by :   Sumit Kate on 01 June 2016
+            Description :   Commented Mobile verification process
+             noOfAttempts = -1 and isVerified = true to by pass the Mobile Verification Process
             </summary>
             <param name="input">Customer details with price quote details</param>
             <returns></returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.SaveCustomerSMS(Bikewale.DTO.PriceQuote.PQCustomerDetailInput,Bikewale.Entities.Customer.CustomerEntity,Bikewale.Entities.BikeBooking.PQ_DealerDetailEntity,System.UInt32)">
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Postv2(Bikewale.DTO.PriceQuote.v2.PQCustomerDetailInput)">
             <summary>
-            Modified by : Lucky Rathore
-            Created On : 17 March 2016
-            Description : Dealer Area and address added in DPQSmsEntity.
+            Created by  :   Sumit Kate on 23 May 2016
+            Description :   Saves the Customer details if it is a new customer.
+            generated the OTP for the non verified customer
             </summary>
             <param name="input"></param>
-            <param name="objCust"></param>
-            <param name="dealerDetailEntity"></param>
-            <param name="bookingAmount"></param>
+            <returns></returns>
         </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Get(System.UInt32)">
             <summary>
@@ -1796,6 +1814,8 @@
             Registers a new price quote
             Modified By : Lucky Rathore On 20 Apr 2016.
             Description : RefPQId Added.
+            Modified By : Sushil Kumar on 2nd June 2016
+            Description : Save DealerId if available into database
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -1877,6 +1897,9 @@
             Description :   Send the notification immediately
             Modified by :   Lucky Rathore on 13 May 2016
             Description :   var versionName declare, Intialized and NotifyCustomer() singature Updated.
+            Modified by :   Sumit Kate on 01 June 2016
+            Description :   Commented Mobile verification process
+            noOfAttempts = -1 and isVerified = true to by pass the Mobile Verification Process
             </summary>
             <param name="input">Customer details with price quote details</param>
             <returns></returns>

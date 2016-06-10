@@ -61,7 +61,7 @@
 						            <asp:DataList ID="dlCity" runat="server" RepeatColumns="3" RepeatDirection="Horizontal" Width="100%" 
 							            CellSpacing="10" CellPadding="0" DataSource='<%# BindCities(int.Parse(DataBinder.Eval(Container.DataItem, "StateId").ToString())) %>'>
 							            <itemtemplate>
-								            <a href="/new/<%=objMMV.MakeMappingName%>-dealers/<%# DataBinder.Eval(Container.DataItem, "CityId")%>-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString().ToLower() %>.html"><%# DataBinder.Eval(Container.DataItem, "City")%> (<%# DataBinder.Eval(Container.DataItem, "TotalBranches")%>)<br></a>
+								            <a href="/<%=objMMV.MakeMappingName%>-bikes/dealers-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString().ToLower() %>/"><%# DataBinder.Eval(Container.DataItem, "City")%> (<%# DataBinder.Eval(Container.DataItem, "TotalBranches")%>)<br></a>
 							            </itemtemplate>
 						                </asp:DataList>
 					            </div>

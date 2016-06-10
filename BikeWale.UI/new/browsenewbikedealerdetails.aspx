@@ -152,7 +152,7 @@
                             </p>
                             <div class="padding-bottom20 position-rel" id="dealerPersonalInfo">
                                 <h3 class="font18 text-dark-black margin-bottom10" data-bind="text: name"></h3>
-                                <p><span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                <p class="margin-bottom5"><span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                 <span class="text-light-grey margin-bottom5 " data-bind="visible :address() && address().length > 0,text: address()"></span></p>
                                 <div class="margin-bottom5">
                                     <span class="font16 text-bold margin-right10" data-bind="visible : mobile() && mobile().length > 0"><span class="bwsprite phone-black-icon"></span><span data-bind="    text: mobile()"></span></span>
@@ -239,7 +239,7 @@
                                                 <h3 class="font16 text-dark-black" data-bind="text: bikeName()"></h3>
                                             </div>
                                             <div class="font16 text-bold margin-bottom5">
-                                                <span class="fa fa-rupee"></span>
+                                                <span class="bwsprite inr-lg"></span>
                                                 <span class="font18" data-bind="CurrencyText: bikePrice() "></span><span class="font16">&nbsp;onwards</span>
                                             </div>
                                             <div class="font14 text-light-grey">
@@ -311,8 +311,8 @@
                             <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
                             <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
                             <div>
-                                <div class="lead-mobile-box lead-otp-box-container font22">
-                                    <span class="fa fa-phone"></span>
+                                <div class="lead-mobile-box lead-otp-box-container">
+                                    <span class="bwsprite phone-grey-icon"></span>
                                     <span class="text-light-grey font24">+91</span>
                                     <span class="lead-mobile font24"></span>
                                     <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>

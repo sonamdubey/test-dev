@@ -8,11 +8,14 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Dealer;
 
 namespace Bikewale.Interfaces.BikeBooking
 {
     /// <summary>
     /// Created By : Sadhana Upadhyay on 29 Oct 2014
+    /// Modified By : Lucky Rathore on 06 June 2016 
+    /// Description : DealerInfo IsDealerExists(uint versionId, uint areaId) Added.
     /// </summary>
     public interface IDealerPriceQuote
     {
@@ -36,5 +39,6 @@ namespace Bikewale.Interfaces.BikeBooking
         List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId);
         PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams);
         BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId);
+        DealerInfo IsDealerExists(uint versionId, uint areaId);
     }
 }

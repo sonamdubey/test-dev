@@ -71,6 +71,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Description :   Send the notification immediately
         /// Modified by :   Lucky Rathore on 13 May 2016
         /// Description :   var versionName declare, Intialized and NotifyCustomer() singature Updated.
+        /// Modified by :   Sumit Kate on 01 June 2016
+        /// Description :   Commented Mobile verification process
+        ///  noOfAttempts = -1 and isVerified = true to by pass the Mobile Verification Process
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
@@ -133,16 +136,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
 
-                    //if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
-                    //{
-                    //    mobileVer = _mobileVerificetion.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
-                    //    isVerified = false;
 
-                    //    SMSTypes st = new SMSTypes();
-                    //    st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.PageUrl);
-                    //}
-
-                    noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
+                    //noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
+                    noOfAttempts = -1;// By-pass the mobile verification by setting noOfAttempts = -1
 
                     //here -1 implies mobile number is verified and resend OTP attempts is 2
                     if (noOfAttempts > -1)
@@ -166,7 +162,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     }
                     else
                     {
-                        isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
+                        //Don't mark mobile verified for pq
+                        //isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
+                        isVerified = true;// Set Verified to true to push the lead into AB for un-verified leads as well
 
                         objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(input.CityId), Convert.ToUInt32(input.VersionId), input.DealerId);
                         objBookingPageDetailsDTO = BookingPageDetailsEntityMapper.Convert(objBookingPageDetailsEntity);
@@ -274,16 +272,16 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
                             objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
 
-                            _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Name,
+                            _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Organization,
                                dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization,
                                dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail,
                                dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
                                dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
                                "api/PQCustomerDetail", input.LeadSourceId, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude,
-                               dealerDetailEntity.objDealer.WorkingTime, platformId = "");
+                               dealerDetailEntity.objDealer.WorkingTime, platformId);
 
                             _objLeadNofitication.NotifyDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
-                                dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName);
+                                dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName);
 
                             if (isVerified)
                             {
@@ -319,52 +317,215 @@ namespace Bikewale.Service.Controllers.PriceQuote
         }
 
         /// <summary>
-        /// Modified by : Lucky Rathore
-        /// Created On : 17 March 2016
-        /// Description : Dealer Area and address added in DPQSmsEntity.
+        /// Created by  :   Sumit Kate on 23 May 2016
+        /// Description :   Saves the Customer details if it is a new customer.
+        /// generated the OTP for the non verified customer
         /// </summary>
         /// <param name="input"></param>
-        /// <param name="objCust"></param>
-        /// <param name="dealerDetailEntity"></param>
-        /// <param name="bookingAmount"></param>
-        private void SaveCustomerSMS(PQCustomerDetailInput input, CustomerEntity objCust, PQ_DealerDetailEntity dealerDetailEntity, uint bookingAmount)
+        /// <returns></returns>
+        [ResponseType(typeof(Bikewale.DTO.PriceQuote.v2.PQCustomerDetailOutput)), Route("api/PQCustomerDetailWithOutPQ"), HttpPost]
+        public IHttpActionResult Postv2([FromBody]Bikewale.DTO.PriceQuote.v2.PQCustomerDetailInput input)
         {
-            UrlShortner objUrlShortner = new UrlShortner();
+
+            Bikewale.DTO.PriceQuote.v2.PQCustomerDetailOutput output = null;
+            bool isSuccess = false;
+            bool isVerified = false;
+            string password = string.Empty, salt = string.Empty, hash = string.Empty;
+            string bikeName = String.Empty;
+            string imagePath = String.Empty;
+            string versionName = string.Empty;
+
+            CustomerEntity objCust = null;
+            PQCustomerDetail pqCustomer = null;
+            MobileVerificationEntity mobileVer = null;
+            uint exShowroomCost = 0;
+            UInt32 TotalPrice = 0;
+            uint bookingAmount = 0;
+            sbyte noOfAttempts = 0;
+            UInt64 pqId = default(UInt64);
             try
             {
-                DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
-                objDPQSmsEntity.CustomerMobile = objCust.CustomerMobile;
-                objDPQSmsEntity.CustomerName = objCust.CustomerName;
-                objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.MobileNo;
-                objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Organization;
-                objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
-                objDPQSmsEntity.BookingAmount = bookingAmount;
-                objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
-                objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty;
-                objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
-                objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
-                objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
-                PriceQuoteParametersEntity pqEntity = _objPriceQuote.FetchPriceQuoteDetailsById(input.PQId);
-
-                var platformId = "";
-                if (Request.Headers.Contains("platformId"))
+                if (input != null && !String.IsNullOrEmpty(input.CustomerEmail) && !String.IsNullOrEmpty(input.CustomerMobile))
                 {
-                    platformId = Request.Headers.GetValues("platformId").First().ToString();
-                }
+                    PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
+                    objPQEntity.CityId = Convert.ToUInt32(input.CityId);
+                    if (Request.Headers.Contains("platformId"))
+                    {
+                        string platformId = Request.Headers.GetValues("platformId").First().ToString();
+                        if (platformId == "3")
+                        {
+                            objPQEntity.SourceId = Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android);
+                            objPQEntity.DeviceId = input.DeviceId;
+                        }
+                    }
+                    objPQEntity.VersionId = Convert.ToUInt32(input.VersionId);
+                    objPQEntity.DeviceId = input.DeviceId;
+                    objPQEntity.PQLeadId = input.LeadSourceId;
+                    objPQEntity.VersionId = Convert.ToUInt32(input.VersionId);
+                    objPQEntity.DealerId = input.DealerId;
+                    pqId = _objPriceQuote.RegisterPriceQuote(objPQEntity);
 
-                if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
-                {
-                    SendEmailSMSToDealerCustomer.SendSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
+                    if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail))
+                    {
+                        objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, ClientIP = input.ClientIP };
+                        UInt32 CustomerId = _objCustomer.Add(objCust);
+                    }
+
+
+                    DPQ_SaveEntity entity = new DPQ_SaveEntity()
+                    {
+                        DealerId = input.DealerId,
+                        PQId = Convert.ToUInt32(pqId),
+                        CustomerName = input.CustomerName,
+                        CustomerEmail = input.CustomerEmail,
+                        CustomerMobile = input.CustomerMobile,
+                        ColorId = null,
+                        UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
+                        UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
+                        DeviceId = input.DeviceId,
+                        LeadSourceId = input.LeadSourceId
+                    };
+
+                    isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
+
+                    //noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
+                    noOfAttempts = -1;// By-pass the mobile verification by setting noOfAttempts = -1
+                    //here -1 implies mobile number is verified and resend OTP attempts is 2
+                    if (noOfAttempts > -1)
+                    {
+                        if (noOfAttempts < 3)
+                        {
+                            mobileVer = _mobileVerification.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
+
+                            SMSTypes st = new SMSTypes();
+                            st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.PageUrl);
+                        }
+
+                        isVerified = false;
+
+                        output = new Bikewale.DTO.PriceQuote.v2.PQCustomerDetailOutput();
+                        output.IsSuccess = isVerified;
+                        output.NoOfAttempts = noOfAttempts;
+                        output.Dealer = null;
+                        output.PQId = pqId;
+                        return Ok(output);
+                    }
+                    else
+                    {
+                        //Don't mark mobile verified for pq
+                        //isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
+                        isVerified = true;// Set Verified to true to push the lead into AB for un-verified leads as well
+                        pqCustomer = _objDealerPriceQuote.GetCustomerDetails(Convert.ToUInt32(pqId));
+                        objCust = pqCustomer.objCustomerBase;
+
+                        PQ_DealerDetailEntity dealerDetailEntity = null;
+
+                        string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", input.VersionId, input.DealerId, input.CityId);
+                        // Send HTTP GET requests 
+
+                        using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                        {
+                            //dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                            dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                        }
+
+                        if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null)
+                        {
+                            if (dealerDetailEntity.objBookingAmt != null)
+                            {
+                                bookingAmount = dealerDetailEntity.objBookingAmt.Amount;
+                            }
+
+                            bool isShowroomPriceAvail = false, isBasicAvail = false;
+
+                            foreach (var item in dealerDetailEntity.objQuotation.PriceList)
+                            {
+                                //Check if Ex showroom price for a bike is available CategoryId = 3 (exshowrrom)
+                                if (item.CategoryId == 3)
+                                {
+                                    isShowroomPriceAvail = true;
+                                    exShowroomCost = item.Price;
+                                }
+
+                                //if Ex showroom price for a bike is not available  then set basic cost for bike price CategoryId = 1 (basic bike cost)
+                                if (!isShowroomPriceAvail && item.CategoryId == 1)
+                                {
+                                    exShowroomCost += item.Price;
+                                    isBasicAvail = true;
+                                }
+
+                                if (item.CategoryId == 2 && !isShowroomPriceAvail)
+                                    exShowroomCost += item.Price;
+
+                                TotalPrice += item.Price;
+                            }
+
+                            if (isBasicAvail && isShowroomPriceAvail)
+                                TotalPrice = TotalPrice - exShowroomCost;
+
+                            imagePath = Bikewale.Utility.Image.GetPathToShowImages(dealerDetailEntity.objQuotation.OriginalImagePath, dealerDetailEntity.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
+                            bikeName = dealerDetailEntity.objQuotation.objMake.MakeName + " " + dealerDetailEntity.objQuotation.objModel.ModelName + " " + dealerDetailEntity.objQuotation.objVersion.VersionName;
+                            versionName = dealerDetailEntity.objQuotation.objVersion.VersionName;
+                            var platformId = "";
+                            if (Request.Headers.Contains("platformId"))
+                            {
+                                platformId = Request.Headers.GetValues("platformId").First().ToString();
+                            }
+
+                            DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
+                            objDPQSmsEntity.CustomerMobile = objCust.CustomerMobile;
+                            objDPQSmsEntity.CustomerName = objCust.CustomerName;
+                            objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.MobileNo;
+                            objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Organization;
+                            objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
+                            objDPQSmsEntity.BookingAmount = bookingAmount;
+                            objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
+                            objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty;
+                            objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
+                            objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
+                            objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
+
+                            _objLeadNofitication.NotifyCustomer(Convert.ToUInt32(pqId), bikeName, imagePath, dealerDetailEntity.objDealer.Name,
+                               dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization,
+                               dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail,
+                               dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
+                               dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
+                               "api/v2/PQCustomerDetail", input.LeadSourceId, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude,
+                               dealerDetailEntity.objDealer.WorkingTime, platformId);
+
+                            _objLeadNofitication.NotifyDealer(Convert.ToUInt32(pqId), dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
+                                dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName);
+
+                            if (isVerified)
+                            {
+                                _objPriceQuote.SaveBookingState(Convert.ToUInt32(pqId), PriceQuoteStates.LeadSubmitted);
+                                _objLeadNofitication.PushtoAB(input.DealerId.ToString(), Convert.ToUInt32(pqId), objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, input.VersionId, input.CityId);
+                            }
+                        }
+                    }
+                    if (isVerified)
+                    {
+                        output = new Bikewale.DTO.PriceQuote.v2.PQCustomerDetailOutput();
+                        output.IsSuccess = isVerified;
+                        output.NoOfAttempts = noOfAttempts;
+                        output.PQId = pqId;
+                        return Ok(output);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
                 else
                 {
-                    SendEmailSMSToDealerCustomer.SendSMSToCustomer(input.PQId, "/api/PQCustomerDetail", objDPQSmsEntity, DPQTypes.SubscriptionModel);
+                    return BadRequest();
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.SaveCustomerSMS");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Postv2");
                 objErr.SendMail();
+                return InternalServerError();
             }
         }
 

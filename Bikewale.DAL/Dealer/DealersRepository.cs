@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using Bikewale.Interfaces.Dealer;
-using Bikewale.Entities.Dealer;
-using Bikewale.Notifications;
-using Bikewale.Entities.Location;
+﻿using Bikewale.CoreDAL;
 using Bikewale.Entities.BikeData;
-using Bikewale.CoreDAL;
-using System.Data.SqlClient;
-using System.Data;
-using System.Web;
-using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.Dealer;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using System.Data.Common;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web;
 
 namespace Bikewale.DAL.Dealer
 {
@@ -433,6 +433,8 @@ namespace Bikewale.DAL.Dealer
         /// <summary>
         /// Created By : Lucky Rathore on 21 March 2016
         /// Description : Return Dealers deatail list. 
+        /// Modified By : Vivek Gupta on 31-05-2016
+        /// Desc : MakeName , CityName, CityMaskingName and MakeMaskingName retrieved
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
@@ -448,6 +450,7 @@ namespace Bikewale.DAL.Dealer
                 using (DbCommand cmd = DbFactory.GetDBCommand("getdealerbymakecity"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "GetDealerByMakeCity_31052016";
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
@@ -482,6 +485,14 @@ namespace Bikewale.DAL.Dealer
                             {
                                 dealers.TotalCount = !Convert.IsDBNull(dr["TotalCount"]) ? Convert.ToUInt16(dr["TotalCount"]) : default(UInt16);
                             }
+
+                                if (dr.NextResult() && dr.Read())
+                                {
+                                    dealers.MakeName = !Convert.IsDBNull(dr["MakeName"]) ? Convert.ToString(dr["MakeName"]) : default(string);
+                                    dealers.CityName = !Convert.IsDBNull(dr["CityName"]) ? Convert.ToString(dr["CityName"]) : default(string);
+                                    dealers.CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string);
+                                    dealers.MakeMaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string);
+                                }
 
                             dealers.Dealers = dealerList;
 

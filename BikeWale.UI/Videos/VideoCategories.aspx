@@ -23,8 +23,8 @@
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
                             <li><a href="/"><span>Home</span></a></li>
-                            <li><a href="/bike-videos/"><span class="fa fa-angle-right margin-right10"></span>Videos</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><%= pageHeading %></li>
+                            <li><a href="/bike-videos/"><span class="bwsprite fa-angle-right margin-right10"></span>Videos</a></li>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span><%= pageHeading %></li>
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5"><%= pageHeading %></h1>

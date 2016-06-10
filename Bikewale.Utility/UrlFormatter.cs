@@ -29,5 +29,45 @@ namespace Bikewale.Utility
         {
             return String.Format("{0} {1} vs {2} {3}", make1, model1, make2, model2);
         }
+
+        /// <summary>
+        /// Created By Vivek Gupta on 23-05-2016
+        /// Desc : url format "/<make>-bikes/<model>/price-in-<city>/" for prices in city
+        /// </summary>
+        /// <returns></returns>
+        public static string PriceInCityUrl(string make, string model, string city)
+        {
+            return String.Format("/{0}-bikes/{1}/price-in-{2}/", make, model, city);
+        }
+
+        /// <summary>
+        /// Created By Vivek Gupta on 25-05-2016
+        /// Desc : url format /<make>-bikes/<model>/specifications-features/#specs,/<make>-bikes/<model>/specifications-features/#features
+        /// </summary>
+        /// <returns></returns>
+        public static string ViewAllFeatureSpecs(string make, string model, string hash,uint versionId)
+        {
+            return String.Format("/{0}-bikes/{1}/specifications-features/?vid={3}#{2}", make, model, hash, versionId);
+        }
+
+        /// <summary>
+        /// Created By Vivek Gupta on 31-05-2016
+        /// Desc : url format honda-bikes/dealers-in-mumbai/#{dealerId}
+        /// </summary>
+        /// <returns></returns>
+        public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName)
+        {
+            return String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName, cityMaskingName);
+        }
+
+        /// <summary>
+        /// Created By Vivek Gupta on 31-05-2016
+        /// Desc : url format honda-bikes/dealers-in-mumbai/#{dealerId}
+        /// </summary>
+        /// <returns></returns>
+        public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName, string hash)
+        {
+            return String.Format("/{0}-bikes/dealers-in-{1}/#{2}", makeMaskingName, cityMaskingName, hash);
+        }
     }
 }

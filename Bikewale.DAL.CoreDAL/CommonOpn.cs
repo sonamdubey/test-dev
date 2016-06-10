@@ -2,6 +2,7 @@
 COMMON OPERATIONS.
 */
 
+using Bikewale.Notifications;
 using System;
 using System.Text;
 using System.Data;
@@ -1958,7 +1959,31 @@ namespace Bikewale.CoreDAL
         /// <returns></returns>
         public static string GetClientIP()
         {
-            string clientIp = HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
+            //string clientIp = HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
+            //return clientIp;
+            string[] serVars = { "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "HTTP_X_FORWARDED", "HTTP_X_CLUSTER_CLIENT_IP", "HTTP_FORWARDED_FOR", "HTTP_FORWARDED", "REMOTE_ADDR" };
+            string clientIp = string.Empty;
+            foreach (string serverVariable in serVars)
+            {
+                clientIp = HttpContext.Current.Request.ServerVariables[serverVariable] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables[serverVariable];
+                if (!String.IsNullOrEmpty(clientIp))
+                {
+                    if (serverVariable == "HTTP_X_FORWARDED_FOR")
+                    {
+                        if (!string.IsNullOrEmpty(clientIp))
+                        {
+                            string[] ipRange = clientIp.Split(',');
+                            if (ipRange != null)
+                            {
+                                clientIp = ipRange[ipRange.Length - 1];
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            //string clientIp = HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] == null ? DBNull.Value.ToString() : HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
+
             return clientIp;
         }
 

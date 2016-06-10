@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Bikewale.Common;
+using System;
 using System.Data;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data.SqlClient;
-using Bikewale.Common;
+using System.Text.RegularExpressions;
 using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -30,13 +26,13 @@ namespace Bikewale.Controls
         {
             get { return modelId; }
             set { modelId = value; }
-        }      
+        }
 
         public string TopRecords
         {
             get { return _topCount; }
             set { _topCount = value; }
-        }        
+        }
 
         public int RecordCount
         {
@@ -57,7 +53,7 @@ namespace Bikewale.Controls
 
         private void Page_Load(object sender, EventArgs e)
         {
-            if(!String.IsNullOrEmpty(makeId) || !String.IsNullOrEmpty(modelId) || !String.IsNullOrEmpty(seriesId))
+            if (!String.IsNullOrEmpty(makeId) || !String.IsNullOrEmpty(modelId) || !String.IsNullOrEmpty(seriesId))
                 FetchReviews();
         }
         private void FetchReviews()
@@ -149,7 +145,7 @@ namespace Bikewale.Controls
             }
             else
             {
-                return text.Substring(0, text.Substring(0, 185).LastIndexOf(" ")) + " [...]";
+                return text.Substring(0, text.Substring(0, 185).LastIndexOf(" ")) + " ...";
             }
         }
 

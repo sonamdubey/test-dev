@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Utility
 {
@@ -19,20 +15,31 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string GetMinSpecs(string displacement, string fuelEffecient, string maxpower)
         {
-            string str=String.Empty;
-            if (!string.IsNullOrEmpty(displacement) && displacement != "0")
-                str += "<span><span>"+ displacement +"</span><span class='text-light-grey'> CC</span></span>";
+            string str = String.Empty;
+            try
+            {
+                if (!string.IsNullOrEmpty(displacement) && displacement != "0")
+                    str += "<span><span>" + displacement + "</span><span> CC</span></span>";
 
-            if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
-                str += "<span>, <span>" + fuelEffecient + "</span><span class='text-light-grey'> Kmpl</span></span>";
+                if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
+                    str += "<span>, <span>" + fuelEffecient + "</span><span> Kmpl</span></span>";
 
-            if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
-                str += "<span>, <span>" + maxpower + "</span><span class='text-light-grey'> bhp</span></span>";
+                if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
+                    str += "<span>, <span>" + maxpower + "</span><span> bhp</span></span>";
 
-            if (str != "")
-                return str;
-            else
-                return "Specs Unavailable";
+                //if (!string.IsNullOrEmpty(weight) && weight != "0")
+                //    str += "<span>, <span>" + weight + "</span><span class='text-light-grey'> kgs</span></span>";
+
+                //if (str != string.Empty)
+                //    return str;
+                else
+                    return "Specs Unavailable";
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return str;
         }
 
         /// <summary>
@@ -52,13 +59,13 @@ namespace Bikewale.Utility
             else
             {
                 bool isBoolValue = false;
-                
+
                 if (Boolean.TryParse(value, out isBoolValue))
-                {                    
+                {
                     showValue = isBoolValue ? "Yes" : "No";
                 }
                 else
-                { 
+                {
                     showValue = value;
                 }
             }
@@ -79,7 +86,7 @@ namespace Bikewale.Utility
             {
                 showValue = Format.FormatNumeric(Convert.ToString(value));
             }
-            else 
+            else
             {
                 showValue = "--";
             }
@@ -99,9 +106,6 @@ namespace Bikewale.Utility
 
             if (value > 0)
             {
-                //string a = String.Format(",", value);
-                //showValue = String.Format(",",(Convert.ToString(value)));
-
                 if ((value % 1 == 0))
                 {
                     showValue = value.ToString("N0", new System.Globalization.CultureInfo("en-US"));
@@ -109,7 +113,7 @@ namespace Bikewale.Utility
                 else
                 {
                     showValue = value.ToString("N", new System.Globalization.CultureInfo("en-US"));
-                }                
+                }
             }
             else
             {
@@ -178,7 +182,7 @@ namespace Bikewale.Utility
             {
                 return "No specifications.";
             }
-            return format.Trim().Substring(0, format.Length - 1);    
+            return format.Trim().Substring(0, format.Length - 1);
         }
 
         //Overloading of ShowAvailable
@@ -190,7 +194,7 @@ namespace Bikewale.Utility
         /// <param name="value">Value to be checked whether available or not.</param>
         /// <param name="unit">unit of respective value e.g. cc, kg.</param>
         /// <returns>If value is null function will return --</returns>
-        public static string ShowAvailable(string value,string unit)
+        public static string ShowAvailable(string value, string unit)
         {
             string showValue = string.Empty;
 
@@ -221,7 +225,7 @@ namespace Bikewale.Utility
         /// <param name="value">Value to be checked whether available or not.</param>
         /// <param name="unit">unit of respective value e.g. cc, kg.</param>
         /// <returns>If value is null function will return --</returns>
-        public static string ShowAvailable(int value,string unit)
+        public static string ShowAvailable(int value, string unit)
         {
             string showValue = string.Empty;
 
@@ -244,7 +248,7 @@ namespace Bikewale.Utility
         /// <param name="value">Value to be checked whether available or not.</param>
         /// <param name="unit">unit of respective value e.g. cc, kg.</param>
         /// <returns>If value is null function will return --</returns>
-        public static string ShowAvailable(float value,string unit)
+        public static string ShowAvailable(float value, string unit)
         {
             string showValue = string.Empty;
 
@@ -288,15 +292,15 @@ namespace Bikewale.Utility
             }
             else
             {
-                if ( showValue1.Equals("--") ) 
+                if (showValue1.Equals("--"))
                 {
-                    showValue = showValue2;  
+                    showValue = showValue2;
                 }
                 else if (showValue2.Equals("--"))
                 {
                     showValue = showValue1;
                 }
-                else 
+                else
                 {
                     showValue = showValue1 + " @ " + showValue2;
                 }

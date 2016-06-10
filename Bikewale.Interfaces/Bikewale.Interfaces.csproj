@@ -84,6 +84,7 @@
     <Compile Include="Location\IAreaCacheRepository.cs" />
     <Compile Include="Location\ICity.cs" />
     <Compile Include="Location\ICityCacheRepository.cs" />
+    <Compile Include="Location\ICityMaskingCacheRepository.cs" />
     <Compile Include="Location\IState.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="PriceQuote\IDealerPriceQuoteDetail.cs" />
     <Compile Include="PriceQuote\ILeadNofitication.cs" />
     <Compile Include="PriceQuote\IPriceQuote.cs" />
+    <Compile Include="PriceQuote\IPriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsedBikes\IUsedBikes.cs" />
     <Compile Include="UsedBikes\IPopularUsedBikesCacheRepository.cs" />
