@@ -232,7 +232,6 @@ namespace Bikewale.DAL.BikeData
         public BikeSpecificationEntity GetSpecifications(U versionId)
         {
             BikeSpecificationEntity objSpecs = null;
-            SqlConnection conn = null;
 
             try
             {
@@ -424,13 +423,7 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                if (conn != null && conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
+
             return objSpecs;
         }
 

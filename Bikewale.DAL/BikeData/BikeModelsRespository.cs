@@ -861,44 +861,44 @@ namespace Bikewale.DAL.BikeData
         {
             Hashtable ht = null;
 
-            //try
-            //{
-            //    using (SqlCommand cmd = new SqlCommand())
-            //    {
-            //        cmd.CommandText = "getoldmaskingnameslist";
-            //        cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getoldmaskingnameslist";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
-            //        {
-            //            if (dr != null)
-            //            {
-            //                ht = new Hashtable();
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            ht = new Hashtable();
 
-            //                if (dr!=null)
-            //                {
-            //                    while (dr.Read())
-            //                    {
-            //                        if (!ht.ContainsKey(dr["OldMaskingName"]))
-            //                            ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
-            //                    } 
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+                            if (dr != null)
+                            {
+                                while (dr.Read())
+                                {
+                                    if (!ht.ContainsKey(dr["OldMaskingName"]))
+                                        ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-            //catch (SqlException ex)
-            //{
-            //    HttpContext.Current.Trace.Warn("GetOldMaskingNamesList sql ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //catch (Exception ex)
-            //{
-            //    HttpContext.Current.Trace.Warn("GetOldMaskingNamesList ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn("GetOldMaskingNamesList sql ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("GetOldMaskingNamesList ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
 
             return ht;
         }

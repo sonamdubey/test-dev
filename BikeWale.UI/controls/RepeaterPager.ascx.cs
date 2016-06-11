@@ -411,7 +411,6 @@ namespace Bikewale.Controls
         int GetRecordCount()
         {
             int count = 0;
-            IDataReader dr = null;
 
             try
             {
@@ -420,12 +419,13 @@ namespace Bikewale.Controls
                     CmdParamR.CommandText = RecordCountQuery;
 
                     Trace.Warn("RecordCountQuery: " + RecordCountQuery);
-                    dr = MySqlDatabase.SelectQuery(CmdParamR);
-
-                    if (dr.Read())
-                    {
-                        count = Convert.ToInt32(dr[0]);
-                    }                    
+                    using (IDataReader dr  = MySqlDatabase.SelectQuery(CmdParamR))
+                    {  
+                        if (dr.Read())
+                        {
+                            count = Convert.ToInt32(dr[0]);
+                        }  
+                    }                   
                 }
             }
             catch (Exception err)

@@ -478,11 +478,12 @@ namespace Bikewale.Content
                     System.Data.Common.DbParameter[] param = SParams;
 
                     Trace.Warn("RecordCountQuery: " + RecordCountQuery);
-                    IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(RecordCountQuery, param);
-
-                    if (dr!=null && dr.Read())
-                    {
-                        count = Convert.ToInt32(dr[0]);
+                    using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(RecordCountQuery, param))
+                    { 
+                        if (dr != null && dr.Read())
+                        {
+                            count = Convert.ToInt32(dr[0]);
+                        } 
                     }
                 }
 

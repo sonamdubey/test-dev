@@ -152,9 +152,11 @@ namespace Bikewale.Common
         {
             try
             {
-                IDataReader datareader = MySqlDatabase.SelectQuery(sql, param);
-                rpt.DataSource = datareader;
-                rpt.DataBind();
+                using ( IDataReader datareader = MySqlDatabase.SelectQuery(sql, param))
+                {
+                    rpt.DataSource = datareader;
+                    rpt.DataBind(); 
+                }
             }
             catch (Exception)
             {

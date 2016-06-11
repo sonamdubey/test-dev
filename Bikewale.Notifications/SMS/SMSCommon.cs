@@ -165,7 +165,6 @@ namespace Bikewale.Notifications
         /// <param name="retMsg">The return message from the provider that is received after the SMS is sent</param>
         private void UpdateSMSSentData(string currentId, string retMsg)
         {
-            SqlConnection con = null;
 
             if (!String.IsNullOrEmpty(currentId))
             {
@@ -184,13 +183,6 @@ namespace Bikewale.Notifications
                 {
                     ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
                     objErr.SendMail();
-                }
-                finally
-                {
-                    if (con != null && con.State == ConnectionState.Open)
-                    {
-                        con.Close();
-                    }
                 }
             }
         }

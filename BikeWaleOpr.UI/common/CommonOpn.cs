@@ -32,11 +32,13 @@ namespace BikeWaleOpr.Common
         public void BindGridReader(string sql, DataGrid dtgrd)
         {
             try
-            {
-                IDataReader dataReader = MySqlDatabase.SelectQuery(sql);
-                dtgrd.DataSource = dataReader;
-                dtgrd.DataBind();
-                dataReader.Close();
+            { 
+                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql))
+                {
+                    dtgrd.DataSource = dataReader;
+                    dtgrd.DataBind();
+                    dataReader.Close(); 
+                }
             }
             catch (Exception)
             {
@@ -52,10 +54,12 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                IDataReader dataReader = MySqlDatabase.SelectQuery(sql,param);
-                dtgrd.DataSource = dataReader;
-                dtgrd.DataBind();
-                dataReader.Close();
+                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, param))
+                {
+                    dtgrd.DataSource = dataReader;
+                    dtgrd.DataBind();
+                    dataReader.Close(); 
+                }
             }
             catch (Exception)
             {
