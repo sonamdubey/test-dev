@@ -448,11 +448,11 @@
                     <% } %>
                 </div>
 
+                 <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                       { %>
                 <div class="margin-right20 margin-left20 border-solid-top"></div>
 
-                <div id="modelPricesContent" class="bw-model-tabs-data">
-                    <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
-                       { %>
+                <div id="modelPricesContent" class="bw-model-tabs-data">                   
                     <h2 class="padding-top15 padding-right20 padding-left20"><%= bikeName %> Prices</h2>
                     <!-- varient code starts here -->
                     <h3 class="padding-right20 padding-left20">Prices by versions</h3>
@@ -485,12 +485,10 @@
                             </asp:Repeater>
                         </div>
                     </div>
-
-                    <!-- varient code ends here -->
-                    <% } %>
+                    <!-- varient code ends here -->                   
                    <BW:TopCityPrice ID="ctrlTopCityPrices" runat="server" />
-
                 </div>
+                 <% } %>
                 <% if(modelPage.ModelVersionSpecs != null){ %>
                 <div class="margin-right20 margin-left20 border-solid-top"></div>
                 <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data font14">
@@ -633,6 +631,7 @@
                 <%} %>
                 <div id="modelSpecsFooter" class="padding-bottom20"></div>
             </div>
+            <div class="clear"></div>
         </section>
       
         <% 

@@ -680,7 +680,7 @@
                         <%} %>
                         <% if (ctrlVideos.FetchedRecordsCount > 0)
                             { %>
-                            <a href="#modelVideosContent" rel="nofollow">Videos</a>
+                           <a href="#modelVideosContent" rel="nofollow">Videos</a>
                         <%} %>
                           <% if (ctrlNews.FetchedRecordsCount > 0)
                              { %>
