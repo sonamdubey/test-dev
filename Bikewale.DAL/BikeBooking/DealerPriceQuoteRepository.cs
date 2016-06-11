@@ -58,8 +58,8 @@ namespace Bikewale.DAL.BikeBooking
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, (entity.ColorId.HasValue) ? entity.ColorId.Value : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Byte, (entity.LeadSourceId.HasValue) ? entity.LeadSourceId.Value : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 100, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 100, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
 
                         if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd)))

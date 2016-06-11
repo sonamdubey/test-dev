@@ -59,8 +59,8 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, pqParams.DealerId));
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqsourceid", DbType.Byte, (pqParams.PQLeadId.HasValue) ? pqParams.PQLeadId : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 100, (!String.IsNullOrEmpty(pqParams.UTMA)) ? pqParams.UTMA.Substring(0,100) : null));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 100, (!String.IsNullOrEmpty(pqParams.UTMZ)) ? pqParams.UTMZ.Substring(0, 100) : null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(pqParams.UTMA)) ? pqParams.UTMA : null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(pqParams.UTMZ)) ? pqParams.UTMZ : null));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(pqParams.DeviceId)) ? pqParams.DeviceId : null));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_refpqid", DbType.Int64, (pqParams.RefPQId.HasValue) ? pqParams.RefPQId : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, ParameterDirection.Output));
