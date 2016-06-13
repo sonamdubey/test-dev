@@ -280,6 +280,16 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                             return Ok(onRoadPrice);
                         }
+                        else
+                        {
+                            onRoadPrice.SecondaryDealers.Insert(0, new DTO.PriceQuote.v2.DPQDealerBase()
+                            {
+                                Area = String.Empty,
+                                DealerId = 0,
+                                MaskingNumber = String.Empty,
+                                Name = string.Empty
+                            });
+                        }
                         return Ok(onRoadPrice);
                     }
                     else
