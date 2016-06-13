@@ -31,13 +31,13 @@ namespace Bikewale.Cache.DealersLocator
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
         /// <returns>Dealers</returns>
-        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
+        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId, uint modelid = 0)
         {
             Entities.DealerLocator.DealersEntity dealers = null;
             string key = String.Format("BW_DealerList_Make_{0}_City_{1}", makeId, cityId);
             try
             {
-                dealers = _cache.GetFromCache<Entities.DealerLocator.DealersEntity>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetDealerByMakeCity(cityId, makeId));
+                dealers = _cache.GetFromCache<Entities.DealerLocator.DealersEntity>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetDealerByMakeCity(cityId, makeId,modelid));
             }
             catch (Exception ex)
             {
