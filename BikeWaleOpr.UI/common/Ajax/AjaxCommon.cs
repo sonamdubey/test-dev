@@ -602,26 +602,24 @@ namespace BikeWaleOpr.Common
         [AjaxPro.AjaxMethod()]
         public void MapCampaign(string contractId, string campaignId)
         {
-            throw new Exception("Method not used/commented");
 
-            //bool isSuccess = false;
-            //try
-            //{
-            //    using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebwdealercontractcampaign"))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebwdealercontractcampaign"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-            //        isSuccess = MySqlDatabase.UpdateQuery(cmd);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
-            //    objErr.SendMail();
-            //}
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
+                objErr.SendMail();
+            }
 
         }
 

@@ -19,7 +19,7 @@ namespace Bikewale.Mobile.Controls
     /// Created By : Sushil Kumar on 3rd June 2016
     /// Description : Class to show dealers  
     /// </summary>
-    public class DealersCard :  UserControl
+    public class DealersCard : UserControl
     {
         protected Repeater rptDealers;
 
@@ -30,6 +30,7 @@ namespace Bikewale.Mobile.Controls
         public int LeadSourceId = 27; // DealersCard GetOfferButton
         public int PQSourceId { get; set; }
         public bool IsDiscontinued { get; set; }
+        public uint ModelId { get; set; }
 
         protected bool showWidget = false;
 
@@ -82,7 +83,7 @@ namespace Bikewale.Mobile.Controls
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealers = objCache.GetDealerByMakeCity(CityId, MakeId);
+                    _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
 
                     if (_dealers != null && _dealers.Dealers.Count() > 0)
                     {
@@ -124,11 +125,11 @@ namespace Bikewale.Mobile.Controls
             }
             else
             {
-                retString = String.Format("<a class=\"font16 text-default\" href=\"/m/{0}-bikes/dealers-in-{1}/\">{2}</a>", makeMaskingName, cityMaskingName, dealerName); 
+                retString = String.Format("<a class=\"font16 text-default\" href=\"/m/{0}-bikes/dealers-in-{1}/\">{2}</a>", makeMaskingName, cityMaskingName, dealerName);
             }
 
             return retString;
         }
- 
+
     }
 }
