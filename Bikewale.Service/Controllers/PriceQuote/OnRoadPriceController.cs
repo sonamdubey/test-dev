@@ -231,7 +231,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         objPQ.MakeName = bpqOutput.MakeName;
                         objPQ.ModelName = bpqOutput.ModelName;
 
-                        bpqOutput.Varients = _objPriceQuote.GetOtherVersionsPrices(objPQ.PQId);                        
+                        bpqOutput.Varients = _objPriceQuote.GetOtherVersionsPrices(objPQ.PQId);
 
                         if ((objPQ.DealerId != 0) || objPQ.IsDealerAvailable)
                         {
@@ -282,6 +282,11 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         }
                         else
                         {
+                            onRoadPrice.version = PQBikePriceQuoteOutputMapper.Convert(bpqOutput.Varients);
+                            if (onRoadPrice.SecondaryDealers == null)
+                            {
+                                onRoadPrice.SecondaryDealers = new System.Collections.Generic.List<DTO.PriceQuote.v2.DPQDealerBase>();
+                            }
                             onRoadPrice.SecondaryDealers.Insert(0, new DTO.PriceQuote.v2.DPQDealerBase()
                             {
                                 Area = String.Empty,
@@ -335,7 +340,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                 if (pqId > 0 && platformId > 0)
                 {
-                    PQ_QuotationEntity bwPQ = _objDPQ.Quotation(cityId, platformId, deviceId, dealerId, modelId,ref pqId, isPQRegistered, areaId, versionId);
+                    PQ_QuotationEntity bwPQ = _objDPQ.Quotation(cityId, platformId, deviceId, dealerId, modelId, ref pqId, isPQRegistered, areaId, versionId);
                     DTO.PriceQuote.v2.DPQuotationOutput dpq = null;
 
                     DetailedDealerQuotationEntity objDealerQuotation = _objDPQ.GetDealerQuotation(cityId, versionId.HasValue ? versionId.Value : 0, dealerId);
