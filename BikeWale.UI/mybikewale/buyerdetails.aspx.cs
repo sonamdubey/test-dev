@@ -59,7 +59,7 @@ namespace Bikewale.MyBikeWale
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getclassifiedindividualbuyerdetails";  
                     //cmd.Parameters.Add("@inquiryid", SqlDbType.BigInt).Value = inquiryId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId)); 
 
                     using (DataSet dr = MySqlDatabase.SelectAdapterQuery(cmd))
                     {

@@ -143,7 +143,7 @@ namespace Bikewale.MyBikeWale
         /// </summary>
         protected void UpdateSoldStatus()
         {
-            string sql = " update dbo.classifiedindividualsellinquiries set statusid=3, isapproved = 1 where id = @inquiryid ";
+            string sql = " update classifiedindividualsellinquiries set statusid=3, isapproved = 1 where id = @inquiryid ";
 
             try
             {
