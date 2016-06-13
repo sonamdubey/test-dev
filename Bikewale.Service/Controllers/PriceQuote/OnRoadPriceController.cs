@@ -282,6 +282,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         }
                         else
                         {
+                            onRoadPrice.version = PQBikePriceQuoteOutputMapper.Convert(bpqOutput.Varients);
                             if (onRoadPrice.SecondaryDealers == null)
                             {
                                 onRoadPrice.SecondaryDealers = new System.Collections.Generic.List<DTO.PriceQuote.v2.DPQDealerBase>();
