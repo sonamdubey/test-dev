@@ -151,7 +151,8 @@ namespace Bikewale.Used
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "classified_upadateverifiedlisting";
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, sellInquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, sellInquiryId));
+
 
                     MySqlDatabase.UpdateQuery(cmd);
                     HttpContext.Current.Trace.Warn("update success verified...");
