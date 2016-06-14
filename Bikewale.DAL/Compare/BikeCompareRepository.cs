@@ -310,11 +310,11 @@ namespace Bikewale.DAL.Compare
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int16, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int16, Convert.DBNull));
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (reader != null )
+                        if (reader != null)
                         {
                             similarBikeList = new List<SimilarCompareBikeEntity>();
                             while (reader.Read())
