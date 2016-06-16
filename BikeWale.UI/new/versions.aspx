@@ -331,7 +331,7 @@
                                 <%}
 								   else
 								   { %>
-                                <p class="font30 default-showroom-text text-light-grey margin-bottom5">Price Unavailable</p>
+                                <p class="font26 default-showroom-text text-light-grey margin-bottom5">Price Unavailable</p>
                                 <% } %>
                                 <% if (!string.IsNullOrEmpty(modelPageEntity.UpcomingBike.ExpectedLaunchDate))
 								   { %>
@@ -596,19 +596,19 @@
                                 <% if (modelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && modelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
 								   { %>                                
                                     <p class="font14 text-light-grey margin-bottom5 leftfloat">Expected Price</p> 
-                                        <div class="clear"></div>                                                                     
+                                    <div class="clear"></div>                                                                     
+                                    <span class="bwsprite inr-lg"></span>
+                                    <span id="bike-priceFloating" class="font18 text-bold">
+                                        <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)) %></span>
+                                        <span>- </span>
                                         <span class="bwsprite inr-lg"></span>
-                                        <span id="bike-priceFloating" class="font18 text-bold">
-                                            <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)) %></span>
-                                            <span>- </span>
-                                            <span class="bwsprite inr-lg"></span>
-                                            <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)) %></span>
-                                        </span>                                                            
-                                        <%}
-								           else
-								           { %>
-                                        <p class="font32">Price Unavailable</p>
-                                        <% } %>                                                                                              
+                                        <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)) %></span>
+                                    </span>                                                            
+                                    <%}
+								    else
+								    { %>
+                                    <p class="font20">Price Unavailable</p>
+                                <% } %>                                                                                              
                             <% } %>
                     <!-- upcoming end Floating-->
                         </div>
@@ -695,7 +695,7 @@
 
                     <% if ((modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) || modelPageEntity.ModelVersionSpecs !=null)
                        { %>
-                    <div id="modelSummaryContent" class="bw-model-tabs-data content-inner-block-20">
+                    <div id="modelSummaryContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
                         <%if(modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)){ %>
                         <div class="grid-8 alpha margin-bottom20 container">
                             <h2><%=bikeName %></h2>
@@ -750,10 +750,10 @@
                         <div class="clear"></div>
                           <% } %>
                     </div>
-                    <div class="margin-right10 margin-left10 border-solid-top"></div> <!-- divider -->
+                    
                     <%} %>
                     <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
-                    <div id="modelPricesContent" class="bw-model-tabs-data content-inner-block-21522">
+                    <div id="modelPricesContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
                         <h2><%=bikeName %> Prices</h2>
                         <div class="grid-8 alpha">
                             <h3 class="margin-bottom20">Prices by versions</h3>
@@ -796,7 +796,6 @@
                     </div>
                      <% } %>
                     <% if(modelPageEntity.ModelVersionSpecs != null ){ %>
-                    <div class="margin-right10 margin-left10 border-solid-top"></div> <!-- divider -->
 
                     <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data padding-top20 font14">
                         <h2 class="padding-left20 padding-right20"><%=bikeName %> Specifications & Features</h2>
@@ -899,44 +898,38 @@
                          
                         <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
                           { %>
-                         <%--<div class="grid-12 alpha omega">--%>
-                            <h3 class="padding-left20">Colours</h3>
-                            <ul id="modelColorsList">
-                                <asp:Repeater ID="rptColor" runat="server">
-                                    <ItemTemplate>
-                                        <li>                                                                                                                                     
-                                            <div class="color-box inline-block <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %>">
-                                                <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
-                                                    <ItemTemplate>
-                                                        <span <%# String.Format("style='background-color: #{0}'",Convert.ToString(Container.DataItem)) %>></span>
-                                                    </ItemTemplate>
-                                                </asp:Repeater>
-                                            </div>
-                                            <p class="font16 inline-block"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
-                                        </li>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </ul>
-                         <%--</div>--%>
+                        <h3 class="padding-left20">Colours</h3>
+                        <ul id="modelColorsList">
+                            <asp:Repeater ID="rptColor" runat="server">
+                                <ItemTemplate>
+                                    <li>                                                                                                                                     
+                                        <div class="color-box inline-block <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %>">
+                                            <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
+                                                <ItemTemplate>
+                                                    <span <%# String.Format("style='background-color: #{0}'",Convert.ToString(Container.DataItem)) %>></span>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </div>
+                                        <p class="font16 inline-block"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
+                                    </li>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </ul>
                         <%} %>
-                        <%--<div class="clear"></div>--%>
+                        <div class="margin-right10 margin-left10 border-solid-top"></div>
                     </div>
                     <% } %>
-                      <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
-                       { %>
-                        <div class="margin-right10 margin-left10 border-solid-top"></div>
-                      <%} %>
-                    <div id="modelReviewsContent" class="bw-model-tabs-data font14">
-                        <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
-                          { %>
-                        <h2 class="padding-top20 padding-right20 padding-left20"><%= bikeName %> Reviews</h2>
-                        <%} %>
+                      
+                    <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                      { %>
+                    <div id="modelReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <h2 class="padding-right10 padding-left10"><%= bikeName %> Reviews</h2>
                         <% if(ctrlExpertReviews.FetchedRecordsCount > 0){ %>
                         <!-- expert review starts-->
                         <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                         <!-- expert review ends-->
-                        <% if (ctrlUserReviews.FetchedRecordsCount == 0){ %>
-                            <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0 && ctrlUserReviews.FetchedRecordsCount > 0){ %>
+                            <div class="margin-bottom20"></div>
                         <% } %>
                         <% } %>
 
@@ -944,32 +937,29 @@
                         <!-- user reviews -->
                         <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                         <!-- user reviews ends -->
-                        <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                          <% } %>
                     </div>
+                    <%} %>
 
                     <% if (ctrlVideos.FetchedRecordsCount > 0)
-                        { %>
-                        <div id="modelVideosContent" class="bw-model-tabs-data font14">
-                            <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
-                            <h2 class="padding-top20 padding-right20 padding-left20"><%= bikeName %> Videos</h2>
-                            <!-- Video reviews -->
-                            <BW:Videos runat="server" ID="ctrlVideos" />
-                            <!-- Video reviews ends -->
-                        </div>
-                        <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
+                    { %>
+                    <div id="modelVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <h2 class="padding-right10 padding-left10"><%= bikeName %> Videos</h2>
+                        <!-- Video reviews -->
+                        <BW:Videos runat="server" ID="ctrlVideos" />
+                        <!-- Video reviews ends -->
+                    </div>
                     <% } %>
 
                     <% if (ctrlNews.FetchedRecordsCount > 0)
                        { %>
                     <!-- News widget starts -->                    
                     <BW:LatestNews runat="server" ID="ctrlNews" />
-                    <!-- News widget ends --> 
+                    <!-- News widget ends -->
                     <% } %>  
 
                     <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                     <!-- Alternative reviews ends -->
-                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                     <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
                     <!-- Alternative reviews ends -->
                     <% } %>
