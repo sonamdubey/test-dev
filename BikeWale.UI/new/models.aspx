@@ -45,55 +45,7 @@
             </div>
             <div class="clear"></div>
         </section>      
-
-        <!-- Brand Page Starts Here-->
-        <%--<section class="bg-light-grey padding-top10">
-            <div class="container">
-                <div class="grid-12">
-                    <div class="breadcrumb margin-bottom15">
-                        <ul>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <a href="/" itemprop="url">
-                                    <span itemprop="title">Home</span>
-                                </a>
-                            </li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><%= _make.MakeName %> Bikes</li>
-                        </ul>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="grid-12 alpha omega">
-                        <div class="grid-8 alpha">
-                            <h1 class="leftfloat font30 text-black margin-top10 margin-bottom15"><%= _make.MakeName %> bikes</h1>
-                        </div>
-                        <div class="grid-4 rightfloat margin-top10 omega" id="sortByContainer">
-                            <div class="leftfloat sort-by-text margin-left50">
-                                <p>Sort by:</p>
-                            </div>
-                            <div class="rightfloat">
-                                <div class="sort-div rounded-corner2">
-                                    <div class="sort-by-title" id="sort-by-container">
-                                        <span class="leftfloat sort-select-btn">Price: Low to High</span>
-                                        <span class="clear"></span>
-                                    </div>
-                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
-                                </div>
-                                <div class="sort-selection-div sort-list-items hide">
-                                    <ul id="sortbike">
-                                        <li id="0" class="selected">Price: Low to High</li>
-                                        <li id="1">Popular</li>
-                                        <li id="2">Price: High to Low</li>
-                                        <li id="3">Mileage: High to Low</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>--%>
-
+        
         <section class="container margin-bottom20">
             <div class="grid-12">
                 <div class="content-box-shadow">
@@ -142,26 +94,11 @@
                                                 </div>
                                                 <div class="text-xt-light-grey font14 margin-bottom15">
                                                     <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
-                                                    <span><span>XX</span><span> kgs</span></span>
                                                 </div>
                                                 <div class="font14 text-light-grey margin-bottom5">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
                                                 <div class="font16 text-bold">
                                                     <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %>
                                                 </div>
-                                                <%--<div class="leftfloat">
-                                                    <p class=" inline-block rating-stars-container border-solid-right padding-right10 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
-                                                        <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(DataBinder.Eval(Container.DataItem,"ModelRating"))) %>
-                                                    </p>
-                                                </div>
-                                                <div class="leftfloat rated-container margin-left10 font16 text-light-grey <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
-                                                    <span><a href="/<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName"))%>-bikes/<%#Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")) %>/user-reviews/"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ReviewCount")) %> Reviews</a></span>
-                                                </div>
-
-                                                <div class="leftfloat not-rated-container font16 text-light-grey <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) == "0" ? "" : "hide" %>">
-                                                    <span class="border-solid-right padding-right10">Not rated yet  </span><a href="/content/userreviews/writereviews.aspx?bikem=<%# DataBinder.Eval(Container.DataItem,"objModel.ModelId") %>"><span class="margin-left10">Write a review</span></a>
-                                                </div>
-                                                <div class="clear"></div>
-                                                --%>
                                                 <a href="Javascript:void(0)" pagecatid="1" pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey btn-sm margin-top15 font14 fillPopupData">Check on-road price</a>
                                             </div>
                                         </div>
@@ -262,7 +199,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="makeAboutContent" class="bw-model-tabs-data padding-top20 padding-right20 padding-left20">
+                    <div id="makeAboutContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
                         <div class="grid-8 alpha">
                             <h2>Bajaj Pulsar RS200 Summary</h2>
                             <p class="font14 text-light-grey line-height17">
@@ -295,7 +232,6 @@
                     </div>
 
                     <!-- news control starts here -->
-                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                     <div id="modelNewsContent" class="bw-model-tabs-data padding-top20 font14">
                         <h2 class="padding-left20 padding-right20"><%= _make.MakeName %> News</h2>
                         <div class="margin-bottom10">
@@ -353,18 +289,16 @@
                         </div>
                     </div>
                     <!-- news control ends here -->
-                    
-                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
-                    <div id="makeReviewsContent" class="bw-model-tabs-data padding-top20 font14">
-                        <h2 class="padding-left20 padding-right20"><%= _make.MakeName %> Reviews</h2>
+
+                    <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <h2 class="padding-left10 padding-right10"><%= _make.MakeName %> Reviews</h2>
                         <!-- expert reviews control -->
                         <!-- user reviews control -->
                         <!-- videos control -->
                     </div>
 
-                    <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
-                    <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 margin-bottom20 font14">
-                        <h2 class="padding-left20 padding-right20"><%= _make.MakeName %> Dealers in India</h2>
+                    <div id="makeDealersContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <h2 class="padding-left10 padding-right10"><%= _make.MakeName %> Dealers in India</h2>
                         <div class="jcarousel-wrapper bike-carousel-wrapper margin-bottom15">
                             <div class="jcarousel">
                                 <ul>
@@ -401,16 +335,15 @@
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
-                        <div class="padding-left20">
+                        <div class="padding-left10">
                             <a href="javascript:void(0)">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
                         </div>
                     </div>
 
-                    <div class="margin-right10 margin-left10 border-solid-top"></div>
-                    <div id="makeUsedBikeContent" class="bw-model-tabs-data padding-top20 font14">
-                        <h2 class="padding-left20 padding-right20">Recently uploaded <%= _make.MakeName %> Used bikes</h2>
+                    <div id="makeUsedBikeContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
+                        <h2 class="padding-left10 padding-right10">Recently uploaded <%= _make.MakeName %> Used bikes</h2>
                         <!-- when city is not selected -->
-                        <div class="grid-12 text-black">
+                        <div class="grid-12 alpha omega text-black">
                             <div class="grid-4 margin-bottom20">
                                 <a href=""><%= _make.MakeName %> Used bikes in Mumbai</a>
                                 <p class="margin-top10">500 bikes available</p>
@@ -440,7 +373,7 @@
                         <div class="clear"></div>
 
                         <!-- when city is selected -->
-                        <div class="grid-12 text-black">
+                        <div class="grid-12 alpha omega text-black">
                             <div class="grid-4 margin-bottom20">
                                 <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
                                 <p class="margin-top10"><span class="fa fa-rupee"></span> <span>1,67,673</span> in Mumbai</p>
