@@ -332,6 +332,7 @@ namespace Bikewale.DAL.BikeData
                                 makeDetails.MakeName = Convert.ToString(dr["MakeName"]);
                                 makeDetails.MakeId = Convert.ToInt32(dr["MakeId"]);
                                 makeDetails.MaskingName = Convert.ToString(dr["MaskingName"]);
+                                dr.Close();
                             }
                         }
                     }
@@ -378,6 +379,7 @@ namespace Bikewale.DAL.BikeData
                                     }
                                   );
                             }
+                            reader.Close();
                         }
                     }
                 }

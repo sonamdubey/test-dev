@@ -64,7 +64,7 @@ namespace Bikewale.Common
                             SMSCommon sc = new SMSCommon();
 
                             sc.ProcessSMS(sellerMobile, message, esms, pageUrl, true);
-
+                            dr.Close();
                         }
                     }
                 }

@@ -427,6 +427,8 @@ namespace Bikewale.Content
                             oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
                             bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
                             subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+
+                            dr.Close();
                         }
 
                     }

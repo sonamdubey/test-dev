@@ -60,6 +60,7 @@ namespace Bikewale.DAL.BikeData
                                     Price = Convert.ToUInt64(dr["Price"])
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -117,20 +118,24 @@ namespace Bikewale.DAL.BikeData
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr != null && dr.Read())
+                        if (dr != null)
                         {
-                            objMinSpecs.Add(new BikeVersionMinSpecs()
+                            while (dr.Read())
                             {
-                                VersionId = Convert.ToInt32(dr["ID"]),
-                                VersionName = dr["Version"].ToString(),
-                                ModelName = dr["Model"].ToString(),
-                                Price = Convert.ToUInt64(dr["VersionPrice"]),
-                                BrakeType = dr["BrakeType"].ToString(),
-                                AlloyWheels = Convert.ToBoolean(dr["AlloyWheels"]),
-                                ElectricStart = Convert.ToBoolean(dr["ElectricStart"]),
-                                AntilockBrakingSystem = Convert.ToBoolean(dr["AntilockBrakingSystem"])
-                            });
-                        }
+                                objMinSpecs.Add(new BikeVersionMinSpecs()
+                                {
+                                    VersionId = Convert.ToInt32(dr["ID"]),
+                                    VersionName = dr["Version"].ToString(),
+                                    ModelName = dr["Model"].ToString(),
+                                    Price = Convert.ToUInt64(dr["VersionPrice"]),
+                                    BrakeType = dr["BrakeType"].ToString(),
+                                    AlloyWheels = Convert.ToBoolean(dr["AlloyWheels"]),
+                                    ElectricStart = Convert.ToBoolean(dr["ElectricStart"]),
+                                    AntilockBrakingSystem = Convert.ToBoolean(dr["AntilockBrakingSystem"])
+                                });
+                            }
+                            dr.Close();
+                        }                        
                     }
                 }
 
@@ -453,32 +458,37 @@ namespace Bikewale.DAL.BikeData
                     {
                         objSimilarBikes = new List<SimilarBikeEntity>();
 
-                        while (dr!=null && dr.Read())
+                        if (dr!=null)
                         {
-                            SimilarBikeEntity objBike = new SimilarBikeEntity();
+                            while (dr.Read())
+                            {
+                                SimilarBikeEntity objBike = new SimilarBikeEntity();
 
-                            objBike.MakeBase.MakeId = Convert.ToInt32(dr["MakeId"]);
-                            objBike.MakeBase.MakeName = dr["MakeName"].ToString();
-                            objBike.MakeBase.MaskingName = dr["MakeMaskingName"].ToString();
-                            objBike.ModelBase.ModelId = Convert.ToInt32(dr["ModelId"]);
-                            objBike.ModelBase.ModelName = dr["ModelName"].ToString();
-                            objBike.ModelBase.MaskingName = dr["ModelMaskingName"].ToString();
-                            objBike.VersionBase.VersionId = Convert.ToInt32(dr["VersionId"]);
-                            objBike.HostUrl = dr["HostUrl"].ToString();
-                            objBike.LargePicUrl = "/bikewaleimg/models/" + dr["LargePic"].ToString();
-                            objBike.SmallPicUrl = "/bikewaleimg/models/" + dr["SmallPic"].ToString();
-                            objBike.MinPrice = Convert.ToInt32(dr["MinPrice"]);
-                            objBike.MaxPrice = Convert.ToInt32(dr["MaxPrice"]);
-                            objBike.VersionPrice = Convert.ToInt32(dr["VersionPrice"]);
-                            objBike.OriginalImagePath = dr["OriginalImagePath"].ToString();
-                            objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                            objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                            objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                            objBike.MaxPower = SqlReaderConvertor.ToNullableUInt16(dr["MaxPower"]);
-                            objBike.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
-                            objBike.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
-                            objSimilarBikes.Add(objBike);
+                                objBike.MakeBase.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                objBike.MakeBase.MakeName = dr["MakeName"].ToString();
+                                objBike.MakeBase.MaskingName = dr["MakeMaskingName"].ToString();
+                                objBike.ModelBase.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objBike.ModelBase.ModelName = dr["ModelName"].ToString();
+                                objBike.ModelBase.MaskingName = dr["ModelMaskingName"].ToString();
+                                objBike.VersionBase.VersionId = Convert.ToInt32(dr["VersionId"]);
+                                objBike.HostUrl = dr["HostUrl"].ToString();
+                                objBike.LargePicUrl = "/bikewaleimg/models/" + dr["LargePic"].ToString();
+                                objBike.SmallPicUrl = "/bikewaleimg/models/" + dr["SmallPic"].ToString();
+                                objBike.MinPrice = Convert.ToInt32(dr["MinPrice"]);
+                                objBike.MaxPrice = Convert.ToInt32(dr["MaxPrice"]);
+                                objBike.VersionPrice = Convert.ToInt32(dr["VersionPrice"]);
+                                objBike.OriginalImagePath = dr["OriginalImagePath"].ToString();
+                                objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                                objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                objBike.MaxPower = SqlReaderConvertor.ToNullableUInt16(dr["MaxPower"]);
+                                objBike.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objBike.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+                                objSimilarBikes.Add(objBike);
+                            }
+                            dr.Close();
                         }
+                        
                     }
                 }
             }
@@ -517,8 +527,10 @@ namespace Bikewale.DAL.BikeData
                         {
                             while (dr.Read())
                                 objColors.Add(new VersionColor() { ColorName = dr["Color"].ToString(), ColorCode = dr["HexCode"].ToString(), CompanyCode = dr["CompanyCode"].ToString(), ColorId = Convert.ToUInt32(dr["ColorId"]) });
-                            
+
+                            dr.Close();
                         }
+
                     }
                 }
             }

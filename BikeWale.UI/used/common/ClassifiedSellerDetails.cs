@@ -56,7 +56,7 @@ namespace Bikewale.Used
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr.Read())
+                        if (dr!=null && dr.Read())
                         {
                             SellerId = dr["SellerId"].ToString();
                             SellerName = dr["SellerName"].ToString();
@@ -64,6 +64,7 @@ namespace Bikewale.Used
                             SellerContact = dr["Contact"].ToString();
                             SellerAddress = dr["SellerAddress"].ToString();
                             SellerContactPerson = dr["ContactPerson"].ToString();
+                            dr.Close();
                         } 
                     } 
                 }

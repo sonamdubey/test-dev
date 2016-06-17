@@ -121,9 +121,10 @@ namespace Bikewale.Used
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr.Read())
+                        if (dr!=null && dr.Read())
                         {
                             isDone = true;
+                            dr.Close();
                         } 
                     } 
                 }

@@ -151,6 +151,7 @@ namespace Bikewale.DAL.BikeBooking
                                         }
                                     }
                                     #endregion
+                                    dr.Close();
                                 }
                             }
                         if (lstBikeBookingListingEntity != null && lstBikeBookingListingEntity.Count > 0)
@@ -231,6 +232,7 @@ namespace Bikewale.DAL.BikeBooking
                                     IsPriceImpact = Convert.ToBoolean(dr["isPriceImpact"])
                                 });
                             }
+                            dr.Close();
                         }
 
                     }

@@ -140,6 +140,8 @@ namespace Bikewale.Common
                                 this.Warranties = dr["Warranties"].ToString();
                                 this.Modifications = dr["Modifications"].ToString();
                             }
+
+                            dr.Close();
                         }
                     } 
                 }

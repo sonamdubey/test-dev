@@ -46,6 +46,7 @@ namespace Bikewale.DAL.Location
                                     StateMaskingName = Convert.ToString(dr["MaskingName"])
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }

@@ -155,7 +155,8 @@ namespace Bikewale.Common
                 using ( IDataReader datareader = MySqlDatabase.SelectQuery(sql, param))
                 {
                     rpt.DataSource = datareader;
-                    rpt.DataBind(); 
+                    rpt.DataBind();
+                    datareader.Close();
                 }
             }
             catch (Exception)
@@ -334,7 +335,8 @@ namespace Bikewale.Common
                         drp.DataSource = dataReader;
                         drp.DataTextField = text;
                         drp.DataValueField = value;
-                        drp.DataBind(); 
+                        drp.DataBind();
+                        dataReader.Close();
                     }
                 }
             }
@@ -356,6 +358,7 @@ namespace Bikewale.Common
                     drp.DataTextField = text;
                     drp.DataValueField = value;
                     drp.DataBind();
+                    dataReader.Close();
                 }
             }
             catch (Exception)
@@ -1838,9 +1841,10 @@ namespace Bikewale.Common
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr.Read())
+                        if (dr !=null &&  dr.Read())
                         {
                             isCity = true;
+                            dr.Close();
                         }
                     }
                 }

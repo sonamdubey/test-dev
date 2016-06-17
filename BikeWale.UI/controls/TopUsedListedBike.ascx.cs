@@ -59,6 +59,7 @@ namespace Bikewale.Controls
                         {
                             rptListings.DataSource = dr;
                             rptListings.DataBind();
+                            dr.Close();
                         }
                         else
                         {

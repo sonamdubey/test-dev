@@ -55,6 +55,7 @@ namespace Bikewale.DAL.BikeData
                                     MaskingName = dr["MaskingName"].ToString()
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -213,6 +214,7 @@ namespace Bikewale.DAL.BikeData
                                     }
                                 );
                             }
+                            dr.Close();
                         }
                     }
 
@@ -288,7 +290,7 @@ namespace Bikewale.DAL.BikeData
                                     AntilockBrakingSystem = !Convert.IsDBNull(dr["AntilockBrakingSystem"]) ? Convert.ToBoolean(dr["AntilockBrakingSystem"]) : false,
                                 });
                             }
-
+                            dr.Close();
                         }
                     }
                 }
@@ -426,6 +428,7 @@ namespace Bikewale.DAL.BikeData
 
                                 objList.Add(version);
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -473,6 +476,7 @@ namespace Bikewale.DAL.BikeData
                                 SmallDescription = Convert.ToString(dr["SmallDescription"]),
                                 FullDescription = Convert.ToString(dr["FullDescription"])
                             };
+                            dr.Close();
                         }
                     }
                 }
@@ -518,6 +522,7 @@ namespace Bikewale.DAL.BikeData
                                 LargePicImagePath = Convert.ToString(dr["LargePicImagePath"]),
                                 OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
                             };
+                            dr.Close();
                         }
                     }
                 }
@@ -661,13 +666,14 @@ namespace Bikewale.DAL.BikeData
                                 objModelList.Add(objModels);
 
                             }
-                                if (dr.NextResult())
+                            if (dr.NextResult())
+                            {
+                                if (dr.Read())
                                 {
-                                    if (dr.Read())
-                                    {
-                                        recordCount = Convert.ToInt32(dr["RecordCount"]);
-                                    }
+                                    recordCount = Convert.ToInt32(dr["RecordCount"]);
                                 }
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -727,6 +733,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objList.Add(objData);
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -786,6 +793,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
                                 objList.Add(objData);
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -832,6 +840,7 @@ namespace Bikewale.DAL.BikeData
                                 if (!ht.ContainsKey(dr["MaskingName"]))
                                     ht.Add(dr["MaskingName"], dr["ID"]);
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -882,6 +891,7 @@ namespace Bikewale.DAL.BikeData
                                         ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
                                 }
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -953,6 +963,7 @@ namespace Bikewale.DAL.BikeData
 
                                 objFeatured.Add(featuredBike);
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -1014,6 +1025,7 @@ namespace Bikewale.DAL.BikeData
                                     }
                                 });
                             }
+                            reader.Close();
                         }
                     }
                 }

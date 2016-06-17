@@ -271,6 +271,7 @@ namespace Bikewale.Common
                         if (dr!=null && dr.Read())
                         {
                             key = dr["CustomerKey"].ToString();
+                            dr.Close();
                         }
                     } 
                 }

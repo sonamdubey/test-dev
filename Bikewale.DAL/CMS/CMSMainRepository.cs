@@ -154,6 +154,7 @@ namespace Bikewale.DAL.CMS
                                     v.ImageList = imageList;
                                 }
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -249,6 +250,8 @@ namespace Bikewale.DAL.CMS
                                     Title = Convert.ToString(dr["Title"])
                                 });
                             }
+
+                            dr.Close();
                         }
                     }
                 }
@@ -314,6 +317,7 @@ namespace Bikewale.DAL.CMS
                                     Title = Convert.ToString(dr["Title"])
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }

@@ -89,6 +89,8 @@ namespace Bikewale.DAL.NewBikeSearch
                             dr.NextResult();
                             if (dr.Read())
                                 totalRecordCount = Convert.ToInt32(dr["RecordCount"]);
+
+                            dr.Close();
                         }
                     }
 

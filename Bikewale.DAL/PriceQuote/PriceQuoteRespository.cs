@@ -192,17 +192,21 @@ namespace Bikewale.DAL.PriceQuote
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr != null && dr.Read())
+                        if (dr !=null)
                         {
-                            objVersionInfo.Add(new OtherVersionInfoEntity
+                            while (dr.Read())
                             {
-                                VersionId = Convert.ToUInt32(dr["VersionId"]),
-                                VersionName = Convert.ToString(dr["VersionName"]),
-                                OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
-                                Price = Convert.ToUInt32(dr["Price"]),
-                                RTO = Convert.ToUInt32(dr["RTO"]),
-                                Insurance = Convert.ToUInt32(dr["Insurance"])
-                            });
+                                objVersionInfo.Add(new OtherVersionInfoEntity
+                                {
+                                    VersionId = Convert.ToUInt32(dr["VersionId"]),
+                                    VersionName = Convert.ToString(dr["VersionName"]),
+                                    OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
+                                    Price = Convert.ToUInt32(dr["Price"]),
+                                    RTO = Convert.ToUInt32(dr["RTO"]),
+                                    Insurance = Convert.ToUInt32(dr["Insurance"])
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -320,13 +324,17 @@ namespace Bikewale.DAL.PriceQuote
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         objQuotation = new PriceQuoteParametersEntity();
-                        while (dr != null && dr.Read())
+                        if (dr != null)
                         {
-                            objQuotation.AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32);
-                            objQuotation.CityId = !Convert.IsDBNull(dr["cityid"]) ? Convert.ToUInt32(dr["cityid"]) : default(UInt32);
-                            objQuotation.VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32);
-                            objQuotation.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
-                            objQuotation.CampaignId = !Convert.IsDBNull(dr["CampaignId"]) ? Convert.ToUInt32(dr["CampaignId"]) : default(UInt32);
+                            while (dr.Read())
+                            {
+                                objQuotation.AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32);
+                                objQuotation.CityId = !Convert.IsDBNull(dr["cityid"]) ? Convert.ToUInt32(dr["cityid"]) : default(UInt32);
+                                objQuotation.VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32);
+                                objQuotation.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
+                                objQuotation.CampaignId = !Convert.IsDBNull(dr["CampaignId"]) ? Convert.ToUInt32(dr["CampaignId"]) : default(UInt32);
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -423,22 +431,24 @@ namespace Bikewale.DAL.PriceQuote
                     {
                         objPrice = new List<PriceQuoteOfTopCities>();
 
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objPrice.Add(new PriceQuoteOfTopCities
+                            while (dr.Read())
                             {
-                                CityName = Convert.IsDBNull(dr["City"]) ? default(string) : Convert.ToString(dr["City"]),
-                                CityMaskingName = Convert.IsDBNull(dr["CityMaskingName"]) ? default(string) : Convert.ToString(dr["CityMaskingName"]),
-                                OnRoadPrice = Convert.IsDBNull(dr["OnRoadPrice"]) ? default(UInt32) : Convert.ToUInt32(dr["OnRoadPrice"]),
-                                Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
-                                MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
-                                Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
-                                ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
-                            });
+                                objPrice.Add(new PriceQuoteOfTopCities
+                                {
+                                    CityName = Convert.IsDBNull(dr["City"]) ? default(string) : Convert.ToString(dr["City"]),
+                                    CityMaskingName = Convert.IsDBNull(dr["CityMaskingName"]) ? default(string) : Convert.ToString(dr["CityMaskingName"]),
+                                    OnRoadPrice = Convert.IsDBNull(dr["OnRoadPrice"]) ? default(UInt32) : Convert.ToUInt32(dr["OnRoadPrice"]),
+                                    Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
+                                    MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
+                                    Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
+                                    ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
+                                });
+                            }
+                            dr.Close();
                         }
 
-                        if (dr != null)
-                            dr.Close();
                     }
 
                 }
@@ -516,6 +526,8 @@ namespace Bikewale.DAL.PriceQuote
                                 HasArea = Convert.ToBoolean(dr["par_hasareasincity"].ToString());
                             }
                         }
+
+                        if (dr != null) dr.Close();
                     }
                 }
             }

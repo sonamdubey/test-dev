@@ -79,6 +79,7 @@ namespace Bikewale.DAL.CMS
                                     recordCount = Convert.ToInt32(dr["RecordCount"]);
                                 }
                             }
+                            dr.Close();
                         }
                     }
                 }

@@ -45,7 +45,8 @@ namespace Bikewale.DAL.Location
                                     AreaName = Convert.ToString(dr["Text"]),
                                     AreaMaskingName = Convert.ToString(dr["MaskingName"])
                                 });
-                            } 
+                            }
+                            dr.Close();
                         }
                     }
 
@@ -96,6 +97,7 @@ namespace Bikewale.DAL.Location
                                 area.AreaName = Convert.ToString(reader["Text"]);
                                 lstArea.Add(area);
                             }
+                            reader.Close();
                         }
                     }
                 }

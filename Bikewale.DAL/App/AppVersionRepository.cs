@@ -49,7 +49,8 @@ namespace Bikewale.DAL.App
                             {
                                 isSupported = Convert.ToBoolean(dr["IsSupported"].ToString());
                                 isLatest = Convert.ToBoolean(dr["IsLatest"].ToString());
-                            } 
+                            }
+                            dr.Close();
                         }
                     }
                 }

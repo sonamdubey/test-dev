@@ -69,6 +69,7 @@ namespace Bikewale.DAL.UserReviews
                                
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -132,6 +133,7 @@ namespace Bikewale.DAL.UserReviews
                                     ReviewsCount = Convert.ToUInt32(dr["TotalReviews"])
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -207,6 +209,7 @@ namespace Bikewale.DAL.UserReviews
                                     TaggedBike = objTaggedBike
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -281,6 +284,7 @@ namespace Bikewale.DAL.UserReviews
                                     TaggedBike = objTaggedBike
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -357,6 +361,7 @@ namespace Bikewale.DAL.UserReviews
                                     TaggedBike = objTaggedBike
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -433,6 +438,7 @@ namespace Bikewale.DAL.UserReviews
                                     TaggedBike = objTaggedBike
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -484,6 +490,8 @@ namespace Bikewale.DAL.UserReviews
                             objRate.StyleRating = Convert.ToSingle(dr["Looks"]);
                             objRate.ValueRating = Convert.ToSingle(dr["ValueForMoney"]);
                             objRate.OverAllRating =Convert.ToSingle(dr["ReviewRate"]);
+
+                            dr.Close();
                         }
                     }
                 }
@@ -664,7 +672,9 @@ namespace Bikewale.DAL.UserReviews
                                     objRating.NextReviewId = Convert.ToUInt32(dr["NextReviewId"]);
                                     //objRating.NextReviewTitle = dr["NextReviewTitle"].ToString();
                                 }
-                            }                         
+                            }
+
+                            dr.Close();
                         }
                     }
                 }

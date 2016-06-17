@@ -387,6 +387,8 @@ namespace Bikewale.Common
 
                             BikeName = dr["MakeName"].ToString();
                             MakeMappingName = dr["MaskingName"].ToString();
+
+                            dr.Close();
                         }
                     } 
                 }

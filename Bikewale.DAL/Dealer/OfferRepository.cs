@@ -42,6 +42,7 @@ namespace Bikewale.DAL.Dealer
                                     OfferValue = Convert.ToUInt32(dr["OfferValue"]),
                                 });
                             }
+                            dr.Close();
                         }
 
                     }

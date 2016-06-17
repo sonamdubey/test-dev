@@ -39,14 +39,18 @@ namespace Bikewale.DAL.Location
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objCityList.Add(new CityEntityBase
+                            while (dr.Read())
                             {
-                                CityId = Convert.ToUInt32(dr["Value"]),
-                                CityName = Convert.ToString(dr["Text"]),
-                                CityMaskingName = Convert.ToString(dr["MaskingName"])
-                            });
+                                objCityList.Add(new CityEntityBase
+                                {
+                                    CityId = Convert.ToUInt32(dr["Value"]),
+                                    CityName = Convert.ToString(dr["Text"]),
+                                    CityMaskingName = Convert.ToString(dr["MaskingName"])
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -100,6 +104,7 @@ namespace Bikewale.DAL.Location
                                     CityMaskingName = Convert.ToString(dr["MaskingName"])
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -149,6 +154,7 @@ namespace Bikewale.DAL.Location
                                     IsPopular = Convert.ToBoolean(dr["IsPopular"]),
                                     HasAreas = Convert.ToBoolean(dr["HasAreas"])
                                 });
+                            dr.Close();
                         }
                     }
                 }
@@ -194,6 +200,7 @@ namespace Bikewale.DAL.Location
                                 if (!ht.ContainsKey(dr["CityMaskingName"]))
                                     ht.Add(dr["CityMaskingName"], dr["ID"]);
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -235,6 +242,7 @@ namespace Bikewale.DAL.Location
                                 if (!ht.ContainsKey(dr["OldMaskingName"]))
                                     ht.Add(dr["OldMaskingName"], dr["NewMaskingName"]);
                             }
+                            dr.Close();
                         }
                     }
                 }

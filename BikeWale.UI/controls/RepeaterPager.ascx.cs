@@ -420,11 +420,15 @@ namespace Bikewale.Controls
 
                     Trace.Warn("RecordCountQuery: " + RecordCountQuery);
                     using (IDataReader dr  = MySqlDatabase.SelectQuery(CmdParamR))
-                    {  
-                        if (dr.Read())
+                    {
+                        if (dr != null)
                         {
-                            count = Convert.ToInt32(dr[0]);
-                        }  
+                            if (dr.Read())
+                            {
+                                count = Convert.ToInt32(dr[0]);
+                            }
+                            dr.Close();
+                        } 
                     }                   
                 }
             }

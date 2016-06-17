@@ -41,15 +41,19 @@ namespace Bikewale.DAL.Dealer
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objMakeList.Add(new NewBikeDealersMakeEntity
+                            while (dr.Read())
                             {
-                                MakeId = Convert.ToInt32(dr["MakeId"]),
-                                MakeName = Convert.ToString(dr["BikeMake"]),
-                                MaskingName = Convert.ToString(dr["MaskingName"]),
-                                DealersCount = Convert.ToInt32(dr["TotalCount"])
-                            });
+                                objMakeList.Add(new NewBikeDealersMakeEntity
+                                {
+                                    MakeId = Convert.ToInt32(dr["MakeId"]),
+                                    MakeName = Convert.ToString(dr["BikeMake"]),
+                                    MaskingName = Convert.ToString(dr["MaskingName"]),
+                                    DealersCount = Convert.ToInt32(dr["TotalCount"])
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -94,28 +98,32 @@ namespace Bikewale.DAL.Dealer
                         objDealerList.CityWiseDealers = new List<CityWiseDealersCountEntity>();
                         objDealerList.StatesList = new List<StateEntityBase>();
 
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objDealerList.CityWiseDealers.Add(new CityWiseDealersCountEntity
+                            while (dr.Read())
                             {
-                                CityId = Convert.ToUInt32(dr["CityId"]),
-                                CityName = Convert.ToString(dr["City"]),
-                                CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
-                                StateId = Convert.ToInt32(dr["StateId"]),
-                                DealersCount = Convert.ToInt32(dr["TotalDealers"])
-                            });
-
-                            //get state list
-                            if (Convert.ToUInt32(dr["StateRank"]) == 1)
-                            {
-                                objDealerList.StatesList.Add(new StateEntityBase
+                                objDealerList.CityWiseDealers.Add(new CityWiseDealersCountEntity
                                 {
-                                    StateId = Convert.ToUInt32(dr["StateId"]),
-                                    StateName = Convert.ToString(dr["StateName"])
+                                    CityId = Convert.ToUInt32(dr["CityId"]),
+                                    CityName = Convert.ToString(dr["City"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                    StateId = Convert.ToInt32(dr["StateId"]),
+                                    DealersCount = Convert.ToInt32(dr["TotalDealers"])
                                 });
-                            }
 
-                            objDealerList.TotalDealers = objDealerList.TotalDealers + Convert.ToInt32(dr["TotalDealers"]);
+                                //get state list
+                                if (Convert.ToUInt32(dr["StateRank"]) == 1)
+                                {
+                                    objDealerList.StatesList.Add(new StateEntityBase
+                                    {
+                                        StateId = Convert.ToUInt32(dr["StateId"]),
+                                        StateName = Convert.ToString(dr["StateName"])
+                                    });
+                                }
+
+                                objDealerList.TotalDealers = objDealerList.TotalDealers + Convert.ToInt32(dr["TotalDealers"]);
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -180,6 +188,7 @@ namespace Bikewale.DAL.Dealer
                                     State = objState
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -244,6 +253,7 @@ namespace Bikewale.DAL.Dealer
                                 objDealer.State = Convert.ToString(dr["State"]);
                                 objDealerList.Add(objDealer);
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -297,6 +307,7 @@ namespace Bikewale.DAL.Dealer
                                     MaskingName = Convert.ToString(dr["MaskingName"])
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -339,14 +350,18 @@ namespace Bikewale.DAL.Dealer
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objCityList.Add(new CityEntityBase
+                            while (dr.Read())
                             {
-                                CityId = Convert.ToUInt32(dr["ID"]),
-                                CityName = Convert.ToString(dr["NAME"]),
-                                CityMaskingName = Convert.ToString(dr["CityMaskingName"])
-                            });
+                                objCityList.Add(new CityEntityBase
+                                {
+                                    CityId = Convert.ToUInt32(dr["ID"]),
+                                    CityName = Convert.ToString(dr["NAME"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"])
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -496,7 +511,7 @@ namespace Bikewale.DAL.Dealer
                             }
 
                             dealers.Dealers = dealerList;
-
+                            dr.Close();
                         }
                     }
                 }
@@ -601,6 +616,7 @@ namespace Bikewale.DAL.Dealer
                                 }
                                 dealers.Models = models;
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -647,6 +663,7 @@ namespace Bikewale.DAL.Dealer
                                         CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(String)
                                     });
                                 }
+                                dr.Close();
                             }
                         }
                     }

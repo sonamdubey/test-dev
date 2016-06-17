@@ -316,6 +316,7 @@ namespace Bikewale.Content
                             Bike = string.Format("{0} {1} {2}", BikeMake, BikeModel, BikeVersion).Trim();
                             ModelIdVer = dr["ModelId"].ToString();
                             MakeId = dr["MakeId"].ToString();
+                            dr.Close();
                         }
                     }
                 }
@@ -373,6 +374,8 @@ namespace Bikewale.Content
                                         found = true;
                                     else
                                         found = false;
+
+                                    dr.Close();
                                 }
                             }
                         }

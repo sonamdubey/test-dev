@@ -60,6 +60,7 @@ namespace BikewaleAutoSuggest
                                     Futuristic = Convert.ToBoolean(dr["Futuristic"])                            //  Add Futuristic
                                 });
                             }
+                            dr.Close();
                         } 
                     }
                 }

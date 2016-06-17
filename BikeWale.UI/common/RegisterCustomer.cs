@@ -139,6 +139,7 @@ namespace Bikewale.Common
                         if (dr!=null && dr.Read())
                         {
                             cust_id = dr["ID"].ToString();
+                            dr.Close();
                         } 
                     }
                 }
@@ -692,8 +693,11 @@ namespace Bikewale.Common
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr.Read())
+                        if (dr!=null && dr.Read())
+                        {
                             isFake = Convert.ToBoolean(dr["IsFake"]);
+                            dr.Close();
+                        }                        
                     }
                 }
             }

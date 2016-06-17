@@ -124,6 +124,7 @@ namespace Bikewale.DAL.Customer
                                     tList.Add(t);
                                 }
                             }
+                            dr.Close();
                         }
                     }
                 }

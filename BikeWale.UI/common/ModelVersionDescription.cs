@@ -80,6 +80,8 @@ namespace Bikewale.Common
                             ModelBasePrice = dr["MinPrice"].ToString();
                             ModelHighendPrice = dr["MaxPrice"].ToString();
                             OriginalImagePath = dr["OriginalImagePath"].ToString();
+
+                            dr.Close();
                         } 
                     } 
                 }
@@ -141,6 +143,8 @@ namespace Bikewale.Common
                             ModelBasePrice = dr["MinPrice"].ToString();
                             ModelHighendPrice = dr["MaxPrice"].ToString();
                             OriginalImagePath = dr["OriginalImagePath"].ToString();
+
+                            dr.Close();
                         } 
                     } 
                 }

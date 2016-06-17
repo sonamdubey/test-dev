@@ -72,7 +72,7 @@ namespace Bikewale.Used
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr.Read())
+                        if (dr!=null && dr.Read())
                         {
                             // If Bike removed from the portal for any of the following reason
                             // 1. Bike marked as Fake
@@ -157,6 +157,9 @@ namespace Bikewale.Used
                             Clock = dr["Clock"].ToString();
 
                             HttpContext.Current.Trace.Warn("ShiftLight : ", ShiftLight);
+
+                            dr.Close();
+
                         }  
                     }
                 }

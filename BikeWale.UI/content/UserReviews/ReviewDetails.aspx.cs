@@ -329,9 +329,11 @@ namespace Bikewale.Content
                     cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_articleid", DbType.Int64, _reviewId));
                     using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             returnVal = dr[0].ToString();
+
+                            dr.Close();
                         }
                     }
                 }
@@ -431,6 +433,8 @@ namespace Bikewale.Content
                                 Trace.Warn("IsNew : " + IsNew + " " + "IsUsed : " + IsUsed);
                                 if (reviewerId == CurrentUser.Id)
                                     userLoggedIn = true;
+
+                                dr.Close();
                             }
                         }
 
@@ -477,10 +481,14 @@ namespace Bikewale.Content
 
                     using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr != null && dr.Read())
+                        if (dr != null)
                         {
-                            nextId = dr["NextReview"].ToString();
-                            prevId = dr["PreviousReview"].ToString();
+                            while (dr.Read())
+                            {
+                                nextId = dr["NextReview"].ToString();
+                                prevId = dr["PreviousReview"].ToString();
+                            }
+                            dr.Close();
                         }
                     }
                 }
@@ -589,6 +597,7 @@ namespace Bikewale.Content
                             oem = dr["Make"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
                             bodyType = dr["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
                             subSegment = dr["SubSegment"].ToString().Replace(" ", "").Replace("/", "").Replace("-", "");
+                            dr.Close();
                         }
 
                     }

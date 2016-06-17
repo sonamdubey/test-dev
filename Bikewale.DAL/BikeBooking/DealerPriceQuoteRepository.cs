@@ -307,6 +307,7 @@ namespace Bikewale.DAL.BikeBooking
                                 };
                             }
                         }
+                        if (dr != null) dr.Close();
                     }
                 }
             }
@@ -352,6 +353,7 @@ namespace Bikewale.DAL.BikeBooking
                     {
                         if (dr!=null &&  dr.Read())
                             isVerified = Convert.ToBoolean(dr["IsMobileVerified"]);
+                        if (dr != null) dr.Close();
                     }
                 }
             }
@@ -402,6 +404,8 @@ namespace Bikewale.DAL.BikeBooking
 
                         while (dr.Read())
                             objVersions.Add(new BikeVersionEntityBase() { VersionId = Convert.ToInt32(dr["VersionId"]), VersionName = dr["VersionName"].ToString() });
+
+                        if (dr != null) dr.Close();
                     }
                 }
             }
@@ -673,6 +677,7 @@ namespace Bikewale.DAL.BikeBooking
                         {
                             if (dr.Read())
                                 versionId = Convert.ToUInt32(dr["VersionId"]);
+                            dr.Close();
                         }
                     }
                 }
@@ -729,6 +734,7 @@ namespace Bikewale.DAL.BikeBooking
                                     AreaId = Convert.ToUInt32(dr["Value"]),
                                     AreaName = dr["Text"].ToString()
                                 });
+                            dr.Close();
                         }
                     }
                 }
@@ -917,6 +923,8 @@ namespace Bikewale.DAL.BikeBooking
                             }
                             #endregion
 
+                            reader.Close();
+
                             entity = new BookingPageDetailsEntity();
                             entity.Dealer = objDealerDetails;
                             entity.Disclaimers = disclaimers;
@@ -970,6 +978,7 @@ namespace Bikewale.DAL.BikeBooking
                                     variant.BikeModelColors = objColorAvail;
                                 }
                             }
+                            
                         }
                     }
                 }
@@ -1021,6 +1030,7 @@ namespace Bikewale.DAL.BikeBooking
                                     }
                                 );
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -1075,6 +1085,7 @@ namespace Bikewale.DAL.BikeBooking
                                     }
                                 );
                             }
+                            dr.Close();
                         }
                     }
                 }

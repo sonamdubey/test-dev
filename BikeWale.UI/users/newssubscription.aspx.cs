@@ -118,7 +118,9 @@ namespace Bikewale.MyBikeWale
                             {
                                 isNewsSubscribed = Convert.ToBoolean(dr["SubscribeNewsletters"]);
                             }
+                            dr.Close();
                         } 
+
                     }
                 }
             }

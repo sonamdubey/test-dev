@@ -356,7 +356,8 @@ namespace Bikewale.New
                                 }
                                 else
                                     reviewString = "<div style='margin-top:10px;'><a href='/content/userreviews/writereviews.aspx?bikem=" + dr["ModelId"].ToString() + "'>Write a review</a></div>";
-                            } 
+                            }
+                            dr.Close();
                         }  
                     }
                 }

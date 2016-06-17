@@ -198,6 +198,7 @@ namespace Bikewale.DAL.Compare
                             compare.Specifications = specs;
                             compare.Features = features;
                             compare.Color = color;
+                            reader.Close();
                         }
                     }
 
@@ -334,6 +335,7 @@ namespace Bikewale.DAL.Compare
                                     Version1 = GetString(reader["Version1"]),
                                 });
                             }
+                            reader.Close();
                         }
                     }
                 }

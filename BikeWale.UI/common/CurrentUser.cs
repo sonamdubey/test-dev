@@ -241,6 +241,7 @@ namespace Bikewale.Common
                         if (dr != null && dr.Read())
                         {
                             exist = true;
+                            dr.Close();
                         }
                     }
                 } 
@@ -318,6 +319,7 @@ namespace Bikewale.Common
                         if (dr!=null && dr.Read())
                         {
                             mappedCustomerId = dr[0].ToString();
+                            dr.Close();
                         }
                     } 
                 }                

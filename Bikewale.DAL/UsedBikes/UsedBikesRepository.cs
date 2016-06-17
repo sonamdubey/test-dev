@@ -42,18 +42,22 @@ namespace Bikewale.DAL.UsedBikes
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objUsedBikesList.Add(new PopularUsedBikesEntity
+                            while (dr.Read())
                             {
-                                MakeName = Convert.ToString(dr["MakeName"]),
-                                TotalBikes = Convert.ToUInt32(dr["MakewiseCount"]),
-                                AvgPrice = Convert.ToDouble(dr["AvgPrice"]),
-                                HostURL = Convert.ToString(dr["HostURL"]),
-                                OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
-                                MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
-                                CityMaskingName = (Convert.ToString(dr["CityMaskingName"])).Trim()
-                            });
+                                objUsedBikesList.Add(new PopularUsedBikesEntity
+                                {
+                                    MakeName = Convert.ToString(dr["MakeName"]),
+                                    TotalBikes = Convert.ToUInt32(dr["MakewiseCount"]),
+                                    AvgPrice = Convert.ToDouble(dr["AvgPrice"]),
+                                    HostURL = Convert.ToString(dr["HostURL"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                    CityMaskingName = (Convert.ToString(dr["CityMaskingName"])).Trim()
+                                });
+                            }
+                            dr.Close();
                         }
                     }
                 }

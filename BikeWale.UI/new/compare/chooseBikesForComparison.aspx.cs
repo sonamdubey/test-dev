@@ -244,6 +244,8 @@ namespace Bikewale.New
 
                                     break;
                             }
+
+                            dr.Close();
                         } 
                     } 
                 }

@@ -342,6 +342,7 @@ namespace Bikewale.Controls
                         if (dr != null && dr.Read())
                         {
                             count = Convert.ToInt32(dr[0]);
+                            dr.Close();
                         }
                     }
                 }

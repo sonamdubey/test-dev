@@ -35,9 +35,10 @@ namespace Bikewale.Common
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                         {
-                            if (dr.Read())
+                            if (dr != null && dr.Read())
                             {
                                 shownInterest = true;
+                                dr.Close();
                             } 
                         }
                     } 
