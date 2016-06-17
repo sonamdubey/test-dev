@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewNewsWidget" %>
 
- <div id="makeNewsContent" class="bw-model-tabs-data padding-top15 padding-right20 padding-left20">
+ <div id="makeNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom">
     <h2><%= WidgetTitle %> News</h2>
 
        <!-- when one news -->

@@ -849,6 +849,8 @@ $(document).ready(function () {
         $('.overall-specs-tabs-wrapper li').css({'display': 'inline-block', 'width': 'auto'});
     }
 
+    $('.overall-specs-tabs-wrapper li').first().addClass('active');
+
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
