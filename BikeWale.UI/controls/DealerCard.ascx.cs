@@ -18,12 +18,15 @@ namespace Bikewale.Controls
     /// Description : Class to show dealers  
     /// Modified By : Sushil Kumar on 2nd June 2016
     /// Description : Added LeadsourceId and PQSourceId for lead and pq sources
+    /// Modified By :   Sumit Kate on 17 Jun 2016
+    /// Description :   Added Model ID
     /// </summary>
     public class DealerCard : UserControl
     {
         protected Repeater rptDealers;
 
         public uint MakeId { get; set; }
+        public uint ModelId { get; set; }
         public ushort TopCount { get; set; }
         public uint CityId { get; set; }
         public string makeName = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty;
@@ -66,7 +69,9 @@ namespace Bikewale.Controls
 
         /// <summary>
         /// Created By : Vivek Gupta on 20-05-2016
-        /// Description : Function to bind dealers    
+        /// Description : Function to bind dealers 
+        /// Modified by :   Sumit Kate on 17 Jun 2016
+        /// Description :   Pass ModelId to get the dealers for Price in city page
         /// </summary>
         protected void BindDealers()
         {
@@ -82,7 +87,7 @@ namespace Bikewale.Controls
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealers = objCache.GetDealerByMakeCity(CityId, MakeId);
+                    _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
 
                     if (_dealers != null && _dealers.Dealers.Count() > 0)
                     {

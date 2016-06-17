@@ -155,15 +155,17 @@ namespace Bikewale.BAL.Dealer
         /// Descritption : Implemented in DAL
         /// Modified by :   Sumit Kate on 20 May 2016
         /// Description :   Called the DAL function rather than throwing NotImplementedException
+        /// Modified by :   Sumit Kate on 19 Jun 2016
+        /// Description :   Added Optional parameter(inherited from Interface)
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
+        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId, uint modelId = 0)
         {
             try
             {
-                return dealerRepository.GetDealerByMakeCity(cityId, makeId);
+                return dealerRepository.GetDealerByMakeCity(cityId, makeId, modelId);
             }
             catch (Exception ex)
             {

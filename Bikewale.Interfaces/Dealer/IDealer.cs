@@ -1,13 +1,8 @@
-﻿using Bikewale.Entities.Dealer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Location;
-using Bikewale.Entities.Customer;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Dealer
 {
@@ -17,8 +12,9 @@ namespace Bikewale.Interfaces.Dealer
     /// Description :   Added new function FetchDealerCitiesByMake    
     /// Modified By : Lucky Rathore on 23 March 2016
     /// Description : DealerBikesEntity GetDealerBikes(UInt16 dealerId);  added, used in DealerLocator.
-    
     /// Description : DealerLocatorEntity GetDealerByMakeCity(uint cityId, uint makeId);  added, used in DealerLocator.
+    /// Modified by :   Sumit Kate on 19 Jun 2016
+    /// Descrption  :   Added optional parameter modelId for GetDealerByMakeCity
     /// </summary>    
     public interface IDealer
     {
@@ -32,7 +28,7 @@ namespace Bikewale.Interfaces.Dealer
         //Added by sushil kumar on 7th Oct 2015
         IEnumerable<NewBikeDealerEntityBase> GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null);
         bool SaveManufacturerLead(ManufacturerLeadEntity customer);
-        DealersEntity GetDealerByMakeCity(uint cityId, uint makeId);
+        DealersEntity GetDealerByMakeCity(uint cityId, uint makeId, uint modelId = 0);
         DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId);
     }
 }
