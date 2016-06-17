@@ -417,9 +417,9 @@ namespace Bikewale.BAL.PriceQuote
                         detailedDealer = objIPQ.GetDealerQuotation(Convert.ToUInt32(cityId), versionID, pqEntity.DealerId);
                     }
 
-                    pqEntity.DealerPackageType = detailedDealer.PrimaryDealer.DealerDetails.DealerPackageType;
+                    pqEntity.PrimaryDealer = detailedDealer.PrimaryDealer;
                     pqEntity.SecondaryDealerCount = detailedDealer.SecondaryDealerCount;
-                    pqEntity.OfferList = detailedDealer.PrimaryDealer.OfferList;
+                    pqEntity.IsPremium = detailedDealer.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium ? true : false;
                 }
             }
             catch (Exception ex)

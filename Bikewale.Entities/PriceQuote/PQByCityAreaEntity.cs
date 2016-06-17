@@ -17,9 +17,8 @@ namespace Bikewale.Entities.PriceQuote
         public uint DealerId { get; set; }
         public ulong PqId { get; set; }
         public IEnumerable<BikeVersionMinSpecs> VersionList { get; set; }
-        public DealerPackageTypes DealerPackageType { get; set; }
+        public DealerQuotationEntity PrimaryDealer { get; set; }
+        public bool IsPremium { get; set; }
         public int SecondaryDealerCount { get; set; }
-        public IEnumerable<OfferEntityBase> OfferList { get; set; }
-
     }
 }
