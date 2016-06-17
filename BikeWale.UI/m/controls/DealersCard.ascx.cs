@@ -7,9 +7,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -17,13 +15,16 @@ namespace Bikewale.Mobile.Controls
 {
     /// <summary>
     /// Created By : Sushil Kumar on 3rd June 2016
-    /// Description : Class to show dealers  
+    /// Description : Class to show dealers 
+    /// Modified by :   Sumit Kate on 17 Jun 2016
+    /// Description :   Added Model Id
     /// </summary>
-    public class DealersCard :  UserControl
+    public class DealersCard : UserControl
     {
         protected Repeater rptDealers;
 
         public uint MakeId { get; set; }
+        public uint ModelId { get; set; }
         public ushort TopCount { get; set; }
         public uint CityId { get; set; }
         public string makeName = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty;
@@ -67,6 +68,8 @@ namespace Bikewale.Mobile.Controls
         /// <summary>
         /// Created By : Vivek Gupta on 20-05-2016
         /// Description : Function to bind dealers    
+        /// Modified by :   Sumit Kate on 17 Jun 2016
+        /// Description :   Pass ModelId to get the dealers for Price in city page
         /// </summary>
         protected void BindDealers()
         {
@@ -82,7 +85,7 @@ namespace Bikewale.Mobile.Controls
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealers = objCache.GetDealerByMakeCity(CityId, MakeId);
+                    _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
 
                     if (_dealers != null && _dealers.Dealers.Count() > 0)
                     {
@@ -124,11 +127,11 @@ namespace Bikewale.Mobile.Controls
             }
             else
             {
-                retString = String.Format("<a class=\"font16 text-default\" href=\"/m/{0}-bikes/dealers-in-{1}/\">{2}</a>", makeMaskingName, cityMaskingName, dealerName); 
+                retString = String.Format("<a class=\"font16 text-default\" href=\"/m/{0}-bikes/dealers-in-{1}/\">{2}</a>", makeMaskingName, cityMaskingName, dealerName);
             }
 
             return retString;
         }
- 
+
     }
 }

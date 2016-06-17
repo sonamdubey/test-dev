@@ -475,11 +475,13 @@ namespace Bikewale.DAL.Dealer
         /// Description : Return Dealers deatail list. 
         /// Modified By : Vivek Gupta on 31-05-2016
         /// Desc : MakeName , CityName, CityMaskingName and MakeMaskingName retrieved
+        /// Modified by :   Sumit Kate on 19 Jun 2016
+        /// Description :   Added Optional parameter(inherited from Interface) and pass model id if value is > 0
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
         /// <returns></returns>
-        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId)
+        public DealersEntity GetDealerByMakeCity(uint cityId, uint makeId, uint modelId = 0)
         {
             DealersEntity dealers = null;
             IList<DealersList> dealerList = null;
@@ -495,7 +497,8 @@ namespace Bikewale.DAL.Dealer
                     cmd.CommandText = "GetDealerByMakeCity_31052016";
                     cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                     cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-
+                    if (modelId > 0)
+                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     using (SqlDataReader dr = db.SelectQry(cmd))
                     {
                         if (dr != null)
