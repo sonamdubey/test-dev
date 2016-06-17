@@ -4,7 +4,7 @@
     <div class="blackOut-window-model"></div>
     <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwmsprite cross-lg-white cur-pointer hide"></div>
     <div class="bw-tabs-panel bike-gallery-popup hide" id="bike-gallery-popup">
-        <div class="text-center margin-top50 margin-bottom20">
+        <div class="text-center margin-top30 margin-bottom20">
             <div class="bw-tabs home-tabs <%= videoCount == 0 ? "hide" : "" %>">
                 <ul>
                     <li class="active" data-tabs="Photos" id="photos-tab">Photos</li>
@@ -66,18 +66,16 @@
                     </div>
                 </div>
                 <div class="navigation-videos">
-                    <a href="#" class="prev videos-prev-navigation bwmsprite hide" style="display: none"></a>
-                    <a href="#" class="next videos-next-navigation bwmsprite hide" style="display: none"></a>
-                    <div class="carousel-videos carousel-navigation-videos">
-                        <ul>
+                    <div class="swiper-container noSwiper carousel-videos carousel-navigation-videos">
+                        <div class="swiper-wrapper">
                             <asp:Repeater ID="rptVideoNav" runat="server">
                                 <ItemTemplate>
-                                    <li>
+                                    <div class="swiper-slide">
                                         <img iframe-data="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>" src="<%# String.Format("http://img.youtube.com/vi/{0}/1.jpg",DataBinder.Eval(Container.DataItem,"VideoId").ToString()) %>" width="83" height="47" />
-                                    </li>
+                                    </div>
                                 </ItemTemplate>
                             </asp:Repeater>
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>
