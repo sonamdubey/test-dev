@@ -1,8 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Model" Trace="false"  EnableViewState="false"%>
 
-<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
-<%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
-<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
+<%@ Register Src="~/controls/News.ascx" TagName="LatestNews" TagPrefix="BW" %>
+<%--<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>--%>
+<%@ Register Src="~/controls/NewExpertReviews.ascx" TagName="NewExpertReviews" TagPrefix="BW" %>
+<%--<%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>--%>
+<%@ Register Src="~/controls/NewVideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
+<%--<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>--%>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
 
@@ -50,7 +53,7 @@
                 <div class="content-box-shadow">
                     <div class="content-box-shadow content-inner-block-1420">
                         <div class="grid-8 alpha">
-                            <h1 class="leftfloat font24 text-x-black"><%= _make.MakeName %></h1>
+                            <h1 class="leftfloat font24 text-x-black"><%= _make.MakeName %> Bikes</h1>
                         </div>
                         <div class="grid-4 rightfloat omega font14" id="sortByContainer">
                             <div class="leftfloat sort-by-text text-light-grey margin-left50">
@@ -114,7 +117,7 @@
         <section id="makeUpcomingBikesContent" class="container margin-bottom20">
             <div class="grid-12">
                 <div class="content-box-shadow padding-top20 padding-bottom25">
-                    <h2 class="padding-left20 padding-right20 text-x-black text-bold margin-bottom20">Upcoming <%= _make.MakeName %> bikes</h2>
+                    <h2 class="padding-left20 padding-right20 text-x-black text-bold margin-bottom20">Upcoming <%= _make.MakeName %> Bikes</h2>
                     <div class="jcarousel-wrapper bike-carousel-wrapper">
                         <div class="jcarousel">
                             <ul>
@@ -231,71 +234,26 @@
                     </div>
 
                     <!-- news control starts here -->
-                    <div id="modelNewsContent" class="bw-model-tabs-data padding-top20 font14">
-                        <h2 class="padding-left20 padding-right20"><%= _make.MakeName %> News</h2>
-                        <div class="margin-bottom10">
-                            <div class="grid-8 padding-left20 border-light-right">
-                                <div class="padding-bottom5">
-                                    <div class="model-preview-image-container leftfloat">
-                                        <a href="javascript:void(0)">
-                                            <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/ec/21352/TVS-Wego-Front-threequarter-63408.jpg?wm=0&t=193955533&t=193955533" title="" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="model-news-title-container leftfloat">
-                                        <h3 class="margin-top5"><a href="" class="font16 text-black line-height">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a></h3>
-                                        <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <p class="margin-top20 line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
-                                        <a href="">Read full story</a>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="grid-4">
-                                <ul>
-                                    <li>
-                                        <h3 class="red-bullet-point"><a href="" class="text-black line-height17">Bajaj Avenger Cruise 220 proves popular with families</a></h3>
-                                        <p class="text-light-grey margin-left15">April 15, 2016, by Sagar Bhanushali</p>
-                                    </li>
-                                    <li>
-                                        <h3 class="red-bullet-point"><a href="" class="text-black line-height17">Triumph Street Twin : Auto Expo 2016 : PowerDrift</a></h3>
-                                        <p class="text-light-grey margin-left15">March 15, 2016, by BikeWale Team</p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-
-                        
-                        <div class="grid-12 model-single-news margin-bottom20 omega padding-left20 hide"><!-- when one news -->
-                            <div class="model-preview-image-container leftfloat">
-                                <a href="javascript:void(0)">
-                                    <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/ec/21352/TVS-Wego-Front-threequarter-63408.jpg?wm=0&t=193955533&t=193955533" title="" alt="" />
-                                </a>
-                            </div>
-                            <div class="model-news-title-container leftfloat">
-                                <h3 class="margin-top5"><a href="" class="font16 text-black line-height">Bajaj Avenger 220 Cruise vs Royal Enfield Thunderbird 350 : Comparison Test</a></h3>
-                                <p class="text-light-grey margin-bottom15">April 15, 2016, by Sagar Bhanushali</p>
-                                <p class="margin-top20 line-height17">I was excited when I got an email from Bajaj Motorcycles to test their new motorcycle, the Pulsar RS200, at their Chakan test track. And there were two reasons...
-                                    <a href="">Read full story</a>
-                                </p>
-                            </div>
-                            <div class="clear"></div>
-                                                <a href="Javascript:void(0)" pagecatid="1" pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey margin-top10 fillPopupData">Check on-road price</a>
-                        </div>
-
-                        <div class="padding-left20">
-                            <a href="javascript:void(0)">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
-                        </div>
-                    </div>
+                    <% if(ctrlNews.FetchedRecordsCount > 0){ %>
+                    <BW:LatestNews runat="server" ID="ctrlNews" />
+                    <% } %>
                     <!-- news control ends here -->
 
                     <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
                         <h2 class="padding-left10 padding-right10"><%= _make.MakeName %> Reviews</h2>
-                        <!-- expert reviews control -->
+                        <!-- expert review starts-->
+                        <% if(ctrlExpertReviews.FetchedRecordsCount > 0){ %>
+                        <BW:NewExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <% } %>
+                        <!-- expert review ends-->
                         <!-- user reviews control -->
-                        <!-- videos control -->
                     </div>
+
+                    <!-- videos control starts -->
+                         <% if(ctrlVideos.FetchedRecordsCount > 0){ %>
+                         <BW:Videos runat="server" ID="ctrlVideos" />
+                         <% } %>
+                        <!-- Videos review ends-->
 
                     <div id="makeDealersContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
                         <h2 class="padding-left10 padding-right10"><%= _make.MakeName %> Dealers in India</h2>
@@ -397,7 +355,7 @@
             <div class="clear"></div>
         </section>
 
-        <section class="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
+        <section class="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div class="container">
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30">Upcoming <%= _make.MakeName %> Bikes</h2>
@@ -416,32 +374,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <% 
-            if (ctrlNews.FetchedRecordsCount > 0)
-            {
-                reviewTabsCnt++;
-                isNewsZero = false;
-                isNewsActive = true;
-            }
-            if (ctrlExpertReviews.FetchedRecordsCount > 0)
-            {
-                reviewTabsCnt++;
-                isExpertReviewZero = false;
-                if (!isNewsActive)
-                {
-                    isExpertReviewActive = true;
-                }
-            }
-            if (ctrlVideos.FetchedRecordsCount > 0)
-            {
-                reviewTabsCnt++;
-                isVideoZero = false;
-                if (!isExpertReviewActive && !isNewsActive)
-                {
-                    isVideoActive = true;
-                }
-            }          
-        %>
         <section>
             <!--  News Bikes code starts here -->
             <div class="container newBikes-latest-updates-container <%= reviewTabsCnt == 0 ? "hide" : string.Empty %>">
@@ -457,18 +389,18 @@
                                 </ul>
                             </div>
                         </div>
-                        <%if (!isNewsZero)
+                        <%--<%if (!isNewsZero)
                           { %>
-                        <BW:News runat="server" ID="ctrlNews" />
-                        <% } %>
-                        <%if (!isExpertReviewZero)
+                        <BW:LatestNews runat="server" ID="ctrlNews" />
+                        <% } %>--%>
+                        <%--<%if (!isExpertReviewZero)
                           { %>
                         <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                        <% } %>
-                        <%if (!isVideoZero)
+                        <% } %>--%>
+                        <%--<%if (!isVideoZero)
                           { %>
                         <BW:Videos runat="server" ID="ctrlVideos" />
-                        <% } %>
+                        <% } %>--%>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -505,9 +437,9 @@
             $(".upcoming-brand-bikes-container").on('jcarousel:visiblein', 'li', function (event, carousel) {
                 $(this).find("img.lazy").trigger("imgLazyLoad");
             });
-            if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+           <%-- if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");--%>
 
         </script>
         <!-- #include file="/includes/footerBW.aspx" -->

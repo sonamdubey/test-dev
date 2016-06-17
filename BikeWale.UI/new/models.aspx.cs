@@ -18,9 +18,10 @@ namespace Bikewale.New
     public class Model : PageBase
     {
         protected UpcomingBikes_new ctrlUpcomingBikes;
-        protected News_new ctrlNews;
-        protected ExpertReviews ctrlExpertReviews;
-        protected VideosControl ctrlVideos;
+        protected News_Widget ctrlNews;
+        //protected ExpertReviews ctrlExpertReviews;
+        protected NewExpertReviews ctrlExpertReviews;
+        protected NewVideosControl ctrlVideos;
         protected MostPopularBikes_new ctrlMostPopularBikes;
         protected Repeater rptMostPopularBikes;
 
@@ -74,11 +75,13 @@ namespace Bikewale.New
                 ////news,videos,revews
                 ctrlNews.TotalRecords = 3;
                 ctrlNews.MakeId = Convert.ToInt32(makeId);
-                ctrlExpertReviews.TotalRecords = 3;
+                ctrlExpertReviews.TotalRecords = 2;
                 ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
-                ctrlVideos.TotalRecords = 3;
+                ctrlVideos.TotalRecords = 2;
                 ctrlVideos.MakeId = Convert.ToInt32(makeId);
                 ctrlVideos.MakeMaskingName = makeMaskingName;
+                ctrlVideos.WidgetTitle = _make.MakeName;
+
                 ctrlExpertReviews.MakeMaskingName = makeMaskingName;
             }
 
