@@ -219,9 +219,9 @@
 /** Navigation container **/
 .connected-carousels-photos .navigation-photos, .connected-carousels-videos .navigation-videos { width: 100%; padding-left:10px; padding-right:10px; max-width:476px; position: relative; margin: 0 auto 20px; }
 /** Shared carousel styles **/
-.connected-carousels-photos .carousel-photos, .connected-carousels-videos .carousel-videos { overflow: hidden; position: relative; }
+.connected-carousels-photos .carousel-photos, .connected-carousels-videos .carousel-videos { min-height:200px; overflow: hidden; position: relative; }
 .connected-carousels-photos .carousel-photos .swiper-slide, .connected-carousels-videos .carousel-videos .swiper-slide { width:100%; background-color:#fff; margin:0;max-height:268px; font-size:0; position:relative;height: auto; text-align:center;}
-#bikeBannerImageCarousel.swiper-container, .connected-carousels-photos .swiper-container { min-height:180px; }
+#bikeBannerImageCarousel.swiper-container { min-height:180px; }
 
 .connected-carousels-videos .carousel-videos .yt-iframe-preview{text-align:center;}
 .connected-carousels-videos .carousel-videos .yt-iframe-preview iframe { width:100%; max-width:476px; }
@@ -229,7 +229,7 @@
 /** Navigation carousel specific styles **/
 .connected-carousels-photos .carousel-navigation-photos, .connected-carousels-videos .carousel-navigation-videos { height: 100%; width: 100%; background: none; padding-left:0; }
 .navigation-photos .carousel-navigation-photos .swiper-slide, .navigation-videos .carousel-navigation-videos .swiper-slide { display: block; background-color: #fff; position:relative; width:83px; height:48px; overflow:hidden; }
-.navigation-photos .carousel-navigation-photos .swiper-slide img { width:100%; height:auto; border: 2px solid #333; }
+.navigation-photos .carousel-navigation-photos .swiper-slide img, .navigation-videos .carousel-navigation-videos .swiper-slide img { width:100%; height:auto; border: 2px solid #333; }
 .navigation-photos .carousel-navigation-photos .swiper-slide.swiper-slide-active img { border:2px solid #ccc; }
 
 /** Stage carousel controls **/
@@ -294,9 +294,6 @@ li.offertxt:hover .tnc {display:inline}*/
 .color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#e34f4f; }
 .color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
 
-
-
-
 .overall-specs-tabs-container { width:100%; display:block; background:#fff; overflow-x:auto; z-index:2;-webkit-overflow-scrolling: touch;  }
 .overall-specs-tabs-container.fixed-tab-nav { position:fixed; top:0; left:0; }
 .overall-specs-tabs-wrapper { width:100%; display:table; border-bottom:1px solid #e2e2e2; }
@@ -334,6 +331,7 @@ li.offertxt:hover .tnc {display:inline}*/
 .margin-bottom13 { margin-bottom:13px; }
 .text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 .swiper-wrapper .swiper-slide:first-child { margin-left:10px; }
+.model-gallery-container .swiper-wrapper .swiper-slide:first-child { margin-left:0; }
 .prices-by-cities-list { margin:0 20px; }
 .prices-by-cities-list li { width:50%; float:left; padding-right:10px; margin-bottom:20px; }
 .prices-by-cities-list li a, .prices-by-cities-list li .price-in-city-price { display:inline-block; vertical-align:top; }
