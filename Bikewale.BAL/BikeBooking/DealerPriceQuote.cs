@@ -349,7 +349,8 @@ namespace Bikewale.BAL.BikeBooking
             {
                 if (PQParams.VersionId > 0)
                 {
-                    PQParams.DealerId = objDealerDetail.DealerId;
+                    if (objDealerDetail!=null)
+                        PQParams.DealerId = objDealerDetail.DealerId;
 
                     using (IUnityContainer container = new UnityContainer())
                     {
@@ -360,7 +361,7 @@ namespace Bikewale.BAL.BikeBooking
                     }
                 }
 
-                objPQOutput = new PQOutputEntity() { DealerId = PQParams.DealerId, PQId = quoteId, VersionId = PQParams.VersionId, IsDealerAvailable = objDealerDetail.IsDealerAvailable };
+                objPQOutput = new PQOutputEntity() { DealerId = PQParams.DealerId, PQId = quoteId, VersionId = PQParams.VersionId, IsDealerAvailable = (objDealerDetail!=null) ? objDealerDetail.IsDealerAvailable : false };
             }
             return objPQOutput;
         }   //End of ProcessPQ
