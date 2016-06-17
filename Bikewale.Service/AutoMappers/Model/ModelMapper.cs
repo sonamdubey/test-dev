@@ -1,16 +1,21 @@
 ﻿using AutoMapper;
+using Bikewale.BAL.PriceQuote;
 using Bikewale.DTO.BikeData;
 using Bikewale.DTO.CMS.Articles;
+using Bikewale.DTO.DealerLocator;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Model.v3;
+using Bikewale.DTO.PriceQuote.v2;
 using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.DTO.Series;
 using Bikewale.DTO.Version;
 using Bikewale.DTO.Videos;
 using Bikewale.DTO.Widgets;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.DTO;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
@@ -246,6 +251,117 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.ExpectedLaunchDate = objModelPage.UpcomingBike.ExpectedLaunchDate;
                     objDTOModelPage.ExpectedMinPrice = objModelPage.UpcomingBike.EstimatedPriceMin;
                     objDTOModelPage.ExpectedMaxPrice = objModelPage.UpcomingBike.EstimatedPriceMax;
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+            return objDTOModelPage;
+        }
+
+        /// <summary>
+        /// Created By : Lucky Rathore on 17 June 2016
+        /// Descritpion : Mapping for V4 version of ModelpageEntity.
+        /// </summary>
+        /// <param name="objModelPage"></param>
+        /// <returns></returns>
+        internal static DTO.Model.v4.ModelPage ConvertV4(BikeModelPageEntity objModelPage, Entities.PriceQuote.PQByCityAreaEntity pqEntity, DetailedDealerQuotationEntity dealers)
+        {
+            Bikewale.DTO.Model.v4.ModelPage objDTOModelPage = null;
+            try
+            {
+                objDTOModelPage = new DTO.Model.v4.ModelPage();
+                objDTOModelPage.SmallDescription = objModelPage.ModelDesc.SmallDescription;
+                objDTOModelPage.MakeId = objModelPage.ModelDetails.MakeBase.MakeId;
+                objDTOModelPage.MakeName = objModelPage.ModelDetails.MakeBase.MakeName;
+                objDTOModelPage.ModelId = objModelPage.ModelDetails.ModelId;
+                objDTOModelPage.ModelName = objModelPage.ModelDetails.ModelName;
+                objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
+                objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
+                objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
+                objDTOModelPage.IsUpcoming = objModelPage.ModelDetails.Futuristic;
+
+                if (objModelPage.objOverview != null)
+                {
+                    foreach (var spec in objModelPage.objOverview.OverviewList)
+                    {
+                        switch (spec.DisplayText)
+                        {
+                            case "Capacity":
+                                objDTOModelPage.Capacity = spec.DisplayValue;
+                                break;
+                            case "Mileage":
+                                objDTOModelPage.Mileage = spec.DisplayValue;
+                                break;
+                            case "Max power":
+                                objDTOModelPage.MaxPower = spec.DisplayValue;
+                                break;
+                            case "Weight":
+                                objDTOModelPage.Weight = spec.DisplayValue;
+                                break;
+                        }
+                    }
+                }
+                if (objModelPage.Photos != null)
+                {
+                    var photos = new List<DTO.Model.v3.CMSModelImageBase>();
+                    foreach (var photo in objModelPage.Photos)
+                    {
+                        var addPhoto = new DTO.Model.v3.CMSModelImageBase()
+                        {
+                            HostUrl = photo.HostUrl,
+                            OriginalImgPath = photo.OriginalImgPath
+                        };
+                        photos.Add(addPhoto);
+                    }
+                    objDTOModelPage.Photos = photos;
+                }
+                if (pqEntity != null)
+                {
+                    objDTOModelPage.IsCityExists = pqEntity.IsCityExists; 
+                    objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists; 
+                    objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice; 
+                    objDTOModelPage.ModelVersions = Convert(pqEntity.VersionList);
+                    objDTOModelPage.DealerId = pqEntity.DealerId;
+                    objDTOModelPage.PQId = pqEntity.PqId;
+                }
+                // Upcoming section
+                if (objModelPage.ModelDetails.Futuristic && objModelPage.UpcomingBike != null && objModelPage.ModelDetails != null)
+                {
+                    objDTOModelPage.ExpectedLaunchDate = objModelPage.UpcomingBike.ExpectedLaunchDate;
+                    objDTOModelPage.ExpectedMinPrice = objModelPage.UpcomingBike.EstimatedPriceMin;
+                    objDTOModelPage.ExpectedMaxPrice = objModelPage.UpcomingBike.EstimatedPriceMax;
+                }
+                if (dealers != null)
+                {
+                    if (dealers.PrimaryDealer != null )
+                    {
+                        var dealerOffer = new List<DPQOffer>();
+                        foreach (var offer in dealers.PrimaryDealer.OfferList)
+                        {
+                            var addOffer = new DPQOffer()
+                            {
+                                Id = (int)offer.OfferId,
+                                OfferCategoryId = (int)offer.OfferCategoryId,
+                                Text = offer.OfferText
+                            };
+                            dealerOffer.Add(addOffer);
+                        }
+                        objDTOModelPage.PrimaryDealerOffers = dealerOffer;
+                        if (dealers.PrimaryDealer.DealerDetails != null)
+                        {
+                            objDTOModelPage.PrimaryDealer = new DealerBase();
+                            objDTOModelPage.PrimaryDealer.Name = dealers.PrimaryDealer.DealerDetails.Organization;
+                            objDTOModelPage.PrimaryDealer.MaskingNumber = dealers.PrimaryDealer.DealerDetails.MaskingNumber;
+                            objDTOModelPage.PrimaryDealer.Area = dealers.PrimaryDealer.DealerDetails.objArea.AreaName;
+                            objDTOModelPage.PrimaryDealer.DealerId = dealers.PrimaryDealer.DealerDetails.DealerId;
+                            objDTOModelPage.PrimaryDealer.DealerPkgType = (Bikewale.DTO.PriceQuote.DealerPackageType) dealers.PrimaryDealer.DealerDetails.DealerPackageType;
+                        }
+                        
+                    }
+                    objDTOModelPage.SecondaryDealerCount = (ushort) dealers.SecondaryDealerCount;
+
                 }
             }
             catch (System.Exception)
