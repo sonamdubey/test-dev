@@ -103,7 +103,7 @@ namespace Bikewale.New
                         {
                             int _countStdDealers = _dealers.Dealers.Count(m => m.DealerType < 2);// counting only standard or invalid dealers
                             int _countPreDel = _dealers.Dealers.Count(m => m.DealerType > 1);// counting only deluxe or premium dealers
-                            if (_countStdDealers <= 3 && _countPreDel > 0)
+                            if (_countStdDealers < 3 && _countPreDel > 0)
                             {
                                 areDealersPremium = true;
                             }
