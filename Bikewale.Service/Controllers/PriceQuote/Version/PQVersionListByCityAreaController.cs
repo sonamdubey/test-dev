@@ -1,6 +1,7 @@
 ﻿using Bikewale.BAL.PriceQuote;
 using Bikewale.DAL.BikeData;
 using Bikewale.DTO.PriceQuote.Version;
+using Bikewale.DTO.PriceQuote.Version.v2;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -76,6 +77,63 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                     UInt16.TryParse(platformId, out platform);
                     pqEntity = pqByCityArea.GetVersionList(modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
                     objPQDTO = ModelMapper.Convert(pqEntity);
+                    objVersionsList = null;
+                    return Ok(objPQDTO);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.Get");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Created By : Vivek Gupta 
+        /// Date : 17-06-2016
+        /// Desc : adding dealerpackage type, secondary dealer count and primary dealer offers
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="areaId"></param>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(PQByCityAreaDTOV2)), Route("api/v2/model/versionlistprice/")]
+        public IHttpActionResult GetV2(int modelId, int? cityId = null, int? areaId = null, string deviceId = null)
+        {
+            if (cityId < 0 || modelId < 0)
+            {
+                return BadRequest();
+            }
+            IEnumerable<BikeVersionMinSpecs> objVersionsList = null;
+            PQByCityAreaDTOV2 objPQDTO = null;
+            PQByCityAreaEntity pqEntity = null;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+                IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
+                objVersionsList = objVersion.GetVersionMinSpecs(modelId, true);
+            }
+
+            try
+            {
+                if (objVersionsList != null && objVersionsList.Count() > 0)
+                {
+                    PQByCityArea pqByCityArea = new PQByCityArea();
+                    string platformId = string.Empty;
+                    UInt16 platform = default(UInt16);
+                    if (Request.Headers.Contains("platformId"))
+                    {
+                        platformId = Request.Headers.GetValues("platformId").First().ToString();
+                    }
+                    UInt16.TryParse(platformId, out platform);
+                    pqEntity = pqByCityArea.GetVersionListV2(modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
+                    objPQDTO = ModelMapper.ConvertV2(pqEntity);
                     objVersionsList = null;
                     return Ok(objPQDTO);
                 }
