@@ -59,6 +59,35 @@ namespace Bikewale.BAL.PriceQuote
             return dealerQuotation;
         }
 
+
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created on : 15 March 2016
+        /// Description : call API to get reponse for DealerPriceQuote Page.
+        /// </summary>
+        /// <param name="cityId">e.g. 1</param>
+        /// <param name="versionID">e.g. 806</param>
+        /// <param name="dealerId">e.g. 12527</param>
+        /// <returns>DetailedDealerQuotationEntity entity</returns>
+        public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerQuotationV2(UInt32 cityId, UInt32 versionID, UInt32 dealerId)
+        {
+            Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealerQuotation = null;
+            try
+            {
+                string _apiUrl = String.Format("/api/v3/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionID, dealerId);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    dealerQuotation = objClient.GetApiResponseSync<Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerQuotation);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "DealerPriceQuoteDetail.GetDealerQuotation");
+                objErr.SendMail();
+            }
+            return dealerQuotation;
+        }
+
         /// <summary>
         /// Created by  :   Sumit Kate on 03 Jun 2016
         /// Description :   Quotation

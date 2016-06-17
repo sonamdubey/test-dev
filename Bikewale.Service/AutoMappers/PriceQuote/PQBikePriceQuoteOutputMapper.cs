@@ -154,5 +154,14 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             Mapper.CreateMap<OtherVersionInfoEntity, DTO.Version.VersionBase>();
             return Mapper.Map<IEnumerable<OtherVersionInfoEntity>, IEnumerable<DTO.Version.VersionBase>>(enumerable);
         }
+
+        internal static List<DTO.PriceQuote.v3.DPQDealerBase> Convert(IEnumerable<Entities.PriceQuote.v2.NewBikeDealerBase> enumerable)
+        {
+            Mapper.CreateMap<Entities.PriceQuote.v2.NewBikeDealerBase, DTO.PriceQuote.v3.DPQDealerBase>();
+            Mapper.CreateMap<VersionPriceEntity, DTO.PriceQuote.VersionPriceBase>(
+                
+            );
+            return Mapper.Map<IEnumerable<Entities.PriceQuote.v2.NewBikeDealerBase>, List<DTO.PriceQuote.v3.DPQDealerBase>>(enumerable);
+        }
     }
 }
