@@ -262,6 +262,7 @@ li.offertxt:hover span {display:inline}
 #modelSpecsFeaturesContent .grid-6 p:first-child { margin-top:0; }
 .blue-right-arrow-icon { width:6px; height:10px; background-position:-74px -469px; position:relative; top:1px; left:7px; }
 #modelFeaturesAd div.margin-bottom15 { margin-bottom:0; }
+#modelFeaturesAd > div.margin-top20 { margin-top:0; }
 #modelColorsList { overflow:hidden; }
 #modelColorsList li { width:320px; padding-left:20px; margin-bottom:20px; display:inline-block; vertical-align:top; }
 #modelColorsList li p { width:75%; }
