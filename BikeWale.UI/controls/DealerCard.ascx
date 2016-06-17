@@ -18,7 +18,8 @@
                                     <span class="dealer-details-more-content"><%# Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")) %></span>
                                 </span>
                             </p>
-                            <p class="margin-bottom5"><span class="text-bold">
+                             <p class="margin-bottom5 <%# (String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem,"MaskingNumber"))))?"hide":string.Empty %>">
+                                 <span class="text-bold">
                                 <span class="bwsprite phone-black-icon vertical-top"></span>
                                 <span class="vertical-top dealership-card-details"><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></span>
                             </p>
