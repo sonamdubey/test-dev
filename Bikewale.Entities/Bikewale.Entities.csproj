@@ -224,6 +224,9 @@
     <Compile Include="PriceQuote\PriceQuoteOfTopCities.cs" />
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteStates.cs" />
+    <Compile Include="PriceQuote\v2\DetailedDealerQuotationEntity.cs" />
+    <Compile Include="PriceQuote\v2\NewBikeDealerBase.cs" />
+    <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlShortner\UrlShortnerResponse.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesEntity.cs" />

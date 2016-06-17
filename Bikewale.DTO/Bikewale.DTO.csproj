@@ -184,6 +184,9 @@
     <Compile Include="PriceQuote\v2\PQOnRoad.cs" />
     <Compile Include="PriceQuote\v2\PQOutput.cs" />
     <Compile Include="PriceQuote\v2\PQPrimaryDealer.cs" />
+    <Compile Include="PriceQuote\v3\DPQDealerBase.cs" />
+    <Compile Include="PriceQuote\v3\PQOnRoad.cs" />
+    <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="PriceQuote\Version\PQByCityArea.cs" />
     <Compile Include="PriceQuote\Version\v2\PQByCityAreaV2.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
