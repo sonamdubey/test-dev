@@ -4,13 +4,13 @@ using Bikewale.DTO.CMS.Articles;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Model.v3;
+using Bikewale.DTO.PriceQuote.v3;
 using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.DTO.PriceQuote.Version.v2;
 using Bikewale.DTO.Series;
 using Bikewale.DTO.Version;
 using Bikewale.DTO.Videos;
 using Bikewale.DTO.Widgets;
-using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.DTO;
@@ -314,7 +314,7 @@ namespace Bikewale.Service.AutoMappers.Model
         internal static PQByCityAreaDTOV2 ConvertV2(PQByCityAreaEntity pqCityAea)
         {
             Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
-            Mapper.CreateMap<OfferEntityBase, DTO.PriceQuote.v2.DPQOffer>();
+            Mapper.CreateMap<DealerQuotationEntity, PQPrimaryDealerV3>();
             Mapper.CreateMap<PQByCityAreaEntity, PQByCityAreaDTOV2>();
             return Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTOV2>(pqCityAea);
         }
