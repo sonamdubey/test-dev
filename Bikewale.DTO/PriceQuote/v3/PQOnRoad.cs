@@ -16,7 +16,8 @@ namespace Bikewale.DTO.PriceQuote.v3
         [JsonProperty("dealers")]
         public List<Bikewale.DTO.PriceQuote.v3.DPQDealerBase> SecondaryDealers { get; set; }
 
-        public IEnumerable<Bikewale.DTO.Version.VersionBase> version { get; set; }
+        [JsonProperty("versions")]
+        public IEnumerable<Bikewale.DTO.Version.VersionBase> Versions { get; set; }
     }
 }
 
