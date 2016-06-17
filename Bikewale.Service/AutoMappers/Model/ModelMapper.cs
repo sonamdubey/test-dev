@@ -5,10 +5,12 @@ using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Model.v3;
 using Bikewale.DTO.PriceQuote.Version;
+using Bikewale.DTO.PriceQuote.Version.v2;
 using Bikewale.DTO.Series;
 using Bikewale.DTO.Version;
 using Bikewale.DTO.Videos;
 using Bikewale.DTO.Widgets;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.DTO;
@@ -16,7 +18,6 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 
@@ -302,6 +303,20 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<BikeVideoEntity, VideoBase>();
             Mapper.CreateMap<BikeModelContent, BikeModelContentDTO>();
             return Mapper.Map<BikeModelContent, BikeModelContentDTO>(objContent);
+        }
+
+        /// <summary>
+        /// Created by: Vivek Gupta on 17-06-2016
+        /// Summary: Map   Map PQByCityArea from PQByCityAreaDTOV2
+        /// </summary>
+        /// <param name="pqCityAea"></param>
+        /// <returns></returns>
+        internal static PQByCityAreaDTOV2 ConvertV2(PQByCityAreaEntity pqCityAea)
+        {
+            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
+            Mapper.CreateMap<OfferEntityBase, DTO.PriceQuote.v2.DPQOffer>();
+            Mapper.CreateMap<PQByCityAreaEntity, PQByCityAreaDTOV2>();
+            return Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTOV2>(pqCityAea);
         }
     }
 }
