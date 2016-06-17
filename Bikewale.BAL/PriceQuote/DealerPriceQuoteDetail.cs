@@ -61,9 +61,9 @@ namespace Bikewale.BAL.PriceQuote
 
 
         /// <summary>
-        /// Created By : Lucky Rathore
-        /// Created on : 15 March 2016
-        /// Description : call API to get reponse for DealerPriceQuote Page.
+        /// Created By : Sushil Kumar
+        /// Created on : 17th June 2016
+        /// Description : call Autobiz API to get reponse for DealerPriceQuote deatils along with secondary dealers having version prices.
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="versionID">e.g. 806</param>

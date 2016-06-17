@@ -11,7 +11,7 @@ namespace Bikewale.DTO.PriceQuote
     public class VersionPriceBase
     {
         [JsonProperty("id")]
-        public int VersionId { get; set; }
+        public uint VersionId { get; set; }
 
         [JsonProperty("price")]
         public uint VersionPrice { get; set; }
