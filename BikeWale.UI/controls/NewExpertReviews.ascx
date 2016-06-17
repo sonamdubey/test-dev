@@ -1,17 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.NewExpertReviews" %>
-<h3 class="padding-left20 model-section-subtitle">Expert reviews</h3>
+<h3 class="model-section-subtitle padding-right10 padding-left10">Expert reviews</h3>
 <div class="model-expert-review-container" id="ctrlExpertReviews">
     <asp:Repeater ID="rptExpertReviews" runat="server">
         <ItemTemplate>
             <div class="margin-bottom20">
-                <div class="grid-4 alpha">
+                <div class="grid-4">
                     <div class="model-preview-image-container">
-                        <a href="javascript:void(0)">
+                        <a href="/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html">
                             <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" alt="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" src="" />
                         </a>
                     </div>
                 </div>
-                <div class="grid-8 alpha omega">
+                <div class="grid-8">
                     <h3 class="margin-top5"><a href="/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html" class="font16 text-black"><%# DataBinder.Eval(Container.DataItem, "Title").ToString()%></a></h3>
                     <p class="text-light-grey margin-bottom15"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"MMMM dd, yyyy") %>, by <span class="text-light-grey"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></span></p>
                     <p class="line-height17">
@@ -23,8 +23,8 @@
             </div>
         </ItemTemplate>
     </asp:Repeater>    
-    <div class="padding-left20">
-        <a href="<%=MoreExpertReviewUrl %>">Read all expert reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
+    <div class="padding-left10">
+        <a href="<%=MoreExpertReviewUrl %>" class="bw-ga" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="myBikeName">Read all expert reviews<span class="bwsprite blue-right-arrow-icon"></span></a>        
     </div>
     <script type="text/javascript">
         $(document).ready(function () { $("img.lazy").lazyload(); });

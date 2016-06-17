@@ -25,6 +25,8 @@
     .PQOffersUL{margin-left:18px;list-style:disc}
     .PQOffersUL li{padding-bottom:15px}
     .margin-top7 { margin-top:7px; }
+    .inr-sm { width:8px; height:12px; background-position:-110px -468px; }
+    .inr-lg { width:10px; height:14px; background-position:-110px -490px; }
     .pqVariants .variants-dropdown{ width:210px; height: 40px; margin-left: 12px; color: #555; position: relative; cursor: pointer; background: #fff;}
     .variant-selection-tab { width:90%; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
     #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px;}
@@ -89,19 +91,19 @@
                             </a>
                         </li>
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <span class="fa fa-angle-right margin-right10"></span>
+                            <span class="bwsprite fa-angle-right margin-right10"></span>
                             <a href="/new/" itemprop="url">
                                 <span itemprop="title">New</span>
                             </a>
                         </li>
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <span class="fa fa-angle-right margin-right10"></span>
+                            <span class="bwsprite fa-angle-right margin-right10"></span>
                             <a href="/pricequote/" itemprop="url">
                                 <span itemprop="title">On-road price</span>
                             </a>
                         </li>
                         <li>
-                            <span class="fa fa-angle-right margin-right10"></span><%= mmv.BikeName %>
+                            <span class="bwsprite fa-angle-right margin-right10"></span><%= mmv.BikeName %>
                         </li>
                     </ul>
                     <div class="clear"></div>
@@ -143,13 +145,13 @@
                                         Ex-Showroom (<%= objQuotation.City %>)
                                     </td>
                                     <td align="right" class="PQDetailsTableAmount padding-bottom15">
-                                        <span class="fa fa-rupee margin-right5"></span><span id="exShowroomPrice"><%= CommonOpn.FormatNumeric( objQuotation.ExShowroomPrice.ToString() ) %></span>
+                                        <span class="bwsprite inr-sm"></span>&nbsp;<span id="exShowroomPrice"><%= CommonOpn.FormatNumeric( objQuotation.ExShowroomPrice.ToString() ) %></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="PQDetailsTableTitle padding-bottom15">RTO</td>
                                     <td align="right" class="PQDetailsTableAmount padding-bottom15">
-                                        <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric( objQuotation.RTO.ToString() ) %></span>
+                                        <span class="bwsprite inr-sm"></span>&nbsp;<span><%= CommonOpn.FormatNumeric( objQuotation.RTO.ToString() ) %></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -159,14 +161,14 @@
                                         </div>
                                     </td>
                                     <td align="right" class="PQDetailsTableAmount padding-bottom15">
-                                        <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
+                                        <span class="bwsprite inr-sm"></span>&nbsp;<span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
                                     </td>
                                 </tr>
                                 <tr><td colspan="2" class="border-solid-top padding-bottom15" align="right"></tr>
                                 <tr>
                                     <td class="PQDetailsTableTitle PQOnRoadPrice padding-bottom15 text-dark-black">On-road price</td>
                                     <td align="right" class="PQDetailsTableAmount font18 padding-bottom15 text-dark-black">
-                                        <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
+                                        <span class="bwsprite inr-lg"></span>&nbsp;<span><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
                                     </td>
                                 </tr>	
                             </table>

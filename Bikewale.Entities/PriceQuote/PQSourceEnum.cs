@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bikewale.Entities.PriceQuote
 {
     /// <summary>
@@ -13,6 +8,9 @@ namespace Bikewale.Entities.PriceQuote
     /// Modified By : Lucky Rathore
     /// Modified On : 28 March 2016
     /// Description : Desktop_DealerLocator_SubmitButton and  Desktop_DealerLocator_GetOfferButton added.
+    /// Modified By : Sushil Kumar
+    /// Modified On : 6th June 2016
+    /// Description : Mobile_PriceInCity_SelectAreas,Mobile_PriceInCity_Alternative and  Mobile_PriceInCity_DealerCard_GetOffers added.
     /// </summary>
     public enum PQSourceEnum
     {
@@ -58,7 +56,32 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_BookingListing = 40,
         Mobile_DealerLocator_Detail = 41,
         Mobile_DealerLocator_Listing = 42,
-        Desktop_DealerLocator_SubmitButton = 43,
-        Desktop_DealerLocator_GetOfferButton = 44
+        Desktop_DealerLocator_SubmitButton = 43,    
+        Desktop_DealerLocator_GetOfferButton = 44,
+        Desktop_ModelPage_FloatingButton = 45,
+        Desktop_PriceInCity_SelectAreas = 46,
+        Desktop_PriceInCity_Alternative = 47,
+        Desktop_PriceInCity_DealersCard_GetOfferButton = 48,
+        Desktop_SpecsAndFeaturePage_CheckOnRoadPrice = 49,
+        Desktop_SpecsAndFeaturePage_GetOffersFromDealer = 50,
+        Mobile_PriceInCity_DealersCard_GetOfferButton = 51,
+        Mobile_PriceInCity_AlternateBikes = 52,
+        Mobile_PriceInCity_SelectArea = 53,
+        Mobile_SpecsAndFeaturePage_CheckOnRoadPrice = 54,
+        Mobile_SpecsAndFeaturePage_GetOffersFromDealer = 55,
+        Desktop_SpecsAndFeaturePage_OnLoad = 56,
+        Mobile_SpecsAndFeaturePage_OnLoad = 57
+        //Desktop_DealerLocator_GetOfferButton = 44,
+        //Desktop_DealerLocator_GetOfferButton_Floating = 45,
+        //Desktop_PriceInCity_SelectAreas = 46,
+        //Desktop_PriceInCity_Alternative = 47,
+        //Desktop_PriceInCity_DealerCard_GetOffers = 48,
+        //Mobile_PriceInCity_SelectAreas = 49,
+        //Mobile_PriceInCity_Alternative = 50,
+        //Mobile_PriceInCity_DealerCard_GetOffers = 51,
+        //Desktop_SpecsAndFeature_PQOnroad = 52,
+        //Mobile_SpecsAndFeaturePage_CheckOnRoadPrice = 54,
+        //Mobile_SpecsAndFeaturePage_GetOffersFromDealer = 55
+
     }
 }

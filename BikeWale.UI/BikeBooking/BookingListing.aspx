@@ -29,8 +29,8 @@
                         <!-- breadcrumb code starts here -->
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><a href="/bikebooking/"><span class="fa fa-angle-right margin-right10"></span>Booking</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>Bikes</li>
+                            <li><a href="/bikebooking/"><span class="bwsprite fa-angle-right margin-right10"></span>Booking</a></li>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span>Bikes</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -53,7 +53,7 @@
                                             <span class="leftfloat filter-select-btn default-text">Select brand</span>
                                             <span class="clear"></span>
                                         </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                     </div>
                                     <div id="filter-select-brand" name="makeIds" class="filter-selection-div filter-brand-list list-items hide">
                                         <span class="top-arrow"></span>
@@ -83,7 +83,7 @@
                                             <span class="default-text" id="budgetBtn">Select budget</span>
                                             <span class="minAmount"></span>
                                             <span class="maxAmount"></span>
-                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                             <span class="clear"></span>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
                                             <span class="leftfloat filter-select-btn default-text">Select mileage</span>
                                             <span class="clear"></span>
                                         </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                     </div>
                                     <div name="mileage" class="filter-selection-div filter-mileage-list list-items hide">
                                         <span class="top-arrow"></span>
@@ -128,7 +128,7 @@
                                             <span class="leftfloat filter-select-btn default-text">Select displacement</span>
                                             <span class="clear"></span>
                                         </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                     </div>
                                     <div name="displacement" class="filter-selection-div filter-displacement-list list-items hide">
                                         <span class="top-arrow"></span>
@@ -163,7 +163,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="more-filters-container content-box-shadow hide">
+                        <div class="more-filters-container content-box-shadow padding-right10 padding-bottom10 padding-left10 hide">
                             <div class="grid-3 padding-top10">
                                 <div class="more-filter-ride">
 
@@ -177,7 +177,7 @@
                                             <span class="leftfloat filter-select-btn default-text">Select ride style</span>
                                             <span class="clear"></span>
                                         </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                     </div>
                                     <div name="rideStyle" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
                                         <span class="top-arrow"></span>
@@ -283,7 +283,7 @@
                                         <span class="leftfloat sort-select-btn">Price: Low to High</span>
                                         <span class="clear"></span>
                                     </div>
-                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                 </div>
                                 <div class="sort-selection-div sort-list-items hide">
                                     <ul>
@@ -357,17 +357,17 @@
                                                 <p>BikeWale on-road price</p>
 
                                                 <div class="margin-top10" data-bind="visible: discount() > 0">
-                                                    <span class="fa fa-rupee"></span>
+                                                    <span class="bwsprite inr-sm-grey"></span>
                                                     <span class="font13 margin-right5 text-line-through" data-bind="CurrencyText: onRoadPrice()"></span>
                                                     <span>(<span class="text-red">
-                                                        <span class="fa fa-rupee"></span>
-                                                        <span class="font13 margin-right5" data-bind="CurrencyText: discount()"></span>Off
+                                                        <span class="bwsprite inr-sm-red"></span>
+                                                        <span class="font13" data-bind="CurrencyText: discount()"></span>&nbsp;Off
                                                     </span>)
                                                     </span>
                                                 </div>
 
-                                                <div class="font20 text-default">
-                                                    <span class="fa fa-rupee"></span>
+                                                <div class="text-default">
+                                                    <span class="bwsprite inr-xl"></span>
                                                     <span class="font22" data-bind="CurrencyText: discountedPrice()"></span>
                                                 </div>
 
@@ -376,7 +376,7 @@
                                                 <span class="text-link view-offers-target">view <span data-bind="text:(offers().length > 1) ? ' offers' : ' offer'"></span></span>
                                                 </div>
                                                 
-                                                <p>Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee margin-right5"></span><span data-bind="text: bookingAmount"></span></span></p>
+                                                <p>Now book your bike online at <span class="text-default text-bold"><span class="bwsprite inr-sm"></span>&nbsp;<span data-bind="text: bookingAmount"></span></span></p>
                                                 </div>
                                                 <input type="button" class="book-now btn btn-grey-orange btn-full-width margin-top15" value="Book Now" data-bind="click: function () { registerPQ($data); }" />
                                             </div>

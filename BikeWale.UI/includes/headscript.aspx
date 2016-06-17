@@ -13,7 +13,7 @@
         isAd976x400SecondShown = false,
         isAd976x204 = false,
         isTransparentHeader = false,
-        enableOG = false;  
+        enableOG = true;  
 </script>
 
 <title><%= title %></title>
@@ -25,15 +25,14 @@
 <% if(!String.IsNullOrEmpty(keywords)) { %><meta name="keywords" content="<%= keywords %>" /><% } %>
 <%if(!String.IsNullOrEmpty(alternate)) { %><meta name="alternate" content="<%= alternate %>" /><% } %>
 <%if(!String.IsNullOrEmpty(canonical)) { %>
-    <link rel="canonical" href="<%=canonical %>" /> 
+<link rel="canonical" href="<%=canonical %>" /> 
 <% } %>
-
 <%if(enableOG) { %>
-    <meta property="og:title" content="<%= title %>" />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content="<%= description %>" />
-    <%if(!String.IsNullOrEmpty(canonical)) { %><meta property="og:url" content="<%=canonical %>" /> <% } %>
-    <meta property="og:image" content = "<%= string.IsNullOrEmpty(ogImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : ogImage %>" />
+<meta property="og:title" content="<%= title %>" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="<%= description %>" />
+<%if(!String.IsNullOrEmpty(canonical)) { %><meta property="og:url" content="<%=canonical %>" /> <% } %>
+<meta property="og:image" content = "<%= string.IsNullOrEmpty(ogImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : ogImage %>" />
 <% } %>
 
 
@@ -52,7 +51,7 @@
     }, 1);
 </script>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-<link href="/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 <script type='text/javascript'>
     var googletag = googletag || {};

@@ -100,7 +100,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="clear"></div>
-                                                        <a href="javascript:void(0)" makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName")) %>" modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" pagecatid="1" pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData">Check On-Road Price</a>
+                                                        <a href="javascript:void(0)" makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName")) %>" modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" pagecatid="1" pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData" rel="nofollow">Check on-road price</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -204,7 +204,7 @@
                             <div class="brand-about-more-desc hide">
                                 <%= _bikeDesc.FullDescription %>
                             </div>
-                            <span><a href="javascript:void(0)" class="read-more-btn">Read <span>more</span></a></span>
+                            <span><a href="javascript:void(0)" class="read-more-btn" rel="nofollow">Read <span>more</span></a></span>
                         </div>
                     </div>
                 </div>

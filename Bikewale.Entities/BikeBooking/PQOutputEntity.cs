@@ -2,6 +2,10 @@
 
 namespace Bikewale.Entities.BikeBooking
 {
+    /// <summary>
+    /// Modified By  :Sushil Kumar on 7th June 2016
+    /// Description :Added properties to get bike make and model name
+    /// </summary>
     public class PQOutputEntity
     {
         [JsonProperty("pqId")]
@@ -12,5 +16,9 @@ namespace Bikewale.Entities.BikeBooking
         public uint VersionId { get; set; }
         [JsonProperty("isDealerAvailable")]
         public bool IsDealerAvailable { get; set; }
+        [JsonProperty("makeName")]
+        public string MakeName { get; set; }
+        [JsonProperty("modelName")]
+        public string ModelName { get; set; }
     }
 }

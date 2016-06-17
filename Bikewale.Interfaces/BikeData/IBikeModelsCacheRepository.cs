@@ -10,6 +10,6 @@ namespace Bikewale.Interfaces.BikeData
 {
     public interface IBikeModelsCacheRepository<U>
     {
-        BikeModelPageEntity GetModelPageDetails(U modelId);        
+        BikeModelPageEntity GetModelPageDetails(U modelId);
     }
 }

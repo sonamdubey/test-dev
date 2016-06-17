@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Linq;
 
 namespace Bikewale.Controls
 {
@@ -22,8 +23,9 @@ namespace Bikewale.Controls
 
         public uint ModelId { get; set; }
         public uint TopCount { get; set; }
-        public string MakeMaskingName { get; set; }
-        public string ModelMaskingName { get; set; }
+        public bool IsDiscontinued { get; set; }
+
+        protected bool showWidget = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -36,7 +38,24 @@ namespace Bikewale.Controls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindTopCityPrice();
+            if (isValidData())
+                BindTopCityPrice();
+        }
+
+        /// <summary>
+        /// Function to validate the data passed to the widget
+        /// </summary>
+        /// <returns></returns>
+        private bool isValidData()
+        {
+            bool isValid = true;
+
+            if (ModelId <= 0)
+            {
+                isValid = false;
+            }
+
+            return isValid;
         }
 
         /// <summary>
@@ -47,11 +66,9 @@ namespace Bikewale.Controls
         {
             try
             {
+                if (TopCount <= 0) { TopCount = 8; }
+
                 IEnumerable<PriceQuoteOfTopCities> prices = null;
-
-
-
-
 
                 using (IUnityContainer container = new UnityContainer())
                 {
@@ -63,12 +80,12 @@ namespace Bikewale.Controls
 
                     prices = objCache.FetchPriceQuoteOfTopCitiesCache(ModelId, TopCount);
 
-
-
-                    if (prices != null)
+                    if (prices != null && prices.Count() > 0)
                     {
                         rptTopCityPrices.DataSource = prices;
                         rptTopCityPrices.DataBind();
+
+                        showWidget = true;
                     }
                 }
             }
@@ -77,6 +94,6 @@ namespace Bikewale.Controls
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-        }
+        }        
     }
 }

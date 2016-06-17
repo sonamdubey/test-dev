@@ -99,6 +99,9 @@ function GetCatForNav() {
             case "14":
                 ret_category = "BookingSummary_New";
                 break;
+            case "15":
+                ret_category = "SpecsAndFeature";
+                break;
             case "39":
                 ret_category = "BookingListing";
                 break;
@@ -436,6 +439,11 @@ $(document).ready(function () {
         panel.find(".bw-tabs-data").hide();
         $("#" + panelId).show();
         applyTabsLazyLoad();
+        $("#" + panelId).find(".swiper-slide-active img.swiper-lazy").each(function (index) {
+            var src = $(this).attr("data-src");
+            $(this).attr("src", src);
+            $(this).parent().find('.swiper-lazy-preloader').remove();
+        });
         centerItVariableWidth($(this), '.bw-tabs');
 
         var swiperContainer = $('#' + panelId + " .swiper-container");
@@ -1167,21 +1175,19 @@ $.fn.shake = function (options) {
 $(function () {
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
     var appbanner = getCookie("AppBanner");
-    // Add the page ids of all the pages which need not show app banner ads
-    var hideBannerPages = ['7','14'];
-    
-    if (ga_pg_id == 2 ) {
-        if (typeof isDealerPQ !== 'undefined') {
-            if (isDealerPQ === 'False') {
-                appbanner = "true";
-            } else { appbanner = "false"; }
-        }
-    } else if (hideBannerPages.indexOf(ga_pg_id) > -1) { appbanner = "false"; }
-
     if ((appbanner == null || appbanner == "true") && !isSafari) {
-        $("#appBanner").slideDown();
-        SetCookie("AppBanner", true);
-        dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
+        var hideBannerPages = ['7', '14'];
+        if (ga_pg_id == 2) {
+            if (typeof isDealerPQ !== 'undefined') {
+                if (isDealerPQ === 'False') {
+                    $("#appBanner").slideDown();
+                }
+            }
+        } else if (hideBannerPages.indexOf(ga_pg_id) == -1) {
+            $("#appBanner").slideDown();
+            SetCookie("AppBanner", true);
+            dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
+        }
     }
 });
 

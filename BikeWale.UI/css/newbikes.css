@@ -1,36 +1,36 @@
 ﻿@charset "utf-8";
-/* CSS Document */
-/* top banner */
 .new-bikes-top-banner { background:#161209 url(http://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/new-bikes-banner.jpg?v123) no-repeat center top; background-size: cover; height: 285px; padding-top: 1px; }
-
-/* discover your bike css */
 .brand-budget-mileage-style-wrapper { background:#fff; }
 .bw-tabs-data ul li:hover { cursor: pointer; }
 .brand-type-container ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:180px; height:85px; margin:0 5px 30px; text-align:center; font-size:18px; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
-.style-type-container ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:226px; height:155px; margin:0 5px 15px; text-align:center; font-size:18px; border:1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.style-type-container ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:226px; height:155px; margin:0 5px 30px; text-align:center; font-size:18px; border:1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
 .brand-type { width:180px; height:50px; display:block; margin:0 auto; }
 .brand-type-title, .style-type-title { margin-top:10px; display:block; }
 .brand-type-container a, .style-type-container a { text-decoration:none; color:#82888b; display: inline-block; }
+.inr-budget { width:10px; height:16px; background-position:0 -515px; position:relative; top:1px; }
+.brandlogosprite { background:url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?v=19May2016') no-repeat; display: inline-block; }
+.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-escorts, .brand-harleydavidson, .brand-hero, .brand-heroelectric, .brand-herohonda, .brand-honda, .brand-husqvarna, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-kinetic, .brand-ktm, .brand-lml, .brand-mahindra, .brand-motoguzzi, .brand-mv-agusta, .brand-piaggio, .brand-royalenfield, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-um, .brand-vespa, .brand-victory, .brand-yamaha, .brand-yo, .brand-eider { height:50px; }
+.brand-aprilia { width: 87px; background-position: 0 0; }.brand-honda { width: 56px; background-position: -96px 0; }.brand-bajaj { width: 88px; background-position: -162px 0; }.brand-hyosung { width: 100px; background-position: -260px 0; }.brand-suzuki { width: 67px; background-position: -370px 0; }.brand-benelli { width: 125px; background-position: -447px 0; }.brand-indian { width: 122px; background-position: -582px 0; }.brand-triumph { width: 121px; background-position: -714px 0; }.brand-bmw { width: 44px; background-position: -845px 0; }.brand-kawasaki { width: 86px; background-position: -899px 0; }.brand-tvs { width: 118px; background-position: -995px 0; }.brand-ducati { width: 43px; background-position: -1123px 0; }.brand-ktm { width: 99px; background-position: -1176px 0; }.brand-vespa { width: 117px; background-position: -1285px 0; }.brand-harleydavidson { width: 59px; background-position: -1412px 0; }.brand-lml { width: 122px; background-position: -1481px 0; }.brand-yamaha { width: 122px; background-position: -1613px 0; }.brand-hero { width: 63px; background-position: -1745px 0; }.brand-mahindra { width: 102px; background-position: -1818px 0; }.brand-yo { width: 127px; background-position: -1930px 0; }.brand-heroelectric { width: 89px; background-position: -2067px 0; }.brand-motoguzzi { width: 82px; background-position: -2166px 0; }.brand-royalenfield { width: 121px; background-position: -2258px 0; }.brand-mv-agusta { width:63px; background-position: -2389px 0; }.brand-um { width:64px; background-position:-2461px 0; }.brand-eider { width:71px; background-position:-2535px 0; }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+.style-type { width:226px; height:90px; display:block; margin:0 auto; padding-top:30px; }
+.styletypesprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/style-type-sprite.png) no-repeat; display: inline-block;  }
+.style-scooters, .style-street, .style-cruiser, .style-sports, .style-scooters-dark, .style-street-dark, .style-cruiser-dark, .style-sports-dark { width:77px; height:44px; }
+.style-scooters { background-position: 0 0; }.style-street { background-position: 0 -108px; }.style-cruiser { background-position: 0 -216px; }.style-sports { background-position: 0 -324px; }
+.style-type-container ul li:hover span.styletypesprite.style-scooters { background-position: 0 -54px; }.style-type-container ul li:hover span.styletypesprite.style-street { background-position: 0 -162px; }.style-type-container ul li:hover span.styletypesprite.style-cruiser { background-position: 0 -270px; }.style-type-container ul li:hover span.styletypesprite.style-sports { background-position: 0 -378px; }
 .style-type-container ul li:hover { border: 1px solid #4d5057;}
 .brand-type-container ul li:hover span.brand-type-title, .style-type-container ul li:hover span.style-type-title {color:#4d5057; font-weight: bold; }
-
-/* budget-container and mileage-container */
 .budget-container ul li, .mileage-container ul li { text-align: center; display: inline-block; *display:inline; *zoom:1; }
 .budget-container ul li:hover a, .mileage-container ul li:hover a { color:#4d5057;}
 .budget-container ul li a, .mileage-container ul li a { display:inline-block; *display:inline; *zoom:1; width:226px; height:155px; margin:0 5px 30px; text-align:center; background:#fff; color:#82888b; font-size:18px; border: 1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
 .budget-container ul li a span.budget-title-box , .budget-container ul li a span.budget-amount-box, .mileage-container ul li a span.mileage-title-box , .mileage-container ul li a span.mileage-amount-box { display:block; }
 .budget-container ul li a:hover, .mileage-container ul li a:hover { border: 1px solid #4d5057; text-decoration:none; }
-.budget-container ul li a span.budget-title-box, .mileage-container ul li a span.mileage-title-box { padding-top: 40px; padding-bottom: 5px; }
-
-/* discover bikes */
+.budget-container ul li a span.budget-title-box, .mileage-container ul li a span.mileage-title-box { padding-top: 47px; padding-bottom: 5px; }
+.budget-container ul li:hover .inr-budget { background-position:-20px -515px; }
 .newbike-discover-bike-container { background-color: #fff; }
 .newbike-discover-bike-container .jcarousel { width:934px; overflow:hidden; left:20px;}
 .newbike-discover-bike-container .jcarousel .imageWrapper { width: 303px; }
 .discover-bike-carousel .jcarousel li { width:303px; height:auto; margin-right:10px; }
 .discover-bike-carousel .jcarousel li.front { border:none;}
 .discover-bike-carousel .jcarousel li .imageWrapper a { width:303px; }
-
-/* tools you may required */
 .tools-may-need-wrapper { background:#fff; }
 .final-price-logo {  margin:0 auto; }
 .final-price-search-container { margin:0 auto; width:775px; height: 40px; }
@@ -43,7 +43,6 @@
 .final-price-areaSelect { border-left:1px solid #ccc; height:39px; width:161px; float:left; }
 .final-price-areaSelect select { width: 160px; border: none; color:#555; height: 38px; }
 .tools-may-need-wrapper .btn-lg { padding:8px 20px; padding:8px 20px 7px\9; }
-
 .locate-dealer-search-container, .calculate-emi-search-container { margin-left:99px; width:750px; height: 40px; }
 .locate-dealer-search, .calculate-emi-tool-search { width:573px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; height: 40px; }
 .locate-dealer-bikeSelect { width:250px; height:40px; float:left; }
@@ -51,14 +50,11 @@
 .locate-dealer-citySelect, .interest-rate-boxSelect { border-left:1px solid #ccc; height:39px; width:322px; float:left; }
 .locate-dealer-citySelect select { width: 320px; border: none; color:#555; height: 38px; }
 .get-final-price-btn, .locate-dealer-btn, .calculate-btn { float:left; }
-
 .loan-amount-box { width:250px; height:40px; float:left; }
 .loan-amount-box input[type="text"] { width:250px; height: 38px; }
 .interest-rate-boxSelect { width:322px; height:40px; float:left; }
 .interest-rate-boxSelect input[type="text"] { width:320px; height: 38px; }
-
 #btnLocateDealer, #btnCalcEmi { width:166px; }
-
 @-moz-document url-prefix() {
     .tools-may-need-wrapper .btn-lg { padding:7px 20px; }
 }

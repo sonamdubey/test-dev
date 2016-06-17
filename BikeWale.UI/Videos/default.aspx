@@ -31,7 +31,7 @@
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
                             <li><a href="/"><span>Home</span></a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>Videos</li>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span>Videos</li>
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5">Videos</h1>

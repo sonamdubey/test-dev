@@ -81,6 +81,7 @@ a.text-black:hover { text-decoration:none; }
 .dealership-address { width:92%; }
 .vertical-top { display:inline-block;vertical-align:top; }
 .crosshair-icon { width:20px; height:20px; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat; }
+.inr-lg { width:10px; height:14px; background-position:-110px -491px; }
 
 #leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:5%;right:5%;left:5%;z-index:10;padding:30px 40px}
 .personal-info-form-container{margin:10px auto;width:300px;min-height:100px}
@@ -92,6 +93,7 @@ a.text-black:hover { text-decoration:none; }
 #otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}
 #otpPopup .update-mobile-box{display:none}
 #otpPopup .edit-mobile-btn,.resend-otp-btn{cursor:pointer}
+.phone-grey-icon { width:11px; height:15px; margin-right:3px; background-position:-53px -444px;position:relative;top:0;}
 .edit-blue-icon{width:16px;height:16px}
 .edit-blue-icon{background-position:-115px -250px}
 .icon-outer-container{width:102px;height:102px;margin:0 auto;background:#fff;border:1px solid #ccc}

@@ -1,58 +1,36 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.NewUserReviewsList" %>
 
-<h3 class="margin-top25 padding-left20 model-section-subtitle">User reviews</h3>
+<h3 class="model-section-subtitle padding-right10 padding-left10">User reviews</h3>
 <div class="bw-tabs-data" id="ctrlUserReviews"><!-- Reviews data code starts here-->
-    <div class="user-reviews">
-    </div>
-</div>
-
-
-<div class="model-user-review-container grid-12">
-
-    <%--<div class="grid- margin-bottom15">
-        <!-- when one review -->
-        <div class="model-user-review-rating-container leftfloat">
-            <p><%#Eval("OverAllRating.OverAllRating") %></p>
-            <p class="inline-block margin-bottom5 margin-top5">
-                <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(Eval("OverAllRating.OverAllRating"))) %>
-            </p>
-        </div>
-        <div class="model-single-user-review padding-left20 leftfloat">
-            <h3><%#Eval("ReviewTitle").ToString() %></h3>
-            <p class="text-light-grey"><%#Eval("ReviewDate", "{0:dd-MMM-yyyy}") %> by <%#Eval("WrittenBy").ToString() %></p>
-            <p class="margin-top10 line-height17">
-                <%#Eval("Comments").ToString() %> ...
-                <a href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">Read full story</a>
-            </p>
-        </div>
-        <div class="clear"></div>
-    </div>--%>
-
-    <asp:Repeater ID="rptUserReview" runat="server">
-        <ItemTemplate>
-            <div class="grid-<%=CssWidth %> margin-bottom15">
-                <div class="model-user-review-rating-container leftfloat">
-                    <p><%#Eval("OverAllRating.OverAllRating") %></p>
-                    <p class="inline-block margin-bottom5 margin-top5">
-                        <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(Eval("OverAllRating.OverAllRating"))) %>
+    <div class="model-user-review-container grid-12 alpha omega">
+        <asp:Repeater ID="rptUserReview" runat="server">
+            <ItemTemplate>
+                <div class="grid-<%=CssWidth %> margin-bottom15">
+                    <div class="model-user-review-rating-container leftfloat">
+                        <p><%#Eval("OverAllRating.OverAllRating") %></p>
+                        <p class="inline-block margin-bottom5 margin-top5">
+                            <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(Eval("OverAllRating.OverAllRating"))) %>
+                        </p>
+                    </div>
+                    <div class="model-user-review-title-container padding-left20 leftfloat">
+                        <h3 ><a class="font16 text-black line-height" href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">
+                            <%#Eval("ReviewTitle").ToString() %>
+                            </a>
+                        </h3>
+                        <p class="text-light-grey"><%#Eval("ReviewDate", "{0:dd-MMM-yyyy}") %> by <%#Eval("WrittenBy").ToString() %></p>
+                    </div>
+                    <div class="clear"></div>
+                    <p class="margin-top20 line-height17">
+                        <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Comments").ToString(),160) %> 
+                 <a href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">Read full review</a>
                     </p>
                 </div>
-                <div class="model-user-review-title-container padding-left20 leftfloat">
-                    <h3><%#Eval("ReviewTitle").ToString() %></h3>
-                    <p class="text-light-grey"><%#Eval("ReviewDate", "{0:dd-MMM-yyyy}") %> by <%#Eval("WrittenBy").ToString() %></p>
-                </div>
-                <div class="clear"></div>
-                <p class="margin-top20 line-height17">
-                    <%#Eval("Comments").ToString() %> ... 
-             <a href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">Read full story</a>
-                </p>
-            </div>
-        </ItemTemplate>
-    </asp:Repeater>
-
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
+    <div class="clear"></div>
 </div>
-<div class="clear"></div>
-<div class="padding-left20">
-    <a href="/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/">Read all user reviews<span class="bwsprite blue-right-arrow-icon"></span></a>
+<div class="padding-left10">
+    <a href="/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/"  class="bw-ga" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all user reviews<span class="bwsprite blue-right-arrow-icon"></span></a>   
 </div>
 

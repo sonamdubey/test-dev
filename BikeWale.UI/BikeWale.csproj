@@ -422,8 +422,16 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\PriceInTopCities.ascx.cs">
-      <DependentUpon>PriceInTopCities.ascx</DependentUpon>
+    <Compile Include="controls\DealerCard.ascx.cs">
+      <DependentUpon>DealerCard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\LeadCaptureControl.ascx.cs">
+      <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UsedBikes.ascx.cs">
+      <DependentUpon>UsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\AddBikeToCompare.ascx.cs">
@@ -550,6 +558,10 @@
       <DependentUpon>ModelGallery.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\ModelPriceInNearestCities.ascx.cs">
+      <DependentUpon>ModelPriceInNearestCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\MostPopularBikes_new.ascx.cs">
       <DependentUpon>MostPopularBikes_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -616,6 +628,10 @@
     </Compile>
     <Compile Include="controls\PhotoGallaryMin.ascx.cs">
       <DependentUpon>PhotoGallaryMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\PriceInTopCities.ascx.cs">
+      <DependentUpon>PriceInTopCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\RecentLaunchedBikesMin.ascx.cs">
@@ -852,12 +868,20 @@
       <DependentUpon>CompareBikesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\DealersCard.ascx.cs">
+      <DependentUpon>DealersCard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\ExpertReviewsWidget.ascx.cs">
       <DependentUpon>ExpertReviewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\ExpertReviewsVideos.ascx.cs">
       <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\LeadCaptureControl.ascx.cs">
+      <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\ListPagerControl.ascx.cs">
@@ -880,6 +904,10 @@
       <DependentUpon>ModelGallery.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\ModelPriceInNearestCities.ascx.cs">
+      <DependentUpon>ModelPriceInNearestCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\MOnRoadPricequote.ascx.cs">
       <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -892,8 +920,28 @@
       <DependentUpon>MUpcomingBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\NewAlternativeBikes.ascx.cs">
+      <DependentUpon>NewAlternativeBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\NewExpertReviewsWidget.ascx.cs">
+      <DependentUpon>NewExpertReviewsWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\NewNewsWidget.ascx.cs">
+      <DependentUpon>NewNewsWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\NewsWidget.ascx.cs">
       <DependentUpon>NewsWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\NewUserReviewList.ascx.cs">
+      <DependentUpon>NewUserReviewList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\NewVideosWidget.ascx.cs">
+      <DependentUpon>NewVideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\PopularUsedBikes.ascx.cs">
@@ -902,6 +950,10 @@
     </Compile>
     <Compile Include="m\controls\SimilarCompareBikes.ascx.cs">
       <DependentUpon>SimilarCompareBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\MPriceInTopCities.ascx.cs">
+      <DependentUpon>MPriceInTopCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\SimilarVideos.ascx.cs">
@@ -930,6 +982,7 @@
     </Compile>
     <Compile Include="m\new\ModelPricesInCity.aspx.cs">
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\ModelSpecsFeatures.aspx.cs">
       <DependentUpon>ModelSpecsFeatures.aspx</DependentUpon>
@@ -1130,8 +1183,8 @@
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\ModelSpecsFeatures.aspx.cs">
-      <DependentUpon>ModelSpecsFeatures.aspx</DependentUpon>
+    <Compile Include="new\modelSpecsFeatures.aspx.cs">
+      <DependentUpon>modelSpecsFeatures.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\versions.aspx.cs">
@@ -1749,7 +1802,9 @@
     <Content Include="content\UserReviews\ReviewDetails.aspx" />
     <Content Include="content\UserReviews\ReviewMessage.aspx" />
     <Content Include="content\UserReviews\WriteReviews.aspx" />
-    <Content Include="controls\PriceInTopCities.ascx" />
+    <Content Include="controls\DealerCard.ascx" />
+    <Content Include="controls\LeadCaptureControl.ascx" />
+    <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\AddBikeToCompare.ascx" />
     <Content Include="controls\AlternativeBikes.ascx" />
     <Content Include="controls\ArticlePhotoGallery.ascx" />
@@ -1786,6 +1841,7 @@
     <Content Include="controls\LoginStatusNew.ascx" />
     <Content Include="controls\MakeModelSearch.ascx" />
     <Content Include="controls\ModelGallery.ascx" />
+    <Content Include="controls\ModelPriceInNearestCities.ascx" />
     <Content Include="controls\MostPopularBikes_new.ascx" />
     <Content Include="controls\NewAlternativeBikes.ascx" />
     <Content Include="controls\NewBikeLaunches.ascx" />
@@ -1803,6 +1859,7 @@
     <Content Include="controls\PopupWidget.ascx" />
     <Content Include="controls\PQPdfTemplate.ascx" />
     <Content Include="controls\PhotoGallaryMin.ascx" />
+    <Content Include="controls\PriceInTopCities.ascx" />
     <Content Include="controls\RecentLaunchedBikesMin.ascx" />
     <Content Include="controls\RegisterControl.ascx" />
     <Content Include="controls\RepeaterPager.ascx" />
@@ -1868,12 +1925,14 @@
     <Content Include="css\jquery.ad-gallery.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
+    <Content Include="css\new\modelprice-in-city.css" />
     <Content Include="css\new\search.css" />
     <Content Include="css\pikaday.css" />
     <Content Include="css\rsa.css" />
     <Content Include="css\new\bookinglisting.css" />
     <Content Include="css\search.css" />
     <Content Include="css\slideshow.css" />
+    <Content Include="css\specsandfeature.css" />
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
@@ -2279,19 +2338,28 @@
     <Content Include="m\controls\CompareBikeMin.ascx" />
     <Content Include="m\controls\CompareBikeMin_old.ascx" />
     <Content Include="m\controls\CompareBikesMin.ascx" />
+    <Content Include="m\controls\DealersCard.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
+    <Content Include="m\controls\LeadCaptureControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
     <Content Include="m\controls\ModelGallery.ascx" />
+    <Content Include="m\controls\ModelPriceInNearestCities.ascx" />
     <Content Include="m\controls\MOnRoadPricequote.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
     <Content Include="m\controls\MUpcomingBikes.ascx" />
+    <Content Include="m\controls\NewAlternativeBikes.ascx" />
+    <Content Include="m\controls\NewExpertReviewsWidget.ascx" />
+    <Content Include="m\controls\NewNewsWidget.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
+    <Content Include="m\controls\NewUserReviewList.ascx" />
+    <Content Include="m\controls\NewVideosWidget.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\SimilarCompareBikes.ascx" />
+    <Content Include="m\controls\MPriceInTopCities.ascx" />
     <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
@@ -2317,6 +2385,7 @@
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\new.css" />
     <Content Include="m\css\new\bwm-bookinglisting.css" />
+    <Content Include="m\css\new\bwm-modelprice-in-city.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
     <Content Include="m\css\zebra_datepicker.css" />
@@ -2421,7 +2490,7 @@
     <Content Include="new\locatenewbikedealers_old.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\ModelPricesInCity.aspx" />
-    <Content Include="new\ModelSpecsFeatures.aspx" />
+    <Content Include="new\modelSpecsFeatures.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
@@ -2505,6 +2574,8 @@
     <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <!-- <Content Include="src\knockout.js" /> -->
+    <Content Include="src\jquery.floating-social-share.js" />
+    <Content Include="src\jquery.floating-social-share.min.js" />
     <Content Include="src\login\login.js" />
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />
@@ -2698,7 +2769,18 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>59720</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:9011/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:9011/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

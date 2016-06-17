@@ -44,18 +44,18 @@
                                 </a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="fa fa-angle-right margin-right10"></span>
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/new/" itemprop="url">
                                     <span itemprop="title">New</span>
                                 </a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="fa fa-angle-right margin-right10"></span>
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/pricequote/" itemprop="url">
                                     <span itemprop="title">On-Road Price Quote</span>
                                 </a>
                             </li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>Dealer Price Quote</li>
+                            <li><span class="bwsprite fa-angle-right margin-right10"></span>Dealer Price Quote</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -87,7 +87,7 @@
                                         <div class="variant-selection-tab">
                                             <asp:Label runat="server" ID="defaultVariant"></asp:Label>
                                         </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                        <span id="upDownArrow" class="rightfloat fa-angle-down position-abt pos-top15 pos-right10"></span>
                                     </div>
                                     <ul class="variants-dropdown-list" id="ulVersions">
                                         <asp:Repeater ID="rptVersion" runat="server">
@@ -127,7 +127,7 @@
                                                         <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> 
                                                     </td>
                                                     <td align="right" class="PQDetailsTableAmount padding-bottom10 text-default ">
-                                                        <span class="fa fa-rupee"></span>&nbsp;<span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
+                                                        <span class="bwsprite inr-sm"></span>&nbsp;<span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
@@ -139,10 +139,9 @@
                                         </tr>
 
                                         <tr>
-                                            <td class="PQDetailsTableTitle font14  PQOnRoadPrice text-grey text-bold">On-road price</td>
-                                            <td align="right" class="PQDetailsTableAmount font18 text-grey text-bold">
-                                                <span class="fa fa-rupee"></span>&nbsp;<span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
-
+                                            <td class="PQDetailsTableTitle font14  PQOnRoadPrice text-bold">On-road price</td>
+                                            <td align="right" class="PQDetailsTableAmount font18 text-bold">
+                                                <span class="bwsprite inr-lg"></span>&nbsp;<span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
                                             </td>
                                         </tr>
 
@@ -172,13 +171,13 @@
                                                         Ex-Showroom (<%= objQuotation.City %>)
                                                     </td>
                                                     <td align="right" class="PQDetailsTableAmount padding-bottom15">
-                                                        <span class="fa fa-rupee margin-right5"></span><span id="exShowroomPrice"><%= CommonOpn.FormatNumeric( objQuotation.ExShowroomPrice.ToString() ) %></span>
+                                                        <span class="bwsprite inr-sm"></span>&nbsp;<span id="exShowroomPrice"><%= CommonOpn.FormatNumeric( objQuotation.ExShowroomPrice.ToString() ) %></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="PQDetailsTableTitle padding-bottom15">RTO</td>
                                                     <td align="right" class="PQDetailsTableAmount padding-bottom15">
-                                                        <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric( objQuotation.RTO.ToString() ) %></span>
+                                                        <span class="bwsprite inr-sm"></span>&nbsp;<span><%= CommonOpn.FormatNumeric( objQuotation.RTO.ToString() ) %></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -188,14 +187,14 @@
                                                         </div>
                                                     </td>
                                                     <td align="right" class="PQDetailsTableAmount padding-bottom15">
-                                                        <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
+                                                        <span class="bwsprite inr-sm"></span>&nbsp;<span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
                                                     </td>
                                                 </tr>
                                                 <tr><td colspan="2" class="border-solid-top padding-bottom15" align="right"></tr>
                                                 <tr>
                                                     <td class="PQDetailsTableTitle PQOnRoadPrice padding-bottom15 text-dark-black">On-road price</td>
                                                     <td align="right" class="PQDetailsTableAmount font18 padding-bottom15 text-dark-black">
-                                                        <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
+                                                        <span class="bwsprite inr-lg"></span>&nbsp;<span><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
                                                     </td>
                                                 </tr>	
                                             </table>
@@ -316,8 +315,8 @@
                                     <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
                                     <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
                                     <div>
-                                        <div class="lead-mobile-box lead-otp-box-container font22">
-                                            <span class="fa fa-phone"></span>
+                                        <div class="lead-mobile-box lead-otp-box-container">
+                                            <span class="bwsprite phone-grey-icon"></span>
                                             <span class="text-light-grey font24">+91</span>
                                             <span class="lead-mobile font24"></span>
                                             <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
@@ -389,7 +388,7 @@
                           { %>
                         <!--  Booking availability starts-->
                         <div class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
-                            <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> online and book this bike:</p>
+                            <p class="text-bold padding-top20 margin-bottom5 border-light-top">Pay <span class="bwsprite inr-sm"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> online and book this bike:</p>
                             <ul class="pricequote-benefits-list pq-benefits-booking-list text-light-grey">
                                 <li class="bullet-point">
                                     <p>Save on dealer visits</p>
@@ -404,7 +403,7 @@
                             <div class="clear"></div>
                             <div class="grid-12 alpha omega margin-top10">
                                 <div class="grid-9 alpha">
-                                    <p class="font14 text-light-grey">The booking amount of <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> has to be paid online and balance amount of <span class="fa fa-rupee"></span>&nbsp;<%= CommonOpn.FormatPrice((totalPrice - bookingAmount).ToString()) %> has to be paid at the dealership.</p>
+                                    <p class="font14 text-light-grey">The booking amount of <span class="bwsprite inr-sm-grey"></span>&nbsp;<%= CommonOpn.FormatPrice(bookingAmount.ToString()) %> has to be paid online and balance amount of <span class="bwsprite inr-sm-grey"></span>&nbsp;<%= CommonOpn.FormatPrice((totalPrice - bookingAmount).ToString()) %> has to be paid at the dealership.</p>
                                 </div>
                                 <div class="grid-3 omega text-right">
                                     <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey btn-sm font14">Book now</a>
@@ -443,9 +442,8 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="emi-slider-box-right-section font16">
-                                        <span class="fa fa-rupee"></span>&nbsp;
-                                            <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span>
+                                    <div class="emi-slider-box-right-section">
+                                        <span class="bwsprite inr-md"></span>&nbsp;<span id="downPaymentAmount" class="font16 text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -468,9 +466,8 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="emi-slider-box-right-section font16">
-                                        <span class="fa fa-rupee"></span>&nbsp;
-                                            <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span>
+                                    <div class="emi-slider-box-right-section">
+                                        <span class="bwsprite inr-md"></span>&nbsp;<span id="loanAmount" class="font16 text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -530,7 +527,7 @@
                                     <div class="grid-8 alpha text-grey text-bold padding-top10">
                                         <p class="leftfloat margin-right10 position-rel pos-top3">Indicative EMI:</p>
                                         <div class="indicative-emi-amount margin-right10 leftfloat">
-                                            <span class="font18"><span class="fa fa-rupee"></span>&nbsp;</span>
+                                            <span class="bwsprite inr-lg-grey"></span>
                                             <span id="emiAmount" class="font18" data-bind="text: monthlyEMI"></span>
                                         </div>
                                         <p class="font14 leftfloat position-rel pos-top3">per month</p>
@@ -670,8 +667,8 @@
                                     <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
                                 </ul>
                             </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
                     </div>
                 </div>
@@ -717,7 +714,8 @@
                 self.maxTenure = ko.observable(<%= primarydealer.EMIDetails.MaxTenure  %>);
                 self.minROI = ko.observable(<%= primarydealer.EMIDetails.MinRateOfInterest %>);
                 self.maxROI = ko.observable(<%= primarydealer.EMIDetails.MaxRateOfInterest %>);
-                self.processingFees = ko.observable(<%= primarydealer.EMIDetails.ProcessingFee %>);
+                <%--self.processingFees = ko.observable(<%= primarydealer.EMIDetails.ProcessingFee %>);--%>
+                self.processingFees = ko.observable(0);
                 self.exshowroomprice = ko.observable(bikeVersionPrice);
                 self.loan = ko.observable();
 
@@ -748,8 +746,8 @@
                 var interest, totalRepay, finalEmi;
                 try {
                     interest = (loanAmount * tenure * rateOfInterest) / (12 * 100);
-                    totalRepay = loanAmount + interest;
-                    finalEmi = Math.ceil((totalRepay / tenure) + proFees);
+                    totalRepay = loanAmount + interest + proFees;
+                    finalEmi = Math.ceil((totalRepay / tenure));
                 }
                 catch (e) {
                 }
@@ -789,12 +787,16 @@
             };
 
             $.valueFormatter = function (num) {
-                if (num >= 100000) {
-                    return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
+                if(isNaN(num))
+                {
+                    if (num >= 100000) {
+                        return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
+                    }
+                    if (num >= 1000) {
+                        return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+                    }
                 }
-                if (num >= 1000) {
-                    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-                }
+              
                 return num;
             }
 
