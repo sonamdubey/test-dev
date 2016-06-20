@@ -2773,7 +2773,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>59720</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011/</IISUrl>
+          <IISUrl>http://localhost:9011</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
           <IISAppRootUrl>http://localhost:9011/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

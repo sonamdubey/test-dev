@@ -3,7 +3,7 @@
    { %>
 <div class="margin-right20 margin-left20 border-divider"></div>
 <div id="dealersInCityWrapper" class="padding-top20 padding-bottom20">
-    <h2 class="font14 text-bold text-x-black padding-right20 padding-left20"><%=makeName %> dealers in <%=cityName %></h2>
+    <h2 class="font15 text-bold text-x-black padding-right20 padding-left20"><%=makeName %> dealers in <%=cityName %></h2>
     <div class="grid-12 padding-top15">
         <ul>
             <asp:Repeater ID="rptDealers" runat="server">
