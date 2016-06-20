@@ -438,7 +438,7 @@ namespace Bikewale.Service.AutoMappers.Model
             //Mapper.CreateMap<DealerQuotationEntity, DPQOffer>();
             var versionPrices = Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTOV2>(pqCityAea);
 
-            if (pqCityAea.PrimaryDealer.OfferList != null)
+            if (pqCityAea.PrimaryDealer != null && pqCityAea.PrimaryDealer.OfferList != null)
             {
                 List<DPQOffer> objOffers = new List<DPQOffer>();
 
