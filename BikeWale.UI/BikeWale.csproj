@@ -2374,6 +2374,7 @@
     <Content Include="m\css\bwm-brand.css" />
     <Content Include="m\css\bwm-cancellation.css" />
     <Content Include="m\css\bwm-common-style.css" />
+    <Content Include="m\css\bwm-dealerlist.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\dealerpricequote.css" />
