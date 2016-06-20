@@ -92,8 +92,8 @@ namespace Bikewale.DTO.Model.v4
         [JsonProperty("secondaryDealerCount")]
         public UInt16 SecondaryDealerCount { get; set; }
 
-        [JsonProperty("isPrimaryDealer")]
-        public bool IsPrimaryDealer
+        [JsonProperty("isPremium")]
+        public bool IsPremium
         {
             get
             {
