@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.DAL.BikeData;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -36,7 +32,7 @@ namespace Bikewale.BAL.BikeData
         public List<BikeMakeEntityBase> GetMakesByType(EnumBikeType requestType)
         {
             List<BikeMakeEntityBase> objMakeList = null;
-            
+
             objMakeList = makesRepository.GetMakesByType(requestType);
 
             return objMakeList;
@@ -98,6 +94,11 @@ namespace Bikewale.BAL.BikeData
         public IEnumerable<BikeMakeEntityBase> UpcomingBikeMakes()
         {
             return makesRepository.UpcomingBikeMakes();
+        }
+
+        public IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId)
+        {
+            throw new NotImplementedException();
         }
     }   // Class
 }   //Namespace

@@ -1,15 +1,12 @@
-﻿using System;
+﻿using Bikewale.CoreDAL;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Notifications;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.CoreDAL;
-using Bikewale.Notifications;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -40,7 +37,7 @@ namespace Bikewale.DAL.BikeData
             List<BikeMakeEntityBase> objMakesList = null;
 
             Database db = null;
-            
+
             try
             {
                 using (SqlCommand cmd = new SqlCommand("GetBikeMakes_New_29032016"))
@@ -395,14 +392,14 @@ namespace Bikewale.DAL.BikeData
         public IEnumerable<BikeMakeEntityBase> UpcomingBikeMakes()
         {
             IList<BikeMakeEntityBase> makes = null;
-            Database db = null;            
+            Database db = null;
             try
             {
                 using (SqlCommand sqlCommand = new SqlCommand("GetUpcomingBikeMakes"))
                 {
                     db = new Database();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
-                    using (SqlDataReader reader= db.SelectQry(sqlCommand))
+                    using (SqlDataReader reader = db.SelectQry(sqlCommand))
                     {
                         if (reader != null && reader.HasRows)
                         {
@@ -434,6 +431,54 @@ namespace Bikewale.DAL.BikeData
                 db.CloseConnection();
             }
             return makes;
+        }
+        /// <summary>
+        /// Written By : Sangram Nandkhile on 17 Jun 2016
+        /// Description: Fetches discontinued bikes for a branch
+        /// </summary>
+        /// <param name="makeId">Make Id eg. 7 for Honda bikes</param>
+        /// <returns></returns>
+        public IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId)
+        {
+            IList<BikeVersionEntity> bikeLinkList = null;
+            Database db = null;
+            try
+            {
+                using (SqlCommand sqlCommand = new SqlCommand("GetDiscontinuedBikeModelsByMake"))
+                {
+                    db = new Database();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.Add("@MakeId", SqlDbType.Int, 20).Value = makeId;
+                    using (SqlDataReader reader = db.SelectQry(sqlCommand))
+                    {
+                        if (reader != null && reader.HasRows)
+                        {
+                            bikeLinkList = new List<BikeVersionEntity>();
+                            while (reader.Read())
+                            {
+                                bikeLinkList.Add(
+                                        new BikeVersionEntity()
+                                        {
+                                            ModelMasking = Convert.ToString(reader["modelmaskingname"]),
+                                            ModelName = Convert.ToString(reader["Name"])
+                                        }
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return bikeLinkList;
+
         }
     }
 }
