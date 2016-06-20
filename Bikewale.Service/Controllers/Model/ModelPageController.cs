@@ -387,7 +387,12 @@ namespace Bikewale.Service.Controllers.Model
                                 getPQ = new PQByCityArea();
                                 pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
                             }
-                            int versionId = pqEntity.VersionList.Where(i => i.IsDealerPriceQuote == true).FirstOrDefault().VersionId;
+                            var deafultVersion = pqEntity.VersionList.FirstOrDefault(i => i.IsDealerPriceQuote);
+                            int versionId = 0;
+                            if (deafultVersion != null)
+                            {
+                                versionId = deafultVersion.VersionId;
+                            }
                                     
                             objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,
                                     _dealers.GetDealerQuotation(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId));
