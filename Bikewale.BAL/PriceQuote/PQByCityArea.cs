@@ -407,6 +407,17 @@ namespace Bikewale.BAL.PriceQuote
                 pqEntity.VersionList = modelVersions;
 
                 //below block added to get dealers pakage and offers and seondary dealers count
+
+                if (versionID <= 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
+                        IDealerPriceQuote dealerPQRepository = container.Resolve<IDealerPriceQuote>();
+                        versionID = dealerPQRepository.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
+                    }
+                }
+
                 if (cityId > 0 && versionID > 0)
                 {
                     DetailedDealerQuotationEntity detailedDealer = null;
@@ -417,9 +428,13 @@ namespace Bikewale.BAL.PriceQuote
                         detailedDealer = objIPQ.GetDealerQuotation(Convert.ToUInt32(cityId), versionID, pqEntity.DealerId);
                     }
 
-                    pqEntity.PrimaryDealer = detailedDealer.PrimaryDealer;
+                    pqEntity.PrimaryDealer = detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null ? detailedDealer.PrimaryDealer : null;
                     pqEntity.SecondaryDealerCount = detailedDealer.SecondaryDealerCount;
-                    pqEntity.IsPremium = detailedDealer.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium ? true : false;
+
+                    if (detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null)
+                    {
+                        pqEntity.IsPremium = detailedDealer.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium ? true : false;
+                    }
                 }
             }
             catch (Exception ex)
