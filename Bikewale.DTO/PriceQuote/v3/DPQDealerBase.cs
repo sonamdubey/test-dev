@@ -22,8 +22,11 @@ namespace Bikewale.DTO.PriceQuote.v3
 
         [JsonProperty("maskingNumber")]
         public string MaskingNumber { get; set; }
-        
-        [JsonProperty("versions")]
+
+        [JsonProperty("isPremium")]
+        public bool IsPremiumDealer { get; set; }
+
+        [JsonProperty("versionList")]
         public List<VersionPriceBase> Versions { get; set; }
     }
 }
