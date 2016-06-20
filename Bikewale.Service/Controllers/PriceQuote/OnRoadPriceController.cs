@@ -452,7 +452,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                         Area = String.Empty,
                                         DealerId = 0,
                                         MaskingNumber = String.Empty,
-                                        Name = String.Empty
+                                        Name = String.Empty,
+                                        IsPremiumDealer = true
                                     });
                                 }
                             }
@@ -463,7 +464,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                     Area = String.Empty,
                                     DealerId = 0,
                                     MaskingNumber = String.Empty,
-                                    Name = string.Empty
+                                    Name = string.Empty,
+                                    IsPremiumDealer = true
                                 });
                             }
 
@@ -481,7 +483,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                 Area = String.Empty,
                                 DealerId = 0,
                                 MaskingNumber = String.Empty,
-                                Name = string.Empty
+                                Name = string.Empty,
+                                IsPremiumDealer = true
                             });
                         }
                         return Ok(onRoadPrice);
