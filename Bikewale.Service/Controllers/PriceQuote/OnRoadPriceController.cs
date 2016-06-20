@@ -442,7 +442,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                     Area = objDealerQuotation.PrimaryDealer.DealerDetails.objArea.AreaName,
                                     DealerId = objDealerQuotation.PrimaryDealer.DealerDetails.DealerId,
                                     MaskingNumber = objDealerQuotation.PrimaryDealer.DealerDetails.MaskingNumber,
-                                    Name = objDealerQuotation.PrimaryDealer.DealerDetails.Organization
+                                    Name = objDealerQuotation.PrimaryDealer.DealerDetails.Organization,
+                                    IsPremiumDealer = (objDealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium)
                                 });
 
                                 if (objPQ.DealerId == 0)
