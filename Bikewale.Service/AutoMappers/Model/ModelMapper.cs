@@ -6,7 +6,7 @@ using Bikewale.DTO.DealerLocator;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Model.v3;
-using Bikewale.DTO.PriceQuote.v3;
+using Bikewale.DTO.PriceQuote.v2;
 using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.DTO.PriceQuote.Version.v2;
 using Bikewale.DTO.Series;
@@ -423,15 +423,39 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <summary>
         /// Created by: Vivek Gupta on 17-06-2016
         /// Summary: Map   Map PQByCityArea from PQByCityAreaDTOV2
-        /// </summary>
+        /// </summary>//DetailedDealerQuotationEntity
         /// <param name="pqCityAea"></param>
         /// <returns></returns>
         internal static PQByCityAreaDTOV2 ConvertV2(PQByCityAreaEntity pqCityAea)
         {
             Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
-            Mapper.CreateMap<DealerQuotationEntity, PQPrimaryDealerV3>();
+            Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.Name, opt => opt.MapFrom(s => s.DealerDetails.Organization));
+            Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.DealerId, opt => opt.MapFrom(s => s.DealerDetails.DealerId));
+            Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.Area, opt => opt.MapFrom(s => s.DealerDetails.objArea.AreaName));
+            Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.MaskingNumber, opt => opt.MapFrom(s => s.DealerDetails.MaskingNumber));
+            Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.DealerPkgType, opt => opt.MapFrom(s => s.DealerDetails.DealerPackageType));
             Mapper.CreateMap<PQByCityAreaEntity, PQByCityAreaDTOV2>();
-            return Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTOV2>(pqCityAea);
+            //Mapper.CreateMap<DealerQuotationEntity, DPQOffer>();
+            var versionPrices = Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTOV2>(pqCityAea);
+
+            if (pqCityAea.PrimaryDealer.OfferList != null)
+            {
+                List<DPQOffer> objOffers = new List<DPQOffer>();
+
+                foreach (var offer in pqCityAea.PrimaryDealer.OfferList)
+                {
+                    var addOffer = new DPQOffer()
+                    {
+                        Id = System.Convert.ToInt32(offer.OfferId),
+                        OfferCategoryId = System.Convert.ToInt32(offer.OfferCategoryId),
+                        Text = offer.OfferText
+                    };
+                    objOffers.Add(addOffer);
+                }
+
+                versionPrices.PrimaryDealerOffers = objOffers;
+            }
+            return versionPrices;
         }
     }
 }

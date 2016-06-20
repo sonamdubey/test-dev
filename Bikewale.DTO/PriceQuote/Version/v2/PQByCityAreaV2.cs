@@ -1,6 +1,7 @@
 ﻿
+using Bikewale.DTO.DealerLocator;
 using Bikewale.DTO.Model.v3;
-using Bikewale.DTO.PriceQuote.v3;
+using Bikewale.DTO.PriceQuote.v2;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 namespace Bikewale.DTO.PriceQuote.Version.v2
@@ -32,15 +33,15 @@ namespace Bikewale.DTO.PriceQuote.Version.v2
         public IEnumerable<VersionDetail> VersionList { get; set; }
 
         [JsonProperty("primaryDealer")]
-        public PQPrimaryDealerV3 PrimaryDealer { get; set; }
+        public DealerBase PrimaryDealer { get; set; }
+
+        [JsonProperty("primaryDealerOffers")]
+        public IEnumerable<DPQOffer> PrimaryDealerOffers { get; set; }
 
         [JsonProperty("isPremium")]
         public bool IsPremium { get; set; }
 
         [JsonProperty("secondaryDealerCount")]
         public int SecondaryDealerCount { get; set; }
-
-
-
     }
 }
