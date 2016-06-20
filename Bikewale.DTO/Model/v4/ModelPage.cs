@@ -4,9 +4,6 @@ using Bikewale.DTO.PriceQuote.v2;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.Model.v4
 {
@@ -95,8 +92,22 @@ namespace Bikewale.DTO.Model.v4
         [JsonProperty("secondaryDealerCount")]
         public UInt16 SecondaryDealerCount { get; set; }
 
-        [JsonProperty("altPrimaryDealerText")]
-        public string AltPrimaryDealerText { get; set; } //Set At ur hand
+        [JsonProperty("isPrimaryDealer")]
+        public bool IsPrimaryDealer
+        {
+            get
+            {
+                if (PrimaryDealer != null && PrimaryDealer.DealerPkgType == PriceQuote.DealerPackageType.Premium)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }  
+     
 
     }
 }
