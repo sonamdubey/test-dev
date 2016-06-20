@@ -214,7 +214,7 @@
                                             <span class="style-type">
                                                 <span class="styletypesprite style-scooters"></span>
                                             </span>
-                                            <span class="style-type-title">scooters</span>
+                                            <span class="style-type-title">Scooters</span>
                                         </a>
                                     </li>
                                     <li>
@@ -222,7 +222,7 @@
                                             <span class="style-type">
                                                 <span class="styletypesprite style-street"></span>
                                             </span>
-                                            <span class="style-type-title">street</span>
+                                            <span class="style-type-title">Street</span>
                                         </a>
                                     </li>
                                     <li>
@@ -230,7 +230,7 @@
                                             <span class="style-type">
                                                 <span class="styletypesprite style-cruiser"></span>
                                             </span>
-                                            <span class="style-type-title">cruiser</span>
+                                            <span class="style-type-title">Cruiser</span>
                                         </a>
                                     </li>
                                     <li>
@@ -238,7 +238,7 @@
                                             <span class="style-type">
                                                 <span class="styletypesprite style-sports"></span>
                                             </span>
-                                            <span class="style-type-title">sports</span>
+                                            <span class="style-type-title">Sports</span>
                                         </a>
                                     </li>
                                 </ul>
