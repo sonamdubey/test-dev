@@ -420,7 +420,34 @@
                         </div>
                         <span><a href="javascript:void(0)" class="read-more-btn">Read <span>more</span></a></span>
                     </div>
+                    
                 </div>
+                <div class="clear"></div>
+                
+            </div>
+            
+        </section>
+        <section>
+            <div class="container">
+                <div class="grid-12">
+                    <% if(fetchedRecordsCount > 0){ %>
+                <div id="discontinuedModels" class="margin-top10 padding20" style="display: block;">
+                    <div class="content-inner-block-10 rounded-corner2 margin-bottom30 font14">
+                            <div id="discontinuedLess">
+                                Discontinued <%=_make.MakeName %> models: - <span id="spnContent"></span>
+                            </div>
+                            <div id="discontinuedMore">
+                                Discontinued <%=_make.MakeName %> models: - 
+                                <asp:Repeater ID="rptDiscontinued" runat="server">
+                                    <ItemTemplate>
+                                        <a title="<%# DataBinder.Eval(Container.DataItem,"BikeName").ToString()%>" href="<%# DataBinder.Eval(Container.DataItem,"Href").ToString()%>"><%# DataBinder.Eval(Container.DataItem,"BikeName").ToString()%></a>,
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
                 <div class="clear"></div>
             </div>
         </section>
@@ -433,10 +460,24 @@
                 a.text(a.text() === "more" ? "less" : "more");
             });
 
-            $(document).ready(function () { $("img.lazy").lazyload(); });
+            $(document).ready(function () {
+                $("img.lazy").lazyload();
+                if ($("#discontinuedMore a").length > 4) {
+                    $('#discontinuedMore').hide();
+                }
+                else {
+                    $('#discontinuedLess').hide();
+                }
+                $("#spnContent").append($("#discontinuedMore a:eq(0)").clone()).append(", ").append($("#discontinuedMore a:eq(1)").clone()).append(", ").append($("#discontinuedMore a:eq(2)").clone()).append(", ").append($("#discontinuedMore a:eq(3)").clone());
+                $("#spnContent").append("... <a class='f-small' onclick='ShowAllDisModels()'>View All</a>");
+            });
             $(".upcoming-brand-bikes-container").on('jcarousel:visiblein', 'li', function (event, carousel) {
                 $(this).find("img.lazy").trigger("imgLazyLoad");
             });
+            function ShowAllDisModels() {
+                $("#discontinuedLess").hide();
+                $("#discontinuedMore").show();
+            }
            <%-- if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");--%>
