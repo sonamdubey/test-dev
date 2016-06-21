@@ -26,7 +26,7 @@ namespace Bikewale.DTO.PriceQuote.v3
         [JsonProperty("isPremium")]
         public bool IsPremiumDealer { get; set; }
 
-        [JsonProperty("versionList")]
+        [JsonProperty("version")]
         public List<VersionPriceBase> Versions { get; set; }
     }
 }

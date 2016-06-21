@@ -12,28 +12,7 @@
     %>
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <style type="text/css">
-        #listingHeader{background:#313131;color:#fff;width:100%;height:48px;position:fixed;overflow:hidden;z-index:2;}.listing-back-btn, .listing-filter-btn, #dealersFilterWrapper .filterBackArrow {padding:12px 15px;cursor:pointer;}#dealersFilterWrapper .filterTitle { margin-top:10px; }.fa-arrow-back{width:12px;height:20px;background-position:-63px -162px;}.filter-icon{width: 20px;height: 20px;background-position: -158px -144px;}.content-inner-block-1520 { padding:15px 20px; }.box-shadow { -webkit-box-shadow:0 0 1px #e2e2e2; -moz-box-shadow:0 0 1px #e2e2e2; box-shadow:0 0 1px #e2e2e2; }.text-pure-black { color:#000; }.featured-tag {position:relative;left:-20px;top:-5px;width:100px;background:#4d5057;z-index:1; line-height:28px; }.featured-tag:after {content:'';width:12px; height:28px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=15Mar2016) no-repeat right top;position:absolute;left:98px;}
-        #dealersList li { border-top:1px solid #e2e2e2; padding-top:18px; margin-top:20px;}#dealersList li:first-child { margin-top:0; }#dealersList a { display:block; }#dealersList a:hover { text-decoration:none; }
-        .tel-sm-grey-icon{width: 15px;height: 15px;background-position: 0 -435px;position: relative;top: 2px;}.mail-grey-icon{width: 15px;height: 9px;background-position: -19px -437px;}
-        .btn-white-orange { background: #fff; color: #82888b; border: 1px solid #82888b;}.btn-white-orange:hover { background: #f04031; color: #fff; border: 1px solid #f04031; }.btn-white-orange:focus { background: #f04031; color: #fff; border: 1px solid #f04031; }
-        /*filter popup*/
-        #dealersFilterWrapper{background: #f5f5f5;position: fixed;overflow-x: hidden;overflow-y: scroll;z-index: 10000;top: 0;right: 0;bottom: 0;left: 100%;width: 100%;-webkit-overflow-scrolling: touch;}
-        .dealers-brand-city-wrapper{background:#f5f5f5;z-index:11;position:fixed;left:100%;top:0;overflow-y: scroll;width: 100%;height: 100%;}
-        .dealers-back-arrow-box{height: 30px;width: 40px;position: absolute;top: 5px;z-index: 11;}.dealers-back-arrow-box span {position: absolute;top: 7px;left: 10px;}
-        .bwm-brand-city-box .form-control {padding: 10px 50px;}.dealers-city-popup-box { display:none; }
-        .filter-brand-city-ul li{ border-top:1px solid #ccc;font-size:14px;padding:15px 10px;color:#333333;}.filter-brand-city-ul li:hover{background: #ededed;}
-        /*get assistance*/
-        #leadCapturePopup .errorIcon, #leadCapturePopup .errorText, #otpPopup, .update-mobile-box, .otp-notify-text {display: none;}
-        .mobile-prefix {position: absolute;padding: 10px 13px 13px;color: #999;z-index: 2;}
-        #getMobile {padding: 9px 40px;}.otp-icon { width:30px; height:40px; background-position: -107px -177px; }.edit-blue-icon { width:14px; height:16px; background-position: -114px -121px; }#otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
-        #brandSearchBar { padding:0; background: #f5f5f5; z-index: 11; position: fixed; left: 100%; top: 0; overflow-y: scroll; width: 100%; height: 100%;}#brandSearchBar li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor: pointer;}#brandSearchBar li:hover { background: #ededed; }.dealer-brand-wrapper { display:none; }.bwm-dealer-brand-box .back-arrow-box { height: 30px; width: 40px; position: absolute; top: 5px; z-index: 11; cursor: pointer; }.bwm-dealer-brand-box span.back-long-arrow-left {position: absolute;top: 7px;left: 10px;}.bwm-dealer-brand-box .back-arrow-box {position: absolute;left: 5px;}.bwm-dealer-brand-box .form-control {padding: 10px 50px;}.activeBrand {font-weight: bold;background-color: #ddd;}.dealer-search-brand-form { padding:10px 25px 10px 10px; text-align:left; cursor:pointer; background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; text-align:left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-radius:2px;border: 1px solid #ccc; }.dealer-search-brand { width:100%; height: 40px;}.border-red { border:1px solid #f00 !important; }
-        .btnSpinner{right:8px;top:10px;z-index:9;display:none;background:#fff;}
-        .thankyou-icon {width:34px; height:38px; background-position: -143px -406px;}
-        .dealership-loc-icon { width:8px; height:12px; background-position:-41px -437px; position:relative;top:4px; }
-        .vertical-top { display:inline-block;vertical-align:top; }
-        .dealership-address { width:92%; }
-    </style>
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-dealerlist.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         var makeName = "<%=makeName%>";
         var makeMaskingName = "<%=makeMaskingName%>";
@@ -73,11 +52,11 @@
                                         Featured
                                     </div>
                                     <div class="font14">
-                                        <h2 class="font16 margin-bottom10"><%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %></h2>
-                                        <p><span class="bwmsprite dealership-loc-icon vertical-top margin-right10"></span><span class="vertical-top dealership-address"><%# DataBinder.Eval(Container.DataItem,"Address") %></span></p>
+                                        <h2 class="font16 text-default margin-bottom10"><%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %></h2>
+                                        <p class="margin-bottom10"><span class="bwmsprite dealership-loc-icon vertical-top margin-right10"></span><span class="vertical-top dealership-details text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Address") %></span></p>
                                         <%--<p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))?"":DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>--%>
-                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>"><a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-light-grey margin-bottom5 maskingNumber"><span class="bwmsprite tel-sm-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a></div>
-                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey"><span class="bwmsprite mail-grey-icon"></span> <%# DataBinder.Eval(Container.DataItem,"Email") %></a></div>
+                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"margin-bottom10" %>"><a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-default text-bold margin-bottom5 maskingNumber"><span class="vertical-top bwmsprite tel-sm-icon"></span><span class="vertical-top dealership-details"><%# DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></span></a></div>
+                                        <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":"margin-bottom10" %>"><a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>"><span class="vertical-top bwmsprite mail-grey-icon"></span><span class="vertical-top dealership-details text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Email") %></span></a></div>
                                         <input leadSourceId="20" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" campId="<%# (DataBinder.Eval(Container.DataItem,"CampaignId")) %>" type="button" class="btn btn-white-orange btn-full-width margin-top15 get-assistance-btn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers from dealer">
                                     </div>
                                 </li>
