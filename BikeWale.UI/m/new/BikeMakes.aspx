@@ -222,6 +222,30 @@
                 <!--Bottom Ad banner code ends here -->
             </div>
         </section>
+
+        <% if (fetchedRecordsCount > 0)
+           { %>
+        <section>
+            <div class="container">
+                <div class="content-inner-block-10 margin-bottom30">
+                    <div id="discontinuedModels" class="margin-top10 padding10" style="display: block;">
+                       <div id="discontinuedLess">
+                                Discontinued <%=_make.MakeName %> models: - <span id="spnContent"></span>
+                            </div>
+                            <div id="discontinuedMore">
+                                Discontinued <%=_make.MakeName %> models: - 
+                                <asp:Repeater ID="rptDiscontinued" runat="server">
+                                    <ItemTemplate>
+                                        <a title="<%# DataBinder.Eval(Container.DataItem,"BikeName").ToString()%>" href="<%# DataBinder.Eval(Container.DataItem,"Href").ToString()%>"><%# DataBinder.Eval(Container.DataItem,"BikeName").ToString()%></a>,
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <% } %>
+                
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-brand.js?<%= staticFileVersion %>"></script>
@@ -236,7 +260,17 @@
                     });
                 });
                 $('#sort-by-div').insertAfter('header');
+                if ($("#discontinuedMore a").length > 4) {
+                    $('#discontinuedMore').hide();
+                }
+                else {
+                    $('#discontinuedLess').hide();
+                }
+                $("#spnContent").append($("#discontinuedMore a:eq(0)").clone()).append(", ").append($("#discontinuedMore a:eq(1)").clone()).append(", ").append($("#discontinuedMore a:eq(2)").clone()).append(", ").append($("#discontinuedMore a:eq(3)").clone());
+                $("#spnContent").append("... <a class='f-small' onclick='ShowAllDisModels()'>View All</a>");
+                
             });
+
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
@@ -247,6 +281,13 @@
                 var a = $(this).find("span");
                 a.text(a.text() === "more" ? "less" : "more");
             });
+
+            function ShowAllDisModels() {
+                $("#discontinuedLess").hide();
+                $("#discontinuedMore").show();
+                var xContents = $('#discontinuedMore').contents();
+                xContents[xContents.length - 1].nodeValue = "";
+            }
         </script>
     </form>
     <div class="back-to-top" id="back-to-top"><a><span></span></a></div>
