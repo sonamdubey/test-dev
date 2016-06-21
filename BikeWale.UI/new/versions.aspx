@@ -15,7 +15,7 @@
         title = String.Format("{0} Price in India, Review, Mileage & Photos - Bikewale", bikeName);
 		description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()));
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName);
-		AdId = "1017752";
+        AdId = "1442913773076";
 		AdPath = "/1017752/Bikewale_NewBike_";
 		TargetedModel = modDetails.ModelName;
 		fbTitle = title;
