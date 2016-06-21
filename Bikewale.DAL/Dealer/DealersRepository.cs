@@ -726,6 +726,62 @@ namespace Bikewale.DAL.Dealer
             return objCityList;
         }
 
+        /// <summary>
+        /// Craeted by  :   Sumit Kate on 21 Jun 2016
+        /// Description :   Get Popular City Dealer Count.
+        ///                 Calls: GetPopularCityDealer
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId)
+        {
+            IList<PopularCityDealerEntity> cityDealers = null;
+            Database db = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    db = new Database();
 
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "GetPopularCityDealer";
+                        cmd.Parameters.AddWithValue("@MakeId", Convert.ToInt32(makeId));
+
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            if (dr != null && dr.HasRows)
+                            {
+                                cityDealers = new List<PopularCityDealerEntity>();
+                                while (dr.Read())
+                                {
+                                    cityDealers.Add(new PopularCityDealerEntity()
+                                    {
+                                        CityBase = new CityEntityBase()
+                                        {
+                                            CityId = !Convert.IsDBNull(dr["cityId"]) ? Convert.ToUInt32(dr["cityId"]) : default(UInt32),
+                                            CityName = !Convert.IsDBNull(dr["cityName"]) ? Convert.ToString(dr["cityName"]) : default(string),
+                                            CityMaskingName = !Convert.IsDBNull(dr["cityMaskingName"]) ? Convert.ToString(dr["cityMaskingName"]) : default(String)
+                                        },
+                                        NumOfDealers = !Convert.IsDBNull(dr["numOfDealers"]) ? Convert.ToUInt32(dr["numOfDealers"]) : default(UInt32)
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return cityDealers;
+        }
     }//End class
 }

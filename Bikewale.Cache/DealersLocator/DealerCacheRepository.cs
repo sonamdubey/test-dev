@@ -1,8 +1,10 @@
-﻿using Bikewale.Entities.DealerLocator;
+﻿using Bikewale.Entities.Dealer;
+using Bikewale.Entities.DealerLocator;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Cache.DealersLocator
 {
@@ -73,6 +75,28 @@ namespace Bikewale.Cache.DealersLocator
                 objErr.SendMail();
             }
             return models;
+        }
+
+        /// <summary>
+        /// Craeted by  :   Sumit Kate on 21 Jun 2016
+        /// Description :   Get Cached Popular City Dealer Count
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId)
+        {
+            IEnumerable<PopularCityDealerEntity> cityDealers = null;
+            string key = String.Format("BW_MakePopularCity_Dealers_{0}", makeId);
+            try
+            {
+                cityDealers = _cache.GetFromCache<IEnumerable<PopularCityDealerEntity>>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetPopularCityDealer(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetPopularCityDealer");
+                objErr.SendMail();
+            }
+            return cityDealers;
         }
     }
 }

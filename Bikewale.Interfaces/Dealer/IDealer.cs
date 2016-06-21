@@ -15,6 +15,8 @@ namespace Bikewale.Interfaces.Dealer
     /// Description : DealerLocatorEntity GetDealerByMakeCity(uint cityId, uint makeId);  added, used in DealerLocator.
     /// Modified by :   Sumit Kate on 19 Jun 2016
     /// Descrption  :   Added optional parameter modelId for GetDealerByMakeCity
+    /// Modified by  :   Sumit Kate on 21 Jun 2016
+    /// Description :   Get Popular City Dealer Count.
     /// </summary>    
     public interface IDealer
     {
@@ -30,5 +32,6 @@ namespace Bikewale.Interfaces.Dealer
         bool SaveManufacturerLead(ManufacturerLeadEntity customer);
         DealersEntity GetDealerByMakeCity(uint cityId, uint makeId, uint modelId = 0);
         DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId);
+        IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId);
     }
 }
