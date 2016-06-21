@@ -257,6 +257,7 @@ namespace Bikewale.New
                 ctrlVideos.MakeId = modelPage.ModelDetails.MakeBase.MakeId;
                 ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+                ctrlVideos.WidgetTitle = bikeName;
 
                 ctrlUserReviews.ReviewCount = 2;
                 ctrlUserReviews.PageNo = 1;

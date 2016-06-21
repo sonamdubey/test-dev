@@ -20,6 +20,7 @@ namespace Bikewale.Controls
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
         protected string MoreVideoUrl = string.Empty;
+        public string WidgetTitle = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {

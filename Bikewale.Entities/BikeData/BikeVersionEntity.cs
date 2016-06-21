@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData
 {
+    /// <summary>
+    /// Updated By : Sangram Nandkhile on 20 Jun 2016
+    /// Desc: Added ModelName, ModelMasking and Href
+    /// </summary>
     public class BikeVersionEntity : BikeVersionEntityBase
     {
         public bool New { get; set; }
@@ -16,6 +16,10 @@ namespace Bikewale.Entities.BikeData
         public string SmallPicUrl { get; set; }
         public string LargePicUrl { get; set; }
         public Int64 Price { get; set; }
+
+        public string ModelName { get; set; }
+        public string ModelMasking { get; set; }
+        public string Href { get; set; }
         public string OriginalImagePath { get; set; }
         private BikeMakeEntityBase objmakeBase = new BikeMakeEntityBase();
         public BikeMakeEntityBase MakeBase { get { return objmakeBase; } set { objmakeBase = value; } }
