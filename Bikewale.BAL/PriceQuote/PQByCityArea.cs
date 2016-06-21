@@ -319,6 +319,7 @@ namespace Bikewale.BAL.PriceQuote
         {
             PQByCityAreaEntity pqEntity = new PQByCityAreaEntity();
             uint versionID = 0;
+            bool isAreaExistAndSelected = false;
 
             try
             {
@@ -336,6 +337,7 @@ namespace Bikewale.BAL.PriceQuote
                         {
                             pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
                         }
+
                         pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
                         if (pqOnRoad != null)
                         {
@@ -344,7 +346,7 @@ namespace Bikewale.BAL.PriceQuote
                             pqEntity.IsExShowroomPrice = pqOnRoad.DPQOutput == null && pqOnRoad.BPQOutput == null;
 
                             // When City has areas and area is not selected then show ex-showrrom price so user can select it
-                            bool isAreaExistAndSelected = pqEntity.IsAreaExists && pqEntity.IsAreaSelected;
+                            isAreaExistAndSelected = pqEntity.IsAreaExists && pqEntity.IsAreaSelected;
                             // when DPQ OR Only city level pricing exists
                             if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
                             {
@@ -428,12 +430,16 @@ namespace Bikewale.BAL.PriceQuote
                         detailedDealer = objIPQ.GetDealerQuotation(Convert.ToUInt32(cityId), versionID, pqEntity.DealerId);
                     }
 
-                    pqEntity.PrimaryDealer = detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null ? detailedDealer.PrimaryDealer : null;
-                    pqEntity.SecondaryDealerCount = detailedDealer.SecondaryDealerCount;
-
-                    if (detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null)
+                    if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
                     {
-                        pqEntity.IsPremium = detailedDealer.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium ? true : false;
+                        pqEntity.PrimaryDealer = detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null ? detailedDealer.PrimaryDealer : null;
+
+                        pqEntity.SecondaryDealerCount = detailedDealer.SecondaryDealerCount;
+
+                        if (detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null)
+                        {
+                            pqEntity.IsPremium = detailedDealer.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium ? true : false;
+                        }
                     }
                 }
             }
