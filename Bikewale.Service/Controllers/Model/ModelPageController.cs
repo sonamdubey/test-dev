@@ -1,11 +1,13 @@
 ﻿using Bikewale.BAL.PriceQuote;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.Utilities;
+using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -393,7 +395,15 @@ namespace Bikewale.Service.Controllers.Model
                             {
                                 versionId = deafultVersion.VersionId;
                             }
-                                    
+                            if (versionId <= 0)
+                            {
+                                using (IUnityContainer container = new UnityContainer())
+                                {
+                                    container.RegisterType<IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
+                                    IDealerPriceQuote dealerPQRepository = container.Resolve<IDealerPriceQuote>();
+                                    versionId = (int) dealerPQRepository.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
+                                }
+                            }    
                             objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,
                                     _dealers.GetDealerQuotation(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId));
                             #endregion
