@@ -98,7 +98,7 @@ namespace Bikewale.BAL.BikeData
 
         public IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId)
         {
-            throw new NotImplementedException();
+            return makesRepository.GetDiscontinuedBikeModelsByMake(makeId);
         }
     }   // Class
 }   //Namespace
