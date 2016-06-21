@@ -4,7 +4,7 @@
 <head>
     <%
         isHeaderFix = false;
-        AdId = "1017752";
+        AdId = "1442913773076";
         AdPath = "/1017752/Bikewale_NewBike_";
         isAd970x90Shown = true;
         isAd970x90BottomShown = true;

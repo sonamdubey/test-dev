@@ -14,7 +14,7 @@
            " on road price, reviews, mileage, versions, news & photos at Bikewale.";
         canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";
         AdPath = "/1017752/Bikewale_Mobile_Make";
-        AdId = "1017752";
+        AdId = "1444028878952";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;        
         TargetedMakes = _make.MakeName;

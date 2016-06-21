@@ -13,7 +13,7 @@
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/?vid={2}", makeMaskingName, modelMaskingName,versionId);
         ogImage = modelImage;
         isAd970x90Shown = true;
-        AdId = "1017752";
+        AdId = "1442913773076";
         AdPath = "/1017752/Bikewale_NewBike_";
           %>
     <!-- #include file="/includes/headscript.aspx" -->
