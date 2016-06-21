@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.NewVideosControl" %>
+<h2 class="padding-right10 padding-left10"><%= WidgetTitle %> Videos</h2>
 <div class="model-updates-videos-container" id="ctrlVideos">
     <!-- Videos data code starts here-->
     <asp:Repeater ID="rptVideos" runat="server">
