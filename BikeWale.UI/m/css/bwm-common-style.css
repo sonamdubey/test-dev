@@ -317,7 +317,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 /* sprite classes */
-.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?v1=18May2016v1) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?v1=1June2016v1) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -352,7 +352,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .inr-xxsm-icon { width:11px; height:10px; background-position:-54px -94px; }
 .inr-grey-xxsm-icon { width:8px; height:10px; background-position:-76px -87px; }
 .inr-red-xxsm-icon { width:8px; height:10px; background-position:-91px -87px; }
-.inr-xsm-icon { width:9px; height:12px; background-position:-40px -36px; }
+.inr-xsm-icon { width:9px; height:12px; background-position:-38px -36px; }
 .inr-grey-xsm-icon { width:9px; height:12px; background-position:-40px -58px; }
 .inr-sm-icon { width:10px; height:14px; background-position:-40px -80px; }
 .inr-grey-sm-icon { width:10px; height:14px; background-position:-79px -63px; }

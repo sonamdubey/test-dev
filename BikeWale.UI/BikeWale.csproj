@@ -14,7 +14,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -1341,13 +1341,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rabbitmq\CommonRQ.cs" />
     <Compile Include="rabbitmq\rabbitMQEnum.cs" />
-    <Compile Include="test.aspx.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="test.aspx.designer.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-    </Compile>
     <Compile Include="used\bikedetails.aspx.cs">
       <DependentUpon>bikedetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2599,7 +2592,6 @@
     <Content Include="staticHtml\premium.html" />
     <Content Include="staticHtml\standard.html" />
     <Content Include="TermsConditions.aspx" />
-    <Content Include="test.aspx" />
     <!--     <Content Include="test\css\bw-new-style.css" />
     <Content Include="test\css\design.css" />
     <Content Include="test\css\jquery.mobile-1.4.2.min.css" />
