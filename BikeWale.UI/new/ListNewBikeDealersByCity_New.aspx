@@ -44,9 +44,8 @@
         #filteredCityList > li a { font-size:16px; color:#4d5057; }
         #filteredCityList > li a:hover { color:#2a2a2a; }
     </style>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDjG8tpNdQI86DH__-woOokTaknrDQkMC8" type="text/javascript"></script>
-    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn-history/r131/trunk/markerwithlabel/src/markerwithlabel_packed.js"></script>
-
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDjG8tpNdQI86DH__-woOokTaknrDQkMC8" type="text/javascript"></script>    
+    <script type="text/javascript" src="/src/new/markerwithlabel.js"></script>
 </head>
 <body class="bg-light-grey padding-top50">
     <form runat="server">
