@@ -39,7 +39,7 @@ namespace Bikewale.Controls
         public bool IsDiscontinued { get; set; }
         protected bool isCitySelected { get { return CityId > 0; } }
 
-        protected bool showWidget = false;
+        public bool showWidget = false;
 
         protected override void OnInit(EventArgs e)
         {

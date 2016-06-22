@@ -32,7 +32,7 @@ namespace Bikewale.New
         protected NewVideosControl ctrlVideos;
         protected MostPopularBikes_new ctrlMostPopularBikes;
         protected Repeater rptMostPopularBikes, rptDiscontinued;
-
+        protected DealerCard ctrlDealerCard;
         protected bool isDescription = false;
         protected Literal ltrDefaultCityName;
         protected int fetchedRecordsCount = 0;
@@ -52,7 +52,8 @@ namespace Bikewale.New
         private uint cityId = Convert.ToUInt32(GlobalCityArea.GetGlobalCityArea().CityId);
 
         protected UsedBikes ctrlRecentUsedBikes;
-
+        protected LeadCaptureControl ctrlLeadCapture;
+        protected String clientIP = CommonOpn.GetClientIP();
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -102,6 +103,14 @@ namespace Bikewale.New
                 ctrlRecentUsedBikes.CityId = Convert.ToInt32(cityId);
                 ctrlRecentUsedBikes.TopCount = 6;
 
+                ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
+                ctrlDealerCard.makeName = _make.MakeName;
+                ctrlDealerCard.makeMaskingName = _make.MaskingName;
+                ctrlDealerCard.CityId = cityId;
+                ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
+
+                ctrlLeadCapture.CityId = cityId;
+                ctrlLeadCapture.AreaId = 0;
                 BindDiscountinuedBikes();
             }
 

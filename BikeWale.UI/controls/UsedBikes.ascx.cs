@@ -34,7 +34,7 @@ namespace Bikewale.Controls
 
         IEnumerable<MostRecentBikes> objMostRecentBikes = null;
 
-        protected bool showWidget = false;
+        public bool showWidget = false;
 
         protected override void OnInit(EventArgs e)
         {

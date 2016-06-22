@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Model" Trace="false"  EnableViewState="false"%>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Model" Trace="false" EnableViewState="false" %>
 
 <%@ Register Src="~/controls/News.ascx" TagName="LatestNews" TagPrefix="BW" %>
 <%--<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>--%>
@@ -9,7 +9,8 @@
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UsedBikes.ascx" TagName="MostRecentBikes" TagPrefix="BW" %>
-
+<%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
+<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <!Doctype html>
 <html>
 <head>
@@ -41,14 +42,14 @@
                                 <span itemprop="title">Home</span>
                             </a>
                         </li>
-                            <li><span class="bwsprite fa-angle-right margin-right10"></span><%= _make.MakeName %> Bikes</li>
+                        <li><span class="bwsprite fa-angle-right margin-right10"></span><%= _make.MakeName %> Bikes</li>
                     </ul>
                     <div class="clear"></div>
                 </div>
             </div>
             <div class="clear"></div>
-        </section>      
-        
+        </section>
+
         <section class="container margin-bottom20">
             <div class="grid-12">
                 <div class="content-box-shadow">
@@ -112,9 +113,9 @@
                     </div>
                 </div>
             </div>
-            <div class="clear"></div>            
+            <div class="clear"></div>
         </section>
-        
+
         <section class="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div id="makeUpcomingBikesContent" class="container margin-bottom20">
                 <div class="grid-12">
@@ -142,36 +143,36 @@
                         <div id="makeOverallTabs">
                             <div class="overall-specs-tabs-wrapper">
                                 <a href="#makeAboutContent" rel="nofollow">About</a>
+                                <% if (ctrlNews.FetchedRecordsCount > 0)
+                                   {%>
                                 <a href="#modelNewsContent" rel="nofollow">News</a>
+                                <%} %>
+                                <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
+                                   { %>
                                 <a href="#makeReviewsContent" rel="nofollow">Reviews</a>
+                                <%} %>
+                                <% if (ctrlVideos.FetchedRecordsCount > 0)
+                                   {%>
                                 <a href="#makeVideosContent" rel="nofollow">Videos</a>
+                                <%} %>
+                                <% if (ctrlDealerCard.showWidget)
+                                   { %>
                                 <a href="#makeDealersContent" rel="nofollow">Dealers</a>
-                                <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
+                                <%} %>
+                                <% if (ctrlRecentUsedBikes.showWidget)
+                                   {%> <a href="#makeUsedBikeContent" rel="nofollow">Used</a><%} %>
                             </div>
                         </div>
                     </div>
                     <div id="makeAboutContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
                         <div class="grid-8 alpha">
-                            <h2>Bajaj Pulsar RS200 Summary</h2>
+                            <h2><%= _make.MakeName %> Summary</h2>
                             <p class="font14 text-light-grey line-height17">
-                                <span class="preview-main-content">After number of spy pictures doing the round of the internet, Bajaj Motorcycles has finally 
-                                launched its first fully-faired motorcycle, the Pulsar RS 200 for the Indian market. Previously 
-                                touted to be called as the Pulsar SS200, this bike has been the most anticipated launch from 
-                                the company.<br /><br />
-                                Marketed as the fastest Pulsar yet, the Pulsar RS200 designed to be a compact sportsbike
-                                and features clip-on handlebars. Unlike other fully-faired motorcycle like the Yamaha YZF-R15,
-                                the RS200 doesn’t have as aggressive riding stance as of a super sport motorcycle...
-                                </span>
-                                <span class="preview-more-content">After number of spy pictures doing the round of the internet, Bajaj Motorcycles has finally 
-                                launched its first fully-faired motorcycle, the Pulsar RS 200 for the Indian market. Previously 
-                                touted to be called as the Pulsar SS200, this bike has been the most anticipated launch from 
-                                the company.<br /><br />
-                                Marketed as the fastest Pulsar yet, the Pulsar RS200 designed to be a compact sportsbike
-                                and features clip-on handlebars. Unlike other fully-faired motorcycle like the Yamaha YZF-R15,
-                                the RS200 doesn’t have as aggressive riding stance as of a super sport motorcycle.<br /><br />
-                                Marketed as the fastest Pulsar yet, the Pulsar RS200 designed to be a compact sportsbike
-                                and features clip-on handlebars. Unlike other fully-faired motorcycle like the Yamaha YZF-R15,
-                                the RS200 doesn’t have as aggressive riding stance as of a super sport motorcycle.
+                                <span class="preview-main-content">
+                                    <%= _bikeDesc.SmallDescription %>
+                                </span>                                
+                                <span class="preview-more-content hide" style="display: none;">
+                                    <%= _bikeDesc.SmallDescription %>
                                 </span>
                                 <a href="javascript:void(0)" class="read-more-bike-preview" rel="nofollow">Read more</a>
                             </p>
@@ -183,7 +184,8 @@
                     </div>
 
                     <!-- news control starts here -->
-                    <% if(ctrlNews.FetchedRecordsCount > 0){ %>
+                    <% if (ctrlNews.FetchedRecordsCount > 0)
+                       { %>
                     <BW:LatestNews runat="server" ID="ctrlNews" />
                     <% } %>
                     <!-- news control ends here -->
@@ -191,92 +193,25 @@
                     <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
                         <h2 class="padding-left10 padding-right10"><%= _make.MakeName %> Reviews</h2>
                         <!-- expert review starts-->
-                        <% if(ctrlExpertReviews.FetchedRecordsCount > 0){ %>
+                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
+                           { %>
                         <BW:NewExpertReviews runat="server" ID="ctrlExpertReviews" />
                         <% } %>
                         <!-- expert review ends-->
                     </div>
 
-                    <% if(ctrlVideos.FetchedRecordsCount > 0){ %>
+                    <% if (ctrlVideos.FetchedRecordsCount > 0)
+                       { %>
                     <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
                         <!-- videos control starts -->
-                         <BW:Videos runat="server" ID="ctrlVideos" />
+                        <BW:Videos runat="server" ID="ctrlVideos" />
                         <!-- videos control ends -->
                     </div>
                     <% } %>
 
-                    <div id="makeDealersContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-                        <h2 class="padding-left10 padding-right10"><%= _make.MakeName %> Dealers in India</h2>
-                        <div class="jcarousel-wrapper bike-carousel-wrapper margin-bottom15">
-                            <div class="jcarousel">
-                                <ul>
-                                    <li>
-                                        <a href="" class="dealer-jcarousel-image-preview">
-                                            <span class="city-sprite mumbai-icon"></span>
-                                        </a>
-                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Mumbai</a></h3>
-                                        <p>24 showrooms</p>
-                                    </li>
-                                    <li>
-                                        <a href="" class="dealer-jcarousel-image-preview">
-                                            <span class="city-sprite pune-icon"></span>
-                                        </a>
-                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Pune</a></h3>
-                                        <p>24 showrooms</p>
-                                    </li>
-                                    <li>
-                                        <a href="" class="dealer-jcarousel-image-preview">
-                                            <span class="city-sprite bangalore-icon"></span>
-                                        </a>
-                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Bangalore</a></h3>
-                                        <p>24 showrooms</p>
-                                    </li>
-                                    <li>
-                                        <a href="" class="dealer-jcarousel-image-preview">
-                                            <span class="city-sprite delhi-icon"></span>
-                                        </a>
-                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Delhi</a></h3>
-                                        <p>24 showrooms</p>
-                                    </li>
-                                    <li>
-                                        <a href="" class="dealer-jcarousel-image-preview">
-                                            <span class="city-sprite chennai-icon"></span>
-                                        </a>
-                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Chennai</a></h3>
-                                        <p>24 showrooms</p>
-                                    </li>
-                                    <li>
-                                        <a href="" class="dealer-jcarousel-image-preview">
-                                            <span class="city-sprite hyderabad-icon"></span>
-                                        </a>
-                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Hyderabad</a></h3>
-                                        <p>24 showrooms</p>
-                                    </li>
-                                    <li>
-                                        <a href="" class="dealer-jcarousel-image-preview">
-                                            <span class="city-sprite kolkata-icon"></span>
-                                        </a>
-                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Kolkata</a></h3>
-                                        <p>24 showrooms</p>
-                                    </li>
-                                    <li>
-                                        <a href="" class="dealer-jcarousel-image-preview">
-                                            <span class="city-sprite lucknow-icon"></span>
-                                        </a>
-                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Lucknow</a></h3>
-                                        <p>24 showrooms</p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                        </div>
-                        <div class="padding-left10">
-                            <a href="javascript:void(0)">View all dealers<span class="bwsprite blue-right-arrow-icon"></span></a>
-                        </div>
-                    </div>
+                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
 
-                   <BW:MostRecentBikes runat="server" ID="ctrlRecentUsedBikes" />
+                    <BW:MostRecentBikes runat="server" ID="ctrlRecentUsedBikes" />
 
                     <div id="overallMakeDetailsFooter"></div>
                 </div>
@@ -293,9 +228,15 @@
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>">
                                 <ul>
-                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews"><h3 class="text-unbold">News</h3></li>
-                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews"><h3 class="text-unbold">Expert Reviews</h3></li>
-                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos"><h3 class="text-unbold">Videos</h3></li>
+                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">
+                                        <h3 class="text-unbold">News</h3>
+                                    </li>
+                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">
+                                        <h3 class="text-unbold">Expert Reviews</h3>
+                                    </li>
+                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">
+                                        <h3 class="text-unbold">Videos</h3>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -328,21 +269,25 @@
                         <div class="brand-about-more-desc hide">
                             <%= _bikeDesc !=null ? _bikeDesc.FullDescription : "" %>
                         </div>
+                        <%if (!string.IsNullOrEmpty(_bikeDesc.FullDescription) && _bikeDesc.FullDescription.Length > 265)
+                          { %>
                         <span><a href="javascript:void(0)" class="read-more-btn">Read <span>more</span></a></span>
+                        <% } %>
                     </div>
-                    
+
                 </div>
                 <div class="clear"></div>
-                
+
             </div>
-            
+
         </section>
         <section>
             <div class="container">
                 <div class="grid-12">
-                    <% if(fetchedRecordsCount > 0){ %>
-                <div id="discontinuedModels" class="margin-top10 padding20" style="display: block;">
-                    <div class="content-inner-block-10 rounded-corner2 margin-bottom30 font14">
+                    <% if (fetchedRecordsCount > 0)
+                       { %>
+                    <div id="discontinuedModels" class="margin-top10 padding20" style="display: block;">
+                        <div class="content-inner-block-10 rounded-corner2 margin-bottom30 font14">
                             <div id="discontinuedLess">
                                 Discontinued <%=_make.MakeName %> models: - <span id="spnContent"></span>
                             </div>
@@ -354,20 +299,32 @@
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </div>
+                        </div>
                     </div>
+                    <% } %>
                 </div>
-                <% } %>
-            </div>
                 <div class="clear"></div>
             </div>
         </section>
 
         <script>
             $("a.read-more-btn").click(function () {
-                $("div.brand-about-more-desc").slideToggle();
-                $("div.brand-about-main").slideToggle();
-                var a = $(this).find("span");
-                a.text(a.text() === "more" ? "less" : "more");
+                //$("div.brand-about-more-desc").slideToggle();
+                //$("div.brand-about-main").slideToggle();
+                //var a = $(this).find("span");
+                //a.text(a.text() === "more" ? "less" : "more");
+                if (!$(this).hasClass('open')) {
+                    $('.preview-main-content').hide();
+                    $('.preview-more-content').show();
+                    $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+                    $(this).addClass("open");
+                }
+                else if ($(this).hasClass('open')) {
+                    $('.preview-main-content').show();
+                    $('.preview-more-content').hide();
+                    $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
+                    $(this).removeClass('open');
+                }
             });
 
             $(document).ready(function () {
@@ -391,18 +348,40 @@
                 xContents[xContents.length - 1].nodeValue = "";
             }
 
-           <%-- if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+            <%-- if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");--%>
 
         </script>
+        <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/new/bikemake.js?<%= staticFileVersion %>"></script>
     </form>
     <script type="text/javascript">
         ga_pg_id = '3';
-        var _makeName = '<%= _make.MakeName %>';
+        var _makeName = "<%= _make.MakeName %>";
+        var clientIP = "<%= clientIP%>";
+        var pageUrl = window.location.href;
+        $(".leadcapturebtn").click(function (e) {
+            ele = $(this);
+            var leadOptions = {
+                "dealerid": ele.attr('data-item-id'),
+                "dealername": ele.attr('data-item-name'),
+                "dealerarea": ele.attr('data-item-area'),
+                "versionid": $("#versions a.active").attr("id"),
+                "leadsourceid": ele.attr('data-leadsourceid'),
+                "pqsourceid": ele.attr('data-pqsourceid'),
+                "pageurl": pageUrl,
+                "clientip": clientIP,
+                "isdealerbikes": true,
+                "campid": ele.attr('data-camp-id'),
+                "isregisterpq": true
+            };
+
+            dleadvm.setOptions(leadOptions);
+
+        });
     </script>
 </body>
 </html>
