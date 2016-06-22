@@ -38,10 +38,13 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
         {
             DTO.PriceQuote.v2.DPQuotationOutput output = new DTO.PriceQuote.v2.DPQuotationOutput();
             output.emi = ConvertEMI(objDealerQuotation.PrimaryDealer.EMIDetails);
-            output.Benefits = ConvertBenefits(objDealerQuotation.PrimaryDealer.Benefits);
-            output.Offers = ConvertOffers(objDealerQuotation.PrimaryDealer.OfferList);
             output.Versions = ConvertVersions(varients);
 
+            if (objDealerQuotation != null && objDealerQuotation.PrimaryDealer != null && objDealerQuotation.PrimaryDealer.DealerDetails != null && objDealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium)
+            {
+                output.Benefits = ConvertBenefits(objDealerQuotation.PrimaryDealer.Benefits);
+                output.Offers = ConvertOffers(objDealerQuotation.PrimaryDealer.OfferList);
+            }
             foreach (var version in varients)
             {
                 //For App if the Price Break up components are more than 4 
