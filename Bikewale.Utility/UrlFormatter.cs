@@ -45,7 +45,7 @@ namespace Bikewale.Utility
         /// Desc : url format /<make>-bikes/<model>/specifications-features/#specs,/<make>-bikes/<model>/specifications-features/#features
         /// </summary>
         /// <returns></returns>
-        public static string ViewAllFeatureSpecs(string make, string model, string hash,uint versionId)
+        public static string ViewAllFeatureSpecs(string make, string model, string hash, uint versionId)
         {
             return String.Format("/{0}-bikes/{1}/specifications-features/?vid={3}#{2}", make, model, hash, versionId);
         }
@@ -68,6 +68,57 @@ namespace Bikewale.Utility
         public static string DealerLocatorUrl(string makeMaskingName, string cityMaskingName, string hash)
         {
             return String.Format("/{0}-bikes/dealers-in-{1}/#{2}", makeMaskingName, cityMaskingName, hash);
+        }
+
+        /// <summary>
+        /// Created By Vivek gupta
+        /// Date : 22 june 2016        
+        //  Desc : used/bajaj-bikes-in-mumbai/ 
+        /// </summary>
+        /// <param name="make"></param>
+        /// <param name="city"></param>
+        /// <returns></returns>
+
+        public static string UsedBikesUrl(string make, string city)
+        {
+            return String.Format("/used/{0}-bikes-in-{1}/", make, city);
+        }
+
+
+        /// <summary>
+        /// Created By Vivek gupta
+        /// Date : 22 june 2016
+        //  Desc : used/bikes-in-mumbai/bajaj-pulsar-rs200-S42582/
+        /// </summary>
+        /// <param name="city"></param>
+        /// <param name="make"></param>
+        /// <param name="model"></param>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
+        public static string UsedBikesUrl(string city, string make, string model, string profileId)
+        {
+            return String.Format("/used/bikes-in-{0}/{1}-{2}-{3}/", city, make, model.Replace(" ", "-"), profileId);
+        }
+
+        /// <summary>
+        /// Created By Vivek gupta
+        /// Date : 22 june 2016
+        /// Desc : view more used bikes url returned
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="make"></param>
+        /// <param name="city"></param>
+        /// <returns></returns>
+        public static string ViewMoreUsedBikes(uint cityId, string make, string city)
+        {
+            if (cityId > 0)
+            {
+                return String.Format("/used/{0}-bikes-in-{1}/", make, city);
+            }
+            else
+            {
+                return String.Format("/used/{0}-bikes-in-india/", make);
+            }
         }
     }
 }

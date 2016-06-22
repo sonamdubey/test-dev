@@ -185,6 +185,7 @@
     <Compile Include="Location\AreaEntityBase.cs" />
     <Compile Include="Location\CityEntityBase.cs" />
     <Compile Include="Location\CityMaskingResponse.cs" />
+    <Compile Include="Location\GlobalCityAreaEntity.cs" />
     <Compile Include="Location\StateEntityBase.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotificationBase.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotifications.cs" />
@@ -230,6 +231,7 @@
     <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlShortner\UrlShortnerResponse.cs" />
+    <Compile Include="UsedBikes\MostRecentBikes.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesEntity.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
