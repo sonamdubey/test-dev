@@ -49,6 +49,10 @@ namespace Bikewale.New
 
         private string makeMaskingName;
 
+        private uint cityId = Convert.ToUInt32(GlobalCityArea.GetGlobalCityArea().CityId);
+
+        protected UsedBikes ctrlRecentUsedBikes;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -91,6 +95,11 @@ namespace Bikewale.New
                 ctrlVideos.WidgetTitle = _make.MakeName;
 
                 ctrlExpertReviews.MakeMaskingName = makeMaskingName;
+
+                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(makeId);
+                ctrlRecentUsedBikes.CityId = Convert.ToInt32(cityId);
+                ctrlRecentUsedBikes.TopCount = 6;
+
                 BindDiscountinuedBikes();
             }
 

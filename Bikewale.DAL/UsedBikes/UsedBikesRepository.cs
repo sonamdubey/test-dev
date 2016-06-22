@@ -6,14 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.DAL.UsedBikes
 {
-    public class UsedBikesRepository  : IUsedBikes
+    public class UsedBikesRepository : IUsedBikes
     {
 
         /// <summary>
@@ -79,6 +76,89 @@ namespace Bikewale.DAL.UsedBikes
             }
             return objUsedBikesList;
         }   // End of GetPopularUsedBikes method
+
+        /// <summary>
+        /// Author : Vivek gupta
+        /// Date : 21 june 2016
+        /// Desc :  Fetch most recent used bikes
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="totalCount"></param>
+        /// <param name="cityId"> cityId can be null in case when user does not select city</param>
+        /// <returns></returns>
+        public IEnumerable<MostRecentBikes> GetMostRecentUsedBikes(uint makeId, uint totalCount, int? cityId = null)
+        {
+            Database db = null;
+            List<MostRecentBikes> objMostRecentUsedBikesList = null;
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("GetUsedBikesByMakeCity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalCount;
+
+                    if (cityId.HasValue && cityId > 0)
+                    {
+                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId.Value;
+                    }
+
+                    db = new Database();
+                    objMostRecentUsedBikesList = new List<MostRecentBikes>();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        while (dr.Read())
+                        {
+                            if (cityId.HasValue && cityId > 0)
+                            {
+                                objMostRecentUsedBikesList.Add(new MostRecentBikes
+                                {
+                                    MakeYear = !Convert.IsDBNull(dr["BikeYear"]) ? Convert.ToUInt32(dr["BikeYear"]) : default(UInt32),
+                                    MakeName = !Convert.IsDBNull(dr["MakeName"]) ? Convert.ToString(dr["MakeName"]) : default(string),
+                                    ModelName = !Convert.IsDBNull(dr["ModelName"]) ? Convert.ToString(dr["ModelName"]) : default(string),
+                                    MakeMaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string),
+                                    ModelMaskingName = !Convert.IsDBNull(dr["ModelMaskingName"]) ? Convert.ToString(dr["ModelMaskingName"]) : default(string),
+                                    VersionName = !Convert.IsDBNull(dr["VersionName"]) ? Convert.ToString(dr["VersionName"]) : default(string),
+                                    BikePrice = !Convert.IsDBNull(dr["BikePrice"]) ? Convert.ToUInt32(dr["BikePrice"]) : default(UInt32),
+                                    CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
+                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string),
+                                    ProfileId = !Convert.IsDBNull(dr["ProfileId"]) ? Convert.ToString(dr["ProfileId"]) : default(string),
+                                });
+                            }
+
+                            else
+                            {
+                                objMostRecentUsedBikesList.Add(new MostRecentBikes
+                                {
+                                    MakeName = !Convert.IsDBNull(dr["MakeName"]) ? Convert.ToString(dr["MakeName"]) : default(string),
+                                    MakeMaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string),
+                                    CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
+                                    AvailableBikes = !Convert.IsDBNull(dr["AvailableBikes"]) ? Convert.ToUInt32(dr["AvailableBikes"]) : default(UInt32),
+                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string)
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return objMostRecentUsedBikesList;
+        }
 
     }
 }

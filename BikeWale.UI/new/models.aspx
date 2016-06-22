@@ -8,6 +8,7 @@
 <%--<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>--%>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UsedBikes.ascx" TagName="MostRecentBikes" TagPrefix="BW" %>
 
 <!Doctype html>
 <html>
@@ -298,56 +299,7 @@
                         </div>
                     </div>
 
-                    <div id="makeUsedBikeContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
-                        <h2 class="padding-left10 padding-right10">Recently uploaded <%= _make.MakeName %> Used bikes</h2>
-                        <!-- when city is not selected -->
-                        <div class="grid-12 alpha omega text-black">
-                            <div class="grid-4 margin-bottom20">
-                                <a href=""><%= _make.MakeName %> Used bikes in Mumbai</a>
-                                <p class="margin-top10">500 bikes available</p>
-                            </div>
-                            <div class="grid-4 margin-bottom20">
-                                <a href=""><%= _make.MakeName %> Used bikes in Pune</a>
-                                <p class="margin-top10">500 bikes available</p>
-                            </div>
-                            <div class="grid-4 margin-bottom20">
-                                <a href=""><%= _make.MakeName %> Used bikes in Bengaluru</a>
-                                <p class="margin-top10">500 bikes available</p>
-                            </div>
-                            <div class="grid-4 margin-bottom20">
-                                <a href=""><%= _make.MakeName %> Used bikes in Delhi</a>
-                                <p class="margin-top10">500 bikes available</p>
-                            </div>
-                            <div class="grid-4 margin-bottom20">
-                                <a href=""><%= _make.MakeName %> Used bikes in Hyderabad</a>
-                                <p class="margin-top10">500 bikes available</p>
-                            </div>
-                            <div class="grid-4 margin-bottom20">
-                                <a href=""><%= _make.MakeName %> Used bikes in Chennai</a>
-                                <p class="margin-top10">500 bikes available</p>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="clear"></div>
-
-                        <!-- when city is selected -->
-                        <div class="grid-12 alpha omega text-black">
-                            <div class="grid-4 margin-bottom20">
-                                <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
-                                <p class="margin-top10"><span class="fa fa-rupee"></span> <span>1,67,673</span> in Mumbai</p>
-                            </div>
-                            <div class="grid-4 margin-bottom20">
-                                <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
-                                <p class="margin-top10"><span class="fa fa-rupee"></span> <span>1,67,673</span> in Mumbai</p>
-                            </div>
-                            <div class="grid-4 margin-bottom20">
-                                <a href="">2009, Bajaj Pulsar 220 Fi Standard</a>
-                                <p class="margin-top10"><span class="fa fa-rupee"></span> <span>1,67,673</span> in Mumbai</p>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
+                   <BW:MostRecentBikes runat="server" ID="ctrlRecentUsedBikes" />
 
                     <div id="overallMakeDetailsFooter"></div>
                 </div>
