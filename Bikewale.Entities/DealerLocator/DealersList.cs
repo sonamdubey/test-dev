@@ -1,10 +1,6 @@
 ﻿using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.DealerLocator
 {
@@ -13,6 +9,7 @@ namespace Bikewale.Entities.DealerLocator
     /// Created on : 21 March 2016
     /// Description : DealersList for dealer locator
     /// </summary>
+    [Serializable]
     public class DealersList : NewBikeDealerBase
     {
         public AreaEntityBase objArea { get; set; }
