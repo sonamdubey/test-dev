@@ -49,6 +49,23 @@ namespace Bikewale.BAL.PriceQuote
                 using (BWHttpClient objClient = new BWHttpClient())
                 {
                     dealerQuotation = objClient.GetApiResponseSync<DetailedDealerQuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerQuotation);
+                    if (dealerQuotation != null)
+                    {
+                        if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
+                        {
+                            if (dealerQuotation.PrimaryDealer.EMIDetails == null && dealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium)
+                            {
+                                dealerQuotation.PrimaryDealer.EMIDetails = new EMI();
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxDownPayment = 40;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinDownPayment = 10;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxTenure = 48;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinTenure = 12;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxRateOfInterest = 15;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinRateOfInterest = 10;
+                                dealerQuotation.PrimaryDealer.EMIDetails.ProcessingFee = 2000;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -78,6 +95,23 @@ namespace Bikewale.BAL.PriceQuote
                 using (BWHttpClient objClient = new BWHttpClient())
                 {
                     dealerQuotation = objClient.GetApiResponseSync<Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerQuotation);
+                    if (dealerQuotation != null)
+                    {
+                        if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
+                        {
+                            if (dealerQuotation.PrimaryDealer.EMIDetails == null && dealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium)
+                            {
+                                dealerQuotation.PrimaryDealer.EMIDetails = new EMI();
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxDownPayment = 40;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinDownPayment = 10;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxTenure = 48;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinTenure = 12;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxRateOfInterest = 15;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinRateOfInterest = 10;
+                                dealerQuotation.PrimaryDealer.EMIDetails.ProcessingFee = 2000;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -96,7 +130,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="versionID">e.g. 112</param>
         /// <param name="dealerId">e.g. 19886</param>
         /// <returns></returns>
-        public PQ_QuotationEntity Quotation(uint cityId, UInt16 sourceType, string deviceId, uint dealerId, uint modelId,ref ulong pqId, bool isPQRegistered, uint? areaId = null, uint? versionId = null)
+        public PQ_QuotationEntity Quotation(uint cityId, UInt16 sourceType, string deviceId, uint dealerId, uint modelId, ref ulong pqId, bool isPQRegistered, uint? areaId = null, uint? versionId = null)
         {
             PQ_QuotationEntity objDealerPQ = null;
             IList<PQ_BikeVarient> pqVersion = null;
