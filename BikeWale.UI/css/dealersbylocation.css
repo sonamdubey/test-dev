@@ -1,0 +1,20 @@
+﻿.header-fixed { z-index:5 !important; }
+body { overflow-x:hidden; }
+.opacity0 { opacity:0; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; filter: alpha(opacity=0); -moz-opacity: 0; -khtml-opacity: 0; height:0; }
+.dealer-city-map-wrapper { width:100%;height:580px;display:block; }
+#listingSidebar { width:338px; min-height:590px; border:1px solid #f1f1f1; background:#fff; z-index:3; }
+.listingSidebarHeading { width:338px; position:fixed; top:51px; background:#fff; z-index:3; }
+.listingSidebarHeading h1 { color:#000; }
+#listingSidebarList { width:100%; min-height:590px; background:#fff; padding:102px 20px 0; z-index:1;}
+#listingSidebarList li { padding-top:13px; padding-bottom:13px; border-top:1px solid #f1f1f1; }
+#listingSidebarList li:first-child { border-top:0; }
+#listingSidebarList li h3 { font-size: 16px; font-weight:400; }
+#listingSidebarList li a {color:#4d5057;cursor:pointer;}
+#listingSidebarList li a:hover { color:#2a2a2a; text-decoration:none; }
+.listingSidebarHeading span.search-icon-grey {position: absolute;right:10px;top:10px;cursor: pointer;z-index:2; }
+.listingSidebarHeading span.fa-spinner {display:none;right:14px;top:12px;background:#fff}
+#listingSidebar .form-control { border-radius:0; }
+.gm-style-iw + div {display: none;}
+.labels {color: #4d5057; background-color: white;font-size:16px;font-weight: bold;text-align: center;width:54px;height:54px;display:block;border-radius:50%;white-space: nowrap;top:-26px;left:-26px;padding-top:12px;border:2px solid #4d5057;}
+.labels:hover { border: 2px solid #ef3f30; }
+.label-hover { border: 2px solid #ef3f30 !important; }
