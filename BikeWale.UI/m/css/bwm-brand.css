@@ -54,6 +54,19 @@ body.listing-navbar-active #bikeByMakesListing, body.listing-navbar-active #bike
 .margin-top17 { margin-top:17px; }
 .make-user-review-rating-container { width:120px; height:68px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:10px; text-align:center;display:inline-block; vertical-align:top; margin-right:15px;}
 .make-user-review-title-container { width:55%; display:inline-block; vertical-align:top;}
+.dealer-city-image-preview { height: 75px; display:block; text-align:center; margin-bottom:25px; }
+.city-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png) no-repeat; display: inline-block; }
+.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 70px; }
+.mumbai-icon { width: 98px; background-position: 0 0; }
+.pune-icon { width: 140px; background-position: -108px 0; }
+.bangalore-icon { width: 102px; background-position: -258px 0; }
+.delhi-icon { width: 54px; background-position: -370px 0; }
+.chennai-icon { width: 41px; background-position: -434px 0; }
+.hyderabad-icon { width: 49px; background-position: -485px 0; }
+.kolkata-icon { width: 138px; background-position: -544px 0; }
+.lucknow-icon { width: 132px; background-position: -692px 0; }
+.ahmedabad-icon { width: 0px; background-position: 0 0; }
+.chandigarh-icon { width: 0px; background-position: 0 0; }
 #makeUsedBikeContent li { margin-top:20px; }
 #makeUsedBikeContent li:first-child { margin-top:0; }
 #makeDealersContent h2 { margin-bottom:20px; }
