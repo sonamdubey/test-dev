@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection;
 using System.Web;
 
 namespace Bikewale.DAL.UsedBikes
@@ -143,14 +144,10 @@ namespace Bikewale.DAL.UsedBikes
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, String.Format("{0} - {1} - {2}", HttpContext.Current.Request.ServerVariables["URL"], MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodInfo.GetCurrentMethod().Name));
                 objErr.SendMail();
             }
             finally

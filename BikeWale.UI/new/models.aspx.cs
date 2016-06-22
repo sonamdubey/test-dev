@@ -63,6 +63,8 @@ namespace Bikewale.New
         /// Description : set make masking name for video controller
         /// Modified By : Lucky Rathore on 05 May 2016
         /// Description : Removed postback.
+        /// Modified By : Vivek Gupta on 22 june 2016
+        /// Desc: ctrlRecentUsedBikes (values assigned)
         /// </summary>
         /// </summary>
         /// <param name="sender"></param>
