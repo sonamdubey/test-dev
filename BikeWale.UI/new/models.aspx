@@ -1,11 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Model" Trace="false" EnableViewState="false" %>
 
 <%@ Register Src="~/controls/News.ascx" TagName="LatestNews" TagPrefix="BW" %>
-<%--<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>--%>
 <%@ Register Src="~/controls/NewExpertReviews.ascx" TagName="NewExpertReviews" TagPrefix="BW" %>
-<%--<%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>--%>
 <%@ Register Src="~/controls/NewVideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
-<%--<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>--%>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UsedBikes.ascx" TagName="MostRecentBikes" TagPrefix="BW" %>
@@ -164,17 +161,20 @@
                             </div>
                         </div>
                     </div>
+                     <% if(_bikeDesc !=null && _bikeDesc.FullDescription.Length > 0) { %>
                     <div id="makeAboutContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
                         <div class="grid-8 alpha">
                             <h2><%= _make.MakeName %> Summary</h2>
                             <p class="font14 text-light-grey line-height17">
                                 <span class="preview-main-content">
-                                    <%= _bikeDesc.SmallDescription %>
+                                     <%= Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 700) %>
                                 </span>                                
                                 <span class="preview-more-content hide" style="display: none;">
-                                    <%= _bikeDesc.SmallDescription %>
+                                    <%= _bikeDesc.FullDescription %>
                                 </span>
+                                <% if(_bikeDesc.FullDescription.Length > 700) { %>
                                 <a href="javascript:void(0)" class="read-more-bike-preview" rel="nofollow">Read more</a>
+                                <% } %>
                             </p>
                         </div>
                         <div class="grid-4 text-center alpha omega">
@@ -182,7 +182,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-
+                    <% } %>
                     <!-- news control starts here -->
                     <% if (ctrlNews.FetchedRecordsCount > 0)
                        { %>
@@ -255,7 +255,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <section class="<%= (isDescription)? "": "hide" %>">
+        <%--<section class="<%= (isDescription)? "": "hide" %>">
             <!-- About Brand code starts here-->
             <div class="container">
                 <div class="grid-12" style="<%= (isDescription) ? "": "display:none;" %>">
@@ -278,7 +278,7 @@
 
             </div>
 
-        </section>
+        </section>--%>
         <section>
             <div class="container">
                 <div class="grid-12">
