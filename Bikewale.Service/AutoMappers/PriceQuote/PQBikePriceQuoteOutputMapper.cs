@@ -105,7 +105,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
                     //Add Other into main price list
                     if (otherList.Count > 0)
                     {
-                        mainList.Add(new DTO.PriceQuote.v2.DPQ_Price() { CategoryName = "Others", Price = System.Convert.ToUInt32(otherList.Sum(m => m.Price)) });
+                        mainList.Add(new DTO.PriceQuote.v2.DPQ_Price() { CategoryName = "Other Charges", Price = System.Convert.ToUInt32(otherList.Sum(m => m.Price)) });
                     }
                 }
             }

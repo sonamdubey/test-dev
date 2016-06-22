@@ -24,6 +24,7 @@
                                 <span class="text-bold">
                                     <span class="bwsprite phone-black-icon vertical-top"></span>
                                     <span class="vertical-top dealership-card-details"><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></span>
+                                </span>
                             </p>
                             <p class="margin-bottom15 <%# (String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem,"Email"))))?"hide":string.Empty %>">
                                 <a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey">
@@ -34,7 +35,7 @@
                             <% if (!IsDiscontinued)
                                { %>
                             <input type="button" data-leadsourceid="<%= LeadSourceId %>" data-pqsourceid="<%= PQSourceId %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# (DataBinder.Eval(Container.DataItem,"objArea")!=null) ? DataBinder.Eval(Container.DataItem,"objArea.AreaName") : "" %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>"
-                              data-camp-id="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>"  class="btn btn-grey btn-md font14 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers from dealer" />
+                                data-camp-id="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" class="btn btn-grey btn-md font14 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers from dealer" />
                             <%} %>
                         </div>
                         <div class="clear"></div>
@@ -58,7 +59,7 @@
                     <ItemTemplate>
                         <li>
                             <a href="<%# String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>" class="dealer-jcarousel-image-preview">
-                                <span></span>
+                                <span class="city-sprite <%# DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName") %>-icon"></span>
                             </a>
                             <h3 class="margin-bottom10"><a href="<%# String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>" class="text-default"><%= makeName %> dealers in <%# DataBinder.Eval(Container.DataItem,"CityBase.CityName") %></a></h3>
                             <p><%# DataBinder.Eval(Container.DataItem,"NumOfDealers") %> showrooms</p>
