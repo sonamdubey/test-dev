@@ -22,6 +22,8 @@ namespace Bikewale.Controls
     /// Description : Added LeadsourceId and PQSourceId for lead and pq sources
     /// Modified By :   Sumit Kate on 17 Jun 2016
     /// Description :   Added Model ID
+    /// Modified by :   Sumit Kate on 22 Jun 2016
+    /// Description :   Added Repeater to bind the Popular City Dealers when city is not selected
     /// </summary>
     public class DealerCard : UserControl
     {
@@ -62,7 +64,7 @@ namespace Bikewale.Controls
         {
             bool isValid = true;
 
-            if (MakeId <= 0 || CityId <= 0)
+            if (MakeId <= 0)
             {
                 isValid = false;
             }
@@ -75,6 +77,8 @@ namespace Bikewale.Controls
         /// Description : Function to bind dealers 
         /// Modified by :   Sumit Kate on 17 Jun 2016
         /// Description :   Pass ModelId to get the dealers for Price in city page
+        /// Modified by :   Sumit Kate on 22 Jun 2016
+        /// Description :   If City Id is not passed Get the popular city dealer count
         /// </summary>
         protected void BindDealers()
         {
@@ -109,10 +113,10 @@ namespace Bikewale.Controls
                     }
                     else
                     {
-                        IEnumerable<PopularCityDealerEntity> cityDealers = objCache.GetPopularCityDealer(MakeId);
+                        IEnumerable<PopularCityDealerEntity> cityDealers = objCache.GetPopularCityDealer(MakeId, TopCount);
                         if (cityDealers != null && cityDealers.Count() > 0)
                         {
-                            rptPopularCityDealers.DataSource = cityDealers.Take(TopCount);
+                            rptPopularCityDealers.DataSource = cityDealers;
                             rptPopularCityDealers.DataBind();
                             showWidget = true;
                         }

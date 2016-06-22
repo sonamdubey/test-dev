@@ -733,7 +733,7 @@ namespace Bikewale.DAL.Dealer
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId)
+        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
         {
             IList<PopularCityDealerEntity> cityDealers = null;
             Database db = null;
@@ -748,7 +748,7 @@ namespace Bikewale.DAL.Dealer
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "GetPopularCityDealer";
                         cmd.Parameters.AddWithValue("@MakeId", Convert.ToInt32(makeId));
-
+                        cmd.Parameters.AddWithValue("@TopCount", Convert.ToInt16(topCount));
                         using (SqlDataReader dr = db.SelectQry(cmd))
                         {
                             if (dr != null && dr.HasRows)
@@ -760,11 +760,11 @@ namespace Bikewale.DAL.Dealer
                                     {
                                         CityBase = new CityEntityBase()
                                         {
-                                            CityId = !Convert.IsDBNull(dr["cityId"]) ? Convert.ToUInt32(dr["cityId"]) : default(UInt32),
-                                            CityName = !Convert.IsDBNull(dr["cityName"]) ? Convert.ToString(dr["cityName"]) : default(string),
-                                            CityMaskingName = !Convert.IsDBNull(dr["cityMaskingName"]) ? Convert.ToString(dr["cityMaskingName"]) : default(String)
+                                            CityId = !Convert.IsDBNull(dr["CityId"]) ? Convert.ToUInt32(dr["CityId"]) : default(UInt32),
+                                            CityName = !Convert.IsDBNull(dr["Name"]) ? Convert.ToString(dr["Name"]) : default(string),
+                                            CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(String)
                                         },
-                                        NumOfDealers = !Convert.IsDBNull(dr["numOfDealers"]) ? Convert.ToUInt32(dr["numOfDealers"]) : default(UInt32)
+                                        NumOfDealers = !Convert.IsDBNull(dr["DealersCnt"]) ? Convert.ToUInt32(dr["DealersCnt"]) : default(UInt32)
                                     });
                                 }
                             }

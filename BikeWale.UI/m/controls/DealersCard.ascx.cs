@@ -60,7 +60,7 @@ namespace Bikewale.Mobile.Controls
         {
             bool isValid = true;
 
-            if (MakeId <= 0 || CityId <= 0)
+            if (MakeId <= 0)
             {
                 isValid = false;
             }
@@ -109,10 +109,10 @@ namespace Bikewale.Mobile.Controls
                     }
                     else
                     {
-                        IEnumerable<PopularCityDealerEntity> cityDealers = objCache.GetPopularCityDealer(MakeId);
+                        IEnumerable<PopularCityDealerEntity> cityDealers = objCache.GetPopularCityDealer(MakeId, TopCount);
                         if (cityDealers != null && cityDealers.Count() > 0)
                         {
-                            rptPopularCityDealers.DataSource = cityDealers.Take(TopCount);
+                            rptPopularCityDealers.DataSource = cityDealers;
                             rptPopularCityDealers.DataBind();
                             showWidget = true;
                         }

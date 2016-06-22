@@ -221,11 +221,11 @@ namespace Bikewale.BAL.Dealer
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId)
+        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
         {
             try
             {
-                return dealerRepository.GetPopularCityDealer(makeId);
+                return dealerRepository.GetPopularCityDealer(makeId, topCount);
             }
             catch (Exception ex)
             {

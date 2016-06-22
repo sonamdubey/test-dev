@@ -83,13 +83,13 @@ namespace Bikewale.Cache.DealersLocator
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId)
+        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
         {
             IEnumerable<PopularCityDealerEntity> cityDealers = null;
-            string key = String.Format("BW_MakePopularCity_Dealers_{0}", makeId);
+            string key = String.Format("BW_MakePopularCity_Dealers_{0}_Cnt_{1}", makeId, topCount);
             try
             {
-                cityDealers = _cache.GetFromCache<IEnumerable<PopularCityDealerEntity>>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetPopularCityDealer(makeId));
+                cityDealers = _cache.GetFromCache<IEnumerable<PopularCityDealerEntity>>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetPopularCityDealer(makeId, topCount));
             }
             catch (Exception ex)
             {
