@@ -161,15 +161,16 @@
                             </div>
                         </div>
                     </div>
+                     <% if(_bikeDesc !=null && _bikeDesc.FullDescription.Length > 0) { %>
                     <div id="makeAboutContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
                         <div class="grid-8 alpha">
                             <h2><%= _make.MakeName %> Summary</h2>
                             <p class="font14 text-light-grey line-height17">
                                 <span class="preview-main-content">
-                                     <%= _bikeDesc !=null ? Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 700) : ""%>
+                                     <%= Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 700) %>
                                 </span>                                
                                 <span class="preview-more-content hide" style="display: none;">
-                                    <%= _bikeDesc !=null ? _bikeDesc.FullDescription : "" %>
+                                    <%= _bikeDesc.FullDescription %>
                                 </span>
                                 <% if(_bikeDesc.FullDescription.Length > 700) { %>
                                 <a href="javascript:void(0)" class="read-more-bike-preview" rel="nofollow">Read more</a>
@@ -181,7 +182,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-
+                    <% } %>
                     <!-- news control starts here -->
                     <% if (ctrlNews.FetchedRecordsCount > 0)
                        { %>
