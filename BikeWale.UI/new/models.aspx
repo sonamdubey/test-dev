@@ -509,7 +509,8 @@
                 $("#discontinuedMore").show();
                 var xContents = $('#discontinuedMore').contents();
                 xContents[xContents.length - 1].nodeValue = "";
-            }
+            }
+
            <%-- if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");--%>
