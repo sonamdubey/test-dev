@@ -115,77 +115,24 @@
             <div class="clear"></div>            
         </section>
         
-        <section id="makeUpcomingBikesContent" class="container margin-bottom20">
-            <div class="grid-12">
-                <div class="content-box-shadow padding-top20 padding-bottom25">
-                    <h2 class="padding-left20 padding-right20 text-x-black text-bold margin-bottom20">Upcoming <%= _make.MakeName %> Bikes</h2>
-                    <div class="jcarousel-wrapper bike-carousel-wrapper">
-                        <div class="jcarousel">
-                            <ul>
-                                <li>
-                                    <div class="model-preview-image-container margin-bottom15">
-                                        <a href="">
-                                            <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/upcoming/honda-cb500f-420.jpg?20151209054312" title="" alt="" />
-                                        </a>
-                                    </div>
-                                    <a href="" class="block font16 text-bold margin-bottom10 text-black">Harley Davidson Heritage</a>
-                                    <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
-                                    <p class="font16 text-bold margin-bottom15">June 2016</p>
-                                    <p class="font14 text-light-grey margin-bottom5">Expected price</p>
-                                    <div class="font16">
-                                        <span class="fa fa-rupee"></span>&nbsp;<span class="text-bold">50,398</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="model-preview-image-container margin-bottom15">
-                                        <a href="">
-                                            <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cbr1000rr-fireblade-c-abs-125.jpg?20151209184557" title="" alt="" />
-                                        </a>
-                                    </div>
-                                    <a href="" class="block font16 text-bold margin-bottom10 text-black">Harley Davidson Heritage Softail Classic</a>
-                                    <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
-                                    <p class="font16 text-bold margin-bottom15">June 2016</p>
-                                    <p class="font14 text-light-grey margin-bottom5">Expected price</p>
-                                    <div class="font16">
-                                        <span class="fa fa-rupee"></span>&nbsp;<span class="text-bold">50,398</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="model-preview-image-container margin-bottom15">
-                                        <a href="">
-                                            <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/models/honda-cbr250r-sports/red/black-color-std-121.jpg?20151209184646" title="" alt="" />
-                                        </a>
-                                    </div>
-                                    <a href="" class="block font16 text-bold margin-bottom10 text-black">Harley Davidson Heritage</a>
-                                    <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
-                                    <p class="font16 text-bold margin-bottom15">June 2016</p>
-                                    <p class="font14 text-light-grey margin-bottom5">Expected price</p>
-                                    <div class="font16">
-                                        <span class="fa fa-rupee"></span>&nbsp;<span class="text-bold">50,398</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="model-preview-image-container margin-bottom15">
-                                        <a href="">
-                                            <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/upcoming/honda-cb500f-420.jpg?20151209054312" title="" alt="" />
-                                        </a>
-                                    </div>
-                                    <a href="" class="block font16 text-bold margin-bottom10 text-black">Harley Davidson Heritage Softail Classic</a>
-                                    <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
-                                    <p class="font16 text-bold margin-bottom15">June 2016</p>
-                                    <p class="font14 text-light-grey margin-bottom5">Expected price</p>
-                                    <div class="font16">
-                                        <span class="fa fa-rupee"></span>&nbsp;<span class="text-bold">50,398</span>
-                                    </div>
-                                </li>
-                            </ul>
+        <section class="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
+            <div id="makeUpcomingBikesContent" class="container margin-bottom20">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-bottom25">
+                        <h2 class="padding-left20 padding-right20 text-x-black text-bold margin-bottom20">Upcoming <%= _make.MakeName %> Bikes</h2>
+                        <div class="jcarousel-wrapper bike-carousel-wrapper">
+                            <div class="jcarousel">
+                                    <ul>
+                                        <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                                    </ul>
+                                </div>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                            </div>
                         </div>
-                        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                    </div>
                 </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
         </section>
 
         <section class="container">
@@ -337,25 +284,6 @@
             <div class="clear"></div>
         </section>
 
-        <section class="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
-            <div class="container">
-                <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30">Upcoming <%= _make.MakeName %> Bikes</h2>
-                    <div class="content-box-shadow rounded-corner2">
-                        <div class="jcarousel-wrapper upcoming-brand-bikes-container margin-top20">
-                            <div class="jcarousel">
-                                <ul>
-                                    <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
         <section>
             <!--  News Bikes code starts here -->
             <div class="container newBikes-latest-updates-container <%= reviewTabsCnt == 0 ? "hide" : string.Empty %>">
