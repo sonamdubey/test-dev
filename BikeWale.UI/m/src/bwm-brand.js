@@ -100,6 +100,8 @@ $(document).ready(function () {
 
     var tabsLength = $('.overall-specs-tabs-wrapper li').length - 1;
 
+    makeOverallTabsWrapper.find('.overall-specs-tabs-wrapper li').first().addClass('active');
+
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),
             listItemsFooterOffsetTop = listItemsFooter.offset().top,
