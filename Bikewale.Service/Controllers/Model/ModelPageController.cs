@@ -395,6 +395,7 @@ namespace Bikewale.Service.Controllers.Model
                             {
                                 versionId = deafultVersion.VersionId;
                             }
+
                             if (versionId <= 0)
                             {
                                 using (IUnityContainer container = new UnityContainer())
@@ -403,9 +404,18 @@ namespace Bikewale.Service.Controllers.Model
                                     IDealerPriceQuote dealerPQRepository = container.Resolve<IDealerPriceQuote>();
                                     versionId = (int) dealerPQRepository.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
                                 }
-                            }    
-                            objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,
+                            }
+
+                            if (areaId != null)
+                            {
+                                objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,
                                     _dealers.GetDealerQuotation(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId));
+                            }
+                            else
+                            {
+                                objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity, null);
+                            }
+
                             #endregion
                         }
                     }
