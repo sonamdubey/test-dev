@@ -90,6 +90,8 @@ namespace Bikewale.New
                 ////news,videos,revews
                 ctrlNews.TotalRecords = 3;
                 ctrlNews.MakeId = Convert.ToInt32(makeId);
+                ctrlNews.WidgetTitle = _make.MakeName;
+
                 ctrlExpertReviews.TotalRecords = 2;
                 ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
                 ctrlVideos.TotalRecords = 2;
