@@ -8,6 +8,7 @@
     <meta name="description" content="<%= description %>" />
     <meta name="alternate" content="<%= alternate %>" />
     <title><%= title %></title>
+    <link rel="SHORTCUT ICON" href="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
     <!-- #include file="globalStaticFiles.aspx"-->
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate="";
