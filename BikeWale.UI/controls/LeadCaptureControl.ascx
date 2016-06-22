@@ -185,7 +185,6 @@
             leadCapturePopup.show();
             $("#dealer-lead-msg").hide();
             $("div#contactDetailsPopup").show();
-            $("#otpPopup").hide();
             popup.lock();
         });
 
@@ -271,7 +270,7 @@
         self.pageUrl = window.location.href;
         self.clientIP = "";
         self.isRegisterPQ = ko.observable(false);
-        self.isDealerBikes = ko.observable(true);
+        self.isDealerBikes = ko.observable(false);
         self.dealerBikes = ko.observableArray([]);
         self.selectedBike = ko.observable();
         self.campaignId = ko.observable();
@@ -300,13 +299,12 @@
 
                 if(options.isregisterpq!=null)
                     self.isRegisterPQ(options.isregisterpq);
+                
+                if(options.campid!=null)
+                    self.campaignId(options.campid);
 
                 if(options.isdealerbikes!=null && options.isdealerbikes)
                     self.getDealerBikes();
-                    
-
-                if(options.campid!=null)
-                    self.campaignId(options.campid);
 
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;
@@ -358,7 +356,7 @@
                     self.dealerBikes(obj.dealerBikes);
                 }
             }
-        }
+        };
 
         self.generatePQ = function (data, event) {
 
@@ -367,14 +365,17 @@
 
             isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
 
-            var bike = self.selectedBike();
-            if (bike && bike.version && bike.model) {
-                self.versionId(bike.version.versionId);
-                self.modelId(bike.model.modelId);
-            }
-            else {
-                self.versionId(0);
-                self.modelId(0);
+            if(self.isDealerBikes())
+            {
+                var bike = self.selectedBike();
+                if (bike && bike.version && bike.model) {
+                    self.versionId(bike.version.versionId);
+                    self.modelId(bike.model.modelId);
+                }
+                else {
+                    self.versionId(0);
+                    self.modelId(0);
+                }
             }
 
             if (isValidDetails && self.modelId() && self.versionId()) {
@@ -558,7 +559,6 @@
         };
 
         self.validateBike = function () {
-            debugger;
             eleBike =  leadBike;
             if(eleBike!=null && self.selectedBike()!=null)
             {
@@ -570,8 +570,11 @@
                     setError(eleBike, 'Select a bike');
                     return false;
                 }
-            }          
-
+            }
+            else {
+                setError(eleBike, 'Select a bike');
+                return false;
+            }
         };
 
     }
