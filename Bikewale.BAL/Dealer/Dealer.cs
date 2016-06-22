@@ -214,5 +214,25 @@ namespace Bikewale.BAL.Dealer
                 return null;
             }
         }
+
+        /// <summary>
+        /// Craeted by  :   Sumit Kate on 21 Jun 2016
+        /// Description :   Get Popular City Dealer Count
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
+        {
+            try
+            {
+                return dealerRepository.GetPopularCityDealer(makeId, topCount);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
+                objErr.SendMail();
+                return null;
+            }
+        }
     }
 }

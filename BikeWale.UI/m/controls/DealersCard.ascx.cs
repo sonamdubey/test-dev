@@ -1,12 +1,14 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.DAL.Dealer;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -18,11 +20,12 @@ namespace Bikewale.Mobile.Controls
     /// Description : Class to show dealers 
     /// Modified by :   Sumit Kate on 17 Jun 2016
     /// Description :   Added Model Id
+    /// Modified by :   Sumit Kate on 22 Jun 2016
+    /// Description :   Added Repeater to bind the Popular City Dealers when city is not selected
     /// </summary>
     public class DealersCard : UserControl
     {
-        protected Repeater rptDealers;
-
+        protected Repeater rptDealers, rptPopularCityDealers;
         public uint MakeId { get; set; }
         public uint ModelId { get; set; }
         public ushort TopCount { get; set; }
@@ -33,7 +36,7 @@ namespace Bikewale.Mobile.Controls
         public bool IsDiscontinued { get; set; }
 
         protected bool showWidget = false;
-
+        protected bool isCitySelected { get { return CityId > 0; } }
         protected override void OnInit(EventArgs e)
         {
             InitializeComponents();
@@ -57,7 +60,7 @@ namespace Bikewale.Mobile.Controls
         {
             bool isValid = true;
 
-            if (MakeId <= 0 || CityId <= 0)
+            if (MakeId <= 0)
             {
                 isValid = false;
             }
@@ -70,6 +73,8 @@ namespace Bikewale.Mobile.Controls
         /// Description : Function to bind dealers    
         /// Modified by :   Sumit Kate on 17 Jun 2016
         /// Description :   Pass ModelId to get the dealers for Price in city page
+        /// Modified by :   Sumit Kate on 22 Jun 2016
+        /// Description :   If City Id is not passed Get the popular city dealer count
         /// </summary>
         protected void BindDealers()
         {
@@ -85,19 +90,32 @@ namespace Bikewale.Mobile.Controls
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
-
-                    if (_dealers != null && _dealers.Dealers.Count() > 0)
+                    if (isCitySelected)
                     {
-                        makeName = _dealers.MakeName;
-                        cityName = _dealers.CityName;
-                        cityMaskingName = _dealers.CityMaskingName;
-                        makeMaskingName = _dealers.MakeMaskingName;
+                        _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
 
-                        rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
-                        rptDealers.DataBind();
+                        if (_dealers != null && _dealers.Dealers.Count() > 0)
+                        {
+                            makeName = _dealers.MakeName;
+                            cityName = _dealers.CityName;
+                            cityMaskingName = _dealers.CityMaskingName;
+                            makeMaskingName = _dealers.MakeMaskingName;
 
-                        showWidget = true;
+                            rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
+                            rptDealers.DataBind();
+
+                            showWidget = true;
+                        }
+                    }
+                    else
+                    {
+                        IEnumerable<PopularCityDealerEntity> cityDealers = objCache.GetPopularCityDealer(MakeId, TopCount);
+                        if (cityDealers != null && cityDealers.Count() > 0)
+                        {
+                            rptPopularCityDealers.DataSource = cityDealers;
+                            rptPopularCityDealers.DataBind();
+                            showWidget = true;
+                        }
                     }
                 }
             }
