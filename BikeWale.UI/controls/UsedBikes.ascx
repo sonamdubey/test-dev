@@ -9,7 +9,7 @@
         <asp:Repeater runat="server" ID="rptUsedBikeNoCity">
             <ItemTemplate>
                 <div class="grid-4 margin-bottom20">
-                    <a href="<%# Bikewale.Utility.UrlFormatter.UsedBikesUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeMaskingName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName"))) %>"><%= makeName %> Used bikes in <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %></a>
+                    <a href="<%# Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeMaskingName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"CityMaskingName")), Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"CityId")), MakeId) %>"><%= makeName %> Used bikes in <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %></a>
                     <p class="margin-top10"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"AvailableBikes"))) %> bikes available</p>
                 </div>
             </ItemTemplate>
@@ -33,7 +33,7 @@
         </asp:Repeater>        
      <%} %>
          <div class="padding-left10">
-            <a href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), makeMaskingName, cityMaskingName) %>">View all used bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+            <a href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), makeMaskingName, cityMaskingName, MakeId) %>">View all used bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
          </div>
        </div>
     <div class="clear"></div>   

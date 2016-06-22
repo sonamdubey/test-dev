@@ -29,5 +29,7 @@ namespace Bikewale.Entities.UsedBikes
         public uint AvailableBikes { get; set; }
 
         public string CityMaskingName { get; set; }
+
+        public uint CityId { get; set; }
     }
 }

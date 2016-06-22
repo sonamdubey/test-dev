@@ -137,7 +137,8 @@ namespace Bikewale.DAL.UsedBikes
                                     MakeMaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string),
                                     CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
                                     AvailableBikes = !Convert.IsDBNull(dr["AvailableBikes"]) ? Convert.ToUInt32(dr["AvailableBikes"]) : default(UInt32),
-                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string)
+                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string),
+                                    CityId = !Convert.IsDBNull(dr["CityId"]) ? Convert.ToUInt32(dr["CityId"]) : default(UInt32)
                                 });
                             }
                         }

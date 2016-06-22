@@ -73,15 +73,15 @@ namespace Bikewale.Utility
         /// <summary>
         /// Created By Vivek gupta
         /// Date : 22 june 2016        
-        //  Desc : used/bajaj-bikes-in-mumbai/ 
+        //  Desc : used/bajaj-bikes-in-mumbai/#city=10&make=1&dist=0
         /// </summary>
         /// <param name="make"></param>
         /// <param name="city"></param>
         /// <returns></returns>
 
-        public static string UsedBikesUrl(string make, string city)
+        public static string UsedBikesUrlNoCity(string make, string city, uint cityId, uint makeId)
         {
-            return String.Format("/used/{0}-bikes-in-{1}/", make, city);
+            return String.Format("/used/{0}-bikes-in-{1}/#city={2}&make={3}&dist=0", make, city, cityId, makeId);
         }
 
 
@@ -103,17 +103,18 @@ namespace Bikewale.Utility
         /// <summary>
         /// Created By Vivek gupta
         /// Date : 22 june 2016
-        /// Desc : view more used bikes url returned
+        /// Desc : view more used bikes url returned, /used/harleydavidson-bikes-in-pune/#city=12&make=5&dist=0
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="make"></param>
         /// <param name="city"></param>
+        /// <param name="makeId"></param>
         /// <returns></returns>
-        public static string ViewMoreUsedBikes(uint cityId, string make, string city)
+        public static string ViewMoreUsedBikes(uint cityId, string make, string city, uint makeId)
         {
             if (cityId > 0)
             {
-                return String.Format("/used/{0}-bikes-in-{1}/", make, city);
+                return String.Format("/used/{0}-bikes-in-{1}/#city={2}&make={3}&dist=0", make, city, cityId, makeId);
             }
             else
             {
