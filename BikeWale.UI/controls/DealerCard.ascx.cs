@@ -2,11 +2,13 @@
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Common;
 using Bikewale.DAL.Dealer;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -23,7 +25,7 @@ namespace Bikewale.Controls
     /// </summary>
     public class DealerCard : UserControl
     {
-        protected Repeater rptDealers;
+        protected Repeater rptDealers, rptPopularCityDealers;
 
         public uint MakeId { get; set; }
         public uint ModelId { get; set; }
@@ -33,6 +35,7 @@ namespace Bikewale.Controls
         public int LeadSourceId = 25; // DealersCard GetOfferButton
         public int PQSourceId { get; set; }
         public bool IsDiscontinued { get; set; }
+        protected bool isCitySelected { get { return CityId > 0; } }
 
         protected bool showWidget = false;
 
@@ -87,21 +90,35 @@ namespace Bikewale.Controls
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
-
-                    if (_dealers != null && _dealers.Dealers.Count() > 0)
+                    if (isCitySelected)
                     {
-                        makeName = _dealers.MakeName;
-                        cityName = _dealers.CityName;
-                        cityMaskingName = _dealers.CityMaskingName;
-                        makeMaskingName = _dealers.MakeMaskingName;
+                        _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
 
-                        rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
-                        rptDealers.DataBind();
+                        if (_dealers != null && _dealers.Dealers.Count() > 0)
+                        {
+                            makeName = _dealers.MakeName;
+                            cityName = _dealers.CityName;
+                            cityMaskingName = _dealers.CityMaskingName;
+                            makeMaskingName = _dealers.MakeMaskingName;
 
-                        showWidget = true;
+                            rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
+                            rptDealers.DataBind();
+
+                            showWidget = true;
+                        }
+                    }
+                    else
+                    {
+                        IEnumerable<PopularCityDealerEntity> cityDealers = objCache.GetPopularCityDealer(MakeId);
+                        if (cityDealers != null && cityDealers.Count() > 0)
+                        {
+                            rptPopularCityDealers.DataSource = cityDealers.Take(TopCount);
+                            rptPopularCityDealers.DataBind();
+                            showWidget = true;
+                        }
                     }
                 }
+
             }
             catch (Exception err)
             {

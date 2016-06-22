@@ -1,10 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.DealersCard" %>
 <% if (showWidget)
    {
-       %>
+%>
 <div class="margin-right20 margin-left20 border-divider"></div>
 <%
-       if (isCitySelected) { 
+       if (isCitySelected)
+       { 
 %>
 
 <div id="dealersInCityWrapper" class="content-inner-block-2017 font14">
@@ -43,7 +44,9 @@
     </ul>
     <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>">View all dealers<span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
-<% } else { %>
+<% }
+       else
+       { %>
 
 <div class="swiper-container margin-bottom15">
     <!-- dealers when no city selected -->
