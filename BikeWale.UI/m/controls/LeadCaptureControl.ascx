@@ -265,7 +265,7 @@
         self.pageUrl = window.location.href;
         self.clientIP = "";
         self.isRegisterPQ = ko.observable(false);
-        self.isDealerBikes = ko.observable(true);
+        self.isDealerBikes = ko.observable(false);
         self.dealerBikes = ko.observableArray([]);
         self.selectedBike = ko.observable();
         self.campaignId = ko.observable();
@@ -360,14 +360,17 @@
 
             isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
 
-            var bike = self.selectedBike();
-            if (bike && bike.version && bike.model) {
-                self.versionId(bike.version.versionId);
-                self.modelId(bike.model.modelId);
-            }
-            else {
-                self.versionId(0);
-                self.modelId(0);
+            if(self.isDealerBikes())
+            {
+                var bike = self.selectedBike();
+                if (bike && bike.version && bike.model) {
+                    self.versionId(bike.version.versionId);
+                    self.modelId(bike.model.modelId);
+                }
+                else {
+                    self.versionId(0);
+                    self.modelId(0);
+                }
             }
 
             if (isValidDetails && self.modelId() && self.versionId()) {
