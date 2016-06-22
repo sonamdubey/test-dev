@@ -2,7 +2,7 @@
    
 <%if(showWidget) {%>
 <div id="makeUsedBikeContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
-    <h2 class="padding-left10 padding-right10">Recently uploaded <%= makeName %> Used bikes</h2>
+    <h2 class="padding-left10 padding-right10">Recently uploaded Used <%= makeName %> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>
     <!-- when city is not selected -->
     <div class="grid-12 alpha omega text-black">
     <%if(CityId <= 0) {%>    
@@ -25,8 +25,7 @@
                     </a>
                     <p class="margin-top10">
                         <span class="fa fa-rupee"></span> 
-                        <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"BikePrice"))) %></span> in 
-                        <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %>
+                        <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"BikePrice"))) %></span>
                     </p>
                 </div>
             </ItemTemplate>

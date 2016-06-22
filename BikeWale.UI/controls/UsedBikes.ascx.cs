@@ -28,6 +28,7 @@ namespace Bikewale.Controls
         public uint TopCount { get; set; }
         public int CityId { get; set; }
         public string makeName = string.Empty;
+        public string cityName = string.Empty;
         public string makeMaskingName = string.Empty;
         public string cityMaskingName = string.Empty;
 
@@ -90,6 +91,7 @@ namespace Bikewale.Controls
                     if (objMostRecentBikes.Count() > 0)
                     {
                         makeName = objMostRecentBikes.FirstOrDefault().MakeName;
+                        cityName = objMostRecentBikes.FirstOrDefault().CityName;
                         makeMaskingName = objMostRecentBikes.FirstOrDefault().MakeMaskingName;
                         cityMaskingName = objMostRecentBikes.FirstOrDefault().CityMaskingName;
 
