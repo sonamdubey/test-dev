@@ -215,7 +215,7 @@
                     "isregisterpq" : true
                 };
 
-                customerViewModel.setOptions(leadOptions);
+                dleadvm.setOptions(leadOptions);
 
             });
 
@@ -230,7 +230,6 @@
                 $('.priceTable').hide();
                 $('.priceTable[id="' + version + '"]').show();
             }
-
 
             $('.dealer-details-main-content').on('click', function() {
                 $(this).hide();

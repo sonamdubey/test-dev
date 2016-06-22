@@ -579,10 +579,6 @@
     var dleadvm = new leadModel();
     ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
 
-    function ValidateUserDetail(fullName, emailid, mobile) {
-        return dleadvm.validateUserInfo(fullName, emailid, mobile);
-    };
-
 
     function setuserDetails() {
         var cookieName = "_PQUser";
