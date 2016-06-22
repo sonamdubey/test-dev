@@ -189,17 +189,15 @@
                     <BW:LatestNews runat="server" ID="ctrlNews" />
                     <% } %>
                     <!-- news control ends here -->
-
-                    <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-                        <h2 class="padding-left10 padding-right10"><%= _make.MakeName %> Reviews</h2>
-                        <!-- expert review starts-->
-                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
+                     <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                            { %>
-                        <BW:NewExpertReviews runat="server" ID="ctrlExpertReviews" />
-                        <% } %>
-                        <!-- expert review ends-->
-                    </div>
-
+                            <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                                <h2 class="padding-left10 padding-right10"><%= _make.MakeName %> Reviews</h2>
+                                <!-- expert review starts-->                       
+                                <BW:NewExpertReviews runat="server" ID="ctrlExpertReviews" />                       
+                                <!-- expert review ends-->
+                            </div>
+                     <% } %>
                     <% if (ctrlVideos.FetchedRecordsCount > 0)
                        { %>
                     <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
