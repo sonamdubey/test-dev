@@ -109,6 +109,8 @@ $(document).ready(function () {
         overallMakeDetailsFooter = $('#overallMakeDetailsFooter'),
         makeTabsContentWrapper = $('#makeTabsContentWrapper');
 
+    makeOverallTabs.find('.overall-specs-tabs-wrapper a').first().addClass('active');
+
     $(window).scroll(function () {
         var windowScrollTop = $(window).scrollTop(),
             makeOverallTabsOffsetTop = makeOverallTabs.offset().top,

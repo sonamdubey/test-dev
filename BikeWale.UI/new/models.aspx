@@ -193,9 +193,10 @@
                     <div id="makeOverallTabsWrapper">
                         <div id="makeOverallTabs">
                             <div class="overall-specs-tabs-wrapper">
-                                <a class="active" href="#makeAboutContent" rel="nofollow">About</a>
+                                <a href="#makeAboutContent" rel="nofollow">About</a>
                                 <a href="#modelNewsContent" rel="nofollow">News</a>
                                 <a href="#makeReviewsContent" rel="nofollow">Reviews</a>
+                                <a href="#makeVideosContent" rel="nofollow">Videos</a>
                                 <a href="#makeDealersContent" rel="nofollow">Dealers</a>
                                 <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
                             </div>
@@ -246,14 +247,15 @@
                         <BW:NewExpertReviews runat="server" ID="ctrlExpertReviews" />
                         <% } %>
                         <!-- expert review ends-->
-                        <!-- user reviews control -->
                     </div>
 
-                    <!-- videos control starts -->
-                         <% if(ctrlVideos.FetchedRecordsCount > 0){ %>
+                    <% if(ctrlVideos.FetchedRecordsCount > 0){ %>
+                    <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <!-- videos control starts -->
                          <BW:Videos runat="server" ID="ctrlVideos" />
-                         <% } %>
-                        <!-- Videos review ends-->
+                        <!-- videos control ends -->
+                    </div>
+                    <% } %>
 
                     <div id="makeDealersContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
                         <h2 class="padding-left10 padding-right10"><%= _make.MakeName %> Dealers in India</h2>
@@ -262,30 +264,58 @@
                                 <ul>
                                     <li>
                                         <a href="" class="dealer-jcarousel-image-preview">
-                                            <span></span>
+                                            <span class="city-sprite mumbai-icon"></span>
                                         </a>
                                         <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Mumbai</a></h3>
                                         <p>24 showrooms</p>
                                     </li>
                                     <li>
                                         <a href="" class="dealer-jcarousel-image-preview">
-                                            <span></span>
+                                            <span class="city-sprite pune-icon"></span>
                                         </a>
                                         <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Pune</a></h3>
                                         <p>24 showrooms</p>
                                     </li>
                                     <li>
                                         <a href="" class="dealer-jcarousel-image-preview">
-                                            <span></span>
+                                            <span class="city-sprite bangalore-icon"></span>
                                         </a>
-                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Bengaluru</a></h3>
+                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Bangalore</a></h3>
                                         <p>24 showrooms</p>
                                     </li>
                                     <li>
                                         <a href="" class="dealer-jcarousel-image-preview">
-                                            <img />
+                                            <span class="city-sprite delhi-icon"></span>
                                         </a>
-                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Mumbai</a></h3>
+                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Delhi</a></h3>
+                                        <p>24 showrooms</p>
+                                    </li>
+                                    <li>
+                                        <a href="" class="dealer-jcarousel-image-preview">
+                                            <span class="city-sprite chennai-icon"></span>
+                                        </a>
+                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Chennai</a></h3>
+                                        <p>24 showrooms</p>
+                                    </li>
+                                    <li>
+                                        <a href="" class="dealer-jcarousel-image-preview">
+                                            <span class="city-sprite hyderabad-icon"></span>
+                                        </a>
+                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Hyderabad</a></h3>
+                                        <p>24 showrooms</p>
+                                    </li>
+                                    <li>
+                                        <a href="" class="dealer-jcarousel-image-preview">
+                                            <span class="city-sprite kolkata-icon"></span>
+                                        </a>
+                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Kolkata</a></h3>
+                                        <p>24 showrooms</p>
+                                    </li>
+                                    <li>
+                                        <a href="" class="dealer-jcarousel-image-preview">
+                                            <span class="city-sprite lucknow-icon"></span>
+                                        </a>
+                                        <h3 class="margin-bottom10"><a href="" class="text-default"><%= _make.MakeName %> dealers in Lucknow</a></h3>
                                         <p>24 showrooms</p>
                                     </li>
                                 </ul>
