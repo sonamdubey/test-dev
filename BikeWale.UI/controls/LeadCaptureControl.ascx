@@ -185,7 +185,6 @@
             leadCapturePopup.show();
             $("#dealer-lead-msg").hide();
             $("div#contactDetailsPopup").show();
-            $("#otpPopup").hide();
             popup.lock();
         });
 
@@ -300,13 +299,12 @@
 
                 if(options.isregisterpq!=null)
                     self.isRegisterPQ(options.isregisterpq);
+                
+                if(options.campid!=null)
+                    self.campaignId(options.campid);
 
                 if(options.isdealerbikes!=null && options.isdealerbikes)
                     self.getDealerBikes();
-                    
-
-                if(options.campid!=null)
-                    self.campaignId(options.campid);
 
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;
@@ -358,7 +356,7 @@
                     self.dealerBikes(obj.dealerBikes);
                 }
             }
-        }
+        };
 
         self.generatePQ = function (data, event) {
 
@@ -558,7 +556,6 @@
         };
 
         self.validateBike = function () {
-            debugger;
             eleBike =  leadBike;
             if(eleBike!=null && self.selectedBike()!=null)
             {
@@ -570,8 +567,11 @@
                     setError(eleBike, 'Select a bike');
                     return false;
                 }
-            }          
-
+            }
+            else {
+                setError(eleBike, 'Select a bike');
+                return false;
+            }
         };
 
     }
