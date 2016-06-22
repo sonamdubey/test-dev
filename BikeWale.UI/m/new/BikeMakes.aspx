@@ -184,7 +184,7 @@
                 <div id="makeOverallTabsWrapper">
                     <div id="overallSpecsTab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
-                            <li class="active" data-tabs="#makeAboutContent"><h3>About</h3></li>
+                            <li data-tabs="#makeAboutContent"><h3>About</h3></li>
                             <li data-tabs="#makeNewsContent"><h3>News</h3></li>
                             <li data-tabs="#makeReviewsContent"><h3>Reviews</h3></li>
                             <li data-tabs="#makeDealersContent"><h3>Dealers</h3></li>
@@ -289,27 +289,78 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide bike-carousel-swiper dealer-no-city">
                                 <a href="">
-                                    <span></span>
+                                    <span class="dealer-city-image-preview">
+                                        <span class="city-sprite mumbai-icon"></span>
+                                    </span>
                                     <h4 class="font14 text-bold text-default margin-bottom10"><%= _make.MakeName %> dealers in Mumbai</h4>
                                     <p class="font14 text-black">24 showrooms</p>
                                 </a>
                             </div>
                             <div class="swiper-slide bike-carousel-swiper dealer-no-city">
                                 <a href="">
-                                    <span></span>
+                                    <span class="dealer-city-image-preview">
+                                        <span class="city-sprite pune-icon"></span>
+                                    </span>
                                     <h4 class="font14 text-bold text-default margin-bottom10"><%= _make.MakeName %> dealers in Pune</h4>
                                     <p class="font14 text-black">30 showrooms</p>
                                 </a>
                             </div>
                             <div class="swiper-slide bike-carousel-swiper dealer-no-city">
                                 <a href="">
-                                    <span></span>
-                                    <h4 class="font14 text-bold text-default margin-bottom10"><%= _make.MakeName %> dealers in Mumbai</h4>
+                                    <span class="dealer-city-image-preview">
+                                        <span class="city-sprite bangalore-icon"></span>
+                                    </span>
+                                    <h4 class="font14 text-bold text-default margin-bottom10"><%= _make.MakeName %> dealers in Bangalore</h4>
                                     <p class="font14 text-black">24 showrooms</p>
                                 </a>
                             </div>
-                        </div>
-                    </div>--%>
+                            <div class="swiper-slide bike-carousel-swiper dealer-no-city">
+                                <a href="">
+                                    <span class="dealer-city-image-preview">
+                                        <span class="city-sprite delhi-icon"></span>
+                                    </span>
+                                    <h4 class="font14 text-bold text-default margin-bottom10"><%= _make.MakeName %> dealers in Delhi</h4>
+                                    <p class="font14 text-black">24 showrooms</p>
+                                </a>
+                            </div>
+                            <div class="swiper-slide bike-carousel-swiper dealer-no-city">
+                                <a href="">
+                                    <span class="dealer-city-image-preview">
+                                        <span class="city-sprite chennai-icon"></span>
+                                    </span>
+                                    <h4 class="font14 text-bold text-default margin-bottom10"><%= _make.MakeName %> dealers in Chennai</h4>
+                                    <p class="font14 text-black">30 showrooms</p>
+                                </a>
+                            </div>
+                            <div class="swiper-slide bike-carousel-swiper dealer-no-city">
+                                <a href="">
+                                    <span class="dealer-city-image-preview">
+                                        <span class="city-sprite hyderabad-icon"></span>
+                                    </span>
+                                    <h4 class="font14 text-bold text-default margin-bottom10"><%= _make.MakeName %> dealers in Hyderabad</h4>
+                                    <p class="font14 text-black">24 showrooms</p>
+                                </a>
+                            </div>
+                            <div class="swiper-slide bike-carousel-swiper dealer-no-city">
+                                <a href="">
+                                    <span class="dealer-city-image-preview">
+                                        <span class="city-sprite kolkata-icon"></span>
+                                    </span>
+                                    <h4 class="font14 text-bold text-default margin-bottom10"><%= _make.MakeName %> dealers in Kolkata</h4>
+                                    <p class="font14 text-black">30 showrooms</p>
+                                </a>
+                            </div>
+                            <div class="swiper-slide bike-carousel-swiper dealer-no-city">
+                                <a href="">
+                                    <span class="dealer-city-image-preview">
+                                        <span class="city-sprite lucknow-icon"></span>
+                                    </span>
+                                    <h4 class="font14 text-bold text-default margin-bottom10"><%= _make.MakeName %> dealers in Lucknow</h4>
+                                    <p class="font14 text-black">24 showrooms</p>
+                                </a>
+                            </div>
+                        </div>--%>
+                    </div>
                     <div class="padding-right20 padding-left20">
                         <a href="javascript:void(0)" class="font14">View all dealers<span class="bwmsprite blue-right-arrow-icon"></span></a>
                     </div>

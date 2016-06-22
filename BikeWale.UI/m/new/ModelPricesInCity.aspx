@@ -153,7 +153,7 @@
                     "isregisterpq" : true
                 };
 
-                customerViewModel.setOptions(leadOptions);
+                dleadvm.setOptions(leadOptions);
 
             });
 
