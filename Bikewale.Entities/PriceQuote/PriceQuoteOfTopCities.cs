@@ -1,7 +1,9 @@
 ﻿///Created By Vivek Gupta on 20-05-2016
 ///This entity is used to carry data for top city prices
+using System;
 namespace Bikewale.Entities.PriceQuote
 {
+    [Serializable]
     public class PriceQuoteOfTopCities
     {
         public string CityName { get; set; }
