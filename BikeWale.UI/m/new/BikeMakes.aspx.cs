@@ -22,13 +22,14 @@ namespace Bikewale.Mobile
     public class BikeMakes : PageBase
     {
         protected MUpcomingBikes ctrlUpcomingBikes;
-        protected NewsWidget ctrlNews;
-        protected ExpertReviewsWidget ctrlExpertReviews;
-        protected VideosWidget ctrlVideos;
+        protected NewNewsWidget ctrlNews;
+        protected NewExpertReviewsWidget ctrlExpertReviews;
+        protected NewVideosWidget ctrlVideos;
         protected MMostPopularBikes ctrlMostPopularBikes;
         protected Repeater rptMostPopularBikes, rptDiscontinued;
-
+        protected DealersCard ctrlDealerCard;
         protected bool isDescription = false;
+
         protected Literal ltrDefaultCityName;
         protected int fetchedRecordsCount = 0;
         protected string makeId = String.Empty;
@@ -45,7 +46,7 @@ namespace Bikewale.Mobile
         private string makeMaskingName;
         protected Int64 _minModelPrice;
         protected Int64 _maxModelPrice;
-
+        protected uint cityId = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().CityId;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -65,8 +66,9 @@ namespace Bikewale.Mobile
                 ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
 
                 ////news,videos,revews
-                ctrlNews.TotalRecords = 3;
+                ctrlNews.TotalRecords = 2;
                 ctrlNews.MakeId = Convert.ToInt32(makeId);
+                ctrlNews.WidgetTitle = _make.MakeName;
 
                 ctrlExpertReviews.TotalRecords = 3;
                 ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
@@ -75,6 +77,12 @@ namespace Bikewale.Mobile
                 ctrlVideos.TotalRecords = 3;
                 ctrlVideos.MakeMaskingName = makeMaskingName;
                 ctrlVideos.MakeId = Convert.ToInt32(makeId);
+                
+                ctrlDealerCard.CityId = cityId;
+                ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
+                ctrlDealerCard.makeMaskingName = makeMaskingName;
+                ctrlDealerCard.makeName = _make.MakeName;
+                ctrlDealerCard.TopCount = 6;
                 BindDiscountinuedBikes();
             }
         }

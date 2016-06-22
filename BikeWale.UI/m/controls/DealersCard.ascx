@@ -55,7 +55,9 @@
             <ItemTemplate>
                 <div class="swiper-slide bike-carousel-swiper dealer-no-city">
                     <a href="<%# String.Format("/m/{0}-bikes/dealers-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>">
-                        <span></span>
+                        <span class="dealer-city-image-preview">
+                            <span class="city-sprite <%# DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName") %>-icon"></span>
+                        </span>
                         <h4 class="font14 text-bold text-default margin-bottom10"><%= makeName %> dealers in <%# DataBinder.Eval(Container.DataItem,"CityBase.CityName") %></h4>
                         <p class="font14 text-black"><%# DataBinder.Eval(Container.DataItem,"NumOfDealers") %> showrooms</p>
                     </a>

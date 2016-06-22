@@ -25,7 +25,7 @@
         OGImage = modelImage;
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <script type="text/javascript">
+    <script type="text/javascript">vi
         var dealerId = '<%= dealerId%>';
         var pqId = '<%= pqId%>';
         var versionId = '<%= versionId%>';
