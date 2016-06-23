@@ -279,8 +279,11 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.ModelName = objModelPage.ModelDetails.ModelName;
                 objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
                 objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
-                objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
                 objDTOModelPage.IsUpcoming = objModelPage.ModelDetails.Futuristic;
+                if (!objDTOModelPage.IsUpcoming)
+                {
+                    objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
+                }
 
                 if (objModelPage.objOverview != null)
                 {
