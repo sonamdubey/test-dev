@@ -29,9 +29,11 @@ body.listing-navbar-active #bikeByMakesListing, body.listing-navbar-active #bike
 .swiper-wrapper.upcoming-carousel-content .swiper-slide:first-child{ margin-left:10px; }
 #makeOverallTabsWrapper { height:44px; }
 .overall-specs-tabs-container { width:100%; display:block; background:#fff; overflow-x:scroll; z-index:2; }
+.overall-specs-tabs-container::-webkit-scrollbar {width: 0;height: 0;}
+.overall-specs-tabs-container::-webkit-scrollbar-track, .overall-specs-tabs-container::-webkit-scrollbar-thumb {display:none;}
 .overall-specs-tabs-container.fixed-tab-nav { position:fixed; top:0; left:0; }
 .overall-specs-tabs-wrapper { width:100%; display:table; border-bottom:1px solid #e2e2e2; }
-.overall-specs-tabs-wrapper li { padding:10px 15px; display:table-cell; text-align:center; white-space:nowrap; color:#82888b;}
+.overall-specs-tabs-wrapper li { padding:10px 15px; display:table-cell; text-align:center; white-space:nowrap; color:#82888b;cursor:pointer;}
 #makeTabsContentWrapper .overall-specs-tabs-wrapper li h3 { margin-bottom:0; font-weight:normal; }
 .overall-specs-tabs-wrapper li.active { border-bottom:3px solid #ef3f30; color:#4d5057; }
 #makeTabsContentWrapper .overall-specs-tabs-wrapper li.active h3 { font-weight:bold; }

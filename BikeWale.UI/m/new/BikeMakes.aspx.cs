@@ -4,6 +4,7 @@ using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
@@ -21,7 +22,7 @@ namespace Bikewale.Mobile
 {
     public class BikeMakes : PageBase
     {
-        protected MUpcomingBikes ctrlUpcomingBikes;
+        protected NewMUpcomingBikes ctrlUpcomingBikes;
         protected NewNewsWidget ctrlNews;
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected NewVideosWidget ctrlVideos;
@@ -75,15 +76,17 @@ namespace Bikewale.Mobile
                 ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
                 ctrlExpertReviews.MakeMaskingName = makeMaskingName;
 
-                ctrlVideos.TotalRecords = 3;
+                ctrlVideos.TotalRecords = 1;
                 ctrlVideos.MakeMaskingName = makeMaskingName;
                 ctrlVideos.MakeId = Convert.ToInt32(makeId);
-                
+
                 ctrlDealerCard.CityId = cityId;
                 ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
                 ctrlDealerCard.makeMaskingName = makeMaskingName;
                 ctrlDealerCard.makeName = _make.MakeName;
                 ctrlDealerCard.TopCount = 6;
+                ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_MakePage_GetOffersFromDealer;
+                ctrlDealerCard.LeadSourceId = 30;
                 BindDiscountinuedBikes();
             }
         }
@@ -105,16 +108,19 @@ namespace Bikewale.Mobile
                             ;
                     var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
                     bikes = objCache.GetDiscontinuedBikeModelsByMake(Convert.ToUInt16(makeId));
-                    fetchedRecordsCount = bikes.Count();
-                    foreach (var bike in bikes)
-                    {
-                        bike.Href = string.Format("/m/{0}-bikes/{1}/", _make.MaskingName, bike.ModelMasking);
-                        bike.BikeName = string.Format("{0} {1}", _make.MakeName, bike.ModelName);
-                    }
+
                     if (bikes != null && bikes.Count() > 0)
                     {
+                        foreach (var bike in bikes)
+                        {
+                            bike.Href = string.Format("/m/{0}-bikes/{1}/", _make.MaskingName, bike.ModelMasking);
+                            bike.BikeName = string.Format("{0} {1}", _make.MakeName, bike.ModelName);
+                        }
+
                         rptDiscontinued.DataSource = bikes;
                         rptDiscontinued.DataBind();
+                        fetchedRecordsCount = bikes.Count();
+
                     }
                 }
             }

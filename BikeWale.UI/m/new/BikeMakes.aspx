@@ -1,6 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.BikeMakes" EnableViewState="false" %>
 
-<%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
+<%--<%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>--%>
+<%@ Register Src="~/m/controls/NewMUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
+
 <%--<%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>--%>
 <%@ Register Src="/m/controls/NewNewsWidget.ascx" TagName="News" TagPrefix="BW" %>
 <%--<%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>--%>
@@ -179,17 +181,21 @@
                 </div>
             </div>
         </section>--%>
-
-         <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+        <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
+           { %>
+        <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+        <%} %>
 
         <section>
             <div id="makeTabsContentWrapper" class="container bg-white clearfix box-shadow margin-bottom20">
                 <div id="makeOverallTabsWrapper">
                     <div id="overallSpecsTab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
+                             <% if (_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) { %>
                             <li data-tabs="#makeAboutContent">
                                 <h3>About</h3>
                             </li>
+                            <% } %>
                             <% if (ctrlNews.FetchedRecordsCount > 0)
                                {%>
                             <li data-tabs="#makeNewsContent">
@@ -218,47 +224,50 @@
                     </div>
                 </div>
 
-                <div id="makeAboutContent" class="bw-model-tabs-data padding-top15">
+                <% if (_bikeDesc != null && _bikeDesc.FullDescription.Length > 0)
+                   { %>
+                <div id="makeAboutContent" class="bw-model-tabs-data padding-top15 padding-bottom15 border-solid-bottom">
                     <div class="margin-bottom20 padding-right20 padding-left20">
                         <h2>About <%= _make.MakeName %></h2>
                         <p class="font14 text-light-grey line-height17 margin-bottom15">
-                            <span class="model-preview-main-content">After number of spy pictures doing the round of the internet, Bajaj Motorcycles has finally 
-                            launched its first fully-faired motorcycle, the Pulsar RS 200 for the Indian market. Previously 
-                            touted to be called as the Pulsar SS200, this bike has been the most anticipated...
+                            <span class="model-preview-main-content">
+                                <%= Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 700) %>
                             </span>
-                            <span class="model-preview-more-content">After number of spy pictures doing the round of the internet, Bajaj Motorcycles has finally 
-                            launched its first fully-faired motorcycle, the Pulsar RS 200 for the Indian market. Previously 
-                            touted to be called as the Pulsar SS200, this bike has been the most anticipated launch from 
-                            the company.<br />
-                                <br />
-                                Marketed as the fastest Pulsar yet, the Pulsar RS200 designed to be a compact sportsbike
-                            and features clip-on handlebars. Unlike other fully-faired motorcycle like the Yamaha YZF-R15,
-                            the RS200 doesn’t have as aggressive riding stance as of a super sport motorcycle.
+                            <span class="model-preview-more-content">
+                                <%= _bikeDesc.FullDescription %>
                             </span>
+                            <% if (_bikeDesc.FullDescription.Length > 700)
+                               { %>
                             <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
+                            <% } %>
                         </p>
                     </div>
                     <div class="margin-bottom20 text-center">
-                        <div style="width: 300px; height: 250px; background: #eee; margin: 0 auto;"></div>
+                        <!-- #include file="/ads/Ad300x250.aspx" -->
                     </div>
                 </div>
-                <div class="margin-top20 margin-right20 margin-left20 border-divider"></div>
+                <% } %>
                 <% if (ctrlNews.FetchedRecordsCount > 0)
                    {%>
                 <BW:News runat="server" ID="ctrlNews" />
                 <%} %>
-                
 
                 <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                    { %>
-                <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                <%} %>
-                <div class="margin-top20 margin-right20 margin-left20 border-divider"></div>
+                <div class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14" id="makeReviewsContent">
+                    <h2><%=_make.MakeName %> Reviews</h2>
+                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                </div>
+                <% } %>
+                <%if (ctrlVideos.FetchedRecordsCount > 0)
+                  { %>
+                <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
+                    <h2><%= _make.MakeName %> Videos</h2>
+                    <BW:Videos runat="server" ID="ctrlVideos" />
+                </div>
+                <% } %>
 
-                <% if(ctrlVideos.FetchedRecordsCount > 0){ %>
-                <h2><%= _make.MakeName %> Videos</h2>
-                <BW:Videos runat="server" ID="ctrlVideos" />
-                <%} %>
+                <% if (ctrlDealerCard.showWidget) { %>
                 <div id="makeDealersContent" class="bw-model-tabs-data padding-top15 font14">
                     <% if (cityId == 0)
                        { %>
@@ -266,8 +275,7 @@
                     <%} %>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                 </div>
-
-                <div class="margin-top20 margin-right20 margin-left20 border-divider"></div>
+                <% }  %>
                 <div id="makeSpecsFooter"></div>
             </div>
         </section>
@@ -351,7 +359,7 @@
         </section>--%>
         <!--  News, reviews and videos code ends here -->
 
-        <section class="<%= (isDescription)? "": "hide" %>">
+        <%--<section class="<%= (isDescription)? "": "hide" %>">
             <!--  About code starts here -->
             <div class="container">
                 <div class="grid-12">
@@ -370,7 +378,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
-        </section>
+        </section>--%>
         <!--  About code ends here -->
 
         <section>
