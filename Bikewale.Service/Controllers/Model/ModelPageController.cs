@@ -388,26 +388,29 @@ namespace Bikewale.Service.Controllers.Model
                                 pqOnRoad = new PQOnRoadPrice();
                                 getPQ = new PQByCityArea();
                                 pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
-                            }
-                            var deafultVersion = pqEntity.VersionList.FirstOrDefault(i => i.IsDealerPriceQuote);
-                            int versionId = 0;
-                            if (deafultVersion != null)
-                            {
-                                versionId = deafultVersion.VersionId;
-                            }
+                            }                            
 
-                            if (versionId <= 0)
+                            if (areaId != null && !objModelPage.ModelDetails.Futuristic)
                             {
-                                using (IUnityContainer container = new UnityContainer())
+                                int versionId = 0;
+                                if (pqEntity != null && pqEntity.VersionList != null && pqEntity.VersionList.Count() > 0)
                                 {
-                                    container.RegisterType<IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
-                                    IDealerPriceQuote dealerPQRepository = container.Resolve<IDealerPriceQuote>();
-                                    versionId = (int) dealerPQRepository.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
+                                    var deafultVersion = pqEntity.VersionList.FirstOrDefault(i => i.IsDealerPriceQuote);
+                                    if (deafultVersion != null)
+                                    {
+                                        versionId = deafultVersion.VersionId;
+                                    }
                                 }
-                            }
 
-                            if (areaId != null)
-                            {
+                                if (versionId <= 0)
+                                {
+                                    using (IUnityContainer container = new UnityContainer())
+                                    {
+                                        container.RegisterType<IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
+                                        IDealerPriceQuote dealerPQRepository = container.Resolve<IDealerPriceQuote>();
+                                        versionId = (int)dealerPQRepository.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
+                                    }
+                                }
                                 objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,
                                     _dealers.GetDealerQuotation(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId));
                             }
