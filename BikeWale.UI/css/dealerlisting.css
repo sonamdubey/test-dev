@@ -47,7 +47,7 @@ a.text-black:hover { text-decoration:none; }
 #dealerDetailsSliderCard::-webkit-scrollbar-track {background: #fff;}
 #dealerDetailsSliderCard::-webkit-scrollbar-thumb {background: #ddd;}
 #dealerDetailsSliderCard::-webkit-scrollbar-thumb:hover {background: #bbb;}
-#dealersList li.dummy-card { height:350px; border-top:0; }
+#dealersList li.dummy-card { height:250px; border-top:0; }
 .cross-lg-lgt-grey:hover { background-position: -36px -252px; }
 #dealerDetailsSliderCard .featured-tag { top:-10px; }
 .text-dark-black { color:#1a1a1a; }
