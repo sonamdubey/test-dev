@@ -49,6 +49,7 @@ namespace Bikewale.Mobile
         protected Int64 _minModelPrice;
         protected Int64 _maxModelPrice;
         protected uint cityId = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().CityId;
+        protected string cityName = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().City;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -85,6 +86,8 @@ namespace Bikewale.Mobile
                 ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
                 ctrlDealerCard.makeMaskingName = makeMaskingName;
                 ctrlDealerCard.makeName = _make.MakeName;
+                ctrlDealerCard.cityName = cityName;
+
                 ctrlDealerCard.TopCount = 6;
                 ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_MakePage_GetOffersFromDealer;
                 ctrlDealerCard.LeadSourceId = 30;

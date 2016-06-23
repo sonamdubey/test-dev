@@ -203,13 +203,7 @@
                 <% } %>
 
                 <% if (ctrlDealerCard.showWidget) { %>
-                <div id="makeDealersContent" class="bw-model-tabs-data padding-top15 padding-bottom20 font14">
-                    <% if (cityId == 0)
-                       { %>
-                    <h2 class="padding-right20 padding-left20"><%= _make.MakeName %> dealers in India</h2>
-                    <%} %>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-                </div>
                 <% }  %>
                 <div id="makeSpecsFooter"></div>
             </div>

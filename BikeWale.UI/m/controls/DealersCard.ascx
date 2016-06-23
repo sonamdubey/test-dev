@@ -6,8 +6,8 @@
        if (isCitySelected)
        { 
 %>
-<div id="makeDealersContent" class="bw-model-tabs-data padding-top15 font14">
-    <h2 class="padding-right20 padding-left20"><%= makeName %> dealers in India</h2>
+<div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+    <h2 class="padding-right20 padding-left20"><%= makeName %> dealers in <%= cityName %></h2>
     <div class="swiper-container margin-bottom15">
         <!-- dealers by city -->
         <div class="swiper-wrapper">
@@ -21,20 +21,23 @@
                         <% if (!IsDiscontinued)
                            { %>
                         <input type="button" data-leadsourceid="<%= LeadSourceId %>" data-pqsourceid="<%= PQSourceId %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# (DataBinder.Eval(Container.DataItem,"objArea")!=null) ? DataBinder.Eval(Container.DataItem,"objArea.AreaName") : "" %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>"
-                          data-camp-id="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>"   class="margin-top15 btn btn-white font14 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers" />
+                            data-camp-id="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" class="margin-top15 btn btn-white font14 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="Get offers" />
                         <%} %>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
         </div>
     </div>
-</div>
-<div class="padding-right20 padding-left20">
-    <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>">View all dealers<span class="bwmsprite blue-right-arrow-icon"></span></a>
+
+    <div class="padding-right20 padding-left20">
+        <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>">View all dealers<span class="bwmsprite blue-right-arrow-icon font14"></span></a>
+    </div>
 </div>
 <% }
        else
        { %>
+
+<h2 class="padding-right20 padding-left20 padding-top15"><%= makeName %> dealers in India</h2>
 
 <div class="swiper-container margin-bottom15">
     <!-- dealers when no city selected -->
