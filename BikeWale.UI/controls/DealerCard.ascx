@@ -62,7 +62,7 @@
                                 <span class="city-sprite <%# DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName") %>-icon"></span>
                             </a>
                             <h3 class="margin-bottom10"><a href="<%# String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>" class="text-default"><%= makeName %> dealers in <%# DataBinder.Eval(Container.DataItem,"CityBase.CityName") %></a></h3>
-                            <p><%# DataBinder.Eval(Container.DataItem,"NumOfDealers") %> showrooms</p>
+                            <p><%# DataBinder.Eval(Container.DataItem,"NumOfDealers") %> <%# Convert.ToUInt16(DataBinder.Eval(Container.DataItem,"NumOfDealers")) > 1 ? "showrooms" : "showroom" %></p>
                         </li>
                     </ItemTemplate>
                 </asp:Repeater>
