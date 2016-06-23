@@ -1,92 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.LeadCaptureControl" %>
 
 <style>
-    #leadCapturePopup .leadCapture-close-btn {
-        z-index: 2;
-    }
-
-    #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {
-        display: none;
-    }
-
-    .btn-grey {
-        background: #fff;
-        color: #82888b;
-        border: 1px solid #82888b;
-    }
-
-        .btn-grey:hover {
-            background: #82888b;
-            color: #fff;
-            text-decoration: none;
-            border: 1px solid #82888b;
-        }
-
-    #notifyAvailabilityContainer {
-        min-height: 320px;
-        background: #fff;
-        margin: 0 auto;
-        padding: 10px;
-        position: fixed;
-        top: 10%;
-        right: 5%;
-        left: 5%;
-        z-index: 10;
-    }
-
-    #notify-form .grid-12 {
-        padding: 10px 20px;
-    }
-
-    .personal-info-notify-container input {
-        margin: 0 auto;
-    }
-
-    .notify-offers-list {
-        list-style: disc;
-        margin-left: 10px;
-    }
-
-    #notifyAvailabilityContainer .notify-close-btn {
-        z-index: 2;
-    }
-
-    #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {
-        display: none;
-    }
-
-    .float-button {
-        background-color: #f5f5f5;
-        padding: 10px;
-    }
-
-        .float-button.float-fixed {
-            position: fixed;
-            bottom: 0;
-            z-index: 8;
-            left: 0;
-            right: 0;
-        }
-
-    #getMobile {
-        padding: 9px 40px;
-    }
-
-    .mobile-prefix {
-        position: absolute;
-        padding: 10px 13px 13px;
-        color: #999;
-        z-index: 2;
-    }
-
-    .thankyou-icon {
-        width: 48px;
-        height: 58px;
-        background-position: -137px -404px;
-    }
-
-  #brandSearchBar { padding:0; background: #f5f5f5; z-index: 11; position: fixed; left: 100%; top: 0; overflow-y: scroll; width: 100%; height: 100%;}#brandSearchBar li { text-align:left;border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor: pointer;}#brandSearchBar li:hover { background: #ededed; }.dealer-brand-wrapper { display:none; }.bwm-dealer-brand-box .back-arrow-box { height: 30px; width: 40px; position: absolute; top: 5px; z-index: 11; cursor: pointer; }.bwm-dealer-brand-box span.back-long-arrow-left {position: absolute;top: 7px;left: 10px;}.bwm-dealer-brand-box .back-arrow-box {position: absolute;left: 5px;}.bwm-dealer-brand-box .form-control {padding: 10px 50px;}.activeBrand {font-weight: bold;background-color: #ddd;}.dealer-search-brand-form { padding:10px 25px 10px 10px; text-align:left; cursor:pointer; background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; text-align:left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-radius:2px;border: 1px solid #ccc; }.dealer-search-brand { width:100%; height: 40px;}.border-red { border:1px solid #f00 !important; }
-
+    #leadCapturePopup .bw-blackbg-tooltip,#leadCapturePopup .error-icon,.dealer-brand-wrapper{display:none}#leadCapturePopup .leadCapture-close-btn{z-index:2}.btn-grey{background:#fff;color:#82888b;border:1px solid #82888b}.btn-grey:hover{background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b}#notifyAvailabilityContainer{min-height:320px;background:#fff;margin:0 auto;padding:10px;position:fixed;top:10%;right:5%;left:5%;z-index:10}#notify-form .grid-12{padding:10px 20px}.personal-info-notify-container input{margin:0 auto}.notify-offers-list{list-style:disc;margin-left:10px}#notifyAvailabilityContainer .notify-close-btn{z-index:2}.float-button{background-color:#f5f5f5;padding:10px}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0}#getMobile{padding:9px 40px}.mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999;z-index:2}.thankyou-icon{width:48px;height:58px;background-position:-137px -404px}#brandSearchBar{padding:0;background:#f5f5f5;z-index:11;position:fixed;left:100%;top:0;overflow-y:scroll;width:100%;height:100%}#brandSearchBar li{text-align:left;border-top:1px solid #ccc;font-size:14px;padding:15px 10px;color:#333;cursor:pointer}#brandSearchBar li:hover{background:#ededed}.bwm-dealer-brand-box .back-arrow-box{height:30px;width:40px;top:5px;z-index:11;cursor:pointer}.bwm-dealer-brand-box span.back-long-arrow-left{position:absolute;top:7px;left:10px}.bwm-dealer-brand-box .back-arrow-box{position:absolute;left:5px}.bwm-dealer-brand-box .form-control{padding:10px 50px}.activeBrand{font-weight:700;background-color:#ddd}.dealer-search-brand-form{padding:10px 25px 10px 10px;cursor:pointer;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) 96% 50% no-repeat #fff;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:2px;border:1px solid #ccc}.dealer-search-brand{width:100%;height:40px}.border-red{border:1px solid red!important}
 </style>
 <!-- Lead Capture pop up start  -->
 <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
@@ -96,7 +11,7 @@
             <h2 class="margin-top10 margin-bottom10">Provide contact details</h2>
             <p class="text-light-grey margin-bottom10">Dealership will get back to you with offers</p>
 
-           
+
             <div class="personal-info-form-container">
                 <!-- ko if : isDealerBikes() -->
                 <div id="getLeadBike" class="margin-top10 form-control-box">
@@ -109,7 +24,7 @@
                     </div>
                 </div>
 
-                <div id="brandSearchBar" >
+                <div id="brandSearchBar">
                     <div class="dealer-brand-wrapper bwm-dealer-brand-box form-control-box text-left">
                         <div class="user-input-box">
                             <span class="back-arrow-box"><span class="bwmsprite back-long-arrow-left"></span></span>
@@ -120,7 +35,7 @@
                         </ul>
                     </div>
                 </div>
-            <!-- /ko -->
+                <!-- /ko -->
                 <div class="form-control-box margin-top20">
                     <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName" data-bind="textInput: fullName">
                     <span class="bwmsprite error-icon errorIcon"></span>
@@ -299,7 +214,10 @@
                     self.campaignId(options.campid);
 
                 if(options.isdealerbikes!=null && options.isdealerbikes)
+                {
+                    self.isDealerBikes(options.isdealerbikes);
                     self.getDealerBikes();
+                }
 
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;
