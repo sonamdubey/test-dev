@@ -6,7 +6,7 @@
 
 <!doctype html>
 <html>
-<head>
+<head> 
     <% 
         description = objMMV.Make + " bike dealers/showrooms in India. Find new bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc.";
         keywords = objMMV.Make + " bike dealers, " + objMMV.Make + " bike showrooms," + objMMV.Make + " dealers, " + objMMV.Make + " showrooms, " + objMMV.Make + " dealerships, dealerships, test drive";
@@ -53,8 +53,16 @@
                             <span class="fa fa-spinner fa-spin position-abt text-black"></span>
                         </div>
                     </div>
+                    <% if (1 == 1) { } %>
                     <ul id="listingSidebarList">
-                        <li>
+                        <asp:Repeater ID="rptState" runat="server">
+                            <ItemTemplate>
+                                <li>
+                                    <a href="andhra-pradesh-link" data-item-id="1" >Andhra Pradesh</a>
+                                </li>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                       <%-- <li>
                             <a href="andhra-pradesh-link" data-state-id="1" data-state-lat="16.5000" data-state-long="80.6400">Andhra Pradesh</a>
                         </li>
                         <li>
@@ -68,7 +76,7 @@
                         </li>
                         <li>
                             <a href="maharashtra-link" data-state-id="5" data-state-lat="18.9600" data-state-long="72.8200">Maharashtra</a>
-                        </li>
+                        </li>--%>
                     </ul>
                 </div>
             </div>
@@ -91,125 +99,7 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealersbylocation.js?<%= staticFileVersion %>"></script>
 
-        <!--
-    <div class="container_12">
-        <div class="grid_12">
-            <ul class="breadcrumb">
-                <li>You are here: </li>
-                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="/" itemprop="url">
-                        <span itemprop="title">Home</span>
-                    </a>
-                </li>
-                <li class="fwd-arrow">&rsaquo;</li>
-                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="/new/" itemprop="url"><span itemprop="title">New Bikes</span></a>
-                </li>
-                <li class="fwd-arrow">&rsaquo;</li>
-                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a itemprop="url" href="/new/locate-dealers/"><span itemprop="title">New Bike Dealers</span></a>
-                </li>
-                <li class="fwd-arrow">&rsaquo;</li>
-                <li class="current"><strong><%=objMMV.Make%> Dealers/Showrooms</strong></li>
-            </ul>
-            <div class="clear"></div>
-        </div>
-        <div class="grid_8  margin-top10">
-            
-            <h1><%=objMMV.Make%> Dealers/Showrooms in India</h1>
-            <div class="margin-top5"><%=objMMV.Make%> sells bikes through <%=DealerCount%> dealerships in <%=StateCount%> cities across India.</div>
-            <div id="stateTabs" style="border: 1px solid #fff;" class="margin-top20">
-                <asp:repeater id="rptState" runat="server">
-			                <itemtemplate>
-				                <div class="state-tab" id='dv-<%# DataBinder.Eval(Container.DataItem, "StateId")%>' onclick="javascript:showCity('<%# DataBinder.Eval(Container.DataItem, "StateId")%>', this);">
-					                <h3 class="hd3" style="margin:5px; padding:0;"><span class="icon-sheet right-arrow-bg"></span><span><%# DataBinder.Eval(Container.DataItem, "State")%></span></h3>
-					                <div id='tbl-<%# DataBinder.Eval(Container.DataItem, "StateId")%>' class="dvShrink" >
-						                <asp:DataList ID="dlCity" runat="server" RepeatColumns="3" RepeatDirection="Horizontal" Width="100%" 
-							                CellSpacing="10" CellPadding="0" DataSource='<%# BindCities(int.Parse(DataBinder.Eval(Container.DataItem, "StateId").ToString())) %>'>
-							                <itemtemplate>
-								                <a href="/new/<%=objMMV.MakeMappingName%>-dealers/<%# DataBinder.Eval(Container.DataItem, "CityId")%>-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString().ToLower() %>.html"><%# DataBinder.Eval(Container.DataItem, "City")%> (<%# DataBinder.Eval(Container.DataItem, "TotalBranches")%>)<br></a>
-							                </itemtemplate>
-						                    </asp:DataList>
-					                </div>
-					                <div id="merge-sel" class="unsel-state"></div>											
-				                </div>
-			                </itemtemplate>			
-		                </asp:repeater>
-            </div>
-            <div class="clear"></div>
-
-            <%--<div class="grid_4 alpha margin-top20">
-                        <div class="grey-bg content-block"><TIP:TipsAdvicesMin ID="ctrl_TipsAdvices" runat="server" TopRecords="10"/></div>
-                    </div>
-                    <div class="grid_4 omega margin-top20 grey-bg">
-                        <div class="content-block">
-                             <FM:ForumsMin runat="server" ID="ForumsMin" TopRecords="10" />
-                        </div>
-                    </div><div class="clear"></div>--%>
-        </div>
-        
-        <div class="grid_4">
-            
-            <div class="margin-top5">
-                
-            </div>
-            <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top15">
-                <NBL:NewBikeLaunches ID="ctrl_NewBikeLaunches" TopCount="3" runat="server" />
-                <div class="clear"></div>
-            </div>
-        </div>
-        
-    </div>
-    -->
-
-        <!--
-    <script language="javascript">
-        function showCity(stateId, obj) {
-            var selTabObj = $(obj);
-            var selectedState = $("#tbl-" + stateId);
-            var selectedImg = $("#dv-" + stateId).find("span.icon-sheet");
-            var manageArrowImgs = $("#stateTabs span.icon-sheet");
-
-            $("div.expnd-cont").remove();
-            $("div.sel-state").toggleClass('sel-state unsel-state');
-            $("div.state-tab").css({ "background-color": "#f3f2f2" });
-
-            if (manageArrowImgs.hasClass("down-arrow")) {
-                manageArrowImgs.removeClass('down-arrow').addClass('right-arrow-bg');
-            }
-
-            selTabObj.find(".hd3").removeClass("mar-bot");
-
-            var index = $("div.state-tab").index(selTabObj);
-            var indexLength = $("div.state-tab").length - 1;
-            var insertAfter = 3 - (index % 3) - 1;
-            var indexDiff = indexLength - index;
-            var exndCont = "<div class='expnd-cont'><div class='clear'></div><div class='insert-after'>" + selectedState.html() + "</div></div>";
-
-            if (selectedState.hasClass("dvShrink")) {
-                if (insertAfter == 0 || (insertAfter == 2 && index == indexLength)) {
-                    $(exndCont).insertAfter(selTabObj);
-                } else if (insertAfter == 1 && indexDiff >= 1) {
-                    $(exndCont).insertAfter(selTabObj.next());
-                } else if (insertAfter == 2 && indexDiff >= 2) {
-                    $(exndCont).insertAfter(selTabObj.next().next());
-                } else {
-                    if (insertAfter == 1 && indexDiff < 1) {
-                        $(exndCont).insertAfter(selTabObj);
-                    } else if (insertAfter == 2 && indexDiff < 2) {
-                        $(exndCont).insertAfter(selTabObj.next());
-                    }
-                }
-
-                selTabObj.find("#merge-sel").toggleClass('unsel-state sel-state');
-                selTabObj.find(".hd3").addClass("mar-bot");
-                selTabObj.css({ "background-color": "#fff" });
-
-                selectedImg.removeClass('right-arrow-bg').addClass('down-arrow');
-            }
-        }
-    </script>
-    -->
+       
     
     </form>
 </body>

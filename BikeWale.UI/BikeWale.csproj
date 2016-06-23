@@ -2524,10 +2524,11 @@
     <Content Include="src\jquery.floating-social-share.js" />
     <Content Include="src\jquery.floating-social-share.min.js" />
     <Content Include="src\login\login.js" />
-    <Content Include="src\markerwithlabel.js" />
+    <!-- <Content Include="src\markerwithlabel.js" /> -->
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />
     <Content Include="src\new\bikemake.js" />
+    <Content Include="src\new\markerwithlabel.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\BikeBooking\bookinglisting.js" />

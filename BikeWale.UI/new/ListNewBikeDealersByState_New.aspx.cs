@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.Memcache;
+using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
-using Bikewale.Common;
-using Bikewale.Memcache;
 
 namespace Bikewale.New
 {
@@ -17,7 +17,7 @@ namespace Bikewale.New
         protected DataSet dsStateCity = null;
         protected MakeModelVersion objMMV;
 
-        public string makeId = "";
+        public string makeId = string.Empty;
         public int StateCount = 0, DealerCount = 0;
 
         protected override void OnInit(EventArgs e)
@@ -29,7 +29,7 @@ namespace Bikewale.New
         {
             base.Load += new EventHandler(this.Page_Load);
         }
-		
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //code for device detection added by Ashwini Todkar
@@ -153,7 +153,7 @@ namespace Bikewale.New
             if (Request["make"] == null || Request.QueryString["make"] == "")
             {
                 //invalid make id, hence redirect to he browsebikes.aspx page
-                Trace.Warn("make id : ",Request.QueryString["make"]);
+                Trace.Warn("make id : ", Request.QueryString["make"]);
                 Response.Redirect("/new/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;

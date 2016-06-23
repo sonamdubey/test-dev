@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ListNewBikeDealersByCity_New" Trace="false" Debug="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ListNewBikeDealersByCity_New" EnableViewState="false" Trace="false" Debug="false" %>
 <%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
 <%@ Register TagPrefix="TIP" TagName="TipsAdvicesMin" Src="/controls/TipsAdvicesMin.ascx" %>
 <%@ Register TagPrefix="FM" TagName="ForumsMin" Src="/controls/forumsmin.ascx" %>
@@ -51,6 +51,7 @@
                         </div>
                     </div>
                     <ul id="listingSidebarList">
+
                         <li>
                             <h3 data-state-id="1" data-state-lat="16.5000" data-state-long="80.6400">
                                 <a href="">Andhra Pradesh</a>
