@@ -29,6 +29,11 @@ namespace Bikewale.Mobile.Controls
             UpcomingBikes();
         }
 
+        /// <summary>
+        ///  Author : Sushil Kumar 
+        ///  Created On : 23rd June 2016
+        ///  Description : Bind upcoming bikes o the repeater for the widget
+        /// </summary>
         private void UpcomingBikes()
         {
             BindUpcomingBikesControl objUpcoming = new BindUpcomingBikesControl();
