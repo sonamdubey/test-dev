@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Controls;
-using Bikewale.controls;
+using Bikewale.Controls;
 using Bikewale.Common;
 using Bikewale.Entities.PriceQuote;
 using Microsoft.Practices.Unity;

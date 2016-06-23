@@ -94,8 +94,12 @@ namespace Bikewale.DAL.UsedBikes
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetUsedBikesByMakeCity"))
+                using (SqlCommand cmd = new SqlCommand())
                 {
+                    if(cityId.HasValue && cityId > 0)
+                        cmd.CommandText = "GetUsedBikesByMakeCity";
+                    else cmd.CommandText = "GetUsedBikesByMake";
+
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
                     cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalCount;
