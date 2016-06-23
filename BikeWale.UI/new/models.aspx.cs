@@ -6,6 +6,7 @@ using Bikewale.controls;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
@@ -109,6 +110,8 @@ namespace Bikewale.New
                 ctrlDealerCard.makeName = _make.MakeName;
                 ctrlDealerCard.makeMaskingName = _make.MaskingName;
                 ctrlDealerCard.CityId = cityId;
+                ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealersCard_GetOfferButton;
+                ctrlDealerCard.LeadSourceId = 29;
                 ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
 
                 ctrlLeadCapture.CityId = cityId;
