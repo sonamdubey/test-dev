@@ -240,12 +240,12 @@
                         <div style="width: 300px; height: 250px; background: #eee; margin: 0 auto;"></div>
                     </div>
                 </div>
-
+                <div class="margin-top20 margin-right20 margin-left20 border-divider"></div>
                 <% if (ctrlNews.FetchedRecordsCount > 0)
                    {%>
                 <BW:News runat="server" ID="ctrlNews" />
                 <%} %>
-                <div class="margin-top20 margin-right20 margin-left20 border-divider"></div>
+                
 
                 <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                    { %>
