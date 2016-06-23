@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="SimilarVideos.ascx.cs" Inherits="Bikewale.controls.SimilarVideos" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="SimilarVideos.ascx.cs" Inherits="Bikewale.Controls.SimilarVideos" %>
 <asp:Repeater ID="rptSimilarVideos" runat="server">
     <HeaderTemplate>
         <div class="container">

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.EMICalculatorMin" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.EMICalculatorMin" %>
 <div class="calculate-emi-container text-center">
     <div class="margin-bottom40">
         <span class="bw-circle-icon emi-calc-logo"></span>

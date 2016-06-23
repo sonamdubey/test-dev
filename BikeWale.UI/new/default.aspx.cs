@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Bikewale.controls;
+using Bikewale.Controls;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 using Bikewale.Common;

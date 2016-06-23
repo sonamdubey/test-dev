@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
     public class NewBikesOnRoadPrice : System.Web.UI.UserControl
     {

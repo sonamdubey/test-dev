@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.NewLaunchedBikes_new" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.NewLaunchedBikes_new" %>
 <!-- New Launched Bikes Starts here-->    
     <asp:Repeater ID="rptNewLaunchedBikes" runat="server">
         <ItemTemplate>
