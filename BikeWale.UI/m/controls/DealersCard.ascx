@@ -57,7 +57,7 @@
                     <a href="<%# String.Format("/m/{0}-bikes/dealers-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>">
                         <span></span>
                         <h4 class="font14 text-bold text-default margin-bottom10"><%= makeName %> dealers in <%# DataBinder.Eval(Container.DataItem,"CityBase.CityName") %></h4>
-                        <p class="font14 text-black"><%# DataBinder.Eval(Container.DataItem,"NumOfDealers") %> showrooms</p>
+                        <p class="font14 text-black"><%# DataBinder.Eval(Container.DataItem,"NumOfDealers") %> <%# Convert.ToUInt16(DataBinder.Eval(Container.DataItem,"NumOfDealers")) > 1 ? "showrooms" : "showroom" %></p>
                     </a>
                 </div>
             </ItemTemplate>
