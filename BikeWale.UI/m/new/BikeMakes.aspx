@@ -4,6 +4,7 @@
 <%@ Register Src="/m/controls/NewExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -202,7 +203,7 @@
                 <% } %>
 
                 <% if (ctrlDealerCard.showWidget) { %>
-                <div id="makeDealersContent" class="bw-model-tabs-data padding-top15 font14">
+                <div id="makeDealersContent" class="bw-model-tabs-data padding-top15 padding-bottom20 font14">
                     <% if (cityId == 0)
                        { %>
                     <h2 class="padding-right20 padding-left20"><%= _make.MakeName %> dealers in India</h2>
@@ -249,12 +250,37 @@
         </section>
         <% } %>
 
+           <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-brand.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             ga_pg_id = '3';
             var _makeName = '<%= _make.MakeName %>';
+
+            var clientIP = "172.16.3.151";
+            var pageUrl = window.location.href;
+            $(".leadcapturebtn").click(function (e) {
+                ele = $(this);
+                var leadOptions = {
+                    "dealerid": ele.attr('data-item-id'),
+                    "dealername": ele.attr('data-item-name'),
+                    "dealerarea": ele.attr('data-item-area'),
+                    "versionid": $("#versions a.active").attr("id"),
+                    "leadsourceid": ele.attr('data-leadsourceid'),
+                    "pqsourceid": ele.attr('data-pqsourceid'),
+                    "pageurl": pageUrl,
+                    "clientip": clientIP,
+                    "isdealerbikes": true,
+                    "campid": ele.attr('data-camp-id'),
+                    "isregisterpq": true
+                };
+
+                dleadvm.setOptions(leadOptions);
+
+            }); 
+
             $(document).ready(function () {
                 jQuery('.jcarousel-wrapper.upComingBikes .jcarousel')
                 .on('jcarousel:targetin', 'li', function () {

@@ -29,6 +29,7 @@ namespace Bikewale.Mobile
         protected MMostPopularBikes ctrlMostPopularBikes;
         protected Repeater rptMostPopularBikes, rptDiscontinued;
         protected DealersCard ctrlDealerCard;
+        protected LeadCaptureControl ctrlLeadCapture;
         protected bool isDescription = false;
 
         protected Literal ltrDefaultCityName;
@@ -87,6 +88,9 @@ namespace Bikewale.Mobile
                 ctrlDealerCard.TopCount = 6;
                 ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_MakePage_GetOffersFromDealer;
                 ctrlDealerCard.LeadSourceId = 30;
+
+                ctrlLeadCapture.CityId = cityId;
+
                 BindDiscountinuedBikes();
             }
         }
