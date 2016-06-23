@@ -873,6 +873,10 @@
       <DependentUpon>NewExpertReviewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\NewMUpcomingBikes.ascx.cs">
+      <DependentUpon>NewMUpcomingBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\NewNewsWidget.ascx.cs">
       <DependentUpon>NewNewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2291,6 +2295,7 @@
     <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewAlternativeBikes.ascx" />
     <Content Include="m\controls\NewExpertReviewsWidget.ascx" />
+    <Content Include="m\controls\NewMUpcomingBikes.ascx" />
     <Content Include="m\controls\NewNewsWidget.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\NewUserReviewList.ascx" />
