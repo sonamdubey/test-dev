@@ -124,16 +124,18 @@ namespace Bikewale.New
                             ;
                     var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
                     bikes = objCache.GetDiscontinuedBikeModelsByMake(Convert.ToUInt16(makeId));
-                    fetchedRecordsCount = bikes.Count();
-                    foreach (var bike in bikes)
-                    {
-                        bike.Href = string.Format("/{0}-bikes/{1}/", _make.MaskingName, bike.ModelMasking);
-                        bike.BikeName = string.Format("{0} {1}", _make.MakeName, bike.ModelName);
-                    }
                     if (bikes != null && bikes.Count() > 0)
                     {
+                        foreach (var bike in bikes)
+                        {
+                            bike.Href = string.Format("/{0}-bikes/{1}/", _make.MaskingName, bike.ModelMasking);
+                            bike.BikeName = string.Format("{0} {1}", _make.MakeName, bike.ModelName);
+                        }
+
                         rptDiscontinued.DataSource = bikes;
                         rptDiscontinued.DataBind();
+                        fetchedRecordsCount = bikes.Count();
+
                     }
                 }
             }
