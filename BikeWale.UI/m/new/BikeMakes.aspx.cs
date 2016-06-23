@@ -64,6 +64,7 @@ namespace Bikewale.Mobile
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 6;
                 ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                ctrlUpcomingBikes.MakeName = _make.MakeName;
 
                 ////news,videos,revews
                 ctrlNews.TotalRecords = 2;

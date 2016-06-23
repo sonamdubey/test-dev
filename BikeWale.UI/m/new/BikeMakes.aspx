@@ -119,7 +119,7 @@
             </div>
         </section>
 
-        <section id="bikeByMakesUpcoming" class="bg-white margin-bottom20">
+        <%--<section id="bikeByMakesUpcoming" class="bg-white margin-bottom20">
             <div class="container box-shadow padding-top20 padding-bottom20">
                 <h2 class="text-x-black font18 margin-bottom25 padding-right20 padding-left20">Upcoming <%= _make.MakeName %> bikes</h2>
                 <div class="swiper-container">
@@ -178,7 +178,9 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section>--%>
+
+         <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
 
         <section>
             <div id="makeTabsContentWrapper" class="container bg-white clearfix box-shadow margin-bottom20">
@@ -270,7 +272,7 @@
             </div>
         </section>
 
-        <section class="<%= (Convert.ToInt32(ctrlUpcomingBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>">
+        <%--<section class="<%= (Convert.ToInt32(ctrlUpcomingBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>">
             <!--  Upcoming, New Launches and Top Selling code starts here -->
             <div class="container">
                 <div class="grid-12 margin-bottom30">
@@ -286,7 +288,7 @@
                 </div>
                 <div class="clear"></div>
             </div>
-        </section>
+        </section>--%>
 
         <%
             //if (ctrlNews.FetchedRecordsCount > 0)
