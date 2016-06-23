@@ -185,6 +185,7 @@
     <Compile Include="Location\AreaEntityBase.cs" />
     <Compile Include="Location\CityEntityBase.cs" />
     <Compile Include="Location\CityMaskingResponse.cs" />
+    <Compile Include="Location\DealerStateEntity.cs" />
     <Compile Include="Location\GlobalCityAreaEntity.cs" />
     <Compile Include="Location\StateEntityBase.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotificationBase.cs" />

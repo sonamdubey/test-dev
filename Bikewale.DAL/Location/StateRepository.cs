@@ -1,16 +1,13 @@
 
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.CoreDAL;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
-using Bikewale.CoreDAL;
-using System.Data.SqlClient;
-using System.Data;
-using System.Web;
 using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web;
 
 namespace Bikewale.DAL.Location
 {
@@ -69,5 +66,52 @@ namespace Bikewale.DAL.Location
             }
             return objStateList;
         }   // End of GetStates method
+
+
+        public IEnumerable<DealerStateEntity> GetDealerStates(uint makeId)
+        {
+            Database db = null;
+            List<DealerStateEntity> objStateList = null;
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("GetStatewiseDealersCnt"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+
+                    db = new Database();
+                    objStateList = new List<DealerStateEntity>();
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                objStateList.Add(new DealerStateEntity
+                                {
+                                    StateId = Convert.ToUInt32(dr["StateId"]),
+                                    StateName = Convert.ToString(dr["StateName"]),
+                                    StateMaskingName = Convert.ToString(dr["MaskingName"]),
+                                    Latitude = Convert.ToString(dr["Lattitude"]),
+                                    Longitude = Convert.ToString(dr["Longitude"])
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return objStateList;
+        }
     }
 }
