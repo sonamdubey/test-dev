@@ -156,18 +156,19 @@ $(document).ready(function () {
         });
 
         var scrollToTab = $('#makeReviewsContent');
-
-        if (windowScrollTop > scrollToTab.offset().top - 45) {
-            if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
-                $('.overall-specs-tabs-container').addClass('scrolled-left');
-                scrollHorizontal(300);
+        if (scrollToTab.length != 0) { 
+            if (windowScrollTop > scrollToTab.offset().top - 45) {
+                if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
+                    $('.overall-specs-tabs-container').addClass('scrolled-left');
+                    scrollHorizontal(300);
+                }
             }
-        }
 
-        else if (windowScrollTop < scrollToTab.offset().top) {
-            if ($('#overallSpecsTab').hasClass('scrolled-left')) {
-                $('.overall-specs-tabs-container').removeClass('scrolled-left');
-                scrollHorizontal(0);
+            else if (windowScrollTop < scrollToTab.offset().top) {
+                if ($('#overallSpecsTab').hasClass('scrolled-left')) {
+                    $('.overall-specs-tabs-container').removeClass('scrolled-left');
+                    scrollHorizontal(0);
+                }
             }
         }
         
