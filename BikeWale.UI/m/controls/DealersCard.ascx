@@ -16,7 +16,7 @@
                     <div class="swiper-slide bike-carousel-swiper dealer-by-city">
                         <h4 class="margin-bottom5 text-truncate"><%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %></h4>
                         <p class="margin-bottom5 text-light-grey"><span class="bwmsprite dealership-loc-icon vertical-top margin-right5"></span><span class="vertical-top dealership-address"><%# DataBinder.Eval(Container.DataItem,"Address") %></span></p>
-                        <a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="block margin-bottom5 text-bold text-truncate <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"block" %>"><span class="bwmsprite tel-sm-grey-icon"></span><%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a>
+                        <a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="block margin-bottom5 text-default text-bold text-truncate <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"block" %>"><span class="bwmsprite tel-sm-grey-icon"></span><%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a>
                         <a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey block margin-bottom20 <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":"block" %>"><span class="bwmsprite mail-grey-icon vertical-top"></span><span class="text-truncate vertical-top dealership-email"><%# DataBinder.Eval(Container.DataItem,"Email") %></span></a>
                         <% if (!IsDiscontinued)
                            { %>
@@ -36,8 +36,8 @@
 <% }
        else
        { %>
-
-<h2 class="padding-right20 padding-left20 padding-top15"><%= makeName %> dealers in India</h2>
+<div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+<h2 class="padding-right20 padding-left20"><%= makeName %> dealers in India</h2>
 
 <div class="swiper-container margin-bottom15">
     <!-- dealers when no city selected -->
@@ -56,6 +56,7 @@
             </ItemTemplate>
         </asp:Repeater>
     </div>
+</div>
 </div>
 <% } %>
 <% } %>

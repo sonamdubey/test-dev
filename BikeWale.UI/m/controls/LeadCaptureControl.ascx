@@ -300,7 +300,7 @@
                     "areaId": self.areaId(),
                     "clientIP": self.clientIP,
                     "pageUrl": self.pageUrl,
-                    "sourceType": 1,
+                    "sourceType": 2,
                     "pQLeadId": self.pqSourceId(),
                     "deviceId": getCookie('BWC')
                 }
