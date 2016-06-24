@@ -286,6 +286,7 @@
             </div>
 
         </section>--%>
+        <div class="clear"></div>
         <section>
             <div class="container">
                 <div class="grid-12">
@@ -313,25 +314,7 @@
         </section>
 
         <script>
-            $("a.read-more-btn").click(function () {
-                //$("div.brand-about-more-desc").slideToggle();
-                //$("div.brand-about-main").slideToggle();
-                //var a = $(this).find("span");
-                //a.text(a.text() === "more" ? "less" : "more");
-                if (!$(this).hasClass('open')) {
-                    $('.preview-main-content').hide();
-                    $('.preview-more-content').show();
-                    $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
-                    $(this).addClass("open");
-                }
-                else if ($(this).hasClass('open')) {
-                    $('.preview-main-content').show();
-                    $('.preview-more-content').hide();
-                    $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
-                    $(this).removeClass('open');
-                }
-            });
-
+            
             $(document).ready(function () {
                 $("img.lazy").lazyload();
                 if ($("#discontinuedMore a").length > 4) {
