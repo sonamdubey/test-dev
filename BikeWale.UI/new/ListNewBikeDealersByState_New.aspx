@@ -44,7 +44,7 @@
                 <div id="listingSidebar" class="bg-white position-abt pos-right0">
                     <div id="listingSidebarHeading" class="padding-top15 padding-right20 padding-left20">
                         <div class="margin-bottom20">
-                            <h1 id="sidebarHeader" class="font16 margin-bottom10">Royal Enfield dealers in India</h1>
+                            <h1 id="sidebarHeader" class="font16 margin-bottom10"><%=objMMV.Make %> dealers in India</h1>
                             <h2 class="text-unbold font14 text-xt-light-grey border-solid-bottom padding-bottom15"><%=countryCount %> dealers across <%=stateCount %> states</h2>
                         </div>
                         <div class="form-control-box">
@@ -87,8 +87,6 @@
             var stateArr = JSON.parse('<%= stateArray %>');
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealersbylocation.js?<%= staticFileVersion %>"></script>
-              
-    
     </form>
 </body>
 </html>
