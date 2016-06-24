@@ -585,7 +585,6 @@ var validateUpdatedMobile = function () {
 };
 
 
-
 //photos corousel function
 var slideToClick = function (swiper) {
     var clickedSlide = swiper.slides[swiper.clickedIndex];
@@ -593,6 +592,13 @@ var slideToClick = function (swiper) {
     $(clickedSlide).addClass('swiper-slide-active');
     galleryTop.slideTo(swiper.clickedIndex, 500);
 };
+
+var videosThumbs = new Swiper('.carousel-navigation-videos', {
+    spaceBetween: 10,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    watchSlidesVisibility: true
+});
 
 var galleryThumbs = new Swiper('.carousel-navigation-photos', {
     slideActiveClass: '',
@@ -628,6 +634,7 @@ var galleryTop = new Swiper('.carousel-stage-photos', {
     //onSlideChangeStart: showImgTitle,
     onSlideChangeEnd: slidegalleryThumbs
 });
+
 
 $("#bikeBannerImageCarousel .stage .swiper-slide").click(function () {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Photo_Clicked', 'lab': myBikeName });
@@ -677,12 +684,12 @@ $("#videos-tab").click(function () {
 });
 
 var firstVideo = function () {
-    var a = $(".carousel-navigation-videos ul").first("li");
+    var a = $(".carousel-navigation-videos .swiper-wrapper").first(".swiper-slide");
     var newSrc = a.find("img").attr("iframe-data");
     videoiFrame.setAttribute("src", newSrc);
 };
 
-var navigationVideosLI = $(".carousel-navigation-videos ul li");
+var navigationVideosLI = $(".carousel-navigation-videos .swiper-slide");
 navigationVideosLI.click(function () {
     navigationVideosLI.removeClass("active");
     $(this).addClass("active");
@@ -849,6 +856,8 @@ $(document).ready(function () {
         $('.overall-specs-tabs-wrapper li').css({'display': 'inline-block', 'width': 'auto'});
     }
 
+    $('.overall-specs-tabs-wrapper li').first().addClass('active');
+
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
@@ -885,21 +894,21 @@ $(document).ready(function () {
         });
         
         var scrollToTab = $('#modelReviewsContent');
-        
-        if (windowScrollTop > scrollToTab.offset().top - 45) {
-            if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
-                $('.overall-specs-tabs-container').addClass('scrolled-left');
-                scrollHorizontal(300);
+        if (scrollToTab.length != 0) {
+            if (windowScrollTop > scrollToTab.offset().top - 45) {
+                if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
+                    $('.overall-specs-tabs-container').addClass('scrolled-left');
+                    scrollHorizontal(300);
+                }
+            }
+
+            else if (windowScrollTop < scrollToTab.offset().top) {
+                if ($('#overallSpecsTab').hasClass('scrolled-left')) {
+                    $('.overall-specs-tabs-container').removeClass('scrolled-left');
+                    scrollHorizontal(0);
+                }
             }
         }
-
-        else if (windowScrollTop < scrollToTab.offset().top) {
-            if ($('#overallSpecsTab').hasClass('scrolled-left')) {
-                $('.overall-specs-tabs-container').removeClass('scrolled-left');
-                scrollHorizontal(0);
-            }
-        }
-
 
     });
 

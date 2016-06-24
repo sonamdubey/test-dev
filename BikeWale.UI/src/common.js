@@ -821,6 +821,11 @@ $(".modelurl").click(function () {
     }
 });
 
+$('.dealer-details-main-content').on('click', function () {
+    $(this).hide();
+    $(this).next('.dealer-details-more-content').show();
+});
+
 function insertCitySeparator(response) {
     l = (response != null) ? response.length : 0;
     if (l > 0) {

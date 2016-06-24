@@ -1,11 +1,20 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Bikewale.controls;
 using Bikewale.Controls;
+using Bikewale.Controls;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 
@@ -18,12 +27,13 @@ namespace Bikewale.New
     public class Model : PageBase
     {
         protected UpcomingBikes_new ctrlUpcomingBikes;
-        protected News_new ctrlNews;
-        protected ExpertReviews ctrlExpertReviews;
-        protected VideosControl ctrlVideos;
+        protected News_Widget ctrlNews;
+        //protected ExpertReviews ctrlExpertReviews;
+        protected NewExpertReviews ctrlExpertReviews;
+        protected NewVideosControl ctrlVideos;
         protected MostPopularBikes_new ctrlMostPopularBikes;
-        protected Repeater rptMostPopularBikes;
-
+        protected Repeater rptMostPopularBikes, rptDiscontinued;
+        protected DealerCard ctrlDealerCard;
         protected bool isDescription = false;
         protected Literal ltrDefaultCityName;
         protected int fetchedRecordsCount = 0;
@@ -40,6 +50,11 @@ namespace Bikewale.New
 
         private string makeMaskingName;
 
+        private uint cityId = Convert.ToUInt32(GlobalCityArea.GetGlobalCityArea().CityId);
+
+        protected UsedBikes ctrlRecentUsedBikes;
+        protected LeadCaptureControl ctrlLeadCapture;
+        protected String clientIP = CommonOpn.GetClientIP();
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -50,6 +65,8 @@ namespace Bikewale.New
         /// Description : set make masking name for video controller
         /// Modified By : Lucky Rathore on 05 May 2016
         /// Description : Removed postback.
+        /// Modified By : Vivek Gupta on 22 june 2016
+        /// Desc: ctrlRecentUsedBikes (values assigned)
         /// </summary>
         /// </summary>
         /// <param name="sender"></param>
@@ -74,12 +91,73 @@ namespace Bikewale.New
                 ////news,videos,revews
                 ctrlNews.TotalRecords = 3;
                 ctrlNews.MakeId = Convert.ToInt32(makeId);
-                ctrlExpertReviews.TotalRecords = 3;
+                ctrlNews.WidgetTitle = _make.MakeName;
+
+                ctrlExpertReviews.TotalRecords = 2;
                 ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
-                ctrlVideos.TotalRecords = 3;
+                ctrlVideos.TotalRecords = 2;
                 ctrlVideos.MakeId = Convert.ToInt32(makeId);
                 ctrlVideos.MakeMaskingName = makeMaskingName;
+                ctrlVideos.WidgetTitle = _make.MakeName;
+
                 ctrlExpertReviews.MakeMaskingName = makeMaskingName;
+
+                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(makeId);
+                ctrlRecentUsedBikes.CityId = Convert.ToInt32(cityId);
+                ctrlRecentUsedBikes.TopCount = 6;
+
+                ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
+                ctrlDealerCard.makeName = _make.MakeName;
+                ctrlDealerCard.makeMaskingName = _make.MaskingName;
+                ctrlDealerCard.CityId = cityId;
+                ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealersCard_GetOfferButton;
+                ctrlDealerCard.LeadSourceId = 29;
+                ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
+
+                ctrlLeadCapture.CityId = cityId;
+                ctrlLeadCapture.AreaId = 0;
+                BindDiscountinuedBikes();
+            }
+
+        }
+
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 17 Jun 2016
+        /// Summary: Bind discontinued bikes on make page
+        /// </summary>
+        private void BindDiscountinuedBikes()
+        {
+            IEnumerable<BikeVersionEntity> bikes = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            ;
+                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    bikes = objCache.GetDiscontinuedBikeModelsByMake(Convert.ToUInt16(makeId));
+                    if (bikes != null && bikes.Count() > 0)
+                    {
+                        foreach (var bike in bikes)
+                        {
+                            bike.Href = string.Format("/{0}-bikes/{1}/", _make.MaskingName, bike.ModelMasking);
+                            bike.BikeName = string.Format("{0} {1}", _make.MakeName, bike.ModelName);
+                        }
+
+                        rptDiscontinued.DataSource = bikes;
+                        rptDiscontinued.DataBind();
+                        fetchedRecordsCount = bikes.Count();
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindDiscountinuedBike");
+                objErr.SendMail();
             }
 
         }
@@ -119,7 +197,6 @@ namespace Bikewale.New
             objMake.totalCount = 6;
             objMake.makeId = Convert.ToInt32(makeId);
             objMake.BindMostPopularBikes(rptMostPopularBikes);
-            fetchedRecordsCount = objMake.FetchedRecordsCount;
             _make = objMake.Make;
             _bikeDesc = objMake.BikeDesc;
 
@@ -141,7 +218,7 @@ namespace Bikewale.New
             }
             else
             {
-                return "<span class='font22'>Price Unavailable</span>";
+                return "<span class='font18'>Price Unavailable</span>";
             }
         }
 

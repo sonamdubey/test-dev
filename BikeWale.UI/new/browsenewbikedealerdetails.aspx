@@ -115,17 +115,20 @@
                                             </h2>
                                             <p class="text-light-grey margin-bottom5">
                                                 <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                                <span class="vertical-top dealership-address"><%# DataBinder.Eval(Container.DataItem,"Address") %></span>
+                                                <span class="vertical-top dealership-card-details"><%# DataBinder.Eval(Container.DataItem,"Address") %></span>
                                             </p>
                                             <%--<p class="text-light-grey margin-bottom5"><%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.AreaName").ToString()))? string.Empty:DataBinder.Eval(Container.DataItem,"objArea.AreaName") + "," %> <%# DataBinder.Eval(Container.DataItem,"City") %></p>--%>
 
-                                            <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":string.Empty %>">
-                                                <p class="text-light-grey margin-bottom5"><span class="bwsprite phone-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></p>
-                                            </div>
+                                            <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"text-bold margin-bottom5" %>">
+                                                <span class="bwsprite phone-black-icon vertical-top"></span>
+                                                <span class="vertical-top dealership-card-details"><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></span>
+                                            </p>
                                         </div>
                                         <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":string.Empty %>">
                                             <a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey">
-                                                <span class="bwsprite mail-grey-icon"></span><%# DataBinder.Eval(Container.DataItem,"Email") %></a>
+                                                <span class="bwsprite mail-grey-icon vertical-top"></span>
+                                                <span class="vertical-top dealership-card-details"><%# DataBinder.Eval(Container.DataItem,"Email") %></span>
+                                            </a>
                                         </div>
 
                                         <div class="<%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>">

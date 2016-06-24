@@ -168,6 +168,8 @@
                         <div class="clear"></div>
                     </div>
 
+                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+
                     <BW:Dealers ID="ctrlDealers" runat="server" />
 
                     <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
@@ -215,7 +217,7 @@
                     "isregisterpq" : true
                 };
 
-                customerViewModel.setOptions(leadOptions);
+                dleadvm.setOptions(leadOptions);
 
             });
 
@@ -229,13 +231,7 @@
                 $('.model-versions-tabs-wrapper a[id="' + version + '"]').addClass('active');
                 $('.priceTable').hide();
                 $('.priceTable[id="' + version + '"]').show();
-            }
-
-
-            $('.dealer-details-main-content').on('click', function() {
-                $(this).hide();
-                $(this).next('.dealer-details-more-content').show();
-            });
+            }           
 
         </script>
     </form>

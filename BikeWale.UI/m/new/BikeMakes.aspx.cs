@@ -1,31 +1,37 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Bikewale.Controls;
-using Bikewale.DTO.Make;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
 using Bikewale.Mobile.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile
 {
     public class BikeMakes : PageBase
     {
-        protected MUpcomingBikes ctrlUpcomingBikes;
-        protected NewsWidget ctrlNews;
-        protected ExpertReviewsWidget ctrlExpertReviews;
-        protected VideosWidget ctrlVideos;
+        protected NewMUpcomingBikes ctrlUpcomingBikes;
+        protected NewNewsWidget ctrlNews;
+        protected NewExpertReviewsWidget ctrlExpertReviews;
+        protected NewVideosWidget ctrlVideos;
         protected MMostPopularBikes ctrlMostPopularBikes;
-        protected Repeater rptMostPopularBikes;
-
+        protected Repeater rptMostPopularBikes, rptDiscontinued;
+        protected DealersCard ctrlDealerCard;
+        protected LeadCaptureControl ctrlLeadCapture;
         protected bool isDescription = false;
+
         protected Literal ltrDefaultCityName;
         protected int fetchedRecordsCount = 0;
         protected string makeId = String.Empty;
@@ -42,17 +48,18 @@ namespace Bikewale.Mobile
         private string makeMaskingName;
         protected Int64 _minModelPrice;
         protected Int64 _maxModelPrice;
-
+        protected uint cityId = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().CityId;
+        protected string cityName = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().City;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        { 
+        {
             //Function to process and validate Query String  
             if (ProcessQueryString())
-            {       
+            {
                 //to get complete make page
                 GetMakePage();
 
@@ -60,19 +67,77 @@ namespace Bikewale.Mobile
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 6;
                 ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                ctrlUpcomingBikes.MakeName = _make.MakeName;
 
                 ////news,videos,revews
                 ctrlNews.TotalRecords = 3;
                 ctrlNews.MakeId = Convert.ToInt32(makeId);
+                ctrlNews.WidgetTitle = _make.MakeName;
 
-                ctrlExpertReviews.TotalRecords = 3;
+                ctrlExpertReviews.TotalRecords = 2;
                 ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
                 ctrlExpertReviews.MakeMaskingName = makeMaskingName;
 
-                ctrlVideos.TotalRecords = 3;
+                ctrlVideos.TotalRecords = 1;
                 ctrlVideos.MakeMaskingName = makeMaskingName;
                 ctrlVideos.MakeId = Convert.ToInt32(makeId);
+
+                ctrlDealerCard.CityId = cityId;
+                ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
+                ctrlDealerCard.makeMaskingName = makeMaskingName;
+                ctrlDealerCard.makeName = _make.MakeName;
+                ctrlDealerCard.cityName = cityName;
+
+                ctrlDealerCard.TopCount = 6;
+                ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_MakePage_GetOffersFromDealer;
+                ctrlDealerCard.LeadSourceId = 30;
+
+                ctrlLeadCapture.CityId = cityId;
+
+                BindDiscountinuedBikes();
             }
+        }
+
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 17 Jun 2016
+        /// Summary: Bind discontinued bikes on make page
+        /// </summary>
+        private void BindDiscountinuedBikes()
+        {
+            IEnumerable<BikeVersionEntity> bikes = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            ;
+                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    bikes = objCache.GetDiscontinuedBikeModelsByMake(Convert.ToUInt16(makeId));
+
+                    if (bikes != null && bikes.Count() > 0)
+                    {
+                        foreach (var bike in bikes)
+                        {
+                            bike.Href = string.Format("/m/{0}-bikes/{1}/", _make.MaskingName, bike.ModelMasking);
+                            bike.BikeName = string.Format("{0} {1}", _make.MakeName, bike.ModelName);
+                        }
+
+                        rptDiscontinued.DataSource = bikes;
+                        rptDiscontinued.DataBind();
+                        fetchedRecordsCount = bikes.Count();
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Warn(ex.Message);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindDiscountinuedBike");
+                objErr.SendMail();
+            }
+
         }
 
         bool ProcessQueryString()
@@ -110,7 +175,7 @@ namespace Bikewale.Mobile
             objMake.totalCount = 6;
             objMake.makeId = Convert.ToInt32(makeId);
             objMake.BindMostPopularBikes(rptMostPopularBikes);
-            fetchedRecordsCount = objMake.FetchedRecordsCount;
+            //fetchedRecordsCount = objMake.FetchedRecordsCount;
             _make = objMake.Make;
             _bikeDesc = objMake.BikeDesc;
 

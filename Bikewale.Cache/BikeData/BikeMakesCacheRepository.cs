@@ -1,11 +1,9 @@
-﻿using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -48,6 +46,28 @@ namespace Bikewale.Cache.BikeData
                 objErr.SendMail();
             }
             return makes;
+        }
+
+        /// <summary>
+        /// Created by  :   Sangram Nandkhile on 17 June 2016
+        /// Summary     :   Gets the Discontinued Models for make
+        /// </summary>
+        /// <param name="makeType">Type of make</param>
+        /// <returns></returns>
+        public IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId)
+        {
+            IEnumerable<BikeVersionEntity> bikes = null;
+            string key = String.Format("BW_DiscontinuedBikes_Make_{0}", makeId.ToString());
+            try
+            {
+                bikes = _cache.GetFromCache<IEnumerable<BikeVersionEntity>>(key, new TimeSpan(24, 0, 0), () => _objMakes.GetDiscontinuedBikeModelsByMake(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetDiscontinuedBikeModelsByMake");
+                objErr.SendMail();
+            }
+            return bikes;
         }
     }
 }

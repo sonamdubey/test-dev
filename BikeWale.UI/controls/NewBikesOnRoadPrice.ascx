@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.controls.NewBikesOnRoadPrice" %>
+﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Controls.NewBikesOnRoadPrice" %>
 <style>
     /*PopupWidget Styling*/
     #OnRoadContent .chosen-container {

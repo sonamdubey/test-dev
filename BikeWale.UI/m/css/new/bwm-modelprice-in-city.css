@@ -25,9 +25,9 @@
 .dealer-in-city-list li {padding-top: 15px;padding-bottom: 18px;border-top: 1px solid #f5f5f5;}
 .dealer-in-city-list li:first-child {border-top: 0;}
 .dealership-loc-icon {width: 8px;height: 12px;background-position: -41px -437px;position: relative;top: 4px;}
-.dealership-address {width: 92%;color: #82888b;}
-.tel-sm-icon {width: 17px;height: 15px;background-position: -86px -323px;position: relative;top: 2px;}
-.mail-grey-icon {width: 15px;height: 9px;background-position: -19px -437px;margin-right: 5px;}
+.dealership-details {width: 92%;}
+.tel-sm-icon {width: 13px;height: 15px;background-position: -86px -323px;position: relative;top: 2px;}
+.mail-grey-icon {width: 13px;height: 9px;background-position: -19px -437px;margin-right: 2px;}
 .block {display: block;}
 .blue-right-arrow-icon {width: 6px;height: 10px;background-position: -58px -437px;position: relative;top: 1px;left: 7px;}
 .text-truncate {width: 100%;text-align: left;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
@@ -44,4 +44,24 @@
 .model-swiper-details {padding: 10px 18px 20px;}
 .btn-x-sm {padding: 8px 14px;color: #4d5057;}
 #modelForSaleContent li {margin-top: 20px;}
-#modelForSaleContent li:first-child {margin-top: 0;}
+#modelForSaleContent li:first-child {margin-top: 0;} 
+.text-default { color:#4d5057; }
+.text-x-light { color:#a8afb3; }
+.text-xx-light { color:#a2a2a2; }
+.text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+.swiper-slide.bike-carousel-swiper { width:184px; min-height:250px; background:#fff; border:1px solid #e2e2e2; }.bike-carousel-swiper img { width:100%; height:103px; }
+.bike-swiper-image-wrapper { width:100%; height:103px; display: block; overflow: hidden; text-align: center; position:relative; }.bike-swiper-image-wrapper a { width:100%; height:100%; display: block;}
+.bike-swiper-details-wrapper { padding:5px 20px 10px; }
+.bike-swiper-details-wrapper p { font-size:12px; }
+.block { display:block; }
+#makeDealersContent h2 { font-size:18px; color:#1a1a1a; font-weight:bold; margin-bottom:13px; }
+.swiper-wrapper.upcoming-carousel-content .swiper-slide:first-child{ margin-left:10px; }
+#makeDealersContent .swiper-slide:first-child { margin-left:10px; }
+.swiper-slide.bike-carousel-swiper.dealer-by-city { width:184px; min-height:210px;padding:17px 10px; }
+.swiper-slide.bike-carousel-swiper.dealer-no-city { width:184px; min-height:210px; }
+.vertical-top {display: inline-block;vertical-align: top;}
+.dealership-loc-icon {width: 10px;height: 12px;background-position: -41px -437px;position: relative;top: 4px;}
+.dealership-address, .dealership-email {width: 87%;}
+.tel-sm-grey-icon { width: 15px; height: 15px;background-position: 0 -435px; position: relative;top: 2px;}
+.mail-grey-icon { width: 15px;height: 9px;background-position: -19px -437px;position: relative;top: 6px;}
+.dealer-no-city a { width:184px; min-height:210px; display:block; padding:20px; }

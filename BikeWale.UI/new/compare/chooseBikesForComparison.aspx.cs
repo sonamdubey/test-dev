@@ -13,7 +13,7 @@ using System.Web.UI.HtmlControls;
 using Bikewale.Common;
 //using BikeWale.Controls;
 using Ajax;
-using Bikewale.controls;
+using Bikewale.Controls;
 
 namespace Bikewale.New
 {

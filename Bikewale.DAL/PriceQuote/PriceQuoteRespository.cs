@@ -490,6 +490,8 @@ namespace Bikewale.DAL.PriceQuote
         /// <summary>
         /// Written By : Ashish G. Kamble on 23 May 2016
         /// Summary : Function to get the pricing of the nearest cities for the given model and city.
+        /// Modified by :   Sumit Kate on 21 Jun 2016
+        /// Description :   Added Null check for Data reader and Log the city id for exception emails
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -519,22 +521,23 @@ namespace Bikewale.DAL.PriceQuote
                         {
                             objPrice = new List<PriceQuoteOfTopCities>();
 
-                            while (dr.Read())
-                            {
-                                objPrice.Add(new PriceQuoteOfTopCities
-                                {
-                                    CityName = Convert.IsDBNull(dr["City"]) ? default(string) : Convert.ToString(dr["City"]),
-                                    CityMaskingName = Convert.IsDBNull(dr["CityMaskingName"]) ? default(string) : Convert.ToString(dr["CityMaskingName"]),
-                                    OnRoadPrice = Convert.IsDBNull(dr["OnRoadPrice"]) ? default(UInt32) : Convert.ToUInt32(dr["OnRoadPrice"]),
-                                    Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
-                                    MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
-                                    Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
-                                    ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
-                                });
-                            }
-
                             if (dr != null)
+                            {
+                                while (dr.Read())
+                                {
+                                    objPrice.Add(new PriceQuoteOfTopCities
+                                    {
+                                        CityName = Convert.IsDBNull(dr["City"]) ? default(string) : Convert.ToString(dr["City"]),
+                                        CityMaskingName = Convert.IsDBNull(dr["CityMaskingName"]) ? default(string) : Convert.ToString(dr["CityMaskingName"]),
+                                        OnRoadPrice = Convert.IsDBNull(dr["OnRoadPrice"]) ? default(UInt32) : Convert.ToUInt32(dr["OnRoadPrice"]),
+                                        Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
+                                        MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
+                                        Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
+                                        ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
+                                    });
+                                }
                                 dr.Close();
+                            }
                         }
 
                     }
@@ -542,7 +545,7 @@ namespace Bikewale.DAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " inputs: modelId : " + modelId + " : topCount :" + topCount);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" inputs: modelId : {0} : topCount : {1} : cityId : {2}", modelId, topCount, cityId));
                 objErr.SendMail();
             }
             finally

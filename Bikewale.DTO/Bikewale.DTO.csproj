@@ -143,6 +143,7 @@
     <Compile Include="Model\v2\SpecsCategory.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\v4\ModelPage.cs" />
     <Compile Include="NewBikeSearch\Pager.cs" />
     <Compile Include="NewBikeSearch\SearchOutput.cs" />
     <Compile Include="NewBikeSearch\SearchOutputBase.cs" />
@@ -184,7 +185,11 @@
     <Compile Include="PriceQuote\v2\PQOnRoad.cs" />
     <Compile Include="PriceQuote\v2\PQOutput.cs" />
     <Compile Include="PriceQuote\v2\PQPrimaryDealer.cs" />
+    <Compile Include="PriceQuote\v3\DPQDealerBase.cs" />
+    <Compile Include="PriceQuote\v3\PQOnRoad.cs" />
+    <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="PriceQuote\Version\PQByCityArea.cs" />
+    <Compile Include="PriceQuote\Version\v2\PQByCityAreaV2.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
     <Compile Include="Version\ModelVersionList.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteInput.cs" />

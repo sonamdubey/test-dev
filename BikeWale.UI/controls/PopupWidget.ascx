@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.PopupWidget" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.PopupWidget" %>
 <script runat="server">
     private string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     private string staticFileVersion1 = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];

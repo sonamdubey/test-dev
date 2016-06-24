@@ -14,6 +14,7 @@ namespace Bikewale.Interfaces.PriceQuote
     public interface IDealerPriceQuoteDetail
     {
         DetailedDealerQuotationEntity GetDealerQuotation(UInt32 cityId, UInt32 versionID, UInt32 dealerId);
+        Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerQuotationV2(UInt32 cityId, UInt32 versionID, UInt32 dealerId);
         PQ_QuotationEntity Quotation(uint cityId, UInt16 sourceType, string deviceId, uint dealerId, uint modelId, ref ulong pqId, bool isPQRegistered, uint? areaId = null, uint? versionId = null);
     }
 }

@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewAlternativeBikes" %>
 <!-- Most Alternative Bikes Starts here-->
-<div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top15 font14 margin-bottom30">
+<div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top15 font14 margin-bottom20">
     <h2 class="padding-left20 padding-right20 margin-bottom20"><%= WidgetTitle %> Alternate Bikes </h2>
     <div class="swiper-container padding-top5">
         <div class="swiper-wrapper font14"> 

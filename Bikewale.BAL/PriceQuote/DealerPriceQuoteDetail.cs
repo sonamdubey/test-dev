@@ -49,11 +49,74 @@ namespace Bikewale.BAL.PriceQuote
                 using (BWHttpClient objClient = new BWHttpClient())
                 {
                     dealerQuotation = objClient.GetApiResponseSync<DetailedDealerQuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerQuotation);
+                    if (dealerQuotation != null)
+                    {
+                        if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
+                        {
+                            if (dealerQuotation.PrimaryDealer.EMIDetails == null && dealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium)
+                            {
+                                dealerQuotation.PrimaryDealer.EMIDetails = new EMI();
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxDownPayment = 40;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinDownPayment = 10;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxTenure = 48;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinTenure = 12;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxRateOfInterest = 15;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinRateOfInterest = 10;
+                                dealerQuotation.PrimaryDealer.EMIDetails.ProcessingFee = 2000;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "DealerPriceQuoteDetail.GetDealerQuotation");
+                objErr.SendMail();
+            }
+            return dealerQuotation;
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar
+        /// Created on : 17th June 2016
+        /// Description : call Autobiz API to get reponse for DealerPriceQuote deatils along with secondary dealers having version prices.
+        /// </summary>
+        /// <param name="cityId">e.g. 1</param>
+        /// <param name="versionID">e.g. 806</param>
+        /// <param name="dealerId">e.g. 12527</param>
+        /// <returns>DetailedDealerQuotationEntity entity</returns>
+        public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerQuotationV2(UInt32 cityId, UInt32 versionID, UInt32 dealerId)
+        {
+            Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealerQuotation = null;
+            try
+            {
+                string _apiUrl = String.Format("/api/v3/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionID, dealerId);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    dealerQuotation = objClient.GetApiResponseSync<Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerQuotation);
+                    if (dealerQuotation != null)
+                    {
+                        if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
+                        {
+                            if (dealerQuotation.PrimaryDealer.EMIDetails == null && dealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium)
+                            {
+                                dealerQuotation.PrimaryDealer.EMIDetails = new EMI();
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxDownPayment = 40;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinDownPayment = 10;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxTenure = 48;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinTenure = 12;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MaxRateOfInterest = 15;
+                                dealerQuotation.PrimaryDealer.EMIDetails.MinRateOfInterest = 10;
+                                dealerQuotation.PrimaryDealer.EMIDetails.ProcessingFee = 2000;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "DealerPriceQuoteDetail.GetDealerQuotationV2");
                 objErr.SendMail();
             }
             return dealerQuotation;
@@ -67,7 +130,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="versionID">e.g. 112</param>
         /// <param name="dealerId">e.g. 19886</param>
         /// <returns></returns>
-        public PQ_QuotationEntity Quotation(uint cityId, UInt16 sourceType, string deviceId, uint dealerId, uint modelId,ref ulong pqId, bool isPQRegistered, uint? areaId = null, uint? versionId = null)
+        public PQ_QuotationEntity Quotation(uint cityId, UInt16 sourceType, string deviceId, uint dealerId, uint modelId, ref ulong pqId, bool isPQRegistered, uint? areaId = null, uint? versionId = null)
         {
             PQ_QuotationEntity objDealerPQ = null;
             IList<PQ_BikeVarient> pqVersion = null;

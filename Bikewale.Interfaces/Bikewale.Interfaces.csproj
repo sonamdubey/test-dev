@@ -99,6 +99,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsedBikes\IUsedBikes.cs" />
     <Compile Include="UsedBikes\IPopularUsedBikesCacheRepository.cs" />
+    <Compile Include="UsedBikes\IUsedBikesCacheRepository.cs" />
     <Compile Include="UserReviews\IUserReviews.cs" />
     <Compile Include="UsersTestimonial\IUsersTestimonial.cs" />
     <Compile Include="Videos\IVideos.cs" />

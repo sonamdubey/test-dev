@@ -56,7 +56,7 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_BookingListing = 40,
         Mobile_DealerLocator_Detail = 41,
         Mobile_DealerLocator_Listing = 42,
-        Desktop_DealerLocator_SubmitButton = 43,    
+        Desktop_DealerLocator_SubmitButton = 43,
         Desktop_DealerLocator_GetOfferButton = 44,
         Desktop_ModelPage_FloatingButton = 45,
         Desktop_PriceInCity_SelectAreas = 46,
@@ -70,7 +70,9 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_SpecsAndFeaturePage_CheckOnRoadPrice = 54,
         Mobile_SpecsAndFeaturePage_GetOffersFromDealer = 55,
         Desktop_SpecsAndFeaturePage_OnLoad = 56,
-        Mobile_SpecsAndFeaturePage_OnLoad = 57
+        Mobile_SpecsAndFeaturePage_OnLoad = 57,
+        Desktop_MakePage_GetOffersFromDealer = 58,
+        Mobile_MakePage_GetOffersFromDealer = 59
         //Desktop_DealerLocator_GetOfferButton = 44,
         //Desktop_DealerLocator_GetOfferButton_Floating = 45,
         //Desktop_PriceInCity_SelectAreas = 46,

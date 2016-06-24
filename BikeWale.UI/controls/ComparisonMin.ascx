@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.ComparisonMin" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.ComparisonMin" %>
 
     <div class="grid-6 margin-top20 margin-bottom20">
         <div class="border-solid-right">
