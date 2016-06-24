@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
     var windowWidth = window.innerWidth,
         windowHeight = window.innerHeight;
     if ($('#listingSidebarHeading').height() > 145) {
@@ -19,13 +20,15 @@ $(window).scroll(function () {
     }
 });
 
-var stateArr = [
-	{ id: 1, name: 'Andhra Pradesh', link: '#', latitude: 16.5000, longitude: 80.6400, dealerCount: 4 },
-    { id: 2, name: 'Arunachal Pradesh', link: '#', latitude: 27.0600, longitude: 93.3700, dealerCount: 1 },
-    { id: 3, name: 'Gujarat', link: '#', latitude: 23.2167, longitude: 72.6833, dealerCount: 4 },
-    { id: 4, name: 'Goa', link: '#', latitude: 15.4989, longitude: 73.8278, dealerCount: 2 },
-    { id: 5, name: 'Maharashtra', link: '#', latitude: 18.9600, longitude: 72.8200, dealerCount: 4 }
-];
+//var stateArr = [
+//	{ id: 1, name: 'Andhra Pradesh', link: '#', latitude: 16.5000, longitude: 80.6400, dealerCount: 4 },
+//    { id: 2, name: 'Arunachal Pradesh', link: '#', latitude: 27.0600, longitude: 93.3700, dealerCount: 1 },
+//    { id: 3, name: 'Gujarat', link: '#', latitude: 23.2167, longitude: 72.6833, dealerCount: 4 },
+//    { id: 4, name: 'Goa', link: '#', latitude: 15.4989, longitude: 73.8278, dealerCount: 2 },
+//    { id: 5, name: 'Maharashtra', link: '#', latitude: 18.9600, longitude: 72.8200, dealerCount: 4 }
+//];
+
+debugger;
 
 var cityArr = [
     { id: 90, name: 'Mumbai', link: '#', latitude: 19.085442, longitude: 72.872951, dealerCount: 21 },
@@ -60,7 +63,6 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
     for (i = 0; i < arrList.length; i++) {
         element = arrList[i];
         markerPosition = new google.maps.LatLng(element.latitude, element.longitude);
-        
         marker = new MarkerWithLabel({
             id: element.id,
             name: element.name,
@@ -86,19 +88,20 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
 
 }
 
-var initialLat = 21,
-    initialLong = 78,
-    initialZoom = 5;
+
 
 if (typeof (dealersByCity) != 'undefined') {
     initialLat = 18.9600; //lat-long for maharashtra
     initialLong = 72.8200;
     initialZoom = 7;
+    initializeMap(cityArr, initialLat, initialLong, initialZoom);
 }
-
-//initializeMap(stateArr, initialLat, initialLong, initialZoom);
-initializeMap(cityArr, initialLat, initialLong, initialZoom);
-
+else {
+    var initialLat = 21,
+    initialLong = 78,
+    initialZoom = 5;
+    initializeMap(stateArr, initialLat, initialLong, initialZoom);
+}
 
 $('.state-sidebar-list a, .city-sidebar-list a').mouseover(function () {
     var currentLI = $(this),

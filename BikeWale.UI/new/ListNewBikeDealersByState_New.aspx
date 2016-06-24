@@ -45,7 +45,7 @@
                     <div id="listingSidebarHeading" class="padding-top15 padding-right20 padding-left20">
                         <div class="margin-bottom20">
                             <h1 id="sidebarHeader" class="font16 margin-bottom10">Royal Enfield dealers in India</h1>
-                            <h2 class="text-unbold font14 text-xt-light-grey border-solid-bottom padding-bottom15">225 dealers across 29 states</h2>
+                            <h2 class="text-unbold font14 text-xt-light-grey border-solid-bottom padding-bottom15"><%=countryCount %> dealers across <%=stateCount %> states</h2>
                         </div>
                         <div class="form-control-box">
                             <span class="bwsprite search-icon-grey"></span>
@@ -55,29 +55,14 @@
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                     </div>
-                    <% if (1 == 1) { } %>
                       <ul id="listingSidebarList" class="state-sidebar-list" >
                         <asp:Repeater ID="rptState" runat="server">
                             <ItemTemplate>
                                 <li>
-                                   <a href="andhra-pradesh-link" data-item-id="1">Andhra Pradesh</a>
+                                   <a href="/honda-bikes/dealers-in-<%#DataBinder.Eval(Container.DataItem,"stateMaskingName") %>-state/" data-item-id="<%#DataBinder.Eval(Container.DataItem,"stateId") %>"><%#DataBinder.Eval(Container.DataItem,"StateName") %></a>
                                 </li>
                             </ItemTemplate>
                         </asp:Repeater>
-                       <%-- <li>
-                        </li>
-                        <li>
-                            <a href="arunachal-pradesh-link" data-item-id="2">Arunachal Pradesh</a>
-                        </li>
-                        <li>
-                            <a href="gujarat-link" data-item-id="3">Gujarat</a>
-                        </li>
-                        <li>
-                            <a href="goa-link" data-item-id="4">Goa</a>
-                        </li>
-                        <li>
-                            <a href="maharashtra-link" data-item-id="5">Maharashtra</a>
-                        </li>--%>
                     </ul>
                 </div>
             </div>
@@ -98,9 +83,11 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
+        <script type="text/javascript">
+            var stateArr = JSON.parse('<%= stateArray %>');
+        </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealersbylocation.js?<%= staticFileVersion %>"></script>
-
-       
+              
     
     </form>
 </body>

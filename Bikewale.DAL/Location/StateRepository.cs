@@ -92,9 +92,10 @@ namespace Bikewale.DAL.Location
                                 {
                                     StateId = Convert.ToUInt32(dr["StateId"]),
                                     StateName = Convert.ToString(dr["StateName"]),
-                                    StateMaskingName = Convert.ToString(dr["MaskingName"]),
-                                    Latitude = Convert.ToString(dr["Lattitude"]),
-                                    Longitude = Convert.ToString(dr["Longitude"])
+                                    StateMaskingName = Convert.ToString(dr["StateMaskingName"]),
+                                    Latitude = Convert.ToString(dr["StateLattitude"]),
+                                    Longitude = Convert.ToString(dr["StateLongitude"]),
+                                    StateDealerCount = Convert.ToInt32(dr["StateLongitude"]),
                                 });
                             }
                         }

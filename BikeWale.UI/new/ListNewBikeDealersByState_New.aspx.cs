@@ -1,8 +1,14 @@
 ﻿using Bikewale.Common;
+using Bikewale.DAL.Location;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
+using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -17,8 +23,8 @@ namespace Bikewale.New
         protected DataSet dsStateCity = null;
         protected MakeModelVersion objMMV;
 
-        public string makeId = string.Empty;
-        public int StateCount = 0, DealerCount = 0;
+        public string makeId = string.Empty, stateArray = string.Empty;
+        public int stateCount = 0, DealerCount = 0; protected int countryCount = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -78,7 +84,7 @@ namespace Bikewale.New
             try
             {
                 dsStateCity = db.SelectAdaptQry(sql, param);
-                StateCount = int.Parse(dsStateCity.Tables[0].Rows.Count.ToString());
+                stateCount = int.Parse(dsStateCity.Tables[0].Rows.Count.ToString());
                 Trace.Warn("----------" + makeId);
             }
             catch (Exception err)
@@ -92,26 +98,44 @@ namespace Bikewale.New
 
         private void BindStates()
         {
-            DataSet dsState = new DataSet();
-
-            DataTable dt = dsState.Tables.Add();
-            dt.Columns.Add("StateId", typeof(int));
-            dt.Columns.Add("State", typeof(string));
-
-            DataRow dr;
-
-            DataRow[] rows = dsStateCity.Tables[0].Select("StateRank = 1", "State ASC");
-
-            foreach (DataRow row in rows)
+            IEnumerable<DealerStateEntity> states = null;
+            IState objStates = null;
+            using (IUnityContainer container = new UnityContainer())
             {
-                dr = dt.NewRow();
-                dr["StateId"] = row["StateId"].ToString();
-                dr["State"] = row["State"].ToString();
-
-                dt.Rows.Add(dr);
+                container.RegisterType<IState, StateRepository>();
+                objStates = container.Resolve<IState>();
+                states = objStates.GetDealerStates(Convert.ToUInt32(makeId));
+                if (states != null)
+                {
+                    rptState.DataSource = states;
+                    rptState.DataBind();
+                    stateArray = Newtonsoft.Json.JsonConvert.SerializeObject(states);
+                    stateArray = stateArray.Replace("stateId", "id").Replace("stateName", "name");
+                    countryCount = states.Select(o => o.StateDealerCount).Aggregate((x, y) => x + y);
+                    stateCount = states.Count();
+                }
             }
-            rptState.DataSource = dsState;
-            rptState.DataBind();
+
+            //DataSet dsState = new DataSet();
+
+            //DataTable dt = dsState.Tables.Add();
+            //dt.Columns.Add("StateId", typeof(int));
+            //dt.Columns.Add("State", typeof(string));
+
+            //DataRow dr;
+
+            //DataRow[] rows = dsStateCity.Tables[0].Select("StateRank = 1", "State ASC");
+
+            //foreach (DataRow row in rows)
+            //{
+            //    dr = dt.NewRow();
+            //    dr["StateId"] = row["StateId"].ToString();
+            //    dr["State"] = row["State"].ToString();
+
+            //    dt.Rows.Add(dr);
+            //}
+            //rptState.DataSource = dsState;
+            //rptState.DataBind();
         }
 
         public DataSet BindCities(int StateId)
