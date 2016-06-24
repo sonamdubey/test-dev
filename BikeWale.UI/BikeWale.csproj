@@ -14,7 +14,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -2587,6 +2587,7 @@
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />
     <Content Include="src\new\bikemake.js" />
+    <Content Include="src\new\markerwithlabel.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\BikeBooking\bookinglisting.js" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +10,8 @@ namespace Bikewale.Interfaces.Location
     /// <summary>
     /// Created By : Ashish G. Kamble
     /// </summary>
-    public interface IState
+    public interface IStateMaskingCacheRepository
     {
-        List<StateEntityBase> GetStates();
-        Hashtable GetMaskingNames();
+        StateMaskingResponse GetStateMaskingResponse(string maskingName);
     }
 }
