@@ -327,8 +327,8 @@ namespace Bikewale.DAL.Location
                                     dealerStates.StateId = Convert.ToUInt32(dr["Id"]);
                                     dealerStates.StateName = Convert.ToString(dr["Name"]);
                                     dealerStates.StateMaskingName = Convert.ToString(dr["StateMaskingName"]);
-                                    dealerStates.Latitude = Convert.ToString(dr["StateLattitude"]);
-                                    dealerStates.Longitude = Convert.ToString(dr["StateLongitude"]);
+                                    dealerStates.StateLatitude = Convert.ToString(dr["StateLattitude"]);
+                                    dealerStates.StateLongitude = Convert.ToString(dr["StateLongitude"]);
                                 }
 
                                 objStateCities.dealerStates = dealerStates;

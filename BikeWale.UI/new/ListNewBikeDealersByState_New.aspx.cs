@@ -24,7 +24,7 @@ namespace Bikewale.New
         protected MakeModelVersion objMMV;
 
         public string makeId = string.Empty, stateArray = string.Empty, makeMaskingName = string.Empty;
-        public int stateCount = 0, DealerCount = 0; protected int countryCount = 0;
+        public int stateCount = 0, DealerCount = 0; protected uint countryCount = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -112,7 +112,7 @@ namespace Bikewale.New
                     // To set correct properties in json array
                     stateArray = stateArray.Replace("stateId", "id").Replace("stateName", "name");
 
-                    countryCount = states.Select(o => o.DealerCount).Aggregate((x, y) => x + y);
+                    countryCount = states.Select(o => o.StateCount).Aggregate((x, y) => x + y);
                     stateCount = states.Count();
                 }
             }
