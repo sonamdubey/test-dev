@@ -3,9 +3,10 @@ namespace Bikewale.Entities.Location
 {
     public class DealerStateEntity : StateEntityBase
     {
-        public string Latitude { get; set; }
+        public string StateLatitude { get; set; }
 
-        public string Longitude { get; set; }
+        public string StateLongitude { get; set; }
 
+        public uint StateCount { get; set; }
     }
 }
