@@ -42,40 +42,35 @@
         <section>
             <div class="grid-12 alpha omega">
                 <div id="listingSidebar" class="bg-white position-abt pos-right0">
-                    <div class="listingSidebarHeading padding-top15 padding-right20 padding-left20">
-                        <h1 id="sidebarHeader" class="font16 border-solid-bottom padding-bottom15 margin-bottom10">Bajaj dealers in India</h1>
-                        <div class="padding-bottom10 form-control-box">
+                    <div id="listingSidebarHeading" class="padding-top15 padding-right20 padding-left20">
+                        <div class="margin-bottom20">
+                            <h1 id="sidebarHeader" class="font16 margin-bottom10">Royal Enfield dealers in Maharashtra</h1>
+                            <h2 class="text-unbold font14 text-xt-light-grey border-solid-bottom padding-bottom15">25 dealers across 40 cities in Maharashtra</h2>
+                        </div>
+                        <div class="form-control-box">
                             <span class="bwsprite search-icon-grey"></span>
-                            <input type="text" class="form-control padding-right40" placeholder="Type to search state" id="getStateInput" />
+                            <input type="text" class="form-control padding-right40" placeholder="Type to search city" id="getCityInput" />
                             <span class="fa fa-spinner fa-spin position-abt text-black"></span>
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText"></div>
+                        </div>
+                        <div class="padding-top10 padding-bottom10">
+                            <a href="#" class="inline-block"><span class="bwsprite back-icon"></span></a>
+                            <span class="font16 text-black inline-block">Maharashtra</span>
                         </div>
                     </div>
-                    <ul id="listingSidebarList">
-
+                    <ul id="listingSidebarList" class="city-sidebar-list">
                         <li>
-                            <h3 data-state-id="1" data-state-lat="16.5000" data-state-long="80.6400">
-                                <a href="">Andhra Pradesh</a>
-                            </h3>
+                            <a href="http://webserver:9011/tvs-bikes/wego/" data-item-id="90">Mumbai (21)</a>
                         </li>
                         <li>
-                            <h3 data-state-id="2" data-state-lat="27.0600" data-state-long="93.3700">
-                                <a href="">Arunachal Pradesh</a>
-                            </h3>
+                            <a href="#" data-item-id="91">Panvel (15)</a>
                         </li>
                         <li>
-                            <h3 data-state-id="3" data-state-lat="30.7500" data-state-long="76.7800">
-                                <a href="">Gujarat</a>
-                            </h3>
+                            <a href="#" data-item-id="92">Chiplun (9)</a>
                         </li>
                         <li>
-                            <h3 data-state-id="4" data-state-lat="15.4989" data-state-long="73.8278">
-                                <a href="">Goa</a>
-                            </h3>
-                        </li>
-                        <li>
-                            <h3 data-state-id="5" data-state-lat="18.9600" data-state-long="72.8200">
-                                <a href="">Maharashtra</a>
-                            </h3>
+                            <a href="#" data-item-id="93">Solapur (4)</a>
                         </li>
                     </ul>
                 </div>
@@ -85,9 +80,9 @@
 
         <section class="bg-white">
             <div class="grid-12 alpha omega">
-                <div class="dealer-city-map-wrapper">
-                    <div id="dealerCityMapWrapper" style="position: fixed; top: 50px; width: 100%; height: 530px;">
-                        <div id="dealersCityMap" style="width: 100%; height: 530px;">
+                <div class="dealer-map-wrapper">
+                    <div id="dealersMapWrapper" style="position: fixed; top: 50px; width: 100%; height: 530px;">
+                        <div id="dealersMap" style="width: 100%; height: 530px;">
                         </div>
                     </div>
                 </div>
@@ -97,8 +92,10 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
+        <script type="text/javascript">
+            var dealersByCity = true;
+        </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealersbylocation.js?<%= staticFileVersion %>"></script>
-
         <!--
     <div class="container_12">
         <div class="grid_12">

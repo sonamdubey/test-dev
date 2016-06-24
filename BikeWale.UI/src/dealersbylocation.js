@@ -27,6 +27,13 @@ var stateArr = [
     { id: 5, name: 'Maharashtra', link: '#', latitude: 18.9600, longitude: 72.8200, dealerCount: 4 }
 ];
 
+var cityArr = [
+    { id: 90, name: 'Mumbai', link: '#', latitude: 19.085442, longitude: 72.872951, dealerCount: 21 },
+    { id: 91, name: 'Panvel', link: '#', latitude: 18.998724, longitude: 73.118817, dealerCount: 15 },
+    { id: 92, name: 'Chiplun', link: '#', latitude: 17.536045, longitude: 73.521305, dealerCount: 9 },
+    { id: 93, name: 'Solapur', link: '#', latitude: 17.668327, longitude: 75.914494, dealerCount: 4 }
+];
+
 var markerArr = [];
 var map, infowindow;
 var markerIcon = 'http://imgd2.aeplcdn.com/0x0/bw/static/design15/marker-icon.png';
@@ -82,36 +89,55 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
 var initialLat = 21,
     initialLong = 78,
     initialZoom = 5;
-initializeMap(stateArr, initialLat, initialLong, initialZoom);
 
-$('#listingSidebarList a').mouseover(function () {
+if (typeof (dealersByCity) != 'undefined') {
+    initialLat = 18.9600; //lat-long for maharashtra
+    initialLong = 72.8200;
+    initialZoom = 7;
+}
+
+//initializeMap(stateArr, initialLat, initialLong, initialZoom);
+initializeMap(cityArr, initialLat, initialLong, initialZoom);
+
+
+$('.state-sidebar-list a, .city-sidebar-list a').mouseover(function () {
     var currentLI = $(this),
-        currentElementId = currentLI.attr('data-state-id');
-    for (var i = 0; i < markerArr.length; i++) {
-        if (markerArr[i].id == currentElementId) {
-            infowindow.setContent(markerArr[i].name);
-            infowindow.open(map, markerArr[i]);
-            break;
-        }
-    }
+        currentElementId = currentLI.attr('data-item-id');
+    mapsInfoWindow.open(currentElementId);
 });
 
-$('#listingSidebarList a').mouseout(function () {
+$('.state-sidebar-list a, .city-sidebar-list a').mouseout(function () {
     var currentLI = $(this),
-        currentElementId = currentLI.attr('data-state-id');
-    for (var i = 0; i < markerArr.length; i++) {
-        if (markerArr[i].id == currentElementId) {
-            infowindow.close();
-            break;
-        }
-    }
+        currentElementId = currentLI.attr('data-item-id');
+    mapsInfoWindow.close(currentElementId);
 });
 
-$("#getStateInput").on("focus", function () {
+var mapsInfoWindow = {
+    open: function (elementId) {
+        for (var i = 0; i < markerArr.length; i++) {
+            if (markerArr[i].id == elementId) {
+                infowindow.setContent(markerArr[i].name);
+                infowindow.open(map, markerArr[i]);
+                break;
+            }
+        }
+    },
+
+    close: function (elementId) {
+        for (var i = 0; i < markerArr.length; i++) {
+            if (markerArr[i].id == elementId) {
+                infowindow.close();
+                break;
+            }
+        }
+    }
+};
+
+$("#getStateInput, #getCityInput").on("focus", function () {
     $("html, body").animate({ scrollTop: 0 });
 });
 
-$("#getStateInput").on("keyup", function (event) {
+$("#getStateInput, #getCityInput").on("keyup", function (event) {
     if (event.keyCode != 40 && event.keyCode != 38 && event.keyCode != 13) {
         filter.location($(this));
     }
@@ -199,7 +225,9 @@ var filter = {
     targetSelection: function () {
         var currentSelection = filter.list.find("li.filtered.highlight"),
             targetLink = currentSelection.find("a").attr("href");
-        console.log(targetLink);
+        if (typeof (targetLink) != 'undefined') {
+            window.location.href = targetLink;
+        }
     },
 
     highlightOnMap: function () {

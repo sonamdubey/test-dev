@@ -6,15 +6,22 @@ body { overflow-x:hidden; }
 #listingSidebarHeading { width:338px; position:fixed; top:51px; background:#fff; z-index:3; }
 #listingSidebarHeading h1 { color:#000; }
 #listingSidebarHeading span.search-icon-grey {position: absolute;right:10px;top:10px;cursor: pointer;z-index:2; }
-#listingSidebarHeading span.fa-spinner {display:none;right:14px;top:12px;background:#fff}
-#listingSidebarList { width:338px; min-height:600px; background:#fff; padding:142px 20px 0; z-index:1;}
+#listingSidebarHeading span.fa-spinner {display:none;right:14px;top:12px;}
+#listingSidebarHeading .errorText, #listingSidebarHeading .errorIcon { display:none; }
+#listingSidebarList { width:338px; min-height:600px; background:#fff; position:relative; padding:142px 20px 0; z-index:1;}
 #listingSidebarList li { border-top:1px solid #f1f1f1; }
 #listingSidebarList li:first-child { border-top:0; }
-#listingSidebarList li a {color:#4d5057;font-size:16px;display:block;cursor:pointer;padding:13px 10px;}
+#listingSidebarList li a {color:#4d5057;font-size:16px;display:block;padding:13px 10px;}
 #listingSidebarList li a:hover, .dealer-location-tooltip a:hover { color:#2a2a2a; text-decoration:none; }
+#listingSidebarList.city-sidebar-list { padding-top: 187px; }
+#listingSidebarList.city-sidebar-list li { border-top:0; }
+#listingSidebarList.city-sidebar-list li a, .no-search-result {color:#82888b;padding:10px 20px 10px 24px;}
+#listingSidebarList.city-sidebar-list li a:hover { color:#4d5057;}
 #listingSidebar .form-control { border-radius:0; }
 .gm-style-iw + div {display: none;}
 .labels {color: #4d5057; background-color: white;font-size:16px;font-weight: bold;text-align: center;width:54px;height:54px;display:block;border-radius:50%;white-space: nowrap;top:-26px;left:-26px;padding-top:12px;border:2px solid #4d5057;}
 .labels:hover { border: 2px solid #ef3f30; }
 .label-hover { border: 2px solid #ef3f30 !important; }
 .highlight { background: #f1f1f1; }
+#listingSidebarHeading .back-icon {width: 20px;height: 24px;background-position: -127px -364px; cursor:pointer; }
+#listingSidebarHeading .back-icon:hover { background-position: -127px -395px; }

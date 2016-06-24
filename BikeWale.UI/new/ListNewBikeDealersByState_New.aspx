@@ -51,31 +51,32 @@
                             <span class="bwsprite search-icon-grey"></span>
                             <input type="text" class="form-control padding-right40" placeholder="Type to search state" id="getStateInput" />
                             <span class="fa fa-spinner fa-spin position-abt text-black"></span>
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                     </div>
                     <% if (1 == 1) { } %>
-                    <ul id="listingSidebarList">
+                      <ul id="listingSidebarList" class="state-sidebar-list" >
                         <asp:Repeater ID="rptState" runat="server">
                             <ItemTemplate>
                                 <li>
-                                    <a href="andhra-pradesh-link" data-item-id="1" >Andhra Pradesh</a>
+                                   <a href="andhra-pradesh-link" data-item-id="1">Andhra Pradesh</a>
                                 </li>
                             </ItemTemplate>
                         </asp:Repeater>
                        <%-- <li>
-                            <a href="andhra-pradesh-link" data-state-id="1" data-state-lat="16.5000" data-state-long="80.6400">Andhra Pradesh</a>
                         </li>
                         <li>
-                            <a href="arunachal-pradesh-link" data-state-id="2" data-state-lat="27.0600" data-state-long="93.3700">Arunachal Pradesh</a>
+                            <a href="arunachal-pradesh-link" data-item-id="2">Arunachal Pradesh</a>
                         </li>
                         <li>
-                            <a href="gujarat-link" data-state-id="3" data-state-lat="30.7500" data-state-long="76.7800">Gujarat</a>
+                            <a href="gujarat-link" data-item-id="3">Gujarat</a>
                         </li>
                         <li>
-                            <a href="goa-link" data-state-id="4" data-state-lat="15.4989" data-state-long="73.8278">Goa</a>
+                            <a href="goa-link" data-item-id="4">Goa</a>
                         </li>
                         <li>
-                            <a href="maharashtra-link" data-state-id="5" data-state-lat="18.9600" data-state-long="72.8200">Maharashtra</a>
+                            <a href="maharashtra-link" data-item-id="5">Maharashtra</a>
                         </li>--%>
                     </ul>
                 </div>
