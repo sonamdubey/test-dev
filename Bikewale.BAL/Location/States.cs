@@ -31,8 +31,7 @@ namespace Bikewale.BAL.Location
         /// <returns></returns>
         public IEnumerable<DealerStateEntity> GetDealerStates(uint makeId)
         {
-            IEnumerable<DealerStateEntity> objDealerStates = objStates.GetDealerStates(makeId);
-            return objDealerStates;
+            return objStates.GetDealerStates(makeId);
         }
     }
 }

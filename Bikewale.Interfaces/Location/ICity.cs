@@ -1,11 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Location
 {
@@ -20,5 +16,6 @@ namespace Bikewale.Interfaces.Location
         List<CityEntityBase> GetCities(string stateId, EnumBikeType requestType);
         Hashtable GetMaskingNames();
         Hashtable GetOldMaskingNames();
+        DealerStateCities GetDealerStateCities(uint makeId, uint stateId);
     }
 }

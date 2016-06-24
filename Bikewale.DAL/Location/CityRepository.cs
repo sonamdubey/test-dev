@@ -1,22 +1,19 @@
 ﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.Location;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using System.Collections;
 
 namespace Bikewale.DAL.Location
 {
     public class CityRepository : ICity
-    {              
+    {
         /// <summary>
         /// Written By : Ashish G. Kamble on 3/8/2012
         /// Function returns city id and city names by providing state id and request type
@@ -272,6 +269,84 @@ namespace Bikewale.DAL.Location
                 db.CloseConnection();
             }
             return ht;
+        }
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 7 June 2016        
+        /// Function to get the old city masking names 
+        /// </summary>
+        /// <returns></returns>
+        public DealerStateCities GetDealerStateCities(uint makeId, uint stateId)
+        {
+            Database db = null;
+
+            DealerStateCities objStateCities = null;
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "GetCitywiseDealersCnt";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = stateId;
+
+                    db = new Database();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            objStateCities = new DealerStateCities();
+
+                            List<DealerCityEntity> dealerCities = new List<DealerCityEntity>();
+
+                            while (dr.Read())
+                            {
+                                dealerCities.Add(new DealerCityEntity()
+                                {
+                                    CityId = Convert.ToUInt32(dr["CityId"]),
+                                    CityName = Convert.ToString(dr["Name"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                    Lattitude = Convert.ToString(dr["Lattitude"]),
+                                    Longitude = Convert.ToString(dr["Longitude"]),
+                                    DealersCount = Convert.ToUInt32(dr["DealersCnt"])
+                                });
+                            }
+
+                            objStateCities.dealerCities = dealerCities;
+
+                            if (dr.NextResult())
+                            {
+                                DealerStateEntity dealerStates = new DealerStateEntity();
+
+                                if (dr.Read())
+                                {
+                                    dealerStates.StateId = Convert.ToUInt32(dr["Id"]);
+                                    dealerStates.StateName = Convert.ToString(dr["Name"]);
+                                    dealerStates.StateMaskingName = Convert.ToString(dr["StateMaskingName"]);
+                                    dealerStates.Latitude = Convert.ToString(dr["StateLattitude"]);
+                                    dealerStates.Longitude = Convert.ToString(dr["StateLongitude"]);
+                                }
+
+                                objStateCities.dealerStates = dealerStates;
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("ServerVariable: {0} , Parameters : makeId({1}), stateId({2})", HttpContext.Current.Request.ServerVariables["URL"], makeId, stateId));
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return objStateCities;
         }
     }
 }

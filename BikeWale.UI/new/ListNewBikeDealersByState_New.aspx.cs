@@ -104,14 +104,15 @@ namespace Bikewale.New
                 container.RegisterType<IState, StateRepository>();
                 objStates = container.Resolve<IState>();
                 states = objStates.GetDealerStates(Convert.ToUInt32(makeId));
-                if (states != null)
+                if (states != null && states.Count() > 0)
                 {
                     rptState.DataSource = states;
                     rptState.DataBind();
                     stateArray = Newtonsoft.Json.JsonConvert.SerializeObject(states);
                     // To set correct properties in json array
                     stateArray = stateArray.Replace("stateId", "id").Replace("stateName", "name");
-                    countryCount = states.Select(o => o.StateDealerCount).Aggregate((x, y) => x + y);
+
+                    countryCount = states.Select(o => o.DealerCount).Aggregate((x, y) => x + y);
                     stateCount = states.Count();
                 }
             }
@@ -125,7 +126,7 @@ namespace Bikewale.New
         protected bool ProcessQS()
         {
             bool isSuccess = true;
-            if (string.IsNullOrEmpty(Request["make"]))
+            if (!string.IsNullOrEmpty(Request["make"]))
             {
                 makeMaskingName = Request["make"].ToString();
                 makeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());

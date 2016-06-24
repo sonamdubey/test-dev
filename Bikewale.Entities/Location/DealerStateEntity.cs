@@ -9,6 +9,6 @@ namespace Bikewale.Entities.Location
         [JsonProperty("longitude")]
         public string Longitude { get; set; }
         [JsonProperty("dealerCount")]
-        public int StateDealerCount { get; set; }
+        public int DealerCount { get; set; }
     }
 }

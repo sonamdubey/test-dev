@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.DAL.Location;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Location;
+using Bikewale.Memcache;
+using Microsoft.Practices.Unity;
+using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
-using Bikewale.Common;
-using Bikewale.Memcache;
 
 namespace Bikewale.New
 {
@@ -17,8 +21,9 @@ namespace Bikewale.New
         protected DataSet dsStateCity = null;
         protected MakeModelVersion objMMV;
 
-        public string makeId = "";
+        public string makeId = string.Empty;
         public int StateCount = 0, DealerCount = 0;
+        public uint stateId = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -29,7 +34,7 @@ namespace Bikewale.New
         {
             base.Load += new EventHandler(this.Page_Load);
         }
-		
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //code for device detection added by Ashwini Todkar
@@ -49,7 +54,7 @@ namespace Bikewale.New
                     objMMV.GetMakeDetails(makeId);
 
                     BindControl();
-                    BindStates();
+                    BindCities();
                 }
             }
         }
@@ -79,7 +84,6 @@ namespace Bikewale.New
             {
                 dsStateCity = db.SelectAdaptQry(sql, param);
                 StateCount = int.Parse(dsStateCity.Tables[0].Rows.Count.ToString());
-                Trace.Warn("----------" + makeId);
             }
             catch (Exception err)
             {
@@ -90,62 +94,51 @@ namespace Bikewale.New
 
         }//function
 
-        private void BindStates()
+        private void BindCities()
         {
-            DataSet dsState = new DataSet();
-
-            DataTable dt = dsState.Tables.Add();
-            dt.Columns.Add("StateId", typeof(int));
-            dt.Columns.Add("State", typeof(string));
-
-            DataRow dr;
-
-            DataRow[] rows = dsStateCity.Tables[0].Select("StateRank = 1", "State ASC");
-
-            foreach (DataRow row in rows)
+            DealerStateCities dealerCities;
+            ICity objCities = null;
+            using (IUnityContainer container = new UnityContainer())
             {
-                dr = dt.NewRow();
-                dr["StateId"] = row["StateId"].ToString();
-                dr["State"] = row["State"].ToString();
+                container.RegisterType<ICity, CityRepository>();
+                objCities = container.Resolve<ICity>();
+                dealerCities = objCities.GetDealerStateCities(7, 1);
 
-                dt.Rows.Add(dr);
             }
-            rptState.DataSource = dsState;
-            rptState.DataBind();
         }
 
-        public DataSet BindCities(int StateId)
-        {
-            DataSet dsCity = new DataSet();
+        //public DataSet BindCities(int StateId)
+        //{
+        //    DataSet dsCity = new DataSet();
 
-            DataTable dt = dsCity.Tables.Add();
-            dt.Columns.Add("CityId", typeof(int));
-            dt.Columns.Add("City", typeof(string));
-            dt.Columns.Add("StateId", typeof(int));
-            dt.Columns.Add("State", typeof(string));
-            dt.Columns.Add("TotalBranches", typeof(int));
-            dt.Columns.Add("CityMaskingName", typeof(string));
+        //    DataTable dt = dsCity.Tables.Add();
+        //    dt.Columns.Add("CityId", typeof(int));
+        //    dt.Columns.Add("City", typeof(string));
+        //    dt.Columns.Add("StateId", typeof(int));
+        //    dt.Columns.Add("State", typeof(string));
+        //    dt.Columns.Add("TotalBranches", typeof(int));
+        //    dt.Columns.Add("CityMaskingName", typeof(string));
 
-            DataRow dr;
+        //    DataRow dr;
 
-            DataRow[] rows = dsStateCity.Tables[0].Select("StateId = " + StateId, "City ASC");
+        //    DataRow[] rows = dsStateCity.Tables[0].Select("StateId = " + StateId, "City ASC");
 
-            foreach (DataRow row in rows)
-            {
-                dr = dt.NewRow();
-                dr["CityId"] = row["CityId"].ToString();
-                dr["City"] = row["City"].ToString();
-                dr["CityMaskingName"] = row["CityMaskingName"].ToString();
-                dr["StateId"] = row["StateId"].ToString();
-                dr["State"] = row["State"].ToString();
-                dr["TotalBranches"] = row["TotalBranches"].ToString();
-                DealerCount += int.Parse(row["TotalBranches"].ToString());
-                dt.Rows.Add(dr);
-            }
-            Trace.Warn("City Dataset contains: " + dsCity.Tables[0].Rows.Count.ToString());
-            return dsCity;
+        //    foreach (DataRow row in rows)
+        //    {
+        //        dr = dt.NewRow();
+        //        dr["CityId"] = row["CityId"].ToString();
+        //        dr["City"] = row["City"].ToString();
+        //        dr["CityMaskingName"] = row["CityMaskingName"].ToString();
+        //        dr["StateId"] = row["StateId"].ToString();
+        //        dr["State"] = row["State"].ToString();
+        //        dr["TotalBranches"] = row["TotalBranches"].ToString();
+        //        DealerCount += int.Parse(row["TotalBranches"].ToString());
+        //        dt.Rows.Add(dr);
+        //    }
+        //    Trace.Warn("City Dataset contains: " + dsCity.Tables[0].Rows.Count.ToString());
+        //    return dsCity;
 
-        }
+        //}
 
         protected bool ProcessQS()
         {
@@ -153,7 +146,7 @@ namespace Bikewale.New
             if (Request["make"] == null || Request.QueryString["make"] == "")
             {
                 //invalid make id, hence redirect to he browsebikes.aspx page
-                Trace.Warn("make id : ",Request.QueryString["make"]);
+                Trace.Warn("make id : ", Request.QueryString["make"]);
                 Response.Redirect("/new/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
@@ -162,7 +155,6 @@ namespace Bikewale.New
             else
             {
                 makeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());
-
                 //verify the id as passed in the url
                 if (CommonOpn.CheckId(makeId) == false)
                 {
@@ -174,6 +166,5 @@ namespace Bikewale.New
             }
             return isSuccess;
         }
-
     }   // End of class
 }   // End of namespace
