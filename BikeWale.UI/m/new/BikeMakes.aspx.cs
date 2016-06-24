@@ -70,11 +70,11 @@ namespace Bikewale.Mobile
                 ctrlUpcomingBikes.MakeName = _make.MakeName;
 
                 ////news,videos,revews
-                ctrlNews.TotalRecords = 2;
+                ctrlNews.TotalRecords = 3;
                 ctrlNews.MakeId = Convert.ToInt32(makeId);
                 ctrlNews.WidgetTitle = _make.MakeName;
 
-                ctrlExpertReviews.TotalRecords = 3;
+                ctrlExpertReviews.TotalRecords = 2;
                 ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
                 ctrlExpertReviews.MakeMaskingName = makeMaskingName;
 

@@ -92,7 +92,7 @@
             leadCapturePopup.show();
             $("#notify-response").hide();
             $("div#contactDetailsPopup").show();
-            $('body').addClass('lock-browser-scroll');
+            //$('body').addClass('lock-browser-scroll');
             $(".blackOut-window").show();
         });
 
