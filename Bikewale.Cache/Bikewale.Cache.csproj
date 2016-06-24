@@ -51,6 +51,7 @@
     <Compile Include="Location\AreaCacheRepository.cs" />
     <Compile Include="Location\CityCacheRepository.cs" />
     <Compile Include="Location\CityMaskingCache.cs" />
+    <Compile Include="Location\StateCacheRepository.cs" />
     <Compile Include="Memcache\BWMemcache.cs" />
     <Compile Include="Memcache\MakeMapping.cs" />
     <Compile Include="PriceQuote\PriceQuoteCache.cs" />

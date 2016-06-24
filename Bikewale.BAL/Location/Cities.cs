@@ -1,4 +1,4 @@
-﻿using Bikewale.DAL.Location;
+﻿using Bikewale.Cache.Location;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
@@ -9,16 +9,16 @@ using System.Collections.Generic;
 
 namespace Bikewale.BAL.Location
 {
-    public class Cities
+    public class Cities : ICity
     {
-        private readonly ICity objCities = null;
+        private readonly ICityCacheRepository objCities = null;
 
         public Cities()
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<ICity, CityRepository>();
-                objCities = container.Resolve<ICity>();
+                container.RegisterType<ICityCacheRepository, CityCacheRepository>();
+                objCities = container.Resolve<ICityCacheRepository>();
             }
         }
 
@@ -28,7 +28,15 @@ namespace Bikewale.BAL.Location
         public Hashtable GetMaskingNames() { throw new NotImplementedException(); }
         public Hashtable GetOldMaskingNames() { throw new NotImplementedException(); }
 
-        public DealerStateCities GetDealerStates(uint makeId, uint stateId)
+        /// <summary>
+        /// Created by : Vivek Gupta
+        /// Date : 24 june 2016
+        /// Desc : get dealer cities for dealer locatr
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="stateId"></param>
+        /// <returns></returns>
+        public DealerStateCities GetDealerStateCities(uint makeId, uint stateId)
         {
             return objCities.GetDealerStateCities(makeId, stateId);
         }

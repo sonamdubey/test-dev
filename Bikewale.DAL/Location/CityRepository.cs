@@ -272,8 +272,9 @@ namespace Bikewale.DAL.Location
         }
 
         /// <summary>
-        /// Written By : Ashish G. Kamble on 7 June 2016        
-        /// Function to get the old city masking names 
+        /// Written By : Vivek Gupta
+        /// Date : 24 june 2016
+        /// Desc : to get dealer cities for dealer locator
         /// </summary>
         /// <returns></returns>
         public DealerStateCities GetDealerStateCities(uint makeId, uint stateId)

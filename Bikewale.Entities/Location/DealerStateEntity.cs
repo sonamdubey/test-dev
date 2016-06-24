@@ -1,14 +1,20 @@
 ﻿
-using Newtonsoft.Json;
+using System;
 namespace Bikewale.Entities.Location
 {
+
+    /// Created By : Vivek Gupta 
+    /// Date : 24 june 2016
+    /// Desc: get dealer states
+    /// </summary>
+
+    [Serializable]
     public class DealerStateEntity : StateEntityBase
     {
-        [JsonProperty("latitude")]
-        public string Latitude { get; set; }
-        [JsonProperty("longitude")]
-        public string Longitude { get; set; }
-        [JsonProperty("dealerCount")]
-        public int DealerCount { get; set; }
+        public string StateLatitude { get; set; }
+
+        public string StateLongitude { get; set; }
+
+        public uint StateCount { get; set; }
     }
 }

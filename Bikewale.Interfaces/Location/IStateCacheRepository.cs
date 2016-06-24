@@ -3,14 +3,11 @@ using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Location
 {
-    /// <summary>
     /// Created By : Vivek Gupta 
-    /// Date : 24 june 2016
-    /// desc : GetDealerStates reference added 
+    /// Date : 24 june 2016    
     /// </summary>
-    public interface IState
+    public interface IStateCacheRepository
     {
-        List<StateEntityBase> GetStates();
         IEnumerable<DealerStateEntity> GetDealerStates(uint makeId);
     }
 }
