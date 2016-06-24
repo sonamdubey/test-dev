@@ -8,6 +8,8 @@ namespace Bikewale.Interfaces.Location
     /// <summary>
     /// Created By : Ashish G. Kamble
     /// Modified By : Ashish G. Kamble on 7 June 2016
+    /// Modified By Vive Gupta on 24 june 2016
+    /// Desc : added description for GetDealerStateCities
     /// </summary>
     public interface ICity
     {

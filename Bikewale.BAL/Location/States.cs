@@ -1,4 +1,4 @@
-﻿using Bikewale.DAL.Location;
+﻿using Bikewale.Cache.Location;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using Microsoft.Practices.Unity;
@@ -9,14 +9,14 @@ namespace Bikewale.BAL.Location
 {
     public class States : IState
     {
-        private readonly IState objStates = null;
+        private readonly IStateCacheRepository _objStates = null;
 
         public States()
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IState, StateRepository>();
-                objStates = container.Resolve<IState>();
+                container.RegisterType<IStateCacheRepository, StateCacheRepository>();
+                _objStates = container.Resolve<IStateCacheRepository>();
             }
         }
 
@@ -26,12 +26,15 @@ namespace Bikewale.BAL.Location
         }
 
         /// <summary>
-        /// Get list of makes along with total dealers count for each make
+        /// Created By : vivek gupta 
+        /// Date : 24 june 2016
+        /// desc : get dealer states
         /// </summary>
+        /// <param name="makeId"></param>
         /// <returns></returns>
         public IEnumerable<DealerStateEntity> GetDealerStates(uint makeId)
         {
-            return objStates.GetDealerStates(makeId);
+            return _objStates.GetDealerStates(makeId);
         }
     }
 }

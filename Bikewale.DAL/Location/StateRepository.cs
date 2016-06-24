@@ -67,7 +67,13 @@ namespace Bikewale.DAL.Location
             return objStateList;
         }   // End of GetStates method
 
-
+        /// <summary>
+        /// Create By : Vivek Gupta 
+        /// Date : 24 june 2016
+        /// desc : get dealer states
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
         public IEnumerable<DealerStateEntity> GetDealerStates(uint makeId)
         {
             Database db = null;
