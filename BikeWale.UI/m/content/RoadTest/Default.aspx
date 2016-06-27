@@ -15,6 +15,15 @@
     Ad_Bot_320x50 = true;
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
+<style type="text/css">
+    .article-wrapper { display:table; margin-bottom:10px; }
+    .article-image-wrapper { width:120px; }
+    .article-image-wrapper, .article-desc-wrapper { display:table-cell; vertical-align:top; }
+    .article-stats-wrapper { min-width:115px; padding-right:10px; }
+    .calender-grey-icon, .author-grey-icon { width:14px; height:15px; position:relative; top:-1px; margin-right:6px; }
+    .calender-grey-icon { background-position:-40px -460px; }
+    .author-grey-icon { background-position:-64px -460px; }
+</style>
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 <div class="padding5">
     <div id="br-cr">
@@ -47,28 +56,32 @@
 	    </div>
 	    <div class="new-line10"><a class="normal" href="/m/road-tests/">Show all road tests&nbsp;&nbsp;<span class="arr-small">»</span></a></div>
     </div>
-    <div class="pgsubhead">Latest bike Road Tests</div>
+    <h1>Latest bike Road Tests</h1>
     <div id="divListing">
         <asp:Repeater id="rptRoadTest" runat="server">
             <itemtemplate>
                 <a class="normal" href='/m/road-tests/<%#DataBinder.Eval(Container.DataItem, "ArticleUrl").ToString()%>-<%# DataBinder.Eval(Container.DataItem, "BasicId") %>.html' >
 		            <div class="box1 new-line15" >
-                        <table cellspacing="0" cellpadding="0" style="width:100%;overflow:visible;">
-					        <tr>
-						        <td style="width:100px;vertical-align:top;"><img style="width:100%;max-width:100%;height:auto;" alt='Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>' title="Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>'></td>
-						        <td valign="top" style="padding-left:10px;">
-			                        <div class="sub-heading">
-				                        Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>&nbsp;&nbsp;<span class="arr-small">&raquo;</span>
-			                        </div>
-			                        <div class="lightgray new-line" style="font-size:13px; margin-bottom:10px;">
-				                        by <%# DataBinder.Eval(Container.DataItem, "AuthorName") %>
-			                        </div>
-                                    <div style="border:1px solid #b3b4c6;background-color:#ffffff;width:100px;position:absolute;right:-1px;bottom:-10px;padding:2px 2px;font-size:13px;" class="lightgray">
-                                        <%# CommonOpn.GetDisplayDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString()) %>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                        <div class="article-wrapper">
+                            <div class="article-image-wrapper">
+                                <img alt='Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>' title="Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0">
+                            </div>
+					        <div class="padding-left10 article-desc-wrapper">
+                                <div class="font14 text-bold text-black">
+				                    Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>
+			                    </div>
+                            </div>
+                        </div>
+                        <div class="article-stats-wrapper font12 leftfloat text-light-grey">
+                            <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block">date</span>
+                        </div>
+                        <div class="article-stats-wrapper font12 leftfloat text-light-grey">
+                            <span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block"><%# DataBinder.Eval(Container.DataItem, "AuthorName") %></span>
+                        </div>
+                        <div class="clear"></div>
+                        <%--<div style="border:1px solid #b3b4c6;background-color:#ffffff;width:100px;position:absolute;right:-1px;bottom:-10px;padding:2px 2px;font-size:13px;" class="lightgray">
+                            <%# CommonOpn.GetDisplayDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString()) %>
+                        </div>--%>
 		            </div>
 	            </a>
             </itemtemplate>
