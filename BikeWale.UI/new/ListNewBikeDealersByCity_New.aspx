@@ -1,7 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ListNewBikeDealersByCity_New" EnableViewState="false" Trace="false" Debug="false" %>
-<%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
-<%@ Register TagPrefix="TIP" TagName="TipsAdvicesMin" Src="/controls/TipsAdvicesMin.ascx" %>
-<%@ Register TagPrefix="FM" TagName="ForumsMin" Src="/controls/forumsmin.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 
 <!doctype html>
@@ -54,10 +51,12 @@
                             <span class="bwsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
+                        <% if(dealerCity!=null && dealerCity.dealerStates!=null){ %>
                         <div class="padding-top10 padding-bottom10">
                             <a href="#" class="inline-block"><span class="bwsprite back-icon"></span></a>
                             <span class="font16 text-black inline-block"><%= dealerCity.dealerStates.StateName %></span>
                         </div>
+                        <% } %>
                     </div>
                     <ul id="listingSidebarList" class="city-sidebar-list">
                         <asp:Repeater ID="rptCity" runat="server">
@@ -90,8 +89,8 @@
         <script type="text/javascript">
             var dealersByCity = true;
             var cityArr = JSON.parse('<%= cityArr %>');
-            var stateLat = '<%= dealerCity.dealerStates.StateLatitude %>';
-            var stateLong = '<%= dealerCity.dealerStates.StateLongitude %>';
+            var stateLat = '<%= (dealerCity != null && dealerCity.dealerStates != null) ? dealerCity.dealerStates.StateLatitude : string.Empty %>';
+            var stateLong = '<%= (dealerCity != null && dealerCity.dealerStates != null) ? dealerCity.dealerStates.StateLongitude : string.Empty %>';
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealersbylocation.js?<%= staticFileVersion %>"></script>
     </form>

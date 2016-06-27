@@ -57,7 +57,6 @@ namespace Bikewale.New
                 checkDealersForMakeCity(makeId);
                 objMMV = new MakeModelVersion();
                 objMMV.GetMakeDetails(strMakeId);
-                //BindControl();
                 BindStates();
             }
         }
@@ -75,12 +74,12 @@ namespace Bikewale.New
                 container.RegisterType<IState, StateRepository>();
                 objStates = container.Resolve<IState>();
                 states = objStates.GetDealerStates(Convert.ToUInt32(strMakeId));
-                foreach (var state in states)
-                {
-                    state.Link = string.Format("/{0}-bikes/dealers-in-{1}-state/", objMMV.MakeMappingName, state.StateMaskingName);
-                }
                 if (states != null && states.Count() > 0)
                 {
+                    foreach (var state in states)
+                    {
+                        state.Link = string.Format("/{0}-bikes/dealers-in-{1}-state/", objMMV.MakeMappingName, state.StateMaskingName);
+                    }
                     rptState.DataSource = states;
                     rptState.DataBind();
                     stateArray = Newtonsoft.Json.JsonConvert.SerializeObject(states);

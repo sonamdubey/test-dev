@@ -73,12 +73,12 @@ namespace Bikewale.New
                 container.RegisterType<ICity, CityRepository>();
                 objCities = container.Resolve<ICity>();
                 dealerCity = objCities.GetDealerStateCities(makeId, stateId);
-                foreach (var dCity in dealerCity.dealerCities)
-                {
-                    dCity.Link = string.Format("/{0}-bikes/dealers-in-{1}/", objMMV.MakeMappingName, dCity.CityMaskingName);
-                }
                 if (dealerCity != null && dealerCity.dealerCities != null && dealerCity.dealerCities.Count() > 0)
                 {
+                    foreach (var dCity in dealerCity.dealerCities)
+                    {
+                        dCity.Link = string.Format("/{0}-bikes/dealers-in-{1}/", objMMV.MakeMappingName, dCity.CityMaskingName);
+                    }
                     rptCity.DataSource = dealerCity.dealerCities;
                     rptCity.DataBind();
                     cityArr = Newtonsoft.Json.JsonConvert.SerializeObject(dealerCity.dealerCities);

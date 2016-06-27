@@ -1,7 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ListNewBikeDealersByState_New" Trace="false" Debug="false" %>
-<%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
-<%@ Register TagPrefix="TIP" TagName="TipsAdvicesMin" Src="/controls/TipsAdvicesMin.ascx" %>
-<%@ Register TagPrefix="FM" TagName="ForumsMin" Src="/controls/forumsmin.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 
 <!doctype html>
@@ -59,7 +56,7 @@
                         <asp:Repeater ID="rptState" runat="server">
                             <ItemTemplate>
                                 <li>
-                                   <a href="/<%=objMMV.MakeMappingName %>-bikes/dealers-in-<%#DataBinder.Eval(Container.DataItem,"stateMaskingName") %>-state/" data-item-id="<%#DataBinder.Eval(Container.DataItem,"stateId") %>"><%#DataBinder.Eval(Container.DataItem,"StateName") %> (<%#DataBinder.Eval(Container.DataItem,"StateCount") %>)</a>
+                                   <a href="/<%=objMMV.MakeMappingName %>-bikes/dealers-in-<%#DataBinder.Eval(Container.DataItem,"stateMaskingName") %>-state/" data-item-id="<%#DataBinder.Eval(Container.DataItem,"stateId") %>"><%#DataBinder.Eval(Container.DataItem,"StateName") %></a>
                                 </li>
                             </ItemTemplate>
                         </asp:Repeater>
