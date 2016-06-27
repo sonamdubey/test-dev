@@ -1,5 +1,7 @@
 ﻿
+using Newtonsoft.Json;
 using System;
+using System.Runtime.Serialization;
 namespace Bikewale.Entities.Location
 {
 
@@ -11,10 +13,14 @@ namespace Bikewale.Entities.Location
     [Serializable]
     public class DealerStateEntity : StateEntityBase
     {
+        
+        [JsonProperty("latitude"), DataMember]
         public string StateLatitude { get; set; }
 
+        [JsonProperty("longitude"), DataMember]
         public string StateLongitude { get; set; }
 
+        [JsonProperty("dealerCount"), DataMember]
         public uint StateCount { get; set; }
     }
 }

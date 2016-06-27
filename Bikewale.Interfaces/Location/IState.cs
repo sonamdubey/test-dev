@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.Location;
+﻿using System.Collections;
+using Bikewale.Entities.Location;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Location
@@ -12,5 +13,6 @@ namespace Bikewale.Interfaces.Location
     {
         List<StateEntityBase> GetStates();
         IEnumerable<DealerStateEntity> GetDealerStates(uint makeId);
+        Hashtable GetMaskingNames();
     }
 }
