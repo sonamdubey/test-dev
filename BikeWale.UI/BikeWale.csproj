@@ -993,6 +993,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\newbikedealers\listnewbikedealersbystate.aspx.cs">
+      <DependentUpon>listnewbikedealersbystate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\newbikedealers\listnewbikedealersbycity.aspx.cs">
       <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2317,6 +2321,7 @@
     <Content Include="m\css\bwm-brand.css" />
     <Content Include="m\css\bwm-cancellation.css" />
     <Content Include="m\css\bwm-common-style.css" />
+    <Content Include="m\css\bwm-dealersbylocation.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\dealerpricequote.css" />
@@ -2376,6 +2381,7 @@
     <Content Include="m\new\Default.aspx" />
     <Content Include="m\new\newbikedealers\Default_old.aspx" />
     <Content Include="m\new\newbikedealers\Default.aspx" />
+    <Content Include="m\new\newbikedealers\listnewbikedealersbystate.aspx" />
     <Content Include="m\new\newbikedealers\listnewbikedealersbycity.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList_old.aspx" />
