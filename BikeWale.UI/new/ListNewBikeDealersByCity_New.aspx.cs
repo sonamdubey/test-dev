@@ -31,8 +31,7 @@ namespace Bikewale.New
         public ushort makeId;
         public string cityArr = string.Empty, makeMaskingName = string.Empty, stateMaskingName = string.Empty, stateName = string.Empty;
         public int citesCount = 0;
-        public uint cityId = 0, DealerCount = 0;
-        public uint stateId = 0;
+        public uint cityId = 0, DealerCount = 0, stateId = 0;
         public DealerStateCities dealerCity;
 
         protected override void OnInit(EventArgs e)
@@ -90,39 +89,6 @@ namespace Bikewale.New
                 }
             }
         }
-
-        //public DataSet BindCities(int StateId)
-        //{
-        //    DataSet dsCity = new DataSet();
-
-        //    DataTable dt = dsCity.Tables.Add();
-        //    dt.Columns.Add("CityId", typeof(int));
-        //    dt.Columns.Add("City", typeof(string));
-        //    dt.Columns.Add("StateId", typeof(int));
-        //    dt.Columns.Add("State", typeof(string));
-        //    dt.Columns.Add("TotalBranches", typeof(int));
-        //    dt.Columns.Add("CityMaskingName", typeof(string));
-
-        //    DataRow dr;
-
-        //    DataRow[] rows = dsStateCity.Tables[0].Select("StateId = " + StateId, "City ASC");
-
-        //    foreach (DataRow row in rows)
-        //    {
-        //        dr = dt.NewRow();
-        //        dr["CityId"] = row["CityId"].ToString();
-        //        dr["City"] = row["City"].ToString();
-        //        dr["CityMaskingName"] = row["CityMaskingName"].ToString();
-        //        dr["StateId"] = row["StateId"].ToString();
-        //        dr["State"] = row["State"].ToString();
-        //        dr["TotalBranches"] = row["TotalBranches"].ToString();
-        //        DealerCount += int.Parse(row["TotalBranches"].ToString());
-        //        dt.Rows.Add(dr);
-        //    }
-        //    Trace.Warn("City Dataset contains: " + dsCity.Tables[0].Rows.Count.ToString());
-        //    return dsCity;
-
-        //}
 
         protected bool ProcessQS()
         {
