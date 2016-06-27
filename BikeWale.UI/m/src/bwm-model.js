@@ -169,7 +169,7 @@ function CustomerModel() {
                 data: ko.toJSON(objCust),
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('utma', getCookie('__utma'));
-                    xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                    xhr.setRequestHeader('utmz', getCookie('BWUtmz'));
                 },
                 async: false,
                 contentType: "application/json",
@@ -316,7 +316,7 @@ function CustomerModel() {
             data: ko.toJSON(objCust),
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('utma', getCookie('__utma'));
-                xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                xhr.setRequestHeader('utmz', getCookie('BWUtmz'));
             },
             async: false,
             contentType: "application/json",
@@ -894,21 +894,21 @@ $(document).ready(function () {
         });
         
         var scrollToTab = $('#modelReviewsContent');
-        
-        if (windowScrollTop > scrollToTab.offset().top - 45) {
-            if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
-                $('.overall-specs-tabs-container').addClass('scrolled-left');
-                scrollHorizontal(300);
+        if (scrollToTab.length != 0) {
+            if (windowScrollTop > scrollToTab.offset().top - 45) {
+                if (!$('#overallSpecsTab').hasClass('scrolled-left')) {
+                    $('.overall-specs-tabs-container').addClass('scrolled-left');
+                    scrollHorizontal(300);
+                }
+            }
+
+            else if (windowScrollTop < scrollToTab.offset().top) {
+                if ($('#overallSpecsTab').hasClass('scrolled-left')) {
+                    $('.overall-specs-tabs-container').removeClass('scrolled-left');
+                    scrollHorizontal(0);
+                }
             }
         }
-
-        else if (windowScrollTop < scrollToTab.offset().top) {
-            if ($('#overallSpecsTab').hasClass('scrolled-left')) {
-                $('.overall-specs-tabs-container').removeClass('scrolled-left');
-                scrollHorizontal(0);
-            }
-        }
-
 
     });
 

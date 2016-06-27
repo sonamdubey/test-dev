@@ -92,9 +92,8 @@
             leadCapturePopup.show();
             $("#notify-response").hide();
             $("div#contactDetailsPopup").show();
-            $('body').addClass('lock-browser-scroll');
+            //$('body').addClass('lock-browser-scroll');
             $(".blackOut-window").show();
-
         });
 
         $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
@@ -245,7 +244,7 @@
                         dataType: 'json',
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('utma', getCookie('__utma'));
-                            xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                            xhr.setRequestHeader('utmz', getCookie('BWUtmz'));
                         },
                         success: function (response) {
                             lscache.set(dealerKey, response, 30);
@@ -301,7 +300,7 @@
                     "areaId": self.areaId(),
                     "clientIP": self.clientIP,
                     "pageUrl": self.pageUrl,
-                    "sourceType": 1,
+                    "sourceType": 2,
                     "pQLeadId": self.pqSourceId(),
                     "deviceId": getCookie('BWC')
                 }
@@ -356,7 +355,7 @@
                     data: ko.toJSON(objCust),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('utma', getCookie('__utma'));
-                        xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                        xhr.setRequestHeader('utmz', getCookie('BWUtmz'));
                     },
                     async: false,
                     contentType: "application/json",
@@ -471,23 +470,25 @@
         };
 
         self.validateBike = function () {
-            eleBike =  leadBike.find('.dealer-search-brand-form');
+            var isValid = true;
+            eleBike =  $("#getLeadBike").find(".dealer-search-brand-form");
             if(eleBike!=null && self.selectedBike()!=null)
             {
                 if (self.selectedBike().model && self.selectedBike().model.modelId > 0) {
                     hideError(eleBike);
-                    return true;
+                    isValid = true;
                 }
                 else {
                     setError(eleBike, 'Select a bike');
-                    return false;
+                    isValid = false;
                 }
             }
             else {
                 setError(eleBike, 'Select a bike');
-                return false;
+                isValid = false;
             }
-            
+
+            return isValid;
         };
     }
 
@@ -533,32 +534,34 @@
         catch (e) { return };
     }
 
+    var brandSearchBar = $("#brandSearchBar"), dealerSearchBrand = $(".dealer-search-brand"), dealerSearchBrandForm = $(".dealer-search-brand-form");
+
     
-    var brandSearchBar = $("#brandSearchBar"),
-                    dealerSearchBrand = $(".dealer-search-brand"),
-                    dealerSearchBrandForm = $(".dealer-search-brand-form");
-    dealerSearchBrand.on('click', function () {
+    leadCapturePopup.on('click',".dealer-search-brand", function () {
         $('.dealer-brand-wrapper').show();
-        brandSearchBar.addClass('open').animate({ 'left': '0px' }, 500);
-        brandSearchBar.find(".user-input-box").animate({ 'left': '0px' }, 500);
+        $("#brandSearchBar").addClass('open').animate({ 'left': '0px' }, 500);
+        $("#brandSearchBar").find(".user-input-box").animate({ 'left': '0px' }, 500);
         $("#assistanceBrandInput").focus();
     });
-    $("#sliderBrandList").on("click", "li", function () {
+
+    leadCapturePopup.on("click", "#sliderBrandList li", function () {
         var _self = $(this),
             selectedElement = _self.text();
         setSelectedElement(_self, selectedElement);
         _self.addClass('activeBrand').siblings().removeClass('activeBrand');
-        dealerSearchBrandForm.addClass('selection-done').find("span").text(selectedElement);
-        brandSearchBar.find(".user-input-box").animate({ 'left': '100%' }, 500);
-        hideError(dealerSearchBrandForm);
+        $(".dealer-search-brand-form").addClass('selection-done').find("span").text(selectedElement);
+        $("#brandSearchBar").find(".user-input-box").animate({ 'left': '100%' }, 500);
+        hideError($(".dealer-search-brand-form"));
     });
+
     function setSelectedElement(_self, selectedElement) {
         _self.parent().prev("input[type='text']").val(selectedElement);
-        brandSearchBar.addClass('open').animate({ 'left': '100%' }, 500);
+        $("#brandSearchBar").addClass('open').animate({ 'left': '100%' }, 500);
     };
-    $(".dealer-brand-wrapper .back-arrow-box").on("click", function () {
-        brandSearchBar.removeClass("open").animate({ 'left': '100%' }, 500);
-        brandSearchBar.find(".user-input-box").animate({ 'left': '100%' }, 500);
+
+    leadCapturePopup.on("click",".dealer-brand-wrapper .back-arrow-box", function () {
+        $("#brandSearchBar").removeClass("open").animate({ 'left': '100%' }, 500);
+        $("#brandSearchBar").find(".user-input-box").animate({ 'left': '100%' }, 500);
     });
 
 </script>

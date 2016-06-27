@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
     public partial class PopupWidget : System.Web.UI.UserControl
     {

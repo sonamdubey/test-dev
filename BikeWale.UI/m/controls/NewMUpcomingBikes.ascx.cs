@@ -2,11 +2,14 @@
 using System;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Mobile.controls
+namespace Bikewale.Mobile.Controls
 {
-    public class MUpcomingBikes : System.Web.UI.UserControl
+    /// <summary>
+    /// Created by  :   Sumit Kate on 23 June 2016
+    /// Description :   New Upcoming Bikes Widget for Make Page
+    /// </summary>
+    public class NewMUpcomingBikes : System.Web.UI.UserControl
     {
-
         public Repeater rptUpcomingBikes;
 
         public int sortBy { get; set; }
@@ -15,6 +18,7 @@ namespace Bikewale.Mobile.controls
         public int? ModelId { get; set; }
         public int? curPageNo { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public string MakeName { get; set; }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -25,6 +29,11 @@ namespace Bikewale.Mobile.controls
             UpcomingBikes();
         }
 
+        /// <summary>
+        ///  Author : Sushil Kumar 
+        ///  Created On : 23rd June 2016
+        ///  Description : Bind upcoming bikes o the repeater for the widget
+        /// </summary>
         private void UpcomingBikes()
         {
             BindUpcomingBikesControl objUpcoming = new BindUpcomingBikesControl();
@@ -37,30 +46,6 @@ namespace Bikewale.Mobile.controls
             this.FetchedRecordsCount = objUpcoming.FetchedRecordsCount;
         }
 
-        protected string ShowEstimatedPrice(object estimatedPrice)
-        {
-            if (estimatedPrice != null && Convert.ToInt32(estimatedPrice) > 0)
-            {
-                return String.Format("<span class='bwmsprite inr-md-icon'></span> <span class='font24'>{0}</span><span class='font16'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(estimatedPrice)));
-            }
-            else
-            {
-                return "<span class='font22'>Price Unavailable</span>";
-            }
-        }
-
-        protected string ShowLaunchDate(object launchDate)
-        {
-            if (launchDate != null && !String.IsNullOrEmpty(Convert.ToString(launchDate)))
-            {
-                return String.Format("<div class='padding-top5 clear border-top1'><span class='font16 text-grey'>{0} <span class='font14 text-light-grey'> (Expected launch)</span></span></div>", Convert.ToString(launchDate));
-            }
-            else
-            {
-                return "<div class='padding-top5 clear border-top1 margin-top30'><span class='font16 text-grey'>Launch date unavailable</span></div>";
-            }
-        }
-
         public override void Dispose()
         {
             rptUpcomingBikes.DataSource = null;
@@ -68,6 +53,5 @@ namespace Bikewale.Mobile.controls
 
             base.Dispose();
         }
-
     }
 }

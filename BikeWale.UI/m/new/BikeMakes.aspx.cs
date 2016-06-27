@@ -4,6 +4,7 @@ using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
@@ -21,14 +22,16 @@ namespace Bikewale.Mobile
 {
     public class BikeMakes : PageBase
     {
-        protected MUpcomingBikes ctrlUpcomingBikes;
-        protected NewsWidget ctrlNews;
-        protected ExpertReviewsWidget ctrlExpertReviews;
-        protected VideosWidget ctrlVideos;
+        protected NewMUpcomingBikes ctrlUpcomingBikes;
+        protected NewNewsWidget ctrlNews;
+        protected NewExpertReviewsWidget ctrlExpertReviews;
+        protected NewVideosWidget ctrlVideos;
         protected MMostPopularBikes ctrlMostPopularBikes;
         protected Repeater rptMostPopularBikes, rptDiscontinued;
-
+        protected DealersCard ctrlDealerCard;
+        protected LeadCaptureControl ctrlLeadCapture;
         protected bool isDescription = false;
+
         protected Literal ltrDefaultCityName;
         protected int fetchedRecordsCount = 0;
         protected string makeId = String.Empty;
@@ -45,7 +48,8 @@ namespace Bikewale.Mobile
         private string makeMaskingName;
         protected Int64 _minModelPrice;
         protected Int64 _maxModelPrice;
-
+        protected uint cityId = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().CityId;
+        protected string cityName = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().City;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -63,18 +67,33 @@ namespace Bikewale.Mobile
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 6;
                 ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                ctrlUpcomingBikes.MakeName = _make.MakeName;
 
                 ////news,videos,revews
                 ctrlNews.TotalRecords = 3;
                 ctrlNews.MakeId = Convert.ToInt32(makeId);
+                ctrlNews.WidgetTitle = _make.MakeName;
 
-                ctrlExpertReviews.TotalRecords = 3;
+                ctrlExpertReviews.TotalRecords = 2;
                 ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
                 ctrlExpertReviews.MakeMaskingName = makeMaskingName;
 
-                ctrlVideos.TotalRecords = 3;
+                ctrlVideos.TotalRecords = 1;
                 ctrlVideos.MakeMaskingName = makeMaskingName;
                 ctrlVideos.MakeId = Convert.ToInt32(makeId);
+
+                ctrlDealerCard.CityId = cityId;
+                ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
+                ctrlDealerCard.makeMaskingName = makeMaskingName;
+                ctrlDealerCard.makeName = _make.MakeName;
+                ctrlDealerCard.cityName = cityName;
+
+                ctrlDealerCard.TopCount = 6;
+                ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_MakePage_GetOffersFromDealer;
+                ctrlDealerCard.LeadSourceId = 30;
+
+                ctrlLeadCapture.CityId = cityId;
+
                 BindDiscountinuedBikes();
             }
         }
@@ -96,16 +115,19 @@ namespace Bikewale.Mobile
                             ;
                     var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
                     bikes = objCache.GetDiscontinuedBikeModelsByMake(Convert.ToUInt16(makeId));
-                    fetchedRecordsCount = bikes.Count();
-                    foreach (var bike in bikes)
-                    {
-                        bike.Href = string.Format("/m/{0}-bikes/{1}/", _make.MaskingName, bike.ModelMasking);
-                        bike.BikeName = string.Format("{0} {1}", _make.MakeName, bike.ModelName);
-                    }
+
                     if (bikes != null && bikes.Count() > 0)
                     {
+                        foreach (var bike in bikes)
+                        {
+                            bike.Href = string.Format("/m/{0}-bikes/{1}/", _make.MaskingName, bike.ModelMasking);
+                            bike.BikeName = string.Format("{0} {1}", _make.MakeName, bike.ModelName);
+                        }
+
                         rptDiscontinued.DataSource = bikes;
                         rptDiscontinued.DataBind();
+                        fetchedRecordsCount = bikes.Count();
+
                     }
                 }
             }

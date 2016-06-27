@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.LeadCaptureControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LeadCaptureControl" %>
 
 <style>
     #otpPopup,#otpPopup .errorIcon,#otpPopup .errorText,#otpPopup .update-mobile-box,.personal-info-list .errorIcon,.personal-info-list .errorText{display:none}#leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:10%;right:5%;left:5%;z-index:10;padding:30px 40px}.personal-info-form-container{margin:10px auto;width:300px;min-height:100px}.personal-info-form-container .personal-info-list{margin:0 auto 20px;width:280px;float:left;border-radius:0}#otpPopup .otp-box,#otpPopup .update-mobile-box{width:280px;margin:15px auto 0}#otpPopup .update-mobile-box .form-control-box{margin-top:25px;margin-bottom:50px}#otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}#otpPopup .edit-mobile-btn,.resend-otp-btn{cursor:pointer}.icon-outer-container{width:102px;height:102px;margin:0 auto;background:#fff;border:1px solid #ccc}.icon-inner-container{width:92px;height:92px;margin:4px auto;background:#fff;border:1px solid #666}.user-contact-details-icon{width:36px;height:44px;background-position:0 -391px}.otp-icon{width:30px;height:40px;background-position:-46px -391px}.mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999}.input-border-bottom{border-bottom:1px solid #ccc}.assistance-response-close.cross-lg-lgt-grey:hover{background-position:-36px -252px}
@@ -64,7 +64,7 @@
 <!-- scripts goes here -->
 <script type="text/javascript">
 
-    var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"),leadBike = $("#getLeadBike");
+    var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
     var fullName = $("#getFullName");
     var emailid = $("#getEmailID");
     var mobile = $("#getMobile");
@@ -123,6 +123,12 @@
                     hideError($(this));
                 }
             }
+        });
+
+        $(document).on("change","#getLeadBike",function(){
+            if($(this).val()!=null && $(this).val()!="0")
+                hideError($(this));
+            else setError($(this)) ;
         });
 
         $("#getEmailID").on("blur", function () {
@@ -231,7 +237,7 @@
                         dataType: 'json',
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('utma', getCookie('__utma'));
-                            xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                            xhr.setRequestHeader('utmz', getCookie('BWUtmz'));
                         },
                         success: function (response) {
                             lscache.set(dealerKey, response, 30);
@@ -342,7 +348,7 @@
                     data: ko.toJSON(objCust),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('utma', getCookie('__utma'));
-                        xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                        xhr.setRequestHeader('utmz', getCookie('BWUtmz'));
                     },
                     async: false,
                     contentType: "application/json",
@@ -458,22 +464,25 @@
         };
 
         self.validateBike = function () {
-            eleBike =  leadBike;
+            var isValid = true;
+            eleBike =  $("#getLeadBike");
             if(eleBike!=null && self.selectedBike()!=null)
             {
                 if (self.selectedBike().model && self.selectedBike().model.modelId > 0) {
                     hideError(eleBike);
-                    return true;
+                    isValid = true;
                 }
                 else {
                     setError(eleBike, 'Select a bike');
-                    return false;
+                    isValid = false;
                 }
             }
             else {
                 setError(eleBike, 'Select a bike');
-                return false;
+                isValid = false;
             }
+
+            return isValid;
         };
 
     }
@@ -498,7 +507,7 @@
 
     var setError = function (element, msg) {
         element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
-        element.siblings("div.errorText").text(msg);
+        element.siblings("div.errorText").show().text(msg);
     };
 
     var hideError = function (element) {

@@ -166,6 +166,8 @@ namespace Bikewale.Mobile.PriceQuote
 
         /// <summary>
         /// Generate the New Price Quote based on the version selected.
+        /// Modified By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with BWUtmz
         /// </summary>
         private void SavePriceQuote(object sender, EventArgs e)
         {
@@ -191,7 +193,7 @@ namespace Bikewale.Mobile.PriceQuote
                         objPQEntity.VersionId = selectedVersionId;
                         objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_PQ_Quotation);
                         objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["BWUtmz"] != null ? Request.Cookies["BWUtmz"].Value : "";
                         objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
                     }

@@ -168,6 +168,8 @@
                         <div class="clear"></div>
                     </div>
 
+                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+
                     <BW:Dealers ID="ctrlDealers" runat="server" />
 
                     <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />

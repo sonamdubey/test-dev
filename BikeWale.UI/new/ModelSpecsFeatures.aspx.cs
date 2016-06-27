@@ -5,7 +5,7 @@ using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.Common;
-using Bikewale.controls;
+using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
@@ -50,6 +50,8 @@ namespace Bikewale.New
 
         /// <summary>
         /// Created By : Lucky Rathore on 03 June 2016
+        /// Modified By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with BWUtmz
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -75,7 +77,7 @@ namespace Bikewale.New
                 {
                     string PQLeadId = (PQSourceEnum.Desktop_SpecsAndFeaturePage_OnLoad).ToString();
                     string UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : string.Empty;
-                    string UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : string.Empty;
+                    string UTMZ = Request.Cookies["BWUtmz"] != null ? Request.Cookies["BWUtmz"].Value : string.Empty;
                     string DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : string.Empty;
 
                     pqOnRoad = new PQByCityArea();

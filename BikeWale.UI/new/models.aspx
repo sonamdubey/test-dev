@@ -120,14 +120,14 @@
                         <h2 class="padding-left20 padding-right20 text-x-black text-bold margin-bottom20">Upcoming <%= _make.MakeName %> Bikes</h2>
                         <div class="jcarousel-wrapper bike-carousel-wrapper">
                             <div class="jcarousel">
-                                    <ul>
-                                        <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
-                                    </ul>
-                                </div>
-                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                                <ul>
+                                    <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                                </ul>
                             </div>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
+                    </div>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -139,7 +139,12 @@
                     <div id="makeOverallTabsWrapper">
                         <div id="makeOverallTabs">
                             <div class="overall-specs-tabs-wrapper">
+                                <%
+                                    if (_bikeDesc != null && _bikeDesc.FullDescription.Length > 0)
+                                    {                                        
+                                %>
                                 <a href="#makeAboutContent" rel="nofollow">About</a>
+                                <%} %>
                                 <% if (ctrlNews.FetchedRecordsCount > 0)
                                    {%>
                                 <a href="#modelNewsContent" rel="nofollow">News</a>
@@ -161,18 +166,20 @@
                             </div>
                         </div>
                     </div>
-                     <% if(_bikeDesc !=null && _bikeDesc.FullDescription.Length > 0) { %>
+                    <% if (_bikeDesc != null && _bikeDesc.FullDescription.Length > 0)
+                       { %>
                     <div id="makeAboutContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
                         <div class="grid-8 alpha">
                             <h2><%= _make.MakeName %> Summary</h2>
                             <p class="font14 text-light-grey line-height17">
                                 <span class="preview-main-content">
-                                     <%= Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 700) %>
-                                </span>                                
+                                    <%= Bikewale.Utility.FormatDescription.TruncateDescription(_bikeDesc.FullDescription, 700) %>
+                                </span>
                                 <span class="preview-more-content hide" style="display: none;">
                                     <%= _bikeDesc.FullDescription %>
                                 </span>
-                                <% if(_bikeDesc.FullDescription.Length > 700) { %>
+                                <% if (_bikeDesc.FullDescription.Length > 700)
+                                   { %>
                                 <a href="javascript:void(0)" class="read-more-bike-preview" rel="nofollow">Read more</a>
                                 <% } %>
                             </p>
@@ -189,15 +196,15 @@
                     <BW:LatestNews runat="server" ID="ctrlNews" />
                     <% } %>
                     <!-- news control ends here -->
-                     <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
-                           { %>
-                            <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-                                <h2 class="padding-left10 padding-right10"><%= _make.MakeName %> Reviews</h2>
-                                <!-- expert review starts-->                       
-                                <BW:NewExpertReviews runat="server" ID="ctrlExpertReviews" />                       
-                                <!-- expert review ends-->
-                            </div>
-                     <% } %>
+                    <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
+                       { %>
+                    <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <h2 class="padding-left10 padding-right10"><%= _make.MakeName %> Reviews</h2>
+                        <!-- expert review starts-->
+                        <BW:NewExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <!-- expert review ends-->
+                    </div>
+                    <% } %>
                     <% if (ctrlVideos.FetchedRecordsCount > 0)
                        { %>
                     <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
@@ -279,6 +286,7 @@
             </div>
 
         </section>--%>
+        <div class="clear"></div>
         <section>
             <div class="container">
                 <div class="grid-12">
@@ -306,25 +314,7 @@
         </section>
 
         <script>
-            $("a.read-more-btn").click(function () {
-                //$("div.brand-about-more-desc").slideToggle();
-                //$("div.brand-about-main").slideToggle();
-                //var a = $(this).find("span");
-                //a.text(a.text() === "more" ? "less" : "more");
-                if (!$(this).hasClass('open')) {
-                    $('.preview-main-content').hide();
-                    $('.preview-more-content').show();
-                    $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
-                    $(this).addClass("open");
-                }
-                else if ($(this).hasClass('open')) {
-                    $('.preview-main-content').show();
-                    $('.preview-more-content').hide();
-                    $(this).text($(this).text() === 'Read more' ? 'Collapse' : 'Read more');
-                    $(this).removeClass('open');
-                }
-            });
-
+            
             $(document).ready(function () {
                 $("img.lazy").lazyload();
                 if ($("#discontinuedMore a").length > 4) {
