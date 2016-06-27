@@ -15,7 +15,18 @@ namespace Bikewale.Utility
         /// <summary>
         /// Created By : Lucky Rathroe
         /// Created On : 23 June 2016
-        /// Description : To handle SetBWUtmz cookies
+        /// Description : To handle SetBWUtmz cookies as mention in following story (refferd from Pivotal story).
+        /// If the HTTP referrer is bikewale.com then set the expiry of the cookie to 6 months from that time
+        /// Else execute the logic
+        /// 1. Check if the URL contains utm_source, utm_medium in the URL. If yes then store utm_source in utmcsr, umt_medium in utmcmd and utm_campaign in utmccn
+        /// 2. If no utm parameters are present in the URL then check if the URL contains gclid then set utmcsr=google, utmgclid=gclid, utmcmd=cpc
+        /// 3. If none of the above is true, look at HTTP referrer. If the HTTP referrer contains the domains - google, yahoo, bing, ask, yandex, baidu, aol then set utmcsr=<search engine names>, utmcmd=organic, utmccn=(organic)
+        /// 4. If the HTTP referrer is none of the above then set utmcsr=<domain name>, utmccn=(referral), utmcmd=referral
+        /// 5. If HTTP referrer is null then check if there is a BW source cookie, if yes then replicate that cookie
+        /// 5. If not then, check if there is a __utmz cookie, if yes then replicate utmcsr, utmccn, utmcmd, gclid
+        /// 7. If not then set utmcsr=(direct), utmccn=(direct), utmcmd=(none) 
+        /// 8. Set the BW source cookie with utmcsr=<value>|utmgclid=gclid|utmccn=<value>|utmcmd=<value> with a 6 month expiry
+        /// 9. Store this cookie in the __utmz cookie in the database
         /// </summary>
         public static void SetBWUtmz()
         {
@@ -28,9 +39,9 @@ namespace Bikewale.Utility
                     utmgclid = string.Empty,
                     utmcmd = string.Empty;
 
-                if(request.UrlReferrer != null)
+                if(request.UrlReferrer != null) 
                 {
-                    httpReffer = request.UrlReferrer.OriginalString;
+                    httpReffer = request.UrlReferrer.OriginalString; //e.g. www.google.com, www.carwale.com
                 }
 
                 
@@ -43,20 +54,20 @@ namespace Bikewale.Utility
                     string url = request.Url.ToString();
                     Regex serachEng = new Regex("google|bing|yahoo|ask|yandex|baidu|aol");
                     Match match = null;
-
+                    //step 1
                     if (request.Cookies.Get("utm_source") != null && request.Cookies.Get("utm_medium") != null && request.Cookies.Get("utm_campaign") != null)
                     {
                         utmcsr = request.Cookies.Get("utm_source").Value;
                         utmcmd = request.Cookies.Get("umt_medium").Value;
                         utmccn = request.Cookies.Get("utm_campaign").Value;
                     }
-                    else if (url.Contains("gclid"))
+                    else if (url.Contains("gclid")) //step 2
                     {
                         utmcsr = "google";
                         utmgclid = "gclid";
                         utmcmd = "cpc";
                     }
-                    else if ((match = serachEng.Match(url)) != null && match.Success)
+                    else if ((match = serachEng.Match(url)) != null && match.Success) //step 3
                     {
                         if (match.Groups.Count >= 0)
                         {
@@ -65,13 +76,13 @@ namespace Bikewale.Utility
                         utmcmd = "organic";
                         utmccn = "(organic)";
                     }
-                    else if (!string.IsNullOrEmpty(httpReffer))
+                    else if (!string.IsNullOrEmpty(httpReffer)) //step 4
                     {
                         utmcsr = request.UrlReferrer.Host;
                         utmccn = "(referral)";
                         utmcmd = "referral";
                     }
-                    else if (request.Cookies.Get("BWUtmz") != null)
+                    else if (request.Cookies.Get("BWUtmz") != null) //step 5
                     {
                         Regex utm = new Regex("utmcsr=([()A-Za-z0-9.-]+)[|]*");
                         string utmz = request.Cookies.Get("BWUtmz").Value;
@@ -100,7 +111,7 @@ namespace Bikewale.Utility
                             }
                         }
                     }
-                    else if (request.Cookies.Get("__utmz") != null)
+                    else if (request.Cookies.Get("__utmz") != null) //step 6
                     {
                         Regex utm = new Regex("utmcsr=([()A-Za-z0-9.-]+)[|]*");
                         string utmz = request.Cookies.Get("__utmz").Value;
@@ -131,13 +142,13 @@ namespace Bikewale.Utility
                             }
                         }
                     }
-                    else
+                    else //step 7
                     {
                         utmcsr = "(direct)";
                         utmccn = "(direct)";
                         utmcmd = "(none)";
                     }
-                    SetCookie("BWUtmz", 180, string.Format("utmcsr={0}|utmgclid=gclid|utmccn={1}|utmcmd={2}", utmcsr, utmccn, utmcmd));
+                    SetCookie("BWUtmz", 180, string.Format("utmcsr={0}|utmgclid=gclid|utmccn={1}|utmcmd={2}", utmcsr, utmccn, utmcmd)); //step 8
                 }
             }
             catch(Exception ex)
