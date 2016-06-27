@@ -11,6 +11,7 @@
         canonical = "http://www.bikewale.com/new/" + objMMV.MakeMappingName + "-dealers/";
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
+        isAd970x90Shown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealersbylocation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
@@ -42,7 +43,7 @@
                     <div id="listingSidebarHeading" class="padding-top15 padding-right20 padding-left20">
                         <div class="margin-bottom20">
                             <h1 id="sidebarHeader" class="font16 margin-bottom10"><%=objMMV.Make %> bike dealers in India</h1>
-                            <h2 class="text-unbold font14 text-xt-light-grey border-solid-bottom padding-bottom15"><%=countryCount %> dealers across <%=stateCount %> states</h2>
+                            <h2 class="text-unbold font14 text-xt-light-grey border-solid-bottom padding-bottom15"><%=countryCount %> dealer<%= countryCount > 1? "s": "" %> across <%=stateCount %> state<%= stateCount > 1? "s": "" %></h2>
                         </div>
                         <div class="form-control-box">
                             <span class="bwsprite search-icon-grey"></span>
