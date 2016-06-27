@@ -59,28 +59,22 @@ namespace Bikewale.CoreDAL
 
         public SqlDataReader SelectQry(string strSql)
         {
-            SqlDataReader dataReader = null;
+            SqlDataReader dataReader;
             con = new SqlConnection(strConn);
 
             try
             {
                 con.Open();
                 cmd = new SqlCommand(strSql, con);
-                dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            }
+                dataReader = cmd.ExecuteReader();
 
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" strSql : {0}", strSql));
-                objErr.SendMail();
+                return dataReader;
             }
-
-            finally
+            catch (Exception)
             {
                 CloseConnection();
+                throw;
             }
-
-            return dataReader;
         }
 
         public SqlDataReader SelectQry(string sqlStr, SqlParameter[] commandParameters)
@@ -99,21 +93,17 @@ namespace Bikewale.CoreDAL
 
                     cmd.Parameters.Add(p);
                 }
-                dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                dataReader = cmd.ExecuteReader();
+                cmd.Parameters.Clear();
             }
-
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" commandParameters : {0}", Convert.ToString(commandParameters)));
+                CloseConnection();
+                HttpContext.Current.Trace.Warn(err.Message + err.Source);
+
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-
-            finally
-            {
-                cmd.Parameters.Clear();
-                CloseConnection();
-            }
-
             return dataReader;
         }
 
@@ -132,15 +122,11 @@ namespace Bikewale.CoreDAL
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn(err.Message + err.Source);
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" cmdParam : {0}", cmdParam));
-                objErr.SendMail();
-            }
-
-            finally
-            {
                 cmdParam.Parameters.Clear();
                 CloseConnection();
+                HttpContext.Current.Trace.Warn(err.Message + err.Source);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             return dataReader;
         }
@@ -771,7 +757,7 @@ namespace Bikewale.CoreDAL
         }
 
         public SqlParameter[] ConcatenateParams(SqlParameter[] param1, SqlParameter[] param2, SqlParameter[] param3,
-                                      SqlParameter[] param4)
+                                                                    SqlParameter[] param4)
         {
             //first join the first 2 params
             SqlParameter[] paramRes1 = ConcatenateParams(param1, param2, param3);
