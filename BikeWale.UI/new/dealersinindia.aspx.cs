@@ -1,10 +1,7 @@
-﻿using Bikewale.Cache.Core;
-using Bikewale.Cache.Location;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.Location;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
@@ -20,19 +17,23 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
-    public class ListNewBikeDealersByCity_New : Page
+    /// <summary>
+    /// Created by : Sangram Nandkhile on 27 Jun 2016
+    /// Summary: To show dealers in India and list of states
+    /// </summary>
+    public class DealersInIndia : Page
     {
-        protected Repeater rptCity;
+        protected Repeater rptState;
         protected DataList dlCity;
 
         protected DataSet dsStateCity = null;
         protected MakeModelVersion objMMV;
 
-        public ushort makeId;
-        public string cityArr = string.Empty, makeMaskingName = string.Empty, stateMaskingName = string.Empty, stateName = string.Empty;
-        public int citesCount = 0;
-        public uint cityId = 0, DealerCount = 0, stateId = 0;
-        public DealerStateCities dealerCity;
+        public string strMakeId = string.Empty, stateArray = string.Empty, makeMaskingName = string.Empty;
+        public int stateCount = 0, DealerCount = 0; protected uint countryCount = 0;
+        protected uint cityId = 0;
+        protected ushort makeId = 0;
+        protected bool cityDetected;
 
         protected override void OnInit(EventArgs e)
         {
@@ -59,71 +60,64 @@ namespace Bikewale.New
             {
                 checkDealersForMakeCity(makeId);
                 objMMV = new MakeModelVersion();
-                objMMV.GetMakeDetails(makeId.ToString());
-                BindCities();
+                objMMV.GetMakeDetails(strMakeId);
+                BindStates();
             }
         }
 
 
-        private void BindCities()
+        /// <summary>
+        /// Modified by: Sangram Nandkhile on 24th Jun 2016
+        /// </summary>
+        private void BindStates()
         {
-            ICity objCities = null;
+            IEnumerable<DealerStateEntity> states = null;
+            IState objStates = null;
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<ICity, CityRepository>();
-                objCities = container.Resolve<ICity>();
-                dealerCity = objCities.GetDealerStateCities(makeId, stateId);
-                if (dealerCity != null && dealerCity.dealerCities != null && dealerCity.dealerCities.Count() > 0)
+                container.RegisterType<IState, StateRepository>();
+                objStates = container.Resolve<IState>();
+                states = objStates.GetDealerStates(Convert.ToUInt32(strMakeId));
+                if (states != null && states.Count() > 0)
                 {
-                    foreach (var dCity in dealerCity.dealerCities)
+                    foreach (var state in states)
                     {
-                        dCity.Link = string.Format("/{0}-bikes/dealers-in-{1}/", objMMV.MakeMappingName, dCity.CityMaskingName);
+                        state.Link = string.Format("/{0}-bikes/dealers-in-{1}-state/", objMMV.MakeMappingName, state.StateMaskingName);
                     }
-                    rptCity.DataSource = dealerCity.dealerCities;
-                    rptCity.DataBind();
-                    cityArr = Newtonsoft.Json.JsonConvert.SerializeObject(dealerCity.dealerCities);
-                    cityArr = cityArr.Replace("cityId", "id").Replace("cityName", "name");
-                    DealerCount = dealerCity.dealerCities.Select(o => o.DealersCount).Aggregate((x, y) => x + y);
-                    citesCount = dealerCity.dealerCities.Count();
-                    stateName = dealerCity.dealerStates.StateName;
+                    rptState.DataSource = states;
+                    rptState.DataBind();
+                    stateArray = Newtonsoft.Json.JsonConvert.SerializeObject(states);
+                    // To set correct properties in json array
+                    stateArray = stateArray.Replace("stateId", "id").Replace("stateName", "name");
+                    countryCount = states.Select(o => o.StateCount).Aggregate((x, y) => x + y);
+                    stateCount = states.Count();
                 }
             }
         }
 
+
+        /// <summary>
+        /// Process query string and fetch make id
+        /// </summary>
+        /// <returns></returns>
         protected bool ProcessQS()
         {
             bool isSuccess = true;
-            if (!string.IsNullOrEmpty(Request["make"]) && !string.IsNullOrEmpty(Request["state"]))
+            if (!string.IsNullOrEmpty(Request["make"]))
             {
                 makeMaskingName = Request["make"].ToString();
-                string _makeId = MakeMapping.GetMakeId(makeMaskingName);
-                makeId = Convert.ToUInt16(_makeId);
-                //verify the id as passed in the url
-                if (CommonOpn.CheckId(_makeId) == false)
+                strMakeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());
+                makeId = Convert.ToUInt16(strMakeId);
+                if (CommonOpn.CheckId(strMakeId) == false)
                 {
                     Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                     isSuccess = false;
                 }
-                stateMaskingName = Request.QueryString["state"];
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IState, StateRepository>()
-                             .RegisterType<IStateCacheRepository, StateCacheRepository>()
-                            ;
-                    var objCache = container.Resolve<IStateCacheRepository>();
-                    var objResponse = objCache.GetStateMaskingResponse(stateMaskingName);
-                    if (objResponse != null)
-                    {
-                        stateId = objResponse.StateId;
-                    }
-                }
             }
             else
             {
-                Trace.Warn("make id : ", Request.QueryString["make"]);
                 Response.Redirect("/new/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
@@ -131,6 +125,7 @@ namespace Bikewale.New
             }
             return isSuccess;
         }
+
 
         /// <summary>
         /// Created By : Sushil Kumar bon 31st March 2016
@@ -174,6 +169,5 @@ namespace Bikewale.New
             }
             return false;
         }
-
     }   // End of class
 }   // End of namespace

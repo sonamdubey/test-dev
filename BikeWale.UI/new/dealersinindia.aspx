@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ListNewBikeDealersByState_New" Trace="false" Debug="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealersInIndia" Trace="false" Debug="false" %>
 <%@ Import Namespace="Bikewale.Common" %>
 
 <!doctype html>
