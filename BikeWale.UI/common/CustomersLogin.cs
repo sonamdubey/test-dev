@@ -102,7 +102,7 @@ namespace Bikewale.Common
 				
 				prm = cmd.Parameters.Add("@ORGANIZATION", SqlDbType.VarChar, 50);
 				prm.Direction = ParameterDirection.Output;
-												
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);						
 				con.Open();
 				//run the command
     			cmd.ExecuteNonQuery();

@@ -478,7 +478,7 @@ namespace Bikewale.Used
                             cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = CommonOpn.GetClientIP();
                             cmd.Parameters.Add("@StatusId", SqlDbType.TinyInt).Value = statusId;
                             cmd.Parameters["@InquiryId"].Value = inquiryId;
-
+                            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                             Trace.Warn("inquiry id : ", inquiryId);
                             conn.Open();
                             cmd.ExecuteNonQuery();

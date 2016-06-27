@@ -249,7 +249,7 @@ namespace Bikewale.Used
 
                 prm = cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40);
                 prm.Value = CommonOpn.GetClientIP();
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 //run the command
                 cmd.ExecuteNonQuery();

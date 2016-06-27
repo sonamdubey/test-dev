@@ -338,7 +338,7 @@ namespace Bikewale.MyBikeWale
 				prm = cmd.Parameters.Add("@IsVerified", SqlDbType.Bit);
 				//prm.Value = true;
                 prm.Value = objMV.IsMobileVerified(txtMobile.Text.Trim(), lblEmail.Text.Trim());
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 				con.Open();
 				//run the command
     			cmd.ExecuteNonQuery();

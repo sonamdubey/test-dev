@@ -43,9 +43,10 @@ namespace Bikewale.DAL.AppAlert
                         cmd.Parameters.Add("@Gcmid", SqlDbType.VarChar, 200).Value = gcmId;
                         cmd.Parameters.Add("@osType", SqlDbType.TinyInt).Value = osType;
                         cmd.Parameters.Add("@subsMasterId", SqlDbType.VarChar).Value = subsMasterId;
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         con.Open();
                         cmd.ExecuteNonQuery();
+
                     }
                 }
             }

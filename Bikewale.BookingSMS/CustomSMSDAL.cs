@@ -55,6 +55,7 @@ namespace Bikewale.BookingSMS
                         command.Parameters.AddWithValue("@Successfull", status);
                         command.Parameters.AddWithValue("@ReturnedMsg", String.Empty);
                         command.Parameters.AddWithValue("@SMSPageUrl", String.Empty);
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(command);
                         connection.Open();
                         currentId = Convert.ToString(command.ExecuteScalar());
                     }
@@ -98,6 +99,7 @@ namespace Bikewale.BookingSMS
                         command.Connection = connection;
                         command.CommandText = "GetRecipientForOfferSMS";
                         command.CommandType = CommandType.StoredProcedure;
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(command);
                         connection.Open();
                         objReader = command.ExecuteReader();
                         if (objReader != null && objReader.HasRows)

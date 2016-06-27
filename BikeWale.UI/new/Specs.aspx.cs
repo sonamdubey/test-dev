@@ -163,7 +163,7 @@ namespace Bikewale.New
                     cmd.Parameters.Add("@Killswitch", SqlDbType.Bit).Direction                      = ParameterDirection.Output;
                     cmd.Parameters.Add("@Clock", SqlDbType.Bit).Direction                           = ParameterDirection.Output;
                     cmd.Parameters.Add("@Colors", SqlDbType.VarChar, 150).Direction                  = ParameterDirection.Output;
-
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     conn.Open();
                     cmd.ExecuteNonQuery();
                     

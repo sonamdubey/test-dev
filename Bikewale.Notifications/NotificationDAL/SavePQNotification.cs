@@ -42,7 +42,7 @@ namespace Bikewale.Notifications.NotificationDAL
                             cmd.Parameters.Add("@SMSToDealerNumbers", SqlDbType.VarChar, 100).Value = dealerMobileNo;
                             cmd.Parameters.Add("@SMSToDealerServiceType", SqlDbType.TinyInt).Value = smsType;
                             cmd.Parameters.Add("@SMSToDealerPageUrl", SqlDbType.VarChar, 500).Value = pageUrl;
-
+                            LogLiveSps.LogSpInGrayLog(cmd);
                             con.Open();
                             cmd.ExecuteNonQuery();
                             con.Close();
@@ -85,7 +85,7 @@ namespace Bikewale.Notifications.NotificationDAL
                             cmd.Parameters.Add("@SMSToCustomerNumbers", SqlDbType.VarChar, 100).Value = customerMobile;
                             cmd.Parameters.Add("@SMSToCustomerServiceType", SqlDbType.TinyInt).Value = smsType;
                             cmd.Parameters.Add("@SMSToCustomerPageUrl", SqlDbType.VarChar, 500).Value = pageUrl;
-
+                            LogLiveSps.LogSpInGrayLog(cmd);
                             con.Open();
                             cmd.ExecuteNonQuery();
                             con.Close();
@@ -126,7 +126,7 @@ namespace Bikewale.Notifications.NotificationDAL
                             cmd.Parameters.Add("@EmailToDealerMessageBody", SqlDbType.VarChar).Value = emailBody;
                             cmd.Parameters.Add("@EmailToDealerSubject", SqlDbType.VarChar, 500).Value = emailsubject;
                             cmd.Parameters.Add("@EmailToDealerReplyTo", SqlDbType.VarChar,200).Value = dealerEmail;
-
+                            LogLiveSps.LogSpInGrayLog(cmd);
                             con.Open();
                             cmd.ExecuteNonQuery();
                             con.Close();
@@ -161,7 +161,7 @@ namespace Bikewale.Notifications.NotificationDAL
                             cmd.Parameters.Add("@EmailToCustomerMessageBody", SqlDbType.VarChar).Value = emailBody;
                             cmd.Parameters.Add("@EmailToCustomerSubject", SqlDbType.VarChar, 500).Value = emailSubject;
                             cmd.Parameters.Add("@EmailToCustomerReplyTo", SqlDbType.VarChar, 200).Value = customerEmail;
-
+                            LogLiveSps.LogSpInGrayLog(cmd);
                             con.Open();
                             cmd.ExecuteNonQuery();
                             con.Close();
