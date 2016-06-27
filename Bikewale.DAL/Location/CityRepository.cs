@@ -307,12 +307,12 @@ namespace Bikewale.DAL.Location
                             {
                                 dealerCities.Add(new DealerCityEntity()
                                 {
-                                    CityId = Convert.ToUInt32(dr["CityId"]),
-                                    CityName = Convert.ToString(dr["Name"]),
-                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
-                                    Lattitude = Convert.ToString(dr["Lattitude"]),
-                                    Longitude = Convert.ToString(dr["Longitude"]),
-                                    DealersCount = Convert.ToUInt32(dr["DealersCnt"])
+                                    CityId = !Convert.IsDBNull(dr["CityId"]) ? Convert.ToUInt32(dr["CityId"]) : default(UInt32),
+                                    CityName = !Convert.IsDBNull(dr["Name"]) ? Convert.ToString(dr["Name"]) : default(String),
+                                    CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(String),
+                                    Lattitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToString(dr["Lattitude"]) : default(String),
+                                    Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToString(dr["Longitude"]) : default(String),
+                                    DealersCount = !Convert.IsDBNull(dr["DealersCnt"]) ? Convert.ToUInt32(dr["DealersCnt"]) : default(UInt32)
                                 });
                             }
 
@@ -324,11 +324,11 @@ namespace Bikewale.DAL.Location
 
                                 if (dr.Read())
                                 {
-                                    dealerStates.StateId = Convert.ToUInt32(dr["Id"]);
-                                    dealerStates.StateName = Convert.ToString(dr["Name"]);
-                                    dealerStates.StateMaskingName = Convert.ToString(dr["StateMaskingName"]);
-                                    dealerStates.StateLatitude = Convert.ToString(dr["StateLattitude"]);
-                                    dealerStates.StateLongitude = Convert.ToString(dr["StateLongitude"]);
+                                    dealerStates.StateId = !Convert.IsDBNull(dr["Id"]) ? Convert.ToUInt32(dr["Id"]) : default(UInt32);
+                                    dealerStates.StateName = !Convert.IsDBNull(dr["Name"]) ? Convert.ToString(dr["Name"]) : default(String);
+                                    dealerStates.StateMaskingName = !Convert.IsDBNull(dr["StateMaskingName"]) ? Convert.ToString(dr["StateMaskingName"]) : default(String);
+                                    dealerStates.StateLatitude = !Convert.IsDBNull(dr["StateLattitude"]) ? Convert.ToString(dr["StateLattitude"]) : default(String);
+                                    dealerStates.StateLongitude = !Convert.IsDBNull(dr["StateLongitude"]) ? Convert.ToString(dr["StateLongitude"]) : default(String);
                                 }
 
                                 objStateCities.dealerStates = dealerStates;

@@ -141,12 +141,12 @@ namespace Bikewale.DAL.Location
                             {
                                 objStateList.Add(new DealerStateEntity
                                 {
-                                    StateId = Convert.ToUInt32(dr["StateId"]),
-                                    StateName = Convert.ToString(dr["StateName"]),
-                                    StateMaskingName = Convert.ToString(dr["StateMaskingName"]),
-                                    StateLatitude = Convert.ToString(dr["StateLattitude"]),
-                                    StateLongitude = Convert.ToString(dr["StateLongitude"]),
-                                    StateCount = Convert.ToUInt32(dr["StateCnt"])
+                                    StateId = !Convert.IsDBNull(dr["StateId"]) ? Convert.ToUInt32(dr["StateId"]) : default(UInt32),
+                                    StateName = !Convert.IsDBNull(dr["StateName"]) ? Convert.ToString(dr["StateName"]) : default(String),
+                                    StateMaskingName = !Convert.IsDBNull(dr["StateMaskingName"]) ? Convert.ToString(dr["StateMaskingName"]) : default(String),
+                                    StateLatitude = !Convert.IsDBNull(dr["StateLattitude"]) ? Convert.ToString(dr["StateLattitude"]) : default(String),
+                                    StateLongitude = !Convert.IsDBNull(dr["StateLongitude"]) ? Convert.ToString(dr["StateLongitude"]) : default(String),
+                                    StateCount = !Convert.IsDBNull(dr["StateCnt"]) ? Convert.ToUInt32(dr["StateCnt"]) : default(UInt32)
                                 });
                             }
                         }
@@ -156,7 +156,7 @@ namespace Bikewale.DAL.Location
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" :GetDealerStates, makeId = {0} ", makeId));
                 objErr.SendMail();
             }
             finally
