@@ -19,5 +19,8 @@ namespace Bikewale.Entities.Location
 
         [JsonProperty("dealerCount"), DataMember]
         public uint DealersCount { get; set; }
+
+        [JsonProperty("link"), DataMember]
+        public string Link { get; set; }
     }
 }

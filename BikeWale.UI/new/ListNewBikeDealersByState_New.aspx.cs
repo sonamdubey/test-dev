@@ -1,13 +1,15 @@
 ﻿using Bikewale.Common;
+using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -23,8 +25,11 @@ namespace Bikewale.New
         protected DataSet dsStateCity = null;
         protected MakeModelVersion objMMV;
 
-        public string makeId = string.Empty, stateArray = string.Empty, makeMaskingName = string.Empty;
+        public string strMakeId = string.Empty, stateArray = string.Empty, makeMaskingName = string.Empty;
         public int stateCount = 0, DealerCount = 0; protected uint countryCount = 0;
+        protected uint cityId = 0;
+        protected ushort makeId = 0;
+        protected bool cityDetected;
 
         protected override void OnInit(EventArgs e)
         {
@@ -49,49 +54,15 @@ namespace Bikewale.New
 
             if (ProcessQS())
             {
-                if (!IsPostBack)
-                {
-                    objMMV = new MakeModelVersion();
-                    objMMV.GetMakeDetails(makeId);
-
-                    BindControl();
-                    BindStates();
-                }
+                checkDealersForMakeCity(makeId);
+                objMMV = new MakeModelVersion();
+                objMMV.GetMakeDetails(strMakeId);
+                //BindControl();
+                BindStates();
             }
         }
 
-        private void BindControl()
-        {
-            string sql = "";
-            Database db = new Database();
 
-            sql = " SELECT  C.Id AS CityId,c.MaskingName AS CityMaskingName, "
-                + " C.Name AS City, COUNT(DNC.Id) AS TotalBranches, "
-                + " S.Name AS [State], S.ID AS StateId, "
-                + " ROW_NUMBER() Over(Partition By StateId Order by StateId) AS StateRank "
-                + " FROM Dealer_NewBike AS DNC, BWCities AS C, States AS S With(NoLock) "
-                + " WHERE DNC.CityId = C.Id AND C.StateId = S.ID AND DNC.IsActive = 1 "
-                + " AND C.IsDeleted = 0 AND DNC.MakeId = @MakeId "
-                + " GROUP By C.Id, C.Name, S.Name, S.ID, StateId,C.MaskingName "
-                + " Order By [State], CityId  ";
-
-            SqlParameter[] param = { 				
-				new SqlParameter("@MakeId", makeId)
-			};
-
-            try
-            {
-                dsStateCity = db.SelectAdaptQry(sql, param);
-                stateCount = int.Parse(dsStateCity.Tables[0].Rows.Count.ToString());
-
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-        }//function
         /// <summary>
         /// Modified by: Sangram Nandkhile on 24th Jun 2016
         /// </summary>
@@ -103,7 +74,11 @@ namespace Bikewale.New
             {
                 container.RegisterType<IState, StateRepository>();
                 objStates = container.Resolve<IState>();
-                states = objStates.GetDealerStates(Convert.ToUInt32(makeId));
+                states = objStates.GetDealerStates(Convert.ToUInt32(strMakeId));
+                foreach (var state in states)
+                {
+                    state.Link = string.Format("/{0}-bikes/dealers-in-{1}-state/", objMMV.MakeMappingName, state.StateMaskingName);
+                }
                 if (states != null && states.Count() > 0)
                 {
                     rptState.DataSource = states;
@@ -128,8 +103,9 @@ namespace Bikewale.New
             if (!string.IsNullOrEmpty(Request["make"]))
             {
                 makeMaskingName = Request["make"].ToString();
-                makeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());
-                if (CommonOpn.CheckId(makeId) == false)
+                strMakeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());
+                makeId = Convert.ToUInt16(strMakeId);
+                if (CommonOpn.CheckId(strMakeId) == false)
                 {
                     Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -145,6 +121,50 @@ namespace Bikewale.New
                 isSuccess = false;
             }
             return isSuccess;
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar bon 31st March 2016
+        /// Description : To redirect user to dealer listing page if make and city already provided by user
+        /// </summary>
+        /// <param name="_makeId"></param>
+        private bool checkDealersForMakeCity(ushort _makeId)
+        {
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            cityId = currentCityArea.CityId;
+            if (cityId > 0)
+            {
+                IEnumerable<CityEntityBase> _cities = null;
+                try
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealer, DealersRepository>();
+                        var objCities = container.Resolve<IDealer>();
+                        _cities = objCities.FetchDealerCitiesByMake(_makeId);
+                        if (_cities != null && _cities.Count() > 0)
+                        {
+                            var _city = _cities.FirstOrDefault(x => x.CityId == cityId);
+                            if (_city != null)
+                            {
+                                string _redirectUrl = String.Format("/{0}-bikes/dealers-in-{1}/", makeMaskingName, _city.CityMaskingName);
+                                Response.Redirect(_redirectUrl, false);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                this.Page.Visible = false;
+                                return true;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.Warn(ex.Message);
+                    ErrorClass objErr = new ErrorClass(ex, "checkDealersForMakeCity");
+                    objErr.SendMail();
+                }
+            }
+            return false;
         }
     }   // End of class
 }   // End of namespace

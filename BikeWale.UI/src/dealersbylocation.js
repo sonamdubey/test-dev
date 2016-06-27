@@ -20,23 +20,6 @@ $(window).scroll(function () {
     }
 });
 
-//var stateArr = [
-//	{ id: 1, name: 'Andhra Pradesh', link: '#', latitude: 16.5000, longitude: 80.6400, dealerCount: 4 },
-//    { id: 2, name: 'Arunachal Pradesh', link: '#', latitude: 27.0600, longitude: 93.3700, dealerCount: 1 },
-//    { id: 3, name: 'Gujarat', link: '#', latitude: 23.2167, longitude: 72.6833, dealerCount: 4 },
-//    { id: 4, name: 'Goa', link: '#', latitude: 15.4989, longitude: 73.8278, dealerCount: 2 },
-//    { id: 5, name: 'Maharashtra', link: '#', latitude: 18.9600, longitude: 72.8200, dealerCount: 4 }
-//];
-
-debugger;
-
-var cityArr = [
-    { id: 90, name: 'Mumbai', link: '#', latitude: 19.085442, longitude: 72.872951, dealerCount: 21 },
-    { id: 91, name: 'Panvel', link: '#', latitude: 18.998724, longitude: 73.118817, dealerCount: 15 },
-    { id: 92, name: 'Chiplun', link: '#', latitude: 17.536045, longitude: 73.521305, dealerCount: 9 },
-    { id: 93, name: 'Solapur', link: '#', latitude: 17.668327, longitude: 75.914494, dealerCount: 4 }
-];
-
 var markerArr = [];
 var map, infowindow;
 var markerIcon = 'http://imgd2.aeplcdn.com/0x0/bw/static/design15/marker-icon.png';
@@ -59,7 +42,6 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
     infowindow = new google.maps.InfoWindow();
 
     var i, marker, element, markerPosition, content;
-
     for (i = 0; i < arrList.length; i++) {
         element = arrList[i];
         markerPosition = new google.maps.LatLng(element.latitude, element.longitude);
@@ -74,7 +56,6 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
 
         markerArr.push(marker);
         marker.setMap(map);
-
         content = '<div class="dealer-location-tooltip"><a href=' + element.link + ' class="font16 text-default">' + element.name + '</a></div>';
 
         google.maps.event.addListener(marker, 'mouseover', (function (marker, content, infowindow) {
@@ -83,16 +64,13 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
                 infowindow.open(map, marker);
             };
         })(marker, content, infowindow));
-        
     }
-
 }
 
 
-
 if (typeof (dealersByCity) != 'undefined') {
-    initialLat = 18.9600; //lat-long for maharashtra
-    initialLong = 72.8200;
+    initialLat = stateLat; //lat-long for state to focus
+    initialLong = stateLong;
     initialZoom = 7;
     initializeMap(cityArr, initialLat, initialLong, initialZoom);
 }
@@ -125,7 +103,6 @@ var mapsInfoWindow = {
             }
         }
     },
-
     close: function (elementId) {
         for (var i = 0; i < markerArr.length; i++) {
             if (markerArr[i].id == elementId) {

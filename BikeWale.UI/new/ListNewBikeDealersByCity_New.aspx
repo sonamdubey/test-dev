@@ -44,8 +44,8 @@
                 <div id="listingSidebar" class="bg-white position-abt pos-right0">
                     <div id="listingSidebarHeading" class="padding-top15 padding-right20 padding-left20">
                         <div class="margin-bottom20">
-                            <h1 id="sidebarHeader" class="font16 margin-bottom10"><%=objMMV.Make %> bike dealers in Maharashtra</h1>
-                            <h2 class="text-unbold font14 text-xt-light-grey border-solid-bottom padding-bottom15"><%=DealerCount %> dealers across <%=citesCount %> cities in Maharashtra</h2>
+                            <h1 id="sidebarHeader" class="font16 margin-bottom10"><%=objMMV.Make %> bike dealers in <%= stateName %></h1>
+                            <h2 class="text-unbold font14 text-xt-light-grey border-solid-bottom padding-bottom15"><%=DealerCount %> dealers across <%=citesCount %> cities in <%= stateName %></h2>
                         </div>
                         <div class="form-control-box">
                             <span class="bwsprite search-icon-grey"></span>

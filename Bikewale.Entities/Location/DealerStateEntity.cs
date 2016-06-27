@@ -13,7 +13,7 @@ namespace Bikewale.Entities.Location
     [Serializable]
     public class DealerStateEntity : StateEntityBase
     {
-        
+
         [JsonProperty("latitude"), DataMember]
         public string StateLatitude { get; set; }
 
@@ -22,5 +22,8 @@ namespace Bikewale.Entities.Location
 
         [JsonProperty("dealerCount"), DataMember]
         public uint StateCount { get; set; }
+
+        [JsonProperty("link"), DataMember]
+        public string Link { get; set; }
     }
 }
