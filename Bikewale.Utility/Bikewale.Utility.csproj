@@ -61,6 +61,7 @@
     <Compile Include="APIHost.cs" />
     <Compile Include="BikeBookingCookie.cs" />
     <Compile Include="BWConfiguration.cs" />
+    <Compile Include="BWCookies.cs" />
     <Compile Include="BWHttpClient.cs" />
     <Compile Include="CollectionHelper.cs" />
     <Compile Include="CommonValidators.cs" />
