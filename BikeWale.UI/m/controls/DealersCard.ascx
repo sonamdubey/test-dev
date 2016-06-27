@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.DealersCard" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.DealersCard" %>
 <% if (showWidget)
    {
 %>
@@ -15,9 +15,9 @@
                 <ItemTemplate>
                     <div class="swiper-slide bike-carousel-swiper dealer-by-city">
                         <h4 class="margin-bottom5 text-truncate"><%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %></h4>
-                        <p class="margin-bottom5 text-light-grey"><span class="bwmsprite dealership-loc-icon vertical-top margin-right5"></span><span class="vertical-top dealership-address"><%# DataBinder.Eval(Container.DataItem,"Address") %></span></p>
-                        <a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="block margin-bottom5 text-default text-bold text-truncate <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"block" %>"><span class="bwmsprite tel-sm-grey-icon"></span><%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a>
-                        <a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey block margin-bottom20 <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":"block" %>"><span class="bwmsprite mail-grey-icon vertical-top"></span><span class="text-truncate vertical-top dealership-email"><%# DataBinder.Eval(Container.DataItem,"Email") %></span></a>
+                        <p class="margin-bottom5 text-light-grey <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":string.Empty %>"><span class="bwmsprite dealership-loc-icon vertical-top margin-right5"></span><span class="vertical-top dealership-address"><%# DataBinder.Eval(Container.DataItem,"Address") %></span></p>
+                        <a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="  margin-bottom5 text-default text-bold text-truncate <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"block" %>"><span class="bwmsprite tel-sm-grey-icon"></span><%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %></a>
+                        <a href="mailto:<%# DataBinder.Eval(Container.DataItem,"Email") %>" class="text-light-grey margin-bottom20 <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Email").ToString()))?"hide":"block" %>"><span class="bwmsprite mail-grey-icon vertical-top"></span><span class="text-truncate vertical-top dealership-email"><%# DataBinder.Eval(Container.DataItem,"Email") %></span></a>
                         <% if (!IsDiscontinued)
                            { %>
                         <input type="button" data-leadsourceid="<%= LeadSourceId %>" data-pqsourceid="<%= PQSourceId %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# (DataBinder.Eval(Container.DataItem,"objArea")!=null) ? DataBinder.Eval(Container.DataItem,"objArea.AreaName") : "" %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>"
