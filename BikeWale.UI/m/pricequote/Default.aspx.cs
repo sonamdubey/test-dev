@@ -117,6 +117,8 @@ namespace Bikewale.Mobile.PriceQuote
         /// method to save PQ details and also register customer if new
         /// Modified By : Vivek Gupta on 02-05-2016
         /// Desc : redirection condition isDealerAvailbale added
+        /// Modified By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with BWUtmz
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -147,7 +149,7 @@ namespace Bikewale.Mobile.PriceQuote
                         // If pqId exists then, set pqId
                         objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_PQ_Landing);
                         objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["BWUtmz"] != null ? Request.Cookies["BWUtmz"].Value : "";
                         objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
 

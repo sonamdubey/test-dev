@@ -780,6 +780,8 @@ namespace Bikewale.New
         /// Desc: Removed API Call for on road Price Quote
         /// Modified By : Lucky Rathore on 09 May 2016.
         /// Description : modelImage intialize.
+        /// Modified By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with BWUtmz
         /// </summary>
         /// <returns></returns>
         private PQOnRoadPrice GetOnRoadPrice()
@@ -804,7 +806,7 @@ namespace Bikewale.New
                     objPQEntity.VersionId = Convert.ToUInt32(hdnVariant.Value);
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_ModelPage);
                     objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                    objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                    objPQEntity.UTMZ = Request.Cookies["BWUtmz"] != null ? Request.Cookies["BWUtmz"].Value : "";
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
                     if (variantId == 0)

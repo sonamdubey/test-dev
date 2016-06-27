@@ -102,6 +102,7 @@
         googletag.enableServices();
     });
 </script>
+<% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
 <!-- for IE to understand the new elements of HTML5 like header, footer, section and so on -->
 <!--[if lt IE 9]>
     <script src="/src/html5.js"></script>
