@@ -3,6 +3,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Bikewale.BAL.Location
@@ -35,6 +36,11 @@ namespace Bikewale.BAL.Location
         public IEnumerable<DealerStateEntity> GetDealerStates(uint makeId)
         {
             return _objStates.GetDealerStates(makeId);
+        }
+
+        public Hashtable GetMaskingNames()
+        {
+            throw new NotImplementedException();
         }
     }
 }

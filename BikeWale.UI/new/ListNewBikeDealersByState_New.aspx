@@ -17,7 +17,7 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealersbylocation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDjG8tpNdQI86DH__-woOokTaknrDQkMC8" type="text/javascript"></script>    
+    <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript" src="/src/new/markerwithlabel.js"></script>
 </head>
 <body class="bg-light-grey padding-top50">
@@ -44,7 +44,7 @@
                 <div id="listingSidebar" class="bg-white position-abt pos-right0">
                     <div id="listingSidebarHeading" class="padding-top15 padding-right20 padding-left20">
                         <div class="margin-bottom20">
-                            <h1 id="sidebarHeader" class="font16 margin-bottom10"><%=objMMV.Make %> dealers in India</h1>
+                            <h1 id="sidebarHeader" class="font16 margin-bottom10"><%=objMMV.Make %> bike dealers in India</h1>
                             <h2 class="text-unbold font14 text-xt-light-grey border-solid-bottom padding-bottom15"><%=countryCount %> dealers across <%=stateCount %> states</h2>
                         </div>
                         <div class="form-control-box">
@@ -59,7 +59,7 @@
                         <asp:Repeater ID="rptState" runat="server">
                             <ItemTemplate>
                                 <li>
-                                   <a href="/honda-bikes/dealers-in-<%#DataBinder.Eval(Container.DataItem,"stateMaskingName") %>-state/" data-item-id="<%#DataBinder.Eval(Container.DataItem,"stateId") %>"><%#DataBinder.Eval(Container.DataItem,"StateName") %></a>
+                                   <a href="/<%=objMMV.MakeMappingName %>-bikes/dealers-in-<%#DataBinder.Eval(Container.DataItem,"stateMaskingName") %>-state/" data-item-id="<%#DataBinder.Eval(Container.DataItem,"stateId") %>"><%#DataBinder.Eval(Container.DataItem,"StateName") %> (<%#DataBinder.Eval(Container.DataItem,"StateCount") %>)</a>
                                 </li>
                             </ItemTemplate>
                         </asp:Repeater>

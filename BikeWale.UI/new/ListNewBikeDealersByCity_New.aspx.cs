@@ -1,12 +1,16 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
+using Bikewale.Common;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -15,15 +19,18 @@ namespace Bikewale.New
 {
     public class ListNewBikeDealersByCity_New : Page
     {
-        protected Repeater rptState;
+        protected Repeater rptCity;
         protected DataList dlCity;
 
         protected DataSet dsStateCity = null;
         protected MakeModelVersion objMMV;
 
-        public string makeId = string.Empty;
-        public int StateCount = 0, DealerCount = 0;
+        public uint makeId;
+        public string cityArr = string.Empty, stateMaskingName = string.Empty, stateName = string.Empty;
+        public int citesCount = 0;
+        public uint DealerCount = 0;
         public uint stateId = 0;
+        public DealerStateCities dealerCity;
 
         protected override void OnInit(EventArgs e)
         {
@@ -51,7 +58,7 @@ namespace Bikewale.New
                 if (!IsPostBack)
                 {
                     objMMV = new MakeModelVersion();
-                    objMMV.GetMakeDetails(makeId);
+                    objMMV.GetMakeDetails(makeId.ToString());
 
                     BindControl();
                     BindCities();
@@ -83,7 +90,7 @@ namespace Bikewale.New
             try
             {
                 dsStateCity = db.SelectAdaptQry(sql, param);
-                StateCount = int.Parse(dsStateCity.Tables[0].Rows.Count.ToString());
+                //CityCount = int.Parse(dsStateCity.Tables[0].Rows.Count.ToString());
             }
             catch (Exception err)
             {
@@ -96,13 +103,22 @@ namespace Bikewale.New
 
         private void BindCities()
         {
-            DealerStateCities dealerCities;
             ICity objCities = null;
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<ICity, CityRepository>();
                 objCities = container.Resolve<ICity>();
-                dealerCities = objCities.GetDealerStateCities(7, 1);
+                dealerCity = objCities.GetDealerStateCities(makeId, stateId);
+                if (dealerCity != null && dealerCity.dealerCities != null && dealerCity.dealerCities.Count() > 0)
+                {
+                    rptCity.DataSource = dealerCity.dealerCities;
+                    rptCity.DataBind();
+                    cityArr = Newtonsoft.Json.JsonConvert.SerializeObject(dealerCity.dealerCities);
+                    cityArr = cityArr.Replace("cityId", "id").Replace("cityName", "name");
+                    DealerCount = dealerCity.dealerCities.Select(o => o.DealersCount).Aggregate((x, y) => x + y);
+                    citesCount = dealerCity.dealerCities.Count();
+                    stateName = dealerCity.dealerStates.StateName;
+                }
 
             }
         }
@@ -143,26 +159,41 @@ namespace Bikewale.New
         protected bool ProcessQS()
         {
             bool isSuccess = true;
-            if (Request["make"] == null || Request.QueryString["make"] == "")
+            if (!string.IsNullOrEmpty(Request["make"]) && !string.IsNullOrEmpty(Request["state"]))
             {
-                //invalid make id, hence redirect to he browsebikes.aspx page
-                Trace.Warn("make id : ", Request.QueryString["make"]);
-                Response.Redirect("/new/", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
-                isSuccess = false;
-            }
-            else
-            {
-                makeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());
+                string _makeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());
+                makeId = Convert.ToUInt32(_makeId);
+
                 //verify the id as passed in the url
-                if (CommonOpn.CheckId(makeId) == false)
+                if (CommonOpn.CheckId(_makeId) == false)
                 {
                     Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                     isSuccess = false;
                 }
+                stateMaskingName = Request.QueryString["state"];
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IState, StateRepository>()
+                             .RegisterType<IStateCacheRepository, StateCacheRepository>()
+                            ;
+                    var objCache = container.Resolve<IStateCacheRepository>();
+                    var objResponse = objCache.GetStateMaskingResponse(stateMaskingName);
+                    if (objResponse != null)
+                    {
+                        stateId = objResponse.StateId;
+                    }
+                }
+            }
+            else
+            {
+                Trace.Warn("make id : ", Request.QueryString["make"]);
+                Response.Redirect("/new/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+                isSuccess = false;
             }
             return isSuccess;
         }

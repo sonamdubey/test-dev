@@ -111,7 +111,6 @@ namespace Bikewale.New
                     stateArray = Newtonsoft.Json.JsonConvert.SerializeObject(states);
                     // To set correct properties in json array
                     stateArray = stateArray.Replace("stateId", "id").Replace("stateName", "name");
-
                     countryCount = states.Select(o => o.StateCount).Aggregate((x, y) => x + y);
                     stateCount = states.Count();
                 }

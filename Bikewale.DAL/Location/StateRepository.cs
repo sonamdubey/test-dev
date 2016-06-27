@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
+using System.Collections;
 
 namespace Bikewale.DAL.Location
 {
@@ -68,6 +69,50 @@ namespace Bikewale.DAL.Location
         }   // End of GetStates method
 
         /// <summary>
+        /// Function to get the state masking names
+        /// </summary>
+        /// <returns></returns>
+        public Hashtable GetMaskingNames()
+        {
+            Database db = null;
+            Hashtable ht = null;
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "GetStateMappingNames";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    db = new Database();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            ht = new Hashtable();
+
+                            while (dr.Read())
+                            {
+                                if (!ht.ContainsKey(dr["StateMaskingName"]))
+                                    ht.Add(dr["StateMaskingName"], dr["ID"]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("StateRepository.GetMaskingNames ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return ht;
+        }
         /// Create By : Vivek Gupta 
         /// Date : 24 june 2016
         /// desc : get dealer states

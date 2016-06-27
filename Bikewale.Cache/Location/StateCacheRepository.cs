@@ -3,6 +3,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Bikewale.Cache.Location
@@ -44,6 +45,40 @@ namespace Bikewale.Cache.Location
                 objErr.SendMail();
             }
             return objStates;
+        }
+
+        public StateMaskingResponse GetStateMaskingResponse(string maskingName)
+        {
+            StateMaskingResponse response = new StateMaskingResponse();
+
+            try
+            {
+                // Get MaskingNames from Memcache
+                var htNewMaskingNames = _cache.GetFromCache<Hashtable>("BW_NewStateMaskingNames", new TimeSpan(1, 0, 0), () => _objState.GetMaskingNames());
+
+                if (htNewMaskingNames.Contains(maskingName))
+                {
+                    response.StateId = Convert.ToUInt32(htNewMaskingNames[maskingName]);
+                }
+
+                // If modelId is not null 
+                if (response.StateId > 0)
+                {
+                    response.MaskingName = maskingName;
+                    response.StatusCode = 200;
+
+                    return response;
+                }
+                else
+                    response.StatusCode = 404;                // Not found. The given masking name does not exist on bikewale.
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "StateMaskingCache.GetStateMaskingResponse");
+                objErr.SendMail();
+            }
+
+            return response;
         }
     }
 }
