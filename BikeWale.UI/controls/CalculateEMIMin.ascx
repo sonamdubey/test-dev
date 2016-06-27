@@ -2,7 +2,7 @@
 <h3>Calculate Loan EMI</h3>
 <p>Bike loan EMI calculation was never this easy</p>
 <div class="left-float margin-top10 margin-right10 padding-bottom20">
-    <input type="text" id="txtLoanAmount" maxlength="10" value="Enter loan amount" tabindex="1"/>
+    <input type="text" class="form-control text-light-grey" id="txtLoanAmount" maxlength="10" value="Enter loan amount" tabindex="1"/>
 </div>
 <div class="margin-top10"><a id="btnLoanAmtGo" class="action-btn" tabindex="2" onclick="javascript:calculateEMI();">Go</a></div>
 <div class="clear"></div>
