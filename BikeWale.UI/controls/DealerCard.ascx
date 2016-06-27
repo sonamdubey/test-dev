@@ -1,12 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.DealerCard" %>
 <% if (showWidget)
    { %>
-<div class="margin-right20 margin-left20 border-divider"></div>
 <% if (isCitySelected)
    { %>
-<div id="makeDealersContent" class="padding-top20 padding-bottom20 border-solid-bottom">
+<div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 border-solid-bottom font14">
     <h2 class="font15 text-bold text-x-black padding-right20 padding-left20"><%=makeName %> dealers in <%=cityName %></h2>
-    <div class="grid-12 padding-top15">
+    <div class="grid-12">
         <ul>
             <asp:Repeater ID="rptDealers" runat="server">
                 <ItemTemplate>

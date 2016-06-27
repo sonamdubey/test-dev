@@ -70,7 +70,7 @@
 .model-user-review-title-container { width:308px; }
 #makeTabsContentWrapper .model-user-review-title-container h3 { font-size:16px; color:#2a2a2a; line-height:1.7; margin-bottom:5px; position:relative; top:-6px; }
 .dealer-jcarousel-image-preview { width:292px; height:114px; display:block; margin-bottom:15px; border:1px solid #f1f1f1; text-align:center; padding-top:10px; }
-.city-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png) no-repeat; display: inline-block; }
+.city-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
 .mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 92px; }
 .mumbai-icon { width: 130px; background-position: 0 0; }
 .pune-icon { width: 186px; background-position: -140px 0; }
@@ -80,8 +80,15 @@
 .hyderabad-icon { width: 65px; background-position: -625px 0; }
 .kolkata-icon { width: 182px; background-position: -700px 0; }
 .lucknow-icon { width: 174px; background-position: -892px 0; }
-.ahmedabad-icon { width: px; background-position: -px 0; }
-.chandigarh-icon { width: px; background-position: -px 0; }
+.ahmedabad-icon { width: 0px; background-position: 0 0; }
+.chandigarh-icon { width: 0px; background-position: 0 0; }
+.dealership-loc-icon { width:8px; height:12px; background-position:-53px -469px; position:relative;top:4px; }
+.dealership-card-details { width:92%; }
+.vertical-top { display:inline-block;vertical-align:top; }
+.dealership-address, .dealership-email {width: 87%;}
+.phone-black-icon { width:11px; height:15px; position:relative; top:3px; margin-right:3px; background-position:-73px -444px; }
+.mail-grey-icon { width:12px; height:10px; margin-right:3px; background-position:-92px -446px; position:relative;top:6px; }
+.dealer-no-city a { width:184px; min-height:210px; display:block; padding:20px; }
 #makeUsedBikeContent .grid-4 { display:inline-block; vertical-align:top; width:315px; float:none; }
 
 .newBikes-latest-updates-container .home-tabs { background:#ccc;}
