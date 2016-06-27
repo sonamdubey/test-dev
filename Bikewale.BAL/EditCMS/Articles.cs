@@ -53,27 +53,29 @@ namespace Bikewale.BAL.EditCMS
                 categorList.Add(EnumCMSContentType.AutoExpo2016);
                 string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
 
-                cacheKey += contentTypeList.Replace(",", "_") + "_Cnt_" + TotalRecords;
+                //cacheKey += contentTypeList.Replace(",", "_") + "_Cnt_" + TotalRecords;
 
-                if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                {
-                    if (ModelId.HasValue && ModelId.Value > 0)
-                    {
-                        cacheKey += "_Make_" + MakeId + "_Model_" + ModelId;
-                    }
-                    else
-                    {
-                        cacheKey += "_Make_" + MakeId;
-                    }
-                }
+                //if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
+                //{
+                //    if (ModelId.HasValue && ModelId.Value > 0)
+                //    {
+                //        cacheKey += "_Make_" + MakeId + "_Model_" + ModelId;
+                //    }
+                //    else
+                //    {
+                //        cacheKey += "_Make_" + MakeId;
+                //    }
+                //}
 
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<ICacheManager, MemcacheManager>();
-                    ICacheManager _cache = container.Resolve<ICacheManager>();
+                //using (IUnityContainer container = new UnityContainer())
+                //{
+                //    container.RegisterType<ICacheManager, MemcacheManager>();
+                //    ICacheManager _cache = container.Resolve<ICacheManager>();
 
-                    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(contentTypeList));
-                }
+                //    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(contentTypeList));
+                //}
+
+                _objArticleList = GetNewsFromCW(contentTypeList);
             }
             catch (Exception ex)
             {
