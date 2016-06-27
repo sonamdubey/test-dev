@@ -85,6 +85,7 @@
     <Compile Include="Location\ICityCacheRepository.cs" />
     <Compile Include="Location\ICityMaskingCacheRepository.cs" />
     <Compile Include="Location\IState.cs" />
+    <Compile Include="Location\IStateCacheRepository.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />
     <Compile Include="NewBikeSearch\IProcessFilter.cs" />

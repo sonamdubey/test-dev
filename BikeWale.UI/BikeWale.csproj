@@ -14,6 +14,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -1124,6 +1125,10 @@
       <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="new\ListNewBikeDealersByCity_New.aspx.cs">
+      <DependentUpon>ListNewBikeDealersByCity_New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\locatenewbikedealers_old.aspx.cs">
       <DependentUpon>locatenewbikedealers_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1171,8 +1176,8 @@
       <DependentUpon>EMILoan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\ListNewBikeDealersByCity_New.aspx.cs">
-      <DependentUpon>ListNewBikeDealersByCity_New.aspx</DependentUpon>
+    <Compile Include="new\ListNewBikeDealersByState_New.aspx.cs">
+      <DependentUpon>ListNewBikeDealersByState_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\locatenewbikedealers.aspx.cs">
@@ -1847,6 +1852,7 @@
     <Content Include="css\datepicker.css" />
     <Content Include="css\dealerlisting.css" />
     <Content Include="css\dealerpricequote.css" />
+    <Content Include="css\dealersbylocation.css" />
     <Content Include="css\global.css" />
     <Content Include="css\home.css" />
     <Content Include="css\images\animated-overlay.gif" />
@@ -2430,6 +2436,7 @@
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="new\browsenewbikedealerdetails_old.aspx" />
+    <Content Include="new\ListNewBikeDealersByCity_New.aspx" />
     <Content Include="new\locatenewbikedealers_old.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
     <Content Include="new\ModelPricesInCity.aspx" />
@@ -2451,7 +2458,7 @@
     <Content Include="src\common\chosen.jquery.min.js" />
     <Content Include="src\dealerlisting.js" />
     <Content Include="src\dealerpricequote.js" />
-    <Content Include="src\dealersbycity.js" />
+    <Content Include="src\dealersbylocation.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
     <Content Include="m\src\loadPhotos.js" />
@@ -2469,7 +2476,7 @@
     <Content Include="new\compare\default.aspx" />
     <Content Include="new\default.aspx" />
     <Content Include="new\EMILoan.aspx" />
-    <Content Include="new\ListNewBikeDealersByCity_New.aspx" />
+    <Content Include="new\ListNewBikeDealersByState_New.aspx" />
     <Content Include="new\locatenewbikedealers.aspx" />
     <Content Include="new\models.aspx" />
     <Content Include="new\newbikelaunch\Default.aspx" />
@@ -2520,9 +2527,11 @@
     <Content Include="src\jquery.floating-social-share.js" />
     <Content Include="src\jquery.floating-social-share.min.js" />
     <Content Include="src\login\login.js" />
+    <!-- <Content Include="src\markerwithlabel.js" /> -->
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />
     <Content Include="src\new\bikemake.js" />
+    <Content Include="src\new\markerwithlabel.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\BikeBooking\bookinglisting.js" />
@@ -2711,7 +2720,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55686</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
