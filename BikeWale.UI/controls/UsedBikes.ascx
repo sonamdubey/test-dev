@@ -24,7 +24,7 @@
                         <%# String.Format("{0}, {1} {2} {3}",Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeYear")), Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"ModelName")), Convert.ToString(DataBinder.Eval(Container.DataItem,"VersionName")))%>
                     </a>
                     <p class="margin-top10">
-                        <span class="fa fa-rupee"></span> 
+                        <span class="bwsprite inr-sm-dark"></span> 
                         <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"BikePrice"))) %></span>
                     </p>
                 </div>
