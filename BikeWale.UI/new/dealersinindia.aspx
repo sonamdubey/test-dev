@@ -9,8 +9,6 @@
         keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.Make);
         description = string.Format("{0} bike dealers/showrooms in India. Find dealer information for more than {1} dealers in {2} states. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.Make, countryCount, stateCount);
         canonical = "http://www.bikewale.com/new/" + objMMV.MakeMappingName + "-dealers/";
-        AdId = "1395986297721";
-        AdPath = "/1017752/BikeWale_New_";
         isAd970x90Shown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
