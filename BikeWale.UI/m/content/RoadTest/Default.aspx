@@ -16,6 +16,7 @@
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <style type="text/css">
+    #divListing .box1 { padding-top:20px; }
     .article-wrapper { display:table; margin-bottom:10px; }
     .article-image-wrapper { width:120px; }
     .article-image-wrapper, .article-desc-wrapper { display:table-cell; vertical-align:top; }

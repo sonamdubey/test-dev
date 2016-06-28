@@ -15,13 +15,13 @@
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <style type="text/css">
-    .sponsored-tag-wrapper { width: 92px;height: 24px;background: #4d5057; color: #fff; font-size: 12px; line-height: 25px; padding: 0 9px; top:0px; left:-10px;margin-bottom:6px; }
+    #divListing .box1 { padding-top:20px; }
+    .sponsored-tag-wrapper { width: 92px;height: 24px;background: #4d5057; color: #fff; font-size: 12px; line-height: 25px; padding: 0 9px; top:-8px; left:-10px; }
     .sponsored-left-tag {width: 0;height: 0;border-top: 13px solid transparent;border-bottom: 15px solid transparent;border-right: 10px solid #fff;position: relative;top: -6px;left: 12px;font-size: 0;line-height: 0;z-index: 1; }
     .article-wrapper { display:table; margin-bottom:10px; }
     .article-image-wrapper { width:120px; }
     .article-image-wrapper, .article-desc-wrapper { display:table-cell; vertical-align:top; }
-    .article-desc-wrapper { position:relative;top:-5px; }
-    .article-category { color:#c20000; }
+    .article-desc-wrapper { position:relative;top:-4px; }
     .article-stats-wrapper { min-width:115px; padding-right:10px; }
     .calender-grey-icon, .author-grey-icon { width:14px; height:15px; position:relative; top:-1px; margin-right:6px; }
     .calender-grey-icon { background-position:-40px -460px; }
@@ -44,10 +44,7 @@
                                     <img alt='<%# DataBinder.Eval(Container.DataItem,"Title") %>' title="<%# DataBinder.Eval(Container.DataItem,"Title") %>" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0">
                                 </div>
 					            <div class="padding-left10 article-desc-wrapper">
-                                    <div class="article-category">
-                                        <span class="text-uppercase font12 text-bold">News</span>
-                                    </div>
-			                        <div class="font14 text-bold text-black">
+                                    <div class="font14 text-bold text-black">
 				                        <%# DataBinder.Eval(Container.DataItem,"Title") %>
 			                        </div>
                                 </div>
