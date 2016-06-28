@@ -214,10 +214,8 @@ li.offertxt:hover span {display:inline}
 #modelSpecsTabsContentWrapper .overall-specs-tabs-wrapper a:first-child, .overall-specs-tabs-wrapper a.active { border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057; }
 .content-inner-block-1020 { padding:10px 20px; }
 .content-inner-block-2010 { padding:20px 10px; }
-.inr-sm-dark, .inr-sm-grey { width:8px; height:12px; }
+.inr-sm-grey { width:8px; height:12px; background-position:-92px -468px; }
 .inr-lg { width:10px; height:14px; background-position:-110px -491px; }
-.inr-sm-dark { background-position:-128px -468px; }
-.inr-sm-grey { background-position:-92px -468px; }
 .inr-md-lg { width:12px; height:17px; background-position:-64px -515px; }
 .inr-lg-dark { width:10px; height:14px; background-position:-85px -515px; }
 .phone-black-icon { width:11px; height:15px; position:relative; top:2px; margin-right:4px; background-position:-73px -444px; }
