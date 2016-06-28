@@ -5,10 +5,10 @@
 <html>
 <head> 
     <% 
-        title = string.Format("{0} Bike Dealers in India | {0} Bike Showrooms in India - BikeWale", objMMV.Make);
-        keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.Make);
-        description = string.Format("{0} bike dealers/showrooms in India. Find dealer information for more than {1} dealers in {2} states. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.Make, countryCount, stateCount);
-        canonical = "http://www.bikewale.com/new/" + objMMV.MakeMappingName + "-dealers/";
+        title = string.Format("{0} Bike Dealers in India | {0} Bike Showrooms in India - BikeWale", objMMV.MakeName);
+        keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.MakeName);
+        description = string.Format("{0} bike dealers/showrooms in India. Find dealer information for more than {1} dealers in {2} states. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.MakeName, countryCount, stateCount);
+        canonical = "http://www.bikewale.com/new/" + objMMV.MaskingName + "-dealers/";
         isAd970x90Shown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
@@ -40,7 +40,7 @@
                 <div id="listingSidebar" class="bg-white position-abt pos-right0">
                     <div id="listingSidebarHeading" class="padding-top15 padding-right20 padding-left20">
                         <div class="margin-bottom20">
-                            <h1 id="sidebarHeader" class="font16 margin-bottom10"><%=objMMV.Make %> bike dealers in India</h1>
+                            <h1 id="sidebarHeader" class="font16 margin-bottom10"><%=objMMV.MakeName %> bike dealers in India</h1>
                             <h2 class="text-unbold font14 text-xt-light-grey border-solid-bottom padding-bottom15"><%=countryCount %> dealer<%= countryCount > 1? "s": "" %> across <%=stateCount %> state<%= stateCount > 1? "s": "" %></h2>
                         </div>
                         <div class="form-control-box">
@@ -55,7 +55,7 @@
                         <asp:Repeater ID="rptState" runat="server">
                             <ItemTemplate>
                                 <li>
-                                   <a href="/<%=objMMV.MakeMappingName %>-bikes/dealers-in-<%#DataBinder.Eval(Container.DataItem,"stateMaskingName") %>-state/" data-item-id="<%#DataBinder.Eval(Container.DataItem,"stateId") %>"><%#DataBinder.Eval(Container.DataItem,"StateName") %></a>
+                                   <a href="/<%=objMMV.MaskingName %>-bikes/dealers-in-<%#DataBinder.Eval(Container.DataItem,"stateMaskingName") %>-state/" data-item-id="<%#DataBinder.Eval(Container.DataItem,"stateId") %>"><%#DataBinder.Eval(Container.DataItem,"StateName") %></a>
                                 </li>
                             </ItemTemplate>
                         </asp:Repeater>

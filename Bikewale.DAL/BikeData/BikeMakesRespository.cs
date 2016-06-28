@@ -353,33 +353,6 @@ namespace Bikewale.DAL.BikeData
 
             BikeMakeEntityBase makeDetails = null;
 
-            //string sql = "";
-            //BikeMakeEntityBase makeDetails = new BikeMakeEntityBase();
-
-            //sql = " SELECT Name AS MakeName, ID AS MakeId , MaskingName FROM BikeMakes With(NoLock) "
-            //    + " WHERE ID = @makeId ";
-
-            //Database db = new Database();
-            //SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
-
-            //try
-            //{
-            //    //using (SqlDataReader dr = db.SelectQry(sql, param))
-            //    //{
-            //    //    if (dr.Read())
-            //    //    {
-            //    //        makeDetails.MakeName = Convert.ToString(dr["MakeName"]);
-            //    //        makeDetails.MakeId = Convert.ToInt32(dr["MakeId"]);
-            //    //        makeDetails.MaskingName = Convert.ToString(dr["MaskingName"]);
-            //    //    }
-            //    //}
-
-
-            //    var _makeDetails  = GetById(makeId);
-            //        makeDetails.MakeName = _makeDetails.MakeName;
-            //        makeDetails.MakeId = _makeDetails.MakeId ;
-            //     makeDetails.MaskingName  = _makeDetails.MaskingName;    
-            //}
             try
             {
                 db = new Database();

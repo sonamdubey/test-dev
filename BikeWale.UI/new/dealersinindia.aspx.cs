@@ -1,7 +1,10 @@
 ﻿using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Location;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
@@ -27,7 +30,7 @@ namespace Bikewale.New
         protected DataList dlCity;
 
         protected DataSet dsStateCity = null;
-        protected MakeModelVersion objMMV;
+        protected BikeMakeEntityBase objMMV;
 
         public string strMakeId = string.Empty, stateArray = string.Empty, makeMaskingName = string.Empty;
         public int stateCount = 0, DealerCount = 0; protected uint countryCount = 0;
@@ -53,14 +56,22 @@ namespace Bikewale.New
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
 
-            DeviceDetection dd = new DeviceDetection(originalUrl);
-            dd.DetectDevice();
+            //DeviceDetection dd = new DeviceDetection(originalUrl);
+            //dd.DetectDevice();
 
             if (ProcessQS())
             {
                 checkDealersForMakeCity(makeId);
-                objMMV = new MakeModelVersion();
-                objMMV.GetMakeDetails(strMakeId);
+                //objMMV = new MakeModelVersion();
+                //objMMV.GetMakeDetails(strMakeId);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                    objMMV = makesRepository.GetMakeDetails(makeId.ToString());
+
+                }
+
                 BindStates();
             }
         }
@@ -78,11 +89,11 @@ namespace Bikewale.New
                 container.RegisterType<IState, StateRepository>();
                 objStates = container.Resolve<IState>();
                 states = objStates.GetDealerStates(Convert.ToUInt32(strMakeId));
-                if (states != null && states.Count() > 0)
+                if (objMMV!=null && states != null && states.Count() > 0)
                 {
                     foreach (var state in states)
                     {
-                        state.Link = string.Format("/{0}-bikes/dealers-in-{1}-state/", objMMV.MakeMappingName, state.StateMaskingName);
+                        state.Link = string.Format("/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, state.StateMaskingName);
                     }
                     rptState.DataSource = states;
                     rptState.DataBind();
