@@ -1,13 +1,10 @@
 ﻿using Bikewale.BAL.GrpcFiles;
-using Bikewale.Cache.Core;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Grpc.CMS;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -107,7 +104,7 @@ namespace Bikewale.BAL.EditCMS
                     }
                     else
                     {
-                        return GetNewsFromCWAPIInOldWay(contentTypeList);
+                        return null;
                     }
                 }
                 else
@@ -187,23 +184,24 @@ namespace Bikewale.BAL.EditCMS
                 categorList.Add(EnumCMSContentType.ComparisonTests);
                 string _contentType = CommonApiOpn.GetContentTypesString(categorList);
 
-                cacheKey += _contentType.Replace(",", "_") + "_Cnt_" + TotalRecords;
+                //cacheKey += _contentType.Replace(",", "_") + "_Cnt_" + TotalRecords;
 
-                if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                {
-                    if (ModelId.HasValue && ModelId.Value > 0)
-                        cacheKey += "_Make_" + MakeId + "_Model_" + ModelId;
-                    else
-                        cacheKey += "_Make_" + MakeId;
-                }
+                //if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
+                //{
+                //    if (ModelId.HasValue && ModelId.Value > 0)
+                //        cacheKey += "_Make_" + MakeId + "_Model_" + ModelId;
+                //    else
+                //        cacheKey += "_Make_" + MakeId;
+                //}
 
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<ICacheManager, MemcacheManager>();
-                    ICacheManager _cache = container.Resolve<ICacheManager>();
+                //using (IUnityContainer container = new UnityContainer())
+                //{
+                //    container.RegisterType<ICacheManager, MemcacheManager>();
+                //    ICacheManager _cache = container.Resolve<ICacheManager>();
 
-                    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(_contentType));
-                }
+                //    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(_contentType));
+                //}
+                return GetNewsFromCW(_contentType);
             }
             catch (Exception ex)
             {
