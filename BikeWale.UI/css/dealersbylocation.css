@@ -19,8 +19,11 @@ body { overflow-x:hidden; }
 #listingSidebarList.city-sidebar-list li a:hover { color:#4d5057;}
 #listingSidebar .form-control { border-radius:0; }
 .gm-style-iw + div {display: none;}
-.labels {color: #4d5057; background-color: white;font-size:16px;font-weight: bold;text-align: center;width:54px;height:54px;display:block;border-radius:50%;white-space: nowrap;top:-26px;left:-26px;padding-top:12px;border:2px solid #4d5057;}
-.labels:hover { border: 2px solid #ef3f30; }
+.labels {top:-19px;left:-19px;}
+.labels a { color: #4d5057; background-color: white;font-size:12px;font-weight: bold;text-align: center;width:36px;height:36px;display:block;border-radius:50%;white-space: nowrap;padding-top:9px;border:2px solid #82888b;}
+.labels a:hover { border: 2px solid #ef3f30;text-decoration:none;}
+.dealers-state-map .labels {top:-14px;left:-12px;}
+.dealers-state-map .labels a { font-size:10px;width:24px;height:24px;padding-top:4px;}
 .label-hover { border: 2px solid #ef3f30 !important; }
 .highlight { background: #f1f1f1; }
 #listingSidebarHeading .back-icon {width: 20px;height: 24px;background-position: -127px -364px; cursor:pointer; }

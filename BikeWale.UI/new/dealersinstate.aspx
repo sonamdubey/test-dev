@@ -75,7 +75,7 @@
             <div class="grid-12 alpha omega">
                 <div class="dealer-map-wrapper">
                     <div id="dealersMapWrapper" style="position: fixed; top: 50px; width: 100%; height: 530px;">
-                        <div id="dealersMap" style="width: 100%; height: 530px;">
+                        <div id="dealersMap" class="dealers-state-map" style="width: 100%; height: 530px;">
                         </div>
                     </div>
                 </div>
