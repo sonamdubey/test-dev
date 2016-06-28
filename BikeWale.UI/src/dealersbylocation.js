@@ -22,6 +22,7 @@ $(window).scroll(function () {
 
 var markerArr = [];
 var map, infowindow;
+var minZoomLevel = 5;
 var markerIcon = 'http://imgd2.aeplcdn.com/0x0/bw/static/design15/marker-icon.png';
 
 function initializeMap(arrList, latPos, longPos, zoomLevel) {
@@ -50,7 +51,7 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
             name: element.name,
             position: markerPosition,
             icon: markerIcon,
-            labelText: element.dealerCount,
+            labelText: '<a href="' + element.link + '">' + element.dealerCount + '</a>',
             labelClass: 'labels label-' + element.id
         });
 
@@ -64,6 +65,10 @@ function initializeMap(arrList, latPos, longPos, zoomLevel) {
                 infowindow.open(map, marker);
             };
         })(marker, content, infowindow));
+
+        google.maps.event.addListener(map, 'zoom_changed', function () {
+            if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
+        });
     }
 }
 
