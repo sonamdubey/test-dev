@@ -46,6 +46,7 @@
     <Compile Include="BikeData\BikeMakesCacheRepository.cs" />
     <Compile Include="BikeData\BikeModelMaskingCache.cs" />
     <Compile Include="BikeData\BikeModelsCacheRepository.cs" />
+    <Compile Include="BikeData\BikeVersionsCacheRepository.cs" />
     <Compile Include="Compare\BikeCompareCacheRepository.cs" />
     <Compile Include="DealersLocator\DealerCacheRepository.cs" />
     <Compile Include="Location\AreaCacheRepository.cs" />
