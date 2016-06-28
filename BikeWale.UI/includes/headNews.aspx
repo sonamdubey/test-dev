@@ -70,7 +70,7 @@
             googletag.enableServices();
         });
     </script>
-
+    <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
 
     <div id="fb-root"></div>
     <script type="text/javascript">

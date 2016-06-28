@@ -690,7 +690,7 @@
                             data: ko.toJSON(objCust),
                             beforeSend: function (xhr) {
                                 xhr.setRequestHeader('utma', getCookie('__utma'));
-                                xhr.setRequestHeader('utmz', getCookie('BWUtmz'));
+                                xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                             },
                             async: false,
                             contentType: "application/json",
@@ -1103,7 +1103,7 @@
                     dataType: 'json',
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('utma', getCookie('__utma'));
-                        xhr.setRequestHeader('utmz', getCookie('BWUtmz'));
+                        xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                     },
                     success: function (json) {
                         var jsonObj = json;

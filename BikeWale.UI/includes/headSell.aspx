@@ -58,6 +58,7 @@
             googletag.enableServices();
         });
     </script>
+    <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
 </head>
 <body class="header-fixed-inner">
     <form runat="server">    
