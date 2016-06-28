@@ -237,7 +237,7 @@ namespace Bikewale.Common
 				
 				prm = cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt);
 				prm.Direction = ParameterDirection.Output;
-								
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);			
 				con.Open();
 				//run the command
     			cmd.ExecuteNonQuery();

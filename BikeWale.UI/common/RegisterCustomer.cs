@@ -76,6 +76,9 @@ namespace Bikewale.Common
                 cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("@IsNew", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = CommonOpn.GetClientIP();
+
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+
                 con.Open();
                 //run the command
                 cmd.ExecuteNonQuery();
@@ -319,7 +322,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add("@Hash", SqlDbType.VarChar, 64).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     conn.Open();
 
                     cmd.ExecuteNonQuery();
@@ -510,7 +513,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
                     cmd.Parameters.Add("@Token", SqlDbType.VarChar, 200).Value = token;
                     cmd.Parameters.Add("@IsValidToken", SqlDbType.Bit).Direction = ParameterDirection.Output;
-
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     conn.Open();
 
                     cmd.ExecuteNonQuery();

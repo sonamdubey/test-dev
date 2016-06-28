@@ -54,6 +54,7 @@ namespace AppNotification.DAL.Core
             {
                 con.Open();
                 cmd = new SqlCommand(strSql, con);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
                 return dataReader;
@@ -81,6 +82,7 @@ namespace AppNotification.DAL.Core
 
                     cmd.Parameters.Add(p);
                 }
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 cmd.Parameters.Clear();
             }
@@ -104,6 +106,7 @@ namespace AppNotification.DAL.Core
 
             try
             {
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmdParam);
                 cmdParam.Connection = con;
                 con.Open();
 
@@ -130,6 +133,7 @@ namespace AppNotification.DAL.Core
             {
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = new SqlCommand(strSql, con);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(adapter.SelectCommand);
                 adapter.Fill(dataSet);
             }
             catch (SqlException exSql)
@@ -169,6 +173,7 @@ namespace AppNotification.DAL.Core
 
                     adapter.SelectCommand.Parameters.Add(p);
                 }
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(adapter.SelectCommand);
                 adapter.Fill(dataSet);
                 adapter.SelectCommand.Parameters.Clear();
             }
@@ -197,7 +202,7 @@ namespace AppNotification.DAL.Core
             con = new SqlConnection(strConn);
             DataSet dataSet = new DataSet();
             SqlDataAdapter adapter = new SqlDataAdapter();
-
+            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmdParam);
             try
             {
                 cmdParam.Connection = con;
@@ -248,6 +253,7 @@ namespace AppNotification.DAL.Core
             try
             {
                 cmd = new SqlCommand(strSql, con);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
 
                 intRetRows = cmd.ExecuteNonQuery();
@@ -285,7 +291,7 @@ namespace AppNotification.DAL.Core
 
                     cmd.Parameters.Add(p);
                 }
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 int retval = cmd.ExecuteNonQuery();
 
                 if (retval > 0)
@@ -314,6 +320,7 @@ namespace AppNotification.DAL.Core
             try
             {
                 cmdParam.Connection = con;
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmdParam);
                 con.Open();
 
                 int retval = cmdParam.ExecuteNonQuery();
@@ -344,6 +351,7 @@ namespace AppNotification.DAL.Core
             try
             {
                 cmd = new SqlCommand(strSql, con);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 intRetRows = cmd.ExecuteNonQuery();
 
@@ -380,7 +388,7 @@ namespace AppNotification.DAL.Core
 
                     cmd.Parameters.Add(p);
                 }
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 int retval = cmd.ExecuteNonQuery();
 
                 if (retval > 0)
@@ -411,6 +419,7 @@ namespace AppNotification.DAL.Core
             try
             {
                 cmdParam.Connection = con;
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmdParam);
                 con.Open();
 
                 int retval = cmdParam.ExecuteNonQuery();
@@ -441,6 +450,7 @@ namespace AppNotification.DAL.Core
             try
             {
                 cmd = new SqlCommand(strSql, con);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
 
                 intRetRows = cmd.ExecuteNonQuery();
@@ -465,6 +475,7 @@ namespace AppNotification.DAL.Core
             try
             {
                 cmd = new SqlCommand(sqlStr, con);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
 
                 foreach (SqlParameter p in commandParameters)
@@ -500,6 +511,7 @@ namespace AppNotification.DAL.Core
             try
             {
                 cmd = new SqlCommand(strSql, con);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
 
                 intRetRows = cmd.ExecuteNonQuery();
@@ -530,6 +542,7 @@ namespace AppNotification.DAL.Core
             try
             {
                 cmd = new SqlCommand(sqlStr, con);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
 
                 foreach (SqlParameter p in commandParameters)
@@ -570,7 +583,9 @@ namespace AppNotification.DAL.Core
 
             try
             {
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmdParam);
                 cmdParam.Connection = con;
+
                 con.Open();
 
                 int retval = cmdParam.ExecuteNonQuery();
@@ -608,6 +623,7 @@ namespace AppNotification.DAL.Core
             {
                 con.Open();
                 cmd = new SqlCommand(strSql, con);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 val = Convert.ToString(cmd.ExecuteScalar());
             }
             catch (Exception err)
@@ -639,6 +655,7 @@ namespace AppNotification.DAL.Core
 
                     cmd.Parameters.Add(p);
                 }
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 val = Convert.ToString(cmd.ExecuteScalar());
 
             }
@@ -666,6 +683,7 @@ namespace AppNotification.DAL.Core
 
             string conStr = GetConString();
             con = new SqlConnection(conStr);
+            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
             try
             {
                 con.Open();
@@ -785,7 +803,7 @@ namespace AppNotification.DAL.Core
             con = new SqlConnection(strConn);
             DataSet dataSet = new DataSet();
             SqlDataAdapter adapter = new SqlDataAdapter();
-
+            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmdParam);
             try
             {
                 cmdParam.Connection = con;

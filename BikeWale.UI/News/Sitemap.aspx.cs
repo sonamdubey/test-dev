@@ -43,6 +43,7 @@ namespace Bikewale.News
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@ApplicationId", SqlDbType.Int).Value = Convert.ToInt32(BWConfiguration.Instance.ApplicationId);
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                         con.Open();
                         da = new SqlDataAdapter(cmd);
                         if (da != null)

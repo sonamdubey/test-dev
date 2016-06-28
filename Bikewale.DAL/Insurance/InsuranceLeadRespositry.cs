@@ -77,10 +77,12 @@ namespace Bikewale.DAL.Insurance
                         cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["InsuranceClientId"]);
                         cmd.Parameters.Add("@LeadSourceId", SqlDbType.Int).Value = lead.LeadSourceId;
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
 
                         con.Open();
                         affectedRow = cmd.ExecuteNonQuery();
                         isSuccess = true;
+                        
                     }
                 }
             }

@@ -138,13 +138,14 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add("@mobilenumber", SqlDbType.VarChar, 10).Value = mobile;
                         cmd.Parameters.Add("@clientip", SqlDbType.VarChar, 40).Value = CommonOpn.GetClientIP();
                         cmd.Parameters.Add("@ResponseFlag", SqlDbType.TinyInt).Direction = ParameterDirection.Output;
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         conn.Open();
                         cmd.ExecuteNonQuery();
                         object flag = cmd.Parameters["@ResponseFlag"].Value;
                         if (flag != null)
                             responseFlag = Convert.ToInt16(flag);
                         response.ResponseFlag = responseFlag;
+
                     }
                 }
             }
@@ -197,10 +198,14 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add("@mobile", SqlDbType.VarChar, 10).Value = mobile;
                         cmd.Parameters.Add("@otp", SqlDbType.VarChar, 5).Value = otp;
                         cmd.Parameters.Add("@AttemptsMade", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
+
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         conn.Open();
                         cmd.ExecuteNonQuery();
 
                         attempts = Convert.ToUInt16(cmd.Parameters["@AttemptsMade"].Value);
+                      
+
                     }
                 }
             }

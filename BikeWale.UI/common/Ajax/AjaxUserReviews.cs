@@ -325,7 +325,7 @@ namespace Bikewale.Ajax
 
                 prm = cmd.Parameters.Add("@ID", SqlDbType.BigInt);
                 prm.Value = reviewId;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 //run the command
                 cmd.ExecuteNonQuery();
@@ -395,7 +395,7 @@ namespace Bikewale.Ajax
 
                     prm = cmd.Parameters.Add("@Helpful", SqlDbType.Bit);
                     prm.Value = isHelpFull;
-
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     con.Open();
                     //run the command
                     cmd.ExecuteNonQuery();
@@ -458,7 +458,7 @@ namespace Bikewale.Ajax
 
                 prm = cmd.Parameters.Add("@ReportedBy", SqlDbType.BigInt);
                 prm.Value = CurrentUser.Id;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 //run the command
                 cmd.ExecuteNonQuery();

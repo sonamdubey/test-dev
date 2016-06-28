@@ -67,7 +67,7 @@ namespace Bikewale.Community.PMS
 			
 			prm = cmd.Parameters.Add("@RetInboxID", SqlDbType.BigInt);
 			prm.Direction = ParameterDirection.Output;
-						
+            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);	
 			try
 			{		
 				con.Open();
@@ -135,7 +135,7 @@ namespace Bikewale.Community.PMS
 
 			prm = cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime);
 			prm.Value = DateTime.Now;
-			
+            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 						
 			try
 			{		

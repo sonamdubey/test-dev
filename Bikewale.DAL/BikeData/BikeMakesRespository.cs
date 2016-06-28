@@ -142,6 +142,7 @@ namespace Bikewale.DAL.BikeData
                         cmd.Parameters.Add("@Used", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Futuristic", SqlDbType.Bit).Direction = ParameterDirection.Output;
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         conn.Open();
                         cmd.ExecuteNonQuery();
 
@@ -155,6 +156,7 @@ namespace Bikewale.DAL.BikeData
                             t.Used = Convert.ToBoolean(cmd.Parameters["@Used"].Value);
                             t.Futuristic = Convert.ToBoolean(cmd.Parameters["@Futuristic"].Value);
                         }
+
                     }
                 }
             }
@@ -398,7 +400,7 @@ namespace Bikewale.DAL.BikeData
                         cmd.Parameters.Add("@New", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Used", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Futuristic", SqlDbType.Bit).Direction = ParameterDirection.Output;
-
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                         conn.Open();
                         cmd.ExecuteNonQuery();
 

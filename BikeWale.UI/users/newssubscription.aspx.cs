@@ -67,7 +67,7 @@ namespace Bikewale.MyBikeWale
 
                     prm = cmd.Parameters.Add("@ReceiveNewsletters", SqlDbType.Bit);
                     prm.Value = chkNewsLetter.Checked;
-
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     con.Open();
                     cmd.ExecuteNonQuery();
 

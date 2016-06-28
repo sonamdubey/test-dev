@@ -77,7 +77,7 @@ namespace Bikewale.CV
 								
 				prm = cmd.Parameters.Add("@NewCVID", SqlDbType.BigInt);
 				prm.Direction = ParameterDirection.Output;
-												
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);					
 				con.Open();
 				//run the command
     			cmd.ExecuteNonQuery();
@@ -162,7 +162,7 @@ namespace Bikewale.CV
 				
 				prm = cmd.Parameters.Add("@IsVerified", SqlDbType.Bit);
 				prm.Direction = ParameterDirection.Output;
-				
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 				con.Open();
 				//run the command
     			cmd.ExecuteNonQuery();

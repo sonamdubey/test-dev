@@ -39,7 +39,7 @@ namespace Bikewale.DAL.MobileVerification
                         cmd.Parameters.Add("@EmailId", SqlDbType.VarChar, 100).Value = emailId;
                         cmd.Parameters.Add("@MobileNo", SqlDbType.VarChar, 50).Value = mobileNo;
                         cmd.Parameters.Add("@IsMobileVer", SqlDbType.Bit).Direction = ParameterDirection.Output;
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         con.Open();
                         cmd.ExecuteNonQuery();
 
@@ -92,12 +92,11 @@ namespace Bikewale.DAL.MobileVerification
                         cmd.Parameters.Add("@EmailId", SqlDbType.VarChar, 100).Value = emailId;
                         cmd.Parameters.Add("@MobileNo", SqlDbType.VarChar, 50).Value = mobileNo;
                         cmd.Parameters.Add("@NoOfAttempts", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         con.Open();
                         cmd.ExecuteNonQuery();
 
                         noOfOTPSend = Convert.ToSByte(cmd.Parameters["@NoOfAttempts"].Value);
-
                     }
                 }
             }
@@ -149,10 +148,9 @@ namespace Bikewale.DAL.MobileVerification
                         cmd.Parameters.Add("@Mobile", SqlDbType.VarChar, 50).Value = mobileNo;
                         cmd.Parameters.Add("@EntryDateTime", SqlDbType.DateTime).Value = DateTime.Now;
                         cmd.Parameters.Add("@CVID", SqlDbType.BigInt).Direction = ParameterDirection.Output;
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         conn.Open();
-                        cmd.ExecuteNonQuery();
-
+                        cmd.ExecuteNonQuery();                        
                         cvId = Convert.ToUInt64(cmd.Parameters["@CVID"].Value);
                     }
                 }
@@ -205,11 +203,13 @@ namespace Bikewale.DAL.MobileVerification
                         cmd.Parameters.Add("@CWICode", SqlDbType.VarChar, 50).Value = cwiCode;
                         cmd.Parameters.Add("@CUICode", SqlDbType.VarChar, 50).Value = cuiCode;
                         cmd.Parameters.Add("@IsVerified", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        LogLiveSps.LogSpInGrayLog(cmd);
 
                         con.Open();
                         cmd.ExecuteNonQuery();
 
                         verified = Convert.ToBoolean(cmd.Parameters["@IsVerified"].Value);
+
                     }
                 }
             }

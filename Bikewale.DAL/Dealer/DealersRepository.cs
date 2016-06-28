@@ -429,10 +429,12 @@ namespace Bikewale.DAL.Dealer
 
                             //TVS Dealer ID to be sent to update pricequote ID
                             cmd.Parameters.Add("@DealerId", SqlDbType.BigInt).Value = objLead.DealerId;
+                            LogLiveSps.LogSpInGrayLog(cmd);
 
                             conn.Open();
                             if (cmd.ExecuteNonQuery() < 0)
                                 status = true;
+                            
 
                         }
                     }

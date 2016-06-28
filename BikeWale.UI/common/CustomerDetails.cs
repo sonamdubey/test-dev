@@ -111,7 +111,7 @@ namespace Bikewale.Common
 
                 prm = cmd.Parameters.Add("@IsExist", SqlDbType.Bit);
                 prm.Direction = ParameterDirection.Output;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 //run the command
                 cmd.ExecuteNonQuery();

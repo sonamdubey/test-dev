@@ -521,7 +521,7 @@ namespace Bikewale.Forums
 
                 prm = cmd.Parameters.Add("@SubCategoryId", SqlDbType.BigInt);
                 prm.Value = SubCategoryId;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 //run the command
                 cmd.ExecuteNonQuery();

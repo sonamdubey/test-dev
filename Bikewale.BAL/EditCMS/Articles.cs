@@ -201,7 +201,8 @@ namespace Bikewale.BAL.EditCMS
 
                 //    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(_contentType));
                 //}
-                return GetNewsFromCW(_contentType);
+
+                _objArticleList = GetNewsFromCW(_contentType);
             }
             catch (Exception ex)
             {

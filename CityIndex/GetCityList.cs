@@ -27,6 +27,7 @@ namespace CityAutoSuggest
                         cmd.CommandText = "GetCitiesCS";                                          //----New SP-----
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = con;
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                         //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = 7;    //----For Old SP set id =7---
                         con.Open();
 
