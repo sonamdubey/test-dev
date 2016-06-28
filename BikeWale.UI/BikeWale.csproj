@@ -930,6 +930,14 @@
       <DependentUpon>VideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\dealersinstate.aspx.cs">
+      <DependentUpon>dealersinstate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\dealersinindia.aspx.cs">
+      <DependentUpon>dealersinindia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\ModelPricesInCity.aspx.cs">
       <DependentUpon>ModelPricesInCity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -992,14 +1000,6 @@
     </Compile>
     <Compile Include="m\new\newbikedealers\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\new\newbikedealers\listnewbikedealersbystate.aspx.cs">
-      <DependentUpon>listnewbikedealersbystate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\new\newbikedealers\listnewbikedealersbycity.aspx.cs">
-      <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\newbikedealers\NewBikeDealerList.aspx.cs">
@@ -2344,6 +2344,8 @@
     <Content Include="m\css\style.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
+    <Content Include="m\new\dealersinstate.aspx" />
+    <Content Include="m\new\dealersinindia.aspx" />
     <Content Include="m\new\ModelPricesInCity.aspx" />
     <Content Include="m\new\ModelSpecsFeatures.aspx" />
     <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
@@ -2387,8 +2389,6 @@
     <Content Include="m\new\Default.aspx" />
     <Content Include="m\new\newbikedealers\Default_old.aspx" />
     <Content Include="m\new\newbikedealers\Default.aspx" />
-    <Content Include="m\new\newbikedealers\listnewbikedealersbystate.aspx" />
-    <Content Include="m\new\newbikedealers\listnewbikedealersbycity.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList_old.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />
