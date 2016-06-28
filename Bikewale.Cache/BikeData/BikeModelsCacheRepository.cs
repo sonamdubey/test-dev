@@ -58,5 +58,40 @@ namespace Bikewale.Cache.BikeData
 
             return objModelPage;
         }
+
+
+        /// <summary>
+        /// Written By : Sushil Kumar on 28th June 2016
+        /// Summary : Function to get the upcoming bikes. If data is not available in the cache it will return data from BL.
+        /// </summary>
+        /// <param name="sortBy"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="curPageNo"></param>
+        /// <returns>Returns List<UpcomingBikeEntity></returns>
+        public IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
+        {
+            IEnumerable<UpcomingBikeEntity> objUpcoming = null;
+            string key = "BW_UpcomingBikes_Cnt_" + pageSize;
+
+            if (makeId.HasValue && makeId.Value > 0)
+                key += "_Make_" + makeId;
+
+            if (modelId.HasValue && modelId.Value > 0)
+                key += "_Model_" + modelId;
+
+            try
+            {
+                objUpcoming = _cache.GetFromCache<IEnumerable<UpcomingBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _objModels.GetUpcomingBikesList(sortBy, pageSize, makeId, modelId, curPageNo));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetUpcomingBikesList");
+                objErr.SendMail();
+            }
+
+            return objUpcoming;
+        }
     }
 }

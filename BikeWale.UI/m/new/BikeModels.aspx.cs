@@ -483,9 +483,6 @@ namespace Bikewale.Mobile.New
             }
         }
 
-        static readonly string apiURL = "/api/model/details/?modelId={0}&variantId={1}";
-        static readonly string onRoadApi = "/api/OnRoadPrice/?cityId={0}&modelId={1}&clientIP={2}&sourceType={3}&areaId={4}";
-        static readonly string _requestType = "application/json";
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   27 Nov 2015
