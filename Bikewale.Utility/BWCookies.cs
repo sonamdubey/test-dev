@@ -55,11 +55,15 @@ namespace Bikewale.Utility
                     Regex serachEng = new Regex("google|bing|yahoo|ask|yandex|baidu|aol");
                     Match match = null;
                     //step 1
-                    if (request.Cookies.Get("utm_source") != null && request.Cookies.Get("utm_medium") != null && request.Cookies.Get("utm_campaign") != null)
+                    if (
+                        !(string.IsNullOrEmpty(request.QueryString["utm_source"]) 
+                        || string.IsNullOrEmpty(request.QueryString["umt_medium"]) 
+                        || string.IsNullOrEmpty(request.QueryString["utm_campaign"]))
+                        )
                     {
-                        utmcsr = request.Cookies.Get("utm_source").Value;
-                        utmcmd = request.Cookies.Get("umt_medium").Value;
-                        utmccn = request.Cookies.Get("utm_campaign").Value;
+                        utmcsr = request.QueryString["utm_source"];
+                        utmcmd = request.QueryString["umt_medium"];
+                        utmccn = request.QueryString["utm_campaign"];
                     }
                     else if (url.Contains("gclid")) //step 2
                     {
