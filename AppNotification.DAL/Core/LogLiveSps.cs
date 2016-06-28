@@ -10,14 +10,16 @@ namespace Bikewale.Notifications
     {
         static readonly ILog log = LogManager.GetLogger(typeof(LogLiveSps));
         static bool _logOnlySpCalls;
+        static bool _enableLiveCallLogs;
         static LogLiveSps()
         {
             _logOnlySpCalls = Convert.ToBoolean(ConfigurationManager.AppSettings["LogOnlySpCalls"]);
+            _enableLiveCallLogs = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableLiveCallLogs"]);
         }
 
         public static void LogSpInGrayLog(SqlCommand cmd)
         {
-            if (cmd != null)
+            if (_enableLiveCallLogs && cmd != null)
             {
                 if (_logOnlySpCalls && cmd.CommandType != System.Data.CommandType.StoredProcedure)
                     return;
@@ -27,7 +29,7 @@ namespace Bikewale.Notifications
 
                 foreach (SqlParameter item in cmd.Parameters)
                 {
-                    switch(item.SqlDbType)
+                    switch (item.SqlDbType)
                     {
                         case System.Data.SqlDbType.Text:
                         case System.Data.SqlDbType.VarChar:
@@ -41,7 +43,7 @@ namespace Bikewale.Notifications
                             sb.AppendLine(string.Format("{0} = {1}", item.ParameterName, item.Value));
                             break;
                     }
-                    
+
                 }
                 sb.AppendLine(";");
 

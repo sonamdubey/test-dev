@@ -35,8 +35,6 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add("@BwId", SqlDbType.VarChar, 15).Value = feedback.BwId;
                         cmd.Parameters.Add("@FeedBack", SqlDbType.VarChar, 500).Value = feedback.FeedBack;
 
-                        LogLiveSps.LogSpInGrayLog(cmd);
-
                         con.Open();
                         //affectedRow = cmd.ExecuteNonQuery();
                         isSuccess = db.InsertQry(cmd);                        

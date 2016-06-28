@@ -351,24 +351,66 @@ namespace Bikewale.DAL.BikeData
             if (!CommonOpn.IsNumeric(makeId))
                 return null;
 
-            string sql = "";
-            BikeMakeEntityBase makeDetails = new BikeMakeEntityBase();
+            Database db = null;
 
-            sql = " SELECT Name AS MakeName, ID AS MakeId , MaskingName FROM BikeMakes With(NoLock) "
-                + " WHERE ID = @makeId ";
+            BikeMakeEntityBase makeDetails = null;
 
-            Database db = new Database();
-            SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
+            //string sql = "";
+            //BikeMakeEntityBase makeDetails = new BikeMakeEntityBase();
 
+            //sql = " SELECT Name AS MakeName, ID AS MakeId , MaskingName FROM BikeMakes With(NoLock) "
+            //    + " WHERE ID = @makeId ";
+
+            //Database db = new Database();
+            //SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
+
+            //try
+            //{
+            //    //using (SqlDataReader dr = db.SelectQry(sql, param))
+            //    //{
+            //    //    if (dr.Read())
+            //    //    {
+            //    //        makeDetails.MakeName = Convert.ToString(dr["MakeName"]);
+            //    //        makeDetails.MakeId = Convert.ToInt32(dr["MakeId"]);
+            //    //        makeDetails.MaskingName = Convert.ToString(dr["MaskingName"]);
+            //    //    }
+            //    //}
+
+
+            //    var _makeDetails  = GetById(makeId);
+            //        makeDetails.MakeName = _makeDetails.MakeName;
+            //        makeDetails.MakeId = _makeDetails.MakeId ;
+            //     makeDetails.MaskingName  = _makeDetails.MaskingName;    
+            //}
             try
             {
-                using (SqlDataReader dr = db.SelectQry(sql, param))
+                db = new Database();
+
+                using (SqlConnection conn = new SqlConnection(db.GetConString()))
                 {
-                    if (dr.Read())
+                    using (SqlCommand cmd = new SqlCommand())
                     {
-                        makeDetails.MakeName = Convert.ToString(dr["MakeName"]);
-                        makeDetails.MakeId = Convert.ToInt32(dr["MakeId"]);
-                        makeDetails.MaskingName = Convert.ToString(dr["MaskingName"]);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "GetMakeDetails";
+                        cmd.Connection = conn;
+
+                        cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                        cmd.Parameters.Add("@MakeName", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@New", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@Used", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@Futuristic", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+
+                        if (!string.IsNullOrEmpty(cmd.Parameters["@MakeName"].Value.ToString()))
+                        {
+                            makeDetails = new BikeMakeEntityBase();
+                            makeDetails.MakeName = cmd.Parameters["@MakeName"].Value.ToString();
+                            makeDetails.MaskingName = cmd.Parameters["@MakeMaskingName"].Value.ToString();
+                            makeDetails.MakeId = Convert.ToInt32(makeId);
+                        }
                     }
                 }
             }
