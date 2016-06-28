@@ -306,6 +306,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .question-mark-icon { width:27px; height:40px; background-position:-83px -391px; }
 .video-views-icon {width: 17px;height: 13px;background-position: -59px -303px;}
 .video-likes-icon {width: 15px;height: 15px;background-position: -84px -277px; position: relative;top: 2px;}
+.inr-sm-dark { width:8px; height:12px; background-position:-128px -468px; }
 .inr-md, .inr-md-light { width:8px; height:13px; }
 .inr-md { background-position:-53px -490px; }
 .inr-md-light { background-position:-129px -490px; }
