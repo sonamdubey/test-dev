@@ -328,7 +328,7 @@ namespace Bikewale.Mobile.BikeBooking
 
         /// <summary>
         /// Created By : Lucky Rathore on 27 June 2016
-        /// Description : replace cookie __utmz with BWUtmz
+        /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         protected void SavePriceQuote()
         {
@@ -353,7 +353,7 @@ namespace Bikewale.Mobile.BikeBooking
                         objPQEntity.VersionId = selectedVersionId;
                         objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_DPQ_Quotation);
                         objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                        objPQEntity.UTMZ = Request.Cookies["BWUtmz"] != null ? Request.Cookies["BWUtmz"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                         objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
                     }

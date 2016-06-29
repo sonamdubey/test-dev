@@ -51,7 +51,7 @@ namespace Bikewale.Mobile
         /// <summary>
         /// Created By : Lucky Rathore on 03 June 2016
         /// Modified By : Lucky Rathore on 27 June 2016
-        /// Description : replace cookie __utmz with BWUtmz
+        /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -74,7 +74,7 @@ namespace Bikewale.Mobile
                 {
                     string PQLeadId = (PQSourceEnum.Mobile_SpecsAndFeaturePage_OnLoad).ToString();
                     string UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : string.Empty;
-                    string UTMZ = Request.Cookies["BWUtmz"] != null ? Request.Cookies["BWUtmz"].Value : string.Empty;
+                    string UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : string.Empty;
                     string DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : string.Empty;
                     pqOnRoad = new PQByCityArea();
                     pqEntity = pqOnRoad.GetOnRoadPrice((int)modelId, (int)cityId, (int)areaId, (int)versionId, 2, UTMA, UTMZ, DeviceId, clientIP, PQLeadId);
