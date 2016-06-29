@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
-    [Serializable]
+    [Serializable,DataContract]
     public class BikeDescriptionEntity
     {
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
         public string SmallDescription { get; set; }
+        [DataMember]
         public string FullDescription { get; set; }
     }
 }

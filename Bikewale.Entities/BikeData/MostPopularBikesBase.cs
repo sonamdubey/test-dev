@@ -3,7 +3,11 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
-    [Serializable, DataContract]
+    /// <summary>
+    /// Created By  : Sushil Kumar
+    /// Description : Bike Entity to show most popular bikes by make
+    /// </summary>
+    [Serializable,DataContract]
     public class MostPopularBikesBase
     {
         [DataMember]

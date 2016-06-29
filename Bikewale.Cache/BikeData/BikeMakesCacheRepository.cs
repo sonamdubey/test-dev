@@ -69,5 +69,52 @@ namespace Bikewale.Cache.BikeData
             }
             return bikes;
         }
+
+        /// <summary>
+        /// Created by  : Sushil Kumar on 28th June 2016
+        /// Summary     : Gets the bike description for make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public BikeDescriptionEntity GetMakeDescription(U makeId)
+        {
+            BikeDescriptionEntity objMakeDesc = null;
+            string key = String.Format("BW_MakeDescription_{0}", makeId);
+            try
+            {
+                objMakeDesc = _cache.GetFromCache<BikeDescriptionEntity>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetMakeDescription(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakeDescription");
+                objErr.SendMail();
+            }
+            return objMakeDesc;
+        }
+
+
+
+        /// <summary>
+        /// Created by  : Sushil Kumar on 28th June 2016
+        /// Summary     : Gets the bike details for make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public BikeMakeEntityBase GetMakeDetails(uint makeId)
+        {
+            BikeMakeEntityBase objMakeDetails = null;
+            string key = String.Format("BW_MakeDetails_{0}", makeId);
+            try
+            {
+                objMakeDetails = _cache.GetFromCache<BikeMakeEntityBase>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetMakeDetails(makeId.ToString()));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakeDescription");
+                objErr.SendMail();
+            }
+            return objMakeDetails;
+        }
+        
     }
 }
