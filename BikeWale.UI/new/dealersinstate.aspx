@@ -9,6 +9,7 @@
         keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive", objMMV.Make);
         title = string.Format("{0} Bike Dealers | {0} Bike Showrooms in {1} - BikeWale", objMMV.Make, stateName);
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}-state/", objMMV.MakeMappingName, stateMaskingName);
+        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}-state/", objMMV.MakeMappingName, stateMaskingName);
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
     %>

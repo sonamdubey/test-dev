@@ -8,7 +8,8 @@
         description = objMMV.Make + " bike dealers/showrooms in India. Find new bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc.";
         keywords = objMMV.Make + " bike dealers, " + objMMV.Make + " bike showrooms," + objMMV.Make + " dealers, " + objMMV.Make + " showrooms, " + objMMV.Make + " dealerships, dealerships, test drive";
         title = objMMV.Make + " Bike Dealers | " + objMMV.Make + " Bike Showrooms in India - BikeWale";
-        canonical = "http://www.bikewale.com/new/" + objMMV.MakeMappingName + "-dealers/";
+        canonical = string.Format("http://www.bikewale.com/new/{0}-dealers/", objMMV.MakeMappingName);
+        alternate = string.Format("http://www.bikewale.com/m/new/{0}-dealers/", objMMV.MakeMappingName);
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
     %>

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.DealersCard" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.DealersCard" EnableViewState="false" %>
 <% if (showWidget)
    {
 %>
@@ -44,24 +44,27 @@
 <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
 <h2 class="padding-right20 padding-left20"><%= makeName %> dealers in India</h2>
 
-<div class="swiper-container margin-bottom15">
-    <!-- dealers when no city selected -->
-    <div class="swiper-wrapper">
-        <asp:Repeater ID="rptPopularCityDealers" runat="server">
-            <ItemTemplate>
-                <div class="swiper-slide bike-carousel-swiper dealer-no-city">
-                    <a href="<%# String.Format("/m/{0}-bikes/dealers-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>">
-                        <span class="dealer-city-image-preview">
-                            <span class="city-sprite <%# DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName") %>-icon"></span>
-                        </span>
-                        <h4 class="font14 text-bold text-default margin-bottom10"><%= makeName %> dealers in <%# DataBinder.Eval(Container.DataItem,"CityBase.CityName") %></h4>
-                        <p class="font14 text-black"><%# DataBinder.Eval(Container.DataItem,"NumOfDealers") %> <%# Convert.ToUInt16(DataBinder.Eval(Container.DataItem,"NumOfDealers")) > 1 ? "showrooms" : "showroom" %></p>
-                    </a>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
-    </div>
-</div>
+    <div class="swiper-container margin-bottom15">
+        <!-- dealers when no city selected -->
+        <div class="swiper-wrapper">
+            <asp:Repeater ID="rptPopularCityDealers" runat="server">
+                <ItemTemplate>
+                    <div class="swiper-slide bike-carousel-swiper dealer-no-city">
+                        <a href="<%# String.Format("/m/{0}-bikes/dealers-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>">
+                            <span class="dealer-city-image-preview">
+                                <span class="city-sprite <%# DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName") %>-icon"></span>
+                            </span>
+                            <h4 class="font14 text-bold text-default margin-bottom10"><%= makeName %> dealers in <%# DataBinder.Eval(Container.DataItem,"CityBase.CityName") %></h4>
+                            <p class="font14 text-black"><%# DataBinder.Eval(Container.DataItem,"NumOfDealers") %> <%# Convert.ToUInt16(DataBinder.Eval(Container.DataItem,"NumOfDealers")) > 1 ? "showrooms" : "showroom" %></p>
+                        </a>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+     </div>
+     <div class="padding-right20 padding-left20">
+        <a href="<%= String.Format("/m/new/{0}-dealers/", makeMaskingName) %>">View all dealers<span class="bwmsprite blue-right-arrow-icon font14"></span></a>
+     </div>
 </div>
 <% } %>
 <% } %>

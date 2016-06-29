@@ -34,7 +34,7 @@ namespace Bikewale.Mobile.New
 
         public ushort makeId;
         public string cityArr = string.Empty, makeMaskingName = string.Empty, stateMaskingName = string.Empty, stateName = string.Empty;
-        public int citesCount = 0;
+        public int citiesCount = 0;
         public uint cityId = 0, DealerCount = 0, stateId = 0;
         public DealerStateCities dealerCity;
 
@@ -75,7 +75,7 @@ namespace Bikewale.Mobile.New
                     cityArr = Newtonsoft.Json.JsonConvert.SerializeObject(dealerCity.dealerCities);
                     cityArr = cityArr.Replace("cityId", "id").Replace("cityName", "name");
                     DealerCount = dealerCity.dealerCities.Select(o => o.DealersCount).Aggregate((x, y) => x + y);
-                    citesCount = dealerCity.dealerCities.Count();
+                    citiesCount = dealerCity.dealerCities.Count();
                     stateName = dealerCity.dealerStates.StateName;
                 }
             }

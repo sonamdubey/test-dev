@@ -4,15 +4,16 @@
 <html>
 <head>
     <% 
-        description = objMMV.Make + " bike dealers/showrooms in India. Find new bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc.";
-        keywords = objMMV.Make + " bike dealers, " + objMMV.Make + " bike showrooms," + objMMV.Make + " dealers, " + objMMV.Make + " showrooms, " + objMMV.Make + " dealerships, dealerships, test drive";
-        title = objMMV.Make + " Bike Dealers | " + objMMV.Make + " Bike Showrooms in India - BikeWale";
-        canonical = "http://www.bikewale.com/new/" + objMMV.MakeMappingName + "-dealers/";
+        description = string.Format("{0} bike dealers/showrooms in India. Find dealer information for more than {1} dealers in {2} states. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.Make, countryCount, stateCount);
+        keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.Make);
+        title = string.Format("{0} Bike Dealers in India | {0} Bike Showrooms in India - BikeWale", objMMV.Make);
+        canonical = "http://www.bikewale.com/new/" + objMMV.MakeMappingName + "-dealers/";        
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
-    %>
+    %>   
+
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-dealersbylocation.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
