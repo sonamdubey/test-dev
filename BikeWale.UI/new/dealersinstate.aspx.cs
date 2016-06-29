@@ -65,8 +65,7 @@ namespace Bikewale.New
             if (ProcessQS())
             {
                 checkDealersForMakeCity(makeId);
-                //objMMV = new MakeModelVersion();
-                //objMMV.GetMakeDetails(strMakeId);
+
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
@@ -87,7 +86,7 @@ namespace Bikewale.New
                 container.RegisterType<ICity, CityRepository>();
                 objCities = container.Resolve<ICity>();
                 dealerCity = objCities.GetDealerStateCities(makeId, stateId);
-                if (objMMV!=null && dealerCity != null && dealerCity.dealerCities != null && dealerCity.dealerCities.Count() > 0)
+                if (objMMV != null && dealerCity != null && dealerCity.dealerCities != null && dealerCity.dealerCities.Count() > 0)
                 {
                     foreach (var dCity in dealerCity.dealerCities)
                     {

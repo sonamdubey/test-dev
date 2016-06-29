@@ -1,7 +1,10 @@
 ﻿using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Location;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Memcache;
@@ -27,7 +30,7 @@ namespace Bikewale.Mobile.New
         protected DataList dlCity;
 
         protected DataSet dsStateCity = null;
-        protected MakeModelVersion objMMV;
+        protected BikeMakeEntityBase objMMV;
 
         public string strMakeId = string.Empty, stateArray = string.Empty, makeMaskingName = string.Empty;
         public int stateCount = 0, DealerCount = 0; protected uint countryCount = 0;
@@ -50,8 +53,15 @@ namespace Bikewale.Mobile.New
             if (ProcessQS())
             {
                 checkDealersForMakeCity(makeId);
-                objMMV = new MakeModelVersion();
-                objMMV.GetMakeDetails(strMakeId);
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                    objMMV = makesRepository.GetMakeDetails(makeId.ToString());
+
+                }
+
                 BindStates();
             }
         }

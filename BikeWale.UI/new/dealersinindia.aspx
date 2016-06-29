@@ -9,8 +9,8 @@
         keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.MakeName);
         description = string.Format("{0} bike dealers/showrooms in India. Find dealer information for more than {1} dealers in {2} states. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.MakeName, countryCount, stateCount);        canonical = "http://www.bikewale.com/new/" + objMMV.MaskingName + "-dealers/";
         isAd970x90Shown = false;
-        canonical = string.Format("http://www.bikewale.com/new/{0}-dealers/", objMMV.MakeMappingName);
-        alternate = string.Format("http://www.bikewale.com/m/new/{0}-dealers/", objMMV.MakeMappingName);
+        canonical = string.Format("http://www.bikewale.com/new/{0}-dealers/", objMMV.MaskingName);
+        alternate = string.Format("http://www.bikewale.com/m/new/{0}-dealers/", objMMV.MaskingName);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealersbylocation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">

@@ -10,7 +10,7 @@
         description = string.Format("{0} bike dealers/showrooms in {1}. Find dealer information for more than {2} dealers in {3} cities. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.MakeName,stateName, DealerCount, citiesCount);
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
         isAd970x90Shown = false;
-        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}-state/", objMMV.MakeMappingName, stateMaskingName);
+        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealersbylocation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">

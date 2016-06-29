@@ -56,14 +56,13 @@ namespace Bikewale.New
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
 
-            //DeviceDetection dd = new DeviceDetection(originalUrl);
-            //dd.DetectDevice();
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
 
             if (ProcessQS())
             {
                 checkDealersForMakeCity(makeId);
-                //objMMV = new MakeModelVersion();
-                //objMMV.GetMakeDetails(strMakeId);
+
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
@@ -89,7 +88,7 @@ namespace Bikewale.New
                 container.RegisterType<IState, StateRepository>();
                 objStates = container.Resolve<IState>();
                 states = objStates.GetDealerStates(Convert.ToUInt32(strMakeId));
-                if (objMMV!=null && states != null && states.Count() > 0)
+                if (objMMV != null && states != null && states.Count() > 0)
                 {
                     foreach (var state in states)
                     {
