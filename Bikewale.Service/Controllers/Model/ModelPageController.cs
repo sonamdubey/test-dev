@@ -29,6 +29,7 @@ namespace Bikewale.Service.Controllers.Model
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _cache;
         private readonly IDealerPriceQuoteDetail _dealers;
+        
 
         /// <summary>
         /// 
