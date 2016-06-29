@@ -2421,6 +2421,7 @@
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\dealerlisting.js" />
     <Content Include="m\src\dealerpricequote.js" />
+    <Content Include="m\src\dealersbylocation.js" />
     <Content Include="m\src\frameworks.js" />
     <Content Include="m\src\home.js" />
     <Content Include="m\src\html5.js" />

@@ -40,7 +40,7 @@
                 <div id="listingWrapper" class="box-shadow padding-top15">
                     <div id="listingHeader" class="padding-right20 padding-left20">
                         <h1 class="font16 text-pure-black margin-bottom10"><%=objMMV.MakeName %> bike dealers in India</h1>
-                        <h2 class="font14 text-unbold text-xt-light-grey text-truncate padding-bottom15 margin-bottom20 border-solid-bottom"><%=countryCount == 1 ? "dealer" : "dealers" %> across <%=stateCount == 1 ? "state" : "states" %></h2>
+                        <h2 class="font14 text-unbold text-xt-light-grey text-truncate padding-bottom15 margin-bottom20 border-solid-bottom"><%=countryCount == 1 ? "1 dealer" : string.Format("{0} dealers", countryCount) %> across <%=stateCount == 1 ? "1 state" : string.Format("{0} states", stateCount) %></h2>
                         <div class="form-control-box">
                             <span class="bwmsprite search-icon-grey"></span>
                             <input type="text" class="form-control padding-right40" placeholder="Type to select state" id="getStateInput" />

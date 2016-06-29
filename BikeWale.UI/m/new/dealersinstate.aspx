@@ -40,7 +40,7 @@
                 <div id="listingWrapper" class="box-shadow padding-top15">
                     <div id="listingHeader" class="padding-right20 padding-left20">
                         <h1 class="font16 text-pure-black margin-bottom10"><%=objMMV.MakeName %> bike dealers in <%= stateName %></h1>
-                        <h2 class="font14 text-unbold text-xt-light-grey text-truncate padding-bottom15 margin-bottom20 border-solid-bottom"><%= DealerCount == 1 ? "dealer" : "dealers" %> across <%=citiesCount == 1 ? "city" : "cities" %> in <%= stateName %></h2>
+                        <h2 class="font14 text-unbold text-xt-light-grey text-truncate padding-bottom15 margin-bottom20 border-solid-bottom"><%= DealerCount == 1 ? "1 dealer" : string.Format("{0} dealers", DealerCount) %> across <%=citiesCount == 1 ? "1 city" : string.Format("{0} cities", citiesCount) %> in <%= stateName %></h2>
                         <div class="form-control-box">
                             <span class="bwmsprite search-icon-grey"></span>
                             <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="getCityInput" />
