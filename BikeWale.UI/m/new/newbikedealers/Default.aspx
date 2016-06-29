@@ -15,6 +15,7 @@
         //menu = "10";
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/home.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style type="text/css">
         .locator-landing-banner {
             background: #8d8c8a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/dealer-locator-banner.jpg) no-repeat center bottom;
@@ -160,6 +161,7 @@
             font-weight: bold;
             background-color: #ddd;
         }
+                
     </style>
 </head>
 <body class="bg-white">
@@ -214,7 +216,7 @@
             </div>
         </div>
 
-        <%--<section>
+        <section>
             <div class="container text-center">
                 <h2 class="margin-top25 margin-bottom20">Locate dealers by brand</h2>
                 <div class="brand-type-container">
@@ -224,7 +226,7 @@
                                 <li>
                                     <a href="/m/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
                                         <span class="brand-type">
-                                            <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                            <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>"></span>
                                         </span>
                                         <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                     </a>
@@ -238,8 +240,7 @@
                                 <li>
                                     <a href="/m/new/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-dealers/">
                                         <span class="brand-type">
-                                            <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>" data-original="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?<%= staticFileVersion %>"></span>
-
+                                            <span class="lazy brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>"></span>
                                         </span>
                                         <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                     </a>
@@ -252,7 +253,7 @@
                     <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View more brands</a>
                 </div>
             </div>
-        </section>--%>
+        </section>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
