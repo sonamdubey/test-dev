@@ -23,7 +23,7 @@ namespace Bikewale.Service.Controllers.UserReviews
 
         private readonly IUserReviews _userReviewsRepo = null;
         private readonly IUserReviewsCache _userReviewsCacheRepo = null;
-        public UserReviewsListController(IUserReviews userReviewsRepo,IUserReviewsCache userReviewsCacheRepo)
+        public UserReviewsListController(IUserReviews userReviewsRepo, IUserReviewsCache userReviewsCacheRepo)
         {
             _userReviewsRepo = userReviewsRepo;
             _userReviewsCacheRepo = userReviewsCacheRepo;
@@ -122,7 +122,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             IEnumerable<Review> objDTOUserReview = null;
             try
             {
-                objUserReview = _userReviewsCacheRepo.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalRecords);
+                objUserReview = _userReviewsCacheRepo.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter).ReviewList;
 
                 if (objUserReview != null)
                 {

@@ -241,6 +241,7 @@
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
     <Compile Include="UserReviews\ReviewEntity.cs" />
     <Compile Include="UserReviews\ReviewEntityBase.cs" />
+    <Compile Include="UserReviews\ReviewListBase.cs" />
     <Compile Include="UserReviews\ReviewRatingEntity.cs" />
     <Compile Include="UserReviews\ReviewRatingEntityBase.cs" />
     <Compile Include="UserReviews\ReviewsListEntity.cs" />

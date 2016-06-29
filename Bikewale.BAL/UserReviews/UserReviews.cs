@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
-using Bikewale.DAL.UserReviews;
+using System.Collections.Generic;
 
 
 namespace Bikewale.BAL.UserReviews
@@ -91,11 +87,11 @@ namespace Bikewale.BAL.UserReviews
             return objRating;
         }
 
-        public List<ReviewEntity> GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter, out uint totalReviews)
+        public ReviewListBase GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter)
         {
-            List<ReviewEntity> objReviewList = null;
+            ReviewListBase objReviewList = null;
 
-            objReviewList = userReviewsRepository.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalReviews);
+            objReviewList = userReviewsRepository.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter);
 
             return objReviewList;
         }
@@ -105,10 +101,10 @@ namespace Bikewale.BAL.UserReviews
             ReviewDetailsEntity objReview = null;
 
             objReview = userReviewsRepository.GetReviewDetails(reviewId);
-            
+
             return objReview;
         }
-        
+
         public bool UpdateViews(uint reviewId)
         {
             bool isViesUpdated = false;

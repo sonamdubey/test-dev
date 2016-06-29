@@ -31,6 +31,6 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public MinSpecsEntity Specs { get; set; }
         [DataMember]
-        public ushort BikePopularityIndex { get; set; }                 
+        public ushort BikePopularityIndex { get; set; }
     }
 }

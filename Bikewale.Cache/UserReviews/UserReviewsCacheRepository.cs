@@ -3,10 +3,6 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Cache.UserReviews
 {
@@ -42,17 +38,15 @@ namespace Bikewale.Cache.UserReviews
         /// <param name="filter"></param>
         /// <param name="totalReviews"></param>
         /// <returns></returns>
-        public IEnumerable<ReviewEntity> GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter, out uint totalReviews)
+        public ReviewListBase GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter)
         {
-            IEnumerable<ReviewEntity> reviews = null;
-            totalReviews = 10;
-            //Func<IEnumerable<ReviewEntity>> func = delegate() { return _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalReviews); };
-            
-            string key = String.Format("BW_BikeReviews_Cnt_{0}_Model_{1}_Version_{2}_Filter_{3}", totalReviews, modelId, versionId, filter);
+            ReviewListBase reviews = null;            
+
+            string key = String.Format("BW_BikeReviews_Model_{0}_Version_{1}_Filter_{2}", modelId, versionId, filter);
             try
             {
+                reviews = _cache.GetFromCache<ReviewListBase>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter));
                 //reviews = _cache.GetFromCache<IEnumerable<ReviewEntity>>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalReviews));
-               //reviews = _cache.GetFromCache<IEnumerable<ReviewEntity>>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalReviews));
             }
             catch (Exception ex)
             {
