@@ -51,7 +51,7 @@ namespace Bikewale.Cache.UserReviews
             string key = String.Format("BW_BikeReviews_Cnt_{0}_Model_{1}_Version_{2}_Filter_{3}", totalReviews, modelId, versionId, filter);
             try
             {
-                reviews = _cache.GetFromCache<IEnumerable<ReviewEntity>>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalReviews));
+                //reviews = _cache.GetFromCache<IEnumerable<ReviewEntity>>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalReviews));
                //reviews = _cache.GetFromCache<IEnumerable<ReviewEntity>>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalReviews));
             }
             catch (Exception ex)

@@ -1,6 +1,10 @@
-﻿using Bikewale.DAL.BikeData;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
@@ -32,14 +36,24 @@ namespace Bikewale.BindViewModels.Controls
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
 
-                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                    var modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-                    Make = makesRepository.GetMakeDetails(makeId.ToString());
-                    objModelList = modelRepository.GetMostPopularBikesByMake(makeId);
-                    description = makesRepository.GetMakeDescription(makeId);
+                      //  .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                            .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                            .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                            .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                            .RegisterType<ICacheManager, MemcacheManager>()
+                            
+                            ;
+                    var _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    var _objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+
+                    description = _objMakeCache.GetMakeDescription(makeId);
+                    Make = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
+                    objModelList = _objModelCache.GetMostPopularBikesByMake(makeId);
+
                 }
 
                 if (objModelList != null && objModelList.Count() > 0)
