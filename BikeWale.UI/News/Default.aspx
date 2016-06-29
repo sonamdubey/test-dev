@@ -20,7 +20,6 @@
 <style type="text/css">
     #content { margin:0; }
     #content h1 { margin-left:10px; margin-right:10px; }
-    #content .sponsored-content { }
     .sponsored-tag-wrapper { width: 120px;height: 24px;background: #4d5057; color: #fff; font-size: 12px; line-height: 25px; padding: 0 20px; top:-10px; left:-20px; }
     .sponsored-left-tag {width: 0;height: 0;border-top: 13px solid transparent;border-bottom: 15px solid transparent;border-right: 10px solid #fff;position: relative;top: -6px;left: 30px;font-size: 0;line-height: 0;z-index: 1; }
     .sept-dashed { margin:10px 0 15px; }
@@ -28,7 +27,8 @@
     .article-content { margin-left:10px; padding-top:20px; padding-bottom:20px; border-top:1px solid #e2e2e2; }
     #content > div.article-content:first-of-type { padding-top:0; border-top:0; }
     .article-image-wrapper a { width:100%; height:116px; display:block; }
-    .article-category { color:#c20000; margin-top:3px; margin-bottom:3px; }
+    .article-category { color:#c20000; margin-top:4px; margin-bottom:6px; }
+    .margin-bottom8 { margin-bottom:8px; }
     .calender-grey-icon, .author-grey-icon { width:14px; height:15px; position:relative; top:-2px; margin-right:4px; }
     .calender-grey-icon { background-position:-129px -515px; }
     .author-grey-icon { background-position:-105px -515px; }
@@ -40,14 +40,10 @@
 </script>
 <div class="container margin-bottom30">
     <div class="grid-12">
-        <div class="bg-white padding-bottom20">
+        <div class="content-box-shadow padding-bottom20">
             <ul class="breadcrumb top-breadcrumb">
                 <li>You are here: </li>
-                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="/" itemprop="url">
-                        <span itemprop="title">Home</span>
-                    </a>
-                </li>
+                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url"><span itemprop="title">Home</span></a></li>
                 <li class="fwd-arrow">&rsaquo;</li>
                 <li class="current"><strong>News</strong></li>
             </ul>
@@ -57,21 +53,18 @@
                 <h1 class="black-text margin-bottom15">Bike News <span>Latest Indian Bikes News and Views</span></h1>
                     <asp:repeater id="rptNews" runat="server">
 				        <itemtemplate>
-					        <div id='post-<%# Eval("BasicId") %>' class="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "sponsored-content"  : "post-content" %> article-content">
+					        <div id='post-<%# Eval("BasicId") %>' class="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "sponsored-content" : "post-content" %> article-content">
                                 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
 						        <div class="margin-bottom10">
                                     <div class="grid-4 alpha omega article-image-wrapper">
-                                        <%#"<a href='/news/" + Eval("BasicId") + "-" + Eval("ArticleUrl") + ".html'><img src='" + Bikewale.Utility.Image.GetPathToShowImages(Eval("OriginalImgUrl").ToString(), Eval("HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) + "' width='100%' border='0' /></a>" %>
+                                        <%#"<a href='/news/" + Eval("BasicId") + "-" + Eval("ArticleUrl") + ".html'><img src='" + Bikewale.Utility.Image.GetPathToShowImages(Eval("OriginalImgUrl").ToString(), Eval("HostUrl").ToString(),Bikewale.Utility.ImageSize._210x118) + "' alt='"+ Eval("Title") +"' title='"+ Eval("Title") +"' width='100%' border='0' /></a>" %>
                                     </div>
                                     <div class="grid-8 padding-left20 omega">
                                         <div class="article-category">
-                                            <span class="text-uppercase font12 text-bold">News</span>
-                                            <span class="text-uppercase font12 text-bold">Expert Reviews</span>
-                                            <span class="text-uppercase font12 text-bold">Features</span>
-                                            <span class="text-uppercase font12 text-bold">Road Test</span>
+                                            <h3 class="text-uppercase font12 text-bold">News</h3>
                                         </div>
-                                        <h2 class="font14 margin-bottom5">
-                                            <a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html" rel="bookmark" title="Permanent Link to <%# Eval("Title") %>" class="text-black text-bold"><%# Eval("Title") %></a>
+                                        <h2 class="font14 margin-bottom8">
+                                            <a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html" rel="bookmark" class="text-black text-bold"><%# Eval("Title") %></a>
                                         </h2>
                                         <div class="font12 text-light-grey">
                                             <div class="grid-5 alpha">
@@ -91,10 +84,7 @@
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                <div>
-              			        <%--<div class="grid_3 omega"><%#"<a href='/news/" + Eval("BasicId") + "-" + Eval("ArticleUrl") + ".html'><img class='alignright size-thumbnail border-light' style='padding:2px;' src='" + Bikewale.Common.ImagingFunctions.GetPathToShowImages(Eval("SmallPicUrl").ToString(), Eval("HostUrl").ToString()) + "' align='right' border='0' /></a>" %></div>--%>
-                                    <div class="font14"><%# Eval("Description") %><a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html">Read full story</a></div>
-                                </div>
+                                <div class="font14"><%# Eval("Description") %><a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html">Read full story</a></div>
                                 <div class="clear"></div>
 					        </div>
                             <%--<div class=" <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? ""  : "sept-dashed margin-bottom15" %>"></div>--%>
@@ -110,7 +100,7 @@
                 <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top15">
                     <BP:InstantBikePrice runat="server" ID="InstantBikePrice" />
                 </div>
-                <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20">
+                <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top10">
                     <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
                 </div>
                 <div>
@@ -126,10 +116,5 @@
 <script type="text/javascript">
     //$("a[rel='slide']").colorbox({ width: "700px", height: "500px" });
 </script>
-<script type="text/javascript">
-    $(".sponsored-tag-wrapper").parents().prev(".sept-dashed").remove();
-</script>
-
-
 
 <!-- #include file="/includes/footerInner.aspx" -->
