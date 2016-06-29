@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using Bikewale.CoreDAL;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
-using Bikewale.CoreDAL;
-using Bikewale.Entities.BikeData;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web;
 
 namespace Bikewale.DAL.UserReviews
 {
@@ -66,7 +63,7 @@ namespace Bikewale.DAL.UserReviews
                                     ReviewsCount = Convert.ToUInt32(dr["TotalReviews"]),
                                     MakeEntity = objMakeBase,
                                     ModelEntity = objModelBase
-                               
+
                                 });
                             }
                         }
@@ -111,7 +108,7 @@ namespace Bikewale.DAL.UserReviews
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "GetReviewedBikes";
-                  
+
                     BikeMakeEntityBase objMakeBase = null;
                     BikeModelEntityBase objModelBase = null;
 
@@ -160,7 +157,7 @@ namespace Bikewale.DAL.UserReviews
                 db.CloseConnection();
             }
 
-            return objBikeList;          
+            return objBikeList;
         }
 
         /// <summary>
@@ -184,7 +181,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.CommandText = "GetMostReadReviews";
                     cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
 
-                    ReviewEntityBase  objReviewEntity =null;
+                    ReviewEntityBase objReviewEntity = null;
                     ReviewRatingEntityBase objReviewRating = null;
                     ReviewTaggedBikeEntity objTaggedBike = null;
 
@@ -510,12 +507,12 @@ namespace Bikewale.DAL.UserReviews
                         {
                             objRate = new ReviewRatingEntity();
 
-                            objRate.ComfortRating =Convert.ToSingle(dr["Comfort"]);
+                            objRate.ComfortRating = Convert.ToSingle(dr["Comfort"]);
                             objRate.FuelEconomyRating = Convert.ToSingle(dr["FuelEconomy"]);
                             objRate.PerformanceRating = Convert.ToSingle(dr["Performance"]);
                             objRate.StyleRating = Convert.ToSingle(dr["Looks"]);
                             objRate.ValueRating = Convert.ToSingle(dr["ValueForMoney"]);
-                            objRate.OverAllRating =Convert.ToSingle(dr["ReviewRate"]);
+                            objRate.OverAllRating = Convert.ToSingle(dr["ReviewRate"]);
                         }
                     }
                 }
@@ -551,14 +548,16 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="totalReviews">total reviews available for a model</param>
         /// Modified By:Rakesh Yadav On to fetch MakeMaskingName and ModelMaskingName on 08 Sep 2015
         /// <returns></returns>
-        public List<ReviewEntity> GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter, out uint totalReviews)
+        public ReviewListBase GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter)
         {
+            ReviewListBase reviews = null;
             List<ReviewEntity> objRatingList = null;
             Database db = null;
-            totalReviews = 0;
+            uint totalReviews = 0;
 
             try
             {
+                reviews = new ReviewListBase();
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.CommandText = "GetBikeReviewsList";
@@ -600,8 +599,10 @@ namespace Bikewale.DAL.UserReviews
 
                                 totalReviews = Convert.ToUInt32(dr["RecordCount"]);
                             }
-                            
+
                             dr.Close();
+                            reviews.ReviewList = objRatingList;
+                            reviews.TotalReviews = totalReviews;
                         }
                     }
                 }
@@ -623,7 +624,7 @@ namespace Bikewale.DAL.UserReviews
                 db.CloseConnection();
             }
 
-            return objRatingList;
+            return reviews;
         }
 
         /// <summary>
@@ -649,7 +650,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
 
                     db = new Database();
-                
+
                     using (SqlDataReader dr = db.SelectQry(cmd))
                     {
                         if (dr != null && dr.Read())
@@ -702,7 +703,7 @@ namespace Bikewale.DAL.UserReviews
                                     objRating.NextReviewId = Convert.ToUInt32(dr["NextReviewId"]);
                                     //objRating.NextReviewTitle = dr["NextReviewTitle"].ToString();
                                 }
-                            }                         
+                            }
                         }
                     }
                 }
@@ -816,7 +817,7 @@ namespace Bikewale.DAL.UserReviews
 
             return success;
         }
-      
+
         /// <summary>
         /// Written By : Ashwini Todkar 
         /// function updates the liked and the disliked field of the customer reviews table

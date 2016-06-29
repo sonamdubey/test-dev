@@ -61,7 +61,7 @@ namespace Bikewale.Mobile.Controls
 
                 objUserReviews = container.Resolve<IUserReviews>();
 
-                objReviewList = objUserReviews.GetBikeReviewsList(1, TopCount, ModelId, 0, Filter, out totalReviews);
+                objReviewList = objUserReviews.GetBikeReviewsList(1, TopCount, ModelId, 0, Filter).ReviewList;
 
                 if (totalReviews > 0)
                 {
