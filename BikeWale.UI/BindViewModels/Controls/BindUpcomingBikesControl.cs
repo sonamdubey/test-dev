@@ -11,6 +11,7 @@ using Bikewale.BAL.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.BikeData;
+using Bikewale.DAL.BikeData;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -28,7 +29,6 @@ namespace Bikewale.BindViewModels.Controls
         {
             FetchedRecordsCount = 0;
 
-            //UpcomingBikeList objBikeList = null;
             IEnumerable<UpcomingBikeEntity> objBikeList = null;
 
             try
@@ -53,8 +53,9 @@ namespace Bikewale.BindViewModels.Controls
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                             .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>();
+                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
@@ -62,19 +63,6 @@ namespace Bikewale.BindViewModels.Controls
 
                 }
 
-                //string _apiUrl = String.Format("/api/UpcomingBike/?sortBy={0}&pageSize={1}", sortBy, pageSize);
-                
-                //if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                //{
-                //    _apiUrl += String.Format("&makeId={0}&curPageNo={1}", MakeId, curPageNo);
-
-                //    if (ModelId.HasValue && ModelId.Value > 0)
-                //    {
-                //        _apiUrl += String.Format("&modelId={0}", ModelId);
-                //    }
-                //}
-
-                //objBikeList = BWHttpClient.GetApiResponseSync<UpcomingBikeList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
 
                 if (objBikeList != null)
                 {
