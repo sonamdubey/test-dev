@@ -173,6 +173,7 @@ namespace Bikewale.New
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                            .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                                  .RegisterType<ICacheManager, MemcacheManager>();
                         var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();

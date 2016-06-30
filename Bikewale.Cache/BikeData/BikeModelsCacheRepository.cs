@@ -23,16 +23,18 @@ namespace Bikewale.Cache.BikeData
     {
         private readonly ICacheManager _cache;
         private readonly IBikeModels<T, U> _objModels;
+        private readonly IBikeModelsRepository<T, U> _modelRepository;
 
         /// <summary>
         /// Intitalize the references for the cache and BL
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="objModels"></param>
-        public BikeModelsCacheRepository(ICacheManager cache, IBikeModels<T, U> objModels)
+        public BikeModelsCacheRepository(ICacheManager cache, IBikeModels<T, U> objModels, IBikeModelsRepository<T, U> modelRepository)
         {
             _cache = cache;
             _objModels = objModels;
+            _modelRepository = modelRepository;
         }
 
         /// <summary>
@@ -73,13 +75,13 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
         {
             IEnumerable<UpcomingBikeEntity> objUpcoming = null;
-            string key = "BW_UpcomingBikes_Cnt_" + pageSize;
+            string key = string.Format("BW_UpcomingBikes_Cnt_{0}_SO_{1}",pageSize,(int)sortBy);
 
             if (makeId.HasValue && makeId.Value > 0)
-                key += "_Make_" + makeId;
+                key += "_MK_" + makeId;
 
             if (modelId.HasValue && modelId.Value > 0)
-                key += "_Model_" + modelId;
+                key += "_MO_" + modelId;
 
             try
             {
@@ -93,5 +95,30 @@ namespace Bikewale.Cache.BikeData
 
             return objUpcoming;
         }
+
+        /// <summary>
+        /// Written By : Sushil Kumar on 28th June 2016
+        /// Summary : Function to get the popular bikes by make . If data is not available in the cache it will return data from BL.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns>Returns BikeModelPageEntity</returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId)
+        {
+            IEnumerable<MostPopularBikesBase> objBikes = null; 
+            string key = "BW_PopularBikesByMake_" + makeId;
+
+            try
+            {
+                objBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikesByMake(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                objErr.SendMail();
+            }
+
+            return objBikes;
+        }
+
     }
 }
