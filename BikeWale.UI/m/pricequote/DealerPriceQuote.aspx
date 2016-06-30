@@ -289,9 +289,9 @@
                         <div class="clear"></div>
                     </div>
                     <%} %>
+                  <% } %>
                     <div id="pqRemoveHeader"></div>
-                </div>
-                 <% } %>
+                </div>               
             </div>
             <!-- show below div when no premium dealer -->
             <%}
