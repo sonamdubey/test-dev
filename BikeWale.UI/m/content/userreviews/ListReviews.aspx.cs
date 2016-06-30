@@ -3,8 +3,10 @@ using Bikewale.BAL.Pager;
 using Bikewale.BAL.UserReviews;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.UserReviews;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.UserReviews;
@@ -161,9 +163,18 @@ namespace Bikewale.Mobile.Content
 
         private void GetReviewList()
         {
-            ReviewListBase reviews = objUserReviews.GetBikeReviewsList(Convert.ToUInt32(startIndex), Convert.ToUInt32(endIndex), Convert.ToUInt32(modelId), 0, FilterBy.MostRecent);
-            objReviewList = reviews.ReviewList;
-            totalReviews = reviews.TotalReviews;
+            ReviewListBase reviews = null;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
+                             .RegisterType<IUserReviews, UserReviewsRepository>()
+                             .RegisterType<ICacheManager, MemcacheManager>();
+
+                var cache = container.Resolve<IUserReviewsCache>();
+                reviews = cache.GetBikeReviewsList(Convert.ToUInt32(startIndex), Convert.ToUInt32(endIndex), Convert.ToUInt32(modelId), 0, FilterBy.MostRecent);
+                objReviewList = reviews.ReviewList;
+                totalReviews = reviews.TotalReviews;
+            }
             int totalPages = objPager.GetTotalPages(Convert.ToInt32(totalReviews), pageSize);
 
             if (totalReviews > 0)
