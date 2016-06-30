@@ -168,7 +168,9 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .used-budget-box { width: 206px; float:left; color: #a8afb3; position: relative; }
 .findBtn { float:left; }
 .findBtn .btn-md { padding: 8px 20px; border-radius: 0 2px 2px 0; }
-.compare-list-home li {padding-bottom: 25px; text-align: center; }
+.compare-list-home li {padding-bottom: 25px; text-align: center; display:block; }
+.compare-now-image-preview a { width: 100%; height: 268px; display:block; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+.compare-now-image-preview a img { width: 100%; height: 268px; }
 
 /* news, review and videos section on home page classes */
 .news-expert-video-content .img-preview { width:310px; height:174px; display:table; text-align:center;}

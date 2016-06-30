@@ -1,7 +1,6 @@
 ﻿<%@ Page Inherits="Bikewale.New.ComparisonChoose" Trace="false" Debug="false" AutoEventWireup="false" Language="C#" EnableEventValidation="false" %>
 
-<%@ Register TagPrefix="uc" TagName="CompareCarsMin" Src="~/controls/ComparisonMin_old.ascx" %>
-<%@ Register TagPrefix="CE" TagName="CalculateEMIMin" Src="/controls/CalculateEMIMin.ascx" %>
+<%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
 <%@ Register TagPrefix="uc" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%@ Register TagPrefix="uc" TagName="BrowseUserReviews" Src="~/controls/BrowseUserReviews.ascx" %>
 <%
@@ -116,8 +115,9 @@
             <div class="clear"></div>
         </div>
         <div class="margin-top15">
-            <div class="grid_8 alpha omega" style="border: 1px solid #E2E2E2;">
-                <uc:CompareCarsMin ID="ucCompareCarsMin" runat="server" ShowCompButton="false" />
+            <div class="grid_12 alpha " style="border: 1px solid #E2E2E2;">
+                <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Compare Now</h2>
+                <BW:CompareBikes ID="ctrlCompareBikes" runat="server" ShowCompButton="false" />
             </div>
             <div class="clear"></div>
         </div>
@@ -133,9 +133,7 @@
         <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
             <uc:InstantBikePrice runat="server" ID="ucInstantBikePrice" />
         </div>
-        <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
-            <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
-        </div>
+
         <div>
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->

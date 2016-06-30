@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.PriceQuote;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using Bikewale.Common;
 
@@ -102,7 +99,7 @@ namespace Bikewale.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
         }
