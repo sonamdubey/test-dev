@@ -1,5 +1,7 @@
 ﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
@@ -7,6 +9,7 @@ using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
@@ -32,7 +35,8 @@ namespace Bikewale.BAL.BikeData
     {
         private readonly IBikeModelsRepository<T, U> modelRepository = null;
         private readonly IPager _objPager = null;
-        private readonly IUserReviews _userReviewsRepo = null;
+        //private readonly IUserReviews _userReviewsRepo = null;
+        private readonly IUserReviewsCache _userReviewCache = null;
         private readonly IArticles _articles = null;
 
         public BikeModels()
@@ -42,12 +46,14 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<IBikeModelsRepository<T, U>, BikeModelsRepository<T, U>>();
                 container.RegisterType<IPager, BAL.Pager.Pager>();
                 container.RegisterType<IArticles, Articles>();
-                container.RegisterType<IUserReviews, Bikewale.BAL.UserReviews.UserReviews>();
-
+                container.RegisterType<IUserReviewsCache, Bikewale.Cache.UserReviews.UserReviewsCacheRepository>();
+                container.RegisterType<ICacheManager, MemcacheManager>();
+                container.RegisterType<IUserReviews, UserReviewsRepository>();
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
                 _articles = container.Resolve<IArticles>();
-                _userReviewsRepo = container.Resolve<IUserReviews>();
+                //_userReviewsRepo = container.Resolve<IUserReviews>();
+                _userReviewCache = container.Resolve<IUserReviewsCache>();
             }
         }
 
@@ -1011,13 +1017,13 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<ArticleSummary> objRecentNews = null;
             IEnumerable<ArticleSummary> objExpertReview = null;
             IEnumerable<BikeVideoEntity> objVideos = null;
-            uint recCount = 0;
+
             string _apiVideoUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", modelId, 1, 2);
 
             try
             {
                 //creating tasks to call them asynchronously
-                var reviewTask = Task.Factory.StartNew(() => objReview = _userReviewsRepo.GetBikeReviewsList(1, 2, Convert.ToUInt32(modelId), 0, FilterBy.MostRecent).ReviewList);
+                var reviewTask = Task.Factory.StartNew(() => objReview = _userReviewCache.GetBikeReviewsList(1, 2, Convert.ToUInt32(modelId), 0, FilterBy.MostRecent).ReviewList);
                 var newsTask = Task.Factory.StartNew(() => objRecentNews = _articles.GetRecentNews(0, Convert.ToInt32(modelId), 2));
                 var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _articles.GetRecentExpertReviews(0, Convert.ToInt32(modelId), 2));
 
