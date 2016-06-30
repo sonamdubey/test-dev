@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.UserReviews
 {
-    [Serializable,DataContract]
+    [Serializable, DataContract]
     public class ReviewEntity : ReviewEntityBase
     {
         [DataMember]
@@ -22,10 +22,10 @@ namespace Bikewale.Entities.UserReviews
         public string MakeMaskingName { get; set; }
         [DataMember]
         public string ModelMaskingName { get; set; }
-
+        [DataMember]
         private ReviewRatingEntityBase objRating = new ReviewRatingEntityBase();
         [DataMember]
-        public ReviewRatingEntityBase OverAllRating { get { return objRating; } set { objRating = value;} }
+        public ReviewRatingEntityBase OverAllRating { get { return objRating; } set { objRating = value; } }
         [DataMember]
         public ReviewTaggedBikeEntity TaggedBike { get; set; }
     }
