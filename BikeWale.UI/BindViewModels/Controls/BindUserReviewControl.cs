@@ -1,6 +1,9 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Cache.UserReviews;
+using Bikewale.Common;
 using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -44,8 +47,10 @@ namespace Bikewale.BindViewModels.Controls
                 Paging.GetStartEndIndex(PageSize, PageNo, out stratIndex, out endIndex);
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IUserReviews, UserReviewsRepository>();
-                    IUserReviews objVersion = container.Resolve<IUserReviews>();
+                    container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
+                    .RegisterType<ICacheManager, MemcacheManager>()
+                    .RegisterType<IUserReviews, UserReviewsRepository>();
+                    IUserReviewsCache objVersion = container.Resolve<IUserReviewsCache>();
                     uint recCount = Convert.ToUInt16(RecordCount);
                     ReviewListBase reviews = objVersion.GetBikeReviewsList((uint)stratIndex, (uint)endIndex, (uint)ModelId, 0, Filter);
 

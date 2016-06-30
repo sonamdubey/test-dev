@@ -1,13 +1,13 @@
-﻿using Bikewale.BAL.UserReviews;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Cache.UserReviews;
 using Bikewale.Common;
+using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
@@ -53,13 +53,15 @@ namespace Bikewale.Mobile.Controls
 
         private void GetTopUserReviews()
         {
-            IUserReviews objUserReviews = null;
+            IUserReviewsCache objUserReviews = null;
 
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IUserReviews, UserReviews>();
+                container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
+                    .RegisterType<ICacheManager, MemcacheManager>()
+                    .RegisterType<IUserReviews, UserReviewsRepository>();
 
-                objUserReviews = container.Resolve<IUserReviews>();
+                objUserReviews = container.Resolve<IUserReviewsCache>();
 
                 objReviewList = objUserReviews.GetBikeReviewsList(1, TopCount, ModelId, 0, Filter).ReviewList;
 
