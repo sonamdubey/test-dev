@@ -1,16 +1,17 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.BAL.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.BikeData;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -54,7 +55,9 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                              .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>();
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+
 
                     var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
@@ -63,7 +66,7 @@ namespace Bikewale.BindViewModels.Controls
                 }
 
                 //string _apiUrl = String.Format("/api/UpcomingBike/?sortBy={0}&pageSize={1}", sortBy, pageSize);
-                
+
                 //if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
                 //{
                 //    _apiUrl += String.Format("&makeId={0}&curPageNo={1}", MakeId, curPageNo);
