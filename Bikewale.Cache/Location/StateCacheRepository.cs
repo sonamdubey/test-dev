@@ -37,7 +37,7 @@ namespace Bikewale.Cache.Location
             try
             {
                 key = String.Format("BW_StatewiseDealersCnt_Make_{0}", makeId);
-                objStates = _cache.GetFromCache<IEnumerable<DealerStateEntity>>(key, new TimeSpan(30, 0, 0, 0), () => _objState.GetDealerStates(makeId));
+                objStates = _cache.GetFromCache<IEnumerable<DealerStateEntity>>(key, new TimeSpan(1, 0, 0), () => _objState.GetDealerStates(makeId));
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace Bikewale.Cache.Location
             try
             {
                 // Get MaskingNames from Memcache
-                var htNewMaskingNames = _cache.GetFromCache<Hashtable>("BW_NewStateMaskingNames", new TimeSpan(1, 0, 0), () => _objState.GetMaskingNames());
+                var htNewMaskingNames = _cache.GetFromCache<Hashtable>("BW_NewStateMaskingNames", new TimeSpan(30, 0, 0, 0), () => _objState.GetMaskingNames());
 
                 if (htNewMaskingNames.Contains(maskingName))
                 {
