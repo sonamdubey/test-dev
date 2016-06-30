@@ -11,6 +11,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
+using Bikewale.Common;
 
 namespace Bikewale.Controls
 {
@@ -38,6 +39,13 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
+
             if(isValidData())
                 BindNearestCityPrices();            
         }
