@@ -797,7 +797,7 @@ namespace Bikewale.Mobile.New
                     objPQEntity.ClientIP = clientIP;
                     objPQEntity.SourceId = 2;
                     objPQEntity.ModelId = modelId;
-                    objPQEntity.VersionId = versionId;
+                    objPQEntity.VersionId = Convert.ToUInt32(hdnVariant.Value);
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_ModelPage);
                     objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
                     objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
