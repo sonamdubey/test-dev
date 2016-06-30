@@ -1,6 +1,8 @@
 ﻿using Bikewale.Cache.Compare;
+using Bikewale.Cache.Core;
 using Bikewale.DAL.Compare;
 using Bikewale.Entities.Compare;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -76,12 +78,13 @@ namespace Bikewale.BindViewModels.Controls
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    //container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
+                    container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
                     container.RegisterType<IBikeCompare, BikeCompareRepository>();
-                    var _objCompare = container.Resolve<IBikeCompare>();
-                    //var _objCompareCache = container.Resolve<IBikeCompareCacheRepository>();
+                    container.RegisterType<ICacheManager, MemcacheManager>();
+                    //var _objCompare = container.Resolve<IBikeCompare>();
+                    var _objCompareCache = container.Resolve<IBikeCompareCacheRepository>();
 
-                    topBikeCompares = _objCompare.CompareList(TotalRecords);
+                    topBikeCompares = _objCompareCache.CompareList(TotalRecords);
                 }
 
                 if (topBikeCompares != null && topBikeCompares.Count() > 0)

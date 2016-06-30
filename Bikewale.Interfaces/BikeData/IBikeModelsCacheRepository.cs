@@ -17,5 +17,6 @@ namespace Bikewale.Interfaces.BikeData
     {
         BikeModelPageEntity GetModelPageDetails(U modelId);
         IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
     }
 }

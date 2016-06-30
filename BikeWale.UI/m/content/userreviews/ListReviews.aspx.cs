@@ -163,7 +163,7 @@ namespace Bikewale.Mobile.Content
 
         private void GetReviewList()
         {
-            objReviewList = objUserReviews.GetBikeReviewsList(Convert.ToUInt32( startIndex), Convert.ToUInt32(endIndex),Convert.ToUInt32(modelId), 0, FilterBy.MostRecent, out totalReviews);
+            objReviewList = objUserReviews.GetBikeReviewsList(Convert.ToUInt32( startIndex), Convert.ToUInt32(endIndex),Convert.ToUInt32(modelId), 0, FilterBy.MostRecent).ReviewList;
 
             int totalPages = objPager.GetTotalPages(Convert.ToInt32(totalReviews), pageSize);
 
