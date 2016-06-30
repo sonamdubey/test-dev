@@ -1,5 +1,8 @@
-﻿using Bikewale.Cache.Location;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
+using Bikewale.DAL.Location;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Microsoft.Practices.Unity;
 using System;
@@ -16,7 +19,9 @@ namespace Bikewale.BAL.Location
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IStateCacheRepository, StateCacheRepository>();
+                container.RegisterType<IStateCacheRepository, StateCacheRepository>()
+                    .RegisterType<IState, StateRepository>()
+                    .RegisterType<ICacheManager, MemcacheManager>();
                 _objStates = container.Resolve<IStateCacheRepository>();
             }
         }

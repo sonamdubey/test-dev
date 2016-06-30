@@ -1,7 +1,7 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.Location;
+using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
-using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
@@ -76,7 +76,7 @@ namespace Bikewale.Mobile.New
             IState objStates = null;
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IState, StateRepository>();
+                container.RegisterType<IState, States>();
                 objStates = container.Resolve<IState>();
                 states = objStates.GetDealerStates(Convert.ToUInt32(strMakeId));
                 if (states != null && states.Count() > 0)

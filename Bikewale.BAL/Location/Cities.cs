@@ -1,6 +1,9 @@
-﻿using Bikewale.Cache.Location;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
+using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Microsoft.Practices.Unity;
 using System;
@@ -17,7 +20,9 @@ namespace Bikewale.BAL.Location
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<ICityCacheRepository, CityCacheRepository>();
+                container.RegisterType<ICityCacheRepository, CityCacheRepository>()
+                    .RegisterType<ICity, CityRepository>()
+                    .RegisterType<ICacheManager, MemcacheManager>();
                 objCities = container.Resolve<ICityCacheRepository>();
             }
         }
