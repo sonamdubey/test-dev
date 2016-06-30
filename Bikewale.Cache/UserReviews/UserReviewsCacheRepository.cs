@@ -40,9 +40,9 @@ namespace Bikewale.Cache.UserReviews
         /// <returns></returns>
         public ReviewListBase GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter)
         {
-            ReviewListBase reviews = null;            
+            ReviewListBase reviews = null;
 
-            string key = String.Format("BW_BikeReviews_Model_{0}_Version_{1}_Filter_{2}", modelId, versionId, filter);
+            string key = String.Format("BW_UserReviews_V_{0}_SEI_{1}_{2}_SO_{3}",versionId,startIndex,endIndex, (int)filter);
             try
             {
                 reviews = _cache.GetFromCache<ReviewListBase>(key, new TimeSpan(1, 0, 0), () => _objUserReviews.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter));

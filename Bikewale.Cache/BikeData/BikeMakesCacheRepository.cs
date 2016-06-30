@@ -110,7 +110,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakeDescription");
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetMakeDetails");
                 objErr.SendMail();
             }
             return objMakeDetails;

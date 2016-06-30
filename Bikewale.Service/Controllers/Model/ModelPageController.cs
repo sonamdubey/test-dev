@@ -136,43 +136,6 @@ namespace Bikewale.Service.Controllers.Model
                         }
                     }
 
-                    //categorList = new List<EnumCMSContentType>();
-                    //categorList.Add(EnumCMSContentType.PhotoGalleries);
-                    //categorList.Add(EnumCMSContentType.RoadTest);
-                    //categorList.Add(EnumCMSContentType.ComparisonTests);
-                    //string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
-
-                    //categorList.Clear();
-                    //categorList = null;
-
-                    //string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
-
-                    //objDTOModelPage.Photos = BWHttpClient.GetApiResponseSync<List<CMSModelImageBase>>(_cwHostUrl, _requestType, _apiUrl, objDTOModelPage.Photos);
-                    //if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
-                    //{
-                    //    if (objDTOModelPage.Photos != null)
-                    //    {
-                    //        objDTOModelPage.Photos.Insert(0,
-                    //            new CMSModelImageBase()
-                    //            {
-                    //                HostUrl = objDTOModelPage.ModelDetails.HostUrl,
-                    //                OriginalImgPath = objDTOModelPage.ModelDetails.OriginalImagePath,
-                    //                Caption = objDTOModelPage.ModelDetails.ModelName,
-                    //                ImageCategory = "Model Image"
-                    //            });
-                    //    }
-                    //    else
-                    //    {
-                    //        objDTOModelPage.Photos = new List<CMSModelImageBase>();
-                    //        objDTOModelPage.Photos.Add(new CMSModelImageBase()
-                    //        {
-                    //            HostUrl = objDTOModelPage.ModelDetails.HostUrl,
-                    //            OriginalImgPath = objDTOModelPage.ModelDetails.OriginalImagePath,
-                    //            Caption = objDTOModelPage.ModelDetails.ModelName,
-                    //            ImageCategory = "Model Image"
-                    //        });
-                    //    }
-                    //}
                     return Ok(objDTOModelPage);
                 }
                 else

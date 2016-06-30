@@ -75,13 +75,13 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
         {
             IEnumerable<UpcomingBikeEntity> objUpcoming = null;
-            string key = "BW_UpcomingBikes_Cnt_" + pageSize;
+            string key = string.Format("BW_UpcomingBikes_Cnt_{0}_SO_{1}",pageSize,(int)sortBy);
 
             if (makeId.HasValue && makeId.Value > 0)
-                key += "_Make_" + makeId;
+                key += "_MK_" + makeId;
 
             if (modelId.HasValue && modelId.Value > 0)
-                key += "_Model_" + modelId;
+                key += "_MO_" + modelId;
 
             try
             {
@@ -113,7 +113,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelPageDetails");
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
                 objErr.SendMail();
             }
 
