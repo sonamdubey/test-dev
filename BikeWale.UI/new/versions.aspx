@@ -304,7 +304,7 @@
                             <div class="clear"></div>
                              <%  }
                                 } %>
-                            <% if (!toShowOnRoadPriceButton && isBikeWalePQ && !(isOnRoadPrice && price > 0))
+                            <% if (!toShowOnRoadPriceButton && isBikeWalePQ && dealerId == 0)
 							   { %>
                             <div class="insurance-breakup-text text-bold padding-top10" >
                                 <a target="_blank" id="insuranceLink" href="/insurance/">Save up to 60% on insurance - PolicyBoss</a>

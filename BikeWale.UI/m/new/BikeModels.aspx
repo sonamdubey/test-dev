@@ -222,9 +222,9 @@
                             <%if (isOnRoadPrice && price > 0)
                               {%>
                             <span id="viewBreakupText" class="font16 text-bold viewBreakupText">View detailed price</span>
-                            <p class="font12 text-light-grey clear <%= (!toShowOnRoadPriceButton && isBikeWalePQ) ? "" : "margin-bottom20" %>" />
+                            <p class="font12 text-light-grey clear <%= dealerId > 0 ? "margin-bottom20" : "" %>" />
                             <% } %>
-                            <% if (!toShowOnRoadPriceButton && isBikeWalePQ && !(isOnRoadPrice && price > 0))
+                            <% if (!toShowOnRoadPriceButton && isBikeWalePQ && dealerId == 0)
                                { %>
                             <p class="margin-top10 margin-bottom20 clear">
                                 <a class="text-bold" style="position: relative; font-size: 14px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">Save up to 60% on insurance - PolicyBoss
