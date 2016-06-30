@@ -75,7 +75,7 @@ namespace Bikewale.Mobile.New
             ICity objCities = null;
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<ICity, CityRepository>();
+                container.RegisterType<ICity, Bikewale.BAL.Location.Cities>();
                 objCities = container.Resolve<ICity>();
                 dealerCity = objCities.GetDealerStateCities(makeId, stateId);
                 if (dealerCity != null && dealerCity.dealerCities != null && dealerCity.dealerCities.Count() > 0)
