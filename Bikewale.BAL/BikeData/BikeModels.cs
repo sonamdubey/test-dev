@@ -1,5 +1,7 @@
 ﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
@@ -7,6 +9,7 @@ using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
@@ -44,7 +47,8 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<IPager, BAL.Pager.Pager>();
                 container.RegisterType<IArticles, Articles>();
                 container.RegisterType<IUserReviewsCache, Bikewale.Cache.UserReviews.UserReviewsCacheRepository>();
-
+                container.RegisterType<ICacheManager, MemcacheManager>();
+                container.RegisterType<IUserReviews, UserReviewsRepository>();
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
                 _articles = container.Resolve<IArticles>();
