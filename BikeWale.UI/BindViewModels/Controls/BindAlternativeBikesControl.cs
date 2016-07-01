@@ -32,11 +32,11 @@ namespace Bikewale.BindViewModels.Controls
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeVersionCacheRepository<int>, BikeVersionsCacheRepository<BikeVersionEntity, int>>()
+                    container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity,int>, BikeVersionsCacheRepository<BikeVersionEntity, int>>()
                         .RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>()
                               .RegisterType<ICacheManager, MemcacheManager>()
                              ;
-                    var objCache = container.Resolve<IBikeVersionCacheRepository<int>>();
+                    var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity,int>>();
 
                     IEnumerable<SimilarBikeEntity> objSimilarBikes = objCache.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), Convert.ToUInt32(Deviation));
 

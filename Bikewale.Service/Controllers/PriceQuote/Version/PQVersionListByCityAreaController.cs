@@ -1,5 +1,4 @@
 ﻿using Bikewale.BAL.PriceQuote;
-using Bikewale.DAL.BikeData;
 using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.DTO.PriceQuote.Version.v2;
 using Bikewale.Entities.BikeData;
@@ -8,7 +7,6 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.Utilities;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +24,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
     public class PQVersionListByCityAreaController : CompressionApiController//ApiController
     {
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion = null;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
         private readonly IBikeModelsRepository<BikeModelEntity, int> _objModel = null;
 
         /// <summary>
@@ -33,10 +32,11 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
         /// </summary>
         /// <param name="objVersion"></param>
         /// <param name="objModel"></param>
-        public PQVersionListByCityAreaController(IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeModelsRepository<BikeModelEntity, int> objModel)
+        public PQVersionListByCityAreaController(IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeModelsRepository<BikeModelEntity, int> objModel, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache)
         {
             _objVersion = objVersion;
             _objModel = objModel;
+            _objVersionCache = objVersionCache;
         }
 
         /// <summary>
@@ -53,18 +53,15 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
             {
                 return BadRequest();
             }
+
             IEnumerable<BikeVersionMinSpecs> objVersionsList = null;
             PQByCityAreaDTO objPQDTO = null;
             PQByCityAreaEntity pqEntity = null;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-                objVersionsList = objVersion.GetVersionMinSpecs(modelId, true);
-            }
 
             try
             {
+                objVersionsList = _objVersionCache.GetVersionMinSpecs(Convert.ToUInt32(modelId), true);
+
                 if (objVersionsList != null && objVersionsList.Count() > 0)
                 {
                     PQByCityArea pqByCityArea = new PQByCityArea();
@@ -113,12 +110,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
             IEnumerable<BikeVersionMinSpecs> objVersionsList = null;
             PQByCityAreaDTOV2 objPQDTO = null;
             PQByCityAreaEntity pqEntity = null;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-                objVersionsList = objVersion.GetVersionMinSpecs(modelId, true);
-            }
+
+            objVersionsList = _objVersionCache.GetVersionMinSpecs(Convert.ToUInt32(modelId), true);
 
             try
             {
