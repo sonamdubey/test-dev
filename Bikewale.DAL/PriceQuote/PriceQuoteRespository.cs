@@ -86,10 +86,12 @@ namespace Bikewale.DAL.PriceQuote
                                 cmd.Parameters.Add("@refPQId", SqlDbType.Int).Value = pqParams.RefPQId.Value;
                             }
 
+                            LogLiveSps.LogSpInGrayLog(cmd);
                             conn.Open();
                             cmd.ExecuteNonQuery();
 
                             quoteId = Convert.ToUInt64(cmd.Parameters["@QuoteId"].Value);
+
                         }
                     }
                 }
@@ -150,7 +152,7 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Parameters.Add("@NumOfRows", SqlDbType.Int).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@CampaignId", SqlDbType.Int).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@ManufacturerId", SqlDbType.Int).Direction = ParameterDirection.Output;
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         conn.Open();
                         cmd.ExecuteNonQuery();
 
@@ -303,7 +305,7 @@ namespace Bikewale.DAL.PriceQuote
                         {
                             cmd.Parameters.Add("@BikeColorId", SqlDbType.Int).Value = pqParams.ColorId;
                         }
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
@@ -350,7 +352,7 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Connection = conn;
                         cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
                         cmd.Parameters.Add("@stateId", SqlDbType.Int).Value = Convert.ToInt32(state);
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
@@ -447,7 +449,7 @@ namespace Bikewale.DAL.PriceQuote
 
                         cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                         cmd.Parameters.Add("@TopCount", SqlDbType.TinyInt).Value = topCount;
-
+                        
                         using (SqlDataReader dr = db.SelectQry(cmd))
                         {
                             objPrice = new List<PriceQuoteOfTopCities>();
@@ -516,7 +518,7 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                         cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                         cmd.Parameters.Add("@TopRecords", SqlDbType.TinyInt).Value = topCount;
-
+                        
                         using (SqlDataReader dr = db.SelectQry(cmd))
                         {
                             objPrice = new List<PriceQuoteOfTopCities>();
@@ -586,6 +588,7 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                         cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                         cmd.Parameters.Add("@HasAreasInCity", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        
                         using (SqlDataReader dr = db.SelectQry(cmd))
                         {
                             bikePrices = new List<BikeQuotationEntity>();

@@ -149,10 +149,10 @@ namespace Bikewale.DAL.CMS
                         cmd.Parameters.Add("@PrevUrl", SqlDbType.VarChar, 200).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@PrevTitle", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
 
                         con.Open();
                         cmd.ExecuteNonQuery();
-
                         v = new V();
 
                         if (!string.IsNullOrEmpty(cmd.Parameters["@AuthorName"].Value.ToString()))

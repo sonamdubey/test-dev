@@ -1,7 +1,8 @@
 ﻿@charset "utf-8";
 /* CSS Document */
+header { width:100%; height:50px; }
+#bw-header.fixed { position: fixed; left: 0; right: 0; top: 0; z-index: 3; }
 .discover-bike-carousel .front, .discover-bike-carousel .back, .discover-bike-carousel .jcarousel li { height: auto; }
-body.listing-navbar-active #bikeByMakesListing, body.listing-navbar-active #bikeByMakesUpcoming, body.listing-navbar-active #makeTabsContentWrapper { position:relative; top:50px; }
 .content-inner-block-1520 { padding:15px 20px; }
 .pos-top3 { top:3px; }
 .text-x-black { color:#1a1a1a; }
@@ -41,7 +42,7 @@ body.listing-navbar-active #bikeByMakesListing, body.listing-navbar-active #bike
 #makeTabsContentWrapper h3 { font-size:14px; color:#4d5057; margin-bottom:12px; }
 .model-preview-more-content { display:none; }
 .border-divider { border-top:1px solid #e2e2e2; }
-.news-image-wrapper { width:148px; height:83px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:15px; }
+.news-image-wrapper { width:148px; height:83px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:15px; overflow:hidden; }
 .review-image-wrapper { width:120px; height:68px; border:1px solid #e2e2e2; display:inline-block; vertical-align:top; margin-right:15px; }
 .news-image-wrapper a, .review-image-wrapper a { width:100%; display:block; }
 .news-image-wrapper img, .review-image-wrapper img { width:100%; }

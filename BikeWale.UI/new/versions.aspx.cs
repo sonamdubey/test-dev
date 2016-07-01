@@ -613,6 +613,7 @@ namespace Bikewale.New
                     {
                         container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                  .RegisterType<ICacheManager, MemcacheManager>();
                         var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                         modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID));
@@ -780,6 +781,8 @@ namespace Bikewale.New
         /// Desc: Removed API Call for on road Price Quote
         /// Modified By : Lucky Rathore on 09 May 2016.
         /// Description : modelImage intialize.
+        /// Modified By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         /// <returns></returns>
         private PQOnRoadPrice GetOnRoadPrice()
@@ -804,7 +807,7 @@ namespace Bikewale.New
                     objPQEntity.VersionId = Convert.ToUInt32(hdnVariant.Value);
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_ModelPage);
                     objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                    objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                    objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
                     if (variantId == 0)

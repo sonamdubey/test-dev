@@ -46,17 +46,20 @@
     <Compile Include="BikeData\BikeMakesCacheRepository.cs" />
     <Compile Include="BikeData\BikeModelMaskingCache.cs" />
     <Compile Include="BikeData\BikeModelsCacheRepository.cs" />
+    <Compile Include="BikeData\BikeVersionsCacheRepository.cs" />
     <Compile Include="Compare\BikeCompareCacheRepository.cs" />
     <Compile Include="DealersLocator\DealerCacheRepository.cs" />
     <Compile Include="Location\AreaCacheRepository.cs" />
     <Compile Include="Location\CityCacheRepository.cs" />
     <Compile Include="Location\CityMaskingCache.cs" />
+    <Compile Include="Location\StateCacheRepository.cs" />
     <Compile Include="Memcache\BWMemcache.cs" />
     <Compile Include="Memcache\MakeMapping.cs" />
     <Compile Include="PriceQuote\PriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsedBikes\UsedBikesCacheRepository.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesCacheRepository.cs" />
+    <Compile Include="UserReviews\UserReviewsCacheRepository.cs" />
     <Compile Include="Videos\VideosCacheRepository.cs" />
   </ItemGroup>
   <ItemGroup>

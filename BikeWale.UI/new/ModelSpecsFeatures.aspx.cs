@@ -50,6 +50,8 @@ namespace Bikewale.New
 
         /// <summary>
         /// Created By : Lucky Rathore on 03 June 2016
+        /// Modified By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -75,7 +77,7 @@ namespace Bikewale.New
                 {
                     string PQLeadId = (PQSourceEnum.Desktop_SpecsAndFeaturePage_OnLoad).ToString();
                     string UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : string.Empty;
-                    string UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : string.Empty;
+                    string UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : string.Empty;
                     string DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : string.Empty;
 
                     pqOnRoad = new PQByCityArea();
@@ -171,6 +173,7 @@ namespace Bikewale.New
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                            .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                                  .RegisterType<ICacheManager, MemcacheManager>();
                         var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();

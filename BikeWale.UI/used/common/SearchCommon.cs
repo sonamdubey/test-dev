@@ -66,7 +66,7 @@ namespace Bikewale.Used
 				
 				prm = cmd.Parameters.Add("@IsDealer", SqlDbType.Bit);
 				prm.Value = isDealer;
-				
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 				con.Open();
 				
     			int rowsUpdated = (int)cmd.ExecuteNonQuery();

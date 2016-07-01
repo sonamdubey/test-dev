@@ -79,10 +79,11 @@ namespace Bikewale.DAL.BikeBooking
                         {
                             cmd.Parameters.Add("@deviceId", SqlDbType.VarChar, 25).Value = entity.DeviceId;
                         }
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         conn.Open();
                         cmd.ExecuteNonQuery();
                         isSuccess = true;
+
                     }
                 }
             }
@@ -685,7 +686,7 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add("@CustomerId", SqlDbType.VarChar, 50).Value = customerId;
                         cmd.Parameters.Add("@CustomerMobile", SqlDbType.VarChar, 50).Value = customerMobile;
                         cmd.Parameters.Add("@IsDealerNotified", SqlDbType.Bit).Direction = ParameterDirection.Output;
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         con.Open();
 
                         cmd.ExecuteNonQuery();
@@ -737,6 +738,7 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add("@VersionId", SqlDbType.VarChar, 50).Value = versionId;
                         cmd.Parameters.Add("@IsDealerPriceAvailable", SqlDbType.Bit).Direction = ParameterDirection.Output;
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         con.Open();
 
                         cmd.ExecuteNonQuery();

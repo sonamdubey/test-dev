@@ -62,7 +62,7 @@ namespace Bikewale.Used
                 // Out put parameter
                 prm = cmd.Parameters.Add("@PhotoId", SqlDbType.BigInt);
                 prm.Direction = ParameterDirection.Output;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 cmd.ExecuteNonQuery();
 
@@ -108,7 +108,7 @@ namespace Bikewale.Used
 
                 prm = cmd.Parameters.Add("@PhotoId", SqlDbType.BigInt);
                 prm.Value = photoId;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 cmd.ExecuteNonQuery();
 
@@ -157,7 +157,7 @@ namespace Bikewale.Used
 
                 prm = cmd.Parameters.Add("@IsDealer", SqlDbType.Bit);
                 prm.Value = isDealer;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 cmd.ExecuteNonQuery();
 
@@ -204,7 +204,7 @@ namespace Bikewale.Used
 
                 prm = cmd.Parameters.Add("@ImgDesc", SqlDbType.VarChar, 200);
                 prm.Value = imgDesc;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 cmd.ExecuteNonQuery();
 

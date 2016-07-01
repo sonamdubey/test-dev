@@ -55,7 +55,7 @@ namespace Bikewale.Forums.Common
 														
 				prm = cmd.Parameters.Add("@ThreadId", SqlDbType.BigInt);
 				prm.Direction = ParameterDirection.Output;
-						
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);	
 				con.Open();
 				//run the command
 				cmd.ExecuteNonQuery();
@@ -113,7 +113,7 @@ namespace Bikewale.Forums.Common
 				
 				prm = cmd.Parameters.Add("@PostId", SqlDbType.BigInt);
 				prm.Direction = ParameterDirection.Output;
-																
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);												
 				con.Open();
 				//run the command
     			cmd.ExecuteNonQuery();

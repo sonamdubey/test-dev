@@ -77,6 +77,7 @@
     <style>
         .container-min-height { min-height:530px; }
     </style>
+    <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
 </head>
 <body class="header-fixed-inner">
     <form runat="server">    

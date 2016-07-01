@@ -234,6 +234,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     conn.Open();
                     cmd.ExecuteNonQuery();
 
@@ -323,6 +324,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     conn.Open();
                     cmd.ExecuteNonQuery();
 

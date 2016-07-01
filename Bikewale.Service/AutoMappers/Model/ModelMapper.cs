@@ -363,8 +363,10 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
                         
                     }
-                    objDTOModelPage.SecondaryDealerCount = (ushort) dealers.SecondaryDealerCount;
-
+                    if((pqEntity.IsAreaExists && pqEntity.IsAreaSelected) || !pqEntity.IsAreaExists)
+                    {
+                        objDTOModelPage.SecondaryDealerCount = (ushort)dealers.SecondaryDealerCount;
+                    }
                 }
             }
             catch (System.Exception)

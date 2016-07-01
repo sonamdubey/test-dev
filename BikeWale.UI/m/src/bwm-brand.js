@@ -1,6 +1,6 @@
 ﻿$("#sort-btn").click(function () {
     $("#sort-by-div").slideToggle('fast');
-    $("html, body").animate({ scrollTop: $("header").offset().top }, 0);
+    $("html, body").animate({ scrollTop: $("#bw-header").offset().top }, 0);
 });
 
 $('#sort-by-div a[data-title="sort"]').click(function () {
@@ -99,6 +99,9 @@ $(document).ready(function () {
         topNavBarHeight = overallSpecsTabsContainer.height();
 
     var tabsLength = $('.overall-specs-tabs-wrapper li').length - 1;
+    if (tabsLength < 2) {
+        $('.overall-specs-tabs-wrapper li').css({ 'display': 'inline-block', 'width': 'auto' });
+    }
 
     makeOverallTabsWrapper.find('.overall-specs-tabs-wrapper li').first().addClass('active');
 
@@ -108,23 +111,23 @@ $(document).ready(function () {
             makeOverallTabsOffsetTop = makeOverallTabsWrapper.offset().top,
             makeSpecsFooterOffsetTop = makeSpecsFooter.offset().top;
 
-        if ($('header').offset().top > 90) {
-            if (windowScrollTop > $('header').offset().top)
+        if ($('#bw-header').offset().top > 90) {
+            if (windowScrollTop > $('#bw-header').offset().top)
                 showHeaderDiv();
         }
 
-        else if ($('header').offset().top < 90) {
+        else if ($('#bw-header').offset().top < 90) {
             showHeaderDiv();
         }
 
         if($('body').hasClass('listing-navbar-active')) {
             if (windowScrollTop > listItemsFooterOffsetTop - 120) {
-                $('header, #sort-by-div').removeClass('fixed');
+                $('#bw-header, #sort-by-div').removeClass('fixed');
                 $('#sort-by-div').hide();
                 $('body').removeClass('listing-navbar-active');
             }
             else if (windowScrollTop == 0 || windowScrollTop < 100) {
-                $('header, #sort-by-div').removeClass('fixed');
+                $('#bw-header, #sort-by-div').removeClass('fixed');
                 $('body').removeClass('listing-navbar-active');
             }
         }
@@ -175,8 +178,8 @@ $(document).ready(function () {
     });
 
     function showHeaderDiv() {
-        $('header, #sort-by-div').addClass('fixed');
-        $('header').show();
+        $('#bw-header, #sort-by-div').addClass('fixed');
+        $('#bw-header').show();
         $('body').addClass('listing-navbar-active');
         if (!$('body').hasClass('listing-navbar-active'))
             $('#sort-by-div').hide();

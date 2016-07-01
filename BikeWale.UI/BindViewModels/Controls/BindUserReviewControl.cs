@@ -1,13 +1,13 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Cache.UserReviews;
+using Bikewale.Common;
 using Bikewale.DAL.UserReviews;
-using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -47,16 +47,19 @@ namespace Bikewale.BindViewModels.Controls
                 Paging.GetStartEndIndex(PageSize, PageNo, out stratIndex, out endIndex);
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IUserReviews, UserReviewsRepository>();
-                    IUserReviews objVersion = container.Resolve<IUserReviews>();
+                    container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
+                    .RegisterType<ICacheManager, MemcacheManager>()
+                    .RegisterType<IUserReviews, UserReviewsRepository>();
+                    IUserReviewsCache objVersion = container.Resolve<IUserReviewsCache>();
                     uint recCount = Convert.ToUInt16(RecordCount);
-                    List<ReviewEntity> userReviewLists = objVersion.GetBikeReviewsList((uint)stratIndex, (uint)endIndex, (uint)ModelId, 0, Filter, out recCount);
-                    if (userReviewLists.Count > 0)
+                    ReviewListBase reviews = objVersion.GetBikeReviewsList((uint)stratIndex, (uint)endIndex, (uint)ModelId, 0, Filter);
+
+                    if (reviews != null && reviews.ReviewList != null && reviews.ReviewList.Count > 0)
                     {
-                        FetchedRecordsCount = userReviewLists.Count;
-                        MakeMaskingName = userReviewLists.FirstOrDefault().MakeMaskingName;
-                        ModelMaskingName = userReviewLists.FirstOrDefault().ModelMaskingName;
-                        rptUserReviews.DataSource = userReviewLists;
+                        FetchedRecordsCount = reviews.ReviewList.Count;
+                        MakeMaskingName = reviews.ReviewList.FirstOrDefault().MakeMaskingName;
+                        ModelMaskingName = reviews.ReviewList.FirstOrDefault().ModelMaskingName;
+                        rptUserReviews.DataSource = reviews.ReviewList;
                         rptUserReviews.DataBind();
                     }
                 }

@@ -63,6 +63,7 @@ namespace Bikewale.Newsletter
                 cmd.CommandType = CommandType.StoredProcedure;
                 prm = cmd.Parameters.Add("@Email", SqlDbType.VarChar);
                 prm.Value = txtEmail.Text;
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 //run the command
                 cmd.ExecuteNonQuery();

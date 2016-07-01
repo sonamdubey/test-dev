@@ -3,7 +3,6 @@ using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.PriceQuote;
@@ -61,6 +60,13 @@ namespace Bikewale.New
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
+
             ParseQueryString();
             if (redirectToPageNotFound || redirectPermanent)
             {

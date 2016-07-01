@@ -123,7 +123,7 @@ namespace Bikewale.Used
 				
 				prm = cmd.Parameters.Add("@EntryDateTime", SqlDbType.DateTime);
 				prm.Value = DateTime.Now;
-																		
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);													
 				con.Open();
 				//run the command
     			cmd.ExecuteNonQuery();
@@ -176,7 +176,7 @@ namespace Bikewale.Used
 				
 				prm = cmd.Parameters.Add("@Status", SqlDbType.Bit);
 				prm.Direction = ParameterDirection.Output;
-																		
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);											
 				con.Open();				
     			cmd.ExecuteNonQuery();//run the command
 
@@ -289,7 +289,7 @@ namespace Bikewale.Used
                 cmd.Parameters.Add("@AlertFrequency", SqlDbType.TinyInt).Value = alertFrq;
                 cmd.Parameters.Add("@alertUrl",SqlDbType.VarChar,8000).Value = url;
                 cmd.Parameters.Add("@Status", SqlDbType.Bit).Direction = ParameterDirection.Output;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 cmd.ExecuteNonQuery();//run the command
 

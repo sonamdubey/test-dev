@@ -207,7 +207,7 @@
                 dataType: 'json',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('utma', getCookie('__utma'));
-                    xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                    xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                 },
                 success: function (json) {
                     var jsonObj = json;

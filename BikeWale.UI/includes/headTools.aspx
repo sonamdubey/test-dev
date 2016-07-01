@@ -73,6 +73,7 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
         })();
     </script>    
+    <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
 </head>
 <body class="bg-white header-fixed-inner">
     <form runat="server">        

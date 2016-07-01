@@ -51,10 +51,11 @@ namespace Bikewale.DAL.Customer
                         cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = string.IsNullOrEmpty(t.ClientIP) ? Convert.DBNull : t.ClientIP;
                         cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
+
                         con.Open();
 
-                        cmd.ExecuteNonQuery();
-
+                        cmd.ExecuteNonQuery();                        
                         customerId = (U)Convert.ChangeType(cmd.Parameters["@CustomerId"].Value, typeof(U));
                     }
                 }
@@ -191,10 +192,10 @@ namespace Bikewale.DAL.Customer
                         cmd.Parameters.Add("@PasswordHash", SqlDbType.VarChar, 64).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@IsVerified", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@IsExist", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        LogLiveSps.LogSpInGrayLog(cmd);
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
-
                         t = new T();
 
                         if (Convert.ToBoolean(cmd.Parameters["@IsExist"].Value))
@@ -269,9 +270,10 @@ namespace Bikewale.DAL.Customer
                         cmd.Parameters.Add("@IsVerified", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@IsExist", SqlDbType.Bit).Direction = ParameterDirection.Output;
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
+
                         conn.Open();
                         cmd.ExecuteNonQuery();
-
                         t = new T();
 
                         if (Convert.ToBoolean(cmd.Parameters["@IsExist"].Value))
@@ -454,10 +456,11 @@ namespace Bikewale.DAL.Customer
                         cmd.Parameters.Add("@Token", SqlDbType.VarChar, 200).Value = token;
                         cmd.Parameters.Add("@IsValidToken", SqlDbType.Bit).Direction = ParameterDirection.Output;
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
+
                         conn.Open();
 
                         cmd.ExecuteNonQuery();
-
                         isValidtoken = Convert.ToBoolean(cmd.Parameters["@IsValidtoken"].Value);
                     }
                 }

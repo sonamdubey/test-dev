@@ -1,17 +1,15 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Location
 {
     /// <summary>
     /// Created By : Ashish G. Kamble
     /// Modified By : Ashish G. Kamble on 7 June 2016
+    /// Modified By Vive Gupta on 24 june 2016
+    /// Desc : added description for GetDealerStateCities
     /// </summary>
     public interface ICity
     {
@@ -20,5 +18,6 @@ namespace Bikewale.Interfaces.Location
         List<CityEntityBase> GetCities(string stateId, EnumBikeType requestType);
         Hashtable GetMaskingNames();
         Hashtable GetOldMaskingNames();
+        DealerStateCities GetDealerStateCities(uint makeId, uint stateId);
     }
 }

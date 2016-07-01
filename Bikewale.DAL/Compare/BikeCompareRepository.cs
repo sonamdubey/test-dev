@@ -37,7 +37,8 @@ namespace Bikewale.DAL.Compare
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Connection = connection;
                         command.Parameters.Add("@BikeVersions", System.Data.SqlDbType.VarChar).Value = versions;
-
+                   
+                        LogLiveSps.LogSpInGrayLog(command);
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -255,7 +256,7 @@ namespace Bikewale.DAL.Compare
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Connection = connection;
                         command.Parameters.Add("@TopCount", System.Data.SqlDbType.SmallInt).Value = topCount;
-
+                        LogLiveSps.LogSpInGrayLog(command);
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader(System.Data.CommandBehavior.CloseConnection))
                         {
@@ -335,7 +336,7 @@ namespace Bikewale.DAL.Compare
                         command.Connection = connection;
                         command.Parameters.Add("@BikeVersionIdList", System.Data.SqlDbType.VarChar, 20).Value = versionList;
                         command.Parameters.Add("@TopCount", System.Data.SqlDbType.SmallInt).Value = topCount;
-
+                        LogLiveSps.LogSpInGrayLog(command);
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader(System.Data.CommandBehavior.CloseConnection))
                         {

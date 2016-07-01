@@ -12,6 +12,7 @@ using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.UsedBikes;
+using Bikewale.Cache.UserReviews;
 using Bikewale.DAL.App;
 using Bikewale.DAL.AppAlert;
 using Bikewale.DAL.BikeBooking;
@@ -93,6 +94,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IState, StateRepository>();
             container.RegisterType<IUsedBikes, UsedBikesRepository>();
             container.RegisterType<IUserReviews, UserReviewsRepository>();
+            container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>();
             container.RegisterType<ISearchResult, SearchResult>();
             container.RegisterType<IProcessFilter, ProcessFilter>();
             container.RegisterType<ICacheManager, MemcacheManager>();

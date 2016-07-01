@@ -1,11 +1,9 @@
-﻿using Bikewale.Interfaces.Cache.Core;
+﻿using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Cache.Location
 {
@@ -40,7 +38,7 @@ namespace Bikewale.Cache.Location
             string key = string.Empty;
             try
             {
-                key = String.Format("BW_PQCity_{0}",modelId);
+                key = String.Format("BW_PQCity_{0}", modelId);
                 topBikeComapareBase = _cache.GetFromCache<IEnumerable<Entities.Location.CityEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objCity.GetPriceQuoteCities(modelId));
             }
             catch (Exception ex)
@@ -49,6 +47,31 @@ namespace Bikewale.Cache.Location
                 objErr.SendMail();
             }
             return topBikeComapareBase;
+        }
+
+        /// <summary>
+        /// Created By : Vivek Gupta
+        /// Date : 24 june 2016
+        /// Desc : get dealer cities for dealer locator
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="stateId"></param>
+        /// <returns></returns>
+        public DealerStateCities GetDealerStateCities(uint makeId, uint stateId)
+        {
+            DealerStateCities objStateCities = null;
+            string key = string.Empty;
+            try
+            {
+                key = String.Format("BW_CitywiseDealersCnt_Make_{0}_State_{1}", makeId, stateId);
+                objStateCities = _cache.GetFromCache<DealerStateCities>(key, new TimeSpan(1, 0, 0), () => _objCity.GetDealerStateCities(makeId, stateId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.GetDealerStateCities");
+                objErr.SendMail();
+            }
+            return objStateCities;
         }
     }
 }

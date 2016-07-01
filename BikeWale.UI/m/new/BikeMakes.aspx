@@ -226,17 +226,17 @@
         <section>
             <div class="container">
                 <div class="content-inner-block-10 margin-bottom30">
-                    <div id="discontinuedModels" class="margin-top10 padding10" style="display: block;">
+                    <div id="discontinuedModels" style="display: block;">
                         <div id="discontinuedLess">
                             Discontinued <%=_make.MakeName %> models: - <span id="spnContent"></span>
                         </div>
                         <div id="discontinuedMore">
                             Discontinued <%=_make.MakeName %> models: - 
-                                <asp:Repeater ID="rptDiscontinued" runat="server">
-                                    <ItemTemplate>
-                                        <a title="<%# DataBinder.Eval(Container.DataItem,"BikeName").ToString()%>" href="<%# DataBinder.Eval(Container.DataItem,"Href").ToString()%>"><%# DataBinder.Eval(Container.DataItem,"BikeName").ToString()%></a>,
-                                    </ItemTemplate>
-                                </asp:Repeater>
+                            <asp:Repeater ID="rptDiscontinued" runat="server">
+                                <ItemTemplate>
+                                    <a title="<%# DataBinder.Eval(Container.DataItem,"BikeName").ToString()%>" href="<%# DataBinder.Eval(Container.DataItem,"Href").ToString()%>"><%# DataBinder.Eval(Container.DataItem,"BikeName").ToString()%></a>,
+                                </ItemTemplate>
+                            </asp:Repeater>
                         </div>
                     </div>
                 </div>
