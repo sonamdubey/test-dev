@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Configuration;
+using Bikewale.Notifications;
 
 //SQL Syntex For Parameterised Query
 //UPDATE TableName SET value1=@value1, value2=@value2 WHERE Id=@Id
@@ -68,6 +69,7 @@ namespace Bikewale.Common
       {
         con.Open();
         cmd = new SqlCommand(strSql, con);
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
         return dataReader;
@@ -95,6 +97,7 @@ namespace Bikewale.Common
 
           cmd.Parameters.Add(p);
         }
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
         cmd.Parameters.Clear();
       }
@@ -112,7 +115,7 @@ namespace Bikewale.Common
     {
       con = new SqlConnection(strConn);
       SqlDataReader dataReader = null;
-
+      Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmdParam);
       try
       {
         cmdParam.Connection = con;
@@ -141,6 +144,7 @@ namespace Bikewale.Common
       {
         SqlDataAdapter adapter = new SqlDataAdapter();
         adapter.SelectCommand = new SqlCommand(strSql, con);
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         adapter.Fill(dataSet);
       }
       catch (Exception err)
@@ -175,6 +179,7 @@ namespace Bikewale.Common
 
           adapter.SelectCommand.Parameters.Add(p);
         }
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         adapter.Fill(dataSet);
         adapter.SelectCommand.Parameters.Clear();
       }
@@ -198,7 +203,7 @@ namespace Bikewale.Common
       con = new SqlConnection(strConn);
       DataSet dataSet = new DataSet();
       SqlDataAdapter adapter = new SqlDataAdapter();
-
+      Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmdParam);
       try
       {
         cmdParam.Connection = con;
@@ -251,6 +256,7 @@ namespace Bikewale.Common
       try
       {
         cmd = new SqlCommand(strSql, con);
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         con.Open();
 
         intRetRows = cmd.ExecuteNonQuery();
@@ -278,6 +284,7 @@ namespace Bikewale.Common
       try
       {
         cmd = new SqlCommand(sqlStr, con);
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         con.Open();
 
         foreach (SqlParameter p in commandParameters)
@@ -319,6 +326,7 @@ namespace Bikewale.Common
       try
       {
         cmdParam.Connection = con;
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmdParam);
         con.Open();
 
         int retval = cmdParam.ExecuteNonQuery();
@@ -350,6 +358,7 @@ namespace Bikewale.Common
       try
       {
         cmd = new SqlCommand(strSql, con);
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         con.Open();
         intRetRows = cmd.ExecuteNonQuery();
 
@@ -377,6 +386,7 @@ namespace Bikewale.Common
       try
       {
         cmd = new SqlCommand(sqlStr, con);
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         con.Open();
 
         foreach (SqlParameter p in commandParameters)
@@ -418,7 +428,7 @@ namespace Bikewale.Common
       {
         cmdParam.Connection = con;
         con.Open();
-
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmdParam);
         int retval = cmdParam.ExecuteNonQuery();
 
         if (retval > 0)
@@ -448,6 +458,7 @@ namespace Bikewale.Common
       try
       {
         cmd = new SqlCommand(strSql, con);
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         con.Open();
 
         intRetRows = cmd.ExecuteNonQuery();
@@ -482,7 +493,7 @@ namespace Bikewale.Common
 
           cmd.Parameters.Add(p);
         }
-
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         intRetRows = cmd.ExecuteNonQuery();
         cmd.Parameters.Clear();
       }
@@ -508,7 +519,7 @@ namespace Bikewale.Common
       {
         cmd = new SqlCommand(strSql, con);
         con.Open();
-
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         intRetRows = cmd.ExecuteNonQuery();
         if (intRetRows > 0)
         {
@@ -549,7 +560,7 @@ namespace Bikewale.Common
 
           cmd.Parameters.Add(p);
         }
-
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         int retval = cmd.ExecuteNonQuery();
 
         if (retval > 0)
@@ -583,7 +594,7 @@ namespace Bikewale.Common
       {
         cmdParam.Connection = con;
         con.Open();
-
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmdParam);
         int retval = cmdParam.ExecuteNonQuery();
 
         if (retval > 0)
@@ -621,6 +632,7 @@ namespace Bikewale.Common
       {
         con.Open();
         cmd = new SqlCommand(strSql, con);
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         val = Convert.ToString(cmd.ExecuteScalar());
       }
       catch (Exception err)
@@ -653,6 +665,7 @@ namespace Bikewale.Common
 
           cmd.Parameters.Add(p);
         }
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         val = Convert.ToString(cmd.ExecuteScalar());
         cmd.Parameters.Clear();
       }
@@ -779,6 +792,7 @@ namespace Bikewale.Common
         cmd.CommandType = CommandType.StoredProcedure;
         con.Open();
         cmd.Parameters.AddRange(commandParameters);
+        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         val = Convert.ToInt32(cmd.ExecuteScalar());
 
       }

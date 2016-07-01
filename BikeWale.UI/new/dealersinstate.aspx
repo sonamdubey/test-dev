@@ -5,11 +5,12 @@
 <html>
 <head>
     <% 
-        title = string.Format("{0} Bike Dealers in {1} | {0} Bike Showrooms in {1} - BikeWale", objMMV.Make, stateName);
-        keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.Make);
-        description = string.Format("{0} bike dealers/showrooms in {1}. Find dealer information for more than {2} dealers in {3} cities. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.Make,stateName, DealerCount, citiesCount);
-        canonical = string.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}-state/", objMMV.MakeMappingName, stateMaskingName);
-        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}-state/", objMMV.MakeMappingName, stateMaskingName);
+        title = string.Format("{0} Bike Dealers in {1} | {0} Bike Showrooms in {1} - BikeWale", objMMV.MakeName, stateName);
+        keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.MakeName);
+        description = string.Format("{0} bike dealers/showrooms in {1}. Find dealer information for more than {2} dealers in {3} cities. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.MakeName,stateName, DealerCount, citiesCount);
+        canonical = string.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
+        isAd970x90Shown = false;
+        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealersbylocation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
@@ -40,7 +41,7 @@
                 <div id="listingSidebar" class="bg-white position-abt pos-right0">
                     <div id="listingSidebarHeading" class="padding-top15 padding-right20 padding-left20">
                         <div class="margin-bottom20">
-                            <h1 id="sidebarHeader" class="font16 margin-bottom10"><%=objMMV.Make %> bike dealers in <%= stateName %></h1>
+                            <h1 id="sidebarHeader" class="font16 margin-bottom10"><%=objMMV.MakeName %> bike dealers in <%= stateName %></h1>
                             <h2 class="text-unbold font14 text-xt-light-grey border-solid-bottom padding-bottom15"><%=DealerCount %> dealer<%= DealerCount > 1? "s": "" %> across <%=citiesCount %> cit<%= citiesCount > 1? "ies": "y" %> in <%= stateName %></h2>
                         </div>
                         <div class="form-control-box">
@@ -52,7 +53,7 @@
                         </div>
                         <% if(dealerCity!=null && dealerCity.dealerStates!=null){ %>
                         <div class="padding-top10 padding-bottom10">
-                            <a href="/new/<%= objMMV.MakeMappingName %>-dealers/" class="inline-block"><span class="bwsprite back-icon"></span></a>
+                            <a href="/new/<%= objMMV.MaskingName %>-dealers/" class="inline-block"><span class="bwsprite back-icon"></span></a>
                             <span class="font16 text-black inline-block"><%= dealerCity.dealerStates.StateName %></span>
                         </div>
                         <% } %>
@@ -61,7 +62,7 @@
                         <asp:Repeater ID="rptCity" runat="server">
                             <ItemTemplate>
                                 <li>
-                                   <a href="/<%=objMMV.MakeMappingName %>-bikes/dealers-in-<%#DataBinder.Eval(Container.DataItem,"cityMaskingName") %>/" data-item-id="<%#DataBinder.Eval(Container.DataItem,"cityId") %>"><%#DataBinder.Eval(Container.DataItem,"CityName") %> (<%#DataBinder.Eval(Container.DataItem,"DealersCount") %>)</a>
+                                   <a href="/<%=objMMV.MaskingName %>-bikes/dealers-in-<%#DataBinder.Eval(Container.DataItem,"cityMaskingName") %>/" data-item-id="<%#DataBinder.Eval(Container.DataItem,"cityId") %>"><%#DataBinder.Eval(Container.DataItem,"CityName") %> (<%#DataBinder.Eval(Container.DataItem,"DealersCount") %>)</a>
                                 </li>
                             </ItemTemplate>
                         </asp:Repeater>
@@ -75,7 +76,7 @@
             <div class="grid-12 alpha omega">
                 <div class="dealer-map-wrapper">
                     <div id="dealersMapWrapper" style="position: fixed; top: 50px; width: 100%; height: 530px;">
-                        <div id="dealersMap" style="width: 100%; height: 530px;">
+                        <div id="dealersMap" class="dealers-state-map" style="width: 100%; height: 530px;">
                         </div>
                     </div>
                 </div>

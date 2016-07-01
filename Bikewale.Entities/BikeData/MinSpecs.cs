@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
+    [Serializable,DataContract]
     public class MinSpecsEntity
     {
+        [DataMember]
         public float? Displacement { get; set; }
+        [DataMember]
         public ushort? FuelEfficiencyOverall { get; set; }
+        [DataMember]
         public float? MaxPower { get; set; }
+        [DataMember]
         public float? MaximumTorque { get; set; }
     }
 }

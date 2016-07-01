@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.UserReviews
 {
+    [Serializable, DataContract]
     public class ReviewRatingEntity : ReviewRatingEntityBase
     {
+        [DataMember]
         public float StyleRating { get; set; }
+        [DataMember]
         public float ComfortRating { get; set; }
+        [DataMember]
         public float PerformanceRating { get; set; }
+        [DataMember]
         public float ValueRating { get; set; }
-        public float FuelEconomyRating { get; set; }        
+        [DataMember]
+        public float FuelEconomyRating { get; set; }
     }
 }

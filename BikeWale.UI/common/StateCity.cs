@@ -236,7 +236,7 @@ namespace Bikewale.Common
                     db = new Database();
                     conn = new SqlConnection(db.GetConString());
                     cmd.Connection = conn;
-
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     conn.Open();
 
                     cmd.ExecuteNonQuery();

@@ -24,7 +24,7 @@ namespace BikewaleAutoSuggest
                         cmd.CommandText = "GetAutoSuggestMakeModelList";                                        //  Call SP
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                         conn.Open();
 
                         SqlDataReader dr = cmd.ExecuteReader();

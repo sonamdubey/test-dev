@@ -46,7 +46,7 @@ namespace Bikewale.Ajax
 
                 prm = cmd.Parameters.Add("@alertType", SqlDbType.Int);
                 prm.Value = alertType;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 //run the command
                 cmd.ExecuteNonQuery();
@@ -180,7 +180,7 @@ namespace Bikewale.Ajax
 
                 prm = cmd.Parameters.Add("@createDate", SqlDbType.DateTime);
                 prm.Value = DateTime.Now;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 con.Open();
                 //run the command
                 cmd.ExecuteNonQuery();
@@ -238,6 +238,7 @@ namespace Bikewale.Ajax
 	
 			try
 			{
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 				con.Open() ;
 				cmd.ExecuteNonQuery() ;
 				
@@ -300,8 +301,8 @@ namespace Bikewale.Ajax
 			
 			prm = cmd.Parameters.Add("@HandleName", SqlDbType.VarChar, 500);
 			prm.Direction = ParameterDirection.Output;
-	
-	
+
+            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 			try
 			{
 				con.Open() ;
@@ -492,8 +493,8 @@ namespace Bikewale.Ajax
 			
 			prm = cmd.Parameters.Add("@IsSaved", SqlDbType.Bit);
 			prm.Direction = ParameterDirection.Output;
-	
-	
+
+            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 			try
 			{
 				con.Open() ;

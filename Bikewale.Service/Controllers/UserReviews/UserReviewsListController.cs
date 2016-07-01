@@ -22,9 +22,11 @@ namespace Bikewale.Service.Controllers.UserReviews
     {
 
         private readonly IUserReviews _userReviewsRepo = null;
-        public UserReviewsListController(IUserReviews userReviewsRepo)
+        private readonly IUserReviewsCache _userReviewsCacheRepo = null;
+        public UserReviewsListController(IUserReviews userReviewsRepo, IUserReviewsCache userReviewsCacheRepo)
         {
             _userReviewsRepo = userReviewsRepo;
+            _userReviewsCacheRepo = userReviewsCacheRepo;
         }
 
         #region Get Reviewed Bike List
@@ -116,11 +118,11 @@ namespace Bikewale.Service.Controllers.UserReviews
         [ResponseType(typeof(IEnumerable<Review>))]
         public IHttpActionResult Get(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter, uint totalRecords)
         {
-            List<ReviewEntity> objUserReview = null;
-            List<Review> objDTOUserReview = null;
+            IEnumerable<ReviewEntity> objUserReview = null;
+            IEnumerable<Review> objDTOUserReview = null;
             try
             {
-                objUserReview = _userReviewsRepo.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalRecords);
+                objUserReview = _userReviewsCacheRepo.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter).ReviewList;
 
                 if (objUserReview != null)
                 {
@@ -128,7 +130,6 @@ namespace Bikewale.Service.Controllers.UserReviews
                     objDTOUserReview = new List<Review>();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
-                    objUserReview.Clear();
                     objUserReview = null;
 
                     return Ok(objDTOUserReview);

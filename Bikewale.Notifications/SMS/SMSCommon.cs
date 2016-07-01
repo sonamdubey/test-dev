@@ -179,6 +179,7 @@ namespace Bikewale.Notifications
                             cmd.Parameters.Add("@CurrentId", SqlDbType.Int).Value = Convert.ToInt32(currentId);
                             cmd.Parameters.Add("@RetMsg", SqlDbType.VarChar).Value = retMsg;
                             con.ConnectionString = Bikewale.Utility.BWConfiguration.Instance.BWConnectionString;
+                            LogLiveSps.LogSpInGrayLog(cmd);
                             con.Open();
                             cmd.ExecuteNonQuery();
                         }
@@ -234,7 +235,7 @@ namespace Bikewale.Notifications
 
                         prm = cmd.Parameters.Add("@SMSPageUrl", SqlDbType.VarChar, 500);
                         prm.Value = pageUrl;
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         con.Open();
                         //run the command
                         //cmd.ExecuteNonQuery();

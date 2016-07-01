@@ -173,6 +173,9 @@
                 </div>
                 <div id="pqDealerBody" class="font14 padding-right10 padding-left10 border-rbl">
                     <p class="font14 text-light-grey padding-bottom10 margin-bottom15 border-light-bottom"><%= dealerArea %></p>
+                    
+                    <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard || !String.IsNullOrEmpty(maskingNum))
+                    { %>
                     <p class="text-light-grey margin-bottom10">Dealership contact details:</p>
                     <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
                        {%>
@@ -286,8 +289,9 @@
                         <div class="clear"></div>
                     </div>
                     <%} %>
+                  <% } %>
                     <div id="pqRemoveHeader"></div>
-                </div>
+                </div>               
             </div>
             <!-- show below div when no premium dealer -->
             <%}
@@ -690,7 +694,7 @@
                             data: ko.toJSON(objCust),
                             beforeSend: function (xhr) {
                                 xhr.setRequestHeader('utma', getCookie('__utma'));
-                                xhr.setRequestHeader('utmz', getCookie('BWUtmz'));
+                                xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                             },
                             async: false,
                             contentType: "application/json",
@@ -1103,7 +1107,7 @@
                     dataType: 'json',
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('utma', getCookie('__utma'));
-                        xhr.setRequestHeader('utmz', getCookie('BWUtmz'));
+                        xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                     },
                     success: function (json) {
                         var jsonObj = json;

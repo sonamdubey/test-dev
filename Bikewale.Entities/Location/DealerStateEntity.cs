@@ -10,7 +10,7 @@ namespace Bikewale.Entities.Location
     /// Desc: get dealer states
     /// </summary>
 
-    [Serializable]
+    [Serializable, DataContract]
     public class DealerStateEntity : StateEntityBase
     {
 

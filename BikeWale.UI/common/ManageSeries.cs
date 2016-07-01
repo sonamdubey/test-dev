@@ -74,6 +74,7 @@ namespace Bikewale.Common
                         cmd.Parameters.Add("@Series", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@MakeName", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@MakeId", SqlDbType.Int).Direction = ParameterDirection.Output;
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                         con.Open();
                         cmd.ExecuteNonQuery();
                         seriesDesc = cmd.Parameters["@Synopsis"].Value.ToString();

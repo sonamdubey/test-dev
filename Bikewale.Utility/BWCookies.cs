@@ -47,31 +47,31 @@ namespace Bikewale.Utility
                 
                 if (httpReffer.Contains(ConfigurationManager.AppSettings["bwHostUrl"]))
                 {
-                    SetCookie("BWUtmz", 180);
+                    SetCookie("_bwutmz", 180);
                 }
                 else
                 {
                     string url = request.Url.ToString();
                     Regex serachEng = new Regex("google|bing|yahoo|ask|yandex|baidu|aol");
                     Match match = null;
-                    //step 1
+                    //step 1. Check if the URL contains utm_source, utm_medium in the URL. If yes then store utm_source in utmcsr, umt_medium in utmcmd and utm_campaign in utmccn
                     if (
                         !(string.IsNullOrEmpty(request.QueryString["utm_source"]) 
-                        || string.IsNullOrEmpty(request.QueryString["umt_medium"]) 
+                        || string.IsNullOrEmpty(request.QueryString["utm_medium"]) 
                         || string.IsNullOrEmpty(request.QueryString["utm_campaign"]))
                         )
                     {
                         utmcsr = request.QueryString["utm_source"];
-                        utmcmd = request.QueryString["umt_medium"];
+                        utmcmd = request.QueryString["utm_medium"];
                         utmccn = request.QueryString["utm_campaign"];
                     }
-                    else if (url.Contains("gclid")) //step 2
+                    else if (!string.IsNullOrEmpty(request.QueryString["gclid"])) //step 2. If no utm parameters are present in the URL then check if the URL contains gclid then set utmcsr=google, utmgclid=gclid, utmcmd=cpc
                     {
                         utmcsr = "google";
-                        utmgclid = "gclid";
+                        utmgclid = request.QueryString["gclid"];
                         utmcmd = "cpc";
                     }
-                    else if ((match = serachEng.Match(url)) != null && match.Success) //step 3
+                    else if ((match = serachEng.Match(httpReffer)) != null && match.Success) //step 3. If none of the above is true, look at HTTP referrer. If the HTTP referrer contains the domains - google, yahoo, bing, ask, yandex, baidu, aol then set utmcsr=<search engine names>, utmcmd=organic, utmccn=(organic)
                     {
                         if (match.Groups.Count >= 0)
                         {
@@ -80,16 +80,16 @@ namespace Bikewale.Utility
                         utmcmd = "organic";
                         utmccn = "(organic)";
                     }
-                    else if (!string.IsNullOrEmpty(httpReffer)) //step 4
+                    else if (!string.IsNullOrEmpty(httpReffer)) //step 4. If the HTTP referrer is none of the above then set utmcsr=<domain name>, utmccn=(referral), utmcmd=referral
                     {
                         utmcsr = request.UrlReferrer.Host;
                         utmccn = "(referral)";
                         utmcmd = "referral";
                     }
-                    else if (request.Cookies.Get("BWUtmz") != null) //step 5
+                    else if (request.Cookies.Get("_bwutmz") != null) //step 5. If HTTP referrer is null then check if there is a BW source cookie, if yes then replicate that cookie
                     {
                         Regex utm = new Regex("utmcsr=([()A-Za-z0-9.-]+)[|]*");
-                        string utmz = request.Cookies.Get("BWUtmz").Value;
+                        string utmz = request.Cookies.Get("_bwutmz").Value;
 
                         if ((match = utm.Match(utmz)) != null && match.Success)
                         {
@@ -114,8 +114,16 @@ namespace Bikewale.Utility
                                 utmcmd = match.Groups[1].Value; 
                             }
                         }
+                        utm = new Regex("gclid=([()A-Za-z0-9.-]+)[|]*");
+                        if ((match = utm.Match(utmz)) != null && match.Success)
+                        {
+                            if (match.Groups.Count > 0)
+                            {
+                                utmgclid = match.Groups[1].Value;
+                            }
+                        }
                     }
-                    else if (request.Cookies.Get("__utmz") != null) //step 6
+                    else if (request.Cookies.Get("__utmz") != null) //step 6. If not then, check if there is a __utmz cookie, if yes then replicate utmcsr, utmccn, utmcmd, gclid
                     {
                         Regex utm = new Regex("utmcsr=([()A-Za-z0-9.-]+)[|]*");
                         string utmz = request.Cookies.Get("__utmz").Value;
@@ -145,14 +153,23 @@ namespace Bikewale.Utility
                                 utmcmd = match.Groups[1].Value; 
                             }
                         }
+
+                        utm = new Regex("gclid=([()A-Za-z0-9.-]+)[|]*");
+                        if ((match = utm.Match(utmz)) != null && match.Success)
+                        {
+                            if (match.Groups.Count > 0)
+                            {
+                                utmgclid = match.Groups[1].Value;
+                            }
+                        }
                     }
-                    else //step 7
+                    else //step 7. If not then set utmcsr=(direct), utmccn=(direct), utmcmd=(none) 
                     {
                         utmcsr = "(direct)";
                         utmccn = "(direct)";
                         utmcmd = "(none)";
                     }
-                    SetCookie("BWUtmz", 180, string.Format("utmcsr={0}|utmgclid=gclid|utmccn={1}|utmcmd={2}", utmcsr, utmccn, utmcmd)); //step 8
+                    SetCookie("_bwutmz", 180, string.Format("utmcsr={0}|utmgclid={1}|utmccn={2}|utmcmd={3}", utmcsr, utmgclid, utmccn, utmcmd)); //step 8. Set the BW source cookie with utmcsr=<value>|utmgclid=gclid|utmccn=<value>|utmcmd=<value> with a 6 month expiry
                 }
             }
             catch(Exception ex)

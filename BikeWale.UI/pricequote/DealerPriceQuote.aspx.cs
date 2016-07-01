@@ -365,7 +365,7 @@ namespace Bikewale.BikeBooking
         /// Modified By : Vivek Gupta on 29-04-2016
         /// Desc : In case of dealerId=0 and isDealerAvailable = true , while redirecting to pricequotes ,don't redirect to BW PQ redirect to dpq
         /// Modified By : Lucky Rathore on 27 June 2016
-        /// Description : replace cookie __utmz with BWUtmz
+        /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         protected void SavePriceQuote()
         {
@@ -390,7 +390,7 @@ namespace Bikewale.BikeBooking
                         objPQEntity.VersionId = selectedVersionId;
                         objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_DPQ_Quotation);
                         objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                        objPQEntity.UTMZ = Request.Cookies["BWUtmz"] != null ? Request.Cookies["BWUtmz"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                         objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
                     }

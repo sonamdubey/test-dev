@@ -1,9 +1,12 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Location;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
@@ -30,7 +33,7 @@ namespace Bikewale.Mobile.New
         protected DataList dlCity;
 
         protected DataSet dsStateCity = null;
-        protected MakeModelVersion objMMV;
+        protected BikeMakeEntityBase objMMV;
 
         public ushort makeId;
         public string cityArr = string.Empty, makeMaskingName = string.Empty, stateMaskingName = string.Empty, stateName = string.Empty;
@@ -53,8 +56,15 @@ namespace Bikewale.Mobile.New
             if (ProcessQS())
             {
                 checkDealersForMakeCity(makeId);
-                objMMV = new MakeModelVersion();
-                objMMV.GetMakeDetails(makeId.ToString());
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                    objMMV = makesRepository.GetMakeDetails(makeId.ToString());
+
+                }
+
                 BindCities();
             }
         }
@@ -65,7 +75,7 @@ namespace Bikewale.Mobile.New
             ICity objCities = null;
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<ICity, CityRepository>();
+                container.RegisterType<ICity, Bikewale.BAL.Location.Cities>();
                 objCities = container.Resolve<ICity>();
                 dealerCity = objCities.GetDealerStateCities(makeId, stateId);
                 if (dealerCity != null && dealerCity.dealerCities != null && dealerCity.dealerCities.Count() > 0)

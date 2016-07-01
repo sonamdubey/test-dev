@@ -63,6 +63,7 @@
     <Compile Include="BikeData\IBikeModelsCacheRepository.cs" />
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
     <Compile Include="BikeData\IBikeSeries.cs" />
+    <Compile Include="BikeData\IBikeVersionCacheRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikeBooking\IFeedBacks.cs" />
     <Compile Include="CMS\ICMSContentRepository.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="UsedBikes\IPopularUsedBikesCacheRepository.cs" />
     <Compile Include="UsedBikes\IUsedBikesCacheRepository.cs" />
     <Compile Include="UserReviews\IUserReviews.cs" />
+    <Compile Include="UserReviews\IUserReviewsCache.cs" />
     <Compile Include="UsersTestimonial\IUsersTestimonial.cs" />
     <Compile Include="Videos\IVideos.cs" />
     <Compile Include="Videos\IVideosCacheRepository.cs" />

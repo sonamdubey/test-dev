@@ -21,6 +21,7 @@
             a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
         }, 1);
     </script>
+    <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
 </head>
 <body>
     <form runat="server">

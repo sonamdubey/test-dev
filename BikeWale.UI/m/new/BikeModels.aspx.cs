@@ -483,9 +483,6 @@ namespace Bikewale.Mobile.New
             }
         }
 
-        static readonly string apiURL = "/api/model/details/?modelId={0}&variantId={1}";
-        static readonly string onRoadApi = "/api/OnRoadPrice/?cityId={0}&modelId={1}&clientIP={2}&sourceType={3}&areaId={4}";
-        static readonly string _requestType = "application/json";
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   27 Nov 2015
@@ -498,6 +495,7 @@ namespace Bikewale.Mobile.New
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                            .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                              .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                              .RegisterType<ICacheManager, MemcacheManager>();
 
@@ -777,7 +775,7 @@ namespace Bikewale.Mobile.New
         /// Modified By : Lucky Rathore on 09 May 2016.
         /// Description : modelImage intialize.
         /// Modified By : Lucky Rathore on 27 June 2016
-        /// Description : replace cookie __utmz with BWUtmz
+        /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         /// <returns></returns>
         private PQOnRoadPrice GetOnRoadPrice()
@@ -800,10 +798,10 @@ namespace Bikewale.Mobile.New
                     objPQEntity.ClientIP = clientIP;
                     objPQEntity.SourceId = 2;
                     objPQEntity.ModelId = modelId;
-                    objPQEntity.VersionId = versionId;
+                    objPQEntity.VersionId = Convert.ToUInt32(hdnVariant.Value);
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_ModelPage);
                     objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                    objPQEntity.UTMZ = Request.Cookies["BWUtmz"] != null ? Request.Cookies["BWUtmz"].Value : "";
+                    objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
                     if (versionId == 0)

@@ -391,10 +391,11 @@ namespace Bikewale.DAL.BikeData
                         cmd.Parameters.Add("@ReviewRate", SqlDbType.Float).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
+
                         conn.Open();
                         cmd.ExecuteNonQuery();
-                        conn.Close();
-
+                        conn.Close();                        
                         HttpContext.Current.Trace.Warn("qry success");
 
                         if (!string.IsNullOrEmpty(cmd.Parameters["@MakeId"].Value.ToString()))

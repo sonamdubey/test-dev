@@ -202,8 +202,11 @@ namespace Bikewale.DAL.BikeData
                         paramColl.Add("@New", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         paramColl.Add("@Used", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         paramColl.Add("@Futuristic", SqlDbType.Bit).Direction = ParameterDirection.Output;
+
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         conn.Open();
                         cmd.ExecuteNonQuery();
+
                         conn.Close();
                         HttpContext.Current.Trace.Warn("qry success");
                         
@@ -357,6 +360,8 @@ namespace Bikewale.DAL.BikeData
                         paramColl.Add("@MaximumTorqueRPM", SqlDbType.Float).Direction = ParameterDirection.Output;
 
                         paramColl.Add("@RowCount", SqlDbType.TinyInt).Direction = ParameterDirection.Output;
+
+                        LogLiveSps.LogSpInGrayLog(cmd);
 
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();

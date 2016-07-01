@@ -68,6 +68,7 @@ namespace Bikewale.RabbitMQ
                         cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar).Value = ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString();
                         //output parameter complete url for original image
                         cmd.Parameters.Add("@Url", SqlDbType.VarChar, 255).Direction = ParameterDirection.Output;
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         cmd.ExecuteNonQuery();

@@ -71,6 +71,7 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
         })();
     </script>
+    <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
     <!-- #include file="\includes\globalStaticFiles_mobile.aspx" -->
 </head>
 <body>
