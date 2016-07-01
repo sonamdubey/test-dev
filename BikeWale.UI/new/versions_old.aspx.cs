@@ -1,28 +1,23 @@
-﻿using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Controls;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Photos;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Bikewale.Controls;
-using Bikewale.Memcache;
-using Bikewale.Entities.PhotoGallery;
-using Microsoft.Practices.Unity;
-using System.Collections.Generic;
-using Bikewale.BAL.PhotoGallery;
-using Bikewale.Interfaces.PhotoGallery;
-using Bikewale.Entities.CMS;
-using Bikewale.BAL.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS.Photos;
-using System.Configuration;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.DAL.BikeData;
-using Bikewale.Cache.BikeData;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
@@ -33,7 +28,7 @@ namespace Bikewale.New
     {
         protected Repeater rptVersions;
 
-        protected HtmlGenericControl divModelDesc, divFuturistic,modelStatus,reviewedModelStatus, divVersions, div_description, div_BikeRatings,div_BikeRatingsNotAvail, divSpecs;
+        protected HtmlGenericControl divModelDesc, divFuturistic, modelStatus, reviewedModelStatus, divVersions, div_description, div_BikeRatings, div_BikeRatingsNotAvail, divSpecs;
         protected HtmlSelect ddlVersion;
 
         protected NewsMin newsMin;
@@ -48,7 +43,7 @@ namespace Bikewale.New
         protected string modelId, usedBikeCount = string.Empty, seriesId = string.Empty, reviewLink = string.Empty;
         protected string makeName = string.Empty, modelName = string.Empty, expectedLaunchId = string.Empty, expectedLaunch = string.Empty, estimatedPrice = string.Empty,
                         smallDescription = string.Empty, largeDescription = string.Empty, hostURL = string.Empty, imagePath = string.Empty;
-        public string make = "", model = "", previousUrl = "", makeId = string.Empty, modelOnly = "", ModelMaskingName = "", logoUrl = "", fbLogoUrl = string.Empty, MakeMaskingName = string.Empty, seriesName = String.Empty, seriesMaskingName = String.Empty,version = String.Empty,formattedPrice = string.Empty;
+        public string make = "", model = "", previousUrl = "", makeId = string.Empty, modelOnly = "", ModelMaskingName = "", logoUrl = "", fbLogoUrl = string.Empty, MakeMaskingName = string.Empty, seriesName = String.Empty, seriesMaskingName = String.Empty, version = String.Empty, formattedPrice = string.Empty;
         protected int reviewCount = 0;
         public int modelCount = 0, Count = 0, isModel = 0, versionCount = 0;
         public bool isFuturistic = false, isNew = false, isUsed = false;
@@ -99,7 +94,7 @@ namespace Bikewale.New
                             isFuturistic = mmv.IsFuturistic;
                             isNew = mmv.IsNew;
                             isUsed = mmv.IsUsed;
-                            
+
                             //Modified By : Ashwini Todkar on 20 Jan 2015
                             if (!mmv.IsFuturistic)
                             {
@@ -110,7 +105,7 @@ namespace Bikewale.New
                                     modelStatus.InnerText = "(Discontinued)";
                                     reviewedModelStatus.InnerText = "(Discontinued)";
                                     //discontinued.Attributes.Add("class", "hide");
-                              
+
                                 }
 
                                 ucRoadTestMin.ModelId = modelId;
@@ -129,7 +124,7 @@ namespace Bikewale.New
                             }
                             else
                             {
-                               // discontinued.Attributes.Add("class", "hide");
+                                // discontinued.Attributes.Add("class", "hide");
                                 modelStatus.InnerText = "(Upcoming)";
                                 UpcomingModel(mmv.ModelId);
                                 divVersions.Attributes.Add("class", "hide");
@@ -155,7 +150,7 @@ namespace Bikewale.New
                         Trace.Warn(err.Message);
                         ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                         objErr.SendMail();
-                    
+
                     }
                 }
             }
@@ -180,26 +175,26 @@ namespace Bikewale.New
         {
             //Commented by : Ashwini Todkar on 1 Dec 2014
 
-             //List<ModelPhotoEntity> objPhotosList = null;
+            //List<ModelPhotoEntity> objPhotosList = null;
 
-             //using (IUnityContainer container = new UnityContainer())
-             //{
-             //    container.RegisterType<IModelPhotos<ModelPhotoEntity, int>, ModelPhotos<ModelPhotoEntity, int>>();
-             //    IModelPhotos<ModelPhotoEntity, int> objPhotos = container.Resolve<IModelPhotos<ModelPhotoEntity, int>>();
+            //using (IUnityContainer container = new UnityContainer())
+            //{
+            //    container.RegisterType<IModelPhotos<ModelPhotoEntity, int>, ModelPhotos<ModelPhotoEntity, int>>();
+            //    IModelPhotos<ModelPhotoEntity, int> objPhotos = container.Resolve<IModelPhotos<ModelPhotoEntity, int>>();
 
-             //    List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-             //    categorList.Add(EnumCMSContentType.RoadTest);
-             //    categorList.Add(EnumCMSContentType.PhotoGalleries);
-             //    categorList.Add(EnumCMSContentType.ComparisonTests);
+            //    List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+            //    categorList.Add(EnumCMSContentType.RoadTest);
+            //    categorList.Add(EnumCMSContentType.PhotoGalleries);
+            //    categorList.Add(EnumCMSContentType.ComparisonTests);
 
-             //    objPhotosList = new List<ModelPhotoEntity>();
-             //    objPhotosList = objPhotos.GetModelPhotosList(Convert.ToInt32(modelId), categorList);
+            //    objPhotosList = new List<ModelPhotoEntity>();
+            //    objPhotosList = objPhotos.GetModelPhotosList(Convert.ToInt32(modelId), categorList);
 
-             //    if (objPhotosList.Count > 0)
-             //        isPhotoAvailable =  true;
-             //    else
-             //        isPhotoAvailable = false;
-             //}
+            //    if (objPhotosList.Count > 0)
+            //        isPhotoAvailable =  true;
+            //    else
+            //        isPhotoAvailable = false;
+            //}
 
             try
             {
@@ -210,17 +205,17 @@ namespace Bikewale.New
 
                 //sets the base URI for HTTP requests
                 string contentTypeList = CommonOpn.GetContentTypesString(categorList);
-                
+
                 string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
 
                 string _apiUrl = "webapi/image/modelphotolist/?applicationid=" + _applicationid + "&modelid=" + modelId + "&categoryidlist=" + contentTypeList;
 
                 List<ModelImage> _objImageList = null;
 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
                     _objImageList = objClient.GetApiResponseSync<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objImageList);
-                }                
+                }
 
                 if (_objImageList != null && _objImageList.Count > 0)
                     isPhotoAvailable = true;
@@ -264,7 +259,7 @@ namespace Bikewale.New
                         {
                             //redirect permanent to new page 
                             CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["model"], objResponse.MaskingName));
-                            
+
                         }
                         else
                         {
@@ -326,7 +321,7 @@ namespace Bikewale.New
             {
                 ErrorClass objErr = new ErrorClass(err, "new.versions.LoadMakes");
                 objErr.SendMail();
-                Trace.Warn("err makes : ",err.Message);
+                Trace.Warn("err makes : ", err.Message);
             }
             finally
             {
@@ -351,10 +346,10 @@ namespace Bikewale.New
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "GetVersions";
 
-                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;                    
+                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
 
-                    Trace.Warn("MODELID : "+modelId);
+                    Trace.Warn("MODELID : " + modelId);
                     ds = db.SelectAdaptQry(cmd);
                 }
                 if (ds != null)
@@ -439,7 +434,7 @@ namespace Bikewale.New
                 }
                 db.CloseConnection();
             }
-        }  
+        }
 
         /// <summary>
         ///     If price is not available show N/A else show original price
@@ -468,7 +463,7 @@ namespace Bikewale.New
             hostURL = mmv.HostUrl;
             //imagePath = MakeModelVersion.GetModelImage(hostURL, imageUrl);
             imagePath = MakeModelVersion.GetModelImage(hostURL, imageUrl, "210x118");
-            
+
             estimatedPrice = CommonOpn.FormatPrice(mmv.MinPrice, mmv.MaxPrice);
 
             make = mmv.Make;
@@ -477,17 +472,17 @@ namespace Bikewale.New
             ModelMaskingName = mmv.ModelMappingName;
             MakeMaskingName = mmv.MakeMappingName;
             seriesId = mmv.SeriesId;
-            
+
             //logoUrl = Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + mmv.LargePic, mmv.HostUrl);
             logoUrl = Bikewale.Utility.Image.GetPathToShowImages(mmv.OriginalImagePath, mmv.HostUrl, Bikewale.Utility.ImageSize._210x118);
-            
+
             if (string.IsNullOrEmpty(mmv.LargePic))
                 fbLogoUrl = "";
             else
                 fbLogoUrl = logoUrl;
 
             hostURL = mmv.HostUrl;
-            
+
             //imagePath = "/bikewaleimg/models/" + mmv.LargePic;
             imagePath = mmv.OriginalImagePath;
             estimatedPrice = String.IsNullOrEmpty(mmv.MinPrice) ? " - N/A" : CommonOpn.FormatNumeric(mmv.MinPrice);
@@ -497,7 +492,7 @@ namespace Bikewale.New
             if (mmv.MinPrice != mmv.MaxPrice)
                 formattedPrice += String.IsNullOrEmpty(formattedPrice) ? CommonOpn.FormatNumeric(mmv.MaxPrice) : " - " + CommonOpn.FormatNumeric(mmv.MaxPrice);
 
-            formattedPrice = String.IsNullOrEmpty(formattedPrice) ? "N/A" :  formattedPrice;
+            formattedPrice = String.IsNullOrEmpty(formattedPrice) ? "N/A" : formattedPrice;
 
             makeId = mmv.MakeId;
             return mmv;
@@ -510,7 +505,7 @@ namespace Bikewale.New
         void UpcomingModel(string modelId)
         {
             string sql = "";
-            sql = " SELECT ECL.ID, ECL.ExpectedLaunch, ECL.EstimatedPriceMin, ECL.EstimatedPriceMax, ECL.HostURL, ECL.LargePicImagePath, ECL.OriginalImagePath "	            
+            sql = " SELECT ECL.ID, ECL.ExpectedLaunch, ECL.EstimatedPriceMin, ECL.EstimatedPriceMax, ECL.HostURL, ECL.LargePicImagePath, ECL.OriginalImagePath "
                 + " FROM ExpectedBikeLaunches AS ECL "
                 + " LEFT JOIN BikeSynopsis Csy ON ECL.BikeModelId = Csy.ModelId AND Csy.IsActive = 1 "
                 + " WHERE ECL.BikeModelId=@ModelId";
@@ -533,7 +528,7 @@ namespace Bikewale.New
                     expectedLaunch = dr["ExpectedLaunch"].ToString();
                     estimatedPrice = CommonOpn.FormatPrice(dr["EstimatedPriceMin"].ToString().Replace(".00", ""), dr["EstimatedPriceMax"].ToString().Replace(".00", ""));
                     hostURL = dr["HostURL"].ToString();
-                    Trace.Warn("+++",dr["HostURL"].ToString());
+                    Trace.Warn("+++", dr["HostURL"].ToString());
                     //imageUrl = dr["LargePicImagePath"].ToString();
                     imageUrl = dr["OriginalImagePath"].ToString();
 
@@ -591,7 +586,7 @@ namespace Bikewale.New
                 dr = db.SelectQry(cmd);
 
                 if (dr.Read())
-                {                    
+                {
                     smallDescription = dr["SmallDescription"].ToString();
                     largeDescription = dr["FullDescription"].ToString();
                 }
@@ -622,10 +617,10 @@ namespace Bikewale.New
         protected string GetBikeSpecsMin(string displacement, string fuelType, string transmission, string fuelEconomy)
         {
             string specsMin = string.Empty;
-            
+
             if (!String.IsNullOrEmpty(displacement))
             {
-                specsMin += displacement + "cc";                
+                specsMin += displacement + "cc";
             }
 
             if (!String.IsNullOrEmpty(fuelType))
@@ -679,7 +674,7 @@ namespace Bikewale.New
         /// <param name="type"></param>
         /// <returns></returns>
         protected string GetTransmissionType(string type)
-        { 
+        {
             string transmission = string.Empty;
 
             switch (type)
@@ -961,12 +956,16 @@ namespace Bikewale.New
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();
-                IBikeVersions<BikeVersionEntity, int> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
+
+                container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+                        .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
+                              .RegisterType<ICacheManager, MemcacheManager>()
+                             ;
+                var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
 
                 EnumBikeType SpecsType = mmv.IsNew ? EnumBikeType.NewBikeSpecs : EnumBikeType.UsedBikeSpecs;
 
-                List<BikeVersionsListEntity> objVersionList = objVersion.GetVersionsByType(SpecsType,Convert.ToInt32(modelId));
+                List<BikeVersionsListEntity> objVersionList = objCache.GetVersionsByType(SpecsType, Convert.ToInt32(modelId));
 
                 versionCount = objVersionList.Count;
 

@@ -18,7 +18,7 @@ namespace Bikewale.Cache.Compare
         private readonly ICacheManager _cache;
         private readonly IBikeCompare _compareRepository;
 
-        public BikeCompareCacheRepository(ICacheManager cache,IBikeCompare compareRepository)
+        public BikeCompareCacheRepository(ICacheManager cache, IBikeCompare compareRepository)
         {
             _cache = cache;
             _compareRepository = compareRepository;
@@ -33,16 +33,15 @@ namespace Bikewale.Cache.Compare
         public IEnumerable<TopBikeCompareBase> CompareList(uint topCount)
         {
             IEnumerable<TopBikeCompareBase> topBikeComapareBase = null;
-            string key = string.Empty; 
+            string key = "BW_CompareBikes_Cnt_" + topCount;
             try
             {
-                key = "BW_CompareBikes";
                 topBikeComapareBase = _cache.GetFromCache<IEnumerable<TopBikeCompareBase>>(key, new TimeSpan(1, 0, 0, 0), () => _compareRepository.CompareList(topCount));
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.CompareList");
-                objErr.SendMail();    
+                objErr.SendMail();
             }
             return topBikeComapareBase;
         }
@@ -54,7 +53,7 @@ namespace Bikewale.Cache.Compare
             string key = string.Empty;
             try
             {
-                key = "BW_Compare_Bikes_" + versions.Replace(',','_');
+                key = "BW_Compare_Bikes_" + versions.Replace(',', '_');
                 compareEntity = _cache.GetFromCache<BikeCompareEntity>(key, new TimeSpan(0, 30, 0), () => _compareRepository.DoCompare(versions));
             }
             catch (Exception ex)

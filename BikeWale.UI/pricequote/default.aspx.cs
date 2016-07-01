@@ -2,6 +2,7 @@
 using Bikewale.Common;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
@@ -242,11 +243,14 @@ namespace Bikewale.PriceQuote
             {
                 MakeModelVersion mmv = new MakeModelVersion();
 
-                ddlMake.DataSource = mmv.GetMakes("PRICEQUOTE");
-                ddlMake.DataValueField = "Value";
-                ddlMake.DataTextField = "Text";
-                ddlMake.DataBind();
-                ddlMake.Items.Insert(0, (new ListItem("--Select Make--", "0")));
+                ////ddlMake.DataSource = mmv.GetMakes("PRICEQUOTE");
+                //ddlMake.DataSource = mmv.GetMakes(EnumBikeType requestType);
+                //ddlMake.DataValueField = "Value";
+                //ddlMake.DataTextField = "Text";
+                //ddlMake.DataBind();
+                //ddlMake.Items.Insert(0, (new ListItem("--Select Make--", "0")));
+
+                mmv.GetMakes(EnumBikeType.PriceQuote, ref ddlMake);
 
             }
             catch (Exception ex)
@@ -321,42 +325,7 @@ namespace Bikewale.PriceQuote
             }
         }   // End of BindMakesDropdownList method
 
-        #region Commented
-        /// <summary>
-        ///     PopulateWhere to bind versions drop down list on change of model
-        /// </summary>
-        /// <param name="modelId"></param>
-        [Obsolete("As Version drop down is removed from the page. This method has been marked with Obsolete attribute.", true)]
-        protected bool BindVersionsDropdownList(string modelId)
-        {
-            bool isSuccess = false;
 
-            try
-            {
-                //MakeModelVersion mmv = new MakeModelVersion();
-
-                //DataTable dt = mmv.GetVersions(modelId, "PRICEQUOTE");
-
-                //if (dt != null && dt.Rows.Count > 0)
-                //{
-                //    ddlVersion.DataSource = dt;
-                //    ddlVersion.DataValueField = "Value";
-                //    ddlVersion.DataTextField = "Text";
-                //    ddlVersion.DataBind();
-                //    ddlVersion.Items.Insert(0, (new ListItem("--Select Version--", "0")));
-
-                //    isSuccess = true;
-                //}
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return isSuccess;
-        }   // End of BindVersionsDropdownList method
-        #endregion
         #endregion
 
         #region Validation Methods

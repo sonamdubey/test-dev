@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.App
 {
@@ -11,10 +8,14 @@ namespace Bikewale.Entities.App
     /// Description :   APP Version Entity
     /// Created On  :   07 Dec 2015
     /// </summary>
+    [Serializable, DataContract]
     public class AppVersion
     {
+        [DataMember]
         public uint Id { get; set; }
+        [DataMember]
         public bool IsSupported { get; set; }
+        [DataMember]
         public bool IsLatest { get; set; }
     }
 }

@@ -1,19 +1,18 @@
-﻿using System;
+﻿using AutoMapper;
+using Bikewale.DAL.Location;
+using Bikewale.DTO.City;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Location;
+using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.City;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.Location;
-using Bikewale.DAL.Location;
-using Bikewale.DTO.City;
-using AutoMapper;
 using System.Web.Http.Description;
-using Bikewale.Entities.Location;
-using Bikewale.Entities.BikeData;
-using Bikewale.Service.AutoMappers.City;
-using Bikewale.Notifications;
 
 namespace Bikewale.Service.Controllers.City
 {
@@ -24,14 +23,14 @@ namespace Bikewale.Service.Controllers.City
     /// </summary>
     public class CityListController : ApiController
     {
-        
-        
+
+
         private readonly ICity _city = null;
         public CityListController(ICity city)
         {
             _city = city;
         }
-        
+
         #region All Cities
         /// <summary>
         /// To get Cities Based on request Type for DropDowns only
@@ -71,8 +70,8 @@ namespace Bikewale.Service.Controllers.City
         }   // Get Cities 
         #endregion
 
-       #region State's Cities
-		 /// <summary>
+        #region State's Cities
+        /// <summary>
         /// To get Cities Based on state and request Type
         /// </summary>
         /// <param name="requestType"></param>
@@ -119,8 +118,8 @@ namespace Bikewale.Service.Controllers.City
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
             }
         }   // Get  
-       #endregion
-    
-    } 
-	
+        #endregion
+
+    }
+
 }

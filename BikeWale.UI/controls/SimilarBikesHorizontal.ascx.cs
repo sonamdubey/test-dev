@@ -10,6 +10,9 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.BikeData;
 
 namespace Bikewale.Controls
 {
@@ -119,10 +122,14 @@ namespace Bikewale.Controls
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();
-                    IBikeVersions<BikeVersionEntity, int> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
+                    container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+                        .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
+                              .RegisterType<ICacheManager, MemcacheManager>()
+                             ;
+                    var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
 
-                    bikeVersionEntity = objVersion.GetById(Convert.ToInt32(VersionId));
+
+                    bikeVersionEntity = objCache.GetById(Convert.ToUInt32(VersionId));
                 }
             }
             catch (SqlException exSql)

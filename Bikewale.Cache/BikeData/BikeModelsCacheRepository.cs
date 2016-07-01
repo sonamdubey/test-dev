@@ -113,6 +113,30 @@ namespace Bikewale.Cache.BikeData
             return objBikes;
         }
 
+        /// <summary>
+        /// Written By : Sushil Kumar on 30th June 2016
+        /// Summary : Function to get the model dscription from the cache. If data is not available in the cache it will return data from BL.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns>Returns BikeDescriptionEntity</returns>
+        public BikeDescriptionEntity GetModelSynopsis(U modelId)
+        {
+            BikeDescriptionEntity objModelPage = null;
+            string key = "BW_ModelDesc_" + modelId;
+
+            try
+            {
+                objModelPage = _cache.GetFromCache<BikeDescriptionEntity>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetModelSynopsis(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelSynopsis");
+                objErr.SendMail();
+            }
+
+            return objModelPage;
+        }
+
 
         /// <summary>
         /// Created by  :   Sumit Kate on 01 Jul 2016

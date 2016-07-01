@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.Compare
 {
@@ -10,11 +8,14 @@ namespace Bikewale.Entities.Compare
     /// Created By  :   Sumit Kate 21 Jan 2016
     /// Description :   Compare Specification Entity
     /// </summary>
-    [Serializable]
+    [Serializable,DataContract]
     public class CompareMainCategory
     {
+        [DataMember]
         public string Text { get; set; }
+        [DataMember]
         public string Value { get; set; }
+        [DataMember]
         public List<CompareSubMainCategory> Spec { get; set; }
     }
 }

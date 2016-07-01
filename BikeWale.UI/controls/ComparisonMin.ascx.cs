@@ -118,6 +118,13 @@ namespace Bikewale.Controls
             }
         }
 
+        private bool _showCompButton = true;
+        public bool ShowCompButton
+        {
+            get { return _showCompButton; }
+            set { _showCompButton = value; }
+        }
+
 
         protected override void OnInit(EventArgs e)
         {

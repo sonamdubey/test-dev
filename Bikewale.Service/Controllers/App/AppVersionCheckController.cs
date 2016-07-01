@@ -19,12 +19,12 @@ namespace Bikewale.Service.Controllers.App
     /// </summary>
     public class AppVersionCheckController : CompressionApiController//ApiController
     {
-        private readonly IAppVersion _AppVersion = null;
+        private readonly IAppVersionCache _AppVersion = null;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="AppVersion"></param>
-        public AppVersionCheckController(IAppVersion AppVersion)
+        public AppVersionCheckController(IAppVersionCache AppVersion)
         {
             _AppVersion = AppVersion;
         }
