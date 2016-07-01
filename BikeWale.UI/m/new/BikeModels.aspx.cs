@@ -805,16 +805,19 @@ namespace Bikewale.Mobile.New
                     objPQEntity.ClientIP = clientIP;
                     objPQEntity.SourceId = 2;
                     objPQEntity.ModelId = modelId;
-                    objPQEntity.VersionId = Convert.ToUInt32(hdnVariant.Value);
+                    objPQEntity.VersionId = versionId;
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_ModelPage);
                     objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
                     objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
 
-                    if (objPQOutput != null && objPQOutput.VersionId != null)
+                    if (versionId == 0)
                     {
-                        versionId = objPQOutput.VersionId;
+                        if (objPQOutput != null && objPQOutput.VersionId != null)
+                        {
+                            versionId = objPQOutput.VersionId;
+                        }
                     }
 
                     if (objPQOutput != null)

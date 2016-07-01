@@ -812,16 +812,19 @@ namespace Bikewale.New
                     objPQEntity.ClientIP = clientIP;
                     objPQEntity.SourceId = 1;
                     objPQEntity.ModelId = modelId;
-                    objPQEntity.VersionId = Convert.ToUInt32(hdnVariant.Value);
+                    objPQEntity.VersionId = variantId;
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_ModelPage);
                     objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
                     objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
 
-                    if (objPQOutput != null)
+                    if (variantId == 0)
                     {
-                        variantId = objPQOutput.VersionId;
+                        if (objPQOutput != null)
+                        {
+                            variantId = objPQOutput.VersionId;
+                        }
                     }
 
                     if (objPQOutput != null)
