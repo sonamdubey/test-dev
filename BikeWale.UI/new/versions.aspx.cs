@@ -726,6 +726,14 @@ namespace Bikewale.New
                                             price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                     }
                                 }
+
+                                else if (variantId != 0)
+                                {
+                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
+                                    if (objSelectedVariant != null)
+                                        price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
+                                }
+
                                 else
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
@@ -810,13 +818,12 @@ namespace Bikewale.New
                     objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
-                    if (variantId == 0)
+
+                    if (objPQOutput != null)
                     {
-                        if (objPQOutput != null)
-                        {
-                            variantId = objPQOutput.VersionId;
-                        }
+                        variantId = objPQOutput.VersionId;
                     }
+
                     if (objPQOutput != null)
                     {
                         pqOnRoad = new PQOnRoadPrice();
