@@ -121,39 +121,22 @@
                                 <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                 <div class="imageWrapper">
                                     <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(),'/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' ) }">
-                                            <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
+                                        <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()" />
                                     </a>
                                 </div>
                                 <div class="bikeDescWrapper">
-                                    <div class="bikeTitle">
+                                    <div class="bikeTitle margin-bottom10">
                                         <h3><a data-bind="attr: {title: bikeName }, text: bikeName, click: function () { $.ModelClickGaTrack(bikemodel.modelName(), '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/') }"></a></h3>
                                     </div>
-                                    <div class="margin-bottom5">
-                                        <span class="bwmsprite inr-lg-icon"></span>
-                                        <span class="font24" data-bind="text: price"></span>
-                                    </div>
-                                    <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
-                                    <div class="font13 margin-bottom10">
+                                    <div class="font14 text-x-light margin-bottom10">
                                         <span data-bind="html: availSpecs"></span>
                                     </div>
-                                    <div class="padding-top5 clear">
-                                        <!-- ko if:bikemodel.reviewCount() != 0  -->
-                                        <div class="grid-6 alpha">
-                                            <div class="padding-left5 padding-right5 border-solid-right ">
-                                                <div>
-                                                    <span class="margin-bottom10" data-bind="html: AppendCertificationStar(bikemodel.reviewRate())"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /ko -->
-                                        <div class="grid-6 omega">
-                                            <div class="padding-left5 padding-right5">
-                                                <span class="font16 text-light-grey" data-bind="text: ShowReviewCount(bikemodel.reviewCount())"></span>
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
-                                        <a data-bind="attr: { modelId: bikemodel.modelId , pqSourceId : '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch%>    '}" class="btn btn-sm btn-white margin-top10 fillPopupData" rel="nofollow">Check on-road price</a>
-                                    </div>
+                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
+                                    <div>
+                                        <span class="bwmsprite inr-sm-icon"></span>
+                                        <span class="text-bold font18" data-bind="text: price"></span>
+                                    </div>                                    
+                                    <a data-bind="attr: { modelId: bikemodel.modelId , pqSourceId : '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch%>    '}" class="btn btn-sm btn-white font14 margin-top20 fillPopupData" rel="nofollow">Check on-road price</a>
                                 </div>
                             </div>
                         </div>
