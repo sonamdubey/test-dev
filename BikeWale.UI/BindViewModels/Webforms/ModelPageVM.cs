@@ -2,13 +2,11 @@
 using Bikewale.Entities;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Bikewale.Notifications;
-using Bikewale.Entities;
 
 namespace Bikewale.BindViewModels.Webforms
 {
@@ -23,7 +21,7 @@ namespace Bikewale.BindViewModels.Webforms
         public string Organization { get; set; }
         public string AreaName { get; set; }
         public short SecondaryDealerCount { get; set; }
-        public string MaskingNumber {get;set;}
+        public string MaskingNumber { get; set; }
         public IEnumerable<OfferEntityBase> Offers { get; set; }
         public ushort OfferCount { get; set; }
         public IEnumerable<NewBikeDealerBase> SecondaryDealers { get; set; }
@@ -34,7 +32,7 @@ namespace Bikewale.BindViewModels.Webforms
             try
             {
                 DealerCampaign = GetDetailedDealer(cityId, versionId, dealerId);
-                if (DealerCampaign != null && DealerCampaign.PrimaryDealer!=null && DealerCampaign.PrimaryDealer.DealerDetails != null && DealerCampaign.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+                if (DealerCampaign != null && DealerCampaign.PrimaryDealer != null && DealerCampaign.PrimaryDealer.DealerDetails != null && DealerCampaign.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                 {
                     IsPremiumDealer = true;
                     Organization = DealerCampaign.PrimaryDealer.DealerDetails.Organization;

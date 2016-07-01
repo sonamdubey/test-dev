@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using BikeWaleOpr.Common;
-using System.Data;
-using System.Configuration;
+﻿using BikeWaleOpr.Common;
 using BikeWaleOpr.Entities;
-using System.Threading.Tasks;
-using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Web;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.NewBikeBooking
 {
@@ -24,7 +21,7 @@ namespace BikeWaleOpr.NewBikeBooking
         protected Button unmapDealer, MapDealer;
         protected HtmlInputHidden hdnMapArea, hdnUnmapArea;
         protected string cityId = string.Empty;
-        protected uint dealerId=0;
+        protected uint dealerId = 0;
         protected List<DealerAreaDetails> objMapping = null;
         protected string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
 
@@ -56,7 +53,6 @@ namespace BikeWaleOpr.NewBikeBooking
             bool isSuccess = false;
             string arealist = hdnMapArea.Value;
             Trace.Warn(arealist);
-            //string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
             string requestType = "application/json";
             string api = "/api/dealerpricequote/UnmapDealerWithArea/?dealerid=" + dealerId + "&areaidlist=" + arealist;
 
@@ -70,29 +66,28 @@ namespace BikeWaleOpr.NewBikeBooking
         {
             dealerId = Convert.ToUInt32(Request.QueryString["dealerid"]);
 
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
-            Trace.Warn("DDDDDDDDDs");
-            Trace.Warn(ddlCity.SelectedValue);
-            GetCity();
+                Trace.Warn("DDDDDDDDDs");
+                Trace.Warn(ddlCity.SelectedValue);
+                GetCity();
             }
             else
                 BindArea();
         }
 
-        private  void BindArea()
+        private void BindArea()
         {
             try
             {
                 cityId = ddlCity.SelectedValue;
                 Trace.Warn(cityId);
-                //string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
                 string requestType = "application/json";
                 string api = "/api/DealerPriceQuote/GetDealerAreaDetail/?cityid=" + cityId;
 
                 objMapping = BWHttpClient.GetApiResponseSync<List<DealerAreaDetails>>(abHostUrl, requestType, api, objMapping);
                 dealerId = Convert.ToUInt32(Request.QueryString["dealerid"]);
-                
+
                 if (objMapping != null)
                 {
                     var objmappedArea = new List<DealerAreaDetails>();
@@ -109,7 +104,7 @@ namespace BikeWaleOpr.NewBikeBooking
                     var objUnMappedCity = new List<DealerAreaDetails>();
                     foreach (var citylist in objMapping)
                     {
-                        if (citylist.DealerId != dealerId )
+                        if (citylist.DealerId != dealerId)
                             objUnMappedCity.Add(citylist);
                     }
                     Trace.Warn("+++", objUnMappedCity.Count.ToString());
@@ -134,7 +129,7 @@ namespace BikeWaleOpr.NewBikeBooking
         {
             try
             {
-                ManageCities objCity=new ManageCities();
+                ManageCities objCity = new ManageCities();
                 DataTable dt = objCity.GetCities(0, "7").Tables[0];
                 if (dt != null && dt.Rows.Count > 0)
                 {
@@ -154,24 +149,24 @@ namespace BikeWaleOpr.NewBikeBooking
             }
         }//End of GetStates method
 
-        protected string showArea(string areaName,string AreaId, string pinCode, int dealerCount, int dealerRank)
+        protected string showArea(string areaName, string AreaId, string pinCode, int dealerCount, int dealerRank)
         {
             string retVal = string.Empty;
             if (dealerRank == 1)
             {
                 retVal = "<div class='inner-content'>"
-                       + "<input type='checkbox' id='chkMappedCity' class='unmapdealers' areaId='" + AreaId + "' dealerCount='" + dealerCount + "' areaName='"+areaName+"' />"
+                       + "<input type='checkbox' id='chkMappedCity' class='unmapdealers' areaId='" + AreaId + "' dealerCount='" + dealerCount + "' areaName='" + areaName + "' />"
                        + areaName + " - " + pinCode;
-                     
+
 
                 if (dealerCount > 0)
                 {
-                    retVal += "<a style='float:right;' id='edit_" + AreaId + "' areaId='" + AreaId + "'>View Mapped Dealer( "+dealerCount+" )</a>";
+                    retVal += "<a style='float:right;' id='edit_" + AreaId + "' areaId='" + AreaId + "'>View Mapped Dealer( " + dealerCount + " )</a>";
                 }
 
                 retVal += "</div>";
             }
-        
+
             return retVal;
         }
     }

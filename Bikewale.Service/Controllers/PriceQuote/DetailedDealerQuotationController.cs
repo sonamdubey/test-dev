@@ -1,14 +1,7 @@
-﻿using AutoMapper;
-using Bikewale.DTO.PriceQuote.DetailedDealerQuotation;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Location;
+﻿using Bikewale.DTO.PriceQuote.DetailedDealerQuotation;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Service.AutoMappers.PriceQuote;
-using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -35,13 +28,12 @@ namespace Bikewale.Service.Controllers.PriceQuote
         {
             PQ_DealerDetailEntity dealerDetailEntity = null;
             DDQDealerDetailBase output = null;
-            
+
             string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", versionId, dealerId, cityId);
             // Send HTTP GET requests 
 
             using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
             {
-                //dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
                 dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
             }
 
@@ -52,13 +44,13 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 if (dealerDetailEntity.objFacilities != null)
                 {
                     dealerDetailEntity.objFacilities.Clear();
-                    dealerDetailEntity.objFacilities = null; 
+                    dealerDetailEntity.objFacilities = null;
                 }
 
                 if (dealerDetailEntity.objOffers != null)
                 {
                     dealerDetailEntity.objOffers.Clear();
-                    dealerDetailEntity.objOffers = null; 
+                    dealerDetailEntity.objOffers = null;
                 }
 
                 if (dealerDetailEntity.objQuotation != null)
@@ -81,7 +73,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         dealerDetailEntity.objQuotation.PriceList = null;
                     }
 
-                    dealerDetailEntity.objQuotation.Varients = null; 
+                    dealerDetailEntity.objQuotation.Varients = null;
                 }
 
                 return Request.CreateResponse(HttpStatusCode.OK, output);

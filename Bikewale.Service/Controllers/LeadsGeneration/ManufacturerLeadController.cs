@@ -52,8 +52,6 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
         [ResponseType(typeof(bool))]
         public IHttpActionResult Post([FromBody]ManufacturerLeadEntity objLead)
         {
-            //string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-            // ManufacturerLeadEntity objLead = null;
             bool status = false;
 
             try

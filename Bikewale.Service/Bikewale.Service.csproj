@@ -217,6 +217,8 @@
     <Compile Include="Controllers\AppDeepLinking\DeepLinkingController.cs" />
     <Compile Include="Controllers\AppNotifications\AppAlertController.cs" />
     <Compile Include="Controllers\App\AppVersionCheckController.cs" />
+    <Compile Include="Controllers\AutoBiz\DealerPriceQuote\DealerPriceQuote.cs" />
+    <Compile Include="Controllers\AutoBiz\Dealers\Dealers.cs" />
     <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
     <Compile Include="Controllers\BikeBooking\Area\BBAreaListController.cs" />
     <Compile Include="Controllers\BikeBooking\BikeBookingListingController.cs" />

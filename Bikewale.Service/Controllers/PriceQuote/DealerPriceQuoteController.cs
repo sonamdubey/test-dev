@@ -1,21 +1,11 @@
-﻿using AutoMapper;
-using Bikewale.DTO.PriceQuote.DealerPriceQuote;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Location;
+﻿using Bikewale.DTO.PriceQuote.DealerPriceQuote;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote;
-using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.Entities.BikeBooking;
 
 namespace Bikewale.Service.Controllers.PriceQuote
 {
@@ -77,7 +67,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
                     objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
                 }
 
@@ -88,19 +77,19 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     if (objPrice.Disclaimer != null)
                     {
                         objPrice.Disclaimer.Clear();
-                        objPrice.Disclaimer = null; 
+                        objPrice.Disclaimer = null;
                     }
 
                     if (objPrice.objOffers != null)
                     {
                         objPrice.objOffers.Clear();
-                        objPrice.objOffers = null; 
+                        objPrice.objOffers = null;
                     }
 
                     if (objPrice.PriceList != null)
                     {
                         objPrice.PriceList.Clear();
-                        objPrice.PriceList = null; 
+                        objPrice.PriceList = null;
                     }
 
                     objPrice.Varients = null;

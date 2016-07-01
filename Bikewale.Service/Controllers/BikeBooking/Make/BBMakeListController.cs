@@ -1,12 +1,7 @@
 ﻿using Bikewale.DTO.BikeBooking.Make;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -33,7 +28,6 @@ namespace Bikewale.Service.Controllers.BikeBooking.Make
             {
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //lstMake = objClient.GetApiResponseSync<List<BBMakeBase>>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstMake);
                     lstMake = objClient.GetApiResponseSync<List<BBMakeBase>>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstMake);
                 }
 

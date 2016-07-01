@@ -1,20 +1,14 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Mobile.PriceQuote;
 using Bikewale.Utility;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;
-using Carwale.Entity.Enum;
 using Carwale.Entity.PaymentGateway;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.PriceQuote
@@ -92,7 +86,6 @@ namespace Bikewale.PriceQuote
 
                 using (Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //objAmount = objClient.GetApiResponseSync<BookingAmountEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objAmount);
                     objAmount = objClient.GetApiResponseSync<BookingAmountEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objAmount);
                 }
 
@@ -217,7 +210,6 @@ namespace Bikewale.PriceQuote
 
                 using (Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //string response = objClient.PutSync<BookingRequest, string>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
                     string response = objClient.PutSync<BookingRequest, string>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
                 }
             }

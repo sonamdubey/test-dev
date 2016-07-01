@@ -116,7 +116,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                             using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                             {
-                                //objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
                                 objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
                             }
 

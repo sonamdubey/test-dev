@@ -6,6 +6,7 @@ using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.DAL.AutoBiz;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
 using Bikewale.DTO.Version;
@@ -1285,6 +1286,29 @@ namespace Bikewale.New
                 objErr.SendMail();
             }
 
+        }
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 01-Jul-2016
+        /// Summary: Moving Autobiz dealerPQ API call to Code
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public BikeWale.Entities.AutoBiz.PQ_QuotationEntity GetDealePQEntity(uint dealerId, uint versionId)
+        {
+            BikeWale.Entities.AutoBiz.PQ_QuotationEntity objDealerPrice = default(BikeWale.Entities.AutoBiz.PQ_QuotationEntity);
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
+                Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                BikeWale.Entities.AutoBiz.PQParameterEntity objParam = new BikeWale.Entities.AutoBiz.PQParameterEntity();
+                objParam.CityId = cityId;
+                objParam.DealerId = dealerId;
+                objParam.VersionId = versionId;
+                objDealerPrice = objPriceQuote.GetDealerPriceQuote(objParam);
+
+            }
+            return objDealerPrice;
         }
 
         #endregion

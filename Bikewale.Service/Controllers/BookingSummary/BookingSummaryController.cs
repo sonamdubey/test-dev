@@ -8,12 +8,7 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Bikebooking;
 using Bikewale.Service.AutoMappers.BookingSummary;
-using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
-using System.Configuration;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -78,7 +73,6 @@ namespace Bikewale.Service.Controllers.BookingSummary
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
                     dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
                 }
 
@@ -117,7 +111,7 @@ namespace Bikewale.Service.Controllers.BookingSummary
                     bookingSummary = new BookingSummaryBase();
 
                     if (dtoCustomer != null && dtoQuotation != null)
-                    {                         
+                    {
                         bookingSummary.Customer = dtoCustomer;
                         bookingSummary.DealerQuotation = dtoQuotation;
                     }

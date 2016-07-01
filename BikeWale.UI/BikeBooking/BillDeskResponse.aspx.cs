@@ -254,7 +254,6 @@ namespace Bikewale.BikeBooking
 
                 using (BWHttpClient objClient = new BWHttpClient())
                 {
-                    //_objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(BWConfiguration.Instance.ABApiHostUrl, BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
                     _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(APIHost.AB, BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
                 }
 
@@ -377,7 +376,6 @@ namespace Bikewale.BikeBooking
 
                 using (Bikewale.Utility.BWHttpClient objClient = new BWHttpClient())
                 {
-                    //bookingId = objClient.PostSync<BookingRequest, uint>(BWConfiguration.Instance.ABApiHostUrl, BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
                     bookingId = objClient.PostSync<BookingRequest, uint>(APIHost.AB, BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
                 }
             }

@@ -1,7 +1,9 @@
-﻿using Bikewale.Entities.BikeBooking;
+﻿using Bikewale.DAL.AutoBiz;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
@@ -15,16 +17,16 @@ namespace Bikewale.BAL.BikeBooking
     /// <summary>
     /// Created By : Sadhana Upadhyay on 24 Oct 2014
     /// </summary>
-    public class DealerPriceQuote : IDealerPriceQuote
+    public class DealerPriceQuote : Bikewale.Interfaces.BikeBooking.IDealerPriceQuote
     {
-        private readonly IDealerPriceQuote dealerPQRepository = null;
+        private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote dealerPQRepository = null;
 
         public DealerPriceQuote()
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
-                dealerPQRepository = container.Resolve<IDealerPriceQuote>();
+                container.RegisterType<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
+                dealerPQRepository = container.Resolve<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote>();
             }
         }
 
@@ -94,17 +96,6 @@ namespace Bikewale.BAL.BikeBooking
 
             return isSuccess;
         }
-
-#if unused
-        public bool UpdateAppointmentDate(uint pqId, DateTime date)
-        {
-            bool isSuccess = false;
-
-            isSuccess = dealerPQRepository.UpdateAppointmentDate(pqId, date);
-
-            return isSuccess;
-        }
-#endif
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 10 Nov 2014
@@ -314,8 +305,7 @@ namespace Bikewale.BAL.BikeBooking
             PQOutputEntity objPQOutput = null;
             //uint dealerId = 0;
             ulong quoteId = 0;
-            DealerInfo objDealerDetail = new DealerInfo();
-
+            BikeWale.Entities.AutoBiz.DealerInfo objDealerDetail = new BikeWale.Entities.AutoBiz.DealerInfo();
             try
             {
                 if (PQParams.VersionId <= 0)
@@ -325,17 +315,24 @@ namespace Bikewale.BAL.BikeBooking
 
                 if (PQParams.VersionId > 0 && PQParams.AreaId > 0)
                 {
-                    string api = "/api/v3/DealerPriceQuote/IsDealerExists/?areaid=" + PQParams.AreaId + "&versionid=" + PQParams.VersionId;
-
-                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        //dealerId = objClient.GetApiResponseSync<uint>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, dealerId);
-                        objDealerDetail = objClient.GetApiResponseSync<DealerInfo>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objDealerDetail);
+                        container.RegisterType<IDealer, Bikewale.BAL.AutoBiz.Dealers>();
+                        container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
+                        IDealer objDealer = container.Resolve<IDealer>();
+                        objDealerDetail = objDealer.IsSubscribedDealerExistsV3(PQParams.VersionId, PQParams.AreaId);
                     }
+                    //string api = "/api/v3/DealerPriceQuote/IsDealerExists/?areaid=" + PQParams.AreaId + "&versionid=" + PQParams.VersionId;
+                    // Bikewale.BAL.AutoBiz.Dealers d = new Dealers();
+                    // d.IsSubscribedDealerExistsV3(PQParams.VersionId, PQParams.AreaId);
+                    //using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                    //{
+                    //    objDealerDetail = objClient.GetApiResponseSync<DealerInfo>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objDealerDetail);
+                    //}
                 }
                 else
                 {
-                    objDealerDetail = new DealerInfo();
+                    objDealerDetail = new BikeWale.Entities.AutoBiz.DealerInfo();
                 }
             }
             catch (Exception ex)
@@ -350,16 +347,13 @@ namespace Bikewale.BAL.BikeBooking
                 if (PQParams.VersionId > 0)
                 {
                     PQParams.DealerId = objDealerDetail.DealerId;
-
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                         IPriceQuote objIPQ = container.Resolve<IPriceQuote>();
-
                         quoteId = objIPQ.RegisterPriceQuote(PQParams);
                     }
                 }
-
                 objPQOutput = new PQOutputEntity() { DealerId = PQParams.DealerId, PQId = quoteId, VersionId = PQParams.VersionId, IsDealerAvailable = objDealerDetail.IsDealerAvailable };
             }
             return objPQOutput;

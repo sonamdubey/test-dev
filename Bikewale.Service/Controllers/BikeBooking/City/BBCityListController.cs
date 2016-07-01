@@ -1,11 +1,7 @@
 ﻿using Bikewale.DTO.BikeBooking.City;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -31,7 +27,6 @@ namespace Bikewale.Service.Controllers.BikeBooking.City
             {
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //lstCity = objClient.GetApiResponseSync<List<BBCityBase>>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstCity);
                     lstCity = objClient.GetApiResponseSync<List<BBCityBase>>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstCity);
                 }
 
