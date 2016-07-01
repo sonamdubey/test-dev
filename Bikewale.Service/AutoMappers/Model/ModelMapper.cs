@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Bikewale.BAL.PriceQuote;
 using Bikewale.DTO.BikeData;
 using Bikewale.DTO.CMS.Articles;
 using Bikewale.DTO.DealerLocator;
@@ -13,10 +12,8 @@ using Bikewale.DTO.Series;
 using Bikewale.DTO.Version;
 using Bikewale.DTO.Videos;
 using Bikewale.DTO.Widgets;
-using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
-using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.DTO;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
@@ -322,9 +319,9 @@ namespace Bikewale.Service.AutoMappers.Model
                 }
                 if (pqEntity != null)
                 {
-                    objDTOModelPage.IsCityExists = pqEntity.IsCityExists; 
-                    objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists; 
-                    objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice; 
+                    objDTOModelPage.IsCityExists = pqEntity.IsCityExists;
+                    objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists;
+                    objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
                     objDTOModelPage.ModelVersions = Convert(pqEntity.VersionList);
                     objDTOModelPage.DealerId = pqEntity.DealerId;
                     objDTOModelPage.PQId = pqEntity.PqId;
@@ -338,7 +335,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 }
                 if (dealers != null)
                 {
-                    if (dealers.PrimaryDealer != null )
+                    if (dealers.PrimaryDealer != null)
                     {
                         var dealerOffer = new List<DPQOffer>();
                         foreach (var offer in dealers.PrimaryDealer.OfferList)
@@ -359,11 +356,11 @@ namespace Bikewale.Service.AutoMappers.Model
                             objDTOModelPage.PrimaryDealer.MaskingNumber = dealers.PrimaryDealer.DealerDetails.MaskingNumber;
                             objDTOModelPage.PrimaryDealer.Area = dealers.PrimaryDealer.DealerDetails.objArea.AreaName;
                             objDTOModelPage.PrimaryDealer.DealerId = dealers.PrimaryDealer.DealerDetails.DealerId;
-                            objDTOModelPage.PrimaryDealer.DealerPkgType = (Bikewale.DTO.PriceQuote.DealerPackageType) dealers.PrimaryDealer.DealerDetails.DealerPackageType;
+                            objDTOModelPage.PrimaryDealer.DealerPkgType = (Bikewale.DTO.PriceQuote.DealerPackageType)dealers.PrimaryDealer.DealerDetails.DealerPackageType;
                         }
-                        
+
                     }
-                    if((pqEntity.IsAreaExists && pqEntity.IsAreaSelected) || !pqEntity.IsAreaExists)
+                    if ((pqEntity.IsAreaExists && pqEntity.IsAreaSelected) || !pqEntity.IsAreaExists)
                     {
                         objDTOModelPage.SecondaryDealerCount = (ushort)dealers.SecondaryDealerCount;
                     }
@@ -461,6 +458,22 @@ namespace Bikewale.Service.AutoMappers.Model
                 versionPrices.PrimaryDealerOffers = objOffers;
             }
             return versionPrices;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 01 Jul 2016
+        /// Description :   AutoMapper Entity to DTO for Popular Bikes
+        /// </summary>
+        /// <param name="objModelList"></param>
+        /// <returns></returns>
+        internal static IEnumerable<MostPopularBikes> Convert(IEnumerable<MostPopularBikesBase> objModelList)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
+            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
+            Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
+            return Mapper.Map<IEnumerable<MostPopularBikesBase>, IEnumerable<MostPopularBikes>>(objModelList);
         }
     }
 }
