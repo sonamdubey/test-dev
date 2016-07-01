@@ -806,7 +806,7 @@ namespace Bikewale.Mobile.New
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
                     if (versionId == 0)
                     {
-                        if (objPQOutput != null && objPQOutput.VersionId != null)
+                        if (objPQOutput != null && objPQOutput.VersionId > 0)
                         {
                             versionId = objPQOutput.VersionId;
                         }

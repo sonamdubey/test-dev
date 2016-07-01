@@ -6,6 +6,7 @@ using Bikewale.Service.AutoMappers.Make;
 using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -21,13 +22,14 @@ namespace Bikewale.Service.Controllers.Make
     /// </summary>
     public class MakeListController : CompressionApiController//ApiController
     {
-        private readonly IBikeMakes<BikeMakeEntity, int> _makesRepository;
+        //private readonly IBikeMakes<BikeMakeEntity, int> _makesRepository;
+        private readonly IBikeMakesCacheRepository<int> _makesRepository;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="makesRepository"></param>
-        public MakeListController(IBikeMakes<BikeMakeEntity, int> makesRepository)
+        public MakeListController(IBikeMakesCacheRepository<int> makesRepository)
         {
             _makesRepository = makesRepository;
         }
@@ -41,19 +43,18 @@ namespace Bikewale.Service.Controllers.Make
         [ResponseType(typeof(MakeList))]
         public IHttpActionResult Get(EnumBikeType requestType)
         {
-            List<BikeMakeEntityBase> objMakeList = null;
+            IEnumerable<BikeMakeEntityBase> objMakeList = null;
             MakeList objDTOMakeList = null;
             try
             {
                 objMakeList = _makesRepository.GetMakesByType(requestType);
 
-                if (objMakeList != null && objMakeList.Count > 0)
+                if (objMakeList != null && objMakeList.Count() > 0)
                 {
                     objDTOMakeList = new MakeList();
 
                     objDTOMakeList.Makes = MakeListMapper.Convert(objMakeList);
 
-                    objMakeList.Clear();
                     objMakeList = null;
 
                     return Ok(objDTOMakeList);

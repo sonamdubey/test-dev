@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.UI.WebControls;
-using Bikewale.Cache.Core;
+﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.PriceQuote;
+using Bikewale.Common;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
-using Bikewale.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -43,8 +43,8 @@ namespace Bikewale.Controls
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            if(isValidData())
-                BindNearestCityPrices();            
+            if (isValidData())
+                BindNearestCityPrices();
         }
 
         /// <summary>
@@ -77,10 +77,10 @@ namespace Bikewale.Controls
                 using (IUnityContainer container = new UnityContainer())
                 {
 
-                    container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>()                        
+                    container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IPriceQuoteCache, PriceQuoteCache>();
-                    
+
                     IPriceQuoteCache objCache = container.Resolve<IPriceQuoteCache>();
 
                     prices = objCache.GetModelPriceInNearestCities(ModelId, CityId, TopCount);

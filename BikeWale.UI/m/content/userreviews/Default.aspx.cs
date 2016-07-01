@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Bikewale.BAL.UserReviews;
 using Bikewale.Common;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.UserReviews;
-using Bikewale.BAL.UserReviews;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.UserReviews;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Content
 {
@@ -20,7 +19,7 @@ namespace Bikewale.Mobile.Content
         protected DropDownList ddlMake;
         protected LinkButton btnSubmit;
         protected Repeater rptMostReviewed, rptMostRead, rptMostHelpful, rptMostRecent, rptMostRated;
-        private   List<ReviewTaggedBikeEntity> objMostReviewed = null;
+        private List<ReviewTaggedBikeEntity> objMostReviewed = null;
         private IUserReviews objUserReviews = null;
 
         protected override void OnInit(EventArgs e)
@@ -72,7 +71,7 @@ namespace Bikewale.Mobile.Content
 
         private void RegisterContainer()
         {
- 	        using (IUnityContainer container = new UnityContainer())
+            using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IUserReviews, UserReviews>();
 
@@ -93,11 +92,12 @@ namespace Bikewale.Mobile.Content
             {
                 MakeModelVersion mmv = new MakeModelVersion();
 
-                ddlMake.DataSource = mmv.GetMakes("USERREVIEW");
-                ddlMake.DataValueField = "Value";
-                ddlMake.DataTextField = "Text";
-                ddlMake.DataBind();
-                ddlMake.Items.Insert(0, (new ListItem("--Select Make--", "0")));
+                //ddlMake.DataSource = mmv.GetMakes("USERREVIEW");
+                //ddlMake.DataValueField = "Value";
+                //ddlMake.DataTextField = "Text";
+                //ddlMake.DataBind();
+                //ddlMake.Items.Insert(0, (new ListItem("--Select Make--", "0")));
+                mmv.GetMakes(EnumBikeType.UserReviews, ref ddlMake);
             }
             catch (Exception ex)
             {

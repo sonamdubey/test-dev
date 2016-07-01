@@ -1,21 +1,21 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.New
 {
-	public class CompareBike : System.Web.UI.Page
-	{
+    public class CompareBike : System.Web.UI.Page
+    {
         protected HtmlGenericControl ddlMake1, ddlMake2;
 
         protected override void OnInit(EventArgs e)
@@ -48,11 +48,13 @@ namespace Bikewale.Mobile.New
                 List<BikeMakeEntityBase> makeList = null;
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>();
-                    IBikeMakes<BikeMakeEntity, int> objMake = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>()
+                        .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>();
+                    var objMake = container.Resolve<IBikeMakesCacheRepository<int>>();
 
-                    makeList = objMake.GetMakesByType(EnumBikeType.NewBikeSpecification);
-                    for (int i = 0; i < makeList.Count; i++) 
+                    makeList = objMake.GetMakesByType(EnumBikeType.NewBikeSpecification).ToList();
+                    for (int i = 0; i < makeList.Count; i++)
                     {
                         retVal1 += "<li><a id='" + makeList[i].MakeId + "' MaskingName= '" + makeList[i].MaskingName + "' onClick='ShowModel(this);' type='1'>" + makeList[i].MakeName + "</a></li>";
                         retVal2 += "<li><a id='" + makeList[i].MakeId + "' MaskingName= '" + makeList[i].MaskingName + "' onClick='ShowModel(this);' type='2'>" + makeList[i].MakeName + "</a></li>";
@@ -68,5 +70,5 @@ namespace Bikewale.Mobile.New
             }
         }
 
-	}
+    }
 }

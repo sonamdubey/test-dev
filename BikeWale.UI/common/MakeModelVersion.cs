@@ -1,9 +1,17 @@
-﻿using System;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
-using System.Web;
 using System.Data;
-using Bikewale.Common;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.UI.WebControls;
 
 /// <summary>
 /// Getting All details of make model and versions of the bikes
@@ -44,31 +52,95 @@ namespace Bikewale.Common
         public DataTable GetMakes(string RequestType)
         {
             DataTable dt = null;
-            Database db = null;
-
-            using (SqlCommand cmd = new SqlCommand("GetBikeMakes"))
+            IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
+            EnumBikeType _requestType = EnumBikeType.All;
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = RequestType;
-                try
+
+                if (Enum.TryParse(RequestType, true, out _requestType))
                 {
-                    db = new Database();
-                    dt = db.SelectAdaptQry(cmd).Tables[0];
-                }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                         .RegisterType<ICacheManager, MemcacheManager>()
+                                         .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                        ;
+                        var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                        makes = objCache.GetMakesByType(_requestType);
+
+
+                        var _makeList = (from mk in makes select new { Text = mk.MakeName, Value = mk.MakeId });
+
+                        dt = new DataTable();
+
+                        dt.Columns.Add("Text");
+                        dt.Columns.Add("Value");
+                        foreach (var make in _makeList)
+                        {
+                            dt.Rows.Add(make);
+                        }
+
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
             return dt;
+        }
+
+        /// <summary>
+        ///  Getting makes only by providing only request type
+        /// </summary>
+        /// <param name="requestType"></param>
+        /// <param name="drpDownList"></param>
+        public void GetMakes(EnumBikeType requestType, ref DropDownList drpDownList)
+        {
+
+            IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
+
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                     .RegisterType<ICacheManager, MemcacheManager>()
+                                     .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                    ;
+                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    makes = objCache.GetMakesByType(requestType);
+                    
+
+                    if (makes != null && makes.Count() > 0)
+                    {
+                        if (requestType == EnumBikeType.Used || requestType == EnumBikeType.UserReviews)
+                        {
+                            drpDownList.DataSource =  makes.Select(a => new { Value = string.Format("{0}_{1}",a.MakeId,a.MaskingName), Text = a.MakeName, Id = a.MakeId });
+                        }
+                        else
+                        {
+                            drpDownList.DataSource = makes.Select(a => new { Value = a.MakeId , Text = a.MakeName });
+                        }
+
+                        
+                        drpDownList.DataValueField = "Value";
+                        drpDownList.DataTextField = "Text";
+
+                        drpDownList.DataBind();
+                        drpDownList.Items.Insert(0, new ListItem("--Select Make--", "0"));
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
         }
 
         /// <summary>

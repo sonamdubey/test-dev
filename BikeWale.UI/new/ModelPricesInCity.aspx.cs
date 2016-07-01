@@ -3,7 +3,6 @@ using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.PriceQuote;

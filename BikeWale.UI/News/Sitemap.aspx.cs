@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Data;
-using System.Web.UI.WebControls;
-using System.Xml;
-using System.Text;
-using System.Data.SqlClient;
-using Bikewale.Common;
-using System.Data.Sql;
-using System.Data.SqlTypes;
+﻿using Bikewale.Common;
 using Bikewale.Utility;
-using System.IO;
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Text;
+using System.Web;
+using System.Xml;
 
 namespace Bikewale.News
 {
     public class Sitemap : System.Web.UI.Page
     {
-        private string mydomain = "http://www.bikewale.com/news/";
         protected void Page_Load(object sender, EventArgs e)
         {
             GenerateNewsSiteMap();
@@ -25,7 +18,7 @@ namespace Bikewale.News
         private void GenerateNewsSiteMap()
         {
             string mydomain = "http://www.bikewale.com/news/";
-            
+
 
             XmlTextWriter writer = null;
             DataTable dataTable = null;
@@ -34,7 +27,7 @@ namespace Bikewale.News
             SqlDataAdapter da = null;
             DataRow dtr = null;
             try
-            {                
+            {
                 writer = new XmlTextWriter(Response.OutputStream, Encoding.UTF8);
                 db = new Database();
                 using (con = new SqlConnection(BWConfiguration.Instance.CWConnectionString))
@@ -107,7 +100,7 @@ namespace Bikewale.News
                 objErr.SendMail();
             }
             finally
-            {                
+            {
                 if (con != null)
                 {
                     con.Close();

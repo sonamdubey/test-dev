@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bikewale.Common;
+using Bikewale.Controls;
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using Bikewale.Controls;
 
 namespace Bikewale.Content
 {
     public class DefaultCT : System.Web.UI.Page
     {
         protected RepeaterPager rpgCarCompare;
-        protected Repeater rptCarCompare;      
+        protected Repeater rptCarCompare;
         protected MakeModelSearch MakeModelSearch;
         protected HtmlGenericControl alertObj;
 
@@ -74,7 +71,7 @@ namespace Bikewale.Content
         {
             SelectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url," +
                             "CEI.IsMainImage, CEI.HostURL, CEI.ImagePathThumbnail, CEI.ImagePathLarge, Cmo.Name As ModelName," +
-                            "Cma.Name As MakeName, SC.Name As SubCategory , CEI.OriginalImagePath";
+                            "Cma.Name As MakeName, SC.Name As SubCategory , CEI.ImagePathOriginal";
             FromClause = " Con_EditCms_Basic AS CB With(NoLock) Join Con_EditCms_Bikes CC With(NoLock) On CC.BasicId = CB.Id And CC.IsActive = 1 Join " +
                            " BikeModels Cmo With(NoLock) On Cmo.ID = CC.ModelId Join BikeMakes Cma On Cma.ID = CC.MakeId Left Join " +
                            " Con_EditCms_Images CEI With(NoLock) On CEI.BasicId = CB.Id And CEI.IsMainImage = 1 And CEI.IsActive = 1 " +
@@ -108,8 +105,8 @@ namespace Bikewale.Content
 
         private void FillComparisonTests()
         {
-            SelectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, "+
-                           " CB.Url, CEI.IsMainImage, CEI.HostURL, CEI.ImagePathThumbnail, CEI.ImagePathLarge, CEI.OriginalImagePath ";
+            SelectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, " +
+                           " CB.Url, CEI.IsMainImage, CEI.HostURL, CEI.ImagePathThumbnail, CEI.ImagePathLarge, CEI.ImagePathOriginal ";
             FromClause = " Con_EditCms_Basic AS CB With(NoLock) Left Join Con_EditCms_Images CEI With(NoLock) On CEI.BasicId = CB.Id And CEI.IsMainImage = 1 And CEI.IsActive = 1 ";
             WhereClause = " CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1";
             OrderByClause = " DisplayDate Desc ";
@@ -151,6 +148,6 @@ namespace Bikewale.Content
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-        }       
+        }
     }
 }

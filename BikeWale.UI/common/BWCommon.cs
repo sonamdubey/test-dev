@@ -98,7 +98,7 @@ namespace Bikewale.Common
 			
 			string sql = "";
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeModels With(NoLock) WHERE IsDeleted = 0 AND BikeMakeId = @BikeMakeId ORDER BY Text ";
+			sql = " SELECT ID AS Value, Name AS Text FROM BikeModels With(NoLock) WHERE IsDeleted = 0 AND BikeMakeId = @BikeMakeId ORDER BY Text ";
 			
 			SqlParameter [] param ={new SqlParameter("@BikeMakeId", makeId)};
 			try
@@ -122,14 +122,14 @@ namespace Bikewale.Common
 			
 			string sql = "";
 			
-            //sql = " SELECT ID AS Value, Name AS Text FROM BikeMakes WHERE IsDeleted = 0 "
-            //    + " AND New = 1 ORDER BY Text ";
+			//sql = " SELECT ID AS Value, Name AS Text FROM BikeMakes WHERE IsDeleted = 0 "
+			//    + " AND New = 1 ORDER BY Text ";
 
-            // Modified By : Ashish G. Kamble
-            // Added Futuristic = 0 in the query to check whether Bike is launched or not.
+			// Modified By : Ashish G. Kamble
+			// Added Futuristic = 0 in the query to check whether Bike is launched or not.
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeMakes With(NoLock) WHERE IsDeleted = 0 "
-                + " AND New = 1 AND Futuristic = 0 ORDER BY Text ";
+			sql = " SELECT ID AS Value, Name AS Text FROM BikeMakes With(NoLock) WHERE IsDeleted = 0 "
+				+ " AND New = 1 AND Futuristic = 0 ORDER BY Text ";
 			try
 			{
 				ds = db.SelectAdaptQry(sql);
@@ -154,7 +154,7 @@ namespace Bikewale.Common
 			Database db = new Database();
 			string sql = "";
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeModels With(NoLock) WHERE IsDeleted = 0 AND "
+			sql = " SELECT ID AS Value, Name AS Text FROM BikeModels With(NoLock) WHERE IsDeleted = 0 AND "
 				+ " BikeMakeId = @BikeMakeId AND New = 1 ORDER BY Text ";
 			
 			SqlParameter [] param ={new SqlParameter("@BikeMakeId", makeId)};
@@ -180,7 +180,7 @@ namespace Bikewale.Common
 			
 			string sql = "";
 
-            sql = " SELECT ID AS Value, Name AS Text FROM BikeVersions With(NoLock) WHERE IsDeleted = 0 AND BikeModelId = @BikeModelId ";
+			sql = " SELECT ID AS Value, Name AS Text FROM BikeVersions With(NoLock) WHERE IsDeleted = 0 AND BikeModelId = @BikeModelId ";
 			
 			SqlParameter [] param ={new SqlParameter("@BikeModelId", modelId)};
 			
@@ -208,7 +208,7 @@ namespace Bikewale.Common
 		{
 			string sql = "", bikeName = "";
 
-            sql = " select ( mk.name +' '+ mo.name +' '+ vs.name ) Bike from bikeversions vs, bikemodels mo, bikemakes mk  With(NoLock) "
+			sql = " select ( mk.name +' '+ mo.name +' '+ vs.name ) Bike from bikeversions vs, bikemodels mo, bikemakes mk  With(NoLock) "
 				+ " where vs.bikemodelid = mo.id and mo.bikemakeid = mk.id and vs.id = @versionId";
 				
 			SqlParameter [] param ={new SqlParameter("@versionId", versionId)};
@@ -234,7 +234,7 @@ namespace Bikewale.Common
 			finally
 			{
 				if(dr != null)
-                    dr.Close();
+					dr.Close();
 
 				db.CloseConnection();
 			}
@@ -253,7 +253,7 @@ namespace Bikewale.Common
 			modelId = "";
 			
 			sql = " SELECT Mk.Name MakeName, Mo.Name ModelName, Vs.Name VersionName, Mk.Id MakeId, Mo.Id ModelName  "
-                + " FROM BikeVersions Vs, BikeModels Mo, BikeMakes Mk  With(NoLock) "
+				+ " FROM BikeVersions Vs, BikeModels Mo, BikeMakes Mk  With(NoLock) "
 				+  "WHERE Vs.BikeModelId = Mo.Id AND Mo.BikeMakeId = Mk.Id AND Vs.Id = @versionId";
 				
 			SqlDataReader dr = null;	
@@ -282,7 +282,7 @@ namespace Bikewale.Common
 			finally
 			{
 				if(dr != null)
-                    dr.Close();
+					dr.Close();
 
 				db.CloseConnection();
 			}
@@ -330,7 +330,7 @@ namespace Bikewale.Common
 			DataSet ds = new DataSet();
 			try
 			{
-  				ds.ReadXml(HttpContext.Current.Server.MapPath("~/XMLFeed/Makes.xml"));
+				ds.ReadXml(HttpContext.Current.Server.MapPath("~/XMLFeed/Makes.xml"));
 				return ds;
 			}
 			catch(Exception err)
@@ -349,7 +349,7 @@ namespace Bikewale.Common
 			DataSet ds = new DataSet();
 			try
 			{
-  				ds.ReadXml(HttpContext.Current.Server.MapPath("~/XMLFeed/BodyStyles.xml"));
+				ds.ReadXml(HttpContext.Current.Server.MapPath("~/XMLFeed/BodyStyles.xml"));
 				return ds;
 			}
 			catch(Exception err)
@@ -467,7 +467,7 @@ namespace Bikewale.Common
 														photoName = "";
 														expectedLaunch = "";
 														estimatedPrice = "";
-												  		break;			
+														break;			
 									default : 
 												  break;			   	
 								}
@@ -573,7 +573,7 @@ namespace Bikewale.Common
 															detailUrl = "";
 															mainImgPath = "";
 															bike = "";
-												  		break;			
+														break;			
 									default : 
 												  break;			   	
 								}
@@ -688,7 +688,7 @@ namespace Bikewale.Common
 														model = "";
 														modelId = "";
 														smallPic = "";
-												  		break;			
+														break;			
 									default : 
 												  break;			   	
 								}
@@ -722,78 +722,78 @@ namespace Bikewale.Common
 			return ret;
 		}
 
-        /// <summary>
-        /// Written By : Ashwini Todkar on 16 Oct 2014
-        /// Summary    : PopulateWhere to save EMI Assistance requests to database
-        /// MOdified By : Sadhana on 17 Oct 2014
-        /// Summary : to trim name , email,phone no
-        /// </summary>
-        /// <param name="custName">Customer name</param>
-        /// <param name="email">Customer email</param>
-        /// <param name="mobile">Customer mobile</param>
-        /// <param name="modelId">model selected by the customer</param>
-        /// <param name="selectedCityId"></param>
-        /// <param name="leadtype"></param>
-        /// <returns></returns>
-        public bool SaveEMIAssistaneRequest(string custName, string email, string mobile,  string modelId, string selectedCityId, string leadtype)
-        {
+		/// <summary>
+		/// Written By : Ashwini Todkar on 16 Oct 2014
+		/// Summary    : PopulateWhere to save EMI Assistance requests to database
+		/// MOdified By : Sadhana on 17 Oct 2014
+		/// Summary : to trim name , email,phone no
+		/// </summary>
+		/// <param name="custName">Customer name</param>
+		/// <param name="email">Customer email</param>
+		/// <param name="mobile">Customer mobile</param>
+		/// <param name="modelId">model selected by the customer</param>
+		/// <param name="selectedCityId"></param>
+		/// <param name="leadtype"></param>
+		/// <returns></returns>
+		public bool SaveEMIAssistaneRequest(string custName, string email, string mobile,  string modelId, string selectedCityId, string leadtype)
+		{
 
-            bool isSaved = false;
-            SqlCommand cmd = null;
-            Database db = null;
+			bool isSaved = false;
+			SqlCommand cmd = null;
+			Database db = null;
 
-            //Carwale.Service.Indigo.Web.HDFC_Bank_C2TSoapClient objTableSpool = new Carwale.Service.Indigo.Web.HDFC_Bank_C2TSoapClient();
+			//Carwale.Service.Indigo.Web.HDFC_Bank_C2TSoapClient objTableSpool = new Carwale.Service.Indigo.Web.HDFC_Bank_C2TSoapClient();
 
-            int _cityId = selectedCityId == "" ? 0 : Convert.ToInt32(selectedCityId);
+			int _cityId = selectedCityId == "" ? 0 : Convert.ToInt32(selectedCityId);
 
-            if (custName.Length > 0 && mobile.Length > 0)
-            {
-                try
-                {   
-                    db = new Database();
+			if (custName.Length > 0 && mobile.Length > 0)
+			{
+				try
+				{   
+					db = new Database();
 
-                    using(cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "InsertEmiAssistaceRequets";
-                        cmd.CommandType = CommandType.StoredProcedure;
+					using(cmd = new SqlCommand())
+					{
+						cmd.CommandText = "InsertEmiAssistaceRequets";
+						cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
-                        cmd.Parameters.Add("@custName", SqlDbType.VarChar, 100).Value = custName.Trim();
-                        cmd.Parameters.Add("@Email", SqlDbType.VarChar, 100).Value = email.Trim();
-                        cmd.Parameters.Add("@Mobile", SqlDbType.VarChar, 50).Value = mobile.Trim();
-                        cmd.Parameters.Add("@selectedCityId", SqlDbType.Int).Value = _cityId;
+						cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
+						cmd.Parameters.Add("@custName", SqlDbType.VarChar, 100).Value = custName.Trim();
+						cmd.Parameters.Add("@Email", SqlDbType.VarChar, 100).Value = email.Trim();
+						cmd.Parameters.Add("@Mobile", SqlDbType.VarChar, 50).Value = mobile.Trim();
+						cmd.Parameters.Add("@selectedCityId", SqlDbType.Int).Value = _cityId;
 
-                        if(!String.IsNullOrEmpty(leadtype))
-                            cmd.Parameters.Add("@leadType", SqlDbType.Int).Value = Convert.ToInt32(leadtype);
+						if(!String.IsNullOrEmpty(leadtype))
+							cmd.Parameters.Add("@leadType", SqlDbType.Int).Value = Convert.ToInt32(leadtype);
 
-                        //if(leadtype=="1")
-                        //    objTableSpool.AddDetails(custName,"",email,"","","","","",mobile,GeoCitiesRepository.GetCityNameById(cityid.ToString()),
+						//if(leadtype=="1")
+						//    objTableSpool.AddDetails(custName,"",email,"","","","","",mobile,GeoCitiesRepository.GetCityNameById(cityid.ToString()),
 
-                        if(db.InsertQry(cmd))
-                            isSaved = true;
-                    }
-                }
-                catch (SqlException err)
-                {
-                    HttpContext.Current.Trace.Warn(err.Message);
-                    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                } 
-                catch (Exception err)
-                {
-                    HttpContext.Current.Trace.Warn(err.Message);
-                    ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                finally
-                {
-                    db.CloseConnection();
-                    cmd.Dispose();
-                }              
-            }
+						if(db.InsertQry(cmd))
+							isSaved = true;
+					}
+				}
+				catch (SqlException err)
+				{
+					HttpContext.Current.Trace.Warn(err.Message);
+					ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+					objErr.SendMail();
+				} 
+				catch (Exception err)
+				{
+					HttpContext.Current.Trace.Warn(err.Message);
+					ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+					objErr.SendMail();
+				}
+				finally
+				{
+					db.CloseConnection();
+					cmd.Dispose();
+				}              
+			}
 
-            return isSaved;
-        }//End of SaveEMIAssistaneRequest
+			return isSaved;
+		}//End of SaveEMIAssistaneRequest
 
 	}//class
 }//namespace

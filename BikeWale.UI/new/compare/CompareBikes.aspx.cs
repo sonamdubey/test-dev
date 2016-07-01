@@ -84,19 +84,6 @@ namespace Bikewale.New
         {
             try
             {
-                //Commented By : Sadhana 
-
-                /*db = new Database();
-
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetComparisonDetails";
-
-                    Trace.Warn("versionlist : ",versions);
-                    cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 50).Value = versions;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = Configuration.GetDefaultCityId;
-                 */
 
                 CompareBikes cb = new CompareBikes();
 
@@ -406,38 +393,7 @@ namespace Bikewale.New
             ctrlSimilarBikes.TopCount = 4;
             ctrlSimilarBikes.versionsList = verList;
         }
-        ///// <summary>
-        ///// Created By : Ashish G. Kamble on 13 Mar 2014
-        ///// Summary : Function to transpose the datatable.
-        ///// </summary>
-        ///// <param name="inputTable">DataTable to be transposed.</param>
-        ///// <returns>Returns new datatable which is transpose of the input table.</returns>
-        //private DataTable GenerateTransposedTable(DataTable inputTable)
-        //{
-        //    DataTable outputTable = new DataTable();
 
-        //    // Add columns by looping rows
-
-        //    for (int iTmp = 1; iTmp <= inputTable.Rows.Count; iTmp++)
-        //    {
-        //        outputTable.Columns.Add("Version" + iTmp);                
-        //    }
-
-        //    // Add rows by looping columns
-        //    for (int rCount = 0; rCount < inputTable.Columns.Count; rCount++)
-        //    {
-        //        DataRow newRow = outputTable.NewRow();
-
-        //        for (int cCount = 0; cCount < inputTable.Rows.Count; cCount++)
-        //        {
-        //            string colValue = inputTable.Rows[cCount][rCount].ToString();
-        //            newRow[cCount] = colValue;
-        //        }
-        //        outputTable.Rows.Add(newRow);
-        //    }
-
-        //    return outputTable;
-        //}   // End of GenerateTransposedTable
 
     }
 }

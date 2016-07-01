@@ -209,24 +209,7 @@ namespace Bikewale.DAL.BikeBooking
                     }
                 }
             }
-            //try
-            //{
-            //    db = new Database();
-            //    using (SqlConnection con = new SqlConnection(db.GetConString()))
-            //    {
-            //        using (SqlCommand cmd = new SqlCommand())
-            //        {
-            //            cmd.CommandType = CommandType.StoredProcedure;
-            //            cmd.CommandText = "SaveInsuranceLead";
-            //            cmd.Connection = con;
 
-                        
-            //            con.Open();
-            //            affectedRow = cmd.ExecuteNonQuery();
-            //            isSuccess = true;
-            //        }
-            //    }
-            //}
             catch (SqlException sqEx)
             {
                 HttpContext.Current.Trace.Warn("SaveCancellationOTP sqlex : " + sqEx.Message + sqEx.Source);

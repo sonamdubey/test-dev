@@ -1,16 +1,23 @@
-﻿using System;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Memcache;
+using Microsoft.Practices.Unity;
+using System;
+using System.Configuration;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using Bikewale.Common;
-using System.Data;
-using System.Data.SqlClient;
-using System.Net;
-using System.IO;
-using Bikewale.Memcache;
-using System.Text.RegularExpressions;
-using System.Configuration;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Used
 {
@@ -22,7 +29,7 @@ namespace Bikewale.Used
         protected Repeater rptMakes;
         protected DropDownList drpCity;
         protected HtmlGenericControl searchRes;
-        protected string city = string.Empty, cityId = string.Empty, prevUrl = string.Empty, nextUrl = string.Empty, makeId = string.Empty,queryString = String.Empty;
+        protected string city = string.Empty, cityId = string.Empty, prevUrl = string.Empty, nextUrl = string.Empty, makeId = string.Empty, queryString = String.Empty;
         protected string makeMaskingName = String.Empty, modelMaskingName = String.Empty, cityMaskingName = String.Empty, make = String.Empty, model = String.Empty, modelId = String.Empty, pageNumber = String.Empty, nextPrevBaseUrl = String.Empty;
         protected string pageCanonical = String.Empty, pageKeywords = String.Empty, pageDescription = String.Empty, pageTitle = String.Empty;
 
@@ -54,7 +61,7 @@ namespace Bikewale.Used
                     BindMakeRepeater();
 
                     string _qs = String.Empty;
-                    
+
                     //form query string to load result
                     processQueryString(ref _qs);
 
@@ -62,12 +69,12 @@ namespace Bikewale.Used
                     LoadSearchResults(_qs);
 
                     //if search criteria contains city then set ddl to selected option
-                    if(!String.IsNullOrEmpty(cityId))
+                    if (!String.IsNullOrEmpty(cityId))
                         drpCity.SelectedValue = cityId + '_' + cityMaskingName;
                 }
                 catch (Exception ex)
                 {
-                    Response.Redirect("/pagenotfound.aspx",false);
+                    Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
 
@@ -85,7 +92,7 @@ namespace Bikewale.Used
         /// <param name="_qs"> query string for loading the search result page</param>
         private void processQueryString(ref string _qs)
         {
-            string _tempQS = string.Empty,_tempBudget = string.Empty,_pageNo = string.Empty;
+            string _tempQS = string.Empty, _tempBudget = string.Empty, _pageNo = string.Empty;
 
             try
             {
@@ -123,8 +130,8 @@ namespace Bikewale.Used
                     _qs += "&" + _tempBudget;
                 }
                 //else if (!String.IsNullOrEmpty(Request.QueryString["budget"]))
-               // {
-                   // _qs += "&budget=" + Request.QueryString["budget"];
+                // {
+                // _qs += "&budget=" + Request.QueryString["budget"];
                 //}
 
                 if (!String.IsNullOrEmpty(Request.QueryString["pn"]))
@@ -139,7 +146,7 @@ namespace Bikewale.Used
                 }
 
                 queryString = _qs;
-                Trace.Warn("query  string",queryString);
+                Trace.Warn("query  string", queryString);
 
 
                 // query string with page url for paging purpose on page load.
@@ -174,53 +181,13 @@ namespace Bikewale.Used
             }
         }//End of processQueryString
 
-        //Commented By : Ashwini Todkar on 17 April 2014 - not more required
-        //protected void DrpCity_Change(object sender, EventArgs e)
-        //{
-        //    Trace.Warn("City Index changes");
 
-        //    Response.Redirect("/used-bikes-in-mumbai/");
-        //}
-
-        //protected void GetCityName()
-        //{
-        //    StateCity objCity = new StateCity();
-            
-        //    Cities obj = objCity.GetCityDetails(cityId);
-        //    city = obj.City;
-
-        //    Trace.Warn("city : " + obj.City);
-        //}
-
-        //protected void CreateHtmlSnapshot()
-        //{
-        //    // Get the complete query string.
-        //    //string query_string = Request.QueryString["_escaped_fragment_"];
-        //    string query_string = Request.QueryString.ToString().Replace("_escaped_fragment_=","");
-            
-        //    if (Request.QueryString.ToString().IndexOf("dist") <= 0)
-        //    {
-        //        query_string += "&dist=50";
-        //        Trace.Warn("query : ", query_string);
-        //    }
-
-        //    Trace.Warn("query_string : " + query_string);
-
-        //    // Removed _escaped_fragment_ from the query string to get actual query string.
-        //    string qs = query_string.Replace("%3d", "=");
-
-
-        //    LoadSearchResults(qs);
-        //}
-
-
-        
         /// <summary>
         /// Written By : Ashwini Todkar on 16 April 2014
         /// Summary    : Function will load the search result page on the current page.
         /// </summary>
         /// <param name="qs"></param>
-        private void LoadSearchResults(string qs) 
+        private void LoadSearchResults(string qs)
         {
             //string host = Request.ServerVariables["HTTP_HOST"].ToString();
             string host = ConfigurationManager.AppSettings["bwHostUrl"];
@@ -230,10 +197,10 @@ namespace Bikewale.Used
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url.Replace("%3d", "="));
-                   
+
                 Trace.Warn("+++request", request.RequestUri.ToString());
                 request.Headers.Add("pageIndex", "-1");
-                    
+
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
                 StreamReader stream = new StreamReader(response.GetResponseStream());
@@ -245,7 +212,7 @@ namespace Bikewale.Used
                 if (!String.IsNullOrEmpty(response.Headers["pageIndex"].ToString()))
                 {
                     pageIndex = response.Headers["pageIndex"].ToString();
-                    Trace.Warn("Page index on search page",pageIndex);
+                    Trace.Warn("Page index on search page", pageIndex);
                     Trace.Warn("page number on search page ,", pageNumber);
                 }
                 Trace.Warn("GetLinkToPrevNextPages" + pageIndex);
@@ -254,11 +221,11 @@ namespace Bikewale.Used
                 GetMetaKeywords();
 
                 // Get Links to previous and next pages in case of paging.
-                GetLinkToPrevNextPages(pageIndex);                    
+                GetLinkToPrevNextPages(pageIndex);
             }
             catch (Exception ex)
             {
-                Trace.Warn("LoadSearchResults : ",ex.Message);
+                Trace.Warn("LoadSearchResults : ", ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -272,9 +239,22 @@ namespace Bikewale.Used
         {
             try
             {
-                MakeModelVersion mmv = new MakeModelVersion();
-                rptMakes.DataSource = mmv.GetMakes("USED");
-                rptMakes.DataBind();
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                     .RegisterType<ICacheManager, MemcacheManager>()
+                                     .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                    ;
+                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    var makes = objCache.GetMakesByType(EnumBikeType.Used);
+                    if (makes != null && makes.Count() > 0)
+                    {
+                        rptMakes.DataSource = makes;
+                        rptMakes.DataBind();
+                    }
+
+                }
+
             }
             catch (Exception ex)
             {
@@ -283,7 +263,7 @@ namespace Bikewale.Used
                 objErr.SendMail();
             }
         }
-       
+
         /// <summary>
         /// Modified By : Ashwini Todkar on 14 April 2014
         /// Summary     : Function to get all used cities 
@@ -374,7 +354,7 @@ namespace Bikewale.Used
             pageDescription = objKeywords.PageDescription;
 
             nextPrevBaseUrl = objKeywords.BaseURL;
-     
+
         }// End of GetMetaKeywords method
 
     }   // End of class
