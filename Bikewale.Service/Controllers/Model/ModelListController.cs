@@ -22,14 +22,25 @@ namespace Bikewale.Service.Controllers.Model
     /// Created On : 24th August 2015
     /// Modified by :   Sumit Kate on 18 May 2016
     /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// Modified by :   Sumit Kate on 01 Jul 2016
+    /// Description :   Added IBikeModelsCacheRepository ref
     /// </summary>
     public class ModelListController : CompressionApiController//ApiController
     {
 
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
-        public ModelListController(IBikeModelsRepository<BikeModelEntity, int> modelRepository)
+        private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
+
+        /// <summary>
+        /// Modified by :   Sumit Kate on 01 Jul 2016
+        /// Description :   Added IBikeModelsCacheRepository
+        /// </summary>
+        /// <param name="modelRepository"></param>
+        /// <param name="modelCacheRepository"></param>
+        public ModelListController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> modelCacheRepository)
         {
             _modelRepository = modelRepository;
+            _modelCacheRepository = modelCacheRepository;
         }
 
         #region Minimum Model Details
@@ -70,6 +81,8 @@ namespace Bikewale.Service.Controllers.Model
         #region Get Most Popular Bikes
         /// <summary>
         ///  To Get Most popular Bikes List
+        ///  Modified by    :   Sumit Kate on 01 Jul 2016
+        ///  Description    :   Call the Cache Layer to get the Data
         /// </summary>
         /// <param name="totalCount">No. of records to be fetched</param>
         /// <param name="makeId">Optional (To return Models List Based on MakeID)</param>
@@ -77,20 +90,17 @@ namespace Bikewale.Service.Controllers.Model
         [ResponseType(typeof(MostPopularBikesList))]
         public IHttpActionResult Get(sbyte? totalCount = null, int? makeId = null)
         {
-            List<MostPopularBikesBase> objModelList = null;
+            IEnumerable<MostPopularBikesBase> objModelList = null;
             MostPopularBikesList objDTOModelList = null;
             try
             {
-                objModelList = _modelRepository.GetMostPopularBikes(totalCount, makeId);
+                objModelList = _modelCacheRepository.GetMostPopularBikes(totalCount, makeId);
 
-                if (objModelList != null && objModelList.Count > 0)
+                if (objModelList != null && objModelList.Count() > 0)
                 {
                     // Auto map the properties
                     objDTOModelList = new MostPopularBikesList();
                     objDTOModelList.PopularBikes = ModelMapper.Convert(objModelList);
-
-                    objModelList.Clear();
-                    objModelList = null;
 
                     return Ok(objDTOModelList);
                 }
