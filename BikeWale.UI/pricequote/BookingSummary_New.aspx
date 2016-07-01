@@ -547,7 +547,8 @@
             var thisBikename = "<%= this.bikeName %>";
             var clientIP = "<%= clientIP %>"; 
             var pageUrl = "<%= pageUrl %>";
-            var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+
+            //var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl1"]%>';
             
             //select bike version
             var bikeVersionId = "<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>";
