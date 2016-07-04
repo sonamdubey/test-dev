@@ -7,16 +7,15 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
+using Bikewale.Notifications.CoreDAL;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using Bikewale.Notifications.CoreDAL;
-using System.Data.Common;
-using System.Web.UI.WebControls;
 using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -314,35 +313,37 @@ namespace Bikewale.New
         {
             string sql = "";
 
-            sql = " SELECT (SELECT MaskingName FROM BikeMakes With(NoLock) WHERE ID = MO.BikeMakeId) AS MakeMaskingName, MO.ID as ModelId, MO.Name AS ModelName,MO.MaskingName AS ModelMaskingName, IsNull(MO.ReviewRate, 0) AS ModelRate, IsNull(MO.ReviewCount, 0) AS ModelTotal, "
-                + " IsNull(CV.ReviewRate, 0) AS VersionRate, IsNull(CV.ReviewCount, 0) AS VersionTotal "
-                + " FROM BikeModels AS MO, BikeVersions AS CV With(NoLock) WHERE CV.ID = @ID AND MO.ID = CV.BikeModelId ";
+            sql = @" select (select maskingname from bikemakes   where id = mo.bikemakeid) as makemaskingname, mo.id as modelid, mo.name as modelname,mo.maskingname as modelmaskingname, ifnull(mo.reviewrate, 0) as modelrate, ifnull(mo.reviewcount, 0) as modeltotal, 
+                ifnull(cv.reviewrate, 0) as versionrate, ifnull(cv.reviewcount, 0) as versiontotal 
+                from bikemodels as mo, bikeversions as cv   where cv.id = @id and mo.id = cv.bikemodelid ";
 
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = versionId;
-
-            SqlDataReader dr = null;
-            Database db = new Database();
 
             string reviewString = "";
 
             try
             {
-                dr = db.SelectQry(cmd);
-
-                while (dr.Read())
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (Convert.ToDouble(dr["ModelRate"]) > 0)
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.UInt32, versionId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                     {
-                        string reviews = Convert.ToDouble(dr["ModelTotal"]) > 1 ? " reviews" : " review";
-                        //reviewString += "<div align='center'>" + CommonOpn.GetRateImage(Convert.ToDouble(dr["ModelRate"].ToString())) + "</div>"
-                        //									 + " <div style='margin-top:10px;' align='center'><a href='/Research/ReadUserReviews-Bikem-"+ dr["ModelId"].ToString() +".html'>"+ dr["ModelTotal"].ToString() + reviews +" </a></div>";
-                        reviewString += "<div class='margin-top10'>" + CommonOpn.GetRateImage(Convert.ToDouble(dr["ModelRate"].ToString()))
-                                     + " <a style='border-left:1px solid #E2E2E2;' class='margin-left5' href='/" + dr["MakeMaskingName"].ToString() + "-bikes/" + dr["ModelMaskingName"].ToString() + "/user-reviews/'>" + dr["ModelTotal"].ToString() + reviews + " </a></div>";
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                if (Convert.ToDouble(dr["ModelRate"]) > 0)
+                                {
+                                    string reviews = Convert.ToDouble(dr["ModelTotal"]) > 1 ? " reviews" : " review";
+                                    reviewString += "<div class='margin-top10'>" + CommonOpn.GetRateImage(Convert.ToDouble(dr["ModelRate"].ToString()))
+                                                 + " <a style='border-left:1px solid #E2E2E2;' class='margin-left5' href='/" + dr["MakeMaskingName"].ToString() + "-bikes/" + dr["ModelMaskingName"].ToString() + "/user-reviews/'>" + dr["ModelTotal"].ToString() + reviews + " </a></div>";
 
+                                }
+                                else
+                                    reviewString = "<div style='margin-top:10px;'><a href='/content/userreviews/writereviews.aspx?bikem=" + dr["ModelId"].ToString() + "'>Write a review</a></div>";
+                            }
+                        }
+                        dr.Close();
                     }
-                    else
-                        reviewString = "<div style='margin-top:10px;'><a href='/content/userreviews/writereviews.aspx?bikem=" + dr["ModelId"].ToString() + "'>Write a review</a></div>";
                 }
             }
             catch (SqlException err)
@@ -355,14 +356,7 @@ namespace Bikewale.New
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
-                db.CloseConnection();
-            }
+
             return reviewString;
         }
 

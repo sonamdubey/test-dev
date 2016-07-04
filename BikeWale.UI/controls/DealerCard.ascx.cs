@@ -37,7 +37,6 @@ namespace Bikewale.Controls
         public int LeadSourceId = 25; // DealersCard GetOfferButton
         public int PQSourceId { get; set; }
         public bool IsDiscontinued { get; set; }
-        public uint ModelId { get; set; }
         protected bool isCitySelected { get { return CityId > 0; } }
 
         public bool showWidget = false;
@@ -95,7 +94,6 @@ namespace Bikewale.Controls
                              .RegisterType<IDealer, DealersRepository>()
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
-                    _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
                     if (isCitySelected)
                     {
                         _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);

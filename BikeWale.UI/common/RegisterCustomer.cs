@@ -75,7 +75,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean , ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40,CommonOpn.GetClientIP()));
 
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     //run the command
 
@@ -302,7 +302,7 @@ namespace Bikewale.Common
                     //cmd.Parameters.Add("@Hash", SqlDbType.VarChar, 64).Direction = ParameterDirection.Output;
                     //cmd.Parameters.Add("@customerid", SqlDbType.BigInt).Direction = ParameterDirection.Output;
                     //cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                   // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, email));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbType.String, 64, ParameterDirection.Output));
@@ -471,7 +471,7 @@ namespace Bikewale.Common
                     //cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
                     //cmd.Parameters.Add("@Token", SqlDbType.VarChar, 200).Value = token;
                     //cmd.Parameters.Add("@isvalidtoken", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbType.String, 200, token));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isvalidtoken", DbType.Boolean, ParameterDirection.Output));

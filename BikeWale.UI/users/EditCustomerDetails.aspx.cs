@@ -281,7 +281,7 @@ namespace Bikewale.MyBikeWale
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, _isverified));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_phone1", DbType.String, 50, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbType.String, 100, Convert.DBNull));
-			Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+			//Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     returnVal = true; 

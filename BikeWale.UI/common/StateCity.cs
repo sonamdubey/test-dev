@@ -253,7 +253,7 @@ namespace Bikewale.Common
 
             //    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
             //    cmd.Parameters.Add("@City", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+              //      Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
             //    try
             //    {
             //        db = new Database();

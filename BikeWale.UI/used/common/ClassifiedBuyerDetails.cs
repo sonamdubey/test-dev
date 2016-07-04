@@ -130,7 +130,7 @@ namespace Bikewale.Used
 
             //    con.Open();
             //    //run the command
-            // Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+            // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
             //    cmd.ExecuteNonQuery();
 
             //    returnVal = true;
@@ -168,7 +168,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 10, buyerMobile));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Boolean, ParameterDirection.Output));
 
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);											
+                //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);											
                     MySqlDatabase.ExecuteNonQuery(cmd);//run the command
 
                     status = Convert.ToBoolean(cmd.Parameters["par_status"].Value);
@@ -273,7 +273,7 @@ namespace Bikewale.Used
             //    cmd.Parameters.Add("@AlertFrequency", SqlDbType.TinyInt).Value = alertFrq;
             //    cmd.Parameters.Add("@alertUrl", SqlDbType.VarChar, 8000).Value = url;
             //    cmd.Parameters.Add("@Status", SqlDbType.Bit).Direction = ParameterDirection.Output;
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+              //  Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
             //    con.Open();
             //    cmd.ExecuteNonQuery();//run the command
 

@@ -176,7 +176,7 @@ namespace Bikewale.Notifications
                             cmd.Parameters.Add(DbFactory.GetDbParam("@currentid", DbType.Int32, Convert.ToInt32(currentId)));
                             cmd.Parameters.Add(DbFactory.GetDbParam("@retmsg", DbType.String, retMsg));
 
-                            LogLiveSps.LogSpInGrayLog(cmd);
+                            // LogLiveSps.LogSpInGrayLog(cmd);
                             cmd.ExecuteNonQuery();
                         }
                 }
@@ -205,7 +205,7 @@ namespace Bikewale.Notifications
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_successfull", DbType.Boolean, status));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_returnedmsg", DbType.String, 500, retMsg));   
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smspageurl", DbType.String, 500, pageUrl));  
-                        LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
                         currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd));
                     }
             }

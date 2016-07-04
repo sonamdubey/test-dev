@@ -264,23 +264,21 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public DealerStateCities GetDealerStateCities(uint makeId, uint stateId)
         {
-            Database db = null;
 
             DealerStateCities objStateCities = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetCitywiseDealersCnt";
+                    cmd.CommandText = "getcitywisedealerscnt";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@StateId", SqlDbType.Int).Value = stateId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, stateId));
 
-                    db = new Database();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -319,6 +317,8 @@ namespace Bikewale.DAL.Location
                                 objStateCities.dealerStates = dealerStates;
                             }
 
+                            dr.Close();
+
                         }
                     }
                 }
@@ -327,10 +327,6 @@ namespace Bikewale.DAL.Location
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("ServerVariable: {0} , Parameters : makeId({1}), stateId({2})", HttpContext.Current.Request.ServerVariables["URL"], makeId, stateId));
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return objStateCities;
         }

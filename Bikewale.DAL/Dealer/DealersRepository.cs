@@ -3,14 +3,13 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using System.Data.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 
@@ -410,11 +409,11 @@ namespace Bikewale.DAL.Dealer
 
                         //TVS Dealer ID to be sent to update pricequote ID
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
-                            LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
 
                         if (MySqlDatabase.ExecuteNonQuery(cmd) < 0)
                             status = true;
-                            
+
 
                     }
                 }
@@ -470,7 +469,6 @@ namespace Bikewale.DAL.Dealer
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getdealerbymakecity_31052016";
-                    if (modelId > 0)
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelid > 0 ? modelid : Convert.DBNull));
@@ -692,22 +690,23 @@ namespace Bikewale.DAL.Dealer
         public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
         {
             IList<PopularCityDealerEntity> cityDealers = null;
-            Database db = null;
             try
             {
                 if (makeId > 0)
                 {
-                    db = new Database();
 
-                    using (SqlCommand cmd = new SqlCommand())
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "GetPopularCityDealer";
-                        cmd.Parameters.AddWithValue("@MakeId", Convert.ToInt32(makeId));
-                        cmd.Parameters.AddWithValue("@TopCount", Convert.ToInt16(topCount));
-                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        cmd.CommandText = "getpopularcitydealer";
+
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.ToInt32(makeId)));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, Convert.ToInt32(topCount)));
+
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                         {
-                            if (dr != null && dr.HasRows)
+                            if (dr != null)
                             {
                                 cityDealers = new List<PopularCityDealerEntity>();
                                 while (dr.Read())
@@ -733,10 +732,7 @@ namespace Bikewale.DAL.Dealer
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return cityDealers;
         }
     }//End class

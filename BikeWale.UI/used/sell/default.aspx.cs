@@ -458,7 +458,7 @@ namespace Bikewale.Used
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.CommandText = "saveclassifiedindividualsellbikeinquiries_sp";
 
-                            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                           // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                             cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32 , SelectedVersion));
                             cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemakeyear", DbType.DateTime, _bikemkyear));
                             cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeowner", DbType.Byte , drpOwner.SelectedValue));

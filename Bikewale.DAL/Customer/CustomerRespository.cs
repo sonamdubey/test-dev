@@ -36,7 +36,7 @@ namespace Bikewale.DAL.Customer
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "registercustomer_new";
-                        LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
 
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, t.CustomerName));
@@ -172,7 +172,7 @@ namespace Bikewale.DAL.Customer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_passwordhash", DbType.String, 64, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isexist", DbType.Boolean, ParameterDirection.Output));
-                        LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
                     t = new T();
@@ -239,7 +239,7 @@ namespace Bikewale.DAL.Customer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isexist", DbType.Boolean, ParameterDirection.Output));
 
-                        LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     t = new T();
@@ -397,7 +397,7 @@ namespace Bikewale.DAL.Customer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbType.String, 200, token));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isvalidtoken", DbType.Boolean, ParameterDirection.Output));
 
-                        LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
 
 
                     MySqlDatabase.ExecuteNonQuery(cmd);

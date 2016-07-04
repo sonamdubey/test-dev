@@ -4,12 +4,12 @@ using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-using System.Collections;
-using System.Data.Common;
 
 namespace Bikewale.DAL.Location
 {
@@ -70,19 +70,16 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public Hashtable GetMaskingNames()
         {
-            Database db = null;
             Hashtable ht = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "GetStateMappingNames";
+                    cmd.CommandText = "getstatemappingnames";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    db = new Database();
-
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -103,10 +100,6 @@ namespace Bikewale.DAL.Location
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
             return ht;
         }
         /// Create By : Vivek Gupta 
@@ -117,19 +110,17 @@ namespace Bikewale.DAL.Location
         /// <returns></returns>
         public IEnumerable<DealerStateEntity> GetDealerStates(uint makeId)
         {
-            Database db = null;
             List<DealerStateEntity> objStateList = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetStatewiseDealersCnt"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getstatewisedealerscnt"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
-                    db = new Database();
                     objStateList = new List<DealerStateEntity>();
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         if (dr != null)
                         {
@@ -145,7 +136,10 @@ namespace Bikewale.DAL.Location
                                     StateCount = !Convert.IsDBNull(dr["StateCnt"]) ? Convert.ToUInt32(dr["StateCnt"]) : default(UInt32)
                                 });
                             }
+
+                            dr.Close();
                         }
+
                     }
                 }
             }
@@ -154,10 +148,6 @@ namespace Bikewale.DAL.Location
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" :GetDealerStates, makeId = {0} ", makeId));
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return objStateList;
         }

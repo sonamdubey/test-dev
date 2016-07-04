@@ -1,5 +1,4 @@
-﻿//using Bikewale.CoreDAL;
-using Bikewale.Entities.PriceQuote;
+﻿using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Notifications.CoreDAL;
@@ -65,7 +64,7 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(pqParams.DeviceId)) ? pqParams.DeviceId : null));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_refpqid", DbType.Int64, (pqParams.RefPQId.HasValue) ? pqParams.RefPQId : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, ParameterDirection.Output));
-LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
                         MySqlDatabase.ExecuteNonQuery(cmd);
                         quoteId = Convert.ToUInt64(cmd.Parameters["par_quoteid"].Value);
                     }
@@ -116,7 +115,7 @@ LogLiveSps.LogSpInGrayLog(cmd);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_numofrows", DbType.Int32, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerid", DbType.Int32, ParameterDirection.Output));
-                        LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     int numberOfRecords = Convert.ToInt32(cmd.Parameters["par_numofrows"].Value);
@@ -252,7 +251,7 @@ LogLiveSps.LogSpInGrayLog(cmd);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, pqParams.VersionId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolorid", DbType.Int32, (pqParams.ColorId > 0) ? pqParams.ColorId : Convert.DBNull));
-                        LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
                     if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd)))
                         isUpdated = true;
                 }
@@ -287,7 +286,7 @@ LogLiveSps.LogSpInGrayLog(cmd);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, Convert.ToInt32(state)));
 
 
-                        LogLiveSps.LogSpInGrayLog(cmd);
+                    // LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
                     isUpdated = true;
                 }
@@ -368,8 +367,8 @@ LogLiveSps.LogSpInGrayLog(cmd);
                     cmd.CommandText = "getmodelpricefortopcities";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.SByte, topCount));
                         
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -456,7 +455,6 @@ LogLiveSps.LogSpInGrayLog(cmd);
                     }
 
                 }
-            }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" inputs: modelId : {0} : topCount : {1} : cityId : {2}", modelId, topCount, cityId));

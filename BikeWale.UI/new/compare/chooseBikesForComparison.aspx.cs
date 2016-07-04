@@ -5,6 +5,7 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Notifications.CoreDAL;
 using Microsoft.Practices.Unity;
 /*******************************************************************************************************
 IN THIS CLASS WE GET THE ID OF THE BIKE MAKE FROM THE QUERY STRING, AND FROM IT WE FETCH ALL THE
@@ -13,15 +14,14 @@ MODELS FOR THIS MAKE, and the count for this model in the sell inquiry.
 using System;
 using System.Collections.Generic;
 using System.Data;
+//using BikeWale.Controls;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-//using BikeWale.Controls;
-using System.Data.Common;
-using Bikewale.CoreDAL;
 
 namespace Bikewale.New
 {
@@ -193,21 +193,21 @@ namespace Bikewale.New
             string sql = @"select ve.id version, mo.id model, ma.id make, ma.maskingname as makemaskingname,mo.maskingname as modelmaskingname 
                  from bikemakes ma, bikemodels mo, bikeversions ve
 				 where ve.bikemodelid=mo.id and mo.bikemakeid=ma.id
-				 and ve.id=par_id";           
+				 and ve.id=par_id";
 
 
             Trace.Warn("sql ::: ", sql);
 
             try
             {
-                using ( DbCommand cmd = DbFactory.GetDBCommand(sql))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
                     //cmd.Parameters.Add("par_id", SqlDbType.BigInt).Value = bike;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, bike)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, bike));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
 
                             switch (bikeNo)
@@ -239,8 +239,8 @@ namespace Bikewale.New
                             }
 
                             dr.Close();
-                        } 
-                    } 
+                        }
+                    }
                 }
             }
             catch (Exception err)

@@ -34,7 +34,7 @@ namespace Bikewale.News
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_applicationid", DbType.Int32, Convert.ToInt32(BWConfiguration.Instance.ApplicationId)));
 
-                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                        // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                         using (DataSet ds  = MySqlDatabase.SelectAdapterQuery(cmd))
                         {
                             if (da != null)

@@ -25,7 +25,7 @@ namespace CityAutoSuggest
                     cmd.CommandText = "GetCitiesCS";                                          //----New SP-----
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("v_requesttype", DbType.String, 20, 7));
-                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                       // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

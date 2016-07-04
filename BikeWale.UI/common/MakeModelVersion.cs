@@ -56,35 +56,36 @@ namespace Bikewale.Common
             DataTable dt = null;
             IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
             EnumBikeType _requestType = EnumBikeType.All;
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes"))
-            {
-
-                if (Enum.TryParse(RequestType, true, out _requestType))
                 {
-                    using (IUnityContainer container = new UnityContainer())
+
+                    if (Enum.TryParse(RequestType, true, out _requestType))
                     {
-                        container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                                         .RegisterType<ICacheManager, MemcacheManager>()
-                                         .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                                        ;
-                        var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-                        makes = objCache.GetMakesByType(_requestType);
-
-
-                        var _makeList = (from mk in makes select new { Text = mk.MakeName, Value = mk.MakeId });
-
-                        dt = new DataTable();
-
-                        dt.Columns.Add("Text");
-                        dt.Columns.Add("Value");
-                        foreach (var make in _makeList)
+                        using (IUnityContainer container = new UnityContainer())
                         {
-                            dt.Rows.Add(make);
-                        }
+                            container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                             .RegisterType<ICacheManager, MemcacheManager>()
+                                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                            ;
+                            var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                            makes = objCache.GetMakesByType(_requestType);
 
+
+                            var _makeList = (from mk in makes select new { Text = mk.MakeName, Value = mk.MakeId });
+
+                            dt = new DataTable();
+
+                            dt.Columns.Add("Text");
+                            dt.Columns.Add("Value");
+                            foreach (var make in _makeList)
+                            {
+                                dt.Rows.Add(make);
+                            }
+
+                        }
                     }
                 }
             }
@@ -117,20 +118,20 @@ namespace Bikewale.Common
                                     ;
                     var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
                     makes = objCache.GetMakesByType(requestType);
-                    
+
 
                     if (makes != null && makes.Count() > 0)
                     {
                         if (requestType == EnumBikeType.Used || requestType == EnumBikeType.UserReviews)
                         {
-                            drpDownList.DataSource =  makes.Select(a => new { Value = string.Format("{0}_{1}",a.MakeId,a.MaskingName), Text = a.MakeName, Id = a.MakeId });
+                            drpDownList.DataSource = makes.Select(a => new { Value = string.Format("{0}_{1}", a.MakeId, a.MaskingName), Text = a.MakeName, Id = a.MakeId });
                         }
                         else
                         {
-                            drpDownList.DataSource = makes.Select(a => new { Value = a.MakeId , Text = a.MakeName });
+                            drpDownList.DataSource = makes.Select(a => new { Value = a.MakeId, Text = a.MakeName });
                         }
 
-                        
+
                         drpDownList.DataValueField = "Value";
                         drpDownList.DataTextField = "Text";
 
@@ -319,7 +320,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, ParameterDirection.InputOutput));
-                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     if (MySqlDatabase.ExecuteNonQuery(cmd) > 0)
                     {
@@ -370,7 +371,7 @@ namespace Bikewale.Common
         public void GetVersionDetails(string versionId)
         {
             try
-            { 
+            {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -392,7 +393,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, 50, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.Output));
-                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -450,11 +451,11 @@ namespace Bikewale.Common
 
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, makeId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, makeId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             Make = dr["MakeName"].ToString();
                             MakeId = dr["MakeId"].ToString();
@@ -464,7 +465,7 @@ namespace Bikewale.Common
 
                             dr.Close();
                         }
-                    } 
+                    }
                 }
 
             }

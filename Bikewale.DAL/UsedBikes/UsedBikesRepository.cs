@@ -86,30 +86,26 @@ namespace Bikewale.DAL.UsedBikes
         /// <returns></returns>
         public IEnumerable<MostRecentBikes> GetMostRecentUsedBikes(uint makeId, uint totalCount, int? cityId = null)
         {
-            Database db = null;
+
             List<MostRecentBikes> objMostRecentUsedBikesList = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    if(cityId.HasValue && cityId > 0)
-                        cmd.CommandText = "GetUsedBikesByMakeCity";
-                    else cmd.CommandText = "GetUsedBikesByMake";
+                    if (cityId.HasValue && cityId > 0)
+                        cmd.CommandText = "getusedbikesbymakecity";
+                    else cmd.CommandText = "getusedbikesbymake";
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
-                    cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalCount;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.SByte, totalCount));
 
-                    if (cityId.HasValue && cityId > 0)
-                    {
-                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId.Value;
-                    }
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId ?? Convert.DBNull));
 
-                    db = new Database();
                     objMostRecentUsedBikesList = new List<MostRecentBikes>();
 
-                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
                         while (dr.Read())
                         {
@@ -143,6 +139,8 @@ namespace Bikewale.DAL.UsedBikes
                                 });
                             }
                         }
+
+                        dr.Close();
                     }
                 }
             }
@@ -151,10 +149,6 @@ namespace Bikewale.DAL.UsedBikes
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("{0} - {1} - {2}", HttpContext.Current.Request.ServerVariables["URL"], MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodInfo.GetCurrentMethod().Name));
                 objErr.SendMail();
-            }
-            finally
-            {
-                db.CloseConnection();
             }
             return objMostRecentUsedBikesList;
         }

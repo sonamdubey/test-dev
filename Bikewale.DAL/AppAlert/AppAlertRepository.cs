@@ -36,7 +36,7 @@ namespace Bikewale.DAL.AppAlert
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbType.String, 200, gcmId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbType.Byte, osType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbType.String, 100, subsMasterId));
-                        LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                 }

@@ -60,7 +60,7 @@ namespace Bikewale.Newsletter
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, txtEmail.Text));
 
-                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd); 
                 }

@@ -233,7 +233,7 @@ namespace Bikewale.Common
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.String, 100, key));
-Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd);
 

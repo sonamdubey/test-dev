@@ -457,7 +457,7 @@ namespace Bikewale.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbType.Double, _mileage));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
-Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+//Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     recordId = cmd.Parameters["par_id"].Value.ToString();

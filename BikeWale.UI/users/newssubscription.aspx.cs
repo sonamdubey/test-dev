@@ -58,7 +58,7 @@ namespace Bikewale.MyBikeWale
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_receivenewsletters", DbType.Boolean, chkNewsLetter.Checked));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
-                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     returnVal = true;
 

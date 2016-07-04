@@ -169,7 +169,7 @@ namespace Bikewale.DAL.BikeData
 
                     var paramColl = cmd.Parameters;
 
-                        LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
 
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, id));
@@ -335,7 +335,7 @@ namespace Bikewale.DAL.BikeData
 
                     paramColl.Add(DbFactory.GetDbParam("par_rowcount", DbType.Byte, ParameterDirection.Output));
 
-                        LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
 
                     int rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd);
 
