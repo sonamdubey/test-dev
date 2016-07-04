@@ -251,15 +251,6 @@ namespace Bikewale.Content
 
             if (customerId == "-1")
             {
-                //add this record in Customer Table to add this customer
-
-                //make the minimal registration
-                //MinimalRegistration mr = new MinimalRegistration(txtEmail.Text.Trim(),
-                //                                                 string.Empty,
-                //                                                 "Review written for id #" + recordId,
-                //                                                 recordId,
-                //                                                 EnumRegistrationType.ReviewType);
-                //mr.SaveData();
 
                 SaveCustomer();
                 //redirect to the login page

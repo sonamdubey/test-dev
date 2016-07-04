@@ -7,6 +7,7 @@ using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
+using Bikewale.Cache.App;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
@@ -102,6 +103,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IPopularUsedBikesCacheRepository, PopularUsedBikesCacheRepository>();
             container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
             container.RegisterType<IAppVersion, AppVersionRepository>();
+            container.RegisterType<IAppVersionCache, AppVersionCacheRepository>();
             container.RegisterType<IAppAlert, AppAlertRepository>();
             container.RegisterType<ICityCacheRepository, CityCacheRepository>();
             container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
@@ -112,6 +114,8 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<Bikewale.Interfaces.PriceQuote.IDealerPriceQuoteDetail, Bikewale.BAL.PriceQuote.DealerPriceQuoteDetail>();
             container.RegisterType<Bikewale.Interfaces.Dealer.IDealerCacheRepository, Bikewale.Cache.DealersLocator.DealerCacheRepository>();
             container.RegisterType<ILeadNofitication, LeadNotificationBL>();
+            container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
+            container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
             return container;
         }
     }

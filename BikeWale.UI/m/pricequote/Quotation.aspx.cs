@@ -1,10 +1,13 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Mobile.controls;
 using Bikewale.Mobile.Controls;
@@ -58,22 +61,29 @@ namespace Bikewale.Mobile.PriceQuote
         /// </summary>
         protected void ProcessPriceQuoteData()
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-                objPriceQuote = container.Resolve<IPriceQuote>();
 
-                container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();
-                objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
-            }
 
             if (PriceQuoteQueryString.IsPQQueryStringExists())
             {
-                pqId = Convert.ToUInt64(PriceQuoteQueryString.PQId);
-                objVersionDetails = objVersion.GetById(Convert.ToInt32(PriceQuoteQueryString.VersionId));
-                cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+                    objPriceQuote = container.Resolve<IPriceQuote>();
 
-                Trace.Warn("pq id : " + pqId.ToString());
+                    container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+                            .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
+                                  .RegisterType<ICacheManager, MemcacheManager>()
+                                 ;
+                    var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
+
+
+                    pqId = Convert.ToUInt64(PriceQuoteQueryString.PQId);
+                    objVersionDetails = objCache.GetById(Convert.ToUInt32(PriceQuoteQueryString.VersionId));
+                    cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
+
+                    Trace.Warn("pq id : " + pqId.ToString());
+
+                }
 
                 if (pqId > 0)
                 {
@@ -140,10 +150,13 @@ namespace Bikewale.Mobile.PriceQuote
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
-                    IBikeVersions<BikeVersionEntity, uint> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
+                    container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+                        .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
+                              .RegisterType<ICacheManager, MemcacheManager>()
+                             ;
+                    var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
 
-                    versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, Convert.ToInt32(modelId), Convert.ToInt32(PriceQuoteQueryString.CityId));
+                    versionList = objCache.GetVersionsByType(EnumBikeType.PriceQuote, Convert.ToInt32(modelId), Convert.ToInt32(PriceQuoteQueryString.CityId));
 
                     if (versionList.Count > 0)
                     {

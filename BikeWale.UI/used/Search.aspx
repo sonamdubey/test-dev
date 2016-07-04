@@ -102,7 +102,7 @@
                 <ul id="make" class="ul-params makeList">
                 <asp:Repeater ID="rptMakes" runat="server">                
                     <ItemTemplate>
-                        <li><a name="<%# DataBinder.Eval(Container.DataItem, "ID")%>" class="filter unchecked" rel="nofollow" href='#make=<%# DataBinder.Eval(Container.DataItem, "ID")%>'><%# DataBinder.Eval(Container.DataItem, "Text")%></a></li>
+                        <li><a name="<%# DataBinder.Eval(Container.DataItem, "MakeId")%>" class="filter unchecked" rel="nofollow" href='#make=<%# DataBinder.Eval(Container.DataItem, "MakeId")%>'><%# DataBinder.Eval(Container.DataItem, "MakeName")%></a></li>
                     </ItemTemplate>
                 </asp:Repeater>
                 </ul>

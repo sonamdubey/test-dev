@@ -19,13 +19,15 @@ namespace Bikewale.Service.Controllers.Make
     public class DealerMakesController : CompressionApiController//ApiController
     {
         private readonly IDealer _objDealer = null;
+        private readonly IDealerCacheRepository _objDealerCache = null;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="objDealer"></param>
-        public DealerMakesController(IDealer objDealer)
+        public DealerMakesController(IDealer objDealer, IDealerCacheRepository objDealerCache)
         {
             _objDealer = objDealer;
+            _objDealerCache = objDealerCache;
         }
 
         /// <summary>
@@ -35,19 +37,16 @@ namespace Bikewale.Service.Controllers.Make
         [ResponseType(typeof(IEnumerable<NewBikeDealersMakeBase>))]
         public IHttpActionResult Get()
         {
-            IList<NewBikeDealersMakeEntity> objMakes = null;
+            IEnumerable<NewBikeDealersMakeEntity> objMakes = null;
             NewBikeDealersMakeList makes = null;
             try
             {
-                objMakes = _objDealer.GetDealersMakesList();
-                if (objMakes != null && objMakes.Count > 0)
+                objMakes = _objDealerCache.GetDealersMakesList();
+                if (objMakes != null && objMakes.Count() > 0)
                 {
                     makes = new NewBikeDealersMakeList();
                     makes.Makes = objMakes.Select(s => new NewBikeDealersMakeBase() { Text = s.MakeName, Value = s.MakeId.ToString(), MaskingName = s.MaskingName }).ToList();
-
-                    objMakes.Clear();
                     objMakes = null;
-
                     return Ok(makes);
                 }
                 else

@@ -1,30 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Data.SqlClient;
-using Microsoft.Practices.Unity;
-using Bikewale.Entities.CMS;
-using Bikewale.Interfaces.CMS;
-using Bikewale.BAL.CMS;
-using Bikewale.Common;
-using Bikewale.Interfaces.Pager;
-using Bikewale.BAL.Pager;
-using Bikewale.Entities.Pager;
-using Bikewale.Mobile.Controls;
-using Bikewale.Memcache;
-using System.Net.Http;
-using System.Configuration;
-using System.Net.Http.Headers;
-using Bikewale.Entities.CMS.Articles;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.Interfaces.Cache.Core;
+﻿using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
 using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Pager;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Memcache;
+using Bikewale.Mobile.Controls;
+using Microsoft.Practices.Unity;
+using System;
+using System.Configuration;
+using System.Web;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Content
 {
@@ -35,7 +28,8 @@ namespace Bikewale.Content
     {
         protected Repeater rptRoadTest;
         protected ListPagerControl listPager;
-        protected HtmlSelect ddlMakes,ddlModels;
+        protected DropDownList ddlMakes;
+        protected HtmlSelect ddlModels;
 
         protected int totalPages = 0;
         private const int _pageSize = 10;
@@ -53,7 +47,7 @@ namespace Bikewale.Content
             if (!IsPostBack)
             {
                 ProcessQueryString();
-             
+
                 GetRoadTestList();
                 BindMakes();
                 AutoFill();
@@ -93,11 +87,11 @@ namespace Bikewale.Content
 
                 CMSContent _objRoadTestList = null;
 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
                     _objRoadTestList = await objClient.GetApiResponse<CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objRoadTestList);
                 }
-                
+
                 if (_objRoadTestList != null)
                 {
                     if (_objRoadTestList.Articles.Count > 0)
@@ -169,7 +163,7 @@ namespace Bikewale.Content
                 _pagerEntity.PageSize = _pageSize;        //No. of news to be displayed on a page
 
                 _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
-              
+
                 // for RepeaterPager
                 listPager.PagerOutput = _pagerOutput;
                 listPager.CurrentPageNo = _curPageNo;
@@ -194,105 +188,18 @@ namespace Bikewale.Content
             rptRoadTest.DataBind();
         }
 
-
-        //protected void LoadRoadTest()
-        //{
-        //    try
-        //    {
-        //        using (var container = new UnityContainer())
-        //        {
-        //            int recordCount = 0, startIndex = 0, endIndex = 0, pageSize = 10;
-
-        //            // Get road test object
-        //            container.RegisterType<ICMSContentRepository<CMSContentListEntity, CMSPageDetailsEntity>, CMSData<CMSContentListEntity, CMSPageDetailsEntity>>();
-        //            ICMSContentRepository<CMSContentListEntity, CMSPageDetailsEntity> repository = container.Resolve<ICMSContentRepository<CMSContentListEntity, CMSPageDetailsEntity>>(new ResolverOverride[] { new ParameterOverride("contentType", EnumCMSContentType.RoadTest) });
-
-        //            // Get Pager object
-        //            container.RegisterType<IPager, Pager>();
-        //            IPager objPager = container.Resolve<IPager>();
-                    
-        //            objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
-
-        //            ContentFilter filter = new ContentFilter();
-
-        //            if (!String.IsNullOrEmpty(modelId))
-        //            {
-        //                filter.ModelId = Convert.ToInt16(modelId);
-        //            }
-        //            else if (!String.IsNullOrEmpty(makeId))
-        //            {
-        //                filter.MakeId = Convert.ToInt16(makeId);
-        //            }
-                    
-        //            // Get content list
-        //            IList<CMSContentListEntity> objContentList = repository.GetContentList(startIndex, endIndex, out recordCount, filter);
-
-        //            totalPages = objPager.GetTotalPages(recordCount, pageSize);
-
-
-        //            //if current page number exceeded the total pages count i.e. the page is not available 
-        //            if (curPageNo > 0 && curPageNo <= totalPages)
-        //            {
-        //                if (objContentList != null)
-        //                {
-        //                    rptRoadTest.DataSource = objContentList;
-        //                    rptRoadTest.DataBind();
-        //                }
-
-        //                PagerEntity pagerEntity = new PagerEntity();
-        //                if(!String.IsNullOrEmpty(makeId))
-        //                    pagerEntity.BaseUrl = "/m/" + Request.QueryString["make"] + "-bikes/road-tests/";
-        //                else
-        //                    pagerEntity.BaseUrl = "/m/road-tests/";
-        //                pagerEntity.PageNo = curPageNo;
-        //                pagerEntity.PagerSlotSize = totalPages;
-        //                pagerEntity.PageUrlType = "page/";
-        //                pagerEntity.TotalResults = recordCount;
-        //                pagerEntity.PageSize = pageSize;
-
-        //                PagerOutputEntity pagerOutput = objPager.GetPager<PagerOutputEntity>(pagerEntity);
-
-        //                listPager.PagerOutput = pagerOutput;
-        //                listPager.TotalPages = totalPages;
-        //                listPager.CurrentPageNo = curPageNo;
-
-        //                //get next and prev page links for SEO
-        //                prevPageUrl = pagerOutput.PreviousPageUrl;
-        //                nextPageUrl = pagerOutput.NextPageUrl;
-        //            }
-        //            else
-        //            {
-        //                Response.Redirect("/m/pagenotfound.aspx", false);
-        //                HttpContext.Current.ApplicationInstance.CompleteRequest();
-        //                this.Page.Visible = false;
-        //            }
-        //        }
-        //    }
-        //    catch (SqlException err)
-        //    {
-        //        Trace.Warn("Error = " + err.Message);
-        //        ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-        //    catch (Exception err)
-        //    {
-        //        Trace.Warn("Error = " + err.Message);
-        //        ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-        //}
-
         private void BindMakes()
         {
             try
             {
                 MakeModelVersion mmv = new MakeModelVersion();
 
-                ddlMakes.DataSource = mmv.GetMakes("ROADTEST");
-                ddlMakes.DataValueField = "Value";
-                ddlMakes.DataTextField = "Text";
-                ddlMakes.DataBind();
-                ddlMakes.Items.Insert(0, (new ListItem("--Select Make--", "0")));
+                //ddlMakes.DataSource = mmv.GetMakes("RoadTest");
+                //ddlMakes.DataValueField = "Value";
+                //ddlMakes.DataTextField = "Text";
+                //ddlMakes.DataBind();
+                //ddlMakes.Items.Insert(0, (new ListItem("--Select Make--", "0")));
+                mmv.GetMakes(EnumBikeType.RoadTest, ref ddlMakes);
 
             }
             catch (Exception ex)

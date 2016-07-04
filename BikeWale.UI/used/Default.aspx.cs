@@ -1,10 +1,10 @@
-﻿using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Common;
+﻿using Bikewale.Common;
+using Bikewale.Entities.BikeData;
+using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Used
 {
@@ -83,17 +83,19 @@ namespace Bikewale.Used
             try
             {
                 MakeModelVersion obj = new MakeModelVersion();
-                dt = obj.GetMakes("Used");
+                //dt = obj.GetMakes("Used");
 
-                if (dt.Rows.Count > 0)
-                {
-                    ddlMake.DataSource = dt;
-                    ddlMake.DataTextField = "Text";
-                    ddlMake.DataValueField = "value";
-                    ddlMake.DataBind();
+                //if (dt.Rows.Count > 0)
+                //{
+                //    ddlMake.DataSource = dt;
+                //    ddlMake.DataTextField = "Text";
+                //    ddlMake.DataValueField = "value";
+                //    ddlMake.DataBind();
 
-                    ddlMake.Items.Insert(0, new ListItem("--Select Make--", "0")); 
-                }
+                //    ddlMake.Items.Insert(0, new ListItem("--Select Make--", "0")); 
+                //}
+
+                obj.GetMakes(EnumBikeType.UserReviews, ref ddlMake);
 
             }
             catch (SqlException ex)
@@ -145,6 +147,6 @@ namespace Bikewale.Used
         //        objErr.SendMail();
         //    }
         //}   // End of FillMakeModel function
-    
+
     }   // End of class
 }   // End of namespace

@@ -110,9 +110,6 @@
                         <td>
                             <asp:dropdownlist id="ddlMake" runat="server" tabindex="3"></asp:dropdownlist>
                         </td>
-                        <%--     <BB:BrowseBikes runat="server" ID="BrowseBikes" VersionRequired="false"/>  
-                         <td>Bike Model</td>
-                            <td><asp:DropDownList ID="ddlMakeModel" runat="server" Enabled="false"></asp:DropDownList></td>  --%>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>

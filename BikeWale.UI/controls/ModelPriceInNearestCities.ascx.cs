@@ -1,5 +1,6 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.PriceQuote;
+using Bikewale.Common;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;

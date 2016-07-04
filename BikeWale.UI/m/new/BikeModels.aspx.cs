@@ -611,6 +611,13 @@ namespace Bikewale.Mobile.New
                                         price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                     }
                                 }
+
+                                else if (versionId != 0)
+                                {
+                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == versionId).FirstOrDefault();
+                                    price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
+                                }
+
                                 else
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
@@ -798,19 +805,21 @@ namespace Bikewale.Mobile.New
                     objPQEntity.ClientIP = clientIP;
                     objPQEntity.SourceId = 2;
                     objPQEntity.ModelId = modelId;
-                    objPQEntity.VersionId = Convert.ToUInt32(hdnVariant.Value);
+                    objPQEntity.VersionId = versionId;
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_ModelPage);
                     objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
                     objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
+
                     if (versionId == 0)
                     {
-                        if (objPQOutput != null && objPQOutput.VersionId != null)
+                        if (objPQOutput != null && objPQOutput.VersionId > 0)
                         {
                             versionId = objPQOutput.VersionId;
                         }
                     }
+
                     if (objPQOutput != null)
                     {
                         pqOnRoad = new PQOnRoadPrice();

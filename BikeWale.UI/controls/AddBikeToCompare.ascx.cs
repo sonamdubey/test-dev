@@ -1,7 +1,10 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -67,10 +70,13 @@ namespace Bikewale.Controls
                 List<BikeMakeEntityBase> makeList = null;
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>();
-                    IBikeMakes<BikeMakeEntity, int> objMake = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>()
+                       .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                       .RegisterType<ICacheManager, MemcacheManager>();
+                    var objMake = container.Resolve<IBikeMakesCacheRepository<int>>();
 
-                    makeList = objMake.GetMakesByType(EnumBikeType.NewBikeSpecification);
+                    makeList = objMake.GetMakesByType(EnumBikeType.NewBikeSpecification).ToList();
+
 
                     var makeListNew = makeList.Select(a => new { Value = a.MakeId + "_" + a.MaskingName, Text = a.MakeName });
 
