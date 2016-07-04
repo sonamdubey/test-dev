@@ -14,5 +14,11 @@ namespace Bikewale.Entities.BikeBooking
     {
         [JsonProperty("facility")]
         public string Facility { get; set; }
+
+        [JsonProperty("isActive")]
+        public bool IsActive { get; set; }
+
+        [JsonProperty("id")]
+        public int Id { get; set; }
     }
 }

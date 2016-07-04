@@ -15,7 +15,6 @@ namespace Bikewale.Entities.BikeBooking
     /// </summary>    
     public class OfferEntity
     {
-        public BikeModelEntityBase objModel { get; set; }
         public CityEntityBase objCity { get; set; }
         public NewBikeDealers objDealer { get; set; }
 
@@ -40,9 +39,9 @@ namespace Bikewale.Entities.BikeBooking
         [JsonProperty("isPriceImpact")]
         public bool IsPriceImpact { get; set; }
 
-        //public MakeEntityBase objMake { get; set; }
-        //public ModelEntityBase objModel { get; set; }
-        //public VersionEntityBase objVersion { get; set; }
+        public BikeMakeEntityBase objMake { get; set; }
+        public BikeModelEntityBase objModel { get; set; }
+        public BikeVersionEntityBase objVersion { get; set; }
 
         [JsonProperty("availabilityId")]
         public Int32 AvailabilityId { get; set; }

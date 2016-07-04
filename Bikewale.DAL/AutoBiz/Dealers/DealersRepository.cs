@@ -1,4 +1,8 @@
 ﻿
+using Bikewale.Entities;
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Notifications;
 using Bikewale.Notifications.CoreDAL;
@@ -50,9 +54,9 @@ namespace Bikewale.DAL.AutoBiz
                         {
                             objDetailPQ.objQuotation = new PQ_QuotationEntity()
                             {
-                                objMake = new MakeEntityBase() { MakeName = dr["MakeName"].ToString(), MaskingName = dr["MakeMaskingName"].ToString() },
-                                objModel = new ModelEntityBase() { ModelName = dr["ModelName"].ToString(), MaskingName = dr["ModelMaskingName"].ToString() },
-                                objVersion = new VersionEntityBase() { VersionName = dr["VersionName"].ToString() },
+                                objMake = new BikeMakeEntityBase() { MakeName = dr["MakeName"].ToString(), MaskingName = dr["MakeMaskingName"].ToString() },
+                                objModel = new BikeModelEntityBase() { ModelName = dr["ModelName"].ToString(), MaskingName = dr["ModelMaskingName"].ToString() },
+                                objVersion = new BikeVersionEntityBase() { VersionName = dr["VersionName"].ToString() },
                                 HostUrl = dr["HostURL"].ToString(),
                                 LargePicUrl = dr["largePic"].ToString(),
                                 SmallPicUrl = dr["smallPic"].ToString(),
@@ -68,7 +72,7 @@ namespace Bikewale.DAL.AutoBiz
                         while (dr.Read())
                         {
                             if (Convert.ToUInt32(dr["Price"]) > 0)
-                                objDetailPQ.objQuotation.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt64(dr["Price"]), CategoryId = Convert.ToUInt32(dr["ItemId"]) });
+                                objDetailPQ.objQuotation.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]), CategoryId = Convert.ToUInt32(dr["ItemId"]) });
                         }
 
                         dr.NextResult();
@@ -95,21 +99,21 @@ namespace Bikewale.DAL.AutoBiz
                             {
                                 varients.Add(new PQ_BikeVarient()
                                 {
-                                    objMake = new MakeEntityBase()
+                                    objMake = new BikeMakeEntityBase()
                                     {
-                                        MakeId = Convert.ToUInt32(dr["MakeId"]),
+                                        MakeId = Convert.ToInt32(dr["MakeId"]),
                                         MakeName = Convert.ToString(dr["MakeName"]),
                                         MaskingName = Convert.ToString(dr["MakeMaskingName"])
                                     },
-                                    objModel = new ModelEntityBase()
+                                    objModel = new BikeModelEntityBase()
                                     {
-                                        ModelId = Convert.ToUInt32(dr["ModelId"]),
+                                        ModelId = Convert.ToInt32(dr["ModelId"]),
                                         ModelName = Convert.ToString(dr["ModelName"]),
                                         MaskingName = Convert.ToString(dr["ModelMaskingName"])
                                     },
-                                    objVersion = new VersionEntityBase()
+                                    objVersion = new BikeVersionEntityBase()
                                     {
-                                        VersionId = Convert.ToUInt32(dr["VersionId"]),
+                                        VersionId = Convert.ToInt32(dr["VersionId"]),
                                         VersionName = Convert.ToString(dr["VersionName"])
                                     },
                                     HostUrl = Convert.ToString(dr["HostURL"]),
@@ -130,7 +134,7 @@ namespace Bikewale.DAL.AutoBiz
                                             CategoryId = Convert.ToUInt32(dr["ItemId"]),
                                             CategoryName = Convert.ToString(dr["ItemName"]),
                                             DealerId = Convert.ToUInt32(dr["DealerId"]),
-                                            Price = Convert.ToUInt64(dr["Price"]),
+                                            Price = Convert.ToUInt32(dr["Price"]),
                                             VersionId = Convert.ToUInt32(dr["VersionId"])
                                         }
                                     );
@@ -172,7 +176,7 @@ namespace Bikewale.DAL.AutoBiz
                             objDetailPQ.objDealer.MobileNo = (dr["MobileNo"] != null) ? dr["MobileNo"].ToString() : "";
                             objDetailPQ.objDealer.PhoneNo = dr["PhoneNo"].ToString();
 
-                            objDetailPQ.objDealer.objArea = new AreaEntityBase() { Latitude = Convert.ToDouble(dr["Lattitude"]), Longitude = Convert.ToDouble(dr["Longitude"]), AreaName = dr["AreaName"].ToString(), PinCode = dr["Pincode"].ToString() };
+                            objDetailPQ.objDealer.objArea = new Bikewale.Entities.BikeBooking.AreaEntityBase() { Latitude = Convert.ToDouble(dr["Lattitude"]), Longitude = Convert.ToDouble(dr["Longitude"]), AreaName = dr["AreaName"].ToString(), PinCode = dr["Pincode"].ToString() };
 
                             objDetailPQ.objDealer.objCity = new CityEntityBase() { CityName = dr["CityName"].ToString() };
 
@@ -408,8 +412,8 @@ namespace Bikewale.DAL.AutoBiz
                                 MaxTenure = !Convert.IsDBNull(dr["MaxTenure"]) ? Convert.ToUInt16(dr["MaxTenure"]) : default(UInt16),
                                 MinRateOfInterest = !Convert.IsDBNull(dr["MinRateOfInterest"]) ? Convert.ToSingle(dr["MinRateOfInterest"]) : default(float),
                                 MaxRateOfInterest = !Convert.IsDBNull(dr["MaxRateOfInterest"]) ? Convert.ToSingle(dr["MaxRateOfInterest"]) : default(float),
-                                MinLoanToValue = !Convert.IsDBNull(dr["minLtv"]) ? Convert.ToSingle(dr["minLtv"]) : default(float),
-                                MaxLoanToValue = !Convert.IsDBNull(dr["maxLtv"]) ? Convert.ToSingle(dr["maxLtv"]) : default(float),
+                                MinLoanToValue = !Convert.IsDBNull(dr["minLtv"]) ? Convert.ToUInt32(dr["minLtv"]) : default(uint),
+                                MaxLoanToValue = !Convert.IsDBNull(dr["maxLtv"]) ? Convert.ToUInt32(dr["maxLtv"]) : default(uint),
                                 ProcessingFee = !Convert.IsDBNull(dr["ProcessingFee"]) ? Convert.ToSingle(dr["ProcessingFee"]) : default(float),
                                 Id = Convert.ToUInt32(dr["Id"])
                             };
@@ -543,8 +547,8 @@ namespace Bikewale.DAL.AutoBiz
                             while (dr.Read())
                             {
                                 objOffer = new OfferEntity();
-                                objOffer.objMake = new MakeEntityBase() { MakeName = dr["MakeName"].ToString() };
-                                objOffer.objModel = new ModelEntityBase() { ModelName = dr["ModelName"].ToString() };
+                                objOffer.objMake = new BikeMakeEntityBase() { MakeName = dr["MakeName"].ToString() };
+                                objOffer.objModel = new BikeModelEntityBase() { ModelName = dr["ModelName"].ToString() };
                                 objOffer.objCity = new CityEntityBase() { CityName = dr["CityName"].ToString() };
                                 objOffer.OfferId = Convert.ToUInt32(dr["Id"]);
                                 objOffer.OfferType = dr["OfferType"].ToString();
@@ -836,9 +840,9 @@ namespace Bikewale.DAL.AutoBiz
                             {
                                 objAvailability = new OfferEntity();
                                 objAvailability.AvailabilityId = Convert.ToInt32(dr["ID"]);
-                                objAvailability.objMake = new MakeEntityBase() { MakeName = dr["Make"].ToString() };
-                                objAvailability.objModel = new ModelEntityBase() { ModelName = dr["Model"].ToString() };
-                                objAvailability.objVersion = new VersionEntityBase() { VersionName = dr["Version"].ToString() };
+                                objAvailability.objMake = new BikeMakeEntityBase() { MakeName = dr["Make"].ToString() };
+                                objAvailability.objModel = new BikeModelEntityBase() { ModelName = dr["Model"].ToString() };
+                                objAvailability.objVersion = new BikeVersionEntityBase() { VersionName = dr["Version"].ToString() };
                                 objAvailability.AvailableLimit = Convert.ToUInt16(dr["AvailableLimit"]);
 
                                 objAvailabilities.Add(objAvailability);
@@ -965,9 +969,9 @@ namespace Bikewale.DAL.AutoBiz
                             {
                                 _objDisclaimer = new DealerDisclaimerEntity();
                                 _objDisclaimer.DisclaimerId = Convert.ToUInt32(dr["ID"]);
-                                _objDisclaimer.objMake = new MakeEntityBase() { MakeName = dr["Make"].ToString() };
-                                _objDisclaimer.objModel = new ModelEntityBase() { ModelName = dr["Model"].ToString() };
-                                _objDisclaimer.objVersion = new VersionEntityBase() { VersionName = dr["Version"].ToString() };
+                                _objDisclaimer.objMake = new BikeMakeEntityBase() { MakeName = dr["Make"].ToString() };
+                                _objDisclaimer.objModel = new BikeModelEntityBase() { ModelName = dr["Model"].ToString() };
+                                _objDisclaimer.objVersion = new BikeVersionEntityBase() { VersionName = dr["Version"].ToString() };
                                 _objDisclaimer.DisclaimerText = dr["Disclaimer"].ToString();
 
                                 objDisclaimer.Add(_objDisclaimer);
@@ -1203,9 +1207,9 @@ namespace Bikewale.DAL.AutoBiz
                             {
                                 objAmount = new BookingAmountEntity()
                                 {
-                                    objMake = new MakeEntityBase { MakeName = dr["BikeMake"].ToString() },
-                                    objModel = new ModelEntityBase { ModelName = dr["BikeModel"].ToString() },
-                                    objVersion = new VersionEntityBase { VersionName = dr["BikeVersion"].ToString() },
+                                    objMake = new BikeMakeEntityBase { MakeName = dr["BikeMake"].ToString() },
+                                    objModel = new BikeModelEntityBase { ModelName = dr["BikeModel"].ToString() },
+                                    objVersion = new BikeVersionEntityBase { VersionName = dr["BikeVersion"].ToString() },
                                     objBookingAmountEntityBase = new BookingAmountEntityBase { Amount = Convert.ToUInt32(dr["Amount"]), Id = Convert.ToUInt32(dr["id"]) }
                                 };
                                 objBookingAmt.Add(objAmount);
@@ -1261,11 +1265,11 @@ namespace Bikewale.DAL.AutoBiz
                                     IsActive = Convert.ToBoolean(dr["IsActive"]),
                                     Id = Convert.ToUInt32(dr["Id"])
                                 },
-                                objMake = new MakeEntityBase()
+                                objMake = new BikeMakeEntityBase()
                                 {
                                     MakeName = dr["MakeName"].ToString()
                                 },
-                                objModel = new ModelEntityBase()
+                                objModel = new BikeModelEntityBase()
                                 {
                                     ModelName = dr["ModelName"].ToString()
                                 }

@@ -1,4 +1,6 @@
 ﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using BikeWale.Entities.AutoBiz;
 using System;
@@ -29,7 +31,7 @@ namespace Bikewale.Interfaces.AutoBiz
         DealerLatLong GetCampaignDealersLatLong(uint versionId, uint areaId);
         void GetAreaLatLong(uint areaId, out double lattitude, out double longitude);
         List<CityEntityBase> GetBikeBookingCities(uint? modelId);
-        List<MakeEntityBase> GetBikeMakesInCity(uint cityId);
+        List<BikeMakeEntityBase> GetBikeMakesInCity(uint cityId);
         OfferHtmlEntity GetOfferTerms(string offerMaskingName, int? offerId);
         DealerPriceQuoteEntity GetPriceQuoteForAllDealer(uint versionId, uint cityId, string dealerIds);
         DetailedDealerQuotationEntity GetDealerPriceQuoteByPackage(PQParameterEntity objParams);

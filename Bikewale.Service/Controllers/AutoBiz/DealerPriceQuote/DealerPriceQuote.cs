@@ -1,6 +1,9 @@
 ﻿
 using Bikewale.DAL.AutoBiz;
-using Bikewale.Entities.AutoBiz;
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Notifications;
 using BikeWale.Entities.AutoBiz;
@@ -41,6 +44,7 @@ namespace Bikewale.Service.Controllers.AutoBiz
                         objParam.VersionId = versionId;
 
                         objDealerPrice = objPriceQuote.GetDealerPriceQuote(objParam);
+                        //Convert entity to dto
 
                     }
                 }
@@ -417,7 +421,7 @@ namespace Bikewale.Service.Controllers.AutoBiz
         /// <returns>Returns list of makes.</returns>
         public HttpResponseMessage GetBikeMakesInCity(uint cityId)
         {
-            List<MakeEntityBase> makes = null;
+            List<BikeMakeEntityBase> makes = null;
 
             if (cityId > 0)
             {
@@ -440,7 +444,7 @@ namespace Bikewale.Service.Controllers.AutoBiz
                 }
 
                 if (makes != null)
-                    return Request.CreateResponse<List<MakeEntityBase>>(HttpStatusCode.OK, makes);
+                    return Request.CreateResponse<List<BikeMakeEntityBase>>(HttpStatusCode.OK, makes);
                 else
                     return Request.CreateResponse(HttpStatusCode.NoContent, "Content not found");
             }

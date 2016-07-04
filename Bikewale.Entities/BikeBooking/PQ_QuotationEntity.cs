@@ -26,9 +26,5 @@ namespace Bikewale.Entities.BikeBooking
         public string OriginalImagePath { get; set; }
         public IEnumerable<PQ_BikeVarient> Varients { get; set; }
 
-        //public MakeEntityBase objMake { get; set; }
-        //public ModelEntityBase objModel { get; set; }
-        //public VersionEntityBase objVersion { get; set; }
-
     }
 }

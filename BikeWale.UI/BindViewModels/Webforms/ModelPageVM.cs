@@ -95,7 +95,7 @@ namespace Bikewale.BindViewModels.Webforms
             {
                 container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
                 IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
-                BikeWale.Entities.AutoBiz.PQParameterEntity objParam = new BikeWale.Entities.AutoBiz.PQParameterEntity();
+                PQParameterEntity objParam = new PQParameterEntity();
                 objParam.CityId = cityId;
                 objParam.DealerId = dealerId;
                 objParam.VersionId = versionId;

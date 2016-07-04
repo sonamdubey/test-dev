@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
+using System;
 
 /// <summary>
 /// Added By : Suresh Prajapati on 31st Dec 2014
@@ -9,9 +11,9 @@ namespace BikeWale.Entities.AutoBiz
     {
         public BookingAmountEntityBase objBookingAmountEntityBase { get; set; }
         public NewBikeDealers objDealer { get; set; }
-        public MakeEntityBase objMake { get; set; }
-        public ModelEntityBase objModel { get; set; }
-        public VersionEntityBase objVersion { get; set; }
+        public BikeMakeEntityBase objMake { get; set; }
+        public BikeModelEntityBase objModel { get; set; }
+        public BikeVersionEntityBase objVersion { get; set; }
     }
 
     public class MakeEntityBase
@@ -33,6 +35,4 @@ namespace BikeWale.Entities.AutoBiz
         public UInt32 VersionId { get; set; }
         public string VersionName { get; set; }
     }
-
-
 }

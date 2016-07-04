@@ -7,6 +7,8 @@ using System.Web;
 using System.Data.Common;
 using Bikewale.Notifications.CoreDAL;
 using BikeWale.Entities.AutoBiz;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeBooking;
 
 namespace Bikewale.DAL.AutoBiz
 {
@@ -44,9 +46,9 @@ namespace Bikewale.DAL.AutoBiz
                         {
                             objDetailPQ.objQuotation = new PQ_QuotationEntity()
                             {
-                                objMake = new MakeEntityBase() { MakeName = dr["MakeName"].ToString(), MaskingName = dr["MakeMaskingName"].ToString() },
-                                objModel = new ModelEntityBase() { ModelName = dr["ModelName"].ToString(), MaskingName = dr["ModelMaskingName"].ToString() },
-                                objVersion = new VersionEntityBase() { VersionName = dr["VersionName"].ToString() },
+                                objMake = new BikeMakeEntityBase() { MakeName = dr["MakeName"].ToString(), MaskingName = dr["MakeMaskingName"].ToString() },
+                                objModel = new BikeModelEntityBase() { ModelName = dr["ModelName"].ToString(), MaskingName = dr["ModelMaskingName"].ToString() },
+                                objVersion = new BikeVersionEntityBase() { VersionName = dr["VersionName"].ToString() },
                                 LargePicUrl = dr["largePic"].ToString(),
                                 SmallPicUrl = dr["smallPic"].ToString()
                             };
@@ -58,7 +60,7 @@ namespace Bikewale.DAL.AutoBiz
 
                         while (dr.Read())
                         {
-                            objDetailPQ.objQuotation.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt64(dr["Price"]) });
+                            objDetailPQ.objQuotation.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]) });
                         }
 
                         dr.NextResult();
