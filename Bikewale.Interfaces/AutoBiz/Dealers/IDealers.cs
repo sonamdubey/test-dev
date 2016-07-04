@@ -41,10 +41,10 @@ namespace Bikewale.Interfaces.AutoBiz
         List<DealerDisclaimerEntity> GetDealerDisclaimer(uint dealerId);
         bool EditDisclaimer(uint disclaimerId, string newDisclaimerText);
         #region bike booking amount function declaration
-        List<BookingAmountEntity> GetBikeBookingAmount(uint dealerId);
+        List<BikeWale.Entities.AutoBiz.BookingAmountEntity> GetBikeBookingAmount(uint dealerId);
         bool UpdateBookingAmount(BookingAmountEntityBase objbookingAmtBase);
-        bool SaveBookingAmount(BookingAmountEntity objBookingAmt);
-        BookingAmountEntity GetDealerBookingAmount(uint versionId, uint dealerId);
+        bool SaveBookingAmount(BikeWale.Entities.AutoBiz.BookingAmountEntity objBookingAmt);
+        BikeWale.Entities.AutoBiz.BookingAmountEntity GetDealerBookingAmount(uint versionId, uint dealerId);
         #endregion
         bool DeleteBookingAmount(uint bookingId);
         void UpdateDealerBikeOffers(uint offerId, uint userId, uint offerCategoryId, string offerText, uint? offerValue, DateTime offerValidTill, bool isPriceImpact);
