@@ -83,6 +83,8 @@ namespace Bikewale.Mobile.New
             //ddlVariant.SelectedIndexChanged += new EventHandler(ddlVariant_SelectedIndexChanged);
         }
 
+        /// Modified By : Lucky Rathore on 04 July 2016.
+        /// Description : Logic to clear QueryString Removed.
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -156,14 +158,7 @@ namespace Bikewale.Mobile.New
                         rptVarients.DataSource = modelPage.ModelVersions;
                         rptVarients.DataBind();
                     }
-                    // Clear trailing query string -- added on 09-feb-2016 by Sangram
-                    PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-                    if (isreadonly != null)
-                    {
-                        isreadonly.SetValue(this.Request.QueryString, false, null);
-                        this.Request.QueryString.Clear();
-                    }
-
+                    
                     if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
                         ctrlTopCityPrices.ModelId = Convert.ToUInt32(modelId);
                     else ctrlTopCityPrices.ModelId = 0;
