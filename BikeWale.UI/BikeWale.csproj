@@ -322,6 +322,7 @@
     <Compile Include="common\Ajax\AjaxResearch.cs" />
     <Compile Include="common\Ajax\AjaxSellBike.cs" />
     <Compile Include="common\Ajax\AjaxUserReviews.cs" />
+    <Compile Include="common\AutoBizCommon.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWCommon.cs" />
     <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
@@ -2618,7 +2619,9 @@
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50080</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>         
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

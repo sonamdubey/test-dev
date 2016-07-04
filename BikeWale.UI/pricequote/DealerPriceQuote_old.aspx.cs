@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Customer;
+using Bikewale.common;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeBooking;
@@ -9,18 +10,12 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Customer;
-using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Mobile.PriceQuote;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -49,7 +44,7 @@ namespace Bikewale.BikeBooking
         protected string cityArea = string.Empty;
         protected uint bookingAmount = 0;
         protected String clientIP = string.Empty;
-        
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -129,7 +124,7 @@ namespace Bikewale.BikeBooking
                     BindVersion();
 
                     GetDealerPriceQuote(cityId, versionId, dealerId);
-                    GetVersionColors(versionId);                    
+                    GetVersionColors(versionId);
                     BindAlternativeBikeControl(versionId.ToString());
                     clientIP = CommonOpn.GetClientIP();
                 }
@@ -155,13 +150,17 @@ namespace Bikewale.BikeBooking
             try
             {
                 totalPrice = 0;
-                string api = "/api/DealerPriceQuote/GetDealerPriceQuote/?cityid=" + cityId + "&versionid=" + versionId + "&dealerid=" + dealerId;
+                //string api = "/api/DealerPriceQuote/GetDealerPriceQuote/?cityid=" + cityId + "&versionid=" + versionId + "&dealerid=" + dealerId;
 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
-                }
-                
+                //using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                //{
+                //    objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
+                //}
+
+                AutoBizCommon dealerPq = null;
+
+                objPrice = dealerPq.GetDealePQEntity(cityId, (uint)versionId, dealerId);
+
                 if (objPrice != null)
                 {
                     BikeName = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName;
@@ -207,10 +206,10 @@ namespace Bikewale.BikeBooking
                         objPrice.discountedPriceList = OfferHelper.ReturnDiscountPriceList(objPrice.objOffers, objPrice.PriceList);
                         rptDiscount.DataSource = objPrice.discountedPriceList;
                         rptDiscount.DataBind();
-                        if (objPrice.discountedPriceList != null && objPrice.discountedPriceList.Count > 0) 
+                        if (objPrice.discountedPriceList != null && objPrice.discountedPriceList.Count > 0)
                         {
                             IsDiscount = true;
-                        } 
+                        }
                         totalDiscount = TotalDiscountedPrice();
                     }
                     if (objPrice.Varients != null && objPrice.Varients.Count() > 0)
@@ -397,7 +396,7 @@ namespace Bikewale.BikeBooking
         {
             ctrlAlternativeBikes.TopCount = 6;
 
-            if (!String.IsNullOrEmpty(versionId) && versionId!="0")
+            if (!String.IsNullOrEmpty(versionId) && versionId != "0")
             {
                 ctrlAlternativeBikes.VersionId = Convert.ToInt32(versionId);
                 ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_DPQ_Alternative;
@@ -418,7 +417,7 @@ namespace Bikewale.BikeBooking
                     {
                         return String.Format("<span>{0}</span>, <span>{1}</span>", arr[3], arr[1]);
                     }
-                    return String.Format("<span>{0}</span>",arr[1]);
+                    return String.Format("<span>{0}</span>", arr[1]);
                 }
             }
             return string.Empty;
@@ -432,7 +431,7 @@ namespace Bikewale.BikeBooking
                 totalPrice += priceListObj.Price;
             }
             return totalPrice;
-        } 
+        }
 
 
     }   //End of Class
