@@ -22,7 +22,7 @@
 </div>
 <script type="text/javascript">
     var modelId = '<%= ModelId %>';
-    var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+    var abHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
 
     var viewModel = {        
         selectedCity: ko.observable(),
