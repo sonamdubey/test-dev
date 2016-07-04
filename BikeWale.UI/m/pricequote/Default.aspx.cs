@@ -1,6 +1,7 @@
 ﻿using Bikewale.Common;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
@@ -230,11 +231,12 @@ namespace Bikewale.Mobile.PriceQuote
             {
                 MakeModelVersion mmv = new MakeModelVersion();
 
-                ddlMake.DataSource = mmv.GetMakes("PRICEQUOTE");
-                ddlMake.DataValueField = "Value";
-                ddlMake.DataTextField = "TEXT";
-                ddlMake.DataBind();
-                ddlMake.Items.Insert(0, (new ListItem("--Select Make--", "0")));
+                //ddlMake.DataSource = mmv.GetMakes("PRICEQUOTE");
+                //ddlMake.DataValueField = "Value";
+                //ddlMake.DataTextField = "TEXT";
+                //ddlMake.DataBind();
+                //ddlMake.Items.Insert(0, (new ListItem("--Select Make--", "0")));
+                mmv.GetMakes(EnumBikeType.PriceQuote, ref ddlMake);
 
             }
             catch (Exception ex)

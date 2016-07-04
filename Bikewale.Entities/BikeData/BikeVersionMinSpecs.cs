@@ -1,9 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
@@ -12,12 +8,16 @@ namespace Bikewale.Entities.BikeData
     /// Modified On : 21st Jan 2016
     /// Description : Added provision to get version colors
     /// </summary>
-    [Serializable]
+    [Serializable, DataContract]
     public class BikeVersionMinSpecs : BikeVersionsListEntity
-    {        
+    {
+        [DataMember]
         public string BrakeType { get; set; }
+        [DataMember]
         public bool AlloyWheels { get; set; }
+        [DataMember]
         public bool ElectricStart { get; set; }
-        public bool AntilockBrakingSystem { get; set; } 
+        [DataMember]
+        public bool AntilockBrakingSystem { get; set; }
     }
 }

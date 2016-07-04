@@ -1,116 +1,22 @@
-﻿using Bikewale.Interfaces.BikeBooking;
-using Bikewale.BAL.BikeBooking;
-using Bikewale.Interfaces.Customer;
-using Bikewale.BAL.Customer;
+﻿using Bikewale.BAL.MobileVerification;
+using Bikewale.BikeBooking.Common;
+using Bikewale.Common;
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.MobileVerification;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.MobileVerification;
-using Bikewale.BAL.MobileVerification;
+using Bikewale.Mobile.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using Bikewale.Entities.Customer;
-using Bikewale.Entities.MobileVerification;
-using Bikewale.Common;
-using Bikewale.BikeBooking;
 using TCClientInq.Proxy;
-using Bikewale.Mobile.PriceQuote;
-using Bikewale.BikeBooking.Common;
-using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Entities.PriceQuote;
-using System.Configuration;
-using System.Data;
-using Bikewale.Entities.BikeBooking;
 
 namespace Bikewale.Ajax
 {
     public class AjaxBikeBooking
     {
         // Marked unused By : Sadhana Upadhyay
-#if unused
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 30 Oct 2014
-        /// Summary : function to save customer detail
-        /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="pqId"></param>
-        /// <param name="customerName"></param>
-        /// <param name="customerMobile"></param>
-        /// <param name="customerEmail"></param>
-        /// <returns></returns>
-        [AjaxPro.AjaxMethod()]
-        public bool SaveCustomerDetail(UInt32 dealerId, UInt32 pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId)
-        {
-            bool isSuccess = false;
-            bool isVerified = false;
-            string password = string.Empty, salt = string.Empty, hash = string.Empty;
-            CustomerEntity objCust = null;
-            MobileVerificationEntity mobileVer = null;
-
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<ICustomerAuthentication<CustomerEntity, UInt32>, CustomerAuthentication<CustomerEntity, UInt32>>();
-                    ICustomerAuthentication<CustomerEntity, UInt32> objAuthCustomer = container.Resolve<ICustomerAuthentication<CustomerEntity, UInt32>>();
-
-                    if (!objAuthCustomer.IsRegisteredUser(customerEmail))
-                    {
-                        container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
-                        ICustomer<CustomerEntity, UInt32> objCustomer = container.Resolve<ICustomer<CustomerEntity, UInt32>>();
-
-                        Bikewale.Common.RegisterCustomer rc = new Bikewale.Common.RegisterCustomer();
-                        password = rc.GenerateRandomPassword();
-                        salt = rc.GenerateRandomSalt();
-                        hash = rc.GenerateHashCode(password, salt);
-
-                        objCust = new CustomerEntity() { CustomerName = customerName, CustomerEmail = customerEmail, CustomerMobile = customerMobile, PasswordSalt = salt, PasswordHash = hash, ClientIP = CommonOpn.GetClientIP() };
-                        UInt32 CustomerId = objCustomer.Add(objCust);
-                    }
-
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                    isSuccess = objDealer.SaveCustomerDetail(dealerId, pqId, customerName, customerMobile, customerEmail,null);
-
-                    DealerPriceQuoteCookie.CreateDealerPriceQuoteCookie(PriceQuoteCookie.PQId, false, false);
-                    CustomerDetailCookie.CreateCustomerDetailCookie(customerName, customerEmail, customerMobile);
-
-                    container.RegisterType<IMobileVerificationRepository, MobileVerification>();
-                    IMobileVerificationRepository mobileVerRespo = container.Resolve<IMobileVerificationRepository>();
-
-                    if (!mobileVerRespo.IsMobileVerified(customerMobile, customerEmail))
-                    {
-                        container.RegisterType<IMobileVerification, MobileVerification>();
-                        IMobileVerification mobileVerificetion = container.Resolve<IMobileVerification>();
-
-                        mobileVer = mobileVerificetion.ProcessMobileVerification(customerEmail, customerMobile);
-                        isVerified = false;
-
-                        SMSTypes st = new SMSTypes();
-                        st.SMSMobileVerification(mobileVer.CustomerMobile, customerName, mobileVer.CWICode, HttpContext.Current.Request.ServerVariables["URL"].ToString());
-                    }
-                    else
-                    {
-                        isVerified = objDealer.UpdateIsMobileVerified(pqId);
-
-                        // If customer is mobile verified push lead to autobiz
-                        if(isVerified)
-                        {
-                            BikeBookingOperations.PushInquiryInAB(dealerId.ToString(), pqId, customerName, customerMobile, customerEmail, versionId, cityId);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return isVerified;
-        }
-#endif
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Oct 2014
         /// Summmary : to update isverified flag in pq_newbikedealerpriceQuote table

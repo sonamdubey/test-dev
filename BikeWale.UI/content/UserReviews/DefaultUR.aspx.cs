@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bikewale.Common;
+using Bikewale.Entities.BikeData;
+using System;
 using System.Data;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Common;
 using System.Data.SqlClient;
+using System.Web;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Content
 {
@@ -15,7 +14,7 @@ namespace Bikewale.Content
         protected Button btnWrite;
         protected Repeater rptMakes, rptMostReviewed;
 
-        private DataSet dsMain;    
+        private DataSet dsMain;
 
         CommonOpn op = new CommonOpn();
 
@@ -40,7 +39,7 @@ namespace Bikewale.Content
                     return "";
             }
         }
-		
+
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -66,8 +65,8 @@ namespace Bikewale.Content
         }
 
         private void btnWrite_Click(object Sender, EventArgs e)
-        {          
-            Response.Redirect("/content/userreviews/writereviews.aspx?bikem=" + Request.Form["drpModel"],false);
+        {
+            Response.Redirect("/content/userreviews/writereviews.aspx?bikem=" + Request.Form["drpModel"], false);
             HttpContext.Current.ApplicationInstance.CompleteRequest();
             this.Page.Visible = false;
         }
@@ -80,18 +79,20 @@ namespace Bikewale.Content
             {
                 DataTable dt;
                 MakeModelVersion mmv = new MakeModelVersion();
-                dt = mmv.GetMakes("NEW");
+                //dt = mmv.GetMakes("NEW");
 
-                if(dt.Rows.Count > 0 )
-                {
-                    drpMake.DataSource = dt;
-                    drpMake.DataTextField = "Text";
-                    drpMake.DataValueField = "Value";
-                    drpMake.DataBind();
+                //if(dt.Rows.Count > 0 )
+                //{
+                //    drpMake.DataSource = dt;
+                //    drpMake.DataTextField = "Text";
+                //    drpMake.DataValueField = "Value";
+                //    drpMake.DataBind();
 
-                    ListItem item = new ListItem("--Select--", "0");
-                    drpMake.Items.Insert(0, item);
-                }
+                //    ListItem item = new ListItem("--Select--", "0");
+                //    drpMake.Items.Insert(0, item);
+                //}
+
+                mmv.GetMakes(EnumBikeType.New, ref drpMake);
             }
             catch (Exception ex)
             {
@@ -116,7 +117,7 @@ namespace Bikewale.Content
                     Database db = new Database();
                     ds = new DataSet();
 
-                    ds = db.SelectAdaptQry(cmd);             
+                    ds = db.SelectAdaptQry(cmd);
                 }
 
                 dsMain = new DataSet();
@@ -140,7 +141,7 @@ namespace Bikewale.Content
                 Trace.Warn(err.Message + err.Source);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }   
+            }
         }
 
         public DataSet GetDataSource(string makeId)

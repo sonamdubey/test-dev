@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.DAL.BikeData;
 using Bikewale.Notifications;
-using Bikewale.Entities.CMS;
-using Bikewale.Entities.CMS.Photos;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -49,13 +42,13 @@ namespace Bikewale.Cache.BikeData
             string key = "BW_ModelDetails_" + modelId;
 
             try
-            {                
+            {
                 objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => _objModels.GetModelPageDetails(modelId));
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelPageDetails");
-                objErr.SendMail(); 
+                objErr.SendMail();
             }
 
             return objModelPage;
@@ -75,7 +68,7 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
         {
             IEnumerable<UpcomingBikeEntity> objUpcoming = null;
-            string key = string.Format("BW_UpcomingBikes_Cnt_{0}_SO_{1}",pageSize,(int)sortBy);
+            string key = string.Format("BW_UpcomingBikes_Cnt_{0}_SO_{1}", pageSize, (int)sortBy);
 
             if (makeId.HasValue && makeId.Value > 0)
                 key += "_MK_" + makeId;
@@ -104,7 +97,7 @@ namespace Bikewale.Cache.BikeData
         /// <returns>Returns BikeModelPageEntity</returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId)
         {
-            IEnumerable<MostPopularBikesBase> objBikes = null; 
+            IEnumerable<MostPopularBikesBase> objBikes = null;
             string key = "BW_PopularBikesByMake_" + makeId;
 
             try
@@ -120,5 +113,53 @@ namespace Bikewale.Cache.BikeData
             return objBikes;
         }
 
+        /// <summary>
+        /// Written By : Sushil Kumar on 30th June 2016
+        /// Summary : Function to get the model dscription from the cache. If data is not available in the cache it will return data from BL.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns>Returns BikeDescriptionEntity</returns>
+        public BikeDescriptionEntity GetModelSynopsis(U modelId)
+        {
+            BikeDescriptionEntity objModelPage = null;
+            string key = "BW_ModelDesc_" + modelId;
+
+            try
+            {
+                objModelPage = _cache.GetFromCache<BikeDescriptionEntity>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetModelSynopsis(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelSynopsis");
+                objErr.SendMail();
+            }
+
+            return objModelPage;
+        }
+
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 01 Jul 2016
+        /// Description :   GetMostPopularBikes Caching
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null)
+        {
+            IEnumerable<MostPopularBikesBase> objBikes = null;
+            string key = "BW_PopularBikes" + (topCount.HasValue ? String.Format("_TC_{0}", topCount.Value) : "") + (makeId.HasValue ? String.Format("_MK_{0}", makeId.Value) : "");
+            try
+            {
+                objBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikes(topCount, makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                objErr.SendMail();
+            }
+
+            return objBikes;
+        }
     }
 }

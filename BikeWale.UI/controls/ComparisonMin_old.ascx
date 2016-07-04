@@ -73,31 +73,4 @@
 
 
 
-
-<%--<div class="dotted-line margin-top5"></div>--%>
-<%--<div class="grid_4 column alpha omega" style="background-color:red;">
-    <div class="margin-top10 margin-bottom15">
-        <div><img id="imgCompBike" src="<%=imageUrl %>"/></div>
-    </div>
-</div>--%>
-<%--<div class="grid_4 column alpha omega" >
-    <div class="margin-top10 margin-bottom15">
-    <asp:Repeater ID="rptComparison" runat="server">
-        <HeaderTemplate>
-            <ul class="no-std-ul-list">
-        </HeaderTemplate>
-        <ItemTemplate>
-            <li><a href="/new/compare/compareSpecs.aspx?bike1=<%# DataBinder.Eval( Container.DataItem, "VersionId1" ) %>&bike2=<%# DataBinder.Eval( Container.DataItem, "VersionId2" ) %>"><%# DataBinder.Eval( Container.DataItem, "Bike1" ) %>&nbsp;<span class="red-text">vs</span>&nbsp;<%# DataBinder.Eval( Container.DataItem, "Bike2" ) %></a></li>
-        </ItemTemplate>
-        <FooterTemplate>
-            </ul>
-        </FooterTemplate>
-    </asp:Repeater>                  
-    </div>
-</div>--%>
-<%--<div class="dotted-line margin-bottom15"></div>
-<div class="margin-top15 margin-bottom15 readmore">
-    <a href="/new/compare/">More</a>
-</div>--%>
-
   

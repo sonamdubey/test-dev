@@ -399,10 +399,10 @@
                         "clientip": clientIP,
                         "isregisterpq": true
                     };
-                    customerViewModel.setOptions(leadOptions);
+                    dleadvm.setOptions(leadOptions);
                 });
                 $("#user-details-submit-btn").click(function(){
-                    if(customerViewModel.IsVerified)
+                    if(dleadvm.IsVerified)
                     {
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': "<%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%>" });
                     }

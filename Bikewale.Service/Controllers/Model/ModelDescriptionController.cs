@@ -1,31 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Bikewale.DTO.Model;
+﻿using Bikewale.DTO.Model;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
+using System;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.Model
 {
     public class ModelDescriptionController : ApiController
     {
-        private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-        private string _requestType = "application/json";
-        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        private readonly IBikeModelsCacheRepository<int> _modelRepository = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="modelRepository"></param>
-        public ModelDescriptionController(IBikeModelsRepository<BikeModelEntity, int> modelRepository)
+        public ModelDescriptionController(IBikeModelsCacheRepository<int> modelRepository)
         {
             _modelRepository = modelRepository;
         }

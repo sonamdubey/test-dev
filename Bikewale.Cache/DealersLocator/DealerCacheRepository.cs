@@ -98,5 +98,22 @@ namespace Bikewale.Cache.DealersLocator
             }
             return cityDealers;
         }
+
+
+        public IEnumerable<NewBikeDealersMakeEntity> GetDealersMakesList()
+        {
+            IEnumerable<NewBikeDealersMakeEntity> dealersMakes = null;
+            string key = String.Format("BW_DealerMakes_List");
+            try
+            {
+                dealersMakes = _cache.GetFromCache<IEnumerable<NewBikeDealersMakeEntity>>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealersMakesList());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetPopularCityDealer");
+                objErr.SendMail();
+            }
+            return dealersMakes;
+        }
     }
 }

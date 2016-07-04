@@ -201,7 +201,7 @@ namespace Bikewale.Mobile
                 }
                 else
                 {
-                    price += " <span class='font16'> Onwards</span>";
+                    price += " <span class='font14'> onwards</span>";
                 }
             }
             return price;
