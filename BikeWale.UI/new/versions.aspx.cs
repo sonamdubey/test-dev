@@ -4,9 +4,9 @@ using Bikewale.BindViewModels.Webforms;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
+using Bikewale.common;
 using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.DAL.AutoBiz;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Location;
 using Bikewale.DTO.Version;
@@ -836,13 +836,14 @@ namespace Bikewale.New
                             {
                                 // call another api
                                 PQ_QuotationEntity oblDealerPQ = null;
+                                AutoBizCommon dealerPq = null;
                                 try
                                 {
                                     //api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, variantId, objPQOutput.DealerId);
                                     using (Utility.BWHttpClient objDealerPqClient = new Utility.BWHttpClient())
                                     {
-                                        oblDealerPQ = viewModel.GetDealePQEntity(cityId, (uint)variantId, objPQOutput.DealerId);
-                                            //= objDealerPqClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, oblDealerPQ);
+                                        oblDealerPQ = dealerPq.GetDealePQEntity(cityId, (uint)variantId, objPQOutput.DealerId);
+                                        //= objDealerPqClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, oblDealerPQ);
                                         if (oblDealerPQ != null)
                                         {
                                             uint insuranceAmount = 0;
@@ -1288,7 +1289,7 @@ namespace Bikewale.New
             }
 
         }
-        
+
 
         #endregion
     }
