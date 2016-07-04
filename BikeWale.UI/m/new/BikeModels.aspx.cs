@@ -511,10 +511,17 @@ namespace Bikewale.Mobile.New
                                 versionId = modelPage.ModelVersionSpecs.BikeVersionId;
                             }
                             // Check it versionId passed through url exists in current model's versions
-                            else if (!modelPage.ModelVersions.Exists(p => p.VersionId == versionId))
+                            else
                             {
-                                versionId = modelPage.ModelVersionSpecs.BikeVersionId;
+                                if (versionId > 0)
+                                {
+                                    if (!modelPage.ModelVersions.Exists(p => p.VersionId == versionId))
+                                    {
+                                        versionId = modelPage.ModelVersionSpecs.BikeVersionId;
+                                    }
+                                }
                             }
+
                         }
                         if (!modelPage.ModelDetails.New)
                             isDiscontinued = true;
