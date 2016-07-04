@@ -629,9 +629,15 @@ namespace Bikewale.New
                                     variantId = modelPg.ModelVersionSpecs.BikeVersionId;
                                 }
                                 // Check it versionId passed through url exists in current model's versions
-                                else if (!modelPg.ModelVersions.Exists(p => p.VersionId == variantId))
+                                else
                                 {
-                                    variantId = modelPg.ModelVersionSpecs.BikeVersionId;
+                                    if (variantId > 0)
+                                    {
+                                        if (!modelPg.ModelVersions.Exists(p => p.VersionId == variantId))
+                                        {
+                                            variantId = modelPg.ModelVersionSpecs.BikeVersionId;
+                                        }
+                                    }
                                 }
                             }
                             if (!modelPg.ModelDetails.New)
