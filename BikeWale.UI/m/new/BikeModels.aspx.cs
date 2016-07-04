@@ -878,10 +878,6 @@ namespace Bikewale.Mobile.New
 
                                 try
                                 {
-                                    //string api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionId, objPQOutput.DealerId);
-                                    //using (Utility.BWHttpClient objDealerPqClient = new Utility.BWHttpClient())
-                                    //{
-                                    //oblDealerPQ = objDealerPqClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, oblDealerPQ);
                                     oblDealerPQ = oblDealerPQ = dealerPq.GetDealePQEntity(cityId, (uint)versionId, objPQOutput.DealerId);
                                     if (oblDealerPQ != null)
                                     {

@@ -1,6 +1,7 @@
 ﻿using Bikewale.DTO.PriceQuote.DetailedDealerQuotation;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Service.AutoMappers.PriceQuote;
+using Microsoft.Practices.Unity;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -29,12 +30,15 @@ namespace Bikewale.Service.Controllers.PriceQuote
             PQ_DealerDetailEntity dealerDetailEntity = null;
             DDQDealerDetailBase output = null;
 
-            string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", versionId, dealerId, cityId);
-            // Send HTTP GET requests 
-
-            using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            using (IUnityContainer container = new UnityContainer())
             {
-                dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                PQParameterEntity objParam = new PQParameterEntity();
+                objParam.CityId = Convert.ToUInt32(cityId);
+                objParam.DealerId = Convert.ToUInt32(dealerId);
+                objParam.VersionId = Convert.ToUInt32(versionId);
+                dealerDetailEntity = objDealer.GetDealerDetailsPQ(objParam);
             }
 
             if (dealerDetailEntity != null)

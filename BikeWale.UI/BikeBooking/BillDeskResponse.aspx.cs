@@ -249,12 +249,15 @@ namespace Bikewale.BikeBooking
         {
             try
             {
-                string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", versionId, dealerId, cityId);
-                // Send HTTP GET requests 
-
-                using (BWHttpClient objClient = new BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(APIHost.AB, BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = cityId;
+                    objParam.DealerId = dealerId;
+                    objParam.VersionId = versionId;
+                    _objPQ = objDealer.GetDealerDetailsPQ(objParam);
                 }
 
                 if (_objPQ != null)

@@ -96,13 +96,6 @@ namespace Bikewale.Mobile.BikeBooking
         {
             try
             {
-                //string api = "/api/DealerPriceQuote/GetDealerPriceQuote/?cityid=" + cityId + "&versionid=" + versionId + "&dealerid=" + dealerId;
-
-                //using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                //{
-                //    objPrice = await objClient.GetApiResponse<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
-                //}
-
                 AutoBizCommon dealerPq = null;
 
                 objPrice = dealerPq.GetDealePQEntity(cityId, (uint)versionId, dealerId);

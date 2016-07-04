@@ -65,14 +65,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
             DPQuotationOutput output = null;
             try
             {
-                //string api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", input.CityId, input.VersionId, input.DealerId);
-
-                //using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                //{
-                //    objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
-                //}
-
-                //PQ_QuotationEntity objDealerPrice = default(PQ_QuotationEntity);
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();

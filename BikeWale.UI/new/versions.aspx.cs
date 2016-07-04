@@ -839,11 +839,8 @@ namespace Bikewale.New
                                 AutoBizCommon dealerPq = null;
                                 try
                                 {
-                                    //api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, variantId, objPQOutput.DealerId);
-                                    //using (Utility.BWHttpClient objDealerPqClient = new Utility.BWHttpClient())
-                                    //{
                                     oblDealerPQ = dealerPq.GetDealePQEntity(cityId, (uint)variantId, objPQOutput.DealerId);
-                                    //= objDealerPqClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, oblDealerPQ);
+
                                     if (oblDealerPQ != null)
                                     {
                                         uint insuranceAmount = 0;

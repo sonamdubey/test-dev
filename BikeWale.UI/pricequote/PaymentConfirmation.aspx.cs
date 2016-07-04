@@ -1,15 +1,12 @@
-﻿using Bikewale.BikeBooking;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Mobile.PriceQuote;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Configuration;
 using System.Web;
 using System.Web.UI.WebControls;
-using Bikewale.BikeBooking.Common;
-using Bikewale.Utility;
 
 namespace Bikewale.PriceQuote
 {
@@ -48,7 +45,7 @@ namespace Bikewale.PriceQuote
                         if (objCustomer.objColor != null)
                         {
                             bikeColor = objCustomer.objColor.ColorName;
-                        }                        
+                        }
                     }
                     else
                     {
@@ -80,12 +77,16 @@ namespace Bikewale.PriceQuote
             bool _isContentFound = true;
             try
             {
-                string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteQueryString.VersionId + "&DealerId=" + PriceQuoteQueryString.DealerId + "&CityId=" + PriceQuoteQueryString.CityId;
-                
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
-                }                
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
+                    objParam.DealerId = Convert.ToUInt32(PriceQuoteQueryString.DealerId);
+                    objParam.VersionId = Convert.ToUInt32((PriceQuoteQueryString.VersionId));
+                    _objPQ = objDealer.GetDealerDetailsPQ(objParam);
+                }
 
                 if (_objPQ != null)
                 {
@@ -211,7 +212,7 @@ namespace Bikewale.PriceQuote
                 totalPrice += priceListObj.Price;
             }
             return totalPrice;
-        } 
+        }
 
     }
 }

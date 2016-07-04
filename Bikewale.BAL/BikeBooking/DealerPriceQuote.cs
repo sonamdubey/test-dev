@@ -306,13 +306,6 @@ namespace Bikewale.BAL.BikeBooking
                         IDealer objDealer = container.Resolve<IDealer>();
                         objDealerDetail = objDealer.IsSubscribedDealerExistsV3(PQParams.VersionId, PQParams.AreaId);
                     }
-                    //string api = "/api/v3/DealerPriceQuote/IsDealerExists/?areaid=" + PQParams.AreaId + "&versionid=" + PQParams.VersionId;
-                    // Bikewale.BAL.AutoBiz.Dealers d = new Dealers();
-                    // d.IsSubscribedDealerExistsV3(PQParams.VersionId, PQParams.AreaId);
-                    //using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                    //{
-                    //    objDealerDetail = objClient.GetApiResponseSync<DealerInfo>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objDealerDetail);
-                    //}
                 }
                 else
                 {

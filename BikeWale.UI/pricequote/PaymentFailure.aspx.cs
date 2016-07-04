@@ -81,13 +81,13 @@ namespace Bikewale.PriceQuote
             bool _isContentFound = true;
             try
             {
-                string _apiUrl = String.Format("/api/dealers/getdealerbookingamount/?versionId={0}&DealerId={1}", PriceQuoteQueryString.VersionId, PriceQuoteQueryString.DealerId);
-                // Send HTTP GET requests 
-
-                using (Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    objAmount = objClient.GetApiResponseSync<BookingAmountEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objAmount);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    objAmount = objDealer.GetDealerBookingAmount(Convert.ToUInt32(PriceQuoteQueryString.VersionId), Convert.ToUInt32(PriceQuoteQueryString.DealerId));
                 }
+
 
                 if (objAmount != null)
                     MakeModel = objAmount.objMake.MakeName + " " + objAmount.objModel.ModelName;

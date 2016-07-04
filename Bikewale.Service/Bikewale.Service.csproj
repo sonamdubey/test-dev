@@ -181,6 +181,8 @@
     <Compile Include="AutoMappers\App\AppVersionMapper.cs" />
     <Compile Include="AutoMappers\AutoComplete\SuggestionListMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\Area\BBAreaListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\BBCityListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\BBMakeListMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\BikeBookingListingEntityMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\BookingListingFilterDTOMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\BookingPageDetailsEntityMapper.cs" />

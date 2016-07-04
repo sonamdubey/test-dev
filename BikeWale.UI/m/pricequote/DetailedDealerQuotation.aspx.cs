@@ -160,11 +160,11 @@ namespace Bikewale.Mobile.BikeBooking
         /// <param name="versionId"></param>
         private void GetBikeAvailability(string dealerId, string versionId)
         {
-            string _apiUrl = "/api/Dealers/GetAvailabilityDays/?dealerId=" + dealerId + "&versionId=" + versionId;
-
-            using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            using (IUnityContainer container = new UnityContainer())
             {
-                noOfDays = objClient.GetApiResponseSync<uint>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, noOfDays);
+                container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                Bikewale.Interfaces.AutoBiz.IDealers objDays = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                noOfDays = objDays.GetAvailabilityDays(Convert.ToUInt32(dealerId), Convert.ToUInt32(versionId));
             }
         }
 
@@ -178,13 +178,15 @@ namespace Bikewale.Mobile.BikeBooking
         {
             try
             {
-                string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteQueryString.VersionId + "&DealerId=" + PriceQuoteQueryString.DealerId + "&CityId=" + cityId;
-
-                Trace.Warn("_apiUrl: ", _apiUrl);
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = Convert.ToUInt32(PriceQuoteQueryString.CityId); ;
+                    objParam.DealerId = Convert.ToUInt32(PriceQuoteQueryString.DealerId);
+                    objParam.VersionId = Convert.ToUInt32(PriceQuoteQueryString.VersionId); ;
+                    _objPQ = objDealer.GetDealerDetailsPQ(objParam);
                 }
 
                 if (_objPQ != null && _objPQ.objQuotation != null)

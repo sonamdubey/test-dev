@@ -84,9 +84,6 @@ namespace Bikewale.BAL.PriceQuote
                                 PQ_QuotationEntity oblDealerPQ = null;
                                 try
                                 {
-                                    //string api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionId, objPQOutput.DealerId);
-                                    //using (Utility.BWHttpClient objDealerPqClient = new Utility.BWHttpClient())
-                                    //{
                                     oblDealerPQ = GetDealePQEntity((uint)cityId, (uint)versionId, objPQOutput.DealerId);
 
                                     if (oblDealerPQ != null)
@@ -101,7 +98,7 @@ namespace Bikewale.BAL.PriceQuote
                                         pqOnRoad.InsuranceAmount = insuranceAmount;
                                     }
                                 }
-                                //}
+
                                 catch (Exception ex)
                                 {
                                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "PQByCityArea: " + "GetOnRoadPrice");

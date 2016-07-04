@@ -150,12 +150,6 @@ namespace Bikewale.BikeBooking
             try
             {
                 totalPrice = 0;
-                //string api = "/api/DealerPriceQuote/GetDealerPriceQuote/?cityid=" + cityId + "&versionid=" + versionId + "&dealerid=" + dealerId;
-
-                //using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                //{
-                //    objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
-                //}
 
                 AutoBizCommon dealerPq = null;
 

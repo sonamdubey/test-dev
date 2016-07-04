@@ -1105,7 +1105,6 @@ namespace Bikewale.Service.Controllers.AutoBiz
                     {
                         container.RegisterType<IDealers, DealersRepository>();
                         IDealers objDealer = container.Resolve<DealersRepository>();
-
                         objAmount = objDealer.GetDealerBookingAmount(versionId, dealerId);
                     }
                 }
