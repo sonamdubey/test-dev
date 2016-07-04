@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.DAL.BikeData;
 using Bikewale.Notifications;
-using Bikewale.Entities.CMS;
-using Bikewale.Entities.CMS.Photos;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -49,13 +42,13 @@ namespace Bikewale.Cache.BikeData
             string key = "BW_ModelDetails_" + modelId;
 
             try
-            {                
+            {
                 objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => _objModels.GetModelPageDetails(modelId));
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelPageDetails");
-                objErr.SendMail(); 
+                objErr.SendMail();
             }
 
             return objModelPage;
@@ -75,7 +68,7 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
         {
             IEnumerable<UpcomingBikeEntity> objUpcoming = null;
-            string key = string.Format("BW_UpcomingBikes_Cnt_{0}_SO_{1}",pageSize,(int)sortBy);
+            string key = string.Format("BW_UpcomingBikes_Cnt_{0}_SO_{1}", pageSize, (int)sortBy);
 
             if (makeId.HasValue && makeId.Value > 0)
                 key += "_MK_" + makeId;
@@ -104,7 +97,7 @@ namespace Bikewale.Cache.BikeData
         /// <returns>Returns BikeModelPageEntity</returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId)
         {
-            IEnumerable<MostPopularBikesBase> objBikes = null; 
+            IEnumerable<MostPopularBikesBase> objBikes = null;
             string key = "BW_PopularBikesByMake_" + makeId;
 
             try
@@ -120,5 +113,31 @@ namespace Bikewale.Cache.BikeData
             return objBikes;
         }
 
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 01 Jul 2016
+        /// Description :   Returns New Launched Bike List
+        /// </summary>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="recordCount"></param>
+        /// <returns></returns>
+        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex)
+        {
+            NewLaunchedBikesBase objBikes = null;
+            string key = String.Format("BW_NewLaunchedBikes_SI_{0}_EI_{1}", startIndex, endIndex);
+
+            try
+            {
+                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                objErr.SendMail();
+            }
+
+            return objBikes;
+        }
     }
 }

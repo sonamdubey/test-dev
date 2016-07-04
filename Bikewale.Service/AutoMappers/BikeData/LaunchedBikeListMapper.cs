@@ -13,14 +13,14 @@ namespace Bikewale.Service.AutoMappers.BikeData
 {
     public class LaunchedBikeListMapper
     {
-        internal static IEnumerable<DTO.BikeData.LaunchedBike> Convert(List<Entities.BikeData.NewLaunchedBikeEntity> objRecent)
+        internal static IEnumerable<DTO.BikeData.LaunchedBike> Convert(IEnumerable<Entities.BikeData.NewLaunchedBikeEntity> objRecent)
         {
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
             Mapper.CreateMap<NewLaunchedBikeEntity, LaunchedBike>();
             Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
-            return Mapper.Map<List<NewLaunchedBikeEntity>, List<LaunchedBike>>(objRecent);
+            return Mapper.Map<IEnumerable<NewLaunchedBikeEntity>, IEnumerable<LaunchedBike>>(objRecent);
         }
     }
 }

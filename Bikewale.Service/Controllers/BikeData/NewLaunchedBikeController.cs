@@ -23,10 +23,12 @@ namespace Bikewale.Service.Controllers.BikeData
     {
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IPager _objPager = null;
-        public NewLaunchedBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IPager objPager)
+        private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
+        public NewLaunchedBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IPager objPager, IBikeModelsCacheRepository<int> modelCacheRepository)
         {
             _modelRepository = modelRepository;
             _objPager = objPager;
+            _modelCacheRepository = modelCacheRepository;
         }
         /// <summary>
         /// Created By : Sadhana Upadhyay on 25 Aug 2015
@@ -38,7 +40,6 @@ namespace Bikewale.Service.Controllers.BikeData
         [ResponseType(typeof(LaunchedBikeList))]
         public IHttpActionResult Get(int pageSize, int? curPageNo = null)
         {
-            int recordCount = 0;
             try
             {
                 LaunchedBikeList objLaunched = new LaunchedBikeList();
@@ -47,15 +48,9 @@ namespace Bikewale.Service.Controllers.BikeData
 
                 _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
 
-                List<NewLaunchedBikeEntity> objRecent = _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex, out recordCount);
+                IEnumerable<NewLaunchedBikeEntity> objRecent = _modelCacheRepository.GetNewLaunchedBikesList(startIndex, endIndex).Models;
 
                 objLaunched.LaunchedBike = LaunchedBikeListMapper.Convert(objRecent);
-
-                if (objRecent != null)
-                {
-                    objRecent.Clear();
-                    objRecent = null;
-                }
 
                 if (objLaunched != null && objLaunched.LaunchedBike != null && objLaunched.LaunchedBike.Count() > 0)
                     return Ok(objLaunched);
