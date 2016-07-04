@@ -1,5 +1,4 @@
-﻿
-using Bikewale.Entities.AutoBiz;
+﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Notifications;
 using Bikewale.Notifications.CoreDAL;

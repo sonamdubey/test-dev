@@ -1,24 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using BikeWale.DTO.AutoBiz;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
-using BikeWale.Entities.AutoBiz;
 
-namespace BikeWale.Entities.AutoBiz
+namespace Bikewale.DTO.AutoBiz
 {
     /// <summary>
     /// Written By : Ashwini Todkar on 28 Oct 2014
     /// </summary>
-    public class OfferEntity
+    public class OfferEntityDTO
     {
-        public MakeEntityBase objMake { get; set; }
-        public ModelEntityBase objModel { get; set; }
-        public VersionEntityBase objVersion { get; set; }
-        public CityEntityBase objCity { get; set; }
-        public NewBikeDealers objDealer { get; set; }
+        public MakeEntityBaseDTO objMake { get; set; }
+        public ModelEntityBaseDTO objModel { get; set; }
+        public VersionEntityBaseDTO objVersion { get; set; }
+        public CityEntityBaseDTO objCity { get; set; }
+        public NewBikeDealersDTO objDealer { get; set; }
 
         [JsonProperty("offerId")]
         public UInt32 OfferId { get; set; }

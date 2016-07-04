@@ -1,17 +1,18 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
-namespace Bikewale.Entities.PriceQuote
+namespace BikeWale.DTO.AutoBiz
 {
     /// <summary>
-    /// Modified By : Lucky Rathore
-    /// Modified on : 15 March 2016
-    /// Description : for Dealer Basics details.
-    /// Modified By : Lucky Rathore
-    /// Modified on : 21 March 2016
-    /// Description : DealerPkgType added.
+    /// Author      :   Sumit Kate on 14 Mar 2016
+    /// Description :   NewBikeDealerBase Entity
+    /// Modified By :   Sumit Kate on 21 Mar 2016
+    /// Description :   Dealer package Id
     /// </summary>
-    public class NewBikeDealerBase
+    public class NewBikeDealerBaseDTO
     {
         [JsonProperty("id")]
         public UInt32 DealerId { get; set; }

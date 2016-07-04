@@ -3,33 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
-using BikeWale.Entities.AutoBiz;
 using Bikewale.Entities;
-using Bikewale.Entities.BikeBooking;
+using Bikewale.DTO.AutoBiz;
 
-namespace BikeWale.Entities.AutoBiz
+namespace BikeWale.DTO.AutoBiz
 {
     /// <summary>
     /// Created By : Sadhana Upadhyay on 23 Oct 2015
     /// </summary>
-    public class DealerPriceQuoteDetailed
+    public class DealerPriceQuoteDetailedDTO
     {
         [JsonProperty("bookingAmount")]
         public uint BookingAmount { get; set; }
 
         [JsonProperty("priceList")]
-        public IEnumerable<PQ_Price> PriceList { get; set; }
+        public IEnumerable<PQ_PriceDTO> PriceList { get; set; }
 
         [JsonProperty("offerList")]
-        public IEnumerable<OfferEntityBase> OfferList { get; set; }
+        public IEnumerable<OfferEntityBaseDTO> OfferList { get; set; }
 
         [JsonProperty("dealerDetails")]
-        public NewBikeDealers DealerDetails { get; set; }
+        public NewBikeDealersDTO DealerDetails { get; set; }
 
         [JsonProperty("availability")]
         public uint Availability { get; set; }
 
         [JsonProperty("availabilityByColor")]
-        public IEnumerable<BikeAvailabilityByColor> AvailabilityByColor { get; set; }
+        public IEnumerable<BikeAvailabilityByColorDTO> AvailabilityByColor { get; set; }
     }
 }

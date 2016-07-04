@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.AutoBiz;
+﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.PriceQuote;
 using BikeWale.Entities.AutoBiz;
 using System;
 using System.Collections.Generic;

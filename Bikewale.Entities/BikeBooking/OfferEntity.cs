@@ -40,5 +40,24 @@ namespace Bikewale.Entities.BikeBooking
         [JsonProperty("isPriceImpact")]
         public bool IsPriceImpact { get; set; }
 
+        //public MakeEntityBase objMake { get; set; }
+        //public ModelEntityBase objModel { get; set; }
+        //public VersionEntityBase objVersion { get; set; }
+
+        [JsonProperty("availabilityId")]
+        public Int32 AvailabilityId { get; set; }
+
+        [JsonProperty("AvailableLimit")]
+        public UInt16 AvailableLimit { get; set; }
+
+        [JsonProperty("offervalidTill")]
+        public DateTime OffervalidTill { get; set; }
+
+        [JsonProperty("offerTypeId")]
+        public UInt32 OfferTypeId { get; set; }
+
+        [JsonProperty("userId")]
+        public uint UserId { get; set; }
+
     }
 }

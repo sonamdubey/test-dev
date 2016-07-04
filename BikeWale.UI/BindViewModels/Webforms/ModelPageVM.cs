@@ -1,8 +1,12 @@
 ﻿using Bikewale.BAL.PriceQuote;
+using Bikewale.DAL.AutoBiz;
 using Bikewale.Entities;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
+using BikeWale.Entities.AutoBiz;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -24,7 +28,7 @@ namespace Bikewale.BindViewModels.Webforms
         public string MaskingNumber { get; set; }
         public IEnumerable<OfferEntityBase> Offers { get; set; }
         public ushort OfferCount { get; set; }
-        public IEnumerable<NewBikeDealerBase> SecondaryDealers { get; set; }
+        public IEnumerable<Bikewale.Entities.PriceQuote.NewBikeDealerBase> SecondaryDealers { get; set; }
         public string MobileNo { get; set; }
 
         public ModelPageVM(uint cityId, uint versionId, uint dealerId)
@@ -57,7 +61,7 @@ namespace Bikewale.BindViewModels.Webforms
         /// Created by: Sangram Nandkhile on 16 mar 2016
         /// Summary     : API to fetch detailed dealer entity
         /// </summary>
-        private DetailedDealerQuotationEntity GetDetailedDealer(uint cityId, uint versionId, uint dealerId)
+        private Bikewale.Entities.PriceQuote.DetailedDealerQuotationEntity GetDetailedDealer(uint cityId, uint versionId, uint dealerId)
         {
             DetailedDealerQuotationEntity detailedDealer = null;
             try
@@ -75,6 +79,29 @@ namespace Bikewale.BindViewModels.Webforms
                 objErr.SendMail();
             }
             return detailedDealer;
+        }
+
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 01-Jul-2016
+        /// Summary: Moving Autobiz dealerPQ API call to Code
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public PQ_QuotationEntity GetDealePQEntity(uint cityId, uint dealerId, uint versionId)
+        {
+            PQ_QuotationEntity objDealerPrice = default(PQ_QuotationEntity);
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
+                IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                BikeWale.Entities.AutoBiz.PQParameterEntity objParam = new BikeWale.Entities.AutoBiz.PQParameterEntity();
+                objParam.CityId = cityId;
+                objParam.DealerId = dealerId;
+                objParam.VersionId = versionId;
+                objDealerPrice = objPriceQuote.GetDealerPriceQuote(objParam);
+            }
+            return objDealerPrice;
         }
     }
 }

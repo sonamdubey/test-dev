@@ -838,10 +838,11 @@ namespace Bikewale.New
                                 PQ_QuotationEntity oblDealerPQ = null;
                                 try
                                 {
-                                    api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, variantId, objPQOutput.DealerId);
+                                    //api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, variantId, objPQOutput.DealerId);
                                     using (Utility.BWHttpClient objDealerPqClient = new Utility.BWHttpClient())
                                     {
-                                        oblDealerPQ = objDealerPqClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, oblDealerPQ);
+                                        oblDealerPQ = viewModel.GetDealePQEntity(cityId, (uint)variantId, objPQOutput.DealerId);
+                                            //= objDealerPqClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, oblDealerPQ);
                                         if (oblDealerPQ != null)
                                         {
                                             uint insuranceAmount = 0;
@@ -1287,29 +1288,7 @@ namespace Bikewale.New
             }
 
         }
-        /// <summary>
-        /// Created by: Sangram Nandkhile on 01-Jul-2016
-        /// Summary: Moving Autobiz dealerPQ API call to Code
-        /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="versionId"></param>
-        /// <returns></returns>
-        public BikeWale.Entities.AutoBiz.PQ_QuotationEntity GetDealePQEntity(uint dealerId, uint versionId)
-        {
-            BikeWale.Entities.AutoBiz.PQ_QuotationEntity objDealerPrice = default(BikeWale.Entities.AutoBiz.PQ_QuotationEntity);
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
-                Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
-                BikeWale.Entities.AutoBiz.PQParameterEntity objParam = new BikeWale.Entities.AutoBiz.PQParameterEntity();
-                objParam.CityId = cityId;
-                objParam.DealerId = dealerId;
-                objParam.VersionId = versionId;
-                objDealerPrice = objPriceQuote.GetDealerPriceQuote(objParam);
-
-            }
-            return objDealerPrice;
-        }
+        
 
         #endregion
     }

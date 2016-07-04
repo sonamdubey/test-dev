@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using BikeWale.Entities.AutoBiz;
+using Bikewale.Entities.BikeBooking;
 
 namespace BikeWale.Entities.AutoBiz
 {

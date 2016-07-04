@@ -1,12 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
 
-namespace BikeWale.Entities.AutoBiz
+namespace Bikewale.DTO.AutoBiz
 {
     /// <summary>
     /// Written by Ashwini Todkar on 29 Oct 2014
@@ -18,8 +13,8 @@ namespace BikeWale.Entities.AutoBiz
     /// Modified by :   Sangram Nandkhile on 15 Mar 2016
     /// Description :   Added MinLoanToValue and MaxLoanToValue    
     /// </summary>    
-    public class EMI
-    {        
+    public class EMIDTO
+    {
         [JsonProperty("tenure")]
         public UInt16 Tenure { get; set; }
 

@@ -1,10 +1,8 @@
 ﻿using Bikewale.DAL.AutoBiz;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AutoBiz;
-using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
@@ -45,9 +43,7 @@ namespace Bikewale.BAL.BikeBooking
         public bool SaveCustomerDetail(DPQ_SaveEntity entity)
         {
             bool isSuccess = false;
-
             isSuccess = dealerPQRepository.SaveCustomerDetail(entity);
-
             return isSuccess;
         }
 
@@ -60,9 +56,7 @@ namespace Bikewale.BAL.BikeBooking
         public bool UpdateIsMobileVerified(uint pqId)
         {
             bool isSuccess = false;
-
             isSuccess = dealerPQRepository.UpdateIsMobileVerified(pqId);
-
             return isSuccess;
         }
 
@@ -76,9 +70,7 @@ namespace Bikewale.BAL.BikeBooking
         public bool UpdateMobileNumber(uint pqId, string mobileNo)
         {
             bool isSuccess = false;
-
             isSuccess = dealerPQRepository.UpdateMobileNumber(pqId, mobileNo);
-
             return isSuccess;
         }
 
@@ -91,9 +83,7 @@ namespace Bikewale.BAL.BikeBooking
         public bool PushedToAB(uint pqId, uint abInquiryId)
         {
             bool isSuccess = false;
-
             isSuccess = dealerPQRepository.PushedToAB(pqId, abInquiryId);
-
             return isSuccess;
         }
 
@@ -106,9 +96,7 @@ namespace Bikewale.BAL.BikeBooking
         public PQCustomerDetail GetCustomerDetails(uint pqId)
         {
             PQCustomerDetail objCustomer = null;
-
             objCustomer = dealerPQRepository.GetCustomerDetails(pqId);
-
             return objCustomer;
         }
 
@@ -121,9 +109,7 @@ namespace Bikewale.BAL.BikeBooking
         public bool IsNewBikePQExists(uint pqId)
         {
             bool isVerified = false;
-
             isVerified = dealerPQRepository.IsNewBikePQExists(pqId);
-
             return isVerified;
         }
 
@@ -138,9 +124,7 @@ namespace Bikewale.BAL.BikeBooking
         public List<BikeVersionEntityBase> GetVersionList(uint versionId, uint dealerId, uint cityId)
         {
             List<BikeVersionEntityBase> objVersions = null;
-
             objVersions = dealerPQRepository.GetVersionList(versionId, dealerId, cityId);
-
             return objVersions;
         }
 

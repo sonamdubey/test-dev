@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeBooking
 {
@@ -12,7 +8,7 @@ namespace Bikewale.Entities.BikeBooking
     /// Modified By : Sushil Kumar on 14th March 2016
     /// Description : Modified ENtity for new subscription model
     /// </summary>
-    
+
     public class EMI
     {
 
@@ -48,5 +44,19 @@ namespace Bikewale.Entities.BikeBooking
 
         [JsonProperty("processingFee")]
         public float ProcessingFee { get; set; }
+
+
+        [JsonProperty("tenure")]
+        public UInt16 Tenure { get; set; }
+
+        [JsonProperty("loanToValue")]
+        public UInt16 LoanToValue { get; set; }
+
+        [JsonProperty("rateOfInterest")]
+        public float RateOfInterest { get; set; }
+
+        [JsonProperty("emiAmount")]
+        public UInt32 EMIAmount { get; set; }
+
     }
 }

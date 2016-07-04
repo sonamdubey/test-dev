@@ -1,19 +1,18 @@
-﻿using Bikewale.Entities;
-using Bikewale.Entities.BikeBooking;
-using BikeWale.Entities.AutoBiz;
+﻿using Bikewale.DTO.AutoBiz;
+using Bikewale.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BikeWale.Entities.AutoBiz
+namespace BikeWale.DTO.AutoBiz
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 14 Mar 2016
     /// Description :   Dealer Quotation Entity
     /// </summary>
-    public class DealerQuotationEntity
+    public class DealerQuotationEntityDTO
     {
         [JsonProperty("isBookingAvailable")]
         public bool IsBookingAvailable { get { return (BookingAmount > 0); } }
@@ -22,25 +21,25 @@ namespace BikeWale.Entities.AutoBiz
         public uint BookingAmount { get; set; }
 
         [JsonProperty("priceList")]
-        public IEnumerable<PQ_Price> PriceList { get; set; }
+        public IEnumerable<PQ_PriceDTO> PriceList { get; set; }
 
         [JsonProperty("offerList")]
-        public IEnumerable<OfferEntityBase> OfferList { get; set; }
+        public IEnumerable<OfferEntityBaseDTO> OfferList { get; set; }
 
         [JsonProperty("dealerDetails")]
-        public NewBikeDealers DealerDetails { get; set; }
+        public NewBikeDealersDTO DealerDetailsDTO { get; set; }
 
         [JsonProperty("bikeAvailability")]
-        public uint BikeAvailability { get; set; }
+        public uint BikeAvailabilityDTO { get; set; }
 
         [JsonProperty("availabilityByColor")]
-        public IEnumerable<BikeColorAvailability> AvailabilityByColor { get; set; }
+        public IEnumerable<BikeColorAvailabilityDTO> AvailabilityByColor { get; set; }
 
         [JsonProperty("benefits")]
-        public IEnumerable<DealerBenefitEntity> Benefits { get; set; }
+        public IEnumerable<DealerBenefitEntityDTO> Benefits { get; set; }
 
         [JsonProperty("emiDetails")]
-        public EMI EMIDetails { get; set; }
+        public EMIDTO EMIDetails { get; set; }
 
         [JsonProperty("disclaimer")]
         public IEnumerable<string> Disclaimer { get; set; }

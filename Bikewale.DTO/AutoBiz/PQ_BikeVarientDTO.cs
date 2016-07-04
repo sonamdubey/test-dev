@@ -1,23 +1,23 @@
-﻿using Bikewale.Entities.BikeBooking;
+﻿using Bikewale.DTO.AutoBiz;
 using System;
 using System.Collections.Generic;
 
-namespace BikeWale.Entities.AutoBiz
+namespace BikeWale.DTO.AutoBiz
 {
     /// <summary>
     /// Author  :   Sumit Kate
     /// Created :   08 Oct 2015
     /// Description :   Bike Version with On Road Price
     /// </summary>
-    public class PQ_BikeVarient
+    public class PQ_BikeVarientDTO
     {
-        public MakeEntityBase objMake { get; set; }
-        public ModelEntityBase objModel { get; set; }
-        public VersionEntityBase objVersion { get; set; }
+        public MakeEntityBaseDTO objMake { get; set; }
+        public ModelEntityBaseDTO objModel { get; set; }
+        public VersionEntityBaseDTO objVersion { get; set; }
         public string HostUrl { get; set; }
         public string OriginalImagePath { get; set; }
         public UInt32 OnRoadPrice { get; set; }
         public UInt32 BookingAmount { get; set; }
-        public IList<PQ_Price> PriceList { get; set; }
+        public IList<PQ_PriceDTO> PriceList { get; set; }
     }
 }
