@@ -251,7 +251,7 @@ namespace Bikewale.Common
 
         //        prm = cmd.Parameters.Add("@SMSPageUrl", SqlDbType.VarChar, 500);
         //        prm.Value = pageUrl;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
         //        con.Open();
         //        //run the command
         //        //cmd.ExecuteNonQuery();

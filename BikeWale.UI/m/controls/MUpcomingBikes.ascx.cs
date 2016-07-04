@@ -1,14 +1,10 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.controls
 {
-    public partial class MUpcomingBikes : System.Web.UI.UserControl
+    public class MUpcomingBikes : System.Web.UI.UserControl
     {
 
         public Repeater rptUpcomingBikes;
@@ -19,7 +15,6 @@ namespace Bikewale.Mobile.controls
         public int? ModelId { get; set; }
         public int? curPageNo { get; set; }
         public int FetchedRecordsCount { get; set; }
-
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);

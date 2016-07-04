@@ -19,8 +19,8 @@
         keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, cityName, modelName);
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
         alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
-        ogImage = modelImage;        
-        AdId = "1017752";
+        ogImage = modelImage;
+        AdId = "1442913773076";
         AdPath = "/1017752/Bikewale_NewBike_";
         isAd970x90Shown = true;
         isAd970x90BTFShown = false;
@@ -168,6 +168,8 @@
                         <div class="clear"></div>
                     </div>
 
+                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+
                     <BW:Dealers ID="ctrlDealers" runat="server" />
 
                     <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
@@ -215,7 +217,7 @@
                     "isregisterpq" : true
                 };
 
-                customerViewModel.setOptions(leadOptions);
+                dleadvm.setOptions(leadOptions);
 
             });
 
@@ -229,13 +231,7 @@
                 $('.model-versions-tabs-wrapper a[id="' + version + '"]').addClass('active');
                 $('.priceTable').hide();
                 $('.priceTable[id="' + version + '"]').show();
-            }
-
-
-            $('.dealer-details-main-content').on('click', function() {
-                $(this).hide();
-                $(this).next('.dealer-details-more-content').show();
-            });
+            }           
 
         </script>
     </form>

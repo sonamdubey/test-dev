@@ -30,7 +30,7 @@ namespace Bikewale.DAL.MobileVerification
                 {
                     cmd.CommandText = "cv_isverifiedmobile";
                     cmd.CommandType = CommandType.StoredProcedure;
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, 100, emailId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobileNo));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismobilever", DbType.Boolean, ParameterDirection.Output));
@@ -74,10 +74,10 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, 100, emailId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobileNo));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_noofattempts", DbType.Int16, ParameterDirection.Output));
+                        LogLiveSps.LogSpInGrayLog(cmd);
 
                      MySqlDatabase.ExecuteNonQuery(cmd);
                         noOfOTPSend = Convert.ToSByte(cmd.Parameters["par_noofattempts"].Value);
-
                 }
             }
             catch (SqlException ex)
@@ -119,7 +119,7 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 50, mobileNo));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbType.DateTime, DateTime.Now));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cvid", DbType.Int64, ParameterDirection.Output));
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
                         cvId = Convert.ToUInt64(cmd.Parameters["par_cvid"].Value);
                 }
@@ -157,6 +157,7 @@ namespace Bikewale.DAL.MobileVerification
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "cv_checkverification";
+                        LogLiveSps.LogSpInGrayLog(cmd);
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobileNo));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cwicode", DbType.String, 50, cwiCode));

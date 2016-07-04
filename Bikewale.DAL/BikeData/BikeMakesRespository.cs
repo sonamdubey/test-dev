@@ -1,15 +1,12 @@
-﻿using System;
+﻿using Bikewale.CoreDAL;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Notifications;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.CoreDAL;
-using Bikewale.Notifications;
 using System.Data.Common;
 
 namespace Bikewale.DAL.BikeData
@@ -39,6 +36,7 @@ namespace Bikewale.DAL.BikeData
         public List<BikeMakeEntityBase> GetMakesByType(EnumBikeType makeType)
         {
             List<BikeMakeEntityBase> objMakesList = null;
+
 
             try
             {
@@ -124,6 +122,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, ParameterDirection.Output));
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     HttpContext.Current.Trace.Warn("qry success");
@@ -136,6 +135,7 @@ namespace Bikewale.DAL.BikeData
                         t.Used = Convert.ToBoolean(cmd.Parameters["par_used"].Value);
                         t.Futuristic = Convert.ToBoolean(cmd.Parameters["par_futuristic"].Value);
                     }
+
                 }
             }
             catch (SqlException ex)
@@ -315,25 +315,38 @@ namespace Bikewale.DAL.BikeData
             if (!CommonOpn.IsNumeric(makeId))
                 return null;
 
-            BikeMakeEntityBase makeDetails = new BikeMakeEntityBase();
-            int _makeId = default(int);
+            Database db = null;
+
+            BikeMakeEntityBase makeDetails = null;
+
             try
             {
-                if (String.IsNullOrEmpty(makeId) && int.TryParse(makeId, out _makeId))
-                {
-                    using (DbCommand cmd = DbFactory.GetDBCommand(" select name as makename, id as makeid , maskingname from bikemakes  where id = @makeid "))
-                    {
-                        cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, _makeId));
+                db = new Database();
 
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "GetMakeDetails";
+                        cmd.Connection = conn;
+
+                        cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                        cmd.Parameters.Add("@MakeName", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@New", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@Used", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@Futuristic", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+
+                        if (!string.IsNullOrEmpty(cmd.Parameters["@MakeName"].Value.ToString()))
                         {
-                            if (dr != null && dr.Read())
-                            {
-                                makeDetails.MakeName = Convert.ToString(dr["MakeName"]);
-                                makeDetails.MakeId = Convert.ToInt32(dr["MakeId"]);
-                                makeDetails.MaskingName = Convert.ToString(dr["MaskingName"]);
-                                dr.Close();
-                            }
+                            makeDetails = new BikeMakeEntityBase();
+                            makeDetails.MakeName = cmd.Parameters["@MakeName"].Value.ToString();
+                            makeDetails.MaskingName = cmd.Parameters["@MakeMaskingName"].Value.ToString();
+                            makeDetails.MakeId = Convert.ToInt32(makeId);
                         }
                     }
                 }
@@ -343,10 +356,13 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+            finally
+            {
+                db.CloseConnection();
+            }
 
             return makeDetails;
         }   // End of getMakeDetails
-
         /// <summary>
         /// Returns the Upcoming Bike's Make list
         /// Author  :   Sumit Kate
@@ -390,6 +406,54 @@ namespace Bikewale.DAL.BikeData
                 objErr.SendMail();
             }
             return makes;
+        }
+        /// <summary>
+        /// Written By : Sangram Nandkhile on 17 Jun 2016
+        /// Description: Fetches discontinued bikes for a branch
+        /// </summary>
+        /// <param name="makeId">Make Id eg. 7 for Honda bikes</param>
+        /// <returns></returns>
+        public IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId)
+        {
+            IList<BikeVersionEntity> bikeLinkList = null;
+            Database db = null;
+            try
+            {
+                using (SqlCommand sqlCommand = new SqlCommand("GetDiscontinuedBikeModelsByMake"))
+                {
+                    db = new Database();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.Add("@MakeId", SqlDbType.Int, 20).Value = makeId;
+                    using (SqlDataReader reader = db.SelectQry(sqlCommand))
+                    {
+                        if (reader != null && reader.HasRows)
+                        {
+                            bikeLinkList = new List<BikeVersionEntity>();
+                            while (reader.Read())
+                            {
+                                bikeLinkList.Add(
+                                        new BikeVersionEntity()
+                                        {
+                                            ModelMasking = Convert.ToString(reader["modelmaskingname"]),
+                                            ModelName = Convert.ToString(reader["Name"])
+                                        }
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return bikeLinkList;
+
         }
     }
 }

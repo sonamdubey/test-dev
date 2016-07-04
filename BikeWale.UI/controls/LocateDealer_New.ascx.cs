@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
     public partial class LocateDealer_New : System.Web.UI.UserControl
     {

@@ -338,7 +338,6 @@ namespace Bikewale.Ajax
             //{
             //    cmd = new SqlCommand("ReviewRateCountUpdate", con);
             //    cmd.CommandType = CommandType.StoredProcedure;
-
             //    prm = cmd.Parameters.Add("@ID", SqlDbType.BigInt);
             //    prm.Value = reviewId;
 
@@ -410,7 +409,7 @@ namespace Bikewale.Ajax
 
             //        prm = cmd.Parameters.Add("@ReviewId", SqlDbType.BigInt);
             //        prm.Value = reviewId;
-
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
             //        prm = cmd.Parameters.Add("@Helpful", SqlDbType.Bit);
             //        prm.Value = isHelpFull;
 
@@ -461,6 +460,7 @@ namespace Bikewale.Ajax
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, comments));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int64, CurrentUser.Id)); 
                     MySqlDatabase.ExecuteNonQuery(cmd);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 
                     returnVal = true; 
                 }

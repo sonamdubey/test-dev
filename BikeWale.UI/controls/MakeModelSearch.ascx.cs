@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bikewale.Common;
+using Bikewale.Entities.BikeData;
+using System;
 using System.Data;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using Bikewale.Memcache;
 
 namespace Bikewale.Controls
 {
@@ -15,13 +13,13 @@ namespace Bikewale.Controls
         private DataSet _makeContents = null;
         private string _makeId = "-1", _modelId = "-1";
 
-        private string _requestType;
+        private EnumBikeType _requestType;
 
-        public string RequestType
+        public EnumBikeType RequestType
         {
             get { return _requestType; }
             set { _requestType = value; }
-        }          
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -47,15 +45,16 @@ namespace Bikewale.Controls
             //    dsMakeContents = MakeContents;
             //}
 
-            DataTable dt = null;
             MakeModelVersion MMV = new MakeModelVersion();
 
-            dt = MMV.GetMakes(RequestType);
-            drpMake.DataSource = dt;
-            drpMake.DataTextField = "Text";
-            drpMake.DataValueField = "Value";
-            drpMake.DataBind();
-            drpMake.Items.Insert(0, new ListItem("--Select Makes--", "0"));
+            //dt = MMV.GetMakes(RequestType);
+            //drpMake.DataSource = dt;
+            //drpMake.DataTextField = "Text";
+            //drpMake.DataValueField = "Value";
+            //drpMake.DataBind();
+            //drpMake.Items.Insert(0, new ListItem("--Select Makes--", "0"));
+
+            MMV.GetMakes(RequestType, ref drpMake);
 
             //MakeModelVersion mmv = new MakeModelVersion();
             //dtMakeContents = mmv.GetMakes(RequestType);

@@ -483,9 +483,6 @@ namespace Bikewale.Mobile.New
             }
         }
 
-        static readonly string apiURL = "/api/model/details/?modelId={0}&variantId={1}";
-        static readonly string onRoadApi = "/api/OnRoadPrice/?cityId={0}&modelId={1}&clientIP={2}&sourceType={3}&areaId={4}";
-        static readonly string _requestType = "application/json";
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   27 Nov 2015
@@ -498,6 +495,7 @@ namespace Bikewale.Mobile.New
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                            .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                              .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                              .RegisterType<ICacheManager, MemcacheManager>();
 
@@ -613,6 +611,13 @@ namespace Bikewale.Mobile.New
                                         price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                     }
                                 }
+
+                                else if (versionId != 0)
+                                {
+                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == versionId).FirstOrDefault();
+                                    price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
+                                }
+
                                 else
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
@@ -776,6 +781,8 @@ namespace Bikewale.Mobile.New
         /// Desc: Removed API Call for on road Price Quote
         /// Modified By : Lucky Rathore on 09 May 2016.
         /// Description : modelImage intialize.
+        /// Modified By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         /// <returns></returns>
         private PQOnRoadPrice GetOnRoadPrice()
@@ -801,16 +808,18 @@ namespace Bikewale.Mobile.New
                     objPQEntity.VersionId = versionId;
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_ModelPage);
                     objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                    objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                    objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
+
                     if (versionId == 0)
                     {
-                        if (objPQOutput != null && objPQOutput.VersionId != null)
+                        if (objPQOutput != null && objPQOutput.VersionId > 0)
                         {
                             versionId = objPQOutput.VersionId;
                         }
                     }
+
                     if (objPQOutput != null)
                     {
                         pqOnRoad = new PQOnRoadPrice();

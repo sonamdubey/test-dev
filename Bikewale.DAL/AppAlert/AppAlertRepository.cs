@@ -1,6 +1,8 @@
 ﻿using Bikewale.CoreDAL;
 using Bikewale.Interfaces.AppAlert;
 using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -34,8 +36,9 @@ namespace Bikewale.DAL.AppAlert
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbType.String, 200, gcmId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbType.Byte, osType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbType.String, 100, subsMasterId));
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
+
                 }
             }
             catch (SqlException ex)

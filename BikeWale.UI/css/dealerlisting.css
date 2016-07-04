@@ -34,7 +34,6 @@ body { overflow-x:hidden; }
 .featured-tag {position:relative;left:-20px;top:-5px;width:100px;display:block;background:#4d5057;z-index:1; line-height:28px; }
 .featured-tag:after {content:'';width:12px; height:28px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=15Mar2016) no-repeat right top;position:absolute;left:98px;}
 .tel-sm-grey-icon{width: 15px;height: 15px;background-position: 0 -435px;position: relative;top: 2px;}
-.mail-grey-icon{width: 15px;height: 9px;background-position: -19px -437px;}
 .btn-white-orange { background: transparent; color: #82888b; border: 1px solid #82888b;}
 .btn-white-orange:hover { background: #f04031; color: #fff; border: 1px solid #f04031; }
 .btn-white-orange:focus { background: #f04031; color: #fff; border: 1px solid #f04031; }
@@ -48,7 +47,7 @@ a.text-black:hover { text-decoration:none; }
 #dealerDetailsSliderCard::-webkit-scrollbar-track {background: #fff;}
 #dealerDetailsSliderCard::-webkit-scrollbar-thumb {background: #ddd;}
 #dealerDetailsSliderCard::-webkit-scrollbar-thumb:hover {background: #bbb;}
-#dealersList li.dummy-card { height:350px; border-top:0; }
+#dealersList li.dummy-card { height:250px; border-top:0; }
 .cross-lg-lgt-grey:hover { background-position: -36px -252px; }
 #dealerDetailsSliderCard .featured-tag { top:-10px; }
 .text-dark-black { color:#1a1a1a; }
@@ -78,7 +77,8 @@ a.text-black:hover { text-decoration:none; }
 .get-direction-icon { background-position:-113px -446px; }
 .sendto-phone-icon { background-position:-132px -446px; }
 .dealership-loc-icon { width:8px; height:12px; background-position:-53px -469px; position:relative;top:4px; }
-.dealership-address { width:92%; }
+.dealership-card-details { width:92%; }
+#dealersList .mail-grey-icon { position:relative; top:6px; }
 .vertical-top { display:inline-block;vertical-align:top; }
 .crosshair-icon { width:20px; height:20px; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat; }
 .inr-lg { width:10px; height:14px; background-position:-110px -491px; }

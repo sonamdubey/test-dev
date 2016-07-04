@@ -133,15 +133,15 @@ namespace Bikewale.DAL.CMS
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepaththumbnail", DbType.String, 100, ParameterDirection.Output));
 
+                        
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_nextid", DbType.Int64, ParameterDirection.Output));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_nexturl", DbType.String, 200, ParameterDirection.Output));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_nexttitle", DbType.String, 250, ParameterDirection.Output));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_previd", DbType.Int64, ParameterDirection.Output));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_prevurl", DbType.String, 200, ParameterDirection.Output));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_prevtitle", DbType.String, 250, ParameterDirection.Output));
-
+LogLiveSps.LogSpInGrayLog(cmd);
                         MySqlDatabase.ExecuteNonQuery(cmd);
-
                         v = new V();
 
                         if (!string.IsNullOrEmpty(cmd.Parameters["par_authorname"].Value.ToString()))

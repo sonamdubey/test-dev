@@ -1,12 +1,14 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Bikewale.controls;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -59,10 +61,15 @@ namespace Bikewale.PriceQuote
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
-                    IBikeVersions<BikeVersionEntity, uint> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
 
-                    versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, Convert.ToInt32(modelId), Convert.ToInt32(PriceQuoteQueryString.CityId));
+                    container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+                            .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
+                            .RegisterType<ICacheManager, MemcacheManager>()
+                            ;
+                    var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
+
+
+                    versionList = objCache.GetVersionsByType(EnumBikeType.PriceQuote, Convert.ToInt32(modelId), Convert.ToInt32(PriceQuoteQueryString.CityId));
 
                     if (versionList.Count > 0)
                     {
@@ -154,6 +161,8 @@ namespace Bikewale.PriceQuote
 
         /// <summary>
         /// Generate the New Price Quote based on the version selected.
+        /// Modified By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         protected void SavePriceQuote(object sender, EventArgs e)
         {
@@ -179,7 +188,7 @@ namespace Bikewale.PriceQuote
                         objPQEntity.VersionId = selectedVersionId;
                         objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_PQ_Quotation);
                         objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                         objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
                     }

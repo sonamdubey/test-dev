@@ -346,7 +346,7 @@ namespace Bikewale.Common
 			DataSet ds = new DataSet();
 			try
 			{
-  				ds.ReadXml(HttpContext.Current.Server.MapPath("~/XMLFeed/Makes.xml"));
+				ds.ReadXml(HttpContext.Current.Server.MapPath("~/XMLFeed/Makes.xml"));
 				return ds;
 			}
 			catch(Exception err)
@@ -365,7 +365,7 @@ namespace Bikewale.Common
 			DataSet ds = new DataSet();
 			try
 			{
-  				ds.ReadXml(HttpContext.Current.Server.MapPath("~/XMLFeed/BodyStyles.xml"));
+				ds.ReadXml(HttpContext.Current.Server.MapPath("~/XMLFeed/BodyStyles.xml"));
 				return ds;
 			}
 			catch(Exception err)
@@ -483,7 +483,7 @@ namespace Bikewale.Common
 														photoName = "";
 														expectedLaunch = "";
 														estimatedPrice = "";
-												  		break;			
+														break;			
 									default : 
 												  break;			   	
 								}
@@ -589,7 +589,7 @@ namespace Bikewale.Common
 															detailUrl = "";
 															mainImgPath = "";
 															bike = "";
-												  		break;			
+														break;			
 									default : 
 												  break;			   	
 								}
@@ -704,7 +704,7 @@ namespace Bikewale.Common
 														model = "";
 														modelId = "";
 														smallPic = "";
-												  		break;			
+														break;			
 									default : 
 												  break;			   	
 								}
@@ -738,21 +738,21 @@ namespace Bikewale.Common
 			return ret;
 		}
 
-        /// <summary>
-        /// Written By : Ashwini Todkar on 16 Oct 2014
-        /// Summary    : PopulateWhere to save EMI Assistance requests to database
-        /// MOdified By : Sadhana on 17 Oct 2014
-        /// Summary : to trim name , email,phone no
-        /// </summary>
-        /// <param name="custName">Customer name</param>
-        /// <param name="email">Customer email</param>
-        /// <param name="mobile">Customer mobile</param>
-        /// <param name="modelId">model selected by the customer</param>
-        /// <param name="selectedCityId"></param>
-        /// <param name="leadtype"></param>
-        /// <returns></returns>
-        public bool SaveEMIAssistaneRequest(string custName, string email, string mobile,  string modelId, string selectedCityId, string leadtype)
-        {
+		/// <summary>
+		/// Written By : Ashwini Todkar on 16 Oct 2014
+		/// Summary    : PopulateWhere to save EMI Assistance requests to database
+		/// MOdified By : Sadhana on 17 Oct 2014
+		/// Summary : to trim name , email,phone no
+		/// </summary>
+		/// <param name="custName">Customer name</param>
+		/// <param name="email">Customer email</param>
+		/// <param name="mobile">Customer mobile</param>
+		/// <param name="modelId">model selected by the customer</param>
+		/// <param name="selectedCityId"></param>
+		/// <param name="leadtype"></param>
+		/// <returns></returns>
+		public bool SaveEMIAssistaneRequest(string custName, string email, string mobile,  string modelId, string selectedCityId, string leadtype)
+		{
             throw new Exception("Method not used/commented");
 
             //bool isSaved = false;
@@ -810,7 +810,7 @@ namespace Bikewale.Common
             //}
 
             //return isSaved;
-        }//End of SaveEMIAssistaneRequest
+		}//End of SaveEMIAssistaneRequest
 
 	}//class
 }//namespace

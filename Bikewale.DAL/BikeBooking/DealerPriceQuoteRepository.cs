@@ -61,9 +61,10 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
-
+                        LogLiveSps.LogSpInGrayLog(cmd);
                         if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd)))
                             isSuccess = true;
+
                     }
             }
             catch (SqlException sqEx)
@@ -582,6 +583,7 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.String, 50, customerId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, customerMobile));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealernotified", DbType.Boolean, ParameterDirection.Output));
+                        LogLiveSps.LogSpInGrayLog(cmd);
 
                         MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -626,6 +628,7 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.String, 50, versionId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealerpriceavailable", DbType.Boolean, ParameterDirection.Output));
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
                          MySqlDatabase.ExecuteNonQuery(cmd);
 
                         isDealerAreaAvailable = Convert.ToBoolean(cmd.Parameters["par_isdealerpriceavailable"].Value);

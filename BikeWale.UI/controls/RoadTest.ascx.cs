@@ -1,16 +1,13 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using Bikewale.Common;
-using System.Data;
-using System.Data.SqlClient;
-using System.Text.RegularExpressions;
-using Bikewale.Entities.CMS.Articles;
-using System.Configuration;
-using Bikewale.Entities.CMS;
-using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -39,7 +36,7 @@ namespace Bikewale.Controls
             get { return _width; }
             set { _width = value; }
         }
-        
+
         private string _imageWidth = "136px;";
 
         public string ImageWidth
@@ -71,7 +68,7 @@ namespace Bikewale.Controls
             if (!Page.IsPostBack)
             {
                 //if(!String.IsNullOrEmpty(SeriesId) || !String.IsNullOrEmpty(ModelId) || !String.IsNullOrEmpty(MakeId))
-                    FetchRoadTest();
+                FetchRoadTest();
             }
         }
 
@@ -88,7 +85,7 @@ namespace Bikewale.Controls
                 if (_topRecords == "2")
                 {
                     _topRecords = "4";
-                    
+
                     int _contentType = (int)EnumCMSContentType.RoadTest;
                     string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords;
 
@@ -101,11 +98,11 @@ namespace Bikewale.Controls
                             _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords + "&makeid=" + MakeId;
                     }
 
-                    using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                     {
                         _objRoadtestList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objRoadtestList);
                     }
-                    
+
                     if (_objRoadtestList != null && _objRoadtestList.Count > 0)
                     {
                         List<ArticleSummary> objRoadTests = new List<ArticleSummary>();
@@ -123,7 +120,7 @@ namespace Bikewale.Controls
                         divControl.Attributes.Add("class", "hide");
                 }
                 else
-                {                    
+                {
                     int _contentType = (int)EnumCMSContentType.RoadTest;
                     string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords;
 
@@ -136,10 +133,10 @@ namespace Bikewale.Controls
                             _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords + "&makeid=" + MakeId;
                     }
 
-                    using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                     {
                         _objRoadtestList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objRoadtestList);
-                    }                    
+                    }
 
                     if (_objRoadtestList != null && _objRoadtestList.Count > 0)
                     {
@@ -161,60 +158,6 @@ namespace Bikewale.Controls
             }
         }   // end of FetchUpcomingBikes method
 
-        //protected void FetchRoadTest()
-        //{
-        //    Database db = null;
-        //    DataSet ds = null;
-
-        //    try 
-        //    {
-        //        db = new Database();
-
-        //        using(SqlCommand cmd = new SqlCommand())
-        //        {
-        //            cmd.CommandType = CommandType.StoredProcedure;
-        //            cmd.CommandText = "GetRoadTestMin";
-
-        //            Trace.Warn("MakeId : ", MakeId);
-        //            Trace.Warn("ModelId : ", ModelId);
-
-        //            cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
-        //            cmd.Parameters.Add("@ControlWidth", SqlDbType.VarChar, 10).Value = ControlWidth;
-        //            cmd.Parameters.Add("@FetchAllRecords", SqlDbType.Bit).Value = Corousal;
-        //            if (!String.IsNullOrEmpty(ModelId)) { cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = ModelId; }
-        //            if (!String.IsNullOrEmpty(MakeId)) { cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = MakeId; }
-        //            if (!String.IsNullOrEmpty(SeriesId)) { cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = SeriesId; }
-                   
-        //            ds = db.SelectAdaptQry(cmd);
-                  
-        //            if (ds != null && ds.Tables[0].Rows.Count > 0)
-        //            {
-        //                divControl.Attributes.Remove("class");
-        //                DataTable dt = ds.Tables[0];
-
-        //                rptRoadTest.DataSource = dt;
-        //                rptRoadTest.DataBind();
-        //            }
-        //            else
-        //                divControl.Attributes.Add("class", "hide");
-
-        //            recordCount = rptRoadTest.Items.Count;
-        //            //Trace.Warn("++++record count ", recordCount.ToString());
-        //        }
-        //    }
-        //    catch (SqlException exSql)
-        //    {
-        //        Trace.Warn("road test bikes FetchRoadTest sqlex: ", exSql.Message);
-        //        ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Trace.Warn("road test bikes FetchRoadTest Ex: ", ex.Message);
-        //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }            
-        //}   // end of FetchUpcomingBikes method
 
         /// <summary>
         /// Retrun Topic name if the topic name lenght is greater than 30 then it should be substring and showing small string for that
@@ -233,7 +176,7 @@ namespace Bikewale.Controls
         /// <param name="make"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        protected string GetLink(string BasicId,string Url)
+        protected string GetLink(string BasicId, string Url)
         {
             //return "/road-tests/" + UrlRewrite.FormatSpecial(make) + "-bikes/" + UrlRewrite.FormatSpecial(model) + "/road-tests/";
             return "/road-tests/" + Url + "-" + BasicId + ".html";

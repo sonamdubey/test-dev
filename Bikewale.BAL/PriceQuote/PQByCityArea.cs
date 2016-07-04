@@ -306,5 +306,150 @@ namespace Bikewale.BAL.PriceQuote
             }
             return modelVersions;
         }
+
+
+        /// <summary>
+        /// Created by: vivek gupta on 17 june 2016
+        /// Summary:To map versionList Object for V3 model entity
+        ///         and adding dealer packages , secondary dealers count, 
+        /// </summary>
+        /// <param name="objModelPage"></param>
+        /// <returns></returns>
+        public PQByCityAreaEntity GetVersionListV2(int modelID, IEnumerable<BikeVersionMinSpecs> modelVersions, int? cityId, int? areaId, ushort? sourceId, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null)
+        {
+            PQByCityAreaEntity pqEntity = new PQByCityAreaEntity();
+            uint versionID = 0;
+            bool isAreaExistAndSelected = false;
+
+            try
+            {
+                PQOnRoadPrice pqOnRoad = null;
+                if (cityId > 0)
+                {
+                    IEnumerable<CityEntityBase> cityList = FetchCityByModelId(modelID);
+                    pqEntity.IsCityExists = cityList != null && cityList.Any(p => p.CityId == cityId);
+                    if (pqEntity.IsCityExists)
+                    {
+                        var areaList = GetAreaForCityAndModel(modelID, Convert.ToInt16(cityId));
+                        pqEntity.IsAreaExists = (areaList != null && areaList.Count() > 0);
+                        // If area is provided, check if area exists in list
+                        if (areaId > 0)
+                        {
+                            pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
+                        }
+
+                        pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        if (pqOnRoad != null)
+                        {
+                            pqEntity.PqId = pqOnRoad.PriceQuote.PQId;
+                            pqEntity.DealerId = pqOnRoad.PriceQuote.DealerId;
+                            pqEntity.IsExShowroomPrice = pqOnRoad.DPQOutput == null && pqOnRoad.BPQOutput == null;
+
+                            // When City has areas and area is not selected then show ex-showrrom price so user can select it
+                            isAreaExistAndSelected = pqEntity.IsAreaExists && pqEntity.IsAreaSelected;
+                            // when DPQ OR Only city level pricing exists
+                            if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
+                            {
+                                #region  Iterate over version to fetch Dealer PQ or BikeWalePQ
+
+                                foreach (var version in modelVersions)
+                                {
+                                    if (pqOnRoad.DPQOutput != null)
+                                    {
+                                        var selected = pqOnRoad.DPQOutput.Varients.Where(p => p.objVersion.VersionId == version.VersionId).FirstOrDefault();
+                                        if (selected != null)
+                                        {
+                                            version.Price = selected.OnRoadPrice;
+                                            version.IsDealerPriceQuote = true;
+                                            versionID = Convert.ToUInt32(version.VersionId);
+                                        }
+                                        else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
+                                        {
+                                            var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
+                                            if (selectedBPQ != null)
+                                            {
+                                                version.Price = selectedBPQ.OnRoadPrice;
+                                                version.IsDealerPriceQuote = false;
+                                            }
+                                        }
+                                    }
+                                    else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
+                                    {
+                                        var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
+                                        if (selectedBPQ != null)
+                                        {
+                                            version.Price = selectedBPQ.OnRoadPrice;
+                                            version.IsDealerPriceQuote = false;
+                                        }
+                                    }
+                                }
+                                #endregion
+                            }
+                            else
+                            {
+                                pqEntity.IsExShowroomPrice = true;
+                            }
+                        }
+                    }
+                    else // Show mumbai Ex showroom price
+                    {
+                        pqEntity.IsExShowroomPrice = true;
+                    }
+
+                }
+                else if (cityId == null)
+                {
+                    pqEntity.IsExShowroomPrice = true;
+                }
+                // Check if bike has more than 1 version and send base version as the first version in VersionList
+                if (modelVersions != null && modelVersions.Count() > 1 && pqOnRoad != null && pqOnRoad.BaseVersion > 0)
+                {
+                    modelVersions = SwapVersionList(modelVersions.ToList(), pqOnRoad.BaseVersion);
+                }
+                pqEntity.VersionList = modelVersions;
+
+                //below block added to get dealers pakage and offers and seondary dealers count
+
+                if (versionID <= 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
+                        IDealerPriceQuote dealerPQRepository = container.Resolve<IDealerPriceQuote>();
+                        versionID = dealerPQRepository.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
+                    }
+                }
+
+                if (cityId > 0 && versionID > 0)
+                {
+                    DetailedDealerQuotationEntity detailedDealer = null;
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
+                        IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
+                        detailedDealer = objIPQ.GetDealerQuotation(Convert.ToUInt32(cityId), versionID, pqEntity.DealerId);
+                    }
+
+                    if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
+                    {
+                        pqEntity.PrimaryDealer = detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null ? detailedDealer.PrimaryDealer : null;
+
+                        pqEntity.SecondaryDealerCount = detailedDealer.SecondaryDealerCount;
+
+                        if (detailedDealer.PrimaryDealer != null && detailedDealer.PrimaryDealer.DealerDetails != null)
+                        {
+                            pqEntity.IsPremium = detailedDealer.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium ? true : false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : PQByCityArea GetVersionList");
+                objErr.SendMail();
+            }
+            return pqEntity;
+        }
+
     }
 }

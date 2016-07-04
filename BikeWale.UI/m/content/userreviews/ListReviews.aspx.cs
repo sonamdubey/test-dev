@@ -3,8 +3,10 @@ using Bikewale.BAL.Pager;
 using Bikewale.BAL.UserReviews;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.UserReviews;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.UserReviews;
@@ -12,13 +14,11 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
-using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Content
@@ -79,7 +79,7 @@ namespace Bikewale.Mobile.Content
             }
         }
 
-     
+
         private bool ProcessQS()
         {
             bool isSucess = true;
@@ -144,12 +144,12 @@ namespace Bikewale.Mobile.Content
         }
 
         private void GetPaging()
-        {        
+        {
             objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
         }
 
         private void GetModelDetails()
-        {         
+        {
             //Get Model details
             objModelEntity = objModel.GetById(modelId);
             GetModelRatings();
@@ -158,13 +158,23 @@ namespace Bikewale.Mobile.Content
 
         private void GetModelRatings()
         {
-            objRating = objUserReviews.GetBikeRatings(Convert.ToUInt32(modelId));        
+            objRating = objUserReviews.GetBikeRatings(Convert.ToUInt32(modelId));
         }
 
         private void GetReviewList()
         {
-            objReviewList = objUserReviews.GetBikeReviewsList(Convert.ToUInt32( startIndex), Convert.ToUInt32(endIndex),Convert.ToUInt32(modelId), 0, FilterBy.MostRecent, out totalReviews);
+            ReviewListBase reviews = null;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
+                             .RegisterType<IUserReviews, UserReviewsRepository>()
+                             .RegisterType<ICacheManager, MemcacheManager>();
 
+                var cache = container.Resolve<IUserReviewsCache>();
+                reviews = cache.GetBikeReviewsList(Convert.ToUInt32(startIndex), Convert.ToUInt32(endIndex), Convert.ToUInt32(modelId), 0, FilterBy.MostRecent);
+                objReviewList = reviews.ReviewList;
+                totalReviews = reviews.TotalReviews;
+            }
             int totalPages = objPager.GetTotalPages(Convert.ToInt32(totalReviews), pageSize);
 
             if (totalReviews > 0)

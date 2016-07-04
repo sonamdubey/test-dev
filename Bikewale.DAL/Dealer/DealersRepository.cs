@@ -410,9 +410,11 @@ namespace Bikewale.DAL.Dealer
 
                         //TVS Dealer ID to be sent to update pricequote ID
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
+                            LogLiveSps.LogSpInGrayLog(cmd);
 
                         if (MySqlDatabase.ExecuteNonQuery(cmd) < 0)
                             status = true;
+                            
 
                     }
                 }
@@ -450,6 +452,8 @@ namespace Bikewale.DAL.Dealer
         /// Description : Return Dealers deatail list. 
         /// Modified By : Vivek Gupta on 31-05-2016
         /// Desc : MakeName , CityName, CityMaskingName and MakeMaskingName retrieved
+        /// Modified by :   Sumit Kate on 19 Jun 2016
+        /// Description :   Added Optional parameter(inherited from Interface) and pass model id if value is > 0
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
@@ -466,7 +470,7 @@ namespace Bikewale.DAL.Dealer
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getdealerbymakecity_31052016";
-
+                    if (modelId > 0)
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelid > 0 ? modelid : Convert.DBNull));
@@ -678,6 +682,62 @@ namespace Bikewale.DAL.Dealer
             return objCityList;
         }
 
+        /// <summary>
+        /// Craeted by  :   Sumit Kate on 21 Jun 2016
+        /// Description :   Get Popular City Dealer Count.
+        ///                 Calls: GetPopularCityDealer
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
+        {
+            IList<PopularCityDealerEntity> cityDealers = null;
+            Database db = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    db = new Database();
 
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "GetPopularCityDealer";
+                        cmd.Parameters.AddWithValue("@MakeId", Convert.ToInt32(makeId));
+                        cmd.Parameters.AddWithValue("@TopCount", Convert.ToInt16(topCount));
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            if (dr != null && dr.HasRows)
+                            {
+                                cityDealers = new List<PopularCityDealerEntity>();
+                                while (dr.Read())
+                                {
+                                    cityDealers.Add(new PopularCityDealerEntity()
+                                    {
+                                        CityBase = new CityEntityBase()
+                                        {
+                                            CityId = !Convert.IsDBNull(dr["CityId"]) ? Convert.ToUInt32(dr["CityId"]) : default(UInt32),
+                                            CityName = !Convert.IsDBNull(dr["Name"]) ? Convert.ToString(dr["Name"]) : default(string),
+                                            CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(String)
+                                        },
+                                        NumOfDealers = !Convert.IsDBNull(dr["DealersCnt"]) ? Convert.ToUInt32(dr["DealersCnt"]) : default(UInt32)
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return cityDealers;
+        }
     }//End class
 }

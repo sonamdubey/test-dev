@@ -1,10 +1,13 @@
 ﻿using Bikewale.BAL.PriceQuote;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.Utilities;
+using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -25,15 +28,18 @@ namespace Bikewale.Service.Controllers.Model
         //private string _requestType = "application/json";
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _cache;
+        private readonly IDealerPriceQuoteDetail _dealers;
+        
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="modelRepository"></param>
-        public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache)
+        public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers)
         {
             _modelRepository = modelRepository;
             _cache = cache;
+            _dealers = dealers;
         }
 
         #region Model Page Complete
@@ -130,43 +136,6 @@ namespace Bikewale.Service.Controllers.Model
                         }
                     }
 
-                    //categorList = new List<EnumCMSContentType>();
-                    //categorList.Add(EnumCMSContentType.PhotoGalleries);
-                    //categorList.Add(EnumCMSContentType.RoadTest);
-                    //categorList.Add(EnumCMSContentType.ComparisonTests);
-                    //string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
-
-                    //categorList.Clear();
-                    //categorList = null;
-
-                    //string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
-
-                    //objDTOModelPage.Photos = BWHttpClient.GetApiResponseSync<List<CMSModelImageBase>>(_cwHostUrl, _requestType, _apiUrl, objDTOModelPage.Photos);
-                    //if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
-                    //{
-                    //    if (objDTOModelPage.Photos != null)
-                    //    {
-                    //        objDTOModelPage.Photos.Insert(0,
-                    //            new CMSModelImageBase()
-                    //            {
-                    //                HostUrl = objDTOModelPage.ModelDetails.HostUrl,
-                    //                OriginalImgPath = objDTOModelPage.ModelDetails.OriginalImagePath,
-                    //                Caption = objDTOModelPage.ModelDetails.ModelName,
-                    //                ImageCategory = "Model Image"
-                    //            });
-                    //    }
-                    //    else
-                    //    {
-                    //        objDTOModelPage.Photos = new List<CMSModelImageBase>();
-                    //        objDTOModelPage.Photos.Add(new CMSModelImageBase()
-                    //        {
-                    //            HostUrl = objDTOModelPage.ModelDetails.HostUrl,
-                    //            OriginalImgPath = objDTOModelPage.ModelDetails.OriginalImagePath,
-                    //            Caption = objDTOModelPage.ModelDetails.ModelName,
-                    //            ImageCategory = "Model Image"
-                    //        });
-                    //    }
-                    //}
                     return Ok(objDTOModelPage);
                 }
                 else
@@ -348,6 +317,91 @@ namespace Bikewale.Service.Controllers.Model
             }
         }
 
+
+        /// <summary>
+        /// Created by  :   Lucky Rathore on 16 Jun 2016
+        /// Description :   This the new version v4 of existing API update include PrimatyDealer, IsPrimary, SecondaryDealerCount and AltPrimarySectionText.       
+        /// </summary>
+        /// <returns></returns>
+        [ResponseType(typeof(Bikewale.DTO.Model.v4.ModelPage)), Route("api/v4/model/details/")]
+        public IHttpActionResult GetV4(uint modelId, int? cityId, int? areaId, string deviceId = null)
+        {
+            int modelID = Convert.ToInt32(modelId);
+            Bikewale.DTO.Model.v4.ModelPage objDTOModelPage = null;
+            try
+            {
+                if (modelId <= 0 || cityId <= 0 || areaId <= 0)
+                {
+                    return BadRequest();
+                }
+                BikeModelPageEntity objModelPage = null;
+                objModelPage = _cache.GetModelPageDetails(modelID);
+                if (objModelPage != null)
+                {
+                    if (Request.Headers.Contains("platformId"))
+                    {
+                        string platformId = Request.Headers.GetValues("platformId").First().ToString();
+                        if (platformId == "3")
+                        {
+                            #region On road pricing for versions
+                            PQOnRoadPrice pqOnRoad; 
+                            PQByCityArea getPQ;
+                            PQByCityAreaEntity pqEntity = null;
+                            if (!objModelPage.ModelDetails.Futuristic)
+                            {
+                                pqOnRoad = new PQOnRoadPrice();
+                                getPQ = new PQByCityArea();
+                                pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
+                            }                            
+
+                            if (areaId != null && !objModelPage.ModelDetails.Futuristic)
+                            {
+                                int versionId = 0;
+                                if (pqEntity != null && pqEntity.VersionList != null && pqEntity.VersionList.Count() > 0)
+                                {
+                                    var deafultVersion = pqEntity.VersionList.FirstOrDefault(i => i.IsDealerPriceQuote);
+                                    if (deafultVersion != null)
+                                    {
+                                        versionId = deafultVersion.VersionId;
+                                    }
+                                }
+
+                                if (versionId <= 0)
+                                {
+                                    using (IUnityContainer container = new UnityContainer())
+                                    {
+                                        container.RegisterType<IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
+                                        IDealerPriceQuote dealerPQRepository = container.Resolve<IDealerPriceQuote>();
+                                        versionId = (int)dealerPQRepository.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
+                                    }
+                                }
+                                objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,
+                                    _dealers.GetDealerQuotation(Convert.ToUInt32(cityId), Convert.ToUInt32(versionId), pqEntity.DealerId));
+                            }
+                            else
+                            {
+                                objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity, null);
+                            }
+
+                            #endregion
+                        }
+                    }
+
+
+                    return Ok(objDTOModelPage);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
 
         #endregion
     }

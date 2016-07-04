@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.Compare
 {
@@ -11,18 +9,24 @@ namespace Bikewale.Entities.Compare
     /// Author  :   Sumit Kate
     /// Date    :   25 Aug 2015
     /// </summary>
-    [Serializable]
+    [Serializable,DataContract]
     public class BikeColor
     {
+        [DataMember]
         public int ColorId { get; set; }
+        [DataMember]
         public uint VersionId { get; set; }
+        [DataMember]
         public string Color { get; set; }
+        [DataMember]
         public IEnumerable<string> HexCodes { get; set; }
     }
-    [Serializable]
+    [Serializable,DataContract]
     public class BikeModelColor
     {
+        [DataMember]
         public int ModelColorId { get; set; }
+        [DataMember]
         public string HexCode { get; set; }
     }
     

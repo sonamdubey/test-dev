@@ -14,7 +14,7 @@
         title = String.Format("{0} Price in India, Review, Mileage & Photos - Bikewale", bikeName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
-        AdId = "1017752";
+        AdId = "1444028976556";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
         Ad_300x250 = true;
@@ -222,9 +222,9 @@
                             <%if (isOnRoadPrice && price > 0)
                               {%>
                             <span id="viewBreakupText" class="font16 text-bold viewBreakupText">View detailed price</span>
-                            <p class="font12 text-light-grey clear" />
+                            <p class="font12 text-light-grey clear <%= dealerId > 0 ? "margin-bottom20" : "" %>" />
                             <% } %>
-                            <% if (!toShowOnRoadPriceButton && isBikeWalePQ)
+                            <% if (!toShowOnRoadPriceButton && isBikeWalePQ && dealerId == 0)
                                { %>
                             <p class="margin-top10 margin-bottom20 clear">
                                 <a class="text-bold" style="position: relative; font-size: 14px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">Save up to 60% on insurance - PolicyBoss
@@ -355,7 +355,7 @@
                         <ul class="overall-specs-tabs-wrapper">
                             <% if ((modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) || modelPage.ModelVersionSpecs != null)
                            { %>
-                            <li class="active" data-tabs="#modelSummaryContent"><h3>Summary</h3></li>
+                            <li data-tabs="#modelSummaryContent"><h3>Summary</h3></li>
                             <% } %>
                             <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                             { %>
@@ -384,75 +384,81 @@
                     </div>
                 </div>
 
-                <div id="modelSummaryContent" class="bw-model-tabs-data content-inner-block-1520">
-                      <%if (modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
-                        { %>
+                <%if (modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription) || (modelPage.ModelVersionSpecs != null))
+                  { %>
+                <div id="modelSummaryContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom15 border-solid-bottom">
+                    <%if (modelPage.ModelDesc != null && !string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
+                      { %>
                     <h2><%=bikeName %> Summary</h2>
                     <h3>Preview</h3>
                     <p class="font14 text-light-grey line-height17 margin-bottom15">
                         <span class="model-preview-main-content">
-                             <%= modelPage.ModelDesc.SmallDescription %>   
+                            <%= modelPage.ModelDesc.SmallDescription %>   
                         </span>
                         <span class="model-preview-more-content">
                             <%= modelPage.ModelDesc.FullDescription %>
                         </span>
-                        
-                          <%if (!string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
-                            { %>
-                                <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
-                                <% } %>
+
+                        <%if (!string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription))
+                          { %>
+                        <a href="javascript:void(0)" class="read-more-model-preview" rel="nofollow">Read more</a>
+                        <% } %>
                     </p>
-                     <% } %>
-                    <% if(modelPage.ModelVersionSpecs!= null){ %>
+                    <% } %>
+                    <% if (modelPage.ModelVersionSpecs != null)
+                       { %>
                     <h3>Specification summary</h3>
                     <div class="text-center">
                         <div class="summary-overview-box">
-                        <div class="odd btmAftBorder">
-                            <span class="inline-block model-sprite specs-capacity-icon margin-right10"></span>
-                            <div class="inline-block">
-                                <p class="font18 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %>
-                                    <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement).Equals("--") ? "hide":"" %>'>cc</span>
-                                </p>
-                                <p class="font16 text-light-grey">Capacity</p>
+                            <div class="odd btmAftBorder">
+                                <span class="inline-block model-sprite specs-capacity-icon margin-right10"></span>
+                                <div class="inline-block">
+                                    <p class="font18 text-bold margin-bottom5">
+                                        <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %>
+                                        <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement).Equals("--") ? "hide":"" %>'>cc</span>
+                                    </p>
+                                    <p class="font16 text-light-grey">Capacity</p>
+                                </div>
+                            </div>
+                            <div class="even btmAftBorder">
+                                <span class="inline-block model-sprite specs-mileage-icon margin-right10"></span>
+                                <div class="inline-block">
+                                    <p class="font18 text-bold margin-bottom5">
+                                        <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall) %>
+                                        <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall).Equals("--") ? "hide":"" %>'>kmpl</span>
+                                    </p>
+                                    <p class="font16 text-light-grey">Mileage</p>
+                                </div>
+                            </div>
+                            <div class="odd">
+                                <span class="inline-block model-sprite specs-maxpower-icon margin-right10"></span>
+                                <div class="inline-block">
+                                    <p class="font18 text-bold margin-bottom5">
+                                        <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %>
+                                        <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower).Equals("--") ? "hide":"" %>'>bhp</span>
+                                    </p>
+                                    <p class="font16 text-light-grey">Max power</p>
+                                </div>
+                            </div>
+                            <div class="even">
+                                <span class="inline-block model-sprite specs-weight-icon margin-right10"></span>
+                                <div class="inline-block">
+                                    <p class="font18 text-bold margin-bottom5">
+                                        <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %>
+                                        <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight).Equals("--") ? "hide":"" %>'>kg</span>
+                                    </p>
+                                    <p class="font16 text-light-grey">Weight</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="even btmAftBorder">
-                            <span class="inline-block model-sprite specs-mileage-icon margin-right10"></span>
-                            <div class="inline-block">
-                                <p class="font18 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall) %>
-                                    <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall).Equals("--") ? "hide":"" %>'>kmpl</span>
-                                </p>
-                                <p class="font16 text-light-grey">Mileage</p>
-                            </div>
-                        </div>
-                        <div class="odd">
-                            <span class="inline-block model-sprite specs-maxpower-icon margin-right10"></span>
-                            <div class="inline-block">
-                                <p class="font18 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %>
-                                    <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower).Equals("--") ? "hide":"" %>'>bhp</span>
-                                </p>
-                                <p class="font16 text-light-grey">Max power</p>
-                            </div>
-                        </div>
-                        <div class="even">
-                            <span class="inline-block model-sprite specs-weight-icon margin-right10"></span>
-                            <div class="inline-block">
-                                <p class="font18 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %>
-                                    <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight).Equals("--") ? "hide":"" %>'>kg</span>
-                                </p>
-                                <p class="font16 text-light-grey">Weight</p>
-                            </div>
-                        </div>
-                    </div>
                     </div>
                     <% } %>
                 </div>
+                <% } %>
 
-                 <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                <div id="modelPricesContent" class="bw-model-tabs-data">
+                    <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                        { %>
-                <div class="margin-right20 margin-left20 border-solid-top"></div>
-
-                <div id="modelPricesContent" class="bw-model-tabs-data">                   
                     <h2 class="padding-top15 padding-right20 padding-left20"><%= bikeName %> Prices</h2>
                     <!-- varient code starts here -->
                     <h3 class="padding-right20 padding-left20">Prices by versions</h3>
@@ -485,12 +491,14 @@
                             </asp:Repeater>
                         </div>
                     </div>
-                    <!-- varient code ends here -->                   
+
+                    <!-- varient code ends here -->
+                    <% } %>
                    <BW:TopCityPrice ID="ctrlTopCityPrices" runat="server" />
+                   <div class="margin-right20 margin-left20 border-solid-bottom"></div>
                 </div>
-                 <% } %>
+
                 <% if(modelPage.ModelVersionSpecs != null){ %>
-                <div class="margin-right20 margin-left20 border-solid-top"></div>
                 <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data font14">
                     <div class="content-inner-block-1520">
                         <h2><%=bikeName %> Specifications & Features</h2>
@@ -593,35 +601,33 @@
                 </div>
                 <% } %>
 
-                    <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
-                           { %>
-                    <div id="modelReviewsContent" class="bw-model-tabs-data padding-top10 padding-right20 padding-left20 font14">
-                    <h2><%=bikeName %> Reviews</h2>                      
+                <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                    { %>
+                <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top10 padding-bottom20 border-solid-bottom font14">
+                <h2><%=bikeName %> Reviews</h2>                      
                        
-                        <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
-                           { %>
-                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                        <% } %>
-                        <%if (ctrlUserReviews.FetchedRecordsCount > 0)
-                              { %>
+                    <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
+                        { %>
+                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                    <% } %>
+                    <%if (ctrlUserReviews.FetchedRecordsCount > 0)
+                            { %>
 
-                         <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />
 
-                        <% } %>
-                    </div>
-                  <% } %>
+                    <% } %>
+                </div>
+                <% } %>
                 <%if (ctrlVideos.FetchedRecordsCount > 0)
                     { %>
-                    <div class="margin-top20 margin-right20 margin-left20 border-solid-top"></div>
-                    <div id="modelVideosContent" class="bw-model-tabs-data padding-right20 padding-left20 font14">
-                        <h2 class="padding-top15"><%= bikeName %> Videos</h2>
+                    <div id="modelVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
+                        <h2><%= bikeName %> Videos</h2>
                             <BW:Videos runat="server" ID="ctrlVideos" />
                     </div>
                 <% } %>
 
                 <%if (ctrlNews.FetchedRecordsCount > 0)
                  { %>
-                <div class="margin-top20 margin-right20 margin-left20 border-solid-top"></div>
                  <BW:News runat="server" ID="ctrlNews" />
                 <% } %>      
 
@@ -629,9 +635,8 @@
                    { %>
                     <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />           
                 <%} %>
-                <div id="modelSpecsFooter" class="padding-bottom20"></div>
+                <div id="modelSpecsFooter"></div>
             </div>
-            <div class="clear"></div>
         </section>
       
         <% 

@@ -1,18 +1,17 @@
-﻿using System;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.Controls;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
-using Bikewale.controls;
-using Bikewale.Controls;
-using Bikewale.Entities.BikeData;
-using Bikewale.Common;
-using Bikewale.Entities.PriceQuote;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.DAL.BikeData;
 
 namespace Bikewale.New
 {

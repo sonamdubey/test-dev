@@ -2,11 +2,13 @@
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Common;
 using Bikewale.DAL.Dealer;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -18,12 +20,17 @@ namespace Bikewale.Controls
     /// Description : Class to show dealers  
     /// Modified By : Sushil Kumar on 2nd June 2016
     /// Description : Added LeadsourceId and PQSourceId for lead and pq sources
+    /// Modified By :   Sumit Kate on 17 Jun 2016
+    /// Description :   Added Model ID
+    /// Modified by :   Sumit Kate on 22 Jun 2016
+    /// Description :   Added Repeater to bind the Popular City Dealers when city is not selected
     /// </summary>
     public class DealerCard : UserControl
     {
-        protected Repeater rptDealers;
+        protected Repeater rptDealers, rptPopularCityDealers;
 
         public uint MakeId { get; set; }
+        public uint ModelId { get; set; }
         public ushort TopCount { get; set; }
         public uint CityId { get; set; }
         public string makeName = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty;
@@ -31,8 +38,9 @@ namespace Bikewale.Controls
         public int PQSourceId { get; set; }
         public bool IsDiscontinued { get; set; }
         public uint ModelId { get; set; }
+        protected bool isCitySelected { get { return CityId > 0; } }
 
-        protected bool showWidget = false;
+        public bool showWidget = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -57,7 +65,7 @@ namespace Bikewale.Controls
         {
             bool isValid = true;
 
-            if (MakeId <= 0 || CityId <= 0)
+            if (MakeId <= 0)
             {
                 isValid = false;
             }
@@ -67,7 +75,11 @@ namespace Bikewale.Controls
 
         /// <summary>
         /// Created By : Vivek Gupta on 20-05-2016
-        /// Description : Function to bind dealers    
+        /// Description : Function to bind dealers 
+        /// Modified by :   Sumit Kate on 17 Jun 2016
+        /// Description :   Pass ModelId to get the dealers for Price in city page
+        /// Modified by :   Sumit Kate on 22 Jun 2016
+        /// Description :   If City Id is not passed Get the popular city dealer count
         /// </summary>
         protected void BindDealers()
         {
@@ -84,20 +96,35 @@ namespace Bikewale.Controls
                             ;
                     var objCache = container.Resolve<IDealerCacheRepository>();
                     _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
-
-                    if (_dealers != null && _dealers.Dealers.Count() > 0)
+                    if (isCitySelected)
                     {
-                        makeName = _dealers.MakeName;
-                        cityName = _dealers.CityName;
-                        cityMaskingName = _dealers.CityMaskingName;
-                        makeMaskingName = _dealers.MakeMaskingName;
+                        _dealers = objCache.GetDealerByMakeCity(CityId, MakeId, ModelId);
 
-                        rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
-                        rptDealers.DataBind();
+                        if (_dealers != null && _dealers.Dealers.Count() > 0)
+                        {
+                            makeName = _dealers.MakeName;
+                            cityName = _dealers.CityName;
+                            cityMaskingName = _dealers.CityMaskingName;
+                            makeMaskingName = _dealers.MakeMaskingName;
 
-                        showWidget = true;
+                            rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
+                            rptDealers.DataBind();
+
+                            showWidget = true;
+                        }
+                    }
+                    else
+                    {
+                        IEnumerable<PopularCityDealerEntity> cityDealers = objCache.GetPopularCityDealer(MakeId, TopCount);
+                        if (cityDealers != null && cityDealers.Count() > 0)
+                        {
+                            rptPopularCityDealers.DataSource = cityDealers;
+                            rptPopularCityDealers.DataBind();
+                            showWidget = true;
+                        }
                     }
                 }
+
             }
             catch (Exception err)
             {

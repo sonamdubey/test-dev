@@ -13,7 +13,7 @@
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/specifications-features/?vid={2}", makeMaskingName, modelMaskingName,versionId);
         ogImage = modelImage;
         isAd970x90Shown = true;
-        AdId = "1017752";
+        AdId = "1442913773076";
         AdPath = "/1017752/Bikewale_NewBike_";
           %>
     <!-- #include file="/includes/headscript.aspx" -->
@@ -424,10 +424,10 @@
                         "clientip": clientIP,
                         "isregisterpq": true
                     };
-                    customerViewModel.setOptions(leadOptions);
+                    dleadvm.setOptions(leadOptions);
                 });
                 $("#user-details-submit-btn").click(function(){
-                    if(customerViewModel.IsVerified)
+                    if(dleadvm.IsVerified)
                     {
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Specs_Page', 'act': 'Lead_Submitted', 'lab': "<%= string.Format("{0}_{1}_{2}_{3}_{4}", makeName, modelName, versionName, cityName, areaName )%>" });
                     }

@@ -168,7 +168,9 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .used-budget-box { width: 206px; float:left; color: #a8afb3; position: relative; }
 .findBtn { float:left; }
 .findBtn .btn-md { padding: 8px 20px; border-radius: 0 2px 2px 0; }
-.compare-list-home li {padding-bottom: 25px; text-align: center; }
+.compare-list-home li {padding-bottom: 25px; text-align: center; display:block; }
+.compare-now-image-preview a { width: 100%; height: 268px; display:block; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+.compare-now-image-preview a img { width: 100%; height: 268px; }
 
 /* news, review and videos section on home page classes */
 .news-expert-video-content .img-preview { width:310px; height:174px; display:table; text-align:center;}
@@ -176,10 +178,10 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .news-expert-video-content .img-preview a img { width:100%; height:174px; }
 
 @-moz-document url-prefix() {
-    .findBtn .btn-md {padding: 7px 20px 7px;}
-    .viewBtn .btn-xs {padding: 8px 10px 8px;}
-    .btn-lg {padding: 7px 20px 7px;}
-    .new-bike-search input[type="text"] {padding:10px 10px 11px;}
+	.findBtn .btn-md {padding: 7px 20px 7px;}
+	.viewBtn .btn-xs {padding: 8px 10px 8px;}
+	.btn-lg {padding: 7px 20px 7px;}
+	.new-bike-search input[type="text"] {padding:10px 10px 11px;}
 }
 
 noindex:-o-prefocus, .findBtn .btn-md { padding: 10px 20px; }
@@ -306,6 +308,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .question-mark-icon { width:27px; height:40px; background-position:-83px -391px; }
 .video-views-icon {width: 17px;height: 13px;background-position: -59px -303px;}
 .video-likes-icon {width: 15px;height: 15px;background-position: -84px -277px; position: relative;top: 2px;}
+.inr-sm-dark { width:8px; height:12px; background-position:-128px -468px; }
 .inr-md, .inr-md-light { width:8px; height:13px; }
 .inr-md { background-position:-53px -490px; }
 .inr-md-light { background-position:-129px -490px; }
@@ -687,9 +690,9 @@ a.action-btn:hover{text-decoration:none;}
 
 @media all and (min-width: 800px) and (max-width: 996px){
 	#ctrlNews .img-preview, #ctrlExpertReviews .img-preview { width:240px; height:140px; }
-    #ctrlNews .img-preview a, #ctrlExpertReviews .img-preview a { width:240px; height:140px; display: block; background: url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
-    #ctrlNews .img-preview a img, #ctrlExpertReviews .img-preview a img { width:100%; height:140px; }
-    .yt-iframe-preview iframe { height:140px; }
+	#ctrlNews .img-preview a, #ctrlExpertReviews .img-preview a { width:240px; height:140px; display: block; background: url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+	#ctrlNews .img-preview a img, #ctrlExpertReviews .img-preview a img { width:100%; height:140px; }
+	.yt-iframe-preview iframe { height:140px; }
 }
 /* offers popup */
 .termsPopUpContainer { width: 700px; height: 150px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; }
@@ -709,6 +712,8 @@ li.offertxt:hover span {display:inline}
 /* AutoExpo classes end */
 .strike{text-decoration: line-through; color:#82888b}
 .red-font{ color: #FF0000;}
+.dealer-details-more-content { display:none; }
+.dealer-details-main-content {cursor:pointer}
 
 /*ratings*/
 .star-one-icon { width:20px; height:20px; display:inline-block; vertical-align:top; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAATlBMVEUAAAD/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gEQx+PJAAAAGXRSTlMAFRAf7cy9fHJB5yL1wp1XRzQI5aWgZGMmBPUZEAAAAH1JREFUGNN9zNsSwiAMRdGEUAqld6/n/3/UjKjBobqfwpoz0P/u+QBjPMAQWnOAa3ABlgbPwMVektk5xx7wzyOLYhrw1ZBI41BbYCr1Zv2Lqi9OyUy3trO6gl1touA9AKkw6khE57HCCfNOtM+YzHi8leM68gfX7X1tK/3qARbaCZMv/AncAAAAAElFTkSuQmCC'); }

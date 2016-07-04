@@ -1,10 +1,8 @@
-﻿using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Bikewale.Common;
+using Bikewale.Entities.BikeData;
+using System;
 using System.Web.UI.HtmlControls;
-using Bikewale.Common;
-using System.Data;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -27,7 +25,7 @@ namespace Bikewale.Controls
             hdn_drpModel_Id = hdn_drpModel.ClientID.ToString();
             drpRevModel_Name = drpRevModel.ClientID.ToString().Replace("_", "$");
 
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 FillMakes();
             }
@@ -39,17 +37,19 @@ namespace Bikewale.Controls
         protected void FillMakes()
         {
             MakeModelVersion mmv = new MakeModelVersion();
-            DataTable dt = mmv.GetMakes("USERREVIEW");
+            //DataTable dt = mmv.GetMakes("USERREVIEW");
 
-            if (dt != null)
-            {
-                drpRevMake.DataSource = dt;
-                drpRevMake.DataTextField = "Text";
-                drpRevMake.DataValueField = "Value";
-                drpRevMake.DataBind();
+            //if (dt != null)
+            //{
+            //    drpRevMake.DataSource = dt;
+            //    drpRevMake.DataTextField = "Text";
+            //    drpRevMake.DataValueField = "Value";
+            //    drpRevMake.DataBind();
 
-                drpRevMake.Items.Insert(0,new ListItem("--Select Make--","0"));
-            }
+            //    drpRevMake.Items.Insert(0,new ListItem("--Select Make--","0"));
+            //}
+
+            mmv.GetMakes(EnumBikeType.UserReviews, ref drpRevMake);
         }
     }
 }

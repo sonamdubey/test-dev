@@ -38,10 +38,13 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
         {
             DTO.PriceQuote.v2.DPQuotationOutput output = new DTO.PriceQuote.v2.DPQuotationOutput();
             output.emi = ConvertEMI(objDealerQuotation.PrimaryDealer.EMIDetails);
-            output.Benefits = ConvertBenefits(objDealerQuotation.PrimaryDealer.Benefits);
-            output.Offers = ConvertOffers(objDealerQuotation.PrimaryDealer.OfferList);
             output.Versions = ConvertVersions(varients);
 
+            if (objDealerQuotation != null && objDealerQuotation.PrimaryDealer != null && objDealerQuotation.PrimaryDealer.DealerDetails != null && objDealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium)
+            {
+                output.Benefits = ConvertBenefits(objDealerQuotation.PrimaryDealer.Benefits);
+                output.Offers = ConvertOffers(objDealerQuotation.PrimaryDealer.OfferList);
+            }
             foreach (var version in varients)
             {
                 //For App if the Price Break up components are more than 4 
@@ -102,7 +105,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
                     //Add Other into main price list
                     if (otherList.Count > 0)
                     {
-                        mainList.Add(new DTO.PriceQuote.v2.DPQ_Price() { CategoryName = "Others", Price = System.Convert.ToUInt32(otherList.Sum(m => m.Price)) });
+                        mainList.Add(new DTO.PriceQuote.v2.DPQ_Price() { CategoryName = "Other Charges", Price = System.Convert.ToUInt32(otherList.Sum(m => m.Price)) });
                     }
                 }
             }
@@ -153,6 +156,13 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
         {
             Mapper.CreateMap<OtherVersionInfoEntity, DTO.Version.VersionBase>();
             return Mapper.Map<IEnumerable<OtherVersionInfoEntity>, IEnumerable<DTO.Version.VersionBase>>(enumerable);
+        }
+
+        internal static List<DTO.PriceQuote.v3.DPQDealerBase> Convert(IEnumerable<Entities.PriceQuote.v2.NewBikeDealerBase> enumerable)
+        {
+            Mapper.CreateMap<Entities.PriceQuote.v2.NewBikeDealerBase, DTO.PriceQuote.v3.DPQDealerBase>();
+            Mapper.CreateMap<VersionPriceEntity, DTO.PriceQuote.VersionPriceBase>();
+            return Mapper.Map<IEnumerable<Entities.PriceQuote.v2.NewBikeDealerBase>, List<DTO.PriceQuote.v3.DPQDealerBase>>(enumerable);
         }
     }
 }

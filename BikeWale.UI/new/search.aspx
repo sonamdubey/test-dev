@@ -4,7 +4,7 @@
 <head>
     <%
         isHeaderFix = false;
-        AdId = "1017752";
+        AdId = "1442913773076";
         AdPath = "/1017752/Bikewale_NewBike_";
         isAd970x90Shown = true;
         isAd970x90BottomShown = true;
@@ -297,8 +297,8 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="search-bike-list content-inner-block-10">
-                            <div class="grid-12 margin-top20 margin-bottom10">
+                        <div class="search-bike-list">
+                            <div class="grid-12 alpha omega padding-left20 margin-top20 margin-bottom10">
                                 <ul id="divSearchResult" data-bind="template: { name: 'listingTemp', foreach: searchResult }">
                                 </ul>
                             </div>
@@ -325,26 +325,15 @@
                                         <div class="bikeTitle margin-bottom10">
                                             <h3><a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }"></a></h3>
                                         </div>
-                                        <div>
+                                        <div class="text-xt-light-grey font14 margin-bottom15">
+                                            <span><span data-bind="html: availSpecs"></span></span>
+                                        </div>
+                                        <div class="font14 text-light-grey margin-bottom5">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
+                                        <div class="text-bold">
                                             <span class="bwsprite inr-xl"></span>
                                             <span class="font22" data-bind="text: price"></span><span class="font16"> onwards</span>
                                         </div>
-                                        <div class="font12 text-light-grey margin-bottom10">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
-                                        <div class="font14 margin-bottom10">
-                                            <span><span data-bind="html: availSpecs"></span></span>
-                                        </div>
-                                        <!-- ko if:bikemodel.reviewCount() != 0  -->
-                                        <div class="leftfloat">
-                                            <p class=" inline-block border-solid-right padding-right10">
-                                                <span data-bind="html: AppendCertificationStar(bikemodel.reviewRate())"></span>
-                                            </p>
-                                        </div>
-                                        <!-- /ko -->
-                                        <div class="leftfloat margin-left10 font16 text-light-grey">
-                                            <span data-bind="text: ShowReviewCount(bikemodel.reviewCount())"></span>
-                                        </div>
-                                        <div class="clear"></div>
-                                        <a data-bind="attr: { modelId: bikemodel.modelId, pqSourceId: PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey margin-top10 fillPopupData">Check on-road price</a>
+                                        <a data-bind="attr: { modelId: bikemodel.modelId, pqSourceId: PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey btn-sm margin-top15 font14 fillPopupData">Check on-road price</a>
                                     </div>
                                 </div>
                             </li>

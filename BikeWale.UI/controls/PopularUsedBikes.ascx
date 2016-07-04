@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.PopularUsedBikes" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.PopularUsedBikes" %>
 <div class="container">
     <div class="grid-12 <%= (FetchedRecordsCount > 0)?"":"hide" %>">
         <h2 class="text-bold text-center margin-top50 margin-bottom30 font28"><%= FormatControlHeader() %></h2>

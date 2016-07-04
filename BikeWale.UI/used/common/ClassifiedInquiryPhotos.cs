@@ -153,8 +153,9 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_consumertype", DbType.Byte, consumerType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_buyermessage", DbType.String,200, buyerMessage));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String,40, CommonOpn.GetClientIP()));  
-
+			 Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
+               
 
                     isDone = true; 
                 }

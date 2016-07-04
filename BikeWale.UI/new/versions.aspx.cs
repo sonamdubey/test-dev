@@ -257,6 +257,7 @@ namespace Bikewale.New
                 ctrlVideos.MakeId = modelPage.ModelDetails.MakeBase.MakeId;
                 ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+                ctrlVideos.WidgetTitle = bikeName;
 
                 ctrlUserReviews.ReviewCount = 2;
                 ctrlUserReviews.PageNo = 1;
@@ -612,6 +613,7 @@ namespace Bikewale.New
                     {
                         container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                  .RegisterType<ICacheManager, MemcacheManager>();
                         var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                         modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID));
@@ -724,6 +726,14 @@ namespace Bikewale.New
                                             price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                     }
                                 }
+
+                                else if (variantId != 0)
+                                {
+                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
+                                    if (objSelectedVariant != null)
+                                        price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
+                                }
+
                                 else
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
@@ -779,6 +789,8 @@ namespace Bikewale.New
         /// Desc: Removed API Call for on road Price Quote
         /// Modified By : Lucky Rathore on 09 May 2016.
         /// Description : modelImage intialize.
+        /// Modified By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         /// <returns></returns>
         private PQOnRoadPrice GetOnRoadPrice()
@@ -800,12 +812,13 @@ namespace Bikewale.New
                     objPQEntity.ClientIP = clientIP;
                     objPQEntity.SourceId = 1;
                     objPQEntity.ModelId = modelId;
-                    objPQEntity.VersionId = Convert.ToUInt32(hdnVariant.Value);
+                    objPQEntity.VersionId = variantId;
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_ModelPage);
                     objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                    objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                    objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
+
                     if (variantId == 0)
                     {
                         if (objPQOutput != null)
@@ -813,6 +826,7 @@ namespace Bikewale.New
                             variantId = objPQOutput.VersionId;
                         }
                     }
+
                     if (objPQOutput != null)
                     {
                         pqOnRoad = new PQOnRoadPrice();

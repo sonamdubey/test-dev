@@ -1,5 +1,7 @@
 ﻿using Bikewale.BAL.BikeData;
 using Bikewale.BAL.PriceQuote;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
@@ -7,6 +9,7 @@ using Bikewale.Entities.Customer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
@@ -113,10 +116,14 @@ namespace Bikewale.Mobile.BikeBooking
                     if (objPriceQuote != null)
                     {
                         BikeName = (objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "") + " " + (objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "");
-                        //Added By : Ashwini Todkar on 1 Dec 2014
-                        if (objPriceQuote.PrimaryDealer != null && objPriceQuote.PrimaryDealer.PriceList != null && objPriceQuote.PrimaryDealer.PriceList.Count() > 0)
+
+                        if (objPriceQuote.PrimaryDealer.DealerDetails != null)
                         {
                             isPrimaryDealer = true;
+                        }
+
+                        if (objPriceQuote.PrimaryDealer != null && objPriceQuote.PrimaryDealer.PriceList != null && objPriceQuote.PrimaryDealer.PriceList.Count() > 0)
+                        {
                             MakeModel = (objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "") + " " +
                                         (objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "");
 
@@ -302,11 +309,14 @@ namespace Bikewale.Mobile.BikeBooking
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
-                    IBikeVersions<BikeVersionEntity, uint> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
+                    container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+                        .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
+                              .RegisterType<ICacheManager, MemcacheManager>()
+                             ;
+                    var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
 
-                    objVersionDetails = objVersion.GetById(versionId);
-                    versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
+                    objVersionDetails = objCache.GetById(versionId);
+                    versionList = objCache.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
 
                     if (versionList != null && versionList.Count > 0)
                     {
@@ -326,6 +336,10 @@ namespace Bikewale.Mobile.BikeBooking
             }
         }
 
+        /// <summary>
+        /// Created By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with _bwutmz
+        /// </summary>
         protected void SavePriceQuote()
         {
             PQOutputEntity objPQOutput = null;
@@ -349,7 +363,7 @@ namespace Bikewale.Mobile.BikeBooking
                         objPQEntity.VersionId = selectedVersionId;
                         objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_DPQ_Quotation);
                         objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                         objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
                     }

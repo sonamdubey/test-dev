@@ -44,6 +44,12 @@ namespace Bikewale.Mobile.New
             this.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 17 Jun 2016
+        /// Description :   Pass ModelId to get the dealers for Price in city page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             ParseQueryString();
@@ -65,6 +71,7 @@ namespace Bikewale.Mobile.New
                 ctrlDealers.TopCount = 3;
                 ctrlDealers.ModelId = modelId;
                 ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_DealersCard_GetOfferButton;
+                ctrlDealers.ModelId = modelId;
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
@@ -99,8 +106,8 @@ namespace Bikewale.Mobile.New
                         if (!isDiscontinued)
                         {
                             bikePrices = from bike in bikePrices
-                                          where bike.IsVersionNew == true
-                                          select bike;
+                                         where bike.IsVersionNew == true
+                                         select bike;
                         }
 
                         SetModelDetails(bikePrices);

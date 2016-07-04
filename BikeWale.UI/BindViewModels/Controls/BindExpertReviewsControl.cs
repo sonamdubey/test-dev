@@ -23,7 +23,6 @@ namespace Bikewale.BindViewModels.Controls
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
 
-        string cacheKey = "BW_CMS_";
 
         static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
 

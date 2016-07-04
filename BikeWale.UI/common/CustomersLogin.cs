@@ -102,6 +102,7 @@ namespace Bikewale.Common
             //    prm = cmd.Parameters.Add("@USERID", SqlDbType.BigInt);
             //    prm.Direction = ParameterDirection.Output;
 				
+               //  Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);						
             //    prm = cmd.Parameters.Add("@ORGANIZATION", SqlDbType.VarChar, 50);
             //    prm.Direction = ParameterDirection.Output;
 												

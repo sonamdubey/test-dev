@@ -1,8 +1,7 @@
-﻿using Bikewale.BindViewModels.Webforms;
-using Bikewale.Cache.Core;
+﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
 using Bikewale.Common;
-using Bikewale.controls;
+using Bikewale.Controls;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;

@@ -1,18 +1,19 @@
-﻿using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.CV;
+using Bikewale.Entities.BikeData;
+using Enyim.Caching;
+using System;
 using System.Configuration;
-using System.Text.RegularExpressions;
 using System.Data;
 using System.Data.SqlClient;
-using Bikewale.CV;
-using Enyim.Caching;
+using System.Text.RegularExpressions;
+using System.Web;
 using System.Data.Common;
 using Bikewale.Notifications.CoreDAL;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Used
 {
@@ -31,7 +32,7 @@ namespace Bikewale.Used
         protected TextBox txtName, txtEmail, txtMobile; // user's name, email-id and mobile
         protected DropDownList drpStates, drpCities; // user's state and city
         protected Int16 statusId = 4;
-      
+
         // Html Controls
         protected HtmlGenericControl msgYourBike, msgOwner, msgBikeColor, msgKms, msgRegNo, msgRegAt,
                                      msgLifeTax, msgBikeIns, msgPrice, msgName, msgEmail, msgMobile,
@@ -102,10 +103,10 @@ namespace Bikewale.Used
                 Trace.Warn("Valid Email" + txtEmail.Text.Trim().ToLower());
                 if (inquiryId != "-1")
                     PrefillData();
-                
+
                 FillStates();
-                FillMakes();                
-            }            
+                FillMakes();
+            }
         }   // End of page_load
 
         /// <summary>
@@ -181,7 +182,7 @@ namespace Bikewale.Used
                 chkTerms.Checked = true;
             }
             else
-            {                
+            {
                 div_NotAuthorised.Visible = true;
                 div_sellBike.Attributes.Add("class", "hide");
             }
@@ -250,7 +251,7 @@ namespace Bikewale.Used
                 drpStates.DataValueField = "Value";
                 drpStates.DataBind();
             }
-            
+
             drpStates.Items.Insert(0, new ListItem("--Select State--", "0"));
         }   // end of fillstates method
 
@@ -320,17 +321,19 @@ namespace Bikewale.Used
         {
             MakeModelVersion mmv = new MakeModelVersion();
 
-            DataTable dt = mmv.GetMakes("USED");
+            //DataTable dt = mmv.GetMakes("USED");
 
-            if (dt != null)
-            {
-                drpMake.DataSource = dt;
-                drpMake.DataTextField = "Text";
-                drpMake.DataValueField = "Value";
-                drpMake.DataBind();
-            }
+            //if (dt != null)
+            //{
+            //    drpMake.DataSource = dt;
+            //    drpMake.DataTextField = "Text";
+            //    drpMake.DataValueField = "Value";
+            //    drpMake.DataBind();
+            //}
 
-            drpMake.Items.Insert(0, new ListItem("--Select Make--", "0"));
+            //drpMake.Items.Insert(0, new ListItem("--Select Make--", "0"));
+
+            mmv.GetMakes(EnumBikeType.Used, ref drpMake);
         }
 
         /// <summary>
@@ -360,7 +363,7 @@ namespace Bikewale.Used
         {
             MakeModelVersion mmv = new MakeModelVersion();
 
-            DataTable dt = mmv.GetVersions(modelId,"USED");
+            DataTable dt = mmv.GetVersions(modelId, "USED");
 
             if (dt != null)
             {
@@ -381,7 +384,7 @@ namespace Bikewale.Used
             if (ValidateBikeUserDetails())
             {
                 SaveSellBikeInfo();
-               
+
                 if (inquiryId != "-1")
                 {
                     // Do mobile verification of the customer
@@ -407,7 +410,7 @@ namespace Bikewale.Used
                         objRC.UpdateCustomerMobile(txtMobile.Text.Trim(), txtEmail.Text.Trim(), txtName.Text.Trim());
 
                         // Update statusId = 1; in SellIndividualInquiries 
-                        common.UpdateIsVerifiedCustomer(inquiryId);                       
+                        common.UpdateIsVerifiedCustomer(inquiryId);
 
                         //this line invalidate memcache to get updated used bike count from live listing
                         _mc.Remove("BW_ModelWiseUsedBikesCount");
@@ -442,7 +445,7 @@ namespace Bikewale.Used
                 RegisterCustomer objCust = new RegisterCustomer();
                 customerId = objCust.RegisterUser(txtName.Text.Trim(), txtEmail.Text.Trim(), txtMobile.Text.Trim(), "", "", SelectedCityId);
 
-                Trace.Warn("Customer id ",customerId);
+                Trace.Warn("Customer id ", customerId);
 
                 DateTime _bikemkyear =  new DateTime(), _insexpiry = new DateTime();
                 DateTime.TryParse(calMakeYear.Value.ToString(), out _bikemkyear);
@@ -455,7 +458,7 @@ namespace Bikewale.Used
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.CommandText = "saveclassifiedindividualsellbikeinquiries_sp";
 
-
+                            Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                             cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32 , SelectedVersion));
                             cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemakeyear", DbType.DateTime, _bikemkyear));
                             cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeowner", DbType.Byte , drpOwner.SelectedValue));
@@ -487,7 +490,7 @@ namespace Bikewale.Used
 
                         }
                     }
-                else 
+                else
                 {
                     Trace.Warn("Not Authorized");
                 }
@@ -641,7 +644,7 @@ namespace Bikewale.Used
                 msgMobile.InnerText = "Required!";
             }
             else { msgMobile.InnerText = string.Empty; }
-            
+
             // Validate City
             if (SelectedCityId == "-1" || SelectedCityId == "")
             {
@@ -649,7 +652,7 @@ namespace Bikewale.Used
                 msgCity.InnerText = "Required!";
             }
             else { msgCity.InnerText = string.Empty; }
-            
+
             // Terms &  Conditions
             if (!chkTerms.Checked)
             {
@@ -657,7 +660,7 @@ namespace Bikewale.Used
                 msgTerms.InnerText = "You must agree to the terms & conditions before poceeding!";
             }
             else { msgTerms.InnerText = string.Empty; }
-            
+
             return !isError;
         }
 

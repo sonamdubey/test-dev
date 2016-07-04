@@ -1,11 +1,19 @@
-﻿using System;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
-using System.Web;
 using System.Data;
-using Bikewale.Common;
 using System.Data.SqlClient;
 using System.Data.Common;
 using Bikewale.CoreDAL;
+using System.Linq;
+using System.Web;
+using System.Web.UI.WebControls;
 
 /// <summary>
 /// Getting All details of make model and versions of the bikes
@@ -46,26 +54,91 @@ namespace Bikewale.Common
         public DataTable GetMakes(string RequestType)
         {
             DataTable dt = null;
+            IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
+            EnumBikeType _requestType = EnumBikeType.All;
+            
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
+            {
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                if (Enum.TryParse(RequestType, true, out _requestType))
+                {
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
-                            dt = ds.Tables[0];
+                        container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                         .RegisterType<ICacheManager, MemcacheManager>()
+                                         .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                        ;
+                        var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                        makes = objCache.GetMakesByType(_requestType);
+
+
+                        var _makeList = (from mk in makes select new { Text = mk.MakeName, Value = mk.MakeId });
+
+                        dt = new DataTable();
+
+                        dt.Columns.Add("Text");
+                        dt.Columns.Add("Value");
+                        foreach (var make in _makeList)
+                        {
+                            dt.Rows.Add(make);
+                        }
+
                     }
                 }
-
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
+            }
+            return dt;
+        }
+
+        /// <summary>
+        ///  Getting makes only by providing only request type
+        /// </summary>
+        /// <param name="requestType"></param>
+        /// <param name="drpDownList"></param>
+        public void GetMakes(EnumBikeType requestType, ref DropDownList drpDownList)
+        {
+
+            IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
+
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                     .RegisterType<ICacheManager, MemcacheManager>()
+                                     .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                    ;
+                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                    makes = objCache.GetMakesByType(requestType);
+                    
+
+                    if (makes != null && makes.Count() > 0)
+                    {
+                        if (requestType == EnumBikeType.Used || requestType == EnumBikeType.UserReviews)
+                        {
+                            drpDownList.DataSource =  makes.Select(a => new { Value = string.Format("{0}_{1}",a.MakeId,a.MaskingName), Text = a.MakeName, Id = a.MakeId });
+                        }
+                        else
+                        {
+                            drpDownList.DataSource = makes.Select(a => new { Value = a.MakeId , Text = a.MakeName });
+                        }
+
+                        
+                        drpDownList.DataValueField = "Value";
+                        drpDownList.DataTextField = "Text";
+
+                        drpDownList.DataBind();
+                        drpDownList.Items.Insert(0, new ListItem("--Select Make--", "0"));
+                    }
+
+                }
             }
             catch (Exception ex)
             {
@@ -74,7 +147,6 @@ namespace Bikewale.Common
                 objErr.SendMail();
             }
 
-            return dt;
         }
 
         /// <summary>
@@ -247,6 +319,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, ParameterDirection.InputOutput));
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 
                     if (MySqlDatabase.ExecuteNonQuery(cmd) > 0)
                     {
@@ -319,6 +392,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, 50, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.Output));
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 

@@ -229,10 +229,11 @@ namespace Bikewale.Common
                     //prm = cmd.Parameters.Add("@customerid", SqlDbType.BigInt);
                     //prm.Direction = ParameterDirection.Output;
 
+                			
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.String, 100, key));
-
+Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd);
 

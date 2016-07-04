@@ -1670,6 +1670,10 @@ namespace BikeWaleOpr.Common
                 1000000+
                 12.5% of Ex + 4000*/
 
+                // calculation for telangana
+                case 41:
+                    roadTax = price * 0.09;                    
+                    break;
                 case 5:
                     if (price <= 600000)
                     {

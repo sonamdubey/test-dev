@@ -47,7 +47,7 @@ namespace Bikewale.Common
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 100, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, ParameterDirection.Output));

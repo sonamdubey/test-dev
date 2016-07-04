@@ -72,9 +72,11 @@ namespace Bikewale.DAL.Insurance
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientid", DbType.Int32, Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["insuranceclientid"])));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Int32, lead.LeadSourceId));
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     isSuccess = true;
+                        
                 }
             }
             catch (SqlException err)

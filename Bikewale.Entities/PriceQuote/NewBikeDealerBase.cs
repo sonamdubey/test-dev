@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,18 +16,19 @@ namespace Bikewale.Entities.PriceQuote
     /// Modified on : 21 March 2016
     /// Description : DealerPkgType added.
     /// </summary>
+    [Serializable, DataContract]
     public class NewBikeDealerBase
     {
-        [JsonProperty("id")]
+        [JsonProperty("id"), DataMember]
         public UInt32 DealerId { get; set; }
 
-        [JsonProperty("name")]
+        [JsonProperty("name"), DataMember]
         public string Name { get; set; }
 
-        [JsonProperty("area")]
+        [JsonProperty("area"), DataMember]
         public string Area { get; set; }
 
-        [JsonProperty("maskingNumber")]
+        [JsonProperty("maskingNumber"), DataMember]
         public string MaskingNumber { get; set; }
 
     }

@@ -57,6 +57,7 @@ namespace Bikewale.CV
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismobilever", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbType.DateTime, DateTime.Now));  
 
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);					
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -117,6 +118,7 @@ namespace Bikewale.CV
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     verified = Convert.ToBoolean(cmd.Parameters["par_isverified"].Value); 
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 
                 }
 				

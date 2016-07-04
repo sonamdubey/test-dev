@@ -1,5 +1,6 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
@@ -14,12 +15,10 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
-using System.Web;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.UI.WebControls;
-using Bikewale.controls;
-using Bikewale.Cache.Location;
 
 namespace Bikewale.New
 {
@@ -44,7 +43,7 @@ namespace Bikewale.New
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
-        protected bool isAreaAvailable,isDiscontinued ;
+        protected bool isAreaAvailable, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
 
 
@@ -53,8 +52,21 @@ namespace Bikewale.New
             this.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 17 Jun 2016
+        /// Description :   Pass ModelId to get the dealers for Price in city page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
+
             ParseQueryString();
             if (redirectToPageNotFound || redirectPermanent)
             {
@@ -74,6 +86,7 @@ namespace Bikewale.New
                 ctrlDealers.TopCount = 3;
                 ctrlDealers.ModelId = modelId;
                 ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealersCard_GetOfferButton;
+                ctrlDealers.ModelId = modelId;
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;
@@ -103,13 +116,13 @@ namespace Bikewale.New
                     isAreaAvailable = hasArea;
                     if (bikePrices != null && bikePrices.Count() != 0)
                     {
-                        isDiscontinued  = !bikePrices.FirstOrDefault().IsModelNew;
+                        isDiscontinued = !bikePrices.FirstOrDefault().IsModelNew;
 
                         if (!isDiscontinued)
                         {
                             bikePrices = from bike in bikePrices
-                                              where bike.IsVersionNew == true
-                                              select bike;                            
+                                         where bike.IsVersionNew == true
+                                         select bike;
                         }
 
                         SetModelDetails(bikePrices);
@@ -119,7 +132,7 @@ namespace Bikewale.New
                         rpVersioNames.DataSource = bikePrices;
                         rpVersioNames.DataBind();
 
-                       
+
                     }
                     else
                     {
@@ -198,7 +211,7 @@ namespace Bikewale.New
                 city = Request.QueryString["city"];
 
                 if (!string.IsNullOrEmpty(city))
-                {                    
+                {
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<ICityMaskingCacheRepository, CityMaskingCache>()
@@ -234,7 +247,7 @@ namespace Bikewale.New
                 this.Page.Visible = false;
             }
             finally
-            {                
+            {
                 if (objCityResponse != null && objModelResponse != null)
                 {
                     // Get cityId
@@ -252,7 +265,7 @@ namespace Bikewale.New
                     else
                     {
                         redirectToPageNotFound = true;
-                    }                
+                    }
 
                     // Get ModelId
                     // Code to check whether masking name is changed or not. If changed redirect to appropriate url

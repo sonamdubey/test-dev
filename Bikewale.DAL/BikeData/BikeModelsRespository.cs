@@ -348,7 +348,6 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewrate", DbType.Double, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, ParameterDirection.InputOutput));
-
                     if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd)))
                     {
                         HttpContext.Current.Trace.Warn("qry success");

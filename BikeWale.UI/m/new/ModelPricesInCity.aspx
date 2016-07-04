@@ -22,7 +22,7 @@
         canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
         OGImage = modelImage;
         AdPath = "/1017752/Bikewale_Mobile_Model";
-        AdId = "1017752";
+        AdId = "1444028976556";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
     %>
@@ -105,7 +105,10 @@
                     </ItemTemplate>
                 </asp:Repeater>
 
-                <BW:Dealers ID="ctrlDealers" runat="server" />
+                 <% if (ctrlDealers.showWidget) { %>
+                <div class="margin-right20 margin-left20 border-divider"></div> 
+                    <BW:Dealers runat="server" ID="ctrlDealers" />
+                <% }  %>
 
                 <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
 
@@ -128,6 +131,7 @@
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
         </section>
+
 
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
@@ -153,7 +157,7 @@
                     "isregisterpq" : true
                 };
 
-                customerViewModel.setOptions(leadOptions);
+                dleadvm.setOptions(leadOptions);
 
             });
 

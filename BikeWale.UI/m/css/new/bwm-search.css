@@ -6,6 +6,8 @@
 .filter-sort-div div { display: table-cell; width: 33.333%; }
 .filter-sort-div div a { padding: 0; color: #565a5c; display: block; text-decoration: none; text-align: center; }
 .filter-sort-div .filter-icon { position: relative; top: 2px; }
+.bike-search .bikeDescWrapper { padding-right: 35px; padding-left: 35px; }
+.text-x-light { color:#a8afb3; }
 .search-img-holder { position: relative; }
 .search-img-holder img { width: 100%; vertical-align: middle; }
 .search-img-holder .featured-icon { position: absolute; top: 10px; left: 0px; }

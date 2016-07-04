@@ -1,11 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.News_Widget" %>
 <div id="ctrlNews">
-    <div id="modelNewsContent" class="bw-model-tabs-data padding-top20 font14">
-        <h2 class="padding-left20 padding-right20"><%=WidgetTitle %> News</h2>
+    <div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom font14">
+        <h2><%=WidgetTitle %> News</h2>
         <!-- when one news -->
         <% if (FetchedRecordsCount == 1)
            { %>
-        <div class="grid-12 model-single-news margin-bottom20 omega padding-left20">
+        <div class="grid-12 alpha omega model-single-news margin-bottom20">
             <div class="model-preview-image-container leftfloat">
                 <a href="/news/<%=firstPost.BasicId %>-<%=firstPost.ArticleUrl %>.html">
                     <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages( firstPost.OriginalImgUrl, firstPost.HostUrl ,Bikewale.Utility.ImageSize._310x174) %>" title="<%=firstPost.Title %>" alt="<%=firstPost.Title %>" src="">
@@ -26,7 +26,7 @@
            else
            { %>
         <div class="margin-bottom10">
-            <div class="grid-8 padding-left20 border-light-right">
+            <div class="grid-8 alpha border-light-right">
                 <div class="padding-bottom5">
                     <div class="model-preview-image-container leftfloat">
                         <a href="/news/<%=firstPost.BasicId %>-<%=firstPost.ArticleUrl %>.html">
@@ -46,7 +46,7 @@
                     </p>
                 </div>
             </div>
-            <div class="grid-4">
+            <div class="grid-4 omega">
                 <ul>
                     <asp:Repeater ID="rptNews" runat="server">
                         <ItemTemplate>
@@ -63,7 +63,7 @@
             <div class="clear"></div>
         </div>
         <% } %>
-        <div class="padding-left20">
+        <div>
             <a href="/news/">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
         </div>
     </div>

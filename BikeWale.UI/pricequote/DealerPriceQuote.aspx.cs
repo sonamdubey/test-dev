@@ -1,5 +1,7 @@
 ﻿using Bikewale.BAL.BikeData;
 using Bikewale.BAL.PriceQuote;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities;
@@ -9,6 +11,7 @@ using Bikewale.Entities.Customer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -318,11 +321,14 @@ namespace Bikewale.BikeBooking
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
-                    IBikeVersions<BikeVersionEntity, uint> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
+                    container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+                            .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
+                            .RegisterType<ICacheManager, MemcacheManager>()
+                            ;
+                    var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
 
-                    objVersionDetails = objVersion.GetById(versionId);
-                    versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
+                    objVersionDetails = objCache.GetById(versionId);
+                    versionList = objCache.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
                     if (versionList != null && versionList.Count > 0)
                     {
                         rptVersion.DataSource = versionList;
@@ -364,6 +370,8 @@ namespace Bikewale.BikeBooking
         /// Description : Changed finally section from code as no check was made for objPQOutput == null
         /// Modified By : Vivek Gupta on 29-04-2016
         /// Desc : In case of dealerId=0 and isDealerAvailable = true , while redirecting to pricequotes ,don't redirect to BW PQ redirect to dpq
+        /// Modified By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         protected void SavePriceQuote()
         {
@@ -388,7 +396,7 @@ namespace Bikewale.BikeBooking
                         objPQEntity.VersionId = selectedVersionId;
                         objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_DPQ_Quotation);
                         objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                         objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
                     }

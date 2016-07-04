@@ -45,6 +45,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 
                     photoId = cmd.Parameters["par_photoid"].Value.ToString(); 
                 }
@@ -71,6 +72,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 
                     isRemoved = true; 
                 }
@@ -98,6 +100,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 
                     isMain = true; 
                 }
@@ -125,6 +128,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_imgdesc", DbType.String, 200, imgDesc));
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
 
                     isAdded = true; 
                 }

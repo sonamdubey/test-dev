@@ -33,7 +33,7 @@ namespace Bikewale.Content
     public class DefaultRT : System.Web.UI.Page
     {
         protected Repeater rptRoadTest;
-        protected MakeModelSearch MakeModelSearch;
+        //protected MakeModelSearch MakeModelSearch;
         protected HtmlGenericControl alertObj;
         protected LinkPagerControl linkPager;
 
@@ -171,13 +171,13 @@ namespace Bikewale.Content
                     if (String.IsNullOrEmpty(modelId))
                     {
                         _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId;
-                        MakeModelSearch.MakeId = makeId;
+                        //MakeModelSearch.MakeId = makeId;
                     }
                     else
                     {
                         _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId + "&modelid=" + modelId;
-                        MakeModelSearch.MakeId = makeId;
-                        MakeModelSearch.ModelId = modelId;
+                        //MakeModelSearch.MakeId = makeId;
+                        //MakeModelSearch.ModelId = modelId;
                     }
                 }
 

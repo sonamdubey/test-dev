@@ -65,6 +65,7 @@ namespace Bikewale.RabbitMQ
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     url = cmd.Parameters["par_url"].Value.ToString();
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                 }
             }
             catch (SqlException ex)

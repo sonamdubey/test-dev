@@ -17,9 +17,13 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
     /// </summary>
     public class PQVersionListController : ApiController
     {
-        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion = null;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity,uint> _objVersion = null;
 
-        public PQVersionListController(IBikeVersions<BikeVersionEntity, uint> objVersion)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objVersion"></param>
+        public PQVersionListController(IBikeVersionCacheRepository<BikeVersionEntity,uint> objVersion)
         {
             _objVersion = objVersion;
         }

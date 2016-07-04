@@ -48,7 +48,7 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             return Mapper.Map<List<ReviewTaggedBikeEntity>, List<ReviewTaggedBike>>(objUserReview);
         }
 
-        internal static List<Review> Convert(List<ReviewEntity> objUserReview)
+        internal static IEnumerable<Review> Convert(IEnumerable<ReviewEntity> objUserReview)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -58,7 +58,7 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             Mapper.CreateMap<ReviewRatingEntity, ReviewRating>();
             Mapper.CreateMap<ReviewRatingEntityBase, ReviewRatingBase>();
             Mapper.CreateMap<ReviewEntityBase, ReviewBase>();
-            return Mapper.Map<List<ReviewEntity>, List<Review>>(objUserReview);
+            return Mapper.Map<IEnumerable<ReviewEntity>, IEnumerable<Review>>(objUserReview);
         }
 
         internal static List<ReviewsList> Convert(List<ReviewsListEntity> objUserReview)

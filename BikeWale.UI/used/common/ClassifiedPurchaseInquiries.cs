@@ -242,7 +242,7 @@ namespace Bikewale.Used
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
 
-
+                Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd);
 

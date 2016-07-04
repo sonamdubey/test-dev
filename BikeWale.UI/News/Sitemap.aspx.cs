@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Data;
-using System.Web.UI.WebControls;
-using System.Xml;
-using System.Text;
-using System.Data.SqlClient;
-using Bikewale.Common;
-using System.Data.Sql;
-using System.Data.SqlTypes;
+﻿using Bikewale.Common;
 using Bikewale.Utility;
-using System.IO;
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Text;
+using System.Web;
+using System.Xml;
 using System.Data.Common;
 using Bikewale.Notifications.CoreDAL;
 
@@ -19,7 +13,6 @@ namespace Bikewale.News
 {
     public class Sitemap : System.Web.UI.Page
     {
-        private string mydomain = "http://www.bikewale.com/news/";
         protected void Page_Load(object sender, EventArgs e)
         {
             GenerateNewsSiteMap();
@@ -34,13 +27,14 @@ namespace Bikewale.News
             DataRow dtr = null; 
 
             try
-            {                
+            {
                 writer = new XmlTextWriter(Response.OutputStream, Encoding.UTF8);
                     using (DbCommand cmd = DbFactory.GetDBCommand("googlesitemapdetails"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_applicationid", DbType.Int32, Convert.ToInt32(BWConfiguration.Instance.ApplicationId)));
 
+                        Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                         using (DataSet ds  = MySqlDatabase.SelectAdapterQuery(cmd))
                         {
                             if (da != null)

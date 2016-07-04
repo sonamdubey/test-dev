@@ -23,14 +23,13 @@ namespace Bikewale.Service.Controllers.BikeData
     /// </summary>
     public class UpcomingBikeController : CompressionApiController//ApiController
     {
-        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _makeRepository = null;
-        private readonly IPager _objPager = null;
-        public UpcomingBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IPager objPager, IBikeMakes<BikeMakeEntity, int> makeRepository)
+
+        public UpcomingBikeController( IBikeMakes<BikeMakeEntity, int> makeRepository, IBikeModelsCacheRepository<int> modelCacheRepository)
         {
-            _modelRepository = modelRepository;
-            _objPager = objPager;
             _makeRepository = makeRepository;
+            _modelCacheRepository = modelCacheRepository;
         }
 
         #region GetUpcomingBikeList PopulateWhere
@@ -47,29 +46,17 @@ namespace Bikewale.Service.Controllers.BikeData
         public IHttpActionResult Get(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
         {
             UpcomingBikeList upcomingBikes = new UpcomingBikeList();
-            int recordCount = 0;
-            int startIndex = 0, endIndex = 0, currentPageNo = 0;
+            int currentPageNo = 0;
             try
             {
                 currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
 
-                _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
-
-                UpcomingBikesListInputEntity inputParams = new UpcomingBikesListInputEntity()
-                {
-                    StartIndex = startIndex,
-                    EndIndex = endIndex,
-                    MakeId = makeId.HasValue ? makeId.Value : 0,
-                    ModelId = modelId.HasValue ? modelId.Value : 0
-                };
-
-                List<UpcomingBikeEntity> objUpcoming = _modelRepository.GetUpcomingBikesList(inputParams, sortBy, out recordCount);
+                IEnumerable<UpcomingBikeEntity> objUpcoming = _modelCacheRepository.GetUpcomingBikesList(sortBy, pageSize, makeId, modelId, currentPageNo);
 
                 upcomingBikes.UpcomingBike = UpcomingBikeListMapper.Convert(objUpcoming);
 
                 if (objUpcoming != null)
                 {
-                    objUpcoming.Clear();
                     objUpcoming = null;
                 }
 

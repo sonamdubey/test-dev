@@ -2,6 +2,7 @@
 using Bikewale.Common;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
@@ -115,6 +116,8 @@ namespace Bikewale.PriceQuote
         /// method to save PQ details and also register customer if new
         /// Modified By : Vivek Gupta on 29-04-2016
         /// Desc : In case of dealerId=0 and isDealerAvailable = true , while redirecting to pricequotes ,don't redirect to BW PQ redirect to dpq
+        /// Modified By : Lucky Rathore on 27 June 2016
+        /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -145,7 +148,7 @@ namespace Bikewale.PriceQuote
                         // If pqId exists then, set pqId
                         objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_PQ_Landing);
                         objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
-                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                         objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
 
@@ -240,11 +243,14 @@ namespace Bikewale.PriceQuote
             {
                 MakeModelVersion mmv = new MakeModelVersion();
 
-                ddlMake.DataSource = mmv.GetMakes("PRICEQUOTE");
-                ddlMake.DataValueField = "Value";
-                ddlMake.DataTextField = "Text";
-                ddlMake.DataBind();
-                ddlMake.Items.Insert(0, (new ListItem("--Select Make--", "0")));
+                ////ddlMake.DataSource = mmv.GetMakes("PRICEQUOTE");
+                //ddlMake.DataSource = mmv.GetMakes(EnumBikeType requestType);
+                //ddlMake.DataValueField = "Value";
+                //ddlMake.DataTextField = "Text";
+                //ddlMake.DataBind();
+                //ddlMake.Items.Insert(0, (new ListItem("--Select Make--", "0")));
+
+                mmv.GetMakes(EnumBikeType.PriceQuote, ref ddlMake);
 
             }
             catch (Exception ex)
@@ -319,42 +325,7 @@ namespace Bikewale.PriceQuote
             }
         }   // End of BindMakesDropdownList method
 
-        #region Commented
-        /// <summary>
-        ///     PopulateWhere to bind versions drop down list on change of model
-        /// </summary>
-        /// <param name="modelId"></param>
-        [Obsolete("As Version drop down is removed from the page. This method has been marked with Obsolete attribute.", true)]
-        protected bool BindVersionsDropdownList(string modelId)
-        {
-            bool isSuccess = false;
 
-            try
-            {
-                //MakeModelVersion mmv = new MakeModelVersion();
-
-                //DataTable dt = mmv.GetVersions(modelId, "PRICEQUOTE");
-
-                //if (dt != null && dt.Rows.Count > 0)
-                //{
-                //    ddlVersion.DataSource = dt;
-                //    ddlVersion.DataValueField = "Value";
-                //    ddlVersion.DataTextField = "Text";
-                //    ddlVersion.DataBind();
-                //    ddlVersion.Items.Insert(0, (new ListItem("--Select Version--", "0")));
-
-                //    isSuccess = true;
-                //}
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return isSuccess;
-        }   // End of BindVersionsDropdownList method
-        #endregion
         #endregion
 
         #region Validation Methods

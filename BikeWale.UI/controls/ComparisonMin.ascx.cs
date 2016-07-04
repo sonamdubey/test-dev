@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
     public class ComparisonMin : System.Web.UI.UserControl
     {
@@ -116,6 +116,13 @@ namespace Bikewale.controls
             {
                 m_TopCompareImage = value;
             }
+        }
+
+        private bool _showCompButton = true;
+        public bool ShowCompButton
+        {
+            get { return _showCompButton; }
+            set { _showCompButton = value; }
         }
 
 

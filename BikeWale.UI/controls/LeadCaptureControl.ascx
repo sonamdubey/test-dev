@@ -1,7 +1,7 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.LeadCaptureControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LeadCaptureControl" %>
 
 <style>
-    #leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:10%;right:5%;left:5%;z-index:10;padding:30px 40px}.personal-info-form-container{margin:10px auto;width:300px;min-height:100px}.personal-info-form-container .personal-info-list{margin:0 auto;width:280px;float:left;margin-bottom:20px;border-radius:0}.personal-info-list .errorIcon,.personal-info-list .errorText{display:none}#otpPopup{display:none}#otpPopup .otp-box,#otpPopup .update-mobile-box{width:280px;margin:15px auto 0}#otpPopup .update-mobile-box .form-control-box{margin-top:25px;margin-bottom:50px}#otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}#otpPopup .update-mobile-box{display:none}#otpPopup .edit-mobile-btn,.resend-otp-btn{cursor:pointer}.icon-outer-container{width:102px;height:102px;margin:0 auto;background:#fff;border:1px solid #ccc}.icon-inner-container{width:92px;height:92px;margin:4px auto;background:#fff;border:1px solid #666}.user-contact-details-icon{width:36px;height:44px;background-position:0 -391px}.otp-icon{width:30px;height:40px;background-position:-46px -391px}.mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999}#otpPopup .errorIcon,#otpPopup .errorText{display:none}.input-border-bottom{border-bottom:1px solid #ccc}.assistance-response-close.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
+    #otpPopup,#otpPopup .errorIcon,#otpPopup .errorText,#otpPopup .update-mobile-box,.personal-info-list .errorIcon,.personal-info-list .errorText{display:none}#leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:10%;right:5%;left:5%;z-index:10;padding:30px 40px}.personal-info-form-container{margin:10px auto;width:300px;min-height:100px}.personal-info-form-container .personal-info-list{margin:0 auto 20px;width:280px;float:left;border-radius:0}#otpPopup .otp-box,#otpPopup .update-mobile-box{width:280px;margin:15px auto 0}#otpPopup .update-mobile-box .form-control-box{margin-top:25px;margin-bottom:50px}#otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}#otpPopup .edit-mobile-btn,.resend-otp-btn{cursor:pointer}.icon-outer-container{width:102px;height:102px;margin:0 auto;background:#fff;border:1px solid #ccc}.icon-inner-container{width:92px;height:92px;margin:4px auto;background:#fff;border:1px solid #666}.user-contact-details-icon{width:36px;height:44px;background-position:0 -391px}.otp-icon{width:30px;height:40px;background-position:-46px -391px}.mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999}.input-border-bottom{border-bottom:1px solid #ccc}.assistance-response-close.cross-lg-lgt-grey:hover{background-position:-36px -252px}
 </style>
 <!-- lead capture popup start-->
 <div id="leadCapturePopup" class="text-center rounded-corner2">
@@ -16,6 +16,15 @@
         <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
         <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
         <div class="personal-info-form-container">
+            <!-- ko if : isDealerBikes() -->  
+            <div data-bind="visible : isDealerBikes()" class="form-control-box personal-info-list position-rel">
+                <div class="placeholder-loading-text position-abt form-control border-solid" style="display: none; height: 40px; border: 1px solid #e2e2e2;">Loading dealer bikes..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
+                <select id="getLeadBike" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: dealerBikes, optionValue : function(i){ return i.model.modelId ;}, optionsText: 'bike',optionsCaption: 'Select a bike'" class="form-control chosen-select"></select>
+                <span class="bwsprite error-icon errorIcon"></span>
+                <div class="bw-blackbg-tooltip errorText"></div>
+                <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
+            </div> 
+            <!-- /ko --> 
             <div class="form-control-box personal-info-list">
                 <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
                     id="getFullName" data-bind="textInput: fullName">
@@ -39,51 +48,6 @@
             <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
         </div>
     </div>
-
-    <!-- contact details ends here -->
-    <%-- <!-- otp starts here -->
-    <div id="otpPopup">
-        <div class="icon-outer-container rounded-corner50">
-            <div class="icon-inner-container rounded-corner50">
-                <span class="bwsprite otp-icon margin-top25"></span>
-            </div>
-        </div>
-        <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
-        <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
-        <div>
-            <div class="lead-mobile-box lead-otp-box-container font22">
-                <span class="fa fa-phone"></span>
-                <span class="text-light-grey font24">+91</span>
-                <span class="lead-mobile font24"></span>
-                <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
-            </div>
-            <div class="otp-box lead-otp-box-container">
-                <div class="form-control-box margin-bottom10">
-                    <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP" data-bind="value: otpCode">
-                    <span class="bwsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText"></div>
-                </div>
-                <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP
-                </a>
-                <p class="otp-alert-text margin-left10 otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
-                    OTP has been already sent to your mobile
-                </p>
-                <div class="clear"></div>
-                <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
-            </div>
-            <div class="update-mobile-box">
-                <div class="form-control-box text-left">
-                    <p class="mobile-prefix">+91</p>
-                    <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
-                    <span class="bwsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText"></div>
-                </div>
-                <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
-            </div>
-        </div>
-    </div>
-    <!-- otp ends here -->--%>
-
     <div id="dealer-lead-msg" class="hide">
         <div class="icon-outer-container rounded-corner50">
             <div class="icon-inner-container rounded-corner50">
@@ -100,7 +64,7 @@
 <!-- scripts goes here -->
 <script type="text/javascript">
 
-    var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup");
+    var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
     var fullName = $("#getFullName");
     var emailid = $("#getEmailID");
     var mobile = $("#getMobile");
@@ -109,9 +73,6 @@
     var prevMobile = "";
     var leadmodelid =  <%= ModelId %>, leadcityid = <%= CityId %>, leadareaid =  <%= AreaId %>;
     //var getCityArea = GetGlobalCityArea();
-    
-
-   <%-- var otpContainer = $(".mobile-verification-container"), otpText = $("#getOTP"), otpBtn = $("#otp-submit-btn");  --%>
 
 
     $(function () {
@@ -120,7 +81,6 @@
             leadCapturePopup.show();
             $("#dealer-lead-msg").hide();
             $("div#contactDetailsPopup").show();
-            $("#otpPopup").hide();
             popup.lock();
         });
 
@@ -157,18 +117,24 @@
         $("#getMobile").on("blur", function () {
             if (prevMobile != $(this).val().trim()) {
                 if (validateMobileNo($(this))) {
-                    customerViewModel.IsVerified(false);
+                    dleadvm.IsVerified(false);
                     otpText.val('');
                     otpContainer.removeClass("show").addClass("hide");
                     hideError($(this));
                 }
             }
+        });
+
+        $(document).on("change","#getLeadBike",function(){
+            if($(this).val()!=null && $(this).val()!="0")
+                hideError($(this));
+            else setError($(this)) ;
         });
 
         $("#getEmailID").on("blur", function () {
             if (prevEmail != $(this).val().trim()) {
                 if (validateEmailId($(this))) {
-                    customerViewModel.IsVerified(false);
+                    dleadvm.IsVerified(false);
                     otpText.val('');
                     otpContainer.removeClass("show").addClass("hide");
                     hideError($(this));
@@ -176,45 +142,10 @@
             }
         });
 
-        <%-- 
-        //$(".edit-mobile-btn").on("click", function () {
-        //    var prevMobile = $(this).prev("span.lead-mobile").text();
-        //    $(".lead-otp-box-container").hide();
-        //    $(".update-mobile-box").show();
-        //    $("#getUpdatedMobile").val(prevMobile).focus();
-        //});
-
-        //$("#generateNewOTP").on("click", function () {
-        //    if (validateMobileNo($("#getUpdatedMobile"))) {
-        //        var updatedNumber = $(".update-mobile-box").find("#getUpdatedMobile").val();
-        //        $(".update-mobile-box").hide();
-        //        $(".lead-otp-box-container").show();
-        //        $(".lead-mobile-box").find(".lead-mobile").text(updatedNumber);
-        //    }
-        //}); 
-        
-
-        //$("#getMobile,#getUpdatedMobile").on("focus", function () {
-        //    hideError($(this));
-        //    prevMobile = $(this).val().trim();
-        //}); 
-
-        //$("#getMobile,#getUpdatedMobile").on("blur", function () {
-        //    if (prevMobile != $(this).val().trim()) {
-        //        if (validateMobileNo($(this))) {
-        //            customerViewModel.IsVerified(false);
-        //            otpText.val('');
-        //            otpContainer.removeClass("show").addClass("hide");
-        //            hideError($(this));
-        //        }
-        //    }
-        //});
-    --%>
-
     });
 
 
-    function CustomerModel() {
+    function leadModel() {
         var arr = setuserDetails();
         var self = this;
         if (arr != null && arr.length > 0) {
@@ -241,8 +172,10 @@
         self.pageUrl = window.location.href;
         self.clientIP = "";
         self.isRegisterPQ = ko.observable(false);
-
-       <%-- //self.NoOfAttempts = ko.observable(0); //self.otpCode = ko.observable(); //self.isAssist = ko.observable(false); --%>
+        self.isDealerBikes = ko.observable(false);
+        self.dealerBikes = ko.observableArray([]);
+        self.selectedBike = ko.observable();
+        self.campaignId = ko.observable();
         
         self.setOptions = function(options)
         {
@@ -268,6 +201,15 @@
 
                 if(options.isregisterpq!=null)
                     self.isRegisterPQ(options.isregisterpq);
+                
+                if(options.campid!=null)
+                    self.campaignId(options.campid);
+
+                if(options.isdealerbikes!=null && options.isdealerbikes)
+                {
+                    self.isDealerBikes(options.isdealerbikes);
+                    self.getDealerBikes();
+                }                    
 
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;
@@ -275,7 +217,51 @@
                 if(options.clientip!=null)
                     self.clientIP = options.clientip;
             }
-        }
+        };
+
+        self.getDealerBikes = function (data,event) {
+
+            if (!isNaN(self.dealerId()) && self.dealerId() > 0 && self.campaignId() > 0) {
+                var dealerKey = "dealerDetails_" + self.dealerId() + "_camp_" + self.campaignId();
+                var dealerInfo = lscache.get(dealerKey);
+
+                if (!dealerInfo) {
+
+                    startLoading(leadBike.parent());
+                    leadBike.prev().show(); 
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/DealerBikes/?dealerId=" + self.dealerId() + "&campaignId=" + self.campaignId(),
+                        contentType: "application/json",
+                        dataType: 'json',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('utma', getCookie('__utma'));
+                            xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                        },
+                        success: function (response) {
+                            lscache.set(dealerKey, response, 30);
+                            obj = ko.toJS(response);
+                            self.dealerBikes([]);
+                            self.dealerBikes(obj.dealerBikes);
+                        },
+                        complete: function (xhr) {
+                            if (xhr.status == 204 || xhr.status == 404) {
+                                lscache.set(dealerKey, null, 30);
+                            }
+                            
+                            stopLoading(leadBike.parent());
+                            leadBike.prev().hide(); 
+                        }
+                    });
+                }
+                else {
+                    obj = ko.toJS(dealerInfo);
+                    self.dealerBikes([]);
+                    self.dealerBikes(obj.dealerBikes);
+                }
+            }
+        };
 
         self.generatePQ = function (data, event) {
 
@@ -283,6 +269,19 @@
             isValidDetails = false;
 
             isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
+
+            if(self.isDealerBikes())
+            {
+                var bike = self.selectedBike();
+                if (bike && bike.version && bike.model) {
+                    self.versionId(bike.version.versionId);
+                    self.modelId(bike.model.modelId);
+                }
+                else {
+                    self.versionId(0);
+                    self.modelId(0);
+                }
+            }
 
             if (isValidDetails && self.modelId() && self.versionId()) {
                 var url = '/api/RegisterPQ/';
@@ -322,7 +321,7 @@
 
             return isSuccess;
 
-        }
+        };
 
         self.verifyCustomer = function (data, event) {
             
@@ -349,7 +348,7 @@
                     data: ko.toJSON(objCust),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('utma', getCookie('__utma'));
-                        xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                        xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                     },
                     async: false,
                     contentType: "application/json",
@@ -357,10 +356,10 @@
                     success: function (response) {
                         var obj = ko.toJS(response);
                         self.IsVerified(obj.isSuccess);
-                        <%--//self.IsVerified(obj.isSuccess); //if (!self.IsVerified()) { //    self.NoOfAttempts(obj.noOfAttempts); //} --%>
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        self.IsVerified(false);
+                    complete: function (xhr, ajaxOptions, thrownError) {
+                        if(xhr.status!=200)
+                            self.IsVerified(false);
                     }
                 });
             }
@@ -376,7 +375,6 @@
 
                     $("#contactDetailsPopup").hide();
                     $("#personalInfo").hide()
-                    //$("#otpPopup").hide();
                     $("#dealer-lead-msg").fadeIn();
 
                 }
@@ -384,15 +382,6 @@
                     $("#leadCapturePopup").show();
                     $('body').addClass('lock-browser-scroll');
                     $(".blackOut-window").show();
-                    <%-- 
-                   // $("#contactDetailsPopup").hide();
-                   // $("#otpPopup").show();
-                   // var leadMobileVal = mobile.val();
-                   // $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
-                    //otpContainer.removeClass("hide").addClass("show");
-                   // hideError(mobile);
-                   // otpText.val('').removeClass("border-red").siblings("span, div").hide();
-                    --%>
                 }
                 setPQUserCookie();
             }
@@ -402,33 +391,41 @@
             var isValid = true;
             isValid =  self.validateUserName();
             isValid &= self.validateEmailId();
-            isValid &= self.validateMobileNo();
+            isValid &= self.validateMobileNo(); 
+            if(self.isDealerBikes())
+                isValid &= self.validateBike(); 
             return isValid;
         };
 
         self.validateUserName = function () {
             leadUsername = fullName;
-            var isValid = true,
+            var isValid = false;              
+            if (self.fullName()!=null && self.fullName().trim() != "") {
                 nameLength = self.fullName().length;
-            if (self.fullName().indexOf('&') != -1) {
-                setError(leadUsername, 'Invalid name');
-                isValid = false;
+
+                if (self.fullName().indexOf('&') != -1) {
+                    setError(leadUsername, 'Invalid name');
+                    isValid = false;
+                }
+                else if (nameLength == 0) {
+                    setError(leadUsername, 'Please enter your name');
+                    isValid = false;
+                }
+                else if (nameLength >= 1) {
+                    hideError(leadUsername);
+                    isValid = true;
+                }
             }
-            else if (nameLength == 0) {
+            else
+            {
                 setError(leadUsername, 'Please enter your name');
                 isValid = false;
-            }
-            else if (nameLength >= 1) {
-                hideError(leadUsername);
-                isValid = true;
             }
             return isValid;
         };
 
         self.validateEmailId = function () {
             leadEmailId = emailid;
-            //var emailid = $("#getEmailID");
-
             var isValid = true,
                 emailVal = leadEmailId.val(),
                 reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
@@ -466,105 +463,32 @@
             return isValid;
         };
 
+        self.validateBike = function () {
+            var isValid = true;
+            eleBike =  $("#getLeadBike");
+            if(eleBike!=null && self.selectedBike()!=null)
+            {
+                if (self.selectedBike().model && self.selectedBike().model.modelId > 0) {
+                    hideError(eleBike);
+                    isValid = true;
+                }
+                else {
+                    setError(eleBike, 'Select a bike');
+                    isValid = false;
+                }
+            }
+            else {
+                setError(eleBike, 'Select a bike');
+                isValid = false;
+            }
 
-       <%-- //self.generateOTP = function () {
-        //    if (!self.IsVerified()) {
-        //        var objCust = {
-        //            "pqId": self.pqId(),
-        //            "customerMobile": self.mobileNo(),
-        //            "customerEmail": self.emailId(),
-        //            "cwiCode": self.otpCode(),
-        //            "branchId": self.dealerId(),
-        //            "customerName": self.fullName(),
-        //            "versionId": self.versionId(),
-        //            "cityId": self.cityId(),
-        //        }
-        //        $.ajax({
-        //            type: "POST",
-        //            url: "/api/PQMobileVerification/",
-        //            data: ko.toJSON(objCust),
-        //            async: false,
-        //            contentType: "application/json",
-        //            dataType: 'json',
-        //            success: function (response) {
-        //                var obj = ko.toJS(response);
-        //                self.IsVerified(obj.isSuccess);
-        //            },
-        //            error: function (xhr, ajaxOptions, thrownError) {
-        //                self.IsVerified(false);
-        //            }
-        //        });
-        //    }
-        //};
+            return isValid;
+        };
 
-        //self.regenerateOTP = function () {
-        //    if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
-        //        var url = '/api/ResendVerificationCode/';
-        //        var objCustomer = {
-        //            "customerName": self.fullName(),
-        //            "customerMobile": self.mobileNo(),
-        //            "customerEmail": self.emailId(),
-        //            "source": 1
-        //        }
-        //        $.ajax({
-        //            type: "POST",
-        //            url: url,
-        //            async: false,
-        //            data: ko.toJSON(objCustomer),
-        //            contentType: "application/json",
-        //            dataType: 'json',
-        //            success: function (response) {
-        //                self.IsVerified(false);
-        //                self.NoOfAttempts(response.noOfAttempts);
-        //                alert("You will receive the new OTP via SMS shortly.");
-        //            },
-        //            error: function (xhr, ajaxOptions, thrownError) {
-        //                self.IsVerified(false);
-        //            }
-        //        });
-        //    }
-        //};
-
-        //otpBtn.on("click", function (event) {
-        //    $('#processing').show();
-        //    isValidDetails = false;
-        //    if (!validateOTP())
-        //        $('#processing').hide();
-
-        //    isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
-
-        //    if (validateOTP() && isValidDetails) {
-        //        customerViewModel.generateOTP();
-        //        if (customerViewModel.IsVerified()) {
-        //            $("#personalInfo").hide();
-        //            otpText.val('');
-        //            otpContainer.removeClass("show").addClass("hide");
-        //            $("#personalInfo").hide()
-        //            $("#otpPopup").hide();
-
-        //            $("#dealer-lead-msg").fadeIn();
-
-
-        //            // OTP Success
-        //            if (getMoreDetailsClick) {
-        //                dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_more_details_" + GetBikeVerLoc() });
-        //                getMoreDetailsClick = false;
-        //            }
-        //        }
-        //        else {
-        //            $('#processing').hide();
-        //            otpVal("Please enter a valid OTP.");
-        //        }
-        //    }
-        //});   --%>
     }
 
-    var customerViewModel = new CustomerModel();
-    ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
-
-    function ValidateUserDetail(fullName, emailid, mobile) {
-        return customerviewmodel.validateUserInfo(fullName, emailid, mobile);
-    };
+    var dleadvm = new leadModel();
+    ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
 
 
     function setuserDetails() {
@@ -577,53 +501,34 @@
     }
 
     function setPQUserCookie() {
-        var val = customerViewModel.fullName() + '&' + customerViewModel.emailId() + '&' + customerViewModel.mobileNo();
+        var val = dleadvm.fullName() + '&' + dleadvm.emailId() + '&' + dleadvm.mobileNo();
         SetCookie("_PQUser", val);
     }
 
     var setError = function (element, msg) {
         element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
-        element.siblings("div.errorText").text(msg);
+        element.siblings("div.errorText").show().text(msg);
     };
 
     var hideError = function (element) {
         element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
     };
 
-    <%--
-    //otpText.on("focus", function () {
-    //    otpText.val('');
-    //    otpText.siblings("span, div").hide();
-    //}); 
+    function startLoading(ele) {
+        try {
+            var _self = $(ele).find(".progress-bar").css({ 'width': '0' }).show();
+            _self.animate({ width: '100%' }, 500);
+        }
+        catch (e) { return };
+    }
 
-    //var otpVal = function (msg) {
-    //    otpText.addClass("border-red");
-    //    otpText.siblings("span, div").show();
-    //    otpText.siblings("div").text(msg);
-    //};
-
-    //function validateOTP() {
-    //    var retVal = true;
-    //    var isNumber = /^[0-9]{5}$/;
-    //    var cwiCode = otpText.val();
-    //    customerViewModel.IsVerified(false);
-    //    if (cwiCode == "") {
-    //        retVal = false;
-    //        otpVal("Please enter your Verification Code");
-    //        bindInsuranceText();
-    //    }
-    //    else {
-    //        if (isNaN(cwiCode)) {
-    //            retVal = false;
-    //            otpVal("Verification Code should be numeric");
-    //        }
-    //        else if (cwiCode.length != 5) {
-    //            retVal = false;
-    //            otpVal("Verification Code should be of 5 digits");
-    //        }
-    //    }
-    //    return retVal;
-    //}   --%>
+    function stopLoading(ele) {
+        try {
+            var _self = $(ele).find(".progress-bar");
+            _self.stop(true, true).css({ 'width': '100%' }).fadeOut(1000);
+        }
+        catch (e) { return };
+    }
 
 </script>
 

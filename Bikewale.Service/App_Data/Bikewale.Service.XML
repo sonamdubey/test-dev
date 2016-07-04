@@ -1359,7 +1359,7 @@
             Description :   Extend from CompressionApiController instead of ApiController 
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32},Bikewale.Interfaces.PriceQuote.IDealerPriceQuoteDetail)">
             <summary>
             
             </summary>
@@ -1391,6 +1391,13 @@
             Removed specs, colors, features and unnecessary properties
             Modified by :   Sumit Kate on 23 May 2016
             Description :   Get the Device Id from deviceId parameter
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.GetV4(System.UInt32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+            <summary>
+            Created by  :   Lucky Rathore on 16 Jun 2016
+            Description :   This the new version v4 of existing API update include PrimatyDealer, IsPrimary, SecondaryDealerCount and AltPrimarySectionText.       
             </summary>
             <returns></returns>
         </member>
@@ -1683,7 +1690,7 @@
             Description :   Extend from CompressionApiController instead of ApiController 
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.PriceQuote.IPriceQuote,Bikewale.Interfaces.BikeData.IBikeModels{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.PriceQuote.IPriceQuote,Bikewale.Interfaces.BikeData.IBikeModels{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.PriceQuote.IDealerPriceQuoteDetail)">
             <summary>
             Constructor
             </summary>
@@ -1699,6 +1706,62 @@
             Description : Added bike details to response (for android)
             Modified By : Sadhana Upadhyay on 29 Dec 2015
             Summary : To capture device id, utma, utmz, Pq lead id etc.
+            </summary>
+            <param name="cityId"></param>
+            <param name="modelId"></param>
+            <param name="clientIP"></param>
+            <param name="sourceType"></param>
+            <param name="deviceId"></param>
+            <param name="areaId"></param>
+            <param name="pqLeadId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetV2(System.UInt32,System.UInt32,System.String,Bikewale.DTO.PriceQuote.PQSources,System.String,System.Nullable{System.UInt32},System.Nullable{System.UInt16})">
+            <summary>
+            Gets the On Road Price Quote
+            Includes the Bike Wale price quote and Dealer price quote
+            Modified By : Sushil kumar  on  2nd Dec 2015
+            Description : Added bike details to response (for android)
+            Modified By : Sadhana Upadhyay on 29 Dec 2015
+            Summary : To capture device id, utma, utmz, Pq lead id etc.
+            Modified By : Sushil Kumar on 7th June 2016 
+            Description : Added empty dealer to list for dealers in case no primary dealer available
+            </summary>
+            <param name="cityId"></param>
+            <param name="modelId"></param>
+            <param name="clientIP"></param>
+            <param name="sourceType"></param>
+            <param name="deviceId"></param>
+            <param name="areaId"></param>
+            <param name="pqLeadId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetDealerVersionPrices(System.UInt32,System.String,System.UInt32,System.UInt32,System.Nullable{System.UInt32},System.Nullable{System.UInt32})">
+            <summary>
+            Created By : Sumit Kate
+            Created on : 3th June 2016
+            Description : To provide dealer quotation and its bike's version prices 
+            Modified By : Sushil Kumar on 7th June 2016
+            Description : Added Try catch and null check for versionid
+            </summary>
+            <param name="cityId"></param>
+            <param name="deviceId"></param>
+            <param name="dealerId"></param>
+            <param name="modelId"></param>
+            <param name="areaId"></param>
+            <param name="versionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetV3(System.UInt32,System.UInt32,System.String,Bikewale.DTO.PriceQuote.PQSources,System.String,System.Nullable{System.UInt32},System.Nullable{System.UInt16})">
+            <summary>
+            Gets the On Road Price Quote
+            Includes the Bike Wale price quote and Dealer price quote
+            Modified By : Sushil kumar  on  2nd Dec 2015
+            Description : Added bike details to response (for android)
+            Modified By : Sadhana Upadhyay on 29 Dec 2015
+            Summary : To capture device id, utma, utmz, Pq lead id etc.
+            Modified By : Sushil Kumar on 7th June 2016 
+            Description : Added empty dealer to list for dealers in case no primary dealer available
             </summary>
             <param name="cityId"></param>
             <param name="modelId"></param>
@@ -1938,6 +2001,18 @@
             <param name="areaId"></param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.GetV2(System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+            <summary>
+            Created By : Vivek Gupta 
+            Date : 17-06-2016
+            Desc : adding dealerpackage type, secondary dealer count and primary dealer offers
+            </summary>
+            <param name="modelId"></param>
+            <param name="cityId"></param>
+            <param name="areaId"></param>
+            <param name="deviceId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController">
             <summary>
             Price Quote Version List controller
@@ -1999,6 +2074,14 @@
             <param name="objModelPage"></param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.AutoMappers.Model.ModelMapper.ConvertV4(Bikewale.Entities.BikeData.BikeModelPageEntity,Bikewale.Entities.PriceQuote.PQByCityAreaEntity,Bikewale.Entities.PriceQuote.DetailedDealerQuotationEntity)">
+            <summary>
+            Created By : Lucky Rathore on 17 June 2016
+            Descritpion : Mapping for V4 version of ModelpageEntity.
+            </summary>
+            <param name="objModelPage"></param>
+            <returns></returns>
+        </member>
         <!-- Badly formed XML comment ignored for member "M:Bikewale.Service.AutoMappers.Model.ModelMapper.Convert(System.Collections.Generic.IEnumerable{Bikewale.Entities.BikeData.BikeVersionMinSpecs})" -->
         <member name="M:Bikewale.Service.AutoMappers.Model.ModelMapper.Convert(Bikewale.Entities.PriceQuote.PQByCityAreaEntity)">
             <summary>
@@ -2014,6 +2097,14 @@
             Summary: Map  BikeModelContent and BikeModelContentDTO
             </summary>
             <param name="objContent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.Model.ModelMapper.ConvertV2(Bikewale.Entities.PriceQuote.PQByCityAreaEntity)">
+            <summary>
+            Created by: Vivek Gupta on 17-06-2016
+            Summary: Map   Map PQByCityArea from PQByCityAreaDTOV2
+            </summary>//DetailedDealerQuotationEntity
+            <param name="pqCityAea"></param>
             <returns></returns>
         </member>
         <member name="M:Bikewale.Service.AutoMappers.Version.VersionListMapper.Convert(Bikewale.Entities.BikeData.BikeVersionEntity)">

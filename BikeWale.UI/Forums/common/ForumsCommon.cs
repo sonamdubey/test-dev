@@ -55,6 +55,7 @@ namespace Bikewale.Forums.Common
             //    prm = cmd.Parameters.Add("@AlertType", SqlDbType.Int);
             //    prm.Value = alertType;
 														
+          //      Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);	
             //    prm = cmd.Parameters.Add("@ThreadId", SqlDbType.BigInt);
             //    prm.Direction = ParameterDirection.Output;
 						
@@ -115,6 +116,7 @@ namespace Bikewale.Forums.Common
             //    prm = cmd.Parameters.Add("@AlertType", SqlDbType.Int);
             //    prm.Value = alertType;
 				
+             //   Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);												
             //    prm = cmd.Parameters.Add("@PostId", SqlDbType.BigInt);
             //    prm.Direction = ParameterDirection.Output;
 																

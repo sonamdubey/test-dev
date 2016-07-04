@@ -1,15 +1,17 @@
 ﻿using Bikewale.Common;
-using Bikewale.DTO.BikeData;
 using Bikewale.Entities.BikeData;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using Microsoft.Practices.Unity;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.BAL.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.BikeData;
+using Bikewale.DAL.BikeData;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -27,8 +29,7 @@ namespace Bikewale.BindViewModels.Controls
         {
             FetchedRecordsCount = 0;
 
-            //UpcomingBikeList objBikeList = null;
-            List<UpcomingBikeEntity> objBikeList = null;
+            IEnumerable<UpcomingBikeEntity> objBikeList = null;
 
             try
             {
@@ -51,26 +52,17 @@ namespace Bikewale.BindViewModels.Controls
 
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
+                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>();
 
-                    var objModelRepo = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                    var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
-                    objBikeList = objModelRepo.GetUpcomingBikesList(filter, pageSize, MakeId, ModelId, curPageNo);
+                    objBikeList = objCache.GetUpcomingBikesList(filter, pageSize, MakeId, ModelId, curPageNo);
+
                 }
 
-                //string _apiUrl = String.Format("/api/UpcomingBike/?sortBy={0}&pageSize={1}", sortBy, pageSize);
-                
-                //if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                //{
-                //    _apiUrl += String.Format("&makeId={0}&curPageNo={1}", MakeId, curPageNo);
-
-                //    if (ModelId.HasValue && ModelId.Value > 0)
-                //    {
-                //        _apiUrl += String.Format("&modelId={0}", ModelId);
-                //    }
-                //}
-
-                //objBikeList = BWHttpClient.GetApiResponseSync<UpcomingBikeList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
 
                 if (objBikeList != null)
                 {

@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
+﻿using Bikewale.BAL.Dealer;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.DealersLocator;
 using Bikewale.Common;
-using Bikewale.Memcache;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.Dealer;
-using Bikewale.BAL.Dealer;
 using Bikewale.Entities.Dealer;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Dealer;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 ///
 ///Created By : Umesh Ojha on 31/8/2012
@@ -28,7 +26,7 @@ namespace Bikewale.Controls
         public string Make
         {
             get { return _selectedMake; }
-            set {_selectedMake = value; }
+            set { _selectedMake = value; }
         }
 
         protected override void OnInit(EventArgs e)
@@ -37,7 +35,7 @@ namespace Bikewale.Controls
             btnGo.ServerClick += new EventHandler(btnGo_ServerClick);
         }
 
-       
+
         private void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -50,11 +48,13 @@ namespace Bikewale.Controls
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealer, Dealer>();
+                    container.RegisterType<IDealer, Dealer>()
+                        .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                        .RegisterType<ICacheManager, MemcacheManager>();
 
-                    IDealer objDealer = container.Resolve<IDealer>();
+                    IDealerCacheRepository objDealer = container.Resolve<IDealerCacheRepository>();
 
-                    IList<NewBikeDealersMakeEntity> objMakes = objDealer.GetDealersMakesList();
+                    IEnumerable<NewBikeDealersMakeEntity> objMakes = objDealer.GetDealersMakesList();
 
                     var makesList = objMakes.Select(s => new { Text = s.MakeName, Value = s.MakeId + "_" + s.MaskingName });
 
@@ -88,7 +88,7 @@ namespace Bikewale.Controls
                 //redirectUrl =  "/new/" + UrlRewrite.FormatURL(ddlMake.SelectedItem.Text) + "-dealers/";
                 redirectUrl = "/new/" + makeVal + "-dealers/";
                 Response.Redirect(redirectUrl);
-            }          
+            }
         }
     }
 }

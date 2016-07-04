@@ -21,10 +21,11 @@ namespace Bikewale.Service.Controllers.Version
     public class VersionListController : CompressionApiController//ApiController
     {
 
-        private readonly IBikeVersions<BikeVersionEntity, uint> _versionRepository = null;
-        public VersionListController(IBikeVersions<BikeVersionEntity, uint> versionRepository)
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCacheRepo;
+
+        public VersionListController(IBikeVersionCacheRepository<BikeVersionEntity,uint> versionRepo)
         {
-            _versionRepository = versionRepository;
+            _versionCacheRepo = versionRepo;
         }
 
         #region List of Models Version with MinSpecs
@@ -41,7 +42,7 @@ namespace Bikewale.Service.Controllers.Version
             List<VersionMinSpecs> objDTOMVSpecsList = null;
             try
             {
-                objMVSpecsList = _versionRepository.GetVersionMinSpecs(modelId, isNew);
+                objMVSpecsList = _versionCacheRepo.GetVersionMinSpecs(modelId, isNew);
 
                 if (objMVSpecsList != null && objMVSpecsList.Count > 0)
                 {
@@ -79,7 +80,7 @@ namespace Bikewale.Service.Controllers.Version
             VersionList objDTOVersionList = null;
             try
             {
-                objVersionList = _versionRepository.GetVersionsByType(requestType, modelId, cityId);
+                objVersionList = _versionCacheRepo.GetVersionsByType(requestType, modelId, cityId);
 
                 if (objVersionList != null && objVersionList.Count > 0)
                 {

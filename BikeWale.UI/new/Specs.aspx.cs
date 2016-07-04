@@ -85,7 +85,7 @@ namespace Bikewale.New
             //        cmd.CommandType = CommandType.StoredProcedure;
             //        cmd.CommandText = "GetNewBikesSpecification_SP";
             //        cmd.Connection = conn;
-
+                    Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
             //        cmd.Parameters.Add("@BikeVersionId", SqlDbType.SmallInt).Value                  = versionId;
             //        cmd.Parameters.Add("@Displacement", SqlDbType.Float).Direction                  = ParameterDirection.Output;
             //        cmd.Parameters.Add("@Cylinders", SqlDbType.SmallInt).Direction                  = ParameterDirection.Output;

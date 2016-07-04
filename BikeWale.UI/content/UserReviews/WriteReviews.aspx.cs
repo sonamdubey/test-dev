@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bikewale.Common;
+using Bikewale.Controls;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using Bikewale.Controls;
 using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
 
@@ -24,8 +22,8 @@ namespace Bikewale.Content
         protected RadioButton radNot, radNew, radOld;
 
         /* VARIABLES */
-        public string modelId = "", versionId = "", customerId = "";
-        protected string displayVersion = "";
+        public string modelId = string.Empty, versionId = string.Empty, customerId = string.Empty;
+        protected string displayVersion = string.Empty;
 
         /* HTML CONTROLS */
         // protected HtmlGenericControl divEmail, divEmailLabel;
@@ -39,7 +37,7 @@ namespace Bikewale.Content
                 if (ViewState["CarName"] != null)
                     return ViewState["CarName"].ToString();
                 else
-                    return "";
+                    return string.Empty;
             }
             set { ViewState["CarName"] = value; }
         }
@@ -51,7 +49,7 @@ namespace Bikewale.Content
                 if (ViewState["BikeMake"] != null)
                     return ViewState["BikeMake"].ToString();
                 else
-                    return "";
+                    return string.Empty;
             }
             set { ViewState["BikeMake"] = value; }
         }
@@ -63,7 +61,7 @@ namespace Bikewale.Content
                 if (ViewState["BikeModel"] != null)
                     return ViewState["BikeModel"].ToString();
                 else
-                    return "";
+                    return string.Empty;
             }
             set { ViewState["BikeModel"] = value; }
         }
@@ -75,7 +73,7 @@ namespace Bikewale.Content
                 if (ViewState["BikeVersion"] != null)
                     return ViewState["BikeVersion"].ToString();
                 else
-                    return "";
+                    return string.Empty;
             }
             set { ViewState["BikeVersion"] = value; }
         }
@@ -111,7 +109,7 @@ namespace Bikewale.Content
                 if (ViewState["BackUrl"] != null)
                     return ViewState["BackUrl"].ToString();
                 else
-                    return "";
+                    return string.Empty;
             }
             set { ViewState["BackUrl"] = value; }
         }
@@ -125,7 +123,7 @@ namespace Bikewale.Content
         private void Page_Load(object sender, EventArgs e)
         {
             //also get the forumId
-            if (Request["bikem"] != null && Request.QueryString["bikem"] != "")
+            if (Request["bikem"] != null && Request.QueryString["bikem"] != string.Empty)
             {
                 modelId = Request.QueryString["bikem"];
 
@@ -138,7 +136,7 @@ namespace Bikewale.Content
                     this.Page.Visible = false;
                 }
             }
-            else if (Request["bikev"] != null && Request.QueryString["bikev"] != "")
+            else if (Request["bikev"] != null && Request.QueryString["bikev"] != string.Empty)
             {
                 Trace.Warn("Carv");
                 versionId = Request.QueryString["bikev"];
@@ -171,18 +169,18 @@ namespace Bikewale.Content
                 LoadDefaultComments();
                 BikeName = GetBike();
 
-                if (BikeName == "")
+                if (BikeName == string.Empty)
                 {
                     Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
 
-                if (modelId != "")
+                if (modelId != string.Empty)
                 {
                     MakeModelVersion mmv = new MakeModelVersion();
                     mmv.GetModelDetails(modelId);
-                    BackUrl = "/" + UrlRewrite.FormatURL(mmv.Make) + "-bikes/" + UrlRewrite.FormatURL(mmv.Model) + "/";
+                    BackUrl = string.Format("/{0}-bikes/{1}/", mmv.MakeMappingName, mmv.ModelMappingName);
                     displayVersion = "display;";
                     FillVersions();
                 }
@@ -209,7 +207,7 @@ namespace Bikewale.Content
                 if (CheckVersionReview() == true)
                 {
                     //a review has already been added for this version hence return false
-                    string Bike = versionId == "" ? (BikeName + " " + drpVersions.SelectedItem.Text) : BikeName;
+                    string Bike = versionId == string.Empty ? (BikeName + " " + drpVersions.SelectedItem.Text) : BikeName;
 
                     lblMessage.Text = "You have already added a review for " + Bike + ".<br>You are not allowed to add more than one review for the same version of a bike.<br><br>";
                     butSave.Enabled = false;
@@ -220,7 +218,7 @@ namespace Bikewale.Content
 
         private void LoadDefaultComments()
         {
-            string defaultComments = "";
+            string defaultComments = string.Empty;
             defaultComments = " <p><strong>Style</strong></p>"
                             + " <p>&nbsp;</p>"
                             + " <p><strong>Engine Performance, Fuel Economy and Gearbox</strong></p>"
@@ -242,13 +240,14 @@ namespace Bikewale.Content
             if (CheckVersionReview() == true)
             {
                 //a review has already been added for this version hence return false
-                string Bike = versionId == "" ? (BikeName + " " + drpVersions.SelectedItem.Text) : BikeName;
+                string Bike = versionId == string.Empty ? (BikeName + " " + drpVersions.SelectedItem.Text) : BikeName;
 
                 lblMessage.Text = "You have already added a review for " + Bike + ".<br>You are not allowed to add more than one review for the same version of a Bike.<br><br>";
                 return;
             }
 
             string recordId = SaveDetails();
+            //   string msgPage = "/content/userreviews/reviewmessage.aspx?url=" + BackUrl;
 
             string msgPage = "/content/userreviews/reviewmessage.aspx";
 
@@ -256,6 +255,7 @@ namespace Bikewale.Content
             {
                 SaveCustomer();
 
+                // Response.Redirect("/Research/NotAuthorized.aspx?redirect=" + msgPage);
                 Response.Redirect(msgPage);
             }
             else
@@ -287,10 +287,10 @@ namespace Bikewale.Content
 
         public string GetBike()
         {
-            string Bike = "";
-            string sql = "";
+            string Bike = string.Empty;
+            string sql = string.Empty;
 
-            if (modelId != "")
+            if (modelId != string.Empty)
                 sql = @" select ma.name as make, mo.name as model, '' as version, ma.id as makeid,
                             mo.id as modelid from bikemodels as mo, bikemakes as ma  
                             where ma.id = mo.bikemakeid and mo.id = @modelid";
@@ -335,8 +335,8 @@ namespace Bikewale.Content
         {
             //this function checks whether this user has already added a review for this version
             bool found = false;
-            string sql = "";
-            string id = versionId == "" ? drpVersions.SelectedItem.Value : versionId;
+            string sql = string.Empty;
+            string id = versionId == string.Empty ? drpVersions.SelectedItem.Value : versionId;
 
             string email = txtEmail.Text.Trim().Replace("'", "''");
 
@@ -347,7 +347,7 @@ namespace Bikewale.Content
                     sql = @" select count(id) from customerreviews   
                          where customerid = @customerid and versionid = @versionid";
                 }
-                else if (txtEmail.Text.Trim() != "")
+                else if (txtEmail.Text.Trim() != string.Empty)
                 {
                     sql = @" select count(id) from customerreviews  where  
                         (id in (select recordid from unregisteredcustomers   where  
@@ -358,7 +358,7 @@ namespace Bikewale.Content
 
                 try
                 {
-                    if (sql != "")
+                    if (sql != string.Empty)
                     {
                         using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                         {
@@ -394,7 +394,7 @@ namespace Bikewale.Content
 
         void FillVersions()
         {
-            string sql = "";
+            string sql = string.Empty;
             CommonOpn op = new CommonOpn();
             try
             {
@@ -421,9 +421,9 @@ namespace Bikewale.Content
         /// <returns></returns>
         string SaveDetails()
         {
-            string recordId = "";
+            string recordId = string.Empty;
 
-            if (versionId == "")
+            if (versionId == string.Empty)
                 versionId = drpVersions.SelectedItem.Value;
 
             try
@@ -435,6 +435,7 @@ namespace Bikewale.Content
                 using (DbCommand cmd = DbFactory.GetDBCommand("entrycustomerreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int64, MakeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, ModelIdVer));
@@ -456,7 +457,7 @@ namespace Bikewale.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbType.Double, _mileage));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
-
+Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     recordId = cmd.Parameters["par_id"].Value.ToString();

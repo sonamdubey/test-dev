@@ -64,10 +64,11 @@ namespace Bikewale.Used
                     //prm = cmd.Parameters.Add("@IsDealer", SqlDbType.Bit);
                     //prm.Value = isDealer;
 
+                
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer)); 
 
-
+			Bikewale.Notifications.LogLiveSps.LogSpInGrayLog(cmd);
                     int rowsUpdated = (int)MySqlDatabase.ExecuteNonQuery(cmd);
 
                     if (rowsUpdated > 0)

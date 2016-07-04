@@ -316,9 +316,8 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .navUL li a:hover span.nav-drop { color: #1a1a1a; }
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
-.banner-home { height: 268px; background: #161209 url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/home-top-banner.jpg) no-repeat scroll center top;  background-size: cover; }
 /* sprite classes */
-.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?v1=18May2016v1) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?v1=1June2016v1) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -353,7 +352,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .inr-xxsm-icon { width:11px; height:10px; background-position:-54px -94px; }
 .inr-grey-xxsm-icon { width:8px; height:10px; background-position:-76px -87px; }
 .inr-red-xxsm-icon { width:8px; height:10px; background-position:-91px -87px; }
-.inr-xsm-icon { width:9px; height:12px; background-position:-40px -36px; }
+.inr-xsm-icon { width:9px; height:12px; background-position:-38px -36px; }
 .inr-grey-xsm-icon { width:9px; height:12px; background-position:-40px -58px; }
 .inr-sm-icon { width:10px; height:14px; background-position:-40px -80px; }
 .inr-grey-sm-icon { width:10px; height:14px; background-position:-79px -63px; }
@@ -433,36 +432,6 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .back-circle-icon { background-position: -107px -291px; }
 .swiper-container .swiper-slide:hover .back-circle-icon { background-position: -150px -291px; }
 
-/* Brand Sprite */
-.brandlogosprite { background:url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?v=19May2016') no-repeat; display: inline-block; }
-.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royalenfield, .brand-motoguzzi, .brand-harleydavidson, .brand-heroelectric, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-mv-agusta, .brand-um, .brand-eider { height:30px; }
-
-.brand-aprilia { width: 52px; background-position: 0 0; }
-.brand-honda { width: 34px; background-position: -58px 0; }
-.brand-bajaj { width: 53px; background-position: -97px 0; }
-.brand-hyosung { width: 60px; background-position: -156px 0; }
-.brand-suzuki { width: 40px; background-position: -222px 0; }
-.brand-benelli { width: 75px; background-position: -268px 0; }
-.brand-indian { width: 73px; background-position: -349px 0; }
-.brand-triumph { width: 73px; background-position: -428px 0; }
-.brand-bmw { width: 26px; background-position: -507px 0; }
-.brand-kawasaki { width: 52px; background-position: -539px 0; }
-.brand-tvs { width: 71px; background-position: -597px 0; }
-.brand-ducati { width: 26px; background-position: -674px 0; }
-.brand-ktm { width: 59px; background-position: -706px 0; }
-.brand-vespa { width: 70px; background-position: -771px 0; }
-.brand-harleydavidson { width: 35px; background-position: -847px 0; }
-.brand-lml { width: 73px; background-position: -889px 0; }
-.brand-yamaha { width: 73px; background-position: -968px 0; }
-.brand-hero { width: 38px; background-position: -1047px 0; }
-.brand-mahindra { width: 61px; background-position: -1091px 0; }
-.brand-yo { width: 76px; background-position: -1159px 0; }
-.brand-heroelectric { width: 53px; background-position: -1242px 0; }
-.brand-motoguzzi { width: 49px; background-position: -1300px 0; }
-.brand-royalenfield { width: 74px; background-position: -1354px 0;  }
-.brand-mv-agusta { width: 40px; background-position: -1432px 0; }
-.brand-um { width: 38px; background-position: -1481px 0; }
-.brand-eider { width:38px; background-position:-1529px 0; }
 /* common properties */
 .leftfloat{float:left;}
 .rightfloat{float:right;}

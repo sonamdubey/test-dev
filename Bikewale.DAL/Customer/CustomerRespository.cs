@@ -36,6 +36,8 @@ namespace Bikewale.DAL.Customer
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "registercustomer_new";
+                        LogLiveSps.LogSpInGrayLog(cmd);
+
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, t.CustomerName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 50, t.CustomerEmail.Trim().ToLower()));
@@ -45,7 +47,6 @@ namespace Bikewale.DAL.Customer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_passwordhash", DbType.String, 64, t.PasswordHash));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, string.IsNullOrEmpty(t.ClientIP) ? Convert.DBNull : t.ClientIP));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ParameterDirection.Output));
-
                     MySqlDatabase.ExecuteNonQuery(cmd);
                     customerId = (U)Convert.ChangeType(cmd.Parameters["par_customerid"].Value, typeof(U));
                 }
@@ -171,9 +172,9 @@ namespace Bikewale.DAL.Customer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_passwordhash", DbType.String, 64, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isexist", DbType.Boolean, ParameterDirection.Output));
+                        LogLiveSps.LogSpInGrayLog(cmd);
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
-
                     t = new T();
 
                     if (Convert.ToBoolean(cmd.Parameters["par_isexist"].Value))
@@ -238,6 +239,7 @@ namespace Bikewale.DAL.Customer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isexist", DbType.Boolean, ParameterDirection.Output));
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     t = new T();
@@ -395,9 +397,10 @@ namespace Bikewale.DAL.Customer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbType.String, 200, token));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isvalidtoken", DbType.Boolean, ParameterDirection.Output));
 
+                        LogLiveSps.LogSpInGrayLog(cmd);
+
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
-
                     isValidtoken = Convert.ToBoolean(cmd.Parameters["par_isvalidtoken"].Value);
                 }
             }

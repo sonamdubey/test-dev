@@ -52,7 +52,7 @@
 .emi-slider-box { padding-bottom:20px; padding-top:20px; }
 .emi-slider-box:first-child { padding-top:10px; }
 .emi-slider-box-left-section { width:445px; float:left; }
-.ui-widget-content { background: #e2e2e2; height: 6px; margin: 10px 0 0; width: 100%; border-radius: 0px; }
+#EMISection .ui-widget-content { background: #e2e2e2; height: 6px; margin: 10px 0 0; width: 100%; border-radius: 0px; }
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #565a5c; height: 5px; }
 .ui-slider { position: relative; text-align: left; }

@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Cache.Core;
+﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.PriceQuote;
+using Bikewale.Common;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -38,8 +36,8 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(isValidData())
-                BindNearestCityPrices();            
+            if (isValidData())
+                BindNearestCityPrices();
         }
 
         /// <summary>
@@ -72,10 +70,10 @@ namespace Bikewale.Controls
                 using (IUnityContainer container = new UnityContainer())
                 {
 
-                    container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>()                        
+                    container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IPriceQuoteCache, PriceQuoteCache>();
-                    
+
                     IPriceQuoteCache objCache = container.Resolve<IPriceQuoteCache>();
 
                     prices = objCache.GetModelPriceInNearestCities(ModelId, CityId, TopCount);
@@ -94,7 +92,7 @@ namespace Bikewale.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
         }
