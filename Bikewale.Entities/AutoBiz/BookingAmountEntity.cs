@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeBooking;
+using System;
 
 /// <summary>
 /// Added By : Suresh Prajapati on 31st Dec 2014

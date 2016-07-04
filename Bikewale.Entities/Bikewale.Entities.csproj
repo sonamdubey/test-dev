@@ -50,7 +50,6 @@
     <Compile Include="AutoBiz\AreaEntityBase.cs" />
     <Compile Include="AutoBiz\BikeColorAvailability.cs" />
     <Compile Include="AutoBiz\BookingAmountEntity.cs" />
-    <Compile Include="AutoBiz\BookingAmountEntityBase.cs" />
     <Compile Include="AutoBiz\CityEntityBase.cs" />
     <Compile Include="AutoBiz\DealerAreaDetails.cs" />
     <Compile Include="AutoBiz\DealerBenefitEntity.cs" />
@@ -65,11 +64,9 @@
     <Compile Include="AutoBiz\DealerPriceQuoteList.cs" />
     <Compile Include="AutoBiz\DealerQuotation.cs" />
     <Compile Include="AutoBiz\DealerQuotationEntity.cs" />
-    <Compile Include="AutoBiz\FacilityEntity.cs" />
     <Compile Include="AutoBiz\NewBikeDealerBase.cs" />
     <Compile Include="AutoBiz\NewBikeDealers.cs" />
     <Compile Include="AutoBiz\PQ_BikeVarient.cs" />
-    <Compile Include="AutoBiz\PQ_DealerDetailEntity.cs" />
     <Compile Include="AutoBiz\PQ_QuotationEntity.cs" />
     <Compile Include="AutoBiz\PQ_VersionPrice.cs" />
     <Compile Include="AutoBiz\StateEntityBase.cs" />

@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeBooking
 {
@@ -14,5 +9,11 @@ namespace Bikewale.Entities.BikeBooking
     {
         [JsonProperty("facility")]
         public string Facility { get; set; }
+
+        [JsonProperty("isActive")]
+        public bool IsActive { get; set; }
+
+        [JsonProperty("id")]
+        public int Id { get; set; }
     }
 }
