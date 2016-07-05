@@ -52,7 +52,7 @@ namespace Bikewale.Utility
                 else
                 {
                     string url = request.Url.ToString();
-                    Regex serachEng = new Regex("google|bing|yahoo|ask|yandex|baidu|aol");
+                    Regex serachEng = new Regex("www.google.com|www.google.co.([a-z]+)|([a-z]+).search.yahoo.com|www.bing.com|www.aol.in|www.aol.com|www.aolsearch.com|www.ask.com|www.yandex.com|www.baidu.com");
                     Match match = null;
                     //step 1. Check if the URL contains utm_source, utm_medium in the URL. If yes then store utm_source in utmcsr, umt_medium in utmcmd and utm_campaign in utmccn
                     if (
@@ -76,6 +76,11 @@ namespace Bikewale.Utility
                         if (match.Groups.Count >= 0)
                         {
                             utmcsr = match.Groups[0].Value;
+                            Regex serachEngNames = new Regex("google|yahoo|bing|ask|yandex|baidu|aol");
+                            if ((match = serachEngNames.Match(utmcsr)) != null && match.Success)
+                            {
+                                utmcsr = match.Groups[0].Value;
+                            }
                         }
                         utmcmd = "organic";
                         utmccn = "(organic)";
@@ -88,7 +93,7 @@ namespace Bikewale.Utility
                     }
                     else if (request.Cookies.Get("_bwutmz") != null) //step 5. If HTTP referrer is null then check if there is a BW source cookie, if yes then replicate that cookie
                     {
-                        Regex utm = new Regex("utmcsr=([()A-Za-z0-9.-]+)[|]*");
+                        Regex utm = new Regex("utmcsr=([()A-Za-z0-9.-_!@#$%^*]+)[|]*");
                         string utmz = request.Cookies.Get("_bwutmz").Value;
 
                         if ((match = utm.Match(utmz)) != null && match.Success)
@@ -98,7 +103,7 @@ namespace Bikewale.Utility
                                 utmcsr = match.Groups[1].Value; 
                             }
                         }
-                        utm = new Regex("utmccn=([()A-Za-z0-9.-]+)[|]*");
+                        utm = new Regex("utmccn=([()A-Za-z0-9.-_!@#$%^*]+)[|]*");
                         if ((match = utm.Match(utmz)) != null && match.Success)
                         {
                             if (match.Groups.Count > 0)
@@ -106,7 +111,7 @@ namespace Bikewale.Utility
                                 utmccn = match.Groups[1].Value; 
                             }
                         }
-                        utm = new Regex("utmcmd=([()A-Za-z0-9.-]+)[|]*");
+                        utm = new Regex("utmcmd=([()A-Za-z0-9.-_!@#$%^*]+)[|]*");
                         if ((match = utm.Match(utmz)) != null && match.Success)
                         {
                             if (match.Groups.Count > 0)
@@ -114,7 +119,7 @@ namespace Bikewale.Utility
                                 utmcmd = match.Groups[1].Value; 
                             }
                         }
-                        utm = new Regex("gclid=([()A-Za-z0-9.-]+)[|]*");
+                        utm = new Regex("gclid=([()A-Za-z0-9.-_!@#$%^*]+)[|]*");
                         if ((match = utm.Match(utmz)) != null && match.Success)
                         {
                             if (match.Groups.Count > 0)
@@ -125,7 +130,7 @@ namespace Bikewale.Utility
                     }
                     else if (request.Cookies.Get("__utmz") != null) //step 6. If not then, check if there is a __utmz cookie, if yes then replicate utmcsr, utmccn, utmcmd, gclid
                     {
-                        Regex utm = new Regex("utmcsr=([()A-Za-z0-9.-]+)[|]*");
+                        Regex utm = new Regex("utmcsr=([()A-Za-z0-9.-_!@#$%^*]+)[|]*");
                         string utmz = request.Cookies.Get("__utmz").Value;
 
                         if ((match = utm.Match(utmz)) != null && match.Success)
@@ -136,7 +141,7 @@ namespace Bikewale.Utility
                             }
                         }
 
-                        utm = new Regex("utmccn=([()A-Za-z0-9.-]+)[|]*");
+                        utm = new Regex("utmccn=([()A-Za-z0-9.-_!@#$%^*]+)[|]*");
                         if ((match = utm.Match(utmz)) != null && match.Success)
                         {
                             if (match.Groups.Count > 0)
@@ -145,7 +150,7 @@ namespace Bikewale.Utility
                             }
                         }
 
-                        utm = new Regex("utmcmd=([()A-Za-z0-9.-]+)[|]*");
+                        utm = new Regex("utmcmd=([()A-Za-z0-9.-_!@#$%^*]+)[|]*");
                         if ((match = utm.Match(utmz)) != null && match.Success)
                         {
                             if (match.Groups.Count > 0)
@@ -154,7 +159,7 @@ namespace Bikewale.Utility
                             }
                         }
 
-                        utm = new Regex("gclid=([()A-Za-z0-9.-]+)[|]*");
+                        utm = new Regex("gclid=([()A-Za-z0-9.-_!@#$%^*]+)[|]*");
                         if ((match = utm.Match(utmz)) != null && match.Success)
                         {
                             if (match.Groups.Count > 0)
