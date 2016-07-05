@@ -13,13 +13,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BikewaleOpr.Service</RootNamespace>
     <AssemblyName>BikewaleOpr.Service</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,6 +50,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -63,8 +65,7 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Web.Http.dll</HintPath>
@@ -76,9 +77,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -117,6 +116,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DealersController.cs" />
@@ -152,17 +152,17 @@
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BikewaleOpr.DAL\BikewaleOpr.DAL.csproj">
-      <Project>{29169822-5a9a-42d7-9d41-1380c4bdfc48}</Project>
-      <Name>BikewaleOpr.DAL</Name>
+    <ProjectReference Include="..\BikewaleOpr.DALs\BikewaleOpr.DALs.csproj">
+      <Project>{01134f89-c502-492e-a368-0a93d76430ef}</Project>
+      <Name>BikewaleOpr.DALs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BikewaleOpr.Entities\BikewaleOpr.Entities.csproj">
-      <Project>{921e80c2-2ff0-4168-846e-43cfaf98da79}</Project>
-      <Name>BikewaleOpr.Entities</Name>
+    <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
+      <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
+      <Name>BikewaleOpr.Entity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BikewaleOpr.Interfaces\BikewaleOpr.Interfaces.csproj">
-      <Project>{d0ded241-5baf-400d-8b0a-c5f46bce55d1}</Project>
-      <Name>BikewaleOpr.Interfaces</Name>
+    <ProjectReference Include="..\BikewaleOpr.Interface\BikewaleOpr.Interface.csproj">
+      <Project>{539fa12c-3799-4e88-a833-f65594ea1934}</Project>
+      <Name>BikewaleOpr.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

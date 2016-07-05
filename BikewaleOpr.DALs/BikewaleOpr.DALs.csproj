@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D0DED241-5BAF-400D-8B0A-C5F46BCE55D1}</ProjectGuid>
+    <ProjectGuid>{01134F89-C502-492E-A368-0A93D76430EF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BikewaleOpr.Interfaces</RootNamespace>
-    <AssemblyName>BikewaleOpr.Interfaces</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <RootNamespace>BikewaleOpr.DALs</RootNamespace>
+    <AssemblyName>BikewaleOpr.DALs</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,12 +30,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,17 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDealers.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="DealersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BikewaleOpr.Entities\BikewaleOpr.Entities.csproj">
-      <Project>{921e80c2-2ff0-4168-846e-43cfaf98da79}</Project>
-      <Name>BikewaleOpr.Entities</Name>
+    <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
+      <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
+      <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
+      <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>
+      <Name>BikewaleOpr.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Interface\BikewaleOpr.Interface.csproj">
+      <Project>{539fa12c-3799-4e88-a833-f65594ea1934}</Project>
+      <Name>BikewaleOpr.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

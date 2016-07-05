@@ -1,11 +1,11 @@
-﻿using BikeWaleOpr.Common;
+﻿
+using BikewaleOpr.DAL;
+using BikewaleOpr.Interface;
+using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace BikewaleOpr.campaign
@@ -18,13 +18,13 @@ namespace BikewaleOpr.campaign
 
         protected override void OnInit(EventArgs e)
         {
-            this.Load += new EventHandler(Page_Load);             
+            this.Load += new EventHandler(Page_Load);
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
 
-                FillCity();  
+            FillCity();
         }
 
         private async void FillCity()
@@ -32,17 +32,17 @@ namespace BikewaleOpr.campaign
             try
             {
                 //sets the base URI for HTTP requests
-                string _requestType = "application/json";
-
                 // get pager instance
-
-                //NewBikeDealers _objFeaturesList = null;
-                string _apiUrl = "/api/Dealers/GetDealerCities/";
                 // Send HTTP GET requests 
 
                 DataTable dt = null;
-
-                dt = await BWHttpClient.GetApiResponse<DataTable>(cwHostUrl, _requestType, _apiUrl, dt);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objCity = container.Resolve<DealersRepository>();
+                    dt = objCity.GetDealerCities();
+                }
+                //dt = await BWHttpClient.GetApiResponse<DataTable>(cwHostUrl, _requestType, _apiUrl, dt);
 
                 if (dt != null)
                 {

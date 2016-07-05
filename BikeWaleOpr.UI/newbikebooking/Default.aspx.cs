@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using BikewaleOpr.DAL;
+using BikewaleOpr.Interface;
 using BikeWaleOpr.Common;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Configuration;
 using BikeWaleOpr.Entities;
+using Microsoft.Practices.Unity;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
-using System.Web.UI.HtmlControls;
 using System.Text;
+using System.Web;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.BikeBooking
 {
@@ -61,20 +61,20 @@ namespace BikeWaleOpr.BikeBooking
             List<string> lstDealerId = null;
             try
             {
-             if(!String.IsNullOrEmpty(hdnDealerList.Value))
-             {
-                 dealers = hdnDealerList.Value.Split(',');
-                 if(dealers!=null && dealers.Length>0)
-                 {
-                     lstDealerId = new List<string>();
-                     foreach (string dealerId in dealers)
-                         lstDealerId.Add(dealerId);
+                if (!String.IsNullOrEmpty(hdnDealerList.Value))
+                {
+                    dealers = hdnDealerList.Value.Split(',');
+                    if (dealers != null && dealers.Length > 0)
+                    {
+                        lstDealerId = new List<string>();
+                        foreach (string dealerId in dealers)
+                            lstDealerId.Add(dealerId);
 
-                     CopyPricesToDealers(lstDealerId);
-                 }
-             }
+                        CopyPricesToDealers(lstDealerId);
+                    }
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "NewBikebooking.Default.btnCopyDealerPrice_Click");
                 objErr.SendMail();
@@ -93,7 +93,7 @@ namespace BikeWaleOpr.BikeBooking
             Repeater rptValues = null;
             string jsonPriceSheet = String.Empty, apiUrl = String.Empty;
             bool isTransferred = false;
-            
+
             try
             {
                 dtPriceSheet = new DataTable();
@@ -140,38 +140,40 @@ namespace BikeWaleOpr.BikeBooking
                 if (isTransferred)
                     lblDealerPriceStatus.Visible = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "NewBikebooking.Default.CopyPricesToDealers");
                 objErr.SendMail();
             }
         }
 
-        #region Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate 
+        #region Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate
         /// <summary>
         /// Transfer Price Sheet button click event handler.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		private void btnTransferPriceSheet_Click(object sender, EventArgs e)
-        {            
+        private void btnTransferPriceSheet_Click(object sender, EventArgs e)
+        {
             string[] cities = null;
             List<string> lstCityId = null;
-            try 
-	        {	        
-	        	if(!string.IsNullOrEmpty(hdnCities.Value))
+            try
+            {
+                if (!string.IsNullOrEmpty(hdnCities.Value))
                 {
-                    cities = hdnCities.Value.Split(',');                       
-                    if(cities !=null && cities.Length > 0){
+                    cities = hdnCities.Value.Split(',');
+                    if (cities != null && cities.Length > 0)
+                    {
                         lstCityId = new List<string>();
-                        foreach(string city in cities){                    
+                        foreach (string city in cities)
+                        {
                             lstCityId.Add(city);
-                        }                        
+                        }
                         CopyPricesToCities(lstCityId);
-                    }                            
+                    }
                 }
-	        }
-	        catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
@@ -187,30 +189,31 @@ namespace BikeWaleOpr.BikeBooking
             DataTable dtPriceSheet = null;
             TextBox txtValue = null;
             Label lbVersionId = null, lblCategoryId = null;
-            Repeater rptValues =null;
-            string jsonPriceSheet = String.Empty,apiUrl =String.Empty;
+            Repeater rptValues = null;
+            string jsonPriceSheet = String.Empty, apiUrl = String.Empty;
             bool isTransferred = false;
 
-            try{
-                
+            try
+            {
+
                 //1. Create a DataTable object
-                dtPriceSheet =new DataTable();
-                dtPriceSheet.Columns.Add("DealerId",typeof(int));
-                dtPriceSheet.Columns.Add("BikeVersionId",typeof(int));
-                dtPriceSheet.Columns.Add("CityId",typeof(int));
-                dtPriceSheet.Columns.Add("ItemId",typeof(Int16));
-                dtPriceSheet.Columns.Add("Itemvalue",typeof(object));
+                dtPriceSheet = new DataTable();
+                dtPriceSheet.Columns.Add("DealerId", typeof(int));
+                dtPriceSheet.Columns.Add("BikeVersionId", typeof(int));
+                dtPriceSheet.Columns.Add("CityId", typeof(int));
+                dtPriceSheet.Columns.Add("ItemId", typeof(Int16));
+                dtPriceSheet.Columns.Add("Itemvalue", typeof(object));
                 dealerId = Convert.ToUInt32(hdnDealerId.Value);
 
                 //2. Read the price sheet repeater for Price Quote Data
-                if(rptModels !=null && rptModels.Items !=null && rptModels.Items.Count > 0)
-                {                    
+                if (rptModels != null && rptModels.Items != null && rptModels.Items.Count > 0)
+                {
                     for (int outerRepeaterItemIndex = 0; outerRepeaterItemIndex < rptModels.Items.Count; outerRepeaterItemIndex++)
                     {
-                        lbVersionId = rptModels.Items[outerRepeaterItemIndex].FindControl("lblVersionId") as Label;                        
+                        lbVersionId = rptModels.Items[outerRepeaterItemIndex].FindControl("lblVersionId") as Label;
                         rptValues = rptModels.Items[outerRepeaterItemIndex].FindControl("rptValues") as Repeater;
 
-                        if (rptValues !=null && rptValues.Items.Count > 0)
+                        if (rptValues != null && rptValues.Items.Count > 0)
                         {
                             for (int innerRepeaterItemIndex = 0; innerRepeaterItemIndex < rptValues.Items.Count; innerRepeaterItemIndex++)
                             {
@@ -220,23 +223,24 @@ namespace BikeWaleOpr.BikeBooking
                                 if (lbVersionId.Text.Length > 0 && txtValue.Text.Trim().Length > 0)
                                 {
                                     //3. populate newly created DataTable with Price Sheet data and with City list
-                                    foreach(string cityId in lstCityId)
+                                    foreach (string cityId in lstCityId)
                                     {
-                                        dtPriceSheet.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId , lblCategoryId.Text.Trim(),  txtValue.Text.Trim().Equals("NA") ? null : txtValue.Text.Trim());
+                                        dtPriceSheet.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim().Equals("NA") ? null : txtValue.Text.Trim());
                                     }
                                 }
                             }
                         }
-                    }                    
+                    }
                 }
 
                 //4. Serialize the DataTable into JSON string.
-                jsonPriceSheet = JsonConvert.SerializeObject(dtPriceSheet,Newtonsoft.Json.Formatting.Indented);
+                jsonPriceSheet = JsonConvert.SerializeObject(dtPriceSheet, Newtonsoft.Json.Formatting.Indented);
                 apiUrl = "/api/DealerPriceQuote/SaveDealerPrices/";
 
                 //5. Post JSON to AutoBiz API in sync.
-                isTransferred = BWHttpClient.PostSync<string>(cwHostUrl,_requestType,apiUrl,jsonPriceSheet);
-                if(isTransferred){
+                isTransferred = BWHttpClient.PostSync<string>(cwHostUrl, _requestType, apiUrl, jsonPriceSheet);
+                if (isTransferred)
+                {
                     lblTransferStatus.Visible = true;
                 }
             }
@@ -246,14 +250,14 @@ namespace BikeWaleOpr.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-        } 
-	    #endregion
+        }
+        #endregion
 
         private void DeletePriceAvailability(object sender, EventArgs e)
         {
             lblSaved.Text = "";
             dealerId = Convert.ToUInt32(hdnDealerId.Value);
-         //   cityId = Convert.ToUInt32(hdnCityId.Value);
+            //   cityId = Convert.ToUInt32(hdnCityId.Value);
             if (Convert.ToInt16(drpAllCity.SelectedValue) <= 0)
                 cityId = Convert.ToUInt32(drpCity.SelectedValue);
             else
@@ -268,7 +272,7 @@ namespace BikeWaleOpr.BikeBooking
                 DeletePrice(rptModels, dealerId, cityId);
                 DeleteAvailability(rptModels, dealerId, cityId);
                 GetDealerPrices(cityId, dealerId, makeId);
-            }   
+            }
         }
 
         private void DeletePrice(Repeater rptModels, uint dealerId, uint cityId)
@@ -447,13 +451,13 @@ namespace BikeWaleOpr.BikeBooking
                         if (chkUpdate.Checked)
                         {
                             TextBox txtValue = (TextBox)rptValues.Items[j].FindControl("txtValue");
-                            Trace.Warn("Prices : ",txtValue.Text);
+                            Trace.Warn("Prices : ", txtValue.Text);
                             //txtValue.BorderColor = System.Drawing.Color.Red;
                             Label lblCategoryId = (Label)rptValues.Items[j].FindControl("lblCategoryId");
                             Trace.Warn("checked : " + lbVersionId.Text + " lblCategoryId : " + lblCategoryId.Text + " txtvalue : " + txtValue.Text);
                             if (lbVersionId.Text.Length > 0 && txtValue.Text.Trim().Length > 0)
                             {
-                               // Trace.Warn("dealerId :" + dealerId+" txtValue : "+""+)
+                                // Trace.Warn("dealerId :" + dealerId+" txtValue : "+""+)
                                 Trace.Warn("na : " + txtValue.Text);
                                 //daysTable.Rows.Add(lbVersionId.Text.Trim(), dealerId, txtAvailableDays.Text.Trim());
                                 table.Rows.Add(dealerId, lbVersionId.Text.Trim(), cityId, lblCategoryId.Text.Trim(), txtValue.Text.Trim());
@@ -470,7 +474,7 @@ namespace BikeWaleOpr.BikeBooking
                     Trace.Warn(i + " th row :DealerId : " + table.Rows[i]["DealerId"] + " BikeVersionId: " + table.Rows[i]["BikeVersionId"] + " cityId : " + table.Rows[i]["CityId"] + " Item id :" + table.Rows[i]["ItemId"] + " itm value : " + table.Rows[i]["Itemvalue"]);
                     //Trace.Warn(i + "th row :DealerId : " + daysTable.Rows[i]["DealerId"] + " BikeVersionId: " + daysTable.Rows[i]["BikeVersionId"] + "Available Days : " + daysTable.Rows[i]["NumOfDays"]);
                 }
-                SaveVersionPrice(table);   
+                SaveVersionPrice(table);
             }
             return isPriceSaved;
         }
@@ -513,7 +517,7 @@ namespace BikeWaleOpr.BikeBooking
         {
             lblSaved.Text = "";
             dealerId = Convert.ToUInt32(hdnDealerId.Value);
-           // cityId = Convert.ToUInt32(hdnCityId.Value);
+            // cityId = Convert.ToUInt32(hdnCityId.Value);
             if (Convert.ToInt16(drpAllCity.SelectedValue) <= 0)
                 cityId = Convert.ToUInt32(drpCity.SelectedValue);
             else
@@ -530,15 +534,15 @@ namespace BikeWaleOpr.BikeBooking
 
         }
         void InitializeComponent()
-        {            
+        {
             base.Load += new EventHandler(Page_Load);
-            this.btnAddCat.Click += new EventHandler(AddCategories);            
+            this.btnAddCat.Click += new EventHandler(AddCategories);
             //this.btnRemove.Click += new EventHandler(btnRemove_Click);
         }
-        
+
         private void FillStates()
         {
-         	try
+            try
             {
                 ManageStates objStates = new ManageStates();
                 DataSet ds = objStates.GetAllStatesDetails();
@@ -574,20 +578,20 @@ namespace BikeWaleOpr.BikeBooking
                     Trace.Warn("CHOICE : " + categories);
                 }
             }
-            
-            if (!String.IsNullOrEmpty(categories)) 
+
+            if (!String.IsNullOrEmpty(categories))
             {
                 categories = categories.Substring(0, categories.Length - 1);
-                
+
                 List<PQ_Price> objList = null;
                 string _apiUrl = "/api/DealerPriceQuote/GetBikeCategoryNames/?categoryList=" + categories;
                 string _requestType = "application/json";
                 Trace.Warn("Line 70 :" + cwHostUrl + _apiUrl);
-                objList = await BWHttpClient.GetApiResponse<List<PQ_Price>>(cwHostUrl, _requestType, _apiUrl,objList);
+                objList = await BWHttpClient.GetApiResponse<List<PQ_Price>>(cwHostUrl, _requestType, _apiUrl, objList);
 
                 if (objList != null)
                 {
-                    try 
+                    try
                     {
                         Trace.Warn("Line 80 categories types1 : " + categories);
                         //drpPriceHead.DataSource = objList;
@@ -611,7 +615,7 @@ namespace BikeWaleOpr.BikeBooking
 
                         GetDealerPrices(cityId, Convert.ToUInt32(hdnDealerId.Value), Convert.ToUInt32(hdnMakeId.Value));
                     }
-                    catch(Exception err)
+                    catch (Exception err)
                     {
                         Trace.Warn(err.Message);
                         ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
@@ -626,7 +630,7 @@ namespace BikeWaleOpr.BikeBooking
             lblSaved.Text = "";
             selectCityPriceHead.Attributes.Add("class", "show, margin-bottom10");
             dealerId = Convert.ToUInt32(hdnDealerId.Value);
-           // cityId = Convert.ToUInt32(hdnCityId.Value);
+            // cityId = Convert.ToUInt32(hdnCityId.Value);
 
             if (Convert.ToInt16(drpAllCity.SelectedValue) <= 0)
                 cityId = Convert.ToUInt32(drpCity.SelectedValue);
@@ -643,7 +647,7 @@ namespace BikeWaleOpr.BikeBooking
             }
         }
 
-      
+
 
         private void FillCities()
         {
@@ -692,7 +696,7 @@ namespace BikeWaleOpr.BikeBooking
                 return "NA";
             }
         }
-        private  void FillCategories(object sender, EventArgs e)
+        private void FillCategories(object sender, EventArgs e)
         {
             foreach (RepeaterItem ri in rptcatItem.Items)
             {
@@ -718,50 +722,45 @@ namespace BikeWaleOpr.BikeBooking
             {
                 FillCity();
                 FillCities();
-                FillStates();                
-            }             
+                FillStates();
+            }
         }
-       
+
         private async void FillCity()
         {
             try
-           {
-               //sets the base URI for HTTP requests
-               string _requestType = "application/json";
+            {
+                DataTable dt = null;
 
-               // get pager instance
-          
-               //NewBikeDealers _objFeaturesList = null;
-               string _apiUrl = "/api/Dealers/GetDealerCities/";
-               // Send HTTP GET requests 
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objCity = container.Resolve<DealersRepository>();
+                    dt = objCity.GetDealerCities();
+                }
+                if (dt != null)
+                {
+                    drpCity.DataSource = dt;
+                    drpCity.DataTextField = "Text";
+                    drpCity.DataValueField = "Value";
+                    drpCity.DataBind();
+                    drpCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
 
-               DataTable dt = null;
-
-               dt = await BWHttpClient.GetApiResponse<DataTable>(cwHostUrl, _requestType, _apiUrl, dt);
-
-               if(dt != null)
-               {
-                   drpCity.DataSource = dt;
-                   drpCity.DataTextField = "Text";
-                   drpCity.DataValueField = "Value";
-                   drpCity.DataBind();
-                   drpCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
-
-                   //Added By : Sadhana Upadhyay on 5 Oct 2015
-                   //To fill city dropdown where dealers are available to copy dealer Price
-                   ddlDealerCity.DataSource = dt;
-                   ddlDealerCity.DataTextField = "Text";
-                   ddlDealerCity.DataValueField = "Value";
-                   ddlDealerCity.DataBind();
-                   ddlDealerCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
-               }
-           }
-           catch (Exception err)
-           {
-               Trace.Warn(err.Message);
-               ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-               objErr.SendMail();
-           }
+                    //Added By : Sadhana Upadhyay on 5 Oct 2015
+                    //To fill city dropdown where dealers are available to copy dealer Price
+                    ddlDealerCity.DataSource = dt;
+                    ddlDealerCity.DataTextField = "Text";
+                    ddlDealerCity.DataValueField = "Value";
+                    ddlDealerCity.DataBind();
+                    ddlDealerCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
+                }
+            }
+            catch (Exception err)
+            {
+                Trace.Warn(err.Message);
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
         }
         protected DataTable GetPQCommonAttrs()
         {
@@ -837,20 +836,20 @@ namespace BikeWaleOpr.BikeBooking
         }
         private void SetDefaultAttribute()
         {
-             a = selectedChoice.Split(',');
+            a = selectedChoice.Split(',');
 
-            for (int i = 0; i < a.Length-1; i++)
+            for (int i = 0; i < a.Length - 1; i++)
             {
                 Trace.Warn("Line 376 : a[ " + i + "] = " + a[i]);
             }
 
 
-            for (int i = 0; i < a.Length-1; i++)
+            for (int i = 0; i < a.Length - 1; i++)
                 drpPriceHead.Items.FindByValue(a[i].ToString()).Selected = true;
 
             drpPriceHead.Items.FindByValue("5").Selected = true;
             drpPriceHead.Items.FindByValue("3").Selected = true;
-            
+
         }
 
         private async void GetDealerPrices(uint cityId, uint DealerId, uint makeId)
@@ -892,7 +891,7 @@ namespace BikeWaleOpr.BikeBooking
                         if (String.IsNullOrEmpty(categories))
                             categories = "3,5";
 
-                      
+
                         _apiUrl = "/api/DealerPriceQuote/GetBikeCategoryNames/?categoryList=" + categories;
                         Trace.Warn("Line 442 url : " + cwHostUrl + _apiUrl);
                         Trace.Warn("Line 443 categories types : " + categories);
@@ -929,7 +928,7 @@ namespace BikeWaleOpr.BikeBooking
                             //drpPriceHead.DataBind();
                             Trace.Warn("Line 402 : Table :" + table.Columns[0].ToString());
                             dtVersionsData = ds.Tables[1];
-                          
+
 
                             rptModels.DataSource = ds.Tables[0];
                             rptModels.DataBind();

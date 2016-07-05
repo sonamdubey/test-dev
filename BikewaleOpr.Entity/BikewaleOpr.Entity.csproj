@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D0DED241-5BAF-400D-8B0A-C5F46BCE55D1}</ProjectGuid>
+    <ProjectGuid>{CAF758ED-4954-4BE3-BE15-345DBC891970}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BikewaleOpr.Interfaces</RootNamespace>
-    <AssemblyName>BikewaleOpr.Interfaces</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <RootNamespace>BikewaleOpr.Entity</RootNamespace>
+    <AssemblyName>BikewaleOpr.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,10 +30,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,18 +44,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDealers.cs" />
+    <Compile Include="AreaEntityBase.cs" />
+    <Compile Include="BikeMakeEntityBase.cs" />
+    <Compile Include="BikeModelEntityBase.cs" />
+    <Compile Include="BikeVersionEntityBase.cs" />
+    <Compile Include="BookingAmountEntity.cs" />
+    <Compile Include="BookingAmountEntityBase.cs" />
+    <Compile Include="BookingOfferEntity.cs" />
+    <Compile Include="CityEntityBase.cs" />
+    <Compile Include="DataContract.cs" />
+    <Compile Include="DataMember.cs" />
+    <Compile Include="DealerDisclaimerEntity.cs" />
+    <Compile Include="DealerPackageTypes.cs" />
+    <Compile Include="EMI.cs" />
+    <Compile Include="FacilityEntity.cs" />
+    <Compile Include="NewBikeDealers.cs" />
+    <Compile Include="OfferEntity.cs" />
+    <Compile Include="PQ_BikeVarient.cs" />
+    <Compile Include="PQ_DealerDetailEntity.cs" />
+    <Compile Include="PQ_Price.cs" />
+    <Compile Include="PQ_QuotationEntity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BikewaleOpr.Entities\BikewaleOpr.Entities.csproj">
-      <Project>{921e80c2-2ff0-4168-846e-43cfaf98da79}</Project>
-      <Name>BikewaleOpr.Entities</Name>
-    </ProjectReference>
+    <Compile Include="StateEntityBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

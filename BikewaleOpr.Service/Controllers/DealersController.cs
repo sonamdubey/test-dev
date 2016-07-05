@@ -2,7 +2,7 @@
 using Bikewale.Notifications;
 using BikewaleOpr.DAL;
 using BikewaleOpr.Entities;
-using BikewaleOpr.Interfaces;
+using BikewaleOpr.Interface;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using System;
@@ -59,51 +59,51 @@ namespace BikewaleOpr.Service
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
         }
 
-        /// <summary>
-        /// Written By : Ashwini Todkar on  28th Oct 2014
-        /// Description : Method to get dealer details like pricelist, dealer, offers, emi, booking amount & facility
-        /// Modified By : Suresh Prajapati on 20th Oct, 2015
-        /// Description : Added "0" check for versionId, dealerId and cityId
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <param name="dealerId"></param>
-        /// <param name="cityId"></param>
-        /// <returns></returns>
+#if unused
+                    /// <summary>
+                    /// Written By : Ashwini Todkar on  28th Oct 2014
+                    /// Description : Method to get dealer details like pricelist, dealer, offers, emi, booking amount & facility
+                    /// Modified By : Suresh Prajapati on 20th Oct, 2015
+                    /// Description : Added "0" check for versionId, dealerId and cityId
+                    /// </summary>
+                    /// <param name="versionId"></param>
+                    /// <param name="dealerId"></param>
+                    /// <param name="cityId"></param>
+                    /// <returns></returns>
 
-        [HttpGet]
-        public HttpResponseMessage GetDealerDetailsPQ(uint versionId, uint dealerId, uint cityId)
-        {
-            if (versionId > 0 && dealerId > 0 && cityId > 0)
-            {
-                PQ_DealerDetailEntity objDealerDetail = null;
-                try
-                {
-                    using (IUnityContainer container = new UnityContainer())
+                    [HttpGet]
+                    public HttpResponseMessage GetDealerDetailsPQ(uint versionId, uint dealerId, uint cityId)
                     {
-                        container.RegisterType<IDealers, DealersRepository>();
-                        IDealers objDealer = container.Resolve<DealersRepository>();
-                        PQParameterEntity objParam = new PQParameterEntity();
-                        objParam.CityId = cityId;
-                        objParam.DealerId = dealerId;
-                        objParam.VersionId = versionId;
-                        objDealerDetail = objDealer.GetDealerDetailsPQ(objParam);
+                        if (versionId > 0 && dealerId > 0 && cityId > 0)
+                        {
+                            PQ_DealerDetailEntity objDealerDetail = null;
+                            try
+                            {
+                                using (IUnityContainer container = new UnityContainer())
+                                {
+                                    container.RegisterType<IDealers, DealersRepository>();
+                                    IDealers objDealer = container.Resolve<DealersRepository>();
+                                    PQParameterEntity objParam = new PQParameterEntity();
+                                    objParam.CityId = cityId;
+                                    objParam.DealerId = dealerId;
+                                    objParam.VersionId = versionId;
+                                    objDealerDetail = objDealer.GetDealerDetailsPQ(objParam);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                HttpContext.Current.Trace.Warn("GetDealerDetailsPQ ex : " + ex.Message + ex.Source);
+                                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                                objErr.SendMail();
+                            }
+                            if (objDealerDetail != null)
+                                return Request.CreateResponse<PQ_DealerDetailEntity>(HttpStatusCode.OK, objDealerDetail);
+                            else
+                                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
+                        }
+                        else
+                            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
                     }
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn("GetDealerDetailsPQ ex : " + ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                if (objDealerDetail != null)
-                    return Request.CreateResponse<PQ_DealerDetailEntity>(HttpStatusCode.OK, objDealerDetail);
-                else
-                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
-            }
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
-        }
-
         /// <summary>
         /// Created By : Suresh Prajapati on 29th Oct 2014
         /// Summary : To Get Dealer Cities for which Bike Dealer exists
@@ -135,6 +135,7 @@ namespace BikewaleOpr.Service
             else
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
         }
+
 
         /// <summary>
         /// Created By : Suresh Prajapati on 03rd Nov, 2014
@@ -226,7 +227,6 @@ namespace BikewaleOpr.Service
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objCity = container.Resolve<DealersRepository>();
-
                     isSuccess = objCity.SaveDealerOffer(Convert.ToInt32(dealerId), userId, Convert.ToInt32(cityId), modelId, Convert.ToInt32(offercategoryId), offerText, Convert.ToInt32(offerValue), Convert.ToDateTime(offervalidTill), isPriceImpact);
                 }
             }
@@ -241,7 +241,7 @@ namespace BikewaleOpr.Service
             else
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
         }
-
+#endif
         /// <summary>
         ///  Created By  : Suresh Prajapati on 04th Nov, 2014.
         ///  Description : To Delete an Offer specified by "offerId".
@@ -318,6 +318,7 @@ namespace BikewaleOpr.Service
             return Request.CreateErrorResponse(HttpStatusCode.Created, "Dealer Bike Offers Updated.");
         }
 
+#if unused
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Nov 2014
         /// Summary : Function to get the dealer facilities.
@@ -376,7 +377,6 @@ namespace BikewaleOpr.Service
                     {
                         container.RegisterType<IDealers, DealersRepository>();
                         IDealers objDealer = container.Resolve<DealersRepository>();
-
                         objDealer.SaveDealerFacility(dealerId, facility, isActive);
                     }
                 }
@@ -415,7 +415,6 @@ namespace BikewaleOpr.Service
                     {
                         container.RegisterType<IDealers, DealersRepository>();
                         IDealers objDealer = container.Resolve<DealersRepository>();
-
                         objDealer.UpdateDealerFacility(facilityId, facility, isActive);
                     }
                 }
@@ -513,7 +512,7 @@ namespace BikewaleOpr.Service
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
         }   // End of UpdateDealerLoanAmounts
 
-
+#endif
         /// <summary>
         /// Written By : Ashwini Todkar on  28th Oct 2014
         /// </summary>
