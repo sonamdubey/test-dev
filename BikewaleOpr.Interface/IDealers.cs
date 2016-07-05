@@ -1,5 +1,6 @@
 ﻿
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data;

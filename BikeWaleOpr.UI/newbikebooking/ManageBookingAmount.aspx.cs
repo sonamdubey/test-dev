@@ -1,15 +1,13 @@
-﻿using System;
+﻿using BikewaleOpr.DAL;
+using BikewaleOpr.Entities;
+using BikewaleOpr.Interface;
+using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.Controls;
 using System.Data;
-using BikeWaleOpr.Entities;
-using Newtonsoft.Json;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.BikeBooking
 {
@@ -89,7 +87,7 @@ namespace BikeWaleOpr.BikeBooking
             List<BookingAmountEntity> objBkgAmount = null;
             objBkgAmount = await BWHttpClient.GetApiResponse<List<BookingAmountEntity>>(_abHostUrl, _requestType, _apiUrl, objBkgAmount);
 
-            if (objBkgAmount != null && objBkgAmount.Count > 0 )
+            if (objBkgAmount != null && objBkgAmount.Count > 0)
             {
                 rptAddedBkgAmount.DataSource = objBkgAmount;
                 rptAddedBkgAmount.DataBind();
@@ -100,26 +98,28 @@ namespace BikeWaleOpr.BikeBooking
         protected void SaveBookingAmount(object sender, EventArgs e)
         {
             uint makeId = Convert.ToUInt32(hdn_ddlMake.Value);
-            uint modelId = Convert.ToUInt32(hdn_ddlModel.Value);
-            uint versionId = Convert.ToUInt32(hdn_ddlVersions.Value);
+            int modelId = Convert.ToInt32(hdn_ddlModel.Value);
+            int versionId = Convert.ToInt32(hdn_ddlVersions.Value);
             uint amount = 0;
-            bool testPass= UInt32.TryParse(Server.UrlEncode(txtAddBkgAmount.Text.Trim()), out amount);
+            bool testPass = UInt32.TryParse(Server.UrlEncode(txtAddBkgAmount.Text.Trim()), out amount);
 
             if (dealerId > 0 && makeId > 0 && modelId > 0 && amount >= 0 && testPass)
             {
-                string _requestType = "application/json";
-                BookingAmountEntity objBkgAmt = new BookingAmountEntity() 
-                { 
-                    objDealer = new NewBikeDealers() { DealerId=Convert.ToUInt32(dealerId)},
-                    objModel = new ModelEntityBase() { ModelId = modelId },
-                    objVersion = new VersionEntityBase() { VersionId = versionId },
+                BookingAmountEntity objBkgAmt = new BookingAmountEntity()
+                {
+                    objDealer = new NewBikeDealers() { DealerId = Convert.ToUInt32(dealerId) },
+                    objModel = new BikeModelEntityBase() { ModelId = modelId },
+                    objVersion = new BikeVersionEntityBase() { VersionId = versionId },
                     objBookingAmountEntityBase = new BookingAmountEntityBase() { Amount = amount }
                 };
-                string _apiUrl = "/api/Dealers/SaveBookingAmount/";
-                Trace.Warn("_apiUrl : ", _apiUrl);
-                string jsonstring = JsonConvert.SerializeObject(objBkgAmt, Newtonsoft.Json.Formatting.Indented);
-                Trace.Warn("JSON" + jsonstring);
-                BWHttpClient.PostSync<string>(_abHostUrl, _requestType, _apiUrl, jsonstring);
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objPQ = container.Resolve<DealersRepository>();
+                    objPQ.SaveBookingAmount(objBkgAmt);
+                }
+
                 GetDealerBookingAmount();
             }
             txtAddBkgAmount.Text = "";

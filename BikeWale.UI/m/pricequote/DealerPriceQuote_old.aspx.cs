@@ -69,9 +69,7 @@ namespace Bikewale.Mobile.BikeBooking
                 {
                     pqId = PriceQuoteQueryString.PQId;
                     versionId = Convert.ToUInt32(PriceQuoteQueryString.VersionId);
-
                     BindVersion();
-
                     GetDealerPriceQuote(cityId, versionId, dealerId);
                     GetVersionColors(versionId);
                     BindAlternativeBikeControl(versionId.ToString());
@@ -92,7 +90,7 @@ namespace Bikewale.Mobile.BikeBooking
             }
         }
 
-        protected async void GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
+        protected void GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
         {
             try
             {

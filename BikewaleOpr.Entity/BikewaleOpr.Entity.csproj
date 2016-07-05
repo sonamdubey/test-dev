@@ -51,6 +51,7 @@
     <Compile Include="BookingAmountEntity.cs" />
     <Compile Include="BookingAmountEntityBase.cs" />
     <Compile Include="BookingOfferEntity.cs" />
+    <Compile Include="DealerBenefitEntity2.cs" />
     <Compile Include="CityEntityBase.cs" />
     <Compile Include="DataContract.cs" />
     <Compile Include="DataMember.cs" />

@@ -69,10 +69,13 @@ namespace BikeWaleOpr.BikeBooking
             bool isPost = false;
             try
             {
-                cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                requestType = "application/json";
-                apiUrl = String.Format("/api/Dealers/CopyOffersToCities/?dealerId={0}&lstOfferIds={1}&lstCityId={2}", dealerId, lstOfferIds, lstCityId);
-                isPost = BWHttpClient.PostSync<bool>(cwHostUrl, requestType, apiUrl, isSuccess);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objCity = container.Resolve<DealersRepository>();
+                    isSuccess = objCity.CopyOffersToCities(Convert.ToUInt32(dealerId), lstOfferIds, lstCityId);
+                }
+
                 if (isPost)
                 {
                     lblTransferStatus.Visible = true;

@@ -1,7 +1,7 @@
-﻿
-using Bikewale.Notifications;
+﻿using Bikewale.Notifications;
 using BikewaleOpr.DAL;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity;
 using BikewaleOpr.Interface;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;

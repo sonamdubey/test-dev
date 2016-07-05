@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace BikewaleOpr.Entities
@@ -14,7 +13,7 @@ namespace BikewaleOpr.Entities
         public List<FacilityEntity> objFacilities { get; set; }
         public EMI objEmi { get; set; }
         public BookingAmountEntityBase objBookingAmt { get; set; }
-        
+
     }
 
     public class PQParameterEntity
@@ -24,21 +23,4 @@ namespace BikewaleOpr.Entities
         public UInt32 DealerId { get; set; }
     }
 
-    public class DealerBenefitEntity
-    {
-        [JsonProperty("benefitId")]
-        public int BenefitId { get; set; }
-        [JsonProperty("dealerId")]
-        public int DealerId { get; set; }
-        [JsonProperty("catId")]
-        public int CatId { get; set; }
-        [JsonProperty("categoryText")]
-        public string CategoryText { get; set; }
-        [JsonProperty("benefitText")]
-        public string BenefitText { get; set; }
-        [JsonProperty("city")]
-        public string City { get; set; }
-        [JsonProperty("entryDate")]
-        public DateTime EntryDate { get; set; }
-    }
 }
