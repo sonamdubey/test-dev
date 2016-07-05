@@ -1,42 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using BikewaleOpr.DAL;
+using BikewaleOpr.Interfaces;
 using BikeWaleOpr.Common;
-using System.Configuration;
-using BikeWaleOpr.Entities;
-using System.Net.Http.Headers;
-using System.Net.Http;
 using BikeWaleOpr.Controls;
-using System.Data.SqlClient;
+using BikeWaleOpr.Entities;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.BikeBooking
 {
     public class ManageOffers : System.Web.UI.Page
     {
-        protected DropDownList DropDownMake, DropDownModels, drpCity, drpOffers, ddlUpdOffers, ddlHours, ddlMins,ddlState;
+        protected DropDownList DropDownMake, DropDownModels, drpCity, drpOffers, ddlUpdOffers, ddlHours, ddlMins, ddlState;
         protected TextBox offerText, txtUpdOffer, offerValue, txtUpdOfferValue;
         protected CheckBox chkIsPriceImpact;
-        protected Button btnAdd, btnUpdate,btnCopyOffers;
+        protected Button btnAdd, btnUpdate, btnCopyOffers;
         protected string cwHostUrl = string.Empty;
         protected Repeater offer_table;
-        protected Label lblSaved,lblTransferStatus;
+        protected Label lblSaved, lblTransferStatus;
         protected DateControl dtDate;
-        protected HiddenField hdn_modelId,hdnCities,hdnOffersIds; //hdn_cityId, , hdn_offerType, hdn_dtDate, hdn_dtMonth, hdn_ddlHours, hdn_ddlMins;
+        protected HiddenField hdn_modelId, hdnCities, hdnOffersIds; //hdn_cityId, , hdn_offerType, hdn_dtDate, hdn_dtMonth, hdn_ddlHours, hdn_ddlMins;
         protected string userId = "0";
 
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
-            btnAdd.Click += new EventHandler(SaveOffers);  
+            btnAdd.Click += new EventHandler(SaveOffers);
             btnCopyOffers.Click += new EventHandler(btnCopyOffers_click);
         }
-                
+
         #region Pivotal Tracker #95410582
-		/// <summary>
+        /// <summary>
         /// Author  :   Sumit Kate
         /// Handles the click event of Copy Offers button
         /// </summary>
@@ -44,16 +41,16 @@ namespace BikeWaleOpr.BikeBooking
         /// <param name="e"></param>
         private void btnCopyOffers_click(object sender, EventArgs e)
         {
-         	string offerIds = null;
+            string offerIds = null;
             string cities = null;
             string dealerId = String.Empty;
 
             dealerId = Request.QueryString["dealerId"];
-            if((!String.IsNullOrEmpty(hdnCities.Value)) && (!String.IsNullOrEmpty(hdnOffersIds.Value)))
+            if ((!String.IsNullOrEmpty(hdnCities.Value)) && (!String.IsNullOrEmpty(hdnOffersIds.Value)))
             {
-                cities  = hdnCities.Value.Trim(); 
-                offerIds= hdnOffersIds.Value.Trim();
-                CopyOffersToCities(dealerId,offerIds,cities);
+                cities = hdnCities.Value.Trim();
+                offerIds = hdnOffersIds.Value.Trim();
+                CopyOffersToCities(dealerId, offerIds, cities);
             }
         }
 
@@ -64,7 +61,7 @@ namespace BikeWaleOpr.BikeBooking
         /// <param name="dealerId">Dealer Id</param>
         /// <param name="lstOfferIds">Comma Separated Offer ids</param>
         /// <param name="lstCityId">Comma Separated City ids</param>
-        private void CopyOffersToCities(string dealerId, string lstOfferIds,string lstCityId)
+        private void CopyOffersToCities(string dealerId, string lstOfferIds, string lstCityId)
         {
             string requestType = String.Empty;
             string apiUrl = String.Empty;
@@ -72,13 +69,17 @@ namespace BikeWaleOpr.BikeBooking
             bool isPost = false;
             try
             {
-                cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                requestType = "application/json";
-                apiUrl = String.Format("/api/Dealers/CopyOffersToCities/?dealerId={0}&lstOfferIds={1}&lstCityId={2}",dealerId,lstOfferIds ,lstCityId);                                
-                isPost = BWHttpClient.PostSync<bool>(cwHostUrl, requestType, apiUrl, isSuccess);
-                if(isPost){
-                    lblTransferStatus.Visible = true;                    
-                }                    
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objCity = container.Resolve<DealersRepository>();
+                    isSuccess = objCity.CopyOffersToCities(Convert.ToUInt32(dealerId), lstOfferIds, lstCityId);
+                }
+
+                if (isPost)
+                {
+                    lblTransferStatus.Visible = true;
+                }
                 GetDealerOffers();
             }
             catch (Exception err)
@@ -88,8 +89,8 @@ namespace BikeWaleOpr.BikeBooking
                 objErr.SendMail();
             }
         }
- 
-	    #endregion
+
+        #endregion
 
         private void SaveOffers(object sender, EventArgs e)
         {
@@ -105,7 +106,7 @@ namespace BikeWaleOpr.BikeBooking
             if (!IsPostBack)
             {
                 userId = CurrentUser.Id;
-                
+
                 //DateTime _today = DateTime.Today;
                 //Trace.Warn("date="+_today);
                 ////dtDate.Value = _today;
@@ -134,7 +135,7 @@ namespace BikeWaleOpr.BikeBooking
                 drpCity.DataValueField = "Value";
 
                 drpCity.DataBind();
-                drpCity.Items.Insert(0,new ListItem("--Select City--","-1"));
+                drpCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
             }
             catch (Exception ex)
             {
@@ -149,7 +150,7 @@ namespace BikeWaleOpr.BikeBooking
         /// </summary>
         private void FillStates()
         {
-         	try
+            try
             {
                 ManageStates objStates = new ManageStates();
                 DataSet ds = objStates.GetAllStatesDetails();
@@ -258,7 +259,7 @@ namespace BikeWaleOpr.BikeBooking
 
                 // get pager instance
 
-                string _apiUrl = "/api/Dealers/GetDealerOffers/?dealerId="+Request.QueryString["dealerId"];
+                string _apiUrl = "/api/Dealers/GetDealerOffers/?dealerId=" + Request.QueryString["dealerId"];
                 // Send HTTP GET requests
 
                 List<OfferEntity> objOfferList = null;
@@ -273,7 +274,7 @@ namespace BikeWaleOpr.BikeBooking
                     ddlHours.SelectedValue = int.Parse(dateTimeVal.ToString("HH")).ToString();
                     ddlMins.SelectedValue = int.Parse(dateTimeVal.ToString("mm")).ToString();
                 }
-               
+
             }
             catch (Exception err)
             {
@@ -296,26 +297,26 @@ namespace BikeWaleOpr.BikeBooking
                 cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
                 string _requestType = "application/json";
                 //hdn_ddlHours.Value
-                if(Convert.ToInt32(ddlHours.SelectedValue) < 10)
-                     hour = "0" + ddlHours.SelectedValue; //hdn_ddlHours.Value;
+                if (Convert.ToInt32(ddlHours.SelectedValue) < 10)
+                    hour = "0" + ddlHours.SelectedValue; //hdn_ddlHours.Value;
                 else
-                     hour = ddlHours.SelectedValue; // hdn_ddlHours.Value;
+                    hour = ddlHours.SelectedValue; // hdn_ddlHours.Value;
                 //hdn_ddlMins.Value
-                if(Convert.ToInt32(ddlMins.SelectedValue) < 10)
+                if (Convert.ToInt32(ddlMins.SelectedValue) < 10)
                     min = "0" + ddlMins.SelectedValue; //hdn_ddlMins.Value;
                 else
                     min = ddlMins.SelectedValue; //hdn_ddlMins.Value;
 
                 string fullDate = dtDate.Value.ToString("yyyy-MM-dd") + "T" + hour + ":" + min + ":00";
                 bool isPriceImpact = chkIsPriceImpact.Checked;
-                string _apiUrl = "/api/Dealers/SaveDealerOffer/?dealerId=" + Request.QueryString["dealerId"] + "&cityId=" + drpCity.SelectedValue + "&userId=" + CurrentUser.Id + "&modelId=" + hdn_modelId.Value + "&offercategoryId=" + drpOffers.SelectedValue + "&offerText=" + Server.UrlEncode(offerText.Text) + "&offerValue=" + offerValue.Text + "&offervalidTill=" + fullDate +"&isPriceImpact=" + chkIsPriceImpact.Checked;
-         
+                string _apiUrl = "/api/Dealers/SaveDealerOffer/?dealerId=" + Request.QueryString["dealerId"] + "&cityId=" + drpCity.SelectedValue + "&userId=" + CurrentUser.Id + "&modelId=" + hdn_modelId.Value + "&offercategoryId=" + drpOffers.SelectedValue + "&offerText=" + Server.UrlEncode(offerText.Text) + "&offerValue=" + offerValue.Text + "&offervalidTill=" + fullDate + "&isPriceImpact=" + chkIsPriceImpact.Checked;
+
                 Trace.Warn("url : " + cwHostUrl + _apiUrl);
                 // Send HTTP GET requests
                 bool isSuccess = false;
                 var x = BWHttpClient.PostSync<bool>(cwHostUrl, _requestType, _apiUrl, isSuccess);
-               
-                if(x)
+
+                if (x)
                     lblSaved.Text = "Offer added successfully";
 
                 GetDealerOffers();

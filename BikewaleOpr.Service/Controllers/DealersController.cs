@@ -1,5 +1,4 @@
-﻿
-using Bikewale.Notifications;
+﻿using Bikewale.Notifications;
 using BikewaleOpr.DAL;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interfaces;

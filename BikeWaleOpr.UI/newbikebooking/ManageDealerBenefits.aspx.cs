@@ -1,13 +1,14 @@
 ﻿using BikewaleOpr.common;
+using BikewaleOpr.DAL;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Interfaces;
 using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace BikewaleOpr.NewBikeBooking
@@ -21,7 +22,7 @@ namespace BikewaleOpr.NewBikeBooking
     {
         #region global variables
 
-        protected string _dealerId = string.Empty, _cityId = string.Empty, cwHostUrl = string.Empty, _currentUserID = string.Empty;
+        protected string _dealerId = string.Empty, _cityId = string.Empty, _currentUserID = string.Empty;
         ManageDealerBenefit manageDealer;
         protected Button btnAdd, btnReset, btnEditSubmit;
         protected Repeater rptBenefits;
@@ -29,7 +30,7 @@ namespace BikewaleOpr.NewBikeBooking
         protected TextBox benefitText, txtEditBenefit;
         protected HiddenField hdnBenefitId;
         protected Label greenMessage;
-        
+
         #endregion
 
         #region events
@@ -78,12 +79,21 @@ namespace BikewaleOpr.NewBikeBooking
         {
             try
             {
-                cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = string.Format("/api/Dealers/SaveDealerBenefit/?dealerId={0}&cityId={1}&catId={2}&benefitText={3}&userId={4}&benefitId={5}", _dealerId, _cityId, ddlBenefitCat.SelectedValue, HttpUtility.UrlEncode(benefitText.Text), CurrentUser.Id, hdnBenefitId.Value);
-                // Send HTTP GET requests
                 bool status = false;
-                status = BWHttpClient.PostSync<bool>(cwHostUrl, _requestType, _apiUrl, status);
+
+                if (Convert.ToUInt32(_dealerId) > 0 && Convert.ToUInt32(_cityId) > 0 && Convert.ToUInt32(ddlBenefitCat.SelectedValue) > 0
+                    && Convert.ToUInt32(CurrentUser.Id) > 0 && Convert.ToUInt32(hdnBenefitId.Value) > 0 && !String.IsNullOrEmpty(HttpUtility.UrlEncode(benefitText.Text)))
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealers, DealersRepository>();
+                        IDealers objCity = container.Resolve<DealersRepository>();
+                        status = objCity.SaveDealerBenefit(Convert.ToUInt32(_dealerId), Convert.ToUInt32(_cityId),
+                                                            Convert.ToUInt32(ddlBenefitCat.SelectedValue), Convert.ToString(benefitText),
+                                                            Convert.ToUInt32(CurrentUser.Id), Convert.ToUInt32(hdnBenefitId.Value));
+                    }
+
+                }
 
                 GetDealerBenefits();
                 greenMessage.Text = "Benefit / USP has been added !";
@@ -105,14 +115,19 @@ namespace BikewaleOpr.NewBikeBooking
         /// </summary>
         private async void GetDealerBenefits()
         {
+            IEnumerable<DealerBenefitEntity> objOfferList = null;
             try
             {
-                cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = "/api/Dealers/GetDealerBenefits/?dealerId=" + _dealerId;
-                // Send HTTP GET requests
-                IEnumerable <DealerBenefitEntity> objOfferList = null;
-                objOfferList = await BWHttpClient.GetApiResponse<IEnumerable<DealerBenefitEntity>>(cwHostUrl, _requestType, _apiUrl, objOfferList);
+                if (Convert.ToUInt32(_dealerId) > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealers, DealersRepository>();
+                        IDealers objDealer = container.Resolve<DealersRepository>();
+                        objOfferList = objDealer.GetDealerBenefits(Convert.ToUInt32(_dealerId));
+                    }
+                }
+
                 if (objOfferList != null && objOfferList.Count() > 0)
                 {
                     rptBenefits.DataSource = objOfferList;
