@@ -1,14 +1,15 @@
-﻿using Bikewale.DAL.PriceQuote;
-using Bikewale.DAL.AutoBiz;
+﻿using Bikewale.DAL.AutoBiz;
+using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 namespace Bikewale.BAL.PriceQuote
 {
@@ -20,7 +21,7 @@ namespace Bikewale.BAL.PriceQuote
     public class DealerPriceQuoteDetail : IDealerPriceQuoteDetail
     {
         private readonly IPriceQuote objPQ = null;
-        private readonly IDealerPriceQuote objDPQ = null;
+        private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote objDPQ = null;
         public DealerPriceQuoteDetail()
         {
             using (IUnityContainer objPQCont = new UnityContainer())
@@ -47,8 +48,8 @@ namespace Bikewale.BAL.PriceQuote
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
-                    IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
                     PQParameterEntity objParam = new PQParameterEntity();
                     objParam.CityId = cityId;
                     objParam.DealerId = dealerId > 0 ? Convert.ToUInt32(dealerId) : default(UInt32);

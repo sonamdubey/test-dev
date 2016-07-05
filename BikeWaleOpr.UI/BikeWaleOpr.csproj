@@ -1977,10 +1977,6 @@
       <Project>{539fa12c-3799-4e88-a833-f65594ea1934}</Project>
       <Name>BikewaleOpr.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BikewaleOpr.Service\BikewaleOpr.Service.csproj">
-      <Project>{d0c53270-a025-4d8b-a675-93a1ccd58bf6}</Project>
-      <Name>BikewaleOpr.Service</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

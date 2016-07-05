@@ -1,6 +1,7 @@
 ﻿using Bikewale.DAL.AutoBiz;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Interfaces.PriceQuote;
