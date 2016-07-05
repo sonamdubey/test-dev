@@ -1,5 +1,8 @@
 ﻿using Bikewale.DTO.BikeBooking.City;
+using Bikewale.Entities.Location;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Bikebooking;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -21,20 +24,21 @@ namespace Bikewale.Service.Controllers.BikeBooking.City
         [ResponseType(typeof(BBCityList))]
         public IHttpActionResult Get()
         {
-            string _apiUrl = "/api/DealerPriceQuote/getBikeBookingCities/";
-            List<BBCityBase> lstCity = null;
+            List<CityEntityBase> lstCity = null;
             try
             {
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    lstCity = objClient.GetApiResponseSync<List<BBCityBase>>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstCity);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                    lstCity = objPriceQuote.GetBikeBookingCities(null);
                 }
 
                 BBCityList objDTOCityList = null;
                 if (lstCity != null && lstCity.Count > 0)
                 {
                     objDTOCityList = new BBCityList();
-                    objDTOCityList.Cities = lstCity;
+                    objDTOCityList.Cities = BBCityListMapper.Convert(lstCity);
                     return Ok(objDTOCityList);
                 }
                 else

@@ -54,7 +54,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';    
+    var abHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';    
     $('.slug-head').click(function (e) {
         $('.vehicle-details-form').slideToggle();
     });

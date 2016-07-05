@@ -506,7 +506,7 @@ namespace Bikewale.Service.Controllers.AutoBiz
 
                         IDealer objDealer = container.Resolve<IDealer>();
 
-                        dealerIdList = objDealer.GetAllAvailableDealer((versionId),(areaId));
+                        dealerIdList = objDealer.GetAllAvailableDealer((versionId), (areaId));
 
                         foreach (uint dealerId in dealerIdList)
                         {

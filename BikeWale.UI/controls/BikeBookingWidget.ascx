@@ -37,7 +37,7 @@
 <script type="text/javascript">
     var makeId = '<%= MakeId %>';
     var seriesId = '<%= SeriesId %>';
-    var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+    var abHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
     var isPageLoad = true;
 
     // knockout data binding

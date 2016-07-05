@@ -131,15 +131,15 @@ namespace Bikewale.BAL.Dealer
         /// <returns></returns>
         public List<CityEntityBase> GetDealersBookingCitiesList()
         {
-            string _apiUrl = "/api/DealerPriceQuote/getBikeBookingCities/";
             List<CityEntityBase> lstCity = null;
             try
             {
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    lstCity = objClient.GetApiResponseSync<List<CityEntityBase>>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstCity);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                    lstCity = objPriceQuote.GetBikeBookingCities(null);
                 }
-
             }
             catch (Exception ex)
             {

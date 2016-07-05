@@ -35,7 +35,7 @@
     var preSelectedCityId = 0;
     var preSelectedCityName = "";
     var selectedModel = 0;
-    var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+    var abHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
     var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var pageId;
     var selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';

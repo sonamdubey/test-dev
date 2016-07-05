@@ -12,6 +12,7 @@ using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Bikebooking;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -128,13 +129,15 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                                 pqCustomer = _objDealerPriceQuote.GetCustomerDetails(input.PQId);
                                 objCust = pqCustomer.objCustomerBase;
 
-                                string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", input.VersionId, input.BranchId, input.CityId);
-                                // Send HTTP GET requests 
-
-                                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                                using (IUnityContainer container = new UnityContainer())
                                 {
-                                    //dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
-                                    dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                                    PQParameterEntity objParam = new PQParameterEntity();
+                                    objParam.CityId = Convert.ToUInt32(input.CityId);
+                                    objParam.DealerId = Convert.ToUInt32(input.BranchId);
+                                    objParam.VersionId = Convert.ToUInt32(input.VersionId);
+                                    dealerDetailEntity = objDealer.GetDealerDetailsPQ(objParam);
                                 }
 
                                 if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null)

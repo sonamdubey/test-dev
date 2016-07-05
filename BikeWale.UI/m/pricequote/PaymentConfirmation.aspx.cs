@@ -74,11 +74,15 @@ namespace Bikewale.Mobile.PriceQuote
             bool _isContentFound = true;
             try
             {
-                string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", PriceQuoteQueryString.VersionId, PriceQuoteQueryString.DealerId, PriceQuoteQueryString.CityId);
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = Convert.ToUInt32(PriceQuoteQueryString.CityId); ;
+                    objParam.DealerId = Convert.ToUInt32(PriceQuoteQueryString.DealerId);
+                    objParam.VersionId = Convert.ToUInt32(PriceQuoteQueryString.VersionId); ;
+                    _objPQ = objDealer.GetDealerDetailsPQ(objParam);
                 }
 
                 if (_objPQ != null)
