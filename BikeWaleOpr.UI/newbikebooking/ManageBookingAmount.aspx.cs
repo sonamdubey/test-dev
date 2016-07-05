@@ -119,7 +119,6 @@ namespace BikeWaleOpr.BikeBooking
                     IDealers objPQ = container.Resolve<DealersRepository>();
                     objPQ.SaveBookingAmount(objBkgAmt);
                 }
-
                 GetDealerBookingAmount();
             }
             txtAddBkgAmount.Text = "";

@@ -319,17 +319,19 @@ namespace BikeWaleOpr.BikeBooking
 
         private void DeleteAvailabilityDays(DataTable dtDelDays)
         {
-            string result = JsonConvert.SerializeObject(dtDelDays, Newtonsoft.Json.Formatting.Indented);
-            Trace.Warn("Delete JSON : ", result);
-            string _apiUrl = "/api/Dealers/DeleteBikeAvailability/";
-            Trace.Warn("Delete api url : " + _apiUrl);
-            bool isDeleted = BWHttpClient.PostSync<string>(cwHostUrl, _requestType, _apiUrl, result);
+            bool isDeleted = false;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IDealers, DealersRepository>();
+                IDealers objDays = container.Resolve<DealersRepository>();
+                isDeleted = objDays.DeleteBikeAvailabilityDays(dtDelDays);
+            }
             if (isDeleted)
             {
                 lblSaved.Text = "Record(s) Deleted Successfully";
             }
-            Trace.Warn("Is Days Deleted : " + isDeleted);
         }
+
         private string GetSelectedIds(Repeater rptModels)
         {
             StringBuilder sb = null;
@@ -481,19 +483,17 @@ namespace BikeWaleOpr.BikeBooking
 
         private void SaveVersionDays(DataTable daysTable)
         {
-            string result = JsonConvert.SerializeObject(daysTable, Newtonsoft.Json.Formatting.Indented);
-            Trace.Warn("inside save days ");
-            Trace.Warn("selected rows count :  " + daysTable.Rows.Count);
-            Trace.Warn("resulted json : " + result);
-            string _apiUrl = "/api/Dealers/SaveBikeAvailability/";
-            Trace.Warn("Save api url : " + cwHostUrl + _apiUrl);
-            //DataTable table = null;
-            bool isSaved = BWHttpClient.PostSync<string>(cwHostUrl, _requestType, _apiUrl, result);
+            bool isSaved = false;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IDealers, DealersRepository>();
+                IDealers objDays = container.Resolve<DealersRepository>();
+                isSaved = objDays.SaveBikeAvailability(daysTable);
+            }
             if (isSaved)
             {
                 lblSaved.Text = "Record(s) Updated Successfully";
             }
-            Trace.Warn("isSaved : " + isSaved);
         }
 
         private void SaveVersionPrice(DataTable table)

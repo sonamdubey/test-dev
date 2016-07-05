@@ -1,16 +1,10 @@
-﻿using Bikewale.Entities.BikeBooking;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.Controls;
+﻿using BikeWaleOpr.Common;
+using BikeWaleOpr.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BikeWaleOpr.Entities;
-using FreeTextBoxControls;
 using System.Data;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.BikeBooking
 {
@@ -102,8 +96,8 @@ namespace BikeWaleOpr.BikeBooking
 
             if (objDisclaimer != null)
             {
-               rptAddedDisclaimer.DataSource = objDisclaimer;
-               rptAddedDisclaimer.DataBind();
+                rptAddedDisclaimer.DataSource = objDisclaimer;
+                rptAddedDisclaimer.DataBind();
             }
 
         }
