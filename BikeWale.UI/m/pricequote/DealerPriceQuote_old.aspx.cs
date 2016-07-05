@@ -1,24 +1,23 @@
-﻿using System;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Customer;
+using Bikewale.common;
+using Bikewale.Common;
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Customer;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Customer;
+using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Configuration;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Common;
-using Bikewale.Mobile.PriceQuote;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.Customer;
-using Bikewale.Entities.Customer;
-using Bikewale.BAL.Customer;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.BAL.BikeData;
-using Bikewale.Mobile.Controls;
-using Bikewale.Utility;
 
 namespace Bikewale.Mobile.BikeBooking
 {
@@ -70,11 +69,9 @@ namespace Bikewale.Mobile.BikeBooking
                 {
                     pqId = PriceQuoteQueryString.PQId;
                     versionId = Convert.ToUInt32(PriceQuoteQueryString.VersionId);
-
                     BindVersion();
-
                     GetDealerPriceQuote(cityId, versionId, dealerId);
-                    GetVersionColors(versionId);                    
+                    GetVersionColors(versionId);
                     BindAlternativeBikeControl(versionId.ToString());
                     clientIP = CommonOpn.GetClientIP();
                 }
@@ -93,17 +90,14 @@ namespace Bikewale.Mobile.BikeBooking
             }
         }
 
-        protected async void GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
+        protected void GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
         {
             try
-            {                
-                string api = "/api/DealerPriceQuote/GetDealerPriceQuote/?cityid=" + cityId + "&versionid=" + versionId + "&dealerid=" + dealerId;
+            {
+                AutoBizCommon dealerPq = null;
 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objPrice = await objClient.GetApiResponse<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
-                }
-                
+                objPrice = dealerPq.GetDealePQEntity(cityId, (uint)versionId, dealerId);
+
                 if (objPrice != null)
                 {
                     BikeName = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName;
@@ -160,7 +154,7 @@ namespace Bikewale.Mobile.BikeBooking
                     if (objPrice.Varients != null && objPrice.Varients.Count() > 0)
                     {
 
-                       //Capture Lead
+                        //Capture Lead
                         foreach (var i in objPrice.Varients)
                         {
                             if (i.objVersion.VersionId == versionId)
@@ -303,7 +297,7 @@ namespace Bikewale.Mobile.BikeBooking
                 {
                     // Save pq cookie
                     //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "");
-                    
+
                     Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "")), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;

@@ -49,6 +49,9 @@
   <ItemGroup>
     <Compile Include="AppAlert\AppAlertRepository.cs" />
     <Compile Include="App\AppVersionRepository.cs" />
+    <Compile Include="AutoBiz\DealerPriceQuote\DealerPriceQuoteRepository.cs" />
+    <Compile Include="AutoBiz\DealersRepository\Dealers.cs" />
+    <Compile Include="AutoBiz\Dealers\DealersRepository.cs" />
     <Compile Include="BikeBooking\BookingListingRepository.cs" />
     <Compile Include="BikeBooking\DealerPriceQuoteRepository.cs" />
     <Compile Include="BikeBooking\ModelRepository.cs" />

@@ -1,20 +1,16 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.Common;
-using Bikewale.DTO.PriceQuote.BikeBooking;
+using Bikewale.Controls;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Mobile.PriceQuote;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
-using System.Collections.Generic;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-using Bikewale.Utility;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Bikewale.Controls;
 
 namespace Bikewale.Pricequote
 {
@@ -231,15 +227,19 @@ namespace Bikewale.Pricequote
         /// </summary>
         private void FetchDealerDetails()
         {
-            //dealer details
-            string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", versionId, dealerId, cityId);
-
             try
             {
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = cityId;
+                    objParam.DealerId = dealerId;
+                    objParam.VersionId = versionId; ;
+                    dealerDetailEntity = objDealer.GetDealerDetailsPQ(objParam);
                 }
+
                 if (dealerDetailEntity != null)
                 {
                     if (dealerDetailEntity.objQuotation != null)

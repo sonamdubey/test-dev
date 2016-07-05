@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.PriceQuote
 {
@@ -31,5 +27,7 @@ namespace Bikewale.Entities.PriceQuote
         [JsonProperty("maskingNumber"), DataMember]
         public string MaskingNumber { get; set; }
 
+        [JsonProperty("dealerPackageType")]
+        public DealerPackageTypes DealerPackageType { get; set; }
     }
 }

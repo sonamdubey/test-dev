@@ -1,22 +1,17 @@
 using System;
 using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Configuration;
 using System.Data.Common;
+using System.Web;
 
 namespace Bikewale.Notifications.CoreDAL
 {
-	public static class MySqlDatabase
+    public static class MySqlDatabase
     {
         #region selectQuery
         public static IDataReader SelectQuery(string strSql)
-		{
+        {
             return SelectQuery(strSql, null);
-		}
+        }
 
         public static IDataReader SelectQuery(string strSql, DbParameter[] commandParameters)
         {
@@ -57,7 +52,7 @@ namespace Bikewale.Notifications.CoreDAL
             }
 
         }
-				
+
         #endregion
 
         #region select adapter query
@@ -70,7 +65,7 @@ namespace Bikewale.Notifications.CoreDAL
         public static DataSet SelectAdapterQuery(string strSql, DbParameter[] commandParameters)
         {
 
-            using(DbCommand cmd = DbFactory.GetDBCommand(strSql))
+            using (DbCommand cmd = DbFactory.GetDBCommand(strSql))
             {
                 if (commandParameters != null)
                 {
@@ -84,14 +79,14 @@ namespace Bikewale.Notifications.CoreDAL
                 }
 
                 return SelectAdapterQuery(cmd);
-            }            
+            }
         }
-		
-		public static DataSet SelectAdapterQuery(DbCommand cmd) 
-		{
+
+        public static DataSet SelectAdapterQuery(DbCommand cmd)
+        {
             DataSet dataSet = new DataSet();
             using (DbConnection con = DbFactory.GetDBConnection())
-            {             
+            {
                 DbDataAdapter adapter = DbFactory.GetDBDataAdaptor();
 
                 try
@@ -108,16 +103,16 @@ namespace Bikewale.Notifications.CoreDAL
                     throw ex;
                 }
             }
-			return dataSet;
-		}		
-		
+            return dataSet;
+        }
+
         #endregion
 
         #region InsertQuery
         public static bool InsertQuery(string strSql)
-		{
+        {
             return InsertQuery(strSql, null);
-		}
+        }
 
         public static bool InsertQuery(string strSql, DbParameter[] commandParameters)
         {
@@ -137,8 +132,8 @@ namespace Bikewale.Notifications.CoreDAL
             }
         }
 
-        public static bool InsertQuery(DbCommand cmdParam) 
-		{
+        public static bool InsertQuery(DbCommand cmdParam)
+        {
 
             using (DbConnection con = DbFactory.GetDBConnection())
             {
@@ -157,20 +152,50 @@ namespace Bikewale.Notifications.CoreDAL
                     throw ex;
                 }
             }
-		   	
-		}
+
+        }
+
+        public static int InsertQueryViaAdaptor(DbCommand cmdParam, DataTable dt)
+        {
+            if (cmdParam != null)
+            {
+                using (DbConnection con = DbFactory.GetDBConnection())
+                {
+                    try
+                    {
+                        cmdParam.Connection = con;
+                        DbDataAdapter adpt = DbFactory.GetDBDataAdaptor();
+                        adpt.InsertCommand = cmdParam;
+                        adpt.UpdateBatchSize = dt.Rows.Count;
+
+                        con.Open();
+
+                        return adpt.Update(dt);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        SendErrorMessageOnException(ex);
+                        con.Close();
+                        throw ex;
+                    }
+                }
+            }
+            return 0;
+        }
+
 
         #endregion
 
         #region UpdateQuery
 
         public static bool UpdateQuery(string strSql)
-		{
+        {
             return UpdateQuery(strSql, null);
-		}
+        }
 
-        public static bool UpdateQuery(string strSql, DbParameter[] commandParameters) 
-		{
+        public static bool UpdateQuery(string strSql, DbParameter[] commandParameters)
+        {
             using (DbCommand cmd = DbFactory.GetDBCommand(strSql))
             {
                 foreach (DbParameter p in commandParameters)
@@ -182,11 +207,11 @@ namespace Bikewale.Notifications.CoreDAL
                 }
 
                 return UpdateQuery(cmd);
-            }			
-		}
+            }
+        }
 
-        public static bool UpdateQuery(DbCommand cmdParam) 
-		{
+        public static bool UpdateQuery(DbCommand cmdParam)
+        {
             using (DbConnection conn = DbFactory.GetDBConnection())
             {
                 try
@@ -206,15 +231,41 @@ namespace Bikewale.Notifications.CoreDAL
                     throw ex;
                 }
             }
-		}
+        }
+
+        public static int UpdateQueryViaAdaptor(DbCommand cmdParam, DataTable dt)
+        {
+
+            using (DbConnection con = DbFactory.GetDBConnection())
+            {
+                try
+                {
+                    DbDataAdapter adpt = DbFactory.GetDBDataAdaptor();
+                    adpt.UpdateCommand = cmdParam;
+                    adpt.UpdateBatchSize = dt.Rows.Count;
+
+                    con.Open();
+
+                    return adpt.Update(dt);
+
+                }
+                catch (Exception ex)
+                {
+                    SendErrorMessageOnException(ex);
+                    con.Close();
+                    throw ex;
+                }
+            }
+
+        }
 
         #endregion
 
         #region UpdateQueryReturnRowCount
         public static int UpdateQueryReturnRowCount(string strSql)
-		{
+        {
             return UpdateQueryReturnRowCount(strSql, null);
-		}
+        }
 
         public static int UpdateQueryReturnRowCount(string strSql, DbParameter[] commandParameters)
         {
@@ -259,10 +310,10 @@ namespace Bikewale.Notifications.CoreDAL
 
         #region ExecuteScalar
 
-        public static string ExecuteScalar(string strSql) 
-		{
+        public static string ExecuteScalar(string strSql)
+        {
             return ExecuteScalar(strSql, null);
-		}
+        }
 
         public static string ExecuteScalar(string strSql, DbParameter[] commandParameters)
         {
@@ -312,7 +363,7 @@ namespace Bikewale.Notifications.CoreDAL
         #region ExecuteNonQuery
         public static int ExecuteNonQuery(string strSql)
         {
-           return ExecuteNonQuery(strSql, null);
+            return ExecuteNonQuery(strSql, null);
         }
 
         public static int ExecuteNonQuery(string strSql, DbParameter[] commandParameters)
@@ -330,7 +381,7 @@ namespace Bikewale.Notifications.CoreDAL
                     }
                 }
 
-               return ExecuteNonQuery(cmd);
+                return ExecuteNonQuery(cmd);
 
             }
         }

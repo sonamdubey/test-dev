@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using BikewaleOpr.Entities;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BikeWaleOpr.Entities
 {

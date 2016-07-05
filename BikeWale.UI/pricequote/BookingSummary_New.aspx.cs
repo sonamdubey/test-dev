@@ -1,26 +1,22 @@
 ﻿using Bikewale.Common;
-using Bikewale.DTO.BookingSummary;
 using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.DTO.PriceQuote.DetailedDealerQuotation;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Mobile.PriceQuote;
+using Bikewale.Utility;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;
 using Carwale.Entity.PaymentGateway;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
-using System;
-using System.Configuration;
-using System.Web;
-using System.Web.UI.WebControls;
-using System.Linq;
-using System.Web.UI.HtmlControls;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Utility;
 using Newtonsoft.Json;
-using Bikewale.Controls;
+using System;
+using System.Linq;
+using System.Web;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.BikeBooking
 {
@@ -34,7 +30,7 @@ namespace Bikewale.BikeBooking
     {
         protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
         protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty;
-        protected Repeater rptVarients = null, rptVersionColors = null, rptDealerOffers = null, rptPriceBreakup = null,rptDealerFinalOffers=null;
+        protected Repeater rptVarients = null, rptVersionColors = null, rptDealerOffers = null, rptPriceBreakup = null, rptDealerFinalOffers = null;
         protected BikeDealerPriceDetailDTO selectedVarient = null;
         protected DDQDealerDetailBase DealerDetails = null;
         protected bool isOfferAvailable = false, isInsuranceFree = false;
@@ -83,7 +79,7 @@ namespace Bikewale.BikeBooking
                     if (objBooking.Varients != null)
                     {
                         var _data = (objBooking.Varients).Where(v => v.MinSpec != null && v.MinSpec.VersionId == versionId);
-                        if(_data!=null && _data.FirstOrDefault()!=null && _data.FirstOrDefault().BookingAmount > 0)
+                        if (_data != null && _data.FirstOrDefault() != null && _data.FirstOrDefault().BookingAmount > 0)
                         {
                             BindVarientDetails();
                         }
@@ -188,7 +184,7 @@ namespace Bikewale.BikeBooking
                 //Dealer Address
                 if (dealerDetailEntity.objDealer != null && !String.IsNullOrEmpty(dealerDetailEntity.objDealer.Address))
                 {
-                    dealerAddress = String.Format("{0}<br/>{1},{2},{3}-{4},{5}.", dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);                    
+                    dealerAddress = String.Format("{0}<br/>{1},{2},{3}-{4},{5}.", dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
                 }
 
                 //bind offers provided by dealer
@@ -238,14 +234,18 @@ namespace Bikewale.BikeBooking
         /// </summary>
         private void FetchDealerDetails()
         {
-            //dealer details
-            string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", versionId, dealerId, cityId);
 
             try
             {
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = cityId;
+                    objParam.DealerId = dealerId;
+                    objParam.VersionId = versionId;
+                    dealerDetailEntity = objDealer.GetDealerDetailsPQ(objParam);
                 }
 
                 if (dealerDetailEntity != null)
@@ -343,24 +343,24 @@ namespace Bikewale.BikeBooking
             {
                 if (objCustomer != null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.CustomerId > 0)
                 {
-                     transaction = new TransactionDetails()
-                    {
-                        CustomerID = objCustomer.objCustomerBase.CustomerId,
-                        PackageId = (int)Carwale.Entity.Enum.BikeBooking.BikeBooking,
-                        ConsumerType = 2,
-                        Amount = dealerDetailEntity.objBookingAmt.Amount,
-                        ClientIP = CommonOpn.GetClientIP(),
-                        UserAgent = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"],
-                        PGId = Convert.ToUInt64(PriceQuoteQueryString.VersionId),
-                        CustomerName = objCustomer.objCustomerBase.CustomerName,
-                        CustEmail = objCustomer.objCustomerBase.CustomerEmail,
-                        CustMobile = objCustomer.objCustomerBase.CustomerMobile,
-                        CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
-                        PlatformId = 1,  //Desktop
-                        ApplicationId = 2, //Carwale
-                        RequestToPGUrl = string.Format("http://{0}/bikebooking/RedirectToBillDesk.aspx",HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString()),
-                        ReturnUrl = string.Format("http://{0}/bikebooking/billdeskresponse.aspx?sourceId=1&MPQ={1}",HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString(),EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
-                    };
+                    transaction = new TransactionDetails()
+                   {
+                       CustomerID = objCustomer.objCustomerBase.CustomerId,
+                       PackageId = (int)Carwale.Entity.Enum.BikeBooking.BikeBooking,
+                       ConsumerType = 2,
+                       Amount = dealerDetailEntity.objBookingAmt.Amount,
+                       ClientIP = CommonOpn.GetClientIP(),
+                       UserAgent = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"],
+                       PGId = Convert.ToUInt64(PriceQuoteQueryString.VersionId),
+                       CustomerName = objCustomer.objCustomerBase.CustomerName,
+                       CustEmail = objCustomer.objCustomerBase.CustomerEmail,
+                       CustMobile = objCustomer.objCustomerBase.CustomerMobile,
+                       CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
+                       PlatformId = 1,  //Desktop
+                       ApplicationId = 2, //Carwale
+                       RequestToPGUrl = string.Format("http://{0}/bikebooking/RedirectToBillDesk.aspx", HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString()),
+                       ReturnUrl = string.Format("http://{0}/bikebooking/billdeskresponse.aspx?sourceId=1&MPQ={1}", HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString(), EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
+                   };
                     //PGCookie.PGAmount = transaction.Amount.ToString();
 
                     //Modified By : Sadhana Upadhyay on 22 Jan 2016 
@@ -381,7 +381,7 @@ namespace Bikewale.BikeBooking
                         container.RegisterType<IPaymentGateway, BillDesk>();
                         transaction.SourceId = Convert.ToInt16(sourceType);
                     }
-                    
+
 
                     IPriceQuote _objPriceQuote = null;
                     container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();

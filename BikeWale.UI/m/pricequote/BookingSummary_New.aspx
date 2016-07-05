@@ -534,7 +534,7 @@
             var clientIP = '<%= clientIP %>';
             var pageUrl = '<%= pageUrl%>';
             var areaId = '<%= areaId%>';
-            var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+            var abHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
             var ga_pg_id= '14';
         </script>
         <script type="text/javascript">

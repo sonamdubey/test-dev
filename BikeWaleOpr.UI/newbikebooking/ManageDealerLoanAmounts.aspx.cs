@@ -1,11 +1,12 @@
-﻿using BikeWaleOpr.Common;
+﻿using Bikewale.Entities.BikeBooking;
+using BikewaleOpr.DAL;
+using BikewaleOpr.Interface;
+using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Bikewale.Entities.BikeBooking;
 
 namespace BikeWaleOpr.NewBikeBooking
 {
@@ -53,7 +54,7 @@ namespace BikeWaleOpr.NewBikeBooking
         /// </summary>
         protected void ResetFields(object sender, EventArgs e)
         {
-            ClearForm(Page.Form.Controls,true);
+            ClearForm(Page.Form.Controls, true);
             btnDelete.Visible = false;
         }
 
@@ -72,11 +73,11 @@ namespace BikeWaleOpr.NewBikeBooking
             {
                 cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
                 string _requestType = "application/json";
-                string _apiUrl = string.Format("api/Dealers/GetDealerLoanAmounts/?dealerId={0}",dealerId);
+                string _apiUrl = string.Format("api/Dealers/GetDealerLoanAmounts/?dealerId={0}", dealerId);
                 // Send HTTP GET requests
                 loanAmount = await BWHttpClient.GetApiResponse<EmiLoanAmount>(cwHostUrl, _requestType, _apiUrl, loanAmount);
                 // populate already saved value
-                if(loanAmount != null && loanAmount.Id > 0)
+                if (loanAmount != null && loanAmount.Id > 0)
                 {
                     txtMinPayment.Text = Convert.ToString(loanAmount.MinDownPayment);
                     txtMaxPayment.Text = Convert.ToString(loanAmount.MaxDownPayment);
@@ -97,7 +98,7 @@ namespace BikeWaleOpr.NewBikeBooking
                     btnDelete.Visible = true;
                     loanId = loanAmount.Id;
                 }
-                
+
             }
             catch (Exception err)
             {
@@ -115,27 +116,33 @@ namespace BikeWaleOpr.NewBikeBooking
         {
             finishMessage.Text = string.Empty;
             errorSummary.Text = string.Empty;
-             try
+            try
             {
-                cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = string.Format("api/Dealers/SaveDealerEMI/?dealerId={0}&loanProvider={1}&userID={2}&minDownPayment={3}&maxDownPayment={4}&minTenure={5}&maxTenure={6}&minRateOfInterest={7}&maxRateOfInterest={8}&minLtv={9}&maxLtv={10}&processingFee={11}&id={12}",
-                    dealerId,
-                   textLoanProvider.Text,
-                   CurrentUser.Id,
-                   txtMinPayment.Text,
-                   txtMaxPayment.Text,
-                   txtMinTenure.Text,
-                   txtMaxTenure.Text,
-                   txtMinROI.Text,
-                   txtMaxROI.Text,
-                   txtMinLtv.Text,
-                   txtMaxLtv.Text,
-                   txtFees.Text,
-                   hdnLoanAmountId.Value == "0"? null: hdnLoanAmountId.Value);
-                // Send HTTP GET requests
                 bool status = false;
-                status = BWHttpClient.PostSync<bool>(cwHostUrl, _requestType, _apiUrl, status);
+
+                if (dealerId > 0 && Convert.ToUInt16(txtMinTenure.Text) > 0 && (Convert.ToDouble(txtMinROI.Text) > 0.0f) && Convert.ToDouble(txtMinLtv.Text) > 0.0f && Convert.ToInt32(CurrentUser.Id) > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealers, DealersRepository>();
+                        IDealers objDealer = container.Resolve<DealersRepository>();
+                        status = objDealer.SaveDealerEMI(
+                            Convert.ToUInt32(dealerId),
+                            Convert.ToSingle(txtMinPayment.Text),
+                            Convert.ToSingle(txtMaxPayment.Text),
+                            Convert.ToUInt16(txtMinTenure.Text),
+                            Convert.ToUInt16(txtMaxPayment.Text),
+                            Convert.ToSingle(txtMinROI.Text),
+                            Convert.ToSingle(txtMaxROI.Text),
+                            Convert.ToSingle(txtMinLtv.Text),
+                            Convert.ToSingle(txtMaxLtv.Text),
+                            textLoanProvider.Text,
+                            Convert.ToSingle(txtFees.Text),
+                            Convert.ToUInt32(hdnLoanAmountId.Value == "0" ? null : hdnLoanAmountId.Value),
+                            Convert.ToUInt32(CurrentUser.Id));
+                    }
+                }
+
                 if (status)
                     finishMessage.Text = "Data has been saved !";
                 btnDelete.Visible = true;

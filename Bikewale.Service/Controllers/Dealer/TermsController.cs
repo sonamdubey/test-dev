@@ -1,9 +1,8 @@
 ﻿using Bikewale.Entities.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.Utilities;
-using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
-using System.Configuration;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -20,14 +19,12 @@ namespace Bikewale.Service.Controllers.Dealer
         {
             try
             {
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json", _apiUrl = string.Empty, imagePath = string.Empty, bikeName = string.Empty;
-                _apiUrl = String.Format("api/DealerPriceQuote/GetOfferTerms/?offerMaskingName={0}&offerId={1}", offerMaskingName, offerId);
-
                 OfferHtmlEntity offerText = new OfferHtmlEntity();
-                using (BWHttpClient objClient = new BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    offerText = objClient.GetApiResponseSync<OfferHtmlEntity>(APIHost.AB, _requestType, _apiUrl, offerText);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objCategoryNames = container.Resolve<Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                    offerText = objCategoryNames.GetOfferTerms(offerMaskingName, offerId);
                 }
 
                 if (offerText != null)

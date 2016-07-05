@@ -1,8 +1,8 @@
-﻿using System.Data;
+﻿using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using MySql.Data.MySqlClient;
 
 namespace Bikewale.Notifications.CoreDAL
 {
@@ -92,7 +92,7 @@ namespace Bikewale.Notifications.CoreDAL
 
         public static DbParameter GetDbParam(string parameterName, DbType dbType, object value)
         {
-            return GetDbParam(parameterName, dbType, -1,ParameterDirection.Input, value);
+            return GetDbParam(parameterName, dbType, -1, ParameterDirection.Input, value);
         }
 
         public static DbParameter GetDbParam(string parameterName, DbType dbType, ParameterDirection direction)
@@ -103,7 +103,7 @@ namespace Bikewale.Notifications.CoreDAL
         public static DbParameter GetDbParam(string parameterName, DbType dbType, ParameterDirection direction, object value)
         {
             return GetDbParam(parameterName, dbType, -1, direction, value);
-        }     
+        }
 
         public static DbParameter GetDbParam(string parameterName, DbType dbType, int size, object value)
         {
@@ -150,6 +150,41 @@ namespace Bikewale.Notifications.CoreDAL
             return dbParameter;
         }
 
+        public static DbParameter GetDbParamWithColumnName(string parameterName, DbType dbType, int size, string sourceColName)
+        {
+            DbParameter dbParameter = null;
+
+            switch (_currentDbtype)
+            {
+                case DataBaseType.MsSqlServer:
+                default:
+                    {
+                        dbParameter = new SqlParameter();
+
+                    }
+                    break;
+
+                case DataBaseType.MySql:
+                    {
+                        dbParameter = new MySqlParameter();
+                    }
+                    break;
+            }
+
+            if (dbParameter != null)
+            {
+                dbParameter.ParameterName = parameterName;
+                dbParameter.Direction = ParameterDirection.Input;
+                dbParameter.DbType = dbType;
+                if (size != -1)
+                    dbParameter.Size = size;
+                dbParameter.SourceColumn = sourceColName;
+            }
+
+            return dbParameter;
+        }
+
+
         #endregion
     }
 
@@ -160,5 +195,5 @@ namespace Bikewale.Notifications.CoreDAL
         Oracle,
         Unknown
     }
-  
+
 }

@@ -181,6 +181,8 @@
     <Compile Include="AutoMappers\App\AppVersionMapper.cs" />
     <Compile Include="AutoMappers\AutoComplete\SuggestionListMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\Area\BBAreaListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\BBCityListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\BBMakeListMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\BikeBookingListingEntityMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\BookingListingFilterDTOMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\BookingPageDetailsEntityMapper.cs" />
@@ -217,6 +219,8 @@
     <Compile Include="Controllers\AppDeepLinking\DeepLinkingController.cs" />
     <Compile Include="Controllers\AppNotifications\AppAlertController.cs" />
     <Compile Include="Controllers\App\AppVersionCheckController.cs" />
+    <Compile Include="Controllers\AutoBiz\DealerPriceQuote\DealerPriceQuote.cs" />
+    <Compile Include="Controllers\AutoBiz\Dealers\Dealers.cs" />
     <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
     <Compile Include="Controllers\BikeBooking\Area\BBAreaListController.cs" />
     <Compile Include="Controllers\BikeBooking\BikeBookingListingController.cs" />

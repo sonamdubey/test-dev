@@ -1,12 +1,6 @@
-﻿using Bikewale.Common;
-using Bikewale.Entities.PriceQuote;
+﻿using Bikewale.Entities.PriceQuote;
+using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile
 {
@@ -25,9 +19,9 @@ namespace Bikewale.Mobile
             {
                 string MaskingName = Convert.ToString(Request.QueryString["id"]);
                 MaskingName = MaskingName.Replace("/", string.Empty);
-                if(!string.IsNullOrEmpty(MaskingName))
+                if (!string.IsNullOrEmpty(MaskingName))
                 {
-                    htmlContent = GetHtml(MaskingName,out isExpired);
+                    htmlContent = GetHtml(MaskingName, out isExpired);
                     if (string.IsNullOrEmpty(htmlContent))
                         Server.Transfer("default.aspx");
                 }
@@ -43,15 +37,16 @@ namespace Bikewale.Mobile
         {
             isExpired = default(bool);
             try
-            {                
+            {
                 OfferHtmlEntity objTerms = null;
-                string _apiUrl = "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=" + maskingName + "&offerId=0";
-                
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    objTerms = objClient.GetApiResponseSync<OfferHtmlEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objTerms);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objCategoryNames = container.Resolve<Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                    objTerms = objCategoryNames.GetOfferTerms(maskingName, 0);
                 }
-                
+
                 if (objTerms != null)
                 {
                     isExpired = objTerms.IsExpired;

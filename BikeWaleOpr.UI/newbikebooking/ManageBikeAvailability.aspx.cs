@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
-using BikeWaleOpr.Entities;
-using System.Threading.Tasks;
+using System.Data;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.BikeBooking
 {
@@ -128,7 +124,7 @@ namespace BikeWaleOpr.BikeBooking
                 string _requestType = "application/json";
 
                 string _apiUrl = "/api/Dealers/SaveBikeAvailability/?dealerId=" + Request.QueryString["dealerId"] + "&bikemodelId=" + hdn_ddlModel.Value + "&bikeversionId=" + hdn_ddlVersions.Value + "&numOfDays=" + txtdayslimit.Text;
-         
+
                 Trace.Warn("url : " + cwHostUrl + _apiUrl);
                 // Send HTTP GET requests
                 bool isSuccess = false;

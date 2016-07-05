@@ -1,11 +1,7 @@
 ﻿using BikewaleOpr.Common;
 using BikeWaleOpr.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace BikewaleOpr.Campaign
@@ -47,7 +43,7 @@ namespace BikewaleOpr.Campaign
                     BindRules();
                     lblErrorSummary.Text = "Selected rules have been deleted !";
                 }
-            } 
+            }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.DeleteRules");
@@ -68,7 +64,7 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                if(campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, cityId, dealerId, makeId, stateId, modelId))
+                if (campaign.InsertBWDealerCampaignRules(currentUserId, campaignId, cityId, dealerId, makeId, stateId, modelId))
                 {
                     lblGreenMessage.Text = "Rule(s) have been added !";
                 }
@@ -76,7 +72,7 @@ namespace BikewaleOpr.Campaign
                 {
                     lblErrorSummary.Text = "Some error has occurred !";
                 }
-                
+
                 BindRules();
             }
             catch (Exception ex)
@@ -117,7 +113,7 @@ namespace BikewaleOpr.Campaign
                 DataTable dt;
                 MakeModelVersion mmv = new MakeModelVersion();
                 dt = mmv.GetMakes("New");
-                if (dt!=null && dt.Rows.Count > 0)
+                if (dt != null && dt.Rows.Count > 0)
                 {
                     ddlMake.DataSource = dt;
                     ddlMake.DataTextField = "Text";
@@ -171,7 +167,7 @@ namespace BikewaleOpr.Campaign
             ParseQueryString();
             FillMakes();
             FillStates();
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 BindRules();
             }

@@ -2,6 +2,7 @@
 using Bikewale.BAL.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
+using Bikewale.DAL.AutoBiz;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
@@ -83,23 +84,21 @@ namespace Bikewale.BAL.PriceQuote
                                 PQ_QuotationEntity oblDealerPQ = null;
                                 try
                                 {
-                                    string api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionId, objPQOutput.DealerId);
-                                    using (Utility.BWHttpClient objDealerPqClient = new Utility.BWHttpClient())
+                                    oblDealerPQ = GetDealePQEntity((uint)cityId, (uint)versionId, objPQOutput.DealerId);
+
+                                    if (oblDealerPQ != null)
                                     {
-                                        oblDealerPQ = objDealerPqClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, oblDealerPQ);
-                                        if (oblDealerPQ != null)
+                                        uint insuranceAmount = 0;
+                                        foreach (var price in oblDealerPQ.PriceList)
                                         {
-                                            uint insuranceAmount = 0;
-                                            foreach (var price in oblDealerPQ.PriceList)
-                                            {
-                                                pqOnRoad.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQOutput.DealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
-                                            }
-                                            pqOnRoad.IsInsuranceFree = true;
-                                            pqOnRoad.DPQOutput = oblDealerPQ;
-                                            pqOnRoad.InsuranceAmount = insuranceAmount;
+                                            pqOnRoad.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQOutput.DealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
                                         }
+                                        pqOnRoad.IsInsuranceFree = true;
+                                        pqOnRoad.DPQOutput = oblDealerPQ;
+                                        pqOnRoad.InsuranceAmount = insuranceAmount;
                                     }
                                 }
+
                                 catch (Exception ex)
                                 {
                                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "PQByCityArea: " + "GetOnRoadPrice");
@@ -305,6 +304,29 @@ namespace Bikewale.BAL.PriceQuote
                 objErr.SendMail();
             }
             return modelVersions;
+        }
+
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 01-Jul-2016
+        /// Summary: Moving Autobiz dealerPQ API call to Code
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        private PQ_QuotationEntity GetDealePQEntity(uint cityId, uint dealerId, uint versionId)
+        {
+            PQ_QuotationEntity objDealerPrice = default(PQ_QuotationEntity);
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
+                Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                PQParameterEntity objParam = new PQParameterEntity();
+                objParam.CityId = cityId;
+                objParam.DealerId = dealerId;
+                objParam.VersionId = versionId;
+                objDealerPrice = objPriceQuote.GetDealerPriceQuote(objParam);
+            }
+            return objDealerPrice;
         }
 
 

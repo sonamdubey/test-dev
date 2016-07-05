@@ -268,6 +268,7 @@
     <Compile Include="common\Ajax\AjaxResearch.cs" />
     <Compile Include="common\Ajax\AjaxSellBike.cs" />
     <Compile Include="common\Ajax\AjaxUserReviews.cs" />
+    <Compile Include="common\AutoBizCommon.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWCommon.cs" />
     <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
@@ -2650,6 +2651,7 @@
           <DevelopmentServerPort>55686</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9011/</IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

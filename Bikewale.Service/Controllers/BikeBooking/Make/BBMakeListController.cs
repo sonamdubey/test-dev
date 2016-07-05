@@ -1,12 +1,10 @@
 ﻿using Bikewale.DTO.BikeBooking.Make;
+using Bikewale.Entities.BikeData;
 using Bikewale.Notifications;
-using Bikewale.Utility;
+using Bikewale.Service.AutoMappers.Bikebooking;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -27,21 +25,21 @@ namespace Bikewale.Service.Controllers.BikeBooking.Make
         [ResponseType(typeof(BBMakeList))]
         public IHttpActionResult Get(uint cityId)
         {
-            string _apiUrl = String.Format("/api/DealerPriceQuote/GetBikeMakesInCity/?cityId={0}", cityId);
-            List<BBMakeBase> lstMake = null;
+            List<BikeMakeEntityBase> lstMake = null;
             try
             {
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    //lstMake = objClient.GetApiResponseSync<List<BBMakeBase>>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstMake);
-                    lstMake = objClient.GetApiResponseSync<List<BBMakeBase>>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstMake);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                    lstMake = objPriceQuote.GetBikeMakesInCity(cityId);
                 }
 
                 BBMakeList objDTOMakeList = null;
                 if (lstMake != null && lstMake.Count > 0)
                 {
                     objDTOMakeList = new BBMakeList();
-                    objDTOMakeList.Makes = lstMake;
+                    objDTOMakeList.Makes = BBMakeListMapper.Convert(lstMake);
                     return Ok(objDTOMakeList);
                 }
                 else

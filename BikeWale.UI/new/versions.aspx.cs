@@ -4,6 +4,7 @@ using Bikewale.BindViewModels.Webforms;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
+using Bikewale.common;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
@@ -845,31 +846,30 @@ namespace Bikewale.New
                             {
                                 // call another api
                                 PQ_QuotationEntity oblDealerPQ = null;
+                                AutoBizCommon dealerPq = null;
                                 try
                                 {
-                                    api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, variantId, objPQOutput.DealerId);
-                                    using (Utility.BWHttpClient objDealerPqClient = new Utility.BWHttpClient())
+                                    oblDealerPQ = dealerPq.GetDealePQEntity(cityId, (uint)variantId, objPQOutput.DealerId);
+
+                                    if (oblDealerPQ != null)
                                     {
-                                        oblDealerPQ = objDealerPqClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, oblDealerPQ);
-                                        if (oblDealerPQ != null)
+                                        uint insuranceAmount = 0;
+                                        foreach (var price in oblDealerPQ.PriceList)
                                         {
-                                            uint insuranceAmount = 0;
-                                            foreach (var price in oblDealerPQ.PriceList)
-                                            {
-                                                pqOnRoad.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQOutput.DealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
-                                            }
-                                            pqOnRoad.IsInsuranceFree = true;
-                                            pqOnRoad.DPQOutput = oblDealerPQ;
-                                            if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
-                                                pqOnRoad.DPQOutput.discountedPriceList = OfferHelper.ReturnDiscountPriceList(pqOnRoad.DPQOutput.objOffers, pqOnRoad.DPQOutput.PriceList);
-                                            pqOnRoad.InsuranceAmount = insuranceAmount;
-                                            if (oblDealerPQ.discountedPriceList != null && oblDealerPQ.discountedPriceList.Count > 0)
-                                            {
-                                                pqOnRoad.IsDiscount = true;
-                                                pqOnRoad.discountedPriceList = oblDealerPQ.discountedPriceList;
-                                            }
+                                            pqOnRoad.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQOutput.DealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
+                                        }
+                                        pqOnRoad.IsInsuranceFree = true;
+                                        pqOnRoad.DPQOutput = oblDealerPQ;
+                                        if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
+                                            pqOnRoad.DPQOutput.discountedPriceList = OfferHelper.ReturnDiscountPriceList(pqOnRoad.DPQOutput.objOffers, pqOnRoad.DPQOutput.PriceList);
+                                        pqOnRoad.InsuranceAmount = insuranceAmount;
+                                        if (oblDealerPQ.discountedPriceList != null && oblDealerPQ.discountedPriceList.Count > 0)
+                                        {
+                                            pqOnRoad.IsDiscount = true;
+                                            pqOnRoad.discountedPriceList = oblDealerPQ.discountedPriceList;
                                         }
                                     }
+                                    //}
                                 }
                                 catch (Exception ex)
                                 {
@@ -1298,6 +1298,7 @@ namespace Bikewale.New
             }
 
         }
+
 
         #endregion
     }

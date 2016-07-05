@@ -1,14 +1,14 @@
 ﻿using Bikewale.DAL.PriceQuote;
+using Bikewale.DAL.AutoBiz;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
-using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 namespace Bikewale.BAL.PriceQuote
 {
@@ -45,28 +45,17 @@ namespace Bikewale.BAL.PriceQuote
             DetailedDealerQuotationEntity dealerQuotation = null;
             try
             {
-                string _apiUrl = String.Format("/api/v2/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionID, dealerId);
-                using (BWHttpClient objClient = new BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    dealerQuotation = objClient.GetApiResponseSync<DetailedDealerQuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerQuotation);
-                    if (dealerQuotation != null)
-                    {
-                        if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
-                        {
-                            if (dealerQuotation.PrimaryDealer.EMIDetails == null && dealerQuotation.PrimaryDealer.DealerDetails.DealerPackageType == DealerPackageTypes.Premium)
-                            {
-                                dealerQuotation.PrimaryDealer.EMIDetails = new EMI();
-                                dealerQuotation.PrimaryDealer.EMIDetails.MaxDownPayment = 40;
-                                dealerQuotation.PrimaryDealer.EMIDetails.MinDownPayment = 10;
-                                dealerQuotation.PrimaryDealer.EMIDetails.MaxTenure = 48;
-                                dealerQuotation.PrimaryDealer.EMIDetails.MinTenure = 12;
-                                dealerQuotation.PrimaryDealer.EMIDetails.MaxRateOfInterest = 15;
-                                dealerQuotation.PrimaryDealer.EMIDetails.MinRateOfInterest = 10;
-                                dealerQuotation.PrimaryDealer.EMIDetails.ProcessingFee = 2000;
-                            }
-                        }
-                    }
+                    container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
+                    IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = cityId;
+                    objParam.DealerId = dealerId > 0 ? Convert.ToUInt32(dealerId) : default(UInt32);
+                    objParam.VersionId = versionID;
+                    dealerQuotation = objPriceQuote.GetDealerPriceQuoteByPackage(objParam);
                 }
+
             }
             catch (Exception ex)
             {
