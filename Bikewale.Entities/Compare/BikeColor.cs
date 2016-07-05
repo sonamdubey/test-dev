@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-
 namespace Bikewale.Entities.Compare
 {
     /// <summary>
@@ -9,7 +8,7 @@ namespace Bikewale.Entities.Compare
     /// Author  :   Sumit Kate
     /// Date    :   25 Aug 2015
     /// </summary>
-    [Serializable,DataContract]
+    [Serializable, DataContract]
     public class BikeColor
     {
         [DataMember]
@@ -19,9 +18,9 @@ namespace Bikewale.Entities.Compare
         [DataMember]
         public string Color { get; set; }
         [DataMember]
-        public IEnumerable<string> HexCodes { get; set; }
+        public List<string> HexCodes { get; set; }
     }
-    [Serializable,DataContract]
+    [Serializable, DataContract]
     public class BikeModelColor
     {
         [DataMember]
@@ -29,5 +28,5 @@ namespace Bikewale.Entities.Compare
         [DataMember]
         public string HexCode { get; set; }
     }
-    
+
 }

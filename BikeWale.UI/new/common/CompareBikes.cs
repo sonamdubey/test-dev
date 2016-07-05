@@ -71,7 +71,7 @@ namespace Bikewale.New
             }
             finally
             {
-                db.CloseConnection();
+                //db.CloseConnection();
             }
 
             return featuredBikeId;
