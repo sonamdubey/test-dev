@@ -312,6 +312,7 @@
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
+    <Compile Include="common\AutoBizCommon.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />
@@ -2618,7 +2619,9 @@
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50080</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>         
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
