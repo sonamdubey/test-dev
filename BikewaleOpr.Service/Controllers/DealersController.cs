@@ -1391,7 +1391,6 @@ namespace BikewaleOpr.Service
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objDealer = container.Resolve<DealersRepository>();
-
                     isDeleteSuccess = objDealer.DeleteDealerEMI(id);
                 }
             }

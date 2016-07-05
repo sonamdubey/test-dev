@@ -936,14 +936,12 @@ namespace BikewaleOpr.DAL
 
         public List<DealerDisclaimerEntity> GetDealerDisclaimer(uint dealerId)
         {
-
             List<DealerDisclaimerEntity> objDisclaimer = null;
 
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerDisclaimer"))
                 {
-
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("v_dealerId", DbType.Int32, dealerId));
 

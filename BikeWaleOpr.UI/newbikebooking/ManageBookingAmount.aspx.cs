@@ -77,15 +77,17 @@ namespace BikeWaleOpr.BikeBooking
             }
         }
 
-        private async void GetDealerBookingAmount()
+        private void GetDealerBookingAmount()
         {
-            string _requestType = "application/json";
-
-            string _apiUrl = "/api/Dealers/GetBikeBookingAmount/?dealerId=" + dealerId;
-
-            Trace.Warn("GetBikeBookingAmount _apiUrl : ", _abHostUrl + _apiUrl);
             List<BookingAmountEntity> objBkgAmount = null;
-            objBkgAmount = await BWHttpClient.GetApiResponse<List<BookingAmountEntity>>(_abHostUrl, _requestType, _apiUrl, objBkgAmount);
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IDealers, DealersRepository>();
+                IDealers objIBooking = container.Resolve<DealersRepository>();
+
+                objBkgAmount = objIBooking.GetBikeBookingAmount(Convert.ToUInt32(dealerId));
+            }
 
             if (objBkgAmount != null && objBkgAmount.Count > 0)
             {

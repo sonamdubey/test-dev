@@ -1,5 +1,8 @@
-﻿using BikewaleOpr.Entities;
+﻿using BikewaleOpr.DAL;
+using BikewaleOpr.Entities;
+using BikewaleOpr.Interface;
 using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -78,35 +81,28 @@ namespace BikeWaleOpr.BikeBooking
         /// Created By  : Suresh Prajapati on 11th Nov, 2014.
         /// Description : Method To Get Added Bikes Availability By Specific Dealer.
         /// </summary>
-        private async void GetBikeAvailability()
+        private void GetBikeAvailability()
         {
             try
             {
-                cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-
-                // get pager instance
-
-                string _apiUrl = "/api/Dealers/GetBikeAvailability/?dealerId=" + Request.QueryString["dealerId"];
-                // Send HTTP GET requests
-
-                Trace.Warn("GetBikeAvailability : API url :" + _apiUrl);
-
+                uint dealerId = Convert.ToUInt32(Request.QueryString["dealerId"]);
                 List<OfferEntity> objAvailibility = null;
-                objAvailibility = await BWHttpClient.GetApiResponse<List<OfferEntity>>(cwHostUrl, _requestType, _apiUrl, objAvailibility);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objCity = container.Resolve<DealersRepository>();
 
-                Trace.Warn("objAvailibility list : ", objAvailibility.Count.ToString());
+                    objAvailibility = objCity.GetBikeAvailability(dealerId);
+                }
 
                 if (objAvailibility != null)
                 {
                     rptavilableData.DataSource = objAvailibility;
                     rptavilableData.DataBind();
                 }
-
             }
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }

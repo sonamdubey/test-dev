@@ -1,16 +1,13 @@
-﻿using Bikewale.Entities.BikeBooking;
+﻿using BikewaleOpr.DAL;
+using BikewaleOpr.Entities;
+using BikewaleOpr.Interface;
 using BikeWaleOpr.Common;
-using BikeWaleOpr.Controls;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BikeWaleOpr.Entities;
-using FreeTextBoxControls;
 using System.Data;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.BikeBooking
 {
@@ -90,22 +87,25 @@ namespace BikeWaleOpr.BikeBooking
         /// Description : To Get Disclaimer By Specified Dealer ID.
         /// </summary>
 
-        private async void GetDealerDiscliamer()
+        private void GetDealerDiscliamer()
         {
-            string _requestType = "application/json";
-
-            string _apiUrl = "/api/Dealers/GetDealerDisclaimer/?dealerId=" + dealerId;
-
-            Trace.Warn("GetDealerDisclaimer _apiUrl : ", _apiUrl);
             List<DealerDisclaimerEntity> objDisclaimer = null;
-            objDisclaimer = await BWHttpClient.GetApiResponse<List<DealerDisclaimerEntity>>(_abHostUrl, _requestType, _apiUrl, objDisclaimer);
+
+            if (dealerId > 0)
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objDealer = container.Resolve<DealersRepository>();
+                    objDisclaimer = objDealer.GetDealerDisclaimer(Convert.ToUInt32(dealerId));
+                }
+            }
 
             if (objDisclaimer != null)
             {
-               rptAddedDisclaimer.DataSource = objDisclaimer;
-               rptAddedDisclaimer.DataBind();
+                rptAddedDisclaimer.DataSource = objDisclaimer;
+                rptAddedDisclaimer.DataBind();
             }
-
         }
 
         /// <summary>
@@ -118,11 +118,19 @@ namespace BikeWaleOpr.BikeBooking
         {
             if (dealerId > 0)
             {
-                string _requestType = "application/json";
-                string _apiUrl = "/api/Dealers/SaveDealerDisclaimer/?dealerId=" + dealerId + "&makeId=" + hdn_ddlMake.Value + "&modelId=" + hdn_ddlModel.Value + "&versionId=" + hdn_ddlVersions.Value + "&disclaimer=" + Server.UrlEncode(txtAddDisclaimer.Text.Trim());
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objDealer = container.Resolve<DealersRepository>();
 
-                Trace.Warn("_apiUrl : ", _apiUrl);
-                BWHttpClient.PostSync<string>(_abHostUrl, _requestType, _apiUrl, "");
+                    objDealer.SaveDealerDisclaimer(Convert.ToUInt32(dealerId)
+                                                  , Convert.ToUInt32(hdn_ddlMake.Value)
+                                                  , Convert.ToUInt32(hdn_ddlModel.Value)
+                                                  , Convert.ToUInt32(hdn_ddlVersions.Value)
+                                                  , Convert.ToString(Server.UrlEncode(txtAddDisclaimer.Text.Trim()))
+                                                 );
+                }
+
                 GetDealerDiscliamer();
             }
         }

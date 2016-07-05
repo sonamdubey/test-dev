@@ -448,7 +448,6 @@
     <Compile Include="Entities\CityEntityBase.cs" />
     <Compile Include="Entities\ColorCodeBase.cs" />
     <Compile Include="Entities\DealerAreaDetails.cs" />
-    <Compile Include="Entities\DealerDisclaimerEntity.cs" />
     <Compile Include="Entities\DealerLocationEntity.cs" />
     <Compile Include="Entities\DealerPriceEntity.cs" />
     <Compile Include="Entities\EMI.cs" />
@@ -1310,8 +1309,6 @@
     <Content Include="bikewaleimg\upcoming\HarleyDavidson-883Roadster-25us.jpg" />
     <Content Include="bin\Ajax.dll" />
     <Content Include="bin\AjaxPro.2.dll" />
-    <Content Include="bin\BikewaleOpr.dll" />
-    <Content Include="bin\BikewaleOpr.pdb" />
     <Content Include="bin\Carwale.WebServices.OprAuthentication.dll" />
     <Content Include="bin\Enyim.Caching.dll" />
     <Content Include="bin\FreeTextBox.dll" />

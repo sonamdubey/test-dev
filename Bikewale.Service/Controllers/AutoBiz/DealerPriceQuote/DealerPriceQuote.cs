@@ -237,11 +237,6 @@ namespace Bikewale.Service.Controllers.AutoBiz
                         IDealer objDealer = container.Resolve<IDealer>();
 
                         dealerId = objDealer.IsDealerExists(Convert.ToUInt32(versionId), Convert.ToUInt32(areaId));
-
-                        //container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
-                        //IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
-
-                        //dealerId = objPriceQuote.IsDealerExists(Convert.ToUInt32(versionId), Convert.ToUInt32(areaId));
                     }
                 }
                 catch (Exception ex)
