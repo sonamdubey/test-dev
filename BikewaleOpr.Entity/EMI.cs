@@ -45,7 +45,6 @@ namespace BikewaleOpr.Entities
         [JsonProperty("processingFee")]
         public float ProcessingFee { get; set; }
 
-
         [JsonProperty("tenure")]
         public UInt16 Tenure { get; set; }
 

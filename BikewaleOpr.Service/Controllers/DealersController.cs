@@ -512,7 +512,7 @@ namespace BikewaleOpr.Service
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
         }   // End of UpdateDealerLoanAmounts
 
-#endif
+
         /// <summary>
         /// Written By : Ashwini Todkar on  28th Oct 2014
         /// </summary>
@@ -531,7 +531,6 @@ namespace BikewaleOpr.Service
                     {
                         container.RegisterType<IDealers, DealersRepository>();
                         IDealers objDealer = container.Resolve<DealersRepository>();
-
                         objEmi = objDealer.GetDealerLoanAmounts(dealerId);
                     }
                 }
@@ -573,7 +572,6 @@ namespace BikewaleOpr.Service
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objCity = container.Resolve<DealersRepository>();
-
                     isSuccess = objCity.SaveBikeAvailability(dealerId, bikemodelId, Convert.ToUInt32(bikeversionId), Convert.ToUInt16(numOfDays));
                 }
             }
@@ -623,6 +621,7 @@ namespace BikewaleOpr.Service
             else
                 return Request.CreateErrorResponse(HttpStatusCode.NotModified, "Not Modified");
         }
+
         /// <summary>
         /// Created By  : Suresh Prajapati on 28th Jan, 2015.
         /// Description : To delete Bike Availability days.
@@ -641,7 +640,6 @@ namespace BikewaleOpr.Service
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objDays = container.Resolve<DealersRepository>();
-
                     isDeleted = objDays.DeleteBikeAvailabilityDays(dtValue);
                 }
             }
@@ -656,6 +654,8 @@ namespace BikewaleOpr.Service
             else
                 return Request.CreateErrorResponse(HttpStatusCode.NotModified, "Not Modified");
         }
+
+#endif
         /// <summary>
         /// Created By  : Suresh Prajapati On 11th Nov, 2014.
         /// Description : Function To Get Added Bikes Availability by specific Dealer.
@@ -674,7 +674,6 @@ namespace BikewaleOpr.Service
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objCity = container.Resolve<DealersRepository>();
-
                     objAvailability = objCity.GetBikeAvailability(dealerId);
                 }
             }

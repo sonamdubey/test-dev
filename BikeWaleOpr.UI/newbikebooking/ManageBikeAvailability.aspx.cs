@@ -116,16 +116,14 @@ namespace BikeWaleOpr.BikeBooking
         {
             try
             {
-                cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-
-                string _apiUrl = "/api/Dealers/SaveBikeAvailability/?dealerId=" + Request.QueryString["dealerId"] + "&bikemodelId=" + hdn_ddlModel.Value + "&bikeversionId=" + hdn_ddlVersions.Value + "&numOfDays=" + txtdayslimit.Text;
-
-                Trace.Warn("url : " + cwHostUrl + _apiUrl);
-                // Send HTTP GET requests
+                uint dealerId = Convert.ToUInt32(Request.QueryString["dealerId"]);
                 bool isSuccess = false;
-                bool isDone = BWHttpClient.PostSync<bool>(cwHostUrl, _requestType, _apiUrl, isSuccess);
-
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objCity = container.Resolve<DealersRepository>();
+                    isSuccess = objCity.SaveBikeAvailability(dealerId, Convert.ToUInt32(hdn_ddlModel.Value), Convert.ToUInt32(hdn_ddlVersions.Value), Convert.ToUInt16(txtdayslimit.Text));
+                }
                 GetBikeAvailability();
             }
             catch (Exception err)
