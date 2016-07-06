@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
+    [Serializable, DataContract]
     public class NewLaunchedBikeEntity : BikeModelEntity
     {
+        [DataMember]
         public uint BikeLaunchId { get; set; }
+        [DataMember]
         public DateTime LaunchDate { get; set; }
+        [DataMember]
         public ulong BasicId { get; set; }
+        [DataMember]
         public MinSpecsEntity Specs { get; set; }
     }
 }

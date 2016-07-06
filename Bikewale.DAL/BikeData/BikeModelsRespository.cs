@@ -395,7 +395,7 @@ namespace Bikewale.DAL.BikeData
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
-                        conn.Close();                        
+                        conn.Close();
                         HttpContext.Current.Trace.Warn("qry success");
 
                         if (!string.IsNullOrEmpty(cmd.Parameters["@MakeId"].Value.ToString()))
@@ -726,11 +726,12 @@ namespace Bikewale.DAL.BikeData
         /// <param name="endIndex"></param>
         /// <param name="recordCount"></param>
         /// <returns></returns>
-        public List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int startIndex, int endIndex, out int recordCount)
+        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex)
         {
+            NewLaunchedBikesBase newLaunchedBikes = new NewLaunchedBikesBase();
             List<NewLaunchedBikeEntity> objModelList = null;
             Database db = null;
-            recordCount = 0;
+            int recordCount = 0;
             try
             {
                 using (SqlCommand cmd = new SqlCommand())
@@ -783,6 +784,9 @@ namespace Bikewale.DAL.BikeData
                                     recordCount = Convert.ToInt32(dr["RecordCount"]);
                                 }
                             }
+
+                            newLaunchedBikes.Models = objModelList;
+                            newLaunchedBikes.RecordCount = recordCount;
                         }
                     }
                 }
@@ -804,7 +808,7 @@ namespace Bikewale.DAL.BikeData
                 db.CloseConnection();
             }
 
-            return objModelList;
+            return newLaunchedBikes;
         }
 
 
