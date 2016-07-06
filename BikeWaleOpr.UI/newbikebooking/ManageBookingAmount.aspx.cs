@@ -5,7 +5,6 @@ using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Web.UI.WebControls;
 
@@ -15,7 +14,6 @@ namespace BikeWaleOpr.BikeBooking
     {
         protected Repeater rptAddedBkgAmount;
         protected DropDownList ddlMake, ddlModel, ddlVersions;
-        protected string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
         protected Label lblMessage;
         protected TextBox txtAddBkgAmount;
         protected Button btnAddAmount;

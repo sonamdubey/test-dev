@@ -42,7 +42,6 @@ namespace Bikewale.Service.Controllers.AutoBiz
                         objParam.CityId = cityId;
                         objParam.DealerId = dealerId;
                         objParam.VersionId = versionId;
-
                         objDealerPrice = objPriceQuote.GetDealerPriceQuote(objParam);
                         //Convert entity to dto
 
@@ -500,9 +499,7 @@ namespace Bikewale.Service.Controllers.AutoBiz
                         container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
 
                         IDealer objDealer = container.Resolve<IDealer>();
-
                         dealerIdList = objDealer.GetAllAvailableDealer((versionId), (areaId));
-
                         foreach (uint dealerId in dealerIdList)
                         {
                             dealerIds += dealerId.ToString() + ",";

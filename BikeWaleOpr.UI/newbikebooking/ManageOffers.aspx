@@ -330,7 +330,7 @@
         }
 
         function btnDelete_Click(offerId) {
-            var host = '<%=cwHostUrl%>';
+            var host = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"]; %>';
             var acknowledge = confirm("Are you sure you want to delete this record");
             if (acknowledge) {
                 $.ajax({
@@ -341,8 +341,6 @@
                     }
                 });
             }
-            //$("#row_" + offerId).removeClass("yellow");
-
         }
 
         function btnAdd_Click() {
@@ -416,7 +414,7 @@
             var html = $("#updHtml").html();
             var title = "<h3>" + $("#row_" + offerIdVal).find('td').eq(2).text() + " " + $("#row_" + offerIdVal).find('td').eq(3).text() + "</h3>";
             html = title + html;
-            var host = '<%=cwHostUrl%>';
+            var host = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"];%>';
             var offerId = offerIdVal;
             var url = "";
             var applyIframe = true;
@@ -444,23 +442,10 @@
                 $("#spnTxtUpdOfferValue").text("");
 
                 var isError = false;
-                //var date = new Date();
-                //var month = date.getMonth();
-                //var day = date.getDate();
-
-                //var currentUpdDate = new Date(date.getFullYear(), (month < 10 ? '0' : '') + month, (day < 10 ? '0' : '') + day);
-                
                 var enteredDay = $("#updDtDate_cmbDay").val();
                 var enteredmonth = $("#updDtDate_cmbMonth").val();
                 var enteredYear = $("#updDtDate_txtYear").val();
                 
-                //var completeUpdDate = new Date(enteredYear, (enteredmonth < 10 ? '0' : '') + enteredmonth - 1, (enteredDay < 10 ? '0' : '') + enteredDay);
-                //var isError = false;
-
-                //if (completeUpdDate < currentUpdDate) {
-                //    $("#spnTxtUpdOfferValidity").text("Offers can't be Added for Past Dates");
-                //    isError = true;
-                //}
                 if ($("#ddlUpdOffers option:selected").val() <= '0') {
                     $("#spnTxtUpdOfferType").text("Please Select Offer type");
                     isError = true;

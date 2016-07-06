@@ -413,14 +413,14 @@
             }
 
         });
-        var ABApiHostUrl = '<%= cwHostUrl%>';
+        var BwOprHostUrl = '<%= BwOprHostUrl %>';
         var ddlDealer = $("#drpDealer");
         var selectString = "--Select Dealer--";
         var onInitCity = $("#drpCity option:selected").val();
         if (onInitCity > 0) {
             $.ajax({
                 type: "GET",
-                url: ABApiHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + onInitCity,
+                url: BwOprHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + onInitCity,
                 success: function (response) {
                     ddlDealer.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("disabled");
                     for (var i = 0; i < response.length; i++) {
@@ -443,7 +443,7 @@
             if (cityId > 0) {
                 $.ajax({
                     type: "GET",
-                    url: ABApiHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
+                    url: BwOprHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
                     success: function (response) {
                         ddlDealer.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("disabled");
                         for (var i = 0; i < response.length; i++) {
@@ -465,7 +465,7 @@
             if (cityId > 0) {
                 $.ajax({
                     type: "GET",
-                    url: ABApiHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
+                    url: BwOprHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
                     success: function (response) {
                         ddlDealerList.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("disabled");
                         for (var i = 0; i < response.length; i++) {

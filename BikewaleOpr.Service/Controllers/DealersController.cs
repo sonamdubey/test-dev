@@ -104,38 +104,111 @@ namespace BikewaleOpr.Service
                         else
                             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
                     }
-        /// <summary>
-        /// Created By : Suresh Prajapati on 29th Oct 2014
-        /// Summary : To Get Dealer Cities for which Bike Dealer exists
-        /// </summary>
-        /// <returns>Dealer's Cities</returns>
 
-        [HttpGet]
-        public HttpResponseMessage GetDealerCities()
-        {
-            DataTable objCities = null;
+                    /// <summary>
+                    /// Created By : Suresh Prajapati on 29th Oct 2014
+                    /// Summary : To Get Dealer Cities for which Bike Dealer exists
+                    /// </summary>
+                    /// <returns>Dealer's Cities</returns>
 
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealers, DealersRepository>();
-                    IDealers objCity = container.Resolve<DealersRepository>();
-                    objCities = objCity.GetDealerCities();
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetDealerCities ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            if (objCities != null)
-                return Request.CreateResponse<DataTable>(HttpStatusCode.OK, objCities);
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
-        }
+                    [HttpGet]
+                    public HttpResponseMessage GetDealerCities()
+                    {
+                        DataTable objCities = null;
 
+                        try
+                        {
+                            using (IUnityContainer container = new UnityContainer())
+                            {
+                                container.RegisterType<IDealers, DealersRepository>();
+                                IDealers objCity = container.Resolve<DealersRepository>();
+                                objCities = objCity.GetDealerCities();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            HttpContext.Current.Trace.Warn("GetDealerCities ex : " + ex.Message + ex.Source);
+                            ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                            objErr.SendMail();
+                        }
+                        if (objCities != null)
+                            return Request.CreateResponse<DataTable>(HttpStatusCode.OK, objCities);
+                        else
+                            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
+                    }
+
+                    /// <summary>
+                    /// Written By : Ashwini Todkar on  7 Nov 2014
+                    /// </summary>
+                    /// <param name="dealerId"></param>
+                    /// <param name="versionId"></param>
+                    /// <returns></returns>
+                    [HttpGet]
+                    public HttpResponseMessage GetAvailabilityDays(uint dealerId, uint versionId)
+                    {
+                        uint numOfDays = 0;
+                        try
+                        {
+                            using (IUnityContainer container = new UnityContainer())
+                            {
+                                container.RegisterType<IDealers, DealersRepository>();
+                                IDealers objDays = container.Resolve<DealersRepository>();
+
+                                numOfDays = objDays.GetAvailabilityDays(dealerId, versionId);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            HttpContext.Current.Trace.Warn("GetAvailabilityDays ex : " + ex.Message + ex.Source);
+                            ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                            objErr.SendMail();
+                        }
+                        if (numOfDays > 0)
+                            return Request.CreateResponse<uint>(HttpStatusCode.OK, numOfDays);
+                        else
+                            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
+                    }
+
+                    /// <summary>
+                    /// Created By : Sadhana Upadhyay on 18 Dec 2014
+                    /// Summary : to get Dealer booking amount by version id
+                    /// </summary>
+                    /// <param name="versionId"></param>
+                    /// <param name="dealerId"></param>
+                    /// <returns></returns>
+                    public HttpResponseMessage GetDealerBookingAmount(uint versionId, uint dealerId)
+                    {
+                        if (dealerId > 0 && versionId > 0)
+                        {
+                            BookingAmountEntity objAmount = null;
+                            try
+                            {
+                                using (IUnityContainer container = new UnityContainer())
+                                {
+                                    container.RegisterType<IDealers, DealersRepository>();
+                                    IDealers objDealer = container.Resolve<DealersRepository>();
+
+                                    objAmount = objDealer.GetDealerBookingAmount(versionId, dealerId);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                HttpContext.Current.Trace.Warn("SaveDealerDisclaimer ex : " + ex.Message + ex.Source);
+                                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                                objErr.SendMail();
+
+                                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Some error occured.");
+                            }
+                            if (objAmount != null)
+                                return Request.CreateResponse<BookingAmountEntity>(HttpStatusCode.OK, objAmount);
+                            else
+                                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found.");
+                        }
+                        else
+                            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
+                    }
+
+#endif
 
         /// <summary>
         /// Created By : Suresh Prajapati on 03rd Nov, 2014
@@ -241,7 +314,7 @@ namespace BikewaleOpr.Service
             else
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
         }
-#endif
+
         /// <summary>
         ///  Created By  : Suresh Prajapati on 04th Nov, 2014.
         ///  Description : To Delete an Offer specified by "offerId".
@@ -318,7 +391,7 @@ namespace BikewaleOpr.Service
             return Request.CreateErrorResponse(HttpStatusCode.Created, "Dealer Bike Offers Updated.");
         }
 
-#if unused
+
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Nov 2014
         /// Summary : Function to get the dealer facilities.
@@ -655,7 +728,6 @@ namespace BikewaleOpr.Service
                 return Request.CreateErrorResponse(HttpStatusCode.NotModified, "Not Modified");
         }
 
-#endif
         /// <summary>
         /// Created By  : Suresh Prajapati On 11th Nov, 2014.
         /// Description : Function To Get Added Bikes Availability by specific Dealer.
@@ -723,37 +795,7 @@ namespace BikewaleOpr.Service
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
         }
 
-        /// <summary>
-        /// Written By : Ashwini Todkar on  7 Nov 2014
-        /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="versionId"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public HttpResponseMessage GetAvailabilityDays(uint dealerId, uint versionId)
-        {
-            uint numOfDays = 0;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealers, DealersRepository>();
-                    IDealers objDays = container.Resolve<DealersRepository>();
 
-                    numOfDays = objDays.GetAvailabilityDays(dealerId, versionId);
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetAvailabilityDays ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            if (numOfDays > 0)
-                return Request.CreateResponse<uint>(HttpStatusCode.OK, numOfDays);
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
-        }
 
         /// <summary>
         /// Created By  : Suresh Prajapati on 03rd Dec, 2014.
@@ -1083,44 +1125,6 @@ namespace BikewaleOpr.Service
 
         #endregion
 
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 18 Dec 2014
-        /// Summary : to get Dealer booking amount by version id
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <param name="dealerId"></param>
-        /// <returns></returns>
-        public HttpResponseMessage GetDealerBookingAmount(uint versionId, uint dealerId)
-        {
-            if (dealerId > 0 && versionId > 0)
-            {
-                BookingAmountEntity objAmount = null;
-                try
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IDealers, DealersRepository>();
-                        IDealers objDealer = container.Resolve<DealersRepository>();
-
-                        objAmount = objDealer.GetDealerBookingAmount(versionId, dealerId);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn("SaveDealerDisclaimer ex : " + ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Some error occured.");
-                }
-                if (objAmount != null)
-                    return Request.CreateResponse<BookingAmountEntity>(HttpStatusCode.OK, objAmount);
-                else
-                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found.");
-            }
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
-        }
 
         /// <summary>
         ///s Written By : Suresh Prajapati on 02nd Jan, 2015

@@ -447,7 +447,6 @@
     <Compile Include="Entities\CalculatedEMI.cs" />
     <Compile Include="Entities\CityEntityBase.cs" />
     <Compile Include="Entities\ColorCodeBase.cs" />
-    <Compile Include="Entities\DealerAreaDetails.cs" />
     <Compile Include="Entities\DealerLocationEntity.cs" />
     <Compile Include="Entities\DealerPriceEntity.cs" />
     <Compile Include="Entities\EMI.cs" />
@@ -462,7 +461,6 @@
     <Compile Include="Entities\ModelEntityBase.cs" />
     <Compile Include="Entities\PQParameterEntity.cs" />
     <Compile Include="Entities\PQ_DealerDetailEntity.cs" />
-    <Compile Include="Entities\PQ_Price.cs" />
     <Compile Include="Entities\PQ_QuotationEntity.cs" />
     <Compile Include="Entities\StateEntityBase.cs" />
     <Compile Include="Entities\VersionColorBase.cs" />
