@@ -6,7 +6,6 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
-using BikeWale.Entities.AutoBiz;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -61,7 +60,7 @@ namespace Bikewale.BindViewModels.Webforms
         /// Created by: Sangram Nandkhile on 16 mar 2016
         /// Summary     : API to fetch detailed dealer entity
         /// </summary>
-        private Bikewale.Entities.PriceQuote.DetailedDealerQuotationEntity GetDetailedDealer(uint cityId, uint versionId, uint dealerId)
+        private DetailedDealerQuotationEntity GetDetailedDealer(uint cityId, uint versionId, uint dealerId)
         {
             DetailedDealerQuotationEntity detailedDealer = null;
             try

@@ -1,10 +1,14 @@
 ﻿using Bikewale.DAL.AutoBiz;
+using Bikewale.DTO.BikeBooking.Make;
+using Bikewale.DTO.Location;
+using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.AutoBiz;
 using BikeWale.Entities.AutoBiz;
 using Microsoft.Practices.Unity;
 using System;
@@ -65,32 +69,33 @@ namespace Bikewale.Service.Controllers.AutoBiz
         /// </summary>
         /// <returns>If success returns list of cities.</returns>
         [HttpGet]
-        public HttpResponseMessage GetBikeBookingCities(uint? modelId = null)
+        public IHttpActionResult GetBikeBookingCities(uint? modelId = null)
         {
-            List<CityEntityBase> cities = null;
-
+            IEnumerable<CityEntityBase> cities = null;
+            IEnumerable<CityEntityBaseDTO> objCities = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
                     IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
-
                     cities = objPriceQuote.GetBikeBookingCities(modelId);
+
+                    objCities = DealerPriceQuoteMapper.Convert(cities);
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetBikeBookingCities ex : " + ex.Message + ex.Source);
+                //HttpContext.Current.Trace.Warn("GetBikeBookingCities ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Internal server error");
+                return InternalServerError();
             }
 
-            if (cities != null)
-                return Request.CreateResponse<List<CityEntityBase>>(HttpStatusCode.OK, cities, "text/json");
+            if (objCities != null)
+                return Ok(objCities);
             else
-                return Request.CreateResponse(HttpStatusCode.NoContent, "Content not found");
+                return NotFound();
         }   // End of GetBikeBookingCities
 
         /// <summary>
@@ -99,9 +104,10 @@ namespace Bikewale.Service.Controllers.AutoBiz
         /// </summary>
         /// <param name="cityId">Should be greater than 0.</param>
         /// <returns>Returns list of makes.</returns>
-        public HttpResponseMessage GetBikeMakesInCity(uint cityId)
+        public IHttpActionResult GetBikeMakesInCity(uint cityId)
         {
-            List<BikeMakeEntityBase> makes = null;
+            IEnumerable<BikeMakeEntityBase> makes = null;
+            IEnumerable<BBMakeBase> objMakes = null;
 
             if (cityId > 0)
             {
@@ -111,31 +117,33 @@ namespace Bikewale.Service.Controllers.AutoBiz
                     {
                         container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
                         IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
-
                         makes = objPriceQuote.GetBikeMakesInCity(cityId);
+                        objMakes = DealerPriceQuoteMapper.Convert(makes);
                     }
                 }
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Trace.Warn("GetBikeBookingCities ex : " + ex.Message + ex.Source);
+                    //HttpContext.Current.Trace.Warn("GetBikeBookingCities ex : " + ex.Message + ex.Source);
                     ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                     objErr.SendMail();
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Internal server error");
+                    return InternalServerError();
                 }
 
-                if (makes != null)
-                    return Request.CreateResponse<List<BikeMakeEntityBase>>(HttpStatusCode.OK, makes);
+                if (objMakes != null)
+                    return Ok(objMakes);
                 else
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "Content not found");
+                    return NotFound();
             }
             else
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
+                return BadRequest();
         }   // End of GetBikeMakesInCity
 
         [HttpGet]
-        public HttpResponseMessage GetOfferTerms(string offerMaskingName, int offerId)
+        public IHttpActionResult GetOfferTerms(string offerMaskingName, int offerId)
         {
             OfferHtmlEntity objTerm = null;
+            OfferHtmlDTO objOffers = null;
+
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -143,18 +151,20 @@ namespace Bikewale.Service.Controllers.AutoBiz
                     container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
                     IDealerPriceQuote objCategoryNames = container.Resolve<DealerPriceQuoteRepository>();
                     objTerm = objCategoryNames.GetOfferTerms(offerMaskingName, offerId);
+                    objOffers = DealerPriceQuoteMapper.Convert(objTerm);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
+                return InternalServerError();
             }
 
-            if (objTerm != null)
-                return Request.CreateResponse<OfferHtmlEntity>(HttpStatusCode.OK, objTerm);
+            if (objOffers != null)
+                return Ok(objOffers);
             else
-                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
+                return NotFound();
         }
 
         /// <summary>
@@ -180,9 +190,7 @@ namespace Bikewale.Service.Controllers.AutoBiz
                         objParam.CityId = cityId;
                         objParam.DealerId = !String.IsNullOrEmpty(dealerId) ? Convert.ToUInt32(dealerId) : default(UInt32);
                         objParam.VersionId = versionId;
-
                         objDealerPrice = objPriceQuote.GetDealerPriceQuoteByPackage(objParam);
-
                     }
                 }
                 catch (Exception ex)

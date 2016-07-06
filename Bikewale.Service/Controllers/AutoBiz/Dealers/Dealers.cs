@@ -4,9 +4,6 @@ using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
-using System.Data;
-using System.Net;
-using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 
@@ -29,7 +26,7 @@ namespace Bikewale.Service.Controllers.AutoBiz
         /// <returns></returns>
 
         [HttpGet]
-        public HttpResponseMessage GetDealerDetailsPQ(uint versionId, uint dealerId, uint cityId)
+        public IHttpActionResult GetDealerDetailsPQ(uint versionId, uint dealerId, uint cityId)
         {
             if (versionId > 0 && dealerId > 0 && cityId > 0)
             {
@@ -49,49 +46,16 @@ namespace Bikewale.Service.Controllers.AutoBiz
                 }
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Trace.Warn("GetDealerDetailsPQ ex : " + ex.Message + ex.Source);
                     ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                     objErr.SendMail();
                 }
                 if (objDealerDetail != null)
-                    return Request.CreateResponse<PQ_DealerDetailEntity>(HttpStatusCode.OK, objDealerDetail);
+                    return Ok(objDealerDetail);
                 else
-                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
+                    return NotFound();
             }
             else
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
-        }
-
-        /// <summary>
-        /// Created By : Suresh Prajapati on 29th Oct 2014
-        /// Summary : To Get Dealer Cities for which Bike Dealer exists
-        /// </summary>
-        /// <returns>Dealer's Cities</returns>
-
-        [HttpGet]
-        public HttpResponseMessage GetDealerCities()
-        {
-            DataTable objCities = null;
-
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealers, DealersRepository>();
-                    IDealers objCity = container.Resolve<DealersRepository>();
-                    objCities = objCity.GetDealerCities();
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetDealerCities ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            if (objCities != null)
-                return Request.CreateResponse<DataTable>(HttpStatusCode.OK, objCities);
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
+                return BadRequest();
         }
 
         /// <summary>
@@ -101,7 +65,7 @@ namespace Bikewale.Service.Controllers.AutoBiz
         /// <param name="versionId"></param>
         /// <returns></returns>
         [HttpGet]
-        public HttpResponseMessage GetAvailabilityDays(uint dealerId, uint versionId)
+        public IHttpActionResult GetAvailabilityDays(uint dealerId, uint versionId)
         {
             uint numOfDays = 0;
             try
@@ -110,7 +74,6 @@ namespace Bikewale.Service.Controllers.AutoBiz
                 {
                     container.RegisterType<IDealers, DealersRepository>();
                     IDealers objDays = container.Resolve<DealersRepository>();
-
                     numOfDays = objDays.GetAvailabilityDays(dealerId, versionId);
                 }
             }
@@ -121,9 +84,9 @@ namespace Bikewale.Service.Controllers.AutoBiz
                 objErr.SendMail();
             }
             if (numOfDays > 0)
-                return Request.CreateResponse<uint>(HttpStatusCode.OK, numOfDays);
+                return Ok(numOfDays);
             else
-                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
+                return NotFound();
         }
 
 
@@ -134,7 +97,7 @@ namespace Bikewale.Service.Controllers.AutoBiz
         /// <param name="versionId"></param>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        public HttpResponseMessage GetDealerBookingAmount(uint versionId, uint dealerId)
+        public IHttpActionResult GetDealerBookingAmount(uint versionId, uint dealerId)
         {
             if (dealerId > 0 && versionId > 0)
             {
@@ -150,19 +113,19 @@ namespace Bikewale.Service.Controllers.AutoBiz
                 }
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Trace.Warn("SaveDealerDisclaimer ex : " + ex.Message + ex.Source);
+                    //HttpContext.Current.Trace.Warn("SaveDealerDisclaimer ex : " + ex.Message + ex.Source);
                     ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                     objErr.SendMail();
 
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Some error occured.");
+                    return InternalServerError();
                 }
                 if (objAmount != null)
-                    return Request.CreateResponse<BookingAmountEntity>(HttpStatusCode.OK, objAmount);
+                    return Ok(objAmount);
                 else
-                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found.");
+                    return NotFound();
             }
             else
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
+                return BadRequest();
         }
 
         #region Pivotal Tracker #95410582
@@ -174,7 +137,7 @@ namespace Bikewale.Service.Controllers.AutoBiz
         /// <param name="lstCityId">Comma Delimited City Ids</param>
         /// <returns></returns>
         [HttpPost]
-        public HttpResponseMessage CopyOffersToCities(uint dealerId, string lstOfferIds, string lstCityId)
+        public IHttpActionResult CopyOffersToCities(uint dealerId, string lstOfferIds, string lstCityId)
         {
             bool isSuccess = false;
             try
@@ -188,14 +151,14 @@ namespace Bikewale.Service.Controllers.AutoBiz
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("CopyOffersToCities ex : " + ex.Message + ex.Source);
+                //HttpContext.Current.Trace.Warn("CopyOffersToCities ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             if (isSuccess)
-                return Request.CreateResponse<bool>(HttpStatusCode.OK, isSuccess);
+                return Ok(isSuccess);
             else
-                return Request.CreateErrorResponse(HttpStatusCode.NotModified, "Not Modified");
+                return NotFound();
         }
         #endregion
     }
