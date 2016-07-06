@@ -1,23 +1,26 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Pager;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Mobile.Controls;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using Bikewale.Mobile.Controls;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.BAL.BikeData;
-using Bikewale.Entities.Pager;
-using Bikewale.Interfaces.Pager;
-using Bikewale.BAL.Pager;
-using Bikewale.Common;
 
 namespace Bikewale.Mobile.New
 {
     public class NewBikeLaunch : System.Web.UI.Page
-	{
+    {
         protected ListPagerControl listPager;
         protected Repeater rptLaunchedBikes;
 
@@ -61,19 +64,25 @@ namespace Bikewale.Mobile.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-                    IBikeModels<BikeModelEntity, int> objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<IPager, Bikewale.BAL.Pager.Pager>();
+                    IBikeModelsCacheRepository<int> objModel = container.Resolve<IBikeModelsCacheRepository<int>>();
 
                     container.RegisterType<IPager, Pager>();
                     IPager objPager = container.Resolve<IPager>();
 
                     int startIndex = 0, endIndex = 0, recordCount = 0, pageSize = 10;
 
+                    var _objPager = container.Resolve<IPager>();
+
                     objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
-
-                    List<NewLaunchedBikeEntity> objList = objModel.GetNewLaunchedBikesList(startIndex, endIndex, out recordCount);
-
-                    if (objList.Count > 0)
+                    NewLaunchedBikesBase newLaunchedBikes = objModel.GetNewLaunchedBikesList(startIndex, endIndex);
+                    IEnumerable<NewLaunchedBikeEntity> objList = newLaunchedBikes.Models;
+                    recordCount = newLaunchedBikes.RecordCount;
+                    if (objList != null && objList.Count() > 0)
                     {
                         rptLaunchedBikes.DataSource = objList;
                         rptLaunchedBikes.DataBind();
@@ -121,5 +130,5 @@ namespace Bikewale.Mobile.New
                 objErr.SendMail();
             }
         }
-	}
+    }
 }

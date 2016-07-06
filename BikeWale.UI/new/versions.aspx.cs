@@ -179,7 +179,7 @@ namespace Bikewale.New
         /// Modified By : Lucky Rathore on 01 March 2016.
         /// Description : set make masking name, model Making Name and model ID for video controller
         /// Modified By : Lucky Rathore on 04 July 2016.
-        /// Description : function ClearTrailingQuerystring removed.
+        /// Description : function "SetBWUtmz" called.
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -228,7 +228,10 @@ namespace Bikewale.New
                     LoadNewsVidsReviews(modelId, modelPageEntity);
                     Trace.Warn("Trace 21 : LoadNewsVidsReviews ends");
                     ToggleOfferDiv();
+                    //calling _bwutmz cookie logic.
+                    BWCookies.SetBWUtmz();
                     Trace.Warn("Trace 22 : Clear trailing Query");
+                    ClearTrailingQuerystring(this);
                     Trace.Warn("Trace 23 : Page Load ends");
                 }
             }
@@ -273,6 +276,17 @@ namespace Bikewale.New
                 ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
                 ctrlTopCityPrices.TopCount = 8;
 
+            }
+        }
+
+        // Clear trailing query string -- added on 09-feb-2016 by Sangram
+        private void ClearTrailingQuerystring(bikeModel bikeModel)
+        {
+            PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (isreadonly != null)
+            {
+                isreadonly.SetValue(bikeModel.Request.QueryString, false, null);
+                bikeModel.Request.QueryString.Clear();
             }
         }
 

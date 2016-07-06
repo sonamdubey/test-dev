@@ -32,7 +32,7 @@ namespace Bikewale.Mobile.controls
         {
             BindNewLaunchedBikesControl objNewLaunch = new BindNewLaunchedBikesControl();
             objNewLaunch.pageSize = this.pageSize;
-            objNewLaunch.curPageNo = this.curPageNo;
+            objNewLaunch.currentPageNo = this.curPageNo;
             objNewLaunch.BindNewlyLaunchedBikes(rptNewLaunchedBikes);
             this.FetchedRecordsCount = objNewLaunch.FetchedRecordsCount;
         }

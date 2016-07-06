@@ -21,7 +21,7 @@
                     <ul>
                         <li><a href="/m/contactus.aspx" rel="nofollow">Contact Us</a></li>
                         <li><a href="/m/advertisewithus.aspx" rel="nofollow">Advertise with Us</a></li>
-                        <li><a href="http://www.carwale.com/m/">CarWale.com</a></li>
+                        <li><a target="_blank" href="http://www.carwale.com/m/">CarWale.com</a></li>
                         <%--<li><a href="/m/aboutus.aspx">About Us</a></li>--%>
                         <%--<li><a href="/forums/">Forums</a></li>--%>
                         <%--<li><a href="/m/sitemap.aspx">Sitemap</a></li>--%>

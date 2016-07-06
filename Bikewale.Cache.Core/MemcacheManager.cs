@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Web;
+﻿using Bikewale.Interfaces.Cache.Core;
 using Enyim.Caching;
 using Enyim.Caching.Memcached;
-using Bikewale.Interfaces.Cache.Core;
+using System;
+using System.Configuration;
 
 namespace Bikewale.Cache.Core
 {
@@ -18,7 +13,7 @@ namespace Bikewale.Cache.Core
 
         public MemcacheManager()
         {
-            bool.TryParse(ConfigurationManager.AppSettings["IsMemcachedUsed"].ToLower(),out _useMemcached);
+            bool.TryParse(ConfigurationManager.AppSettings["IsMemcachedUsed"].ToLower(), out _useMemcached);
             LogManager.AssignFactory(new MemcacheLogFactory());
             if (mc == null && _useMemcached)
             {
@@ -41,8 +36,11 @@ namespace Bikewale.Cache.Core
                         {
                             t = dbCallback();
 
-                            mc.Store(StoreMode.Add, key, t, DateTime.Now.Add(cacheDuration));
-                            
+                            if (t != null)
+                            {
+                                mc.Store(StoreMode.Add, key, t, DateTime.Now.Add(cacheDuration));
+                            }
+
                             mc.Remove(key + "_lock");
                         }
                         else

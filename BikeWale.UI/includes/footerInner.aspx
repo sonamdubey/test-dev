@@ -27,7 +27,7 @@
             <p class="font18 text-white margin-bottom20">Company</p>
             <ul>
                 <li><a href="/sitemap.aspx">Sitemap</a></li>
-                <li><a href="http://www.carwale.com">CarWale.com</a></li>
+                <li><a target="_blank" href="http://www.carwale.com">CarWale.com</a></li>
                 <li><a href="/contactus.aspx">Contact Us</a></li>
             </ul>
         </div>

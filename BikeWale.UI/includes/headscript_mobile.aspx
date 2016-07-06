@@ -6,7 +6,7 @@
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false, Ad320x150_I = false, Ad320x150_II = false,
-        EnableOG = true;    
+        EnableOG = true, isVersionPage = false;    
 </script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title><%=title %></title>
@@ -80,7 +80,7 @@
         googletag.enableServices();
     });
 </script>
-<% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
+<% if (!isVersionPage) Bikewale.Utility.BWCookies.SetBWUtmz(); %>
 <!-- for IE to understand the new elements of HTML5 like header, footer, section and so on -->
 <!--[if lt IE 9]>
     <script src="/m/src/html5.js"></script>
