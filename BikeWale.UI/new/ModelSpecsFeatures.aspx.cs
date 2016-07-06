@@ -432,7 +432,7 @@ namespace Bikewale.New
             IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
             try
             {
-                if (CommonOpn.CheckId(modelId.ToString()))
+                if (CommonOpn.CheckId(modelId.ToString()) && modelId > 0)
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {

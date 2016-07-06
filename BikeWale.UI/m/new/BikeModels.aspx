@@ -23,6 +23,8 @@
         keywords = string.Format("{0}, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
         EnableOG = true;
         OGImage = modelImage;
+        //isVersionPage is declare to handle calling of BWCookies.SetBWUtmz() function.
+        isVersionPage = true; 
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <script type="text/javascript">

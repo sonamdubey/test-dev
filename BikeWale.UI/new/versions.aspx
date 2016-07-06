@@ -24,7 +24,9 @@
 		TargetedCity = cityName;
         keywords = string.Format("{0}, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
         ogImage = modelImage; 
-        isAd970x90BTFShown = true; %>
+        isAd970x90BTFShown = true;
+        isVersionPage = true;
+         %>
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
     <script type="text/javascript">

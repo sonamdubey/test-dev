@@ -152,11 +152,11 @@ namespace Bikewale.BAL.BikeData
         /// <param name="endIndex">End Index</param>
         /// <param name="recordCount">Record Count</param>
         /// <returns></returns>
-        public List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int startIndex, int endIndex, out int recordCount)
+        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex)
         {
-            List<NewLaunchedBikeEntity> objNewLaunchedBikeList = null;
+            NewLaunchedBikesBase objNewLaunchedBikeList = null;
 
-            objNewLaunchedBikeList = modelRepository.GetNewLaunchedBikesList(startIndex, endIndex, out recordCount);
+            objNewLaunchedBikeList = modelRepository.GetNewLaunchedBikesList(startIndex, endIndex);
 
             return objNewLaunchedBikeList;
         }
@@ -989,26 +989,26 @@ namespace Bikewale.BAL.BikeData
             return objUpcoming;
         }
 
-        /// <summary>
-        ///  Written By : Ashish G. Kamble on 16 dec 2015
-        /// </summary>
-        /// <param name="pageSize"></param>
-        /// <param name="recordCount"></param>
-        /// <param name="currentPageNo"></param>
-        /// <returns></returns>
-        public List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int pageSize, out int recordCount, int? currentPageNo = null)
-        {
-            List<NewLaunchedBikeEntity> objNewLaunchedBikeList = null;
-            int startIndex = 0, endIndex = 0, curPageNo = 1;
+        ///// <summary>
+        /////  Written By : Ashish G. Kamble on 16 dec 2015
+        ///// </summary>
+        ///// <param name="pageSize"></param>
+        ///// <param name="recordCount"></param>
+        ///// <param name="currentPageNo"></param>
+        ///// <returns></returns>
+        //public List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int pageSize, out int recordCount, int? currentPageNo = null)
+        //{
+        //    List<NewLaunchedBikeEntity> objNewLaunchedBikeList = null;
+        //    int startIndex = 0, endIndex = 0, curPageNo = 1;
 
-            curPageNo = currentPageNo.HasValue ? currentPageNo.Value : 1;
+        //    curPageNo = currentPageNo.HasValue ? currentPageNo.Value : 1;
 
-            _objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
+        //    _objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
 
-            objNewLaunchedBikeList = GetNewLaunchedBikesList(startIndex, endIndex, out recordCount);
+        //    objNewLaunchedBikeList = GetNewLaunchedBikesList(startIndex, endIndex, out recordCount);
 
-            return objNewLaunchedBikeList;
-        }
+        //    return objNewLaunchedBikeList;
+        //}
 
         public BikeModelContent GetRecentModelArticles(U modelId)
         {

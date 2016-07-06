@@ -137,6 +137,31 @@ namespace Bikewale.Cache.BikeData
             return objModelPage;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 01 Jul 2016
+        /// Description :   Returns New Launched Bike List
+        /// </summary>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="recordCount"></param>
+        /// <returns></returns>
+        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex)
+        {
+            NewLaunchedBikesBase objBikes = null;
+            string key = String.Format("BW_NewLaunchedBikes_SI_{0}_EI_{1}", startIndex, endIndex);
+
+            try
+            {
+                objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
+                objErr.SendMail();
+            }
+
+            return objBikes;
+        }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 01 Jul 2016
