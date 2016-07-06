@@ -48,4 +48,11 @@ namespace BikewaleOpr.Interface
         bool SaveDealerEMI(uint dealerId, float? MinDownPayment, float? MaxDownPayment, UInt16? MinTenure, UInt16? MaxTenure, float? MinRateOfInterest, float? MaxRateOfInterest, float? MinLtv, float? MaxLtv, string loanProvider, float? ProcessingFee, uint? id, UInt32 UserID);
         bool DeleteDealerEMI(uint id);
     }
+
+    public interface IDealer
+    {
+        IEnumerable<uint> GetAllAvailableDealer(uint versionId, uint areaId);
+        IEnumerable<DealerPriceQuoteDetailed> GetDealerPriceQuoteDetail(uint versionId, uint cityId, string dealerIds);
+
+    }
 }

@@ -16,7 +16,6 @@ namespace BikeWaleOpr.NewBikeBooking
         EMI loanAmount;
         protected uint dealerId = 0;
         protected uint loanId = 0;
-        protected string cwHostUrl = string.Empty;
         protected Label errorSummary, finishMessage;
         protected HiddenField hdnLoanAmountId;
 

@@ -5,7 +5,6 @@ using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Web.UI.WebControls;
 
@@ -15,7 +14,6 @@ namespace BikeWaleOpr.BikeBooking
     {
         protected DropDownList ddlMake, ddlModel, ddlVersions;
         protected TextBox txtdayslimit;
-        protected string cwHostUrl = string.Empty;
         protected Button btnsaveData;
         protected HiddenField hdn_ddlMake, hdn_ddlModel, hdn_ddlVersions;
         protected Repeater rptavilableData;

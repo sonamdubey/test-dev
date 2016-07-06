@@ -5,7 +5,6 @@ using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Web.UI.WebControls;
 
@@ -20,7 +19,6 @@ namespace BikeWaleOpr.BikeBooking
     {
         protected Repeater rptAddedDisclaimer;
         protected DropDownList ddlMake, ddlModel, ddlVersions;
-        protected string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
         protected TextBox txtAddDisclaimer;
         protected Button btnAddDisclaimer;
         protected HiddenField hdn_ddlMake, hdn_ddlModel, hdn_ddlVersions, hdn_Disclaimer;
@@ -134,29 +132,5 @@ namespace BikeWaleOpr.BikeBooking
                 GetDealerDiscliamer();
             }
         }
-
-        /// <summary>
-        /// Created By  : Suresh Prajapati on 03rd Dec, 2014.
-        /// Description : To Update Disclaimer of a Dealer.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-
-        //protected void UpdateDealerDisclaimer(object sender, EventArgs e)
-        //{
-        //    if (dealerId > 0)
-        //    {
-        //        string _requestType = "application/json";
-
-        //        string _apiUrl = "/api/Dealers/UpdateDealerDisclaimer/?dealerId=" + dealerId +"&versionId="+hdn_ddlVersions.Value+"&disclaimer=" + Server.UrlEncode(txtAddDisclaimer.Text.Trim());
-        //        // Send HTTP POST requests 
-
-        //        Trace.Warn("_apiUrl : ", _apiUrl);
-
-        //        BWHttpClient.PostSync<string>(_abHostUrl, _requestType, _apiUrl, "");
-
-        //        GetDealerDiscliamer();
-        //    }
-        //}
     }
 }

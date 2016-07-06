@@ -43,7 +43,6 @@ namespace Bikewale.Service.Controllers.AutoBiz
                         objParam.CityId = cityId;
                         objParam.DealerId = dealerId;
                         objParam.VersionId = versionId;
-
                         objDealerPrice = objPriceQuote.GetDealerPriceQuote(objParam);
                         //Convert entity to dto
 

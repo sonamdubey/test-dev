@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BikeWaleOpr.Entities
 {
@@ -8,6 +6,12 @@ namespace BikeWaleOpr.Entities
     {
         public UInt32 CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public UInt64 Price { get; set; }
+        public UInt32 Price { get; set; }
+        public UInt32 DealerId { get; set; }
+    }
+
+    public class PQ_VersionPrice : PQ_Price
+    {
+        public UInt32 VersionId { get; set; }
     }
 }
