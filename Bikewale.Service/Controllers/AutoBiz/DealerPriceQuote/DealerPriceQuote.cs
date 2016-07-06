@@ -13,8 +13,6 @@ using BikeWale.Entities.AutoBiz;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 
@@ -22,47 +20,6 @@ namespace Bikewale.Service.Controllers.AutoBiz
 {
     public class DealerPriceQuoteController : ApiController
     {
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 28th Oct 2014
-        /// Summary : api to get dealer price quote
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public HttpResponseMessage GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
-        {
-            if ((cityId > 0) && (versionId > 0) && (dealerId > 0))
-            {
-                PQ_QuotationEntity objDealerPrice = null;
-                try
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
-                        IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
-                        PQParameterEntity objParam = new PQParameterEntity();
-                        objParam.CityId = cityId;
-                        objParam.DealerId = dealerId;
-                        objParam.VersionId = versionId;
-                        objDealerPrice = objPriceQuote.GetDealerPriceQuote(objParam);
-                        //Convert entity to dto
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn("GetDealerPriceQuote ex : " + ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                if (objDealerPrice != null && objDealerPrice.PriceList.Count > 0)
-                    return Request.CreateResponse<PQ_QuotationEntity>(HttpStatusCode.OK, objDealerPrice);
-                else
-                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Content not found");
-            }
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad request");
-        }
-
         /// <summary>
         /// Written By : Ashish G. Kamble o 10 May 2015
         /// Summary : Function to get the list of cities where bike booking option is available.
