@@ -181,7 +181,7 @@
                 $("#ddlModel").val("0").attr("disabled", "disabled");
         }
 
-        var BwOprHostUrl = '<%=ConfigurationManager.AppSettings["BwOprHostUrlForJs"];%>';
+        var BwOprHostUrl = '<%=ConfigurationManager.AppSettings["BwOprHostUrlForJs"]%>';
 
         function DeleteClick(bookingId) {
             $("#row_"+bookingId).addClass("yellow");

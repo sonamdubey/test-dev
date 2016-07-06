@@ -467,6 +467,9 @@
     <Compile Include="Entities\VersionColorWithAvailability.cs" />
     <Compile Include="Entities\VersionEntity.cs" />
     <Compile Include="Entities\VersionEntityBase.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="MobileApp\AppVersioning.aspx.cs">
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1906,6 +1909,7 @@
     <Content Include="editor\tiny_mce_old\utils\form_utils.js" />
     <Content Include="editor\tiny_mce_old\utils\mctabs.js" />
     <Content Include="editor\tiny_mce_old\utils\validate.js" />
+    <Content Include="Global.asax" />
     <Content Include="images\calendar.png" />
     <Content Include="includes\footerNew.aspx" />
     <Content Include="includes\headerNew.aspx" />

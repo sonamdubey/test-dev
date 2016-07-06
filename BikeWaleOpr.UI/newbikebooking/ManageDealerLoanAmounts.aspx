@@ -190,7 +190,7 @@
 
             function btnDelete_Click() {
                 var loanId = '<%=loanId%>';
-                var BwOprHostUrl = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"]; %>';
+                var BwOprHostUrl = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"] %>';
                 var acknowledge = confirm("Are you sure you want to delete this record");
                 if (acknowledge) {
                     $.ajax({

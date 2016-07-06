@@ -171,7 +171,7 @@
             var html = $("#updHtml").html();
             var title = "<h3>" + $(".make_" + availabilityId).text() + " " + $(".model_" + availabilityId).text() + " " + $(".version_" + availabilityId).text() + "</h3>";
             html = title + html;
-            var BwOprHostUrl = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"]; %>';
+            var BwOprHostUrl = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"] %>';
             var avbId = availabilityId;
             var url = "";
             var applyIframe = true;

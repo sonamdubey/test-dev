@@ -417,6 +417,7 @@
         var ddlDealer = $("#drpDealer");
         var selectString = "--Select Dealer--";
         var onInitCity = $("#drpCity option:selected").val();
+        
         if (onInitCity > 0) {
             $.ajax({
                 type: "GET",
@@ -439,7 +440,7 @@
             var cityId = $(this).val();
             $("#hdnCityId").val(cityId);
             //alert("cityId : " + $("#hdnCityId").val());
-
+            
             if (cityId > 0) {
                 $.ajax({
                     type: "GET",

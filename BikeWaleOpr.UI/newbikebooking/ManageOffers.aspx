@@ -330,7 +330,7 @@
         }
 
         function btnDelete_Click(offerId) {
-            var host = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"]; %>';
+            var host = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"] %>';
             var acknowledge = confirm("Are you sure you want to delete this record");
             if (acknowledge) {
                 $.ajax({
@@ -414,7 +414,7 @@
             var html = $("#updHtml").html();
             var title = "<h3>" + $("#row_" + offerIdVal).find('td').eq(2).text() + " " + $("#row_" + offerIdVal).find('td').eq(3).text() + "</h3>";
             html = title + html;
-            var host = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"];%>';
+            var host = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"]%>';
             var offerId = offerIdVal;
             var url = "";
             var applyIframe = true;
