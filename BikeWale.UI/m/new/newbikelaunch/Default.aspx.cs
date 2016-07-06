@@ -74,7 +74,7 @@ namespace Bikewale.Mobile.New
                     container.RegisterType<IPager, Pager>();
                     IPager objPager = container.Resolve<IPager>();
 
-                    int startIndex = 0, endIndex = 0, recordCount = 0, pageSize = 10, curPageNo = 1;
+                    int startIndex = 0, endIndex = 0, recordCount = 0, pageSize = 10;
 
                     var _objPager = container.Resolve<IPager>();
 
