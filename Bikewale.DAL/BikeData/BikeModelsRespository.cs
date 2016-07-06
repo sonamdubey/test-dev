@@ -620,10 +620,11 @@ namespace Bikewale.DAL.BikeData
         /// <param name="endIndex"></param>
         /// <param name="recordCount"></param>
         /// <returns></returns>
-        public List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int startIndex, int endIndex, out int recordCount)
+        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex)
         {
+            NewLaunchedBikesBase newLaunchedBikes = new NewLaunchedBikesBase();
             List<NewLaunchedBikeEntity> objModelList = null;
-            recordCount = 0;
+            int recordCount = 0;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes"))
@@ -673,6 +674,8 @@ namespace Bikewale.DAL.BikeData
                                 }
                             }
                             dr.Close();
+                            newLaunchedBikes.Models = objModelList;
+                            newLaunchedBikes.RecordCount = recordCount;
                         }
                     }
                 }
@@ -683,7 +686,7 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            return objModelList;
+            return newLaunchedBikes;
         }
 
 

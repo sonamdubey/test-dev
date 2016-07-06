@@ -19,11 +19,11 @@ namespace Bikewale.DAL.Compare
         public BikeCompareEntity DoCompare(string versions)
         {
             BikeCompareEntity compare = null;
-            ICollection<BikeEntityBase> basicInfos = null;
-            ICollection<BikeSpecification> specs = null;
-            ICollection<BikeFeature> features = null;
+            IList<BikeEntityBase> basicInfos = null;
+            IList<BikeSpecification> specs = null;
+            IList<BikeFeature> features = null;
             List<BikeColor> color = null;
-            ICollection<Bikewale.Entities.Compare.BikeModelColor> hexCodes = null;
+            IList<Bikewale.Entities.Compare.BikeModelColor> hexCodes = null;
 
 
             try
@@ -203,12 +203,15 @@ namespace Bikewale.DAL.Compare
                         }
                     }
 
-                    compare.Color.ForEach(
-                        _color => _color.HexCodes =
-                            (from hexCode in hexCodes
-                             where hexCode.ModelColorId == _color.ColorId
-                             select hexCode.HexCode)
-                        );
+                        if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count > 0)
+                        {
+                            compare.Color.ForEach(
+                                                _color => _color.HexCodes =
+                                                    (from hexCode in hexCodes
+                                                     where hexCode.ModelColorId == _color.ColorId
+                                                     select hexCode.HexCode).ToList()
+                                                );
+                        }
                 }
             }
             catch (SqlException sqEx)

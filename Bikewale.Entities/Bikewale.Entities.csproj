@@ -116,6 +116,7 @@
     <Compile Include="BikeData\MostPopularBikesBase.cs" />
     <Compile Include="BikeData\NewBikeModelColor.cs" />
     <Compile Include="BikeData\NewLaunchedBikeEntity.cs" />
+    <Compile Include="BikeData\NewLaunchedBikesBase.cs" />
     <Compile Include="BikeData\Overview.cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
     <Compile Include="BikeData\SimilarCompareBikeEntity.cs" />
