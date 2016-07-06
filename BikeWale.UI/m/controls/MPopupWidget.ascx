@@ -89,7 +89,7 @@
 
 <script type="text/javascript">
     var selectedModel = 0;
-    var abHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
+    var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
     var preSelectedCityId = 0;
     var preSelectedCityName = "";
     var onCookieObj = {};

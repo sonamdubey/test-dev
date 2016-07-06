@@ -97,12 +97,8 @@
                             $("#edit_" + areaId).addClass("hide");
                             alert("Dealer Mapped with selected Area removed Successfully.")
                         }
-                    });
-                    
+                    });                    
                 });
-
-                
-
             });
 
             var countArea = 0;
