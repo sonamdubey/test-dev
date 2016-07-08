@@ -3,6 +3,8 @@ using System;
 using System.Web;
 using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using Bikewale.Common;
+using System.Data;
 
 namespace Bikewale.Used
 {
@@ -11,7 +13,7 @@ namespace Bikewale.Used
         protected BikesInBudget cbBikesInBudget;
         public string profileNo = "";
 
-        //string soldVersion = "", soldCity = "";
+        string soldVersion = "", soldCity = "";
         int soldPrice = 0;
 
         protected override void OnInit(EventArgs e)
@@ -72,7 +74,6 @@ namespace Bikewale.Used
                         soldVersion = dr["BikeVersionId"].ToString();
                         soldPrice = Convert.ToInt32(dr["Price"]);
                         soldCity = dr["BikeCityId"].ToString();
-                        Trace.Warn("soldVersion : " + soldVersion + "soldPrice : " + soldPrice + "soldCity : " + soldCity);
                         dr.Close();
                     } 
                 }
