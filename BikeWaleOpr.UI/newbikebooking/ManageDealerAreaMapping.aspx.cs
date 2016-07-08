@@ -26,7 +26,7 @@ namespace BikeWaleOpr.NewBikeBooking
         protected string cityId = string.Empty;
         protected uint dealerId = 0;
         protected List<DealerAreaDetails> objMapping = null;
-        protected string abHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
+        protected string BwOprHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
 
         protected override void OnInit(EventArgs e)
         {

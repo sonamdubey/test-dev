@@ -668,13 +668,9 @@ namespace BikeWaleOpr.BikeBooking
 
             if (!String.IsNullOrEmpty(categories))
                 categories = categories.Substring(0, categories.Length - 1);
-
-            //Trace.Warn("add categories : " + )
-            //GetDealerPrices(Convert.ToUInt32(hdnSelectedCityId.Value), Convert.ToUInt32(hdnCmbModel.Value), Convert.ToUInt32(_dealerId));
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //GetDealerPrices(cityId, dealerId, makeId);
             lblTransferStatus.Visible = false;
             lblDealerPriceStatus.Visible = false;
             if (!IsPostBack)

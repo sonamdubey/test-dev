@@ -87,11 +87,11 @@
                 $("#gb-window").find('[class^="remove"]').click(function () {
                     var areaId = $(this).attr('areaid');
                     var dealerId = $(this).attr('dealerid');
-                    var abHostUrl = '<%= abHostUrl%>';
+                    var bwOprHostUrl = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"] %>';
 
                     $.ajax({
                         type: "POST",
-                        url: abHostUrl+"/api/dealerpricequote/UnmapDealerWithArea/?dealerid=" + dealerId + "&areaidlist=" + areaId,
+                        url: bwOprHostUrl + "/api/dealerpricequote/UnmapDealerWithArea/?dealerid=" + dealerId + "&areaidlist=" + areaId,
                         success: function (response) {
                             $(this).parent().parent().addClass("hide");
                             $("#edit_" + areaId).addClass("hide");
