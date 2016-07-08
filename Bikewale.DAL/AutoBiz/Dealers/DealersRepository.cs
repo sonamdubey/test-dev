@@ -37,9 +37,9 @@ namespace Bikewale.DAL.AutoBiz
                 using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerDetails_08012016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int64, Convert.ToInt64(objParams.DealerId)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_VersionId", DbType.Int64, Convert.ToInt64(objParams.VersionId)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int64, Convert.ToInt64(objParams.CityId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int64, Convert.ToInt64(objParams.DealerId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int64, Convert.ToInt64(objParams.VersionId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int64, Convert.ToInt64(objParams.CityId)));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
