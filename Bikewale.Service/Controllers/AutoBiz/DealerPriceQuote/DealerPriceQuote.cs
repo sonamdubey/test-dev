@@ -14,6 +14,9 @@ using System.Web.Http;
 
 namespace Bikewale.Service.Controllers.AutoBiz
 {
+    /// <summary>
+    /// Desc: Controller class to host Dealer Pricequote Apis
+    /// </summary>
     public class DealerPriceQuoteController : ApiController
     {
         /// <summary>
