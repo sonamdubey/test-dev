@@ -125,7 +125,7 @@
             ddlArea = $("#ddlArea"),
             ddlMake = $("#ddlMake"),
             btnGetPriceQuote = $("#btnGetPriceQuote");
-    var abApiHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+    var BwOprHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["BwOprHostUrlForJs"]%>';
     var dealerList = '';
 
     var DealerViewModel = function (model) {
@@ -157,7 +157,7 @@
         if (versionId > 0 && areaId > 0) {
             $.ajax({
                 type: "GET",
-                url: abApiHostUrl + "/api/dealerpricequote/GetAllDealerPriceQuotes/?versionId=" + versionId + "&cityid=" + cityId + "&areaid=" + areaId,
+                url: BwOprHostUrl + "/api/dealerpricequote/GetAllDealerPriceQuotes/?versionId=" + versionId + "&cityid=" + cityId + "&areaid=" + areaId,
                 datatype: "json",
                 success: function (response) {
 

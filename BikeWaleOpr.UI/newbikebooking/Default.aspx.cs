@@ -27,7 +27,7 @@ namespace BikeWaleOpr.BikeBooking
         protected Repeater rptModels, rptcatItem;
         private string _requestType = "application/json";
         protected HtmlInputControl hdnCityId, hdnMakeId, hdnDealerId, hdnCities, hdnDealerList, hdnDealerCity;
-        protected string cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
+        protected string cwHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
         protected string BwOprHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
         protected string BwHostUrl = ConfigurationManager.AppSettings["BwHostUrlForJs"];
         protected HtmlInputButton btnManagePrice;
@@ -668,13 +668,9 @@ namespace BikeWaleOpr.BikeBooking
 
             if (!String.IsNullOrEmpty(categories))
                 categories = categories.Substring(0, categories.Length - 1);
-
-            //Trace.Warn("add categories : " + )
-            //GetDealerPrices(Convert.ToUInt32(hdnSelectedCityId.Value), Convert.ToUInt32(hdnCmbModel.Value), Convert.ToUInt32(_dealerId));
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //GetDealerPrices(cityId, dealerId, makeId);
             lblTransferStatus.Visible = false;
             lblDealerPriceStatus.Visible = false;
             if (!IsPostBack)

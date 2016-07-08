@@ -38,7 +38,7 @@ namespace BikeWaleOpr.NewBikeBooking
         protected DataTable dtVersionsData = null;
         protected List<PQ_Price> _objNewCategory = null;
         protected string categories = string.Empty;
-        private string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
+        private string _abHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
         private string _dealerId = string.Empty;
 
         protected override void OnInit(EventArgs e)
