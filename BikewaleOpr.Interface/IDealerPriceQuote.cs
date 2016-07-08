@@ -1,5 +1,4 @@
 ﻿using BikewaleOpr.Entities;
-using BikewaleOpr.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,7 +18,7 @@ namespace BikewaleOpr.Interface
         bool MapDealerWithArea(uint dealerId, string areaIdList);
         bool UnmapDealer(uint dealerId, string areaIdList);
         List<DealerAreaDetails> GetDealerAreaDetails(uint cityId);
-        DealerInfo GetCampaignDealersLatLongV3(uint versionId, uint areaId);
+        //DealerInfo GetCampaignDealersLatLongV3(uint versionId, uint areaId);
         void GetAreaLatLong(uint areaId, out double lattitude, out double longitude);
         List<DealerLatLong> GetDealersLatLong(uint versionId, uint areaId);
         DealerPriceQuoteEntity GetPriceQuoteForAllDealer(uint versionId, uint cityId, string dealerIds);
