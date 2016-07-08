@@ -579,7 +579,7 @@
             var insAmt = '<%= insuranceAmount %>';
             var cityId = '<%= cityId%>';
             var areaId = '<%= areaId%>';
-            var abHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
+            var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
             var BikeDealerDetails = function () {
                 var self = this;
                 self.DealerId = ko.observable(<%= dealerId%>);

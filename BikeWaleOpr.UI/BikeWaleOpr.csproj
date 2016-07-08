@@ -447,8 +447,6 @@
     <Compile Include="Entities\CalculatedEMI.cs" />
     <Compile Include="Entities\CityEntityBase.cs" />
     <Compile Include="Entities\ColorCodeBase.cs" />
-    <Compile Include="Entities\DealerAreaDetails.cs" />
-    <Compile Include="Entities\DealerDisclaimerEntity.cs" />
     <Compile Include="Entities\DealerLocationEntity.cs" />
     <Compile Include="Entities\DealerPriceEntity.cs" />
     <Compile Include="Entities\EMI.cs" />
@@ -463,13 +461,15 @@
     <Compile Include="Entities\ModelEntityBase.cs" />
     <Compile Include="Entities\PQParameterEntity.cs" />
     <Compile Include="Entities\PQ_DealerDetailEntity.cs" />
-    <Compile Include="Entities\PQ_Price.cs" />
     <Compile Include="Entities\PQ_QuotationEntity.cs" />
     <Compile Include="Entities\StateEntityBase.cs" />
     <Compile Include="Entities\VersionColorBase.cs" />
     <Compile Include="Entities\VersionColorWithAvailability.cs" />
     <Compile Include="Entities\VersionEntity.cs" />
     <Compile Include="Entities\VersionEntityBase.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="MobileApp\AppVersioning.aspx.cs">
       <DependentUpon>AppVersioning.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1310,8 +1310,6 @@
     <Content Include="bikewaleimg\upcoming\HarleyDavidson-883Roadster-25us.jpg" />
     <Content Include="bin\Ajax.dll" />
     <Content Include="bin\AjaxPro.2.dll" />
-    <Content Include="bin\BikewaleOpr.dll" />
-    <Content Include="bin\BikewaleOpr.pdb" />
     <Content Include="bin\Carwale.WebServices.OprAuthentication.dll" />
     <Content Include="bin\Enyim.Caching.dll" />
     <Content Include="bin\FreeTextBox.dll" />
@@ -1911,6 +1909,7 @@
     <Content Include="editor\tiny_mce_old\utils\form_utils.js" />
     <Content Include="editor\tiny_mce_old\utils\mctabs.js" />
     <Content Include="editor\tiny_mce_old\utils\validate.js" />
+    <Content Include="Global.asax" />
     <Content Include="images\calendar.png" />
     <Content Include="includes\footerNew.aspx" />
     <Content Include="includes\headerNew.aspx" />

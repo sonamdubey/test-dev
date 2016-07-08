@@ -54,7 +54,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    var abHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';    
+    var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';    
     $('.slug-head').click(function (e) {
         $('.vehicle-details-form').slideToggle();
     });
@@ -82,7 +82,7 @@
     function bindCitiesSlug() {
         $.ajax({
             type: 'GET',
-            url: abHostUrl + "/api/DealerPriceQuote/getBikeBookingCities/",
+            url: bwHostUrl + "/api/DealerPriceQuote/getBikeBookingCities/",
             dataType: 'json',
             success: function (json) {                                      
                 viewModel.bookingCities(json);
@@ -114,7 +114,7 @@
             // bind makes
             $.ajax({
                 type: 'GET',
-                url: abHostUrl + "/api/DealerPriceQuote/GetBikeMakesInCity/?cityId=" + viewModel.selectedCity(),
+                url: bwHostUrl + "/api/DealerPriceQuote/GetBikeMakesInCity/?cityId=" + viewModel.selectedCity(),
                 dataType: 'json',
                 success: function (json) {
                     viewModel.bookingMakes(json);

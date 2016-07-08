@@ -1,10 +1,9 @@
-﻿using Bikewale.Entities.BikeBooking;
-using BikewaleOpr.DAL;
+﻿using BikewaleOpr.DAL;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using System;
-using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -14,10 +13,9 @@ namespace BikeWaleOpr.NewBikeBooking
     {
         protected Button btnSaveEMI, btnReset, btnDelete;
         protected TextBox txtMinPayment, txtMaxPayment, txtMinTenure, txtMaxTenure, txtMinROI, txtMaxROI, txtMinLtv, txtMaxLtv, textLoanProvider, txtFees;
-        EmiLoanAmount loanAmount;
-        protected int dealerId = 0;
+        EMI loanAmount;
+        protected uint dealerId = 0;
         protected uint loanId = 0;
-        protected string cwHostUrl = string.Empty;
         protected Label errorSummary, finishMessage;
         protected HiddenField hdnLoanAmountId;
 
@@ -32,10 +30,10 @@ namespace BikeWaleOpr.NewBikeBooking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            loanAmount = new EmiLoanAmount();
+            loanAmount = new EMI();
             if (Request.QueryString["dealerId"] != null)
             {
-                int.TryParse(Request.QueryString["dealerId"].ToString(), out dealerId);
+                uint.TryParse(Request.QueryString["dealerId"].ToString(), out dealerId);
             }
 
             if (!IsPostBack)
@@ -66,17 +64,18 @@ namespace BikeWaleOpr.NewBikeBooking
         /// Created on  : 14-March-2016
         /// Desc        :  To get Loan amount entered by Dealer     
         /// </summary>
-        private async void GetLoanProperties()
+        private void GetLoanProperties()
         {
-            loanAmount = new EmiLoanAmount();
+            loanAmount = new EMI();
             try
             {
-                cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = string.Format("api/Dealers/GetDealerLoanAmounts/?dealerId={0}", dealerId);
-                // Send HTTP GET requests
-                loanAmount = await BWHttpClient.GetApiResponse<EmiLoanAmount>(cwHostUrl, _requestType, _apiUrl, loanAmount);
-                // populate already saved value
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealers, DealersRepository>();
+                    IDealers objDealer = container.Resolve<DealersRepository>();
+                    loanAmount = objDealer.GetDealerLoanAmounts(dealerId);
+                }
+
                 if (loanAmount != null && loanAmount.Id > 0)
                 {
                     txtMinPayment.Text = Convert.ToString(loanAmount.MinDownPayment);

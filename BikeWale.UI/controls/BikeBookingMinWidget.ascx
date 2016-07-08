@@ -22,7 +22,7 @@
 </div>
 <script type="text/javascript">
     var modelId = '<%= ModelId %>';
-    var abHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
+    var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
 
     var viewModel = {        
         selectedCity: ko.observable(),
@@ -38,7 +38,7 @@
     function bindCities() {
         $.ajax({
             type: "GET",
-            url: abHostUrl + "/api/DealerPriceQuote/getBikeBookingCities/?modelId=" + modelId,
+            url: bwHostUrl + "/api/DealerPriceQuote/getBikeBookingCities/?modelId=" + modelId,
             dataType: 'json',
             success: function (response) {                
                 viewModel.bookingCities(response);

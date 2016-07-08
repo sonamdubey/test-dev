@@ -5,7 +5,6 @@ using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Web.UI.WebControls;
 
@@ -15,7 +14,6 @@ namespace BikeWaleOpr.BikeBooking
     {
         protected Repeater rptAddedBkgAmount;
         protected DropDownList ddlMake, ddlModel, ddlVersions;
-        protected string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
         protected Label lblMessage;
         protected TextBox txtAddBkgAmount;
         protected Button btnAddAmount;
@@ -77,15 +75,17 @@ namespace BikeWaleOpr.BikeBooking
             }
         }
 
-        private async void GetDealerBookingAmount()
+        private void GetDealerBookingAmount()
         {
-            string _requestType = "application/json";
-
-            string _apiUrl = "/api/Dealers/GetBikeBookingAmount/?dealerId=" + dealerId;
-
-            Trace.Warn("GetBikeBookingAmount _apiUrl : ", _abHostUrl + _apiUrl);
             List<BookingAmountEntity> objBkgAmount = null;
-            objBkgAmount = await BWHttpClient.GetApiResponse<List<BookingAmountEntity>>(_abHostUrl, _requestType, _apiUrl, objBkgAmount);
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IDealers, DealersRepository>();
+                IDealers objIBooking = container.Resolve<DealersRepository>();
+
+                objBkgAmount = objIBooking.GetBikeBookingAmount(Convert.ToUInt32(dealerId));
+            }
 
             if (objBkgAmount != null && objBkgAmount.Count > 0)
             {
@@ -119,7 +119,6 @@ namespace BikeWaleOpr.BikeBooking
                     IDealers objPQ = container.Resolve<DealersRepository>();
                     objPQ.SaveBookingAmount(objBkgAmt);
                 }
-
                 GetDealerBookingAmount();
             }
             txtAddBkgAmount.Text = "";

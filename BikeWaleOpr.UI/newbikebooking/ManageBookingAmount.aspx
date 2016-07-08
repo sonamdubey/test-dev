@@ -181,7 +181,7 @@
                 $("#ddlModel").val("0").attr("disabled", "disabled");
         }
 
-        var host = '<%=_abHostUrl%>';
+        var BwOprHostUrl = '<%=ConfigurationManager.AppSettings["BwOprHostUrlForJs"]%>';
 
         function DeleteClick(bookingId) {
             $("#row_"+bookingId).addClass("yellow");
@@ -191,7 +191,7 @@
             {
                 $.ajax({
                     type: "GET",
-                    url: host + "/api/Dealers/DeleteBookingAmount/?bookingId=" + bookingId,
+                    url: BwOprHostUrl + "/api/Dealers/DeleteBookingAmount/?bookingId=" + bookingId,
                     success: function (response) {
                        window.location.href = window.location.href;
                     }
@@ -239,7 +239,7 @@
                         type: "GET",
                         //contentType: "application/json; charset=utf-8",
                        // data: "'"+jsonStr+"'",
-                        url: host + "/api/Dealers/UpdateBookingAmount/?bookingId=" + bkgId + '&amount=' + parseInt(newAmount),
+                        url: BwOprHostUrl + "/api/Dealers/UpdateBookingAmount/?bookingId=" + bkgId + '&amount=' + parseInt(newAmount),
                         success: function (response) {
                             $("#gb-content").html("Booking amount updated Successfully, Please Close this Box");
                         }

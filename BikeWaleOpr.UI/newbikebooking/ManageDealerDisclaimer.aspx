@@ -137,7 +137,7 @@
             } else
                 $("#ddlModel").val("0").attr("disabled", "disabled");
         }
-        var host = '<%=_abHostUrl%>';
+        var host = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"] %> ';
 
         function btnDelete_Click(disclaimerId) {
             $.ajax({

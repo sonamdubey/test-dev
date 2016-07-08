@@ -139,6 +139,7 @@
     <Compile Include="Insurance\ClientResponse.cs" />
     <Compile Include="Insurance\InsuranceLead.cs" />
     <Compile Include="Insurance\PostInsuranceDetail.cs" />
+    <Compile Include="Location\CityEntityBaseDTO.cs" />
     <Compile Include="Make\BikeDescription.cs" />
     <Compile Include="Make\MakeBase.cs" />
     <Compile Include="Make\MakeList.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="PriceQuote\City\v2\PQCityList.cs" />
     <Compile Include="PriceQuote\DealerPackageType.cs" />
     <Compile Include="PriceQuote\DealerPriceQuote\DPQ_BikeVarient.cs" />
+    <Compile Include="PriceQuote\OfferHtmlDTO.cs" />
     <Compile Include="PriceQuote\PQOnRoad.cs" />
     <Compile Include="PriceQuote\PQUpdateInput.cs" />
     <Compile Include="PriceQuote\PQUpdateOutput.cs" />

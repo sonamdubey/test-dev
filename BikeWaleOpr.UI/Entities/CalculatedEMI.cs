@@ -1,9 +1,10 @@
-﻿using System;
+﻿using BikewaleOpr.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Bikewale.Entities.BikeBooking
+namespace BikewaleOpr
 {
     /// <summary>
     /// Written by Ashwini Todkar on 29 Oct 2014

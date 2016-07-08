@@ -1,5 +1,5 @@
-﻿using System;
-
+﻿
+using System;
 namespace BikewaleOpr.Entities
 {
     public class PQ_Price

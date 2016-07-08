@@ -45,22 +45,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaEntityBase.cs" />
+    <Compile Include="BikeAvailabilityByColor.cs" />
+    <Compile Include="BikeColorAvailability.cs" />
     <Compile Include="BikeMakeEntityBase.cs" />
     <Compile Include="BikeModelEntityBase.cs" />
     <Compile Include="BikeVersionEntityBase.cs" />
     <Compile Include="BookingAmountEntity.cs" />
     <Compile Include="BookingAmountEntityBase.cs" />
     <Compile Include="BookingOfferEntity.cs" />
+    <Compile Include="DealerAreaDetails.cs" />
     <Compile Include="DealerBenefitEntity2.cs" />
     <Compile Include="CityEntityBase.cs" />
     <Compile Include="DataContract.cs" />
     <Compile Include="DataMember.cs" />
+    <Compile Include="DealerCustDistanceMapping.cs" />
     <Compile Include="DealerDisclaimerEntity.cs" />
+    <Compile Include="DealerInfo.cs" />
+    <Compile Include="DealerLatLong.cs" />
     <Compile Include="DealerPackageTypes.cs" />
+    <Compile Include="DealerPriceQuoteDetailed.cs" />
+    <Compile Include="DealerPriceQuoteEntity.cs" />
+    <Compile Include="DealerQuotation.cs" />
     <Compile Include="EMI.cs" />
     <Compile Include="FacilityEntity.cs" />
     <Compile Include="NewBikeDealers.cs" />
     <Compile Include="OfferEntity.cs" />
+    <Compile Include="OfferEntityBase.cs" />
     <Compile Include="PQ_BikeVarient.cs" />
     <Compile Include="PQ_DealerDetailEntity.cs" />
     <Compile Include="PQ_Price.cs" />

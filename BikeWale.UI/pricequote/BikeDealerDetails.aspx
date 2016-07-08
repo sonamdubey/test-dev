@@ -604,7 +604,7 @@
                 self.longitude = ko.observable(<%= longitude %>);
             }
             var getCityArea = GetGlobalCityArea();
-            var abHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
+            var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
 
