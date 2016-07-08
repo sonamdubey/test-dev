@@ -27,7 +27,7 @@ namespace BikeWaleOpr.BikeBooking
         protected Repeater rptModels, rptcatItem;
         private string _requestType = "application/json";
         protected HtmlInputControl hdnCityId, hdnMakeId, hdnDealerId, hdnCities, hdnDealerList, hdnDealerCity;
-        protected string cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
+        protected string cwHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
         protected string BwOprHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
         protected string BwHostUrl = ConfigurationManager.AppSettings["BwHostUrlForJs"];
         protected HtmlInputButton btnManagePrice;
