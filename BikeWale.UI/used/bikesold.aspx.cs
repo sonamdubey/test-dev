@@ -1,12 +1,6 @@
-﻿using System;
+﻿using Bikewale.Controls;
+using System;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Data;
-using System.Data.SqlClient;
-using Bikewale.Common;
-using Bikewale.Controls;
 
 namespace Bikewale.Used
 {
@@ -15,7 +9,7 @@ namespace Bikewale.Used
         protected BikesInBudget cbBikesInBudget;
         public string profileNo = "";
 
-        string soldVersion = "", soldCity = "";
+        //string soldVersion = "", soldCity = "";
         int soldPrice = 0;
 
         protected override void OnInit(EventArgs e)
@@ -111,7 +105,7 @@ namespace Bikewale.Used
             bool isSuccess = true;
             if (!String.IsNullOrEmpty(Request.QueryString["profile"]))
             {
-                
+
                 profileNo = Request.QueryString["profile"];
 
                 string firstChar = profileNo.Substring(0, 1).ToUpper();
@@ -125,7 +119,7 @@ namespace Bikewale.Used
             {
                 isSuccess = false;
             }
-                return isSuccess;
+            return isSuccess;
         }
     }   // end of class
 }   // End of namespace
