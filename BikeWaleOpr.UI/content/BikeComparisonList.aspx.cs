@@ -317,7 +317,6 @@ namespace BikeWaleOpr.Content
         /// <param name="e"></param>
         void btnSave_Click(object Sender, EventArgs e)
         {
-            SqlParameter prm;
             int isActive = (chkIsActive.Checked == true ? 1 : 0);
             int URLData;
 

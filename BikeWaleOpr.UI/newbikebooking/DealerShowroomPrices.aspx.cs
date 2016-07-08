@@ -5,7 +5,6 @@ using BikewaleOpr.Interface;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.Entities;
 using Microsoft.Practices.Unity;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -40,7 +39,6 @@ namespace BikeWaleOpr.NewBikeBooking
         protected List<PQ_Price> _objNewCategory = null;
         protected string categories = string.Empty;
         private string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-        private string _requestType = "application/json";
         private string _dealerId = string.Empty;
 
         protected override void OnInit(EventArgs e)

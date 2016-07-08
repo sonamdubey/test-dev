@@ -8,7 +8,7 @@ using context = System.Web.HttpContext;
 public static class ExceptionLogging
 {
 
-    private static String ErrorlineNo, Errormsg, extype, exurl, hostIp, ErrorLocation, HostAdd;
+    private static String ErrorlineNo, Errormsg, extype, exurl, hostIp=string.Empty, ErrorLocation;
 
     public static void SendErrorToText(Exception ex)
     {
