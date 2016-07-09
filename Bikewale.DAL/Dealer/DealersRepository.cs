@@ -155,7 +155,6 @@ namespace Bikewale.DAL.Dealer
 
             try
             {
-
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -469,8 +468,8 @@ namespace Bikewale.DAL.Dealer
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getdealerbymakecity_31052016";
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelid > 0 ? modelid : Convert.DBNull));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))

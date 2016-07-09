@@ -69,18 +69,15 @@ namespace BikeWaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getstatedetails";
 
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], stateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 40, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_statecode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 2, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], stateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isdeleted", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     objState.StateName = cmd.Parameters["par_name"].Value.ToString();
-
                     objState.MaskingName = cmd.Parameters["par_maskingname"].Value.ToString();
                     objState.StdCode = cmd.Parameters["par_statecode"].Value.ToString();
                     objState.IsDeleted = Convert.ToBoolean(cmd.Parameters["par_isdeleted"].Value);
