@@ -179,7 +179,7 @@ namespace Bikewale.MyBikeWale
 			string sql = "";
 			CommonOpn op = new CommonOpn();
 
-            sql = " select Id, Name from states  where isdeleted = 0 order by name ";
+            sql = " select Id, Name from states where isdeleted = 0 order by name ";
 			try
 			{
 				op.FillDropDown(sql, drpState, "Name", "ID");

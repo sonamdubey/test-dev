@@ -463,7 +463,6 @@ namespace Bikewale.DAL.Dealer
 
             try
             {
-
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
