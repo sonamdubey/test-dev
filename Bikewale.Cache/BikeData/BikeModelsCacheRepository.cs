@@ -58,6 +58,8 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Written By : Sushil Kumar on 28th June 2016
         /// Summary : Function to get the upcoming bikes. If data is not available in the cache it will return data from BL.
+        /// Modified by :   Sumit Kate on 08 Jul 2016
+        /// Description :   Consider PageNo for Memcache key formation
         /// </summary>
         /// <param name="sortBy"></param>
         /// <param name="pageSize"></param>
@@ -75,7 +77,10 @@ namespace Bikewale.Cache.BikeData
 
             if (modelId.HasValue && modelId.Value > 0)
                 key += "_MO_" + modelId;
-
+            if (curPageNo.HasValue && curPageNo.Value > 0)
+            {
+                key += "_PgNo_" + curPageNo.Value;
+            }
             try
             {
                 objUpcoming = _cache.GetFromCache<IEnumerable<UpcomingBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _objModels.GetUpcomingBikesList(sortBy, pageSize, makeId, modelId, curPageNo));

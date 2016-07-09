@@ -873,9 +873,9 @@ namespace Bikewale.DAL.AutoBiz
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_DealerId", DbType.Int32, objParams.DealerId > 0 ? Convert.ToInt64(objParams.DealerId) : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_VersionId", DbType.Int32, Convert.ToInt64(objParams.VersionId)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_CityId", DbType.Int32, Convert.ToInt64(objParams.CityId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, objParams.DealerId > 0 ? Convert.ToInt64(objParams.DealerId) : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, Convert.ToInt64(objParams.VersionId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, Convert.ToInt64(objParams.CityId)));
 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -1123,8 +1123,8 @@ namespace Bikewale.DAL.AutoBiz
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_VersionId", DbType.Int32, versionId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_AreaId", DbType.Int32, areaId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, versionId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, areaId));
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                         {

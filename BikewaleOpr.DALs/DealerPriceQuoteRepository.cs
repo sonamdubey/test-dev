@@ -350,8 +350,8 @@ namespace BikewaleOpr.DALs
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_VersionId", DbType.Int32, versionId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_AreaId", DbType.Int32, areaId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, versionId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, areaId));
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                         {

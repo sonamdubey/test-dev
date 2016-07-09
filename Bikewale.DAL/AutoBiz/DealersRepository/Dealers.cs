@@ -1,14 +1,12 @@
 ﻿
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
+using Bikewale.Notifications.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Web;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
-using BikeWale.Entities.AutoBiz;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.BikeBooking;
+using System.Web;
 
 namespace Bikewale.DAL.AutoBiz
 {
@@ -30,9 +28,9 @@ namespace Bikewale.DAL.AutoBiz
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_DealerId", DbType.Int64, Convert.ToInt64(objParams.DealerId)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_VersionId", DbType.Int64, Convert.ToInt64(objParams.VersionId)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_CityId", DbType.Int64, Convert.ToInt64(objParams.CityId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int64, Convert.ToInt64(objParams.DealerId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int64, Convert.ToInt64(objParams.VersionId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int64, Convert.ToInt64(objParams.CityId)));
 
                     PQ_DealerDetailEntity objDetailPQ = null;
 
