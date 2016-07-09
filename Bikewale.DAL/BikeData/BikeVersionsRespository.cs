@@ -455,9 +455,9 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandText = "getsimilarbikeslist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_topcount", DbType.Int32, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_bikeversionid", DbType.Int32, versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_percentdeviation", DbType.Int32, (percentDeviation > 0) ? percentDeviation : Convert.DBNull)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int32, (percentDeviation > 0) ? percentDeviation : Convert.DBNull)); 
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

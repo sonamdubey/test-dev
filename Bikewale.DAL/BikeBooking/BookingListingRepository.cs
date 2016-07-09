@@ -49,20 +49,20 @@ namespace Bikewale.DAL.BikeBooking
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "getbookinglisting";
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_areaid", DbType.Int32, Convert.ToInt32(areaId)));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, Convert.ToInt32(areaId)));
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_parammakeids", DbType.String, 50,  (!String.IsNullOrEmpty(filter.MakeIds)) ? filter.MakeIds.Replace(' ', ',') : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_paramminvalbudget", DbType.String, 50, (!String.IsNullOrEmpty(filter.Budget))? filter.Budget.Split('-')[0]:Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_parammaxvalbudget", DbType.String, 50,  (!String.IsNullOrEmpty(filter.Budget)) ?filter.Budget.Split('-')[1]:Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_parammileagecategoryids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Mileage))? filter.Mileage.Replace(' ', ','):Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_paramdisplacementfilterids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Displacement))? filter.Displacement.Replace(' ', ','):Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_paramridestyleid", DbType.String, 50, (!String.IsNullOrEmpty(filter.RideStyle))? filter.RideStyle.Replace(' ', ','):Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_paramhasabs", DbType.Boolean,  (!String.IsNullOrEmpty(filter.AntiBreakingSystem)) ? Convert.ToBoolean(Convert.ToInt16(filter.AntiBreakingSystem)):Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_paramdrumdisc", DbType.Boolean, (!String.IsNullOrEmpty(filter.BrakeType)) ? Convert.ToBoolean(Convert.ToInt16(filter.BrakeType)) : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_paramspokealloy", DbType.Boolean, (!String.IsNullOrEmpty(filter.AlloyWheel)) ? Convert.ToBoolean(Convert.ToInt16(filter.AlloyWheel)) : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_paramhaselectric", DbType.Boolean, (!String.IsNullOrEmpty(filter.StartType)) ? Convert.ToBoolean(Convert.ToInt16(filter.StartType)) : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_paramsortcategoryid", DbType.String, 50, (!String.IsNullOrEmpty(filter.sc)) ? filter.sc : Convert.DBNull));                                                       
-                        cmd.Parameters.Add(DbFactory.GetDbParam("v_paramsortorder", DbType.String, 50,  (!String.IsNullOrEmpty(filter.so))?filter.so:Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammakeids", DbType.String, 50,  (!String.IsNullOrEmpty(filter.MakeIds)) ? filter.MakeIds.Replace(' ', ',') : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramminvalbudget", DbType.String, 50, (!String.IsNullOrEmpty(filter.Budget))? filter.Budget.Split('-')[0]:Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammaxvalbudget", DbType.String, 50,  (!String.IsNullOrEmpty(filter.Budget)) ?filter.Budget.Split('-')[1]:Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammileagecategoryids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Mileage))? filter.Mileage.Replace(' ', ','):Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdisplacementfilterids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Displacement))? filter.Displacement.Replace(' ', ','):Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramridestyleid", DbType.String, 50, (!String.IsNullOrEmpty(filter.RideStyle))? filter.RideStyle.Replace(' ', ','):Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhasabs", DbType.Boolean,  (!String.IsNullOrEmpty(filter.AntiBreakingSystem)) ? Convert.ToBoolean(Convert.ToInt16(filter.AntiBreakingSystem)):Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdrumdisc", DbType.Boolean, (!String.IsNullOrEmpty(filter.BrakeType)) ? Convert.ToBoolean(Convert.ToInt16(filter.BrakeType)) : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramspokealloy", DbType.Boolean, (!String.IsNullOrEmpty(filter.AlloyWheel)) ? Convert.ToBoolean(Convert.ToInt16(filter.AlloyWheel)) : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhaselectric", DbType.Boolean, (!String.IsNullOrEmpty(filter.StartType)) ? Convert.ToBoolean(Convert.ToInt16(filter.StartType)) : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramsortcategoryid", DbType.String, 50, (!String.IsNullOrEmpty(filter.sc)) ? filter.sc : Convert.DBNull));                                                       
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramsortorder", DbType.String, 50,  (!String.IsNullOrEmpty(filter.so))?filter.so:Convert.DBNull));
 
                             using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                             {

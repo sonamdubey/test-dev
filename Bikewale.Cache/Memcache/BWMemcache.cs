@@ -56,7 +56,7 @@ namespace Bikewale.Cache.Memcache
             {
                 if (key.Equals("BW_BikeMakes"))
                 {
-                    param =   DbFactory.GetDbParam("v_condition", DbType.String, 10, "Make") ;
+                    param =   DbFactory.GetDbParam("par_condition", DbType.String, 10, "Make") ;
 
                     ds = FetchDataFromDatabase("GetMakeModelVersion", param);
                 }
