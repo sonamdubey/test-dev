@@ -389,11 +389,11 @@ namespace BikewaleOpr.DALs
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetAreaLatLong"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getarealatlong"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("v_AreaId", DbType.Int32, areaId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, areaId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
