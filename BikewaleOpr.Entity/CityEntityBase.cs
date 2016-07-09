@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace BikewaleOpr.Entities
 {
+    [Serializable, DataContract]
     public class CityEntityBase
     {
         [JsonProperty("cityId"), DataMember]

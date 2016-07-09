@@ -1,6 +1,6 @@
 ﻿
 using BikewaleOpr.Entities;
-namespace BikewaleOpr.Entity
+namespace BikewaleOpr.Entities
 {
     public class DealerQuotation
     {

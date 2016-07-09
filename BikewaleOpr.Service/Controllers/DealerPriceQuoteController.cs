@@ -1,7 +1,7 @@
 ﻿using Bikewale.Notifications;
 using BikewaleOpr.BAL;
 using BikewaleOpr.DALs;
-using BikewaleOpr.Entity;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using Microsoft.Practices.Unity;
 using System;
@@ -36,7 +36,6 @@ namespace BikewaleOpr.Service.Controllers
                     {
                         container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
                         IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
-
                         isSuccess = objPriceQuote.UnmapDealer(dealerId, areaIdList);
                     }
                 }

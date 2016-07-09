@@ -449,7 +449,6 @@ namespace Bikewale.Mobile.New
                     {
                         versionId = (modelPage.ModelVersionSpecs.BikeVersionId);
                     }
-
                     if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
                     {
                         if (modelPage.ModelVersions.Count > 1)
@@ -480,7 +479,6 @@ namespace Bikewale.Mobile.New
                             if (firstVer != null)
                                 variantText = firstVer.VersionName;
                         }
-
                     }
                 }
             }
@@ -851,11 +849,10 @@ namespace Bikewale.Mobile.New
                             {
                                 // call another api
                                 PQ_QuotationEntity oblDealerPQ = null;
-                                AutoBizCommon dealerPq = null;
-
+                                AutoBizCommon dealerPq = new AutoBizCommon();
                                 try
                                 {
-                                    oblDealerPQ = oblDealerPQ = dealerPq.GetDealePQEntity(cityId, (uint)versionId, objPQOutput.DealerId);
+                                    oblDealerPQ = oblDealerPQ = dealerPq.GetDealePQEntity(cityId, objPQOutput.DealerId, versionId);
                                     if (oblDealerPQ != null)
                                     {
                                         uint insuranceAmount = 0;
