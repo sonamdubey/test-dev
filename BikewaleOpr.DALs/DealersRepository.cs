@@ -458,22 +458,24 @@ namespace BikewaleOpr.DAL
 
         public DataTable GetDealerCities()
         {
-            DataTable dt = null;
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetBikeDealerCities"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    dt = MySqlDatabase.SelectAdapterQuery(cmd).Tables[0];
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetDealerCities ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return dt;
+
+            throw new NotImplementedException();
+            //DataTable dt = null;
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetBikeDealerCities"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        dt = MySqlDatabase.SelectAdapterQuery(cmd).Tables[0];
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("GetDealerCities ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //return dt;
         }
 
         /// <summary>

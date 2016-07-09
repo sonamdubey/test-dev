@@ -2,21 +2,12 @@
 COMMON OPERATIONS.
 */
 
+using Bikewale.Notifications.CoreDAL;
 using System;
-using System.Text;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Configuration;
-using System.Text.RegularExpressions;
-using System.Web.Security;
-using System.Security.Principal;
-using System.Web.Mail;
-using Bikewale.Notifications.CoreDAL;
-using System.Data.Common;
 
 namespace Bikewale.Common
 {
@@ -45,9 +36,8 @@ namespace Bikewale.Common
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("fetchcustomerdetails"))
                 {
-
                     cmd.CommandType = CommandType.StoredProcedure;
-               // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 100, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, ParameterDirection.Output));
@@ -422,7 +412,7 @@ namespace Bikewale.Common
         {
 
             throw new Exception("Method not used/commented");
-            
+
             //SqlDataReader dr = null;
             //Database db = new Database();
             //string sql = "";
@@ -469,14 +459,14 @@ namespace Bikewale.Common
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("@emailid", DbType.String, emailId.Trim()));
 
-                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             id = dr["Id"].ToString();
                             dr.Close();
                         }
-                    } 
+                    }
                 }
             }
             catch (Exception err)
