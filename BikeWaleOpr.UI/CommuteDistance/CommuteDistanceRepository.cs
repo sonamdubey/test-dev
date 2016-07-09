@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Diagnostics;
 
 namespace BikewaleOpr.CommuteDistance
@@ -81,7 +80,7 @@ namespace BikewaleOpr.CommuteDistance
 
                 using (DbCommand command = DbFactory.GetDBCommand())
                 {
-                    command.CommandText = "GetAreasByDealer";
+                    command.CommandText = "getareasbydealer";
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
                     command.Parameters.Add(DbFactory.GetDbParam("par_leadservingdistance", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToByte(leadServingDistance)));

@@ -1360,45 +1360,46 @@ namespace Bikewale.DAL.AutoBiz
         /// <returns></returns>
         public IEnumerable<DealerBenefitEntity> GetDealerBenefits(uint dealerId)
         {
+            throw new NotImplementedException();
 
-            IList<DealerBenefitEntity> objOffers = null;
-            DealerBenefitEntity objOffer = null;
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerBenefits"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
-                    {
-                        if (dr != null)
-                        {
-                            objOffers = new List<DealerBenefitEntity>();
-                            while (dr.Read())
-                            {
-                                objOffer = new DealerBenefitEntity();
-                                objOffer.BenefitId = Convert.ToInt32(dr["BenefitId"]);
-                                objOffer.CatId = Convert.ToInt32(dr["CatId"]);
-                                objOffer.CategoryText = Convert.ToString(dr["CategoryText"]);
-                                objOffer.DealerId = Convert.ToInt32(dr["DealerId"]);
-                                objOffer.EntryDate = Convert.ToDateTime(dr["EntryDate"]);
-                                objOffer.BenefitText = Convert.ToString(dr["BenefitText"]);
-                                objOffer.City = Convert.ToString(dr["CityName"]);
-                                objOffers.Add(objOffer);
-                            }
-                        }
-                    }
+            //IList<DealerBenefitEntity> objOffers = null;
+            //DealerBenefitEntity objOffer = null;
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerBenefits"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //        {
+            //            if (dr != null)
+            //            {
+            //                objOffers = new List<DealerBenefitEntity>();
+            //                while (dr.Read())
+            //                {
+            //                    objOffer = new DealerBenefitEntity();
+            //                    objOffer.BenefitId = Convert.ToInt32(dr["BenefitId"]);
+            //                    objOffer.CatId = Convert.ToInt32(dr["CatId"]);
+            //                    objOffer.CategoryText = Convert.ToString(dr["CategoryText"]);
+            //                    objOffer.DealerId = Convert.ToInt32(dr["DealerId"]);
+            //                    objOffer.EntryDate = Convert.ToDateTime(dr["EntryDate"]);
+            //                    objOffer.BenefitText = Convert.ToString(dr["BenefitText"]);
+            //                    objOffer.City = Convert.ToString(dr["CityName"]);
+            //                    objOffers.Add(objOffer);
+            //                }
+            //            }
+            //        }
 
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetDealerOffers ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("GetDealerOffers ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 
-            return objOffers;
+            //return objOffers;
         }
         /// <summary>
         /// Created by  :   Sumit Kate on 10 Mar 2016
