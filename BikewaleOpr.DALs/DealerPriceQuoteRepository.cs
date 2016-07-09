@@ -1,7 +1,6 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Notifications.CoreDAL;
 using BikewaleOpr.Entities;
-using BikewaleOpr.Entity;
 using BikewaleOpr.Interface;
 using System;
 using System.Collections.Generic;
@@ -377,10 +376,10 @@ namespace BikewaleOpr.DALs
         }
 
 
-        public DealerInfo GetCampaignDealersLatLongV3(uint versionId, uint areaId)
-        {
-            throw new NotImplementedException();
-        }
+        //public DealerInfo GetCampaignDealersLatLongV3(uint versionId, uint areaId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void GetAreaLatLong(uint areaId, out double lattitude, out double longitude)
         {

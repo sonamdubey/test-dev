@@ -1,5 +1,5 @@
 ﻿using BikewaleOpr.DALs;
-using BikewaleOpr.Entity;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;

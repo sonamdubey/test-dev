@@ -515,6 +515,52 @@
             Description :   Automapper config for AppVersion Entity to DTO
             </summary>
         </member>
+        <member name="M:Bikewale.Service.AutoMappers.AutoBiz.DealerPriceQuoteMapper.Convert(System.Collections.Generic.IEnumerable{Bikewale.Entities.Location.CityEntityBase})">
+            <summary>
+            Author : Vivek Gupta
+            Date : 06-07-2016
+            </summary>
+            <param name="objCityList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.AutoBiz.DealerPriceQuoteMapper.Convert(System.Collections.Generic.IEnumerable{Bikewale.Entities.BikeData.BikeMakeEntityBase})">
+            <summary>
+            Author : Vivek Gupta
+            Date : 06-07-2016
+            </summary>
+            <param name="objMakesList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.AutoBiz.DealerPriceQuoteMapper.Convert(Bikewale.Entities.PriceQuote.OfferHtmlEntity)">
+            <summary>
+            Author : Vivek Gupta
+            Date : 06-07-2016
+            </summary>
+            <param name="objTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.AutoMappers.Bikebooking.BBCityListMapper">
+            <summary>
+            Created By : Vivek Gupta on 04-07-2016
+            Desc : mapper to map city list in bike booking
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.Bikebooking.BBCityListMapper.Convert(System.Collections.Generic.List{Bikewale.Entities.Location.CityEntityBase})">
+            <summary>
+            Created By : Vivek Gupta on 04-07-2016
+            Desc : mapper to map city list in bike booking
+            </summary>
+            <param name="lstCity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.Bikebooking.BBMakeListMapper.Convert(System.Collections.Generic.List{Bikewale.Entities.BikeData.BikeMakeEntityBase})">
+            <summary>
+            Created By : Vivek Gupta on 04-07-2016
+            Desc : mapper to map make list in bike booking
+            </summary>
+            <param name="lstCity"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.AutoMappers.Bikebooking.BikeBookingListingEntityMapper">
             <summary>
             Created by  :   Sumit Kate on 05 Feb 2016
@@ -633,6 +679,22 @@
             <param name="content"></param>
             <returns>custom Ok result is returned</returns>
         </member>
+        <member name="T:Bikewale.Service.Utilities.CompressionApiController">
+            <summary>
+            Created by  :   Sumit Kate on 12 May 2016
+            Description :   Extends ApiController to return the overridden Ok response.    
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Utilities.CompressionApiController.Ok``1(``0)">
+            <summary>
+            Created by  :   Sumit Kate on 12 May 2016
+            Description :   Overrride the Ok response.
+            It will enable gzip compression for the response from web api.        
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="content"></param>
+            <returns>custom Ok result is returned</returns>
+        </member>
         <member name="M:Bikewale.Service.Controllers.AppDeepLinking.DeepLinkingController.#ctor(Bikewale.Interfaces.AppDeepLinking.IDeepLinking)">
             <summary>
             Created By : Lucky Rathore
@@ -689,6 +751,38 @@
             Checks the App Version is supported and latest
             </summary>
             <returns>AppVersion DTO</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.AutoBiz.DealerPriceQuoteController">
+            <summary>
+            Desc: Controller class to host Dealer Pricequote Apis
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.AutoBiz.DealerPriceQuoteController.GetBikeBookingCities(System.Nullable{System.UInt32})">
+            <summary>
+            Written By : Ashish G. Kamble o 10 May 2015
+            Summary : Function to get the list of cities where bike booking option is available.
+            </summary>
+            <returns>If success returns list of cities.</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.AutoBiz.DealerPriceQuoteController.GetBikeMakesInCity(System.UInt32)">
+            <summary>
+            Written By : Ashish G. Kamble on 10 May 2015
+            Summary : Function to get the list of bike makes in the particular city where booking option is available.
+            </summary>
+            <param name="cityId">Should be greater than 0.</param>
+            <returns>Returns list of makes.</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.AutoBiz.DealersController">
+            <summary>
+            Created By : Ashwini Todkar on  28th Oct 2014
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.AutoBiz.DealersController.GetDealerCities">
+            <summary>
+            Created By : Suresh Prajapati on 29th Oct 2014
+            Summary : To Get Dealer Cities for which Bike Dealer exists
+            </summary>
+            <returns>Dealer's Cities</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController">
             <summary>

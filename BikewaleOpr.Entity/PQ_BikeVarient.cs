@@ -1,4 +1,4 @@
-﻿using BikewaleOpr.Entity;
+﻿using BikewaleOpr.Entities;
 using System;
 using System.Collections.Generic;
 

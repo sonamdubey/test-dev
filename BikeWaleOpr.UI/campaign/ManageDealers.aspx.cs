@@ -67,8 +67,8 @@ namespace BikewaleOpr.Campaign
                         contractId,
                         Convert.ToInt16(reqFormRadius),
                         reqFormMaskingNumber,
-                        txtCampaignName.Text,
-                        txtDealerEmail.Text,
+                        txtCampaignName.Text.Trim(),
+                        txtDealerEmail.Text.Trim(),
                         false);
                     lblGreenMessage.Text = "Selected campaign has been Updated !";
                     if (IsProd && isMaskingChanged)
@@ -87,8 +87,8 @@ namespace BikewaleOpr.Campaign
                          contractId,
                          Convert.ToInt16(reqFormRadius),
                          reqFormMaskingNumber,
-                         txtCampaignName.Text,
-                         txtDealerEmail.Text,
+                         txtCampaignName.Text.Trim(),
+                         txtDealerEmail.Text.Trim(),
                          false);
                     lblGreenMessage.Text = "New campaign has been added !";
                     isCampaignPresent = true;
@@ -196,7 +196,7 @@ namespace BikewaleOpr.Campaign
                         txtCampaignName.Text = Convert.ToString(dtCampaign.Rows[0]["DealerName"]);
                     }
                     oldMaskingNumber = txtMaskingNumber.Text;
-                    txtDealerEmail.Text = dtCampaign.Rows[0]["DealerEmailId"].ToString();
+                    txtDealerEmail.Text = dtCampaign.Rows[0]["DealerEmailId"].ToString().Trim();
                     dealerMobile = dtCampaign.Rows[0]["dealerMobile"].ToString();
                 }
                 else

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace BikewaleOpr.Entity
+namespace BikewaleOpr.Entities
 {
     /// <summary>
     /// Created by: Sangram

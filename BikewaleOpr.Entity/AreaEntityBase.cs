@@ -1,9 +1,11 @@
 ﻿
 using Newtonsoft.Json;
 using System;
+using System.Runtime.Serialization;
 
 namespace BikewaleOpr.Entities
 {
+    [Serializable, DataContract]
     public class AreaEntityBase
     {
         [JsonProperty("areaId"), DataMember]
