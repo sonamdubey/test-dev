@@ -259,27 +259,29 @@ namespace Bikewale.BAL.AutoBiz
         /// <returns>dealer id</returns>
         public uint IsSubscribedDealerExists(uint versionId, uint areaId)
         {
-            uint dealerId = 0;
 
-            if (versionId > 0 && areaId > 0)
-            {
-                try
-                {
-                    DealerLatLong objDealersList = _dealerPQRepository.GetCampaignDealersLatLong(versionId, areaId);
+            throw new NotImplementedException();
+            //uint dealerId = 0;
 
-                    if (objDealersList != null)
-                    {
-                        dealerId = objDealersList.DealerId;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, "AutoBiz.BAL.BW.BikeBooking.Dealers.IsSubscribedDealerExists");
-                    objErr.SendMail();
-                }
-            }
+            //if (versionId > 0 && areaId > 0)
+            //{
+            //    try
+            //    {
+            //        DealerLatLong objDealersList = _dealerPQRepository.GetCampaignDealersLatLong(versionId, areaId);
 
-            return dealerId;
+            //        if (objDealersList != null)
+            //        {
+            //            dealerId = objDealersList.DealerId;
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        ErrorClass objErr = new ErrorClass(ex, "AutoBiz.BAL.BW.BikeBooking.Dealers.IsSubscribedDealerExists");
+            //        objErr.SendMail();
+            //    }
+            //}
+
+            //return dealerId;
         }
         /// <summary>
         /// Author : Vivek Gupta

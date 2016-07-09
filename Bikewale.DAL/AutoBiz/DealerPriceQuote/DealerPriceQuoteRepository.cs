@@ -31,13 +31,13 @@ namespace Bikewale.DAL.AutoBiz
             IList<PQ_VersionPrice> priceSplits = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerPriceQuote_08012016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerpricequote_08012016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, objParams.CityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_VersionId", DbType.Int64, objParams.VersionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, objParams.DealerId > 0 ? objParams.DealerId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, objParams.CityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int64, objParams.VersionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, objParams.DealerId > 0 ? objParams.DealerId : Convert.DBNull));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
@@ -211,28 +211,29 @@ namespace Bikewale.DAL.AutoBiz
         /// <returns></returns>
         public DataSet GetDealerPrices(uint cityId, uint makeId, uint dealerId)
         {
-            DataSet ds = null;
+            throw new NotImplementedException();
+            //DataSet ds = null;
 
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerPrices"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerPrices"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_MakeId", DbType.Int64, makeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_MakeId", DbType.Int64, makeId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetBikeCategoryItems ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return ds;
+            //        ds = MySqlDatabase.SelectAdapterQuery(cmd);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("GetBikeCategoryItems ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //return ds;
         }
 
 
@@ -654,7 +655,7 @@ namespace Bikewale.DAL.AutoBiz
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetBikeMakesInCity"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getbikemakesincity"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
@@ -869,7 +870,7 @@ namespace Bikewale.DAL.AutoBiz
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerDetails_14032016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_14032016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -1113,40 +1114,41 @@ namespace Bikewale.DAL.AutoBiz
         public DealerLatLong GetCampaignDealersLatLong(uint versionId, uint areaId)
         {
 
-            DealerLatLong objDealersList = null;
+            throw new NotImplementedException();
+            //DealerLatLong objDealersList = null;
 
-            try
-            {
-                if (versionId > 0 && areaId > 0)
-                {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong_12042016"))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{
+            //    if (versionId > 0 && areaId > 0)
+            //    {
+            //        using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong_12042016"))
+            //        {
+            //            cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, versionId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, areaId));
+            //            cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, versionId));
+            //            cmd.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, areaId));
 
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
-                        {
-                            objDealersList = new DealerLatLong();
+            //            using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //            {
+            //                objDealersList = new DealerLatLong();
 
-                            while (dr.Read())
-                            {
-                                objDealersList.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
-                                objDealersList.Lattitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(UInt32);
-                                objDealersList.Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(UInt32);
-                                objDealersList.ServingDistance = !Convert.IsDBNull(dr["LeadServingDistance"]) ? Convert.ToUInt16(dr["LeadServingDistance"]) : default(UInt16);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "GetCampaignDealersLatLong");
-                objErr.SendMail();
-            }
-            return objDealersList;
+            //                while (dr.Read())
+            //                {
+            //                    objDealersList.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
+            //                    objDealersList.Lattitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(UInt32);
+            //                    objDealersList.Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(UInt32);
+            //                    objDealersList.ServingDistance = !Convert.IsDBNull(dr["LeadServingDistance"]) ? Convert.ToUInt16(dr["LeadServingDistance"]) : default(UInt16);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, "GetCampaignDealersLatLong");
+            //    objErr.SendMail();
+            //}
+            //return objDealersList;
         }
         /// <summary>
         /// Author : Vivek Gupta

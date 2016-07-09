@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
 using System.Web;
 
 namespace BikewaleOpr.DAL
@@ -20,200 +19,200 @@ namespace BikewaleOpr.DAL
         /// <returns></returns>
         public PQ_DealerDetailEntity GetDealerDetailsPQ(PQParameterEntity objParams)
         {
+            throw new NotImplementedException();
+            //PQ_DealerDetailEntity objDetailPQ = null;
+            //List<PQ_BikeVarient> varients = null;
+            //IList<PQ_VersionPrice> priceSplits = null;
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerDetails_08012016"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int64, Convert.ToInt64(objParams.DealerId)));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int64, Convert.ToInt64(objParams.VersionId)));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int64, Convert.ToInt64(objParams.CityId)));
 
-            PQ_DealerDetailEntity objDetailPQ = null;
-            List<PQ_BikeVarient> varients = null;
-            IList<PQ_VersionPrice> priceSplits = null;
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerDetails_08012016"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int64, Convert.ToInt64(objParams.DealerId)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int64, Convert.ToInt64(objParams.VersionId)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int64, Convert.ToInt64(objParams.CityId)));
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //        {
+            //            objDetailPQ = new PQ_DealerDetailEntity();
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
-                    {
-                        objDetailPQ = new PQ_DealerDetailEntity();
+            //            objDetailPQ.objQuotation = null;
 
-                        objDetailPQ.objQuotation = null;
+            //            //Get vehicle details
+            //            if (dr.Read())
+            //            {
+            //                objDetailPQ.objQuotation = new PQ_QuotationEntity()
+            //                {
+            //                    objMake = new BikeMakeEntityBase() { MakeName = dr["MakeName"].ToString(), MaskingName = dr["MakeMaskingName"].ToString() },
+            //                    objModel = new BikeModelEntityBase() { ModelName = dr["ModelName"].ToString(), MaskingName = dr["ModelMaskingName"].ToString() },
+            //                    objVersion = new BikeVersionEntityBase() { VersionName = dr["VersionName"].ToString() },
+            //                    HostUrl = dr["HostURL"].ToString(),
+            //                    LargePicUrl = dr["largePic"].ToString(),
+            //                    SmallPicUrl = dr["smallPic"].ToString(),
+            //                    OriginalImagePath = dr["OriginalImagePath"].ToString()
+            //                };
+            //            }
 
-                        //Get vehicle details
-                        if (dr.Read())
-                        {
-                            objDetailPQ.objQuotation = new PQ_QuotationEntity()
-                            {
-                                objMake = new BikeMakeEntityBase() { MakeName = dr["MakeName"].ToString(), MaskingName = dr["MakeMaskingName"].ToString() },
-                                objModel = new BikeModelEntityBase() { ModelName = dr["ModelName"].ToString(), MaskingName = dr["ModelMaskingName"].ToString() },
-                                objVersion = new BikeVersionEntityBase() { VersionName = dr["VersionName"].ToString() },
-                                HostUrl = dr["HostURL"].ToString(),
-                                LargePicUrl = dr["largePic"].ToString(),
-                                SmallPicUrl = dr["smallPic"].ToString(),
-                                OriginalImagePath = dr["OriginalImagePath"].ToString()
-                            };
-                        }
+            //            //Get price details
+            //            dr.NextResult();
 
-                        //Get price details
-                        dr.NextResult();
+            //            objDetailPQ.objQuotation.PriceList = new List<PQ_Price>();
 
-                        objDetailPQ.objQuotation.PriceList = new List<PQ_Price>();
+            //            while (dr.Read())
+            //            {
+            //                if (Convert.ToUInt32(dr["Price"]) > 0)
+            //                    objDetailPQ.objQuotation.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]), CategoryId = Convert.ToUInt32(dr["ItemId"]) });
+            //            }
 
-                        while (dr.Read())
-                        {
-                            if (Convert.ToUInt32(dr["Price"]) > 0)
-                                objDetailPQ.objQuotation.PriceList.Add(new PQ_Price() { CategoryName = dr["ItemName"].ToString(), Price = Convert.ToUInt32(dr["Price"]), CategoryId = Convert.ToUInt32(dr["ItemId"]) });
-                        }
+            //            dr.NextResult();
 
-                        dr.NextResult();
+            //            // Get dealer disclaimer
+            //            objDetailPQ.objQuotation.Disclaimer = new List<string>();
+            //            while (dr.Read())
+            //                objDetailPQ.objQuotation.Disclaimer.Add(dr["Disclaimer"].ToString());
 
-                        // Get dealer disclaimer
-                        objDetailPQ.objQuotation.Disclaimer = new List<string>();
-                        while (dr.Read())
-                            objDetailPQ.objQuotation.Disclaimer.Add(dr["Disclaimer"].ToString());
+            //            //Get Offer details
+            //            dr.NextResult();
+            //            objDetailPQ.objOffers = new List<OfferEntity>();
 
-                        //Get Offer details
-                        dr.NextResult();
-                        objDetailPQ.objOffers = new List<OfferEntity>();
+            //            while (dr.Read())
+            //            {
+            //                objDetailPQ.objOffers.Add(new OfferEntity() { OfferText = dr["OfferText"].ToString(), OfferType = dr["OfferType"].ToString(), OfferValue = Convert.ToUInt32(dr["OfferValue"]), OfferCategoryId = Convert.ToUInt32(dr["OfferCategoryId"]), OfferId = Convert.ToUInt32(dr["OfferId"]), IsOfferTerms = Convert.ToBoolean(dr["IsOfferTerms"]), IsPriceImpact = Convert.ToBoolean(dr["IsPriceImpact"]) });
+            //            }
 
-                        while (dr.Read())
-                        {
-                            objDetailPQ.objOffers.Add(new OfferEntity() { OfferText = dr["OfferText"].ToString(), OfferType = dr["OfferType"].ToString(), OfferValue = Convert.ToUInt32(dr["OfferValue"]), OfferCategoryId = Convert.ToUInt32(dr["OfferCategoryId"]), OfferId = Convert.ToUInt32(dr["OfferId"]), IsOfferTerms = Convert.ToBoolean(dr["IsOfferTerms"]), IsPriceImpact = Convert.ToBoolean(dr["IsPriceImpact"]) });
-                        }
+            //            //On road price for the varients
+            //            if (dr.NextResult())
+            //            {
+            //                varients = new List<PQ_BikeVarient>();
+            //                while (dr.Read())
+            //                {
+            //                    varients.Add(new PQ_BikeVarient()
+            //                    {
+            //                        objMake = new BikeMakeEntityBase()
+            //                        {
+            //                            MakeId = Convert.ToInt32(dr["MakeId"]),
+            //                            MakeName = Convert.ToString(dr["MakeName"]),
+            //                            MaskingName = Convert.ToString(dr["MakeMaskingName"])
+            //                        },
+            //                        objModel = new BikeModelEntityBase()
+            //                        {
+            //                            ModelId = Convert.ToInt32(dr["ModelId"]),
+            //                            ModelName = Convert.ToString(dr["ModelName"]),
+            //                            MaskingName = Convert.ToString(dr["ModelMaskingName"])
+            //                        },
+            //                        objVersion = new BikeVersionEntityBase()
+            //                        {
+            //                            VersionId = Convert.ToInt32(dr["VersionId"]),
+            //                            VersionName = Convert.ToString(dr["VersionName"])
+            //                        },
+            //                        HostUrl = Convert.ToString(dr["HostURL"]),
+            //                        OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+            //                        OnRoadPrice = Convert.ToUInt32(dr["OnRoadPrice"]),
+            //                        BookingAmount = Convert.ToUInt32(dr["BookingAmount"]),
+            //                        PriceList = new List<PQ_Price>()
+            //                    });
+            //                }
+            //                if (dr.NextResult())
+            //                {
+            //                    priceSplits = new List<PQ_VersionPrice>();
+            //                    while (dr.Read())
+            //                    {
+            //                        priceSplits.Add(
+            //                            new PQ_VersionPrice()
+            //                            {
+            //                                CategoryId = Convert.ToUInt32(dr["ItemId"]),
+            //                                CategoryName = Convert.ToString(dr["ItemName"]),
+            //                                DealerId = Convert.ToUInt32(dr["DealerId"]),
+            //                                Price = Convert.ToUInt32(dr["Price"]),
+            //                                VersionId = Convert.ToUInt32(dr["VersionId"])
+            //                            }
+            //                        );
+            //                    }
+            //                }
 
-                        //On road price for the varients
-                        if (dr.NextResult())
-                        {
-                            varients = new List<PQ_BikeVarient>();
-                            while (dr.Read())
-                            {
-                                varients.Add(new PQ_BikeVarient()
-                                {
-                                    objMake = new BikeMakeEntityBase()
-                                    {
-                                        MakeId = Convert.ToInt32(dr["MakeId"]),
-                                        MakeName = Convert.ToString(dr["MakeName"]),
-                                        MaskingName = Convert.ToString(dr["MakeMaskingName"])
-                                    },
-                                    objModel = new BikeModelEntityBase()
-                                    {
-                                        ModelId = Convert.ToInt32(dr["ModelId"]),
-                                        ModelName = Convert.ToString(dr["ModelName"]),
-                                        MaskingName = Convert.ToString(dr["ModelMaskingName"])
-                                    },
-                                    objVersion = new BikeVersionEntityBase()
-                                    {
-                                        VersionId = Convert.ToInt32(dr["VersionId"]),
-                                        VersionName = Convert.ToString(dr["VersionName"])
-                                    },
-                                    HostUrl = Convert.ToString(dr["HostURL"]),
-                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
-                                    OnRoadPrice = Convert.ToUInt32(dr["OnRoadPrice"]),
-                                    BookingAmount = Convert.ToUInt32(dr["BookingAmount"]),
-                                    PriceList = new List<PQ_Price>()
-                                });
-                            }
-                            if (dr.NextResult())
-                            {
-                                priceSplits = new List<PQ_VersionPrice>();
-                                while (dr.Read())
-                                {
-                                    priceSplits.Add(
-                                        new PQ_VersionPrice()
-                                        {
-                                            CategoryId = Convert.ToUInt32(dr["ItemId"]),
-                                            CategoryName = Convert.ToString(dr["ItemName"]),
-                                            DealerId = Convert.ToUInt32(dr["DealerId"]),
-                                            Price = Convert.ToUInt32(dr["Price"]),
-                                            VersionId = Convert.ToUInt32(dr["VersionId"])
-                                        }
-                                    );
-                                }
-                            }
+            //                if ((varients != null && varients.Count > 0) && (priceSplits != null && priceSplits.Count > 0))
+            //                {
+            //                    varients.ForEach(
+            //                        varient => varient.PriceList =
+            //                            (
+            //                                from price in priceSplits
+            //                                where price.VersionId == varient.objVersion.VersionId
+            //                                select new PQ_Price()
+            //                                {
+            //                                    CategoryId = price.CategoryId,
+            //                                    CategoryName = price.CategoryName,
+            //                                    DealerId = price.DealerId,
+            //                                    Price = price.Price
+            //                                }
+            //                            ).ToList()
+            //                        );
+            //                }
+            //                objDetailPQ.objQuotation.Varients = varients;
+            //            }
 
-                            if ((varients != null && varients.Count > 0) && (priceSplits != null && priceSplits.Count > 0))
-                            {
-                                varients.ForEach(
-                                    varient => varient.PriceList =
-                                        (
-                                            from price in priceSplits
-                                            where price.VersionId == varient.objVersion.VersionId
-                                            select new PQ_Price()
-                                            {
-                                                CategoryId = price.CategoryId,
-                                                CategoryName = price.CategoryName,
-                                                DealerId = price.DealerId,
-                                                Price = price.Price
-                                            }
-                                        ).ToList()
-                                    );
-                            }
-                            objDetailPQ.objQuotation.Varients = varients;
-                        }
+            //            //Get Dealer details
+            //            dr.NextResult();
 
-                        //Get Dealer details
-                        dr.NextResult();
+            //            if (dr.Read())
+            //            {
+            //                objDetailPQ.objDealer = new NewBikeDealers();
 
-                        if (dr.Read())
-                        {
-                            objDetailPQ.objDealer = new NewBikeDealers();
+            //                objDetailPQ.objDealer.DealerId = objParams.DealerId;
+            //                objDetailPQ.objDealer.Name = (dr["FirstName"] != null) ? dr["FirstName"].ToString() : "";
+            //                objDetailPQ.objDealer.Address = dr["Address"].ToString();
+            //                objDetailPQ.objDealer.EmailId = dr["EmailId"].ToString();
 
-                            objDetailPQ.objDealer.DealerId = objParams.DealerId;
-                            objDetailPQ.objDealer.Name = (dr["FirstName"] != null) ? dr["FirstName"].ToString() : "";
-                            objDetailPQ.objDealer.Address = dr["Address"].ToString();
-                            objDetailPQ.objDealer.EmailId = dr["EmailId"].ToString();
+            //                objDetailPQ.objDealer.MobileNo = (dr["MobileNo"] != null) ? dr["MobileNo"].ToString() : "";
+            //                objDetailPQ.objDealer.PhoneNo = dr["PhoneNo"].ToString();
 
-                            objDetailPQ.objDealer.MobileNo = (dr["MobileNo"] != null) ? dr["MobileNo"].ToString() : "";
-                            objDetailPQ.objDealer.PhoneNo = dr["PhoneNo"].ToString();
+            //                objDetailPQ.objDealer.objArea = new AreaEntityBase() { Latitude = Convert.ToDouble(dr["Lattitude"]), Longitude = Convert.ToDouble(dr["Longitude"]), AreaName = dr["AreaName"].ToString(), PinCode = dr["Pincode"].ToString() };
 
-                            objDetailPQ.objDealer.objArea = new AreaEntityBase() { Latitude = Convert.ToDouble(dr["Lattitude"]), Longitude = Convert.ToDouble(dr["Longitude"]), AreaName = dr["AreaName"].ToString(), PinCode = dr["Pincode"].ToString() };
+            //                objDetailPQ.objDealer.objCity = new CityEntityBase() { CityName = dr["CityName"].ToString() };
 
-                            objDetailPQ.objDealer.objCity = new CityEntityBase() { CityName = dr["CityName"].ToString() };
+            //                objDetailPQ.objDealer.objState = new StateEntityBase() { StateName = dr["StateName"].ToString() };
+            //                objDetailPQ.objDealer.Website = (dr["WebsiteUrl"] != null) ? dr["WebsiteUrl"].ToString() : "";
+            //                objDetailPQ.objDealer.Organization = (dr["Organization"] != null) ? dr["Organization"].ToString() : "";
+            //                objDetailPQ.objDealer.WorkingTime = (dr["ContactHours"] != null) ? dr["ContactHours"].ToString() : "";
+            //            }
 
-                            objDetailPQ.objDealer.objState = new StateEntityBase() { StateName = dr["StateName"].ToString() };
-                            objDetailPQ.objDealer.Website = (dr["WebsiteUrl"] != null) ? dr["WebsiteUrl"].ToString() : "";
-                            objDetailPQ.objDealer.Organization = (dr["Organization"] != null) ? dr["Organization"].ToString() : "";
-                            objDetailPQ.objDealer.WorkingTime = (dr["ContactHours"] != null) ? dr["ContactHours"].ToString() : "";
-                        }
+            //            //Get facilities list provided by dealer
 
-                        //Get facilities list provided by dealer
+            //            dr.NextResult();
 
-                        dr.NextResult();
+            //            objDetailPQ.objFacilities = new List<FacilityEntity>();
 
-                        objDetailPQ.objFacilities = new List<FacilityEntity>();
+            //            while (dr.Read())
+            //            {
+            //                objDetailPQ.objFacilities.Add(new FacilityEntity() { Facility = dr["Facility"].ToString() });
+            //            }
 
-                        while (dr.Read())
-                        {
-                            objDetailPQ.objFacilities.Add(new FacilityEntity() { Facility = dr["Facility"].ToString() });
-                        }
+            //            //Get EMI options provided by dealers
 
-                        //Get EMI options provided by dealers
+            //            dr.NextResult();
 
-                        dr.NextResult();
+            //            if (dr.Read())
+            //            {
+            //                objDetailPQ.objEmi = new EMI() { RateOfInterest = Convert.ToSingle(dr["RateOfInterest"]), LoanToValue = Convert.ToUInt16(dr["LTV"]), Tenure = Convert.ToUInt16(dr["Tenure"]), LoanProvider = dr["LoanProvider"].ToString() };
+            //            }
 
-                        if (dr.Read())
-                        {
-                            objDetailPQ.objEmi = new EMI() { RateOfInterest = Convert.ToSingle(dr["RateOfInterest"]), LoanToValue = Convert.ToUInt16(dr["LTV"]), Tenure = Convert.ToUInt16(dr["Tenure"]), LoanProvider = dr["LoanProvider"].ToString() };
-                        }
+            //            //Get Bike Booking amount
+            //            dr.NextResult();
 
-                        //Get Bike Booking amount
-                        dr.NextResult();
+            //            if (dr.Read())
+            //            {
+            //                objDetailPQ.objBookingAmt = new BookingAmountEntityBase() { Amount = Convert.ToUInt32(dr["Amount"]) };
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Exception at GetDealerDetails : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 
-                        if (dr.Read())
-                        {
-                            objDetailPQ.objBookingAmt = new BookingAmountEntityBase() { Amount = Convert.ToUInt32(dr["Amount"]) };
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Exception at GetDealerDetails : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return objDetailPQ;
+            //return objDetailPQ;
         }
 
 
@@ -432,7 +431,7 @@ namespace BikewaleOpr.DAL
             DataTable dt = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetBikeDealers"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getbikedealers"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
@@ -521,7 +520,7 @@ namespace BikewaleOpr.DAL
             List<OfferEntity> objOffers = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerOffers_07012016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealeroffers_07012016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
@@ -941,7 +940,7 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerDisclaimer"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdisclaimer"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
@@ -1231,52 +1230,53 @@ namespace BikewaleOpr.DAL
         /// <returns></returns>
         public BookingAmountEntity GetDealerBookingAmount(uint versionId, uint dealerId)
         {
-            BookingAmountEntity objBookingDetails = null;
+            throw new NotImplementedException();
+            //BookingAmountEntity objBookingDetails = null;
 
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerBookingAmount"))
-                {
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerBookingAmount"))
+            //    {
 
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_VersionId", DbType.Int32, versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_VersionId", DbType.Int32, versionId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
-                    {
-                        if (dr.Read())
-                        {
-                            objBookingDetails = new BookingAmountEntity()
-                            {
-                                objBookingAmountEntityBase = new BookingAmountEntityBase()
-                                {
-                                    Amount = Convert.ToUInt32(dr["Amount"]),
-                                    IsActive = Convert.ToBoolean(dr["IsActive"]),
-                                    Id = Convert.ToUInt32(dr["Id"])
-                                },
-                                objMake = new BikeMakeEntityBase()
-                                {
-                                    MakeName = dr["MakeName"].ToString()
-                                },
-                                objModel = new BikeModelEntityBase()
-                                {
-                                    ModelName = dr["ModelName"].ToString()
-                                }
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //        {
+            //            if (dr.Read())
+            //            {
+            //                objBookingDetails = new BookingAmountEntity()
+            //                {
+            //                    objBookingAmountEntityBase = new BookingAmountEntityBase()
+            //                    {
+            //                        Amount = Convert.ToUInt32(dr["Amount"]),
+            //                        IsActive = Convert.ToBoolean(dr["IsActive"]),
+            //                        Id = Convert.ToUInt32(dr["Id"])
+            //                    },
+            //                    objMake = new BikeMakeEntityBase()
+            //                    {
+            //                        MakeName = dr["MakeName"].ToString()
+            //                    },
+            //                    objModel = new BikeModelEntityBase()
+            //                    {
+            //                        ModelName = dr["ModelName"].ToString()
+            //                    }
 
-                            };
+            //                };
 
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetBikeBookingAmount ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return objBookingDetails;
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("GetBikeBookingAmount ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //return objBookingDetails;
         }
 
         /// <summary>

@@ -211,8 +211,8 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getdealeroffers";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

@@ -7,9 +7,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.DAL.Dealer
@@ -30,7 +27,7 @@ namespace Bikewale.DAL.Dealer
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr != null )
+                        if (dr != null)
                         {
                             offers = new List<Offer>();
                             while (dr.Read())
