@@ -521,42 +521,44 @@ namespace Bikewale.DAL.AutoBiz
         public List<DealerLatLong> GetDealersLatLong(uint versionId, uint areaId)
         {
 
-            List<DealerLatLong> objDealersList = null;
+            throw new Exception("List<DealerLatLong> GetDealersLatLong(uint versionId, uint areaId) : Method not implemented or not used !!");
 
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealersLatLong"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
+            //List<DealerLatLong> objDealersList = null;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_VersionId", DbType.Int32, versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_AreaId", DbType.Int32, areaId));
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
-                    {
-                        objDealersList = new List<DealerLatLong>();
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, areaId));
 
-                        while (dr.Read())
-                        {
-                            objDealersList.Add(new DealerLatLong
-                            {
-                                DealerId = Convert.ToUInt32(dr["DealerId"]),
-                                Lattitude = Convert.ToDouble(dr["Lattitude"]),
-                                Longitude = Convert.ToDouble(dr["Longitude"]),
-                                ServingDistance = Convert.ToUInt16(dr["LeadServingDistance"])
-                            });
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetDealersLatLong ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //        {
+            //            objDealersList = new List<DealerLatLong>();
 
-            return objDealersList;
+            //            while (dr.Read())
+            //            {
+            //                objDealersList.Add(new DealerLatLong
+            //                {
+            //                    DealerId = Convert.ToUInt32(dr["DealerId"]),
+            //                    Lattitude = Convert.ToDouble(dr["Lattitude"]),
+            //                    Longitude = Convert.ToDouble(dr["Longitude"]),
+            //                    ServingDistance = Convert.ToUInt16(dr["LeadServingDistance"])
+            //                });
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("GetDealersLatLong ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+
+            //return objDealersList;
         }
 
         /// <summary>

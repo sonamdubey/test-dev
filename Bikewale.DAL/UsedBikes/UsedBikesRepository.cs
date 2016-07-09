@@ -28,10 +28,9 @@ namespace Bikewale.DAL.UsedBikes
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("PopularUsedBikes"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("popularusedbikes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalCount;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
 

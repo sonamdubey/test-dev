@@ -59,9 +59,6 @@ namespace Bikewale.Common
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes"))
-                {
-
                     if (Enum.TryParse(RequestType, true, out _requestType))
                     {
                         using (IUnityContainer container = new UnityContainer())
@@ -87,7 +84,6 @@ namespace Bikewale.Common
 
                         }
                     }
-                }
             }
             catch (Exception ex)
             {

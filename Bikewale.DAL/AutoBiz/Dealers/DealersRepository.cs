@@ -528,7 +528,7 @@ namespace Bikewale.DAL.AutoBiz
             List<OfferEntity> objOffers = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerOffers_07012016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealeroffers_07012016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));

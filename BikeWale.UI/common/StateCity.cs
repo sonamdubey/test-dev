@@ -1,10 +1,10 @@
-﻿using System;
-using System.Web;
-using System.Data;
-using System.Data.SqlClient;
-using Bikewale.Entities.BikeData;
-using System.Data.Common;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Notifications.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web;
 
 namespace Bikewale.Common
 {
@@ -63,37 +63,35 @@ namespace Bikewale.Common
         {
             DataTable dt = null;
 
-                try
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = (int)bikeType;
-                        //cmd.Parameters.Add("@StateId", SqlDbType.BigInt).Value = stateId;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, null));
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, null));
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    {
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                         {
-                            if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
-                            {
-                                dt = ds.Tables[0];
-                            }
+                            dt = ds.Tables[0];
                         }
                     }
                 }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
             return dt;
         }   // End of GetCities method
 
@@ -108,14 +106,12 @@ namespace Bikewale.Common
         {
             DataTable dt = null;
 
-            EnumBikeType bikeType = (EnumBikeType)Enum.Parse(typeof(EnumBikeType), requestType, true); 
+            EnumBikeType bikeType = (EnumBikeType)Enum.Parse(typeof(EnumBikeType), requestType, true);
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = (int)bikeType;
-                    //cmd.Parameters.Add("@StateId", SqlDbType.BigInt).Value = stateId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, (int)bikeType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, (!string.IsNullOrEmpty(stateId)) ? stateId : null));
 
@@ -158,7 +154,6 @@ namespace Bikewale.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("getcitieswithmappingname"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, null));
 
@@ -237,7 +232,7 @@ namespace Bikewale.Common
         /// <returns>Function returns the Cities object in which city's details data is stored.</returns>
         public Cities GetCityDetails(string cityId)
         {
-            throw new Exception("Method not used/commented");
+            throw new Exception("GetCityDetails(string cityId) : Method not used/commented");
 
             //Database db = null;
             //SqlConnection conn = null;
@@ -253,7 +248,7 @@ namespace Bikewale.Common
 
             //    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
             //    cmd.Parameters.Add("@City", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-              //      Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+            //      Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
             //    try
             //    {
             //        db = new Database();

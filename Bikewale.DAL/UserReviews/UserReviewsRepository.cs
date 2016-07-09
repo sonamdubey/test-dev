@@ -532,12 +532,7 @@ namespace Bikewale.DAL.UserReviews
                 reviews = new ReviewListBase();
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviewslist"))
                 {
-                    //cmd.CommandText = "getbikereviewslist";
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    //cmd.Parameters.Add("@startindex", SqlDbType.Int).Value = startIndex;
-                    //cmd.Parameters.Add("@endindex", SqlDbType.Int).Value = endIndex;
-                    //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbType.Int32, endIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
