@@ -282,8 +282,8 @@ namespace Bikewale.Common
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, Configuration.GetDefaultCityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 30, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 30, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbType.String, 30, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isfuturistic", DbType.Boolean, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbType.String, 50, ParameterDirection.InputOutput));
@@ -293,6 +293,9 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbType.String, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Boolean, ParameterDirection.InputOutput));
+
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Boolean, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.InputOutput));
