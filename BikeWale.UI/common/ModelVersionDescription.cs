@@ -1,9 +1,9 @@
-﻿using System;
-using System.Web;
+﻿using Bikewale.CoreDAL;
+using System;
 using System.Data;
-using System.Data.SqlClient;
-using Bikewale.CoreDAL;
 using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web;
 
 /// <summary>
 /// Summary description for ModelDescription
@@ -35,10 +35,10 @@ namespace Bikewale.Common
         public string ModelBasePrice { get; set; }
         public string ModelHighendPrice { get; set; }
         public string OriginalImagePath { get; set; }
-        public string DefaultCity {get { return System.Configuration.ConfigurationManager.AppSettings["DefaultCity"]; } }
+        public string DefaultCity { get { return System.Configuration.ConfigurationManager.AppSettings["DefaultCity"]; } }
         /// <summary>
         /// Modified By : Suresh Prajapati on 22 Aug 2014
-		/// Summary : to retrieve isnew and isused flag
+        /// Summary : to retrieve isnew and isused flag
         /// </summary>
         /// <param name="modelId"></param>
         public void GetDetailsByModel(string modelId)
@@ -48,15 +48,12 @@ namespace Bikewale.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldescription"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    HttpContext.Current.Trace.Warn("modelId : " + modelId);
-                    HttpContext.Current.Trace.Warn("defaultcity : " + DefaultCity);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, DefaultCity)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, DefaultCity));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
 
                             MakeName = dr["MakeName"].ToString();
@@ -82,8 +79,8 @@ namespace Bikewale.Common
                             OriginalImagePath = dr["OriginalImagePath"].ToString();
 
                             dr.Close();
-                        } 
-                    } 
+                        }
+                    }
                 }
 
             }
@@ -98,12 +95,12 @@ namespace Bikewale.Common
                 HttpContext.Current.Trace.Warn("GetModelDetails: " + err.Message);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }			
+            }
         }
 
         /// <summary>
         /// Modified By : Suresh Prajapati on 22 Aug 2014
-		/// Summary : to retrieve isnew and isused flag
+        /// Summary : to retrieve isnew and isused flag
         /// </summary>
         /// <param name="VersionId"></param>
         public void GetDetailsByVersion(string VersionId)
@@ -115,11 +112,11 @@ namespace Bikewale.Common
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, VersionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, DefaultCity)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, DefaultCity));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
 
                             MakeName = dr["MakeName"].ToString();
@@ -145,8 +142,8 @@ namespace Bikewale.Common
                             OriginalImagePath = dr["OriginalImagePath"].ToString();
 
                             dr.Close();
-                        } 
-                    } 
+                        }
+                    }
                 }
             }
 
@@ -161,8 +158,8 @@ namespace Bikewale.Common
                 HttpContext.Current.Trace.Warn("GetDetailsByVersion: " + err.Message);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }			
+            }
         }
-        
+
     }//class
 }//namespace
