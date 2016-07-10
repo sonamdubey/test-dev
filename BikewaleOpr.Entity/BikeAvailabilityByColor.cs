@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BikewaleOpr.Entity
+namespace BikewaleOpr.Entities
 {
     public class BikeAvailabilityByColor
     {

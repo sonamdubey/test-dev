@@ -1,21 +1,18 @@
-using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
-using BikeWaleOpr.Controls;
-using System.Configuration;
-using RabbitMqPublishing;
-using System.Collections.Specialized;
 using BikeWaleOpr.RabbitMQ;
-using System.IO;
 using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using RabbitMqPublishing;
+using System;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
+using System.IO;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 
 namespace BikeWaleOpr.Content
@@ -138,19 +135,19 @@ namespace BikeWaleOpr.Content
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
-                    {
-                        cmd.CommandText = "saveversionphotos";
-                        cmd.CommandType = CommandType.StoredProcedure;
+                {
+                    cmd.CommandText = "saveversionphotos";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ConfigurationManager.AppSettings["imgHostURL"]));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_timestamp", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, timeStamp));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ConfigurationManager.AppSettings["imgHostURL"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_timestamp", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, timeStamp));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
 
-                        MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd);
 
-                        originalImagePath = cmd.Parameters["par_originalimagepath"].Value.ToString();
-                    }
+                    originalImagePath = cmd.Parameters["par_originalimagepath"].Value.ToString();
+                }
             }
             catch (SqlException err)
             {
@@ -232,7 +229,7 @@ namespace BikeWaleOpr.Content
                                 btnSave.Enabled = true;
                             }
                         }
-                    } 
+                    }
                 }
             }
             catch (SqlException err)

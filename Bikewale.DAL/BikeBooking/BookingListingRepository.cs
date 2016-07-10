@@ -1,17 +1,14 @@
-﻿using Bikewale.Interfaces.BikeBooking;
+﻿using Bikewale.CoreDAL;
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Notifications;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Notifications;
-using Bikewale.CoreDAL;
-using System.Data.SqlClient;
 using System.Data;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Utility;
 using System.Data.Common;
+using System.Linq;
 
 namespace Bikewale.DAL.BikeBooking
 {
@@ -49,111 +46,112 @@ namespace Bikewale.DAL.BikeBooking
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "getbookinglisting";
+
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, Convert.ToInt32(areaId)));
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammakeids", DbType.String, 50,  (!String.IsNullOrEmpty(filter.MakeIds)) ? filter.MakeIds.Replace(' ', ',') : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramminvalbudget", DbType.String, 50, (!String.IsNullOrEmpty(filter.Budget))? filter.Budget.Split('-')[0]:Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammaxvalbudget", DbType.String, 50,  (!String.IsNullOrEmpty(filter.Budget)) ?filter.Budget.Split('-')[1]:Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammileagecategoryids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Mileage))? filter.Mileage.Replace(' ', ','):Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdisplacementfilterids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Displacement))? filter.Displacement.Replace(' ', ','):Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramridestyleid", DbType.String, 50, (!String.IsNullOrEmpty(filter.RideStyle))? filter.RideStyle.Replace(' ', ','):Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhasabs", DbType.Boolean,  (!String.IsNullOrEmpty(filter.AntiBreakingSystem)) ? Convert.ToBoolean(Convert.ToInt16(filter.AntiBreakingSystem)):Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammakeids", DbType.String, 50, (!String.IsNullOrEmpty(filter.MakeIds)) ? filter.MakeIds.Replace(' ', ',') : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramminvalbudget", DbType.String, 50, (!String.IsNullOrEmpty(filter.Budget)) ? filter.Budget.Split('-')[0] : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammaxvalbudget", DbType.String, 50, (!String.IsNullOrEmpty(filter.Budget)) ? filter.Budget.Split('-')[1] : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammileagecategoryids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Mileage)) ? filter.Mileage.Replace(' ', ',') : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdisplacementfilterids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Displacement)) ? filter.Displacement.Replace(' ', ',') : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramridestyleid", DbType.String, 50, (!String.IsNullOrEmpty(filter.RideStyle)) ? filter.RideStyle.Replace(' ', ',') : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhasabs", DbType.Boolean, (!String.IsNullOrEmpty(filter.AntiBreakingSystem)) ? Convert.ToBoolean(Convert.ToInt16(filter.AntiBreakingSystem)) : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdrumdisc", DbType.Boolean, (!String.IsNullOrEmpty(filter.BrakeType)) ? Convert.ToBoolean(Convert.ToInt16(filter.BrakeType)) : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramspokealloy", DbType.Boolean, (!String.IsNullOrEmpty(filter.AlloyWheel)) ? Convert.ToBoolean(Convert.ToInt16(filter.AlloyWheel)) : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhaselectric", DbType.Boolean, (!String.IsNullOrEmpty(filter.StartType)) ? Convert.ToBoolean(Convert.ToInt16(filter.StartType)) : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramsortcategoryid", DbType.String, 50, (!String.IsNullOrEmpty(filter.sc)) ? filter.sc : Convert.DBNull));                                                       
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramsortorder", DbType.String, 50,  (!String.IsNullOrEmpty(filter.so))?filter.so:Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramsortcategoryid", DbType.String, 50, (!String.IsNullOrEmpty(filter.sc)) ? filter.sc : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramsortorder", DbType.String, 50, (!String.IsNullOrEmpty(filter.so)) ? filter.so : Convert.DBNull));
 
-                            using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                        {
+                            lstBikeBookingListingEntity = new List<BikeBookingListingEntity>();
+                            if (dr != null)
                             {
-                                lstBikeBookingListingEntity = new List<BikeBookingListingEntity>();
-                                if (dr != null)
+                                #region Bike details
+                                while (dr.Read())
                                 {
-                                    #region Bike details
+                                    BikeBookingListingEntity objBikeBookingListingEntity = new BikeBookingListingEntity();
+                                    objBikeBookingListingEntity.MakeEntity = new Entities.BikeData.BikeMakeEntityBase()
+                                    {
+                                        MakeId = Convert.ToInt32(dr["MakeId"]),
+                                        MakeName = Convert.ToString(dr["MakeName"]),
+                                        MaskingName = Convert.ToString(dr["MakeMaskingName"])
+                                    };
+                                    objBikeBookingListingEntity.ModelEntity = new Entities.BikeData.BikeModelEntityBase()
+                                    {
+                                        ModelId = Convert.ToInt32(dr["ModelId"]),
+                                        ModelName = Convert.ToString(dr["ModelName"]),
+                                        MaskingName = Convert.ToString(dr["ModelMaskingName"])
+                                    };
+                                    objBikeBookingListingEntity.VersionEntity = new Entities.BikeData.BikeVersionEntityBase()
+                                    {
+                                        VersionId = Convert.ToInt32(dr["VersionId"]),
+                                        VersionName = Convert.ToString(dr["VersionName"])
+                                    };
+                                    objBikeBookingListingEntity.BikeName = Convert.ToString(dr["Bike"]);
+                                    objBikeBookingListingEntity.ExShowroom = Convert.ToUInt32(dr["VersionPrice"]);
+                                    objBikeBookingListingEntity.HostUrl = Convert.ToString(dr["HostUrl"]);
+                                    objBikeBookingListingEntity.OriginalImagePath = Convert.ToString(dr["ImgPath"]);
+                                    objBikeBookingListingEntity.DealerId = Convert.ToUInt32(dr["DealerId"]);
+                                    objBikeBookingListingEntity.Displacement = Convert.ToSingle(dr["Displacement"]);
+                                    objBikeBookingListingEntity.Mileage = Convert.ToUInt16(dr["Mileage"]);
+                                    objBikeBookingListingEntity.HasABS = Convert.ToBoolean(dr["hasABS"]);
+                                    objBikeBookingListingEntity.HasDisc = Convert.ToBoolean(dr["discDrum"]);
+                                    objBikeBookingListingEntity.HasAlloyWheels = Convert.ToBoolean(dr["hasAlloyWheels"]);
+                                    objBikeBookingListingEntity.HasElectricStart = Convert.ToBoolean(dr["hasElectricStart"]);
+                                    objBikeBookingListingEntity.BookingAmount = Convert.ToUInt32(dr["BookingAmount"]);
+                                    objBikeBookingListingEntity.PopularityIndex = Convert.ToUInt32(dr["PopularityIndex"]);
+
+                                    lstBikeBookingListingEntity.Add(objBikeBookingListingEntity);
+                                }
+                                #endregion
+                                #region Price Breakup
+                                if (dr.NextResult())
+                                {
+                                    lstVersionPrice = new List<DealerPriceCategoryItemEntity>();
+                                    lstPQList = new List<PQ_Price>();
                                     while (dr.Read())
                                     {
-                                        BikeBookingListingEntity objBikeBookingListingEntity = new BikeBookingListingEntity();
-                                        objBikeBookingListingEntity.MakeEntity = new Entities.BikeData.BikeMakeEntityBase()
-                                        {
-                                            MakeId = Convert.ToInt32(dr["MakeId"]),
-                                            MakeName = Convert.ToString(dr["MakeName"]),
-                                            MaskingName = Convert.ToString(dr["MakeMaskingName"])
-                                        };
-                                        objBikeBookingListingEntity.ModelEntity = new Entities.BikeData.BikeModelEntityBase()
-                                        {
-                                            ModelId = Convert.ToInt32(dr["ModelId"]),
-                                            ModelName = Convert.ToString(dr["ModelName"]),
-                                            MaskingName = Convert.ToString(dr["ModelMaskingName"])
-                                        };
-                                        objBikeBookingListingEntity.VersionEntity = new Entities.BikeData.BikeVersionEntityBase()
-                                        {
-                                            VersionId = Convert.ToInt32(dr["VersionId"]),
-                                            VersionName = Convert.ToString(dr["VersionName"])
-                                        };
-                                        objBikeBookingListingEntity.BikeName = Convert.ToString(dr["Bike"]);
-                                        objBikeBookingListingEntity.ExShowroom = Convert.ToUInt32(dr["VersionPrice"]);
-                                        objBikeBookingListingEntity.HostUrl = Convert.ToString(dr["HostUrl"]);
-                                        objBikeBookingListingEntity.OriginalImagePath = Convert.ToString(dr["ImgPath"]);
-                                        objBikeBookingListingEntity.DealerId = Convert.ToUInt32(dr["DealerId"]);
-                                        objBikeBookingListingEntity.Displacement = Convert.ToSingle(dr["Displacement"]);
-                                        objBikeBookingListingEntity.Mileage = Convert.ToUInt16(dr["Mileage"]);
-                                        objBikeBookingListingEntity.HasABS = Convert.ToBoolean(dr["hasABS"]);
-                                        objBikeBookingListingEntity.HasDisc = Convert.ToBoolean(dr["discDrum"]);
-                                        objBikeBookingListingEntity.HasAlloyWheels = Convert.ToBoolean(dr["hasAlloyWheels"]);
-                                        objBikeBookingListingEntity.HasElectricStart = Convert.ToBoolean(dr["hasElectricStart"]);
-                                        objBikeBookingListingEntity.BookingAmount = Convert.ToUInt32(dr["BookingAmount"]);
-                                        objBikeBookingListingEntity.PopularityIndex = Convert.ToUInt32(dr["PopularityIndex"]);
-
-                                        lstBikeBookingListingEntity.Add(objBikeBookingListingEntity);
-                                    }
-                                    #endregion
-                                    #region Price Breakup
-                                    if (dr.NextResult())
-                                    {
-                                        lstVersionPrice = new List<DealerPriceCategoryItemEntity>();
-                                        lstPQList = new List<PQ_Price>();
-                                        while (dr.Read())
-                                        {
-                                            lstVersionPrice.Add(
-                                                new DealerPriceCategoryItemEntity()
-                                                {
-                                                    DealerId = Convert.ToUInt32(dr["DealerId"]),
-                                                    ItemId = Convert.ToUInt32(dr["Id"]),
-                                                    ItemName = Convert.ToString(dr["ItemName"]),
-                                                    Price = Convert.ToInt32(dr["ItemValue"]),
-                                                    VersionId = Convert.ToUInt32(dr["VersionId"])
-                                                }
-                                                );
-                                            lstPQList.Add(new PQ_Price()
+                                        lstVersionPrice.Add(
+                                            new DealerPriceCategoryItemEntity()
                                             {
                                                 DealerId = Convert.ToUInt32(dr["DealerId"]),
-                                                CategoryName = Convert.ToString(dr["ItemName"]),
-                                                CategoryId = Convert.ToUInt32(dr["Id"]),
-                                                Price = Convert.ToUInt32(dr["ItemValue"]),
-                                            });
-                                        }
-                                    }
-                                    #endregion
-                                    #region Offer Count
-                                    if (dr.NextResult())
-                                    {
-                                        while (dr.Read())
+                                                ItemId = Convert.ToUInt32(dr["Id"]),
+                                                ItemName = Convert.ToString(dr["ItemName"]),
+                                                Price = Convert.ToInt32(dr["ItemValue"]),
+                                                VersionId = Convert.ToUInt32(dr["VersionId"])
+                                            }
+                                            );
+                                        lstPQList.Add(new PQ_Price()
                                         {
-                                            lstBookingOffer = new List<BookingOfferEntity>();
-                                            lstBookingOffer.Add(
-                                                new BookingOfferEntity()
-                                                {
-                                                    ModelId = Convert.ToInt32(dr["ModelId"]),
-                                                    OfferCount = Convert.ToUInt16(dr["OfferCount"]),
-                                                    DealerId = Convert.ToInt32(dr["DealerId"])
-                                                }
-                                                );
-                                        }
+                                            DealerId = Convert.ToUInt32(dr["DealerId"]),
+                                            CategoryName = Convert.ToString(dr["ItemName"]),
+                                            CategoryId = Convert.ToUInt32(dr["Id"]),
+                                            Price = Convert.ToUInt32(dr["ItemValue"]),
+                                        });
                                     }
-                                    #endregion
-                                    dr.Close();
                                 }
+                                #endregion
+                                #region Offer Count
+                                if (dr.NextResult())
+                                {
+                                    while (dr.Read())
+                                    {
+                                        lstBookingOffer = new List<BookingOfferEntity>();
+                                        lstBookingOffer.Add(
+                                            new BookingOfferEntity()
+                                            {
+                                                ModelId = Convert.ToInt32(dr["ModelId"]),
+                                                OfferCount = Convert.ToUInt16(dr["OfferCount"]),
+                                                DealerId = Convert.ToInt32(dr["DealerId"])
+                                            }
+                                            );
+                                    }
+                                }
+                                #endregion
+                                dr.Close();
                             }
+                        }
                         if (lstBikeBookingListingEntity != null && lstBikeBookingListingEntity.Count > 0)
                         {
                             lstBikeBookingListingEntity.ForEach(
@@ -213,8 +211,8 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getdealeroffers";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId ));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {

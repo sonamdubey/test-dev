@@ -1,16 +1,13 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using BikeWaleOpr.Common;
-using System.Configuration;
+﻿using BikeWaleOpr.Common;
 using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using System;
+using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -21,13 +18,13 @@ namespace BikeWaleOpr.Content
     public class ManageUserReviews : Page
     {
         protected Repeater rptReviews;
-        protected DropDownList ddlMakes, ddlModels;        
+        protected DropDownList ddlMakes, ddlModels;
         protected RadioButton rdoPending, rdoApproved, rdoDiscarded;
         protected Button btnShowReviews;
-        protected HiddenField hdnSelectedModel= null;
+        protected HiddenField hdnSelectedModel = null;
 
         protected HtmlGenericControl errMsg;
-        
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -38,14 +35,14 @@ namespace BikeWaleOpr.Content
         {
             errMsg.InnerHtml = "";
             errMsg.Visible = false;
-            
+
             if (!IsPostBack)
             {
                 FillMakes();
                 FillModels();
 
                 rdoPending.Checked = true;
-                
+
                 GetReviews();
             }
 
@@ -81,7 +78,7 @@ namespace BikeWaleOpr.Content
         /// </summary>
         protected void FillModels()
         {
-            ddlModels.Items.Insert(0, new ListItem("--Select Model--", "0"));             
+            ddlModels.Items.Insert(0, new ListItem("--Select Model--", "0"));
         }
 
 
@@ -91,7 +88,7 @@ namespace BikeWaleOpr.Content
         /// </summary>
         void ShowReviews(object sender, EventArgs e)
         {
-            GetReviews();                        
+            GetReviews();
         }   // End of showreviews method
 
         protected void GetReviews()
@@ -100,7 +97,7 @@ namespace BikeWaleOpr.Content
             bool isPending = true, isVerified = false, isDiscarded = false;
 
             GetReviewCriteria(ref makeId, ref modelId, ref isPending, ref isVerified, ref isDiscarded);
-            
+
             try
             {
 
@@ -133,9 +130,9 @@ namespace BikeWaleOpr.Content
                                 errMsg.Visible = true;
                             }
                         }
-                        
+
                     }
-                   
+
                 }
             }
             catch (SqlException ex)

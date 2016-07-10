@@ -1,6 +1,6 @@
 ﻿
 using Bikewale.Notifications;
-using BikewaleOpr.Entity;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using System;
 using System.Collections.Generic;

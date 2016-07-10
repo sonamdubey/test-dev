@@ -856,17 +856,17 @@ namespace Bikewale.New
                             {
                                 // call another api
                                 PQ_QuotationEntity oblDealerPQ = null;
-                                AutoBizCommon dealerPq = null;
+                                AutoBizCommon dealerPq = new AutoBizCommon();
                                 try
                                 {
-                                    oblDealerPQ = dealerPq.GetDealePQEntity(cityId, (uint)variantId, objPQOutput.DealerId);
+                                    oblDealerPQ = dealerPq.GetDealePQEntity(cityId, objPQOutput.DealerId, variantId);
 
                                     if (oblDealerPQ != null)
                                     {
                                         uint insuranceAmount = 0;
                                         foreach (var price in oblDealerPQ.PriceList)
                                         {
-                                            pqOnRoad.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQOutput.DealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
+                                            pqOnRoad.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQOutput.DealerId.ToString(), string.Empty, price.CategoryName, price.Price, ref insuranceAmount);
                                         }
                                         pqOnRoad.IsInsuranceFree = true;
                                         pqOnRoad.DPQOutput = oblDealerPQ;

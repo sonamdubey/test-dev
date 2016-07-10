@@ -1,7 +1,6 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Notifications.CoreDAL;
 using BikewaleOpr.Entities;
-using BikewaleOpr.Entity;
 using BikewaleOpr.Interface;
 using System;
 using System.Collections.Generic;
@@ -185,12 +184,12 @@ namespace BikewaleOpr.DALs
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerPrices"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerprices"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_MakeId", DbType.Int64, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
 
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
@@ -339,48 +338,48 @@ namespace BikewaleOpr.DALs
         /// <returns></returns>
         public DealerLatLong GetCampaignDealersLatLong(uint versionId, uint areaId)
         {
-
-            DealerLatLong objDealersList = null;
-
-            try
-            {
-                if (versionId > 0 && areaId > 0)
-                {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong_12042016"))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, versionId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, areaId));
-
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
-                        {
-                            objDealersList = new DealerLatLong();
-
-                            while (dr.Read())
-                            {
-                                objDealersList.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
-                                objDealersList.Lattitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(UInt32);
-                                objDealersList.Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(UInt32);
-                                objDealersList.ServingDistance = !Convert.IsDBNull(dr["LeadServingDistance"]) ? Convert.ToUInt16(dr["LeadServingDistance"]) : default(UInt16);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "GetCampaignDealersLatLong");
-                objErr.SendMail();
-            }
-            return objDealersList;
-        }
-
-
-        public DealerInfo GetCampaignDealersLatLongV3(uint versionId, uint areaId)
-        {
             throw new NotImplementedException();
+            //    DealerLatLong objDealersList = null;
+
+            //    try
+            //    {
+            //        if (versionId > 0 && areaId > 0)
+            //        {
+            //            using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong_12042016"))
+            //            {
+            //                cmd.CommandType = CommandType.StoredProcedure;
+
+            //                cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, versionId));
+            //                cmd.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, areaId));
+
+            //                using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //                {
+            //                    objDealersList = new DealerLatLong();
+
+            //                    while (dr.Read())
+            //                    {
+            //                        objDealersList.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
+            //                        objDealersList.Lattitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(UInt32);
+            //                        objDealersList.Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(UInt32);
+            //                        objDealersList.ServingDistance = !Convert.IsDBNull(dr["LeadServingDistance"]) ? Convert.ToUInt16(dr["LeadServingDistance"]) : default(UInt16);
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        ErrorClass objErr = new ErrorClass(ex, "GetCampaignDealersLatLong");
+            //        objErr.SendMail();
+            //    }
+            //    return objDealersList;
         }
+
+
+        //public DealerInfo GetCampaignDealersLatLongV3(uint versionId, uint areaId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void GetAreaLatLong(uint areaId, out double lattitude, out double longitude)
         {

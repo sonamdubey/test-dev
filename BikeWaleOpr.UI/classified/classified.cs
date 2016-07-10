@@ -2,7 +2,6 @@
 using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -20,7 +19,7 @@ namespace BikeWaleOpr.Classified
         /// Created By : Sanjay Soni ON 30/9/2014
         /// Description : To Retrieve All Listings from start Index to end Index
         /// </summary>
-        public DataSet CustomerListingDetail(int startIndex,int endIndex,string inquiryId = "")
+        public DataSet CustomerListingDetail(int startIndex, int endIndex, string inquiryId = "")
         {
             DataSet ds = null;
             try
@@ -33,7 +32,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], startIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], endIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!String.IsNullOrEmpty(inquiryId) && inquiryId != "0") ? Convert.ToUInt32(inquiryId.Substring(1, inquiryId.Length - 1)) : Convert.DBNull));
-                    
+
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
@@ -61,7 +60,7 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerLiveListings(int customerId)
         {
-            
+
             DataSet ds = null;
             try
             {
@@ -72,7 +71,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    
+
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
@@ -100,7 +99,7 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerPendingListings(int customerId)
         {
-            
+
             DataSet ds = null;
             try
             {
@@ -111,7 +110,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    
+
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
@@ -139,7 +138,7 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerFakeListings(int customerId)
         {
-            
+
             DataSet ds = null;
             try
             {
@@ -150,7 +149,6 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
@@ -178,7 +176,7 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerUnVerifiedListings(int customerId)
         {
-            
+
             DataSet ds = null;
             try
             {
@@ -189,7 +187,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    
+
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
@@ -207,7 +205,7 @@ namespace BikeWaleOpr.Classified
             }
             return ds;
         }
-#endregion
+        #endregion
 
         #region CustomerSoldListings
         /// <summary>
@@ -217,7 +215,7 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerSoldListings(int customerId)
         {
-            
+
             DataSet ds = null;
             try
             {
@@ -228,7 +226,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    
+
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
@@ -256,7 +254,7 @@ namespace BikeWaleOpr.Classified
         /// <param name="customerId"></param>
         public DataSet CustomerTotalListings(int customerId)
         {
-            
+
             DataSet ds = null;
             try
             {
@@ -267,7 +265,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    
+
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
@@ -295,7 +293,7 @@ namespace BikeWaleOpr.Classified
         /// <param name="profileId"></param>
         public DataSet CustomerTotalListingPhotos(int ProfileId)
         {
-            
+
             DataSet ds = null;
             try
             {
@@ -306,7 +304,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ProfileId));
 
-                    
+
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
@@ -335,7 +333,7 @@ namespace BikeWaleOpr.Classified
         public bool ApproveListing(int profileId)
         {
             bool isSuccess = false;
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -345,7 +343,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], profileId));
 
-                    
+
                     MySqlDatabase.UpdateQuery(cmd);
                     isSuccess = true;
                 }
@@ -377,7 +375,7 @@ namespace BikeWaleOpr.Classified
         public bool DiscardListing(int profileId)
         {
             bool isSuccess = false;
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -387,7 +385,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], profileId));
 
-                    
+
                     MySqlDatabase.UpdateQuery(cmd);
                     isSuccess = true;
                 }
@@ -418,7 +416,7 @@ namespace BikeWaleOpr.Classified
         /// <param name="photoIdList"></param>
         public void ApproveSelectedPhotos(string photoIdList)
         {
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -426,9 +424,9 @@ namespace BikeWaleOpr.Classified
                     cmd.CommandText = "classified_bikephotos_markverified";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],  photoIdList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], photoIdList));
 
-                    
+
                     MySqlDatabase.UpdateQuery(cmd);
                 }
             }
@@ -445,7 +443,7 @@ namespace BikeWaleOpr.Classified
                 objErr.SendMail();
             }
         }
-#endregion
+        #endregion
 
         #region DiscardSelectedPhotos
         /// <summary>
@@ -455,7 +453,7 @@ namespace BikeWaleOpr.Classified
         /// <param name="photoIdList"></param>
         public void DiscardSelectedPhotos(string photoIdList)
         {
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -465,7 +463,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], photoIdList));
 
-                    
+
                     MySqlDatabase.UpdateQuery(cmd);
                 }
             }
@@ -492,7 +490,7 @@ namespace BikeWaleOpr.Classified
         /// <param name="CustIdList"></param>
         public void DiscardCustomers(string CustIdList)
         {
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -502,7 +500,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_custidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], CustIdList));
 
-                    
+
                     MySqlDatabase.UpdateQuery(cmd);
                 }
             }

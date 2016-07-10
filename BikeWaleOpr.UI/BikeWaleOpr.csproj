@@ -181,7 +181,6 @@
       <DependentUpon>frmManageAppVersions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Entities\AppEnum.cs" />
     <Compile Include="common\BikeWaleAuthentication.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWHttpClient.cs" />
@@ -424,32 +423,6 @@
     <Compile Include="editcms\Code\ViewImage.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Entities\AppVersionEntity.cs" />
-    <Compile Include="Entities\AreaEntityBase.cs" />
-    <Compile Include="Entities\AreaLocationEntity.cs" />
-    <Compile Include="Entities\CalculatedEMI.cs" />
-    <Compile Include="Entities\CityEntityBase.cs" />
-    <Compile Include="Entities\ColorCodeBase.cs" />
-    <Compile Include="Entities\DealerLocationEntity.cs" />
-    <Compile Include="Entities\DealerPriceEntity.cs" />
-    <Compile Include="Entities\EMI.cs" />
-    <Compile Include="Entities\GeoLocationDestinationEntity.cs" />
-    <Compile Include="Entities\GeoLocationEntity.cs" />
-    <Compile Include="Entities\MakeEntity.cs" />
-    <Compile Include="Entities\MakeEntityBase.cs" />
-    <Compile Include="Entities\ManufacturerCampaignEntity.cs" />
-    <Compile Include="Entities\ManufacturerEntity.cs" />
-    <Compile Include="Entities\ModelColorBase.cs" />
-    <Compile Include="Entities\ModelEntity.cs" />
-    <Compile Include="Entities\ModelEntityBase.cs" />
-    <Compile Include="Entities\PQParameterEntity.cs" />
-    <Compile Include="Entities\PQ_DealerDetailEntity.cs" />
-    <Compile Include="Entities\PQ_QuotationEntity.cs" />
-    <Compile Include="Entities\StateEntityBase.cs" />
-    <Compile Include="Entities\VersionColorBase.cs" />
-    <Compile Include="Entities\VersionColorWithAvailability.cs" />
-    <Compile Include="Entities\VersionEntity.cs" />
-    <Compile Include="Entities\VersionEntityBase.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -571,6 +544,7 @@
     <Folder Include="bikewaleimg\ec\7\img\c140\" />
     <Folder Include="bikewaleimg\ec\7\img\c200\" />
     <Folder Include="content\mappingfiles\parsedpricefiles\" />
+    <Folder Include="Entities\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
   </ItemGroup>

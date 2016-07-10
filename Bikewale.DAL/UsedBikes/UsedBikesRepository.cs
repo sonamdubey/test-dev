@@ -99,7 +99,6 @@ namespace Bikewale.DAL.UsedBikes
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.SByte, totalCount));
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId ?? Convert.DBNull));
 
                     objMostRecentUsedBikesList = new List<MostRecentBikes>();

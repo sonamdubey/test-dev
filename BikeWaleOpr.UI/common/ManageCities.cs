@@ -191,15 +191,16 @@ namespace BikeWaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "managecities";
 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], objCity.CityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, objCity.CityName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 60, objCity.MaskingName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_lattitude", DbParamTypeMapper.GetInstance[SqlDbType.Float], objCity.Lattitude));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_longitude", DbParamTypeMapper.GetInstance[SqlDbType.Float], objCity.Longitude));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_defaultpincode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, objCity.DefaultPinCode));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], objCity.CityId));                     
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], objCity.StateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stdcode", DbParamTypeMapper.GetInstance[SqlDbType.Int], (objCity.StdCode != "") ? objCity.StdCode : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id));
+
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
                 }
@@ -275,21 +276,21 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (stateId > 0) ? stateId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (stateId > 0) ? stateId : Convert.DBNull));
 
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
                 }
             }
             catch (SqlException err)
             {
-                HttpContext.Current.Trace.Warn(err.Message + err.Source);
+                //HttpContext.Current.Trace.Warn(err.Message + err.Source);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn(err.Message + err.Source);
+                //HttpContext.Current.Trace.Warn(err.Message + err.Source);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }

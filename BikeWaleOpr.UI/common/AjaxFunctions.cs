@@ -32,7 +32,7 @@ namespace BikeWaleOpr
             uint _stateId = default(uint);
             if (!string.IsNullOrEmpty(stateId) && uint.TryParse(stateId, out _stateId))
             {
-                sql = " select id as Value, name as Text from cities where  stateid =" + _stateId + " and isdeleted = 0 order by text ";
+                sql = " select id as Value, name as Text from cities where stateid =" + _stateId + " and isdeleted = 0 order by text ";
             }             
 
             try

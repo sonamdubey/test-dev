@@ -2,12 +2,8 @@
 using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace BikewaleOpr.Common
 {
@@ -28,14 +24,14 @@ namespace BikewaleOpr.Common
         public DataTable FetchBWDealerCampaignRules(int campaignId, int dealerId)
         {
             DataTable dtDealerCampaign = null;
-            
+
             try
             {
                 if (campaignId > 0 && dealerId > 0)
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand("bw_fetchbwdealercampaignrules"))
                     {
-                        
+
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
@@ -74,22 +70,18 @@ namespace BikewaleOpr.Common
         public bool InsertBWDealerCampaignRules(int userId, int campaignId, int cityId, int dealerId, int makeId, int stateId, string modelIds)
         {
             bool isSuccess = false;
-            
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertcampaignrule"))
                 {
-                    
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], modelIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], stateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], modelIds));
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     isSuccess = true;
@@ -121,12 +113,12 @@ namespace BikewaleOpr.Common
         public bool UpdateBWDealerCampaignRule(bool isActive, int userId, int ruleId, int campaignId, int cityId, int dealerId, int makeId, int stateId, int modelId)
         {
             bool isSuccess = false;
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatecampaignrule"))
                 {
-                    
+
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ruleid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ruleId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
@@ -159,12 +151,12 @@ namespace BikewaleOpr.Common
         public bool DeleteDealerCampaignRules(int userId, string ruleIds)
         {
             bool isDeleted = false;
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("bw_deletecampaignrules"))
                 {
-                    
+
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ruleids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ruleIds));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));

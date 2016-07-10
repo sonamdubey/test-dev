@@ -112,7 +112,7 @@ namespace BikeWaleOpr.Content
         {
             string sql = "";
             CommonOpn op = new CommonOpn();
-            sql = "select ID, Name from cities   where isdeleted = 0 order by name";
+            sql = "select ID, Name from cities where isdeleted = 0 order by name";
 
             Trace.Warn(sql);
 

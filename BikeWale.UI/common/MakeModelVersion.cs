@@ -1,5 +1,6 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.CoreDAL;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
@@ -8,9 +9,8 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Data.Common;
-using Bikewale.CoreDAL;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
