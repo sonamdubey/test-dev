@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Common;
-using System.Data;
-using System.Data.SqlClient;
 using System.Web.UI.HtmlControls;
-using System.Data.Common;
-using Bikewale.CoreDAL;
+using System.Web.UI.WebControls;
 
 
 namespace Bikewale.Controls
@@ -61,7 +61,7 @@ namespace Bikewale.Controls
             if (!Page.IsPostBack)
             {
                 //if (!String.IsNullOrEmpty(MakeId) || !String.IsNullOrEmpty(ModelId) || !String.IsNullOrEmpty(SeriesId))
-                    FetchUpcomingBikes();
+                FetchUpcomingBikes();
             }
         }
 
