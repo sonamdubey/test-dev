@@ -1,20 +1,17 @@
-﻿using System;
-using System.Text;
+﻿using BikeWaleOpr.Common;
+using BikeWaleOPR.DAL.CoreDAL;
+using BikeWaleOPR.Utilities;
+using Enyim.Caching;
+using System;
+using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
+using System.IO;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.Controls;
-using System.IO;
-using System.Configuration;
-using Enyim.Caching;
-using Enyim.Caching.Memcached;
-using BikeWaleOPR.DAL.CoreDAL;
-using System.Data.Common;
-using BikeWaleOPR.Utilities;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -151,7 +148,7 @@ namespace BikeWaleOpr.Content
                         if (!Convert.ToBoolean(cmd.Parameters["par_ismodelexist"].Value))
                         {
                             lblStatus.Text = "Model Masking Name already exists. Can not insert duplicate name.";
-                        }                       
+                        }
 
 
                         if (_mc != null)
@@ -165,7 +162,7 @@ namespace BikeWaleOpr.Content
                             if (_mc.Get("BW_OldModelMaskingNames") != null)
                                 _mc.Remove("BW_OldModelMaskingNames");
                         }
-                    } 
+                    }
                 }
 
             }
@@ -197,7 +194,7 @@ namespace BikeWaleOpr.Content
             int pageSize = dtgrdMembers.PageSize;
             int _makeid = default(int);
 
-            if (!string.IsNullOrEmpty(cmbMakes.SelectedItem.Value.Trim()) && int.TryParse(cmbMakes.SelectedItem.Value,out _makeid))
+            if (!string.IsNullOrEmpty(cmbMakes.SelectedItem.Value.Trim()) && int.TryParse(cmbMakes.SelectedItem.Value, out _makeid))
             {
                 sql = @" select mo.id, mo.name, if(mo.used,1,0) as used, if(mo.new,1,0) as new, if(mo.indian,1,0) as indian,mo.maskingname,bs.name as seriesname , bs.maskingname as seriesmaskingname, 
                 if(mo.imported,1,0) as imported, if(mo.classic,1,0) as  classic, if(mo.modified,1,0) as  modified, if(mo.futuristic,1,0) as futuristic, mo.bikemakeid,cast( mo.mocreatedon as char(24)) as createdon,cast( mo.moupdatedon  as char(24)) as updatedon,ou.username as updatedby 
@@ -213,14 +210,14 @@ namespace BikeWaleOpr.Content
                     sql += " order by mo.futuristic desc ,mo.new  desc , mo.used desc, " + SortCriteria + " " + SortDirection;
                 else
                     sql += " order by mo.futuristic desc ,mo.new  desc , mo.used desc, name asc ";
-            }            
+            }
 
             CommonOpn objCom = new CommonOpn();
             try
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    objCom.BindGridSet(sql, dtgrdMembers); 
+                    objCom.BindGridSet(sql, dtgrdMembers);
                 }
             }
             catch (Exception err)
@@ -268,7 +265,7 @@ namespace BikeWaleOpr.Content
                      futuristic=@futuristic,
                      moupdatedon=now(),
                      moupdatedby=@moupdatedby
-                     where id=@key";  
+                     where id=@key";
 
                 DbParameter[] param = new[]
                 {
@@ -285,7 +282,7 @@ namespace BikeWaleOpr.Content
 
                 };
 
-                MySqlDatabase.InsertQuery(sql,param);
+                MySqlDatabase.InsertQuery(sql, param);
 
                 //Update Upcoming Bike
                 if (chkFuturistic1.Checked == true)
@@ -384,10 +381,10 @@ namespace BikeWaleOpr.Content
             {
                 using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
                 {
-                    if (!(dr!=null && dr.Read()))
+                    if (!(dr != null && dr.Read()))
                     {
                         MySqlDatabase.InsertQuery(sqlSave);
-                    } 
+                    }
                 }
 
             }
@@ -549,8 +546,8 @@ namespace BikeWaleOpr.Content
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {
-                        if(ds!=null && ds.Tables!=null && ds.Tables.Count > 0)
-                             dt = ds.Tables[0]; 
+                        if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
+                            dt = ds.Tables[0];
                     }
                 }
             }

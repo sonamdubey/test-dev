@@ -28,7 +28,7 @@ namespace Bikewale.DAL.UsedBikes
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("PopularUsedBikes"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("popularusedbikes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalCount;
