@@ -166,23 +166,23 @@ namespace BikeWaleOpr.Common
         /// <param name="maskingName">passed as series masking name for url formation to bikeseries table</param>      
         /// <param name="seriesId">identify which series mask name is changed</param>
 
-        [AjaxPro.AjaxMethod()]
-        public bool UpdateSeriesMaskingName(string name, string maskingName, string seriesId)
-        {
-            bool isSuccess = false;
-            try
-            {
-                ManageBikeSeries mbs = new ManageBikeSeries();
-                //MakeModelVersion mmv = new MakeModelVersion();
-                isSuccess = mbs.UpdateSeries(name, maskingName, seriesId);
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return isSuccess;
-        }//End of UpdateMakeMaskingName
+        //[AjaxPro.AjaxMethod()]
+        //public bool UpdateSeriesMaskingName(string name, string maskingName, string seriesId)
+        //{
+        //    bool isSuccess = false;
+        //    try
+        //    {
+        //        ManageBikeSeries mbs = new ManageBikeSeries();
+        //        //MakeModelVersion mmv = new MakeModelVersion();
+        //        isSuccess = mbs.UpdateSeries(name, maskingName, seriesId);
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+        //        objErr.SendMail();
+        //    }
+        //    return isSuccess;
+        //}//End of UpdateMakeMaskingName
 
         /// <summary>
         ///  Written By : Ashwini Todkar on 7 oct 2013
@@ -314,21 +314,21 @@ namespace BikeWaleOpr.Common
         /// Summary    : ajax method to delete bike series 
         /// </summary>
         /// <param name="seriesId"></param>
-        [AjaxPro.AjaxMethod()]
-        public void DeleteSeries(string seriesId)
-        {
-            try
-            {
-                ManageBikeSeries ms = new ManageBikeSeries();
-                ms.DeleteSeries(seriesId);
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Exception in DeleteSeries", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
+        //[AjaxPro.AjaxMethod()]
+        //public void DeleteSeries(string seriesId)
+        //{
+        //    try
+        //    {
+        //        ManageBikeSeries ms = new ManageBikeSeries();
+        //        ms.DeleteSeries(seriesId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        HttpContext.Current.Trace.Warn("Exception in DeleteSeries", ex.Message);
+        //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+        //        objErr.SendMail();
+        //    }
+        //}
 
         /// <summary>
         /// Craeted By : Sadhana Upadhyay on 12th Feb 2014

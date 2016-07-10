@@ -30,7 +30,6 @@ namespace Bikewale.PriceQuote
     public class Quotation : Page
     {
         //protected Repeater rptAllVersions;
-        protected UserReviewsMin ucUserReviewsMin;
         protected NewsMin newsMin;
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected AlternativeBikes ctrlAlternativeBikes;

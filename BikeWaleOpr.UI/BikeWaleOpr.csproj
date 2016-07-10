@@ -203,7 +203,6 @@
     <Compile Include="common\ManageAppVersion.cs" />
     <Compile Include="common\ManageArea.cs" />
     <Compile Include="common\ManageBikeAvailbilityByColor.cs" />
-    <Compile Include="common\ManageBikeSeries.cs" />
     <Compile Include="common\ManageCities.cs" />
     <Compile Include="common\ManageFeaturedBike.cs" />
     <Compile Include="common\ManageManufacturerCampaign.cs" />
@@ -231,10 +230,6 @@
     </Compile>
     <Compile Include="content\BikeModels.aspx.cs">
       <DependentUpon>BikeModels.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\BikeSeries.aspx.cs">
-      <DependentUpon>BikeSeries.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\BikeSynopsis.aspx.cs">
@@ -332,14 +327,6 @@
       <DependentUpon>PriceMonitoring.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="content\SeriesPhotos.aspx.cs">
-      <DependentUpon>SeriesPhotos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\SeriesSynopsis.aspx.cs">
-      <DependentUpon>SeriesSynopsis.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="content\ShowroomPrices.aspx.cs">
       <DependentUpon>ShowroomPrices.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -354,10 +341,6 @@
     </Compile>
     <Compile Include="content\UpdateExpLaunches.aspx.cs">
       <DependentUpon>UpdateExpLaunches.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\UpdateSeriesDetails.aspx.cs">
-      <DependentUpon>UpdateSeriesDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\UpdateStateDetails.aspx.cs">
@@ -1338,7 +1321,6 @@
     <Content Include="content\BikeComparisonList.aspx" />
     <Content Include="content\BikeMakes.aspx" />
     <Content Include="content\BikeModels.aspx" />
-    <Content Include="content\BikeSeries.aspx" />
     <Content Include="content\BikeSynopsis.aspx" />
     <Content Include="content\BikeVersions.aspx" />
     <Content Include="content\BKPQMatrixNew.aspx" />
@@ -1370,13 +1352,10 @@
     <Content Include="content\NewBikeStandardFeaturesStep2.aspx" />
     <Content Include="content\NewBikeVersionColors.aspx" />
     <Content Include="content\PriceMonitoring.aspx" />
-    <Content Include="content\SeriesPhotos.aspx" />
-    <Content Include="content\SeriesSynopsis.aspx" />
     <Content Include="content\ShowroomPrices.aspx" />
     <Content Include="content\States.aspx" />
     <Content Include="content\UpdateCityDetails.aspx" />
     <Content Include="content\UpdateExpLaunches.aspx" />
-    <Content Include="content\UpdateSeriesDetails.aspx" />
     <Content Include="content\UpdateStateDetails.aspx" />
     <Content Include="content\VersionPhotos.aspx" />
     <Content Include="content\ViewReview.aspx" />

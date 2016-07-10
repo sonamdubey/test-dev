@@ -99,8 +99,12 @@
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeModelPageEntity.cs" />
     <Compile Include="BikeData\BikeModelsListEntity.cs" />
-    <Compile Include="BikeData\BikeSeriesEntity.cs" />
-    <Compile Include="BikeData\BikeSeriesEntityBase.cs" />
+    <Compile Include="BikeData\BikeSeriesEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BikeData\BikeSeriesEntityBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="BikeData\BikeSpecificationEntity.cs" />
     <Compile Include="BikeData\BikeVersionColorsWithAvailability.cs" />
     <Compile Include="BikeData\BikeVersionEntity.cs" />

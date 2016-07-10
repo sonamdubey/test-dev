@@ -48,11 +48,6 @@
             <li class="fwd-arrow">&rsaquo;</li>
             <li><a href="/<%= objModelEntity.MakeBase.MaskingName%>-bikes/"><%=objModelEntity.MakeBase.MakeName %> Bikes</a></li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <%if (modelCount > 1)
-              { %>
-            <li><a href="/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%=objSeriesEntity.MaskingName %>-series/"><%=objSeriesEntity.SeriesName%></a></li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <%} %>
             <li><a href="/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName%>/"><%=objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %></a></li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>Photos</strong></li>

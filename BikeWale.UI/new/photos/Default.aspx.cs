@@ -23,8 +23,8 @@ namespace Bikewale.New.PhotoGallery
         protected PhotoGallaryMin photoGallary;
         protected string modelId = string.Empty, photoId = string.Empty, imageId = string.Empty, selectedImagePath = string.Empty;
         protected BikeModelEntity objModelEntity = null;
-        protected int modelCount = 0;
-        protected BikeSeriesEntity objSeriesEntity;
+        // protected int modelCount = 0;
+        //protected BikeSeriesEntity objSeriesEntity;
 
         protected override void OnInit(EventArgs e)
         {
@@ -44,13 +44,6 @@ namespace Bikewale.New.PhotoGallery
 
                         //Get Model details
                         objModelEntity = objModel.GetById(Convert.ToInt32(modelId));
-
-                        container.RegisterType<IBikeSeries<BikeSeriesEntity, int>, BikeSeries<BikeSeriesEntity, int>>();
-                        IBikeSeries<BikeSeriesEntity, int> objSeries = container.Resolve<IBikeSeries<BikeSeriesEntity, int>>();
-
-                        objSeriesEntity = objSeries.GetById(objModelEntity.ModelSeries.SeriesId);
-                        
-                        modelCount = objSeriesEntity.ModelCount;
 
                         photoGallary.ModelId = objModelEntity.ModelId;
                         photoGallary.ImageId = imageId;

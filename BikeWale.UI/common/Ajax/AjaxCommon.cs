@@ -335,40 +335,40 @@ namespace Bikewale.Ajax
             return jsonBikes;
         }
 
-        /// <summary>
-        /// Written By : Ashish G. Kamble on 20 june 2015
-        /// Summary : Function to get the list of bike models for the given series id
-        /// </summary>
-        /// <param name="seriesId"></param>
-        /// <returns></returns>
-        [AjaxPro.AjaxMethod()]      
-        public string GetBikeModelsBySeriesId(uint seriesId)
-        {
-            string models = string.Empty;
+        ///// <summary>
+        ///// Written By : Ashish G. Kamble on 20 june 2015
+        ///// Summary : Function to get the list of bike models for the given series id
+        ///// </summary>
+        ///// <param name="seriesId"></param>
+        ///// <returns></returns>
+        //[AjaxPro.AjaxMethod()]      
+        //public string GetBikeModelsBySeriesId(uint seriesId)
+        //{
+        //    string models = string.Empty;
 
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeSeries<BikeSeriesEntity, uint>, BikeSeries<BikeSeriesEntity, uint>>();
-                    IBikeSeries<BikeSeriesEntity, uint> objSeries = container.Resolve<IBikeSeries<BikeSeriesEntity, uint>>();
+        //    try
+        //    {
+        //        using (IUnityContainer container = new UnityContainer())
+        //        {
+        //            container.RegisterType<IBikeSeries<BikeSeriesEntity, uint>, BikeSeries<BikeSeriesEntity, uint>>();
+        //            IBikeSeries<BikeSeriesEntity, uint> objSeries = container.Resolve<IBikeSeries<BikeSeriesEntity, uint>>();
 
-                    List<BikeModelEntityBase> objModels = objSeries.GetModelsListBySeriesId(seriesId);
+        //            List<BikeModelEntityBase> objModels = objSeries.GetModelsListBySeriesId(seriesId);
 
-                    if (objModels != null)
-                    {
-                        models = JavaScriptSerializer.Serialize(objModels);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "AjaxCommon.GetBikeModelsBySeriesId");
-                objErr.SendMail();
-            }
+        //            if (objModels != null)
+        //            {
+        //                models = JavaScriptSerializer.Serialize(objModels);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "AjaxCommon.GetBikeModelsBySeriesId");
+        //        objErr.SendMail();
+        //    }
 
-            return models;
-        }
+        //    return models;
+        //}
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 21 June 2015

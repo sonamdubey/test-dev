@@ -93,9 +93,6 @@
     <Compile Include="BikeBooking\DealerPriceQuote.cs" />
     <Compile Include="BikeData\BikeMakes.cs" />
     <Compile Include="BikeData\BikeModels.cs" />
-    <Compile Include="BikeData\BikeSeries.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="BikeData\BikeVersions.cs" />
     <Compile Include="CMS\CMSData.cs">
       <SubType>Code</SubType>
