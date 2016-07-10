@@ -100,7 +100,7 @@ namespace BikeWaleOpr.Common
         /// <returns>City Object</returns>
         public City GetCityDetails(string cityId)
         {
-            throw new Exception("Method not used/commented");
+            throw new Exception("City GetCityDetails(string cityId) : Method not used/commented");
 
             //Database db = null;
             //City objCity = null;
@@ -201,8 +201,6 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], objCity.StateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stdcode", DbParamTypeMapper.GetInstance[SqlDbType.Int], (objCity.StdCode != "") ? objCity.StdCode : Convert.DBNull));
 
-                    HttpContext.Current.Trace.Warn("update city sql ex : " + objCity.StdCode);
-
 
                     MySqlDatabase.ExecuteNonQuery(cmd);
                 }
@@ -238,8 +236,9 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (stateId > 0) ? stateId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (stateId > 0) ? stateId : Convert.DBNull));
+
 
                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
 

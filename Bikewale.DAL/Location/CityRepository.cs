@@ -32,7 +32,7 @@ namespace Bikewale.DAL.Location
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, requestType));
-                    //cmd.Parameters.AddWithValue("@RequestType", requestType);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int64, Convert.DBNull));
 
 
                     objCityList = new List<CityEntityBase>();
@@ -138,7 +138,6 @@ namespace Bikewale.DAL.Location
                 using (DbCommand cmd = DbFactory.GetDBCommand("getpricequotecities_05022016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, modelId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))

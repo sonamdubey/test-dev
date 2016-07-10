@@ -68,9 +68,8 @@
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
     <Compile Include="BikeData\IBikeSeries.cs">
       <SubType>Code</SubType>
-   
     </Compile>
-     <Compile Include="BikeData\IBikeVersionCacheRepository.cs" />
+    <Compile Include="BikeData\IBikeVersionCacheRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikeBooking\IFeedBacks.cs" />
     <Compile Include="CMS\ICMSContentRepository.cs" />

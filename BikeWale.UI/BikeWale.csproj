@@ -599,10 +599,6 @@
       <DependentUpon>RoadTest.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\RoadTestMin.ascx.cs">
-      <DependentUpon>RoadTestMin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\SimilarBikes.ascx.cs">
       <DependentUpon>SimilarBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -657,10 +653,6 @@
     </Compile>
     <Compile Include="controls\UserReviewsList.ascx.cs">
       <DependentUpon>UserReviewsList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\UserReviewsMin.ascx.cs">
-      <DependentUpon>UserReviewsMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\UsersTestimonials.ascx.cs">
@@ -935,10 +927,6 @@
       <DependentUpon>BikeModels.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\new\BikeSeries.aspx.cs">
-      <DependentUpon>BikeSeries.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\new\compare\CompareBike.aspx.cs">
       <DependentUpon>CompareBike.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1100,10 +1088,6 @@
     </Compile>
     <Compile Include="new\versions.aspx.cs">
       <DependentUpon>versions.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\bikeseries.aspx.cs">
-      <DependentUpon>bikeseries.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\browsenewbikedealerdetails.aspx.cs">
@@ -1751,7 +1735,6 @@
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="controls\RoadTest.ascx" />
     <Content Include="controls\RoadTestControl.ascx" />
-    <Content Include="controls\RoadTestMin.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
     <Content Include="controls\SimilarBikesHorizontal.ascx" />
@@ -1766,7 +1749,6 @@
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
     <Content Include="controls\UserReviewsList.ascx" />
-    <Content Include="controls\UserReviewsMin.ascx" />
     <Content Include="controls\UsersTestimonials.ascx" />
     <Content Include="controls\VideoByCategory.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
@@ -2304,7 +2286,6 @@
     <Content Include="m\news\newsdetails.aspx" />
     <Content Include="m\new\BikeMakes.aspx" />
     <Content Include="m\new\BikeModels.aspx" />
-    <Content Include="m\new\BikeSeries.aspx" />
     <Content Include="m\new\compare\CompareBike.aspx" />
     <Content Include="m\new\compare\CompareBikeDetails.aspx" />
     <Content Include="m\new\Default.aspx" />
@@ -2397,7 +2378,6 @@
     <Content Include="News\news.aspx" />
     <Content Include="News\newsfeed.aspx" />
     <Content Include="News\Sitemap.aspx" />
-    <Content Include="new\bikeseries.aspx" />
     <Content Include="new\browsenewbikedealerdetails.aspx" />
     <Content Include="new\compare\CompareBikes.aspx" />
     <Content Include="new\compare\default.aspx" />

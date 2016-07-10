@@ -292,7 +292,6 @@
     <Compile Include="Controllers\Make\MakeListController.cs" />
     <Compile Include="Controllers\Model\ModelController.cs" />
     <Compile Include="Controllers\Model\ModelListController.cs" />
-    <Compile Include="Controllers\Series\SeriesListController.cs" />
     <Compile Include="Controllers\State\StateListController.cs" />
     <Compile Include="Controllers\UsedBikes\PopularUsedBikesController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsController.cs" />

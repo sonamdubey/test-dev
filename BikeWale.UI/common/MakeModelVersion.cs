@@ -44,7 +44,6 @@ namespace Bikewale.Common
         public string MaxPrice { get; set; }
         public string ModelMappingName { get; set; }
         public string MakeMappingName { get; set; }
-        public string SeriesId { get; set; }
         public string OriginalImagePath { get; set; }
         /// <summary>
         /// Getting makes only by providing only request type
@@ -59,9 +58,6 @@ namespace Bikewale.Common
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes"))
-                {
-
                     if (Enum.TryParse(RequestType, true, out _requestType))
                     {
                         using (IUnityContainer container = new UnityContainer())
@@ -87,7 +83,6 @@ namespace Bikewale.Common
 
                         }
                     }
-                }
             }
             catch (Exception ex)
             {
@@ -298,11 +293,13 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbType.String, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Boolean, ParameterDirection.InputOutput));
+
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Boolean, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.InputOutput));
-
+                   
                     // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     if (MySqlDatabase.ExecuteNonQuery(cmd) > 0)
@@ -325,7 +322,6 @@ namespace Bikewale.Common
                             MaxPrice = Convert.ToString(cmd.Parameters["par_maxprice"].Value);
                             ModelMappingName = cmd.Parameters["par_maskingname"].Value.ToString();
                             MakeMappingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
-                            SeriesId = Convert.ToString(cmd.Parameters["par_seriesid"].Value);
                             OriginalImagePath = Convert.ToString(cmd.Parameters["par_originalimagepath"].Value);
                         }
                     }

@@ -184,8 +184,8 @@ namespace BikeWaleOpr.Common
         /// Method will set makeid, make, model on the basis of model id
         /// </summary>
         /// <param name="modelId"></param>
-        public void GetModelDetails(string modelId)
-        {
+        //public void GetModelDetails(string modelId)
+        //{
             throw new NotImplementedException("public void GetModelDetails(string modelId)");
             //try
             //{
@@ -232,65 +232,67 @@ namespace BikeWaleOpr.Common
             //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             //    objErr.SendMail();
             //}
-        }   // End of GetMakeFromModelId method
+        //}   // End of GetMakeFromModelId method
 
         public void GetVersionDetails(string versionId)
         {
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getversiondetails";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Configuration.GetDefaultCityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_version", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bike", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
+            throw new NotImplementedException();
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand())
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.CommandText = "getversiondetails";
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Configuration.GetDefaultCityId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_version", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_bike", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
 
-                    if (!String.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
-                    {
-                        VersionId = cmd.Parameters["par_VersionId"].Value.ToString();
-                        Version = cmd.Parameters["par_version"].Value.ToString();
-                        ModelId = cmd.Parameters["par_modelid"].Value.ToString();
-                        Model = cmd.Parameters["par_model"].Value.ToString();
-                        MakeId = cmd.Parameters["par_makeid"].Value.ToString();
-                        Make = cmd.Parameters["par_make"].Value.ToString();
-                        BikeName = cmd.Parameters["par_bike"].Value.ToString();
-                        HostUrl = cmd.Parameters["par_hosturl"].Value.ToString();
-                        LargePic = cmd.Parameters["par_largepic"].Value.ToString();
-                        SmallPic = cmd.Parameters["par_smallpic"].Value.ToString();
-                        MinPrice = cmd.Parameters["par_minprice"].Value.ToString();
-                        MaxPrice = cmd.Parameters["par_maxprice"].Value.ToString();
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //        MySqlDatabase.ExecuteNonQuery(cmd);
+
+            //        if (!String.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
+            //        {
+            //            VersionId = cmd.Parameters["par_VersionId"].Value.ToString();
+            //            Version = cmd.Parameters["par_version"].Value.ToString();
+            //            ModelId = cmd.Parameters["par_modelid"].Value.ToString();
+            //            Model = cmd.Parameters["par_model"].Value.ToString();
+            //            MakeId = cmd.Parameters["par_makeid"].Value.ToString();
+            //            Make = cmd.Parameters["par_make"].Value.ToString();
+            //            BikeName = cmd.Parameters["par_bike"].Value.ToString();
+            //            HostUrl = cmd.Parameters["par_hosturl"].Value.ToString();
+            //            LargePic = cmd.Parameters["par_largepic"].Value.ToString();
+            //            SmallPic = cmd.Parameters["par_smallpic"].Value.ToString();
+            //            MinPrice = cmd.Parameters["par_minprice"].Value.ToString();
+            //            MaxPrice = cmd.Parameters["par_maxprice"].Value.ToString();
+            //        }
+            //    }
+            //}
+            //catch (SqlException ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }   // End of GetVersionDetails method
 
         /// <summary>

@@ -57,9 +57,6 @@
     <Compile Include="BikeBooking\ModelRepository.cs" />
     <Compile Include="BikeData\BikeMakesRespository.cs" />
     <Compile Include="BikeData\BikeModelsRespository.cs" />
-    <Compile Include="BikeData\BikeSeriesRespository.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="BikeData\BikeVersionsRespository.cs" />
     <Compile Include="BikeBooking\FeedBacksRespositry.cs" />
     <Compile Include="CMS\CMSMainRepository.cs" />

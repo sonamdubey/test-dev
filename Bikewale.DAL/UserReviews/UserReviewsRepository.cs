@@ -6,9 +6,9 @@ using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-using System.Data.Common;
 
 namespace Bikewale.DAL.UserReviews
 {
@@ -37,7 +37,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.CommandText = "getmostreviewedbikes";
                     //cmd.Parameters.Add("@topcount", SqlDbType.Int).Value = totalRecords;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, totalRecords)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, totalRecords));
 
                     BikeMakeEntityBase objMakeBase = null;
                     BikeModelEntityBase objModelBase = null;
@@ -108,7 +108,6 @@ namespace Bikewale.DAL.UserReviews
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-
                         objBikeList = new List<ReviewTaggedBikeEntity>();
                         objMakeBase = new BikeMakeEntityBase();
                         objModelBase = new BikeModelEntityBase();
@@ -159,7 +158,7 @@ namespace Bikewale.DAL.UserReviews
         public List<ReviewsListEntity> GetMostReadReviews(ushort totalRecords)
         {
             List<ReviewsListEntity> objReviewList = null;
-            
+
 
             try
             {
@@ -167,8 +166,6 @@ namespace Bikewale.DAL.UserReviews
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmostreadreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.CommandText = "getmostreadreviews";
-                    //cmd.Parameters.Add("@TopCount", SqlDbType.Int).Value = totalRecords;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, totalRecords));
 
                     ReviewEntityBase objReviewEntity = null;
@@ -235,10 +232,10 @@ namespace Bikewale.DAL.UserReviews
         /// <returns></returns>
         public List<ReviewsListEntity> GetMostHelpfulReviews(ushort totalRecords)
         {
-            List<ReviewsListEntity> objReviewList = null;           
+            List<ReviewsListEntity> objReviewList = null;
 
             try
-            {  
+            {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmosthelpfulreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -311,7 +308,7 @@ namespace Bikewale.DAL.UserReviews
         public List<ReviewsListEntity> GetMostRecentReviews(ushort totalRecords)
         {
             List<ReviewsListEntity> objReviewList = null;
-            
+
 
             try
             {
@@ -387,7 +384,7 @@ namespace Bikewale.DAL.UserReviews
         public List<ReviewsListEntity> GetMostRatedReviews(ushort totalRecords)
         {
             List<ReviewsListEntity> objReviewList = null;
-            
+
 
             try
             {
@@ -464,7 +461,7 @@ namespace Bikewale.DAL.UserReviews
         public ReviewRatingEntity GetBikeRatings(uint modelId)
         {
             ReviewRatingEntity objRate = null;
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmodelrating"))
@@ -524,7 +521,7 @@ namespace Bikewale.DAL.UserReviews
         {
             ReviewListBase reviews = null;
             List<ReviewEntity> objRatingList = null;
-            
+
             uint totalReviews = 0;
 
             try
@@ -532,12 +529,7 @@ namespace Bikewale.DAL.UserReviews
                 reviews = new ReviewListBase();
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikereviewslist"))
                 {
-                    //cmd.CommandText = "getbikereviewslist";
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    //cmd.Parameters.Add("@startindex", SqlDbType.Int).Value = startIndex;
-                    //cmd.Parameters.Add("@endindex", SqlDbType.Int).Value = endIndex;
-                    //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbType.Int32, endIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -609,7 +601,7 @@ namespace Bikewale.DAL.UserReviews
         public ReviewDetailsEntity GetReviewDetails(uint reviewId)
         {
             ReviewDetailsEntity objRating = null; //
-            
+
 
             try
             {
@@ -706,7 +698,7 @@ namespace Bikewale.DAL.UserReviews
         /// <returns></returns>
         public bool AbuseReview(uint reviewId, string comment, string userId)
         {
-            
+
             bool success = false;
 
             try
@@ -720,7 +712,7 @@ namespace Bikewale.DAL.UserReviews
                     //cmd.Parameters.Add("@reportedby", SqlDbType.Int).Value = userId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int32, userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String,500, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, userId));
 
 
                     success = MySqlDatabase.UpdateQuery(cmd);
@@ -749,8 +741,8 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="reviewId"></param>
         /// <returns></returns>
         public bool UpdateViews(uint reviewId)
-        {              
-            bool success = false; 
+        {
+            bool success = false;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatereviewviews"))
@@ -787,7 +779,7 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="isHelpful"></param>
         /// <returns></returns>
         public bool UpdateReviewUseful(uint reviewId, bool isHelpful)
-        {             
+        {
             bool success = false;
 
             try
