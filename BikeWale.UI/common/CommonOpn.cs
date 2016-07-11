@@ -2,10 +2,12 @@
 COMMON OPERATIONS.
 */
 
+using Bikewale.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Net.Mail;
@@ -15,8 +17,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.CoreDAL;
-using System.Data.Common;
 
 namespace Bikewale.Common
 {
@@ -32,7 +32,8 @@ namespace Bikewale.Common
         //takes as input the sql string and the datagridname
         public void BindGridReader(string sql, DataGrid dtgrd)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindGridReader");
+            objErr.SendMail();
 
             //SqlDataReader dataReader = null;
             //Database objSelect = new Database();
@@ -59,7 +60,8 @@ namespace Bikewale.Common
         //takes as input the sql string and the datagridname
         public void BindGridReader(string sql, DataGrid dtgrd, SqlParameter[] param)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindGridReader");
+            objErr.SendMail();
 
             //SqlDataReader dataReader = null;
             //Database objSelect = new Database();
@@ -123,7 +125,8 @@ namespace Bikewale.Common
         //takes as input the sql string and the datagridname
         public void BindRepeaterReader(string sql, Repeater rpt)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindRepeaterReader");
+            objErr.SendMail();
 
             //SqlDataReader dataReader = null;
             //Database objSelect = new Database();
@@ -152,7 +155,7 @@ namespace Bikewale.Common
         {
             try
             {
-                using ( IDataReader datareader = MySqlDatabase.SelectQuery(sql, param))
+                using (IDataReader datareader = MySqlDatabase.SelectQuery(sql, param))
                 {
                     rpt.DataSource = datareader;
                     rpt.DataBind();
@@ -169,7 +172,8 @@ namespace Bikewale.Common
         //takes as input the sql string and the datagridname
         public void BindGridSet(string sql, DataGrid dtgrd)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindGridSet");
+            objErr.SendMail();
 
             //DataSet dataSet = new DataSet();
 
@@ -190,7 +194,8 @@ namespace Bikewale.Common
         //takes as input the sql string and the datagridname
         public void BindGridSet(string sql, DataGrid dtgrd, SqlParameter[] param)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindGridSet");
+            objErr.SendMail();
 
             //DataSet dataSet = new DataSet();
 
@@ -212,7 +217,9 @@ namespace Bikewale.Common
         // you have to do nothing but provide pageSize.
         public void BindGridSet(string sql, DataGrid dtgrd, int PageSize)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindGridSet");
+            objErr.SendMail();
+
 
             //DataSet dataSet = new DataSet();
 
@@ -243,7 +250,8 @@ namespace Bikewale.Common
         // you have to do nothing but provide pageSize.
         public void BindGridSet(string sql, DataGrid dtgrd, int PageSize, SqlParameter[] param)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindGridSet");
+            objErr.SendMail();
 
             //DataSet dataSet = new DataSet();
 
@@ -273,7 +281,8 @@ namespace Bikewale.Common
         //takes as input the sql string and the datalist id
         public void BindListReader(string sql, DataList dtlst)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindListReader");
+            objErr.SendMail();
 
             //SqlDataReader dataReader = null;
             //Database objSelect = new Database();
@@ -299,7 +308,8 @@ namespace Bikewale.Common
         //takes as input the sql string and the datalist id
         public void BindListReader(string sql, DataList dtlst, SqlParameter[] param)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindListReader");
+            objErr.SendMail();
 
             //SqlDataReader dataReader = null;
             //Database objSelect = new Database();
@@ -330,7 +340,7 @@ namespace Bikewale.Common
             {
                 using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql))
                 {
-                    if (dataReader!=null)
+                    if (dataReader != null)
                     {
                         drp.DataSource = dataReader;
                         drp.DataTextField = text;
@@ -351,7 +361,7 @@ namespace Bikewale.Common
         public void FillDropDown(string sql, DropDownList drp, string text, string value, DbParameter[] param)
         {
             try
-            { 
+            {
                 using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, param))
                 {
                     drp.DataSource = dataReader;
@@ -371,7 +381,8 @@ namespace Bikewale.Common
         //takes as input the sql string, dropdownlist name, the text Budget and the value Budget
         public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindCheckBoxList");
+            objErr.SendMail();
 
             //SqlDataReader dataReader = null;
             //Database objSelect = new Database();
@@ -400,7 +411,8 @@ namespace Bikewale.Common
         //takes as input the sql string, dropdownlist name, the text Budget and the value Budget
         public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value, SqlParameter[] param)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindCheckBoxList");
+            objErr.SendMail();
 
             //SqlDataReader dataReader = null;
             //Database objSelect = new Database();
@@ -429,7 +441,8 @@ namespace Bikewale.Common
         //takes as input the sql string and the datagridname
         public void BindRadioListReader(string sql, RadioButtonList clst)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindRadioListReader");
+            objErr.SendMail();
 
             //SqlDataReader dataReader = null;
             //Database objSelect = new Database();
@@ -456,7 +469,8 @@ namespace Bikewale.Common
         //takes as input the sql string and the datagridname
         public void BindRadioListReader(string sql, RadioButtonList clst, SqlParameter[] param)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.BindRadioListReader");
+            objErr.SendMail();
 
             //SqlDataReader dataReader = null;
             //Database objSelect = new Database();
@@ -1150,7 +1164,9 @@ namespace Bikewale.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string Query1, string Query2)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GenerateChainScript");
+            objErr.SendMail();
+            return string.Empty;
 
             //StringBuilder sb = new StringBuilder();
 
@@ -1215,7 +1231,9 @@ namespace Bikewale.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string TextBox1, string TextBox2, string Query1, string Query2, string Query3)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GenerateChainScript");
+            objErr.SendMail();
+            return string.Empty;
 
             //StringBuilder sb = new StringBuilder();
 
@@ -1296,43 +1314,45 @@ namespace Bikewale.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string Query1)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GenerateChainScript");
+            objErr.SendMail();
+            return string.Empty;
 
-        //    StringBuilder sb = new StringBuilder();
+            //    StringBuilder sb = new StringBuilder();
 
-        //    sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
-        //    sb.Append("<script language=\"javascript\">");
-        //    sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-        //    sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
-        //    sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-        //    sb.Append("var arrayValues = new Array(); var i = 0;");
-        //    SqlDataReader dr;
-        //    Database db = new Database();
-        //    try
-        //    {
-        //        dr = db.SelectQry(Query1);
+            //    sb.Append("<script language=\"javascript\" src=\"../src/chains.js?v=1.0\"></script>");
+            //    sb.Append("<script language=\"javascript\">");
+            //    sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
+            //    sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            //    sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            //    sb.Append("var arrayValues = new Array(); var i = 0;");
+            //    SqlDataReader dr;
+            //    Database db = new Database();
+            //    try
+            //    {
+            //        dr = db.SelectQry(Query1);
 
-        //        while (dr.Read())
-        //        {
-        //            sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
-        //        }
+            //        while (dr.Read())
+            //        {
+            //            sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+            //        }
 
-        //        sb.Append("fillChainTwo( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
+            //        sb.Append("fillChainTwo( '" + DropDownList2 + "', DropDownList1, arrayValues); }");
 
-        //        dr.Close();
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        db.CloseConnection();
-        //    }
+            //        dr.Close();
+            //    }
+            //    catch (SqlException ex)
+            //    {
+            //        HttpContext.Current.Trace.Warn("Inside GenerateChainScript : " + ex.Message);
+            //    }
+            //    finally
+            //    {
+            //        db.CloseConnection();
+            //    }
 
-        //    sb.Append("</script>");
+            //    sb.Append("</script>");
 
-        //    return sb.ToString();
+            //    return sb.ToString();
 
         }
         /*****************************************************************************************************
@@ -1347,7 +1367,9 @@ namespace Bikewale.Common
         *****************************************************************************************************/
         public string GenerateReverseChainScript(string DropDownList1, string DropDownList2, string Query1)
         {
-    throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GenerateChainScript");
+            objErr.SendMail();
+            return string.Empty;
 
             //StringBuilder sb = new StringBuilder();
 
@@ -1395,7 +1417,9 @@ namespace Bikewale.Common
         *****************************************************************************************************/
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string DropDownList3, string Query1, string Query2, bool fillTwoCombosWithOneParent)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GenerateChainScript");
+            objErr.SendMail();
+            return string.Empty;
 
             //StringBuilder sb = new StringBuilder();
 
@@ -1460,7 +1484,9 @@ namespace Bikewale.Common
 
         public string GenerateChainScript(string DropDownList1, string DropDownList2, string Query1, string selectString)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GenerateChainScript");
+            objErr.SendMail();
+            return string.Empty;
 
             //StringBuilder sb = new StringBuilder();
 
@@ -1505,7 +1531,9 @@ namespace Bikewale.Common
             Modifier    : */
         public static DataSet GetModelFromMake(string makeId)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BWCommon.GetModelFromMake");
+            objErr.SendMail();
+            return null;
 
             //DataSet ds = new DataSet();
             //SqlCommand cmd = new SqlCommand();
@@ -1837,11 +1865,11 @@ namespace Bikewale.Common
 
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@bikeprofileno", DbType.Int32, bikeProfileNo ));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@bikeprofileno", DbType.Int32, bikeProfileNo));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
                     {
-                        if (dr !=null &&  dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             isCity = true;
                             dr.Close();

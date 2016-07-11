@@ -192,7 +192,9 @@ namespace Bikewale.Common
         /// <returns></returns>
         public DataTable GetPriceQuoteCities(string modelId)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SateCity.GetPriceQuoteCities");
+            objErr.SendMail();
+            return null;
 
             //Database db = null;
             //DataTable dt = null;
@@ -232,7 +234,9 @@ namespace Bikewale.Common
         /// <returns>Function returns the Cities object in which city's details data is stored.</returns>
         public Cities GetCityDetails(string cityId)
         {
-            throw new Exception("GetCityDetails(string cityId) : Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SateCity.GetCityDetails");
+            objErr.SendMail();
+            return null;
 
             //Database db = null;
             //SqlConnection conn = null;
@@ -296,7 +300,9 @@ namespace Bikewale.Common
         /// <returns></returns>
         public DataTable GetAreas(string cityId)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SateCity.GetAreas");
+            objErr.SendMail();
+            return null;
 
             //Database db = null;
             //DataTable dt = null;

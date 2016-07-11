@@ -263,7 +263,6 @@
     <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />
     <Compile Include="common\Ajax\AjaxCommon.cs" />
     <Compile Include="common\Ajax\AjaxCompareBikes.cs" />
-    <Compile Include="common\Ajax\AjaxForum.cs" />
     <Compile Include="common\Ajax\AjaxPriceQuote.cs" />
     <Compile Include="common\Ajax\AjaxResearch.cs" />
     <Compile Include="common\Ajax\AjaxSellBike.cs" />
@@ -297,8 +296,6 @@
     <Compile Include="common\Mails.cs" />
     <Compile Include="common\Mails\ClassifiedMailContent.cs" />
     <Compile Include="common\MakeModelVersion.cs" />
-    <Compile Include="common\ManageSeries.cs" />
-    <Compile Include="common\ManageVideos.cs" />
     <Compile Include="common\ModelVersionDescription.cs" />
     <Compile Include="common\PriceQuoteQuerySting.cs" />
     <Compile Include="common\RegisterCustomer.cs" />
@@ -310,7 +307,6 @@
     <Compile Include="common\StateCity.cs" />
     <Compile Include="common\UrlRewrite.cs" />
     <Compile Include="common\Validations.cs" />
-    <Compile Include="community\pms\CommonMessage.cs" />
     <Compile Include="content\ComparisonTest\ViewCT.aspx.cs">
       <DependentUpon>ViewCT.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -401,10 +397,6 @@
     </Compile>
     <Compile Include="controls\BikesInBudget.ascx.cs">
       <DependentUpon>BikesInBudget.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\BikeVideos.ascx.cs">
-      <DependentUpon>BikeVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\BrowseBikeManufacturerMin.ascx.cs">
@@ -1680,7 +1672,6 @@
     <Content Include="controls\BikeRatings.ascx" />
     <Content Include="controls\BikeReviews.ascx" />
     <Content Include="controls\BikesInBudget.ascx" />
-    <Content Include="controls\BikeVideos.ascx" />
     <Content Include="controls\BrowseBikebyVersion.ascx" />
     <Content Include="controls\BrowseBikeManufacturerMin.ascx" />
     <Content Include="controls\BrowseBikes.ascx" />
@@ -2551,6 +2542,7 @@
     <Content Include="wkhtmltopdf\lib\wkhtmltox.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="community\pms\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />

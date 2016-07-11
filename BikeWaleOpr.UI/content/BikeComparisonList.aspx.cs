@@ -1,20 +1,18 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using BikeWaleOpr.Common;
-using System.Configuration;
-using RabbitMqPublishing;
+﻿using BikeWaleOpr.Common;
 using BikeWaleOpr.RabbitMQ;
-using System.Collections.Specialized;
-using System.IO;
 using BikeWaleOPR.DAL.CoreDAL;
-using System.Data.Common;
 using BikeWaleOPR.Utilities;
+using RabbitMqPublishing;
+using System;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.IO;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -344,7 +342,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_compid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
-                    //run the command
+
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     int Status = Int16.Parse(cmd.Parameters["par_status"].Value.ToString());

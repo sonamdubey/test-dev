@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Common;
-using System.Data;
-using System.Data.SqlClient;
 using System.Web.UI.HtmlControls;
-using System.Data.Common;
-using Bikewale.CoreDAL;
+using System.Web.UI.WebControls;
 
 
 namespace Bikewale.Controls
@@ -61,7 +61,7 @@ namespace Bikewale.Controls
             if (!Page.IsPostBack)
             {
                 //if (!String.IsNullOrEmpty(MakeId) || !String.IsNullOrEmpty(ModelId) || !String.IsNullOrEmpty(SeriesId))
-                    FetchUpcomingBikes();
+                FetchUpcomingBikes();
             }
         }
 
@@ -73,19 +73,11 @@ namespace Bikewale.Controls
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
-                    //cmd.Parameters.Add("@ControlWidth", SqlDbType.VarChar, 10).Value = ControlWidth;
-                    //cmd.Parameters.Add("@FetchAllRecords", SqlDbType.Bit).Value = Corousal;
-                    //if (!String.IsNullOrEmpty(ModelId)) { cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = ModelId; }
-                    //if(!String.IsNullOrEmpty(MakeId)) { cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = MakeId; }
-                    //if(!String.IsNullOrEmpty(SeriesId)) { cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Value = SeriesId; }
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, TopRecords));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_controlwidth", DbType.String, 10, ControlWidth));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_fetchallrecords", DbType.Boolean, Corousal));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, (!String.IsNullOrEmpty(ModelId)) ? ModelId : null));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, (!String.IsNullOrEmpty(MakeId)) ? MakeId : null));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, (!String.IsNullOrEmpty(SeriesId)) ? SeriesId : null));
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
                     {

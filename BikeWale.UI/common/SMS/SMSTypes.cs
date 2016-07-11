@@ -303,7 +303,9 @@ namespace Bikewale.Common
         // FUNCTION TO SEND ADDRESS OF THE DEALER TO THE REQUESTED CUSTOMER FROM DEALER SHOWROOM
         private string GetTCNumber(string serviceType)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SMSTypes.GetTCNumber");
+            objErr.SendMail();
+            return string.Empty;
 
             //Database db = new Database();
             //SqlDataReader dr = null;

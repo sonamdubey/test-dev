@@ -107,10 +107,6 @@ namespace BikeWaleOpr.BikeBooking
             {
                 userId = CurrentUser.Id;
 
-                //DateTime _today = DateTime.Today;
-                //Trace.Warn("date="+_today);
-                ////dtDate.Value = _today;
-                //dtDate.Value = DateTime.Today;
                 FillCities();
                 FillMakes();
                 GetOfferTypes();

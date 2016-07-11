@@ -521,8 +521,9 @@ namespace Bikewale.DAL.AutoBiz
         /// <returns></returns>
         public List<DealerLatLong> GetDealersLatLong(uint versionId, uint areaId)
         {
-
-            throw new Exception("List<DealerLatLong> GetDealersLatLong(uint versionId, uint areaId) : Method not implemented or not used !!");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "DealerPriceQuoteRepository.GetDealersLatLong");
+            objErr.SendMail();
+            return null;
 
             //List<DealerLatLong> objDealersList = null;
 

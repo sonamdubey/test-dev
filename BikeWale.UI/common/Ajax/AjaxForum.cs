@@ -1,37 +1,29 @@
 using System;
-using System.Text;
-using System.Data;
-using System.Web.UI.WebControls;
-using System.Data.SqlClient;
 using System.Web;
-using System.Web.UI;
-using Bikewale.Common;
-using System.Collections;
-using AjaxPro;
 
 
 namespace Bikewale.Ajax
 {
-	public class AjaxForum
-	{
-		// write all the Forum Ajax functions here
-		// used for writing the debug messages
-		private HttpContext objTrace = HttpContext.Current;
-		
-		[AjaxPro.AjaxMethod()]		
-		public bool AddSubscription( string subId, string customerId, int alertType )
-		{
+    public class AjaxForum
+    {
+        // write all the Forum Ajax functions here
+        // used for writing the debug messages
+        private HttpContext objTrace = HttpContext.Current;
+
+        [AjaxPro.AjaxMethod()]
+        public bool AddSubscription(string subId, string customerId, int alertType)
+        {
             throw new Exception("Method not used/commented");
             //bool returnVal = false;
-			
+
             //SqlConnection con;
             //SqlCommand cmd;
             //SqlParameter prm;
             //Database db = new Database();
             //CommonOpn op = new CommonOpn();
-						
+
             //string conStr = db.GetConString();
-			
+
             //con = new SqlConnection( conStr );
 
             //try
@@ -47,7 +39,7 @@ namespace Bikewale.Ajax
 
             //    prm = cmd.Parameters.Add("@alertType", SqlDbType.Int);
             //    prm.Value = alertType;
-               // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+            // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
             //    con.Open();
             //    //run the command
             //    cmd.ExecuteNonQuery();
@@ -65,22 +57,22 @@ namespace Bikewale.Ajax
             //        con.Close();
             //}
             //return returnVal;
-		}
-		
-		[AjaxPro.AjaxMethod()]		
-		public bool GetSubscribeLink( string subId, string customerId )
-		{
+        }
+
+        [AjaxPro.AjaxMethod()]
+        public bool GetSubscribeLink(string subId, string customerId)
+        {
             throw new Exception("Method not used/commented");
 
             //bool returnVal = false;
-			
+
             //Database db = new Database();
             //CommonOpn op = new CommonOpn();
-						
+
             //SqlDataReader dr = null;
-			
+
             //string sql = "";
-			
+
             //sql = " SELECT CustomerId FROM ForumSubscriptions With(NoLock) WHERE CustomerId= @customerId AND ForumThreadId = @subId";
             //SqlParameter [] param ={new SqlParameter("@customerId", customerId), new SqlParameter("@subId", subId)};
             //try
@@ -90,7 +82,7 @@ namespace Bikewale.Ajax
             //    {
             //        returnVal = true;
             //    }
-				
+
             //}
             //catch(Exception err)
             //{
@@ -99,33 +91,33 @@ namespace Bikewale.Ajax
             //}
             //finally
             //{
-				
+
             //    db.CloseConnection();
 
             //    if(dr != null)
             //        dr.Close();
             //}
             //return returnVal;
-		}
-		
-		[AjaxPro.AjaxMethod()]
-		public string GetTitle(string ThreadId)
-		{
+        }
+
+        [AjaxPro.AjaxMethod()]
+        public string GetTitle(string ThreadId)
+        {
             throw new Exception("Method not used/commented");
 
             //if(ThreadId == "" || CommonOpn.CheckId(ThreadId) == false)
             //    return "";
-			
+
             //Database db = new Database();
             //SqlDataReader dr = null;
-			
+
             //string sql = "";
             //string retVal = "";
-				
+
             //sql = " SELECT Topic, ForumSubCategoryId CategoryId"
             //        + " FROM Forums With(NoLock) "
             //        + " WHERE Id = @ThreadId";
-					
+
             //SqlParameter [] param ={new SqlParameter("@ThreadId", ThreadId)};
             //try
             //{
@@ -134,7 +126,7 @@ namespace Bikewale.Ajax
             //    {
             //        retVal = dr["Topic"].ToString();
             //    }
-				
+
             //}
             //catch(Exception err)
             //{
@@ -143,18 +135,18 @@ namespace Bikewale.Ajax
             //}
             //finally
             //{
-				
+
             //    db.CloseConnection();
 
             //    if(dr != null)
             //        dr.Close();
             //}
             //return retVal;
-		}
-		
-		[AjaxPro.AjaxMethod()]		
-		public bool ForumInsertReportAbuse( string subId, string customerId, string postId, string comment )
-		{
+        }
+
+        [AjaxPro.AjaxMethod()]
+        public bool ForumInsertReportAbuse(string subId, string customerId, string postId, string comment)
+        {
             throw new Exception("Method not used/commented");
 
             //bool returnVal = false;
@@ -163,9 +155,9 @@ namespace Bikewale.Ajax
             //SqlParameter prm;
             //Database db = new Database();
             //CommonOpn op = new CommonOpn();
-						
+
             //string conStr = db.GetConString();
-			
+
             //con = new SqlConnection( conStr );
 
             //try
@@ -184,7 +176,7 @@ namespace Bikewale.Ajax
 
             //    prm = cmd.Parameters.Add("@comment", SqlDbType.VarChar, 100);
             //    prm.Value = comment;
-              //  Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+            //  Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
             //    prm = cmd.Parameters.Add("@createDate", SqlDbType.DateTime);
             //    prm.Value = DateTime.Now;
 
@@ -205,61 +197,61 @@ namespace Bikewale.Ajax
             //        con.Close();
             //}
             //return returnVal;
-		}
-		
-		//Code Added By Sentil On 20 OCT 2009
-		//Changes Done on 19 Nov 2009
-		[AjaxPro.AjaxMethod()]
-		//Used to Check the existance of Handle Name 
-		public bool GetHandleName(string handleName)
-		{
+        }
+
+        //Code Added By Sentil On 20 OCT 2009
+        //Changes Done on 19 Nov 2009
+        [AjaxPro.AjaxMethod()]
+        //Used to Check the existance of Handle Name 
+        public bool GetHandleName(string handleName)
+        {
             throw new Exception("Method not used/commented");
 
             //Database db = new Database();
-			
+
             //SqlConnection con;
             //SqlCommand cmd;
             //SqlParameter prm;
-			
+
             //string retHandleName  = "";
             //bool result = false;
-			
+
             //if(handleName == "")
             //    return result ;	
 
             //string conStr = db.GetConString();
             //con = new SqlConnection( conStr );
-			
+
             //cmd = new SqlCommand("Forum_HandleCheck", con);
             //cmd.CommandType = CommandType.StoredProcedure;
 
             //prm = cmd.Parameters.Add("@UserName", SqlDbType.VarChar, 500);
             //prm.Value = handleName;
             //HttpContext.Current.Trace.Warn("UserName = " + prm.Value);	
-			
+
             //prm = cmd.Parameters.Add("@UserID", SqlDbType.BigInt);
             //prm.Value = CurrentUser.Id;
             //HttpContext.Current.Trace.Warn("UserId = " + prm.Value);		
-			
+
             //prm = cmd.Parameters.Add("@HandleName", SqlDbType.VarChar, 500);
             //prm.Direction = ParameterDirection.Output;
-	
-             //   Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-	
+
+            //   Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+
             //try
             //{
             //    con.Open() ;
             //    cmd.ExecuteNonQuery() ;
-				
+
             //    retHandleName = cmd.Parameters["@HandleName"].Value.ToString();
-				
+
             //    if(retHandleName != "")
             //    {
             //        result = true;
             //    }	
-				
+
             //    HttpContext.Current.Trace.Warn("Return HandleName : " + retHandleName );
-				
+
             //}
             //catch(Exception ex)
             //{
@@ -274,59 +266,59 @@ namespace Bikewale.Ajax
             //        con.Close();
             //    }
             //}
-			
-            //return result;
-		}
 
-		[AjaxPro.AjaxMethod()]
-		//Used to Check the existance of Handle Name 
-		public bool GetPMHandleName(string handleName)
-		{
+            //return result;
+        }
+
+        [AjaxPro.AjaxMethod()]
+        //Used to Check the existance of Handle Name 
+        public bool GetPMHandleName(string handleName)
+        {
             throw new Exception("Method not used/commented");
             //Database db = new Database();
-			
+
             //SqlConnection con;
             //SqlCommand cmd;
             //SqlParameter prm;
-			
+
             //string retHandleName  = "";
             //bool result = false;
-			
+
             //if(handleName == "")
             //    return result ;	
 
             //string conStr = db.GetConString();
             //con = new SqlConnection( conStr );
-			
+
             //cmd = new SqlCommand("PM_HandleCheck", con);
             //cmd.CommandType = CommandType.StoredProcedure;
 
             //prm = cmd.Parameters.Add("@UserName", SqlDbType.VarChar, 500);
             //prm.Value = handleName;
             //HttpContext.Current.Trace.Warn("UserName = " + prm.Value);	
-			
+
             //prm = cmd.Parameters.Add("@UserID", SqlDbType.BigInt);
             //prm.Value = CurrentUser.Id;
             //HttpContext.Current.Trace.Warn("UserId = " + prm.Value);		
-			
+
             //prm = cmd.Parameters.Add("@HandleName", SqlDbType.VarChar, 500);
             //prm.Direction = ParameterDirection.Output;
 
-           // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+            // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
             //try
             //{
             //    con.Open() ;
             //    cmd.ExecuteNonQuery() ;
-				
+
             //    retHandleName = cmd.Parameters["@HandleName"].Value.ToString();
-				
+
             //    if(retHandleName != "")
             //    {
             //        result = true;
             //    }	
-				
+
             //    HttpContext.Current.Trace.Warn("Return HandleName : " + retHandleName );
-				
+
             //}
             //catch(Exception ex)
             //{
@@ -341,12 +333,12 @@ namespace Bikewale.Ajax
             //        con.Close();
             //    }
             //}
-			
-            //return result;
-		}
 
-		[AjaxPro.AjaxMethod()]
-		public string GetPMAutoComplete(string handleName)
+            //return result;
+        }
+
+        [AjaxPro.AjaxMethod()]
+        public string GetPMAutoComplete(string handleName)
         {
             throw new Exception("Method not used/commented");
 
@@ -357,11 +349,11 @@ namespace Bikewale.Ajax
             //{
             //    //string sql = "SELECT TOP 10 HandleName FROM UserProfile WHERE HandleName like '" + handleName  + "%'";	
             //    string sql = "SELECT TOP 10 HandleName FROM UserProfile With(NoLock) WHERE REPLACE( HandleName, '.', '') like  REPLACE(@handleName,'.','')";					
-				
+
             //    SqlParameter [] param ={new SqlParameter("@handleName", "" + handleName + "%")};
-				
+
             //    HttpContext.Current.Trace.Warn("SQL AutoComplete : " + sql );
-	
+
             //    try
             //    {
             //        ds = db.SelectAdaptQry(sql, param);
@@ -373,21 +365,21 @@ namespace Bikewale.Ajax
             //        objErr.SendMail();
             //    }
             //}	
-			
+
             //if( ds.Tables[0].Rows.Count > 0 )
             //    return JSON.GetJSONString( ds.Tables[0] );
             //else
             //    return "";				
-		}
-		
-		[AjaxPro.AjaxMethod()]		
-		public string GetOnlineForumUsers(string postedByIds)
+        }
+
+        [AjaxPro.AjaxMethod()]
+        public string GetOnlineForumUsers(string postedByIds)
         {
             throw new Exception("Method not used/commented");
 
             //string forumUsers = "";
             //SqlCommand cmd = new SqlCommand();
-			
+
             //SqlDataReader dr = null;
             //Database db = new Database();
             //try
@@ -397,10 +389,10 @@ namespace Bikewale.Ajax
             //            + " WHERE "
             //            + " DATEDIFF(MINUTE, ActivityDateTime, getdate()) < 60 AND UserID IN ("+ db.GetInClauseValue(postedByIds, "PBId", cmd)  +")"
             //            + " FOR XML PATH('')";
-						
+
             //    cmd.CommandText = sql;
             //    dr = db.SelectQry(cmd);
-				
+
             //    if (dr.Read())
             //        forumUsers = dr[0].ToString();
             //    else
@@ -420,10 +412,10 @@ namespace Bikewale.Ajax
             //    db.CloseConnection();
             //}		
             //return forumUsers;	
-		}
-		
-		[AjaxPro.AjaxMethod()]		
-		public string ThankThePost(string postId)
+        }
+
+        [AjaxPro.AjaxMethod()]
+        public string ThankThePost(string postId)
         {
             throw new Exception("Method not used/commented");
 
@@ -432,7 +424,7 @@ namespace Bikewale.Ajax
             //try
             //{
             //    customerId = CurrentUser.Id.ToString();
-				
+
             //    if (customerId != "-1")
             //    {
             //        if (DoesHandleExists(customerId))
@@ -441,7 +433,7 @@ namespace Bikewale.Ajax
             //            isSaved = SaveToPostThanks(customerId, postId);
             //        }
             //    }
-				
+
             //    //customer id : -1 when not logged in and is present when logged in
             //    //handleExists : -1 when not present and 1 when present
             //    //isSaved : -1 when error occured, 0 when already thanked, 1 when newly thanked
@@ -454,10 +446,10 @@ namespace Bikewale.Ajax
             //    objErr.SendMail();
             //}
             //return retVal;
-		}
-		
-		private bool DoesHandleExists(string cId)
-		{
+        }
+
+        private bool DoesHandleExists(string cId)
+        {
             throw new Exception("Method not used/commented");
 
             //bool handleExists = false;
@@ -484,41 +476,41 @@ namespace Bikewale.Ajax
             //    db.CloseConnection();
             //}
             //return handleExists;
-		}
-		
-		private string SaveToPostThanks(string _customerId, string _postId)
-		{
+        }
+
+        private string SaveToPostThanks(string _customerId, string _postId)
+        {
             throw new Exception("Method not used/commented");
 
             //Database db = new Database();
-			
+
             //SqlConnection con;
             //SqlCommand cmd;
             //SqlParameter prm;
-			
+
             //string isSaved  = "-1";
             //string conStr = db.GetConString();
             //con = new SqlConnection( conStr );
-			
+
             //cmd = new SqlCommand("PostThanksSave", con);
             //cmd.CommandType = CommandType.StoredProcedure;
 
             //prm = cmd.Parameters.Add("@CustomerID", SqlDbType.BigInt);
             //prm.Value = _customerId;
-				
-			
+
+
             //prm = cmd.Parameters.Add("@PostID", SqlDbType.BigInt);
             //prm.Value = _postId;
-				
-			
+
+
             //prm = cmd.Parameters.Add("@IsSaved", SqlDbType.Bit);
             //prm.Direction = ParameterDirection.Output;
-	
+
             //try
             //{
             //    con.Open() ;
             //    cmd.ExecuteNonQuery() ;
-				
+
             //    if (Convert.ToBoolean(cmd.Parameters["@IsSaved"].Value))
             //        isSaved = "1";
             //    else
@@ -537,22 +529,22 @@ namespace Bikewale.Ajax
             //        con.Close();
             //    }
             //}
-			
+
             //return isSaved;	
-		}
-		
-		[AjaxPro.AjaxMethod()]		
-		public string GetPostThanksCount(string postIds)
-		{
+        }
+
+        [AjaxPro.AjaxMethod()]
+        public string GetPostThanksCount(string postIds)
+        {
             throw new Exception("Method not used/commented");
 
             //string retVal = "";
-			
+
             //string sql = "SELECT CONVERT(VARCHAR,PostId) + ',' + CONVERT(VARCHAR,COUNT(*)) AS PostCount FROM PostThanks With(NoLock) GROUP BY PostId HAVING PostId IN (" + postIds + ")";
-			
+
             //SqlDataReader dr = null;
             //Database db = new Database();
-			
+
             //try
             //{
             //    dr = db.SelectQry(sql);
@@ -581,8 +573,8 @@ namespace Bikewale.Ajax
 
             //    db.CloseConnection();
             //}
-			
+
             //return retVal;
-		}
-	}
+        }
+    }
 }

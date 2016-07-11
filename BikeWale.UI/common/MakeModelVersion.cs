@@ -58,31 +58,31 @@ namespace Bikewale.Common
 
             try
             {
-                    if (Enum.TryParse(RequestType, true, out _requestType))
+                if (Enum.TryParse(RequestType, true, out _requestType))
+                {
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        using (IUnityContainer container = new UnityContainer())
+                        container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                                         .RegisterType<ICacheManager, MemcacheManager>()
+                                         .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                        ;
+                        var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                        makes = objCache.GetMakesByType(_requestType);
+
+
+                        var _makeList = (from mk in makes select new { Text = mk.MakeName, Value = mk.MakeId });
+
+                        dt = new DataTable();
+
+                        dt.Columns.Add("Text");
+                        dt.Columns.Add("Value");
+                        foreach (var make in _makeList)
                         {
-                            container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                                             .RegisterType<ICacheManager, MemcacheManager>()
-                                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                                            ;
-                            var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-                            makes = objCache.GetMakesByType(_requestType);
-
-
-                            var _makeList = (from mk in makes select new { Text = mk.MakeName, Value = mk.MakeId });
-
-                            dt = new DataTable();
-
-                            dt.Columns.Add("Text");
-                            dt.Columns.Add("Value");
-                            foreach (var make in _makeList)
-                            {
-                                dt.Rows.Add(make);
-                            }
-
+                            dt.Rows.Add(make);
                         }
+
                     }
+                }
             }
             catch (Exception ex)
             {
@@ -299,7 +299,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Boolean, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.InputOutput));
-                   
+
                     // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     if (MySqlDatabase.ExecuteNonQuery(cmd) > 0)
@@ -516,7 +516,9 @@ namespace Bikewale.Common
         /// <returns>datatable containing id and buying preferences like 1 week or just researching</returns>
         public DataTable GetBuyingPreference()
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "MakeModelVersion.GetBuyingPreference");
+            objErr.SendMail();
+            return null;
 
             //DataSet ds = null;
             //Database db = null;

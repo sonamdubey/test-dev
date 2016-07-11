@@ -1,9 +1,9 @@
-﻿using System;
-using System.Data;
-using System.Web;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Notifications.CoreDAL;
+using System;
+using System.Data;
 using System.Data.Common;
+using System.Web;
 
 /// <summary>
 /// Summary description for AjaxUserReviews
@@ -21,46 +21,48 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public bool ApproveReview(string reviewId, string customerId, string title, string bike)
         {
-            throw new Exception("Method not used/commented");
 
             //string sql;
             //string threadId = "", messageText, titleText;
             //bool ret = false;
             //Database db = new Database();
 
-            //try
-            //{
-            //    //the IsVerified status is set to 1 to approve the review
-            //    sql = " UPDATE CustomerReviews SET IsVerified=1 WHERE ID = @reviewId ";
-            //    SqlParameter[] param1 = { new SqlParameter("@reviewId", reviewId) };
-            //    db.UpdateQry(sql, param1);
+            try
+            {
+                throw new Exception("ApproveReview(string reviewId, string customerId, string title, string bike) : Method not used/commented");
+                //    //the IsVerified status is set to 1 to approve the review
+                //    sql = " UPDATE CustomerReviews SET IsVerified=1 WHERE ID = @reviewId ";
+                //    SqlParameter[] param1 = { new SqlParameter("@reviewId", reviewId) };
+                //    db.UpdateQry(sql, param1);
 
-            //    UpdateReviewRateCount(reviewId);
+                //    UpdateReviewRateCount(reviewId);
 
-            //    messageText = "Dear Friends,"
-            //                + "<br/><br/>I have written a review on " + bike + " and look forward to your comments on it."
-            //                + "<br/><br/>Review Link: <a href=\"http://www.bikewale.com/content/userreviews/reviewdetails.aspx?rid=" + reviewId + "\"><strong>" + title + "</strong></a>&nbsp;"
-            //                + "<br/><br/>Thanks.";
+                //    messageText = "Dear Friends,"
+                //                + "<br/><br/>I have written a review on " + bike + " and look forward to your comments on it."
+                //                + "<br/><br/>Review Link: <a href=\"http://www.bikewale.com/content/userreviews/reviewdetails.aspx?rid=" + reviewId + "\"><strong>" + title + "</strong></a>&nbsp;"
+                //                + "<br/><br/>Thanks.";
 
-            //    titleText = title + " - " + bike + " User Review";
+                //    titleText = title + " - " + bike + " User Review";
 
-            //    //to create a new thread of the approved review
-            //    threadId = ForumsCommon.CreateNewThread(customerId, messageText, 1, "25", titleText);
+                //    //to create a new thread of the approved review
+                //    threadId = ForumsCommon.CreateNewThread(customerId, messageText, 1, "25", titleText);
 
-            //    db = new Database();
-            //    sql = " INSERT INTO Forum_ArticleAssociation"
-            //        + " (ArticleType,ThreadId,ArticleId,CreateDate)"
-            //        + " VALUES(3, @threadId , @reviewId , GETDATE())";
+                //    db = new Database();
+                //    sql = " INSERT INTO Forum_ArticleAssociation"
+                //        + " (ArticleType,ThreadId,ArticleId,CreateDate)"
+                //        + " VALUES(3, @threadId , @reviewId , GETDATE())";
 
-            //    SqlParameter[] param2 = { new SqlParameter("@threadId", threadId), new SqlParameter("@reviewId", reviewId) };
-            //    db.InsertQry(sql, param2);
-            //    ret = true;
-            //}
-            //catch (Exception ex)
-            //{
-            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveReview");
-            //    objErr.SendMail();
-            //}
+                //    SqlParameter[] param2 = { new SqlParameter("@threadId", threadId), new SqlParameter("@reviewId", reviewId) };
+                //    db.InsertQry(sql, param2);
+                //    ret = true;
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveReview");
+                objErr.SendMail();
+                return false;
+            }
             //finally
             //{
             //    db.CloseConnection();
@@ -112,8 +114,9 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public bool DeleteReview(string reviewId)
         {
-            throw new Exception("Method not used/commented");
-
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
+            return false;
             //string sql;
             //bool ret = false;
             //Database db = new Database();
@@ -159,7 +162,9 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public bool DeleteAbusedReview(string reviewId)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
+            return false;
 
             //string sql = "";
             //Database db = new Database();
@@ -184,7 +189,8 @@ namespace Bikewale.Ajax
         private void UpdateReplicaAsVerified(string reviewId)
         {
 
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
             //string sql;
             //Database db = new Database();
 
@@ -207,7 +213,8 @@ namespace Bikewale.Ajax
 
         private void UpdateAbuseAsVerified(string reviewId)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
 
             //string sql;
             //Database db = new Database();
@@ -231,7 +238,8 @@ namespace Bikewale.Ajax
 
         private void UpdateChangesToCustomerReviews(string reviewId)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
 
             //string sql = "";
             //Database db = new Database();
@@ -277,7 +285,9 @@ namespace Bikewale.Ajax
 
         private void AddReplyInForums(string reviewIds, string customerIds)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
+
             //string threadId = "";
             //threadId = GetThreadIdForReview(reviewIds);
             //if (threadId != "-1")
@@ -288,7 +298,9 @@ namespace Bikewale.Ajax
 
         private string GetThreadIdForReview(string reviewId)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetThreadIdForReview");
+            objErr.SendMail();
+            return string.Empty;
 
             //string returnVal = "-1";
             //string sql = "SELECT ThreadId FROM Forum_ArticleAssociation With(NoLock) WHERE ArticleType = 3 AND ArticleId = @reviewId";
@@ -324,7 +336,8 @@ namespace Bikewale.Ajax
 
         private void UpdateReviewRateCount(string reviewId)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.UpdateReviewRateCount");
+            objErr.SendMail();
 
             //SqlConnection con;
             //SqlCommand cmd;
@@ -367,8 +380,9 @@ namespace Bikewale.Ajax
         public bool UpdateReviewHelpful(string reviewId, string helpful)
         {
 
-            throw new Exception("Method not used/commented");
-            //bool returnVal = false;
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.UpdateReviewHelpful");
+            objErr.SendMail();
+            return false;
 
             ////check whether this review has already been viewed
             //string viewedList = CookiesUserReviews.URHelpful;
@@ -409,7 +423,7 @@ namespace Bikewale.Ajax
 
             //        prm = cmd.Parameters.Add("@ReviewId", SqlDbType.BigInt);
             //        prm.Value = reviewId;
-              //      Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+            //      Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
             //        prm = cmd.Parameters.Add("@Helpful", SqlDbType.Bit);
             //        prm.Value = isHelpFull;
 
@@ -455,14 +469,14 @@ namespace Bikewale.Ajax
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatecustomerreviewsabuse"))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure; 
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, reviewId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, comments));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int64, CurrentUser.Id)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int64, CurrentUser.Id));
                     MySqlDatabase.ExecuteNonQuery(cmd);
-               // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
-                    returnVal = true; 
+                    returnVal = true;
                 }
 
             }
@@ -479,8 +493,9 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public string GetModels(string makeId)
         {
-            throw new Exception("Method not used/commented");
-
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.GetModels");
+            objErr.SendMail();
+            return string.Empty;
             //DataSet ds = new DataSet();
 
             //if (makeId == "" || CommonOpn.CheckId(makeId) == false)
