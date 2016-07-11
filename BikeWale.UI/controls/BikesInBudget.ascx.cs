@@ -1,38 +1,29 @@
+using Bikewale.Common;
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Web.Security;
-using System.Xml;
-using Bikewale.Common;
 
 namespace Bikewale.Controls
 {
-	public class BikesInBudget : UserControl
-	{
-		protected DataList dlHighlights;
-		private string profileNo = "";
-		private int records = 10, price = 0;
-		private string cityId = "1", selectedCities = "";
-		private int cityDistance = 0;
+    public class BikesInBudget : UserControl
+    {
+        protected DataList dlHighlights;
+        private string profileNo = "";
+        private int records = 10, price = 0;
+        private string cityId = "1";
+        private int cityDistance = 0;
 
-		protected Label lblCities; 
-		
-		public string ProfileNo
-		{
-			set{profileNo = value;}
-		}
-		
-		public int Records
-		{
-			set{records = value;}
-		}
+        protected Label lblCities;
+
+        public string ProfileNo
+        {
+            set { profileNo = value; }
+        }
+
+        public int Records
+        {
+            set { records = value; }
+        }
 
         private int _recordCount = 0;
         public int RecordCount
@@ -40,57 +31,58 @@ namespace Bikewale.Controls
             get { return _recordCount; }
             set { _recordCount = value; }
         }
-		
-		public int Price
-		{
-			set{price = value;}
-		}
+
+        public int Price
+        {
+            set { price = value; }
+        }
 
         private string _headerText = "No Worries... There are many to choose from";
-        public string HeaderText 
+        public string HeaderText
         {
             get { return _headerText; }
             set { _headerText = value; }
         }
-			
-		protected override void OnInit( EventArgs e )
-		{
-			InitializeComponents();
-		}
-		
-		void InitializeComponents()
-		{
-			this.Load += new EventHandler( this.Page_Load );
-		}
-			
-		void Page_Load( object sender, EventArgs e )
-		{
-			if(!IsPostBack)		
-			{	
-				CommonOpn op = new CommonOpn();
-				
-				cityId = op.GetCityId();
-				cityDistance = Convert.ToInt16(op.GetCityDistance());
-		
-				ShowHighlights();
-			}
-		} // Page_Load
-		
-		
-		//function to show more Bikes(10) at the same budget
-		void ShowHighlights()
+
+        protected override void OnInit(EventArgs e)
         {
-            throw new Exception("Method not used/commented");
+            InitializeComponents();
+        }
+
+        void InitializeComponents()
+        {
+            this.Load += new EventHandler(this.Page_Load);
+        }
+
+        void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                CommonOpn op = new CommonOpn();
+
+                cityId = op.GetCityId();
+                cityDistance = Convert.ToInt16(op.GetCityDistance());
+
+                ShowHighlights();
+            }
+        } // Page_Load
+
+
+        //function to show more Bikes(10) at the same budget
+        void ShowHighlights()
+        {
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "BikesInBudget.ShowHighlights");
+            objErr.SendMail();
 
             //string sql;
-			
+
             //double lattDiff = CommonOpn.GetLattitude(cityDistance);
             //double longDiff = CommonOpn.GetLongitude(cityDistance);
 
             //Trace.Warn("cityDistance : ", cityDistance.ToString());
             //Trace.Warn("lattDiff : ", lattDiff.ToString());
             //Trace.Warn("longDiff : ", longDiff.ToString());
-			
+
             //Trace.Warn("ShowHighlights : price : " + price.ToString());			
             //if ( price != 0 )
             //{
@@ -102,7 +94,7 @@ namespace Bikewale.Controls
             //        + " LL.Lattitude BETWEEN LC.Lattitude - @LattDiff AND LC.Lattitude + @LattDiff AND "
             //        + " LL.Longitude BETWEEN LC.Longitude - @LongDiff AND LC.Longitude + @LongDiff "
             //        + " ORDER BY ABS(LL.Price - @Price) ASC ";
-				
+
             //    Trace.Warn(sql);
             //    Trace.Warn("profileNo : " + profileNo + " cityId : " + cityId + " lattDiff : " + lattDiff + " longDiff : " + longDiff + " price : " + price);
             //    SqlParameter [] param = 
@@ -113,7 +105,7 @@ namespace Bikewale.Controls
             //        new SqlParameter("@LongDiff", longDiff),
             //        new SqlParameter("@Price", price)
             //    };
-				
+
             //    Database db = new Database();
             //    DataSet ds = null;				
             //    try
@@ -140,11 +132,11 @@ namespace Bikewale.Controls
             //        objErr.SendMail();
             //    }
             //}
-			
-            //lblCities.Text = selectedCities;
-		} // ShowHighlights
 
-        
-		
-	}
+            //lblCities.Text = selectedCities;
+        } // ShowHighlights
+
+
+
+    }
 }
