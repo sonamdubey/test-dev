@@ -11,9 +11,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -103,7 +103,7 @@ namespace BikeWaleOpr.Content
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql;
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                         {
@@ -463,7 +463,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clock", DbParamTypeMapper.GetInstance[SqlDbType.Bit], clockNotSure.Checked ? Convert.DBNull : yesClock.Checked == true ? 1 : 0));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_colors", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtColors.Text.Trim() == "" ? Convert.DBNull : txtColors.Text.Trim()));
 
-                    bool status = MySqlDatabase.InsertQuery(cmd);
+                    bool status = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
 
                     if (status)
                     {
@@ -514,7 +514,7 @@ namespace BikeWaleOpr.Content
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = sql;
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                                 versionExists = true;
@@ -556,7 +556,7 @@ namespace BikeWaleOpr.Content
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

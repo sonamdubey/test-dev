@@ -1,5 +1,5 @@
-﻿using BikeWaleOPR.DAL.CoreDAL;
-using BikeWaleOPR.Utilities;
+﻿using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,7 +30,7 @@ namespace BikeWaleOpr.Common
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_prioritieslist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, prioritiesList));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception err)

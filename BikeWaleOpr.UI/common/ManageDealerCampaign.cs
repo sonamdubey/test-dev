@@ -1,6 +1,6 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -38,7 +38,7 @@ namespace BikewaleOpr.Common
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                                 dtDealerCampaign = ds.Tables[0];
@@ -92,7 +92,7 @@ namespace BikewaleOpr.Common
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isBookingAvailable));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_newcampaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                        MySqlDatabase.ExecuteNonQuery(cmd);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                         newCampaignId = Convert.ToInt32(cmd.Parameters["par_newcampaignid"].Value);
 
                     }
@@ -146,7 +146,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isBookingAvailable));
 
-                    isSuccess = MySqlDatabase.UpdateQuery(cmd);
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -179,7 +179,7 @@ namespace BikewaleOpr.Common
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                                 dtDealerCampaign = ds.Tables[0];
@@ -216,7 +216,7 @@ namespace BikewaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dtb = ds.Tables[0];
@@ -244,8 +244,8 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, CampaignId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_deletedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], activateCampaign));
-                        
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (Exception ex)
@@ -276,7 +276,7 @@ namespace BikewaleOpr.Common
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId > 0 ? dealerId : Convert.DBNull));
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                                 dtDealerCampaigns = ds.Tables[0];

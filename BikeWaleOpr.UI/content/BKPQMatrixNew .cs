@@ -25,9 +25,9 @@ using System.Collections;
 using System.IO;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -188,7 +188,7 @@ namespace BikeWaleOpr.Content
                 cmd.Parameters.Add(DbFactory.GetDbParam("@year", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtMonthYear.Year));
                 cmd.Parameters.Add(DbFactory.GetDbParam("@state", DbParamTypeMapper.GetInstance[SqlDbType.Int], drpState.SelectedValue));
 
-                ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
 
                 txt_Month.Text = Convert.ToString(dtMonthYear.Month);
                 txt_Year.Text = Convert.ToString(dtMonthYear.Year);
@@ -293,7 +293,7 @@ namespace BikeWaleOpr.Content
                 cmd.Parameters.Add(DbFactory.GetDbParam("@year", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtMonthYear.Year));
                 cmd.Parameters.Add(DbFactory.GetDbParam("@state", DbParamTypeMapper.GetInstance[SqlDbType.Int], drpState.SelectedValue));
 
-                ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
             }
             catch (SqlException err)
             {

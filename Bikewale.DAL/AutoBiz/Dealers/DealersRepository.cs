@@ -5,8 +5,8 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Notifications;
-using Bikewale.Notifications.CoreDAL;
 using BikeWale.Entities.AutoBiz;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -42,7 +42,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int64, Convert.ToInt64(objParams.CityId)));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         objDetailPQ = new PQ_DealerDetailEntity();
 
@@ -243,7 +243,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         objFacilities = new List<FacilityEntity>();
 
@@ -288,7 +288,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, isActive));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
 
-                    MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
 
                 }
             }
@@ -317,7 +317,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_Facility", DbType.String, 500, facility));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, isActive));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_FacilityId", DbType.Int32, facilityId));
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -340,7 +340,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_RateOfInterest", DbType.String, 20, rateOfInterest));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LTV", DbType.Byte, ltv));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LoanProvider", DbType.String, 100, String.IsNullOrEmpty(loanProvider) ? Convert.DBNull : loanProvider));
-                    MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -364,7 +364,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LTV", DbType.Byte, ltv));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LoanProvider", DbType.String, 100, String.IsNullOrEmpty(loanProvider) ? Convert.DBNull : loanProvider));
 
-                    MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -395,7 +395,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr.Read())
                         {
@@ -447,7 +447,7 @@ namespace Bikewale.DAL.AutoBiz
             //    {
             //        cmd.CommandType = CommandType.StoredProcedure;
             //        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
-            //        dt = MySqlDatabase.SelectAdapterQuery(cmd).Tables[0];
+            //        dt = MySqlDatabase.SelectAdapterQuery(cmd,ConnectionType.ReadOnly).Tables[0];
 
             //    }
             //}
@@ -474,7 +474,7 @@ namespace Bikewale.DAL.AutoBiz
                 using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetBikeDealerCities"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    dt = MySqlDatabase.SelectAdapterQuery(cmd).Tables[0];
+                    dt = MySqlDatabase.SelectAdapterQuery(cmd,ConnectionType.ReadOnly).Tables[0];
                 }
             }
             catch (Exception ex)
@@ -501,7 +501,7 @@ namespace Bikewale.DAL.AutoBiz
                 using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetOfferTypes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    dt = MySqlDatabase.SelectAdapterQuery(cmd).Tables[0];
+                    dt = MySqlDatabase.SelectAdapterQuery(cmd,ConnectionType.ReadOnly).Tables[0];
                 }
             }
             catch (Exception ex)
@@ -536,7 +536,7 @@ namespace Bikewale.DAL.AutoBiz
             //        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
             //        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, Convert.DBNull));
 
-            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
             //        {
             //            if (dr != null)
             //            {
@@ -613,7 +613,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isPriceImpact", DbType.Boolean, isPriceImpact));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_result", DbType.Byte, ParameterDirection.Output));
-                    MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = Convert.ToBoolean(cmd.Parameters["par_result"].Value);
 
                 }
@@ -658,7 +658,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValidTill", DbType.DateTime, offerValidTill));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isPriceImpact", DbType.Boolean, isPriceImpact));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -689,7 +689,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferIds", DbType.String, -1, offerId));
 
-                    if (MySqlDatabase.UpdateQuery(cmd))
+                    if (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase))
                         isdeleteSuccess = true;
                 }
             }
@@ -730,7 +730,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_NumOfDays", DbType.Int32, numOfDays));
 
 
-                    if (MySqlDatabase.InsertQuery(cmd))
+                    if (MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase))
                         isSuccess = true;
                 }
             }
@@ -765,7 +765,7 @@ namespace Bikewale.DAL.AutoBiz
 
                     //run the command
 
-                    return (MySqlDatabase.InsertQueryViaAdaptor(cmd, dt) > 0);
+                    return (MySqlDatabase.InsertQueryViaAdaptor(cmd, dt, ConnectionType.MasterDatabase) > 0);
                 }
 
             }
@@ -794,7 +794,7 @@ namespace Bikewale.DAL.AutoBiz
 
                     //run the command
 
-                    return (MySqlDatabase.UpdateQueryViaAdaptor(cmd, dt) > 0);
+                    return (MySqlDatabase.UpdateQueryViaAdaptor(cmd, dt,ConnectionType.MasterDatabase) > 0);
                 }
 
             }
@@ -829,7 +829,7 @@ namespace Bikewale.DAL.AutoBiz
             //        cmd.CommandType = CommandType.StoredProcedure;
             //        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
 
-            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
             //        {
             //            if (dr != null)
             //            {
@@ -884,7 +884,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_AvailabilityId", DbType.Int32, availabilityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_Days", DbType.Int32, days));
 
-                    return (MySqlDatabase.UpdateQuery(cmd));
+                    return (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase));
                 }
             }
 
@@ -918,7 +918,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_VersionId", DbType.Int32, versionId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -958,7 +958,7 @@ namespace Bikewale.DAL.AutoBiz
             //        cmd.CommandType = CommandType.StoredProcedure;
             //        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
 
-            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
             //        {
             //            if (dr != null)
             //            {
@@ -1014,7 +1014,7 @@ namespace Bikewale.DAL.AutoBiz
             //        cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeModelId", DbType.Int32, modelId));
             //        cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeVersionId", DbType.Int32, versionId));
             //        cmd.Parameters.Add(DbFactory.GetDbParam("par_Disclaimer", DbType.String, disclaimer));
-            //        MySqlDatabase.InsertQuery(cmd);
+            //        MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
             //    }
             //}
             //catch (Exception ex)
@@ -1041,7 +1041,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_VersionId", DbType.Int32, versionId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_Disclaimer", DbType.String, disclaimer));
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -1066,7 +1066,7 @@ namespace Bikewale.DAL.AutoBiz
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DisclaimerId", DbType.Int32, disclaimerId));
-                    return MySqlDatabase.UpdateQuery(cmd);
+                    return MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -1095,7 +1095,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DisclaimerId", DbType.Int32, disclaimerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_NewDisclaimer", DbType.String, newDisclaimerText));
 
-                    return MySqlDatabase.UpdateQuery(cmd);
+                    return MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -1131,7 +1131,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeVersionId", DbType.Int32, (objBookingAmt.objVersion.VersionId > 0) ? objBookingAmt.objVersion.VersionId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_Amount", DbType.Int32, objBookingAmt.objBookingAmountEntityBase.Amount));
 
-                    return (MySqlDatabase.InsertQuery(cmd));
+                    return (MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase));
                 }
             }
             catch (Exception ex)
@@ -1166,7 +1166,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_BookingAmount", DbType.Int32, objBookingAmt.Amount));
 
 
-                    if (MySqlDatabase.UpdateQuery(cmd))
+                    if (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase))
                         isSuccess = true;
                 }
             }
@@ -1199,7 +1199,7 @@ namespace Bikewale.DAL.AutoBiz
             //        cmd.CommandType = CommandType.StoredProcedure;
             //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
 
-            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
             //        {
             //            if (dr != null)
             //            {
@@ -1258,7 +1258,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr.Read())
                         {
@@ -1311,7 +1311,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_BookingId", DbType.Int32, bookingId));
 
-                    return MySqlDatabase.UpdateQuery(cmd);
+                    return MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -1343,7 +1343,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_CityIds", DbType.String, 250, lstCityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferIds", DbType.String, 250, lstOfferIds));
 
-                    return (MySqlDatabase.InsertQuery(cmd));
+                    return (MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase));
                 }
             }
             catch (Exception ex)
@@ -1376,7 +1376,7 @@ namespace Bikewale.DAL.AutoBiz
             //    {
             //        cmd.CommandType = CommandType.StoredProcedure;
             //        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
-            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
             //        {
             //            if (dr != null)
             //            {
@@ -1423,7 +1423,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_BenefitIds", DbType.String, 255, benefitIds));
 
-                    return (MySqlDatabase.UpdateQuery(cmd));
+                    return (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase));
                 }
             }
             catch (Exception ex)
@@ -1462,7 +1462,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_BenefitId", DbType.Int32, (benefitId > 0) ? benefitId : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_result", DbType.Byte, ParameterDirection.Output));
-                    MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                     return (Convert.ToBoolean(cmd.Parameters["par_result"].Value));
                 }
             }
@@ -1531,7 +1531,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_processingFee", DbType.Double, (ProcessingFee.HasValue) ? ProcessingFee.Value : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ID", DbType.Double, (id.HasValue) ? id.Value : Convert.DBNull));
 
-                    return MySqlDatabase.InsertQuery(cmd);
+                    return MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -1554,7 +1554,7 @@ namespace Bikewale.DAL.AutoBiz
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_Id", DbType.Int32, id));
                     cmd.Parameters.Add(DbFactory.GetDbParam("result", DbType.Int32, ParameterDirection.Output));
 
-                    MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                     return Convert.ToBoolean(cmd.Parameters["result"].Value);
                 }
             }

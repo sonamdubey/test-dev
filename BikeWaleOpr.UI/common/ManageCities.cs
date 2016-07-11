@@ -1,6 +1,6 @@
 ﻿using BikeWaleOpr.VO;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -33,7 +33,7 @@ namespace BikeWaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], stateId));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
 
                 }
             }
@@ -202,7 +202,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stdcode", DbParamTypeMapper.GetInstance[SqlDbType.Int], (objCity.StdCode != "") ? objCity.StdCode : Convert.DBNull));
 
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -240,7 +240,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (stateId > 0) ? stateId : Convert.DBNull));
 
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
 
                 }
             }
@@ -279,7 +279,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (stateId > 0) ? stateId : Convert.DBNull));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException err)
@@ -314,7 +314,7 @@ namespace BikeWaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)

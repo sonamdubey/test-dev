@@ -6,6 +6,7 @@ using Bikewale.CoreDAL;
 using Bikewale.Notifications;
 using Bikewale.Interfaces.MobileVerification;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.DAL.MobileVerification
 {
@@ -35,7 +36,7 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobileno", DbType.String, 50, mobileNo));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismobilever", DbType.Boolean, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
                     isVerified = Convert.ToBoolean(cmd.Parameters["par_ismobilever"].Value);
                 }
             }
@@ -76,7 +77,7 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_noofattempts", DbType.Int16, ParameterDirection.Output));
                         // LogLiveSps.LogSpInGrayLog(cmd);
 
-                     MySqlDatabase.ExecuteNonQuery(cmd);
+                     MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
                         noOfOTPSend = Convert.ToSByte(cmd.Parameters["par_noofattempts"].Value);
                 }
             }
@@ -120,7 +121,7 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbType.DateTime, DateTime.Now));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cvid", DbType.Int64, ParameterDirection.Output));
                         // LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
                         cvId = Convert.ToUInt64(cmd.Parameters["par_cvid"].Value);
                 }
             }
@@ -164,7 +165,7 @@ namespace Bikewale.DAL.MobileVerification
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cuicode", DbType.String, 50, cuiCode));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
                         verified = Convert.ToBoolean(cmd.Parameters["par_isverified"].Value);
                 }
             }

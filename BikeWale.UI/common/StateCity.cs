@@ -1,5 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -29,7 +29,7 @@ namespace Bikewale.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dt = ds.Tables[0];
@@ -69,9 +69,9 @@ namespace Bikewale.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, Convert.DBNull));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                         {
@@ -115,7 +115,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, (int)bikeType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, (!string.IsNullOrEmpty(stateId)) ? stateId : null));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                         {
@@ -155,9 +155,9 @@ namespace Bikewale.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, null));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, Convert.DBNull));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                         {

@@ -2,8 +2,8 @@
 using Bikewale.Controls;
 using Bikewale.CV;
 using Bikewale.Entities.BikeData;
-using Bikewale.Notifications.CoreDAL;
 using Enyim.Caching;
+using MySql.CoreDAL;
 using System;
 using System.Configuration;
 using System.Data;
@@ -208,7 +208,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, "DETAILS"));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, CurrentUser.Id));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                         {
@@ -484,7 +484,7 @@ namespace Bikewale.Used
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_statusid", DbType.Byte, statusId));
                         cmd.Parameters["par_inquiryid"].Value = inquiryId;
 
-                        MySqlDatabase.ExecuteNonQuery(cmd);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                         inquiryId = cmd.Parameters["par_inquiryid"].Value.ToString();
 

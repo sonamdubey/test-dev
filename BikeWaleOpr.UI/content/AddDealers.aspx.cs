@@ -8,9 +8,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using System.Configuration;
-using BikeWaleOPR.DAL.CoreDAL;
 using System.Data.Common;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -155,7 +155,7 @@ namespace BikeWaleOpr.Content
                 try
                 {
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
                     {
                         if (dr!=null)
                         {
@@ -245,7 +245,7 @@ namespace BikeWaleOpr.Content
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], isActive));
 
                         //run the command
-                        MySqlDatabase.ExecuteNonQuery(cmd); 
+                        MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly); 
                     }
                 }
                 catch (SqlException err)

@@ -8,6 +8,7 @@ using System.Web.UI.HtmlControls;
 using Bikewale.Common;
 using System.Data.Common;
 using Bikewale.CoreDAL;
+using MySql.CoreDAL;
 namespace Bikewale.Controls
 {
     public class UpcomingBikeSearch : System.Web.UI.UserControl
@@ -46,7 +47,7 @@ namespace Bikewale.Controls
                     cmd.CommandText = sql;
                     cmd.CommandType = CommandType.Text;
 
-                    using (DataSet dsMakeContents = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet dsMakeContents = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dsMakeContents != null && dsMakeContents.Tables[0].Rows.Count > 0)
                         {

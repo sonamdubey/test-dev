@@ -1,7 +1,7 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
 using Enyim.Caching;
+using MySql.CoreDAL;
 using System;
 using System.Configuration;
 using System.Data;
@@ -131,7 +131,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -277,7 +277,7 @@ namespace BikeWaleOpr.Content
 
                 };
 
-                MySqlDatabase.InsertQuery(sql, param);
+                MySqlDatabase.InsertQuery(sql, param, ConnectionType.ReadOnly);
 
                 //Update Upcoming Bike
                 if (chkFuturistic1.Checked == true)
@@ -374,11 +374,11 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
                     if (!(dr != null && dr.Read()))
                     {
-                        MySqlDatabase.InsertQuery(sqlSave);
+                        MySqlDatabase.InsertQuery(sqlSave, ConnectionType.MasterDatabase);
                     }
                 }
 
@@ -504,7 +504,7 @@ namespace BikeWaleOpr.Content
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dt = ds.Tables[0];
@@ -576,7 +576,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbParamTypeMapper.GetInstance[SqlDbType.Int], segmentId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidslist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, modelIdsList));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)

@@ -10,8 +10,8 @@ using BikeWaleOpr.Common;
 using System.Configuration;
 using BikeWaleOpr.Controls;
 using System.Data.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -71,7 +71,7 @@ namespace BikeWaleOpr.Content
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = sql;
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             {
@@ -172,7 +172,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtMileage.Text));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id));
 
-                    if (MySqlDatabase.UpdateQuery(cmd))
+                    if (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         errMsg.InnerHtml = "<h3>Record Updated Successfully.</h3>";
                         errMsg.Visible = true;

@@ -1,5 +1,5 @@
-﻿using Bikewale.Notifications.CoreDAL;
-using Bikewale.Utility;
+﻿using Bikewale.Utility;
+using MySql.CoreDAL;
 using RabbitMqPublishing;
 using System;
 using System.Collections.Generic;
@@ -206,7 +206,7 @@ namespace Bikewale.Notifications
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_returnedmsg", DbType.String, 500, retMsg));   
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smspageurl", DbType.String, 500, pageUrl));  
                         // LogLiveSps.LogSpInGrayLog(cmd);
-                        currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd));
+                        currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.ReadOnly));
                     }
             }
             catch (SqlException err)

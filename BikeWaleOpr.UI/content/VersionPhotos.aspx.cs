@@ -1,7 +1,7 @@
 using BikeWaleOpr.Common;
 using BikeWaleOpr.RabbitMQ;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using RabbitMqPublishing;
 using System;
 using System.Collections.Specialized;
@@ -114,7 +114,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Request.Form["optModel"]));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], qryStrModel));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
                     BindRepeater();
                 }
@@ -144,7 +144,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_timestamp", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, timeStamp));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     originalImagePath = cmd.Parameters["par_originalimagepath"].Value.ToString();
                 }
@@ -211,7 +211,7 @@ namespace BikeWaleOpr.Content
 
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                         {

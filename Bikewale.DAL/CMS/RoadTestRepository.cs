@@ -7,6 +7,7 @@ using Bikewale.Entities.CMS;
 using Bikewale.CoreDAL;
 using Bikewale.Notifications;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.DAL.CMS
 {
@@ -46,7 +47,7 @@ namespace Bikewale.DAL.CMS
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, (filters.ModelId > 0) ? filters.ModelId : Convert.DBNull));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

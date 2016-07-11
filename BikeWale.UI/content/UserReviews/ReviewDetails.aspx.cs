@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using Bikewale.Common;
 using Bikewale.Controls;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Content
 {
@@ -324,10 +325,10 @@ namespace Bikewale.Content
                     uint.TryParse(review_Id, out _reviewId);
                 }
                 //cmd.Parameters.Add("@v_articleid", SqlDbType.BigInt).Value = (review_Id != "" ? review_Id : "-1");  
-                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_articleid", DbType.Int64, _reviewId));
-                    using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_articleid", DbType.Int64, _reviewId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -356,7 +357,7 @@ namespace Bikewale.Content
             {
                 if (!string.IsNullOrEmpty(reviewId) && uint.TryParse(reviewId, out _reviewId))
                 {
-                    using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand())
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         DbCommand cmd1 = cmd;
                         if (AlreadyViewed(reviewId) == false)
@@ -366,9 +367,9 @@ namespace Bikewale.Content
                             cmd.CommandText = sql;
 
                             //cmd.Parameters.Add("@v_reviewid", SqlDbType.BigInt).Value = (reviewId != "" ? reviewId : "-1");
-                            cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_reviewid",DbType.Int64, _reviewId));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@v_reviewid",DbType.Int64, _reviewId));
 
-                            Bikewale.CoreDAL.MySqlDatabase.UpdateQuery(cmd);
+                            MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
 
                             //add this to the cookie
                             URV += reviewId + ",";
@@ -378,10 +379,10 @@ namespace Bikewale.Content
 
                         cmd1.CommandType = CommandType.StoredProcedure;
                         cmd1.CommandText = "getcustomerreviewinfo";
-                        cmd1.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_reviewid", DbType.Int64, _reviewId));
+                        cmd1.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, _reviewId));
 
 
-                        using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd1))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd1,ConnectionType.ReadOnly))
                         {
                             if (dr != null && dr.Read())
                             {
@@ -474,12 +475,12 @@ namespace Bikewale.Content
             try
             {
 
-                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", DbType.Int32, ModelId));
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_reviewid", DbType.Int32, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_modelid", DbType.Int32, ModelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_reviewid", DbType.Int32, reviewId));
 
-                    using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -584,12 +585,12 @@ namespace Bikewale.Content
                     uint.TryParse(ModelId, out _modelId);
                 }
 
-                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", DbType.Int32, _modelId));
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_versionid", DbType.Int32, _versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_modelid", DbType.Int32, _modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_versionid", DbType.Int32, _versionId));
 
-                    using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -662,8 +663,8 @@ namespace Bikewale.Content
                         order by liked desc 
                         limit 5";
 
-                DbParameter[] param = new[] { Bikewale.CoreDAL.DbFactory.GetDbParam("par_modelid", DbType.Int32,ModelId ),
-                    Bikewale.CoreDAL.DbFactory.GetDbParam("par_reviewid", DbType.Int32,reviewId )};
+                DbParameter[] param = new[] { DbFactory.GetDbParam("par_modelid", DbType.Int32,ModelId ),
+                    DbFactory.GetDbParam("par_reviewid", DbType.Int32,reviewId )};
 
 
                 op.BindRepeaterReader(sql, rptMoreUserReviews, param);

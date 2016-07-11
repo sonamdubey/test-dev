@@ -9,8 +9,8 @@ using System.Configuration;
 using Enyim.Caching;
 using BikewaleOpr.Common;
 using BikeWaleOPR.Utilities;
-using BikeWaleOPR.DAL.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Common
 {
@@ -611,7 +611,7 @@ namespace BikeWaleOpr.Common
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                 }
             }

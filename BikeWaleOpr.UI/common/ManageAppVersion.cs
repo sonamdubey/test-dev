@@ -1,7 +1,7 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -33,7 +33,7 @@ namespace BikewaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_apptype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(appType)));
 
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {
@@ -83,7 +83,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, entity.Description));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
 
-                    isSaved = MySqlDatabase.InsertQuery(cmd);
+                    isSaved = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)

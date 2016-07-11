@@ -4,6 +4,7 @@ using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -35,7 +36,7 @@ namespace Bikewale.DAL.Compare
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, versions));
 
                     // LogLiveSps.LogSpInGrayLog(cmd);
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {
@@ -244,7 +245,7 @@ namespace Bikewale.DAL.Compare
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
                    // LogLiveSps.LogSpInGrayLog(cmd);
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {
@@ -317,7 +318,7 @@ namespace Bikewale.DAL.Compare
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int16, Convert.DBNull));
                         // LogLiveSps.LogSpInGrayLog(command);
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {

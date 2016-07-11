@@ -6,8 +6,8 @@ using System.Data.SqlClient;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.VO;
 using System.Data.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Common
 {
@@ -30,7 +30,7 @@ namespace BikeWaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("getallstatesdetails"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException err)
@@ -75,7 +75,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], stateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isdeleted", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     objState.StateName = cmd.Parameters["par_name"].Value.ToString();
                     objState.MaskingName = cmd.Parameters["par_maskingname"].Value.ToString();
@@ -124,7 +124,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_statecode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 2, stdCode));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -156,7 +156,7 @@ namespace BikeWaleOpr.Common
 
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], stateId));
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)
@@ -185,7 +185,7 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dt = ds.Tables[0];

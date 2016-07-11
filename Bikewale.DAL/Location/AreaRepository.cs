@@ -11,6 +11,7 @@ using Bikewale.CoreDAL;
 using System.Web;
 using Bikewale.Notifications;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.DAL.Location
 {
@@ -33,7 +34,7 @@ namespace Bikewale.DAL.Location
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
                     objAreaList = new List<AreaEntityBase>();
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr!=null)
                         {
@@ -85,7 +86,7 @@ namespace Bikewale.DAL.Location
                     //cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {

@@ -1,6 +1,7 @@
-﻿using BikeWaleOPR.DAL.CoreDAL;
+﻿
 using BikeWaleOPR.Utilities;
 using Enyim.Caching;
+using MySql.CoreDAL;
 using System;
 using System.Configuration;
 using System.Data;
@@ -68,7 +69,7 @@ namespace BikeWaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, RequestType));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dt = ds.Tables[0];
@@ -112,7 +113,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], MakeId));
 
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dt = ds.Tables[0];
@@ -156,7 +157,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ModelId));
 
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dt = ds.Tables[0];
@@ -315,7 +316,7 @@ namespace BikeWaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -360,7 +361,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], updatedBy));
 
-                    isSuccess = MySqlDatabase.UpdateQuery(cmd);
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
 
                     _mc.Remove("BW_MakeMapping");
                 }
@@ -402,7 +403,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], updatedBy));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
 
-                    isSuccess = MySqlDatabase.UpdateQuery(cmd);
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
 
                     _mc.Remove("BW_ModelMapping");
                     _mc.Remove("BW_NewBikeLaunches");
@@ -440,7 +441,7 @@ namespace BikeWaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)
@@ -471,7 +472,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_discription", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], synopsis.Trim()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
 
                 }
             }
@@ -506,7 +507,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], deletedBy));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException sqlEx)
@@ -540,7 +541,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], deletedBy));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException sqlEx)
@@ -574,7 +575,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_synopsis", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 8000, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     make = cmd.Parameters["par_makeid"].Value.ToString();
                     synopsis = cmd.Parameters["par_synopsis"].Value.ToString();

@@ -2,7 +2,7 @@
 COMMON OPERATIONS.
 */
 
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -59,7 +59,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isfake", DbType.Boolean, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isexist", DbType.Boolean, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     this.Exists = Convert.ToBoolean(cmd.Parameters["par_isexist"].Value);
 
@@ -461,7 +461,7 @@ namespace Bikewale.Common
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("@emailid", DbType.String, emailId.Trim()));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {

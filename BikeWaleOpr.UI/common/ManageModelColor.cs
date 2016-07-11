@@ -7,9 +7,9 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using BikeWaleOpr.Entities;
-using BikeWaleOPR.DAL.CoreDAL;
 using System.Data.Common;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikewaleOpr.Common
 {
@@ -37,7 +37,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
 
 
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null )
                         {
@@ -103,7 +103,7 @@ namespace BikewaleOpr.Common
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
 
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null )
                         {
@@ -158,7 +158,7 @@ namespace BikewaleOpr.Common
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.Add(DbFactory.GetDbParam("@modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
 
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {
@@ -208,7 +208,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hexcodes", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, hexCodes));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_companycolorname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, Convert.DBNull));
 
-                    isSaved = MySqlDatabase.InsertQuery(cmd);
+                    isSaved = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -241,8 +241,8 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], versionColor.IsActive));
 
-                    
-                    isSaved = MySqlDatabase.InsertQuery(cmd);
+
+                    isSaved = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -276,7 +276,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
 
-                    isUpdated = MySqlDatabase.UpdateQuery(cmd);
+                    isUpdated = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -311,7 +311,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
 
-                    isSaved = MySqlDatabase.UpdateQuery(cmd);
+                    isSaved = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -344,7 +344,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
 
 
-                    isDeleted = MySqlDatabase.UpdateQuery(cmd);
+                    isDeleted = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)

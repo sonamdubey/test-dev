@@ -1,6 +1,6 @@
 ﻿using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -274,7 +274,7 @@ namespace Bikewale.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, txtName.Text.Trim()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, txtEmail.Text.Trim()));
 
-                    MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -306,7 +306,7 @@ namespace Bikewale.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("@modelid", DbType.Int64, (modelId != "" ? modelId : "-1")));
                     cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbType.Int64, (versionId != "" ? versionId : "-1")));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -366,7 +366,7 @@ namespace Bikewale.Content
                             cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbType.Int64, (id != "" ? id : "-1")));
                             cmd.Parameters.Add(DbFactory.GetDbParam("@email", DbType.String, 100, email));
 
-                            using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                            using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                             {
                                 if (dr.Read())
                                 {
@@ -461,7 +461,7 @@ namespace Bikewale.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
                     //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     recordId = cmd.Parameters["par_id"].Value.ToString();
 

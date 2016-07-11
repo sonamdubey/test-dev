@@ -21,7 +21,7 @@ using System.Xml;
 using System.Net;
 using System.IO;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.Common 
 {
@@ -80,9 +80,9 @@ namespace Bikewale.Common
                         using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                         {
                             cmd.Parameters.Add(DbFactory.GetDbParam("@sourceid", DbType.Int32, sourceId));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("@id", DbType.Int32, id)); 
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@id", DbType.Int32, id));
 
-                            MySqlDatabase.UpdateQuery(cmd);
+                            MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                         }
 					}
 					catch(Exception err)

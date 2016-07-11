@@ -14,9 +14,10 @@ using System.Web.UI.HtmlControls;
 using System.Configuration;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
-using BikeWaleOPR.DAL.CoreDAL;
+
 using System.Data.Common;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Common
 {
@@ -33,7 +34,7 @@ namespace BikeWaleOpr.Common
         {
             try
             { 
-                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql))
+                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
                 {
                     dtgrd.DataSource = dataReader;
                     dtgrd.DataBind();
@@ -54,7 +55,7 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, param))
+                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
                 {
                     dtgrd.DataSource = dataReader;
                     dtgrd.DataBind();
@@ -75,7 +76,7 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
                 {
                     rpt.DataSource = dr;
                     rpt.DataBind();
@@ -94,7 +95,7 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,param))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
                 {
                     rpt.DataSource = dr;
                     rpt.DataBind();
@@ -112,7 +113,7 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql))
+                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
                 {
 
                     dtgrd.DataSource = dataSet;
@@ -131,7 +132,7 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql, param))
+                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql, param, ConnectionType.ReadOnly))
                 {
                     dtgrd.DataSource = dataSet;
                     dtgrd.DataBind();
@@ -150,7 +151,7 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql))
+                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
                 {
                     if (dataSet.Tables[0].Rows.Count > PageSize)
                     {
@@ -180,7 +181,7 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql, param))
+                using (DataSet dataSet = MySqlDatabase.SelectAdapterQuery(sql, param, ConnectionType.ReadOnly))
                 {
                     if (dataSet.Tables[0].Rows.Count > PageSize)
                     {
@@ -264,7 +265,7 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
                 {
 
                     if (dr!=null)
@@ -288,7 +289,7 @@ namespace BikeWaleOpr.Common
         {
             try
             { 
-               using (IDataReader dr = MySqlDatabase.SelectQuery(sql,param))
+               using (IDataReader dr = MySqlDatabase.SelectQuery(sql,param,ConnectionType.ReadOnly))
                 {
                     if (dr != null)
                     {
@@ -313,7 +314,7 @@ namespace BikeWaleOpr.Common
             try
             {
 
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
                 {
                     if (dr != null)
                     {
@@ -337,7 +338,7 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
                 {
                     if (dr != null)
                     {
@@ -361,7 +362,7 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
                 {
                     if (dr != null)
                     {
@@ -383,7 +384,7 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
                 {
                     if (dr != null)
                     {
@@ -1299,8 +1300,8 @@ namespace BikeWaleOpr.Common
             sb.Append("\n var i = 0;");
 
             try
-            { 
-                using (IDataReader dr = MySqlDatabase.SelectQuery(Query1))
+            {
+                using (IDataReader dr = MySqlDatabase.SelectQuery(Query1, ConnectionType.ReadOnly))
                 {
                     if (dr!=null)
                     {
@@ -1350,7 +1351,7 @@ namespace BikeWaleOpr.Common
             try
             {
                 cmd.CommandText = sql;
-                ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
             }
             catch (Exception err)
             {
@@ -1403,7 +1404,7 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
                 {
                     if (dr!=null && dr.Read())
                     {
@@ -1556,7 +1557,7 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
                 {
                     if (dr!=null && dr.Read())
                     {

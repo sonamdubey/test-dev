@@ -1,4 +1,5 @@
 ﻿using Bikewale.CoreDAL;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -51,7 +52,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, DefaultCity));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -114,7 +115,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, VersionId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, DefaultCity));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {

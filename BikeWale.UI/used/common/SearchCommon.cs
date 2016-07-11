@@ -4,8 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 using Bikewale.Common;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Used
 {
@@ -69,7 +69,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer)); 
 
 			//Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-                    int rowsUpdated = (int)MySqlDatabase.ExecuteNonQuery(cmd);
+                    int rowsUpdated = (int)MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     if (rowsUpdated > 0)
                         retVal = true;
@@ -111,7 +111,7 @@ namespace Bikewale.Used
                      cmd.CommandType = CommandType.StoredProcedure;
                      cmd.CommandText = "getusedbikebycitywithcount";
 
-                     ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                     ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException err)
@@ -146,7 +146,7 @@ namespace Bikewale.Used
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getusedbikemodelswithcount";
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException err)
@@ -181,7 +181,7 @@ namespace Bikewale.Used
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getusedbikemakeswithcount";
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException err)

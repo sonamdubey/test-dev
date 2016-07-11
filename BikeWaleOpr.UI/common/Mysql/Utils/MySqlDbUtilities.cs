@@ -1,5 +1,5 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;

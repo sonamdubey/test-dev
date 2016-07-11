@@ -13,7 +13,7 @@ using System.Security.Cryptography;
 using System.Xml;
 using Bikewale.Common;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.CV
 {
@@ -59,7 +59,7 @@ namespace Bikewale.CV
 
                 //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);					
                     //run the command
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     isMobVer = Convert.ToBoolean(cmd.Parameters["par_ismobilever"].Value);
 
@@ -115,7 +115,7 @@ namespace Bikewale.CV
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cuicode", DbType.String, 50, cuiCode));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     verified = Convert.ToBoolean(cmd.Parameters["par_isverified"].Value); 
                 //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);

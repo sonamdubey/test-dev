@@ -8,8 +8,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Newsletter
 {
@@ -62,7 +62,7 @@ namespace Bikewale.Newsletter
 
                 //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     //run the command
-                    MySqlDatabase.ExecuteNonQuery(cmd); 
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly); 
                 }
                 
 			}

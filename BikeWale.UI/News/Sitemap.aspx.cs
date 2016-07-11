@@ -7,7 +7,7 @@ using System.Text;
 using System.Web;
 using System.Xml;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.News
 {
@@ -35,7 +35,7 @@ namespace Bikewale.News
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_applicationid", DbType.Int32, Convert.ToInt32(BWConfiguration.Instance.ApplicationId)));
 
                         // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-                        using (DataSet ds  = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (da != null)
                             {

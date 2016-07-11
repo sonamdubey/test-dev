@@ -7,8 +7,8 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikewaleOpr.Common
 {
@@ -35,7 +35,7 @@ namespace BikewaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
 
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {
@@ -90,7 +90,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, modelIds));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, description));
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                      success = true;
                 }
             }
@@ -123,7 +123,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, campaignIds));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     success = true;
                 }
             }
@@ -151,7 +151,7 @@ namespace BikewaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {

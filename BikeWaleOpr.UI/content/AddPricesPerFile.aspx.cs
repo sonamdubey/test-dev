@@ -1,6 +1,6 @@
 using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -122,7 +122,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
 
                     //run the command
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 }
 
             }

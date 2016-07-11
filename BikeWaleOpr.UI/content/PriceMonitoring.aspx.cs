@@ -14,7 +14,7 @@ using System.Drawing.Imaging;
 using BikeWaleOpr.Common;
 using FreeTextBoxControls;
 using Ajax;
-using BikeWaleOPR.DAL.CoreDAL;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -136,7 +136,7 @@ namespace BikeWaleOpr.Content
 				sql +=" order by cv.name";
 				
 
-				dsModelVersions = MySqlDatabase.SelectAdapterQuery(sql);
+				dsModelVersions = MySqlDatabase.SelectAdapterQuery(sql,ConnectionType.ReadOnly);
 				rptModelVersion.DataSource = dsModelVersions;
 				rptModelVersion.DataBind();
 				
@@ -155,7 +155,7 @@ namespace BikeWaleOpr.Content
 				sql = sql + " order by cv.name";
 
 
-                dsModelVersionsValues = MySqlDatabase.SelectAdapterQuery(sql);
+                dsModelVersionsValues = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly);
 				
 				
 				sql = @" SELECT DISTINCT c.ID, c.Name AS CityName
@@ -164,7 +164,7 @@ namespace BikeWaleOpr.Content
 				        and dn.makeid = " + drpMake.SelectedItem.Value +" order by cityname";
 
 
-                dsBikeCities = MySqlDatabase.SelectAdapterQuery(sql);
+                dsBikeCities = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly);
 				rptCity.DataSource = dsBikeCities;
 				rptCity.DataBind();
 				

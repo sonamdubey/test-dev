@@ -15,9 +15,9 @@ using BikeWaleOpr.Common;
 using BikeWaleOpr.RabbitMQ;
 using RabbitMqPublishing;
 using System.Collections.Specialized;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -179,8 +179,8 @@ namespace BikeWaleOpr.Content
                     } 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, originalImgPath)); 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ConfigurationManager.AppSettings["imghosturl"]));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplication", DbParamTypeMapper.GetInstance[SqlDbType.Bit], (!String.IsNullOrEmpty(filLarge.Value)) ? false : true)); 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplication", DbParamTypeMapper.GetInstance[SqlDbType.Bit], (!String.IsNullOrEmpty(filLarge.Value)) ? false : true));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     retVal = true;
                 }
             }
@@ -282,7 +282,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
 
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     expLaunch = cmd.Parameters["par_launchdate"].Value.ToString();
                     cName = cmd.Parameters["par_makename"].Value.ToString() + "-" + cmd.Parameters["par_modelname"].Value.ToString();

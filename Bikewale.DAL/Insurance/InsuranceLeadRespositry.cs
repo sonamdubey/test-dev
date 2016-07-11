@@ -15,6 +15,8 @@ using Bikewale.Interfaces.Customer;
 using Bikewale.Entities.Customer;
 using Bikewale.DAL.Customer;
 using System.Data.Common;
+using MySql.CoreDAL;
+
 
 namespace Bikewale.DAL.Insurance
 {
@@ -73,7 +75,7 @@ namespace Bikewale.DAL.Insurance
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Int32, lead.LeadSourceId));
 
                         // LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
 
                     isSuccess = true;
                         

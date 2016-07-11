@@ -1,6 +1,6 @@
 using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 /*******************************************************************************************************
 IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
@@ -177,7 +177,7 @@ namespace BikeWaleOpr.Content
                 {
                     sql = " delete from newbikeshowroomprices where cityid= " + hdnSelectedCityId.Value + " and  bikeversionid in(" + verIds + ")";
 
-                    MySqlDatabase.UpdateQuery(sql);
+                    MySqlDatabase.UpdateQuery(sql,ConnectionType.MasterDatabase);
 
                 }
                 catch (Exception err)
@@ -270,7 +270,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], hdnSelectedCityId.Value));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
                     //run the command
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException err)

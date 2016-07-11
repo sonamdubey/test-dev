@@ -1,6 +1,6 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -33,7 +33,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbParamTypeMapper.GetInstance[SqlDbType.Int], endIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (!String.IsNullOrEmpty(inquiryId) && inquiryId != "0") ? Convert.ToUInt32(inquiryId.Substring(1, inquiryId.Length - 1)) : Convert.DBNull));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -72,7 +72,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -111,7 +111,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -149,7 +149,7 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -188,7 +188,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -227,7 +227,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -266,7 +266,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], customerId));
 
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -305,7 +305,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ProfileId));
 
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -344,7 +344,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], profileId));
 
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                     isSuccess = true;
                 }
             }
@@ -386,7 +386,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], profileId));
 
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                     isSuccess = true;
                 }
             }
@@ -427,7 +427,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], photoIdList));
 
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)
@@ -464,7 +464,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], photoIdList));
 
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)
@@ -501,7 +501,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_custidlist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], CustIdList));
 
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)

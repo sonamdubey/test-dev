@@ -12,7 +12,7 @@ using Ajax;
 using BikeWaleOpr.Common;
 using System.Text.RegularExpressions;
 using System.Configuration;
-using BikeWaleOPR.DAL.CoreDAL;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr
 {
@@ -39,7 +39,7 @@ namespace BikeWaleOpr
             {
                 if (_stateId > 0)
                 {
-                    ds = MySqlDatabase.SelectAdapterQuery(sql); 
+                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly); 
                 }
             }
             catch (Exception err)
@@ -74,7 +74,7 @@ namespace BikeWaleOpr
             {
                 if (_makeId > 0)
                 {
-                    ds = MySqlDatabase.SelectAdapterQuery(sql); 
+                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly); 
                 }
             }
             catch (Exception err)
@@ -107,7 +107,7 @@ namespace BikeWaleOpr
             {
                 if (_modelid > 0)
                 {
-                    ds = MySqlDatabase.SelectAdapterQuery(sql); 
+                    ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly); 
                 }
                 
             }

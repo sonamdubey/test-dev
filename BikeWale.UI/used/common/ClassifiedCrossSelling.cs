@@ -8,8 +8,8 @@ using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Used
 {
@@ -43,7 +43,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("@v_versionid", DbType.Int32, versionId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("@v_profileid", DbType.String, profileId));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
 
                         if (ds!=null)

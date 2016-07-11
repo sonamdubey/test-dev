@@ -1,7 +1,7 @@
 ﻿using BikeWaleOpr.Common;
 using BikeWaleOpr.RabbitMQ;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using RabbitMqPublishing;
 using System;
 using System.Collections.Specialized;
@@ -202,7 +202,7 @@ namespace BikeWaleOpr.Content
                     cmd.CommandText = "con_getbikecomparisonlisting";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                         {
@@ -248,7 +248,7 @@ namespace BikeWaleOpr.Content
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], URLData));
 
 
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (dr != null && dr.Read())
                             {
@@ -343,7 +343,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_compid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     int Status = Int16.Parse(cmd.Parameters["par_status"].Value.ToString());
                     if (Status == 0)
@@ -459,7 +459,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, "/bw/bikecomparison/"));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbParamTypeMapper.GetInstance[SqlDbType.Bit], 0));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)

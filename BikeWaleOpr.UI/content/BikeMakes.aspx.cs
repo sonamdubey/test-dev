@@ -3,8 +3,8 @@ IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 
 using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -79,7 +79,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtMaskingName.Text.Trim()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismakeexist", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     // Error code Unique key constraint in the database.
                     if (!Convert.ToBoolean(cmd.Parameters["par_ismakeexist"].Value))
@@ -180,7 +180,7 @@ namespace BikeWaleOpr.Content
                         DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[ e.Item.ItemIndex ])
                     };
 
-                MySqlDatabase.InsertQuery(sql, sqlParams);
+                MySqlDatabase.InsertQuery(sql, sqlParams, ConnectionType.ReadOnly);
             }
             catch (SqlException ex)
             {

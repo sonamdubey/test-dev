@@ -11,6 +11,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.CoreDAL;
 using Bikewale.Notifications;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.DAL.CMS
 {
@@ -48,7 +49,7 @@ namespace Bikewale.DAL.CMS
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int64, EnumCMSContentType.News));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -141,7 +142,7 @@ namespace Bikewale.DAL.CMS
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_prevurl", DbType.String, 200, ParameterDirection.Output));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_prevtitle", DbType.String, 250, ParameterDirection.Output));
 // LogLiveSps.LogSpInGrayLog(cmd);
-                        MySqlDatabase.ExecuteNonQuery(cmd);
+                        MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
                         v = new V();
 
                         if (!string.IsNullOrEmpty(cmd.Parameters["par_authorname"].Value.ToString()))

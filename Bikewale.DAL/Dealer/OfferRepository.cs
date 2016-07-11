@@ -2,6 +2,7 @@
 using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,7 +26,7 @@ namespace Bikewale.DAL.Dealer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, 10, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, 5, modelId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

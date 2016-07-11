@@ -13,6 +13,7 @@ using System.Data;
 using Bikewale.Entities.BikeData;
 using Bikewale.Utility;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.DAL.NewBikeSearch
 {
@@ -48,7 +49,7 @@ namespace Bikewale.DAL.NewBikeSearch
                 {
                     cmd.CommandType = CommandType.Text;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if(dr!=null)
                         {

@@ -6,7 +6,8 @@ using Bikewale.Common;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
+
 
 namespace Bikewale.MyBikeWale
 {
@@ -59,7 +60,7 @@ namespace Bikewale.MyBikeWale
                     //cmd.Parameters.Add("@inquiryid", SqlDbType.BigInt).Value = inquiryId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
 
                         if (ds != null && ds.Tables[0].Rows.Count > 0)

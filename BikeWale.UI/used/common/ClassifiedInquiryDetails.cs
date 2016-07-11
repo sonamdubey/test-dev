@@ -7,8 +7,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 using Bikewale.Common;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Used
 {
@@ -70,7 +70,7 @@ namespace Bikewale.Used
 
                     string engine = "";
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr!=null && dr.Read())
                         {

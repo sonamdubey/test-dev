@@ -10,9 +10,9 @@ using System.Configuration;
 using BikeWaleOpr.RabbitMQ;
 using RabbitMqPublishing;
 using System.Collections.Specialized;
-using BikeWaleOPR.DAL.CoreDAL;
 using System.Data.Common;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -234,7 +234,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_lastsavedid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
 
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     if (cmd.Parameters["par_lastsavedid"].Value.ToString() != "")
                         lastSavedId = cmd.Parameters["par_lastsavedid"].Value.ToString(); 
@@ -365,7 +365,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, hostUrl));  
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, (!String.IsNullOrEmpty(flphoto.PostedFile.FileName)) ? (imagePath + originalImagePath) : Convert.DBNull ));
 
-                    MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)
@@ -437,7 +437,7 @@ namespace BikeWaleOpr.Content
 			
 			try
 			{
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
                     if (dr.Read())
                     {
@@ -555,7 +555,7 @@ namespace BikeWaleOpr.Content
 				
 				try
 				{
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -647,7 +647,7 @@ namespace BikeWaleOpr.Content
                     cmd.CommandText = sql;
                     cmd.CommandType = CommandType.Text;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd)) 
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly)) 
                     {
                         if (dr!=null)
                         {

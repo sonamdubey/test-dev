@@ -1,5 +1,6 @@
 ﻿using Bikewale.CoreDAL;
 using Consumer;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -23,7 +24,7 @@ namespace BikewaleAutoSuggest
                     cmd.CommandType = CommandType.StoredProcedure;
                     //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

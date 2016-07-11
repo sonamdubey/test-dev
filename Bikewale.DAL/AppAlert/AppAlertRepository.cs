@@ -1,6 +1,7 @@
 ﻿using Bikewale.CoreDAL;
 using Bikewale.Interfaces.AppAlert;
 using Bikewale.Notifications;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,7 +38,7 @@ namespace Bikewale.DAL.AppAlert
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ostype", DbType.Byte, osType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbType.String, 100, subsMasterId));
                         // LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
 
                 }
             }

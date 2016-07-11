@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
-using BikeWaleOPR.DAL.CoreDAL;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -122,7 +122,7 @@ namespace BikeWaleOpr.Content
 				
 			try
 			{
-				MySqlDatabase.InsertQuery( sql );
+				MySqlDatabase.InsertQuery( sql ,ConnectionType.MasterDatabase);
 			}
 			catch(SqlException err)
 			{
@@ -140,7 +140,7 @@ namespace BikeWaleOpr.Content
 					
 			try
 			{
-                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql))
+                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql,ConnectionType.ReadOnly))
                 {
                     if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                     {
@@ -169,7 +169,7 @@ namespace BikeWaleOpr.Content
 						
 			try
 			{
-                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql))
+                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
                 {
                     if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                     {
@@ -211,7 +211,7 @@ namespace BikeWaleOpr.Content
 			
 			try
 			{
-				MySqlDatabase.InsertQuery(sql);
+                MySqlDatabase.InsertQuery(sql, ConnectionType.MasterDatabase);
 			}
 			catch( SqlException ex )	
 			{
@@ -240,7 +240,7 @@ namespace BikeWaleOpr.Content
 			
 			try
 			{
-                MySqlDatabase.InsertQuery(sql);
+                MySqlDatabase.InsertQuery(sql, ConnectionType.MasterDatabase);
 			}
 			catch( SqlException ex )	
 			{
@@ -264,8 +264,8 @@ namespace BikeWaleOpr.Content
 				and ve.id = " + VersionId;
 			
 			try
-			{ 
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+			{
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
                     if (dr!=null)
                     {

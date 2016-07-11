@@ -4,8 +4,8 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Memcache;
-using Bikewale.Notifications.CoreDAL;
 using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -126,9 +126,9 @@ namespace Bikewale.New
                 using (DbCommand cmd = DbFactory.GetDBCommand("getstatewisecitydealers"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dsStateCity = ds;

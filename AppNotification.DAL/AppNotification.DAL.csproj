@@ -37,6 +37,9 @@
     <Reference Include="log4net">
       <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MySqlDatabaseLibrary">
+      <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -48,10 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\DbFactory.cs" />
-    <Compile Include="Core\DbParamTypeMapper.cs" />
     <Compile Include="Core\LogLiveSps.cs" />
-    <Compile Include="Core\MySqlDatabase.cs" />
     <Compile Include="MobileAppAlertRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

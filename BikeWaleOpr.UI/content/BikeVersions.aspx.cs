@@ -10,7 +10,7 @@ using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
 using System.Data.Common;
 using BikeWaleOPR.Utilities;
-using BikeWaleOPR.DAL.CoreDAL;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -144,7 +144,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_currentid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     currentId = cmd.Parameters["par_currentid"].Value.ToString(); 
                 }
@@ -271,7 +271,7 @@ namespace BikeWaleOpr.Content
                 };
             try
             {
-                MySqlDatabase.InsertQuery(sql,param);
+                MySqlDatabase.InsertQuery(sql, param, ConnectionType.ReadOnly);
             }
             catch (SqlException ex)
             {
@@ -307,7 +307,7 @@ namespace BikeWaleOpr.Content
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    MySqlDatabase.InsertQuery(sql); 
+                    MySqlDatabase.InsertQuery(sql, ConnectionType.MasterDatabase); 
                 }
             }
             catch (SqlException ex)

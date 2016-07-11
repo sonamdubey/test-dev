@@ -1,6 +1,6 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -36,7 +36,7 @@ namespace BikewaleOpr.Common
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                                 dtDealerCampaign = ds.Tables[0];
@@ -82,7 +82,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], modelIds));
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     isSuccess = true;
                 }
@@ -128,7 +128,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
-                    isSuccess = MySqlDatabase.UpdateQuery(cmd);
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -160,7 +160,7 @@ namespace BikewaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ruleids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ruleIds));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
-                    isDeleted = MySqlDatabase.UpdateQuery(cmd);
+                    isDeleted = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)

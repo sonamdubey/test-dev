@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using MySql.CoreDAL;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType.ToString()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -194,7 +195,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -269,7 +270,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
 
                         if (dr != null)
@@ -344,7 +345,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Boolean, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.InputOutput));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
 
                     if (!string.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
@@ -403,7 +404,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -460,7 +461,7 @@ namespace Bikewale.DAL.BikeData
                     // cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -501,7 +502,7 @@ namespace Bikewale.DAL.BikeData
                     //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -562,7 +563,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_launchdate", DbType.Boolean, (sortBy != EnumUpcomingBikesFilter.Default) ? ((sortBy == EnumUpcomingBikesFilter.LaunchDateLater) ? true : false) : Convert.DBNull));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -627,7 +628,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_endindex", DbType.Int32, endIndex));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -697,7 +698,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -756,7 +757,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -825,7 +826,7 @@ namespace Bikewale.DAL.BikeData
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -873,7 +874,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandText = "getoldmaskingnameslist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -929,7 +930,7 @@ namespace Bikewale.DAL.BikeData
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Byte, topRecords));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -998,7 +999,7 @@ namespace Bikewale.DAL.BikeData
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Byte, (int)requestType));
 
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {

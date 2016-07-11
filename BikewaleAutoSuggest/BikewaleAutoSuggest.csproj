@@ -51,6 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MySqlDatabaseLibrary">
+      <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Nest">
       <HintPath>..\Libs\Nest.dll</HintPath>
     </Reference>

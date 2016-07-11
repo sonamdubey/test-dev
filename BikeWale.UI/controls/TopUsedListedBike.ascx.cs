@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using Bikewale.Common;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.Controls
 {
@@ -53,7 +53,7 @@ namespace Bikewale.Controls
                     //cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = TopRecords;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, TopRecords));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr!=null)
                         {

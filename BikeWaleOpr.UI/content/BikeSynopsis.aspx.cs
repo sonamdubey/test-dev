@@ -14,9 +14,9 @@ using System.Drawing.Imaging;
 using BikeWaleOpr.Common;
 using FreeTextBoxControls;
 using Ajax;
-using BikeWaleOPR.DAL.CoreDAL;
 using System.Data.Common;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -129,7 +129,7 @@ namespace BikeWaleOpr.Content
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -182,7 +182,7 @@ namespace BikeWaleOpr.Content
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -250,7 +250,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id));
 
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     if (cmd.Parameters["par_lastsavedid"].Value.ToString() != "")
                         lastSavedId = cmd.Parameters["par_lastsavedid"].Value.ToString(); 

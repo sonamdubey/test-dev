@@ -1,6 +1,6 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -115,7 +115,7 @@ namespace BikeWaleOpr.Content
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_ispending", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isPending));
 
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             {

@@ -5,8 +5,8 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Notifications.CoreDAL;
 using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
 /*******************************************************************************************************
 IN THIS CLASS WE GET THE ID OF THE BIKE MAKE FROM THE QUERY STRING, AND FROM IT WE FETCH ALL THE
 MODELS FOR THIS MAKE, and the count for this model in the sell inquiry.
@@ -205,7 +205,7 @@ namespace Bikewale.New
                     //cmd.Parameters.Add("par_id", SqlDbType.BigInt).Value = bike;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, bike));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {

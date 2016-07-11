@@ -1,6 +1,6 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -66,7 +66,7 @@ namespace BikeWaleOpr.RabbitMQ
                     //output parameter complete url for original image
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 255, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     url = cmd.Parameters["par_url"].Value.ToString();
                 }
@@ -108,7 +108,7 @@ namespace BikeWaleOpr.RabbitMQ
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_imagelist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, imageList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], imgC));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (Exception ex)
@@ -133,7 +133,7 @@ namespace BikeWaleOpr.RabbitMQ
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], imageId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (int)imgC));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (Exception ex)

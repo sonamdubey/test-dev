@@ -1,4 +1,5 @@
 using Bikewale.Common;
+using MySql.CoreDAL;
 using Newtonsoft.Json;
 /***********************************************************/
 // Desc: Common class for research compare section
@@ -185,12 +186,12 @@ namespace Bikewale.New
             DataSet ds = null;
             try
             {
-                using (System.Data.Common.DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand("getbikecomparisonmin"))
+                using (System.Data.Common.DbCommand cmd = DbFactory.GetDBCommand("getbikecomparisonmin"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
 
-                    ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException exSql)
@@ -224,13 +225,13 @@ namespace Bikewale.New
             DataSet ds = null;
             try
             {
-                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand("getcomparisondetails_26022016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_26022016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@bikeversions", SqlDbType.VarChar, 50).Value = versionList;
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("par_bikeversions", DbType.String, 50, versionList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, 50, versionList));
 
-                    ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException exSql)

@@ -3,6 +3,7 @@
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
+using MySql.CoreDAL;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Bikewale.DAL.Location
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     objStateList = new List<StateEntityBase>();
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -79,7 +80,7 @@ namespace Bikewale.DAL.Location
                     cmd.CommandText = "getstatemappingnames";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -120,7 +121,7 @@ namespace Bikewale.DAL.Location
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
                     objStateList = new List<DealerStateEntity>();
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

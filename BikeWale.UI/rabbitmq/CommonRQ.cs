@@ -1,5 +1,5 @@
 ﻿using Bikewale.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -62,7 +62,7 @@ namespace Bikewale.RabbitMQ
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbType.String, 255, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     url = cmd.Parameters["par_url"].Value.ToString();
                        // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
@@ -104,7 +104,7 @@ namespace Bikewale.RabbitMQ
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int32, imgC));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_imagelist", DbType.String, 1000, imageList));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);  
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);  
                 }
             }
             catch (Exception ex)

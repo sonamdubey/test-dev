@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using Bikewale.Common;
 using AjaxPro;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Ajax
 {
@@ -47,7 +48,7 @@ namespace Bikewale.Ajax
                         }
                     }
 
-                    using (DataSet ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(sql))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
                     {
 
                         if (ds != null)
@@ -105,7 +106,7 @@ namespace Bikewale.Ajax
                         }
                     }
 
-                    using (DataSet ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(sql))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
                     {
 
                         if (ds != null)
@@ -166,7 +167,7 @@ namespace Bikewale.Ajax
                         }
                     }
 
-                    using (DataSet ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(sql))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
                     {
 
                         if (ds != null)
