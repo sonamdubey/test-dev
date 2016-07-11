@@ -74,6 +74,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Modified by :   Sumit Kate on 01 June 2016
         /// Description :   Commented Mobile verification process
         ///  noOfAttempts = -1 and isVerified = true to by pass the Mobile Verification Process
+        /// Modified By : Lucky Rathore on 11 July 2016.
+        /// Description : parameter dealerArea added in NotifyDealer(); 
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
@@ -281,7 +283,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                dealerDetailEntity.objDealer.WorkingTime, platformId);
 
                             _objLeadNofitication.NotifyDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
-                                dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName);
+                                dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
 
                             if (isVerified)
                             {
@@ -320,6 +322,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Created by  :   Sumit Kate on 23 May 2016
         /// Description :   Saves the Customer details if it is a new customer.
         /// generated the OTP for the non verified customer
+        /// Modified By : Lucky Rathore on 11 July 2016.
+        /// Description : parameter dealerArea added in NotifyDealer(); 
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -494,7 +498,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                dealerDetailEntity.objDealer.WorkingTime, platformId);
 
                             _objLeadNofitication.NotifyDealer(Convert.ToUInt32(pqId), dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
-                                dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName);
+                                dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
 
                             if (isVerified)
                             {
