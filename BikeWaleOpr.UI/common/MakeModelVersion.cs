@@ -186,7 +186,7 @@ namespace BikeWaleOpr.Common
         /// <param name="modelId"></param>
         //public void GetModelDetails(string modelId)
         //{
-            throw new NotImplementedException("public void GetModelDetails(string modelId)");
+           // throw new NotImplementedException("public void GetModelDetails(string modelId)");
             //try
             //{
             //    using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -362,7 +362,7 @@ namespace BikeWaleOpr.Common
 
                     isSuccess = MySqlDatabase.UpdateQuery(cmd);
 
-                    _mc.Remove("BW_MakeMapping");
+                   // _mc.Remove("BW_MakeMapping");
                 }
             }
             catch (SqlException err)
@@ -404,11 +404,11 @@ namespace BikeWaleOpr.Common
 
                     isSuccess = MySqlDatabase.UpdateQuery(cmd);
 
-                    _mc.Remove("BW_ModelMapping");
-                    _mc.Remove("BW_NewBikeLaunches");
-                    _mc.Remove("BW_OldModelMaskingNames");
-                    _mc.Remove("BW_NewModelMaskingNames");
-                    _mc.Remove("BW_TopVersionId");
+                    //_mc.Remove("BW_ModelMapping");
+                    //_mc.Remove("BW_NewBikeLaunches");
+                    //_mc.Remove("BW_OldModelMaskingNames");
+                    //_mc.Remove("BW_NewModelMaskingNames");
+                    //_mc.Remove("BW_TopVersionId");
                 }
             }
             catch (SqlException err)

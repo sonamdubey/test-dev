@@ -178,7 +178,7 @@ namespace BikeWaleOpr.Content
 
         void cmbMakes_SelectedIndexChanged(object Sender, EventArgs e)
         {
-            FillSeries();
+            //FillSeries();
             FillSegments();
             BindGrid();
 

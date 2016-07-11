@@ -152,35 +152,48 @@ namespace BikeWaleOpr.Content
             Page.Validate();
             if (!Page.IsValid) return;
 
-            string sql;
+            //string sql;
             CheckBox chkFuturistic = (CheckBox)e.Item.FindControl("chkFut");
             CheckBox chkUsed = (CheckBox)e.Item.FindControl("chkUsed");
             CheckBox chkNew = (CheckBox)e.Item.FindControl("chkNew");
 
             TextBox txt = (TextBox)e.Item.FindControl("txtMake");
-            sql = @"update bikemakes set
-				name= @make,
-                Futuristic=@isfuturistic,
-                Used = @isused,
-                New = @isnew,
-                MaUpdatedOn=now(),
-                MaUpdatedBy=@userid
-				WHERE Id=@makeid";
+//            sql = @"update bikemakes set
+//				name= @make,
+//                Futuristic=@isfuturistic,
+//                Used = @isused,
+//                New = @isnew,
+//                MaUpdatedOn=now(),
+//                MaUpdatedBy=@userid
+//				WHERE Id=@makeid";
 
             try
             {
+                using (DbCommand cmd = DbFactory.GetDBCommand("Updatebikemake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                DbParameter[] sqlParams = new[]
-                    {
-                        DbFactory.GetDbParam("@make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],100, txt.Text.Trim().Replace("'","''")),
-                        DbFactory.GetDbParam("@isfuturistic", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkFuturistic.Checked)),
-                         DbFactory.GetDbParam("@isnew", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt],  Convert.ToInt16(chkNew.Checked)),
-                          DbFactory.GetDbParam("@isused", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkUsed.Checked)),
-                        DbFactory.GetDbParam("@userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()),
-                        DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[ e.Item.ItemIndex ])
-                    };
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txt.Text.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[e.Item.ItemIndex]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isfuturistic", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkFuturistic.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkNew.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkUsed.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
 
-                MySqlDatabase.InsertQuery(sql, sqlParams);
+                    MySqlDatabase.UpdateQuery(cmd);
+                }
+
+                //DbParameter[] sqlParams = new[]
+                //    {
+                //        DbFactory.GetDbParam("@par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],100, txt.Text.Trim().Replace("'","''")),
+                //        DbFactory.GetDbParam("@par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[ e.Item.ItemIndex ]),
+                //        DbFactory.GetDbParam("@par_isfuturistic", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkFuturistic.Checked)),
+                //        DbFactory.GetDbParam("@par_isnew", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt],  Convert.ToInt16(chkNew.Checked)),
+                //        DbFactory.GetDbParam("@par_isused", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkUsed.Checked)),
+                //        DbFactory.GetDbParam("@par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()),
+                //    };
+
+                //MySqlDatabase.InsertQuery(sql, sqlParams);
             }
             catch (SqlException ex)
             {
