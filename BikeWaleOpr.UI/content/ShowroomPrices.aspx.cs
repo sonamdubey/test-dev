@@ -258,17 +258,17 @@ namespace BikeWaleOpr.Content
                 using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiprice", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumPrice.Length == 0 ? Convert.DBNull : mumPrice));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiinsurance", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumIns.Length == 0 ? Convert.DBNull : mumIns));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbairto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumRTO.Length == 0 ? Convert.DBNull : mumRTO));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaicorporaterto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumCorpRTO.Length == 0 ? Convert.DBNull : mumCorpRTO));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetprice", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumMetPrice.Length == 0 ? Convert.DBNull : mumMetPrice));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetinsurance", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumMetIns.Length == 0 ? Convert.DBNull : mumMetIns));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetrto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumMetRTO.Length == 0 ? Convert.DBNull : mumMetRTO));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetcorporaterto", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], mumMetCorpRTO.Length == 0 ? Convert.DBNull : mumMetCorpRTO));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], hdnSelectedCityId.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int64, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiprice", DbType.Int64, mumPrice.Length == 0 ? Convert.DBNull : mumPrice));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiinsurance", DbType.Int64, mumIns.Length == 0 ? Convert.DBNull : mumIns));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbairto", DbType.Int64, mumRTO.Length == 0 ? Convert.DBNull : mumRTO));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaicorporaterto", DbType.Int64, mumCorpRTO.Length == 0 ? Convert.DBNull : mumCorpRTO));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetprice", DbType.Int64, mumMetPrice.Length == 0 ? Convert.DBNull : mumMetPrice));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetinsurance", DbType.Int64, mumMetIns.Length == 0 ? Convert.DBNull : mumMetIns));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetrto", DbType.Int64, mumMetRTO.Length == 0 ? Convert.DBNull : mumMetRTO));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetcorporaterto", DbType.Int64, mumMetCorpRTO.Length == 0 ? Convert.DBNull : mumMetCorpRTO));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, hdnSelectedCityId.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbType.DateTime, DateTime.Now));
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 }

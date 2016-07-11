@@ -67,7 +67,7 @@ namespace BikeWaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikemakes"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, RequestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -109,8 +109,8 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, RequestType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], MakeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, MakeId));
 
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
@@ -153,8 +153,8 @@ namespace BikeWaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikeversions"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, RequestType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ModelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ModelId));
 
 
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
@@ -195,17 +195,17 @@ namespace BikeWaleOpr.Common
         //        cmd.CommandType = CommandType.StoredProcedure;
         //        cmd.CommandText = "getmodeldetails";
 
-        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
-        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Configuration.GetDefaultCityId));    // Prices for default city in webconfig
-        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
-        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
-        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_isfuturistic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, Configuration.GetDefaultCityId));    // Prices for default city in webconfig
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 30, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbType.String, 30, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_isfuturistic", DbType.Boolean, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbType.String, 50, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbType.String, 50, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 50, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbType.String, 50, ParameterDirection.Output));
+        //        cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbType.String, 50, ParameterDirection.Output));
 
         //        MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -246,22 +246,22 @@ namespace BikeWaleOpr.Common
             //        cmd.CommandType = CommandType.StoredProcedure;
             //        cmd.CommandText = "getversiondetails";
 
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Configuration.GetDefaultCityId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_version", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_bike", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, ParameterDirection.Output));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, Configuration.GetDefaultCityId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 30, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbType.String, 30, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_version", DbType.String, 30, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbType.String, 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbType.String, 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbType.Int32, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbType.Int32, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_bike", DbType.String, 100, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, 50, ParameterDirection.Output));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.Output));
 
             //        MySqlDatabase.ExecuteNonQuery(cmd);
 
@@ -315,7 +315,7 @@ namespace BikeWaleOpr.Common
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, makeId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
@@ -357,9 +357,9 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, maskingName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], updatedBy));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, maskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, updatedBy));
 
                     isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
 
@@ -399,9 +399,9 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, maskingName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], updatedBy));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, maskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, updatedBy));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
                     isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
 
@@ -439,7 +439,7 @@ namespace BikeWaleOpr.Common
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
                     MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
@@ -468,9 +468,9 @@ namespace BikeWaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("managemakesynopsis"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_discription", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], synopsis.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_discription", DbType.String, synopsis.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int64, CurrentUser.Id));
 
                     MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
 
@@ -504,8 +504,8 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], deletedBy));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, deletedBy));
 
                     MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
@@ -538,8 +538,8 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], deletedBy));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, deletedBy));
 
                     MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
@@ -571,9 +571,9 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_synopsis", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 8000, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_synopsis", DbType.String, 8000, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 

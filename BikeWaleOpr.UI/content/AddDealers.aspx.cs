@@ -229,20 +229,20 @@ namespace BikeWaleOpr.Content
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, URLData));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], drpMake.SelectedItem.Value));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], SelectedCity));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtName.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, txtAddress.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtPincode.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contactno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, txtContact.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_faxno", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtFax.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtEmail.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_website", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtWebsite.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_workinghours", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtWorkingHours.Text));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isncd", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], isNcd));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], isActive));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.String, 50, URLData));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int64, drpMake.SelectedItem.Value));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, SelectedCity));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 100, txtName.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbType.String, 1000, txtAddress.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbType.String, 50, txtPincode.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contactno", DbType.String, 200, txtContact.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_faxno", DbType.String, 50, txtFax.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, 100, txtEmail.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_website", DbType.String, 100, txtWebsite.Text.Trim()));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_workinghours", DbType.String, 50, txtWorkingHours.Text));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbType.DateTime, DateTime.Now));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isncd", DbType.Int16, isNcd));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Int16, isActive));
 
                         //run the command
                         MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly); 

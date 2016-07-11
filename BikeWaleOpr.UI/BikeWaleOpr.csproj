@@ -176,9 +176,6 @@
     <Compile Include="common\ManageStates.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="common\Mysql\Utils\DbParamTypeMapper.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="common\Mysql\Utils\MySqlDbUtilities.cs">
       <SubType>Code</SubType>
     </Compile>

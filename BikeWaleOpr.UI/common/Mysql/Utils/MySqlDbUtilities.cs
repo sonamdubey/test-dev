@@ -20,7 +20,7 @@ namespace BikeWaleOPR.Utilities
             {
                 for (int i = 0; i < inputArr.Length; i++)
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@" + fieldName + i, DbParamTypeMapper.GetInstance[SqlDbType.VarChar], inputArr[i].Length, inputArr[i].ToString()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@" + fieldName + i, DbType.String, inputArr[i].Length, inputArr[i].ToString()));
                     parameters[i] = "@" + fieldName + i;
                 }
             }
@@ -47,7 +47,7 @@ namespace BikeWaleOPR.Utilities
                 {
 
                     parameters[i] = "@" + fieldName + i;
-                    commandParameters[i] = (DbFactory.GetDbParam(parameters[i], DbParamTypeMapper.GetInstance[SqlDbType.VarChar], inputArr[i].Length, inputArr[i].ToString()));
+                    commandParameters[i] = (DbFactory.GetDbParam(parameters[i], DbType.String, inputArr[i].Length, inputArr[i].ToString()));
                     
                 }
             }

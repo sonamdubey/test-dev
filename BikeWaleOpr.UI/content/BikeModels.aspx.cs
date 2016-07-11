@@ -124,12 +124,12 @@ namespace BikeWaleOpr.Content
                 using (DbCommand cmd = DbFactory.GetDBCommand("insertbikemodel"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, txtModel.Text.Trim().Replace("'", "''")));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelmaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtMaskingName.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cmbMakes.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ddlSegment.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txtModel.Text.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelmaskingname", DbType.String, 50, txtMaskingName.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, cmbMakes.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int32, ddlSegment.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbType.Boolean, ParameterDirection.Output));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
@@ -264,16 +264,16 @@ namespace BikeWaleOpr.Content
 
                 DbParameter[] param = new[]
                 {
-                    DbFactory.GetDbParam("@modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, txt.Text.Trim().Replace("'", "''")),
-                    DbFactory.GetDbParam("@used", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkUsed1.Checked),
-                    DbFactory.GetDbParam("@new", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkNew1.Checked),
-                    DbFactory.GetDbParam("@indian", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIndian1.Checked),
-                    DbFactory.GetDbParam("@Imported", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkImported1.Checked),
-                    DbFactory.GetDbParam("@classic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkClassic1.Checked),
-                    DbFactory.GetDbParam("@modified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkModified1.Checked),
-                    DbFactory.GetDbParam("@futuristic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkFuturistic1.Checked),
-                    DbFactory.GetDbParam("@moupdatedby", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], BikeWaleAuthentication.GetOprUserId()),
-                    DbFactory.GetDbParam("@key", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[e.Item.ItemIndex])
+                    DbFactory.GetDbParam("@modelname", DbType.String, 30, txt.Text.Trim().Replace("'", "''")),
+                    DbFactory.GetDbParam("@used", DbType.Boolean, chkUsed1.Checked),
+                    DbFactory.GetDbParam("@new", DbType.Boolean, chkNew1.Checked),
+                    DbFactory.GetDbParam("@indian", DbType.Boolean, chkIndian1.Checked),
+                    DbFactory.GetDbParam("@Imported", DbType.Boolean, chkImported1.Checked),
+                    DbFactory.GetDbParam("@classic", DbType.Boolean, chkClassic1.Checked),
+                    DbFactory.GetDbParam("@modified", DbType.Boolean, chkModified1.Checked),
+                    DbFactory.GetDbParam("@futuristic", DbType.Boolean, chkFuturistic1.Checked),
+                    DbFactory.GetDbParam("@moupdatedby", DbType.Int64, BikeWaleAuthentication.GetOprUserId()),
+                    DbFactory.GetDbParam("@key", DbType.Int32, dtgrdMembers.DataKeys[e.Item.ItemIndex])
 
                 };
 
@@ -573,8 +573,8 @@ namespace BikeWaleOpr.Content
                     cmd.CommandText = "updatemodelsegments";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbParamTypeMapper.GetInstance[SqlDbType.Int], segmentId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidslist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, modelIdsList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int32, segmentId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelidslist", DbType.String, 500, modelIdsList));
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }

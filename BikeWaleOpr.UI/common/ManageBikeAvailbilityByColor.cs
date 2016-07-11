@@ -32,7 +32,7 @@ namespace BikewaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("select BikeModelId AS ModelId  from bikeversions where id = @versionid and isdeleted = 0"))
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@versionid", DbType.Int32, versionId));
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
@@ -70,8 +70,8 @@ namespace BikewaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikeavailabilitybycolor"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -114,11 +114,11 @@ namespace BikewaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatebikeavailabilitybycolor"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Convert.ToInt32(versionColor.ModelColorID)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_noofdays", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 5, versionColor.NoOfDays));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],100, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, Convert.ToInt32(versionColor.ModelColorID)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_noofdays", DbType.String, 5, versionColor.NoOfDays));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.String,100, userId));
 
                     isSaved = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }

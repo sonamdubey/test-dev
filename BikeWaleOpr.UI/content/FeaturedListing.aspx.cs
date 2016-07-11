@@ -224,14 +224,14 @@ namespace BikeWaleOpr.Content
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], updateId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], chkIsModel.Checked ? SelectedModel : SelectedVersion));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, txtDescription.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodel", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIsModel.Checked ? true : false));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isvisible", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIsVisible.Checked ? true : false));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIsActive.Checked ? true : false));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastsavedid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, updateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeid", DbType.Int64, chkIsModel.Checked ? SelectedModel : SelectedVersion));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 1000, txtDescription.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodel", DbType.Boolean, chkIsModel.Checked ? true : false));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isvisible", DbType.Boolean, chkIsVisible.Checked ? true : false));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, chkIsActive.Checked ? true : false));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastsavedid", DbType.Int64, ParameterDirection.Output));
 
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
@@ -361,9 +361,9 @@ namespace BikeWaleOpr.Content
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "con_updatefeaturedlistingphoto";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, hostUrl));  
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, (!String.IsNullOrEmpty(flphoto.PostedFile.FileName)) ? (imagePath + originalImagePath) : Convert.DBNull ));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, hostUrl));  
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 200, (!String.IsNullOrEmpty(flphoto.PostedFile.FileName)) ? (imagePath + originalImagePath) : Convert.DBNull ));
 
                     MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }

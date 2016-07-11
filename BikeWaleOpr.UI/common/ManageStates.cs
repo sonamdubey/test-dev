@@ -69,11 +69,11 @@ namespace BikeWaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getstatedetails";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 40, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_statecode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 2, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], stateId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdeleted", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 30, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 40, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_statecode", DbType.String, 2, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, stateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdeleted", DbType.Boolean, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
@@ -118,11 +118,11 @@ namespace BikeWaleOpr.Common
                     cmd.CommandText = "managestates";
 
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], stateId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, stateName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 40, maskingName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_statecode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 2, stdCode));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, stateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 30, stateName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 40, maskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_statecode", DbType.String, 2, stdCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, CurrentUser.Id));
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 }
@@ -155,7 +155,7 @@ namespace BikeWaleOpr.Common
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], stateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, stateId));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }

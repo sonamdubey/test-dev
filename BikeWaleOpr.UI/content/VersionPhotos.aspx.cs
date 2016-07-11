@@ -111,8 +111,8 @@ namespace BikeWaleOpr.Content
                     cmd.CommandText = "savemodelphotos";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Request.Form["optModel"]));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], qryStrModel));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, Request.Form["optModel"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, qryStrModel));
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
@@ -139,10 +139,10 @@ namespace BikeWaleOpr.Content
                     cmd.CommandText = "saveversionphotos";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ConfigurationManager.AppSettings["imgHostURL"]));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_timestamp", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, timeStamp));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ConfigurationManager.AppSettings["imgHostURL"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_timestamp", DbType.String, 20, timeStamp));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 

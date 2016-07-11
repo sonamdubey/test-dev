@@ -27,7 +27,7 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandText = "getareas";
                     cmd.CommandType = CommandType.StoredProcedure; 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
                     ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }

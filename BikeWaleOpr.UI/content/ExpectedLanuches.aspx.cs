@@ -97,7 +97,7 @@ namespace BikeWaleOpr.Content
                 using (DbCommand cmd = DbFactory.GetDBCommand("deleteexpectedlaunchbike"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemodelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], bikeModelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemodelid", DbType.Int32, bikeModelId));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
@@ -212,8 +212,8 @@ namespace BikeWaleOpr.Content
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatebikeislaunched"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellaunchbikeids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, launchBikeIds));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellauchmodelids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, launchBikeModelIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellaunchbikeids", DbType.String, 30, launchBikeIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellauchmodelids", DbType.String, 30, launchBikeModelIds));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }

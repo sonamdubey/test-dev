@@ -33,7 +33,7 @@ namespace BikewaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmanufacturercampaigns"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
@@ -87,9 +87,9 @@ namespace BikewaleOpr.Common
                 {
                     
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, modelIds));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, description));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.String, 150, modelIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 100, description));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                      success = true;
                 }
@@ -120,8 +120,8 @@ namespace BikewaleOpr.Common
                 {
                     
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, campaignIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignids", DbType.String, 150, campaignIds));
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     success = true;

@@ -28,7 +28,7 @@ namespace BikeWaleOpr.Common
                     cmd.CommandText = "setfeaturedbikepriority";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_prioritieslist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, prioritiesList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_prioritieslist", DbType.String, 1000, prioritiesList));
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }

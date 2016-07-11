@@ -245,7 +245,7 @@ namespace BikeWaleOpr.Content
                         cmd.CommandText = "getbikecomparisondetailbyid";
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], URLData));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, URLData));
 
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -335,13 +335,13 @@ namespace BikeWaleOpr.Content
                     cmd.CommandType = CommandType.StoredProcedure;
 
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], URLData));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid1", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpVersion1.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid2", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpVersion2.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydate", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_compid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int16, URLData));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid1", DbType.Int16, drpVersion1.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid2", DbType.Int16, drpVersion2.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydate", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_compid", DbType.Int32, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Int16, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
@@ -452,12 +452,12 @@ namespace BikeWaleOpr.Content
                     cmd.CommandText = "savebikecomparisonphoto";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], photoId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, ConfigurationManager.AppSettings["imgHostURL"]));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagename", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 150, (drpMake1.SelectedItem.Text + "_" + drpModel1.SelectedItem.Text + "_vs_" + drpMake2.SelectedItem.Text + "_" + drpModel2.SelectedItem.Text + ".jpg?").Replace(" ", "").ToLower() + timeStamp));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int16, photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ConfigurationManager.AppSettings["imgHostURL"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagename", DbType.String, 150, (drpMake1.SelectedItem.Text + "_" + drpModel1.SelectedItem.Text + "_vs_" + drpMake2.SelectedItem.Text + "_" + drpModel2.SelectedItem.Text + ".jpg?").Replace(" ", "").ToLower() + timeStamp));
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, "/bw/bikecomparison/"));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbParamTypeMapper.GetInstance[SqlDbType.Bit], 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagepath", DbType.String, 50, "/bw/bikecomparison/"));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbType.Boolean, 0));
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }

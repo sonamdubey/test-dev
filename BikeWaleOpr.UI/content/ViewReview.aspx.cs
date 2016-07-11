@@ -157,20 +157,20 @@ namespace BikeWaleOpr.Content
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "updatecustomerreviews";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_styler", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtExterior.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comfortr", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtComfort.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performancer", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtPerformance.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueleconomyr", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtFuel.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_valuer", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtValue.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallr", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], overallRating));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pros", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtPros.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cons", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtCons.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 8000, SanitizeHTML.ToSafeHtml(rteDetail.Text)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_title", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txtTitle.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], reviewId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_familiarity", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtFamiliarity.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtMileage.Text));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_styler", DbType.Int16, txtExterior.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comfortr", DbType.Int16, txtComfort.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performancer", DbType.Int16, txtPerformance.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueleconomyr", DbType.Int16, txtFuel.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_valuer", DbType.Int16, txtValue.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallr", DbType.Int16, overallRating));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pros", DbType.String, 100, txtPros.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cons", DbType.String, 100, txtCons.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 8000, SanitizeHTML.ToSafeHtml(rteDetail.Text)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_title", DbType.String, 100, txtTitle.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, reviewId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_familiarity", DbType.Int16, txtFamiliarity.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbType.Double, txtMileage.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int64, CurrentUser.Id));
 
                     if (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase))
                     {

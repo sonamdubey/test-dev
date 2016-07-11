@@ -34,7 +34,7 @@ namespace BikewaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("getbikemodelcolor"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -101,7 +101,7 @@ namespace BikewaleOpr.Common
                     
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -156,7 +156,7 @@ namespace BikewaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("SELECT ID AS VersionId,Name AS VersionName from bikeversions where bikemodelid = @modelid and isdeleted = 0"))
                 {                    
                     cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@modelid", DbType.Int32, modelId));
 
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -202,11 +202,11 @@ namespace BikewaleOpr.Common
                 {
                     
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, colorName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hexcodes", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, hexCodes));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_companycolorname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.String, 100, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorname", DbType.String, 100, colorName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hexcodes", DbType.String, 500, hexCodes));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_companycolorname", DbType.String, 100, Convert.DBNull));
 
                     isSaved = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
@@ -236,10 +236,10 @@ namespace BikewaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcolorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Convert.ToInt32(versionColor.ModelColorID)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], versionColor.IsActive));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcolorid", DbType.Int32, Convert.ToInt32(versionColor.ModelColorID)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.String, 100, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, versionColor.IsActive));
 
 
                     isSaved = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
@@ -271,10 +271,10 @@ namespace BikewaleOpr.Common
                 {
                     
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], colorId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hexcode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 6, hexCode));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, colorId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hexcode", DbType.String, 6, hexCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.String, 100, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
 
                     isUpdated = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
@@ -306,10 +306,10 @@ namespace BikewaleOpr.Common
                 {
                     
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcolorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelColorId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hexcode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],6, hexCode));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcolorid", DbType.Int32, modelColorId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hexcode", DbType.String,6, hexCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.String, 100, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
 
                     isSaved = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
@@ -340,8 +340,8 @@ namespace BikewaleOpr.Common
                     
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcolorid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelColorId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelcolorid", DbType.Int32, modelColorId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, userId));
 
 
                     isDeleted = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
