@@ -411,7 +411,9 @@ namespace Bikewale.Common
         public static bool IsValidEmailId(string emailId)
         {
 
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "CustomerDetails.IsValidEmailId");
+            objErr.SendMail();
+            return false;
 
             //SqlDataReader dr = null;
             //Database db = new Database();

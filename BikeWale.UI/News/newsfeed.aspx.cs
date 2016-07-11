@@ -17,8 +17,8 @@ namespace Bikewale.News
     public class NewsFeed : System.Web.UI.Page
     {
         protected Repeater rptNews;
-        private string selectClause = "", fromClause = "", whereClause = "", orderByClause = "";
-        private int CurrentPageIndex = 1, PageSize = 10;
+        //private string selectClause = "", fromClause = "", whereClause = "", orderByClause = "";
+        private int CurrentPageIndex = 1;//, PageSize = 10;
         private string _slug = string.Empty;
         private string _subCat = string.Empty;
         private string relatedItem1 = string.Empty, relatedItem2 = string.Empty, relatedItem3 = string.Empty, relatedItem4 = string.Empty;

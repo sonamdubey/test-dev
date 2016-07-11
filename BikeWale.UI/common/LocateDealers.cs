@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Web;
 using System.Data;
-using System.Data.SqlClient;
 
 
 namespace Bikewale.Common
@@ -17,7 +15,9 @@ namespace Bikewale.Common
         //based on the id of the city as passed
         public DataTable GetNewBikeDealerInCity(string cityId)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "LocateDealers.GetNewBikeDealerInCity");
+            objErr.SendMail();
+            return null;
 
             //DataSet ds = null;
             //DataTable dt = null;
@@ -68,7 +68,9 @@ namespace Bikewale.Common
         /// <returns></returns>
         public DataTable GetNewBikeMakes(string cityId, string requestType)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "LocateDealers.GetNewBikeMakes");
+            objErr.SendMail();
+            return null;
 
             //SqlCommand cmd = new SqlCommand("GetMakes_DealerLocation");
             //cmd.CommandType = CommandType.StoredProcedure;
@@ -103,10 +105,12 @@ namespace Bikewale.Common
         /// <returns></returns>
         public DataTable GetDealersCitiesListByMakeId(uint makeId)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "LocateDealers.GetDealersCitiesListByMakeId");
+            objErr.SendMail();
+            return null;
 
             //DataTable dt = new DataTable();
-            
+
             //try
             //{
             //    using (SqlCommand cmd = new SqlCommand())

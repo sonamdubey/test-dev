@@ -163,9 +163,15 @@
     <Compile Include="common\Ajax\ImageReplication.cs" />
     <Compile Include="common\ErrorLoggingIntoFile.cs" />
     <Compile Include="common\KnowlarityApi.cs" />
+    <Compile Include="common\ManageCities.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="common\ManageDealerBenefits.cs" />
     <Compile Include="common\ManageDealerCampaign.cs" />
     <Compile Include="common\ManageDealerCampaignRule.cs" />
+    <Compile Include="common\ManageStates.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="common\Mysql\DbFactory.cs" />
     <Compile Include="common\Mysql\MySqlDatabase.cs" />
     <Compile Include="common\Mysql\Utils\DbParamTypeMapper.cs" />
@@ -202,12 +208,9 @@
     <Compile Include="common\ManageAppVersion.cs" />
     <Compile Include="common\ManageArea.cs" />
     <Compile Include="common\ManageBikeAvailbilityByColor.cs" />
-    <Compile Include="common\ManageCities.cs" />
     <Compile Include="common\ManageFeaturedBike.cs" />
     <Compile Include="common\ManageManufacturerCampaign.cs" />
     <Compile Include="common\ManageModelColor.cs" />
-    <Compile Include="common\ManageStates.cs" />
-    <Compile Include="common\ManageVideos.cs" />
     <Compile Include="common\ReviewDetail.cs" />
     <Compile Include="common\Security.cs" />
     <Compile Include="common\UpdateLiveContentCommon.cs" />
@@ -244,10 +247,6 @@
     </Compile>
     <Compile Include="content\BulkPriceUpload.aspx.cs">
       <DependentUpon>BulkPriceUpload.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\Cities.aspx.cs">
-      <DependentUpon>Cities.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\CompareFeaturedBike.aspx.cs">
@@ -290,20 +289,12 @@
       <DependentUpon>ManageUserReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="content\ManageVideos.aspx.cs">
-      <DependentUpon>ManageVideos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="content\NewBikeFeatureItems.aspx.cs">
       <DependentUpon>NewBikeFeatureItems.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\NewBikeFeatures.aspx.cs">
       <DependentUpon>NewBikeFeatures.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\NewBikeModelColors.aspx.cs">
-      <DependentUpon>NewBikeModelColors.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\NewBikeModelColors_New.aspx.cs">
@@ -330,20 +321,8 @@
       <DependentUpon>ShowroomPrices.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="content\States.aspx.cs">
-      <DependentUpon>States.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\UpdateCityDetails.aspx.cs">
-      <DependentUpon>UpdateCityDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="content\UpdateExpLaunches.aspx.cs">
       <DependentUpon>UpdateExpLaunches.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\UpdateStateDetails.aspx.cs">
-      <DependentUpon>UpdateStateDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\VersionPhotos.aspx.cs">
@@ -369,9 +348,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="editcms\Code\AddPages.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\addvideos.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="editcms\Code\Author.aspx.cs">
@@ -1299,7 +1275,6 @@
     <Content Include="content\BikeVersions.aspx" />
     <Content Include="content\BKPQMatrixNew.aspx" />
     <Content Include="content\BulkPriceUpload.aspx" />
-    <Content Include="content\Cities.aspx" />
     <Content Include="content\CompareFeaturedBike.aspx" />
     <Content Include="content\ComparisonBikes.aspx" />
     <Content Include="content\ContentsMenu.aspx" />
@@ -1314,23 +1289,18 @@
     <Content Include="content\MakeSynopsis.aspx" />
     <Content Include="content\ManageNewModelColor.aspx" />
     <Content Include="content\ManageUserReviews.aspx" />
-    <Content Include="content\ManageVideos.aspx" />
     <Content Include="content\mappingfiles\MappedBikeData.xml" />
     <Content Include="content\mappingfiles\MappedCityData.xml" />
     <Content Include="content\mappingfiles\PriceData.xml" />
     <Content Include="content\NewBikeFeatureItems.aspx" />
     <Content Include="content\NewBikeFeatures.aspx" />
-    <Content Include="content\NewBikeModelColors.aspx" />
     <Content Include="content\NewBikeModelColors_New.aspx" />
     <Content Include="content\NewBikeSpecification.aspx" />
     <Content Include="content\NewBikeStandardFeaturesStep2.aspx" />
     <Content Include="content\NewBikeVersionColors.aspx" />
     <Content Include="content\PriceMonitoring.aspx" />
     <Content Include="content\ShowroomPrices.aspx" />
-    <Content Include="content\States.aspx" />
-    <Content Include="content\UpdateCityDetails.aspx" />
     <Content Include="content\UpdateExpLaunches.aspx" />
-    <Content Include="content\UpdateStateDetails.aspx" />
     <Content Include="content\VersionPhotos.aspx" />
     <Content Include="content\ViewReview.aspx" />
     <Content Include="controls\DateControl.ascx" />
@@ -1340,7 +1310,6 @@
     <Content Include="css\Common.css" />
     <Content Include="Default.aspx" />
     <Content Include="editcms\AddPages.aspx" />
-    <Content Include="editcms\addvideos.aspx" />
     <Content Include="editcms\Author.aspx" />
     <Content Include="editcms\BasicData.aspx" />
     <Content Include="editcms\BasicInfo.aspx" />

@@ -179,7 +179,9 @@ namespace Bikewale.Common
         /// <param name="retMsg">The return message from the provider that is received after the SMS is sent</param>
         private void UpdateSMSSentData(string currentId, string retMsg)
         {
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SMSCommon.UpdateSMSSentData");
+            objErr.SendMail();
+
 
             //if (currentId != "")
             //{

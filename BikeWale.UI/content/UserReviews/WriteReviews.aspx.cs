@@ -1,13 +1,13 @@
 ﻿using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.Notifications.CoreDAL;
 using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Notifications.CoreDAL;
-using System.Data.Common;
 
 namespace Bikewale.Content
 {
@@ -275,7 +275,7 @@ namespace Bikewale.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, txtEmail.Text.Trim()));
 
                     MySqlDatabase.InsertQuery(cmd);
-                } 
+                }
             }
             catch (Exception ex)
             {
@@ -429,13 +429,16 @@ namespace Bikewale.Content
             try
             {
                 float _mileage = default(float);
-                if (!string.IsNullOrEmpty(txtMileage.Text.Trim()) && float.TryParse(txtMileage.Text.Trim(), out _mileage)) ;
+                if (!string.IsNullOrEmpty(txtMileage.Text.Trim()))
+                {
+                    float.TryParse(txtMileage.Text.Trim(), out _mileage);
+                }
 
 
                 using (DbCommand cmd = DbFactory.GetDBCommand("entrycustomerreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                
+
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int64, MakeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, ModelIdVer));
@@ -457,7 +460,7 @@ namespace Bikewale.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mileage", DbType.Double, _mileage));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
-//Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     MySqlDatabase.ExecuteNonQuery(cmd);
 
                     recordId = cmd.Parameters["par_id"].Value.ToString();

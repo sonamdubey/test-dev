@@ -327,53 +327,49 @@ namespace Bikewale.DAL.BikeData
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 30, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 30, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_model", DbType.String, 30, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isfuturistic", DbType.Boolean, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Boolean, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_smallpic", DbType.String, 50, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_largepic", DbType.String, 50, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 50, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_minprice", DbType.String, 50, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maxprice", DbType.String, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbType.Int32, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesname", DbType.String, 30, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesmaskingname", DbType.String, 50, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewcount", DbType.Int32, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewrate", DbType.Double, ParameterDirection.InputOutput));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, ParameterDirection.InputOutput));
-                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd)))
-                    {
-                        HttpContext.Current.Trace.Warn("qry success");
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewcount", DbType.Int32, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewrate", DbType.Double, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Boolean, ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.InputOutput));
 
-                        if (!string.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
-                        {
-                            t = new T();
-                            t.ModelId = Convert.ToInt32(cmd.Parameters["par_modelid"].Value);
-                            t.ModelName = cmd.Parameters["par_model"].Value.ToString();
-                            t.MakeBase.MakeId = Convert.ToInt32(cmd.Parameters["par_makeid"].Value);
-                            t.MakeBase.MakeName = cmd.Parameters["par_make"].Value.ToString();
-                            t.Futuristic = Convert.ToBoolean(cmd.Parameters["par_isfuturistic"].Value);
-                            t.New = Convert.ToBoolean(cmd.Parameters["par_isnew"].Value);
-                            t.Used = Convert.ToBoolean(cmd.Parameters["par_isused"].Value);
-                            t.SmallPicUrl = cmd.Parameters["par_smallpic"].Value.ToString();
-                            t.LargePicUrl = cmd.Parameters["par_largepic"].Value.ToString();
-                            t.HostUrl = cmd.Parameters["par_hosturl"].Value.ToString();
-                            t.MinPrice = Convert.ToInt64(cmd.Parameters["par_minprice"].Value);
-                            t.MaxPrice = Convert.ToInt64(cmd.Parameters["par_maxprice"].Value);
-                            t.MaskingName = cmd.Parameters["par_maskingname"].Value.ToString();
-                            t.MakeBase.MaskingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
-                            t.ModelSeries.SeriesId = Convert.ToInt32(cmd.Parameters["par_seriesid"].Value);
-                            t.ModelSeries.SeriesName = Convert.ToString(cmd.Parameters["par_seriesname"].Value);
-                            t.ModelSeries.MaskingName = Convert.ToString(cmd.Parameters["par_seriesmaskingname"].Value);
-                            t.ReviewCount = Convert.ToInt32(cmd.Parameters["par_reviewcount"].Value);
-                            t.ReviewRate = Convert.ToDouble(cmd.Parameters["par_reviewrate"].Value);
-                            t.OriginalImagePath = Convert.ToString(cmd.Parameters["par_originalimagepath"].Value);
-                        }
+                    MySqlDatabase.ExecuteNonQuery(cmd);
+
+
+                    if (!string.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
+                    {
+                        t = new T();
+                        t.ModelId = Convert.ToInt32(cmd.Parameters["par_modelid"].Value);
+                        t.ModelName = cmd.Parameters["par_model"].Value.ToString();
+                        t.MakeBase.MakeId = Convert.ToInt32(cmd.Parameters["par_makeid"].Value);
+                        t.MakeBase.MakeName = cmd.Parameters["par_make"].Value.ToString();
+                        t.Futuristic = Convert.ToBoolean(cmd.Parameters["par_isfuturistic"].Value);
+                        t.New = Convert.ToBoolean(cmd.Parameters["par_isnew"].Value);
+                        t.Used = Convert.ToBoolean(cmd.Parameters["par_isused"].Value);
+                        t.SmallPicUrl = cmd.Parameters["par_smallpic"].Value.ToString();
+                        t.LargePicUrl = cmd.Parameters["par_largepic"].Value.ToString();
+                        t.HostUrl = cmd.Parameters["par_hosturl"].Value.ToString();
+                        t.MinPrice = Convert.ToInt64(cmd.Parameters["par_minprice"].Value);
+                        t.MaxPrice = Convert.ToInt64(cmd.Parameters["par_maxprice"].Value);
+                        t.MaskingName = cmd.Parameters["par_maskingname"].Value.ToString();
+                        t.MakeBase.MaskingName = cmd.Parameters["par_makemaskingname"].Value.ToString();
+                        t.ModelSeries.SeriesId = 0;
+                        t.ModelSeries.SeriesName = string.Empty;
+                        t.ModelSeries.MaskingName = string.Empty;
+                        t.ReviewCount = Convert.ToInt32(cmd.Parameters["par_reviewcount"].Value);
+                        t.ReviewRate = Convert.ToDouble(cmd.Parameters["par_reviewrate"].Value);
+                        t.OriginalImagePath = Convert.ToString(cmd.Parameters["par_originalimagepath"].Value);
                     }
                 }
             }

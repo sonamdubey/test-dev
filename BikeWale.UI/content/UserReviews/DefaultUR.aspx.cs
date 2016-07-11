@@ -78,7 +78,6 @@ namespace Bikewale.Content
         {
             try
             {
-                DataTable dt;
                 MakeModelVersion mmv = new MakeModelVersion();
                 //dt = mmv.GetMakes("NEW");
 

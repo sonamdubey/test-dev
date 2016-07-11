@@ -18,10 +18,10 @@ namespace BikeWaleOpr.Content
     public class BikeModels : System.Web.UI.Page
     {
         protected HtmlGenericControl spnError;
-        protected DropDownList cmbMakes, ddlUpdateSeries, ddlSeries, ddlSegment, ddlUpdateSegment;
+        protected DropDownList cmbMakes, ddlSegment, ddlUpdateSegment;
         protected TextBox txtModel, txtMaskingName;
         protected Button btnSave;
-        protected HtmlInputButton btnUpdateSeries, btnUpdateSegment;
+        protected HtmlInputButton btnUpdateSegment;
         protected DataGrid dtgrdMembers;
         protected Label lblStatus;
         protected HiddenField hdnModelIdList, hdnModelIdsList;
@@ -54,7 +54,6 @@ namespace BikeWaleOpr.Content
             dtgrdMembers.CancelCommand += new DataGridCommandEventHandler(dtgrdMembers_Cancel);
             dtgrdMembers.DeleteCommand += new DataGridCommandEventHandler(dtgrdMembers_Delete);
             cmbMakes.SelectedIndexChanged += new EventHandler(cmbMakes_SelectedIndexChanged);
-            btnUpdateSeries.ServerClick += new EventHandler(btnUpdateSeries_ServerClick);
             btnUpdateSegment.ServerClick += new EventHandler(UpdateModelSegments);
         }
 
@@ -128,10 +127,8 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, txtModel.Text.Trim().Replace("'", "''")));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelmaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtMaskingName.Text.Trim()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], cmbMakes.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seriesid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ddlSeries.SelectedValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ddlSegment.SelectedValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
@@ -178,7 +175,6 @@ namespace BikeWaleOpr.Content
 
         void cmbMakes_SelectedIndexChanged(object Sender, EventArgs e)
         {
-            FillSeries();
             FillSegments();
             BindGrid();
 
@@ -196,12 +192,11 @@ namespace BikeWaleOpr.Content
 
             if (!string.IsNullOrEmpty(cmbMakes.SelectedItem.Value.Trim()) && int.TryParse(cmbMakes.SelectedItem.Value, out _makeid))
             {
-                sql = @" select mo.id, mo.name, if(mo.used,1,0) as used, if(mo.new,1,0) as new, if(mo.indian,1,0) as indian,mo.maskingname,bs.name as seriesname , bs.maskingname as seriesmaskingname, 
+                sql = @" select mo.id, mo.name, if(mo.used,1,0) as used, if(mo.new,1,0) as new, if(mo.indian,1,0) as indian,mo.maskingname, 
                 if(mo.imported,1,0) as imported, if(mo.classic,1,0) as  classic, if(mo.modified,1,0) as  modified, if(mo.futuristic,1,0) as futuristic, mo.bikemakeid,cast( mo.mocreatedon as char(24)) as createdon,cast( mo.moupdatedon  as char(24)) as updatedon,ou.username as updatedby 
                 ,bcs.classsegmentname  
                 from bikemodels mo left join oprusers ou 
                 on mo.moupdatedby = ou.id 
-                left join bikeseries bs on mo.bikeseriesid = bs.id 
                 left join bikeclasssegments bcs on mo.bikeclasssegmentsid = bcs.bikeclasssegmentsid 
                 where mo.isdeleted=0 
                 and mo.bikemakeid=" + _makeid;
@@ -464,42 +459,6 @@ namespace BikeWaleOpr.Content
             return isSaved;
         }
 
-        /// <summary>
-        /// Created by : Sadhana Upadhyay on 26th Feb 2014
-        /// Summary : To fill Series Dropdownlist
-        /// </summary>
-        void FillSeries()
-        {
-            throw new Exception("Series REmoved from bikewale opr and bikewale hence commented");
-            //string makeId = cmbMakes.SelectedValue;
-            //DataTable dt = null;
-
-            //try
-            //{
-            //    ManageBikeSeries ms = new ManageBikeSeries();
-
-            //    dt = ms.GetSeriesDdl(makeId);
-            //    ddlUpdateSeries.DataSource = dt;
-            //    ddlUpdateSeries.DataValueField = "value";
-            //    ddlUpdateSeries.DataTextField = "text";
-            //    ddlUpdateSeries.DataBind();
-
-            //    ddlSeries.DataSource = dt;
-            //    ddlSeries.DataValueField = "value";
-            //    ddlSeries.DataTextField = "text";
-            //    ddlSeries.DataBind();
-
-            //    ListItem item = new ListItem("--Select Series--", "-1");
-            //    ddlUpdateSeries.Items.Insert(0, item);
-            //    ddlSeries.Items.Insert(0, item);
-            //}
-            //catch (SqlException err)
-            //{
-            //    Trace.Warn(err.Message);
-            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //} // catch Exception
-        }   //End of FillSeries
 
         /// <summary>
         /// Written By : Ashwini Todkar on 20 March 2014
@@ -568,35 +527,6 @@ namespace BikeWaleOpr.Content
             return dt;
         }//End of GetModelCCSegments
 
-
-        /// <summary>
-        /// Created by : Sadhana Upadhyay on 26th Feb 2014
-        /// Summary : To update Model series
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnUpdateSeries_ServerClick(object sender, EventArgs e)
-        {
-            throw new Exception("Series REmoved from bikewale opr and bikewale hence commented");
-            //string ModelIdList = hdnModelIdList.Value;
-            //if (ModelIdList.Length > 0)
-            //    ModelIdList = ModelIdList.Substring(0, ModelIdList.Length - 1);
-            //Trace.Warn("ModelIdList" + ModelIdList);
-            //try
-            //{
-            //    ManageBikeSeries ms = new ManageBikeSeries();
-            //    ms.UpdateModelSeries(ddlUpdateSeries.SelectedValue, ModelIdList);
-            //}
-
-            //catch (Exception err)
-            //{
-            //    Trace.Warn(err.Message + err.Source);
-            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //BindGrid();
-            //Page.ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Series Updated Successfully.');", true);
-        }   //End of btnUpdateSeries_Click
 
         /// <summary>
         /// Written By : Ashwini Todkar on 20 March 2014

@@ -530,7 +530,10 @@ namespace Bikewale.Common
 		
 		public string GetAveragePrice( string monthMake, string yearMake, string bikeVersionId )
 		{
-            throw new Exception("Method not used/commented");
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SellInquiry.GetAveragePrice");
+            objErr.SendMail();
+            return null;
+
 
             //string averagePrice = "";
 			
@@ -620,13 +623,16 @@ namespace Bikewale.Common
 		
 		void GetSellInquiryDetails(string inquiryId, out string customerName, out string mobile, out string eMail, out string bikeName, out string versionId)
 		{
-            throw new Exception("Method not used/commented");
 
-            //customerName = "";
-            //mobile = "";
-            //eMail = "";
-            //bikeName = "";
-            //versionId = "";
+
+            customerName = "";
+            mobile = "";
+            eMail = "";
+            bikeName = "";
+            versionId = "";
+
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "SellInquiry.GetSellInquiryDetails");
+            objErr.SendMail();
 			
             //string sql = "";
             //SqlDataReader dr = null;
