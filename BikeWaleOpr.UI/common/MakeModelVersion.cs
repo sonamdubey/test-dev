@@ -363,7 +363,7 @@ namespace BikeWaleOpr.Common
 
                     isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
 
-                    _mc.Remove("BW_MakeMapping");
+                   // _mc.Remove("BW_MakeMapping");
                 }
             }
             catch (SqlException err)
@@ -405,11 +405,11 @@ namespace BikeWaleOpr.Common
 
                     isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
 
-                    _mc.Remove("BW_ModelMapping");
-                    _mc.Remove("BW_NewBikeLaunches");
-                    _mc.Remove("BW_OldModelMaskingNames");
-                    _mc.Remove("BW_NewModelMaskingNames");
-                    _mc.Remove("BW_TopVersionId");
+                    //_mc.Remove("BW_ModelMapping");
+                    //_mc.Remove("BW_NewBikeLaunches");
+                    //_mc.Remove("BW_OldModelMaskingNames");
+                    //_mc.Remove("BW_NewModelMaskingNames");
+                    //_mc.Remove("BW_TopVersionId");
                 }
             }
             catch (SqlException err)
