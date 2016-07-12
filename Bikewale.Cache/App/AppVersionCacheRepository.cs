@@ -42,7 +42,7 @@ namespace Bikewale.Cache.App
         {
             AppVersion _appVersion = null;
 
-            string key = String.Format("BW_AppVersion_{1}_Src_{1}", appVersion, sourceId);
+            string key = String.Format("BW_AppVersion_{0}_Src_{1}", appVersion, sourceId);
             try
             {
                 _appVersion = _cache.GetFromCache<AppVersion>(key, new TimeSpan(24, 0, 0), () => _objAppVersion.CheckVersionStatus(appVersion, sourceId));
