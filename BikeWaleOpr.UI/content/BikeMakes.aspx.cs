@@ -3,7 +3,6 @@ IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 
 using BikeWaleOpr.Common;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using System;
 using System.Data;
@@ -158,14 +157,14 @@ namespace BikeWaleOpr.Content
             CheckBox chkNew = (CheckBox)e.Item.FindControl("chkNew");
 
             TextBox txt = (TextBox)e.Item.FindControl("txtMake");
-//            sql = @"update bikemakes set
-//				name= @make,
-//                Futuristic=@isfuturistic,
-//                Used = @isused,
-//                New = @isnew,
-//                MaUpdatedOn=now(),
-//                MaUpdatedBy=@userid
-//				WHERE Id=@makeid";
+            //            sql = @"update bikemakes set
+            //				name= @make,
+            //                Futuristic=@isfuturistic,
+            //                Used = @isused,
+            //                New = @isnew,
+            //                MaUpdatedOn=now(),
+            //                MaUpdatedBy=@userid
+            //				WHERE Id=@makeid";
 
             try
             {
@@ -180,7 +179,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Byte, Convert.ToInt16(chkUsed.Checked)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.ReadOnly);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
 
                 //DbParameter[] sqlParams = new[]
