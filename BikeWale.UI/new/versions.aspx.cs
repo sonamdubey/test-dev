@@ -187,6 +187,7 @@ namespace Bikewale.New
             Trace.Warn("Trace 1 : DeviceDetection Start");
             //device detection
             // Modified By :Ashish Kamble on 5 Feb 2016
+            Form.Action = Request.RawUrl;
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
@@ -232,7 +233,7 @@ namespace Bikewale.New
                     //calling _bwutmz cookie logic.
                     BWCookies.SetBWUtmz();
                     Trace.Warn("Trace 22 : Clear trailing Query");
-                    ClearTrailingQuerystring(this);
+                    //ClearTrailingQuerystring(this);
                     Trace.Warn("Trace 23 : Page Load ends");
                 }
             }

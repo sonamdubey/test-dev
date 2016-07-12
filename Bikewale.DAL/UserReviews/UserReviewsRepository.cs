@@ -708,9 +708,6 @@ namespace Bikewale.DAL.UserReviews
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatecustomerreviewsabuse"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
-                    //cmd.Parameters.Add("@comments", SqlDbType.VarChar, 500).Value = comment;
-                    //cmd.Parameters.Add("@reportedby", SqlDbType.Int).Value = userId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int32, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, userId));

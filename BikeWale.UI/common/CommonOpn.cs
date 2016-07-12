@@ -2,7 +2,6 @@
 COMMON OPERATIONS.
 */
 
-using Bikewale.CoreDAL;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -1822,72 +1821,72 @@ namespace Bikewale.Common
         //Check Whether this profileno bike belongs to mumbai or not 
         //Used in SMSCommon and Mails Pages
         //Purpose : Append LOAN message for mumbai bikes
-        public static bool CheckForMumbai(string bikeProfileId)
-        {
-            bool isFromMumbai = false;
+        //public static bool CheckForMumbai(string bikeProfileId)
+        //{
+        //    bool isFromMumbai = false;
 
-            if (CommonOpn.CheckIsDealerFromProfileNo(bikeProfileId))	// if dealer
-            {
-                if (GetBikeCity(CommonOpn.GetProfileNo(bikeProfileId), true))
-                {
-                    isFromMumbai = true;
-                }
-            }
-            else // if individual
-            {
-                if (GetBikeCity(CommonOpn.GetProfileNo(bikeProfileId), false))
-                {
-                    isFromMumbai = true;
-                }
-            }
-            return isFromMumbai;
-        }
+        //    if (CommonOpn.CheckIsDealerFromProfileNo(bikeProfileId))	// if dealer
+        //    {
+        //        if (GetBikeCity(CommonOpn.GetProfileNo(bikeProfileId), true))
+        //        {
+        //            isFromMumbai = true;
+        //        }
+        //    }
+        //    else // if individual
+        //    {
+        //        if (GetBikeCity(CommonOpn.GetProfileNo(bikeProfileId), false))
+        //        {
+        //            isFromMumbai = true;
+        //        }
+        //    }
+        //    return isFromMumbai;
+        //}
 
         //Supportive function of above function
-        static bool GetBikeCity(string bikeProfileNo, bool isDealer)
-        {
-            string sql = "";
-            bool isCity = false;
+//        static bool GetBikeCity(string bikeProfileNo, bool isDealer)
+//        {
+//            string sql = "";
+//            bool isCity = false;
 
-            //dealer
-            if (isDealer)
-            {
-                sql = @"select si.id from sellinquiries as si, dealers as d  
-                    where d.id = si.dealerid and d.cityid in(1,6,8,13,40)
-                    and si.id = @bikeprofileno";
-            }
-            //Individual
-            else
-            {
-                sql = "select id from classifiedindividualsellinquiries  where cityid in(1,6,8,13,40) and id = @bikeprofileno";
-            }
-            try
-            {
+//            //dealer
+//            if (isDealer)
+//            {
+//                sql = @"select si.id from sellinquiries as si, dealers as d  
+//                    where d.dealerid = si.dealerid and d.cityid in(1,6,8,13,40)
+//                    and si.id = @bikeprofileno";
+//            }
+//            //Individual
+//            else
+//            {
+//                sql = "select id from classifiedindividualsellinquiries  where cityid in(1,6,8,13,40) and id = @bikeprofileno";
+//            }
+//            try
+//            {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
-                {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@bikeprofileno", DbType.Int32, bikeProfileNo));
+//                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+//                {
+//                    cmd.Parameters.Add(DbFactory.GetDbParam("@bikeprofileno", DbType.Int32, bikeProfileNo));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null && dr.Read())
-                        {
-                            isCity = true;
-                            dr.Close();
-                        }
-                    }
-                }
+//                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+//                    {
+//                        if (dr != null && dr.Read())
+//                        {
+//                            isCity = true;
+//                            dr.Close();
+//                        }
+//                    }
+//                }
 
-            }
-            catch (Exception err)
-            {
-                HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-                ErrorClass objErr = new ErrorClass(err, "Common.GetBikeCity");
-                objErr.SendMail();
-            }
+//            }
+//            catch (Exception err)
+//            {
+//                HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
+//                ErrorClass objErr = new ErrorClass(err, "Common.GetBikeCity");
+//                objErr.SendMail();
+//            }
 
-            return isCity;
-        }
+//            return isCity;
+//        }
 
         //this function returns the city id as selected by the user and is as set in
         //the cookie

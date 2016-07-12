@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BikeWaleOpr;
+﻿using BikeWaleOpr.Common;
 using Carwale.WebServices.OprAuthentication;
-using BikeWaleOpr.Common;
+using System;
+using System.Web.UI;
 using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.users
 {
@@ -29,7 +26,7 @@ namespace BikeWaleOpr.users
             base.Load += new EventHandler(Page_Load);
             btnLogin.Click += new EventHandler(btnLogin_click);
         }
-		
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -40,7 +37,7 @@ namespace BikeWaleOpr.users
             if (!Page.IsValid)
             {
                 return;
-            } 
+            }
 
             OprAuthentication objOA = null;
             UserBasicInfo objBasicInfo = null;
@@ -68,6 +65,6 @@ namespace BikeWaleOpr.users
             else
                 spnErrorPwd.InnerText = "Wrong loginid or password.";
         }
-  // End of IsValidPassword 
+        // End of IsValidPassword 
     }//Login
 }//
