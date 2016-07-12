@@ -2,6 +2,7 @@
 using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Notifications;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,7 +38,7 @@ namespace Bikewale.DAL.UsedBikes
 
                     objUsedBikesList = new List<PopularUsedBikesEntity>();
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -103,7 +104,7 @@ namespace Bikewale.DAL.UsedBikes
 
                     objMostRecentUsedBikesList = new List<MostRecentBikes>();
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         while (dr.Read())
                         {

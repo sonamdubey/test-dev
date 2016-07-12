@@ -1,10 +1,10 @@
 ﻿using Bikewale.Controls;
 using System;
 using System.Web;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
 using Bikewale.Common;
 using System.Data;
+using MySql.CoreDAL;
 
 namespace Bikewale.Used
 {
@@ -64,7 +64,7 @@ namespace Bikewale.Used
             {
                 DbParameter[] param = new[] { DbFactory.GetDbParam("@id", DbType.Int32, CommonOpn.GetProfileNo(profileNo)) };
 
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param,ConnectionType.ReadOnly))
                 {
                     if (dr!=null && dr.Read())
                     {

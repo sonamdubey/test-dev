@@ -15,8 +15,8 @@ using Bikewale.RabbitMQ;
 using System.Collections.Specialized;
 using RabbitMqPublishing;
 using System.Configuration;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Used
 {
@@ -120,9 +120,9 @@ namespace Bikewale.Used
                                     where si.customerid = @customerid and si.id = @inquiryid and c.isfake = 0 ";
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbType.Int32, CurrentUser.Id == "-1" ? CookiesCustomers.CustomerId : CurrentUser.Id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int32, inquiryId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int32, inquiryId));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables[0].Rows.Count > 0)
                         {

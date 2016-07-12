@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using System.Configuration;
-using BikeWaleOPR.DAL.CoreDAL;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -96,7 +96,7 @@ namespace BikeWaleOpr.Content
             {
 
 
-                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql))
+                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
                 {
 
                     if (ds != null && ds.Tables != null && ds.Tables.Count > 0)

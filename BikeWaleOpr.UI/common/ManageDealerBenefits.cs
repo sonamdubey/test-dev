@@ -1,6 +1,6 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -36,7 +36,7 @@ namespace BikewaleOpr.common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getdealerbenefitcategory";
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dt = ds.Tables[0];

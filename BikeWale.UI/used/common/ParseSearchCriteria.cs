@@ -8,8 +8,8 @@ using System.Text.RegularExpressions;
 using System.Web;
 using Bikewale.Common;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
 using Bikewale.Notifications.MySqlUtility;
+using MySql.CoreDAL;
 
 /// <summary>
 /// Summary description for ParseSearchCriteria

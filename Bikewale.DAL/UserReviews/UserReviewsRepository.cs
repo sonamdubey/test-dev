@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -42,7 +43,7 @@ namespace Bikewale.DAL.UserReviews
                     BikeMakeEntityBase objMakeBase = null;
                     BikeModelEntityBase objModelBase = null;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -106,7 +107,7 @@ namespace Bikewale.DAL.UserReviews
                     BikeMakeEntityBase objMakeBase = null;
                     BikeModelEntityBase objModelBase = null;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objBikeList = new List<ReviewTaggedBikeEntity>();
                         objMakeBase = new BikeMakeEntityBase();
@@ -172,7 +173,7 @@ namespace Bikewale.DAL.UserReviews
                     ReviewRatingEntityBase objReviewRating = null;
                     ReviewTaggedBikeEntity objTaggedBike = null;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -247,7 +248,7 @@ namespace Bikewale.DAL.UserReviews
                     ReviewRatingEntityBase objReviewRating = null;
                     ReviewTaggedBikeEntity objTaggedBike = null;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -324,7 +325,7 @@ namespace Bikewale.DAL.UserReviews
                     ReviewRatingEntityBase objReviewRating = null;
                     ReviewTaggedBikeEntity objTaggedBike = null;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -400,7 +401,7 @@ namespace Bikewale.DAL.UserReviews
                     ReviewRatingEntityBase objReviewRating = null;
                     ReviewTaggedBikeEntity objTaggedBike = null;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -472,7 +473,7 @@ namespace Bikewale.DAL.UserReviews
                     //cmd.Parameters.Add("@modelid", SqlDbType.Int).Value = modelId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -541,7 +542,7 @@ namespace Bikewale.DAL.UserReviews
 
                     //cmd.Parameters.Add("@filter", SqlDbType.Int).Value = filter;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -613,7 +614,7 @@ namespace Bikewale.DAL.UserReviews
                     //cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -715,7 +716,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, userId));
 
 
-                    success = MySqlDatabase.UpdateQuery(cmd);
+                    success = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException sqlEx)
@@ -751,7 +752,7 @@ namespace Bikewale.DAL.UserReviews
                     //cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
 
-                    success = MySqlDatabase.UpdateQuery(cmd);
+                    success = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException sqlEx)
@@ -792,7 +793,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_helpful", DbType.Boolean, isHelpful));
 
-                    success = MySqlDatabase.UpdateQuery(cmd);
+                    success = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException sqlEx)

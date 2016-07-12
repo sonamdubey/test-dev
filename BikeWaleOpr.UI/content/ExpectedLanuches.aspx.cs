@@ -12,9 +12,9 @@ using System.Drawing.Imaging;
 using Ajax;
 using System.IO;
 using System.Configuration;
-using BikeWaleOPR.DAL.CoreDAL;
 using System.Data.Common;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -97,8 +97,8 @@ namespace BikeWaleOpr.Content
                 using (DbCommand cmd = DbFactory.GetDBCommand("deleteexpectedlaunchbike"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemodelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], bikeModelId));
-                    MySqlDatabase.UpdateQuery(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemodelid", DbType.Int32, bikeModelId));
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)
@@ -129,7 +129,7 @@ namespace BikeWaleOpr.Content
             try
             {
 
-                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql))
+                using (DataSet ds = MySqlDatabase.SelectAdapterQuery(sql, ConnectionType.ReadOnly))
                 {
                     if (ds != null && ds.Tables != null)
                     {
@@ -212,9 +212,9 @@ namespace BikeWaleOpr.Content
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatebikeislaunched"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellaunchbikeids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, launchBikeIds));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellauchmodelids", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, launchBikeModelIds));
-                    MySqlDatabase.UpdateQuery(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellaunchbikeids", DbType.String, 30, launchBikeIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sellauchmodelids", DbType.String, 30, launchBikeModelIds));
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException sqlEx)

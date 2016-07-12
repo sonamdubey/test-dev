@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using Bikewale.Common;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.Used
 {
@@ -44,7 +44,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ConfigurationManager.AppSettings["imgHostURL"]));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     photoId = cmd.Parameters["par_photoid"].Value.ToString(); 
@@ -71,7 +71,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     isRemoved = true; 
@@ -99,7 +99,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     isMain = true; 
@@ -127,7 +127,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_imgdesc", DbType.String, 200, imgDesc));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     isAdded = true; 
@@ -158,7 +158,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, sellInquiryId));
 
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     HttpContext.Current.Trace.Warn("update success verified...");
                 }
             }

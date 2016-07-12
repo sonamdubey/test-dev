@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Net;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.Common
 {
@@ -79,7 +79,7 @@ namespace Bikewale.Common
 
                     //run the command
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     customerId = cmd.Parameters["par_customerid"].Value.ToString();
 
@@ -134,9 +134,9 @@ namespace Bikewale.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@email", SqlDbType.VarChar, 50).Value = Email;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 50, Email)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 50, Email));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr!=null && dr.Read())
                         {
@@ -310,7 +310,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbType.String, 10, ParameterDirection.Output));
 
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     salt = cmd.Parameters["par_salt"].Value.ToString();
                     hash = cmd.Parameters["par_hash"].Value.ToString();
@@ -356,9 +356,9 @@ namespace Bikewale.Common
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbType.String, 10, salt));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbType.String, 64, hash)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbType.String, 64, hash));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)
@@ -431,7 +431,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbType.String, 200, token));
 
-                    MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)
@@ -476,7 +476,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbType.String, 200, token));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isvalidtoken", DbType.Boolean, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     isValidtoken = Convert.ToBoolean(cmd.Parameters["par_isvalidtoken"].Value);
                     HttpContext.Current.Trace.Warn("isValidtoken : " + isValidtoken.ToString());
@@ -517,7 +517,7 @@ namespace Bikewale.Common
                     //cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Value = customerId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
                 }
             }
@@ -655,9 +655,9 @@ namespace Bikewale.Common
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 20, mobile));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, email));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, (!String.IsNullOrEmpty(name))?name:Convert.DBNull)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, (!String.IsNullOrEmpty(name))?name:Convert.DBNull));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException sqlEx)
@@ -693,7 +693,7 @@ namespace Bikewale.Common
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr!=null && dr.Read())
                         {

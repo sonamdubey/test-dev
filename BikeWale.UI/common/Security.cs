@@ -7,8 +7,8 @@ using System.Data.SqlClient;
 using System.Data;
 using System.IO;
 using System.Security.Cryptography;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Common 
 {
@@ -235,7 +235,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.String, 100, key));
                     // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     //run the command
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     customerId = cmd.Parameters["@CustomerId"].Value.ToString(); 
                 }
@@ -265,9 +265,9 @@ namespace Bikewale.Common
                 sql = " select customerkey from customersecuritykey  where customerid = @v_id";
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_id", DbType.Int32, id)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_id", DbType.Int32, id));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr!=null && dr.Read())
                         {

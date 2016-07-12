@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.Content;
 using AjaxPro;
-using BikeWaleOPR.DAL.CoreDAL;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr
 {
@@ -30,7 +30,7 @@ namespace BikeWaleOpr
                 char[] MyChar = {'A'};
                 string ID = Id.TrimEnd(MyChar);
                 string sql = "update customerreviews set isverified = 1, isdiscarded = 0, lastupdatedon = now(), lastupdatedby = " + CurrentUser.Id + " where id = " + ID;
-                int a = MySqlDatabase.UpdateQueryReturnRowCount(sql);
+                int a = MySqlDatabase.UpdateQueryReturnRowCount(sql, ConnectionType.MasterDatabase);
             }
             catch (Exception err)
             {
@@ -52,7 +52,7 @@ namespace BikeWaleOpr
                 char[] MyChar = {'D'};
                 string ID = Id.TrimEnd(MyChar);
                 string sql = "update customerreviews set isdiscarded = 1, isverified = 0 , lastupdatedon = now(), lastupdatedby = " + CurrentUser.Id + " where id = " + ID;
-                int a = MySqlDatabase.UpdateQueryReturnRowCount(sql);
+                int a = MySqlDatabase.UpdateQueryReturnRowCount(sql, ConnectionType.MasterDatabase);
             }
             catch (Exception err)
             {

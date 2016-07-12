@@ -3,6 +3,7 @@ COMMON OPERATIONS.
 */
 
 using Bikewale.CoreDAL;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -155,7 +156,7 @@ namespace Bikewale.Common
         {
             try
             {
-                using (IDataReader datareader = MySqlDatabase.SelectQuery(sql, param))
+                using (IDataReader datareader = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
                 {
                     rpt.DataSource = datareader;
                     rpt.DataBind();
@@ -338,7 +339,7 @@ namespace Bikewale.Common
 
             try
             {
-                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql))
+                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
                     if (dataReader != null)
                     {
@@ -362,7 +363,7 @@ namespace Bikewale.Common
         {
             try
             {
-                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, param))
+                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
                 {
                     drp.DataSource = dataReader;
                     drp.DataTextField = text;
@@ -1867,7 +1868,7 @@ namespace Bikewale.Common
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("@bikeprofileno", DbType.Int32, bikeProfileNo));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {

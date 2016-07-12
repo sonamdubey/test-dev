@@ -11,6 +11,7 @@ using Bikewale.Memcache;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.New
 {    

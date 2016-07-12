@@ -1,7 +1,7 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -31,9 +31,9 @@ namespace BikewaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("getappversions"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_apptype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(appType)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_apptype", DbType.Byte, Convert.ToInt16(appType)));
 
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {
@@ -76,14 +76,14 @@ namespace BikewaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("addorupdateappversion"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_apptype", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(entity.AppType)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_appversionid", DbParamTypeMapper.GetInstance[SqlDbType.Int], entity.Id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_issupported", DbParamTypeMapper.GetInstance[SqlDbType.Bit], entity.IsSupported));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_islatest", DbParamTypeMapper.GetInstance[SqlDbType.Bit], entity.IsLatest));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, entity.Description));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_apptype", DbType.Byte, Convert.ToInt16(entity.AppType)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_appversionid", DbType.Int32, entity.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_issupported", DbType.Boolean, entity.IsSupported));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_islatest", DbType.Boolean, entity.IsLatest));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 50, entity.Description));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, userId));
 
-                    isSaved = MySqlDatabase.InsertQuery(cmd);
+                    isSaved = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)

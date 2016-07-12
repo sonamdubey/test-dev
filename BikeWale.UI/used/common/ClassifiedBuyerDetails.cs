@@ -8,8 +8,8 @@ using System.Data.SqlClient;
 using System.Web;
 using Bikewale.Common;
 using System.Collections.Specialized;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Used
 {
@@ -169,7 +169,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Boolean, ParameterDirection.Output));
 
                 //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);											
-                    MySqlDatabase.ExecuteNonQuery(cmd);//run the command
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);//run the command
 
                     status = Convert.ToBoolean(cmd.Parameters["par_status"].Value);
                 }

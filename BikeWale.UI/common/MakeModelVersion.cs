@@ -6,6 +6,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -163,7 +164,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, MakeId));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dt = ds.Tables[0];
@@ -204,7 +205,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, ModelId));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dt = ds.Tables[0];
@@ -245,7 +246,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, MakeId));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dt = ds.Tables[0];
@@ -302,7 +303,7 @@ namespace Bikewale.Common
 
                     // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
-                    if (MySqlDatabase.ExecuteNonQuery(cmd) > 0)
+                    if (MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly) > 0)
                     {
                         HttpContext.Current.Trace.Warn("qry success");
 
@@ -374,7 +375,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.Output));
                     //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     if (!String.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
                     {
@@ -432,7 +433,7 @@ namespace Bikewale.Common
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("@makeid", DbType.Int32, makeId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {

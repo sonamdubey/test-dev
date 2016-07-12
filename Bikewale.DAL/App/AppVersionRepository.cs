@@ -11,6 +11,7 @@ using System.Web;
 using Bikewale.Interfaces.App;
 using Bikewale.Entities.App;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.DAL.App
 {
@@ -41,7 +42,7 @@ namespace Bikewale.DAL.App
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_appversionid", DbType.Int32, appVersion));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, sourceId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr!=null)
                         {

@@ -1,4 +1,5 @@
-﻿using Bikewale.Notifications.CoreDAL;
+﻿
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -46,7 +47,7 @@ namespace Bikewale.Notifications.NotificationDAL
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealerpageurl", DbType.String, 500, smsType));
 
 
-                        MySqlDatabase.ExecuteNonQuery(cmd);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     }
                 }
             }
@@ -89,7 +90,7 @@ namespace Bikewale.Notifications.NotificationDAL
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomerservicetype", DbType.Byte, smsType));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomerpageurl", DbType.String, 500, smsType));
 
-                        MySqlDatabase.ExecuteNonQuery(cmd);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     }
                 }
             }
@@ -123,7 +124,7 @@ namespace Bikewale.Notifications.NotificationDAL
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealersubject", DbType.String, 500, emailsubject));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealerreplyto", DbType.String, 200, dealerEmail));
                             // LogLiveSps.LogSpInGrayLog(cmd);
-                        MySqlDatabase.ExecuteNonQuery(cmd);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     }
                 }
             }
@@ -158,7 +159,7 @@ namespace Bikewale.Notifications.NotificationDAL
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtocustomerreplyto", DbType.String, 200, customerEmail));
 // LogLiveSps.LogSpInGrayLog(cmd);
 
-                        MySqlDatabase.ExecuteNonQuery(cmd);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     }
                 }
             }

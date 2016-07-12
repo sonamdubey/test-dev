@@ -1,7 +1,7 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -33,7 +33,7 @@ namespace BikewaleOpr.CommuteDistance
                     command.CommandText = "getcommutedistancedealers";
                     command.CommandType = CommandType.StoredProcedure;
 
-                    using (IDataReader objReader = MySqlDatabase.SelectQuery(command))
+                    using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.ReadOnly))
                     {
                         if (objReader != null)
                         {
@@ -82,11 +82,11 @@ namespace BikewaleOpr.CommuteDistance
                 {
                     command.CommandText = "getareasbydealer";
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
-                    command.Parameters.Add(DbFactory.GetDbParam("par_leadservingdistance", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToByte(leadServingDistance)));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_leadservingdistance", DbType.Byte, Convert.ToByte(leadServingDistance)));
 
 
-                    using (IDataReader objReader = MySqlDatabase.SelectQuery(command))
+                    using (IDataReader objReader = MySqlDatabase.SelectQuery(command, ConnectionType.ReadOnly))
                     {
                         if (objReader != null)
                         {
@@ -151,10 +151,10 @@ namespace BikewaleOpr.CommuteDistance
 
                     command.CommandText = "updatecommutedistance";
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
-                    command.Parameters.Add(DbFactory.GetDbParam("par_areadistance", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], areaDistance));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    command.Parameters.Add(DbFactory.GetDbParam("par_areadistance", DbType.String, areaDistance));
 
-                    resp = MySqlDatabase.ExecuteNonQuery(command);
+                    resp = MySqlDatabase.ExecuteNonQuery(command, ConnectionType.ReadOnly);
                 }
             }
             catch (Exception ex)

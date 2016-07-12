@@ -33,10 +33,6 @@
     <Reference Include="Elasticsearch.Net">
       <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\MySql.Data.dll</HintPath>
-    </Reference>
     <Reference Include="Nest">
       <HintPath>..\Libs\Nest.dll</HintPath>
     </Reference>
@@ -56,9 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonOpn.cs" />
-    <Compile Include="DbFactory.cs" />
     <Compile Include="ElasticSearchInstance.cs" />
-    <Compile Include="MySqlDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

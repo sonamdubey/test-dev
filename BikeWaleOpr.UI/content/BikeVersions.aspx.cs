@@ -10,7 +10,7 @@ using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
 using System.Data.Common;
 using BikeWaleOPR.Utilities;
-using BikeWaleOPR.DAL.CoreDAL;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -124,27 +124,27 @@ namespace BikeWaleOpr.Content
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, txtVersion.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemodelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], Request["cmbmodels"]));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], cmbSegments.SelectedValue == "0" ? Convert.DBNull : cmbSegments.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], cmbBodyStyles.SelectedValue == "0" ? Convert.DBNull : cmbBodyStyles.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueltype", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], cmbFuelType.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transmission", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], cmbTransmission.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Convert.ToInt16(chkUsed.Checked)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Convert.ToInt16(chkNew.Checked)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_indian", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Convert.ToInt16(chkIndian.Checked)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imported", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Convert.ToInt16(chkImported.Checked)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_classic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Convert.ToInt16(chkClassic.Checked)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Convert.ToInt16(chkModified.Checked)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], Convert.ToInt16(chkFuturistic.Checked)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdeleted", DbParamTypeMapper.GetInstance[SqlDbType.Bit], false));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_subsegmentid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], cmbSubSegments.SelectedValue == "0" ? Convert.DBNull : cmbSubSegments.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_createdon", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], BikeWaleAuthentication.GetOprUserId()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_currentid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, txtVersion.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemodelid", DbType.Int64, Request["cmbmodels"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int64, cmbSegments.SelectedValue == "0" ? Convert.DBNull : cmbSegments.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int64, cmbBodyStyles.SelectedValue == "0" ? Convert.DBNull : cmbBodyStyles.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueltype", DbType.Int64, cmbFuelType.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transmission", DbType.Int64, cmbTransmission.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, Convert.ToInt16(chkUsed.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, Convert.ToInt16(chkNew.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_indian", DbType.Boolean, Convert.ToInt16(chkIndian.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imported", DbType.Boolean, Convert.ToInt16(chkImported.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_classic", DbType.Boolean, Convert.ToInt16(chkClassic.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modified", DbType.Boolean, Convert.ToInt16(chkModified.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, Convert.ToInt16(chkFuturistic.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isdeleted", DbType.Boolean, false));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_subsegmentid", DbType.Int64, cmbSubSegments.SelectedValue == "0" ? Convert.DBNull : cmbSubSegments.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_createdon", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.String, BikeWaleAuthentication.GetOprUserId()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_currentid", DbType.Int64, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     currentId = cmd.Parameters["par_currentid"].Value.ToString(); 
                 }
@@ -252,26 +252,26 @@ namespace BikeWaleOpr.Content
 
             DbParameter[] param = new[]
                 {
-                    DbFactory.GetDbParam("@versionname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, txt.Text.Trim().Replace("'", "''")),
-                    DbFactory.GetDbParam("@segmentid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Request.Form["cmbGridSegment"]),
-                    DbFactory.GetDbParam("@subsegmentid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Request.Form["cmbGridSubSegment"]),
-                    DbFactory.GetDbParam("@bodystyleid", DbParamTypeMapper.GetInstance[SqlDbType.Int], Request.Form["cmbGridBodyStyle"]) ,
-                    DbFactory.GetDbParam("@bikefueltype", DbParamTypeMapper.GetInstance[SqlDbType.Int], Request.Form["cmbGridFuelType"]) ,
-                    DbFactory.GetDbParam("@biketransmission", DbParamTypeMapper.GetInstance[SqlDbType.Int], Request.Form["cmbGridBikeTrans"]) ,
-                    DbFactory.GetDbParam("@used", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkUsed1.Checked),
-                    DbFactory.GetDbParam("@new", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkNew1.Checked),
-                    DbFactory.GetDbParam("@indian", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIndian1.Checked),
-                    DbFactory.GetDbParam("@Imported", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkImported1.Checked),
-                    DbFactory.GetDbParam("@classic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkClassic1.Checked),
-                    DbFactory.GetDbParam("@modified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkModified1.Checked),
-                    DbFactory.GetDbParam("@futuristic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkFuturistic1.Checked),
-                    DbFactory.GetDbParam("@vupdatedby", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], BikeWaleAuthentication.GetOprUserId()),
-                    DbFactory.GetDbParam("@key", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[e.Item.ItemIndex])
+                    DbFactory.GetDbParam("@versionname", DbType.String, 30, txt.Text.Trim().Replace("'", "''")),
+                    DbFactory.GetDbParam("@segmentid", DbType.Int32, Request.Form["cmbGridSegment"]),
+                    DbFactory.GetDbParam("@subsegmentid", DbType.Int32, Request.Form["cmbGridSubSegment"]),
+                    DbFactory.GetDbParam("@bodystyleid", DbType.Int32, Request.Form["cmbGridBodyStyle"]) ,
+                    DbFactory.GetDbParam("@bikefueltype", DbType.Int32, Request.Form["cmbGridFuelType"]) ,
+                    DbFactory.GetDbParam("@biketransmission", DbType.Int32, Request.Form["cmbGridBikeTrans"]) ,
+                    DbFactory.GetDbParam("@used", DbType.Boolean, chkUsed1.Checked),
+                    DbFactory.GetDbParam("@new", DbType.Boolean, chkNew1.Checked),
+                    DbFactory.GetDbParam("@indian", DbType.Boolean, chkIndian1.Checked),
+                    DbFactory.GetDbParam("@Imported", DbType.Boolean, chkImported1.Checked),
+                    DbFactory.GetDbParam("@classic", DbType.Boolean, chkClassic1.Checked),
+                    DbFactory.GetDbParam("@modified", DbType.Boolean, chkModified1.Checked),
+                    DbFactory.GetDbParam("@futuristic", DbType.Boolean, chkFuturistic1.Checked),
+                    DbFactory.GetDbParam("@vupdatedby", DbType.Int64, BikeWaleAuthentication.GetOprUserId()),
+                    DbFactory.GetDbParam("@key", DbType.Int32, dtgrdMembers.DataKeys[e.Item.ItemIndex])
 
                 };
             try
             {
-                MySqlDatabase.InsertQuery(sql,param);
+                MySqlDatabase.InsertQuery(sql, param, ConnectionType.ReadOnly);
             }
             catch (SqlException ex)
             {
@@ -307,7 +307,7 @@ namespace BikeWaleOpr.Content
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    MySqlDatabase.InsertQuery(sql); 
+                    MySqlDatabase.InsertQuery(sql, ConnectionType.MasterDatabase); 
                 }
             }
             catch (SqlException ex)

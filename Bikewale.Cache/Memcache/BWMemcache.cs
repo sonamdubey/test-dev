@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Bikewale.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Cache.Memcache
 {
@@ -121,7 +122,7 @@ namespace Bikewale.Cache.Memcache
                     }
 
                     // Fetch the data from the database into DataSet
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)

@@ -13,6 +13,7 @@ using Bikewale.Notifications;
 using System.Diagnostics;
 using Bikewale.Utility;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -45,7 +46,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId : Convert.DBNull));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -116,7 +117,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Boolean, isNew));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -191,7 +192,7 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, ParameterDirection.Output));
 
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
 
                     if (!string.IsNullOrEmpty(cmd.Parameters["par_makeid"].Value.ToString()))
                     {
@@ -337,7 +338,7 @@ namespace Bikewale.DAL.BikeData
 
                         // LogLiveSps.LogSpInGrayLog(cmd);
 
-                    int rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd);
+                    int rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
 
                     int rowCount = Convert.ToInt16(paramColl["par_rowcount"].Value);
 
@@ -457,9 +458,9 @@ namespace Bikewale.DAL.BikeData
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int32, (percentDeviation > 0) ? percentDeviation : Convert.DBNull)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int32, (percentDeviation > 0) ? percentDeviation : Convert.DBNull));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objSimilarBikes = new List<SimilarBikeEntity>();
 
@@ -524,7 +525,7 @@ namespace Bikewale.DAL.BikeData
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         objColors = new List<VersionColor>();
 

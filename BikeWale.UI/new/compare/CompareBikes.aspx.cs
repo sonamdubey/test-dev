@@ -7,8 +7,8 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
-using Bikewale.Notifications.CoreDAL;
 using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -325,7 +325,7 @@ namespace Bikewale.New
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.UInt32, versionId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

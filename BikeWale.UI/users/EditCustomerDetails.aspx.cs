@@ -9,8 +9,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using Bikewale.Common;
 using Bikewale.BAL.MobileVerification;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 //using Ajax;
 
 namespace Bikewale.MyBikeWale
@@ -282,7 +282,7 @@ namespace Bikewale.MyBikeWale
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_phone1", DbType.String, 50, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbType.String, 100, Convert.DBNull));
 			//Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     returnVal = true; 
                 }			

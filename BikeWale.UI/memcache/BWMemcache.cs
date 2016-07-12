@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Collections;
 using System.Data.Common;
 using Bikewale.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.Memcache
 {
@@ -130,7 +131,7 @@ namespace Bikewale.Memcache
 
                     // Fetch the data from the database into DataSet
                     HttpContext.Current.Trace.Warn("Fetched " + spName + " from Database");
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)

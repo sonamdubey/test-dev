@@ -10,7 +10,7 @@ using System.Collections.Specialized;
 using RabbitMqPublishing;
 using Bikewale.Utility;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.Common
 {
@@ -301,7 +301,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_returnedmsg", DbType.String, 500, retMsg));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_smspageurl", DbType.String, 500, pageUrl));
 
-                    currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd));
+                    currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.ReadOnly));
                 }
             }
             catch (SqlException err)

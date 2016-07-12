@@ -1,6 +1,6 @@
 ﻿using BikeWaleOpr.VO;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -31,9 +31,9 @@ namespace BikeWaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("getallcitiesdetails"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], stateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, stateId));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
 
                 }
             }
@@ -191,18 +191,18 @@ namespace BikeWaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "managecities";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], objCity.CityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, objCity.CityName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 60, objCity.MaskingName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lattitude", DbParamTypeMapper.GetInstance[SqlDbType.Float], objCity.Lattitude));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_longitude", DbParamTypeMapper.GetInstance[SqlDbType.Float], objCity.Longitude));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_defaultpincode", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 10, objCity.DefaultPinCode));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], objCity.StateId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stdcode", DbParamTypeMapper.GetInstance[SqlDbType.Int], (objCity.StdCode != "") ? objCity.StdCode : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, objCity.CityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, objCity.CityName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 60, objCity.MaskingName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lattitude", DbType.Double, objCity.Lattitude));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_longitude", DbType.Double, objCity.Longitude));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_defaultpincode", DbType.String, 10, objCity.DefaultPinCode));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, objCity.StateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stdcode", DbType.Int32, (objCity.StdCode != "") ? objCity.StdCode : Convert.DBNull));
 
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)
@@ -236,11 +236,11 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (stateId > 0) ? stateId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, (stateId > 0) ? stateId : Convert.DBNull));
 
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
 
                 }
             }
@@ -276,10 +276,10 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 20, requestType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (stateId > 0) ? stateId : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, requestType));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, (stateId > 0) ? stateId : Convert.DBNull));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException err)
@@ -312,9 +312,9 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandText = "getpricequotecities";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (SqlException ex)

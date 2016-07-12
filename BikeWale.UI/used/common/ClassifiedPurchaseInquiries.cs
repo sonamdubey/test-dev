@@ -5,8 +5,8 @@ using System.Data.SqlClient;
 using System.Web;
 using Bikewale.Common;
 using Bikewale.Ajax;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 /// <summary>
 ///     Created By : Ashish G. Kamble
@@ -244,7 +244,7 @@ namespace Bikewale.Used
 
                 //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     //run the command
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     inqId = cmd.Parameters["par_inquiryid"].Value.ToString(); 
                 }

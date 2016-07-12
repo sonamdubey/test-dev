@@ -1,6 +1,6 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,17 +56,17 @@ namespace BikeWaleOpr.RabbitMQ
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "img_allbikephotosinsert";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_itemid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], photoId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_origfilename", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], imageName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], imgC));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_itemid", DbType.Int64, photoId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_origfilename", DbType.String, imageName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int32, imgC));
                     //die path for original image
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dirpath", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], directoryPath));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dirpath", DbType.String, directoryPath));
                     //host url for original image
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString()));
                     //output parameter complete url for original image
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 255, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbType.String, 255, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     url = cmd.Parameters["par_url"].Value.ToString();
                 }
@@ -105,10 +105,10 @@ namespace BikeWaleOpr.RabbitMQ
                     cmd.CommandText = "img_fetchprocessedimagelist";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagelist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, imageList));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], imgC));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_imagelist", DbType.String, 1000, imageList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int32, imgC));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (Exception ex)
@@ -130,10 +130,10 @@ namespace BikeWaleOpr.RabbitMQ
                     cmd.CommandText = "img_checkphotosstatus";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], imageId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbParamTypeMapper.GetInstance[SqlDbType.Int], (int)imgC));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.String, imageId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_categoryid", DbType.Int32, (int)imgC));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (Exception ex)

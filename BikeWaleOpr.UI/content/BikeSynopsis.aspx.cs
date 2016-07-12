@@ -14,9 +14,9 @@ using System.Drawing.Imaging;
 using BikeWaleOpr.Common;
 using FreeTextBoxControls;
 using Ajax;
-using BikeWaleOPR.DAL.CoreDAL;
 using System.Data.Common;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -129,7 +129,7 @@ namespace BikeWaleOpr.Content
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -182,7 +182,7 @@ namespace BikeWaleOpr.Content
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -227,30 +227,30 @@ namespace BikeWaleOpr.Content
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], updateId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], qryStrModel));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fulldescription", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], ftbDescription.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smalldescription", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 8000, txtSmallDesc.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pros", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, txtPros.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cons", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 500, txtCons.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_looks", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpLooks.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpPerformance.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fuel", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpFuel.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comfort", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpComfort.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_safety", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpSafety.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_interiors", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpInteriors.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ride", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpRide.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_handling", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpHandling.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_braking", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpBraking.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overall", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], drpOverall.SelectedItem.Value));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], 1));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], DateTime.Now));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastsavedid", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], CurrentUser.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, updateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int64, qryStrModel));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fulldescription", DbType.String, ftbDescription.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smalldescription", DbType.String, 8000, txtSmallDesc.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pros", DbType.String, 500, txtPros.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cons", DbType.String, 500, txtCons.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_looks", DbType.Int16, drpLooks.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance", DbType.Int16, drpPerformance.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fuel", DbType.Int16, drpFuel.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comfort", DbType.Int16, drpComfort.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_safety", DbType.Int16, drpSafety.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_interiors", DbType.Int16, drpInteriors.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ride", DbType.Int16, drpRide.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_handling", DbType.Int16, drpHandling.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_braking", DbType.Int16, drpBraking.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overall", DbType.Int16, drpOverall.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, 1));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_entrydatetime", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastsavedid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, CurrentUser.Id));
 
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     if (cmd.Parameters["par_lastsavedid"].Value.ToString() != "")
                         lastSavedId = cmd.Parameters["par_lastsavedid"].Value.ToString(); 

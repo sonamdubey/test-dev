@@ -679,22 +679,6 @@
             <param name="content"></param>
             <returns>custom Ok result is returned</returns>
         </member>
-        <member name="T:Bikewale.Service.Utilities.CompressionApiController">
-            <summary>
-            Created by  :   Sumit Kate on 12 May 2016
-            Description :   Extends ApiController to return the overridden Ok response.    
-            </summary>
-        </member>
-        <member name="M:Bikewale.Service.Utilities.CompressionApiController.Ok``1(``0)">
-            <summary>
-            Created by  :   Sumit Kate on 12 May 2016
-            Description :   Overrride the Ok response.
-            It will enable gzip compression for the response from web api.        
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="content"></param>
-            <returns>custom Ok result is returned</returns>
-        </member>
         <member name="M:Bikewale.Service.Controllers.AppDeepLinking.DeepLinkingController.#ctor(Bikewale.Interfaces.AppDeepLinking.IDeepLinking)">
             <summary>
             Created By : Lucky Rathore
@@ -740,7 +724,7 @@
             Description :   Extend from CompressionApiController instead of ApiController 
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.App.AppVersionCheckController.#ctor(Bikewale.Interfaces.App.IAppVersion)">
+        <member name="M:Bikewale.Service.Controllers.App.AppVersionCheckController.#ctor(Bikewale.Interfaces.App.IAppVersionCache)">
             <summary>
             Constructor
             </summary>
@@ -1380,7 +1364,7 @@
             Dealer Makes Controller
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Make.DealerMakesController.#ctor(Bikewale.Interfaces.Dealer.IDealer)">
+        <member name="M:Bikewale.Service.Controllers.Make.DealerMakesController.#ctor(Bikewale.Interfaces.Dealer.IDealer,Bikewale.Interfaces.Dealer.IDealerCacheRepository)">
             <summary>
             Constructor
             </summary>
@@ -1434,7 +1418,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelDescriptionController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.Model.ModelDescriptionController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32})">
             <summary>
             
             </summary>
@@ -2079,7 +2063,7 @@
             Description :   Extend from CompressionApiController instead of ApiController 
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.#ctor(Bikewale.Interfaces.BikeData.IBikeVersions{Bikewale.Entities.BikeData.BikeVersionEntity,System.UInt32},Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.#ctor(Bikewale.Interfaces.BikeData.IBikeVersions{Bikewale.Entities.BikeData.BikeVersionEntity,System.UInt32},Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeVersionCacheRepository{Bikewale.Entities.BikeData.BikeVersionEntity,System.UInt32})">
             <summary>
             To Fetch PQ versionList, PQID and dealerId
             </summary>
@@ -2113,6 +2097,12 @@
             Author  :   Sumit Kate
             Created On  :   20 Aug 2015
             </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController.#ctor(Bikewale.Interfaces.BikeData.IBikeVersionCacheRepository{Bikewale.Entities.BikeData.BikeVersionEntity,System.UInt32})">
+            <summary>
+            
+            </summary>
+            <param name="objVersion"></param>
         </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController.Get(System.UInt32,System.Nullable{System.Int32})">
             <summary>
@@ -2201,6 +2191,14 @@
             <param name="pqCityAea"></param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.AutoMappers.Model.ModelMapper.Convert(System.Collections.Generic.IEnumerable{Bikewale.Entities.BikeData.MostPopularBikesBase})">
+            <summary>
+            Created by  :   Sumit Kate on 01 Jul 2016
+            Description :   AutoMapper Entity to DTO for Popular Bikes
+            </summary>
+            <param name="objModelList"></param>
+            <returns></returns>
+        </member>
         <member name="M:Bikewale.Service.AutoMappers.Version.VersionListMapper.Convert(Bikewale.Entities.BikeData.BikeVersionEntity)">
             <summary>
             Modified by :   Sumit Kate on 12 Apr 2016
@@ -2267,7 +2265,7 @@
             Description :   Extend from CompressionApiController instead of ApiController 
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Make.MakeListController.#ctor(Bikewale.Interfaces.BikeData.IBikeMakes{Bikewale.Entities.BikeData.BikeMakeEntity,System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.Make.MakeListController.#ctor(Bikewale.Interfaces.BikeData.IBikeMakesCacheRepository{System.Int32})">
             <summary>
             
             </summary>
@@ -2327,7 +2325,17 @@
             Created On : 24th August 2015
             Modified by :   Sumit Kate on 18 May 2016
             Description :   Extend from CompressionApiController instead of ApiController 
+            Modified by :   Sumit Kate on 01 Jul 2016
+            Description :   Added IBikeModelsCacheRepository ref
             </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelListController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32})">
+            <summary>
+            Modified by :   Sumit Kate on 01 Jul 2016
+            Description :   Added IBikeModelsCacheRepository
+            </summary>
+            <param name="modelRepository"></param>
+            <param name="modelCacheRepository"></param>
         </member>
         <member name="M:Bikewale.Service.Controllers.Model.ModelListController.Get(System.Int32)">
             <summary>
@@ -2339,6 +2347,8 @@
         <member name="M:Bikewale.Service.Controllers.Model.ModelListController.Get(System.Nullable{System.SByte},System.Nullable{System.Int32})">
             <summary>
              To Get Most popular Bikes List
+             Modified by    :   Sumit Kate on 01 Jul 2016
+             Description    :   Call the Cache Layer to get the Data
             </summary>
             <param name="totalCount">No. of records to be fetched</param>
             <param name="makeId">Optional (To return Models List Based on MakeID)</param>
@@ -2359,28 +2369,6 @@
             </summary>
             <param name="requestType"></param>
             <returns></returns>
-        </member>
-        <member name="T:Bikewale.Service.Controllers.Series.SeriesListController">
-            <summary>
-            To Get List of Series 
-            Author : Sushil Kumar
-            Created On : 24th August 2015
-            </summary>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.Series.SeriesListController.Get(System.Int32)">
-            <summary>
-             To get List of models for the given series id
-            </summary>
-            <param name="seriesId"></param>
-            <returns>Series List</returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.Series.SeriesListController.Get(Bikewale.Entities.BikeData.EnumBikeType,System.Int32)">
-            <summary>
-            To get list of series based on request Type 
-            </summary>
-            <param name="requestType"></param>
-            <param name="seriesId"></param>
-            <returns>Series List Based on RequestType</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.State.StateListController">
             <summary>
@@ -2928,6 +2916,22 @@
             Description :   Inherite from built in OK result type to support web api response
             </summary>
             <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Bikewale.Service.Utilities.CustomOkResult`1.#ctor(`0,System.Web.Http.ApiController)">
+            <summary>
+            
+            </summary>
+            <param name="content"></param>
+            <param name="controller"></param>
+        </member>
+        <member name="M:Bikewale.Service.Utilities.CustomOkResult`1.#ctor(`0,System.Net.Http.Formatting.IContentNegotiator,System.Net.Http.HttpRequestMessage,System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter})">
+            <summary>
+            
+            </summary>
+            <param name="content"></param>
+            <param name="contentNegotiator"></param>
+            <param name="request"></param>
+            <param name="formatters"></param>
         </member>
         <member name="M:Bikewale.Service.Utilities.CustomOkResult`1.ExecuteAsync(System.Threading.CancellationToken)">
             <summary>

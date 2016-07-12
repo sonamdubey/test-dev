@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 using Enyim.Caching;
 using System.Configuration;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.MyBikeWale
 {
@@ -117,9 +117,9 @@ namespace Bikewale.MyBikeWale
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("@reason", DbType.String, 100, drpStatus.SelectedItem.Text));
                     cmd.Parameters.Add(DbFactory.GetDbParam("@comments", DbType.String, 100, txtComments.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId));
 
-                    MySqlDatabase.InsertQuery(cmd);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)
@@ -151,7 +151,7 @@ namespace Bikewale.MyBikeWale
                 {
                     //cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt).Value = inquiryId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId));
-                    MySqlDatabase.UpdateQuery(cmd);                                                                                                        
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);                                                                                                        
                 }
             }
             catch (SqlException err)

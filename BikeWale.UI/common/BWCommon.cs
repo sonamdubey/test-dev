@@ -3,7 +3,7 @@
     Written by: Satish Sharma On Jan 21, 2008 12:28 PM
 */
 
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -171,7 +171,7 @@ namespace Bikewale.Common
 
             try
             {
-                ds = MySqlDatabase.SelectAdapterQuery(sql, param);
+                ds = MySqlDatabase.SelectAdapterQuery(sql, param, ConnectionType.ReadOnly);
             }
             catch (Exception err)
             {

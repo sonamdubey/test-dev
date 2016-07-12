@@ -14,6 +14,7 @@ using Bikewale.Common;
 using System.Text.RegularExpressions;
 using Bikewale.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Controls
 {
@@ -391,7 +392,7 @@ namespace Bikewale.Controls
                     Trace.Warn("Binding Sql : ");
 
                     CmdParamQ.CommandText = sql;
-                    ds = MySqlDatabase.SelectAdapterQuery(CmdParamQ);
+                    ds = MySqlDatabase.SelectAdapterQuery(CmdParamQ, ConnectionType.ReadOnly);
 
                     rpt.DataSource = ds;
                     rpt.DataBind();
@@ -419,7 +420,7 @@ namespace Bikewale.Controls
                     CmdParamR.CommandText = RecordCountQuery;
 
                     Trace.Warn("RecordCountQuery: " + RecordCountQuery);
-                    using (IDataReader dr  = MySqlDatabase.SelectQuery(CmdParamR))
+                    using (IDataReader dr  = MySqlDatabase.SelectQuery(CmdParamR,ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

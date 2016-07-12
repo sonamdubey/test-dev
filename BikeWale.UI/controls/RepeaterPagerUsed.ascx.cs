@@ -12,7 +12,7 @@ using System.Web.Security;
 using System.Text.RegularExpressions;
 using Bikewale.Common;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.Controls
 {	
@@ -314,7 +314,7 @@ namespace Bikewale.Controls
 
 					
 					// Execute Sql command and bind data with the repeater.
-                    rpt.DataSource = MySqlDatabase.SelectAdapterQuery(CmdParamQry);
+                    rpt.DataSource = MySqlDatabase.SelectAdapterQuery(CmdParamQry, ConnectionType.ReadOnly);
 					rpt.DataBind();					
 				}				
 			}
@@ -337,7 +337,7 @@ namespace Bikewale.Controls
                 {
                     CmdParamCountQry.CommandText = RecordCountQuery;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(CmdParamCountQry))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(CmdParamCountQry, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {

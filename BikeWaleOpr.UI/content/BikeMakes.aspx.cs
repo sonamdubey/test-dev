@@ -3,8 +3,8 @@ IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 
 using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -75,11 +75,11 @@ namespace BikeWaleOpr.Content
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "insertbikemake";
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtMake.Text.Trim().Replace("'", "''")));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtMaskingName.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismakeexist", DbParamTypeMapper.GetInstance[SqlDbType.Bit], ParameterDirection.Output));
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, txtMake.Text.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, txtMaskingName.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismakeexist", DbType.Boolean, ParameterDirection.Output));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     // Error code Unique key constraint in the database.
                     if (!Convert.ToBoolean(cmd.Parameters["par_ismakeexist"].Value))
@@ -173,27 +173,28 @@ namespace BikeWaleOpr.Content
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 100, txt.Text.Trim().Replace("'", "''")));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[e.Item.ItemIndex]));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isfuturistic", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkFuturistic.Checked)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkNew.Checked)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkUsed.Checked)));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_make", DbType.String, 100, txt.Text.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, dtgrdMembers.DataKeys[e.Item.ItemIndex]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isfuturistic", DbType.Byte, Convert.ToInt16(chkFuturistic.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Byte, Convert.ToInt16(chkNew.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Byte, Convert.ToInt16(chkUsed.Checked)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.ReadOnly);
                 }
 
                 //DbParameter[] sqlParams = new[]
                 //    {
-                //        DbFactory.GetDbParam("@par_make", DbParamTypeMapper.GetInstance[SqlDbType.VarChar],100, txt.Text.Trim().Replace("'","''")),
-                //        DbFactory.GetDbParam("@par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[ e.Item.ItemIndex ]),
-                //        DbFactory.GetDbParam("@par_isfuturistic", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkFuturistic.Checked)),
-                //        DbFactory.GetDbParam("@par_isnew", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt],  Convert.ToInt16(chkNew.Checked)),
-                //        DbFactory.GetDbParam("@par_isused", DbParamTypeMapper.GetInstance[SqlDbType.TinyInt], Convert.ToInt16(chkUsed.Checked)),
-                //        DbFactory.GetDbParam("@par_userid", DbParamTypeMapper.GetInstance[SqlDbType.Int], BikeWaleAuthentication.GetOprUserId()),
+                //        DbFactory.GetDbParam("@par_make", DbType.String,100, txt.Text.Trim().Replace("'","''")),
+                //        DbFactory.GetDbParam("@par_makeid", DbType.Int32, dtgrdMembers.DataKeys[ e.Item.ItemIndex ]),
+                //        DbFactory.GetDbParam("@par_isfuturistic", DbType.Byte, Convert.ToInt16(chkFuturistic.Checked)),
+                //        DbFactory.GetDbParam("@par_isnew", DbType.Byte,  Convert.ToInt16(chkNew.Checked)),
+                //        DbFactory.GetDbParam("@par_isused", DbType.Byte, Convert.ToInt16(chkUsed.Checked)),
+                //        DbFactory.GetDbParam("@par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()),
                 //    };
 
                 //MySqlDatabase.InsertQuery(sql, sqlParams);
+
             }
             catch (SqlException ex)
             {

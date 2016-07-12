@@ -10,6 +10,7 @@ using System.Reflection;
 using Bikewale.CoreDAL;
 
 using System.Text.RegularExpressions;
+using MySql.CoreDAL;
 namespace CityAutoSuggest
 {
     public class GetCityList
@@ -27,7 +28,7 @@ namespace CityAutoSuggest
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, 7));
                        // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

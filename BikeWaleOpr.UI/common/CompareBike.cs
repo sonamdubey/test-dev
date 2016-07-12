@@ -1,5 +1,6 @@
-﻿using BikeWaleOPR.DAL.CoreDAL;
+﻿
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -27,8 +28,8 @@ namespace BikeWaleOpr.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbParamTypeMapper.GetInstance[SqlDbType.Int], deleteId)); 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int32, deleteId)); 
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception err)
@@ -53,9 +54,9 @@ namespace BikeWaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     //cmd.Parameters.Add("@prioritieslist", SqlDbType.VarChar, 1000).Value = prioritiesList;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_prioritieslist", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 1000, prioritiesList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_prioritieslist", DbType.String, 1000, prioritiesList));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception err)

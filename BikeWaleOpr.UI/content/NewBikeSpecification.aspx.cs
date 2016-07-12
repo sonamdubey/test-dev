@@ -11,9 +11,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -103,7 +103,7 @@ namespace BikeWaleOpr.Content
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql;
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                         {
@@ -379,91 +379,91 @@ namespace BikeWaleOpr.Content
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "insertnewbikespecifications";
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], _versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_displacement", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtDisplacement.Text.Trim() == "" ? Convert.DBNull : txtDisplacement.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cylinders", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtCylinders.Text.Trim() == "" ? Convert.DBNull : txtCylinders.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maxpower", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtMaxPower.Text.Trim() == "" ? Convert.DBNull : txtMaxPower.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maxpowerrpm", DbParamTypeMapper.GetInstance[SqlDbType.Int], txtMaxPowerRpm.Text.Trim() == "" ? Convert.DBNull : txtMaxPowerRpm.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maximumtorque", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtMaximumTorque.Text.Trim() == "" ? Convert.DBNull : txtMaximumTorque.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maximumtorquerpm", DbParamTypeMapper.GetInstance[SqlDbType.Int], txtMaximumTorqueRpm.Text.Trim() == "" ? Convert.DBNull : txtMaximumTorqueRpm.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bore", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtBore.Text.Trim() == "" ? Convert.DBNull : txtBore.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stroke", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtStroke.Text.Trim() == "" ? Convert.DBNull : txtStroke.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_valvespercylinder", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtValvesPerCylinder.Text.Trim() == "" ? Convert.DBNull : txtValvesPerCylinder.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueldeliverysystem", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtFuelDeliverySystem.Text.Trim() == "" ? Convert.DBNull : txtFuelDeliverySystem.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueltype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtFuelType.Text.Trim() == "" ? Convert.DBNull : txtFuelType.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ignition", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtIgnition.Text.Trim() == "" ? Convert.DBNull : txtIgnition.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sparkplugspercylinder", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtSparkPlugsPerCylinder.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_coolingsystem", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtCoolingSystem.Text.Trim() == "" ? Convert.DBNull : txtCoolingSystem.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_gearboxtype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtGearboxType.Text.Trim() == "" ? Convert.DBNull : txtGearboxType.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_noofgears", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtNoOfGears.Text.Trim() == "" ? Convert.DBNull : txtNoOfGears.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transmissiontype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtTransmissionType.Text.Trim() == "" ? Convert.DBNull : txtTransmissionType.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clutch", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtClutch.Text.Trim() == "" ? Convert.DBNull : txtClutch.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance_0_60_kmph", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtPerformance_0_60_kmph.Text.Trim() == "" ? Convert.DBNull : txtPerformance_0_60_kmph.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance_0_80_kmph", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtPerformance_0_80_kmph.Text.Trim() == "" ? Convert.DBNull : txtPerformance_0_80_kmph.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance_0_40_m", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtPerformance_0_40_m.Text.Trim() == "" ? Convert.DBNull : txtPerformance_0_40_m.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int16, _versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_displacement", DbType.Double, txtDisplacement.Text.Trim() == "" ? Convert.DBNull : txtDisplacement.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cylinders", DbType.Int16, txtCylinders.Text.Trim() == "" ? Convert.DBNull : txtCylinders.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maxpower", DbType.Double, txtMaxPower.Text.Trim() == "" ? Convert.DBNull : txtMaxPower.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maxpowerrpm", DbType.Int32, txtMaxPowerRpm.Text.Trim() == "" ? Convert.DBNull : txtMaxPowerRpm.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maximumtorque", DbType.Double, txtMaximumTorque.Text.Trim() == "" ? Convert.DBNull : txtMaximumTorque.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_maximumtorquerpm", DbType.Int32, txtMaximumTorqueRpm.Text.Trim() == "" ? Convert.DBNull : txtMaximumTorqueRpm.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bore", DbType.Double, txtBore.Text.Trim() == "" ? Convert.DBNull : txtBore.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stroke", DbType.Double, txtStroke.Text.Trim() == "" ? Convert.DBNull : txtStroke.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_valvespercylinder", DbType.Int16, txtValvesPerCylinder.Text.Trim() == "" ? Convert.DBNull : txtValvesPerCylinder.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueldeliverysystem", DbType.String, txtFuelDeliverySystem.Text.Trim() == "" ? Convert.DBNull : txtFuelDeliverySystem.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueltype", DbType.String, txtFuelType.Text.Trim() == "" ? Convert.DBNull : txtFuelType.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ignition", DbType.String, txtIgnition.Text.Trim() == "" ? Convert.DBNull : txtIgnition.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sparkplugspercylinder", DbType.String, txtSparkPlugsPerCylinder.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_coolingsystem", DbType.String, txtCoolingSystem.Text.Trim() == "" ? Convert.DBNull : txtCoolingSystem.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_gearboxtype", DbType.String, txtGearboxType.Text.Trim() == "" ? Convert.DBNull : txtGearboxType.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_noofgears", DbType.Int16, txtNoOfGears.Text.Trim() == "" ? Convert.DBNull : txtNoOfGears.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transmissiontype", DbType.String, txtTransmissionType.Text.Trim() == "" ? Convert.DBNull : txtTransmissionType.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clutch", DbType.String, txtClutch.Text.Trim() == "" ? Convert.DBNull : txtClutch.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance_0_60_kmph", DbType.Double, txtPerformance_0_60_kmph.Text.Trim() == "" ? Convert.DBNull : txtPerformance_0_60_kmph.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance_0_80_kmph", DbType.Double, txtPerformance_0_80_kmph.Text.Trim() == "" ? Convert.DBNull : txtPerformance_0_80_kmph.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance_0_40_m", DbType.Double, txtPerformance_0_40_m.Text.Trim() == "" ? Convert.DBNull : txtPerformance_0_40_m.Text.Trim()));
                     //changed topspeed data type from small int to Float
                     //Modified By : Sushil Kumar on 15-07-2015
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topspeed", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtTopSpeed.Text.Trim() == "" ? Convert.DBNull : txtTopSpeed.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance_60_0_kmph", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtPerformance_60_0_kmph.Text.Trim() == "" ? Convert.DBNull : txtPerformance_60_0_kmph.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance_80_0_kmph", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtPerformance_80_0_kmph.Text.Trim() == "" ? Convert.DBNull : txtPerformance_80_0_kmph.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_kerbweight", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtKerbWeight.Text.Trim() == "" ? Convert.DBNull : txtKerbWeight.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overalllength", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtOverallLength.Text.Trim() == "" ? Convert.DBNull : txtOverallLength.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallwidth", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtOverallWidth.Text.Trim() == "" ? Convert.DBNull : txtOverallWidth.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallheight", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtOverallHeight.Text.Trim() == "" ? Convert.DBNull : txtOverallHeight.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_wheelbase", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtWheelbase.Text.Trim() == "" ? Convert.DBNull : txtWheelbase.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_groundclearance", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtGroundClearance.Text.Trim() == "" ? Convert.DBNull : txtGroundClearance.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seatheight", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtSeatHeight.Text.Trim() == "" ? Convert.DBNull : txtSeatHeight.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueltankcapacity", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtFuelTankCapacity.Text.Trim() == "" ? Convert.DBNull : txtFuelTankCapacity.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reservefuelcapacity", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtReserveFuelCapacity.Text.Trim() == "" ? Convert.DBNull : txtReserveFuelCapacity.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fuelefficiencyoverall", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtFuelEfficiencyOverall.Text.Trim() == "" ? Convert.DBNull : txtFuelEfficiencyOverall.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fuelefficiencyrange", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtFuelEfficiencyRange.Text.Trim() == "" ? Convert.DBNull : txtFuelEfficiencyRange.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_chassistype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtChassisType.Text.Trim() == "" ? Convert.DBNull : txtChassisType.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_frontsuspension", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtFrontSuspension.Text.Trim() == "" ? Convert.DBNull : txtFrontSuspension.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_rearsuspension", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtRearSuspension.Text.Trim() == "" ? Convert.DBNull : txtRearSuspension.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_braketype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtBrakeType.Text.Trim() == "" ? Convert.DBNull : txtBrakeType.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_frontdisc", DbParamTypeMapper.GetInstance[SqlDbType.Bit], frontDiscNotSure.Checked == true ? Convert.DBNull : yesFrontDisc.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_frontdisc_drumsize", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtFrontDisc_DrumSize.Text.Trim() == "" ? Convert.DBNull : txtFrontDisc_DrumSize.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reardisc", DbParamTypeMapper.GetInstance[SqlDbType.Bit], rearDiscNotSure.Checked == true ? Convert.DBNull : yesRearDisc.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reardisc_drumsize", DbParamTypeMapper.GetInstance[SqlDbType.SmallInt], txtRearDisc_DrumSize.Text.Trim() == "" ? Convert.DBNull : txtRearDisc_DrumSize.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_callipertype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtCalliperType.Text.Trim() == "" ? Convert.DBNull : txtCalliperType.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_wheelsize", DbParamTypeMapper.GetInstance[SqlDbType.Float], txtWheelSize.Text.Trim() == "" ? Convert.DBNull : txtWheelSize.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fronttyre", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtFrontTyre.Text.Trim() == "" ? Convert.DBNull : txtFrontTyre.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reartyre", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtRearTyre.Text.Trim() == "" ? Convert.DBNull : txtRearTyre.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tubelesstyres", DbParamTypeMapper.GetInstance[SqlDbType.Bit], tubelessTyresNotSure.Checked == true ? Convert.DBNull : yesTubelessTyres.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_radialtyres", DbParamTypeMapper.GetInstance[SqlDbType.Bit], radialTyresNotSure.Checked == true ? Convert.DBNull : yesRadialTyres.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_alloywheels", DbParamTypeMapper.GetInstance[SqlDbType.Bit], alloyWheelsNotSure.Checked == true ? Convert.DBNull : yesAlloyWheels.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_electricsystem", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtElectricSystem.Text.Trim() == "" ? Convert.DBNull : txtElectricSystem.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_battery", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtBattery.Text.Trim() == "" ? Convert.DBNull : txtBattery.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_headlighttype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtHeadlightType.Text.Trim() == "" ? Convert.DBNull : txtHeadlightType.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_headlightbulbtype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtHeadlightBulbType.Text.Trim() == "" ? Convert.DBNull : txtHeadlightBulbType.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_brake_tail_light", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtBrake_Tail_Light.Text.Trim() == "" ? Convert.DBNull : txtBrake_Tail_Light.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_turnsignal", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtTurnsignal.Text.Trim() == "" ? Convert.DBNull : txtTurnsignal.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_passlight", DbParamTypeMapper.GetInstance[SqlDbType.Bit], passLightNotSure.Checked == true ? Convert.DBNull : yesPassLight.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_speedometer", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtSpeedometer.Text.Trim() == "" ? Convert.DBNull : txtSpeedometer.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tachometer", DbParamTypeMapper.GetInstance[SqlDbType.Bit], tachometerNotSure.Checked == true ? Convert.DBNull : yesTachometer.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tachometertype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtTachometerType.Text.Trim() == "" ? Convert.DBNull : txtTachometerType.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_shiftlight", DbParamTypeMapper.GetInstance[SqlDbType.Bit], shiftLightNotSure.Checked == true ? Convert.DBNull : yesShiftLight.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_electricstart", DbParamTypeMapper.GetInstance[SqlDbType.Bit], electricStartNotSure.Checked == true ? Convert.DBNull : yesElectricStart.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tripmeter", DbParamTypeMapper.GetInstance[SqlDbType.Bit], tripmeterNotSure.Checked == true ? Convert.DBNull : yesTripmeter.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_nooftripmeters", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtNoOfTripmeters.Text.Trim() == "" ? Convert.DBNull : txtNoOfTripmeters.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tripmetertype", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtTripmeterType.Text.Trim() == "" ? Convert.DBNull : txtTripmeterType.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lowfuelindicator", DbParamTypeMapper.GetInstance[SqlDbType.Bit], lowFuelIndicatorNotSure.Checked == true ? Convert.DBNull : yesLowFuelIndicator.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lowoilindicator", DbParamTypeMapper.GetInstance[SqlDbType.Bit], lowOilIndicatorNotSure.Checked == true ? Convert.DBNull : yesLowOilIndicator.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lowbatteryindicator", DbParamTypeMapper.GetInstance[SqlDbType.Bit], lowBatteryIndicatorNotSure.Checked ? Convert.DBNull : yesLowBatteryIndicator.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fuelgauge", DbParamTypeMapper.GetInstance[SqlDbType.Bit], fuelGaugeNotSure.Checked == true ? Convert.DBNull : yesFuelGauge.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_digitalfuelgauge", DbParamTypeMapper.GetInstance[SqlDbType.Bit], digitalFuelGaugeNotSure.Checked == true ? Convert.DBNull : yesDigitalFuelGauge.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pillionseat", DbParamTypeMapper.GetInstance[SqlDbType.Bit], pillionSeatNotSure.Checked == true ? Convert.DBNull : yesPillionSeat.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pillionfootrest", DbParamTypeMapper.GetInstance[SqlDbType.Bit], pillionFootrestNotSure.Checked == true ? Convert.DBNull : yesPillionFootrest.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pillionbackrest", DbParamTypeMapper.GetInstance[SqlDbType.Bit], pillionBackrestNotSure.Checked == true ? Convert.DBNull : yesPillionBackrest.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pilliongrabrail", DbParamTypeMapper.GetInstance[SqlDbType.Bit], pillionGrabrailNotSure.Checked == true ? Convert.DBNull : yesPillionGrabrail.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_standalarm", DbParamTypeMapper.GetInstance[SqlDbType.Bit], standAlarmNotSure.Checked == true ? Convert.DBNull : yesStandAlarm.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_steppedseat", DbParamTypeMapper.GetInstance[SqlDbType.Bit], steppedSeatNotSure.Checked == true ? Convert.DBNull : yesSteppedSeat.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_antilockbrakingsystem", DbParamTypeMapper.GetInstance[SqlDbType.Bit], absNotSure.Checked == true ? Convert.DBNull : yesAntilockBrakingSystem.Checked ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_killswitch", DbParamTypeMapper.GetInstance[SqlDbType.Bit], killswitchNotSure.Checked == true ? Convert.DBNull : yesKillswitch.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clock", DbParamTypeMapper.GetInstance[SqlDbType.Bit], clockNotSure.Checked ? Convert.DBNull : yesClock.Checked == true ? 1 : 0));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colors", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], txtColors.Text.Trim() == "" ? Convert.DBNull : txtColors.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topspeed", DbType.Double, txtTopSpeed.Text.Trim() == "" ? Convert.DBNull : txtTopSpeed.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance_60_0_kmph", DbType.String, txtPerformance_60_0_kmph.Text.Trim() == "" ? Convert.DBNull : txtPerformance_60_0_kmph.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_performance_80_0_kmph", DbType.String, txtPerformance_80_0_kmph.Text.Trim() == "" ? Convert.DBNull : txtPerformance_80_0_kmph.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_kerbweight", DbType.Int16, txtKerbWeight.Text.Trim() == "" ? Convert.DBNull : txtKerbWeight.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overalllength", DbType.Int16, txtOverallLength.Text.Trim() == "" ? Convert.DBNull : txtOverallLength.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallwidth", DbType.Int16, txtOverallWidth.Text.Trim() == "" ? Convert.DBNull : txtOverallWidth.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallheight", DbType.Int16, txtOverallHeight.Text.Trim() == "" ? Convert.DBNull : txtOverallHeight.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_wheelbase", DbType.Int16, txtWheelbase.Text.Trim() == "" ? Convert.DBNull : txtWheelbase.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_groundclearance", DbType.Int16, txtGroundClearance.Text.Trim() == "" ? Convert.DBNull : txtGroundClearance.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_seatheight", DbType.Int16, txtSeatHeight.Text.Trim() == "" ? Convert.DBNull : txtSeatHeight.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueltankcapacity", DbType.Double, txtFuelTankCapacity.Text.Trim() == "" ? Convert.DBNull : txtFuelTankCapacity.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reservefuelcapacity", DbType.Double, txtReserveFuelCapacity.Text.Trim() == "" ? Convert.DBNull : txtReserveFuelCapacity.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fuelefficiencyoverall", DbType.Int16, txtFuelEfficiencyOverall.Text.Trim() == "" ? Convert.DBNull : txtFuelEfficiencyOverall.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fuelefficiencyrange", DbType.Int16, txtFuelEfficiencyRange.Text.Trim() == "" ? Convert.DBNull : txtFuelEfficiencyRange.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_chassistype", DbType.String, txtChassisType.Text.Trim() == "" ? Convert.DBNull : txtChassisType.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_frontsuspension", DbType.String, txtFrontSuspension.Text.Trim() == "" ? Convert.DBNull : txtFrontSuspension.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_rearsuspension", DbType.String, txtRearSuspension.Text.Trim() == "" ? Convert.DBNull : txtRearSuspension.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_braketype", DbType.String, txtBrakeType.Text.Trim() == "" ? Convert.DBNull : txtBrakeType.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_frontdisc", DbType.Boolean, frontDiscNotSure.Checked == true ? Convert.DBNull : yesFrontDisc.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_frontdisc_drumsize", DbType.Int16, txtFrontDisc_DrumSize.Text.Trim() == "" ? Convert.DBNull : txtFrontDisc_DrumSize.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reardisc", DbType.Boolean, rearDiscNotSure.Checked == true ? Convert.DBNull : yesRearDisc.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reardisc_drumsize", DbType.Int16, txtRearDisc_DrumSize.Text.Trim() == "" ? Convert.DBNull : txtRearDisc_DrumSize.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_callipertype", DbType.String, txtCalliperType.Text.Trim() == "" ? Convert.DBNull : txtCalliperType.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_wheelsize", DbType.Double, txtWheelSize.Text.Trim() == "" ? Convert.DBNull : txtWheelSize.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fronttyre", DbType.String, txtFrontTyre.Text.Trim() == "" ? Convert.DBNull : txtFrontTyre.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reartyre", DbType.String, txtRearTyre.Text.Trim() == "" ? Convert.DBNull : txtRearTyre.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tubelesstyres", DbType.Boolean, tubelessTyresNotSure.Checked == true ? Convert.DBNull : yesTubelessTyres.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_radialtyres", DbType.Boolean, radialTyresNotSure.Checked == true ? Convert.DBNull : yesRadialTyres.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_alloywheels", DbType.Boolean, alloyWheelsNotSure.Checked == true ? Convert.DBNull : yesAlloyWheels.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_electricsystem", DbType.String, txtElectricSystem.Text.Trim() == "" ? Convert.DBNull : txtElectricSystem.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_battery", DbType.String, txtBattery.Text.Trim() == "" ? Convert.DBNull : txtBattery.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_headlighttype", DbType.String, txtHeadlightType.Text.Trim() == "" ? Convert.DBNull : txtHeadlightType.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_headlightbulbtype", DbType.String, txtHeadlightBulbType.Text.Trim() == "" ? Convert.DBNull : txtHeadlightBulbType.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_brake_tail_light", DbType.String, txtBrake_Tail_Light.Text.Trim() == "" ? Convert.DBNull : txtBrake_Tail_Light.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_turnsignal", DbType.String, txtTurnsignal.Text.Trim() == "" ? Convert.DBNull : txtTurnsignal.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_passlight", DbType.Boolean, passLightNotSure.Checked == true ? Convert.DBNull : yesPassLight.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_speedometer", DbType.String, txtSpeedometer.Text.Trim() == "" ? Convert.DBNull : txtSpeedometer.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tachometer", DbType.Boolean, tachometerNotSure.Checked == true ? Convert.DBNull : yesTachometer.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tachometertype", DbType.String, txtTachometerType.Text.Trim() == "" ? Convert.DBNull : txtTachometerType.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_shiftlight", DbType.Boolean, shiftLightNotSure.Checked == true ? Convert.DBNull : yesShiftLight.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_electricstart", DbType.Boolean, electricStartNotSure.Checked == true ? Convert.DBNull : yesElectricStart.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tripmeter", DbType.Boolean, tripmeterNotSure.Checked == true ? Convert.DBNull : yesTripmeter.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_nooftripmeters", DbType.String, txtNoOfTripmeters.Text.Trim() == "" ? Convert.DBNull : txtNoOfTripmeters.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tripmetertype", DbType.String, txtTripmeterType.Text.Trim() == "" ? Convert.DBNull : txtTripmeterType.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lowfuelindicator", DbType.Boolean, lowFuelIndicatorNotSure.Checked == true ? Convert.DBNull : yesLowFuelIndicator.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lowoilindicator", DbType.Boolean, lowOilIndicatorNotSure.Checked == true ? Convert.DBNull : yesLowOilIndicator.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lowbatteryindicator", DbType.Boolean, lowBatteryIndicatorNotSure.Checked ? Convert.DBNull : yesLowBatteryIndicator.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fuelgauge", DbType.Boolean, fuelGaugeNotSure.Checked == true ? Convert.DBNull : yesFuelGauge.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_digitalfuelgauge", DbType.Boolean, digitalFuelGaugeNotSure.Checked == true ? Convert.DBNull : yesDigitalFuelGauge.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pillionseat", DbType.Boolean, pillionSeatNotSure.Checked == true ? Convert.DBNull : yesPillionSeat.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pillionfootrest", DbType.Boolean, pillionFootrestNotSure.Checked == true ? Convert.DBNull : yesPillionFootrest.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pillionbackrest", DbType.Boolean, pillionBackrestNotSure.Checked == true ? Convert.DBNull : yesPillionBackrest.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pilliongrabrail", DbType.Boolean, pillionGrabrailNotSure.Checked == true ? Convert.DBNull : yesPillionGrabrail.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_standalarm", DbType.Boolean, standAlarmNotSure.Checked == true ? Convert.DBNull : yesStandAlarm.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_steppedseat", DbType.Boolean, steppedSeatNotSure.Checked == true ? Convert.DBNull : yesSteppedSeat.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_antilockbrakingsystem", DbType.Boolean, absNotSure.Checked == true ? Convert.DBNull : yesAntilockBrakingSystem.Checked ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_killswitch", DbType.Boolean, killswitchNotSure.Checked == true ? Convert.DBNull : yesKillswitch.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clock", DbType.Boolean, clockNotSure.Checked ? Convert.DBNull : yesClock.Checked == true ? 1 : 0));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colors", DbType.String, txtColors.Text.Trim() == "" ? Convert.DBNull : txtColors.Text.Trim()));
 
-                    bool status = MySqlDatabase.InsertQuery(cmd);
+                    bool status = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
 
                     if (status)
                     {
@@ -514,7 +514,7 @@ namespace BikeWaleOpr.Content
                         cmd.CommandType = CommandType.Text;
                         cmd.CommandText = sql;
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                                 versionExists = true;
@@ -556,7 +556,7 @@ namespace BikeWaleOpr.Content
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

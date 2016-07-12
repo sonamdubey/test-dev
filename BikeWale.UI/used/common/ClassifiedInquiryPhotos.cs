@@ -8,8 +8,8 @@ using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Used
 {
@@ -54,7 +54,7 @@ namespace Bikewale.Used
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_isaprooved", DbType.Boolean, isAprooved));
 
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             {
@@ -119,7 +119,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("@par_buyerid", DbType.Int64, buyerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("@par_consumertype", DbType.Byte, consumerType));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr!=null && dr.Read())
                         {
@@ -154,7 +154,7 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_buyermessage", DbType.String,200, buyerMessage));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String,40, CommonOpn.GetClientIP()));  
 			 //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                
 
                     isDone = true; 

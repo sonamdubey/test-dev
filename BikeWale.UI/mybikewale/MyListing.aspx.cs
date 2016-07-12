@@ -6,8 +6,8 @@ using System.Web.UI.HtmlControls;
 using Bikewale.Common;
 using System.Data;
 using System.Data.SqlClient;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.MyBikeWale
 {
@@ -61,9 +61,9 @@ namespace Bikewale.MyBikeWale
                     cmd.CommandText = "getclassifiedindividuallistings_sp";
 
                     //cmd.Parameters.Add("@customerid", SqlDbType.BigInt).Value = customerId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds.Tables[0].Rows.Count > 0)
                         {

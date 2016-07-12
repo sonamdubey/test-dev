@@ -4,9 +4,9 @@ using AppNotification.Entity;
 using AppNotification.Interfaces;
 using System.Data.SqlClient;
 using System.Data;
-using AppNotification.DAL.Core;
 using AppNotification.Notifications;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace AppNotification.DAL
 {
@@ -24,7 +24,7 @@ namespace AppNotification.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_start_num", DbType.Int32, startNum));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_end_num", DbType.Int32, endNum));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr!=null)
                         {
@@ -57,7 +57,7 @@ namespace AppNotification.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbType.Int32, alertTypeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_count", DbType.Int32, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
 
                     numOfRegIds = (int)cmd.Parameters["par_count"].Value;
                 }
@@ -89,7 +89,7 @@ namespace AppNotification.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbType.String, t.GCMId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbType.String, t.SubsMasterId));
 
-                    MySqlDatabase.ExecuteScalar(cmd);
+                    MySqlDatabase.ExecuteScalar(cmd, ConnectionType.ReadOnly);
 
                     isComplete = true;
                 }
@@ -119,7 +119,7 @@ namespace AppNotification.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbType.Int32, alertTypeId));
 
-                    isNotificationComplete = MySqlDatabase.UpdateQuery(cmd);
+                    isNotificationComplete = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)

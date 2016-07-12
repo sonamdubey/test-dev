@@ -8,8 +8,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
 using System.Data;
+using MySql.CoreDAL;
 
 namespace Bikewale.Controls
 {

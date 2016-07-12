@@ -17,6 +17,7 @@ using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
 using Bikewale.Cache.BikeData;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Content
 {
@@ -320,8 +321,8 @@ namespace Bikewale.Content
 
 
 
-                DbParameter[] param = new[] {   Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", DbType.Int32,modelId ),
-                                                Bikewale.CoreDAL.DbFactory.GetDbParam("@v_versionid", DbType.Int32,versionId)
+                DbParameter[] param = new[] {   DbFactory.GetDbParam("@v_modelid", DbType.Int32,modelId ),
+                                                DbFactory.GetDbParam("@v_versionid", DbType.Int32,versionId)
                                             }; 
 				
 
@@ -414,12 +415,12 @@ namespace Bikewale.Content
                     uint.TryParse(modelId, out _modelId);
                 }
 
-                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand(sql))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_modelid", DbType.Int32, _modelId));
-                    cmd.Parameters.Add(Bikewale.CoreDAL.DbFactory.GetDbParam("@v_versionid", DbType.Int32, _versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_modelid", DbType.Int32, _modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_versionid", DbType.Int32, _versionId));
 
-                    using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {

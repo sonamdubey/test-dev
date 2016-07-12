@@ -11,6 +11,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.CoreDAL;
 using Bikewale.Notifications;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.DAL.CMS
 {
@@ -48,7 +49,7 @@ namespace Bikewale.DAL.CMS
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_priority", DbType.Byte, pageId));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -189,7 +190,7 @@ namespace Bikewale.DAL.CMS
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_basicid", DbType.Int64, contentId));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)
@@ -231,7 +232,7 @@ namespace Bikewale.DAL.CMS
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_categorylist", DbType.String, 20, contentTypeList));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -298,7 +299,7 @@ namespace Bikewale.DAL.CMS
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_categorylist", DbType.String, 20, contentTypeList));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

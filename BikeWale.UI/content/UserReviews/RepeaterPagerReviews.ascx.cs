@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
 using Bikewale.Controls;
+using MySql.CoreDAL;
 
 namespace Bikewale.Content
 {
@@ -451,7 +452,7 @@ namespace Bikewale.Content
 
                     System.Data.Common.DbParameter[] param = SParams;
 
-                    ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(sql, param);
+                    ds = MySqlDatabase.SelectAdapterQuery(sql, param, ConnectionType.ReadOnly);
 
                     rpt.DataSource = ds;
                     rpt.DataBind();
@@ -478,7 +479,7 @@ namespace Bikewale.Content
                     System.Data.Common.DbParameter[] param = SParams;
 
                     Trace.Warn("RecordCountQuery: " + RecordCountQuery);
-                    using (IDataReader dr = Bikewale.CoreDAL.MySqlDatabase.SelectQuery(RecordCountQuery, param))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(RecordCountQuery, param, ConnectionType.ReadOnly))
                     { 
                         if (dr != null && dr.Read())
                         {

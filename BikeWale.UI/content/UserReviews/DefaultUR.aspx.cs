@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Content
 {
@@ -109,10 +110,10 @@ namespace Bikewale.Content
             try
             {
 
-                using (DbCommand cmd = Bikewale.CoreDAL.DbFactory.GetDBCommand("getuserreviews"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getuserreviews"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                     using (DataSet ds = Bikewale.CoreDAL.MySqlDatabase.SelectAdapterQuery(cmd))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                      {
 
                          dsMain = new DataSet();

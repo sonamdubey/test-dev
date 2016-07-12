@@ -11,9 +11,9 @@ using System.Data.OleDb;
 using System.IO;
 using System.Web.Security;
 using System.Security.Cryptography;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
 using System.Data;
+using MySql.CoreDAL;
 
 namespace Bikewale.Common 
 {
@@ -236,7 +236,7 @@ namespace Bikewale.Common
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("@v_emailid", DbType.String,100, emailId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -287,7 +287,7 @@ namespace Bikewale.Common
                     {
                         cmd.Parameters.Add(DbFactory.GetDbParam("@v_useridtemp", DbType.String,50, userIdTemp));
 
-                        MySqlDatabase.UpdateQuery(cmd);
+                        MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     }
 
                 }
@@ -312,9 +312,9 @@ namespace Bikewale.Common
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_dealerid", DbType.Int32, dealerId)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_dealerid", DbType.Int32, dealerId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr!=null && dr.Read())
                         {

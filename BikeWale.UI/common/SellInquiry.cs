@@ -16,7 +16,7 @@ using System.Web.Security;
 using System.Security.Principal;
 using System.Web.Mail;
 using System.Data.Common;
-using Bikewale.Notifications.CoreDAL;
+using MySql.CoreDAL;
 
 namespace Bikewale.Common
 {
@@ -77,7 +77,7 @@ namespace Bikewale.Common
                 {
                     cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr!=null && dr.Read())
                         {
@@ -696,9 +696,9 @@ namespace Bikewale.Common
                         cmd.CommandText = "getinquirydetailsbyprofileid";
 
                         //cmd.Parameters.Add("@profileId", SqlDbType.VarChar, 50).Value = profileId;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_profileid", DbType.String,50, profileId)); 
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_profileid", DbType.String,50, profileId));
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (ds != null && ds.Tables[0].Rows.Count > 0)
                             {

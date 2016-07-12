@@ -2,8 +2,8 @@
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
-using Bikewale.Notifications.CoreDAL;
 using System.Data.Common;
+using MySql.CoreDAL;
 
 namespace Bikewale.Common
 {
@@ -33,7 +33,7 @@ namespace Bikewale.Common
                         cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, bikeId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbType.Int64, customerId));
 
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (dr != null && dr.Read())
                             {

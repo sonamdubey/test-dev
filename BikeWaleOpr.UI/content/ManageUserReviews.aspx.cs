@@ -1,6 +1,6 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.DAL.CoreDAL;
 using BikeWaleOPR.Utilities;
+using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -108,14 +108,14 @@ namespace BikeWaleOpr.Content
                         cmd.CommandText = "getcustomerreviews_sp";
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbParamTypeMapper.GetInstance[SqlDbType.Int], makeId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbParamTypeMapper.GetInstance[SqlDbType.Int], String.IsNullOrEmpty(modelId) ? "0" : modelId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isVerified));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isdiscarded", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isDiscarded));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ispending", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isPending));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, String.IsNullOrEmpty(modelId) ? "0" : modelId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isverified", DbType.Boolean, isVerified));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isdiscarded", DbType.Boolean, isDiscarded));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_ispending", DbType.Boolean, isPending));
 
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             {
