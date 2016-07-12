@@ -1,5 +1,4 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.Utilities;
 using Enyim.Caching;
 using MySql.CoreDAL;
 using System;
@@ -131,7 +130,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelexist", DbType.Boolean, ParameterDirection.Output));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -249,35 +248,24 @@ namespace BikeWaleOpr.Content
                 CheckBox chkFuturistic1 = (CheckBox)e.Item.FindControl("chkFuturistic");
                 Label lblMakeId = (Label)e.Item.FindControl("lblMakeId");
 
-                sql = @"update bikemodels set 
-                     name = @modelname,
-                     used= @used,
-                     new= @new,
-                     indian=@indian,
-                     imported=@imported,
-                     classic=@classic,
-                     modified=@modified,
-                     futuristic=@futuristic,
-                     moupdatedon=now(),
-                     moupdatedby=@moupdatedby
-                     where id=@key";
 
-                DbParameter[] param = new[]
+                using (DbCommand cmd = DbFactory.GetDBCommand("Updatebikemodel"))
                 {
-                    DbFactory.GetDbParam("@modelname", DbType.String, 30, txt.Text.Trim().Replace("'", "''")),
-                    DbFactory.GetDbParam("@used", DbType.Boolean, chkUsed1.Checked),
-                    DbFactory.GetDbParam("@new", DbType.Boolean, chkNew1.Checked),
-                    DbFactory.GetDbParam("@indian", DbType.Boolean, chkIndian1.Checked),
-                    DbFactory.GetDbParam("@Imported", DbType.Boolean, chkImported1.Checked),
-                    DbFactory.GetDbParam("@classic", DbType.Boolean, chkClassic1.Checked),
-                    DbFactory.GetDbParam("@modified", DbType.Boolean, chkModified1.Checked),
-                    DbFactory.GetDbParam("@futuristic", DbType.Boolean, chkFuturistic1.Checked),
-                    DbFactory.GetDbParam("@moupdatedby", DbType.Int64, BikeWaleAuthentication.GetOprUserId()),
-                    DbFactory.GetDbParam("@key", DbType.Int32, dtgrdMembers.DataKeys[e.Item.ItemIndex])
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                };
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txt.Text.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_indian", DbType.Boolean, chkIndian1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Imported", DbType.Boolean, chkImported1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_classic", DbType.Boolean, chkClassic1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modified", DbType.Boolean, chkModified1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, chkFuturistic1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, chkNew1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, chkUsed1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_moupdatedby", DbType.Int64, BikeWaleAuthentication.GetOprUserId()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.Int32, dtgrdMembers.DataKeys[e.Item.ItemIndex]));
 
-                MySqlDatabase.InsertQuery(sql, param, ConnectionType.ReadOnly);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                }
 
                 //Update Upcoming Bike
                 if (chkFuturistic1.Checked == true)
@@ -294,13 +282,11 @@ namespace BikeWaleOpr.Content
                 {
                     try
                     {
-                        Trace.Warn("++++model Id : ", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
                         MakeModelVersion mmv = new MakeModelVersion();
                         mmv.DiscontinueBikeModel(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
                     }
                     catch (Exception ex)
                     {
-                        Trace.Warn(ex.Message);
                         ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                         errObj.SendMail();
                     }
@@ -309,15 +295,11 @@ namespace BikeWaleOpr.Content
             }
             catch (SqlException ex)
             {
-                Trace.Warn(ex.StackTrace);
-                Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             catch (Exception ex)
             {
-                Trace.Warn(ex.StackTrace);
-                Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
