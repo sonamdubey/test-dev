@@ -55,8 +55,8 @@
 
     <script type='text/javascript'>
         googletag.cmd.push(function () {
-            googletag.defineSlot('<%= AdPath%>300x250', [[300, 250], [300, 600]], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());
-            googletag.defineSlot('<%= AdPath%>300x250_BTF', [[300, 250], [300, 600]], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
+            googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());
+            googletag.defineSlot('<%= AdPath%>300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
             <%--googletag.defineSlot('<%= AdPath%>300x600_BTF', [[120, 240], [120, 600], [160, 600], [250, 250], [300, 250], [300, 600]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads());
             --%>
             <% if(isAd970x90Shown){ %>

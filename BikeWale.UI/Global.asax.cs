@@ -13,8 +13,9 @@ namespace Bikewale
     {
         protected void Application_Start(object sender, EventArgs e)
         {
+            log4net.Config.XmlConfigurator.Configure();
             Bikewale.Service.WebApiConfig.Register(GlobalConfiguration.Configuration);
-            GlobalConfiguration.Configuration.EnsureInitialized();            
+            GlobalConfiguration.Configuration.EnsureInitialized();
         }
 
         protected void Application_PostAuthenticateRequest(object sender, EventArgs e)

@@ -14,15 +14,12 @@ namespace Bikewale.Cache.Core
         }
 
         Enyim.Caching.ILog Enyim.Caching.ILogFactory.GetLogger(string name)
-        {
-            log4net.Config.XmlConfigurator.Configure();
-
+        {            
             return new MemcacheLog(LogManager.GetLogger(name));
         }
 
         Enyim.Caching.ILog Enyim.Caching.ILogFactory.GetLogger(Type type)
-        {
-            log4net.Config.XmlConfigurator.Configure();
+        {            
             return new MemcacheLog(LogManager.GetLogger(type));
         }
     }

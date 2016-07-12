@@ -1,5 +1,4 @@
 using BikeWaleOpr.Common;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 /*******************************************************************************************************
 IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
@@ -177,7 +176,7 @@ namespace BikeWaleOpr.Content
                 {
                     sql = " delete from newbikeshowroomprices where cityid= " + hdnSelectedCityId.Value + " and  bikeversionid in(" + verIds + ")";
 
-                    MySqlDatabase.UpdateQuery(sql,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(sql, ConnectionType.MasterDatabase);
 
                 }
                 catch (Exception err)

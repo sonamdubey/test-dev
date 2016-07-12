@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.Controls;
-using System.Data.Common;
-using BikeWaleOPR.Utilities;
+﻿using BikeWaleOpr.Common;
 using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -115,7 +111,7 @@ namespace BikeWaleOpr.Content
         }
 
         string SaveData(string id)
-        {  
+        {
             string currentId = "-1";
             try
             {
@@ -146,7 +142,7 @@ namespace BikeWaleOpr.Content
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
-                    currentId = cmd.Parameters["par_currentid"].Value.ToString(); 
+                    currentId = cmd.Parameters["par_currentid"].Value.ToString();
                 }
 
             }
@@ -298,16 +294,16 @@ namespace BikeWaleOpr.Content
             string sql = string.Empty;
             int _versionId = default(int);
             string vid = dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString();
-            if(!string.IsNullOrEmpty(vid) && int.TryParse(vid,out _versionId))
+            if (!string.IsNullOrEmpty(vid) && int.TryParse(vid, out _versionId))
             {
                 sql = "update bikeversions set isdeleted=1,vupdatedon=now(),vupdatedby='" + BikeWaleAuthentication.GetOprUserId() + "' where id=" + _versionId;
-            }            
+            }
 
             try
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    MySqlDatabase.InsertQuery(sql, ConnectionType.MasterDatabase); 
+                    MySqlDatabase.InsertQuery(sql, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)
