@@ -1,16 +1,10 @@
-﻿using System;
-using System.Web;
-using System.Data;
-using System.Data.SqlClient;
-using AjaxPro;
-using BikeWaleOpr.VO;
+﻿using BikewaleOpr.Common;
 using BikeWaleOpr.Classified;
-using System.Configuration;
 using Enyim.Caching;
-using BikewaleOpr.Common;
-using BikeWaleOPR.Utilities;
-using BikeWaleOPR.DAL.CoreDAL;
-using System.Data.Common;
+using System;
+using System.Configuration;
+using System.Data;
+using System.Web;
 
 namespace BikeWaleOpr.Common
 {
@@ -337,9 +331,9 @@ namespace BikeWaleOpr.Common
         /// <param name="deleteId"></param>
         [AjaxPro.AjaxMethod()]
         public void DeleteCompBikeData(string deleteId)
-        {  
+        {
             try
-            { 
+            {
                 CompareBike compBike = new CompareBike();
                 compBike.DeleteCompareBike(deleteId);
 
@@ -598,6 +592,8 @@ namespace BikeWaleOpr.Common
         /// <summary>
         ///  Written By : Sangram Nandkhile on 25 Mar 2016
         ///  Method to Map campaign againts contract
+        ///  Modified by    :   Sumit Kate on 12 July 2016
+        ///  Description    :   Call the ManageDealerCampaign class method to map the dealer Campaigns
         /// </summary>
         [AjaxPro.AjaxMethod()]
         public void MapCampaign(string contractId, string campaignId)
@@ -605,15 +601,8 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebwdealercontractcampaign"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
-                    MySqlDatabase.ExecuteNonQuery(cmd);
-
-                }
+                ManageDealerCampaign objMa = new ManageDealerCampaign();
+                objMa.MapContractCampaign(contractId, campaignId);
             }
             catch (Exception ex)
             {

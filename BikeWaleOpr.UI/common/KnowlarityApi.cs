@@ -95,12 +95,18 @@ namespace BikewaleOpr.common
         /// <summary>
         /// Created by: Sangram Nandkhile on 04 Apr 2016
         /// Description: Clear Masking Number
+        /// Modified by :   Sumit Kate on 12 July 2016
+        /// Description :   Release the masking number
         /// </summary>
         /// <param name="maskingNumber">Masking Number</param>
-        public void clearMaskingNumber(string maskingNumber)
+        public void ReleaseMaskingNumber(string maskingNumber)
         {
-            string urlSql = "%20UPDATE%20carwale_agent_mappings_after_16Dec2013%20SET%20mapped_numbers=''%20WHERE%20knumber='" + maskingNumber.Trim() + "'";
-            this.CallDealerMobilMaskingAPI(urlSql);
+
+        }
+
+        public void MapDealerMaskingNumber(string dealerId, string dealerNumber, string maskingNumber)
+        {
+
         }
     }
 }

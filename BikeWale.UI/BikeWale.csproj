@@ -274,7 +274,6 @@
     <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
     <Compile Include="common\BWSecurity\ScreenInput.cs" />
     <Compile Include="common\Cities.cs" />
-    <Compile Include="common\Classified.cs" />
     <Compile Include="common\CommonOpn.cs" />
     <Compile Include="common\Configuration.cs" />
     <Compile Include="common\CookiesCustomers.cs" />
