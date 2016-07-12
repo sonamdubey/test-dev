@@ -45,6 +45,8 @@ namespace Bikewale.Content
 
         private void Page_Load(object sender, EventArgs e)
         {
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             //code for device detection added by Ashwini Todkar
             // Modified By :Ashish Kamble on 5 Feb 2016
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
@@ -80,6 +82,8 @@ namespace Bikewale.Content
                 //if id exists then redirect url to new basic id url
                 if (!String.IsNullOrEmpty(_mappedBasicId))
                 {
+                    // Modified By :Lucky Rathore on 12 July 2016.
+                    Form.Action = Request.RawUrl;
                     string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
                     var _titleStartIndex = _newUrl.IndexOf('/');
                     var _titleEndIndex = _newUrl.LastIndexOf('-');

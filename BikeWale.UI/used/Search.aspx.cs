@@ -45,6 +45,8 @@ namespace Bikewale.Used
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             //Get pageNumber to form next and prvious page urls
             if (Request["pn"] != null && Request.QueryString["pn"] != "")
             {
