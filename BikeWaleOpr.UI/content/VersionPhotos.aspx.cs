@@ -1,6 +1,5 @@
 using BikeWaleOpr.Common;
 using BikeWaleOpr.RabbitMQ;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using RabbitMqPublishing;
 using System;
