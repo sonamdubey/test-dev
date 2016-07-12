@@ -249,35 +249,24 @@ namespace BikeWaleOpr.Content
                 CheckBox chkFuturistic1 = (CheckBox)e.Item.FindControl("chkFuturistic");
                 Label lblMakeId = (Label)e.Item.FindControl("lblMakeId");
 
-                sql = @"update bikemodels set 
-                     name = @modelname,
-                     used= @used,
-                     new= @new,
-                     indian=@indian,
-                     imported=@imported,
-                     classic=@classic,
-                     modified=@modified,
-                     futuristic=@futuristic,
-                     moupdatedon=now(),
-                     moupdatedby=@moupdatedby
-                     where id=@key";
 
-                DbParameter[] param = new[]
+                using (DbCommand cmd = DbFactory.GetDBCommand("Updatebikemodel"))
                 {
-                    DbFactory.GetDbParam("@modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, txt.Text.Trim().Replace("'", "''")),
-                    DbFactory.GetDbParam("@used", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkUsed1.Checked),
-                    DbFactory.GetDbParam("@new", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkNew1.Checked),
-                    DbFactory.GetDbParam("@indian", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIndian1.Checked),
-                    DbFactory.GetDbParam("@Imported", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkImported1.Checked),
-                    DbFactory.GetDbParam("@classic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkClassic1.Checked),
-                    DbFactory.GetDbParam("@modified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkModified1.Checked),
-                    DbFactory.GetDbParam("@futuristic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkFuturistic1.Checked),
-                    DbFactory.GetDbParam("@moupdatedby", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], BikeWaleAuthentication.GetOprUserId()),
-                    DbFactory.GetDbParam("@key", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[e.Item.ItemIndex])
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                };
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, txt.Text.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_indian", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIndian1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Imported", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkImported1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_classic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkClassic1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkModified1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkFuturistic1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkNew1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkUsed1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_moupdatedby", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], BikeWaleAuthentication.GetOprUserId()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[e.Item.ItemIndex]));
 
-                MySqlDatabase.InsertQuery(sql, param);
+                    MySqlDatabase.UpdateQuery(cmd);
+                }
 
                 //Update Upcoming Bike
                 if (chkFuturistic1.Checked == true)
@@ -294,13 +283,11 @@ namespace BikeWaleOpr.Content
                 {
                     try
                     {
-                        Trace.Warn("++++model Id : ", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
                         MakeModelVersion mmv = new MakeModelVersion();
                         mmv.DiscontinueBikeModel(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
                     }
                     catch (Exception ex)
                     {
-                        Trace.Warn(ex.Message);
                         ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                         errObj.SendMail();
                     }
@@ -309,15 +296,11 @@ namespace BikeWaleOpr.Content
             }
             catch (SqlException ex)
             {
-                Trace.Warn(ex.StackTrace);
-                Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             catch (Exception ex)
             {
-                Trace.Warn(ex.StackTrace);
-                Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
