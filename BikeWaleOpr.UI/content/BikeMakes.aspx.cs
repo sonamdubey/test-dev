@@ -178,8 +178,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Byte, Convert.ToInt16(chkNew.Checked)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Byte, Convert.ToInt16(chkUsed.Checked)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
-
-                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
 
                 //DbParameter[] sqlParams = new[]

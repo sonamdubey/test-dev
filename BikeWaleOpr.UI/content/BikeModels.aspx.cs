@@ -253,18 +253,18 @@ namespace BikeWaleOpr.Content
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 30, txt.Text.Trim().Replace("'", "''")));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_indian", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkIndian1.Checked));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Imported", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkImported1.Checked));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_classic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkClassic1.Checked));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modified", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkModified1.Checked));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkFuturistic1.Checked));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkNew1.Checked));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbParamTypeMapper.GetInstance[SqlDbType.Bit], chkUsed1.Checked));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_moupdatedby", DbParamTypeMapper.GetInstance[SqlDbType.BigInt], BikeWaleAuthentication.GetOprUserId()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbParamTypeMapper.GetInstance[SqlDbType.Int], dtgrdMembers.DataKeys[e.Item.ItemIndex]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txt.Text.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_indian", DbType.Boolean, chkIndian1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Imported", DbType.Boolean, chkImported1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_classic", DbType.Boolean, chkClassic1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modified", DbType.Boolean, chkModified1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, chkFuturistic1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, chkNew1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, chkUsed1.Checked));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_moupdatedby", DbType.Int64, BikeWaleAuthentication.GetOprUserId()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.Int32, dtgrdMembers.DataKeys[e.Item.ItemIndex]));
 
-                    MySqlDatabase.UpdateQuery(cmd);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
 
                 //Update Upcoming Bike
