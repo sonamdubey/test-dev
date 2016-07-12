@@ -27,6 +27,9 @@ namespace Bikewale.Utility
         /// 7. If not then set utmcsr=(direct), utmccn=(direct), utmcmd=(none) 
         /// 8. Set the BW source cookie with utmcsr=<value>|utmgclid=gclid|utmccn=<value>|utmcmd=<value> with a 6 month expiry
         /// 9. Store this cookie in the __utmz cookie in the database
+        /// Modified By : Lucky Rathore
+        /// Modified On : 11 July 2016
+        /// Description : Change RegEx for search Engine bikewale domain name for http Refferer.
         /// </summary>
         public static void SetBWUtmz()
         {
@@ -44,15 +47,15 @@ namespace Bikewale.Utility
                     httpReffer = request.UrlReferrer.OriginalString; //e.g. www.google.com, www.carwale.com
                 }
 
-                
-                if (httpReffer.Contains(ConfigurationManager.AppSettings["bwHostUrl"]))
+
+                if (httpReffer.Contains("bikewale.com"))
                 {
                     SetCookie("_bwutmz", 180);
                 }
                 else
                 {
                     string url = request.Url.ToString();
-                    Regex serachEng = new Regex("www.google.com|www.google.co.([a-z]+)|([a-z]+).search.yahoo.com|www.bing.com|www.aol.in|www.aol.com|www.aolsearch.com|www.ask.com|www.yandex.com|www.baidu.com");
+                    Regex serachEng = new Regex("www.google.([a-z]+)|www.google.co.([a-z]+)|([a-z]+).search.yahoo.com|www.bing.com|www.aol.in|www.aol.com|www.aolsearch.com|www.ask.com|www.yandex.com|www.baidu.com");
                     Match match = null;
                     //step 1. Check if the URL contains utm_source, utm_medium in the URL. If yes then store utm_source in utmcsr, umt_medium in utmcmd and utm_campaign in utmccn
                     if (
