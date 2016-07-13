@@ -22,10 +22,6 @@
         $("#UpcomingBikeSearch_drpUCSortList").change(function () {
             var sortVal = $("#UpcomingBikeSearch_drpUCSortList").val();
             if (sortVal != "-1") {
-                <% 
-                // Modified By :Lucky Rathore on 12 July 2016.
-                Form.Action = Request.RawUrl;
-                %>
                 var url = '<%=Request.ServerVariables["HTTP_X_ORIGINAL_URL"].ToString() %>';
 
                 if (url.indexOf('/page') > -1 || url.indexOf('/sort') > -1) {
