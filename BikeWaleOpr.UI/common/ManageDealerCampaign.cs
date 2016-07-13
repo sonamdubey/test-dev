@@ -37,7 +37,7 @@ namespace BikewaleOpr.Common
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.MasterDatabase))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                                 dtDealerCampaign = ds.Tables[0];
@@ -81,16 +81,16 @@ namespace BikewaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertbwdealercampaign"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, dealerName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, maskingNumber));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeremail", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, dealerEmailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerLeadServingRadius));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isBookingAvailable));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_newcampaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], ParameterDirection.Output));
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbType.String, 200, dealerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbType.String, 50, maskingNumber));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeremail", DbType.String, 200, dealerEmailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbType.Int32, contractId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbType.Int32, dealerLeadServingRadius));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbType.Boolean, isBookingAvailable));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_newcampaignid", DbType.Int32, ParameterDirection.Output));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     newCampaignId = Convert.ToInt32(cmd.Parameters["par_newcampaignid"].Value);
 
                 }
@@ -132,15 +132,15 @@ namespace BikewaleOpr.Common
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, dealerName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, maskingNumber));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeremail", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 200, dealerEmailId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerLeadServingRadius));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isBookingAvailable));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbParamTypeMapper.GetInstance[SqlDbType.Bit], isActive));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbParamTypeMapper.GetInstance[SqlDbType.Int], userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbType.String, 200, dealerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbType.String, 50, maskingNumber));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeremail", DbType.String, 200, dealerEmailId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbType.Int32, dealerLeadServingRadius));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbType.Boolean, isBookingAvailable));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbType.Int32, contractId));
 
                     isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
                 }
@@ -175,9 +175,9 @@ namespace BikewaleOpr.Common
                     {
 
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbParamTypeMapper.GetInstance[SqlDbType.Int], dealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                        using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                         {
                             if (reader != null)
                             {
@@ -242,7 +242,7 @@ namespace BikewaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dtb = ds.Tables[0];
@@ -280,7 +280,7 @@ namespace BikewaleOpr.Common
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId > 0 ? dealerId : Convert.DBNull));
 
-                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
+                        using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.MasterDatabase))
                         {
                             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                                 dtDealerCampaigns = ds.Tables[0];
@@ -312,14 +312,14 @@ namespace BikewaleOpr.Common
                     using (DbCommand cmd = DbFactory.GetDBCommand("bw_savecontractdetails"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractId", DbParamTypeMapper.GetInstance[SqlDbType.Int], contract.ContractId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbParamTypeMapper.GetInstance[SqlDbType.Int], 200, contract.DealerId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_packageId", DbParamTypeMapper.GetInstance[SqlDbType.Int], 50, contract.PackageId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_packageName", DbParamTypeMapper.GetInstance[SqlDbType.VarChar], 50, contract.PackageName));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_startDate", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], contract.StartDate));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_endDate", DbParamTypeMapper.GetInstance[SqlDbType.DateTime], contract.EndDate));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractStatus", DbParamTypeMapper.GetInstance[SqlDbType.Int], contract.ContractStatus));
-                        rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd);
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractId", DbType.Int32, contract.ContractId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32,  contract.DealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_packageId", DbType.Int32, 50, contract.PackageId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_packageName", DbType.String, 50, contract.PackageName));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_startDate", DbType.DateTime, contract.StartDate));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_endDate", DbType.DateTime, contract.EndDate));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractStatus", DbType.Int32, contract.ContractStatus));
+                        rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.MasterDatabase);
 
                     }
                 }
@@ -344,9 +344,9 @@ namespace BikewaleOpr.Common
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
-                        rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd);
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbType.Int32, contractId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+                        rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.MasterDatabase);
 
                     }
                 }
