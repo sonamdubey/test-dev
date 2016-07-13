@@ -3,9 +3,9 @@ using BikewaleOpr.Common;
 using BikewaleOpr.CommuteDistance;
 using BikeWaleOpr.Common;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -74,8 +74,9 @@ namespace BikewaleOpr.Campaign
                     if (IsProd && isMaskingChanged)
                     {
                         // Release previous number and add new number
-                        callApp.clearMaskingNumber(hdnOldMaskingNumber.Value);
-                        callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);
+                        callApp.ReleaseMaskingNumber(hdnOldMaskingNumber.Value);
+                        //callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);
+                        callApp.MapDealerMaskingNumber(dealerId.ToString(), dealerMobile, reqFormMaskingNumber);
                     }
                 }
                 else // Insert new campaign
@@ -94,8 +95,10 @@ namespace BikewaleOpr.Campaign
                     isCampaignPresent = true;
                     if (IsProd)
                     {
-                        // Add new number to knowlarity
-                        callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);
+                        // Release previous number and add new number
+                        callApp.ReleaseMaskingNumber(hdnOldMaskingNumber.Value);
+                        //callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);
+                        callApp.MapDealerMaskingNumber(dealerId.ToString(), dealerMobile, reqFormMaskingNumber);
                     }
                 }
                 ClearForm(Page.Form.Controls, true);
@@ -116,17 +119,19 @@ namespace BikewaleOpr.Campaign
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ParseQueryString();
-            if (!IsPostBack)
+            if (ParseQueryString())
             {
-                LoadMaskingNumbers();
-                if (isCampaignPresent)
+                if (!IsPostBack)
                 {
-                    FetchDealeCampaign();
-                }
-                else
-                {
-                    txtCampaignName.Text = dealerName;
+                    LoadMaskingNumbers();
+                    if (isCampaignPresent)
+                    {
+                        FetchDealeCampaign();
+                    }
+                    else
+                    {
+                        txtCampaignName.Text = dealerName;
+                    }
                 }
             }
             if (Request.Form["txtMaskingNumber"] != null)
@@ -144,24 +149,24 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                DataTable dtb = dealerCampaign.BindMaskingNumbers(dealerId);
-                List<ListItem> maskingList = new List<ListItem>();
-                if (dtb != null)
-                {
-                    foreach (DataRow dr in dtb.Rows)
-                    {
-                        ListItem lst = new ListItem(Convert.ToString(dr[1]), Convert.ToString(dr[0]));
-                        if (dr[2].ToString() == "1")
-                        {
-                            lst.Attributes.Add("disabled", "disabled");
-                        }
-                        maskingList.Add(lst);
-                    }
-                    ddlMaskingNumber.Items.AddRange(maskingList.ToArray());
-                    ddlMaskingNumber.DataBind();
-                    ListItem item = new ListItem("--Select Number--", "0");
-                    ddlMaskingNumber.Items.Insert(0, item);
-                }
+                //DataTable dtb = dealerCampaign.BindMaskingNumbers(dealerId);
+                //List<ListItem> maskingList = new List<ListItem>();
+                //if (dtb != null)
+                //{
+                //    foreach (DataRow dr in dtb.Rows)
+                //    {
+                //        ListItem lst = new ListItem(Convert.ToString(dr[1]), Convert.ToString(dr[0]));
+                //        if (dr[2].ToString() == "1")
+                //        {
+                //            lst.Attributes.Add("disabled", "disabled");
+                //        }
+                //        maskingList.Add(lst);
+                //    }
+                //    ddlMaskingNumber.Items.AddRange(maskingList.ToArray());
+                //    ddlMaskingNumber.DataBind();
+                //    ListItem item = new ListItem("--Select Number--", "0");
+                //    ddlMaskingNumber.Items.Insert(0, item);
+                //}
             }
             catch (Exception ex)
             {
@@ -232,14 +237,20 @@ namespace BikewaleOpr.Campaign
         /// Created By : Sangram Nandkhile on 21st March 2016.
         /// Description : Parses query string to fetch campaign id, dealerid and dealerName
         /// </summary>
-        private void ParseQueryString()
+        private bool ParseQueryString()
         {
+            bool isValid = true;
             try
             {
                 if (Request.QueryString["contractid"] == null || Request.QueryString["dealerid"] == null || Request.QueryString["dealername"] == null)
                 {
-                    //page not found
-                    Response.Redirect("../pagenotfound.aspx");
+                    isValid = false;
+                    if (!isValid)
+                    {
+                        Response.Redirect("../pagenotfound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                 }
                 if (!string.IsNullOrEmpty(Request.QueryString["contractid"]))
                 {
@@ -269,6 +280,7 @@ namespace BikewaleOpr.Campaign
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BikewaleOpr.Campaign.ManageDealers.ParseQueryString");
                 objErr.SendMail();
             }
+            return isValid;
         }
 
         /// <summary>
