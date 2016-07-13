@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.CoreDAL;
 using Bikewale.Entities.Insurance;
-using Bikewale.CoreDAL;
+using Bikewale.Notifications;
+using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-using Bikewale.Notifications;
-using System.Data;
-using System.Net;
-using Bikewale.Utility;
-using Bikewale.Interfaces.Customer;
-using Bikewale.Entities.Customer;
-using Bikewale.DAL.Customer;
-using System.Data.Common;
-using MySql.CoreDAL;
 
 
 namespace Bikewale.DAL.Insurance
@@ -74,11 +65,11 @@ namespace Bikewale.DAL.Insurance
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientid", DbType.Int32, Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["insuranceclientid"])));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Int32, lead.LeadSourceId));
 
-                        // LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     isSuccess = true;
-                        
+
                 }
             }
             catch (SqlException err)

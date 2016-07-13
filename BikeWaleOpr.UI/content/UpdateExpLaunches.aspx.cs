@@ -1,23 +1,19 @@
+using BikeWaleOpr.Common;
+using BikeWaleOpr.Controls;
+using BikeWaleOpr.RabbitMQ;
+using MySql.CoreDAL;
+using RabbitMqPublishing;
 using System;
-using System.Text;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
+using System.IO;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using System.Collections;
-using System.IO;
-using System.Xml;
-using System.Configuration;
-using BikeWaleOpr.Controls;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.RabbitMQ;
-using RabbitMqPublishing;
-using System.Collections.Specialized;
-using BikeWaleOPR.Utilities;
-using System.Data.Common;
-using MySql.CoreDAL;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -166,21 +162,21 @@ namespace BikeWaleOpr.Content
                     cmd.CommandText = "con_updateexpectedbikelaunches";
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, Id));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_expectedlaunch", DbType.String, 250, expLaunch)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_expectedlaunch", DbType.String, 250, expLaunch));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_launchdate", DbType.DateTime, newLaunchDate));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedpricemin", DbType.Int64, minPrice));  
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedpricemax", DbType.Int64, maxPrice)); 
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedpricemin", DbType.Int64, minPrice));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_estimatedpricemax", DbType.Int64, maxPrice));
                     if (!String.IsNullOrEmpty(modelId))
                     {
                         if (!String.IsNullOrEmpty(filLarge.Value))
                         {
                             originalImgPath = ("/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId + ".jpg?" + timeStamp).ToLower();
                         }
-                    } 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 100, originalImgPath)); 
+                    }
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 100, originalImgPath));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ConfigurationManager.AppSettings["imghosturl"]));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplication", DbType.Boolean, (!String.IsNullOrEmpty(filLarge.Value)) ? false : true));
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     retVal = true;
                 }
             }

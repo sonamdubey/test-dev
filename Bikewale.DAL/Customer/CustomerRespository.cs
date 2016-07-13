@@ -1,5 +1,4 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.Customer;
+﻿using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Notifications;
 using MySql.CoreDAL;
@@ -45,7 +44,7 @@ namespace Bikewale.DAL.Customer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_passwordhash", DbType.String, 64, t.PasswordHash));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, string.IsNullOrEmpty(t.ClientIP) ? Convert.DBNull : t.ClientIP));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ParameterDirection.Output));
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     customerId = (U)Convert.ChangeType(cmd.Parameters["par_customerid"].Value, typeof(U));
                 }
             }
@@ -291,7 +290,7 @@ namespace Bikewale.DAL.Customer
 
                     if (!String.IsNullOrEmpty(name)) { cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, name)); }
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException sqlEx)
@@ -330,7 +329,7 @@ namespace Bikewale.DAL.Customer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbType.String, 10, passwordSalt));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbType.String, 64, passwordHash));
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)
@@ -360,7 +359,7 @@ namespace Bikewale.DAL.Customer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_token", DbType.String, 200, token));
 
-                    MySqlDatabase.InsertQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)

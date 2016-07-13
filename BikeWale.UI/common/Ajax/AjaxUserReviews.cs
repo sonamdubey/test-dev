@@ -473,7 +473,7 @@ namespace Bikewale.Ajax
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, reviewId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, comments));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int64, CurrentUser.Id));
-                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     returnVal = true;

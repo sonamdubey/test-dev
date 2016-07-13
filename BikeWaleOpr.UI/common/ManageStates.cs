@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Data;
-using System.Data.SqlClient;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.VO;
-using System.Data.Common;
-using BikeWaleOPR.Utilities;
+﻿using BikeWaleOpr.VO;
 using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web;
 
 namespace BikeWaleOpr.Common
 {
@@ -57,7 +54,7 @@ namespace BikeWaleOpr.Common
         /// <param name="stateId"></param>
         /// <returns>state object</returns>
         public State GetStateDetails(string stateId)
-        { 
+        {
             State objState = null;
 
             try
@@ -124,7 +121,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_statecode", DbType.String, 2, stdCode));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, CurrentUser.Id));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)

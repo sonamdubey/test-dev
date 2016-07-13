@@ -1,16 +1,12 @@
-﻿using System;
-using System.Web;
-using System.Data;
-using System.Data.SqlClient;
-using AjaxPro;
-using BikeWaleOpr.VO;
+﻿using BikewaleOpr.Common;
 using BikeWaleOpr.Classified;
-using System.Configuration;
 using Enyim.Caching;
-using BikewaleOpr.Common;
-using BikeWaleOPR.Utilities;
-using System.Data.Common;
 using MySql.CoreDAL;
+using System;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Web;
 
 namespace BikeWaleOpr.Common
 {
@@ -337,9 +333,9 @@ namespace BikeWaleOpr.Common
         /// <param name="deleteId"></param>
         [AjaxPro.AjaxMethod()]
         public void DeleteCompBikeData(string deleteId)
-        {  
+        {
             try
-            { 
+            {
                 CompareBike compBike = new CompareBike();
                 compBike.DeleteCompareBike(deleteId);
 
@@ -611,7 +607,7 @@ namespace BikeWaleOpr.Common
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbType.Int32, contractId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                 }
             }

@@ -2,16 +2,11 @@
 using MySql.CoreDAL;
 using RabbitMqPublishing;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Notifications
 {
@@ -45,7 +40,7 @@ namespace Bikewale.Notifications
         LimitedBikeBookedOffer = 26,
         ClaimedOffer = 27,
         BookingCancellationOTP = 28,
-        BookingCancellationToCustomer=29
+        BookingCancellationToCustomer = 29
     }
 
     public class SMSCommon
@@ -172,13 +167,13 @@ namespace Bikewale.Notifications
                 try
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand(sql))
-                        {
-                            cmd.Parameters.Add(DbFactory.GetDbParam("@currentid", DbType.Int32, Convert.ToInt32(currentId)));
-                            cmd.Parameters.Add(DbFactory.GetDbParam("@retmsg", DbType.String, retMsg));
+                    {
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@currentid", DbType.Int32, Convert.ToInt32(currentId)));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("@retmsg", DbType.String, retMsg));
 
-                            // LogLiveSps.LogSpInGrayLog(cmd);
-                            cmd.ExecuteNonQuery();
-                        }
+                        // LogLiveSps.LogSpInGrayLog(cmd);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
                 catch (Exception err)
                 {
@@ -194,20 +189,20 @@ namespace Bikewale.Notifications
             try
             {
 
-                 using (DbCommand cmd = DbFactory.GetDBCommand("insertsmssent"))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertsmssent"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_number", DbType.String, 50, number));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_message", DbType.String, 500, message)); 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_servicetype", DbType.Int32, esms));    
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smssentdatetime", DbType.DateTime, DateTime.Now)); 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_successfull", DbType.Boolean, status));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_returnedmsg", DbType.String, 500, retMsg));   
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_smspageurl", DbType.String, 500, pageUrl));  
-                        // LogLiveSps.LogSpInGrayLog(cmd);
-                        currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.ReadOnly));
-                    }
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_number", DbType.String, 50, number));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_message", DbType.String, 500, message));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_servicetype", DbType.Int32, esms));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smssentdatetime", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_successfull", DbType.Boolean, status));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_returnedmsg", DbType.String, 500, retMsg));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_smspageurl", DbType.String, 500, pageUrl));
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.MasterDatabase));
+                }
             }
             catch (SqlException err)
             {

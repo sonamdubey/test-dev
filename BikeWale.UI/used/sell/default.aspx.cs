@@ -484,7 +484,7 @@ namespace Bikewale.Used
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_statusid", DbType.Byte, statusId));
                         cmd.Parameters["par_inquiryid"].Value = inquiryId;
 
-                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                         inquiryId = cmd.Parameters["par_inquiryid"].Value.ToString();
 

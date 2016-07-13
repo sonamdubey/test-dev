@@ -1,16 +1,11 @@
-﻿using System;
+﻿using BikeWaleOpr.Common;
+using MySql.CoreDAL;
+using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using BikeWaleOpr.Common;
-using System.Configuration;
-using System.Data.Common;
-using BikeWaleOPR.Utilities;
-using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Content
 {
@@ -56,13 +51,13 @@ namespace BikeWaleOpr.Content
 
             if (!IsPostBack)
             {
-                Ajax.Utility.RegisterTypeForAjax(typeof(AjaxFunctions));               
+                Ajax.Utility.RegisterTypeForAjax(typeof(AjaxFunctions));
 
                 FillMakes();
                 FillStates();
                 LoadDealers();
             }
-            
+
         }
         void btnSave_Click(object Sender, EventArgs e)
         {
@@ -149,15 +144,15 @@ namespace BikeWaleOpr.Content
                 CommonOpn op = new CommonOpn();
 
                 lbl.Text = "Edit Dealer Details";
-                 string sql = @"select ct.stateid,dl.makeid,dl.cityid,dl.name,dl.address,dl.pincode,dl.contactno,dl.faxno,
+                string sql = @"select ct.stateid,dl.makeid,dl.cityid,dl.name,dl.address,dl.pincode,dl.contactno,dl.faxno,
                                 dl.emailid,dl.website,dl.workinghours,dl.isncd,dl.isactive from dealer_newbike dl, cities ct where 
                                 dl.id = '" + URLData + "' and ct.id = dl.cityid";
                 try
                 {
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                     {
-                        if (dr!=null)
+                        if (dr != null)
                         {
                             while (dr.Read())
                             {
@@ -182,8 +177,8 @@ namespace BikeWaleOpr.Content
                                 {
                                     cbxIsActive.Checked = true;
                                 }
-                            } 
-                        } 
+                            }
+                        }
                     }
                 }
 
@@ -210,65 +205,65 @@ namespace BikeWaleOpr.Content
             string errM = "";
 
             CommonOpn op = new CommonOpn();
-	    string URLData;
+            string URLData;
 
 
-            if(Request.QueryString["id"] == null)
+            if (Request.QueryString["id"] == null)
             {
                 URLData = "-1";
             }
-	    
-	    else
+
+            else
             {
                 URLData = Request.QueryString["id"];
-            } 
+            }
 
             try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("adddealers"))
                 {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("adddealers"))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.String, 50, URLData));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int64, drpMake.SelectedItem.Value));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, SelectedCity));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 100, txtName.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbType.String, 1000, txtAddress.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbType.String, 50, txtPincode.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contactno", DbType.String, 200, txtContact.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_faxno", DbType.String, 50, txtFax.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, 100, txtEmail.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_website", DbType.String, 100, txtWebsite.Text.Trim()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_workinghours", DbType.String, 50, txtWorkingHours.Text));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbType.DateTime, DateTime.Now));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isncd", DbType.Int16, isNcd));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Int16, isActive));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.String, 50, URLData));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int64, drpMake.SelectedItem.Value));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int64, SelectedCity));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 100, txtName.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_address", DbType.String, 1000, txtAddress.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbType.String, 50, txtPincode.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contactno", DbType.String, 200, txtContact.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_faxno", DbType.String, 50, txtFax.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_emailid", DbType.String, 100, txtEmail.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_website", DbType.String, 100, txtWebsite.Text.Trim()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_workinghours", DbType.String, 50, txtWorkingHours.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastupdated", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isncd", DbType.Int16, isNcd));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Int16, isActive));
 
-                        //run the command
-                        MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly); 
-                    }
+                    //run the command
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
-                catch (SqlException err)
-                {
-                    errM = err.Message;
-                    //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
-                    ErrorClass objErr = new ErrorClass(err, "Vspl.Masters.NCDCommon");
-                    objErr.SendMail();
-                    isCompleted = false;
-                    //throw;
-                } // catch SqlException
-                catch (Exception err)
-                {
-                    errM += err.Message;
-                    ErrorClass objErr = new ErrorClass(err, "Vspl.Masters.NCDCommon");
-                    objErr.SendMail();
-
-                    isCompleted = false;
-                    //throw;
-                } // catch Exception
-
-                return isCompleted;
             }
+            catch (SqlException err)
+            {
+                errM = err.Message;
+                //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
+                ErrorClass objErr = new ErrorClass(err, "Vspl.Masters.NCDCommon");
+                objErr.SendMail();
+                isCompleted = false;
+                //throw;
+            } // catch SqlException
+            catch (Exception err)
+            {
+                errM += err.Message;
+                ErrorClass objErr = new ErrorClass(err, "Vspl.Masters.NCDCommon");
+                objErr.SendMail();
+
+                isCompleted = false;
+                //throw;
+            } // catch Exception
+
+            return isCompleted;
+        }
 
         void ClearText()
         {

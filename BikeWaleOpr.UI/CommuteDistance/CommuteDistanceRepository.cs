@@ -1,6 +1,5 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -154,7 +153,7 @@ namespace BikewaleOpr.CommuteDistance
                     command.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
                     command.Parameters.Add(DbFactory.GetDbParam("par_areadistance", DbType.String, areaDistance));
 
-                    resp = MySqlDatabase.ExecuteNonQuery(command, ConnectionType.ReadOnly);
+                    resp = MySqlDatabase.ExecuteNonQuery(command, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)

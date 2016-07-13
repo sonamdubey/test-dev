@@ -1,14 +1,10 @@
 ﻿using BikewaleOpr.Entities;
 using BikeWaleOpr.Common;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data;
-using System.Data.SqlClient;
 using System.Data.Common;
-using BikeWaleOPR.Utilities;
-using MySql.CoreDAL;
 
 namespace BikewaleOpr.Common
 {
@@ -35,7 +31,7 @@ namespace BikewaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
 
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {
@@ -48,7 +44,7 @@ namespace BikewaleOpr.Common
                                         CampaignId = Convert.ToUInt32(reader["Id"]),
                                         DealerId = Convert.ToUInt32(reader["DealerId"]),
                                         Description = Convert.ToString(reader["Description"]),
-                                        EntryDate = (!Convert.IsDBNull(reader["EntryDate"]))?Convert.ToDateTime(reader["EntryDate"]).ToString("d/M/yyyy"):"",
+                                        EntryDate = (!Convert.IsDBNull(reader["EntryDate"])) ? Convert.ToDateTime(reader["EntryDate"]).ToString("d/M/yyyy") : "",
                                         IsActive = Convert.ToBoolean(reader["IsActive"]),
                                         ModelId = Convert.ToUInt32(reader["ModelId"]),
                                         ModelName = Convert.ToString(reader["ModelName"]),
@@ -77,21 +73,21 @@ namespace BikewaleOpr.Common
         /// <param name="modelIds">Model Ids (comma seperated value)</param>
         /// <param name="description">Campaign Description</param>
         /// <returns></returns>
-        public bool SaveManufacturerCampaign(int dealerId, string modelIds,string description)
+        public bool SaveManufacturerCampaign(int dealerId, string modelIds, string description)
         {
             bool success = false;
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturercampaign"))
                 {
-                    
+
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.String, 150, modelIds));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 100, description));
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
-                     success = true;
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    success = true;
                 }
             }
             catch (Exception ex)
@@ -113,17 +109,17 @@ namespace BikewaleOpr.Common
         public bool SetManufacturerCampaignInActive(int dealerId, string campaignIds)
         {
             bool success = false;
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("setmfgcampaigninactive"))
                 {
-                    
+
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignids", DbType.String, 150, campaignIds));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     success = true;
                 }
             }
@@ -144,14 +140,14 @@ namespace BikewaleOpr.Common
         public IEnumerable<ManufacturerEntity> GetDealerAsManuFacturer()
         {
             IList<ManufacturerEntity> manufacturers = null;
-            
+
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getdealerasmanufacturer"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    
-                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
                         {

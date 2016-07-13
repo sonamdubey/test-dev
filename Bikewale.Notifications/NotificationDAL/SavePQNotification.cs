@@ -1,14 +1,8 @@
 ﻿
 using MySql.CoreDAL;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Notifications.NotificationDAL
 {
@@ -39,7 +33,7 @@ namespace Bikewale.Notifications.NotificationDAL
                         //cmd.Parameters.Add("@SMSToDealerNumbers", SqlDbType.VarChar, 100).Value = dealerMobileNo;
                         //cmd.Parameters.Add("@SMSToDealerServiceType", SqlDbType.TinyInt).Value = smsType;
                         //cmd.Parameters.Add("@SMSToDealerPageUrl", SqlDbType.VarChar, 500).Value = pageUrl;
-                            // LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealermessage", DbType.String, message));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealernumbers", DbType.String, 100, dealerMobileNo));
@@ -47,7 +41,7 @@ namespace Bikewale.Notifications.NotificationDAL
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smstodealerpageurl", DbType.String, 500, smsType));
 
 
-                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     }
                 }
             }
@@ -83,14 +77,14 @@ namespace Bikewale.Notifications.NotificationDAL
                         //cmd.Parameters.Add("@SMSToCustomerNumbers", SqlDbType.VarChar, 100).Value = customerMobile;
                         //cmd.Parameters.Add("@SMSToCustomerServiceType", SqlDbType.TinyInt).Value = smsType;
                         //cmd.Parameters.Add("@SMSToCustomerPageUrl", SqlDbType.VarChar, 500).Value = pageUrl;
-                            // LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomermessage", DbType.String, message));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomernumbers", DbType.String, 100, customerMobile));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomerservicetype", DbType.Byte, smsType));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_smstocustomerpageurl", DbType.String, 500, smsType));
 
-                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     }
                 }
             }
@@ -123,8 +117,8 @@ namespace Bikewale.Notifications.NotificationDAL
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealermessagebody", DbType.String, 10000, emailBody));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealersubject", DbType.String, 500, emailsubject));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtodealerreplyto", DbType.String, 200, dealerEmail));
-                            // LogLiveSps.LogSpInGrayLog(cmd);
-                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     }
                 }
             }
@@ -152,14 +146,14 @@ namespace Bikewale.Notifications.NotificationDAL
                         //cmd.Parameters.Add("@emailtocustomermessagebody", SqlDbType.VarChar).Value = emailBody;
                         //cmd.Parameters.Add("@EmailToCustomerSubject", SqlDbType.VarChar, 500).Value = emailSubject;
                         //cmd.Parameters.Add("@EmailToCustomerReplyTo", SqlDbType.VarChar, 200).Value = customerEmail;
-                            
+
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtocustomermessagebody", DbType.String, emailBody));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtocustomersubject", DbType.String, 500, emailSubject));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_emailtocustomerreplyto", DbType.String, 200, customerEmail));
-// LogLiveSps.LogSpInGrayLog(cmd);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
 
-                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     }
                 }
             }

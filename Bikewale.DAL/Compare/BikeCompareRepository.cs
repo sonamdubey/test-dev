@@ -1,5 +1,4 @@
-﻿using Bikewale.CoreDAL;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
@@ -204,15 +203,15 @@ namespace Bikewale.DAL.Compare
                         }
                     }
 
-                        if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count > 0)
-                        {
-                            compare.Color.ForEach(
-                                                _color => _color.HexCodes =
-                                                    (from hexCode in hexCodes
-                                                     where hexCode.ModelColorId == _color.ColorId
-                                                     select hexCode.HexCode).ToList()
-                                                );
-                        }
+                    if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count > 0)
+                    {
+                        compare.Color.ForEach(
+                                            _color => _color.HexCodes =
+                                                (from hexCode in hexCodes
+                                                 where hexCode.ModelColorId == _color.ColorId
+                                                 select hexCode.HexCode).ToList()
+                                            );
+                    }
                 }
             }
             catch (SqlException sqEx)
@@ -244,7 +243,7 @@ namespace Bikewale.DAL.Compare
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
-                   // LogLiveSps.LogSpInGrayLog(cmd);
+                    // LogLiveSps.LogSpInGrayLog(cmd);
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)
@@ -317,7 +316,7 @@ namespace Bikewale.DAL.Compare
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_percentdeviation", DbType.Int16, Convert.DBNull));
-                        // LogLiveSps.LogSpInGrayLog(command);
+                    // LogLiveSps.LogSpInGrayLog(command);
                     using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (reader != null)

@@ -1,6 +1,5 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.CoreDAL;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
