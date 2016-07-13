@@ -1,8 +1,9 @@
 ﻿
-using BikeWaleOPR.Utilities;
+using Bikewale.Utility;
 using Enyim.Caching;
 using MySql.CoreDAL;
 using System;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
@@ -356,14 +357,18 @@ namespace BikeWaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatemakemaskingname"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, maskingName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, updatedBy));
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
-                    isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    // Update the Make Masking Name in CW database
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("makeid", makeId);
+                    nvc.Add("maskingname", maskingName);
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
-                   // _mc.Remove("BW_MakeMapping");
+                    // _mc.Remove("BW_MakeMapping");
                 }
             }
             catch (SqlException err)
@@ -402,14 +407,22 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, maskingName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, updatedBy));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
-                    isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("ModelMaskingName", maskingName);
+                    nvc.Add("modelId", modelId);
+                    SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
 
-                    //_mc.Remove("BW_ModelMapping");
-                    //_mc.Remove("BW_NewBikeLaunches");
-                    //_mc.Remove("BW_OldModelMaskingNames");
-                    //_mc.Remove("BW_NewModelMaskingNames");
-                    //_mc.Remove("BW_TopVersionId");
+                    if (_mc != null)
+                    {
+                        _mc.Remove("BW_ModelMapping");
+                        _mc.Remove("BW_NewBikeLaunches");
+                        _mc.Remove("BW_OldModelMaskingNames");
+                        _mc.Remove("BW_NewModelMaskingNames");
+                        _mc.Remove("BW_TopVersionId");
+                    }
+
                 }
             }
             catch (SqlException err)
@@ -441,7 +454,7 @@ namespace BikeWaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException err)
@@ -472,7 +485,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_discription", DbType.String, synopsis.Trim()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int64, CurrentUser.Id));
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
                 }
             }
@@ -503,11 +516,16 @@ namespace BikeWaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("updatemodelversionisdeleted"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, deletedBy));
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    // Push the data to carwale DB
+                    // Create name value collection
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("makeId", makeId);
+                    nvc.Add("IsDeleted", "1");
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
                 }
             }
             catch (SqlException sqlEx)
@@ -537,11 +555,13 @@ namespace BikeWaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand("updateversionisdeleted"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, deletedBy));
-
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("ModelId", modelId);
+                    nvc.Add("IsDeleted", "1");
+                    SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
             }
             catch (SqlException sqlEx)

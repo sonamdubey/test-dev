@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Utility
 {
@@ -14,7 +12,6 @@ namespace Bikewale.Utility
         public static bool HasFreeInsurance(string dealerId, string modelId, string categoryName, UInt32 categoryValue, ref UInt32 insuranceValue)
         {
             bool retVal = false;
-            string[] modelIds = null;
             string[] dealers = null;
             NameValueCollection nvc = null;
             try
@@ -87,7 +84,7 @@ namespace Bikewale.Utility
         /// Summary         :    To return list of Items which needs to be deducted from the total Price
         /// </summary>
         /// <param name="offers"></param>
-        public static List<PQ_Price> ReturnDiscountPriceList(List<OfferEntity> offers, List<PQ_Price> priceList )
+        public static List<PQ_Price> ReturnDiscountPriceList(List<OfferEntity> offers, List<PQ_Price> priceList)
         {
             try
             {
@@ -126,7 +123,7 @@ namespace Bikewale.Utility
                 }
                 return discountedPriceList;
             }
-            catch(Exception ex)
+            catch
             {
                 return null;
             }
@@ -189,7 +186,7 @@ namespace Bikewale.Utility
             }
             return discount;
         }
-        
+
         /// <summary>
         /// Check if string has bumper offer categories
         /// </summary>
@@ -217,7 +214,7 @@ namespace Bikewale.Utility
             {
                 return string.Empty;
             }
-            displayText = displayText != string.Empty ? displayText : displayText;
+            // displayText = displayText != string.Empty ? displayText : displayText;
             return displayText;
         }
     }

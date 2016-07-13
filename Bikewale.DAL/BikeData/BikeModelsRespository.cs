@@ -154,11 +154,6 @@ namespace Bikewale.DAL.BikeData
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                     {
                         modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
-                    }
-
-                    //get model colors
-                    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
-                    {
                         modelPage.ModelColors = GetModelColor(modelId);
                     }
                 }

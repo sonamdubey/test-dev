@@ -2,9 +2,11 @@
 IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 
+using Bikewale.Utility;
 using BikeWaleOpr.Common;
 using MySql.CoreDAL;
 using System;
+using System.Collections.Specialized;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -85,7 +87,11 @@ namespace BikeWaleOpr.Content
                     {
                         lblStatus.Text = "Make name or make masking name already exists. Can not insert duplicate name.";
                     }
-
+                    // Create name value collection
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("MakeName", txtMake.Text.Trim().Replace("'", "''"));
+                    nvc.Add("MaskingName",txtMaskingName.Text.Trim());
+                    SyncBWData.PushToQueue("BW_AddBikeMakes", DataBaseName.CW, nvc);
                 }
             }
             catch (SqlException ex)
@@ -155,16 +161,7 @@ namespace BikeWaleOpr.Content
             CheckBox chkFuturistic = (CheckBox)e.Item.FindControl("chkFut");
             CheckBox chkUsed = (CheckBox)e.Item.FindControl("chkUsed");
             CheckBox chkNew = (CheckBox)e.Item.FindControl("chkNew");
-
             TextBox txt = (TextBox)e.Item.FindControl("txtMake");
-            //            sql = @"update bikemakes set
-            //				name= @make,
-            //                Futuristic=@isfuturistic,
-            //                Used = @isused,
-            //                New = @isnew,
-            //                MaUpdatedOn=now(),
-            //                MaUpdatedBy=@userid
-            //				WHERE Id=@makeid";
 
             try
             {
@@ -180,19 +177,17 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
+                    // Push the data to carwale DB
+                    // Create name value collection
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("makeId",dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    nvc.Add("makename",txt.Text.Trim().Replace("'", "''"));
+                    nvc.Add("isnew",Convert.ToInt16(chkNew.Checked).ToString());
+                    nvc.Add("isused",Convert.ToInt16(chkUsed.Checked).ToString());
+                    nvc.Add("isfuturistic",Convert.ToInt16(chkFuturistic.Checked).ToString());
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
                 }
-
-                //DbParameter[] sqlParams = new[]
-                //    {
-                //        DbFactory.GetDbParam("@par_make", DbType.String,100, txt.Text.Trim().Replace("'","''")),
-                //        DbFactory.GetDbParam("@par_makeid", DbType.Int32, dtgrdMembers.DataKeys[ e.Item.ItemIndex ]),
-                //        DbFactory.GetDbParam("@par_isfuturistic", DbType.Byte, Convert.ToInt16(chkFuturistic.Checked)),
-                //        DbFactory.GetDbParam("@par_isnew", DbType.Byte,  Convert.ToInt16(chkNew.Checked)),
-                //        DbFactory.GetDbParam("@par_isused", DbType.Byte, Convert.ToInt16(chkUsed.Checked)),
-                //        DbFactory.GetDbParam("@par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()),
-                //    };
-
-                //MySqlDatabase.InsertQuery(sql, sqlParams);
 
             }
             catch (SqlException ex)

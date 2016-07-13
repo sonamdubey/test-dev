@@ -44,7 +44,7 @@ namespace Bikewale.Utility
                     httpReffer = request.UrlReferrer.OriginalString; //e.g. www.google.com, www.carwale.com
                 }
 
-                
+
                 if (httpReffer.Contains(ConfigurationManager.AppSettings["bwHostUrl"]))
                 {
                     SetCookie("_bwutmz", 180);

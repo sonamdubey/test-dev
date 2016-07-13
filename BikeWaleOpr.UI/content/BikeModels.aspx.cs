@@ -1,7 +1,9 @@
-﻿using BikeWaleOpr.Common;
+﻿using Bikewale.Utility;
+using BikeWaleOpr.Common;
 using Enyim.Caching;
 using MySql.CoreDAL;
 using System;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
@@ -140,12 +142,19 @@ namespace BikeWaleOpr.Content
                         {
                             WriteFileModel(currentId, txtModel.Text.Trim().Replace("'", "''"));
                         }
-
-                        if (!Convert.ToBoolean(cmd.Parameters["par_ismodelexist"].Value))
+                        if (Convert.ToBoolean(cmd.Parameters["par_ismodelexist"].Value))
                         {
                             lblStatus.Text = "Model Masking Name already exists. Can not insert duplicate name.";
                         }
-
+                        else
+                        {
+                            // Push Data to Carwale DB
+                            NameValueCollection nvc = new NameValueCollection();
+                            nvc.Add("makeId", cmbMakes.SelectedValue);
+                            nvc.Add("modelName", txtModel.Text.Trim().Replace("'", "''"));
+                            nvc.Add("modelmaskingname", txtMaskingName.Text.Trim());
+                            SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
+                        }
 
                         if (_mc != null)
                         {
@@ -164,10 +173,8 @@ namespace BikeWaleOpr.Content
             }
             catch (SqlException ex)
             {
-                Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-                Trace.Warn("exception number : ", ex.Number.ToString());
             }
             BindGrid();
         }
@@ -231,10 +238,8 @@ namespace BikeWaleOpr.Content
 
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
         {
-
             Page.Validate();
             if (!Page.IsValid) return;
-
             try
             {
                 string sql = string.Empty;
@@ -248,11 +253,9 @@ namespace BikeWaleOpr.Content
                 CheckBox chkFuturistic1 = (CheckBox)e.Item.FindControl("chkFuturistic");
                 Label lblMakeId = (Label)e.Item.FindControl("lblMakeId");
 
-
                 using (DbCommand cmd = DbFactory.GetDBCommand("Updatebikemodel"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txt.Text.Trim().Replace("'", "''")));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_indian", DbType.Boolean, chkIndian1.Checked));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_Imported", DbType.Boolean, chkImported1.Checked));
@@ -265,10 +268,16 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.Int32, dtgrdMembers.DataKeys[e.Item.ItemIndex]));
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("modelname", txt.Text.Trim().Replace("'", "''"));
+                    nvc.Add("isused", chkUsed1.Checked.ToString());
+                    nvc.Add("isnew", chkNew1.Checked.ToString());
+                    nvc.Add("modelId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
 
                 //Update Upcoming Bike
-                if (chkFuturistic1.Checked == true)
+                if (chkFuturistic1.Checked)
                     MakeUpcomingBike(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), lblMakeId.Text);
 
                 //Write URL
@@ -397,14 +406,14 @@ namespace BikeWaleOpr.Content
                     mainDir = CommonOpn.ResolvePhysicalPath("/Research/urlMapping/");
 
                     //check whether the directory for the make exists or not, if not then create the directory
-                    if (Directory.Exists(mainDir) == false)
+                    if (!Directory.Exists(mainDir))
                         Directory.CreateDirectory(mainDir);
 
                     //create file to store description
                     fullPath = mainDir + "\\map_models.txt";
                     Trace.Warn(fullPath);
 
-                    if (File.Exists(fullPath) != false)
+                    if (!File.Exists(fullPath))
                     {
                         Trace.Warn("Appending File=" + txtToWrite);
                         StreamWriter sw = File.AppendText(fullPath);

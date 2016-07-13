@@ -1,16 +1,14 @@
-﻿using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
+﻿using Bikewale.Utility;
 using BikeWaleOpr.Common;
-using BikeWaleOpr.Controls;
-using System.Data.Common;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
+using System;
+using System.Collections.Specialized;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -115,22 +113,20 @@ namespace BikeWaleOpr.Content
         }
 
         string SaveData(string id)
-        {  
+        {
             string currentId = "-1";
             try
             {
-
                 using (DbCommand cmd = DbFactory.GetDBCommand("con_savebikeversion"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, id));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, txtVersion.Text.Trim()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemodelid", DbType.Int64, Request["cmbmodels"]));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int64, cmbSegments.SelectedValue == "0" ? Convert.DBNull : cmbSegments.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikemodelid", DbType.Int32, Request["cmbmodels"]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_segmentid", DbType.Int32, cmbSegments.SelectedValue == "0" ? Convert.DBNull : cmbSegments.SelectedValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int64, cmbBodyStyles.SelectedValue == "0" ? Convert.DBNull : cmbBodyStyles.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueltype", DbType.Int64, cmbFuelType.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transmission", DbType.Int64, cmbTransmission.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_fueltype", DbType.Int16, cmbFuelType.SelectedValue));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transmission", DbType.Int32, cmbTransmission.SelectedValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, Convert.ToInt16(chkUsed.Checked)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, Convert.ToInt16(chkNew.Checked)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_indian", DbType.Boolean, Convert.ToInt16(chkIndian.Checked)));
@@ -143,10 +139,17 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_createdon", DbType.DateTime, DateTime.Now));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.String, BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_currentid", DbType.Int64, ParameterDirection.Output));
-
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
-                    currentId = cmd.Parameters["par_currentid"].Value.ToString(); 
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("modelId", Request["cmbmodels"].ToString());
+                    nvc.Add("versionName", txtVersion.Text.Trim());
+                    nvc.Add("IsNew", Convert.ToInt16(chkNew.Checked).ToString());
+                    nvc.Add("IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
+                    nvc.Add("Isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
+                    SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CW, nvc);
+
+                    currentId = cmd.Parameters["par_currentid"].Value.ToString();
                 }
 
             }
@@ -272,6 +275,13 @@ namespace BikeWaleOpr.Content
             try
             {
                 MySqlDatabase.InsertQuery(sql, param, ConnectionType.ReadOnly);
+                NameValueCollection nvc = new NameValueCollection();
+                nvc.Add("VersionId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                nvc.Add("versionname", txt.Text.Trim().Replace("'", "''"));
+                nvc.Add("IsNew", Convert.ToInt16(chkNew1.Checked).ToString());
+                nvc.Add("IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
+                nvc.Add("IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
+                SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
             }
             catch (SqlException ex)
             {
@@ -298,16 +308,19 @@ namespace BikeWaleOpr.Content
             string sql = string.Empty;
             int _versionId = default(int);
             string vid = dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString();
-            if(!string.IsNullOrEmpty(vid) && int.TryParse(vid,out _versionId))
+            if (!string.IsNullOrEmpty(vid) && int.TryParse(vid, out _versionId))
             {
                 sql = "update bikeversions set isdeleted=1,vupdatedon=now(),vupdatedby='" + BikeWaleAuthentication.GetOprUserId() + "' where id=" + _versionId;
-            }            
-
+            }
             try
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    MySqlDatabase.InsertQuery(sql, ConnectionType.MasterDatabase); 
+                    MySqlDatabase.InsertQuery(sql, ConnectionType.MasterDatabase);
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc.Add("VersionId", _versionId.ToString());
+                    nvc.Add("IsDeleted", "1");
+                    SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
                 }
             }
             catch (SqlException ex)
