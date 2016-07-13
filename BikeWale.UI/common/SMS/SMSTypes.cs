@@ -87,45 +87,39 @@ namespace Bikewale.Common
 
             try
             {
-                string message = "";
+                string message = string.Format("For {0} you selected at BikeWale, call its seller {1} at {2}. Visit www.bikewale.com/MyBikeWale/ for more details.", bikeModel, sellerName, sellerContact);
 
-                //if bike belongs to Mumbai & NCR
-                if (CommonOpn.CheckForMumbai(profileId))
-                {
-                    if (showDetails == true)
-                    {
-                        //message = "For \"" + bikeModel + "\" you selected at BikeWale, call its seller "
-                        //        + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
+                ////if bike belongs to Mumbai & NCR
+                //if (CommonOpn.CheckForMumbai(profileId))
+                //{
+                //    //if (showDetails == true)
+                //    //{
+                //        //message = "For \"" + bikeModel + "\" you selected at BikeWale, call its seller "
+                //        //        + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
 
-                        message = "For " + bikeModel + " you selected at BikeWale, call its seller "
-                                + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
+                //        message = "For " + bikeModel + " you selected at BikeWale, call its seller "
+                //                + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
 
-                        /*
-                        + (isDealer == false ? " To get finance on this bike call Kshitij at 9821651116" : "");*/
-                    }
-                    else
-                    {
-                        //message = "Get seller details for \"" + makeYear + "-" + bikeModel + "\" for just Rs.500.\n"
-                        //+ "Pay online at www.bikeWale.com/MybikeWale/ or call 022-67398888 for help";  //32651254, 32651255
-
-                    }
-                }
-                else//bike belongs to other cities.
-                {
-                    //if(showDetails == true)
-                    //{
-                    //message = "For \"" + bikeModel + "\" you selected at BikeWale, call its seller "
-                    //        + sellerName + " at " + sellerContact + ". Visit www.BikeWale.com/MyBikeWale/ for more details";
-                    message = "For " + bikeModel + " you selected at BikeWale, call its seller "
-                                + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
-                    /*}
-                    else
-                    {
-                        message = "Get seller details for \"" + makeYear + "-" + bikeModel + "\" for just Rs.500.\n"
-                                + "Pay online at www.bikeWale.com/MybikeWale/ or call 022-67398888 for help";  //32651254, 32651255
+                //        /*
+                //        + (isDealer == false ? " To get finance on this bike call Kshitij at 9821651116" : "");*/
+                //    //}
+                //}
+                //else//bike belongs to other cities.
+                //{
+                //    //if(showDetails == true)
+                //    //{
+                //    //message = "For \"" + bikeModel + "\" you selected at BikeWale, call its seller "
+                //    //        + sellerName + " at " + sellerContact + ". Visit www.BikeWale.com/MyBikeWale/ for more details";
+                //    message = "For " + bikeModel + " you selected at BikeWale, call its seller "
+                //                + sellerName + " at " + sellerContact + ". Visit www.bikewale.com/MyBikeWale/ for more details.";
+                //    /*}
+                //    else
+                //    {
+                //        message = "Get seller details for \"" + makeYear + "-" + bikeModel + "\" for just Rs.500.\n"
+                //                + "Pay online at www.bikeWale.com/MybikeWale/ or call 022-67398888 for help";  //32651254, 32651255
 						
-                    }*/
-                }
+                //    }*/
+                //}
 
 
                 EnumSMSServiceType esms = EnumSMSServiceType.UsedPurchaseInquiryIndividualBuyer;

@@ -74,7 +74,6 @@
     <Compile Include="City.cs" />
     <Compile Include="CitySuggestion.cs" />
     <Compile Include="GetCityList.cs" />
-    <Compile Include="LogLiveSps.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

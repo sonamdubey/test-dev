@@ -34,21 +34,15 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
             _objDealer = dealer;
         }
 
+
         /// <summary>
         /// To genearate manufacturer Lead
         /// Modified By : Sadhana Upadhyay on 29 Dec 2015
         /// Summary : added utmz, utma, device Id etc
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="email"></param>
-        /// <param name="mobile"></param>
-        /// <param name="pqId"></param>
-        /// <param name="cityId"></param>
-        /// <param name="versionId"></param>
+        /// <param name="objLead"></param>
         /// <returns></returns>
-        /// 
-
-        //uint cityId, uint versionId, string name, string email, string mobile, string pqId, UInt16? platformId, UInt16? leadSourceId, string deviceId = null
+        /////uint cityId, uint versionId, string name, string email, string mobile, string pqId, UInt16? platformId, UInt16? leadSourceId, string deviceId = null
         [ResponseType(typeof(bool))]
         public IHttpActionResult Post([FromBody]ManufacturerLeadEntity objLead)
         {

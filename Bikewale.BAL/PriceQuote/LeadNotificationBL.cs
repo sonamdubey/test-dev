@@ -77,6 +77,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Sends SMS and Email to Dealer
         /// Modified BY : Lucky Rathore on 12 May 2016
         /// Description : Signature of Notify Dealer and SendEmailToDealer.
+        /// Modified By : Lucky Rathore on 11 July 2016.
+        /// Description : parameter dealerArea added in NotifyDealer(). 
         /// </summary>
         /// <param name="pqId"></param>
         /// <param name="makeName"></param>
@@ -97,12 +99,12 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="bikeName"></param>
         /// <param name="insuranceAmount"></param>
 
-        public void NotifyDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, string dealerMobile, string bikeName)
+        public void NotifyDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, string dealerMobile, string bikeName, string dealerArea)
         {
             try
             {
                 SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath);
-                SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName);
+                SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, dealerArea);
             }
             catch (Exception ex)
             {
