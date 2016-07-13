@@ -55,6 +55,9 @@ namespace Bikewale.New
             {
                 ltrDefaultCityName.Text = Configuration.GetDefaultCityName;
 
+                // Modified By :Lucky Rathore on 12 July 2016.
+                Form.Action = Request.RawUrl;
+
                 if (!Page.IsPostBack)
                 {
                     // Modified By :Ashish Kamble on 5 Feb 2016

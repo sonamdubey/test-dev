@@ -38,6 +38,8 @@ namespace Bikewale.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             //device detection
             // Modified By :Ashish Kamble on 5 Feb 2016
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];

@@ -55,7 +55,8 @@ namespace Bikewale.Content
         private bool ProcessQueryString()
         {
             bool isSuccess = true;
-
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             if (!String.IsNullOrEmpty(Request.QueryString["id"]) && CommonOpn.CheckId(Request.QueryString["id"]))
             {
                 /** Modified By : Ashwini Todkar on 19 Aug 2014 , add when consuming carwale api

@@ -11,6 +11,7 @@
     protected void Page_Load(object Sender, EventArgs e)
     {
         // Modified By :Ashish Kamble on 5 Feb 2016
+        Form.Action = Request.RawUrl;
         string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
         if (String.IsNullOrEmpty(originalUrl))
             originalUrl = Request.ServerVariables["URL"];

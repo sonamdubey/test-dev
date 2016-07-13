@@ -114,6 +114,8 @@ namespace Bikewale.Notifications
         /// <summary>
         /// Created By : Sadhana Upadhyay on 9 Nov 2014
         /// Summary : To send sms to dealer for new bike price quote
+        /// Modified By : Lucky Rathore on 11 July 2016.
+        /// Description : parameter dealerArea added. 
         /// </summary>
         /// <param name="dealerMobileNo"></param>
         /// <param name="customerName"></param>
@@ -122,13 +124,13 @@ namespace Bikewale.Notifications
         /// <param name="areaName"></param>
         /// <param name="cityName"></param>
         /// <param name="pageUrl"></param>
-        public void NewBikePriceQuoteSMSToDealer(string dealerMobileNo, string customerName, string customerMobile, string BikeName, string areaName, string cityName, string pageUrl)
+        public void NewBikePriceQuoteSMSToDealer(string dealerMobileNo, string customerName, string customerMobile, string BikeName, string areaName, string cityName, string pageUrl, string dealerArea)
         {
             try
             {
                 EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToDealer;
 
-                string message = NewBikePQDealerSMSTemplate(customerName, customerMobile, BikeName, areaName, cityName);
+                string message = NewBikePQDealerSMSTemplate(customerName, customerMobile, BikeName, areaName, cityName, dealerArea);
 
                 SMSCommon sc = new SMSCommon();
                 sc.ProcessSMS(dealerMobileNo, message, esms, pageUrl);
@@ -296,6 +298,8 @@ namespace Bikewale.Notifications
         /// <summary>
         /// Created By : Sadhana Upadhyay on 1 Dec 2015
         /// Summary : To send sms to dealer for new bike price quote
+        /// Modified By : Lucky Rathore on 11 July 2016.
+        /// Description : parameter dealerArea added. 
         /// </summary>
         /// <param name="dealerMobileNo"></param>
         /// <param name="customerName"></param>
@@ -304,13 +308,13 @@ namespace Bikewale.Notifications
         /// <param name="areaName"></param>
         /// <param name="cityName"></param>
         /// <param name="pageUrl"></param>
-        public void SaveNewBikePriceQuoteSMSToDealer(uint pqId, string dealerMobileNo, string customerName, string customerMobile, string BikeName, string areaName, string cityName, string pageUrl)
+        public void SaveNewBikePriceQuoteSMSToDealer(uint pqId, string dealerMobileNo, string customerName, string customerMobile, string BikeName, string areaName, string cityName, string pageUrl, string dealerArea)
         {
             try
             {
                 EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToDealer;
 
-                string message = NewBikePQDealerSMSTemplate(customerName, customerMobile, BikeName, areaName, cityName);
+                string message = NewBikePQDealerSMSTemplate(customerName, customerMobile, BikeName, areaName, cityName, dealerArea);
 
                 SavePQNotification obj = new SavePQNotification();
                 obj.SaveDealerPQSMSTemplate(pqId,message, (int)esms, dealerMobileNo, pageUrl);
@@ -425,6 +429,8 @@ namespace Bikewale.Notifications
         /// <summary>
         /// Created By : Sadhana Upadhyay on 1 Dec 2015
         /// Summary : To get new bike price quote dealer template
+        /// Modified By : Lucky Rathore on 11 July 2016.
+        /// Description : parameter dealerArea added and SMS text changed.
         /// </summary>
         /// <param name="customerName"></param>
         /// <param name="customerMobile"></param>
@@ -432,11 +438,14 @@ namespace Bikewale.Notifications
         /// <param name="areaName"></param>
         /// <param name="cityName"></param>
         /// <returns></returns>
-        private static string NewBikePQDealerSMSTemplate(string customerName, string customerMobile, string BikeName, string areaName, string cityName)
+        private static string NewBikePQDealerSMSTemplate(string customerName, string customerMobile, string BikeName, string areaName, string cityName, string dealerArea)
         {
             string message = "";
-
-            message = "BikeWale purchase enquiry: Please call " + customerName + ", " + areaName + ", " + cityName + " at " + customerMobile + " for " + BikeName + " and schedule customer visit.";
+            if (!string.IsNullOrEmpty(areaName))
+            {
+                areaName = ", " + areaName;
+            }
+            message = string.Format("BikeWale purchase enquiry for {0} showroom: Please call {1}{2}, {3} at {4} for {5} and schedule customer visit.", dealerArea, customerName, areaName, cityName, customerMobile, BikeName);
             return message;
         }
 
