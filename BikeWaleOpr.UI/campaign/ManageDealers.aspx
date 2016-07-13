@@ -84,24 +84,23 @@
 </div>
 <div >    
     <fieldset class="margin-left10" >
-        <a id='backbutton' href="javascript:void(0)">Back to contract page</a>
-        <legend>Edit Dealer Campaigns</legend>
+        <a id='backbutton' href="javascript:void(0)">Back to Manage Campaigns Page</a>
+        <legend><h3>Edit Dealer Campaign</h3></legend>
         <div id="box" class="box">
-
-            <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 100%; border-collapse: collapse;">
+            <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 60%; border-collapse: collapse;">
                 <tbody>
                     <tr>
-                        <td><strong>Dealer :</strong> </td>
+                        <td style="width:20%"><strong>Dealer :</strong> </td>
                         <td><span id="spnDealerName"><%= dealerName  %></span></td>
                     </tr>
                     <tr>
-                        <td><strong>Campaign Name :</strong> </td>
+                        <td style="width:20%"><strong>Campaign Name :</strong> </td>
                         <td>
                             <asp:textbox runat="server" name="maskingNumber" id="txtCampaignName" maxlength="100" class="req width300" enabled="true" />
                         </td>
                     </tr>
                     <tr>
-                        <td><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
+                        <td style="width:20%"><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
                         <td>
                             <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="req numeric width300" enabled="true" />
                             <asp:dropdownlist id="ddlMaskingNumber" runat="server" />
@@ -110,21 +109,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><strong>Campaign Email ID :</strong><b class="required">*</b></td>
+                        <td style="width:20%"><strong>Campaign Email ID :</strong><b class="required">*</b></td>
                         <td>
                             <asp:textbox textmode="multiline" multiline="true" height="50" width="200" runat="server" id="txtDealerEmail" placeholder="Enter Email ids separated by comma" class="req width300" />
                             <span id="spnDealerEmail" class="Required marginleft18"></span>
                         </td>
                     </tr>
                     <tr>
-                        <td><strong>Campaign Lead Serving radius :</strong><b class="required">*</b></td>
+                        <td style="width:20%"><strong>Campaign Lead Serving radius(in kms) :</strong><b class="required">*</b></td>
                         <td>
                             <asp:textbox runat="server" id="txtdealerRadius" placeholder="" class="numeric req width300" />
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <asp:button id="btnUpdate" onclientclick="return ValidateForm();" text="Update" runat="server" />
+                            <asp:button id="btnUpdate" onclientclick="return ValidateForm();" text="Save" runat="server" cssClass="padding10" />
                         </td>
                     </tr>
                 </tbody>
@@ -203,7 +202,7 @@
     });
 
     $("#backbutton").on("click", function () {
-        window.location.href = '/campaign/MapCampaign.aspx?dealerId=' + '<%= dealerId %>';
+        window.location.href = '/campaign/MapCampaign.aspx?dealerId=' + '<%= dealerId %>' + '&contractid=' + '<%=  contractId %>';
         });
             $(window).ready(function () {
                 $("#pageloaddiv").hide();

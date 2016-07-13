@@ -162,7 +162,7 @@ namespace BikewaleOpr.Campaign
 
                 if (isValid)
                 {
-                    if (contractId > 0)
+                    if (contractId > 0 && contractStatus > 0)
                     {
                         dealerContract = new DealerContractEntity();
                         dealerContract.ContractId = contractId;

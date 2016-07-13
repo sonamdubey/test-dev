@@ -3,7 +3,6 @@ using BikewaleOpr.Common;
 using BikewaleOpr.CommuteDistance;
 using BikeWaleOpr.Common;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Web;
@@ -122,14 +121,17 @@ namespace BikewaleOpr.Campaign
         {
             if (ParseQueryString())
             {
-                LoadMaskingNumbers();
-                if (isCampaignPresent)
+                if (!IsPostBack)
                 {
-                    FetchDealeCampaign();
-                }
-                else
-                {
-                    txtCampaignName.Text = dealerName;
+                    LoadMaskingNumbers();
+                    if (isCampaignPresent)
+                    {
+                        FetchDealeCampaign();
+                    }
+                    else
+                    {
+                        txtCampaignName.Text = dealerName;
+                    }
                 }
             }
             if (Request.Form["txtMaskingNumber"] != null)
@@ -147,24 +149,24 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                DataTable dtb = dealerCampaign.BindMaskingNumbers(dealerId);
-                List<ListItem> maskingList = new List<ListItem>();
-                if (dtb != null)
-                {
-                    foreach (DataRow dr in dtb.Rows)
-                    {
-                        ListItem lst = new ListItem(Convert.ToString(dr[1]), Convert.ToString(dr[0]));
-                        if (dr[2].ToString() == "1")
-                        {
-                            lst.Attributes.Add("disabled", "disabled");
-                        }
-                        maskingList.Add(lst);
-                    }
-                    ddlMaskingNumber.Items.AddRange(maskingList.ToArray());
-                    ddlMaskingNumber.DataBind();
-                    ListItem item = new ListItem("--Select Number--", "0");
-                    ddlMaskingNumber.Items.Insert(0, item);
-                }
+                //DataTable dtb = dealerCampaign.BindMaskingNumbers(dealerId);
+                //List<ListItem> maskingList = new List<ListItem>();
+                //if (dtb != null)
+                //{
+                //    foreach (DataRow dr in dtb.Rows)
+                //    {
+                //        ListItem lst = new ListItem(Convert.ToString(dr[1]), Convert.ToString(dr[0]));
+                //        if (dr[2].ToString() == "1")
+                //        {
+                //            lst.Attributes.Add("disabled", "disabled");
+                //        }
+                //        maskingList.Add(lst);
+                //    }
+                //    ddlMaskingNumber.Items.AddRange(maskingList.ToArray());
+                //    ddlMaskingNumber.DataBind();
+                //    ListItem item = new ListItem("--Select Number--", "0");
+                //    ddlMaskingNumber.Items.Insert(0, item);
+                //}
             }
             catch (Exception ex)
             {

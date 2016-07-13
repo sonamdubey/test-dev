@@ -333,18 +333,22 @@ namespace BikewaleOpr.Common
             return rowsAffected > 0 ? true : false;
         }
 
-        public void MapContractCampaign(string contractId, string campaignId)
+        public bool MapContractCampaign(int contractId, int campaignId)
         {
+            int rowsAffected = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebwdealercontractcampaign"))
+                if (contractId > 0 && campaignId > 0)
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebwdealercontractcampaign"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
-                    MySqlDatabase.ExecuteNonQuery(cmd);
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbParamTypeMapper.GetInstance[SqlDbType.Int], contractId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbParamTypeMapper.GetInstance[SqlDbType.Int], campaignId));
+                        rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd);
 
+                    }
                 }
             }
             catch (Exception ex)
@@ -352,6 +356,7 @@ namespace BikewaleOpr.Common
                 ErrorClass objErr = new ErrorClass(ex, String.Format("ManageDealerCampaign.MapContractCampaign({0},{1})", contractId, campaignId));
                 objErr.SendMail();
             }
+            return rowsAffected > 0 ? true : false;
         }
     }
 }

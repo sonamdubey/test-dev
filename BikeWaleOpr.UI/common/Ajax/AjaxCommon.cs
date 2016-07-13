@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Common;
+﻿using BikewaleOpr.common;
+using BikewaleOpr.Common;
 using BikeWaleOpr.Classified;
 using Enyim.Caching;
 using System;
@@ -596,20 +597,26 @@ namespace BikeWaleOpr.Common
         ///  Description    :   Call the ManageDealerCampaign class method to map the dealer Campaigns
         /// </summary>
         [AjaxPro.AjaxMethod()]
-        public void MapCampaign(string contractId, string campaignId)
+        public bool MapCampaign(int dealerId, int contractId, int campaignId, string dealerNumber, string maskingNumber)
         {
-
+            bool isSuccess = false;
             try
             {
                 ManageDealerCampaign objMa = new ManageDealerCampaign();
-                objMa.MapContractCampaign(contractId, campaignId);
+                isSuccess = objMa.MapContractCampaign(contractId, campaignId);
+
+
+                KnowlarityAPI callApp = new KnowlarityAPI();
+                callApp.ReleaseMaskingNumber(maskingNumber);
+                callApp.MapDealerMaskingNumber(dealerId.ToString(), dealerNumber, maskingNumber);
             }
             catch (Exception ex)
             {
+                isSuccess = false;
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
                 objErr.SendMail();
             }
-
+            return isSuccess;
         }
 
         /// <summary>
