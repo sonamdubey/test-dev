@@ -13,9 +13,7 @@
         isAd976x400SecondShown = false,
         isAd976x204 = false,
         isTransparentHeader = false,
-        enableOG = true,
-        //isVersionPage is declare to handle calling of BWCookies.SetBWUtmz() function.
-        isVersionPage = false;  
+        enableOG = true;
 </script>
 
 <title><%= title %></title>
@@ -105,7 +103,7 @@
         googletag.enableServices();
     });
 </script>
-<% if(!isVersionPage) Bikewale.Utility.BWCookies.SetBWUtmz(); %>
+<% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
 <!-- for IE to understand the new elements of HTML5 like header, footer, section and so on -->
 <!--[if lt IE 9]>
     <script src="/src/html5.js"></script>

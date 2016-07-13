@@ -35,6 +35,8 @@ namespace Bikewale.BikeBooking
 				BWid = hdnBwid.Value;
 			if (!IsPostBack)
 			{
+                // Modified By :Lucky Rathore on 12 July 2016.
+                Form.Action = Request.RawUrl;
 				// Modified By :Ashish Kamble on 5 Feb 2016
 				string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
 				if (String.IsNullOrEmpty(originalUrl))

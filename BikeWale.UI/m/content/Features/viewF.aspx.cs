@@ -43,6 +43,8 @@ namespace Bikewale.Mobile.Content
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             if (!IsPostBack)
             {
                 if (ProcessQueryString())

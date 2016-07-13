@@ -268,7 +268,8 @@
         ScrollToTop("back-to-top", speed);
 
         $('#drpPages,#drpPages_footer').change(function () {
-            //alert($(this).attr("id"));
+            // Modified By :Lucky Rathore on 12 July 2016.
+            Form.Action = Request.RawUrl;
             var url = '<%= HttpContext.Current.Request.ServerVariables["HTTP_X_ORIGINAL_URL"] %>';
             if (url.indexOf(".html") > 0) {
                 url = url.substring(0, url.indexOf('.html')) + "/p" + $(this).val() + "/";
