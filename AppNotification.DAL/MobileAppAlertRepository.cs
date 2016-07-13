@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using AppNotification.Entity;
+﻿using AppNotification.Entity;
 using AppNotification.Interfaces;
-using System.Data.SqlClient;
-using System.Data;
 using AppNotification.Notifications;
-using System.Data.Common;
 using MySql.CoreDAL;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 
 namespace AppNotification.DAL
 {
@@ -26,12 +25,12 @@ namespace AppNotification.DAL
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr!=null)
+                        if (dr != null)
                         {
                             while (dr.Read())
                             {
                                 regList.Add(dr["gcmregid"].ToString() + "," + dr["os"]);
-                            } 
+                            }
                         }
                     }
                 }
@@ -57,7 +56,7 @@ namespace AppNotification.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbType.Int32, alertTypeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_count", DbType.Int32, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     numOfRegIds = (int)cmd.Parameters["par_count"].Value;
                 }
@@ -89,7 +88,7 @@ namespace AppNotification.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_gcmid", DbType.String, t.GCMId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_subsmasterid", DbType.String, t.SubsMasterId));
 
-                    MySqlDatabase.ExecuteScalar(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteScalar(cmd, ConnectionType.MasterDatabase);
 
                     isComplete = true;
                 }

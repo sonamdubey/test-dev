@@ -1,15 +1,13 @@
+using Bikewale.Common;
+using MySql.CoreDAL;
 /*
 	This class will contain all the common function related to Sell Bike process
 */
 using System;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Web;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using System.Data.Common;
-using MySql.CoreDAL;
 
 namespace Bikewale.Used
 {
@@ -90,8 +88,8 @@ namespace Bikewale.Used
                                 }
 
                                 ClassifiedImageCount = ds.Tables[0].Rows.Count;
-                            } 
-                        }  
+                            }
+                        }
                     }
                 }
             }
@@ -121,12 +119,12 @@ namespace Bikewale.Used
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             isDone = true;
                             dr.Close();
-                        } 
-                    } 
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -151,13 +149,13 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_sellinquiryid", DbType.Int64, sellInquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_buyerid", DbType.Int64, buyerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_consumertype", DbType.Byte, consumerType));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_buyermessage", DbType.String,200, buyerMessage));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String,40, CommonOpn.GetClientIP()));  
-			 //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
-               
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_buyermessage", DbType.String, 200, buyerMessage));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
-                    isDone = true; 
+
+                    isDone = true;
                 }
             }
             catch (Exception err)

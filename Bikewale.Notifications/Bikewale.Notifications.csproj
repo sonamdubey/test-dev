@@ -71,7 +71,6 @@
     <Compile Include="ErrorClass.cs" />
     <Compile Include="ErrorLoggingIntoFile.cs" />
     <Compile Include="JSExceptionTemplate.cs" />
-    <Compile Include="LogLiveSps.cs" />
     <Compile Include="MailTemplates\BookingCancellationTemplate.cs" />
     <Compile Include="MailTemplates\CancellationFeedbackTemplate.cs" />
     <Compile Include="MailTemplates\ErrorMailTemplate.cs" />

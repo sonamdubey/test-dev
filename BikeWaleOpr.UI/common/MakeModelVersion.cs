@@ -405,8 +405,8 @@ namespace BikeWaleOpr.Common
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, maskingName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, updatedBy));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, updatedBy));
                     isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
                     NameValueCollection nvc = new NameValueCollection();

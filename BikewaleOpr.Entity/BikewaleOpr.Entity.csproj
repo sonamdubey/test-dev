@@ -59,6 +59,9 @@
     <Compile Include="DealerAreaDetails.cs" />
     <Compile Include="DealerBenefitEntity.cs" />
     <Compile Include="CityEntityBase.cs" />
+    <Compile Include="DealerCampaignBase.cs" />
+    <Compile Include="DealerCampaignEntity.cs" />
+    <Compile Include="DealerContractEntity.cs" />
     <Compile Include="DealerCustDistanceMapping.cs" />
     <Compile Include="DealerDisclaimerEntity.cs" />
     <Compile Include="DealerLatLong.cs" />

@@ -461,7 +461,7 @@ namespace Bikewale.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.Int64, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
                     //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     recordId = cmd.Parameters["par_id"].Value.ToString();
 

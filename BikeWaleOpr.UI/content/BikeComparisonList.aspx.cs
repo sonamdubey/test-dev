@@ -1,6 +1,5 @@
 ﻿using BikeWaleOpr.Common;
 using BikeWaleOpr.RabbitMQ;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using RabbitMqPublishing;
 using System;
@@ -343,7 +342,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_compid", DbType.Int32, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Int16, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     int Status = Int16.Parse(cmd.Parameters["par_status"].Value.ToString());
                     if (Status == 0)

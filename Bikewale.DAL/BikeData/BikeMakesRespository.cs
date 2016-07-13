@@ -283,7 +283,7 @@ namespace Bikewale.DAL.BikeData
                 cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.String, 20, RequestType));
                 try
                 {
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd,ConnectionType.ReadOnly))
+                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
                             dt = ds.Tables[0];

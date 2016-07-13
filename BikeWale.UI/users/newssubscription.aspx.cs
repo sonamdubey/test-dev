@@ -57,7 +57,7 @@ namespace Bikewale.MyBikeWale
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_receivenewsletters", DbType.Boolean, chkNewsLetter.Checked));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     returnVal = true;
@@ -120,7 +120,7 @@ namespace Bikewale.MyBikeWale
                                 isNewsSubscribed = Convert.ToBoolean(dr["SubscribeNewsletters"]);
                             }
                             dr.Close();
-                        } 
+                        }
 
                     }
                 }

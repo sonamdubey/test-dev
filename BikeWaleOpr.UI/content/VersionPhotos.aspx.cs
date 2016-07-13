@@ -1,6 +1,5 @@
 using BikeWaleOpr.Common;
 using BikeWaleOpr.RabbitMQ;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using RabbitMqPublishing;
 using System;
@@ -144,7 +143,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_timestamp", DbType.String, 20, timeStamp));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 150, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     originalImagePath = cmd.Parameters["par_originalimagepath"].Value.ToString();
                 }

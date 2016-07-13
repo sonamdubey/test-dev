@@ -1,11 +1,11 @@
-﻿using System;
-using System.Web;
-using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
-using Bikewale.Common;
-using System.Data.Common;
+﻿using Bikewale.Common;
 using MySql.CoreDAL;
+using System;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web;
 
 namespace Bikewale.Used
 {
@@ -37,17 +37,17 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 200, description));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_directorypath", DbType.String, 200, Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbType.Boolean,Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbType.Boolean, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 300, originalImageName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismain", DbType.Boolean, isMain));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ConfigurationManager.AppSettings["imgHostURL"]));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
-                //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
-                    photoId = cmd.Parameters["par_photoid"].Value.ToString(); 
+                    photoId = cmd.Parameters["par_photoid"].Value.ToString();
                 }
             }
             catch (Exception err)
@@ -71,10 +71,10 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int64, inquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
-                //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
-                    isRemoved = true; 
+                    isRemoved = true;
                 }
             }
             catch (Exception err)
@@ -99,10 +99,10 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
-                // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
-                    isMain = true; 
+                    isMain = true;
                 }
             }
             catch (Exception err)
@@ -127,10 +127,10 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_imgdesc", DbType.String, 200, imgDesc));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
-                // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
-                    isAdded = true; 
+                    isAdded = true;
                 }
             }
             catch (Exception err)
@@ -175,7 +175,7 @@ namespace Bikewale.Used
                 objErr.SendMail();
             }
 
-        }   
+        }
 
     }   // End of class
 }   // End of namespace

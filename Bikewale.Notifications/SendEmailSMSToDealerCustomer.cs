@@ -81,10 +81,21 @@ namespace Bikewale.Notifications
             objEmail.Send(customerEmail, "Your Dealer Price Certificate - " + bikeName, dealerEmail);
         }
 
-        public static void SMSToDealer(string dealerMobile, string customerName, string customerMobile, string bikeName, string areaName, string cityName)
+        /// <summary>
+        /// Modified By : Lucky Rathore on 11 July 2016.
+        /// Description : parameter dealerArea added. 
+        /// </summary>
+        /// <param name="dealerMobile"></param>
+        /// <param name="customerName"></param>
+        /// <param name="customerMobile"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="areaName"></param>
+        /// <param name="cityName"></param>
+        /// <param name="dealerArea"></param>
+        public static void SMSToDealer(string dealerMobile, string customerName, string customerMobile, string bikeName, string areaName, string cityName, string dealerArea)
         {
             Bikewale.Notifications.SMSTypes obj = new Bikewale.Notifications.SMSTypes();
-            obj.NewBikePriceQuoteSMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString());
+            obj.NewBikePriceQuoteSMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString(), dealerArea);
         }
 
         public static void SMSToCustomer(PQ_DealerDetailEntity dealerEntity, string customerMobile, string customerName, string BikeName, string dealerName, string dealerContactNo, string dealerAddress, uint bookingAmount, uint insuranceAmount = 0, bool hasBumperDealerOffer = false)
@@ -218,10 +229,22 @@ namespace Bikewale.Notifications
             //objEmail.Send(customerEmail, "Your Dealer Price Certificate - " + bikeName, dealerEmail);
         }
 
-        public static void SaveSMSToDealer(uint pqId, string dealerMobile, string customerName, string customerMobile, string bikeName, string areaName, string cityName)
+        /// <summary>
+        /// Modified By : Lucky Rathore on 11 July 2016.
+        /// Description : parameter dealerArea added. 
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <param name="dealerMobile"></param>
+        /// <param name="customerName"></param>
+        /// <param name="customerMobile"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="areaName"></param>
+        /// <param name="cityName"></param>
+        /// <param name="dealerArea"></param>
+        public static void SaveSMSToDealer(uint pqId, string dealerMobile, string customerName, string customerMobile, string bikeName, string areaName, string cityName, string dealerArea)
         {
             Bikewale.Notifications.SMSTypes obj = new Bikewale.Notifications.SMSTypes();
-            obj.SaveNewBikePriceQuoteSMSToDealer(pqId, dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString());
+            obj.SaveNewBikePriceQuoteSMSToDealer(pqId, dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString(), dealerArea);
 
             // Save the template into database and other parameters
 

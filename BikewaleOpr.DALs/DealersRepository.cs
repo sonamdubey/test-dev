@@ -271,7 +271,7 @@ namespace BikewaleOpr.DAL
         {
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveDealerFacility"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerfacility"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_Facility", DbType.String, 500, facility));
@@ -307,7 +307,7 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_Facility", DbType.String, 500, facility));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_IsActive", DbType.Boolean, isActive));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_FacilityId", DbType.Int32, facilityId));
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -320,49 +320,51 @@ namespace BikewaleOpr.DAL
 
         public void SaveDealerLoanAmounts(uint dealerId, ushort tenure, float rateOfInterest, ushort ltv, string loanProvider)
         {
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveDealerLoanAmounts"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Tenure", DbType.Byte, tenure));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_RateOfInterest", DbType.String, 20, rateOfInterest));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_LTV", DbType.Byte, ltv));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_LoanProvider", DbType.String, 100, String.IsNullOrEmpty(loanProvider) ? Convert.DBNull : loanProvider));
-                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Exception at SaveDealerLoanAmounts : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            throw new NotImplementedException();
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveDealerLoanAmounts"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_Tenure", DbType.Byte, tenure));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_RateOfInterest", DbType.String, 20, rateOfInterest));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_LTV", DbType.Byte, ltv));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_LoanProvider", DbType.String, 100, String.IsNullOrEmpty(loanProvider) ? Convert.DBNull : loanProvider));
+            //        MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Exception at SaveDealerLoanAmounts : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }
 
         public void UpdateDealerLoanAmounts(uint dealerId, ushort tenure, float rateOfInterest, ushort ltv, string loanProvider)
         {
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_UpdateDealerLoanAmounts"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Tenure", DbType.Byte, tenure));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_RateOfInterest", DbType.String, 20, rateOfInterest));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_LTV", DbType.Byte, ltv));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_LoanProvider", DbType.String, 100, String.IsNullOrEmpty(loanProvider) ? Convert.DBNull : loanProvider));
+            throw new NotImplementedException();
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_UpdateDealerLoanAmounts"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_Tenure", DbType.Byte, tenure));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_RateOfInterest", DbType.String, 20, rateOfInterest));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_LTV", DbType.Byte, ltv));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_LoanProvider", DbType.String, 100, String.IsNullOrEmpty(loanProvider) ? Convert.DBNull : loanProvider));
 
-                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Exception at UpdateDealerLoanAmounts : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //        MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Exception at UpdateDealerLoanAmounts : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }
 
         /// <summary>
@@ -380,7 +382,7 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerLoanAmounts_10032016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerloanamounts_10032016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
@@ -588,7 +590,7 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveDealerOffers_07012016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealeroffers_07012016"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -632,7 +634,7 @@ namespace BikewaleOpr.DAL
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_UpdateDealerOffers_07012016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatedealeroffers_07012016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -648,7 +650,7 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValidTill", DbType.DateTime, offerValidTill));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isPriceImpact", DbType.Boolean, isPriceImpact));
 
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -674,12 +676,12 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_DeleteDealerOffers"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_deletedealeroffers"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferIds", DbType.String, -1, offerId));
 
-                    if (MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase))
+                    if (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase))
                         isdeleteSuccess = true;
                 }
             }
@@ -710,7 +712,7 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveBikeAvailability"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savebikeavailability"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -744,7 +746,7 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveBikeAvailability"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savebikeavailability"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.UpdatedRowSource = UpdateRowSource.None;
@@ -755,7 +757,7 @@ namespace BikewaleOpr.DAL
 
                     //run the command
 
-                    return (MySqlDatabase.InsertQueryViaAdaptor(cmd, dt,ConnectionType.ReadOnly) > 0);
+                    return (MySqlDatabase.InsertQueryViaAdaptor(cmd, dt, ConnectionType.MasterDatabase) > 0);
                 }
 
             }
@@ -784,7 +786,7 @@ namespace BikewaleOpr.DAL
 
                     //run the command
 
-                    return (MySqlDatabase.UpdateQueryViaAdaptor(cmd, dt,ConnectionType.ReadOnly) > 0);
+                    return (MySqlDatabase.UpdateQueryViaAdaptor(cmd, dt, ConnectionType.MasterDatabase) > 0);
                 }
 
             }
@@ -866,7 +868,7 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_UpdateDealerBikeAvailability"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatedealerbikeavailability"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -945,7 +947,7 @@ namespace BikewaleOpr.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -992,7 +994,7 @@ namespace BikewaleOpr.DAL
         {
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveDealerDisclaimer"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerdisclaimer"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
@@ -1019,23 +1021,24 @@ namespace BikewaleOpr.DAL
         /// <param name="disclaimer"></param>
         public void UpdateDealerDisclaimer(uint dealerId, uint versionId, string disclaimer)
         {
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_UpdateDealerDisclaimer"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_VersionId", DbType.Int32, versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Disclaimer", DbType.String, disclaimer));
-                    MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("Exception at UpdateDealerDisclaimer : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            throw new NotImplementedException();
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_UpdateDealerDisclaimer"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_VersionId", DbType.Int32, versionId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_Disclaimer", DbType.String, disclaimer));
+            //        MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("Exception at UpdateDealerDisclaimer : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
         }
 
         /// <summary>
@@ -1048,7 +1051,7 @@ namespace BikewaleOpr.DAL
         {
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_DeleteDealerDisclaimer"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_deletedealerdisclaimer"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DisclaimerId", DbType.Int32, disclaimerId));
@@ -1075,13 +1078,13 @@ namespace BikewaleOpr.DAL
         {
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_EditDealerDisclaimer"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_editdealerdisclaimer"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DisclaimerId", DbType.Int32, disclaimerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_NewDisclaimer", DbType.String, newDisclaimerText));
 
-                    return MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    return MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -1109,7 +1112,7 @@ namespace BikewaleOpr.DAL
         {
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveBookingAmount"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savebookingamount"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, objBookingAmt.objDealer.DealerId));
@@ -1144,7 +1147,7 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_UpdateBikeBookingAmount"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebikebookingamount"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -1152,7 +1155,7 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_BookingAmount", DbType.Int32, objBookingAmt.Amount));
 
 
-                    if (MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase))
+                    if (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase))
                         isSuccess = true;
                 }
             }
@@ -1296,7 +1299,7 @@ namespace BikewaleOpr.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_BookingId", DbType.Int32, bookingId));
 
-                    return MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    return MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -1356,7 +1359,7 @@ namespace BikewaleOpr.DAL
             DealerBenefitEntity objOffer = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerBenefits"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerbenefits"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
@@ -1402,12 +1405,12 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_DeleteDealerBenefit"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_deletedealerbenefit"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_BenefitIds", DbType.String, 255, benefitIds));
 
-                    return (MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase));
+                    return (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase));
                 }
             }
             catch (Exception ex)
@@ -1434,7 +1437,7 @@ namespace BikewaleOpr.DAL
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_Save_DealerBenefit"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_save_dealerbenefit"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -1497,7 +1500,7 @@ namespace BikewaleOpr.DAL
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveDealerLoanAmounts_10032016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerloanamounts_10032016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -1532,7 +1535,7 @@ namespace BikewaleOpr.DAL
         {
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_DeleteDealerLoanAmounts"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_deletedealerloanamounts"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_Id", DbType.Int32, id));

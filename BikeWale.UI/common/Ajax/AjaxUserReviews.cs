@@ -1,8 +1,8 @@
 ﻿using Bikewale.Common;
-using MySql.CoreDAL;
+using Bikewale.DAL.UserReviews;
+using Bikewale.Interfaces.UserReviews;
+using Microsoft.Practices.Unity;
 using System;
-using System.Data;
-using System.Data.Common;
 using System.Web;
 
 /// <summary>
@@ -74,21 +74,24 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public bool ApproveUpdatedReview(string reviewId, string customerId)
         {
-            bool ret = false;
-            try
-            {
-                UpdateReplicaAsVerified(reviewId);
-                UpdateChangesToCustomerReviews(reviewId);
-                UpdateReviewRateCount(reviewId);
-                AddReplyInForums(reviewId, customerId);
-                ret = true;
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveUpdatedReview");
-                objErr.SendMail();
-            }
-            return ret;
+            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "AjaxUserReviews.ApproveUpdatedReview");
+            objErr.SendMail();
+            return false;
+            //bool ret = false;
+            //try
+            //{
+            //    UpdateReplicaAsVerified(reviewId);
+            //    UpdateChangesToCustomerReviews(reviewId);
+            //    UpdateReviewRateCount(reviewId);
+            //    AddReplyInForums(reviewId, customerId);
+            //    ret = true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorClass objErr = new ErrorClass(ex, "AjaxUserReviews.ApproveUpdatedReview");
+            //    objErr.SendMail();
+            //}
+            //return ret;
         }
 
 
@@ -465,19 +468,36 @@ namespace Bikewale.Ajax
         public bool UpdateReviewAbuse(string reviewId, string comments)
         {
             bool returnVal = false;
+            uint _reviewId;
+
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("updatecustomerreviewsabuse"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, reviewId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, comments));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int64, CurrentUser.Id));
-                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
-                    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                uint.TryParse(reviewId, out _reviewId);
 
-                    returnVal = true;
+                //using (DbCommand cmd = DbFactory.GetDBCommand("updatecustomerreviewsabuse"))
+                //{
+                //    cmd.CommandType = CommandType.StoredProcedure;
+                //    cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, reviewId));
+                //    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, comments));
+                //    cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int64, CurrentUser.Id));
+                //    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
+                //    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+
+                //    returnVal = true;
+                //}
+
+                if (_reviewId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IUserReviews, UserReviewsRepository>()
+                        .RegisterType<IUserReviews, UserReviewsRepository>();
+                        IUserReviews objReviews = container.Resolve<IUserReviews>();
+
+                        returnVal = objReviews.AbuseReview(_reviewId, comments, CurrentUser.Id.ToString());
+                    }
                 }
+
 
             }
             catch (Exception err)
@@ -487,6 +507,7 @@ namespace Bikewale.Ajax
                 objErr.SendMail();
                 returnVal = false;
             } // catch Exception
+
             return returnVal;
         }
 

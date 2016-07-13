@@ -80,7 +80,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makemaskingname", DbType.String, txtMaskingName.Text.Trim()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismakeexist", DbType.Boolean, ParameterDirection.Output));
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     // Error code Unique key constraint in the database.
                     if (!Convert.ToBoolean(cmd.Parameters["par_ismakeexist"].Value))
@@ -165,7 +165,7 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("Updatebikemake"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatebikemake"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -175,7 +175,6 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Byte, Convert.ToInt16(chkNew.Checked)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isused", DbType.Byte, Convert.ToInt16(chkUsed.Checked)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, BikeWaleAuthentication.GetOprUserId()));
-
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
                     // Push the data to carwale DB
