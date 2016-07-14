@@ -5,7 +5,6 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -81,10 +80,16 @@ namespace Bikewale.BAL.PriceQuote
             Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealerQuotation = null;
             try
             {
-                string _apiUrl = String.Format("/api/v3/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionID, dealerId);
-                using (BWHttpClient objClient = new BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    dealerQuotation = objClient.GetApiResponseSync<Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerQuotation);
+                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
+                    Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                    PQParameterEntity objParam = new PQParameterEntity();
+                    objParam.CityId = cityId;
+                    objParam.DealerId = dealerId > 0 ? Convert.ToUInt32(dealerId) : default(UInt32);
+                    objParam.VersionId = versionID;
+                    dealerQuotation = objPriceQuote.GetDealerPriceQuoteByPackageV2(objParam);
+
                     if (dealerQuotation != null)
                     {
                         if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
@@ -102,7 +107,9 @@ namespace Bikewale.BAL.PriceQuote
                             }
                         }
                     }
+
                 }
+
             }
             catch (Exception ex)
             {
@@ -142,11 +149,17 @@ namespace Bikewale.BAL.PriceQuote
 
                 if (dealerId > 0)
                 {
-                    string api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, versionId.Value, dealerId);
-                    using (Utility.BWHttpClient objDealerPqClient = new Utility.BWHttpClient())
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        objDealerPQ = objDealerPqClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objDealerPQ);
+                        container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
+                        Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                        PQParameterEntity objParam = new PQParameterEntity();
+                        objParam.CityId = cityId;
+                        objParam.DealerId = dealerId;
+                        objParam.VersionId = Convert.ToUInt32(versionId.Value);
+                        objDealerPQ = objPriceQuote.GetDealerPriceQuote(objParam);
                     }
+
                 }
 
                 IEnumerable<OtherVersionInfoEntity> versions = objPQ.GetOtherVersionsPrices(pqId);

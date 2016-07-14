@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PriceQuote
@@ -29,5 +30,8 @@ namespace Bikewale.Entities.PriceQuote
 
         [JsonProperty("dealerPackageType")]
         public DealerPackageTypes DealerPackageType { get; set; }
+
+        [JsonProperty("versions")]
+        public IEnumerable<VersionPriceEntity> Versions { get; set; }
     }
 }
