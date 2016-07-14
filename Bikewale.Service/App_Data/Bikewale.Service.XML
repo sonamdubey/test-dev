@@ -1348,14 +1348,8 @@
             Modified By : Sadhana Upadhyay on 29 Dec 2015
             Summary : added utmz, utma, device Id etc
             </summary>
-            <param name="name"></param>
-            <param name="email"></param>
-            <param name="mobile"></param>
-            <param name="pqId"></param>
-            <param name="cityId"></param>
-            <param name="versionId"></param>
+            <param name="objLead"></param>
             <returns></returns>
-            
         </member>
         <member name="T:Bikewale.Service.Controllers.Make.DealerMakesController">
             <summary>

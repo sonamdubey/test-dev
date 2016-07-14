@@ -631,10 +631,10 @@
                                 <div class="pq-no-premium-dealer font14 text-light-grey">Sorry, there are no dealers nearby</div>
                                 <%} %>
                             </div>
-                            <%if (detailedDealer != null && detailedDealer.SecondaryDealerCount > 0)
+                            <%if (detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealers.Count() > 0 )
                               { %>
                             <div class="margin-left10 pq-sidebar-dealer-listing margin-top15 padding-right20 padding-left20">
-                                <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?"more dealers":"more dealer" %> :</p>
+                                <p class="padding-bottom15">Prices available from <%= detailedDealer.SecondaryDealers.Count() %> <%= (detailedDealer.SecondaryDealers.Count() > 1)?"more dealers":"more dealer" %> :</p>
                                 <ul id="dealerList">
                                     <asp:Repeater ID="rptDealers" runat="server">
                                         <ItemTemplate>
