@@ -144,8 +144,7 @@ namespace Bikewale.BAL.PriceQuote
 
         public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool hasArea)
         {
-            hasArea = false;
-            return null;
+            throw new NotImplementedException();
         }
     }   // class
 }   // namespace
