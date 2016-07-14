@@ -196,9 +196,9 @@ namespace Bikewale.Mobile.BikeBooking
                             }
 
                             //bind secondary Dealer
-                            if (objPriceQuote.SecondaryDealerCount > 0)
+                            if (objPriceQuote.SecondaryDealers != null && objPriceQuote.SecondaryDealers.Count() > 0)
                             {
-                                secondaryDealersCount = Convert.ToUInt32(objPriceQuote.SecondaryDealerCount);
+                                secondaryDealersCount = Convert.ToUInt32(objPriceQuote.SecondaryDealers.Count());
                                 if (secondaryDealersCount > 0)
                                 {
                                     isSecondaryDealer = true;
