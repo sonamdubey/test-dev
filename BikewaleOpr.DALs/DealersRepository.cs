@@ -670,19 +670,14 @@ namespace BikewaleOpr.DAL
         /// <returns></returns>
         public bool DeleteDealerOffer(string offerId)
         {
-
-
-            bool isdeleteSuccess = false;
-
+            bool isdeleteSuccess = true;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("bw_deletedealeroffers"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferIds", DbType.String, -1, offerId));
-
-                    if (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase))
-                        isdeleteSuccess = true;
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -691,7 +686,6 @@ namespace BikewaleOpr.DAL
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-
             return isdeleteSuccess;
         }
 
@@ -1409,8 +1403,8 @@ namespace BikewaleOpr.DAL
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_BenefitIds", DbType.String, 255, benefitIds));
-
-                    return (MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    return true;
                 }
             }
             catch (Exception ex)

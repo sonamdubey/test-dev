@@ -137,7 +137,7 @@
             } else
                 $("#ddlModel").val("0").attr("disabled", "disabled");
         }
-        var host = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"] %> ';
+        var host = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"] %>';
 
         function btnDelete_Click(disclaimerId) {
             $.ajax({
@@ -150,7 +150,6 @@
 
         }
         function btnEdit_Click(disclaimerId) {
-
             var html = $("#updHtml").html();
             var title = "<h3>" + $(".make_" + disclaimerId).text() + " " + $(".model_" + disclaimerId).text() + " " + $(".version_" + disclaimerId).text() + "</h3>";
             html = title + html;
@@ -165,6 +164,8 @@
             $("#txtEditText").val($('.text_' + disclaimerId).text());
             $("#txtEditText").focus();
             $("#btnUpdate").click(function () {
+                alert(host);
+                debugger;
                 $("#spnUpdateText").text("");
                 var newtxt = $("#txtEditText").val();
                 var isError = false;

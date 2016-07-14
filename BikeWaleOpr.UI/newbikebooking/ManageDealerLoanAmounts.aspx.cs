@@ -130,7 +130,7 @@ namespace BikeWaleOpr.NewBikeBooking
                             Convert.ToSingle(txtMinPayment.Text),
                             Convert.ToSingle(txtMaxPayment.Text),
                             Convert.ToUInt16(txtMinTenure.Text),
-                            Convert.ToUInt16(txtMaxPayment.Text),
+                            Convert.ToUInt16(txtMaxTenure.Text),
                             Convert.ToSingle(txtMinROI.Text),
                             Convert.ToSingle(txtMaxROI.Text),
                             Convert.ToSingle(txtMinLtv.Text),
