@@ -130,6 +130,9 @@
     </div>
 
     <script type="text/javascript">
+
+        var _cwWebService = "<%= ConfigurationManager.AppSettings["CwWebServiceHostUrl"] %>" ;
+
         $(document).ready(function () {
             $('[name$="rdbCampaign"]').attr("name", $('[name$="rdbCampaign"]').attr("name"));
             $('[name$="rdbCampaign"]').click(function () {
@@ -160,30 +163,52 @@
         return false;
     });
 
-function mapCampaign(campaignId) {
-    try {
-        if (confirm("Do you want to map the selected campaign?")) {
-            $.ajax({
-                type: "POST",
-                url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                //data: '{"contractId":"' + contractId + '" , "campaignId":"' + campaignId + '"}',
-                data: '{"dealerId":"' + dealerId + '", "contractId":"' + contractId + '", "campaignId":"' + campaignId + '", "dealerNumber":"' + dealerNumber + '", "maskingNumber":"' + maskingNumber + '"}',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "MapCampaign"); },
-                success: function (response) {
-                    if (JSON.parse(response).value)
-                        alert('Campaign has been mapped with contract');
-                    else {
-                        alert("There was error occured during mapping. Please contact System Administrator for more details.");
-                    }
-                    //location.href = "/campaign/ManageDealers.aspx?contractid=" + contractId + "&campaignid=" + campaignId + "&dealerid=" + dealerId + "&dealername=" + dealerName + "&no=" + <%=dealerNumber %> + "";
+        function mapCampaign(campaignId) {
+            try {
+                if (confirm("Do you want to map the selected campaign?")) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                        //data: '{"contractId":"' + contractId + '" , "campaignId":"' + campaignId + '"}',
+                        data: '{"dealerId":"' + dealerId + '", "contractId":"' + contractId + '", "campaignId":"' + campaignId + '", "dealerNumber":"' + dealerNumber + '", "maskingNumber":"' + maskingNumber + '"}',
+                        beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "MapCampaign"); },
+                        success: function (response) {
+                            if (JSON.parse(response).value) {
+                                alert('Campaign has been mapped with contract. Now please wait for data sync with Carwale');
+                                mapCWCampaignContract(campaignId);
+                            }
+                            else {
+                                alert("There was error occured during mapping. Please contact System Administrator for more details.");
+                            }
+                            //location.href = "/campaign/ManageDealers.aspx?contractid=" + contractId + "&campaignid=" + campaignId + "&dealerid=" + dealerId + "&dealername=" + dealerName + "&no=" + <%=dealerNumber %> + "";
+                        }
+
+                    });
                 }
-
-            });
+            } catch (e) {
+                alert("An error occured. Please contact System Administrator for more details.");
+            }
         }
-    } catch (e) {
-        alert("An error occured. Please contact System Administrator for more details.");
-    }
 
-}
+        function mapCWCampaignContract(campaignId) {
+            try {
+                    $.ajax({
+                        type: "POST",
+                        url: _cwWebService + "/api/contracts/mapcampaign/?dealerid=" + dealerId + "&contractid=" + contractId + "&campaignid=" + campaignId,
+                        success: function (response) {
+                            if (JSON.parse(response).value){
+                                alert('Contract Campaign Data Syned with CW');
+                            }
+                            else {
+                                alert("There was error occured during mapping. Please contact System Administrator for more details.");
+                            }
+                        }
+
+                    });
+            } catch (e) {
+                alert("An error occured. Please contact System Administrator for more details.");
+            }
+
+    }
     </script>
     <!-- #Include file="/includes/footerNew.aspx" -->

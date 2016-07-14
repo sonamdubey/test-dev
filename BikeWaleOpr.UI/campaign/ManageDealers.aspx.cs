@@ -1,10 +1,16 @@
-﻿using BikewaleOpr.common;
+﻿using BikewaleOpr.BAL.ContractCampaign;
+using BikewaleOpr.common;
 using BikewaleOpr.Common;
 using BikewaleOpr.CommuteDistance;
+using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Interface.ContractCampaign;
 using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -70,6 +76,7 @@ namespace BikewaleOpr.Campaign
                         txtCampaignName.Text.Trim(),
                         txtDealerEmail.Text.Trim(),
                         false);
+
                     lblGreenMessage.Text = "Selected campaign has been Updated !";
                     if (IsProd && isMaskingChanged)
                     {
@@ -101,6 +108,14 @@ namespace BikewaleOpr.Campaign
                         callApp.MapDealerMaskingNumber(dealerId.ToString(), dealerMobile, reqFormMaskingNumber);
                     }
                 }
+
+                bool _isCCMapped = UpdateContractCampaign();
+                if (!_isCCMapped)
+                {
+                    lblGreenMessage.Text = string.Empty;
+                    lblErrorSummary.Text = "DataSync : Campaign Contract Updation failed for Carwale";
+                }
+
                 ClearForm(Page.Form.Controls, true);
                 objCommuteDistanceBL = new CommuteDistanceBL();
                 objCommuteDistanceBL.DealerID = Convert.ToUInt16(dealerId);
@@ -115,6 +130,34 @@ namespace BikewaleOpr.Campaign
                 ErrorClass objErr = new ErrorClass(ex, "InserOrUpdateDealerCampaign");
                 objErr.SendMail();
             }
+        }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 14th July 2016
+        /// Description : API Call to update contract campaign  to carwale db 
+        /// </summary>
+        /// <returns></returns>
+        private bool UpdateContractCampaign()
+        {
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+
+                    container.RegisterType<IContractCampaign, ContractCampaign>();
+                    IContractCampaign objCC = container.Resolve<IContractCampaign>();
+
+                    return objCC.IsCCMapped(Convert.ToUInt32(dealerId), Convert.ToUInt32(contractId), Convert.ToUInt32(campaignId));
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "UpdateContractCampaign");
+                objErr.SendMail();
+            }
+            return false;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -149,24 +192,27 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                //DataTable dtb = dealerCampaign.BindMaskingNumbers(dealerId);
-                //List<ListItem> maskingList = new List<ListItem>();
-                //if (dtb != null)
-                //{
-                //    foreach (DataRow dr in dtb.Rows)
-                //    {
-                //        ListItem lst = new ListItem(Convert.ToString(dr[1]), Convert.ToString(dr[0]));
-                //        if (dr[2].ToString() == "1")
-                //        {
-                //            lst.Attributes.Add("disabled", "disabled");
-                //        }
-                //        maskingList.Add(lst);
-                //    }
-                //    ddlMaskingNumber.Items.AddRange(maskingList.ToArray());
-                //    ddlMaskingNumber.DataBind();
-                //    ListItem item = new ListItem("--Select Number--", "0");
-                //    ddlMaskingNumber.Items.Insert(0, item);
-                //}
+                IEnumerable<MaskingNumber> numbersList = null;
+                using (IUnityContainer container = new UnityContainer())
+                {
+
+                    container.RegisterType<IContractCampaign, ContractCampaign>();
+                    IContractCampaign objCC = container.Resolve<IContractCampaign>();
+
+                    numbersList = objCC.GetAllMaskingNumbers(Convert.ToUInt32(dealerId));
+
+                    if (numbersList != null && numbersList.Count() > 0)
+                    {
+                        ddlMaskingNumber.DataSource = numbersList;
+                        ddlMaskingNumber.DataTextField = "Number";
+                        ddlMaskingNumber.DataValueField = "IsAssigned";
+                        ddlMaskingNumber.DataBind();
+                        //ddlMaskingNumber.Items.Insert(0, item);
+                    }
+
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -198,8 +244,8 @@ namespace BikewaleOpr.Campaign
                         txtMaskingNumber.Text = Convert.ToString(dtCampaign.Rows[0]["Number"]);
                         oldMaskingNumber = txtMaskingNumber.Text;
                         hdnOldMaskingNumber.Value = txtMaskingNumber.Text;
-                        txtCampaignName.Text = Convert.ToString(dtCampaign.Rows[0]["DealerName"]);
                     }
+                    txtCampaignName.Text = Convert.ToString(dtCampaign.Rows[0]["DealerName"]);
                     oldMaskingNumber = txtMaskingNumber.Text;
                     txtDealerEmail.Text = dtCampaign.Rows[0]["DealerEmailId"].ToString().Trim();
                     dealerMobile = dtCampaign.Rows[0]["dealerMobile"].ToString();

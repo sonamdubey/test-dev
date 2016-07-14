@@ -67,7 +67,8 @@ namespace Bikewale.Utility
             _GoogleMapApiKey = String.Empty,
             _apiMaxWaitTime = string.Empty,
             _useGrpc = string.Empty,
-            _bikeWaleLogo = string.Empty;
+            _bikeWaleLogo = string.Empty,
+            _CWSAPiHostUrl = string.Empty;
 
 
         // Private constructor, so no outsiders have access.
@@ -122,6 +123,7 @@ namespace Bikewale.Utility
             _apiMaxWaitTime = ConfigurationManager.AppSettings["ApiMaxWaitTime"];
             _useGrpc = ConfigurationManager.AppSettings["UseGrpc"];
             _bikeWaleLogo = "http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
+            _CWSAPiHostUrl = ConfigurationManager.AppSettings["CwWebServiceHostUrl"];
         }
 
         // Static method to provide access to instance
@@ -224,5 +226,6 @@ namespace Bikewale.Utility
         public string GoogleMapApiKey { get { return _GoogleMapApiKey; } }
         public int ApiMaxWaitTime { get { return string.IsNullOrEmpty(_apiMaxWaitTime) ? 0 : Convert.ToInt32(_apiMaxWaitTime); } }
         public string UseGrpc { get { return _useGrpc; } }
+        public string CWSApiHostUrl { get { return _CWSAPiHostUrl; } }
     }   // class
 }   // namespace

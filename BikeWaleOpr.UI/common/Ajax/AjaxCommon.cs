@@ -6,7 +6,6 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Web;
-using MySql.CoreDAL;
 
 namespace BikeWaleOpr.Common
 {
@@ -589,6 +588,38 @@ namespace BikeWaleOpr.Common
                 objErr.SendMail();
             }
             return jsonCities;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 13 July 2016
+        /// Description :   Release Number
+        /// </summary>
+        /// <param name="maskingNumber"></param>
+        /// <returns></returns>
+        [AjaxPro.AjaxMethod()]
+        public bool ReleaseNumber(int campaignId, string maskingNumber)
+        {
+            bool isSuccess = false;
+            try
+            {
+                if (campaignId > 0 && !String.IsNullOrEmpty(maskingNumber))
+                {
+                    ManageDealerCampaign objMa = new ManageDealerCampaign();
+                    if (objMa.ReleaseCampaignMaskingNumber(campaignId))
+                    {
+                        KnowlarityAPI callApp = new KnowlarityAPI();
+                        callApp.ReleaseMaskingNumber(maskingNumber);
+                        isSuccess = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.MapCampaign");
+                objErr.SendMail();
+            }
+            return isSuccess;
         }
 
         /// <summary>

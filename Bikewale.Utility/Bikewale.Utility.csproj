@@ -89,6 +89,7 @@
     <Compile Include="SingletonABHttpClient.cs" />
     <Compile Include="SingletonBWHttpClient.cs" />
     <Compile Include="SingletonCWHttpClient.cs" />
+    <Compile Include="SingletonCWSHttpClient.cs" />
     <Compile Include="SqlReaderConvertor.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="UrlFormatter.cs" />

@@ -82,48 +82,52 @@
 <div>
     <!-- #Include file="/content/DealerMenu.aspx" -->
 </div>
-<div >    
-    <fieldset class="margin-left10" >
+<div>
+    <fieldset class="margin-left10">
         <a id='backbutton' href="javascript:void(0)">Back to Manage Campaigns Page</a>
-        <legend><h3>Edit Dealer Campaign</h3></legend>
+        <legend>
+            <h3>Edit Dealer Campaign</h3>
+        </legend>
         <div id="box" class="box">
             <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 60%; border-collapse: collapse;">
                 <tbody>
                     <tr>
-                        <td style="width:20%"><strong>Dealer :</strong> </td>
+                        <td style="width: 20%"><strong>Dealer :</strong> </td>
                         <td><span id="spnDealerName"><%= dealerName  %></span></td>
                     </tr>
                     <tr>
-                        <td style="width:20%"><strong>Campaign Name :</strong> </td>
+                        <td style="width: 20%"><strong>Campaign Name :</strong> </td>
                         <td>
                             <asp:textbox runat="server" name="maskingNumber" id="txtCampaignName" maxlength="100" class="req width300" enabled="true" />
                         </td>
                     </tr>
                     <tr>
-                        <td style="width:20%"><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
+                        <td style="width: 20%"><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
                         <td>
                             <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="req numeric width300" enabled="true" />
                             <asp:dropdownlist id="ddlMaskingNumber" runat="server" />
                             <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />
                             <%--<a id="mapNewMaskingNumber" href="javascript:void(0)" onclick="ShowMapMaskingNumberPopup()">Map new Masking number</a>--%>
+                            <% if (isCampaignPresent)
+                               { %> <a id="releaseMaskingNumber" href="javascript:void(0)">Release Masking number</a><%} %>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width:20%"><strong>Campaign Email ID :</strong><b class="required">*</b></td>
+                        <td style="width: 20%"><strong>Campaign Email ID :</strong><b class="required">*</b></td>
                         <td>
                             <asp:textbox textmode="multiline" multiline="true" height="50" width="200" runat="server" id="txtDealerEmail" placeholder="Enter Email ids separated by comma" class="req width300" />
                             <span id="spnDealerEmail" class="Required marginleft18"></span>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width:20%"><strong>Campaign Lead Serving radius(in kms) :</strong><b class="required">*</b></td>
+                        <td style="width: 20%"><strong>Campaign Lead Serving radius(in kms) :</strong><b class="required">*</b></td>
                         <td>
                             <asp:textbox runat="server" id="txtdealerRadius" placeholder="" class="numeric req width300" />
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <asp:button id="btnUpdate" onclientclick="return ValidateForm();" text="Save" runat="server" cssClass="padding10" />
+                            <asp:button id="btnUpdate" onclientclick="return ValidateForm();" text="Save" runat="server" cssclass="padding10" />
                         </td>
                     </tr>
                 </tbody>
@@ -136,34 +140,36 @@
 
         </div>
 
-       
+
 
     </fieldset>
 
-     <% if (isCampaignPresent)
+    <% if (isCampaignPresent)
        { %>
-    <fieldset style="margin-left:12%;margin-bottom:20px;">
+    <fieldset style="margin-left: 12%; margin-bottom: 20px;">
         <legend>Define Components</legend>
 
-    <strong>Edit rules:</strong><span><a href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span>
+        <strong>Edit rules:</strong><span><a href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span>
 
     </fieldset>
     <% } %>
-    
 </div>
 <script type="text/javascript">
 
-    //if (!window.jQuery) {
-    //    var script = document.createElement('script');
-    //    script.type = "text/javascript";
-    //    script.src = "http://st1.aeplcdn.com/bikewale/src/frameworks.js?01July2016v1";
-    //    document.getElementsByTagName('head')[0].appendChild(script);
-    //}
-
-
+    var campaignId = "<%= campaignId %>";
     var dialog;
     $(document).on("keyup", ".numeric", function (event) {
         this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    var txtMaskingNumber = "<%= oldMaskingNumber %>";
+
+    $("#ddlMaskingNumber option[Value='True']").each(function () {
+        $(this).prop("disabled", true);
+        if($(this).text() == txtMaskingNumber)
+        {
+            $('#txtMaskingNumber').val($(this).text());
+        }
     });
 
     function ValidateForm() {
@@ -203,9 +209,42 @@
 
     $("#backbutton").on("click", function () {
         window.location.href = '/campaign/MapCampaign.aspx?dealerId=' + '<%= dealerId %>' + '&contractid=' + '<%=  contractId %>';
+    });
+        $(window).ready(function () {
+            $("#pageloaddiv").hide();
         });
-            $(window).ready(function () {
-                $("#pageloaddiv").hide();
-            });
+
+        $("#releaseMaskingNumber").on("click", function () {
+            var maskingNumber = $("#txtMaskingNumber").val();
+            if (maskingNumber.length > 0) {
+                releaseMaskingNumber(maskingNumber);
+            }
+            return false;
+        });
+
+        function releaseMaskingNumber(maskingNumber) {
+            try {
+                if (confirm("Do you want to release the number?")) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                        data: '{"campaignId":"' + campaignId + '", "maskingNumber":"' + maskingNumber + '"}',
+                        beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ReleaseNumber"); },
+                        success: function (response) {
+                            if (JSON.parse(response).value) {
+                                $("#txtMaskingNumber").val('');
+                                alert("Masking Number is released successful.");
+                            }
+                            else {
+                                alert("There was error while releasing masking number. Please contact System Administrator for more details.");
+                            }
+                        }
+
+                    });
+                }
+            } catch (e) {
+                alert("An error occured. Please contact System Administrator for more details.");
+            }
+        }
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

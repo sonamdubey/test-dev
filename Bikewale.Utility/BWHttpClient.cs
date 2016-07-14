@@ -91,6 +91,9 @@ namespace Bikewale.Utility
                     case APIHost.AB:
                         httpClient = SingletonABHttpClient.Instance;
                         break;
+                    case APIHost.CWS:
+                        httpClient = SingletonCWSHttpClient.Instance;
+                        break;
                     case APIHost.None:
                         break;
                     default:

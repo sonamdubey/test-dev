@@ -1,6 +1,5 @@
 ﻿using BikewaleOpr.Entity;
 using BikeWaleOpr.Common;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -142,7 +141,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbType.Int32, contractId));
 
-                    isSuccess = MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (Exception ex)
@@ -313,13 +312,13 @@ namespace BikewaleOpr.Common
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_contractId", DbType.Int32, contract.ContractId));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32,  contract.DealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, contract.DealerId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_packageId", DbType.Int32, 50, contract.PackageId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_packageName", DbType.String, 50, contract.PackageName));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_startDate", DbType.DateTime, contract.StartDate));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_endDate", DbType.DateTime, contract.EndDate));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_contractStatus", DbType.Int32, contract.ContractStatus));
-                        rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.MasterDatabase);
+                        rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     }
                 }
@@ -333,6 +332,13 @@ namespace BikewaleOpr.Common
             return rowsAffected > 0 ? true : false;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 13 July 2016
+        /// Description :   Maps campaign and contract
+        /// </summary>
+        /// <param name="contractId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
         public bool MapContractCampaign(int contractId, int campaignId)
         {
             int rowsAffected = 0;
@@ -346,7 +352,7 @@ namespace BikewaleOpr.Common
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbType.Int32, contractId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
-                        rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.MasterDatabase);
+                        rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     }
                 }
@@ -354,6 +360,31 @@ namespace BikewaleOpr.Common
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("ManageDealerCampaign.MapContractCampaign({0},{1})", contractId, campaignId));
+                objErr.SendMail();
+            }
+            return rowsAffected > 0 ? true : false;
+        }
+
+        public bool ReleaseCampaignMaskingNumber(int campaignId)
+        {
+            int rowsAffected = 0;
+            try
+            {
+                if (campaignId > 0)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand("releaseCampaignMaskingNumber"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
+                        rowsAffected = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("ManageDealerCampaign.ReleaseCampaignMaskingNumber({0})", campaignId));
                 objErr.SendMail();
             }
             return rowsAffected > 0 ? true : false;
