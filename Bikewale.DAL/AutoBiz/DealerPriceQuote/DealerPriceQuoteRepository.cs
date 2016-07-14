@@ -1094,6 +1094,7 @@ namespace Bikewale.DAL.AutoBiz
                         }
                         objDetailedDealerQuotationEntity.PrimaryDealer = dealerQuotation;
                         objDetailedDealerQuotationEntity.SecondaryDealers = secondaryDealers;
+                        objDetailedDealerQuotationEntity.SecondaryDealerCount = secondaryDealers != null ? secondaryDealers.Count() : 0;
                     }
                 }
             }
