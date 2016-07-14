@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.PopularUsedBikes" %>
 <div class="container">
     <div class="grid-12 <%= (FetchedRecordsCount > 0)?"":"hide" %>">
-        <h2 class="text-bold text-center margin-top50 margin-bottom30 font28"><%= FormatControlHeader() %></h2>
+        <h2 class="text-bold text-center margin-top40 margin-bottom20 font22"><%= FormatControlHeader() %></h2>
         <div class="jcarousel-wrapper popular-used-bikes-container">
             <div class="jcarousel used-bike-carousel">
                 <ul>
@@ -37,7 +37,7 @@
             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
         </div>
         <div class="text-center margin-bottom30">
-            <a class="font16" href="<%= FormatCompleteListUrl() %>">View complete list</a>
+            <a class="btn btn-tertiary" href="<%= FormatCompleteListUrl() %>">View complete list</a>
         </div>
     </div>
     <div class="clear"></div>

@@ -659,7 +659,7 @@
         <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div class="container">
                 <div class="grid-12 alternative-section" id="alternative-bikes-section">
-                    <h2 class="text-bold text-center margin-top20 margin-bottom30"><%= BikeName %> alternatives</h2>
+                    <h2 class="text-bold text-center margin-top20 margin-bottom30 font22"><%= BikeName %> alternatives</h2>
                     <div class="content-box-shadow">
                         <div class="jcarousel-wrapper alternatives-carousel margin-top20">
                             <div class="jcarousel">

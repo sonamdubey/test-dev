@@ -322,16 +322,14 @@
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom10">
-                                            <h3><a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }"></a></h3>
-                                        </div>
+                                        <h3 class="bikeTitle margin-bottom10"><a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }"></a></h3>
                                         <div class="text-xt-light-grey font14 margin-bottom15">
                                             <span><span data-bind="html: availSpecs"></span></span>
                                         </div>
                                         <div class="font14 text-light-grey margin-bottom5">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
                                         <div class="text-bold">
-                                            <span class="bwsprite inr-xl"></span>
-                                            <span class="font22" data-bind="text: price"></span><span class="font16"> onwards</span>
+                                            <span class="bwsprite inr-lg"></span>
+                                            <span class="font18" data-bind="text: price"></span><span class="font14"> onwards</span>
                                         </div>
                                         <a data-bind="attr: { modelId: bikemodel.modelId, pqSourceId: PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey btn-sm margin-top15 font14 fillPopupData">Check on-road price</a>
                                     </div>

@@ -25,7 +25,7 @@ namespace Bikewale.Utility
             {
                 _desc = _desc.Substring(0, (descLength - 5));
                 _desc = _desc.Substring(0, _desc.LastIndexOf(" "));
-                return _desc + " ...";
+                return _desc + "...";
             }
         }
         /// <summary>

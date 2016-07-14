@@ -131,7 +131,7 @@
                         </div>
                         <div class="grid-7 model-details-wrapper omega">
                             <div class="model-name-review-container">
-                                <h1 class="font18 text-black text-bold"><%= bikeName %></h1>
+                                <h1><%= bikeName %></h1>
                                 <% if (!modelPageEntity.ModelDetails.Futuristic || modelPageEntity.ModelDetails.New)
 								   { %>
                                 <!-- Review & ratings -->
@@ -262,7 +262,7 @@
                                 <% } %>
                                 <%  if (price == 0)
 									{ %>
-                                <span class="font32">Price not available</span>
+                                <span class="font20">Price not available</span>
                                 <%  }
 									else
 									{ %>
@@ -558,7 +558,7 @@
                                 <img src="<%= modelImage %>" />
                             </div>
                             <div class="model-card-title-content inline-block-top">
-                                <h2 class="font18 text-bold margin-bottom10"><%= bikeName %></h2>
+                                <h2 class="font16 text-bold margin-bottom10"><%= bikeName %></h2>
                                 <p class="font14 text-light-grey"><%= variantText %></p>
                             </div>
                         </div>
@@ -586,7 +586,7 @@
                             <div>
                                  <% if (price == 0)
 									{ %>
-                                <span class="font32">Price not available</span>
+                                <span class="font18">Price not available</span>
                                 <%  } else{ %>
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 <%} %>

@@ -26,7 +26,6 @@
     .PQOffersUL li{padding-bottom:15px}
     .margin-top7 { margin-top:7px; }
     .inr-sm { width:8px; height:12px; background-position:-110px -468px; }
-    .inr-lg { width:10px; height:14px; background-position:-110px -490px; }
     .pqVariants .variants-dropdown{ width:210px; height: 40px; margin-left: 12px; color: #555; position: relative; cursor: pointer; background: #fff;}
     .variant-selection-tab { width:90%; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; }
     #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px;}
@@ -269,7 +268,7 @@
     <section class="margin-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
         <div class="container">
         <div class="grid-12 alternative-section" id="alternative-bikes-section">
-            <h2 class="text-bold text-center margin-top20 margin-bottom30"><%= mmv.Make + " " + mmv.Model %> alternatives</h2>
+            <h2 class="text-bold text-center margin-top20 margin-bottom30 font22"><%= mmv.Make + " " + mmv.Model %> alternatives</h2>
             <div class="content-box-shadow">
                 <div class="jcarousel-wrapper alternatives-carousel margin-top20">
                     <div class="jcarousel">
@@ -290,7 +289,7 @@
         <!-- Upcoming bikes from brands -->
         <div class="container">
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top20 margin-bottom30">Upcoming bikes from <%= mmv.Make %></h2>
+                <h2 class="text-bold text-center margin-top20 margin-bottom30 font22">Upcoming bikes from <%= mmv.Make %></h2>
                 <div class="content-box-shadow rounded-corner2">
                     <div class="jcarousel-wrapper upcoming-brand-bikes-container margin-top20">
                         <div class="jcarousel">
