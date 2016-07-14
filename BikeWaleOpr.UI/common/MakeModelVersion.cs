@@ -368,7 +368,9 @@ namespace BikeWaleOpr.Common
                     nvc.Add("maskingname", maskingName);
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
-                    // _mc.Remove("BW_MakeMapping");
+                    if (_mc != null)
+                        _mc.Remove("BW_MakeMapping");
+                    isSuccess = true;
                 }
             }
             catch (SqlException err)
@@ -407,13 +409,17 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maskingname", DbType.String, 50, maskingName));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, updatedBy));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ismodelmaskingexist", DbType.Boolean, ParameterDirection.Output));
                     isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
-                    NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("ModelMaskingName", maskingName);
-                    nvc.Add("modelId", modelId);
-                    SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
-
+                    if (!Convert.ToBoolean(cmd.Parameters["par_ismodelmaskingexist"].Value))
+                    {
+                        NameValueCollection nvc = new NameValueCollection();
+                        nvc.Add("ModelMaskingName", maskingName);
+                        nvc.Add("modelId", modelId);
+                        SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
+                        isSuccess = true;
+                    }
                     if (_mc != null)
                     {
                         _mc.Remove("BW_ModelMapping");

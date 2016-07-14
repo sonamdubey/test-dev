@@ -141,32 +141,31 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_currentid", DbType.Int64, ParameterDirection.Output));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
-                    NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("modelId", Request["cmbmodels"].ToString());
-                    nvc.Add("versionName", txtVersion.Text.Trim());
-                    nvc.Add("IsNew", Convert.ToInt16(chkNew.Checked).ToString());
-                    nvc.Add("IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
-                    nvc.Add("Isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
-                    SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CW, nvc);
-
                     currentId = cmd.Parameters["par_currentid"].Value.ToString();
+                    if (currentId != "-1")
+                    {
+                        NameValueCollection nvc = new NameValueCollection();
+                        nvc.Add("versionid", currentId);
+                        nvc.Add("modelId", Request["cmbmodels"].ToString());
+                        nvc.Add("versionName", txtVersion.Text.Trim());
+                        nvc.Add("IsNew", Convert.ToInt16(chkNew.Checked).ToString());
+                        nvc.Add("IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
+                        nvc.Add("Isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
+                        SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CW, nvc);
+                    }
                 }
-
             }
             catch (SqlException err)
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
-                Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch SqlException
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             } // catch Exception
-
             return currentId;
         }
 
@@ -180,7 +179,6 @@ namespace BikeWaleOpr.Content
             string sql = "";
             int pageSize = dtgrdMembers.PageSize;
             int _modelid = default(int);
-
             if (!string.IsNullOrEmpty(Request.Form["cmbModels"].Trim()) && int.TryParse(Request.Form["cmbModels"], out _modelid))
             {
                 sql = @"select bv.id,bv.name,se.id as segmentid,se.name as segment,bs.id as bodystyleid,bs.name as bodystyle, bv.bikefueltype, bv.biketransmission,
