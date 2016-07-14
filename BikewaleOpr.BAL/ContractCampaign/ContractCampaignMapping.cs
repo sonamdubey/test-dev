@@ -59,11 +59,11 @@ namespace BikewaleOpr.BAL.ContractCampaign
             bool _isCCMapped = false;
             try
             {
-                string api = string.Format("/api/contracts/mapcampaign/?dealerid={0}&contractid={1}&campaignid={3}&applicationId=2", dealerId, contractId);
+                string _apiUrl = string.Format("/api/contracts/mapcampaign/?dealerid={0}&contractid={1}&campaignid={2}&applicationId=2", dealerId, contractId, campaignId);
 
                 using (Bikewale.Utility.BWHttpClient objClient = new Bikewale.Utility.BWHttpClient())
                 {
-                    _isCCMapped = objClient.GetApiResponseSync<bool>(Bikewale.Utility.APIHost.CWS, Bikewale.Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, _isCCMapped);
+                    _isCCMapped = objClient.PostSync<bool, bool>(Bikewale.Utility.APIHost.CWS, Bikewale.Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _isCCMapped);
                 }
             }
             catch (System.Exception ex)
