@@ -495,7 +495,6 @@ namespace Bikewale.Ajax
                         IUserReviews objReviews = container.Resolve<IUserReviews>();
 
                         returnVal = objReviews.AbuseReview(_reviewId, comments, CurrentUser.Id.ToString());
-
                     }
                 }
 

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Web;
+﻿using MySql.CoreDAL;
+using System;
 using System.Data;
-using System.Data.SqlClient;
-using System.Net;
 using System.Data.Common;
-using MySql.CoreDAL;
+using System.Data.SqlClient;
+using System.Web;
 
 namespace Bikewale.Common
 {
@@ -63,23 +62,23 @@ namespace Bikewale.Common
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50,name));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 50,email.Trim().ToLower()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 20,String.IsNullOrEmpty(mobile) ? Convert.DBNull : mobile));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32,String.IsNullOrEmpty(cityId) ? Convert.DBNull : cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phoneno", DbType.String, 20,String.IsNullOrEmpty(phone) ? Convert.DBNull : phone));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, name));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 50, email.Trim().ToLower()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 20, String.IsNullOrEmpty(mobile) ? Convert.DBNull : mobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, String.IsNullOrEmpty(cityId) ? Convert.DBNull : cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_phoneno", DbType.String, 20, String.IsNullOrEmpty(phone) ? Convert.DBNull : phone));
                     //cmd.Parameters.Add(DbFactory.GetDbParam("par_password", DbType.String, 20,String.IsNullOrEmpty(password) ? Convert.DBNull : password));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbType.String, 10,salt));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbType.String, 64,hash));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64 , ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean , ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40,CommonOpn.GetClientIP()));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_salt", DbType.String, 10, salt));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbType.String, 64, hash));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isnew", DbType.Boolean, ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CommonOpn.GetClientIP()));
 
-                //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
 
                     //run the command
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     customerId = cmd.Parameters["par_customerid"].Value.ToString();
 
@@ -93,7 +92,7 @@ namespace Bikewale.Common
                         Common.Mails.CustomerRegistration(customerId, password);
                         HttpContext.Current.Trace.Warn("Register Customer done. Mail sent to customer.");
                     }
-                    HttpContext.Current.Trace.Warn("CustomerId : " + customerId); 
+                    HttpContext.Current.Trace.Warn("CustomerId : " + customerId);
                 }
             }
             catch (SqlException err)
@@ -113,7 +112,7 @@ namespace Bikewale.Common
             } // catch Exception
 
             return customerId;
-        } 
+        }
         #endregion
 
         #region IsRegisterdCustomer PopulateWhere
@@ -124,7 +123,7 @@ namespace Bikewale.Common
         /// <param name="Email">Email id given by customer</param>
         /// <returns>Returns customer id. If customer is registered returns customerid else returns -1.</returns>
         public string IsRegisterdCustomer(string Email)
-        {            
+        {
             string cust_id = string.Empty;
 
             try
@@ -138,11 +137,11 @@ namespace Bikewale.Common
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             cust_id = dr["ID"].ToString();
                             dr.Close();
-                        } 
+                        }
                     }
                 }
             }
@@ -159,7 +158,7 @@ namespace Bikewale.Common
             }
 
             return cust_id;
-        } 
+        }
         #endregion
 
         #region GenerateRandomPassword PopulateWhere
@@ -288,7 +287,7 @@ namespace Bikewale.Common
         /// <param name="hash">Hash from database will be return in the supplied parameter</param>
         /// <param name="email">Provide email id of a customer whose salt and hash is required</param>
         public string GetSaltHash(ref string salt, ref string hash, ref string customerId, ref string name, string email)
-        {            
+        {
             try
             {
 
@@ -302,7 +301,7 @@ namespace Bikewale.Common
                     //cmd.Parameters.Add("@Hash", SqlDbType.VarChar, 64).Direction = ParameterDirection.Output;
                     //cmd.Parameters.Add("@customerid", SqlDbType.BigInt).Direction = ParameterDirection.Output;
                     //cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-                   // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+                    // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, email));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hash", DbType.String, 64, ParameterDirection.Output));
@@ -388,7 +387,7 @@ namespace Bikewale.Common
             token = Utils.Utils.EncryptTripleDES(value);
 
             return token;
-        } 
+        }
         #endregion
 
         #region DecryptPasswordToken PopulateWhere
@@ -406,7 +405,7 @@ namespace Bikewale.Common
             HttpContext.Current.Trace.Warn("decoded token : " + decodedValue);
 
             return decodedValue;
-        } 
+        }
         #endregion
 
         #region SaveToken PopulateWhere
@@ -492,7 +491,7 @@ namespace Bikewale.Common
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            
+
 
             return isValidtoken;
         }   // End of IsValidPasswordRecoveryToken method 
@@ -655,7 +654,7 @@ namespace Bikewale.Common
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 20, mobile));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 100, email));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, (!String.IsNullOrEmpty(name))?name:Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, (!String.IsNullOrEmpty(name)) ? name : Convert.DBNull));
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
@@ -682,7 +681,7 @@ namespace Bikewale.Common
         /// <returns></returns>
         public bool IsFakeCustomer(int customerId)
         {
-            bool isFake =false;
+            bool isFake = false;
             try
             {
 
@@ -695,11 +694,11 @@ namespace Bikewale.Common
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr!=null && dr.Read())
+                        if (dr != null && dr.Read())
                         {
                             isFake = Convert.ToBoolean(dr["IsFake"]);
                             dr.Close();
-                        }                        
+                        }
                     }
                 }
             }

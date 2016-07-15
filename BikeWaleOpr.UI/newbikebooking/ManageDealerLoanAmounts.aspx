@@ -188,8 +188,7 @@
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
 
-            function btnDelete_Click() {
-                debugger;
+            function btnDelete_Click() {                
                 var loanId = '<%=loanId%>';
                 var BwOprHostUrl = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"] %>';
                 var acknowledge = confirm("Are you sure you want to delete this record");

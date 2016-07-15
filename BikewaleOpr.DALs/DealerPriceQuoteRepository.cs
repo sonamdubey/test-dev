@@ -24,7 +24,7 @@ namespace BikewaleOpr.DALs
         {
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_RemoveDealerPrices"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_removedealerprices"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -34,7 +34,7 @@ namespace BikewaleOpr.DALs
 
                     //run the command
 
-                    return MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly) > 0;
+                    return MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) > 0;
 
                 }
             }
@@ -66,7 +66,7 @@ namespace BikewaleOpr.DALs
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -100,31 +100,32 @@ namespace BikewaleOpr.DALs
         /// <returns></returns>
         public bool SaveDealerPrice(uint dealerId, uint versionId, uint cityId, ushort itemId, uint itemValue)
         {
-            bool isSuccess = false;
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveDealerPrices"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
+            throw new NotImplementedException();
+            //bool isSuccess = false;
+            //try
+            //{
+            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveDealerPrices"))
+            //    {
+            //        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeVersionId", DbType.Int32, versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_PItemId", DbType.Int16, itemId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_Itemvalue", DbType.Int32, itemValue));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeVersionId", DbType.Int32, versionId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_PItemId", DbType.Int16, itemId));
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_Itemvalue", DbType.Int32, itemValue));
 
-                    //run the command
-                    isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("SaveDealerPrice ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+            //        //run the command
+            //        isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    HttpContext.Current.Trace.Warn("SaveDealerPrice ex : " + ex.Message + ex.Source);
+            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //}
 
-            return isSuccess;
+            //return isSuccess;
         }
 
         /// <summary>
@@ -140,7 +141,7 @@ namespace BikewaleOpr.DALs
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveDealerPrices"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_savedealerprices"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.UpdatedRowSource = UpdateRowSource.None;
@@ -152,7 +153,7 @@ namespace BikewaleOpr.DALs
                     cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_Itemvalue", DbType.Int32, 8, dt.Columns[4].ColumnName));
 
                     //run the command
-                    int recordsInserted = MySqlDatabase.InsertQueryViaAdaptor(cmd, dt,ConnectionType.ReadOnly);
+                    int recordsInserted = MySqlDatabase.InsertQueryViaAdaptor(cmd, dt, ConnectionType.MasterDatabase);
                     if (recordsInserted > 0)
                         isPriceSaved = true;
                 }
@@ -192,7 +193,7 @@ namespace BikewaleOpr.DALs
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
 
-                    ds = MySqlDatabase.SelectAdapterQuery(cmd,ConnectionType.ReadOnly);
+                    ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
             catch (Exception ex)
@@ -218,13 +219,13 @@ namespace BikewaleOpr.DALs
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_UnmapDealers"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_unmapdealers"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_AreaIdList", DbType.String, -1, areaIdList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_result", DbType.Byte, ParameterDirection.Output));
-                    MySqlDatabase.InsertQuery(cmd,ConnectionType.MasterDatabase);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = Convert.ToBoolean(cmd.Parameters["par_result"].Value);
                 }
             }
@@ -258,7 +259,7 @@ namespace BikewaleOpr.DALs
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objMapping = new List<DealerAreaDetails>();
                         while (dr.Read())
@@ -302,7 +303,7 @@ namespace BikewaleOpr.DALs
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_MapDealers"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_mapdealers"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -394,7 +395,7 @@ namespace BikewaleOpr.DALs
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, areaId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -421,14 +422,14 @@ namespace BikewaleOpr.DALs
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealersLatLong"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_VersionId", DbType.Int32, versionId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_AreaId", DbType.Int32, areaId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objDealersList = new List<DealerLatLong>();
 
@@ -458,7 +459,112 @@ namespace BikewaleOpr.DALs
 
         public DealerPriceQuoteEntity GetPriceQuoteForAllDealer(uint versionId, uint cityId, string dealerIds)
         {
-            throw new NotImplementedException();
+            DealerPriceQuoteEntity objList = null;
+            IList<PQ_Price> PriceList = null;
+            IList<BikeColorAvailability> ColorwiseAvailabilty = null;
+            IList<OfferEntityBase> OfferList = null;
+            IList<DealerQuotation> DealerDetails = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_opr_getpricequotedetails"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerIds", DbType.String, -1, dealerIds));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeVersionId", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
+
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objList = new DealerPriceQuoteEntity();
+
+                            DealerDetails = new List<DealerQuotation>();
+                            while (dr.Read())
+                            {
+                                DealerDetails.Add(new DealerQuotation()
+                                {
+                                    BookingAmount = Convert.ToUInt32(dr["BookingAmount"]),
+                                    Availability = Convert.ToUInt32(dr["NumOfDays"]),
+                                    DealerId = Convert.ToUInt32(dr["DealerId"]),
+                                    Dealer = new NewBikeDealers()
+                                    {
+                                        DealerId = Convert.ToUInt32(dr["DealerId"]),
+                                        Name = dr["Name"].ToString(),
+                                        Organization = dr["Organization"].ToString(),
+                                        Address = dr["Address"].ToString(),
+                                        MobileNo = dr["MobileNo"].ToString(),
+                                        WorkingTime = dr["ContactHours"].ToString()
+                                    }
+                                });
+                            }
+                            if (dr.NextResult())
+                            {
+                                OfferList = new List<OfferEntityBase>();
+                                while (dr.Read())
+                                {
+                                    OfferList.Add(new OfferEntityBase()
+                                    {
+                                        OfferId = Convert.ToUInt32(dr["OfferId"]),
+                                        OfferCategoryId = Convert.ToUInt32(dr["OfferCateGoryId"]),
+                                        OfferType = dr["OfferType"].ToString(),
+                                        OfferText = dr["OfferText"].ToString(),
+                                        OfferValue = Convert.ToUInt32(dr["OfferValue"]),
+                                        OffervalidTill = Convert.ToDateTime(dr["OfferValidTill"]),
+                                        DealerId = Convert.ToUInt32(dr["DealerId"])
+                                    });
+                                }
+                            }
+
+                            if (dr.NextResult())
+                            {
+                                PriceList = new List<PQ_Price>();
+                                while (dr.Read())
+                                {
+                                    PriceList.Add(new PQ_Price()
+                                    {
+                                        CategoryId = Convert.ToUInt32(dr["ItemId"]),
+                                        CategoryName = dr["ItemName"].ToString(),
+                                        Price = Convert.ToUInt32(dr["Price"]),
+                                        DealerId = Convert.ToUInt32(dr["DealerId"])
+                                    });
+                                }
+                            }
+
+                            if (dr.NextResult())
+                            {
+                                ColorwiseAvailabilty = new List<BikeColorAvailability>();
+                                while (dr.Read())
+                                {
+                                    ColorwiseAvailabilty.Add(new BikeColorAvailability()
+                                    {
+                                        ColorId = Convert.ToUInt32(dr["ColorId"]),
+                                        NoOfDays = Convert.ToInt16(dr["NumOfDays"]),
+                                        DealerId = Convert.ToUInt32(dr["DealerId"]),
+                                        ColorName = Convert.ToString(dr["ColorName"]),
+                                        HexCode = Convert.ToString(dr["HexCode"]),
+                                        VersionId = Convert.ToUInt32(dr["BikeVersionId"])
+                                    });
+                                }
+                            }
+
+                            objList.DealerDetails = DealerDetails;
+                            objList.OfferList = OfferList;
+                            objList.PriceList = PriceList;
+                            objList.BikeAvailabilityByColor = ColorwiseAvailabilty;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DealerPriceQuoteRepository.GetPriceQuoteForAllDealer");
+                objErr.SendMail();
+            }
+            return objList;
         }
     }
 }

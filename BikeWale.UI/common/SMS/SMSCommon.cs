@@ -1,16 +1,15 @@
-﻿using System;
-using System.Web;
-using System.Data;
-using System.Data.SqlClient;
+﻿using Bikewale.Utility;
+using MySql.CoreDAL;
+using RabbitMqPublishing;
+using System;
+using System.Collections.Specialized;
 using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Collections.Specialized;
-using RabbitMqPublishing;
-using Bikewale.Utility;
-using System.Data.Common;
-using MySql.CoreDAL;
+using System.Web;
 
 namespace Bikewale.Common
 {
@@ -63,7 +62,7 @@ namespace Bikewale.Common
             if (!String.IsNullOrEmpty(numbers))
             {
                 string[] arrMobileNos = numbers.Split(',');
-                
+
                 foreach (string number in arrMobileNos)
                 {
                     ProcessSMS(number, message, esms, pageUrl, true);
@@ -185,7 +184,7 @@ namespace Bikewale.Common
 
             //if (currentId != "")
             //{
-             //   SqlCommand cmd = new SqlCommand();
+            //   SqlCommand cmd = new SqlCommand();
             //    Database db = new Database();
 
             //    string sql = "UPDATE SMSSent SET ReturnedMsg = @RetMsg WHERE ID = @CurrentId";
@@ -253,7 +252,7 @@ namespace Bikewale.Common
 
         //        prm = cmd.Parameters.Add("@SMSPageUrl", SqlDbType.VarChar, 500);
         //        prm.Value = pageUrl;
-                // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+        // Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
         //        con.Open();
         //        //run the command
         //        //cmd.ExecuteNonQuery();
@@ -301,7 +300,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_returnedmsg", DbType.String, 500, retMsg));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_smspageurl", DbType.String, 500, pageUrl));
 
-                    currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.ReadOnly));
+                    currentId = Convert.ToString(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.MasterDatabase));
                 }
             }
             catch (SqlException err)
@@ -350,12 +349,12 @@ namespace Bikewale.Common
                 if (isDND == true)
                 {
                     //url tp send SMS through Netcore. This will send SMS even to DND customers.
-                    url = "http://bulkpush.mytoday.com/BulkSms/SingleMsgApi?feedid=337605&username=9967335511&password=tdjgd&To=" + number + "&Text=" + message + "&time=&senderid=";                    
+                    url = "http://bulkpush.mytoday.com/BulkSms/SingleMsgApi?feedid=337605&username=9967335511&password=tdjgd&To=" + number + "&Text=" + message + "&time=&senderid=";
                 }
                 else
                 {
                     //url to send SMS through ACL wireless                    
-                    url = "http://push1.maccesssmspush.com/servlet/com.aclwireless.pushconnectivity.listeners.TextListener?userId=autoex&pass=autoex&appid=autoex&subappid=autoex&contenttype=1&to=" + number +"&from=BIKWAL&text=" + message + "&selfid=true&alert=1&dlrreq=true";
+                    url = "http://push1.maccesssmspush.com/servlet/com.aclwireless.pushconnectivity.listeners.TextListener?userId=autoex&pass=autoex&appid=autoex&subappid=autoex&contenttype=1&to=" + number + "&from=BIKWAL&text=" + message + "&selfid=true&alert=1&dlrreq=true";
                 }
 
                 WebClient webClient = new WebClient();

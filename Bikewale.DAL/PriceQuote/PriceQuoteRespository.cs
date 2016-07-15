@@ -54,7 +54,7 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, pqParams.VersionId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, pqParams.SourceId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, Bikewale.CoreDAL.CommonOpn.GetClientIP()));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, pqParams.DealerId));                             
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, pqParams.DealerId));
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqsourceid", DbType.Byte, (pqParams.PQLeadId.HasValue) ? pqParams.PQLeadId : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(pqParams.UTMA)) ? pqParams.UTMA : null));
@@ -63,7 +63,7 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(pqParams.DeviceId)) ? pqParams.DeviceId : null));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, ParameterDirection.Output));
                         // LogLiveSps.LogSpInGrayLog(cmd);
-                        MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                         quoteId = Convert.ToUInt64(cmd.Parameters["par_quoteid"].Value);
                     }
                 }
@@ -114,7 +114,7 @@ namespace Bikewale.DAL.PriceQuote
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerid", DbType.Int32, ParameterDirection.Output));
                     // LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
                     int numberOfRecords = Convert.ToInt32(cmd.Parameters["par_numofrows"].Value);
                     if (numberOfRecords > 0)
@@ -188,7 +188,7 @@ namespace Bikewale.DAL.PriceQuote
 
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -250,7 +250,7 @@ namespace Bikewale.DAL.PriceQuote
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, pqParams.VersionId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolorid", DbType.Int32, (pqParams.ColorId > 0) ? pqParams.ColorId : Convert.DBNull));
                     // LogLiveSps.LogSpInGrayLog(cmd);
-                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly)))
+                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
                         isUpdated = true;
                 }
             }
@@ -285,7 +285,7 @@ namespace Bikewale.DAL.PriceQuote
 
 
                     // LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd,ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     isUpdated = true;
                 }
             }
@@ -319,7 +319,7 @@ namespace Bikewale.DAL.PriceQuote
 
                     //cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int32, pqId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objQuotation = new PriceQuoteParametersEntity();
                         if (dr != null)
@@ -368,7 +368,7 @@ namespace Bikewale.DAL.PriceQuote
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.SByte, topCount));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objPrice = new List<PriceQuoteOfTopCities>();
                         while (dr.Read())
@@ -427,7 +427,7 @@ namespace Bikewale.DAL.PriceQuote
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_toprecords", DbType.Int16, topCount));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         objPrice = new List<PriceQuoteOfTopCities>();
 
@@ -490,7 +490,7 @@ namespace Bikewale.DAL.PriceQuote
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_hasareasincity", DbType.Boolean, ParameterDirection.Output));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         bikePrices = new List<BikeQuotationEntity>();
                         while (dr.Read())

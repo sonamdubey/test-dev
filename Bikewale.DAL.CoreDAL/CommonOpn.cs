@@ -4,23 +4,17 @@ COMMON OPERATIONS.
 
 using Bikewale.Notifications;
 using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.Caching;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Configuration;
-using System.Text.RegularExpressions;
-using System.Net.Mail;
-using System.Globalization;
-using System.Net;
-using Bikewale.Entities.CMS;
 using System.Collections.Generic;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Notifications;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Globalization;
+using System.Net.Mail;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.CoreDAL
 {

@@ -1,5 +1,4 @@
 ﻿
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using System;
 using System.Data;
@@ -26,13 +25,13 @@ namespace BikeWaleOpr.Common
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandText = "getareas";
-                    cmd.CommandType = CommandType.StoredProcedure; 
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
                     ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.Common.ManageArea");
                 objErr.SendMail();

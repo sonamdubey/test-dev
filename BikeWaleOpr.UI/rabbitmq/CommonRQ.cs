@@ -1,8 +1,6 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
@@ -66,7 +64,7 @@ namespace BikeWaleOpr.RabbitMQ
                     //output parameter complete url for original image
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_url", DbType.String, 255, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     url = cmd.Parameters["par_url"].Value.ToString();
                 }

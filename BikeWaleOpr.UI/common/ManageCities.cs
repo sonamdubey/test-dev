@@ -1,5 +1,4 @@
 ﻿using BikeWaleOpr.VO;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using System;
 using System.Data;
@@ -202,7 +201,7 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stdcode", DbType.Int32, (objCity.StdCode != "") ? objCity.StdCode : Convert.DBNull));
 
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
             catch (SqlException ex)

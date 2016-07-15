@@ -63,9 +63,6 @@ namespace Bikewale.BAL.PriceQuote
                     if (objPQOutput != null)
                     {
                         versionId = Convert.ToInt32(objPQOutput.VersionId);
-                    }
-                    if (objPQOutput != null)
-                    {
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.BaseVersion = objPQOutput.VersionId;
                         pqOnRoad.PriceQuote = objPQOutput;

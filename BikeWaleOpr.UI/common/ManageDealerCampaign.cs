@@ -164,6 +164,7 @@ namespace BikewaleOpr.Common
         /// <returns></returns>
         public DealerCampaignBase FetchBWCampaigns(int dealerId)
         {
+
             IList<DealerCampaignEntity> lstDealerCampaign = null;
             DealerCampaignBase dealerCampaigns = null;
             try

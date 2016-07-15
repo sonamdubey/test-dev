@@ -1,15 +1,12 @@
+using Bikewale.Common;
+using MySql.CoreDAL;
 /*
 	This class will contain all the common function related to Sell Bike process
 */
 using System;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using Bikewale.Common;
-using System.Collections.Specialized;
 using System.Data.Common;
-using MySql.CoreDAL;
+using System.Web;
 
 namespace Bikewale.Used
 {
@@ -124,7 +121,7 @@ namespace Bikewale.Used
 
             //    prm = cmd.Parameters.Add("@BikeProfileId", SqlDbType.VarChar, 50);
             //    prm.Value = bikeProfileId;
-                													
+
             //    prm = cmd.Parameters.Add("@EntryDateTime", SqlDbType.DateTime);
             //    prm.Value = DateTime.Now;
 
@@ -168,8 +165,8 @@ namespace Bikewale.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 10, buyerMobile));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Boolean, ParameterDirection.Output));
 
-                //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);											
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);//run the command
+                    //Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);											
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);//run the command
 
                     status = Convert.ToBoolean(cmd.Parameters["par_status"].Value);
                 }
@@ -273,7 +270,7 @@ namespace Bikewale.Used
             //    cmd.Parameters.Add("@AlertFrequency", SqlDbType.TinyInt).Value = alertFrq;
             //    cmd.Parameters.Add("@alertUrl", SqlDbType.VarChar, 8000).Value = url;
             //    cmd.Parameters.Add("@Status", SqlDbType.Bit).Direction = ParameterDirection.Output;
-              //  Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
+            //  Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
             //    con.Open();
             //    cmd.ExecuteNonQuery();//run the command
 

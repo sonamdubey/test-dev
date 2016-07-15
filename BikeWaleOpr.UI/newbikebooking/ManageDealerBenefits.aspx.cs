@@ -82,14 +82,14 @@ namespace BikewaleOpr.NewBikeBooking
                 bool status = false;
 
                 if (Convert.ToUInt32(_dealerId) > 0 && Convert.ToUInt32(_cityId) > 0 && Convert.ToUInt32(ddlBenefitCat.SelectedValue) > 0
-                    && Convert.ToUInt32(CurrentUser.Id) > 0 && Convert.ToUInt32(hdnBenefitId.Value) > 0 && !String.IsNullOrEmpty(HttpUtility.UrlEncode(benefitText.Text)))
+                    && Convert.ToUInt32(CurrentUser.Id) > 0 && !String.IsNullOrEmpty(HttpUtility.UrlEncode(benefitText.Text)))
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IDealers, DealersRepository>();
                         IDealers objCity = container.Resolve<DealersRepository>();
                         status = objCity.SaveDealerBenefit(Convert.ToUInt32(_dealerId), Convert.ToUInt32(_cityId),
-                                                            Convert.ToUInt32(ddlBenefitCat.SelectedValue), Convert.ToString(benefitText),
+                                                            Convert.ToUInt32(ddlBenefitCat.SelectedValue), Convert.ToString(benefitText.Text),
                                                             Convert.ToUInt32(CurrentUser.Id), Convert.ToUInt32(hdnBenefitId.Value));
                     }
 

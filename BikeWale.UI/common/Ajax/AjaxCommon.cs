@@ -1,19 +1,18 @@
-﻿using System;
-using System.Web;
-using AjaxPro;
-using System.Data;
-using System.Data.SqlClient;
-using Microsoft.Practices.Unity;
-using Bikewale.Interfaces.Feedback;
-using Bikewale.BAL.Feedback;
-using Bikewale.Notifications;
-using Bikewale.Notifications.MailTemplates;
-using Bikewale.Common;
-using System.Configuration;
+﻿using AjaxPro;
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Feedback;
+using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Feedback;
+using Bikewale.Notifications;
+using Bikewale.Notifications.MailTemplates;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Web;
 
 
 namespace Bikewale.Ajax
@@ -38,7 +37,7 @@ namespace Bikewale.Ajax
             DataTable dt = null;
 
             MakeModelVersion mmv = new MakeModelVersion();
-            
+
             dt = mmv.GetModels(makeId, requestType);
 
             if (dt != null && dt.Rows.Count > 0)
@@ -63,7 +62,7 @@ namespace Bikewale.Ajax
             DataTable dt = null;
 
             MakeModelVersion mmv = new MakeModelVersion();
-            
+
             dt = mmv.GetVersions(modelId, requestType);
 
             if (dt != null && dt.Rows.Count > 0)
@@ -83,7 +82,7 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public string GetCities(string requestType, string stateId)
         {
-            
+
             string jsonCities = string.Empty;
             DataTable dt = null;
 
@@ -134,7 +133,7 @@ namespace Bikewale.Ajax
 
             LocateDealers ld = new LocateDealers();
 
-            dt = ld.GetNewBikeMakes(cityId,"new");
+            dt = ld.GetNewBikeMakes(cityId, "new");
 
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -166,7 +165,7 @@ namespace Bikewale.Ajax
         public bool SendCustomerPwd(string email)
         {
             bool retVal = false;
-            
+
             RegisterCustomer objCust = new RegisterCustomer();
             retVal = objCust.SendCustomerPassword(email.Trim());
 
@@ -234,18 +233,18 @@ namespace Bikewale.Ajax
         /// <param name="leadtype"></param>
         /// <returns></returns>
         [AjaxPro.AjaxMethod()]
-        public bool SaveEMIAssistaneRequest(string custName, string email, string mobile,  string modelId, string selectedCityId, string leadtype)
+        public bool SaveEMIAssistaneRequest(string custName, string email, string mobile, string modelId, string selectedCityId, string leadtype)
         {
-         
+
             string _customerId = string.Empty;
             BWCommon objCommon = new BWCommon();
 
             //RegisterCustomer objRC = new RegisterCustomer();
             //_customerId = objRC.IsRegisterdCustomer(email.ToLower());
             //if (string.IsNullOrEmpty(_customerId))
-                //_customerId = objRC.RegisterUser(custName, email.ToLower(), mobile, "", "", "");
+            //_customerId = objRC.RegisterUser(custName, email.ToLower(), mobile, "", "", "");
             //else
-               // objRC.UpdateCustomerMobile(mobile, email.ToLower(), custName);
+            // objRC.UpdateCustomerMobile(mobile, email.ToLower(), custName);
 
             return objCommon.SaveEMIAssistaneRequest(custName, email, mobile, modelId, selectedCityId, leadtype);
         }
@@ -284,7 +283,7 @@ namespace Bikewale.Ajax
         /// <param name="platformId"></param>
         /// <returns></returns>
         [AjaxPro.AjaxMethod()]
-        public bool SaveCustomerFeedback(ushort feedbackType, string feedbackComment, ushort platformId ,string pageUrl)
+        public bool SaveCustomerFeedback(ushort feedbackType, string feedbackComment, ushort platformId, string pageUrl)
         {
             bool isSaved = false;
             string[] feedbackEmailTo = ConfigurationManager.AppSettings["feedbackEmailTo"].Split(';');

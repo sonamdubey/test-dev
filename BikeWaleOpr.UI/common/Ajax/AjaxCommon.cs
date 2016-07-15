@@ -639,7 +639,6 @@ namespace BikeWaleOpr.Common
                 ManageDealerCampaign objMa = new ManageDealerCampaign();
                 isSuccess = objMa.MapContractCampaign(contractId, ccInputs.LeadCampaignId);
 
-
                 CwWebserviceAPI callApp = new CwWebserviceAPI();
                 callApp.ReleaseMaskingNumber(_dealerId, ccInputs.LastUpdatedBy, ccInputs.OldMaskingNumber);
                 callApp.AddCampaignContractData(ccInputs);

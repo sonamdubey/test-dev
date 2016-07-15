@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
-using Bikewale.Entities.Location;
-using System.Data;
-using System.Data.SqlClient;
-using Bikewale.CoreDAL;
-using System.Web;
 using Bikewale.Notifications;
-using System.Data.Common;
 using MySql.CoreDAL;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web;
 
 namespace Bikewale.DAL.Location
 {
@@ -36,7 +32,7 @@ namespace Bikewale.DAL.Location
                     objAreaList = new List<AreaEntityBase>();
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if (dr!=null)
+                        if (dr != null)
                         {
                             while (dr.Read())
                             {

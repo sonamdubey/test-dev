@@ -67,7 +67,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySql.Data.dll</HintPath>
     </Reference>
@@ -1306,6 +1306,7 @@
     <Content Include="content\UpdateExpLaunches.aspx" />
     <Content Include="content\VersionPhotos.aspx" />
     <Content Include="content\ViewReview.aspx" />
+    <Content Include="content\web.config" />
     <Content Include="controls\DateControl.ascx" />
     <Content Include="controls\LinkPagerControl.ascx" />
     <Content Include="controls\RichTextEditor.ascx" />
@@ -1869,7 +1870,6 @@
     <Content Include="users\Login.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\web.config" />
     <Content Include="editcms\web.config" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
@@ -1889,6 +1889,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
+      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Name>Bikewale.Utility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.BAL\BikewaleOpr.BAL.csproj">
       <Project>{16f4a3eb-ab13-44c2-99cd-a942c05f3222}</Project>
       <Name>BikewaleOpr.BAL</Name>
