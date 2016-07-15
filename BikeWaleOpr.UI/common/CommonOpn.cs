@@ -2,22 +2,20 @@
 COMMON OPERATIONS.
 */
 
-using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.Caching;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Configuration;
-using System.Text.RegularExpressions;
-using System.Net.Mail;
-
-using System.Data.Common;
 using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
+using System;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Net.Mail;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Common
 {
@@ -33,12 +31,12 @@ namespace BikeWaleOpr.Common
         public void BindGridReader(string sql, DataGrid dtgrd)
         {
             try
-            { 
-                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
+            {
+                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
                     dtgrd.DataSource = dataReader;
                     dtgrd.DataBind();
-                    dataReader.Close(); 
+                    dataReader.Close();
                 }
             }
             catch (Exception)
@@ -59,7 +57,7 @@ namespace BikeWaleOpr.Common
                 {
                     dtgrd.DataSource = dataReader;
                     dtgrd.DataBind();
-                    dataReader.Close(); 
+                    dataReader.Close();
                 }
             }
             catch (Exception)
@@ -76,12 +74,12 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
                     rpt.DataSource = dr;
                     rpt.DataBind();
                 }
-                
+
             }
             catch (Exception)
             {
@@ -265,15 +263,15 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
 
-                    if (dr!=null)
+                    if (dr != null)
                     {
                         drp.DataSource = dr;
                         drp.DataTextField = text;
                         drp.DataValueField = value;
-                        drp.DataBind(); 
+                        drp.DataBind();
                     }
                 }
             }
@@ -288,16 +286,16 @@ namespace BikeWaleOpr.Common
         public void FillDropDown(string sql, DropDownList drp, string text, string value, DbParameter[] param)
         {
             try
-            { 
-               using (IDataReader dr = MySqlDatabase.SelectQuery(sql,param,ConnectionType.ReadOnly))
+            {
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
                 {
                     if (dr != null)
                     {
                         drp.DataSource = dr;
                         drp.DataTextField = text;
                         drp.DataValueField = value;
-                        drp.DataBind(); 
-                    } 
+                        drp.DataBind();
+                    }
                 }
 
             }
@@ -314,7 +312,7 @@ namespace BikeWaleOpr.Common
             try
             {
 
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
                     if (dr != null)
                     {
@@ -362,7 +360,7 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
                     if (dr != null)
                     {
@@ -1303,13 +1301,13 @@ namespace BikeWaleOpr.Common
             {
                 using (IDataReader dr = MySqlDatabase.SelectQuery(Query1, ConnectionType.ReadOnly))
                 {
-                    if (dr!=null)
+                    if (dr != null)
                     {
                         while (dr.Read())
                         {
                             sb.Append("\narrayValues[i++] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ];");
-                        } 
-                    } 
+                        }
+                    }
                 }
 
                 sb.Append("\nfunction " + DropDownList1 + "_OnChange( e ) {");
@@ -1404,15 +1402,15 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
-                    if (dr!=null && dr.Read())
+                    if (dr != null && dr.Read())
                     {
                         cc = Convert.ToDouble(dr["Displacement"].ToString() == "" ? "0" : dr["Displacement"].ToString());
                         city = dr["city"].ToString();
                         topSpeed = Convert.ToInt32(dr["topspeed"]);
                         fuelType = dr["fueltype"].ToString();
-                    } 
+                    }
                 }
             }
             catch (Exception err)
@@ -1455,7 +1453,7 @@ namespace BikeWaleOpr.Common
                     dataRateKey = zone + "" + cc;
 
                     double discount = 0;
-                
+
 
                     //rate = double.Parse(ConfigurationSettings.AppSettings[rateKey]);
                     rate = double.Parse(ConfigurationManager.AppSettings[rateKey]);
@@ -1557,9 +1555,9 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql,ConnectionType.ReadOnly))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                 {
-                    if (dr!=null && dr.Read())
+                    if (dr != null && dr.Read())
                     {
                         stateId = Convert.ToInt32(dr["StateId"].ToString());
                         weight = Convert.ToInt32(dr["Weight"].ToString());
@@ -1578,7 +1576,7 @@ namespace BikeWaleOpr.Common
                         //sc = Convert.ToInt32(dr["SeatingCapacity"]);
                         cc = Convert.ToInt32(dr["Displacement"]);
                         //hasAC = dr["ACStatus"].ToString() == "A" ? true : false;
-                    } 
+                    }
                 }
             }
             catch (Exception err)
@@ -1673,7 +1671,7 @@ namespace BikeWaleOpr.Common
 
                 // calculation for telangana
                 case 41:
-                    roadTax = price * 0.09;                    
+                    roadTax = price * 0.09;
                     break;
                 case 5:
                     if (price <= 600000)
