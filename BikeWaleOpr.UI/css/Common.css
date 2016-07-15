@@ -108,9 +108,9 @@ input.login { width: 150px;	border: none; padding: 4px; }
 .right h3 { background: #6C757A  url(corner.gif) no-repeat top right; color: #FFF; padding: 7px 0 7px 5px; font: bold 1em Tahoma, Arial, Sans-Serif; margin: 0 0 3px 0; }
 .right_articles { background: #f5f5f5; color: #414141; padding: 0px 5px 0px 5px; margin: 0 0 3px 0; }
 
-#sidemenulist li{ padding:1px 0px 1px 0px; font-size:10px; font-weight:bold; }
+#sidemenulist li{ padding:1px 0px 1px 0px;  }
 #sidemenulist .seperator{ padding:0; color:#999999; } 
-#sidemenulist1 li{ padding:1px 0px 1px 0px; font-size:10px; font-weight:bold; } 
+#sidemenulist1 li{ padding:1px 0px 1px 0px;  } 
 #sidemenulist1 .seperator{ padding:0; color:#999999; } 
  
 .image { float: left; margin: 0 9px 3px 0; }
