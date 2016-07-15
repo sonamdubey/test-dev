@@ -36,7 +36,6 @@
                     <input type="button" value="Manage Offers" id="btnManageoffer" />&nbsp;&nbsp;
                     <input runat="server" type="submit" value="Manage Prices And Availability" id="btnManagePrice" />&nbsp;&nbsp;
                     <input type="button" value="Manage Facilities" id="btnManagefacilities" />&nbsp;&nbsp;
-                    <input type="button" value="Manage Dealer Area Mapping" id="btnMapDealer" />&nbsp;&nbsp;
                     <input type="button" value="Manage Emi" id="btnEmi" />&nbsp;&nbsp;
                     <%--<input type ="button" value="Manage Bike Avalability" id="btngoAvailable"/>--%>&nbsp;&nbsp;
                     <input type="button" value="Manage Dealer Disclaimer" id="btnDisclaimer" />&nbsp;&nbsp;
