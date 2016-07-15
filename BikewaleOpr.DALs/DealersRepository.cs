@@ -1510,7 +1510,7 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_minLtv", DbType.Double, (MinRateOfInterest.HasValue) ? MinLtv.Value : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_maxLtv", DbType.Double, (MaxLtv.HasValue) ? MaxLtv.Value : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_processingFee", DbType.Double, (ProcessingFee.HasValue) ? ProcessingFee.Value : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ID", DbType.Double, (id.HasValue) ? id.Value : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_ID", DbType.Double, (id.HasValue && id > 0) ? id.Value : Convert.DBNull));
 
                     return MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
