@@ -1,5 +1,6 @@
-﻿using BikewaleOpr.common;
+﻿using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
+using BikewaleOpr.Entity.ContractCampaign;
 using BikeWaleOpr.Classified;
 using Enyim.Caching;
 using System;
@@ -597,7 +598,7 @@ namespace BikeWaleOpr.Common
         /// <param name="maskingNumber"></param>
         /// <returns></returns>
         [AjaxPro.AjaxMethod()]
-        public bool ReleaseNumber(int campaignId, string maskingNumber)
+        public bool ReleaseNumber(uint dealerId, int campaignId, string maskingNumber)
         {
             bool isSuccess = false;
             try
@@ -607,8 +608,8 @@ namespace BikeWaleOpr.Common
                     ManageDealerCampaign objMa = new ManageDealerCampaign();
                     if (objMa.ReleaseCampaignMaskingNumber(campaignId))
                     {
-                        KnowlarityAPI callApp = new KnowlarityAPI();
-                        callApp.ReleaseMaskingNumber(maskingNumber);
+                        CwWebserviceAPI callApp = new CwWebserviceAPI();
+                        callApp.ReleaseMaskingNumber(dealerId, Convert.ToInt32(CurrentUser.Id), maskingNumber);
                         isSuccess = true;
                     }
                 }
@@ -629,18 +630,19 @@ namespace BikeWaleOpr.Common
         ///  Description    :   Call the ManageDealerCampaign class method to map the dealer Campaigns
         /// </summary>
         [AjaxPro.AjaxMethod()]
-        public bool MapCampaign(int dealerId, int contractId, int campaignId, string dealerNumber, string maskingNumber)
+        public bool MapCampaign(int contractId, ContractCampaignInputEntity ccInputs)
         {
             bool isSuccess = false;
+            uint _dealerId = Convert.ToUInt32(ccInputs.ConsumerId);
             try
             {
                 ManageDealerCampaign objMa = new ManageDealerCampaign();
-                isSuccess = objMa.MapContractCampaign(contractId, campaignId);
+                isSuccess = objMa.MapContractCampaign(contractId, ccInputs.LeadCampaignId);
 
 
-                KnowlarityAPI callApp = new KnowlarityAPI();
-                callApp.ReleaseMaskingNumber(maskingNumber);
-                callApp.MapDealerMaskingNumber(dealerId.ToString(), dealerNumber, maskingNumber);
+                CwWebserviceAPI callApp = new CwWebserviceAPI();
+                callApp.ReleaseMaskingNumber(_dealerId, ccInputs.LastUpdatedBy, ccInputs.OldMaskingNumber);
+                callApp.AddCampaignContractData(ccInputs);
             }
             catch (Exception ex)
             {

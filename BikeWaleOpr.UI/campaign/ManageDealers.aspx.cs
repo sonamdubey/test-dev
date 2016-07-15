@@ -1,5 +1,5 @@
 ﻿using BikewaleOpr.BAL.ContractCampaign;
-using BikewaleOpr.common;
+using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
 using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.Entity.ContractCampaign;
@@ -47,6 +47,7 @@ namespace BikewaleOpr.Campaign
             this.Load += new EventHandler(Page_Load);
             btnUpdate.Click += new EventHandler(InserOrUpdateDealerCampaign);
             dealerCampaign = new ManageDealerCampaign();
+
         }
 
         /// <summary>
@@ -57,9 +58,6 @@ namespace BikewaleOpr.Campaign
         /// <param name="e"></param>
         private void InserOrUpdateDealerCampaign(object sender, EventArgs e)
         {
-            KnowlarityAPI callApp = new KnowlarityAPI();
-            bool isMaskingChanged = hdnOldMaskingNumber.Value == reqFormMaskingNumber ? false : true;
-            bool IsProd = Convert.ToBoolean(ConfigurationManager.AppSettings["isProduction"]);
             try
             {
                 // Update campaign
@@ -78,13 +76,7 @@ namespace BikewaleOpr.Campaign
                         false);
 
                     lblGreenMessage.Text = "Selected campaign has been Updated !";
-                    if (IsProd && isMaskingChanged)
-                    {
-                        // Release previous number and add new number
-                        callApp.ReleaseMaskingNumber(hdnOldMaskingNumber.Value);
-                        //callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);
-                        callApp.MapDealerMaskingNumber(dealerId.ToString(), dealerMobile, reqFormMaskingNumber);
-                    }
+
                 }
                 else // Insert new campaign
                 {
@@ -100,21 +92,10 @@ namespace BikewaleOpr.Campaign
                          false);
                     lblGreenMessage.Text = "New campaign has been added !";
                     isCampaignPresent = true;
-                    if (IsProd)
-                    {
-                        // Release previous number and add new number
-                        callApp.ReleaseMaskingNumber(hdnOldMaskingNumber.Value);
-                        //callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);
-                        callApp.MapDealerMaskingNumber(dealerId.ToString(), dealerMobile, reqFormMaskingNumber);
-                    }
+
                 }
 
-                bool _isCCMapped = UpdateContractCampaign();
-                if (!_isCCMapped)
-                {
-                    lblGreenMessage.Text = string.Empty;
-                    lblErrorSummary.Text = "DataSync : Campaign Contract Updation failed for Carwale";
-                }
+                InsertUpdateContractCampaign();
 
                 ClearForm(Page.Form.Controls, true);
                 objCommuteDistanceBL = new CommuteDistanceBL();
@@ -137,20 +118,43 @@ namespace BikewaleOpr.Campaign
         /// Description : API Call to update contract campaign  to carwale db 
         /// </summary>
         /// <returns></returns>
-        private bool UpdateContractCampaign()
+        private bool InsertUpdateContractCampaign()
         {
+            bool isMaskingChanged = hdnOldMaskingNumber.Value == reqFormMaskingNumber ? false : true;
+            bool IsProd = Convert.ToBoolean(ConfigurationManager.AppSettings["isProduction"]);
+
+            ContractCampaignInputEntity ccInputs = new ContractCampaignInputEntity();
+            ccInputs.ConsumerId = dealerId;
+            ccInputs.DealerType = 2;
+            ccInputs.LeadCampaignId = campaignId;
+            ccInputs.LastUpdatedBy = currentUserId;
+            ccInputs.OldMaskingNumber = oldMaskingNumber;
+            ccInputs.MaskingNumber = reqFormMaskingNumber;
+            ccInputs.NCDBranchId = -1;
+            ccInputs.ProductTypeId = 1;
+            ccInputs.SellerMobileMaskingId = default(int);
+
+            CwWebserviceAPI CWWebservice = new CwWebserviceAPI();
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                if (IsProd)
                 {
+                    if (isMaskingChanged)
+                    {
+                        // Release previous number and add new number
+                        CWWebservice.ReleaseMaskingNumber(Convert.ToUInt32(dealerId), currentUserId, reqFormMaskingNumber);
+                    }
 
-                    container.RegisterType<IContractCampaign, ContractCampaign>();
-                    IContractCampaign objCC = container.Resolve<IContractCampaign>();
+                    //callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);
+                    CWWebservice.AddCampaignContractData(ccInputs);
 
-                    return objCC.IsCCMapped(Convert.ToUInt32(dealerId), Convert.ToUInt32(contractId), Convert.ToUInt32(campaignId));
-
-
+                    if (!CWWebservice.IsCCMapped(Convert.ToUInt32(dealerId), Convert.ToUInt32(contractId), Convert.ToUInt32(campaignId)))
+                    {
+                        lblGreenMessage.Text = string.Empty;
+                        lblErrorSummary.Text = "DataSync : Campaign Contract Updation failed for Carwale";
+                    }
                 }
+
             }
             catch (Exception ex)
             {

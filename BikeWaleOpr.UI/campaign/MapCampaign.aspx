@@ -166,11 +166,24 @@
         function mapCampaign(campaignId) {
             try {
                 if (confirm("Do you want to map the selected campaign?")) {
+                    //need to verify
+                    objdata = new {
+                        "ConsumerId" : dealerId,
+                        "LeadCampaignId" : campaignId,
+                        "LastUpdatedBy" :  1 ,
+                        "ProductTypeId" :1 ,
+                        "DealerType" : 2 ,
+                        "NCDBranchId" : 2,
+                        "OldMaskingNumber" : maskingNumber ,
+                        "MaskingNumber" : maskingNumber,
+                        "SellerMobileMaskingId" : -1
+                        };
+
                     $.ajax({
                         type: "POST",
                         url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
                         //data: '{"contractId":"' + contractId + '" , "campaignId":"' + campaignId + '"}',
-                        data: '{"dealerId":"' + dealerId + '", "contractId":"' + contractId + '", "campaignId":"' + campaignId + '", "dealerNumber":"' + dealerNumber + '", "maskingNumber":"' + maskingNumber + '"}',
+                        data: '{"contractId":"' + contractId + '", "ccInputs":"' + campaignId + '"}',
                         beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "MapCampaign"); },
                         success: function (response) {
                             if (JSON.parse(response).value) {
@@ -180,7 +193,6 @@
                             else {
                                 alert("There was error occured during mapping. Please contact System Administrator for more details.");
                             }
-                            //location.href = "/campaign/ManageDealers.aspx?contractid=" + contractId + "&campaignid=" + campaignId + "&dealerid=" + dealerId + "&dealername=" + dealerName + "&no=" + <%=dealerNumber %> + "";
                         }
 
                     });

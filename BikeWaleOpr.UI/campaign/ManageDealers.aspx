@@ -157,6 +157,7 @@
 <script type="text/javascript">
 
     var campaignId = "<%= campaignId %>";
+    var dealerId = "<%= dealerId %>";
     var dialog;
     $(document).on("keyup", ".numeric", function (event) {
         this.value = this.value.replace(/[^0-9]/g, '');
@@ -228,7 +229,7 @@
                     $.ajax({
                         type: "POST",
                         url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                        data: '{"campaignId":"' + campaignId + '", "maskingNumber":"' + maskingNumber + '"}',
+                        data: '{"dealerId":"' + dealerId + '","campaignId":"' + campaignId + '", "maskingNumber":"' + maskingNumber + '"}',
                         beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ReleaseNumber"); },
                         success: function (response) {
                             if (JSON.parse(response).value) {
