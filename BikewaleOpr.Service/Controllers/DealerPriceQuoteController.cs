@@ -77,7 +77,6 @@ namespace BikewaleOpr.Service.Controllers
                 DealerPriceQuoteList objDealersDetails = new DealerPriceQuoteList();
                 try
                 {
-
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IDealer, Dealers>();
