@@ -176,7 +176,7 @@ namespace BikeWaleOpr.Content
                 {
                     sql = " delete from newbikeshowroomprices where cityid= " + hdnSelectedCityId.Value + " and  bikeversionid in(" + verIds + ")";
 
-                    MySqlDatabase.UpdateQuery(sql, ConnectionType.MasterDatabase);
+                    MySqlDatabase.ExecuteNonQuery(sql, ConnectionType.MasterDatabase);
 
                 }
                 catch (Exception err)
