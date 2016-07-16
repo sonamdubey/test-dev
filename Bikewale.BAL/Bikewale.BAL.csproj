@@ -56,11 +56,11 @@
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\microservices\GrpcSqlServerWindowservice\libs\Google.Protobuf.dll</HintPath>
+      <HintPath>..\Libs\grpc\Google.Protobuf.dll</HintPath>
     </Reference>
-    <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+    <Reference Include="Grpc.Core, Version=0.13.1.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\microservices\GrpcSqlServerWindowservice\GrpcSqlServerWindowservice\bin\Release\Grpc.Core.dll</HintPath>
+      <HintPath>..\Libs\grpc\Grpc.Core.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -84,7 +84,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Interactive.Async, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\microservices\GrpcSqlServerWindowservice\libs\System.Interactive.Async.dll</HintPath>
+      <HintPath>..\Libs\grpc\System.Interactive.Async.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
