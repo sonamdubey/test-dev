@@ -114,7 +114,8 @@ namespace Bikewale.News
                 if (!_isContentFount)
                 {
                     Response.Redirect("/news/", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    if (HttpContext.Current != null)
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
             }
