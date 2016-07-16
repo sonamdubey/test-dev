@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.GrpcFiles;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.UserReviews;
@@ -15,6 +16,8 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using Grpc.CMS;
+using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections;
@@ -38,6 +41,13 @@ namespace Bikewale.BAL.BikeData
         //private readonly IUserReviews _userReviewsRepo = null;
         private readonly IUserReviewsCache _userReviewCache = null;
         private readonly IArticles _articles = null;
+
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
+
+        static uint _applicationid = Convert.ToUInt32(ConfigurationManager.AppSettings["applicationId"]);
+        
 
         public BikeModels()
         {
@@ -902,12 +912,17 @@ namespace Bikewale.BAL.BikeData
 
             return objModelPage;
         }
-
-        public List<ModelImage> GetBikeModelPhotoGallery(U modelId)
+        
+        private List<ModelImage>GetBikeModelPhotoGalleryOldWay(U modelId)
         {
+            if (_logGrpcErrors)
+            {   
+                _logger.Error(string.Format("Grpc did not work for GetBikeModelPhotoGalleryOldWay {0}",modelId));
+            }
+
             List<ModelImage> objPhotos = null;
             string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-            string _applicationid = ConfigurationManager.AppSettings["applicationId"];
+           
             string _requestType = "application/json";
 
             try
@@ -935,6 +950,38 @@ namespace Bikewale.BAL.BikeData
             }
 
             return objPhotos;
+        }
+
+        public List<ModelImage> GetBikeModelPhotoGallery(U modelId)
+        {
+            try
+            {
+                if (_useGrpc)
+                {
+                    string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.PhotoGalleries, EnumCMSContentType.RoadTest, EnumCMSContentType.ComparisonTests });
+
+                    var _objGrpcmodelPhotoList = GrpcMethods.GetModelPhotosList(_applicationid, Convert.ToInt32(modelId), contentTypeList);
+
+                    if (_objGrpcmodelPhotoList != null && _objGrpcmodelPhotoList.LstGrpcModelImage.Count > 0)
+                    {
+                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelPhotoList);                       
+                    }
+                    else
+                    {
+                       return GetBikeModelPhotoGalleryOldWay(modelId);
+                    }
+
+                }
+                else
+                {
+                    return GetBikeModelPhotoGalleryOldWay(modelId);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                return GetBikeModelPhotoGalleryOldWay(modelId);
+            }
 
         }
 
