@@ -14,6 +14,9 @@ using System.Net.Http.Headers;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Controls;
 using Bikewale.Entities.CMS.Photos;
+using Grpc.CMS;
+using Bikewale.BAL.GrpcFiles;
+using log4net;
 
 namespace Bikewale.Content
 {
@@ -37,6 +40,9 @@ namespace Bikewale.Content
 
         private bool _isContentFount = true;
         private string _basicId = string.Empty;
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(ViewF));
 
         protected override void OnInit(EventArgs e)
         {
@@ -101,16 +107,11 @@ namespace Bikewale.Content
         /// Written By : Ashwini Todkar on 24 Sept 2014
         /// PopulateWhere to fetch feature details from api asynchronously
         /// </summary>
-        private async void GetFeatureDetails()
+        private void GetFeatureDetails()
         {
             try
-            {                
-                string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + _basicId;
-
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objFeature = await objClient.GetApiResponse<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeature);
-                }
+            {
+                GetFeatureDetailsViaGrpc();
                 
                 if (objFeature != null)
                 {      
@@ -140,22 +141,140 @@ namespace Bikewale.Content
             }
         }
 
+        private void GetFeatureDetailsViaGrpc()
+        {
+            try
+            {
+                if (_useGrpc)
+                {
+                    var _objGrpcFeature = GrpcMethods.GetContentPages(Convert.ToUInt64(_basicId));
+
+                    if (_objGrpcFeature != null)
+                    {
+                        objFeature = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcFeature);
+                    }
+                    else
+                    {
+                        GetFeatureDetailsOldWay();
+                    }
+
+                }
+                else
+                {
+                    GetFeatureDetailsOldWay();
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                GetFeatureDetailsOldWay();
+            }
+        }
+
+        private async void GetFeatureDetailsOldWay()
+        {
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", _basicId));
+                }
+
+                string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + _basicId;
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objFeature = await objClient.GetApiResponse<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeature);
+                }
+
+                if (objFeature != null)
+                {
+                    GetFeatureData();
+                    BindPages();
+                }
+                else
+                {
+                    _isContentFount = false;
+                }
+
+            }
+            catch (Exception err)
+            {
+                Trace.Warn(err.Message);
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (!_isContentFount)
+                {
+                    Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+            }
+        }
+
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
         /// PopulateWhere to fetch article photos from api asynchronously
         /// </summary>
-        private async void GetArticlePhotos()
+        private void GetArticlePhotos()
         {
             try
-            {                
+            {
+                List<ModelImage> objImg = null;
+                if (_useGrpc)
+                {
+
+                    var _objGrpcArticlePhotos = GrpcMethods.GetArticlePhotos(Convert.ToUInt64(_basicId));
+
+                    if (_objGrpcArticlePhotos != null && _objGrpcArticlePhotos.LstGrpcModelImage.Count > 0)
+                    {
+                        //following needs to be optimized
+                       objImg= GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticlePhotos);
+                       if (objImg != null && objImg.Count > 0)
+                       {
+                           ctrPhotoGallery.BasicId = Convert.ToInt32(_basicId);
+                           ctrPhotoGallery.ModelImageList = objImg;
+                           ctrPhotoGallery.BindPhotos();
+                       }
+                    }
+                    else
+                    {
+                        GetArticlePhotosOldWay();
+                    }
+
+                }
+                else
+                {
+                    GetArticlePhotosOldWay();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                objErr.SendMail();
+                GetArticlePhotosOldWay();
+            }       
+        }
+
+        private async void GetArticlePhotosOldWay()
+        {
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", _basicId));
+                }
                 string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + _basicId;
-             
+
                 List<ModelImage> objImg = null;
 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
                     objImg = await objClient.GetApiResponse<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImg);
-                }                
+                }
 
                 if (objImg != null && objImg.Count > 0)
                 {
@@ -169,8 +288,9 @@ namespace Bikewale.Content
                 Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }           
+            }
         }
+
         /// <summary>
         /// 
         /// </summary>

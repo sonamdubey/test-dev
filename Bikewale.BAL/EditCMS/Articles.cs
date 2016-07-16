@@ -98,13 +98,13 @@ namespace Bikewale.BAL.EditCMS
                 {
                     var _objGrpcArticleSummaryList = GrpcMethods.MostRecentList(contentTypeList, TotalRecords, MakeId, ModelId);
 
-                    if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.Summary.Count > 0)
+                    if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.LstGrpcArticleSummary.Count > 0)
                     {
                         return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticleSummaryList);
                     }
                     else
                     {
-                        return null;
+                        return GetNewsFromCWAPIInOldWay(contentTypeList); 
                     }
                 }
                 else

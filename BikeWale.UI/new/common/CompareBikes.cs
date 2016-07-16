@@ -1,4 +1,6 @@
 using Bikewale.Common;
+using Grpc.CMS;
+using log4net;
 using MySql.CoreDAL;
 using Newtonsoft.Json;
 /***********************************************************/
@@ -25,6 +27,11 @@ namespace Bikewale.New
         private HttpContext objTrace = HttpContext.Current;
         protected ArrayList arObj = null;
 
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(CompareBikes));
+
+
         //DataSet dsRating;
 
         public CompareBikes() { }
@@ -43,10 +50,35 @@ namespace Bikewale.New
         /***********************************************************/
         public static string GetFeaturedBike(string versions)
         {
+            try
+            {
+                if (_useGrpc)
+                {                    
+                    var grpcInt = GrpcMethods.GrpcGetFeaturedCar(versions,1,2);
+                    return grpcInt.IntOutput.ToString();
+                }
+                else
+                {
+                    return GetFeaturedBikeOldWay(versions);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                return GetFeaturedBikeOldWay(versions);
+            }
+        }
+
+        private static string GetFeaturedBikeOldWay(string versions)
+        {
             string featuredBikeId = "";
 
             try
             {
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetFeaturedBikeOldWay {0}", versions));
+                }
 
                 // Get Sponsored bike by Web Api
                 using (HttpClient client = new HttpClient())
@@ -73,7 +105,6 @@ namespace Bikewale.New
 
             return featuredBikeId;
         }
-
 
         // This function will get current versionId from dataset and will match it with the version in the array. 
         // if it matches, it will return index.this is just to match the order of Bikes being compared!
