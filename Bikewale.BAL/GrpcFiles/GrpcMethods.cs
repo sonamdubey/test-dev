@@ -1,3 +1,4 @@
+using EditCMSWindowsService.Messages;
 using Grpc.Core;
 using GRPCLoadBalancer;
 using System;
@@ -10,7 +11,6 @@ namespace Grpc.CMS
     {
         static readonly int m_ChanelWaitTime;
 
-        static Channel _channel;
 
         static GrpcMethods()
         {
@@ -22,42 +22,33 @@ namespace Grpc.CMS
             return DateTime.Now.AddMilliseconds(incrementMillisecond).ToUniversalTime();
         }
 
-        public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx)
+        public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx,int makeid=0,int modelid=0)
         {
 
-            GrpcCMSContent _objArticleList = null;
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
             while (true)
             {
-
                 if (ch != null)
                 {
                     Debug.WriteLine("Got channel for " + ch.ResolvedTarget);
-                    var client = GrpcArticle.NewClient(ch);
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
                     try
                     {
-                        _objArticleList = client.ListByCategory(new GrpcArticleByCatURI()
+                          return  client.GetContentListByCategory(new GrpcArticleByCatURI()
                         {
                             ApplicationId = 2,
                             CategoryIdList = catIdList,
                             EndIndex = endIdx,
-                            MakeId = 0,
-                            ModelId = 0,
+                            MakeId = makeid,
+                            ModelId = modelid,
                             StartIndex = startIdx
                         },
                         null, GetForwardTime(m_ChanelWaitTime));
-                        break;
                     }
                     catch (Exception e)
                     {
-                        RpcException rpcEx = e as RpcException;
-
-                        if (rpcEx != null &&
-                            (rpcEx.Status.StatusCode == StatusCode.DeadlineExceeded || rpcEx.Status.StatusCode == StatusCode.Unavailable))
-                        {
-                            CustomGRPCLoadBalancerWithSingleton.SetServerAsNotReachable(ch);
-                        }
+                        RpcException rpcEx = e as RpcException;                        
                         ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                     }
                 }
@@ -66,14 +57,12 @@ namespace Grpc.CMS
             }
 
 
-            return _objArticleList;
+            return null;
 
         }
 
         public static GrpcArticleSummaryList MostRecentList(string contenTypes, int totalRecords, int? makeId = 0, int? modelId = 0)
         {
-
-            GrpcArticleSummaryList _objArticleSummaryList = null;
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
             while (true)
@@ -81,45 +70,192 @@ namespace Grpc.CMS
                 if (ch != null)
                 {
                     Debug.WriteLine("Got channel for " + ch.ResolvedTarget);
-                    var client = GrpcArticle.NewClient(ch);
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
                     try
-                    {
-                        _objArticleSummaryList = client.MostRecentList
+                    {                        
+
+                        return  client.GetMostRecentArticles
                             (new GrpcArticleRecentURI()
                             {
                                 MakeId = makeId == null ? 0 : makeId.Value,
                                 ModelId = modelId == null ? 0 : modelId.Value,
-                                ArticleFeatureURI = new GrpcArticleFeatureURI()
-                                {
-                                    ApplicationId = 2,
-                                    ContentTypes = contenTypes,
-                                    TotalRecords = (uint)totalRecords
-                                }
+
+                                ApplicationId = 2,
+                                ContentTypes = contenTypes,
+                                TotalRecords = (uint)totalRecords
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
-
-                        break;
                     }
                     catch (Exception e)
                     {
                         RpcException rpcEx = e as RpcException;
-
-
-                        if (rpcEx != null &&
-                            (rpcEx.Status.StatusCode == StatusCode.DeadlineExceeded || rpcEx.Status.StatusCode == StatusCode.Unavailable))
-                        {
-                            CustomGRPCLoadBalancerWithSingleton.SetServerAsNotReachable(ch);
-                        }
                         ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
                     }
                 }
                 else
                     break;
             }
+            return null;
 
+        }
 
-            return _objArticleSummaryList;
+        public static GrpcModelImageList GetArticlePhotos(ulong basicId)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
+            while (true)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GetArticlePhotos
+                            (new GrpcArticleContentURI()
+                            {
+                               BasicId=basicId
+                            },
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (Exception e)
+                    {
+                        RpcException rpcEx = e as RpcException;
+                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
+
+        public static GrpcModelImageList GetModelPhotosList(uint applicationId,int modelId, string categoryId)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            while (true)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GetModelPhotosList
+                            (new GrpcModelPhotoURI()
+                            {
+                                ApplicationId=applicationId,
+                                ModelId=modelId,
+                                CategoryIdList=categoryId
+                            },
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (Exception e)
+                    {
+                        RpcException rpcEx = e as RpcException;
+                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
+
+        public static GrpcInt GrpcGetFeaturedCar(string versions,int categoryId,int platformId)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            while (true)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GrpcGetFeaturedCar
+                            (new GrpcFeatureCarURI()
+                            {
+                                CategoryId= categoryId,
+                                PlatformId=platformId,
+                                VersionIds=versions
+                            },
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (Exception e)
+                    {
+                        RpcException rpcEx = e as RpcException;
+                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
+
+        public static GrpcArticleDetails GetContentDetails(ulong basicId)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            while (true)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GetContentDetails
+                            (new GrpcArticleContentURI()
+                            {
+                                BasicId=basicId
+                            },
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (Exception e)
+                    {
+                        RpcException rpcEx = e as RpcException;
+                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
+
+        public static GrpcArticlePageDetails GetContentPages(ulong basicId)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            while (true)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GetContentPages
+                            (new GrpcArticleContentURI()
+                            {
+                                BasicId = basicId
+                            },
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (Exception e)
+                    {
+                        RpcException rpcEx = e as RpcException;
+                        ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
         }
 
     }

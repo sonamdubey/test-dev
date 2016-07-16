@@ -13,6 +13,9 @@ using System.Configuration;
 using System.Net.Http.Headers;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Entities.CMS.Articles;
+using Grpc.CMS;
+using Bikewale.BAL.GrpcFiles;
+using log4net;
 
 
 namespace Bikewale.News
@@ -30,6 +33,9 @@ namespace Bikewale.News
         protected string displayDate = string.Empty, mainImgCaption = string.Empty, largePicUrl = string.Empty, content = string.Empty, prevPageUrl = string.Empty, nextPageUrl = string.Empty, hostUrl = string.Empty;
         protected bool isMainImageSet = false;
 
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(news));
 
         protected override void OnInit(EventArgs e)
         {
@@ -48,7 +54,7 @@ namespace Bikewale.News
 
             ProcessQS();
             if (!String.IsNullOrEmpty(_basicId))
-                GetNewsDetailsFromApi();
+                GetNewsDetails();
         }
 
         private void ProcessQS()
@@ -82,10 +88,72 @@ namespace Bikewale.News
         /// Written By : Ashwini Todkar on 24 Sept 2014
         /// PopulateWhere to fetch news details from api asynchronously
         /// </summary>
-        private async void GetNewsDetailsFromApi()
+        private void GetNewsDetails()
         {
             try
             {
+                GetNewsDetailsViaGrpc();
+
+                if (objArticle == null)
+                    _isContentFount = false;
+                else
+                    GetNewsData();
+            }
+            catch (Exception err)
+            {
+                Trace.Warn(err.Message);
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (!_isContentFount)
+                {
+                    Response.Redirect("/news/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+            }
+        }
+
+        private void GetNewsDetailsViaGrpc()
+        {
+            try
+            {
+                if (_useGrpc)
+                {
+                    var _objGrpcArticle = GrpcMethods.GetContentDetails(Convert.ToUInt64(_basicId));
+
+                    if (_objGrpcArticle != null)
+                    {
+                        objArticle = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
+                    }
+                    else
+                    {
+                        GetNewsDetailsFromApiOldWay();
+                    }
+                }
+                else
+                {
+                    GetNewsDetailsFromApiOldWay();
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                GetNewsDetailsFromApiOldWay();
+            }
+        }
+
+        private async void GetNewsDetailsFromApiOldWay()
+        {
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", _basicId));
+                }
+
                 //sets the base URI for HTTP requests
                 string _apiUrl = String.Format("webapi/article/contentdetail/?basicid={0}", _basicId);
 

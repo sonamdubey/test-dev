@@ -1,9 +1,12 @@
 ﻿using Bikewale.BAL.CMS;
+using Bikewale.BAL.GrpcFiles;
 using Bikewale.Common;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Memcache;
+using Grpc.CMS;
+using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -29,7 +32,11 @@ namespace Bikewale.Mobile.Content
         protected String _newsId = String.Empty;
         private ArticleDetails objNews = null;
         private bool _isContentFound = true;
-       
+
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(newsdetails));
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -91,16 +98,77 @@ namespace Bikewale.Mobile.Content
         ///  PopulateWhere to set news details from carwale api asynchronously
         /// </summary>
         /// <param name="_basicId"></param>
-        private async void GetNewsDetails(int _basicId)
+        private void GetNewsDetails(int _basicId)
         {
             try
-            {                
+            {
+                GetNewsDetailsViaGrpc(_basicId);               
+
+                if (objNews != null)
+                    GetNewsData();
+                else
+                    _isContentFound = false;
+            }
+            catch (Exception err)
+            {
+                Trace.Warn(err.Message);
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (!_isContentFound)
+                {
+                    Response.Redirect("/m/news/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+            }
+        }
+
+        private void GetNewsDetailsViaGrpc(int _basicId)
+        {
+            try
+            {
+                if (_useGrpc)
+                {
+                    var _objGrpcArticle = GrpcMethods.GetContentDetails(Convert.ToUInt64(_basicId));
+
+                    if (_objGrpcArticle != null)
+                    {
+                        objNews = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
+                    }
+                    else
+                    {
+                        GetNewsDetailsOldWay(_basicId);
+                    }
+                }
+                else
+                {
+                    GetNewsDetailsOldWay(_basicId);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                GetNewsDetailsOldWay(_basicId);
+            }
+        }
+
+        private async void GetNewsDetailsOldWay(int _basicId)
+        {
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", _basicId));
+                }
                 string _apiUrl = "webapi/article/contentdetail/?basicid=" + _basicId;
 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
                     objNews = await objClient.GetApiResponse<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objNews);
-                }                
+                }
 
                 if (objNews != null)
                     GetNewsData();
