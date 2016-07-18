@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
+using System;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using Bikewale.Memcache;
-using Microsoft.Practices.Unity;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.DAL.BikeData;
-using Bikewale.Cache.BikeData;
-using System.Data.Common;
-using MySql.CoreDAL;
 
 namespace Bikewale.Content
 {
@@ -84,6 +80,7 @@ namespace Bikewale.Content
         }
         private void Page_Load(object sender, EventArgs e)
         {
+            Form.Action = Request.RawUrl;
             //code for device detection added by Ashwini Todkar
             // Modified By :Ashish Kamble on 5 Feb 2016
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
@@ -129,7 +126,7 @@ namespace Bikewale.Content
                     }
                 }
 
-               
+
                 //ModelMapping mm = new ModelMapping();
                 //modelId = mm.GetModelId(Request.QueryString["bikem"]);
                 //Trace.Warn( "Model Name : ",Request.QueryString["bikem"]);
@@ -143,7 +140,7 @@ namespace Bikewale.Content
                     this.Page.Visible = false;
                 }
             }
-            
+
             //also get the forumId
             if (Request["pn"] != null && Request.QueryString["pn"] != "")
             {
@@ -164,7 +161,7 @@ namespace Bikewale.Content
             {
                 versionId = Request.QueryString["version"];
                 Trace.Warn("modelId " + versionId);
-               
+
                 //verify the id as passed in the url
                 if (CommonOpn.CheckId(versionId) == false)
                 {
@@ -176,19 +173,19 @@ namespace Bikewale.Content
                 }
             }
             Trace.Warn("start post back ");
-           
+
             if (!IsPostBack)
             {
                 //objBike = new MakeModelVersion();
-                
-              //  ModelStartPrice = objBike.GetModelStartingPrice(modelId);
-                ModelVersionDescription objBike; 
+
+                //  ModelStartPrice = objBike.GetModelStartingPrice(modelId);
+                ModelVersionDescription objBike;
                 if (modelId != "")
                 {
                     objBike = new ModelVersionDescription();
                     objBike.GetDetailsByModel(modelId);
                     ModelStartPrice = objBike.ModelBasePrice;
-                    
+
                     BikeName = objBike.BikeName;
                     LargePic = objBike.LargePic;
 
@@ -247,7 +244,7 @@ namespace Bikewale.Content
                 // onpostback select first page
 
 
-              //  frmMain.Action = "/content/" + UrlRewrite.FormatSpecial(MakeName) + "-bikes/" + UrlRewrite.FormatSpecial(ModelName) + "/userreviews-p1/";
+                //  frmMain.Action = "/content/" + UrlRewrite.FormatSpecial(MakeName) + "-bikes/" + UrlRewrite.FormatSpecial(ModelName) + "/userreviews-p1/";
             }
 
             GoogleKeywords();
@@ -293,7 +290,7 @@ namespace Bikewale.Content
                     orderByClause = SortingCriteria + " desc";
 
                     recordCntQry = string.Format(" select count(*) from {0} where {1}", fromClause, whereClause);
-                    
+
                 }
                 else
                 {
@@ -323,8 +320,8 @@ namespace Bikewale.Content
 
                 DbParameter[] param = new[] {   DbFactory.GetDbParam("@v_modelid", DbType.Int32,modelId ),
                                                 DbFactory.GetDbParam("@v_versionid", DbType.Int32,versionId)
-                                            }; 
-				
+                                            };
+
 
                 Trace.Warn("pageNumber :  : : " + pageNumber);
                 if (pageNumber != "")
@@ -482,14 +479,14 @@ namespace Bikewale.Content
 
         public string MakeMaskingName
         {
-            get 
+            get
             {
                 if (ViewState["MakeMaskingName"] != null)
                     return ViewState["MakeMaskingName"].ToString();
                 else
                     return "-1";
             }
-            set{ ViewState["MakeMaskingName"] = value; }          
+            set { ViewState["MakeMaskingName"] = value; }
         }
 
         public string ModelIdVer
@@ -688,6 +685,6 @@ namespace Bikewale.Content
                 HttpContext.Current.Response.Cookies.Add(objCookie);
             }
         }
-		
+
     }//class
 }//namespace

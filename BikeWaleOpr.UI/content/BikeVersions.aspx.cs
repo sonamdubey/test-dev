@@ -136,7 +136,7 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_futuristic", DbType.Boolean, Convert.ToInt16(chkFuturistic.Checked)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isdeleted", DbType.Boolean, false));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_subsegmentid", DbType.Int64, cmbSubSegments.SelectedValue == "0" ? Convert.DBNull : cmbSubSegments.SelectedValue));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_createdon", DbType.DateTime, DateTime.Now));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_createdon", DbType.DateTime, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.String, BikeWaleAuthentication.GetOprUserId()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_currentid", DbType.Int64, ParameterDirection.Output));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
