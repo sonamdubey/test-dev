@@ -1,10 +1,14 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.GrpcFiles;
+using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Memcache;
+using Grpc.CMS;
+using log4net;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -20,6 +24,10 @@ namespace Bikewale.Content
         protected StringBuilder _bikeTested;
         protected ArticlePhotoGallery ctrPhotoGallery;
         private bool _isContentFount = true;
+        
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(ViewF));
 
         protected string articleUrl = string.Empty, articleTitle = string.Empty, basicId = string.Empty, authorName = string.Empty, displayDate = string.Empty;
 
@@ -125,10 +133,55 @@ namespace Bikewale.Content
             }
         }
 
-        private async void GetArticlePhotos()
+        private void GetArticlePhotos()
         {
             try
             {
+                List<ModelImage> objImg = null;
+                if (_useGrpc)
+                {
+
+                    var _objGrpcArticlePhotos = GrpcMethods.GetArticlePhotos(Convert.ToUInt64(_basicId));
+
+                    if (_objGrpcArticlePhotos != null && _objGrpcArticlePhotos.LstGrpcModelImage.Count > 0)
+                    {
+                        //following needs to be optimized
+                        objImg = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticlePhotos);
+                        if (objImg != null && objImg.Count > 0)
+                        {
+                            ctrPhotoGallery.BasicId = Convert.ToInt32(_basicId);
+                            ctrPhotoGallery.ModelImageList = objImg;
+                            ctrPhotoGallery.BindPhotos();
+                        }
+                    }
+                    else
+                    {
+                        GetArticlePhotosOldWay();
+                    }
+
+                }
+                else
+                {
+                    GetArticlePhotosOldWay();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                objErr.SendMail();
+                GetArticlePhotosOldWay();
+            }       
+        }
+
+        private async void GetArticlePhotosOldWay()
+        {
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", _basicId));
+                }
+
                 string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + _basicId;
 
                 List<ModelImage> objImg = null;
@@ -152,7 +205,6 @@ namespace Bikewale.Content
                 objErr.SendMail();
             }
         }
-
         /// <summary>
         /// 
         /// </summary>

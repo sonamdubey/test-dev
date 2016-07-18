@@ -10,6 +10,11 @@ using Bikewale.Entities.BikeData;
 using Bikewale.BAL.BikeData;
 using Bikewale.Common;
 using Bikewale.Entities.CMS.Photos;
+using System.Threading.Tasks;
+using Grpc.CMS;
+using Bikewale.BAL.GrpcFiles;
+using System.Configuration;
+using log4net;
 
 namespace Bikewale.Controls
 {
@@ -31,6 +36,9 @@ namespace Bikewale.Controls
         public string imageId = string.Empty;
         public string ImageId { get; set; }
 
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(PhotoGallaryMin));
 
         protected override void OnInit(EventArgs e)
         {
@@ -67,7 +75,7 @@ namespace Bikewale.Controls
         /// Written By : Ashwini Todkar on 26 Sept 2014
         /// Summary    : method to get model photo list from carwale api
         /// </summary>
-        private async void GetImageList()
+        private  void GetImageList()
         {
             try
             {
@@ -81,14 +89,7 @@ namespace Bikewale.Controls
                 
                 string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
 
-                string _apiUrl = "webapi/image/modelphotolist/?applicationid=" + _applicationid + "&modelid=" + ModelId + "&categoryidlist=" + contentTypeList;
-
-                List<ModelImage> _objImageList = null;
-
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    _objImageList = await objClient.GetApiResponse<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objImageList);
-                }
+                List<ModelImage> _objImageList = GetImageListViaGrpc(contentTypeList, _applicationid);
                 
                 if (_objImageList != null && _objImageList.Count > 0)
                     recordCount = _objImageList.Count;
@@ -136,6 +137,64 @@ namespace Bikewale.Controls
             }
 
         }//End of AllImageList
+
+        private List<ModelImage> GetImageListViaGrpc(string contentTypeList, string _applicationid)
+        {
+            try
+            {
+                if (_useGrpc)
+                {
+                    var _objGrpcmodelPhotoList = GrpcMethods.GetModelPhotosList(Convert.ToUInt32(_applicationid), ModelId, contentTypeList);
+
+                    if (_objGrpcmodelPhotoList != null && _objGrpcmodelPhotoList.LstGrpcModelImage.Count > 0)
+                    {
+                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelPhotoList);
+                    }
+                    else
+                    {
+                        return GetImageListOldWay(contentTypeList, _applicationid);
+                    }
+
+                }
+                else
+                {
+                    return GetImageListOldWay(contentTypeList, _applicationid);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                return GetImageListOldWay(contentTypeList, _applicationid);
+            }
+
+        }
+
+        private List<ModelImage> GetImageListOldWay(string contentTypeList, string _applicationid)
+        {
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetImageListOldWay {0}", ModelId));
+                }
+
+                List<ModelImage>  _objImageList = null;       
+                string _apiUrl = "webapi/image/modelphotolist/?applicationid=" + _applicationid + "&modelid=" + ModelId + "&categoryidlist=" + contentTypeList;
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    return objClient.GetApiResponseSync<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objImageList);          
+                }
+                
+            }
+            catch (Exception err)
+            {
+                Trace.Warn(err.Message);
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+                return new List<ModelImage>();
+            }
+
+        }
 
         /// <summary>
         /// Written By : Ashwini Todkar on 3 Oct 2014
