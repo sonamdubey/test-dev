@@ -115,7 +115,7 @@ namespace Bikewale.DAL.BikeData
                     //cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Boolean, isNew));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
