@@ -206,7 +206,7 @@ namespace Bikewale.MyBikeWale
             if (!IsValid)
                 return;
 
-            if (SaveCustomerDetails() == true)
+            if (SaveCustomerDetails())
             {
 
                 if (Request["returnUrl"] != null && Request["returnUrl"].ToString() != "")

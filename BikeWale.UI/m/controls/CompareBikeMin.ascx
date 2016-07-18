@@ -12,7 +12,7 @@
 <h2>Popular Comparisons</h2>
 <asp:Repeater ID="rptCompareList" runat="server">
     <ItemTemplate>
-        <a href="/m/comparebikes/<%#DataBinder.Eval(Container.DataItem,"MakeMaskingName1")%>-<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName1")%>-vs-<%#DataBinder.Eval(Container.DataItem,"MakeMakingName2")%>-<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName2")%>/" class="normal">
+        <a href="/m/comparebikes/<%#DataBinder.Eval(Container.DataItem,"MakeMaskingName1")%>-<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName1")%>-vs-<%#DataBinder.Eval(Container.DataItem,"MakeMaskingName2")%>-<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName2")%>/?bike1=<%# DataBinder.Eval(Container.DataItem,"VersionId1")%>&bike2=<%# DataBinder.Eval(Container.DataItem,"VersionId2")%>" class="normal">
             <div class="box1 new-line5">
                 <div class="compareImageContainer">
                     <%--<img src="<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "ImagePath").ToString()+DataBinder.Eval(Container.DataItem,"ImageName").ToString() , DataBinder.Eval(Container.DataItem,"HostURL").ToString()) %>" /></div>--%>

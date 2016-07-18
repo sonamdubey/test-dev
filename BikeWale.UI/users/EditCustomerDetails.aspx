@@ -83,7 +83,7 @@
 				<tr>
 					<td class="margin-left10">State :</td>
 					<td colspan="3">
-						<asp:DropDownList ID="drpState" EnableViewState="false" runat="server" />
+						<asp:DropDownList ID="drpState" EnableViewState="true" runat="server" />
 						<span id="spnState" class="error" runat="server" />				
 					</td>
 				</tr>
