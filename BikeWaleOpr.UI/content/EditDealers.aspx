@@ -45,9 +45,9 @@
                     <th>Email Id</th>                                           
                     <th>Website</th>                                            
                     <th>Working Hrs.</th>                                            
-                    <th>Last Updated</th>                                            
-                    <th>Is NCD</th>                                           
-                    <th>Is Active</th>                                           
+                    <th>Last Updated</th>
+                    <th>Is Active</th>                                             
+                    <th>Is NCD</th>                                                                                     
                     <th>Edit</th>                                           
                </tr>
     </HeaderTemplate>
