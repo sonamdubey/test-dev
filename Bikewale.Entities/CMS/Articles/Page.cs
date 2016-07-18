@@ -1,19 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.CMS.Articles
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
     /// </summary>    
+    [Serializable, DataContract]
     public class Page
     {
+        [DataMember]
         public ulong pageId { get; set; }
+        [DataMember]
         public ushort Priority { get; set; }
+        [DataMember]
         public string PageName { get; set; }
+        [DataMember]
         public string Content { get; set; }
     }
 }

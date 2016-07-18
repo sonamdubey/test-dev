@@ -1,10 +1,13 @@
 ﻿using Bikewale.BAL.GrpcFiles;
+using Bikewale.Cache.Core;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Grpc.CMS;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -50,29 +53,29 @@ namespace Bikewale.BAL.EditCMS
                 categorList.Add(EnumCMSContentType.AutoExpo2016);
                 string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
 
-                //cacheKey += contentTypeList.Replace(",", "_") + "_Cnt_" + TotalRecords;
+                cacheKey += contentTypeList.Replace(",", "_") + "_Cnt_" + TotalRecords;
 
-                //if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                //{
-                //    if (ModelId.HasValue && ModelId.Value > 0)
-                //    {
-                //        cacheKey += "_Make_" + MakeId + "_Model_" + ModelId;
-                //    }
-                //    else
-                //    {
-                //        cacheKey += "_Make_" + MakeId;
-                //    }
-                //}
+                if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
+                {
+                    if (ModelId.HasValue && ModelId.Value > 0)
+                    {
+                        cacheKey += "_Make_" + MakeId + "_Model_" + ModelId;
+                    }
+                    else
+                    {
+                        cacheKey += "_Make_" + MakeId;
+                    }
+                }
 
-                //using (IUnityContainer container = new UnityContainer())
-                //{
-                //    container.RegisterType<ICacheManager, MemcacheManager>();
-                //    ICacheManager _cache = container.Resolve<ICacheManager>();
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICacheManager, MemcacheManager>();
+                    ICacheManager _cache = container.Resolve<ICacheManager>();
 
-                //    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(contentTypeList));
-                //}
+                    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(contentTypeList));
+                }
 
-                _objArticleList = GetNewsFromCW(contentTypeList);
+                //_objArticleList = GetNewsFromCW(contentTypeList);
             }
             catch (Exception ex)
             {
@@ -104,7 +107,7 @@ namespace Bikewale.BAL.EditCMS
                     }
                     else
                     {
-                        return GetNewsFromCWAPIInOldWay(contentTypeList); 
+                        return GetNewsFromCWAPIInOldWay(contentTypeList);
                     }
                 }
                 else
@@ -184,25 +187,25 @@ namespace Bikewale.BAL.EditCMS
                 categorList.Add(EnumCMSContentType.ComparisonTests);
                 string _contentType = CommonApiOpn.GetContentTypesString(categorList);
 
-                //cacheKey += _contentType.Replace(",", "_") + "_Cnt_" + TotalRecords;
+                cacheKey += _contentType.Replace(",", "_") + "_Cnt_" + TotalRecords;
 
-                //if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                //{
-                //    if (ModelId.HasValue && ModelId.Value > 0)
-                //        cacheKey += "_Make_" + MakeId + "_Model_" + ModelId;
-                //    else
-                //        cacheKey += "_Make_" + MakeId;
-                //}
+                if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
+                {
+                    if (ModelId.HasValue && ModelId.Value > 0)
+                        cacheKey += "_Make_" + MakeId + "_Model_" + ModelId;
+                    else
+                        cacheKey += "_Make_" + MakeId;
+                }
 
-                //using (IUnityContainer container = new UnityContainer())
-                //{
-                //    container.RegisterType<ICacheManager, MemcacheManager>();
-                //    ICacheManager _cache = container.Resolve<ICacheManager>();
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICacheManager, MemcacheManager>();
+                    ICacheManager _cache = container.Resolve<ICacheManager>();
 
-                //    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(_contentType));
-                //}
+                    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(_contentType));
+                }
 
-                _objArticleList = GetNewsFromCW(_contentType);
+                //_objArticleList = GetNewsFromCW(_contentType);
             }
             catch (Exception ex)
             {
