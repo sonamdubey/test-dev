@@ -57,19 +57,6 @@
     <div class="grid_12">
         <PG:PhotoGallary ID="photoGallary" runat="server"></PG:PhotoGallary>
     </div>
-    <div class="grid_8">
-        <div class="top-spacing">&nbsp;</div>
-        <div id="divOtherModels" runat="server">
-            <h2>More <%=objModelEntity.MakeBase.MakeName %> Photos</h2>
-            <div class="rpt-img-container">
-                <div id="omLoading" class="loading"></div>
-                <div id="divOtherModelsGallery" class="grid_8">
-                </div>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="top-spacing">&nbsp;</div>
-    </div>
     <div class="grid_4">
         <div class="top-spacing">&nbsp;</div>
         <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
