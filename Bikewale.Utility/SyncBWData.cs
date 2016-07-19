@@ -39,7 +39,7 @@ namespace Bikewale.Utility
             }
             catch(Exception ex)
             {
-                return false;
+                throw ex;
             }
         }
     }

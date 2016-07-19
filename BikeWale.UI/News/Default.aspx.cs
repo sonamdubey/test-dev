@@ -1,19 +1,17 @@
-﻿using Bikewale.BAL.GrpcFiles;
-using Bikewale.BAL.Pager;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Cache.News;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.News;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Utility;
-using Grpc.CMS;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.News
@@ -27,8 +25,6 @@ namespace Bikewale.News
         protected LinkPagerControl linkPager;
 
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
-
-        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
 
         //current page number 
         private int _pageNumber = 1;
@@ -62,7 +58,26 @@ namespace Bikewale.News
                     _pageNumber = Convert.ToInt32(Request.QueryString["pn"]);
             }
 
-            GetNews();
+            IPager objPager = GetPager();
+            int _startIndex = 0, _endIndex = 0;
+            objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
+            string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.News, EnumCMSContentType.AutoExpo2016 });
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<INewsCache, NewsCache>()
+                .RegisterType<ICacheManager, MemcacheManager>()
+                .RegisterType<INews, Bikewale.BAL.News.News>();
+                INewsCache _objNews = container.Resolve<INewsCache>();
+
+                CMSContent objNews = _objNews.GetNews(_startIndex, _endIndex, contentTypeList);
+
+                if (objNews != null)
+                {
+                    BindNews(objNews);
+                    BindLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));
+                }
+            }
         }
 
         private void BindNews(CMSContent data)
@@ -70,89 +85,6 @@ namespace Bikewale.News
 
             rptNews.DataSource = data.Articles;
             rptNews.DataBind();
-        }
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// Summary    : method to fetch news list and total record count from carwale api
-        /// </summary>
-
-        private void GetNews()
-        {
-            try
-            {
-                if (_useGrpc)
-                {
-                    // get pager instance
-                    IPager objPager = GetPager();
-
-                    int _startIndex = 0, _endIndex = 0;
-                    objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
-
-                    string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.News, EnumCMSContentType.AutoExpo2016 });
-
-                    var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(contentTypeList, (uint)_startIndex, (uint)_endIndex);
-
-                    if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
-                    {
-                        BindNews(GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle));
-                        BindLinkPager(objPager, Convert.ToInt32(_objGrpcArticle.RecordCount));
-                    }
-                    else
-                    {
-                        GetNewsOldWay();
-                    }
-
-                }
-                else
-                {
-                    GetNewsOldWay();
-                }
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-
-
-        private async void GetNewsOldWay()
-        {
-            using (var client = new HttpClient())
-            {
-
-                //sets the base URI for HTTP requests
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                client.BaseAddress = new Uri(_cwHostUrl);
-
-                //sets the Accept header to "application/json", which tells the server to send data in JSON format.
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // get pager instance
-                IPager objPager = GetPager();
-
-                int _startIndex = 0, _endIndex = 0;
-                objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
-                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                categorList.Add(EnumCMSContentType.News);
-                categorList.Add(EnumCMSContentType.AutoExpo2016);
-                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
-                // Send HTTP GET requests 
-                HttpResponseMessage response = await client.GetAsync("webapi/article/listbycategory/?applicationid=2&categoryidlist=" + contentTypeList + "&startindex=" + _startIndex + "&endindex=" + _endIndex);
-
-                response.EnsureSuccessStatusCode();    // Throw if not a success code.
-
-                if (response.IsSuccessStatusCode) //success status 200 above Status
-                {
-                    CMSContent _objArticleList = await response.Content.ReadAsAsync<CMSContent>();
-
-                    BindNews(_objArticleList);
-                    BindLinkPager(objPager, Convert.ToInt32(_objArticleList.RecordCount));
-                }
-            }
         }
 
         /// <summary>
@@ -230,11 +162,12 @@ namespace Bikewale.News
             IPager _objPager = null;
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IPager, Pager>();
+                container.RegisterType<IPager, Bikewale.BAL.Pager.Pager>();
                 _objPager = container.Resolve<IPager>();
             }
             return _objPager;
         }
+
 
     }//End of Class
 }//End of NameSpace

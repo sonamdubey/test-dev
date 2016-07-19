@@ -1,21 +1,17 @@
-﻿using Bikewale.BAL.CMS;
-using Bikewale.BAL.GrpcFiles;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
-using Grpc.CMS;
 using log4net;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Content
 {
@@ -102,78 +98,20 @@ namespace Bikewale.Mobile.Content
         {
             try
             {
-                GetNewsDetailsViaGrpc(_basicId);               
-
-                if (objNews != null)
-                    GetNewsData();
-                else
-                    _isContentFound = false;
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (!_isContentFound)
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    Response.Redirect("/m/news/", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-            }
-        }
+                    container.RegisterType<IArticles, Articles>()
+                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-        private void GetNewsDetailsViaGrpc(int _basicId)
-        {
-            try
-            {
-                if (_useGrpc)
-                {
-                    var _objGrpcArticle = GrpcMethods.GetContentDetails(Convert.ToUInt64(_basicId));
+                    objNews = _cache.GetNewsDetails(Convert.ToUInt32(_basicId));
 
-                    if (_objGrpcArticle != null)
-                    {
-                        objNews = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
-                    }
+                    if (objNews != null)
+                        GetNewsData();
                     else
-                    {
-                        GetNewsDetailsOldWay(_basicId);
-                    }
+                        _isContentFound = false;
                 }
-                else
-                {
-                    GetNewsDetailsOldWay(_basicId);
-                }
-            }
-            catch (Exception err)
-            {
-                _logger.Error(err.Message, err);
-                GetNewsDetailsOldWay(_basicId);
-            }
-        }
-
-        private async void GetNewsDetailsOldWay(int _basicId)
-        {
-            try
-            {
-                if (_logGrpcErrors)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", _basicId));
-                }
-                string _apiUrl = "webapi/article/contentdetail/?basicid=" + _basicId;
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objNews = await objClient.GetApiResponse<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objNews);
-                }
-
-                if (objNews != null)
-                    GetNewsData();
-                else
-                    _isContentFound = false;
             }
             catch (Exception err)
             {
@@ -206,11 +144,11 @@ namespace Bikewale.Mobile.Content
             pageViews = objNews.Views;
             pageUrl = _newsId + '-' + objNews.ArticleUrl + ".html";
 
-            if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl ))
+            if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
                 nextPageUrl = objNews.NextArticle.BasicId + "-" + objNews.NextArticle.ArticleUrl + ".html";
-            
+
             if (!String.IsNullOrEmpty(objNews.PrevArticle.ArticleUrl))
-                prevPageUrl = objNews.PrevArticle.BasicId + "-" + objNews.PrevArticle.ArticleUrl + ".html";            
+                prevPageUrl = objNews.PrevArticle.BasicId + "-" + objNews.PrevArticle.ArticleUrl + ".html";
         }
 
         protected String GetMainImagePath()
