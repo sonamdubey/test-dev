@@ -53,8 +53,8 @@ namespace Bikewale.New
             try
             {
                 if (_useGrpc)
-                {                    
-                    var grpcInt = GrpcMethods.GrpcGetFeaturedCar(versions,1,2);
+                {
+                    var grpcInt = GrpcMethods.GrpcGetFeaturedCar(versions, 1, 2);
                     return grpcInt.IntOutput.ToString();
                 }
                 else

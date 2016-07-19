@@ -262,7 +262,6 @@ namespace Bikewale.BAL.EditCMS
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //objArticle = await objClient.GetApiResponse<ArticleDetails>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objArticle);
                     objArticle = objClient.GetApiResponseSync<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objArticle);
                 }
 

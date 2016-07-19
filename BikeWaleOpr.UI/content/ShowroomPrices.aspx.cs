@@ -86,7 +86,7 @@ namespace BikeWaleOpr.Content
             {
                 getStates();
 
-                sql = "SELECT ID, Name FROM bikemakes where isdeleted <> 1 order by name";
+                sql = "SELECT ID, Name FROM bikemakes where isdeleted <> 1 and new=1 order by name";
                 op.FillDropDown(sql, cmbMake, "Name", "ID");
                 ListItem item = new ListItem("--Select--", "0");
                 cmbMake.Items.Insert(0, item);
@@ -379,7 +379,7 @@ namespace BikeWaleOpr.Content
             try
             {
                 MakeModelVersion objMMV = new MakeModelVersion();
-                dt = objMMV.GetModels(makeId, "ALL");
+                dt = objMMV.GetModels(makeId, "USED");
 
             }
             catch (Exception ex)
