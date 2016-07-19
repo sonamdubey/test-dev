@@ -228,10 +228,10 @@
                             <% } %>
                             <% if (!toShowOnRoadPriceButton && isBikeWalePQ && dealerId == 0)
                                { %>
-                            <p class="margin-top10 margin-bottom20 clear">
+                            <%--<p class="margin-top10 margin-bottom20 clear">
                                 <a class="text-bold" style="position: relative; font-size: 14px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">Save up to 60% on insurance - PolicyBoss
                                 </a>
-                            </p>
+                            </p>--%>
                             <% } %>
                     </div>                    
                     <%

@@ -145,7 +145,8 @@ namespace BikeWaleOpr.Content
 
                 lbl.Text = "Edit Dealer Details";
                 string sql = @"select ct.stateid,dl.makeid,dl.cityid,dl.name,dl.address,dl.pincode,dl.contactno,dl.faxno,
-                                dl.emailid,dl.website,dl.workinghours,dl.isncd,dl.isactive from dealer_newbike dl, cities ct where 
+                                dl.emailid,dl.website,dl.workinghours,if(dl.isncd,1,0) isncd,if(dl.isactive,1,0) isactive 
+                                from dealer_newbike dl, cities ct where 
                                 dl.id = '" + URLData + "' and ct.id = dl.cityid";
                 try
                 {
@@ -241,6 +242,8 @@ namespace BikeWaleOpr.Content
 
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    isCompleted = true;
                 }
             }
             catch (SqlException err)

@@ -7,7 +7,7 @@ namespace Bikewale.Entities.CMS.Articles
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
     /// </summary>    
-    [Serializable, DataContract]
+    [DataContract, Serializable]
     public class VehicleTag
     {
         [DataMember]

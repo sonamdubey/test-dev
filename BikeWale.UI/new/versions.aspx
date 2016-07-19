@@ -308,9 +308,9 @@
                                 } %>
                             <% if (!toShowOnRoadPriceButton && isBikeWalePQ && dealerId == 0)
 							   { %>
-                            <div class="insurance-breakup-text text-bold padding-top10" >
+                            <%--<div class="insurance-breakup-text text-bold padding-top10" >
                                 <a target="_blank" id="insuranceLink" href="/insurance/">Save up to 60% on insurance - PolicyBoss</a>
-                            </div>
+                            </div>--%>
                             <% } %>
                             <!-- upcoming start -->
                             <% if (modelPageEntity.ModelDetails.Futuristic && modelPageEntity.UpcomingBike != null)

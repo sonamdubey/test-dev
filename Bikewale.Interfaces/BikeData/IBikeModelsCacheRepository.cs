@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
@@ -20,5 +21,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null);
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex);
         BikeDescriptionEntity GetModelSynopsis(U modelId);
+        List<ModelImage> GetModelPhotoGallery(U modelId);
     }
 }
