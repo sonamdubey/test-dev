@@ -1,13 +1,11 @@
 ﻿using Bikewale.BAL.GrpcFiles;
-using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Interfaces.News;
 using Bikewale.Notifications;
-using Bikewale.Utility;
+using EditCMSWindowsService.Messages;
 using Grpc.CMS;
 using log4net;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Web;
 
@@ -25,15 +23,21 @@ namespace Bikewale.BAL.News
         /// Date : 19-07-2016
         /// Summary : method to fetch news list and total record count from carwale api
         /// </summary>
-        public CMSContent GetNews(int _startIndex, int _endIndex)
+        public CMSContent GetNews(int _startIndex, int _endIndex, string contentTypeList, int modelid = 0)
         {
-            string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.News, EnumCMSContentType.AutoExpo2016 });
-
             try
             {
                 if (_useGrpc)
                 {
-                    var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(contentTypeList, (uint)_startIndex, (uint)_endIndex);
+                    GrpcCMSContent _objGrpcArticle = null;
+                    if (modelid <= 0)
+                    {
+                        _objGrpcArticle = GrpcMethods.GetArticleListByCategory(contentTypeList, (uint)_startIndex, (uint)_endIndex);
+                    }
+                    else
+                    {
+                        _objGrpcArticle = GrpcMethods.GetArticleListByCategory(contentTypeList, (uint)_startIndex, (uint)_endIndex, modelid);
+                    }
 
                     if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
                     {
