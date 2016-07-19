@@ -54,12 +54,12 @@
                 <li><a href="/bike-videos/">Videos</a></li>
             </ul>
         </li>
-        <li>
+        <%--<li>
             <a href="/insurance/">
                 <span class="bwsprite insurance-icon"></span>
                 <span class="navbarTitle">Insurance</span>
             </a>
-        </li>
+        </li>--%>
         <li>
             <a href="/bike-loan-emi-calculator/">
                 <span class="bwsprite forum-icon"></span>

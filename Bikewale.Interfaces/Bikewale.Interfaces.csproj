@@ -103,6 +103,8 @@
     <Compile Include="NewBikeSearch\IProcessFilter.cs" />
     <Compile Include="NewBikeSearch\ISearchQuery.cs" />
     <Compile Include="NewBikeSearch\ISearchResult.cs" />
+    <Compile Include="News\INews.cs" />
+    <Compile Include="News\INewsCache.cs" />
     <Compile Include="Pager\IPager.cs" />
     <Compile Include="PriceQuote\IDealerPriceQuoteDetail.cs" />
     <Compile Include="PriceQuote\ILeadNofitication.cs" />
