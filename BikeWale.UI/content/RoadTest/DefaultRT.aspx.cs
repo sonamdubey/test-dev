@@ -24,6 +24,9 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.BikeData;
 using Bikewale.DAL.BikeData;
+using log4net;
+using Grpc.CMS;
+using Bikewale.BAL.GrpcFiles;
 
 namespace Bikewale.Content
 {
@@ -38,6 +41,10 @@ namespace Bikewale.Content
         protected LinkPagerControl linkPager;
 
         protected string nextUrl = string.Empty ,prevUrl = string.Empty;
+        
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(DefaultRT));
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
 
         private const int _pageSize = 10;
         private int _pageNo = 1;
@@ -145,48 +152,105 @@ namespace Bikewale.Content
             }
         }
 
+        private CMSContent GetRoadTestListOldWay(string makeId, string modelId, string makeName, string modelName, int startIdx, int endIdx)
+        {        
+            int _roadtestCategoryId = (int)EnumCMSContentType.RoadTest;
+
+            string _apiUrl = string.Empty;
+
+            if (String.IsNullOrEmpty(makeId))
+            {
+                _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + startIdx + "&endindex=" + endIdx;
+            }
+            else
+            {
+                if (String.IsNullOrEmpty(modelId))
+                {
+                    _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + startIdx + "&endindex=" + endIdx + "&makeid=" + makeId;
+                }
+                else
+                {
+                    _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + startIdx + "&endindex=" + endIdx + "&makeid=" + makeId + "&modelid=" + modelId;
+                }
+            }
+
+            
+            CMSContent objCmsContent=null;
+            using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            {
+                objCmsContent = objClient.GetApiResponseSync<CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objCmsContent);
+            }
+
+            if (_logGrpcErrors && objCmsContent != null)
+            {
+                _logger.Error(string.Format("Grpc did not work for GetRoadTestListOldWay make={0} model{1} makename={2} modelname={3} ", makeId,modelId,makeName,modelName));
+            }
+
+            return objCmsContent;
+        }
+
+        public CMSContent GetRoadTestListViaGrpc(string makeId, string modelId, string makeName, string modelName, int startIdx, int endIdx)
+        {
+            CMSContent objCmsContent;
+            try
+            {
+                if (_useGrpc)
+                {
+                    
+                    int intMakeId=0,intModelId=0, _roadtestCategoryId = (int)EnumCMSContentType.RoadTest;
+
+                    if (!String.IsNullOrEmpty(makeId))
+                    {
+                        intMakeId=Convert.ToInt32(makeId);
+                    }
+                    
+                    if (!String.IsNullOrEmpty(modelId))
+                    {
+                        intModelId = Convert.ToInt32(modelId);
+                    }
+
+                    var _objGrpcFeature = GrpcMethods.GetArticleListByCategory(_roadtestCategoryId.ToString(), (uint)startIdx, (uint)endIdx, intMakeId, intModelId);
+
+                    if (_objGrpcFeature != null)
+                    {
+                        objCmsContent = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcFeature);
+                    }
+                    else
+                    {
+                        objCmsContent = GetRoadTestListOldWay(makeId, modelId, makeName, modelName,startIdx,endIdx);
+                    }
+                }
+                else
+                {
+                    objCmsContent = GetRoadTestListOldWay(makeId, modelId, makeName, modelName, startIdx, endIdx);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                objCmsContent = GetRoadTestListOldWay(makeId, modelId, makeName, modelName, startIdx, endIdx);
+            }
+
+            return objCmsContent;
+
+        }
+
         /// <summary>
         /// Written By : Ashwini Todkar on 26 Sept 2014
         /// Summary    : method to get roadtest list and total roadtest count from carwale api
         /// </summary>
-        private async void GetRoadTestList(string makeId, string modelId , string makeName, string modelName )
+        private  void GetRoadTestList(string makeId, string modelId , string makeName, string modelName )
         {
             try
             {
                 // get pager instance
                 IPager objPager = GetPager();
 
-                int _startIndex = 0, _endIndex = 0, _roadtestCategoryId = (int)EnumCMSContentType.RoadTest;
+                int startIdx,endIdx;
 
-                objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
+                objPager.GetStartEndIndex(_pageSize, _pageNo, out startIdx, out endIdx);
 
-                string _apiUrl = string.Empty;
-
-                if (String.IsNullOrEmpty(makeId))
-                {
-                    _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex;
-                }
-                else
-                {
-                    if (String.IsNullOrEmpty(modelId))
-                    {
-                        _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId;
-                        //MakeModelSearch.MakeId = makeId;
-                    }
-                    else
-                    {
-                        _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId + "&modelid=" + modelId;
-                        //MakeModelSearch.MakeId = makeId;
-                        //MakeModelSearch.ModelId = modelId;
-                    }
-                }
-
-                CMSContent _objRoadTestList = null;
-
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    _objRoadTestList = await objClient.GetApiResponse<CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objRoadTestList);
-                }
+                CMSContent _objRoadTestList = GetRoadTestListViaGrpc(makeId,modelId,makeName,modelName,startIdx,endIdx);
                 
                 if (_objRoadTestList != null)
                 {
