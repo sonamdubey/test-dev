@@ -2951,7 +2951,7 @@
             Description :   Extend from CompressionApiController instead of ApiController 
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.#ctor(Bikewale.Interfaces.Pager.IPager)">
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.#ctor(Bikewale.Interfaces.Pager.IPager,Bikewale.Interfaces.CMS.ICMSCacheContent,Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32},Bikewale.Interfaces.Content.IRoadTestCache,Bikewale.Interfaces.Content.IFeatureCache)">
             <summary>
             
             </summary>
