@@ -157,18 +157,13 @@ namespace BikewaleOpr.Campaign
                     endDate = Convert.ToString(Request.QueryString["endDate"]);
                 }
 
-                if (!string.IsNullOrEmpty(Request.QueryString["contractStatus"]))
-                {
-                    contractStatus = Convert.ToInt32(Request.QueryString["contractStatus"]);
-                }
-
                 if (isValid)
                 {
-                    if (contractId > 0 && contractStatus > 0)
+                    if (contractId > 0 && packageId > 0)
                     {
                         dealerContract = new DealerContractEntity();
                         dealerContract.ContractId = contractId;
-                        dealerContract.ContractStatus = contractStatus;
+                        dealerContract.ContractStatus = 1;
                         dealerContract.DealerId = dealerId;
                         dealerContract.EndDate = Convert.ToDateTime(endDate);
                         dealerContract.StartDate = Convert.ToDateTime(startDate);
