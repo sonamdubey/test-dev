@@ -2,14 +2,17 @@
 using Bikewale.Cache.Core;
 using Bikewale.Cache.News;
 using Bikewale.Common;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.News;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web.UI.WebControls;
 
@@ -45,6 +48,7 @@ namespace Bikewale.Mobile.News
                 IPager objPager = GetPager();
                 int _startIndex = 0, _endIndex = 0;
                 objPager.GetStartEndIndex(_pageSize, curPageNo, out _startIndex, out _endIndex);
+                string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.News, EnumCMSContentType.AutoExpo2016 });
 
                 using (IUnityContainer container = new UnityContainer())
                 {
@@ -53,7 +57,7 @@ namespace Bikewale.Mobile.News
                     .RegisterType<INews, Bikewale.BAL.News.News>();
                     INewsCache _objNews = container.Resolve<INewsCache>();
 
-                    CMSContent objNews = _objNews.GetNews(_startIndex, _endIndex);
+                    CMSContent objNews = _objNews.GetNews(_startIndex, _endIndex, contentTypeList);
 
                     BindNews(objNews);
                     BindLinkPager(objPager, Convert.ToInt32(objNews.RecordCount));

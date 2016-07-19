@@ -140,7 +140,7 @@
                     <tr>
                         <td class="text-light-grey padding-bottom15" align="left">Insurance <%--(<a target="_blank" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objExQuotation!=null)?(objExQuotation.MakeName + "_" + objExQuotation.ModelName + "_" + objExQuotation.VersionName + "_" + objExQuotation.City):string.Empty %>' });" href="/m/insurance/" style="display: inline-block; position: relative; font-size: 11px; margin-top: 1px;">
                                 Up to 60% off - PolicyBoss                                
-                        </a>)--%><span style="margin-left: 5px; vertical-align: super; font-size: 9px;">Ad</span>
+                        </a>)<span style="margin-left: 5px; vertical-align: super; font-size: 9px;">Ad</span>--%>
                         </td>
                         <td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objExQuotation.Insurance.ToString()) %></td>
                     </tr>

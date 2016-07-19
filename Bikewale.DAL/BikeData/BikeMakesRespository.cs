@@ -248,7 +248,7 @@ namespace Bikewale.DAL.BikeData
                         {
                             objMake = new BikeDescriptionEntity()
                             {
-                                Name = Convert.ToString("MakeName"),
+                                Name = Convert.ToString(dr["MakeName"]),
                                 SmallDescription = Convert.ToString(dr["Description"]),
                                 FullDescription = Convert.ToString(dr["Description"])
                             };

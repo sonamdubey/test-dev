@@ -114,7 +114,7 @@ namespace Bikewale.DAL.PriceQuote
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerid", DbType.Int32, ParameterDirection.Output));
                     // LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
                     int numberOfRecords = Convert.ToInt32(cmd.Parameters["par_numofrows"].Value);
                     if (numberOfRecords > 0)
@@ -188,7 +188,7 @@ namespace Bikewale.DAL.PriceQuote
 
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null)
                         {
@@ -319,7 +319,7 @@ namespace Bikewale.DAL.PriceQuote
 
                     //cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int32, pqId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         objQuotation = new PriceQuoteParametersEntity();
                         if (dr != null)

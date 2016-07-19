@@ -111,16 +111,18 @@ namespace Bikewale.BAL.Content
         {
             try
             {
-                if (_logGrpcErrors)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", basicId));
-                }
 
                 string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + basicId;
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
                     objFeature = objClient.GetApiResponseSync<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeature);
+                }
+
+
+                if (_logGrpcErrors && objFeature!=null)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetFeatureDetailsOldWay {0}", basicId));
                 }
             }
             catch (Exception ex)

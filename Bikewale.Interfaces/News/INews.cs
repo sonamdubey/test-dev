@@ -9,6 +9,6 @@ namespace Bikewale.Interfaces.News
     /// </summary>
     public interface INews
     {
-        CMSContent GetNews(int _pageSize, int _pageNumber);
+        CMSContent GetNews(int _pageSize, int _pageNumber, string contentTypeList, int modelid = 0);
     }
 }

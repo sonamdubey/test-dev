@@ -7,21 +7,18 @@ using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Service.AutoMappers.CMS
 {
     public class CMSMapper
     {
-        internal static List<DTO.CMS.Photos.CMSModelImageBase> Convert(List<Entities.CMS.Photos.ModelImage> objImageList)
+        internal static List<DTO.CMS.Photos.CMSModelImageBase> Convert(IEnumerable<Entities.CMS.Photos.ModelImage> objImageList)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<ModelImage, CMSModelImageBase>();
-            return Mapper.Map<List<ModelImage>, List<CMSModelImageBase>>(objImageList);
+            return Mapper.Map<IEnumerable<ModelImage>, List<CMSModelImageBase>>(objImageList);
         }
 
         internal static DTO.CMS.Articles.CMSArticlePageDetails Convert(Entities.CMS.Articles.ArticlePageDetails objFeaturedArticles)
