@@ -108,12 +108,12 @@
                             <br />
                             <span class="text-grey"><%= objInquiry.InsuranceExpiry %></span>
 
-                            <% if(!String.IsNullOrEmpty(objInquiry.Insurance) && !(objInquiry.Insurance).ToLower().Contains("insurance")) {%>
+                            <%--<% if(!String.IsNullOrEmpty(objInquiry.Insurance) && !(objInquiry.Insurance).ToLower().Contains("insurance")) {%>
                             <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">
                                 Up to 60% off - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'Used_Bike_Detail_Page', act: 'Insurance_Clicked',lab: '<%= objInquiry.BikeName + "_" + objInquiry.CityName %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
                                 <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>
                             </div> 
-                        <% } %>  
+                        <% } %>  --%>
                         </td>                        
                         <th>Lifetime-Tax</th>
                         <td><%= objInquiry.LifetimeTax %></td>
