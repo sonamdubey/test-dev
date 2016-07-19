@@ -154,10 +154,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="PQDetailsTableTitle padding-bottom15">Insurance (Comprehensive)<br />
+                                    <td class="PQDetailsTableTitle padding-bottom15">Insurance (Comprehensive)<%--<br />
                                         <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">Save up to 60% on insurance - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
                                             <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>  
-                                        </div>
+                                        </div>--%>
                                     </td>
                                     <td align="right" class="PQDetailsTableAmount padding-bottom15">
                                         <span class="bwsprite inr-sm"></span>&nbsp;<span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
