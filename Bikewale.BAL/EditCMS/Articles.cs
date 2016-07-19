@@ -28,12 +28,10 @@ namespace Bikewale.BAL.EditCMS
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
+        private string cacheKey = "BW_CMS_";
 
         static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
         static readonly ILog _logger = LogManager.GetLogger(typeof(Articles));
-
-        static uint _applicationid = Convert.ToUInt32(ConfigurationManager.AppSettings["applicationId"]);
-
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
 
 
