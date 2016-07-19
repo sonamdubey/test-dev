@@ -5,7 +5,7 @@ namespace Bikewale.Entities.CMS.Articles
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
-    /// </summary>    
+    /// </summary> 
 
     [Serializable, DataContract]
     public class ArticleSummary : ArticleBase

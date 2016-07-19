@@ -72,6 +72,7 @@
     <Compile Include="BikeData\IBikeVersionCacheRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikeBooking\IFeedBacks.cs" />
+    <Compile Include="CMS\ICMSCacheRepository.cs" />
     <Compile Include="CMS\ICMSContentRepository.cs" />
     <Compile Include="Compare\IBikeCompare.cs" />
     <Compile Include="Compare\IBikeCompareCacheRepository.cs" />

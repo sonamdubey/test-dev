@@ -5,8 +5,8 @@ namespace Bikewale.Entities.CMS.Articles
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
-    /// </summary>    
-    [Serializable, DataContract]
+    /// </summary> 
+    [DataContract, Serializable]
     public class ArticleBase
     {
         [DataMember]

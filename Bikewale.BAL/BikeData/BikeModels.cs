@@ -47,7 +47,7 @@ namespace Bikewale.BAL.BikeData
         static readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<T, U>));
 
         static uint _applicationid = Convert.ToUInt32(ConfigurationManager.AppSettings["applicationId"]);
-        
+
 
         public BikeModels()
         {
@@ -912,17 +912,17 @@ namespace Bikewale.BAL.BikeData
 
             return objModelPage;
         }
-        
-        private List<ModelImage>GetBikeModelPhotoGalleryOldWay(U modelId)
+
+        private List<ModelImage> GetBikeModelPhotoGalleryOldWay(U modelId)
         {
             if (_logGrpcErrors)
-            {   
-                _logger.Error(string.Format("Grpc did not work for GetBikeModelPhotoGalleryOldWay {0}",modelId));
+            {
+                _logger.Error(string.Format("Grpc did not work for GetBikeModelPhotoGalleryOldWay {0}", modelId));
             }
 
             List<ModelImage> objPhotos = null;
             string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-           
+
             string _requestType = "application/json";
 
             try
@@ -964,11 +964,11 @@ namespace Bikewale.BAL.BikeData
 
                     if (_objGrpcmodelPhotoList != null && _objGrpcmodelPhotoList.LstGrpcModelImage.Count > 0)
                     {
-                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelPhotoList);                       
+                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcmodelPhotoList);
                     }
                     else
                     {
-                       return GetBikeModelPhotoGalleryOldWay(modelId);
+                        return GetBikeModelPhotoGalleryOldWay(modelId);
                     }
 
                 }

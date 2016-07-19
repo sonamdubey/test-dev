@@ -11,5 +11,6 @@ namespace Bikewale.Interfaces.EditCMS
     {
         IEnumerable<ArticleSummary> GetRecentNews(int makeId, int modelId, int totalRecords);
         IEnumerable<ArticleSummary> GetRecentExpertReviews(int makeId, int modelId, int totalRecords);
+        ArticleDetails GetNewsDetails(uint basicId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
@@ -190,6 +191,32 @@ namespace Bikewale.Cache.BikeData
             }
 
             return objBikes;
+        }
+
+
+        /// <summary>
+        /// Created by  : Sushil Kumar on 20th July 2016
+        /// Description : Bike Models photos gallery caching
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="contentList"></param>
+        /// <returns></returns>
+        public List<ModelImage> GetModelPhotoGallery(U modelId)
+        {
+            List<ModelImage> objPhotos = null;
+
+            string key = string.Format("BW_ModelPhotoGallery_MO_{0}", modelId);
+            try
+            {
+                objPhotos = _cache.GetFromCache<List<ModelImage>>(key, new TimeSpan(1, 0, 0), () => _objModels.GetBikeModelPhotoGallery(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelPhotoGallery");
+                objErr.SendMail();
+            }
+
+            return objPhotos;
         }
     }
 }
