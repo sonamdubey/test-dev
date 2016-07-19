@@ -9,6 +9,6 @@ namespace Bikewale.Interfaces.News
     /// </summary>
     public interface INewsCache
     {
-        CMSContent GetNews(int _startIndex, int _endIndex);
+        CMSContent GetNews(int _startIndex, int _endIndex, string contentTypeList, int modelid = 0);
     }
 }
