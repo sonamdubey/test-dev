@@ -5,8 +5,10 @@ using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Grpc.CMS;
+using log4net;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web;
 
 namespace Bikewale.BAL.EditCMS
@@ -24,7 +26,11 @@ namespace Bikewale.BAL.EditCMS
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
 
-        string cacheKey = "BW_CMS_";
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(Articles));
+
+        static uint _applicationid = Convert.ToUInt32(ConfigurationManager.AppSettings["applicationId"]);
+
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
 
 
@@ -104,7 +110,7 @@ namespace Bikewale.BAL.EditCMS
                     }
                     else
                     {
-                        return GetNewsFromCWAPIInOldWay(contentTypeList); 
+                        return GetNewsFromCWAPIInOldWay(contentTypeList);
                     }
                 }
                 else
@@ -211,6 +217,101 @@ namespace Bikewale.BAL.EditCMS
             }
 
             return _objArticleList;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        public ArticleDetails GetNewsDetails(uint basicId)
+        {
+            ArticleDetails _objArticleList = null;
+            try
+            {
+                _objArticleList = GetNewsDetailsViaGrpc(basicId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return _objArticleList;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        private ArticleDetails GetNewsDetailsFromApiOldWay(uint basicId)
+        {
+            ArticleDetails objArticle = null;
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", basicId));
+                }
+
+                //sets the base URI for HTTP requests
+                string _apiUrl = String.Format("webapi/article/contentdetail/?basicid={0}", basicId);
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objArticle = await objClient.GetApiResponse<ArticleDetails>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objArticle);
+                    objArticle = objClient.GetApiResponseSync<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objArticle);
+                }
+
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+
+            return objArticle;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        private ArticleDetails GetNewsDetailsViaGrpc(uint basicId)
+        {
+            ArticleDetails objArticle = null;
+            try
+            {
+                if (_useGrpc)
+                {
+                    var _objGrpcArticle = GrpcMethods.GetContentDetails(Convert.ToUInt64(basicId));
+
+                    if (_objGrpcArticle != null)
+                    {
+                        objArticle = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
+                    }
+                    else
+                    {
+                        objArticle = GetNewsDetailsFromApiOldWay(basicId);
+                    }
+                }
+                else
+                {
+                    objArticle = GetNewsDetailsFromApiOldWay(basicId);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                objArticle = GetNewsDetailsFromApiOldWay(basicId);
+            }
+
+            return objArticle;
         }
     }
 }
