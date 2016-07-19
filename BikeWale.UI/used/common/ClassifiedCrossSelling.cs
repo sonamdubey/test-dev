@@ -1,39 +1,36 @@
+using Bikewale.Common;
+using MySql.CoreDAL;
 /*
 	This class will contain all the common function related to Sell Bike process
 */
 using System;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.Common;
 using System.Web;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using System.Data.Common;
-using MySql.CoreDAL;
 
 namespace Bikewale.Used
 {
-	public class ClassifiedCrossSelling
-	{			
-		//used for writing the debug messages
-		private HttpContext objTrace = HttpContext.Current;
-		
-		public void GetOtherModels(string versionId, string modelId, string cityId, Repeater rptBikeDetails, string profileId)
-		{
-			string sql = "";
+    public class ClassifiedCrossSelling
+    {
+        //used for writing the debug messages
+        private HttpContext objTrace = HttpContext.Current;
 
-            sql = @"select  concat(makename,' ', modelname , ' ' ,versionname) as bikename, makename, modelname, c.name as cityname, c.maskingname as citymaskingname, profileid,  bm.maskingname as makemaskingname,bmo.maskingname as modelmaskingname,
-				versionid, cityid, price, kilometers, year(makeyear) makeyear
-                from livelistings 
-                inner join bwcities as c   on c.id = cityid 
-                inner join bikemakes bm on bm.id = makeid 
-                inner join bikemodels bmo   on bmo.id = modelid 
-				where showdetails = 1 and cityid = @v_cityid
-                and modelid = @v_modelid and profileid <> @v_profileid
+        public void GetOtherModels(string versionId, string modelId, string cityId, Repeater rptBikeDetails, string profileId)
+        {
+            string sql = "";
+
+            sql = @"select  concat(ll.makename,' ', ll.modelname , ' ' ,ll.versionname) as bikename, ll.makename, ll.modelname, c.name as cityname, c.maskingname as citymaskingname, ll.profileid,  bmo.makemaskingname as makemaskingname,bmo.maskingname as modelmaskingname,
+				ll.versionid, ll.cityid, ll.price, ll.kilometers, year(ll.makeyear) makeyear
+                from livelistings ll
+                inner join bwcities as c   on c.id = ll.cityid                 
+                inner join bikemodels bmo   on bmo.id = ll.modelid 
+				where ll.showdetails = 1 and ll.cityid = @v_cityid
+                and ll.modelid = @v_modelid and ll.profileid <> @v_profileid
 				order by rand() limit 5";
 
-			try
-			{
+            try
+            {
 
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
@@ -46,20 +43,20 @@ namespace Bikewale.Used
                     using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
                     {
 
-                        if (ds!=null)
+                        if (ds != null)
                         {
                             rptBikeDetails.DataSource = ds;
-                            rptBikeDetails.DataBind();  
-                        } 
+                            rptBikeDetails.DataBind();
+                        }
                     }
                 }
-			}
-			catch(Exception err)
-			{
-				objTrace.Trace.Warn(err.Message + err.Source);
-				ErrorClass objErr = new ErrorClass(err, objTrace.Request.ServerVariables["URL"]);
-				objErr.SendMail();
-			}
-		}
-	}
+            }
+            catch (Exception err)
+            {
+                objTrace.Trace.Warn(err.Message + err.Source);
+                ErrorClass objErr = new ErrorClass(err, objTrace.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
+    }
 }

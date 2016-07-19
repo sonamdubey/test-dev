@@ -1,5 +1,4 @@
 ﻿using BikeWaleOpr.Common;
-using BikeWaleOPR.Utilities;
 using MySql.CoreDAL;
 using System;
 using System.Data;
@@ -101,7 +100,7 @@ namespace BikeWaleOpr.Content
             try
             {
 
-                if (!string.IsNullOrEmpty(makeId) && makeId != "0")
+                if (!string.IsNullOrEmpty(makeId))
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {

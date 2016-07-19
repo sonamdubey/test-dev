@@ -1,24 +1,18 @@
-﻿using Bikewale.BAL.CMS;
-using Bikewale.BAL.Pager;
+﻿using Bikewale.Cache.Content;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Bikewale.Entities.CMS;
-using Bikewale.Entities.Pager;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Pager;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Content;
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.BAL.GrpcFiles;
-using Grpc.CMS;
-using log4net;
 
 namespace Bikewale.Mobile.Content
 {
@@ -31,18 +25,13 @@ namespace Bikewale.Mobile.Content
         protected Repeater rptPageContent;
         protected HtmlSelect ddlPages;
         protected int BasicId = 0, pageId = 1;
-        protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty , modelUrl = String.Empty;
-        protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = string.Empty , url = string.Empty;
+        protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
+        protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = string.Empty, url = string.Empty;
         //private CMSPageDetailsEntity pageDetails = null;
         protected Repeater rptPhotos;
-       // private IPager objPager = null;
+        // private IPager objPager = null;
         protected ArticlePageDetails objFeature = null;
         private bool _isContentFount = true;
-        
-        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
-        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
-        static readonly ILog _logger = LogManager.GetLogger(typeof(viewF));
-
 
         protected override void OnInit(EventArgs e)
         {
@@ -99,71 +88,45 @@ namespace Bikewale.Mobile.Content
             }
             else
             {
-               isSucess = false;
+                isSucess = false;
             }
 
             return isSucess;
         }
 
-        private async void GetFeatureDetailsOldWay()
-        {
-            try
-            {
-                if (_logGrpcErrors)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", BasicId));
-                }
-
-                string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + BasicId;
-
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objFeature = await objClient.GetApiResponse<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeature);
-                }                
-
-                if (objFeature != null)
-                {
-                    GetFeatureData();
-                    BindPages();
-                    BindPhotos();
-                }
-                else
-                {
-                    _isContentFount = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn("Ex Message: " + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (!_isContentFount)
-                {
-                    Response.Redirect("/m/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-            }
-        }
         private void GetFeatureDetails()
         {
             try
             {
-                GetFeatureDetailsViaGrpc();
+                //GetFeatureDetailsViaGrpc();
 
-                if (objFeature != null)
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    GetFeatureData();
-                    BindPages();
-                    BindPhotos();
+                    container.RegisterType<IFeatureCache, FeaturesCache>()
+                    .RegisterType<ICacheManager, MemcacheManager>()
+                    .RegisterType<IFeatures, Bikewale.BAL.Content.Features>();
+                    IFeatureCache _features = container.Resolve<IFeatureCache>();
+
+                    objFeature = _features.GetFeatureDetailsViaGrpc(BasicId);
+
+                    if (objFeature != null)
+                    {
+                        GetFeatureData();
+                        BindPages();
+                        IEnumerable<ModelImage> objImg = _features.BindPhotos(BasicId);
+
+                        if (objImg != null && objImg.Count() > 0)
+                        {
+                            rptPhotos.DataSource = objImg;
+                            rptPhotos.DataBind();
+                        }
+                    }
+                    else
+                    {
+                        _isContentFount = false;
+                    }
                 }
-                else
-                {
-                    _isContentFount = false;
-                }
+
             }
             catch (Exception ex)
             {
@@ -181,55 +144,6 @@ namespace Bikewale.Mobile.Content
                 }
             }
         }
-
-        private void GetFeatureDetailsViaGrpc()
-        {
-            try
-            {
-                if (_useGrpc)
-                {
-
-
-                    var _objGrpcFeature = GrpcMethods.GetContentPages((ulong)BasicId);
-
-                    if (_objGrpcFeature != null)
-                    {
-                        objFeature= GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcFeature);
-                    }
-                    else
-                    {
-                        GetFeatureDetailsOldWay();
-                    }
-
-                }
-                else
-                {
-                    GetFeatureDetailsOldWay();
-                }
-            }
-            catch (Exception err)
-            {
-                _logger.Error(err.Message, err);
-                GetFeatureDetailsOldWay();
-            }            
-        }
-
-        //private void GetNavigationLinks()
-        //{
-        //    PagerEntity pagerEntity = new PagerEntity();
-        //    pagerEntity.BaseUrl = "/m/features/";
-        //    pagerEntity.PageNo = pageId;
-        //    pagerEntity.PagerSlotSize = 5;
-        //    pagerEntity.PageUrlType = pageDetails.Url + "-" + BasicId.ToString() + "/p";
-        //    pagerEntity.TotalResults = pageDetails.PageList.Count;
-        //    pagerEntity.PageSize = 1;
-
-        //    PagerOutputEntity pagerOutput = objPager.GetPager<PagerOutputEntity>(pagerEntity);
-
-        //    //get next and prev page links for SEO
-        //    prevPageUrl = pagerOutput.PreviousPageUrl;
-        //    nextPageUrl = pagerOutput.NextPageUrl;
-        //}
 
         private void GetFeatureData()
         {
@@ -254,92 +168,8 @@ namespace Bikewale.Mobile.Content
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private  void BindPhotos()
-        {
-            try
-            {
-                List<ModelImage> objImg = null;
-                if (_useGrpc)
-                {
-
-                    var _objGrpcArticlePhotos = GrpcMethods.GetArticlePhotos((ulong)BasicId);
-
-                    if (_objGrpcArticlePhotos != null && _objGrpcArticlePhotos.LstGrpcModelImage.Count > 0)
-                    {
-                        //following needs to be optimized
-                        objImg = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticlePhotos);
-                        if (objImg != null && objImg.Count > 0)
-                        {
-                            rptPhotos.DataSource = objImg;
-                            rptPhotos.DataBind();
-                        }
-                    }
-                    else
-                    {
-                        BindPhotosOldWay();
-                    }
-
-                }
-                else
-                {
-                    BindPhotosOldWay();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
-                BindPhotosOldWay();
-            }             
-        }
-
-        private async void BindPhotosOldWay()
-        {
-            try
-            {
-                if (_logGrpcErrors)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", BasicId));
-                }
-
-                string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + BasicId;
-                List<ModelImage> objImg = null;
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objImg = await objClient.GetApiResponse<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImg);
-                }
-
-
-                if (objImg != null && objImg.Count > 0)
-                {
-                    rptPhotos.DataSource = objImg;
-                    rptPhotos.DataBind();
-                }
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-
         private void BindPages()
         {
-            //ddlPages.DataSource = pageDetails.PageList;
-            //ddlPages.DataTextField = "PageName";
-            //ddlPages.DataValueField = "Priority";
-            //ddlPages.DataBind();
-
-            //ddlPages.Items.FindByValue(pageId.ToString()).Selected = true;
-
-          //  rptPages.DataSource = objFeature.PageList;
-          //  rptPages.DataBind();
-
             if (objFeature.PageList != null)
             {
                 rptPageContent.DataSource = objFeature.PageList;
@@ -355,7 +185,7 @@ namespace Bikewale.Mobile.Content
             return imgUrl;
         }
 
-        protected string GetImageUrl(string hostUrl, string imagePath,string size)
+        protected string GetImageUrl(string hostUrl, string imagePath, string size)
         {
             string imgUrl = String.Empty;
             imgUrl = Bikewale.Utility.Image.GetPathToShowImages(imagePath, hostUrl, size);

@@ -111,6 +111,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Compare\BikeComparison.cs" />
+    <Compile Include="Content\Features.cs" />
+    <Compile Include="Content\RoadTest.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerAuthentication.cs" />
     <Compile Include="Customer\RegisterCustomer.cs" />

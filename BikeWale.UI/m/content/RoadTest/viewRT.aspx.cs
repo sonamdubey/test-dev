@@ -1,13 +1,14 @@
-﻿using Bikewale.BAL.GrpcFiles;
+﻿using Bikewale.Cache.Content;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Content;
 using Bikewale.Memcache;
-using Grpc.CMS;
-using log4net;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -22,21 +23,14 @@ namespace Bikewale.Content
     public class viewRT : System.Web.UI.Page
     {
         protected HtmlSelect ddlPages;
-        //protected Repeater rptPages, rptPageContent;
         protected Repeater rptPageContent;
         protected int BasicId = 0, pageId = 1;
         protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty;
-        //private CMSPageDetailsEntity pageDetails = null;
         protected StringBuilder _bikeTested;
         protected Repeater rptPhotos;
-        // private IPager objPager = null;
         protected ArticlePageDetails objRoadtest;
         private bool _isContentFound = true;
-
-        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
-        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
-        static readonly ILog _logger = LogManager.GetLogger(typeof(viewRT));
 
 
         protected override void OnInit(EventArgs e)
@@ -71,9 +65,7 @@ namespace Bikewale.Content
                  Check if basic id exists in mapped carwale basic id log **/
 
                 string basicId = BasicIdMapping.GetCWBasicId(Request["id"]);
-                //Trace.Warn("basicid" + basicId);
-                //if id exists then redirect url to new basic id url
-                //Trace.Warn("news host : " + Request.ServerVariables["HTTP_X_ORIGINAL_URL"]);
+
                 if (!String.IsNullOrEmpty(basicId))
                 {
                     string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
@@ -86,15 +78,6 @@ namespace Bikewale.Content
                 }
 
                 BasicId = Convert.ToInt32(Request.QueryString["id"]);
-
-                // if (!Int32.TryParse(Request.QueryString["id"].ToString(), out BasicId))
-                // isSuccess = false;
-
-                //if (Request.QueryString["pn"] != null && !String.IsNullOrEmpty(Request.QueryString["pn"]) && CommonOpn.CheckId(Request.QueryString["pn"]))
-                //{
-                //    if (!Int32.TryParse(Request.QueryString["pn"], out pageId))
-                //        isSuccess = false;
-                //}
             }
             else
             {
@@ -120,7 +103,21 @@ namespace Bikewale.Content
                 {
                     GetRoadTestData();
                     BindPages();
-                    BindPhotos();
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IRoadTestCache, RoadTestCache>()
+                         .RegisterType<ICacheManager, MemcacheManager>()
+                         .RegisterType<IRoadTest, Bikewale.BAL.Content.RoadTest>();
+                        IRoadTestCache _roadTest = container.Resolve<IRoadTestCache>();
+
+                        IEnumerable<ModelImage> objImg = _roadTest.BindPhotos(Convert.ToInt32(BasicId));
+
+                        if (objImg != null && objImg.Count() > 0)
+                        {
+                            rptPhotos.DataSource = objImg;
+                            rptPhotos.DataBind();
+                        }
+                    }
                 }
                 else
                 {
@@ -143,91 +140,6 @@ namespace Bikewale.Content
                 }
             }
         }
-
-        private async void BindPhotosOldWay()
-        {
-            try
-            {
-                if (_logGrpcErrors)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", BasicId));
-                }
-                string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + BasicId;
-                List<ModelImage> objImg = null;
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objImg = await objClient.GetApiResponse<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImg);
-                }
-
-                if (objImg != null && objImg.Count > 0)
-                {
-                    rptPhotos.DataSource = objImg;
-                    rptPhotos.DataBind();
-                }
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-
-        private  void BindPhotos()
-        {
-            try
-            {
-                List<ModelImage> objImg = null;
-                if (_useGrpc)
-                {
-
-                    var _objGrpcArticlePhotos = GrpcMethods.GetArticlePhotos((ulong)BasicId);
-
-                    if (_objGrpcArticlePhotos != null && _objGrpcArticlePhotos.LstGrpcModelImage.Count > 0)
-                    {
-                        //following needs to be optimized
-                        objImg = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticlePhotos);
-                        if (objImg != null && objImg.Count > 0)
-                        {
-                            rptPhotos.DataSource = objImg;
-                            rptPhotos.DataBind();
-                        }
-                    }
-                    else
-                    {
-                        BindPhotosOldWay();
-                    }
-
-                }
-                else
-                {
-                    BindPhotosOldWay();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
-                BindPhotosOldWay();
-            }   
-        }
-        //private void GetNavigationLinks()
-        //{
-        //    PagerEntity pagerEntity = new PagerEntity();
-        //    pagerEntity.BaseUrl = "/m/road-tests/";
-        //    pagerEntity.PageNo = pageId;
-        //    pagerEntity.PagerSlotSize = 5;
-        //    pagerEntity.PageUrlType = objRoadtest.ArticleUrl + "-" + BasicId.ToString() + "/p";
-        //    pagerEntity.TotalResults = objRoadtest.PageList.Count;// pageDetails.PageList.Count;
-        //    pagerEntity.PageSize = 1;
-
-        //    PagerOutputEntity pagerOutput = objPager.GetPager<PagerOutputEntity>(pagerEntity);
-
-        //    //get next and prev page links for SEO
-        //   // prevPageUrl = pagerOutput.PreviousPageUrl;
-        //   // nextPageUrl = pagerOutput.NextPageUrl;
-        //}
 
         private void GetRoadTestData()
         {
@@ -261,30 +173,12 @@ namespace Bikewale.Content
                     }
                 }
             }
-
-            //if (pageDetails.ImageList != null)
-            //    BindPhotos();
         }
-
-        //private void BindPhotos()
-        //{
-        //    if (pageDetails.ImageList != null)
-        //    {
-        //        rptPhotos.DataSource = pageDetails.ImageList;
-        //        rptPhotos.DataBind();
-        //    }
-        //}
 
         private void BindPages()
         {
-            //Trace.Warn("pageDetails.PageList : ", pageDetails.PageList.Count.ToString());
-
-            //rptPages.DataSource = objRoadtest.PageList;
-            //rptPages.DataBind();
-
             rptPageContent.DataSource = objRoadtest.PageList;
             rptPageContent.DataBind();
-            //ddlPages.Items.FindByValue(pageId.ToString()).Selected = true;
         }
 
         protected string GetImageUrl(string hostUrl, string imagePath)
