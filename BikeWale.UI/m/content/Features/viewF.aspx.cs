@@ -156,7 +156,7 @@ namespace Bikewale.Mobile.Content
             //data = objFeature.Description;
             author = objFeature.AuthorName;
             pageTitle = objFeature.Title;
-            displayDate = Convert.ToDateTime(objFeature.DisplayDate).ToString("dd-MMM-yyyy");
+            displayDate = Convert.ToDateTime(objFeature.DisplayDate).ToString("MMMM dd, yyyy hh:mm tt");
 
             if (objFeature.TagsList != null && objFeature.TagsList.Count > 0)
             {

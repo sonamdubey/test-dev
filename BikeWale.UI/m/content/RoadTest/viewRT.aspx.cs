@@ -1,4 +1,5 @@
-﻿using Bikewale.Cache.Content;
+﻿using Bikewale.BAL.GrpcFiles;
+using Bikewale.Cache.Content;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Entities.CMS.Articles;
@@ -6,9 +7,12 @@ using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Content;
 using Bikewale.Memcache;
+using Grpc.CMS;
+using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -32,6 +36,9 @@ namespace Bikewale.Content
         protected ArticlePageDetails objRoadtest;
         private bool _isContentFound = true;
 
+        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(ViewRT));
+        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
 
         protected override void OnInit(EventArgs e)
         {
@@ -87,17 +94,72 @@ namespace Bikewale.Content
             return isSuccess;
         }
 
-        private async void GetRoadTestDetails()
+        private ArticlePageDetails GetFeatureDetailsOldWay(int basicId)
+        {
+            ArticlePageDetails objFeature = null;
+            try
+            {
+
+                string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + basicId;
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objFeature = objClient.GetApiResponseSync<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeature);
+                }
+
+
+                if (_logGrpcErrors && objRoadtest != null)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetFeatureDetailsOldWay {0}", basicId));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objFeature;
+        }
+
+        public ArticlePageDetails GetFeatureDetails(int basicId)
+        {
+            ArticlePageDetails objFeature;
+            try
+            {
+                if (_useGrpc)
+                {
+                    var _objGrpcFeature = GrpcMethods.GetContentPages((ulong)basicId);
+
+                    if (_objGrpcFeature != null)
+                    {
+                        objFeature = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcFeature);
+                    }
+                    else
+                    {
+                        objFeature = GetFeatureDetailsOldWay(basicId);
+                    }
+                }
+                else
+                {
+                    objFeature = GetFeatureDetailsOldWay(basicId);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                objFeature = GetFeatureDetailsOldWay(basicId);
+            }
+
+            return objFeature;
+
+        }
+
+        private void GetRoadTestDetails()
         {
             try
             {
-                string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + BasicId;
-
-                // Send HTTP GET requests 
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objRoadtest = await objClient.GetApiResponse<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objRoadtest);
-                }
+                objRoadtest = GetFeatureDetails(BasicId);
 
                 if (objRoadtest != null)
                 {
