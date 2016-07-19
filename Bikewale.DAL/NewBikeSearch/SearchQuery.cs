@@ -16,7 +16,7 @@ namespace Bikewale.DAL.NewBikeSearch
         FilterInput filterInputs;
         IUnityContainer container;
         IProcessFilter processFilter;
-        string _whereClause = " ma.isdeleted = 0 and ma.new = 1 and mo.isdeleted = 0 and mo.new = 1 "
+        string _whereClause = " bv.ismakenew = 1 and mo.isdeleted = 0 and mo.new = 1 "
                             + " and mo.futuristic = 0 and bv.new = 1 and bv.isdeleted = 0";
 
 
@@ -30,15 +30,15 @@ namespace Bikewale.DAL.NewBikeSearch
             string selectClause = string.Empty;
             try
             {
-                selectClause = @" concat(ma.name,' ',mo.name) as bikename
-		                        ,ma.id as makeid
-		                        ,ma.name makename
-		                        ,ma.maskingname as makemaskingname
-		                        ,mo.id as modelid
-		                        ,mo.name modelname
-		                        ,mo.maskingname as modelmappingname
-		                        ,mo.hosturl
-		                        ,mo.originalimagepath as imagepath
+                selectClause = @" concat(bv.makename,' ',bv.modelname) as bikename
+		                        ,bv.bikemakeid as makeid
+		                        ,bv.makename makename
+		                        ,bv.makemaskingname as makemaskingname
+		                        ,bv.bikemodelid as modelid
+		                        ,bv.modelname modelname
+		                        ,bv.modelmaskingname as modelmappingname
+		                        ,bv.modelhosturl as hosturl
+		                        ,bv.modeloriginalimagepath as imagepath
 		                        ,ifnull(sd.displacement,0) displacement
 		                        ,sd.fueltype
 		                        ,ifnull(sd.maxpower,0) as power
@@ -68,7 +68,6 @@ namespace Bikewale.DAL.NewBikeSearch
             {
                 fromClause = " bikeversions as bv "
                             + " inner join bikemodels as mo on mo.id = bv.bikemodelid "
-                            + " inner join bikemakes as ma   on ma.id = mo.bikemakeid "
                             + " left join newbikespecifications as sd  on sd.bikeversionid = bv.id "
                             + " left join mostpopularbikes mpb  on mpb.modelid = mo.id and mpb.rownum = 1 ";
             }
@@ -207,7 +206,7 @@ namespace Bikewale.DAL.NewBikeSearch
                     }
                     makeList = makeList.Substring(0, makeList.Length - 1);
 
-                    _whereClause += " and ma.id in ( " + makeList + " ) ";
+                    _whereClause += " and bv.bikemakeid in ( " + makeList + " ) ";
                 }
 
                 if (filterInputs.Model != null && filterInputs.Model.Length > 0)
@@ -417,7 +416,7 @@ namespace Bikewale.DAL.NewBikeSearch
                                                     (   select {0}
                                                         from {1}
                                                         where {2}  
-                                                        order by mo.id
+                                                        order by bv.bikemodelid
                                                     ) as t order by minprice ;
 
                                                     set @row_number:=0;

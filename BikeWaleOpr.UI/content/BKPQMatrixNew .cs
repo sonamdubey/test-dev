@@ -14,20 +14,17 @@ Modified 1: Vaibhav K (03-May-2012)
             Tables (PQMatrix, PQMatrixUniquePerDay, PQMatrixUniquePerMonth)
 ****************************************************************************************/
 
-using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Collections;
-using System.IO;
 using BikeWaleOpr.Common;
 using BikeWaleOpr.Controls;
 using BikeWaleOPR.Utilities;
-using System.Data.Common;
 using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -155,10 +152,10 @@ namespace BikeWaleOpr.Content
             DbCommand cmd = DbFactory.GetDBCommand();
             MySqlDbUtilities db = new MySqlDbUtilities();
 
-            sql = @" select count( distinct nbp.id) as CNT,vw.Make AS Make, 
-                vw.Model,vw.modelid AS ModelId,vw.Version,vw.makeid AS MakeId,vw.VersionId, 
+            sql = @" select count( distinct nbp.id) as CNT,vw.makename AS Make, 
+                vw.modelname as Model,vw.bikemodelid as modelid AS ModelId,vw.name as Version,vw.bikemakeid as makeid AS MakeId,vw.id as VersionId, 
                 monthname(nbp.requestdatetime)as Month , dayname(nbp.requestdatetime)as Day 
-                from newbikepricequotes nbp inner join vwmmv vw on nbp.bikeversionid = vw.versionid 
+                from newbikepricequotes nbp inner join bikeversions vw on nbp.bikeversionid = vw.id 
                 where  month(nbp.requestdatetime) = @month and year(nbp.requestdatetime) = @year ";
 
             if (rbtnlOption.SelectedValue == "2")
@@ -179,7 +176,7 @@ namespace BikeWaleOpr.Content
 
             }
 
-            sql += " group by vw.make,vw.model,vw.version,vw.makeid,vw.modelid,vw.versionid, month,day order by vw.makeid , vw.model ";
+            sql += " group by vw.makename,vw.modelname,vw.name,vw.bikemakeid,vw.bikemodelid,vw.id, month,day order by vw.bikemakeid , vw.modelname ";
 
             try
             {

@@ -190,10 +190,9 @@ namespace Bikewale.New
         {
             Trace.Warn("inside fikll existing");
 
-            string sql = @"select ve.id version, mo.id model, ma.id make, ma.maskingname as makemaskingname,mo.maskingname as modelmaskingname 
-                 from bikemakes ma, bikemodels mo, bikeversions ve
-				 where ve.bikemodelid=mo.id and mo.bikemakeid=ma.id
-				 and ve.id=par_id";
+            string sql = @"select ve.id version, ve.bikemodelid model, ve.bikemakeid make, ve.makemaskingname as makemaskingname,ve.modelmaskingname as modelmaskingname 
+                 from bikeversions ve
+				 where ve.id=par_id";
 
 
             Trace.Warn("sql ::: ", sql);

@@ -1,19 +1,15 @@
+using BikeWaleOpr.Common;
+using MySql.CoreDAL;
 /*******************************************************************************************************
 IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 using System;
-using System.Text;
 using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using BikeWaleOpr.Common;
-using BikeWaleOpr.Controls;
-using BikeWaleOPR.Utilities;
 using System.Data.Common;
-using MySql.CoreDAL;
+using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -506,7 +502,7 @@ namespace BikeWaleOpr.Content
                 sql = "select bikeversionid from newbikespecifications where bikeversionid = " + _vid;
 
             try
-            {  
+            {
                 if (!string.IsNullOrEmpty(sql))
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -547,10 +543,9 @@ namespace BikeWaleOpr.Content
             int _vid = default(int);
 
             if (!string.IsNullOrEmpty(_versionId) && int.TryParse(_versionId, out _vid))
-                sql = @"select concat( ma.name , ' ' , mo.name , ' ' , ve.name ) bikemake
-                    from bikemakes ma, bikemodels mo, bikeversions ve 
-                    where ma.id=mo.bikemakeid and mo.id=ve.bikemodelid 
-                    and ve.id = " + _vid;
+                sql = @"select concat( ve.makename , ' ' , ve.modelname , ' ' , ve.name ) bikemake
+                    from bikeversions ve 
+                    where ve.id = " + _vid;
 
             try
             {
@@ -565,7 +560,7 @@ namespace BikeWaleOpr.Content
                                 bikeName = dr[0].ToString();
                             }
                         }
-                    } 
+                    }
                 }
 
             }

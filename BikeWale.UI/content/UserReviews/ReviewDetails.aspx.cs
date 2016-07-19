@@ -286,7 +286,7 @@ namespace Bikewale.Content
                 objBike.GetDetailsByModel(ModelId);
                 ModelStartPrice = objBike.ModelBasePrice;
                 Trace.Warn("ModelStartPrice " + ModelStartPrice + " ," + ModelId);
-                ucDiscuss.ThreadId = GetThreadIdForReview(reviewId);
+                //ucDiscuss.ThreadId = GetThreadIdForReview(reviewId);
                 ucDiscuss.Type = "review";
 
 
@@ -308,39 +308,40 @@ namespace Bikewale.Content
 
         private string GetThreadIdForReview(string review_Id)
         {
-            string returnVal = "-1";
-            string sql = "select threadid from forum_articleassociation  where articletype = 3 and articleid = @v_articleid";
-            uint _reviewId = 0;
+            throw new Exception("GetThreadIdForReview(string review_Id) : Method not used/commented");
+            //string returnVal = "-1";
+            //string sql = "select threadid from forum_articleassociation  where articletype = 3 and articleid = @v_articleid";
+            //uint _reviewId = 0;
 
-            try
-            {
-                if (!string.IsNullOrEmpty(review_Id))
-                {
-                    uint.TryParse(review_Id, out _reviewId);
-                }
-                //cmd.Parameters.Add("@v_articleid", SqlDbType.BigInt).Value = (review_Id != "" ? review_Id : "-1");  
-                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
-                {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("@v_articleid", DbType.Int64, _reviewId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null && dr.Read())
-                        {
-                            returnVal = dr[0].ToString();
+            //try
+            //{
+            //    if (!string.IsNullOrEmpty(review_Id))
+            //    {
+            //        uint.TryParse(review_Id, out _reviewId);
+            //    }
+            //    //cmd.Parameters.Add("@v_articleid", SqlDbType.BigInt).Value = (review_Id != "" ? review_Id : "-1");  
+            //    using (DbCommand cmd = DbFactory.GetDBCommand(sql))
+            //    {
+            //        cmd.Parameters.Add(DbFactory.GetDbParam("@v_articleid", DbType.Int64, _reviewId));
+            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+            //        {
+            //            if (dr != null && dr.Read())
+            //            {
+            //                returnVal = dr[0].ToString();
 
-                            dr.Close();
-                        }
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                returnVal = "-1";
-            }
+            //                dr.Close();
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception err)
+            //{
+            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+            //    objErr.SendMail();
+            //    returnVal = "-1";
+            //}
 
-            return returnVal;
+            //return returnVal;
         }
 
         void GetDetails()
@@ -648,9 +649,9 @@ namespace Bikewale.Content
 
             try
             {
-                sql = @" select cr.id as reviewid, ifnull(up.handlename, cu.name) as customername, cu.id as customerid,
+                sql = @" select cr.id as reviewid, cu.name as customername, cu.id as customerid,
                         cr.title, cr.entrydatetime, liked, overallr 
-                        from  customers as cu  left join userprofile up   on up.userid = cu.id, customerreviews as cr  
+                        from  customers as cu , customerreviews as cr  
                         where cu.id = cr.customerid and cr.isactive=1 and 
                         cr.isverified=1 and cr.modelid = @v_modelid and cr.id <> @v_reviewid
                         order by liked desc 
