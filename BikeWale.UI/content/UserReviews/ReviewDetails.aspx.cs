@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.Controls;
+using MySql.CoreDAL;
+using System;
 using System.Data;
+using System.Data.Common;
 using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using Bikewale.Controls;
-using System.Data.Common;
-using MySql.CoreDAL;
 
 namespace Bikewale.Content
 {
@@ -281,23 +281,17 @@ namespace Bikewale.Content
             if (!IsPostBack)
             {
                 customerId = CurrentUser.Id;
-                //ForumsCommon fc = new ForumsCommon();
-                //isModerator = fc.GetModeratorLoginStatus(CurrentUser.Id);
-                //Trace.Warn("moderate");
                 GetDetails();
-                //GetNextPreviousReview();
-
-                //MakeModelVersion objBike = new MakeModelVersion();
                 ModelVersionDescription objBike = new ModelVersionDescription();
                 objBike.GetDetailsByModel(ModelId);
                 ModelStartPrice = objBike.ModelBasePrice;
                 Trace.Warn("ModelStartPrice " + ModelStartPrice + " ," + ModelId);
-
                 ucDiscuss.ThreadId = GetThreadIdForReview(reviewId);
                 ucDiscuss.Type = "review";
 
-                GetMoreReviews();
 
+
+                GetMoreReviews();
                 GoogleKeywords();
             }
 
@@ -367,9 +361,9 @@ namespace Bikewale.Content
                             cmd.CommandText = sql;
 
                             //cmd.Parameters.Add("@v_reviewid", SqlDbType.BigInt).Value = (reviewId != "" ? reviewId : "-1");
-                            cmd.Parameters.Add(DbFactory.GetDbParam("@v_reviewid",DbType.Int64, _reviewId));
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@v_reviewid", DbType.Int64, _reviewId));
 
-                            MySqlDatabase.UpdateQuery(cmd,ConnectionType.MasterDatabase);
+                            MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
                             //add this to the cookie
                             URV += reviewId + ",";
@@ -382,7 +376,7 @@ namespace Bikewale.Content
                         cmd1.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, _reviewId));
 
 
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd1,ConnectionType.ReadOnly))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd1, ConnectionType.ReadOnly))
                         {
                             if (dr != null && dr.Read())
                             {
@@ -431,7 +425,6 @@ namespace Bikewale.Content
                                 IsNew = Convert.ToBoolean(dr["New"]);
                                 IsUsed = Convert.ToBoolean(dr["Used"]);
                                 OriginalImagePath = dr["OriginalImagePath"].ToString();
-                                Trace.Warn("IsNew : " + IsNew + " " + "IsUsed : " + IsUsed);
                                 if (reviewerId == CurrentUser.Id)
                                     userLoggedIn = true;
 

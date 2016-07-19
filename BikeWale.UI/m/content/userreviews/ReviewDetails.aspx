@@ -87,29 +87,6 @@
         <div class="box1 new-line10" style="font-size:14px; line-height:18px;">
              <%= objReview.ReviewEntity.Comments %>
         </div>
-<%--         <%if( !String.IsNullOrEmpty(nextPageUrl)) {%>
-        <a href="<%= nextPageUrl%>" class="normal">
-            <div class="box1 new-line5">
-                <div class="rightArrowContainer">
-                    <div style="text-align:right;">
-                        <div style="font-weight:bold;">Next Review</div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    <%} %>
-
-    <%if( !String.IsNullOrEmpty(prevPageUrl)) {%>
-        <a href="<%= prevPageUrl %>" class="normal">
-            <div class="box1 new-line5">
-                <div class="leftArrowContainer">
-                    <div>
-                        <div style="font-weight:bold;">Previous Review</div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    <%} %>--%>
     <table style="width:100%; margin-top:10px;" cellspacing="0" cellpadding="0" border="0" class="new-line5">
 	    <tr> 
 		    <td>

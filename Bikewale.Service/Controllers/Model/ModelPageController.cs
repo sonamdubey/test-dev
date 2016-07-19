@@ -23,13 +23,10 @@ namespace Bikewale.Service.Controllers.Model
     /// </summary>
     public class ModelPageController : CompressionApiController//ApiController
     {
-        //private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        //private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-        //private string _requestType = "application/json";
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _cache;
         private readonly IDealerPriceQuoteDetail _dealers;
-        
+
 
         /// <summary>
         /// 
@@ -344,7 +341,7 @@ namespace Bikewale.Service.Controllers.Model
                         if (platformId == "3")
                         {
                             #region On road pricing for versions
-                            PQOnRoadPrice pqOnRoad; 
+                            PQOnRoadPrice pqOnRoad;
                             PQByCityArea getPQ;
                             PQByCityAreaEntity pqEntity = null;
                             if (!objModelPage.ModelDetails.Futuristic)
@@ -352,7 +349,7 @@ namespace Bikewale.Service.Controllers.Model
                                 pqOnRoad = new PQOnRoadPrice();
                                 getPQ = new PQByCityArea();
                                 pqEntity = getPQ.GetVersionList(modelID, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
-                            }                            
+                            }
 
                             if (areaId != null && !objModelPage.ModelDetails.Futuristic)
                             {

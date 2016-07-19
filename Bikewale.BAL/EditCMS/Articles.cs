@@ -262,7 +262,6 @@ namespace Bikewale.BAL.EditCMS
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //objArticle = await objClient.GetApiResponse<ArticleDetails>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objArticle);
                     objArticle = objClient.GetApiResponseSync<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objArticle);
                 }
 
@@ -313,6 +312,143 @@ namespace Bikewale.BAL.EditCMS
             }
 
             return objArticle;
+        }
+
+
+        /// <summary>
+        /// Created By : Vivek Gupta
+        /// Date : 19-7-2016
+        /// Desc : Get News From GRPC
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+        public IEnumerable<ArticleSummary> GetArticlesViaGrpc(EnumCMSContentType categoryId, uint posts, uint makeId, uint modelId)
+        {
+            string cacheKey = String.Format("BW_AS_C_{0}_TR_{1}_", categoryId, posts);
+
+            if (makeId > 0 && modelId > 0)
+            {
+
+                cacheKey += String.Format("_Make_{0}_Model_{1}" + makeId, modelId);
+            }
+            else if (makeId > 0 && modelId == 0)
+            {
+                cacheKey += String.Format("_Make_{0}", makeId);
+            }
+            else if (makeId == 0 && modelId > 0)
+            {
+                cacheKey += String.Format("_Model_{0}", modelId);
+            }
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<ICacheManager, MemcacheManager>();
+                ICacheManager _cache = container.Resolve<ICacheManager>();
+                return _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 30, 0), () => GetNews(categoryId, posts, makeId, modelId));
+            }
+        }
+
+        /// <summary>
+        /// Created By : Vivek Gupta
+        /// Date : 19-7-2016
+        /// Desc : Get News
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+        private IEnumerable<ArticleSummary> GetNews(EnumCMSContentType categoryId, uint posts, uint makeId = 0, uint modelId = 0)
+        {
+            FetchedRecordsCount = 0;
+            IEnumerable<ArticleSummary> _objArticleList = null;
+
+            try
+            {
+
+                if (_useGrpc)
+                {
+                    int intMakeId = Convert.ToInt32(makeId);
+                    int intModelId = Convert.ToInt32(modelId);
+                    string categoryIdList;
+                    switch (categoryId)
+                    {
+                        case EnumCMSContentType.RoadTest:
+                            categoryIdList = (short)categoryId + "," + (short)EnumCMSContentType.ComparisonTests;
+                            break;
+
+                        case EnumCMSContentType.News:
+                            categoryIdList = (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
+                            break;
+
+                        default:
+                            categoryIdList = ((short)categoryId).ToString();
+                            break;
+                    }
+
+                    var _objGrpcArticleSummaryList = GrpcMethods.MostRecentList(categoryIdList, (int)posts, intMakeId, intModelId);
+
+                    if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.LstGrpcArticleSummary.Count > 0)
+                    {
+                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticleSummaryList);
+                    }
+                    else
+                    {
+                        return GetArticlesViaOldWay(categoryId, posts, makeId, modelId);
+                    }
+                }
+                else
+                {
+                    return GetArticlesViaOldWay(categoryId, posts, makeId, modelId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return _objArticleList;
+        }
+
+        private IEnumerable<ArticleSummary> GetArticlesViaOldWay(EnumCMSContentType categoryId, uint posts, uint makeId, uint modelId)
+        {
+            if (_logGrpcErrors)
+            {
+                _logger.Error(string.Format("Grpc did not work for GetCMSContentOldWay {0}", categoryId));
+            }
+
+            string apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&totalrecords=" + posts;
+            IEnumerable<ArticleSummary> objRecentArticles = null;
+            if (categoryId == EnumCMSContentType.RoadTest)
+            {
+                apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.ComparisonTests;
+            }
+            else if (categoryId == EnumCMSContentType.News)
+            {
+                apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
+            }
+            else
+            {
+                apiUrl += "&contenttypes=" + (short)categoryId;
+            }
+
+            if (modelId == 0)
+            {
+                apiUrl += "&makeid=" + makeId;
+            }
+            else
+            {
+                apiUrl += "&makeid=" + makeId + "&modelid=" + modelId;
+            }
+
+
+            using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            {
+                //objRecentArticles = objClient.GetApiResponseSync<List<ArticleSummary>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
+                return objClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
+            }
         }
     }
 }

@@ -51,6 +51,10 @@ using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 using System;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Content;
+using Bikewale.Cache.Content;
+using Bikewale.Cache.CMS;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -120,6 +124,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ILeadNofitication, LeadNotificationBL>();
             container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+            container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
+            container.RegisterType<IRoadTestCache, RoadTestCache>();
+            container.RegisterType<IFeatureCache, FeaturesCache>();
             return container;
         }
     }

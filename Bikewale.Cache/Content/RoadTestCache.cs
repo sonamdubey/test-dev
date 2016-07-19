@@ -13,7 +13,7 @@ namespace Bikewale.Cache.Content
     /// </summary>
     public class RoadTestCache : IRoadTestCache
     {
-        static readonly ILog _logger = LogManager.GetLogger(typeof(FeaturesCache));
+        static readonly ILog _logger = LogManager.GetLogger(typeof(RoadTestCache));
         private IEnumerable<ModelImage> objImg = null;
 
         private readonly IRoadTest _roadtest = null;
@@ -36,7 +36,6 @@ namespace Bikewale.Cache.Content
             {
                 string cacheKey = String.Format("BW_RoadT_Photos_basicId_{0}", basicId);
                 objImg = _cache.GetFromCache<IEnumerable<ModelImage>>(cacheKey, new TimeSpan(0, 30, 0), () => _roadtest.GetPhotos(basicId));
-
             }
             catch (Exception err)
             {
