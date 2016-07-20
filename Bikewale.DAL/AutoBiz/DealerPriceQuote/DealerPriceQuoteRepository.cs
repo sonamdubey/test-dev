@@ -1021,7 +1021,7 @@ namespace Bikewale.DAL.AutoBiz
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_14032016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_16062016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
