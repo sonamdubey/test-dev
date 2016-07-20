@@ -34,16 +34,22 @@
                         </a>
                     </div>
                     <div class="model-news-title-container leftfloat">
-                        <h3 class="margin-top5">
+                        <h3>
                             <a href="/news/<%=firstPost.BasicId %>-<%=firstPost.ArticleUrl %>.html" class="font16 text-black line-height"><%=firstPost.Title %></a>
                         </h3>
                         <p class="text-light-grey margin-bottom15"><%= firstPost.DisplayDate.ToString("MMMM dd, yyyy") %>, by <span class="text-light-grey"><%=firstPost.AuthorName%></span></p>
+                        <p class="line-height17">
+                            <%= Bikewale.Utility.FormatDescription.TruncateDescription(firstPost.Description,150) %>
+                            <a href="/news/<%=firstPost.BasicId %>-<%=firstPost.ArticleUrl %>.html">Read full story</a>
+                        </p>
                     </div>
                     <div class="clear"></div>
+                    <!--
                     <p class="margin-top20 line-height17">
                         <%= Bikewale.Utility.FormatDescription.TruncateDescription(firstPost.Description,150) %>
                         <a href="/news/<%=firstPost.BasicId %>-<%=firstPost.ArticleUrl %>.html">Read full story</a>
                     </p>
+                    -->
                 </div>
             </div>
             <div class="grid-4 omega">

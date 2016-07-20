@@ -12,7 +12,7 @@
                     </p>
                 </div>
                 <div class="model-user-review-title-container">
-                    <h4><a class="text-black" href="/m/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html"><%#Eval("ReviewTitle").ToString() %></a> </h4>
+                    <a class="text-black target-link" href="/m/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html"><%#Eval("ReviewTitle").ToString() %></a>
                     <p class="font12 text-truncate text-light-grey"><%#Eval("ReviewDate", "{0:dd-MMM-yyyy}") %> by <%#Eval("WrittenBy").ToString() %></p>
                 </div>
                 

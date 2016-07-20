@@ -15,11 +15,9 @@
             </a>
         </div>
         <div class="news-heading-wrapper">
-            <h4>
-                <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>" class="font12 text-black">
-                    <%=firstPost.Title %>
-                </a>
-            </h4>
+            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>" class="text-black target-link font14">
+                <%=firstPost.Title %>
+            </a>
             <p class="font10 text-truncate text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMMM dd, yyyy") %>, by <%=firstPost.AuthorName %></p>
         </div>
     </div>
@@ -34,11 +32,9 @@
             </a>
         </div>
         <div class="news-heading-wrapper">
-            <h4>
-                <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>" class="font12 text-black">
-                    <%=firstPost.Title %>
-                </a>
-            </h4>
+            <a href="/m/news/<%= String.Format("{0}-{1}.html", firstPost.BasicId,firstPost.ArticleUrl) %>" class="text-black target-link font14">
+                <%=firstPost.Title %>
+            </a>
            <p class="font10 text-truncate text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(firstPost.DisplayDate.ToString(), "MMMM dd, yyyy") %>, by <%=firstPost.AuthorName %></p>
         </div>
     </div>
