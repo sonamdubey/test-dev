@@ -206,7 +206,7 @@
             try {
                     $.ajax({
                         type: "POST",
-                        url: _cwWebService + "/api/contracts/mapcampaign/?dealerid=" + dealerId + "&contractid=" + contractId + "&campaignid=" + campaignId,
+                        url: _cwWebService + "/api/contracts/mapcampaign/?dealerid=" + dealerId + "&contractid=" + contractId + "&campaignid=" + campaignId + "&applicationid=2",
                         success: function (response) {
                             if (JSON.parse(response).value){
                                 alert('Contract Campaign Data Syned with CW');
