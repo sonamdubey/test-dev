@@ -262,7 +262,7 @@
                                 <% } %>
                                 <%  if (price == 0)
 									{ %>
-                                <span class="font32">Price not available</span>
+                                <span class="font20">Price not available</span>
                                 <%  }
 									else
 									{ %>
@@ -586,7 +586,7 @@
                             <div>
                                  <% if (price == 0)
 									{ %>
-                                <span class="font32">Price not available</span>
+                                <span class="font18">Price not available</span>
                                 <%  } else{ %>
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 <%} %>

@@ -37,7 +37,7 @@
         <header class="home-top-banner">
             <div class="container">
                 <div class="welcome-box">
-                    <h1 class="text-uppercase margin-bottom10">FIND YOUR RIDE</h1>
+                    <h1>Find your bike</h1>
                     <p class="font20">Get Exclusive Offers, Discounts and Freebies on your Bike Purchase</p>
                     <div class="margin-top60">
                         <div>
@@ -72,14 +72,14 @@
             <!--  Discover your bike code starts here -->
             <div class="container">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Discover your bike</h2>
+                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Discover your bike</h2>
                     <div class="bw-tabs-panel brand-budget-mileage-style-wrapper">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul class="brand-budget-mileage-style-UL">
-                                <li class="active" data-tabs="discoverBrand">Brand</li>
-                                <li data-tabs="discoverBudget">Budget</li>
-                                <li data-tabs="discoverMileage">Mileage</li>
-                                <li data-tabs="discoverStyle">Style</li>
+                                <li class="active" data-tabs="discoverBrand"><h3>Brand</h3></li>
+                                <li data-tabs="discoverBudget"><h3>Budget</h3></li>
+                                <li data-tabs="discoverMileage"><h3>Mileage</h3></li>
+                                <li data-tabs="discoverStyle"><h3>Style</h3></li>
                             </ul>
                         </div>
                         <div class="bw-tabs-data" id="discoverBrand">
@@ -95,7 +95,6 @@
                                                     <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                                 </a>
                                             </li>
-
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
@@ -117,7 +116,7 @@
                                 </ul>
                             </div>
                             <div class="view-brandType text-center padding-top10 padding-bottom30">
-                                <a href="#" id="view-brandType" class="view-more-btn font16">View <span>More</span> Brands</a>
+                                <a href="#" id="view-brandType" class="view-more-btn btn btn-tertiary">View <span>more</span> brands</a>
                             </div>
                         </div>
                         <div class="bw-tabs-data hide" id="discoverBudget">
@@ -280,7 +279,7 @@
         <section class="margin-bottom50">
             <!--  Compare section code starts here -->
             <div class="container">
-                <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Compare now</h2>
+                <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Compare bikes</h2>
                 <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
             </div>
         </section>
@@ -321,19 +320,19 @@
             <!--  News Bikes latest updates code starts here -->
             <div class="newBikes-latest-updates-container">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Latest updates from the industry</h2>
+                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Latest updates from the bike industry</h2>
                     <div class="bw-tabs-panel margin-bottom30 ">
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
                                     <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">
-                                        <h3 class="text-unbold">News</h3>
+                                        <h3>News</h3>
                                     </li>
                                     <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">
-                                        <h3 class="text-unbold">Expert Reviews</h3>
+                                        <h3>Expert Reviews</h3>
                                     </li>
                                     <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">
-                                        <h3 class="text-unbold">Videos</h3>
+                                        <h3>Videos</h3>
                                     </li>
                                 </ul>
                             </div>

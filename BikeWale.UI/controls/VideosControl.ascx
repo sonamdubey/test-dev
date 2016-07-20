@@ -11,17 +11,24 @@
                         </a>
                     </div>
                 </div>
-                <div class="grid-8 omega">
-                    <h2 class="margin-bottom10 font20"><a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="text-black"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a></h2>
-                    <p class="margin-bottom10 text-light-grey font14">Updated on <span><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"MMMM dd, yyyy") %></span></p>
-                    <div class="margin-bottom15 text-light-grey"><span class="bwsprite video-views-icon"></span> Views <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString()) %></span></div>
-                    <div class="text-light-grey"><span class="bwsprite video-likes-icon text-light-grey margin-right5"></span> Likes <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Likes").ToString()) %></span></div>
+                <div class="grid-8 omega padding-top5 font14 text-light-grey">
+                    <a href="<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" class="article-target-link margin-bottom10"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a>
+                    <p class="margin-bottom15">Updated on <%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"MMMM dd, yyyy") %></p>
+                    <div class="grid-3 alpha omega border-solid-right font14">
+                        <span class="bwsprite video-views-icon margin-right5"></span>
+                        <span class="text-light-grey margin-right5">Views: <%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString()) %></span>
+                    </div>
+                    <div class="grid-3 omega padding-left20 font14">
+                        <span class="bwsprite video-likes-icon margin-right5"></span>
+                        <span class="text-light-grey margin-right5">Likes: <%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Likes").ToString()) %></span>
+                    </div>
+                    <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
             </div>
         </ItemTemplate>
     </asp:Repeater>                        
     <div id="divViewMoreVideo" class="padding-bottom30 text-center">
-        <a href="<%=MoreVideoUrl%>" class="font16">View more videos</a>
+        <a href="<%=MoreVideoUrl%>" class="btn btn-tertiary">View more videos</a>
     </div>
 </div><!-- Ends here-->
