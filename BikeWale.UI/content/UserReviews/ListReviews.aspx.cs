@@ -388,18 +388,18 @@ namespace Bikewale.Content
             uint _modelId = 0, _versionId = 0;
             if (versionId != "-1")
             {
-                sql = @" select distinct cm.name as make, se.name as subsegment, bo.name bikebodystyle
-                   from bikemodels as cmo, bikemakes as cm, bikebodystyles bo,
+                sql = @" select distinct cmo.makename as make, se.name as subsegment, bo.name bikebodystyle
+                   from bikemodels as cmo, bikebodystyles bo,
                     (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid )
-                    where cm.id=cmo.bikemakeid and cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid
+                    where cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid
                     and ve.id = @v_versionid";
             }
             else
             {
-                sql = @" select distinct cm.name as make, se.name as subsegment, bo.name bikebodystyle 
-                     from bikemodels as cmo, bikemakes as cm, bikebodystyles bo, 
+                sql = @" select distinct cmo.makename as make, se.name as subsegment, bo.name bikebodystyle 
+                     from bikemodels as cmo, bikebodystyles bo, 
                      (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid ) 
-                     where cm.id=cmo.bikemakeid and cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid 
+                     where cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid 
                      and ve.bikemodelid = @v_modelid";
             }
             try

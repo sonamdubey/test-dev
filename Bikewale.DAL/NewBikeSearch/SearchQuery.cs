@@ -16,7 +16,7 @@ namespace Bikewale.DAL.NewBikeSearch
         FilterInput filterInputs;
         IUnityContainer container;
         IProcessFilter processFilter;
-        string _whereClause = " bv.ismakenew = 1 and mo.isdeleted = 0 and mo.new = 1 "
+        string _whereClause = " bv.isnewmake = 1 and mo.isdeleted = 0 and mo.new = 1 "
                             + " and mo.futuristic = 0 and bv.new = 1 and bv.isdeleted = 0";
 
 
