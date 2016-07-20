@@ -10,7 +10,6 @@
     AdPath = "/1017752/BikeWale_New_";
     ShowTargeting = "1";
     TargetedModel = objModelEntity.ModelName;
-    //Trace.Warn(System.Reflection.Assembly.GetEntryAssembly().Location.ToString());
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <script runat="server">	

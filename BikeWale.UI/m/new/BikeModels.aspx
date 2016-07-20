@@ -11,7 +11,7 @@
 <head>
     <%
         description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()));
-        title = String.Format("{0} Price in India, Review, Mileage & Photos - Bikewale", bikeName);
+        title = String.Format("{0} Price, Mileage & Reviews - BikeWale", bikeName);
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
@@ -49,7 +49,7 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
-            <div itemscope="" itemtype="http://auto.schema.org/Motorcycle" class="container bg-white clearfix">
+            <div itemscope="" itemtype="http://auto.schema.org/Product" class="container bg-white clearfix">
                 <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
                     <% if (modelPage.ModelDetails.New)

@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
+using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.UserReviews;
@@ -11,6 +12,7 @@ using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
@@ -38,9 +40,9 @@ namespace Bikewale.BAL.BikeData
     {
         private readonly IBikeModelsRepository<T, U> modelRepository = null;
         private readonly IPager _objPager = null;
-        //private readonly IUserReviews _userReviewsRepo = null;
         private readonly IUserReviewsCache _userReviewCache = null;
         private readonly IArticles _articles = null;
+        private readonly ICMSCacheContent _cacheArticles = null;
 
         static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
         static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
@@ -59,10 +61,11 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<IUserReviewsCache, Bikewale.Cache.UserReviews.UserReviewsCacheRepository>();
                 container.RegisterType<ICacheManager, MemcacheManager>();
                 container.RegisterType<IUserReviews, UserReviewsRepository>();
+                container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
                 _articles = container.Resolve<IArticles>();
-                //_userReviewsRepo = container.Resolve<IUserReviews>();
+                _cacheArticles = container.Resolve<ICMSCacheContent>();
                 _userReviewCache = container.Resolve<IUserReviewsCache>();
             }
         }
@@ -1036,27 +1039,6 @@ namespace Bikewale.BAL.BikeData
             return objUpcoming;
         }
 
-        ///// <summary>
-        /////  Written By : Ashish G. Kamble on 16 dec 2015
-        ///// </summary>
-        ///// <param name="pageSize"></param>
-        ///// <param name="recordCount"></param>
-        ///// <param name="currentPageNo"></param>
-        ///// <returns></returns>
-        //public List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int pageSize, out int recordCount, int? currentPageNo = null)
-        //{
-        //    List<NewLaunchedBikeEntity> objNewLaunchedBikeList = null;
-        //    int startIndex = 0, endIndex = 0, curPageNo = 1;
-
-        //    curPageNo = currentPageNo.HasValue ? currentPageNo.Value : 1;
-
-        //    _objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
-
-        //    objNewLaunchedBikeList = GetNewLaunchedBikesList(startIndex, endIndex, out recordCount);
-
-        //    return objNewLaunchedBikeList;
-        //}
-
         public BikeModelContent GetRecentModelArticles(U modelId)
         {
             BikeModelContent objModelArticles = new BikeModelContent();
@@ -1069,10 +1051,11 @@ namespace Bikewale.BAL.BikeData
 
             try
             {
-                //creating tasks to call them asynchronously
+
+
                 var reviewTask = Task.Factory.StartNew(() => objReview = _userReviewCache.GetBikeReviewsList(1, 2, Convert.ToUInt32(modelId), 0, FilterBy.MostRecent).ReviewList);
-                var newsTask = Task.Factory.StartNew(() => objRecentNews = _articles.GetRecentNews(0, Convert.ToInt32(modelId), 2));
-                var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _articles.GetRecentExpertReviews(0, Convert.ToInt32(modelId), 2));
+                var newsTask = Task.Factory.StartNew(() => objRecentNews = _cacheArticles.GetMostRecentArticlesById(EnumCMSContentType.News, 2, 0, Convert.ToUInt32(modelId)));
+                var expReviewTask = Task.Factory.StartNew(() => objExpertReview = _cacheArticles.GetMostRecentArticlesById(EnumCMSContentType.RoadTest, 2, 0, Convert.ToUInt32(modelId)));
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {

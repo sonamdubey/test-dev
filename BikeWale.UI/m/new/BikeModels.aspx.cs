@@ -141,17 +141,23 @@ namespace Bikewale.Mobile.New
 
                     ctrlExpertReviews.TotalRecords = 2;
                     ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
+                    ctrlExpertReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                    ctrlExpertReviews.ModelName = modelPage.ModelDetails.ModelName;
 
                     ctrlVideos.TotalRecords = 3;
                     ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                     ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
                     ctrlVideos.ModelId = Convert.ToInt32(modelId);
+                    ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                    ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
 
                     ctrlUserReviews.ReviewCount = 2;
                     ctrlUserReviews.PageNo = 1;
                     ctrlUserReviews.PageSize = 2;
                     ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
                     ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+                    ctrlUserReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                    ctrlUserReviews.ModelName = modelPage.ModelDetails.ModelName;
 
                     ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                     ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();

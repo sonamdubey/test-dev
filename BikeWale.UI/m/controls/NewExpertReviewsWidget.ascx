@@ -25,7 +25,7 @@
     </ItemTemplate>
 </asp:Repeater>
 <div>
-    <a href="<%=MoreExpertReviewUrl%>"  class="bw-ga" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="myBikeName">Read all expert reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
+    <a title="<%= linkTitle %>" href="<%=MoreExpertReviewUrl%>"  class="bw-ga" c="Model_Page" a="Read_all_expert_reviews_link_cliked" v="myBikeName">Read all expert reviews<span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
 <script type="text/javascript">
     $(document).ready(function () { $("img.lazy").lazyload(); });

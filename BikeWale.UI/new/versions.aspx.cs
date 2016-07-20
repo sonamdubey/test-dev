@@ -257,6 +257,8 @@ namespace Bikewale.New
                 ctrlExpertReviews.ModelId = _modelId;
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+                ctrlExpertReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                ctrlExpertReviews.ModelName = modelPage.ModelDetails.ModelName;
 
                 ctrlVideos.TotalRecords = 2;
                 ctrlVideos.ModelId = _modelId;
@@ -264,12 +266,16 @@ namespace Bikewale.New
                 ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
                 ctrlVideos.WidgetTitle = bikeName;
+                ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
 
                 ctrlUserReviews.ReviewCount = 2;
                 ctrlUserReviews.PageNo = 1;
                 ctrlUserReviews.PageSize = 2;
                 ctrlUserReviews.ModelId = _modelId;
                 ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+                ctrlUserReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                ctrlUserReviews.ModelName = modelPage.ModelDetails.ModelName;
 
                 if (!modelPage.ModelDetails.Futuristic || modelPageEntity.ModelDetails.New)
                     ctrlTopCityPrices.ModelId = Convert.ToUInt32(_modelId);

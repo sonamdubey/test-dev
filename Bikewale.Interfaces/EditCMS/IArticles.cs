@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.CMS.Articles;
+﻿using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Articles;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.EditCMS
@@ -9,9 +10,9 @@ namespace Bikewale.Interfaces.EditCMS
     /// </summary>
     public interface IArticles
     {
-        IEnumerable<ArticleSummary> GetRecentNews(int makeId, int modelId, int totalRecords);
-        IEnumerable<ArticleSummary> GetRecentExpertReviews(int makeId, int modelId, int totalRecords);
         ArticleDetails GetNewsDetails(uint basicId);
-        IEnumerable<ArticleSummary> GetArticlesViaGrpc(Entities.CMS.EnumCMSContentType categoryId, uint posts, uint makeId, uint modelId);
+        IEnumerable<ArticleSummary> GetMostRecentArticlesById(EnumCMSContentType categoryId, uint totalRecords, uint makeId, uint modelId);
+        IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords, uint makeId, uint modelId);
+        CMSContent GetArticlesByCategory(EnumCMSContentType categoryId, int startIndex, int endIndex, int makeId, int modelId);
     }
 }

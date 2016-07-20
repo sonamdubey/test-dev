@@ -94,10 +94,13 @@ namespace Bikewale.New
 
                 ctrlExpertReviews.TotalRecords = 2;
                 ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
+                ctrlExpertReviews.MakeName = _make.MakeName;
+
                 ctrlVideos.TotalRecords = 2;
                 ctrlVideos.MakeId = Convert.ToInt32(makeId);
                 ctrlVideos.MakeMaskingName = makeMaskingName;
                 ctrlVideos.WidgetTitle = _make.MakeName;
+                ctrlVideos.MakeName = _make.MakeName;
 
                 ctrlExpertReviews.MakeMaskingName = makeMaskingName;
 

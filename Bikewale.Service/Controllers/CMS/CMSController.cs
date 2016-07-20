@@ -379,8 +379,7 @@ namespace Bikewale.Service.Controllers.CMS
             }
 
             return NotFound();
-        }  //get Articles Photos       
-
+        }  //get Articles Photos  
 
         #endregion
 

@@ -1,17 +1,17 @@
-﻿using Bikewale.Cache.Core;
-using Bikewale.Cache.News;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.News;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
-using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.News
@@ -61,16 +61,16 @@ namespace Bikewale.News
             IPager objPager = GetPager();
             int _startIndex = 0, _endIndex = 0;
             objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
-            string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.News, EnumCMSContentType.AutoExpo2016 });
+            //string contentTypeList = CommonApiOpn.GetContentTypesString(new List<EnumCMSContentType>() { EnumCMSContentType.News, EnumCMSContentType.AutoExpo2016 });
 
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<INewsCache, NewsCache>()
-                .RegisterType<ICacheManager, MemcacheManager>()
-                .RegisterType<INews, Bikewale.BAL.News.News>();
-                INewsCache _objNews = container.Resolve<INewsCache>();
+                container.RegisterType<IArticles, Articles>()
+                           .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                           .RegisterType<ICacheManager, MemcacheManager>();
+                ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                CMSContent objNews = _objNews.GetNews(_startIndex, _endIndex, contentTypeList);
+                CMSContent objNews = _cache.GetArticlesByCategory(EnumCMSContentType.News, _startIndex, _endIndex, 0, 0);
 
                 if (objNews != null)
                 {

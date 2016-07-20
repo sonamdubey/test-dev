@@ -32,28 +32,28 @@ namespace Bikewale.Cache.News
         /// <param name="_startIndex"></param>
         /// <param name="_endIndex"></param>
         /// <returns></returns>
-        public CMSContent GetNews(int _startIndex, int _endIndex, string contentTypeList, int modelid = 0)
-        {
-            string cacheKey = string.Empty;
-            try
-            {
-                if (modelid <= 0)
-                {
-                    cacheKey = String.Format("BW_News_SI_{0}_EI_{1}_CL_{2}", _startIndex, _endIndex, contentTypeList.Replace(",", "_"));
-                }
-                else
-                {
-                    cacheKey = String.Format("BW_News_SI_{0}_EI_{1}_CL_{2}_M_{3}", _startIndex, _endIndex, contentTypeList.Replace(",", "_"), modelid);
-                }
+        //public CMSContent GetNews(int _startIndex, int _endIndex, string contentTypeList, int modelid = 0)
+        //{
+        //    string cacheKey = string.Empty;
+        //    try
+        //    {
+        //        if (modelid <= 0)
+        //        {
+        //            cacheKey = String.Format("BW_News_SI_{0}_EI_{1}_CL_{2}", _startIndex, _endIndex, contentTypeList.Replace(",", "_"));
+        //        }
+        //        else
+        //        {
+        //            cacheKey = String.Format("BW_News_SI_{0}_EI_{1}_CL_{2}_M_{3}", _startIndex, _endIndex, contentTypeList.Replace(",", "_"), modelid);
+        //        }
 
-                objNews = _cache.GetFromCache<CMSContent>(cacheKey, new TimeSpan(0, 30, 0), () => _news.GetNews(_startIndex, _endIndex, contentTypeList, modelid));
-            }
-            catch (Exception err)
-            {
-                _logger.Error(err.Message, err);
-            }
+        //        objNews = _cache.GetFromCache<CMSContent>(cacheKey, new TimeSpan(0, 30, 0), () => _news.GetNews(_startIndex, _endIndex, contentTypeList, modelid));
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        _logger.Error(err.Message, err);
+        //    }
 
-            return objNews;
-        }
+        //    return objNews;
+        //}
     }
 }

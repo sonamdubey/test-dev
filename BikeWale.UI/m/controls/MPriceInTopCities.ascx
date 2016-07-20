@@ -6,7 +6,7 @@
     <asp:Repeater ID="rptTopCityPrices" runat="server">
         <ItemTemplate>       
             <li>                
-                <a href="/m<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeMaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelMaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem, "CityMaskingName")) ) %>" class="text-truncate"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></a>               
+                <a title="<%= string.Format("{0} Price in ",bikeName) %><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %>" href="/m<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeMaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelMaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem, "CityMaskingName")) ) %>" class="text-truncate"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></a>               
                    <span class="price-in-city-price">
                      <span class="bwmsprite inr-dark-grey-xsm-icon"></span>
                     <span><%# Bikewale.Utility.Format.FormatPriceShort(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %></span>

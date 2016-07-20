@@ -1,14 +1,8 @@
-﻿using Bikewale.Entities.MobileAppAlerts;
-using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.Notifications;
 using RabbitMqPublishing;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;

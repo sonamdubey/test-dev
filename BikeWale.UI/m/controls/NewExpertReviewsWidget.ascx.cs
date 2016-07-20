@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
+﻿using Bikewale.BindViewModels.Controls;
+using System;
 using System.Web.UI.WebControls;
-using Bikewale.BindViewModels.Controls;
 
 namespace Bikewale.Mobile.Controls
 {
@@ -19,6 +15,9 @@ namespace Bikewale.Mobile.Controls
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
         public string MoreExpertReviewUrl { get; set; }
+        public string MakeName { get; set; }
+        public string ModelName { get; set; }
+        protected string linkTitle = string.Empty;
 
 
         protected override void OnInit(EventArgs e)
@@ -42,10 +41,12 @@ namespace Bikewale.Mobile.Controls
             else if (String.IsNullOrEmpty(ModelMaskingName))
             {
                 MoreExpertReviewUrl = String.Format("/m/{0}-bikes/road-tests/", MakeMaskingName);
+                linkTitle = string.Format("{0} Expert Reviews", MakeName);
             }
             else
             {
-                MoreExpertReviewUrl = String.Format("/m/{0}-bikes/{1}/road-tests/", MakeMaskingName, ModelMaskingName); 
+                MoreExpertReviewUrl = String.Format("/m/{0}-bikes/{1}/road-tests/", MakeMaskingName, ModelMaskingName);
+                linkTitle = string.Format("{0} {1} Expert Reviews", MakeName, ModelName);
             }
         }
     }

@@ -1,14 +1,10 @@
 ﻿using Bikewale.BAL.GrpcFiles;
-using Bikewale.Cache.Core;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using Grpc.CMS;
 using log4net;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,203 +20,17 @@ namespace Bikewale.BAL.EditCMS
     public class Articles : IArticles
     {
 
-        public int TotalRecords { get; set; }
-        public int? MakeId { get; set; }
-        public int? ModelId { get; set; }
+        //public int TotalRecords { get; set; }
+        //public int? MakeId { get; set; }
+        //public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
-        private string cacheKey = "BW_CMS_";
+
 
         static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
         static readonly ILog _logger = LogManager.GetLogger(typeof(Articles));
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
 
-
-        /// <summary>
-        /// Written By : Ashish G. Kamble on 28 Feb 2016
-        /// Summary : Function to get the data from the carwale apis. This data is cached on the bikewale.
-        /// </summary>
-        /// <param name="rptr"></param>
-        public IEnumerable<ArticleSummary> GetRecentNews(int makeId, int modelId, int totalRecords)
-        {
-            FetchedRecordsCount = 0;
-            IEnumerable<ArticleSummary> _objArticleList = null;
-
-            MakeId = makeId;
-            ModelId = modelId;
-            TotalRecords = totalRecords;
-
-            try
-            {
-
-                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                categorList.Add(EnumCMSContentType.News);
-                categorList.Add(EnumCMSContentType.AutoExpo2016);
-                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
-
-                cacheKey += contentTypeList.Replace(",", "_") + "_Cnt_" + TotalRecords;
-
-                if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                {
-                    if (ModelId.HasValue && ModelId.Value > 0)
-                    {
-                        cacheKey += "_Make_" + MakeId + "_Model_" + ModelId;
-                    }
-                    else
-                    {
-                        cacheKey += "_Make_" + MakeId;
-                    }
-                }
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<ICacheManager, MemcacheManager>();
-                    ICacheManager _cache = container.Resolve<ICacheManager>();
-
-                    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(contentTypeList));
-                }
-
-                //_objArticleList = GetNewsFromCW(contentTypeList);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return _objArticleList;
-        }
-
-        /// <summary>
-        /// Author : Vivek Gupta 
-        /// Date : 05-may-2016
-        /// Desc : Get Recent news articles from cw
-        /// </summary>
-        /// <param name="contentTypeList"></param>
-        /// <returns></returns>
-        private IEnumerable<ArticleSummary> GetNewsFromCW(string contentTypeList)
-        {
-            try
-            {
-                if (_useGrpc)
-                {
-                    var _objGrpcArticleSummaryList = GrpcMethods.MostRecentList(contentTypeList, TotalRecords, MakeId, ModelId);
-
-                    if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.LstGrpcArticleSummary.Count > 0)
-                    {
-                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticleSummaryList);
-                    }
-                    else
-                    {
-                        return GetNewsFromCWAPIInOldWay(contentTypeList);
-                    }
-                }
-                else
-                {
-                    return GetNewsFromCWAPIInOldWay(contentTypeList);
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                return GetNewsFromCWAPIInOldWay(contentTypeList);
-            }
-        }
-
-        /// <summary>
-        /// Written By : Ashish G. Kamble on 28 Feb 2016
-        /// Summary : Function to get the data from the carwale cms api.
-        /// </summary>
-        /// <param name="contentTypeList">comma separated content ids.</param>
-        /// <returns></returns>
-        private IEnumerable<ArticleSummary> GetNewsFromCWAPIInOldWay(string contentTypeList)
-        {
-            IEnumerable<ArticleSummary> _objArticleList = null;
-
-            try
-            {
-                string _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}", contentTypeList, TotalRecords);
-
-                if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                {
-                    if (ModelId.HasValue && ModelId.Value > 0)
-                    {
-                        _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}&makeid={2}&modelid={3}", contentTypeList, TotalRecords, MakeId, ModelId);
-                    }
-                    else
-                    {
-                        _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}&makeid={2}", contentTypeList, TotalRecords, MakeId);
-                    }
-                }
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    _objArticleList = objClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return _objArticleList;
-
-        }   // end of GetNewsFromCWAPI
-
-
-        /// <summary>
-        /// Author : Vivek Gupta 
-        /// Date : 5-5-2016
-        /// Summary : Function to bind the expert reviews control. Function will cache the data from CW api on bikewale
-        /// </summary>
-        public IEnumerable<ArticleSummary> GetRecentExpertReviews(int makeId, int modelId, int totalRecords)
-        {
-            FetchedRecordsCount = 0;
-            IEnumerable<ArticleSummary> _objArticleList = null;
-
-            MakeId = makeId;
-            ModelId = modelId;
-            TotalRecords = totalRecords;
-
-            try
-            {
-
-                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                categorList.Add(EnumCMSContentType.RoadTest);
-                categorList.Add(EnumCMSContentType.ComparisonTests);
-                string _contentType = CommonApiOpn.GetContentTypesString(categorList);
-
-                cacheKey += _contentType.Replace(",", "_") + "_Cnt_" + TotalRecords;
-
-                if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                {
-                    if (ModelId.HasValue && ModelId.Value > 0)
-                        cacheKey += "_Make_" + MakeId + "_Model_" + ModelId;
-                    else
-                        cacheKey += "_Make_" + MakeId;
-                }
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<ICacheManager, MemcacheManager>();
-                    ICacheManager _cache = container.Resolve<ICacheManager>();
-
-                    _objArticleList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 15, 0), () => GetNewsFromCW(_contentType));
-                }
-
-                //_objArticleList = GetNewsFromCW(_contentType);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return _objArticleList;
-        }
-
-
+        #region Get News Details
         /// <summary>
         /// 
         /// </summary>
@@ -276,7 +86,6 @@ namespace Bikewale.BAL.EditCMS
             return objArticle;
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -313,95 +122,27 @@ namespace Bikewale.BAL.EditCMS
 
             return objArticle;
         }
+        #endregion
 
 
-        /// <summary>
-        /// Created By : Vivek Gupta
-        /// Date : 19-7-2016
-        /// Desc : Get News From GRPC
-        /// </summary>
-        /// <param name="makeId"></param>
-        /// <param name="modelId"></param>
-        /// <param name="totalRecords"></param>
-        /// <returns></returns>
-        public IEnumerable<ArticleSummary> GetArticlesViaGrpc(EnumCMSContentType categoryId, uint posts, uint makeId, uint modelId)
-        {
-            string cacheKey = String.Format("BW_AS_C_{0}_TR_{1}_", categoryId, posts);
-
-            if (makeId > 0 && modelId > 0)
-            {
-
-                cacheKey += String.Format("_Make_{0}_Model_{1}" + makeId, modelId);
-            }
-            else if (makeId > 0 && modelId == 0)
-            {
-                cacheKey += String.Format("_Make_{0}", makeId);
-            }
-            else if (makeId == 0 && modelId > 0)
-            {
-                cacheKey += String.Format("_Model_{0}", modelId);
-            }
-
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<ICacheManager, MemcacheManager>();
-                ICacheManager _cache = container.Resolve<ICacheManager>();
-                return _cache.GetFromCache<IEnumerable<ArticleSummary>>(cacheKey, new TimeSpan(0, 30, 0), () => GetNews(categoryId, posts, makeId, modelId));
-            }
-        }
+        #region MostRecentArticles List
 
         /// <summary>
-        /// Created By : Vivek Gupta
-        /// Date : 19-7-2016
-        /// Desc : Get News
+        /// 
         /// </summary>
+        /// <param name="categoryIdList"></param>
+        /// <param name="totalRecords"></param>
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
-        /// <param name="totalRecords"></param>
         /// <returns></returns>
-        private IEnumerable<ArticleSummary> GetNews(EnumCMSContentType categoryId, uint posts, uint makeId = 0, uint modelId = 0)
+        public IEnumerable<ArticleSummary> GetMostRecentArticlesByIdList(string categoryIdList, uint totalRecords, uint makeId, uint modelId)
         {
             FetchedRecordsCount = 0;
             IEnumerable<ArticleSummary> _objArticleList = null;
-
             try
             {
+                _objArticleList = GetMostRecentArticlesViaGrpc(categoryIdList, totalRecords, makeId, modelId);
 
-                if (_useGrpc)
-                {
-                    int intMakeId = Convert.ToInt32(makeId);
-                    int intModelId = Convert.ToInt32(modelId);
-                    string categoryIdList;
-                    switch (categoryId)
-                    {
-                        case EnumCMSContentType.RoadTest:
-                            categoryIdList = (short)categoryId + "," + (short)EnumCMSContentType.ComparisonTests;
-                            break;
-
-                        case EnumCMSContentType.News:
-                            categoryIdList = (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
-                            break;
-
-                        default:
-                            categoryIdList = ((short)categoryId).ToString();
-                            break;
-                    }
-
-                    var _objGrpcArticleSummaryList = GrpcMethods.MostRecentList(categoryIdList, (int)posts, intMakeId, intModelId);
-
-                    if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.LstGrpcArticleSummary.Count > 0)
-                    {
-                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticleSummaryList);
-                    }
-                    else
-                    {
-                        return GetArticlesViaOldWay(categoryId, posts, makeId, modelId);
-                    }
-                }
-                else
-                {
-                    return GetArticlesViaOldWay(categoryId, posts, makeId, modelId);
-                }
             }
             catch (Exception ex)
             {
@@ -412,43 +153,238 @@ namespace Bikewale.BAL.EditCMS
             return _objArticleList;
         }
 
-        private IEnumerable<ArticleSummary> GetArticlesViaOldWay(EnumCMSContentType categoryId, uint posts, uint makeId, uint modelId)
+
+        /// <summary>
+        /// Created By : Vivek Gupta
+        /// Date : 19-7-2016
+        /// Desc : Get News
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+        public IEnumerable<ArticleSummary> GetMostRecentArticlesById(EnumCMSContentType contentType, uint totalRecords, uint makeId, uint modelId)
+        {
+            FetchedRecordsCount = 0;
+            IEnumerable<ArticleSummary> _objArticleList = null;
+            try
+            {
+                string categoryIdList = string.Empty;
+                switch (contentType)
+                {
+                    case EnumCMSContentType.RoadTest:
+                        categoryIdList = (short)contentType + "," + (short)EnumCMSContentType.ComparisonTests;
+                        break;
+
+                    case EnumCMSContentType.News:
+                        categoryIdList = (short)contentType + "," + (short)EnumCMSContentType.AutoExpo2016;
+                        break;
+
+                    default:
+                        categoryIdList = ((short)contentType).ToString();
+                        break;
+                }
+
+                _objArticleList = GetMostRecentArticlesViaGrpc(categoryIdList, totalRecords, makeId, modelId);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return _objArticleList;
+        }
+
+        private IEnumerable<ArticleSummary> GetMostRecentArticlesViaGrpc(string categoryIdList, uint totalRecords, uint makeId, uint modelId)
+        {
+            try
+            {
+                if (_useGrpc)
+                {
+                    int intMakeId = Convert.ToInt32(makeId);
+                    int intModelId = Convert.ToInt32(modelId);
+
+                    var _objGrpcArticleSummaryList = GrpcMethods.MostRecentList(categoryIdList, (int)totalRecords, intMakeId, intModelId);
+
+                    if (_objGrpcArticleSummaryList != null && _objGrpcArticleSummaryList.LstGrpcArticleSummary.Count > 0)
+                    {
+                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticleSummaryList);
+                    }
+                    else
+                    {
+                        return GetArticlesViaOldWay(categoryIdList, totalRecords, makeId, modelId);
+                    }
+                }
+                else
+                {
+                    return GetArticlesViaOldWay(categoryIdList, totalRecords, makeId, modelId);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                return GetArticlesViaOldWay(categoryIdList, totalRecords, makeId, modelId);
+            }
+        }
+
+        private IEnumerable<ArticleSummary> GetArticlesViaOldWay(string contentTypeList, uint totalRecords, uint makeId, uint modelId)
         {
             if (_logGrpcErrors)
             {
-                _logger.Error(string.Format("Grpc did not work for GetCMSContentOldWay {0}", categoryId));
+                _logger.Error(string.Format("Grpc did not work for GetCMSContentOldWay {0}", contentTypeList));
             }
 
-            string apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&totalrecords=" + posts;
             IEnumerable<ArticleSummary> objRecentArticles = null;
-            if (categoryId == EnumCMSContentType.RoadTest)
-            {
-                apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.ComparisonTests;
-            }
-            else if (categoryId == EnumCMSContentType.News)
-            {
-                apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
-            }
-            else
-            {
-                apiUrl += "&contenttypes=" + (short)categoryId;
-            }
 
-            if (modelId == 0)
+            try
             {
-                apiUrl += "&makeid=" + makeId;
-            }
-            else
-            {
-                apiUrl += "&makeid=" + makeId + "&modelid=" + modelId;
-            }
+                string _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}", contentTypeList, totalRecords);
+
+                if (makeId > 0 || modelId > 0)
+                {
+                    if (modelId > 0)
+                    {
+                        _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}&makeid={2}&modelid={3}", contentTypeList, totalRecords, makeId, modelId);
+                    }
+                    else
+                    {
+                        _apiUrl = String.Format("webapi/article/mostrecentlist/?applicationid=2&contenttypes={0}&totalrecords={1}&makeid={2}", contentTypeList, totalRecords, makeId);
+                    }
+                }
 
 
-            using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    return objClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objRecentArticles);
+                }
+            }
+            catch (Exception ex)
             {
-                //objRecentArticles = objClient.GetApiResponseSync<List<ArticleSummary>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
-                return objClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objRecentArticles;
+        }
+        #endregion
+
+
+        #region ArticlesByCategory
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public CMSContent GetArticlesByCategory(EnumCMSContentType categoryId, int startIndex, int endIndex, int makeId, int modelId)
+        {
+            CMSContent _objArticleList = null;
+            try
+            {
+                _objArticleList = GetArticlesByCategoryViaGrpc(categoryId, startIndex, endIndex, makeId, modelId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return _objArticleList;
+        }
+
+        private CMSContent GetArticlesByCategoryViaGrpc(EnumCMSContentType categoryId, int startIndex, int endIndex, int makeId, int modelId)
+        {
+            try
+            {
+                if (_useGrpc)
+                {
+                    string categotyListId;
+                    switch (categoryId)
+                    {
+                        case EnumCMSContentType.RoadTest:
+                            categotyListId = (int)categoryId + "," + (int)EnumCMSContentType.ComparisonTests;
+                            break;
+
+                        case EnumCMSContentType.News:
+                            categotyListId = (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
+                            break;
+                        default:
+                            categotyListId = ((int)categoryId).ToString();
+                            break;
+
+                    }
+
+                    var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categotyListId, (uint)startIndex, (uint)endIndex, makeId, modelId);
+
+                    if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
+                    {
+                        return GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
+
+                    }
+                    else
+                    {
+                        return GetCMSContentOldWay(categoryId, startIndex, endIndex);
+                    }
+
+                }
+                else
+                {
+                    return GetCMSContentOldWay(categoryId, startIndex, endIndex);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                return GetCMSContentOldWay(categoryId, startIndex, endIndex);
             }
         }
+
+        private CMSContent GetCMSContentOldWay(EnumCMSContentType categoryId, int startIndex, int endIndex)
+        {
+            CMSContent objFeaturedArticles = null;
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetCMSContentOldWay {0}", categoryId));
+                }
+
+                string apiUrl = "/webapi/article/listbycategory/?applicationid=2";
+
+                if (categoryId == EnumCMSContentType.RoadTest)
+                {
+                    apiUrl += "&categoryidlist=" + (int)categoryId + "," + (int)EnumCMSContentType.ComparisonTests;
+                }
+                else if (categoryId == EnumCMSContentType.News)
+                {
+                    apiUrl += "&categoryidlist=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
+                }
+                else
+                {
+                    apiUrl += "&categoryidlist=" + (int)categoryId;
+                }
+                apiUrl += "&startindex=" + startIndex + "&endindex=" + endIndex;
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    return objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objFeaturedArticles;
+        }
+        #endregion
+
     }
 }

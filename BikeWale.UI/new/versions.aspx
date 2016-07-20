@@ -11,17 +11,17 @@
 <html>
 <head>
     <%
-		var modDetails = modelPageEntity.ModelDetails;
-        title = String.Format("{0} Price in India, Review, Mileage & Photos - Bikewale", bikeName);
-		description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()));
+        var modDetails = modelPageEntity.ModelDetails;
+        title = String.Format("{0} Price, Mileage & Reviews - BikeWale", bikeName);
+        description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price.ToString()));
         canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName);
         AdId = "1442913773076";
-		AdPath = "/1017752/Bikewale_NewBike_";
-		TargetedModel = modDetails.ModelName;
-		fbTitle = title;
-		alternate = "http://www.bikewale.com/m/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
-		isAd970x90Shown = true;
-		TargetedCity = cityName;
+        AdPath = "/1017752/Bikewale_NewBike_";
+        TargetedModel = modDetails.ModelName;
+        fbTitle = title;
+        alternate = "http://www.bikewale.com/m/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
+        isAd970x90Shown = true;
+        TargetedCity = cityName;
         keywords = string.Format("{0}, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
         ogImage = modelImage; 
         isAd970x90BTFShown = true;
@@ -75,7 +75,7 @@
             </div>
         </section>
         <section>
-            <div itemscope="" itemtype="http://auto.schema.org/Motorcycle" class="container" id="modelDetailsContainer">
+            <div itemscope="" itemtype="http://auto.schema.org/Product" class="container" id="modelDetailsContainer">
                 <span itemprop="name" class="hide"><%= bikeName %></span>
                 <div class="grid-12 margin-bottom20">
                     <div class="content-inner-block-20 content-box-shadow">
@@ -133,11 +133,11 @@
                             <div class="model-name-review-container">
                                 <h1 class="font18 text-black text-bold"><%= bikeName %></h1>
                                 <% if (!modelPageEntity.ModelDetails.Futuristic || modelPageEntity.ModelDetails.New)
-								   { %>
+                                   { %>
                                 <!-- Review & ratings -->
                                 <div id="modelRatingsContainer" class="margin-top5 margin-bottom20 <%= modelPageEntity.ModelDetails.Futuristic ? "hide " : string.Empty %>">
                                     <% if (Convert.ToDouble(modelPageEntity.ModelDetails.ReviewRate) > 0)
-									   { %>
+                                       { %>
                                     <p class="bikeModel-user-ratings leftfloat margin-right10">
                                         <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPageEntity.ModelDetails.ReviewRate)) %>
                                     </p>
@@ -153,8 +153,8 @@
                                         </a>
                                     </span>
                                     <% }
-									   else
-									   { %>
+                                       else
+                                       { %>
                                     <p class="leftfloat margin-right20 font14">Not rated yet</p>
                                     <% } %>
                                     <a href="<%= FormatWriteReviewLink() %>" class="hide border-solid-left leftfloat margin-right10 padding-left10 font14 write-review-text">Write a review</a>
@@ -169,7 +169,7 @@
                                     <p class="variantText text-light-grey margin-right10">Version: </p>
 
                                     <% if (modelPageEntity.ModelVersions != null && modelPageEntity.ModelVersions.Count > 1)
-									   { %>
+                                       { %>
                                     <div class="form-control-box variantDropDown">
                                         <div class="sort-div rounded-corner2">
                                             <div class="sort-by-title" id="sort-by-container">
@@ -195,8 +195,8 @@
                                         </div>
                                     </div>
                                     <% }
-									   else
-									   { %>
+                                       else
+                                       { %>
                                     <p id='versText' class="variantText margin-right20"><%= variantText %></p>
                                     <% } %>
                                     <div class="clear"></div>
@@ -204,31 +204,31 @@
 
 
                                 <%if (modelPageEntity.ModelVersionSpecs != null)
-								  { %>
+                                  { %>
                                 <ul class="variantList margin-top10 text-xt-light-grey">
                                     <%if (modelPageEntity.ModelVersionSpecs.Displacement != 0)
-									  { %>
+                                      { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.Displacement) %></span>
                                         <span>cc</span>
                                     </li>
                                     <% } %>
                                     <%if (modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall != 0)
-									  { %>
+                                      { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall) %></span>
                                         <span>kmpl</span>
                                     </li>
                                     <% } %>
                                     <%if (modelPageEntity.ModelVersionSpecs.MaxPower != 0)
-									  { %>
+                                      { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.MaxPower) %></span>
                                         <span>bhp</span>
                                     </li>
                                     <%} %>
                                     <%if (modelPageEntity.ModelVersionSpecs.KerbWeight != 0)
-									  { %>
+                                      { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.KerbWeight) %></span>
                                         <span>kg</span>
@@ -241,38 +241,38 @@
                             <div id="scrollFloatingButton"></div>
                             <!-- Variant div ends -->
                             <% if (!modelPageEntity.ModelDetails.Futuristic)
-							   { %>
+                               { %>
                             <div id="modelPriceContainer" class="padding-top15">
                                 <% if (isDiscontinued)
-								   { %>
+                                   { %>
                                 <p class="font14 text-light-grey">Last known Ex-showroom price</p>
                                 <% } %>
                                 <% else if (!isCitySelected)
-								   {%>
+                                   {%>
                                 <p class="font14 text-light-grey">Ex-showroom price in <span class="font14 text-default"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else if (!isOnRoadPrice)
-								   {%>
+                                   {%>
                                 <p class="font14 text-light-grey">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else
-								   {%>
+                                   {%>
                                 <p class="font14 text-light-grey">On-road price in<span><span class="city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 
                                 <% } %>
                                 <%  if (price == 0)
-									{ %>
+                                    { %>
                                 <span class="font32">Price not available</span>
                                 <%  }
-									else
-									{ %>
+                                    else
+                                    { %>
                                 <div class="leftfloat margin-top5 margin-right15 <%= (isBookingAvailable && isDealerAssitance) ? "model-price-book-now-wrapper" : string.Empty %> " itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                     <span itemprop="priceCurrency" content="INR">
                                         <span class="bwsprite inr-md-lg"></span>
                                     </span>
                                     <span id="new-bike-price" class="font22" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                     <%if (isOnRoadPrice)
-									  {%>
+                                      {%>
                                     <span id="viewBreakupText" class="font14 text-bold viewBreakupText">View detailed price</span>
                                     <br>
                                     <% } %>
@@ -283,13 +283,13 @@
                                 <%}%>
                                 <div class="clear"></div>
                                 <% if (isDiscontinued)
-								   { %>
+                                   { %>
                                 <p class="default-showroom-text font14 text-light-grey margin-top5"><%= bikeName %> is now discontinued in India.</p>
                                 <% } %>
                                 <% 
-								   else
-									   if (toShowOnRoadPriceButton)
-									   { %>
+                                   else
+                                       if (toShowOnRoadPriceButton)
+                                       { %>
                                 <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Check on-road price</a>
                                 <div class="clear"></div>
                                 
@@ -307,17 +307,17 @@
                              <%  }
                                 } %>
                             <% if (!toShowOnRoadPriceButton && isBikeWalePQ && dealerId == 0)
-							   { %>
+                               { %>
                             <%--<div class="insurance-breakup-text text-bold padding-top10" >
                                 <a target="_blank" id="insuranceLink" href="/insurance/">Save up to 60% on insurance - PolicyBoss</a>
                             </div>--%>
                             <% } %>
                             <!-- upcoming start -->
                             <% if (modelPageEntity.ModelDetails.Futuristic && modelPageEntity.UpcomingBike != null)
-							   { %>
+                               { %>
                             <div id="upcoming">
                                 <% if (modelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && modelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
-								   { %>
+                                   { %>
                                 <div id="expectedPriceContainer" class="padding-top15">
                                     <p class="font14 default-showroom-text text-light-grey">Expected Price</p>
                                     <div class="modelExpectedPrice margin-bottom15">
@@ -331,12 +331,12 @@
                                     </div>
                                 </div>
                                 <%}
-								   else
-								   { %>
+                                   else
+                                   { %>
                                 <p class="font26 default-showroom-text text-light-grey margin-bottom5">Price Unavailable</p>
                                 <% } %>
                                 <% if (!string.IsNullOrEmpty(modelPageEntity.UpcomingBike.ExpectedLaunchDate))
-								   { %>
+                                   { %>
                                 <div id="expectedDateContainer" class="padding-top15 font14">
                                     <p class="default-showroom-text text-light-grey margin-bottom10">Expected launch date</p>
                                     <p class="modelLaunchDate text-bold font18 margin-bottom10"><%= modelPageEntity.UpcomingBike.ExpectedLaunchDate %></p>
@@ -366,10 +366,10 @@
                                 <ul class="dealership-benefit-list">
                                     <asp:Repeater ID="rptOffers" runat="server">
                                         <ItemTemplate>
-		                                    <li>
+                                            <li>
                                                 <span class="benefit-list-image offer-benefit-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%>"></span>
                                                 <span class="benefit-list-title"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText"))%></span>
-		                                    </li>
+                                            </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
@@ -564,20 +564,20 @@
                         </div>
                         <div class="grid-4 padding-left30">
                               <% if (!modelPageEntity.ModelDetails.Futuristic)
-							   { %>
+                               { %>
                                 <%if(isDiscontinued){ %>
                                 <p class="font14 text-light-grey margin-bottom5 leftfloat">Last known Ex-showroom price</p>
                                 <%} else
                                  if (!isCitySelected)
-								   {%>
+                                   {%>
                                 <p class="font14 text-light-grey margin-bottom5 exshowroom-area"><span>Ex-showroom price in</span>&nbsp;<span class="font14 exshowroom-area-name text-truncate"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span></p>
                                 <% } %>
                                 <% else if (!isOnRoadPrice)
-								   {%>
+                                   {%>
                                 <p class="font14 text-light-grey margin-bottom5 leftfloat exshowroom-area"><span class="leftfloat">Ex-showroom price in</span><span class="leftfloat text-truncate exshowroom-area-name city-area-name margin-right5"><%= areaName %> <%= cityName %></span></p>
                                 <% } %>
                                 <% else
-								   {%>
+                                   {%>
                                 <p class="font14 text-light-grey margin-bottom5 leftfloat"><span class="leftfloat">On-road price in</span><span class="leftfloat text-truncate city-area-name margin-right5"><%= areaName %> <%= cityName %></span></p>
 
                                 <% } %>                          
@@ -585,7 +585,7 @@
 
                             <div>
                                  <% if (price == 0)
-									{ %>
+                                    { %>
                                 <span class="font32">Price not available</span>
                                 <%  } else{ %>
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
@@ -594,9 +594,9 @@
                             <%} 
                     //<!-- upcoming start Floating -->
                              else if (modelPageEntity.UpcomingBike != null)
-							   { %>                           
+                               { %>                           
                                 <% if (modelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && modelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
-								   { %>                                
+                                   { %>                                
                                     <p class="font14 text-light-grey margin-bottom5 leftfloat">Expected Price</p> 
                                     <div class="clear"></div>                                                                     
                                     <span class="bwsprite inr-lg"></span>
@@ -607,8 +607,8 @@
                                         <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)) %></span>
                                     </span>                                                            
                                     <%}
-								    else
-								    { %>
+                                    else
+                                    { %>
                                     <p class="font20">Price Unavailable</p>
                                 <% } %>                                                                                              
                             <% } %>
@@ -763,28 +763,28 @@
                                 <div class="jcarousel">
                                     <ul>
                                        <asp:Repeater runat="server" ID="rptVarients" OnItemDataBound="rptVarients_ItemDataBound">
-	                                        <ItemTemplate>
+                                            <ItemTemplate>
                                                 <li class="rounded-corner2">
                                                     <p class="text-bold text-truncate margin-bottom15"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionName")) %></p>
                                                     <p class="text-truncate text-xt-light-grey margin-bottom15"><%# FormatVarientMinSpec(Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AlloyWheels")),Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "ElectricStart")),Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AntilockBrakingSystem")),Convert.ToString(DataBinder.Eval(Container.DataItem, "BrakeType"))) %></p>
                                                     <p class="text-truncate text-light-grey margin-bottom10">
                                                         <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>, 
                                                         <% if (cityId != 0)
-												           { %>
+                                                           { %>
                                                        <span><%= areaName %> <%= cityName %></span>
                                                         <% }
-												           else
-												           { %>
+                                                           else
+                                                           { %>
                                                         <span><%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
                                                         <% } %>                                                   
                                                     </p>
                                                     <p class="font18 text-bold text-black">
                                                         <span class="bwsprite inr-lg-dark"></span>
-                                                        <span><asp:Label Text='<%#Eval("Price") %>' ID="txtComment" runat="server"></asp:Label></span>
+                                                        <span><asp:Label Text='<%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %>' ID="txtComment" runat="server"></asp:Label></span>
                                                     </p>
-                                                    <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />
+                                                    <asp:HiddenField ID="hdnVariant" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "VersionId") %>' />
                                                 </li>
-	                                        </ItemTemplate>
+                                            </ItemTemplate>
                                         </asp:Repeater>                                  
                                     </ul>                                      
                                 </div>
@@ -972,39 +972,39 @@
         </section>   
           
         <%            
-			if (ctrlUserReviews.FetchedRecordsCount > 0)
-			{
-				reviewTabsCnt++;
-				isUserReviewZero = false;
-				isUserReviewActive = true;
-			}
-			if (ctrlExpertReviews.FetchedRecordsCount > 0)
-			{
-				reviewTabsCnt++;
-				isExpertReviewZero = false;
-				if (!isUserReviewActive)
-				{
-					isExpertReviewActive = true;
-				}
-			}
-			if (ctrlNews.FetchedRecordsCount > 0)
-			{
-				reviewTabsCnt++;
-				isNewsZero = false;
-				if (!isUserReviewActive && !isExpertReviewActive)
-				{
-					isNewsActive = true;
-				}
-			}
-			if (ctrlVideos.FetchedRecordsCount > 0)
-			{
-				reviewTabsCnt++;
-				isVideoZero = false;
-				if (!isUserReviewActive && !isExpertReviewActive && !isNewsActive)
-				{
-					isVideoActive = true;
-				}
-			} 
+            if (ctrlUserReviews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isUserReviewZero = false;
+                isUserReviewActive = true;
+            }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isExpertReviewZero = false;
+                if (!isUserReviewActive)
+                {
+                    isExpertReviewActive = true;
+                }
+            }
+            if (ctrlNews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isNewsZero = false;
+                if (!isUserReviewActive && !isExpertReviewActive)
+                {
+                    isNewsActive = true;
+                }
+            }
+            if (ctrlVideos.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isVideoZero = false;
+                if (!isUserReviewActive && !isExpertReviewActive && !isNewsActive)
+                {
+                    isVideoActive = true;
+                }
+            } 
         %>       
 
         <!-- Check On-Road Price popup -->

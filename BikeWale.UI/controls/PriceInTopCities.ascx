@@ -7,7 +7,7 @@
         <ItemTemplate>       
             <li>
                 <div class="grid-7 alpha">
-                    <a href="/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-bikes/<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>/price-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/" class="text-truncate"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></a>
+                    <a title="<%= string.Format("{0} Price in ",bikeName) %><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %>" href="/<%# DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() %>-bikes/<%# DataBinder.Eval(Container.DataItem, "ModelMaskingName").ToString() %>/price-in-<%# DataBinder.Eval(Container.DataItem, "CityMaskingName").ToString() %>/" class="text-truncate"><%# DataBinder.Eval(Container.DataItem, "CityName").ToString() %></a>
                 </div>
                 <div class="grid-5 alpha omega text-right">
                     <span class="bwsprite inr-sm-dark"></span>

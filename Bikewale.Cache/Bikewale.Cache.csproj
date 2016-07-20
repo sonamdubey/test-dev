@@ -62,7 +62,6 @@
     <Compile Include="Location\StateCacheRepository.cs" />
     <Compile Include="Memcache\BWMemcache.cs" />
     <Compile Include="Memcache\MakeMapping.cs" />
-    <Compile Include="News\NewsCache.cs" />
     <Compile Include="PriceQuote\PriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsedBikes\UsedBikesCacheRepository.cs" />
@@ -100,7 +99,9 @@
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="News\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
