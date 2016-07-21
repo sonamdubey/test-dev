@@ -672,13 +672,25 @@ namespace BikeWaleOpr.Common
         ///  Description    :   Call the ManageDealerCampaign class method to map the dealer Campaigns
         /// </summary>
         [AjaxPro.AjaxMethod()]
-        public bool MapCampaign(int contractId, ContractCampaignInputEntity ccInputs)
+        public bool MapCampaign(int contractId, int dealerId, int campaignId, int userId, string oldMaskingNumber, string maskingNumber, string dealerMobile)
         {
             bool isSuccess = false;
-            uint _dealerId = Convert.ToUInt32(ccInputs.ConsumerId);
+            ContractCampaignInputEntity ccInputs = new ContractCampaignInputEntity();
             try
             {
+
                 ManageDealerCampaign objMa = new ManageDealerCampaign();
+                ccInputs.ConsumerId = dealerId;
+                ccInputs.DealerType = 2;
+                ccInputs.LeadCampaignId = campaignId;
+                ccInputs.LastUpdatedBy = userId;
+                ccInputs.OldMaskingNumber = oldMaskingNumber;
+                ccInputs.MaskingNumber = maskingNumber;
+                ccInputs.NCDBranchId = -1;
+                ccInputs.ProductTypeId = 3;
+                ccInputs.Mobile = dealerMobile;
+                ccInputs.SellerMobileMaskingId = -1;
+                uint _dealerId = Convert.ToUInt32(ccInputs.ConsumerId);
                 isSuccess = objMa.MapContractCampaign(contractId, ccInputs.LeadCampaignId);
 
                 CwWebserviceAPI callApp = new CwWebserviceAPI();

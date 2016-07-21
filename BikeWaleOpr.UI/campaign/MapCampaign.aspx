@@ -57,6 +57,8 @@
         var dealerName = encodeURIComponent("<%= dealerName %>");
         var dealerNumber = "<%= dealerNumber %>";
         var maskingNumber = '';
+        var userId = '<%= CurrentUser.Id %>';
+        var oldMaskingNumber = '<%= oldMaskingNumber %>';
     </script>
 
     <div>
@@ -155,7 +157,7 @@
         var campaignId = '';
         campaignId = $("input[name$='rdbCampaign']:checked").val();
         maskingNumber = $("#addMaskingNumber_" + campaignId).text();
-        mapCampaign(campaignId);
+        mapCampaign(campaignId, maskingNumber);
     }
     else {
         alert("Please select existing campaign or create a new campaign");
@@ -163,27 +165,28 @@
         return false;
     });
 
-        function mapCampaign(campaignId) {
+        function mapCampaign(campaignId, maskingNumber) {
             try {
                 if (confirm("Do you want to map the selected campaign?")) {
                     //need to verify
-                    objdata = new {
+                    var objdata = {
                         "ConsumerId" : dealerId,
                         "LeadCampaignId" : campaignId,
-                        "LastUpdatedBy" :  1 ,
-                        "ProductTypeId" :1 ,
-                        "DealerType" : 2 ,
-                        "NCDBranchId" : 2,
-                        "OldMaskingNumber" : maskingNumber ,
+                        "LastUpdatedBy" : 1,
+                        "ProductTypeId" :3,
+                        "DealerType" : 2,
+                        "NCDBranchId" : -1,
+                        "OldMaskingNumber" : maskingNumber,
                         "MaskingNumber" : maskingNumber,
-                        "SellerMobileMaskingId" : -1
+                        "SellerMobileMaskingId": -1,
+                        "Mobile": dealerNumber
                         };
 
                     $.ajax({
                         type: "POST",
                         url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
                         //data: '{"contractId":"' + contractId + '" , "campaignId":"' + campaignId + '"}',
-                        data: '{"contractId":"' + contractId + '", "ccInputs":"' + campaignId + '"}',
+                        data: '{"contractId":"' + contractId + '", "dealerId":"' + dealerId + '", "campaignId":"' + campaignId + '", "userId":"' + userId + '", "oldMaskingNumber":"' + oldMaskingNumber + '", "maskingNumber":"' + maskingNumber + '", "dealerMobile":"' + dealerNumber + '"}',
                         beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "MapCampaign"); },
                         success: function (response) {
                             if (JSON.parse(response).value) {
