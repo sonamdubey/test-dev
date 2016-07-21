@@ -209,6 +209,13 @@ namespace BikewaleOpr.Common
                                     }
                                     dealerCampaigns.DealerCampaigns = lstDealerCampaign;
                                 }
+                                if (reader.NextResult())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        dealerCampaigns.ActiveMaskingNumber = Convert.ToString(reader["activeMaskingNumber"]);
+                                    }
+                                }
                             }
                         }
                     }
