@@ -260,10 +260,10 @@
                         success: function (response) {
                             var res = JSON.parse(response);
                             if (res) {
-                                $('#txtMaskingNumber').empty();
-                                $($.parseJSON(res.value)).map(function () {
-                                    return $('<option>').val(this.IsAssigned).text(this.Number);
-                                }).appendTo('#txtMaskingNumber');
+                                $('#ddlMaskingNumber').empty();
+                                $.each(res.value, function (index, value) {
+                                    ('#ddlMaskingNumber').append($('<option>').text(value.Number).attr('value', value.IsAssigned));
+                                });                                
                             }                            
                         }
 
