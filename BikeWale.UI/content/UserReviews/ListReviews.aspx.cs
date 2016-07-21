@@ -268,6 +268,7 @@ namespace Bikewale.Content
 
         void FillRepeaters()
         {
+            //throw new Exception("FillRepeaters() : Method not used/commented");
             CommonOpn op = new CommonOpn();
 
             string selectClause = "", fromClause = "", whereClause = "", orderByClause = "", recordCntQry = "";
@@ -277,14 +278,12 @@ namespace Bikewale.Content
             {
                 if (versionId == "0" || versionId == "")
                 {
-                    selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, ifnull(up.handlename,'') as handlename, cr.styler, 
-                                 cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
-                                 cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
-                                 cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, ifnull(fm.posts, 0) comments, fso.threadid ";
+                    selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, '' as handlename, cr.styler, 
+                                                             cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
+                                                             cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
+                                                             cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, '' comments, 0 as threadid ";
 
-                    fromClause = @" customers as cu left join userprofile up  on up.userid = cu.id, customerreviews as cr  
-                                    left join forum_articleassociation fso  on cr.id = fso.articleid 
-                                    left join forums fm   on fso.threadid = fm.id ";
+                    fromClause = @" customers as cu inner join customerreviews as cr on cu.id = cr.customerid ";
 
                     whereClause = " cu.id = cr.customerid and cr.isactive=1 and cr.isverified=1 and cr.modelid = @v_modelid ";
 
@@ -301,14 +300,12 @@ namespace Bikewale.Content
                     }
 
                     selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, ifnull(up.handlename, '') as handlename, cr.styler, 
-                                  cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
-                                  cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
-                                  cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, ifnull(fm.posts, 0) comments, fso.threadid ";
+                                                              cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
+                                                              cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
+                                                              cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, ifnull(fm.posts, 0) comments, fso.threadid ";
 
                     fromClause = @" customers as cu   
-                                    left join userprofile up   on up.userid = cu.id, customerreviews as cr   
-                                    left join forum_articleassociation fso   on cr.id = fso.articleid
-                                    left join forums fm   on fso.threadid = fm.id ";
+                                                                inner join customerreviews as cr on cu.id = cr.customerid ";
 
                     whereClause = " cu.id = cr.customerid and cr.isactive=1 and cr.isverified=1 and cr.versionid = @v_versionid ";
 
@@ -320,8 +317,8 @@ namespace Bikewale.Content
 
 
                 DbParameter[] param = new[] {   DbFactory.GetDbParam("@v_modelid", DbType.Int32,modelId ),
-                                                DbFactory.GetDbParam("@v_versionid", DbType.Int32,versionId)
-                                            };
+                                                            DbFactory.GetDbParam("@v_versionid", DbType.Int32,versionId)
+                                                        };
 
 
                 Trace.Warn("pageNumber :  : : " + pageNumber);
@@ -391,18 +388,18 @@ namespace Bikewale.Content
             uint _modelId = 0, _versionId = 0;
             if (versionId != "-1")
             {
-                sql = @" select distinct cm.name as make, se.name as subsegment, bo.name bikebodystyle
-                   from bikemodels as cmo, bikemakes as cm, bikebodystyles bo,
+                sql = @" select distinct cmo.makename as make, se.name as subsegment, bo.name bikebodystyle
+                   from bikemodels as cmo, bikebodystyles bo,
                     (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid )
-                    where cm.id=cmo.bikemakeid and cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid
+                    where cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid
                     and ve.id = @v_versionid";
             }
             else
             {
-                sql = @" select distinct cm.name as make, se.name as subsegment, bo.name bikebodystyle 
-                     from bikemodels as cmo, bikemakes as cm, bikebodystyles bo, 
+                sql = @" select distinct cmo.makename as make, se.name as subsegment, bo.name bikebodystyle 
+                     from bikemodels as cmo, bikebodystyles bo, 
                      (bikeversions ve   left join bikesubsegments se   on se.id = ve.subsegmentid ) 
-                     where cm.id=cmo.bikemakeid and cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid 
+                     where cmo.id=ve.bikemodelid and bo.id=ve.bodystyleid 
                      and ve.bikemodelid = @v_modelid";
             }
             try

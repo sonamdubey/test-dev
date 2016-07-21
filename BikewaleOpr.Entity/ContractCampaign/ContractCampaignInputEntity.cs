@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 namespace BikewaleOpr.Entity.ContractCampaign
 {
     /// <summary>
@@ -7,15 +8,25 @@ namespace BikewaleOpr.Entity.ContractCampaign
     /// </summary>
     public class ContractCampaignInputEntity
     {
+        [JsonProperty("consumerId")]
         public int ConsumerId { get; set; }
+        [JsonProperty("leadCampaignId")]
         public int LeadCampaignId { get; set; }
+        [JsonProperty("lastUpdatedBy")]
         public int LastUpdatedBy { get; set; }
+        [JsonProperty("productTypeId")]
         public int ProductTypeId { get; set; }
+        [JsonProperty("dealerType")]
         public int DealerType { get; set; }
+        [JsonProperty("ncdBrandId")]
         public int NCDBranchId { get; set; }
+        [JsonProperty("oldMaskingNumber")]
         public string OldMaskingNumber { get; set; }
+        [JsonProperty("maskingNumber")]
         public string MaskingNumber { get; set; }
+        [JsonProperty("sellerMobileMaskingId")]
         public int SellerMobileMaskingId { get; set; }
-
+        [JsonProperty("mobile")]
+        public string Mobile { get; set; }
     }
 }

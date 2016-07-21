@@ -1,11 +1,9 @@
-﻿using System;
-using System.Web;
+﻿using Bikewale.Common;
+using MySql.CoreDAL;
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using Bikewale.Common;
-using AjaxPro;
-using System.Data.Common;
-using MySql.CoreDAL;
+using System.Web;
 
 namespace Bikewale.Ajax
 {
@@ -25,26 +23,25 @@ namespace Bikewale.Ajax
         public string GetModels(string makeId, string compareBikes)
         {
             string jsonModels = String.Empty;
-            uint _makeid ;string sql=string.Empty;                            
+            uint _makeid; string sql = string.Empty;
 
             try
             {
                 if (!String.IsNullOrEmpty(makeId) && uint.TryParse(makeId, out _makeid))
                 {
-                    sql = @" select distinct concat(mo.id,'_',mo.maskingname) as Value, mo.name as Text  
-                         from bikemodels mo, bikeversions ve, newbikespecifications n 
-                         where mo.isdeleted = 0  
-                         and ve.isdeleted = 0  
-                         and mo.id = ve.bikemodelid  
+                    sql = @" select distinct concat(ve.bikemodelid,'_',ve.modelmaskingname) as Value, ve.modelname as Text  
+                         from bikeversions ve, newbikespecifications n 
+                         where ve.isdeleted = 0                           
                          and ve.id = n.bikeversionid  
-                         and mo.bikemakeid = " + _makeid;
+                         and ve.bikemakeid = " + _makeid;
 
 
                     if (!(String.IsNullOrEmpty(compareBikes)))
                     {
                         if (compareBikes == "new")
                         {
-                            sql += " and ve.new=1 and mo.futuristic = 0 and mo.isdeleted=0 ";
+                            sql += " and ve.new=1 and ve.isfuturisticmodel = 0 and mo.isdeleted=0";
+       
                         }
                     }
 
@@ -57,7 +54,7 @@ namespace Bikewale.Ajax
                         }
                     }
 
-                }  
+                }
             }
             catch (SqlException err)
             {
@@ -91,10 +88,8 @@ namespace Bikewale.Ajax
                 if (!String.IsNullOrEmpty(modelId) && uint.TryParse(modelId, out _modelid))
                 {
                     sql = @" select distinct ve.id as Value, ve.name as Text
-                         from bikemodels mo, bikeversions ve, newbikespecifications n, bikemakes ma
-                         where mo.isdeleted = 0
-                         and ve.isdeleted = 0
-                         and mo.id = ve.bikemodelid
+                         from bikeversions ve, newbikespecifications n
+                         where ve.isdeleted = 0                         
                          and ve.id = n.bikeversionid
                          and ve.bikemodelid = " + _modelid;
 
@@ -113,7 +108,7 @@ namespace Bikewale.Ajax
                         {
                             jsonVersions = JSON.GetJSONString(ds.Tables[0]);
                         }
-                    } 
+                    }
                 }
 
             }
@@ -140,30 +135,28 @@ namespace Bikewale.Ajax
         /// <param name="type"></param>
         /// <returns></returns>
         [AjaxPro.AjaxMethod()]
-        public string GetNewBikeModels(string makeId, string compareBikes,string type)
+        public string GetNewBikeModels(string makeId, string compareBikes, string type)
         {
 
             string retVal = string.Empty;
-            uint _makeid ;string sql=string.Empty;
+            uint _makeid; string sql = string.Empty;
 
             try
             {
                 if (!String.IsNullOrEmpty(makeId) && uint.TryParse(makeId, out _makeid))
                 {
-                    sql = @" select distinct concat(mo.id,'_',mo.maskingname) as Value, mo.name as Text  
-                         from bikemodels mo, bikeversions ve, newbikespecifications n 
-                         where mo.isdeleted = 0  
-                         and ve.isdeleted = 0  
-                         and mo.id = ve.bikemodelid  
+                    sql = @" select distinct concat(ve.bikemodelid,'_',ve.modelmaskingname) as Value, ve.modelname as Text  
+                         from bikeversions ve, newbikespecifications n 
+                         where ve.isdeleted = 0                           
                          and ve.id = n.bikeversionid  
-                         and mo.bikemakeid = " + _makeid;
+                         and ve.bikemakeid = " + _makeid;
 
 
                     if (!(String.IsNullOrEmpty(compareBikes)))
                     {
                         if (compareBikes == "new")
                         {
-                            sql += " and ve.new=1 and mo.futuristic = 0 ";
+                            sql += " and ve.new=1 and ve.isfuturisticmodel = 0 ";
                         }
                     }
 

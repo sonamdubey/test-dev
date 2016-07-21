@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.BAL.AppDeepLinking;
+﻿using Bikewale.BAL.AppDeepLinking;
 using Bikewale.BAL.AutoComplete;
 using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Compare;
+using Bikewale.BAL.Content;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
+using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.Cache.App;
 using Bikewale.Cache.BikeData;
+using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
+using Bikewale.Cache.Content;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.UsedBikes;
@@ -38,9 +38,12 @@ using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
+using Bikewale.Interfaces.Content;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Feedback;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileVerification;
@@ -51,10 +54,6 @@ using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 using System;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Content;
-using Bikewale.Cache.Content;
-using Bikewale.Cache.CMS;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -74,6 +73,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register IDeepLinking, DeepLinking
         /// Modified By :   Lucky Rathore on 21 March 2016
         /// Description :   Register IDealerCacheRepository, DealerCacheRepository
+        /// Modified By :   Sumit Kate on 20 July 2016
+        /// Description :   Register Road Test/Feature/Article BAL classes for CMS Controller constructor resolution
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -125,7 +126,10 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
             container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
+            container.RegisterType<IArticles, Articles>();
             container.RegisterType<IRoadTestCache, RoadTestCache>();
+            container.RegisterType<IRoadTest, RoadTest>();
+            container.RegisterType<IFeatures, Bikewale.BAL.Content.Features>();
             container.RegisterType<IFeatureCache, FeaturesCache>();
             return container;
         }

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using Bikewale.Common;
+using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
 using System.Text;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using System.Data.Common;
-using System.Data;
-using MySql.CoreDAL;
 
 namespace Bikewale.Controls
 {
@@ -91,7 +87,7 @@ namespace Bikewale.Controls
             string sql = "";
 
             CommonOpn objCom = new CommonOpn();
-            uint _reviewCount = 0;    
+            uint _reviewCount = 0;
 
             try
             {
@@ -141,7 +137,7 @@ namespace Bikewale.Controls
 
                     objCom.BindRepeaterReader(sql, rptUserReviews, param);
                 }
-                
+
             }
             catch (Exception err)
             {
@@ -218,7 +214,7 @@ namespace Bikewale.Controls
         {
             string oneImg = "<img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.gif\">";
             string zeroImg = "<img src=\"http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.gif\">";
-            string halfImg = "<img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.gif\">";           
+            string halfImg = "<img src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.gif\">";
 
             StringBuilder sb = new StringBuilder();
             int absVal = (int)Math.Floor(value);

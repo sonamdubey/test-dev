@@ -82,11 +82,11 @@ namespace BikewaleOpr.BAL.ContractCampaign
             bool _areNumbersReleased = false;
             try
             {
-                string _apiUrl = string.Format("/api/maskingnumbers/release/?dealerid={0}&userid={1}&maskingNumber={2}", dealerId, userId, maskingNumbers);
+                string _apiUrl = string.Format("/api/maskingnumbers/release/?dealerid={0}&userid={1}", dealerId, userId);
 
                 using (Bikewale.Utility.BWHttpClient objClient = new Bikewale.Utility.BWHttpClient())
                 {
-                    _areNumbersReleased = objClient.PostSync<bool, bool>(Bikewale.Utility.APIHost.CWS, Bikewale.Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _areNumbersReleased);
+                    _areNumbersReleased = objClient.PostSync<string, bool>(Bikewale.Utility.APIHost.CWS, Bikewale.Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, maskingNumbers);
                 }
             }
             catch (System.Exception ex)

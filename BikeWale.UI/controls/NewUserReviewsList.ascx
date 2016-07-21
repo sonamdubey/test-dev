@@ -18,12 +18,22 @@
                             </a>
                         </h3>
                         <p class="text-light-grey"><%#Eval("ReviewDate", "{0:dd-MMM-yyyy}") %> by <%#Eval("WrittenBy").ToString() %></p>
+                        <%if (FetchedRecordsCount == 1)
+                          { %>
+                        <p class="margin-top20 line-height17">
+                            <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Comments").ToString(),160) %> 
+                            <a href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">Read full review</a>
+                        </p>
+                        <%} %>
                     </div>
                     <div class="clear"></div>
+                     <%if (FetchedRecordsCount != 1)
+                       { %>
                     <p class="margin-top20 line-height17">
                         <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Comments").ToString(),160) %> 
-                 <a href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">Read full review</a>
+                        <a href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">Read full review</a>
                     </p>
+                    <%} %>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
