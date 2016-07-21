@@ -29,7 +29,7 @@
             <div class="container">
                 <div class="banner-home content-inner-block-10">
                     <!-- Top banner code starts here -->
-                    <h1 class="text-uppercase text-white text-center padding-top30">FIND YOUR RIDE</h1>
+                    <h1 class="font22 text-uppercase text-white text-center padding-top30">Find your bike</h1>
                     <div class="text-white margin-top15 text-center font14">Get Exclusive Offers on your Bike Purchase</div>
                     <div class="new-used-search new-bikes-search margin-top30 position-rel">
                         <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" class="rounded-corner2">

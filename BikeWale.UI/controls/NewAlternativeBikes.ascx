@@ -4,7 +4,7 @@
 </style>
 <!-- Alternative Bikes Starts here-->    
 <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-    <h2 class="padding-left20 padding-right20"><%=WidgetTitle %> Alternate bikes</h2>
+    <h2 class="padding-left20 padding-right20">Alternative Bikes</h2>
     <div class="jcarousel-wrapper">
         <div class="jcarousel">
             <ul>
@@ -16,11 +16,11 @@
                                     <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# DataBinder.Eval(Container.DataItem, "makeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "modelBase.ModelName").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "makeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "modelBase.ModelName").ToString() %>" src="" border="0">
                                 </a>
                             </div>
-                            <h3 class="bikeTitle"><a href="<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"makeBase.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"modelBase.MaskingName"))) %>">
+                            <a href="<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"makeBase.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"modelBase.MaskingName"))) %>" class="bikeTitle">
                                 <%# DataBinder.Eval(Container.DataItem, "makeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "modelBase.ModelName").ToString() %>
-                            </a></h3>
-                            <p class="text-xt-light-grey margin-bottom12"><%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "MaxPower"))) %></p>
-                            <p class="text-light-grey margin-bottom10">Ex-showroom, Mumbai</p>
+                            </a>
+                            <p class="text-xt-light-grey margin-bottom10"><%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "MaxPower"))) %></p>
+                            <p class="text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
                             <div class="margin-bottom15">
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "VersionPrice").ToString()) %></span>
                             </div>

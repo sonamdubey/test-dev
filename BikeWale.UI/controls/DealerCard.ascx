@@ -10,7 +10,7 @@
             <asp:Repeater ID="rptDealers" runat="server">
                 <ItemTemplate>
                     <li class="dealer-details-item grid-4 margin-bottom20">
-                        <h3 class="font14"><a href="<%# Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName, Convert.ToString(DataBinder.Eval(Container.DataItem,"DealerId"))) %>" class="text-default"><%# DataBinder.Eval(Container.DataItem,"Name") %></a></h3>
+                        <a href="<%# Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName, Convert.ToString(DataBinder.Eval(Container.DataItem,"DealerId"))) %>" class="article-target-link font14"><%# DataBinder.Eval(Container.DataItem,"Name") %></a>
                         <div class="margin-top10">
                             <p class="text-light-grey margin-bottom5">
                                 <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>

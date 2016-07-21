@@ -10,7 +10,7 @@ a:hover { text-decoration: underline; }
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block }
 *, :after, :before, .global-search input[type="text"], #globalCity-input input[type="text"] { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 h1 { font-size: 22px; font-weight: 600; color: #2a2a2a; }
-h2 { font-size: 16px; font-weight: 400; color: #2a2a2a; }
+h2 { font-size: 16px; font-weight: 600; color: #2a2a2a; }
 h3 { font-size: 14px; color: #4d5057; }
 h4 { font-size: 16px; }
 h5 { font-size: 14px; }
@@ -184,6 +184,9 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .news-expert-video-content .img-preview { width:310px; height:174px; display:table; text-align:center;}
 .news-expert-video-content .img-preview a { width:310px; height:174px; display:block; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .news-expert-video-content .img-preview a img { width:100%; height:174px; }
+#modelNewsContent .article-target-link, #modelReviewsContent .article-target-link, #modelVideosContent .article-target-link { margin-bottom: 8px; line-height: 1.5; }
+#modelNewsContent .model-news-title-container.model-news-text-wrapper { display:block; width: auto; padding-left:0; }
+#modelNewsContent .grid-8 .article-target-link { line-height:1.6; }
 
 @-moz-document url-prefix() {
 	.findBtn .btn-md {padding: 7px 20px 7px;}
@@ -231,7 +234,8 @@ footer ul li a:hover { text-decoration: underline; }
 .imageWrapper a img { width:100%; height:174px; }
 .bikeDescWrapper { padding: 15px; background:#fff; }
 .bikeTitle a { color:#4d5057; font-size: 16px; display: block; }
-.bikeTitle a:hover { color:#1a1a1a; text-decoration:none; }
+.bikeTitle a:hover, a.bikeTitle:hover { color:#1a1a1a; text-decoration:none; }
+a.bikeTitle { color:#4d5057; font-size: 16px; font-weight: bold; display: block; margin-bottom: 10px; }
 .formContent { padding: 30px 20px 20px 20px; }
 .bike-preview { text-align: center; }
 /*.bike-preview img { width: 100%; }*/

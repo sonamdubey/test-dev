@@ -141,11 +141,11 @@ namespace Bikewale.Mobile.Controls
             if (dealerType == "2" || dealerType == "3")
             {
                 string link = "/m/new/newbikedealers/dealerdetails.aspx/?query=" + Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(String.Format("dealerId={0}&campId={1}&cityId={2}", dealerId, campId, CityId));
-                retString = String.Format("<a class=\"font16 text-default\" href=\"{0}\">{1}</a>", link, dealerName);
+                retString = String.Format("<a class=\"target-link margin-bottom5 text-truncate font16\" href=\"{0}\">{1}</a>", link, dealerName);
             }
             else
             {
-                retString = String.Format("<a class=\"font16 text-default\" href=\"/m/{0}-bikes/dealers-in-{1}/\">{2}</a>", makeMaskingName, cityMaskingName, dealerName);
+                retString = String.Format("<a class=\"target-link margin-bottom5 text-truncate font16\" href=\"/m/{0}-bikes/dealers-in-{1}/\">{2}</a>", makeMaskingName, cityMaskingName, dealerName);
             }
 
             return retString;

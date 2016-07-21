@@ -46,7 +46,7 @@
                 <div class="bike-img">
                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPriceQuote.OriginalImagePath,objPriceQuote.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="" title="" border="0" />
                 </div>
-                <h1 class="padding-left10 font18 text-dark-black"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName %></h1>
+                <h1 class="padding-left10"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName %></h1>
             </div>
             <div class="clear"></div>
 

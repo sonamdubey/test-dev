@@ -58,7 +58,7 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="font26 text-default margin-bottom10">On-road price quote for <%= BikeName %> in <%= GetLocationCookie() %></h1>
+                    <h1 class="margin-bottom10">On-road price quote for <%= BikeName %> in <%= GetLocationCookie() %></h1>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>

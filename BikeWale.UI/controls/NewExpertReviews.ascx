@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="grid-8">
-                    <h3 class="margin-top5"><a href="/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html" class="article-target-link"><%# DataBinder.Eval(Container.DataItem, "Title").ToString()%></a></h3>
+                    <a href="/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html" class="article-target-link"><%# DataBinder.Eval(Container.DataItem, "Title").ToString()%></a>
                     <p class="text-light-grey margin-bottom15"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(),"MMMM dd, yyyy") %>, by <span class="text-light-grey"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></span></p>
                     <p class="line-height17">
                         <%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString(),170) %>

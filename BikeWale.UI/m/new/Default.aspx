@@ -31,7 +31,7 @@
             <div class="container">
                 <div class="newbikes-banner-div">
                     <!-- Top banner code starts here -->
-                    <h1 class="text-uppercase text-white text-center padding-top25 font24">NEW Bikes</h1>
+                    <h1 class="font22 text-uppercase text-white text-center padding-top25 font24">NEW Bikes</h1>
                     <p class=" font16 text-white text-center">View all bikes under one roof</p>
                 </div>
                 <!-- Top banner code ends here -->
@@ -162,7 +162,7 @@
             <!-- Tools you may need code starts here -->
             <div class="grid-12">
                 <h2 class="text-center margin-top30 margin-bottom20">Tools you may need</h2>
-                <div class="tools-need-container margin-bottom30 text-center">
+                <div class="tools-need-container margin-bottom20 text-center">
                     <ul>
                         <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
                             <a href="/m/pricequote/">

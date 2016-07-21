@@ -49,7 +49,7 @@
                     </div>
                     <!--  class="grid-12"-->
                     <div class="bg-white box-shadow content-inner-block-1520">
-                        <h2 class="text-x-black"><%= _make.MakeName %> Bikes</h2>
+                        <h1><%= _make.MakeName %> Bikes</h1>
                     </div>
                     <div class="search-bike-container position-rel pos-top3 box-shadow">
                         <div class="search-bike-item">
@@ -70,7 +70,7 @@
                                                     <div class="font14 text-x-light margin-bottom10">
                                                         <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
                                                     </div>
-                                                    <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
+                                                    <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
                                                     <div class="margin-bottom5">
                                                         <span class="bwmsprite inr-sm-icon" style="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"display:none;": "display:inline-block;"%>"></span>
                                                         <span class="text-bold font18"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>

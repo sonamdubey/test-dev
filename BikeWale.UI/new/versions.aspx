@@ -131,7 +131,7 @@
                         </div>
                         <div class="grid-7 model-details-wrapper omega">
                             <div class="model-name-review-container">
-                                <h1 class="text-black text-bold"><%= bikeName %></h1>
+                                <h1><%= bikeName %></h1>
                                 <% if (!modelPageEntity.ModelDetails.Futuristic || modelPageEntity.ModelDetails.New)
 								   { %>
                                 <!-- Review & ratings -->
@@ -755,7 +755,7 @@
                     
                     <%} %>
                     <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
-                    <div id="modelPricesContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
+                    <div id="modelPricesContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-right10 padding-bottom10 padding-left10 border-solid-bottom">
                         <h2><%=bikeName %> Prices</h2>
                         <div class="grid-8 alpha">
                             <h3 class="margin-bottom20">Prices by versions</h3>
@@ -788,8 +788,8 @@
                                         </asp:Repeater>                                  
                                     </ul>                                      
                                 </div>
-                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                                <span class="jcarousel-control-left jcarousel-arrow-icon"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                                <span class="jcarousel-control-right jcarousel-arrow-icon"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                                 <p class="jcarousel-pagination text-center"></p>
                             </div>
                         </div>

@@ -59,14 +59,14 @@
                        { %>
                     <div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Upcoming</div>
                     <div class="bikeTitle">
-                        <h1 class="font18 text-darker-black padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
+                        <h1 class="padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
                     </div>
                     <% } %>
                     <% if(!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
                        { %>
                     <div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
                     <div class="bikeTitle">
-                        <h1 class="font18 text-darker-black padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
+                        <h1 class="padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
                     </div>
                     <% } %>
 
@@ -238,7 +238,7 @@
                        if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) { 
                      %>
                     <div class="margin-top15 content-inner-block-10 border-solid">
-                        <h2 class="font18 text-darker-black"><%=viewModel.Organization %></h2>
+                        <h2><%=viewModel.Organization %></h2>
                         <p class="font14 text-light-grey padding-bottom10 "><%=viewModel.AreaName %></p>
                         <%
                            if (viewModel.Offers != null && viewModel.OfferCount > 0)
@@ -393,7 +393,7 @@
                       { %>
                     <h2><%=bikeName %> Summary</h2>
                     <h3>Preview</h3>
-                    <p class="font14 text-light-grey line-height17 margin-bottom15">
+                    <p class="font14 text-light-grey line-height17">
                         <span class="model-preview-main-content">
                             <%= modelPage.ModelDesc.SmallDescription %>   
                         </span>
@@ -409,7 +409,7 @@
                     <% } %>
                     <% if (modelPage.ModelVersionSpecs != null)
                        { %>
-                    <h3>Specification summary</h3>
+                    <h3 class="margin-top15">Specification summary</h3>
                     <div class="text-center">
                         <div class="summary-overview-box">
                             <div class="odd btmAftBorder">
