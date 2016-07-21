@@ -26,6 +26,7 @@ namespace BikewaleOpr.Entity.ContractCampaign
         public string MaskingNumber { get; set; }
         [JsonProperty("sellerMobileMaskingId")]
         public int SellerMobileMaskingId { get; set; }
-
+        [JsonProperty("mobile")]
+        public string Mobile { get; set; }
     }
 }

@@ -122,6 +122,13 @@ namespace BikewaleOpr.Campaign
         {
             bool isMaskingChanged = hdnOldMaskingNumber.Value == reqFormMaskingNumber ? false : true;
             bool IsProd = Convert.ToBoolean(ConfigurationManager.AppSettings["isProduction"]);
+            oldMaskingNumber = hdnOldMaskingNumber.Value;
+            DataTable dtCampaign = dealerCampaign.FetchBWDealerCampaign(campaignId);
+            if (dtCampaign != null && dtCampaign.Rows.Count > 0)
+            {
+                dealerMobile = dtCampaign.Rows[0]["dealerMobile"].ToString();
+            }
+
 
             ContractCampaignInputEntity ccInputs = new ContractCampaignInputEntity();
             ccInputs.ConsumerId = dealerId;
@@ -131,7 +138,8 @@ namespace BikewaleOpr.Campaign
             ccInputs.OldMaskingNumber = oldMaskingNumber;
             ccInputs.MaskingNumber = reqFormMaskingNumber;
             ccInputs.NCDBranchId = -1;
-            ccInputs.ProductTypeId = 1;
+            ccInputs.ProductTypeId = 3;
+            ccInputs.Mobile = dealerMobile;
             ccInputs.SellerMobileMaskingId = default(int);
 
             CwWebserviceAPI CWWebservice = new CwWebserviceAPI();
