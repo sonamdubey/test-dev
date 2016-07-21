@@ -14,7 +14,7 @@
             <asp:Repeater ID="rptDealers" runat="server">
                 <ItemTemplate>
                     <div class="swiper-slide bike-carousel-swiper dealer-by-city">
-                        <h4 class="margin-bottom5 text-truncate"><%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %></h4>
+                        <%# GetDealerDetailLink(DataBinder.Eval(Container.DataItem,"DealerType").ToString(), DataBinder.Eval(Container.DataItem,"DealerId").ToString(), DataBinder.Eval(Container.DataItem,"CampaignId").ToString(), DataBinder.Eval(Container.DataItem,"Name").ToString()) %>
                         <p class="margin-bottom5 text-light-grey <%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":string.Empty %>">
                             <span class="bwmsprite dealership-loc-icon vertical-top margin-right5"></span>
                             <span class="vertical-top dealership-address dealer-details-main-content"><%# Bikewale.Utility.FormatDescription.TruncateDescription(Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")), 60) %></span>

@@ -8,7 +8,7 @@ $(document).ready(function() {
 		b = $(this).find("span");
 		c = $(".brand-bottom-border");
 		a.slideToggle();
-		b.text(b.text() === "More" ? "Less" : "More");
+		b.text(b.text() === "more" ? "less" : "more");
 		c.slideToggle();
 	});
 	$("ul.brand-budget-mileage-style-UL li").click(function(){
