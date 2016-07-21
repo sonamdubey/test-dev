@@ -295,10 +295,10 @@ namespace Bikewale.New
             switch (featureValue)
             {
                 case "True":
-                    adString = "<img align=\"absmiddle\" src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/tick.gif\" />";
+                    adString = "<span class=\"bwsprite compare-tick\"></span>";
                     break;
                 case "False":
-                    adString = "<span class=\"fa fa-times text-red font18\"></span>";
+                    adString = "<span class=\"bwsprite compare-cross\"></span>";
                     break;
                 default:
                     adString = "-";
