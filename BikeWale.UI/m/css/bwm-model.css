@@ -288,7 +288,7 @@ li.offertxt:hover .tnc {display:inline}*/
 .overall-specs-tabs-container.fixed-tab-nav { position:fixed; top:0; left:0; }
 .overall-specs-tabs-wrapper { width:100%; display:table; border-bottom:1px solid #e2e2e2; }
 .overall-specs-tabs-wrapper li { display:table-cell; width:1%; padding:10px 15px; text-align:center; white-space:nowrap; font-size:14px; color:#82888b;cursor:pointer;}
-.overall-specs-tabs-container::-webkit-scrollbar {width: 0;}
+.overall-specs-tabs-container::-webkit-scrollbar {width: 0; height: 0;}
 .overall-specs-tabs-container::-webkit-scrollbar-track, .overall-specs-tabs-container::-webkit-scrollbar-thumb {display:none;}
 #modelSpecsTabsContentWrapper .overall-specs-tabs-wrapper li h3 { margin-bottom:0; font-weight:400; }
 .overall-specs-tabs-wrapper li.active { border-bottom:3px solid #ef3f30; color:#4d5057; }

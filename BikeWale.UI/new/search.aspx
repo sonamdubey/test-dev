@@ -34,7 +34,7 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="font30 text-black margin-top10">Search New Bikes</h1>
+                    <h1 class="margin-top10">Search New Bikes</h1>
                     <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
                 </div>
                 <div class="clear"></div>

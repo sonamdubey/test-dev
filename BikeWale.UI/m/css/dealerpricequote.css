@@ -88,9 +88,8 @@ a.text-darker-black:hover { text-decoration:none; }
 .discover-bike-carousel .front{height:auto}
 #leadCapturePopup .leadCapture-close-btn{z-index:2}
 #leadCapturePopup .error-icon,#leadCapturePopup .bw-blackbg-tooltip{display:none}
-.btn-grey { background: #fff; color: #f04031; border:1px solid #f04031; }
-.btn-grey:hover { background: #f04031; color:#fff; text-decoration: none; border:1px solid #f04031; }
-.btn-grey:focus { background: #f04031; color: #fff; border: 1px solid #f04031; }
+.btn-grey{background:#fff;color:#82888b;border:1px solid #82888b}
+.btn-grey:hover{background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b}
 #notifyAvailabilityContainer{min-height:320px;background:#fff;margin:0 auto;padding:10px;position:fixed;top:10%;right:5%;left:5%;z-index:10}
 #notify-form .grid-12{padding:10px 20px}
 .personal-info-notify-container input{margin:0 auto}

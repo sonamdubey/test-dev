@@ -485,7 +485,7 @@
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
             <div class="container margin-bottom30">
                 <div class="grid-12">
-                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName  %> alternatives</h2>
+                    <h2 class="font18 margin-top20px margin-bottom20 text-center padding-top20"><%= objPriceQuote.objMake.MakeName + " " + objPriceQuote.objModel.ModelName  %> alternatives</h2>
 
                     <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
                         <div class="swiper-wrapper">

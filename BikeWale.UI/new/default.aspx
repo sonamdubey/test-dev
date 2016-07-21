@@ -95,7 +95,7 @@
                             </ul>
                         </div>
                         <div class="view-brandType text-center padding-top10 padding-bottom30">
-                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn btn btn-tertiary">View <span>more</span> brands</a>
+                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View <span>more</span> brands</a>
                         </div>
                     </div>
                     <div class="bw-tabs-data hide" id="discoverBudget">

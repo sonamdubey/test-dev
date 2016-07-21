@@ -22,6 +22,6 @@
         </ItemTemplate>    
     </asp:Repeater>    
     <div class="padding-bottom30 text-center">
-        <a href="/news/" class="btn btn-tertiary">View more news</a>
+        <a href="/news/" class="font16">View more news</a>
     </div>
 </div><!-- Ends here-->
