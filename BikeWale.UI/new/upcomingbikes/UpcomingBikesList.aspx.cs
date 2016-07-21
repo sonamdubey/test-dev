@@ -131,12 +131,12 @@ namespace Bikewale.New
             SelectClause = " mk.name makename,mk.maskingname as makemaskingname , mo.name as modelname,mo.maskingname as modelmaskingname, ecl.expectedlaunch, ecl.estimatedpricemin, ecl.estimatedpricemax, ecl.hosturl, ecl.largepicimagepath, csy.smalldescription as description, ecl.originalimagepath ";
             FromClause = @" expectedbikelaunches ecl 
                             left join bikesynopsis csy  on ecl.bikemodelid = csy.modelid and csy.isactive = 1 
-                            inner join bikemodels mo   on ecl.bikemodelid = mo.id 
-                            inner join bikemakes mk   on mk.id = mo.bikemakeid ";
-            WhereClause = " mo.futuristic = 1 and ecl.islaunched = 0  and ecl.isdeleted = 0 ";
+                            inner join bikemodels mo   on ecl.bikemodelid = mo.id ";
+                            // inner join bikemakes mk   on mk.id = mo.bikemakeid ";
+            WhereClause = " mo.futuristic = 1 and ecl.islaunched = 0  and ecl.isdeleted = 0 and mo.IsDeleted = 0 ";
             if (makeId != string.Empty)
             {
-                WhereClause += "and mk.id = @makeid ";
+                WhereClause += "and mo.bikemakeid = @makeid ";
             }
             OrderByClause = GetSortCriteria(sort);
             if (sort != string.Empty)

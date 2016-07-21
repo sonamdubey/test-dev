@@ -44,7 +44,7 @@ namespace Bikewale.Ajax
                     {
                         if (compareBikes == "new")
                         {
-                            sql += " and ve.new=1 and mo.futuristic = 0 ";
+                            sql += " and ve.new=1 and mo.futuristic = 0 and mo.isdeleted=0 ";
                         }
                     }
 
