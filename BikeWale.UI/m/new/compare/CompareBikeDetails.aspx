@@ -28,7 +28,8 @@
     .related-comparison-carousel-content { width:260px; min-height:118px; border:1px solid #ccc; background:#fff; padding:20px 20px 10px; }
     .related-comparison-carousel-content a {color:#0288d1;font-size:14px;font-weight:400; margin-bottom:10px;display:block;}
     .related-comparison-carousel-content a:hover {color:#0288d1;}
-    
+    .compare-tick { width: 18px; height: 16px; background-position: -88px -458px; }
+    .compare-cross { width: 14px; height: 16px; background-position: -116px -458px; }
 </style>
     <div>
         <div class="padding10">

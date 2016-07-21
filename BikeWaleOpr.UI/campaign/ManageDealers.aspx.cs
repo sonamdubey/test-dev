@@ -140,7 +140,7 @@ namespace BikewaleOpr.Campaign
             ccInputs.NCDBranchId = -1;
             ccInputs.ProductTypeId = 3;
             ccInputs.Mobile = dealerMobile;
-            ccInputs.SellerMobileMaskingId = default(int);
+            ccInputs.SellerMobileMaskingId = -1;
 
             CwWebserviceAPI CWWebservice = new CwWebserviceAPI();
             try
@@ -150,7 +150,7 @@ namespace BikewaleOpr.Campaign
                     if (isMaskingChanged)
                     {
                         // Release previous number and add new number
-                        CWWebservice.ReleaseMaskingNumber(Convert.ToUInt32(dealerId), currentUserId, reqFormMaskingNumber);
+                        CWWebservice.ReleaseMaskingNumber(Convert.ToUInt32(dealerId), currentUserId, oldMaskingNumber);
                     }
 
                     //callApp.pushDataToKnowlarity(false, "-1", dealerMobile, string.Empty, reqFormMaskingNumber);

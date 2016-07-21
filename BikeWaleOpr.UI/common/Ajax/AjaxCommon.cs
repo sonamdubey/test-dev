@@ -1,11 +1,16 @@
-﻿using BikewaleOpr.common.ContractCampaignAPI;
+﻿using BikewaleOpr.BAL.ContractCampaign;
+using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
 using BikewaleOpr.Entity.ContractCampaign;
+using BikewaleOpr.Interface.ContractCampaign;
 using BikeWaleOpr.Classified;
 using Enyim.Caching;
+using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Linq;
 using System.Web;
 
 namespace BikeWaleOpr.Common
@@ -622,6 +627,43 @@ namespace BikeWaleOpr.Common
             }
             return isSuccess;
         }
+
+        /// <summary>
+        /// Get dealer masking numbers from free pool
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        [AjaxPro.AjaxMethod()]
+        public IEnumerable<MaskingNumber> GetDealerMaskingNumbers(uint dealerId)
+        {
+            try
+            {
+                IEnumerable<MaskingNumber> numbersList = null;
+                using (IUnityContainer container = new UnityContainer())
+                {
+
+                    container.RegisterType<IContractCampaign, ContractCampaign>();
+                    IContractCampaign objCC = container.Resolve<IContractCampaign>();
+
+                    numbersList = objCC.GetAllMaskingNumbers(Convert.ToUInt32(dealerId));
+
+                    if (numbersList != null && numbersList.Count() > 0)
+                    {
+                        return numbersList;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetDealerMaskingNumbers");
+                objErr.SendMail();
+            }
+            return null;
+        }
+
+
+
 
         /// <summary>
         ///  Written By : Sangram Nandkhile on 25 Mar 2016
