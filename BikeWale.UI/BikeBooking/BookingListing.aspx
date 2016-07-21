@@ -34,7 +34,7 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="font30 text-black margin-bottom10">Book your bike</h1>
+                    <h1 class="margin-bottom10">Book your bike</h1>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -275,7 +275,7 @@
                     <div class="search-result-container content-box-shadow rounded-corner2">
                         <div class="search-count-container border-solid-bottom padding-top10 padding-bottom10">
                             <div class="leftfloat grid-8 padding-left20 margin-top5">
-                                <h2 class="font18"><span id="bikecount"></span><span class="text-light-grey font16 margin-left5 ">in </span><span class="change-city-area-target cur-pointer"><span id="Userlocation"></span><span class="margin-left5 bwsprite loc-change-blue-icon"></span></span></h2>
+                                <h2 class="text-default"><span id="bikecount"></span><span class="text-light-grey font16 margin-left5 ">in </span><span class="change-city-area-target cur-pointer"><span id="Userlocation"></span><span class="margin-left5 bwsprite loc-change-blue-icon"></span></span></h2>
                             </div>
                             <div class="rightfloat padding-left25 grid-3">
                                 <div class="sort-div rounded-corner2">
@@ -366,9 +366,9 @@
                                                     </span>
                                                 </div>
 
-                                                <div class="text-default">
-                                                    <span class="bwsprite inr-xl"></span>
-                                                    <span class="font22" data-bind="CurrencyText: discountedPrice()"></span>
+                                                <div class="text-bold text-default">
+                                                    <span class="bwsprite inr-lg"></span>
+                                                    <span class="font18" data-bind="CurrencyText: discountedPrice()"></span>
                                                 </div>
 
                                                 <div class="text-default margin-top5 margin-bottom5" data-bind="visible: offers().length > 0">
