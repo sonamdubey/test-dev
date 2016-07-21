@@ -234,6 +234,7 @@
                         success: function (response) {
                             if (JSON.parse(response).value) {
                                 $("#txtMaskingNumber").val('');
+                                bindMaskingNumber(dealerId);
                                 alert("Masking Number is released successful.");
                             }
                             else {
@@ -247,5 +248,30 @@
                 alert("An error occured. Please contact System Administrator for more details.");
             }
         }
+
+        function bindMaskingNumber(dealerId) {
+            try {
+                
+                    $.ajax({
+                        type: "POST",
+                        url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
+                        data: '{"dealerId":"' + dealerId + '"}',
+                        beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetDealerMaskingNumbers"); },
+                        success: function (response) {
+                            var res = JSON.parse(response);
+                            if (res) {
+                                $('#txtMaskingNumber').empty();
+                                $($.parseJSON(res.value)).map(function () {
+                                    return $('<option>').val(this.IsAssigned).text(this.Number);
+                                }).appendTo('#txtMaskingNumber');
+                            }                            
+                        }
+
+                    });
+            } catch (e) {
+                alert("An error occured. Please contact System Administrator for more details.");
+            }
+        }
+
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->
