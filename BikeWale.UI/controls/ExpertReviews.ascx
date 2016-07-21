@@ -18,6 +18,6 @@
         </ItemTemplate>
     </asp:Repeater>    
     <div class="padding-bottom30 text-center">
-        <a href="<%=MoreExpertReviewUrl%>" class="btn btn-tertiary">View more reviews</a>
+        <a href="<%=MoreExpertReviewUrl%>" class="font16">View more reviews</a>
     </div>
 </div><!-- Ends here-->

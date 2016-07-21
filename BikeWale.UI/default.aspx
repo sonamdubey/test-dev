@@ -38,7 +38,7 @@
             <div class="container">
                 <div class="welcome-box">
                     <h1>Find your bike</h1>
-                    <p class="font20">Get Exclusive Offers, Discounts and Freebies on your Bike Purchase</p>
+                    <p class="font20">Get Comprehensive Information on Bike Prices, Specs, Reviews & More!</p>
                     <div class="margin-top60">
                         <div>
                             <div class="bike-search-container position-rel">
@@ -116,7 +116,7 @@
                                 </ul>
                             </div>
                             <div class="view-brandType text-center padding-top10 padding-bottom30">
-                                <a href="#" id="view-brandType" class="view-more-btn btn btn-tertiary">View <span>more</span> brands</a>
+                                <a href="#" id="view-brandType" class="view-more-btn font16">View <span>more</span> brands</a>
                             </div>
                         </div>
                         <div class="bw-tabs-data hide" id="discoverBudget">

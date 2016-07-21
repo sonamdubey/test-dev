@@ -217,7 +217,7 @@ $.hitAPI = function (searchUrl,filterName) {
 };
 
 $.bindLazyListings = function (searchResult) {
-    var koHtml = '<div class="grid-12 alpha omega padding-left20 margin-top20 margin-bottom10">'
+    var koHtml = '<div class="grid-12 alpha omega padding-left20 margin-bottom10">'
                         + '<ul id="divSearchResult' + $.pageNo + '" class="SRko" data-bind="template: { name: \'listingTemp\', foreach: searchResult }">'
                         + '</ul>'
                     + '</div>';

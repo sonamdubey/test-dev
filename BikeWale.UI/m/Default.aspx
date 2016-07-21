@@ -30,7 +30,7 @@
                 <div class="banner-home content-inner-block-10">
                     <!-- Top banner code starts here -->
                     <h1 class="font22 text-uppercase text-white text-center padding-top30">Find your bike</h1>
-                    <div class="text-white margin-top15 text-center font14">Get Exclusive Offers on your Bike Purchase</div>
+                    <div class="text-white margin-top15 text-center font14">Get Comprehensive Information on Bikes!</div>
                     <div class="new-used-search new-bikes-search margin-top30 position-rel">
                         <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" class="rounded-corner2">
                         <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search"><span class="bwmsprite search-bold-icon"></span></a>
@@ -55,7 +55,7 @@
             <!--  Upcoming, New Launches and Top Selling code starts here -->
             <div class="container bg-white">
                 <div class="grid-12 alpha omega">
-                    <h2 class="text-center margin-top30 margin-bottom20">Discover your bike</h2>
+                    <h2 class="font18 text-center margin-top20 margin-bottom20">Discover your bike</h2>
                     <div class="bw-tabs-panel padding-bottom20" id="discoverBikesContainer">
 
                         <div class="bw-tabs bw-tabs-flex">
@@ -100,7 +100,7 @@
                                 </ul>
                             </div>
                             <div class="view-brandType text-center padding-top10 clear">
-                                <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View more Brands</a>
+                                <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View more brands</a>
                             </div>
                         </div>
                         <div class="bw-tabs-data hide" id="discoverBudget">
@@ -297,7 +297,7 @@
             <!--  News, reviews and videos code starts here -->
             <div class="container">
                 <div class="grid-12 alpha omega">
-                    <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
+                    <h2 class="font18 text-center margin-top20 margin-bottom20">Latest updates</h2>
                     <div class="bw-tabs-panel">
                         <div class="bw-tabs">
                             <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
