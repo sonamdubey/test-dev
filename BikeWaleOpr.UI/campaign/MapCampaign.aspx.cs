@@ -26,6 +26,9 @@ namespace BikewaleOpr.Campaign
         protected string dealerName = string.Empty, CampaignId = string.Empty, dealerNumber = string.Empty;
         protected ManageDealerCampaign dealerCampaign;
         protected DealerContractEntity dealerContract;
+        protected bool isMapped = false;
+        protected DealerCampaignEntity campaignEntity;
+        protected DealerCampaignBase campaigns;
         #endregion
 
         #region Events
@@ -82,13 +85,20 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                DealerCampaignBase campaigns = dealerCampaign.FetchBWCampaigns(dealerId);
+                campaigns = dealerCampaign.FetchBWCampaigns(dealerId, contractId);
                 if (campaigns != null)
                 {
 
                     dealerName = campaigns.DealerName;
                     dealerNumber = campaigns.DealerNumber;
                     oldMaskingNumber = campaigns.ActiveMaskingNumber;
+
+                    if (campaigns.CurrentCampaign != null)
+                    {
+                        isMapped = true;
+                        campaignEntity = campaigns.CurrentCampaign;
+                    }
+
                     if (campaigns.DealerCampaigns != null && campaigns.DealerCampaigns.Count() > 0)
                     {
                         rptCampaigns.DataSource = campaigns.DealerCampaigns;
