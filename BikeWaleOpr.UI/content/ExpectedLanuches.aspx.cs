@@ -218,9 +218,9 @@ namespace BikeWaleOpr.Content
                         {
                             NameValueCollection nvc = new NameValueCollection();
                             nvc.Add("ModelId", modelId);
-                            nvc.Add("Used", "1");
-                            nvc.Add("New", "1");
-                            nvc.Add("Futuristic", "0");
+                            nvc.Add("IsUsed", "1");
+                            nvc.Add("IsNew", "1");
+                            nvc.Add("IsFuturistic", "0");
                             SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                         }
                     }
