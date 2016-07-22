@@ -1,5 +1,7 @@
-﻿using Bikewale.BAL.Pager;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
+using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
@@ -9,6 +11,8 @@ using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
@@ -63,41 +67,27 @@ namespace Bikewale.Content
                 // get pager instance
                 IPager objPager = GetPager();
 
-                int _startIndex = 0, _endIndex = 0, _roadtestCategoryId = (int)EnumCMSContentType.RoadTest;
+                int _startIndex = 0, _endIndex = 0;
 
                 objPager.GetStartEndIndex(_pageSize, _curPageNo, out _startIndex, out _endIndex);
 
-                string _apiUrl = string.Empty;
-
-                if (String.IsNullOrEmpty(makeId))
-                {
-                    _apiUrl = "webapi/article/listbycategory/?applicationid=" + ConfigurationManager.AppSettings["applicationId"] + "&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex;
-                }
-                else
-                {
-                    if (String.IsNullOrEmpty(modelId))
-                    {
-                        _apiUrl = "webapi/article/listbycategory/?applicationid=" + ConfigurationManager.AppSettings["applicationId"] + "&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId;
-                    }
-                    else
-                    {
-                        _apiUrl = "webapi/article/listbycategory/?applicationid=" + ConfigurationManager.AppSettings["applicationId"] + "&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId + "&modelid=" + modelId;
-                    }
-                }
-
                 CMSContent _objRoadTestList = null;
 
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    _objRoadTestList = await objClient.GetApiResponse<CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objRoadTestList);
-                }
+                    container.RegisterType<IArticles, Articles>()
+                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                if (_objRoadTestList != null)
-                {
-                    if (_objRoadTestList.Articles.Count > 0)
+                    _objRoadTestList = _cache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, Convert.ToInt32(makeId), Convert.ToInt32(modelId));
+
+                    if (_objRoadTestList != null && _objRoadTestList.Articles.Count > 0)
                     {
+
                         BindRoadtest(_objRoadTestList);
                         BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount));
+
                     }
                     else
                     {
@@ -193,12 +183,6 @@ namespace Bikewale.Content
             try
             {
                 MakeModelVersion mmv = new MakeModelVersion();
-
-                //ddlMakes.DataSource = mmv.GetMakes("RoadTest");
-                //ddlMakes.DataValueField = "Value";
-                //ddlMakes.DataTextField = "Text";
-                //ddlMakes.DataBind();
-                //ddlMakes.Items.Insert(0, (new ListItem("--Select Make--", "0")));
                 mmv.GetMakes(EnumBikeType.RoadTest, ref ddlMakes);
 
             }
@@ -244,17 +228,6 @@ namespace Bikewale.Content
         {
             if (!String.IsNullOrEmpty(Request.QueryString["model"]))
             {
-                //ModelMapping objMapping = new ModelMapping();
-
-                //modelId = objMapping.GetModelId(Request.QueryString["model"].ToLower());
-
-                //if (String.IsNullOrEmpty(modelId))
-                //{
-                //    Response.Redirect("/m/pagenotfound.aspx", false);
-                //    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                //    this.Page.Visible = false;
-                //}
-
                 ModelMaskingResponse objResponse = null;
 
                 using (IUnityContainer container = new UnityContainer())

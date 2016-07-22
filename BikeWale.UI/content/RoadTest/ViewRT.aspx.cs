@@ -1,19 +1,17 @@
-﻿using Bikewale.BAL.GrpcFiles;
-using Bikewale.Cache.Content;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Content;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
-using Grpc.CMS;
-using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -29,10 +27,6 @@ namespace Bikewale.Content
         protected StringBuilder _bikeTested;
         protected ArticlePhotoGallery ctrPhotoGallery;
         private bool _isContentFount = true;
-
-        static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
-        static readonly ILog _logger = LogManager.GetLogger(typeof(ViewRT));
-        static bool _logGrpcErrors = Convert.ToBoolean(ConfigurationManager.AppSettings["LogGrpcErrors"]);
 
         protected string articleUrl = string.Empty, articleTitle = string.Empty, basicId = string.Empty, authorName = string.Empty, displayDate = string.Empty;
 
@@ -55,16 +49,15 @@ namespace Bikewale.Content
 
             ProcessQS();
             GetRoadtestDetails();
-            //GetArticlePhotos();
 
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IRoadTestCache, RoadTestCache>()
-                 .RegisterType<ICacheManager, MemcacheManager>()
-                 .RegisterType<IRoadTest, Bikewale.BAL.Content.RoadTest>();
-                IRoadTestCache _roadTest = container.Resolve<IRoadTestCache>();
+                container.RegisterType<IArticles, Articles>()
+                           .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                           .RegisterType<ICacheManager, MemcacheManager>();
+                ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                IEnumerable<ModelImage> objImg = _roadTest.BindPhotos(Convert.ToInt32(_basicId));
+                IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(_basicId));
 
                 if (objImg != null && objImg.Count() > 0)
                 {
@@ -109,89 +102,34 @@ namespace Bikewale.Content
             }
         }
 
-        /// <summary>
-        /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// PopulateWhere to fetch roadtest details from api asynchronously
-        /// </summary>
-
-        private ArticlePageDetails GetFeatureDetailsOldWay(int basicId)
-        {
-            ArticlePageDetails objFeature=null;
-            try
-            {
-
-                string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + basicId;
-              
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objFeature = objClient.GetApiResponseSync<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeature);
-                }
-
-
-                if (_logGrpcErrors && objRoadtest != null)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetFeatureDetailsOldWay {0}", basicId));
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return objFeature;
-        }
-
-        public ArticlePageDetails GetFeatureDetails(int basicId)
-        {
-            ArticlePageDetails objFeature;
-            try
-            {                
-                if (_useGrpc)
-                {
-                    var _objGrpcFeature = GrpcMethods.GetContentPages((ulong)basicId);
-
-                    if (_objGrpcFeature != null)
-                    {
-                        objFeature = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcFeature);
-                    }
-                    else
-                    {
-                        objFeature = GetFeatureDetailsOldWay(basicId);
-                    }
-                }
-                else
-                {
-                    objFeature = GetFeatureDetailsOldWay(basicId);
-                }
-            }
-            catch (Exception err)
-            {
-                _logger.Error(err.Message, err);
-                objFeature = GetFeatureDetailsOldWay(basicId);
-            }
-
-            return objFeature;
-
-        }
-
         private void GetRoadtestDetails()
         {
             try
             {
-                objRoadtest = GetFeatureDetails(Convert.ToInt32(_basicId));
-                
-                if (objRoadtest != null)
+
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    BindPages();
-                    GetRoadtestData();
-                    if (objRoadtest.VehiclTagsList.Count > 0)
-                        GetTaggedBikeList();
+                    container.RegisterType<IArticles, Articles>()
+                           .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                           .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _objArticles = container.Resolve<ICMSCacheContent>();
+
+                    objRoadtest = _objArticles.GetArticlesDetails(Convert.ToUInt32(_basicId));
+
+                    if (objRoadtest != null)
+                    {
+                        BindPages();
+                        GetRoadtestData();
+                        if (objRoadtest.VehiclTagsList.Count > 0)
+                            GetTaggedBikeList();
+                    }
+                    else
+                    {
+                        _isContentFount = false;
+                    }
                 }
-                else
-                {
-                    _isContentFount = false;
-                }
+
+
             }
             catch (Exception err)
             {

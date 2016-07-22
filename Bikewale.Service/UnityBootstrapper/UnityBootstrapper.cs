@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.BAL.AppDeepLinking;
+﻿using Bikewale.BAL.AppDeepLinking;
 using Bikewale.BAL.AutoComplete;
 using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
@@ -13,6 +9,7 @@ using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.Cache.App;
 using Bikewale.Cache.BikeData;
+using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
@@ -38,6 +35,7 @@ using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
@@ -51,10 +49,6 @@ using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 using System;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Content;
-using Bikewale.Cache.Content;
-using Bikewale.Cache.CMS;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -125,8 +119,6 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
             container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
-            container.RegisterType<IRoadTestCache, RoadTestCache>();
-            container.RegisterType<IFeatureCache, FeaturesCache>();
             return container;
         }
     }

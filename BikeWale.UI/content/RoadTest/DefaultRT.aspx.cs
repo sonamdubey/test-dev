@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.Pager;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.Memcache;
-using System.Net.Http;
-using System.Configuration;
-using System.Net.Http.Headers;
-using Bikewale.Interfaces.Pager;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
-using Microsoft.Practices.Unity;
-using Bikewale.BAL.Pager;
 using Bikewale.Entities.Pager;
-using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.BikeData;
-using Bikewale.DAL.BikeData;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Memcache;
+using Microsoft.Practices.Unity;
+using System;
+using System.Web;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Content
 {
@@ -37,7 +34,7 @@ namespace Bikewale.Content
         protected HtmlGenericControl alertObj;
         protected LinkPagerControl linkPager;
 
-        protected string nextUrl = string.Empty ,prevUrl = string.Empty;
+        protected string nextUrl = string.Empty, prevUrl = string.Empty;
 
         private const int _pageSize = 10;
         private int _pageNo = 1;
@@ -45,7 +42,7 @@ namespace Bikewale.Content
         private bool _isContentFound = true;
 
         protected override void OnInit(EventArgs e)
-        {         
+        {
             base.Load += new EventHandler(Page_Load);
         }
 
@@ -65,10 +62,10 @@ namespace Bikewale.Content
             Trace.Warn("current url :" + HttpContext.Current.Request.Url);
             if (!IsPostBack)
             {
-                string _makeName = string.Empty , _makeId = string.Empty , _modelId = string.Empty , _modelName = string.Empty;
+                string _makeName = string.Empty, _makeId = string.Empty, _modelId = string.Empty, _modelName = string.Empty;
 
                 ProcessQS(out _makeName, out _makeId, out _modelId, out _modelName);
-                GetRoadTestList(_makeId, _modelId, _makeName , _modelName);
+                GetRoadTestList(_makeId, _modelId, _makeName, _modelName);
             }
         }
 
@@ -149,59 +146,41 @@ namespace Bikewale.Content
         /// Written By : Ashwini Todkar on 26 Sept 2014
         /// Summary    : method to get roadtest list and total roadtest count from carwale api
         /// </summary>
-        private async void GetRoadTestList(string makeId, string modelId , string makeName, string modelName )
+        private async void GetRoadTestList(string makeId, string modelId, string makeName, string modelName)
         {
             try
             {
                 // get pager instance
                 IPager objPager = GetPager();
 
-                int _startIndex = 0, _endIndex = 0, _roadtestCategoryId = (int)EnumCMSContentType.RoadTest;
+                int _startIndex = 0, _endIndex = 0;
 
                 objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
 
-                string _apiUrl = string.Empty;
-
-                if (String.IsNullOrEmpty(makeId))
-                {
-                    _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex;
-                }
-                else
-                {
-                    if (String.IsNullOrEmpty(modelId))
-                    {
-                        _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId;
-                        //MakeModelSearch.MakeId = makeId;
-                    }
-                    else
-                    {
-                        _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId + "&modelid=" + modelId;
-                        //MakeModelSearch.MakeId = makeId;
-                        //MakeModelSearch.ModelId = modelId;
-                    }
-                }
-
                 CMSContent _objRoadTestList = null;
 
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    _objRoadTestList = await objClient.GetApiResponse<CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objRoadTestList);
-                }
-                
-                if (_objRoadTestList != null)
-                {
-                    if (_objRoadTestList.Articles.Count > 0)
+                    container.RegisterType<IArticles, Articles>()
+                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                    _objRoadTestList = _cache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, Convert.ToInt32(makeId), Convert.ToInt32(modelId));
+
+                    if (_objRoadTestList != null && _objRoadTestList.Articles.Count > 0)
                     {
+
                         BindRoadtest(_objRoadTestList);
                         BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount), makeName, modelName);
+
                     }
                     else
+                    {
+                        alertObj.Visible = true;
+                        alertObj.InnerText = "Sorry! No road tests have been carried out for the selected bike.";
                         _isContentFound = false;
-                }
-                else
-                {
-                    alertObj.Visible = true;
-                    alertObj.InnerText = "Sorry! No road tests have been carried out for the selected bike.";
+                    }
                 }
             }
             catch (Exception err)
@@ -249,7 +228,7 @@ namespace Bikewale.Content
         /// </summary>
         /// <param name="objPager"> Pager instance </param>
         /// <param name="recordCount"> total news available</param>
-        private void BindLinkPager(IPager objPager, int recordCount , string makeName , string modelName)
+        private void BindLinkPager(IPager objPager, int recordCount, string makeName, string modelName)
         {
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
@@ -258,7 +237,7 @@ namespace Bikewale.Content
             try
             {
                 if (!String.IsNullOrEmpty(modelName))
-                      _baseUrl = "/" + makeName + "-bikes/" + modelName + "/road-tests/";
+                    _baseUrl = "/" + makeName + "-bikes/" + modelName + "/road-tests/";
                 else if (!String.IsNullOrEmpty(makeName))
                     _baseUrl = "/" + makeName + "-bikes" + "/road-tests/";
 
@@ -281,7 +260,7 @@ namespace Bikewale.Content
                 //For SEO
                 //CreatePrevNextUrl(linkPager.TotalPages,_baseUrl);
                 prevUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? "" : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
-                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? "" : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;       
+                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? "" : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
             }
             catch (Exception ex)
             {
@@ -318,7 +297,7 @@ namespace Bikewale.Content
         //    }
         //}
 
-      
+
 
 
         //private void CreatePrevNextUrl()
@@ -376,9 +355,9 @@ namespace Bikewale.Content
         //    OrderByClause = " DisplayDate Desc ";
         //    RecordCntQry = " Select Count(CB.Id) From " + FromClause + " Where " + WhereClause;
         //    BaseUrl = "/" + makeName + "-bikes/";
-            
+
         //    //NavUrl = makeName + "-bikes";
-                       
+
         //    //Trace.Warn("Model NAME : " + modelName);
         //    if (modelId != "")
         //    {

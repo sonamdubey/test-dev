@@ -43,17 +43,20 @@ namespace Bikewale.BindViewModels.Controls
                            .RegisterType<ICacheManager, MemcacheManager>();
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                    _objArticleList = _cache.GetMostRecentArticlesById(EnumCMSContentType.News, Convert.ToUInt32(TotalRecords), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
+                    _objArticleList = _cache.GetMostRecentArticlesByIdList(Convert.ToString((int)EnumCMSContentType.News), Convert.ToUInt32(TotalRecords), Convert.ToUInt32(MakeId), Convert.ToUInt32(ModelId));
+
+                    if (_objArticleList != null && _objArticleList.Count() > 0)
+                    {
+                        FetchedRecordsCount = _objArticleList.Count();
+
+                        rptr.DataSource = _objArticleList;
+                        rptr.DataBind();
+                    }
+
                 }
 
 
-                if (_objArticleList != null && _objArticleList.Count() > 0)
-                {
-                    FetchedRecordsCount = _objArticleList.Count();
 
-                    rptr.DataSource = _objArticleList;
-                    rptr.DataBind();
-                }
             }
             catch (Exception ex)
             {

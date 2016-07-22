@@ -38,20 +38,16 @@ namespace Bikewale.Service.Controllers.CMS
         private readonly IPager _pager = null;
         private readonly IBikeModelsCacheRepository<int> _objModelRepo = null;
         private readonly ICMSCacheContent _CMSCache = null;
-        private readonly IRoadTestCache _objRoadTest = null;
-        private readonly IFeatureCache _objFeatures = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="pager"></param>
-        public CMSController(IPager pager, ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> objModelCache, IRoadTestCache objRoadTest, IFeatureCache objFeatures)
+        public CMSController(IPager pager, ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> objModelCache)
         {
             _pager = pager;
             _CMSCache = cmsCache;
             _objModelRepo = objModelCache;
-            _objRoadTest = objRoadTest;
-            _objFeatures = objFeatures;
         }
 
 
@@ -169,12 +165,12 @@ namespace Bikewale.Service.Controllers.CMS
         public IHttpActionResult Get(string basicId)
         {
             ArticlePageDetails objFeaturedArticles = null;
-            int _basicId = default(int);
+            uint _basicId = default(uint);
             try
             {
-                if (!string.IsNullOrEmpty(basicId) && int.TryParse(basicId, out _basicId))
+                if (!string.IsNullOrEmpty(basicId) && uint.TryParse(basicId, out _basicId))
                 {
-                    objFeaturedArticles = _objFeatures.GetFeatureDetailsViaGrpc(_basicId);
+                    objFeaturedArticles = _CMSCache.GetArticlesDetails(_basicId);
 
 
                     if (objFeaturedArticles != null)
@@ -358,7 +354,7 @@ namespace Bikewale.Service.Controllers.CMS
 
                 if (!string.IsNullOrEmpty(basicId) && int.TryParse(basicId, out _basicId))
                 {
-                    objImg = _objRoadTest.BindPhotos(_basicId);
+                    objImg = _CMSCache.GetArticlePhotos(_basicId);
 
                     if (objImg != null && objImg.Count() > 0)
                     {

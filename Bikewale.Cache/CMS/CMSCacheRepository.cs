@@ -1,5 +1,5 @@
-﻿using Bikewale.Entities.CMS;
-using Bikewale.Entities.CMS.Articles;
+﻿using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -41,39 +41,6 @@ namespace Bikewale.Cache.CMS
             return _objArticleDetails;
         }
 
-        public IEnumerable<ArticleSummary> GetMostRecentArticlesById(EnumCMSContentType contentType, uint totalRecords, uint makeId, uint modelId)
-        {
-
-            IEnumerable<ArticleSummary> _objArticlesList = null;
-
-            try
-            {
-                string key = string.Format("BW_Articles_{0}_Cnt_{1}", contentType, totalRecords);
-
-                if (makeId > 0 && modelId > 0)
-                {
-                    key += string.Format("_MK_{0}_MO_{1}" + makeId, modelId);
-                }
-                else if (makeId > 0 && modelId == 0)
-                {
-                    key += string.Format("_MK_{0}", makeId);
-                }
-                else if (makeId == 0 && modelId > 0)
-                {
-                    key += string.Format("_MO_{0}", modelId);
-                }
-
-                _objArticlesList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetMostRecentArticlesById(contentType, totalRecords, makeId, modelId));
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetMostRecentArticlesById");
-                objErr.SendMail();
-            }
-            return _objArticlesList;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -89,19 +56,15 @@ namespace Bikewale.Cache.CMS
 
             try
             {
-                string key = string.Format("BW_Articles_{0}_Cnt_{1}", contentTypeIds.Replace(',', '_'), totalRecords);
+                string key = string.Format("BW_Articles_Recent_{0}_Cnt_{1}", contentTypeIds.Replace(',', '_'), totalRecords);
 
-                if (makeId > 0 && modelId > 0)
-                {
-                    key += string.Format("_MK_{0}_MO_{1}" + makeId, modelId);
-                }
-                else if (makeId > 0 && modelId == 0)
-                {
-                    key += string.Format("_MK_{0}", makeId);
-                }
-                else if (makeId == 0 && modelId > 0)
+                if (modelId > 0)
                 {
                     key += string.Format("_MO_{0}", modelId);
+                }
+                else if (makeId > 0)
+                {
+                    key += string.Format("_MK_{0}", makeId);
                 }
 
                 _objArticlesList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetMostRecentArticlesByIdList(contentTypeIds, totalRecords, makeId, modelId));
@@ -115,31 +78,86 @@ namespace Bikewale.Cache.CMS
             return _objArticlesList;
         }
 
-
-        public CMSContent GetArticlesByCategory(EnumCMSContentType categoryId, int startIndex, int endIndex, int makeId, int modelId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryIdList"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId)
         {
             CMSContent _objArticlesList = null;
             string key = string.Empty;
             try
             {
+
                 if (modelId > 0)
                 {
-                    key = String.Format("BW_ArticlesByCat_SI_{0}_EI_{1}_CL_{2}_M_{3}", startIndex, endIndex, categoryId, modelId);
+                    key = String.Format("BW_Articles_List_S_{0}_E_{1}_CL_{2}_M_{3}", startIndex, endIndex, categoryIdList.Replace(',', '_'), modelId);
 
                 }
                 else
                 {
-                    key = String.Format("BW_News_SI_{0}_EI_{1}_CL_{2}", startIndex, endIndex, categoryId);
+                    key = String.Format("BW_Articles_List_S_{0}_E_{1}_CL_{2}", startIndex, endIndex, categoryIdList.Replace(',', '_'));
                 }
 
-                _objArticlesList = _cache.GetFromCache<CMSContent>(key, new TimeSpan(0, 30, 0), () => _objArticles.GetArticlesByCategory(categoryId, startIndex, endIndex, makeId, modelId));
+                _objArticlesList = _cache.GetFromCache<CMSContent>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetArticlesByCategoryList(categoryIdList, startIndex, endIndex, makeId, modelId));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetArticlesByCategory");
+                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetArticlesByCategoryList");
                 objErr.SendMail();
             }
             return _objArticlesList;
         }
+
+        /// <summary>
+        /// Author : Vivek Gupta on 18-07-2016
+        /// Desc: this function moved from content/RoadTest/ViewRT.aspx.cs for caching and used for feature details
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        public IEnumerable<ModelImage> GetArticlePhotos(int basicId)
+        {
+            IEnumerable<ModelImage> objImages = null;
+            try
+            {
+                string cacheKey = String.Format("BW_Article_Photos_{0}", basicId);
+                objImages = _cache.GetFromCache<IEnumerable<ModelImage>>(cacheKey, new TimeSpan(1, 0, 0), () => _objArticles.GetArticlePhotos(basicId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetArticlePhotos");
+                objErr.SendMail();
+            }
+
+            return objImages;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        public ArticlePageDetails GetArticlesDetails(uint basicId)
+        {
+
+            ArticlePageDetails _objArticleDetails = null;
+            string key = string.Format("BW_Article_Details_", basicId);
+            try
+            {
+                _objArticleDetails = _cache.GetFromCache<ArticlePageDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetArticleDetails(basicId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "CMSCacheRepository.GetArticlesDetails");
+                objErr.SendMail();
+            }
+            return _objArticleDetails;
+        }
+
     }
 }

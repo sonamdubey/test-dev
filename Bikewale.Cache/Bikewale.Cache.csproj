@@ -53,8 +53,6 @@
     <Compile Include="BikeData\BikeVersionsCacheRepository.cs" />
     <Compile Include="CMS\CMSCacheRepository.cs" />
     <Compile Include="Compare\BikeCompareCacheRepository.cs" />
-    <Compile Include="Content\FeaturesCache.cs" />
-    <Compile Include="Content\RoadTestCache.cs" />
     <Compile Include="DealersLocator\DealerCacheRepository.cs" />
     <Compile Include="Location\AreaCacheRepository.cs" />
     <Compile Include="Location\CityCacheRepository.cs" />
@@ -100,6 +98,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\" />
     <Folder Include="News\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,11 +1,13 @@
-﻿using Bikewale.BAL.GrpcFiles;
-using Bikewale.Cache.Content;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.GrpcFiles;
+using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Content;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
 using Grpc.CMS;
 using log4net;
@@ -28,7 +30,7 @@ namespace Bikewale.Content
     {
         protected HtmlSelect ddlPages;
         protected Repeater rptPageContent;
-        protected int BasicId = 0, pageId = 1;
+        protected uint BasicId = 0, pageId = 1;
         protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty;
         protected StringBuilder _bikeTested;
@@ -84,7 +86,7 @@ namespace Bikewale.Content
                     CommonOpn.RedirectPermanent(_newUrl);
                 }
 
-                BasicId = Convert.ToInt32(Request.QueryString["id"]);
+                BasicId = Convert.ToUInt32(Request.QueryString["id"]);
             }
             else
             {
@@ -94,97 +96,43 @@ namespace Bikewale.Content
             return isSuccess;
         }
 
-        private ArticlePageDetails GetFeatureDetailsOldWay(int basicId)
-        {
-            ArticlePageDetails objFeature = null;
-            try
-            {
-
-                string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + basicId;
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objFeature = objClient.GetApiResponseSync<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeature);
-                }
-
-
-                if (_logGrpcErrors && objRoadtest != null)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetFeatureDetailsOldWay {0}", basicId));
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return objFeature;
-        }
-
-        public ArticlePageDetails GetFeatureDetails(int basicId)
-        {
-            ArticlePageDetails objFeature;
-            try
-            {
-                if (_useGrpc)
-                {
-                    var _objGrpcFeature = GrpcMethods.GetContentPages((ulong)basicId);
-
-                    if (_objGrpcFeature != null)
-                    {
-                        objFeature = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcFeature);
-                    }
-                    else
-                    {
-                        objFeature = GetFeatureDetailsOldWay(basicId);
-                    }
-                }
-                else
-                {
-                    objFeature = GetFeatureDetailsOldWay(basicId);
-                }
-            }
-            catch (Exception err)
-            {
-                _logger.Error(err.Message, err);
-                objFeature = GetFeatureDetailsOldWay(basicId);
-            }
-
-            return objFeature;
-
-        }
-
         private void GetRoadTestDetails()
         {
             try
             {
-                objRoadtest = GetFeatureDetails(BasicId);
 
-                if (objRoadtest != null)
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    GetRoadTestData();
-                    BindPages();
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IRoadTestCache, RoadTestCache>()
-                         .RegisterType<ICacheManager, MemcacheManager>()
-                         .RegisterType<IRoadTest, Bikewale.BAL.Content.RoadTest>();
-                        IRoadTestCache _roadTest = container.Resolve<IRoadTestCache>();
+                    container.RegisterType<IArticles, Articles>()
+                       .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                       .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                        IEnumerable<ModelImage> objImg = _roadTest.BindPhotos(Convert.ToInt32(BasicId));
+                    objRoadtest = _cache.GetArticlesDetails(BasicId);
+
+                    if (objRoadtest != null)
+                    {
+                        GetRoadTestData();
+                        BindPages();
+
+                        IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(BasicId));
 
                         if (objImg != null && objImg.Count() > 0)
                         {
                             rptPhotos.DataSource = objImg;
                             rptPhotos.DataBind();
                         }
+
                     }
+                    else
+                    {
+                        _isContentFound = false;
+                    }
+
                 }
-                else
-                {
-                    _isContentFound = false;
-                }
+
+
+                
             }
             catch (Exception ex)
             {

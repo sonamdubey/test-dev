@@ -70,7 +70,7 @@ namespace Bikewale.News
                            .RegisterType<ICacheManager, MemcacheManager>();
                 ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                CMSContent objNews = _cache.GetArticlesByCategory(EnumCMSContentType.News, _startIndex, _endIndex, 0, 0);
+                CMSContent objNews = _cache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.News), _startIndex, _endIndex, 0, 0);
 
                 if (objNews != null)
                 {

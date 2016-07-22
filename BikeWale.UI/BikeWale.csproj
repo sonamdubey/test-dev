@@ -459,10 +459,6 @@
       <DependentUpon>ForumsMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\HomePageBanner.ascx.cs">
-      <DependentUpon>HomePageBanner.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\LinkPagerControl.ascx.cs">
       <DependentUpon>LinkPagerControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -527,10 +523,6 @@
       <DependentUpon>News.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\NewsMin.ascx.cs">
-      <DependentUpon>NewsMin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\News_new.ascx.cs">
       <DependentUpon>News_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -593,10 +585,6 @@
     </Compile>
     <Compile Include="controls\RichTextEditor.ascx.cs">
       <DependentUpon>RichTextEditor.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\RoadTest.ascx.cs">
-      <DependentUpon>RoadTest.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\SimilarBikes.ascx.cs">
@@ -903,10 +891,6 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\Default_old.aspx.cs">
-      <DependentUpon>Default_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="m\Insurance\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -937,10 +921,6 @@
     </Compile>
     <Compile Include="m\new\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\new\newbikedealers\Default_old.aspx.cs">
-      <DependentUpon>Default_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\newbikedealers\Default.aspx.cs">
@@ -1692,7 +1672,6 @@
     <Content Include="controls\ExpertReviewsVideos.ascx" />
     <Content Include="controls\FeaturedBike.ascx" />
     <Content Include="controls\ForumsMin.ascx" />
-    <Content Include="controls\HomePageBanner.ascx" />
     <Content Include="controls\InstantBikePrice.ascx" />
     <Content Include="controls\LinkPagerControl.ascx" />
     <Content Include="controls\LocateDealer.ascx" />
@@ -1711,7 +1690,6 @@
     <Content Include="controls\NewExpertReviews.ascx" />
     <Content Include="controls\NewLaunchedBikes_new.ascx" />
     <Content Include="controls\News.ascx" />
-    <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\News_new.ascx" />
     <Content Include="controls\NewUserReviewsList.ascx" />
     <Content Include="controls\NewVideosControl.ascx" />
@@ -1728,8 +1706,6 @@
     <Content Include="controls\RepeaterPagerAdvanced.ascx" />
     <Content Include="controls\RepeaterPagerUsed.ascx" />
     <Content Include="controls\RichTextEditor.ascx" />
-    <Content Include="controls\RoadTest.ascx" />
-    <Content Include="controls\RoadTestControl.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
     <Content Include="controls\SimilarBikesHorizontal.ascx" />
@@ -2248,7 +2224,6 @@
     <Content Include="m\new\ModelSpecsFeatures.aspx" />
     <Content Include="m\new\newbikedealers\DealerDetails.aspx" />
     <Content Include="m\Default.aspx" />
-    <Content Include="m\Default_old.aspx" />
     <Content Include="m\faq.aspx" />
     <Content Include="m\fonts\fontawesome-webfont.svg" />
     <!-- <Content Include="m\fonts\WebRupee.V2.0.svg" /> -->
@@ -2284,7 +2259,6 @@
     <Content Include="m\new\compare\CompareBike.aspx" />
     <Content Include="m\new\compare\CompareBikeDetails.aspx" />
     <Content Include="m\new\Default.aspx" />
-    <Content Include="m\new\newbikedealers\Default_old.aspx" />
     <Content Include="m\new\newbikedealers\Default.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList_old.aspx" />

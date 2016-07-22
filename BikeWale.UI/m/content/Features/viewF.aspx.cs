@@ -1,10 +1,13 @@
-﻿using Bikewale.Cache.Content;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Content;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
 using System;
@@ -102,18 +105,18 @@ namespace Bikewale.Mobile.Content
 
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IFeatureCache, FeaturesCache>()
-                    .RegisterType<ICacheManager, MemcacheManager>()
-                    .RegisterType<IFeatures, Bikewale.BAL.Content.Features>();
-                    IFeatureCache _features = container.Resolve<IFeatureCache>();
+                    container.RegisterType<IArticles, Articles>()
+                          .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                          .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                    objFeature = _features.GetFeatureDetailsViaGrpc(BasicId);
+                    objFeature = _cache.GetArticlesDetails(Convert.ToUInt32(BasicId));
 
                     if (objFeature != null)
                     {
                         GetFeatureData();
                         BindPages();
-                        IEnumerable<ModelImage> objImg = _features.BindPhotos(BasicId);
+                        IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(BasicId);
 
                         if (objImg != null && objImg.Count() > 0)
                         {

@@ -1,9 +1,15 @@
-﻿using Bikewale.BAL.Pager;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.Pager;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -75,29 +81,31 @@ namespace Bikewale.Content
 
                 objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
                 CMSContent _objFeaturesList = null;
-                string _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _featuresCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex;
-                // Send HTTP GET requests 
 
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    _objFeaturesList = await objClient.GetApiResponse<CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objFeaturesList);
-                }
+                    container.RegisterType<IArticles, Articles>()
+                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                if (_objFeaturesList != null)
-                {
-                    if (_objFeaturesList.Articles.Count > 0)
+                    _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex,0,0);                
+
+                    if (_objFeaturesList != null && _objFeaturesList.Articles.Count > 0)
                     {
+
                         BindFeatures(_objFeaturesList);
                         BindLinkPager(objPager, Convert.ToInt32(_objFeaturesList.RecordCount));
+
+
                     }
                     else
+                    {
                         _isContentFound = false;
+                    }
+                }
 
-                }
-                else
-                {
-                    _isContentFound = false;
-                }
+
             }
             catch (Exception err)
             {

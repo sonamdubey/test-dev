@@ -77,9 +77,6 @@
     <Compile Include="Compare\IBikeCompare.cs" />
     <Compile Include="Compare\IBikeCompareCacheRepository.cs" />
     <Compile Include="Content\IFeatureCache.cs" />
-    <Compile Include="Content\IFeatures.cs" />
-    <Compile Include="Content\IRoadTest.cs" />
-    <Compile Include="Content\IRoadTestCache.cs" />
     <Compile Include="Customer\ICustomer.cs" />
     <Compile Include="Customer\ICustomerAuthentication.cs" />
     <Compile Include="Customer\ICustomerRepository.cs" />
@@ -103,7 +100,6 @@
     <Compile Include="NewBikeSearch\IProcessFilter.cs" />
     <Compile Include="NewBikeSearch\ISearchQuery.cs" />
     <Compile Include="NewBikeSearch\ISearchResult.cs" />
-    <Compile Include="News\INews.cs" />
     <Compile Include="Pager\IPager.cs" />
     <Compile Include="PriceQuote\IDealerPriceQuoteDetail.cs" />
     <Compile Include="PriceQuote\ILeadNofitication.cs" />

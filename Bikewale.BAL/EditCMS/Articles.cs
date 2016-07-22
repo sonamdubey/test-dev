@@ -1,6 +1,7 @@
 ﻿using Bikewale.BAL.GrpcFiles;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
 using Grpc.CMS;
@@ -139,49 +140,20 @@ namespace Bikewale.BAL.EditCMS
         {
             FetchedRecordsCount = 0;
             IEnumerable<ArticleSummary> _objArticleList = null;
+
             try
             {
-                _objArticleList = GetMostRecentArticlesViaGrpc(categoryIdList, totalRecords, makeId, modelId);
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-            return _objArticleList;
-        }
-
-
-        /// <summary>
-        /// Created By : Vivek Gupta
-        /// Date : 19-7-2016
-        /// Desc : Get News
-        /// </summary>
-        /// <param name="makeId"></param>
-        /// <param name="modelId"></param>
-        /// <param name="totalRecords"></param>
-        /// <returns></returns>
-        public IEnumerable<ArticleSummary> GetMostRecentArticlesById(EnumCMSContentType contentType, uint totalRecords, uint makeId, uint modelId)
-        {
-            FetchedRecordsCount = 0;
-            IEnumerable<ArticleSummary> _objArticleList = null;
-            try
-            {
-                string categoryIdList = string.Empty;
-                switch (contentType)
+                switch (categoryIdList)
                 {
-                    case EnumCMSContentType.RoadTest:
-                        categoryIdList = (short)contentType + "," + (short)EnumCMSContentType.ComparisonTests;
+                    case "8":
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
                         break;
 
-                    case EnumCMSContentType.News:
-                        categoryIdList = (short)contentType + "," + (short)EnumCMSContentType.AutoExpo2016;
+                    case "1":
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
                         break;
 
                     default:
-                        categoryIdList = ((short)contentType).ToString();
                         break;
                 }
 
@@ -276,18 +248,32 @@ namespace Bikewale.BAL.EditCMS
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="categoryId"></param>
+        /// <param name="categoryIdList"></param>
         /// <param name="startIndex"></param>
         /// <param name="endIndex"></param>
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public CMSContent GetArticlesByCategory(EnumCMSContentType categoryId, int startIndex, int endIndex, int makeId, int modelId)
+        public CMSContent GetArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId)
         {
             CMSContent _objArticleList = null;
             try
             {
-                _objArticleList = GetArticlesByCategoryViaGrpc(categoryId, startIndex, endIndex, makeId, modelId);
+                switch (categoryIdList)
+                {
+                    case "8":
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
+                        break;
+
+                    case "1":
+                        categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                _objArticleList = GetArticlesByCategoryViaGrpc(categoryIdList, startIndex, endIndex, makeId, modelId);
             }
             catch (Exception ex)
             {
@@ -298,29 +284,14 @@ namespace Bikewale.BAL.EditCMS
             return _objArticleList;
         }
 
-        private CMSContent GetArticlesByCategoryViaGrpc(EnumCMSContentType categoryId, int startIndex, int endIndex, int makeId, int modelId)
+        private CMSContent GetArticlesByCategoryViaGrpc(string categoryIds, int startIndex, int endIndex, int makeId, int modelId)
         {
             try
             {
                 if (_useGrpc)
                 {
-                    string categotyListId;
-                    switch (categoryId)
-                    {
-                        case EnumCMSContentType.RoadTest:
-                            categotyListId = (int)categoryId + "," + (int)EnumCMSContentType.ComparisonTests;
-                            break;
 
-                        case EnumCMSContentType.News:
-                            categotyListId = (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
-                            break;
-                        default:
-                            categotyListId = ((int)categoryId).ToString();
-                            break;
-
-                    }
-
-                    var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categotyListId, (uint)startIndex, (uint)endIndex, makeId, modelId);
+                    var _objGrpcArticle = GrpcMethods.GetArticleListByCategory(categoryIds, (uint)startIndex, (uint)endIndex, makeId, modelId);
 
                     if (_objGrpcArticle != null && _objGrpcArticle.RecordCount > 0)
                     {
@@ -329,47 +300,44 @@ namespace Bikewale.BAL.EditCMS
                     }
                     else
                     {
-                        return GetCMSContentOldWay(categoryId, startIndex, endIndex);
+                        return GetCMSContentOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
                     }
 
                 }
                 else
                 {
-                    return GetCMSContentOldWay(categoryId, startIndex, endIndex);
+                    return GetCMSContentOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
                 }
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                return GetCMSContentOldWay(categoryId, startIndex, endIndex);
+                return GetCMSContentOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
             }
         }
 
-        private CMSContent GetCMSContentOldWay(EnumCMSContentType categoryId, int startIndex, int endIndex)
+        private CMSContent GetCMSContentOldWay(string categoryIds, int startIndex, int endIndex, int makeId, int modelId)
         {
             CMSContent objFeaturedArticles = null;
             try
             {
                 if (_logGrpcErrors)
                 {
-                    _logger.Error(string.Format("Grpc did not work for GetCMSContentOldWay {0}", categoryId));
+                    _logger.Error(string.Format("Grpc did not work for GetCMSContentOldWay {0}", categoryIds));
                 }
 
-                string apiUrl = "/webapi/article/listbycategory/?applicationid=2";
-
-                if (categoryId == EnumCMSContentType.RoadTest)
+                string apiUrl = string.Format("/webapi/article/listbycategory/?applicationid=2&categoryidlist={0}&startindex={1}&endindex={2}", categoryIds, startIndex, endIndex);
+                if (makeId > 0 || modelId > 0)
                 {
-                    apiUrl += "&categoryidlist=" + (int)categoryId + "," + (int)EnumCMSContentType.ComparisonTests;
+                    if (makeId > 0)
+                    {
+                        apiUrl = string.Format("{0}&makeid={1}", apiUrl, makeId);
+                    }
+                    else
+                    {
+                        apiUrl = string.Format("{0}&modelid={1}", apiUrl, modelId);
+                    }
                 }
-                else if (categoryId == EnumCMSContentType.News)
-                {
-                    apiUrl += "&categoryidlist=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
-                }
-                else
-                {
-                    apiUrl += "&categoryidlist=" + (int)categoryId;
-                }
-                apiUrl += "&startindex=" + startIndex + "&endindex=" + endIndex;
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
@@ -383,6 +351,163 @@ namespace Bikewale.BAL.EditCMS
             }
 
             return objFeaturedArticles;
+        }
+        #endregion
+
+
+        #region Article Details
+
+        /// <summary>
+        /// Author : Vivek Gupta on 18-07-2016
+        /// Desc: this function moved from content/features/view.aspx.cs for caching and used for feature details
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        public ArticlePageDetails GetArticleDetails(uint basicId)
+        {
+            ArticlePageDetails objFeature = null;
+            try
+            {
+                if (_useGrpc)
+                {
+                    var _objGrpcFeature = GrpcMethods.GetContentPages((ulong)basicId);
+
+                    if (_objGrpcFeature != null)
+                    {
+                        objFeature = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcFeature);
+                    }
+                    else
+                    {
+                        objFeature = GetArticleDetailsOldWay(basicId);
+                    }
+                }
+                else
+                {
+                    objFeature = GetArticleDetailsOldWay(basicId);
+                }
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                objFeature = GetArticleDetailsOldWay(basicId);
+            }
+
+            return objFeature;
+
+        }
+
+        /// <summary>
+        /// Author : Vivek Gupta on 18-07-2016
+        /// Desc: this function moved from content/features/view.aspx.cs for caching
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        private ArticlePageDetails GetArticleDetailsOldWay(uint basicId)
+        {
+            ArticlePageDetails objFeature = null;
+
+            try
+            {
+
+                string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + basicId;
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objFeature = objClient.GetApiResponseSync<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeature);
+                }
+
+
+                if (_logGrpcErrors && objFeature != null)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetFeatureDetailsOldWay {0}", basicId));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objFeature;
+        }
+
+        #endregion
+
+
+        #region Article Photos
+        /// <summary>
+        /// Author : Vivek Gupta on 18-07-2016
+        /// Desc: this function moved from content/features/view.aspx.cs for caching
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        public IEnumerable<ModelImage> GetArticlePhotos(int basicId)
+        {
+            IEnumerable<ModelImage> objImages = null;
+            try
+            {
+                if (_useGrpc)
+                {
+
+                    var _objGrpcArticlePhotos = GrpcMethods.GetArticlePhotos((ulong)basicId);
+
+                    if (_objGrpcArticlePhotos != null && _objGrpcArticlePhotos.LstGrpcModelImage.Count > 0)
+                    {
+                        //following needs to be optimized
+                        objImages = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticlePhotos);
+                    }
+                    else
+                    {
+                        objImages = GetArticlePhotosOldWay(basicId);
+                    }
+
+                }
+                else
+                {
+                    objImages = GetArticlePhotosOldWay(basicId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : in Photos(int basicId)");
+                objErr.SendMail();
+                objImages = GetArticlePhotosOldWay(basicId);
+            }
+
+            return objImages;
+        }
+
+        /// <summary>
+        /// Author : Vivek Gupta on 18-07-2016
+        /// Desc: this function moved from content/features/view.aspx.cs for caching
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        private IEnumerable<ModelImage> GetArticlePhotosOldWay(int basicId)
+        {
+
+            IEnumerable<ModelImage> objImages = null;
+            try
+            {
+                string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + basicId;
+
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", basicId));
+                }
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objImages = objClient.GetApiResponseSync<IEnumerable<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImages);
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return objImages;
         }
         #endregion
 

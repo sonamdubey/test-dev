@@ -111,8 +111,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Compare\BikeComparison.cs" />
-    <Compile Include="Content\Features.cs" />
-    <Compile Include="Content\RoadTest.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerAuthentication.cs" />
     <Compile Include="Customer\RegisterCustomer.cs" />
@@ -127,7 +125,6 @@
     <Compile Include="Location\Cities.cs" />
     <Compile Include="Location\States.cs" />
     <Compile Include="MobileVerification\MobileVerification.cs" />
-    <Compile Include="News\News.cs" />
     <Compile Include="Pager\Pager.cs" />
     <Compile Include="PriceQuote\DealerPriceQuoteDetail.cs" />
     <Compile Include="PriceQuote\LeadNotificationBL.cs" />
@@ -182,6 +179,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\" />
     <Folder Include="Insurance\" />
     <Folder Include="PhotoGallery\" />
   </ItemGroup>
