@@ -224,7 +224,7 @@
                         success: function (response) {
                             if (JSON.parse(response).value) {
                                 alert('Campaign has been mapped with contract. Now please wait for data sync with Carwale');
-                                //mapCWCampaignContract(campaignId);
+                                location.reload();
                             }
                             else {
                                 alert("There was error occured during mapping. Please contact System Administrator for more details.");

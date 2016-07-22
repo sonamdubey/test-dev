@@ -20,15 +20,17 @@ namespace Bikewale.Cache.CMS
             _objArticles = objArticles;
         }
 
+        #region Get News Details
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for News Details based on basic id 
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
         public ArticleDetails GetNewsDetails(uint basicId)
         {
             ArticleDetails _objArticleDetails = null;
-            string key = string.Format("BW_NewsDetails_", basicId);
+            string key = string.Format("BW_NewsDetails_{0}", basicId);
             try
             {
                 _objArticleDetails = _cache.GetFromCache<ArticleDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetNewsDetails(basicId));
@@ -40,9 +42,12 @@ namespace Bikewale.Cache.CMS
             }
             return _objArticleDetails;
         }
+        #endregion
 
+        #region Most Recent Articles
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for Most recent Articles Details based on based on contentslistIds and make,model
         /// </summary>
         /// <param name="contentTypeIds"></param>
         /// <param name="totalRecords"></param>
@@ -60,11 +65,11 @@ namespace Bikewale.Cache.CMS
 
                 if (modelId > 0)
                 {
-                    key += string.Format("_MO_{0}", modelId);
+                    key = string.Format("{0}_MO_{1}", modelId);
                 }
                 else if (makeId > 0)
                 {
-                    key += string.Format("_MK_{0}", makeId);
+                    key = string.Format("{0}_MK_{1}", makeId);
                 }
 
                 _objArticlesList = _cache.GetFromCache<IEnumerable<ArticleSummary>>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetMostRecentArticlesByIdList(contentTypeIds, totalRecords, makeId, modelId));
@@ -77,9 +82,12 @@ namespace Bikewale.Cache.CMS
             }
             return _objArticlesList;
         }
+        #endregion
 
+        #region Articles By category
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for Articles by list according to pagination
         /// </summary>
         /// <param name="categoryIdList"></param>
         /// <param name="startIndex"></param>
@@ -93,15 +101,15 @@ namespace Bikewale.Cache.CMS
             string key = string.Empty;
             try
             {
+                key = string.Format("BW_Articles_List_S_{0}_E_{1}_CL_{2}", startIndex, endIndex, categoryIdList.Replace(',', '_'));
 
                 if (modelId > 0)
                 {
-                    key = String.Format("BW_Articles_List_S_{0}_E_{1}_CL_{2}_M_{3}", startIndex, endIndex, categoryIdList.Replace(',', '_'), modelId);
-
+                    key = string.Format("{0}_MO_{1}", modelId);
                 }
-                else
+                else if (makeId > 0)
                 {
-                    key = String.Format("BW_Articles_List_S_{0}_E_{1}_CL_{2}", startIndex, endIndex, categoryIdList.Replace(',', '_'));
+                    key = string.Format("{0}_MK_{1}", makeId);
                 }
 
                 _objArticlesList = _cache.GetFromCache<CMSContent>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetArticlesByCategoryList(categoryIdList, startIndex, endIndex, makeId, modelId));
@@ -113,10 +121,12 @@ namespace Bikewale.Cache.CMS
             }
             return _objArticlesList;
         }
+        #endregion
 
+        #region Article Photos
         /// <summary>
-        /// Author : Vivek Gupta on 18-07-2016
-        /// Desc: this function moved from content/RoadTest/ViewRT.aspx.cs for caching and used for feature details
+        /// Created By : Vivek Gupta on 18th July 2016
+        /// Description : Caching for Articles Photos based on basic id
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -135,10 +145,12 @@ namespace Bikewale.Cache.CMS
             }
 
             return objImages;
-        }
+        } 
+        #endregion
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for Articles Details based on basic id
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -146,7 +158,7 @@ namespace Bikewale.Cache.CMS
         {
 
             ArticlePageDetails _objArticleDetails = null;
-            string key = string.Format("BW_Article_Details_", basicId);
+            string key = string.Format("BW_Article_Details_{0}", basicId);
             try
             {
                 _objArticleDetails = _cache.GetFromCache<ArticlePageDetails>(key, new TimeSpan(1, 0, 0), () => _objArticles.GetArticleDetails(basicId));

@@ -58,7 +58,7 @@ namespace BikeWaleOpr.Common
         public void SendMail()
         {
             //exception log
-            ExceptionLogging.SendErrorToText(err);
+           // ExceptionLogging.SendErrorToText(err);
 
             string sendError = "";
             //get the value of sendError from web.config file

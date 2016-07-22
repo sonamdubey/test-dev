@@ -18,7 +18,6 @@ using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
-using System.Configuration;
 using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -62,7 +61,6 @@ namespace Bikewale.Content
         {
             try
             {
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
 
                 // get pager instance
                 IPager objPager = GetPager();
@@ -80,7 +78,7 @@ namespace Bikewale.Content
                             .RegisterType<ICacheManager, MemcacheManager>();
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                    _objRoadTestList = _cache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, Convert.ToInt32(makeId), Convert.ToInt32(modelId));
+                    _objRoadTestList = _cache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, string.IsNullOrEmpty(makeId) ? 0 : Convert.ToInt32(makeId), string.IsNullOrEmpty(modelId) ? 0 : Convert.ToInt32(modelId));
 
                     if (_objRoadTestList != null && _objRoadTestList.Articles.Count > 0)
                     {

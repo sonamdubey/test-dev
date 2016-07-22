@@ -33,7 +33,8 @@ namespace Bikewale.BAL.EditCMS
 
         #region Get News Details
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for News Details based on basic id 
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -53,42 +54,10 @@ namespace Bikewale.BAL.EditCMS
             return _objArticleList;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="basicId"></param>
-        /// <returns></returns>
-        private ArticleDetails GetNewsDetailsFromApiOldWay(uint basicId)
-        {
-            ArticleDetails objArticle = null;
-            try
-            {
-                if (_logGrpcErrors)
-                {
-                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", basicId));
-                }
-
-                //sets the base URI for HTTP requests
-                string _apiUrl = String.Format("webapi/article/contentdetail/?basicid={0}", basicId);
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                {
-                    objArticle = objClient.GetApiResponseSync<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objArticle);
-                }
-
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-
-
-            return objArticle;
-        }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for News Details based on basic id using grpc
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -123,13 +92,50 @@ namespace Bikewale.BAL.EditCMS
 
             return objArticle;
         }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for News Details based on basic id using carwale api call 
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        private ArticleDetails GetNewsDetailsFromApiOldWay(uint basicId)
+        {
+            ArticleDetails objArticle = null;
+            try
+            {
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetArticlePhotos {0}", basicId));
+                }
+
+                //sets the base URI for HTTP requests
+                string _apiUrl = String.Format("webapi/article/contentdetail/?basicid={0}", basicId);
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objArticle = objClient.GetApiResponseSync<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objArticle);
+                }
+
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+
+            return objArticle;
+        }
+
         #endregion
 
 
         #region MostRecentArticles List
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for Most recent Articles Details based on based on contentslistIds and make,model
         /// </summary>
         /// <param name="categoryIdList"></param>
         /// <param name="totalRecords"></param>
@@ -145,11 +151,11 @@ namespace Bikewale.BAL.EditCMS
             {
                 switch (categoryIdList)
                 {
-                    case "8":
+                    case "8": //EnumCMSContentType.RoadTest
                         categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
                         break;
 
-                    case "1":
+                    case "1": //EnumCMSContentType.News
                         categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
                         break;
 
@@ -169,6 +175,15 @@ namespace Bikewale.BAL.EditCMS
             return _objArticleList;
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for Most recent Articles Details based on based on contentslistIds and make,model using grpc
+        /// </summary>
+        /// <param name="categoryIdList"></param>
+        /// <param name="totalRecords"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         private IEnumerable<ArticleSummary> GetMostRecentArticlesViaGrpc(string categoryIdList, uint totalRecords, uint makeId, uint modelId)
         {
             try
@@ -201,6 +216,15 @@ namespace Bikewale.BAL.EditCMS
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for Most recent Articles Details based on based on contentslistIds and make,model using carwale api call
+        /// </summary>
+        /// <param name="contentTypeList"></param>
+        /// <param name="totalRecords"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         private IEnumerable<ArticleSummary> GetArticlesViaOldWay(string contentTypeList, uint totalRecords, uint makeId, uint modelId)
         {
             if (_logGrpcErrors)
@@ -246,7 +270,8 @@ namespace Bikewale.BAL.EditCMS
         #region ArticlesByCategory
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for Articles by list according to pagination
         /// </summary>
         /// <param name="categoryIdList"></param>
         /// <param name="startIndex"></param>
@@ -261,11 +286,11 @@ namespace Bikewale.BAL.EditCMS
             {
                 switch (categoryIdList)
                 {
-                    case "8":
+                    case "8": //EnumCMSContentType.RoadTest
                         categoryIdList = Convert.ToString((int)EnumCMSContentType.RoadTest) + "," + (short)EnumCMSContentType.ComparisonTests;
                         break;
 
-                    case "1":
+                    case "1": //EnumCMSContentType.News
                         categoryIdList = Convert.ToString((int)EnumCMSContentType.News) + "," + (short)EnumCMSContentType.AutoExpo2016;
                         break;
 
@@ -284,6 +309,16 @@ namespace Bikewale.BAL.EditCMS
             return _objArticleList;
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for Articles by list according to pagination using grpc
+        /// </summary>
+        /// <param name="categoryIds"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         private CMSContent GetArticlesByCategoryViaGrpc(string categoryIds, int startIndex, int endIndex, int makeId, int modelId)
         {
             try
@@ -300,23 +335,33 @@ namespace Bikewale.BAL.EditCMS
                     }
                     else
                     {
-                        return GetCMSContentOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
+                        return GetArticlesByCategoryOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
                     }
 
                 }
                 else
                 {
-                    return GetCMSContentOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
+                    return GetArticlesByCategoryOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
                 }
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                return GetCMSContentOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
+                return GetArticlesByCategoryOldWay(categoryIds, startIndex, endIndex, makeId, modelId);
             }
         }
 
-        private CMSContent GetCMSContentOldWay(string categoryIds, int startIndex, int endIndex, int makeId, int modelId)
+        /// <summary>
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for Articles by list according to pagination using carwale api call
+        /// </summary>
+        /// <param name="categoryIds"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        private CMSContent GetArticlesByCategoryOldWay(string categoryIds, int startIndex, int endIndex, int makeId, int modelId)
         {
             CMSContent objFeaturedArticles = null;
             try
@@ -327,7 +372,11 @@ namespace Bikewale.BAL.EditCMS
                 }
 
                 string apiUrl = string.Format("/webapi/article/listbycategory/?applicationid=2&categoryidlist={0}&startindex={1}&endindex={2}", categoryIds, startIndex, endIndex);
-                if (makeId > 0 || modelId > 0)
+                if (makeId > 0 && modelId > 0)
+                {
+                    apiUrl = string.Format("{0}&makeid={1}&modelid={2}", apiUrl, makeId, modelId);
+                }
+                else
                 {
                     if (makeId > 0)
                     {
@@ -358,8 +407,8 @@ namespace Bikewale.BAL.EditCMS
         #region Article Details
 
         /// <summary>
-        /// Author : Vivek Gupta on 18-07-2016
-        /// Desc: this function moved from content/features/view.aspx.cs for caching and used for feature details
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for Articles Details based on basic id
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -397,8 +446,8 @@ namespace Bikewale.BAL.EditCMS
         }
 
         /// <summary>
-        /// Author : Vivek Gupta on 18-07-2016
-        /// Desc: this function moved from content/features/view.aspx.cs for caching
+        /// Created By : Sushil Kumar on 21st July 2016
+        /// Description : Caching for Articles Details based on basic id using carwale api call
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -436,8 +485,8 @@ namespace Bikewale.BAL.EditCMS
 
         #region Article Photos
         /// <summary>
-        /// Author : Vivek Gupta on 18-07-2016
-        /// Desc: this function moved from content/features/view.aspx.cs for caching
+        /// Created By : Vivek Gupta on 18th July 2016
+        /// Description : Caching for Articles Photos based on basic id
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -478,8 +527,8 @@ namespace Bikewale.BAL.EditCMS
         }
 
         /// <summary>
-        /// Author : Vivek Gupta on 18-07-2016
-        /// Desc: this function moved from content/features/view.aspx.cs for caching
+        /// Created By : Vivek Gupta on 18th July 2016
+        /// Description : Caching for Articles Photos based on basic id using carwale api call
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
